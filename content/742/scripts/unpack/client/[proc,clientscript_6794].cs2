@@ -1,0 +1,127 @@
+// 6794
+[proc,clientscript_6794](int $int0, int $int1)
+if (%varplayerbit_8594 ! $int0) {
+    return;
+}
+def_component $component2 = interface_1056:com_11;
+def_component $component3 = interface_1056:com_12;
+def_component $component4 = interface_1056:com_2;
+def_component $component5 = interface_1056:com_3;
+def_int $int6 = 69206059;
+def_int $int7 = 69206062;
+def_int $int8 = 69206050;
+def_int $int9 = 69206053;
+def_boolean $boolean10 = true;
+def_boolean $boolean11 = true;
+if ($int1 <= 0) {
+    $int1 = max(%varplayerbit_10854, 1);
+}
+if ($int1 = 1) {
+    $boolean10 = false;
+}
+def_struct $struct12 = ~clientscript_5795($int0);
+def_int $int13 = 1;
+def_int $int14 = 0;
+def_int $int15 = 1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+while ($int15 < 9) {
+    switch_int ($int15) {
+        case 1 :
+            $string1 = struct_param($struct12, param_1274);
+            $string2 = struct_param($struct12, param_1275);
+            $string3 = struct_param($struct12, param_1276);
+        case 2 :
+            if ($int0 = 3041) {
+                $string1 = "Only daily challenges need to be handed in.";
+            } else {
+                $string1 = struct_param($struct12, param_1275);
+            }
+            $string2 = struct_param($struct12, param_1276);
+            $string3 = struct_param($struct12, param_1277);
+        case 3 :
+            $string1 = struct_param($struct12, param_1276);
+            $string2 = struct_param($struct12, param_1277);
+            $string3 = struct_param($struct12, param_1278);
+        case 4 :
+            $string1 = struct_param($struct12, param_1277);
+            $string2 = struct_param($struct12, param_1278);
+            $string3 = struct_param($struct12, param_1279);
+        case 5 :
+            $string1 = struct_param($struct12, param_1278);
+            $string2 = struct_param($struct12, param_1279);
+            $string3 = struct_param($struct12, param_1280);
+        case 6 :
+            $string1 = struct_param($struct12, param_1279);
+            $string2 = struct_param($struct12, param_1280);
+            $string3 = struct_param($struct12, param_1281);
+        case 7 :
+            $string1 = struct_param($struct12, param_1280);
+            $string2 = struct_param($struct12, param_1281);
+        case 8 :
+            $string1 = struct_param($struct12, param_1281);
+    }
+    if (compare($string2, "") = 0 & $int14 = 0) {
+        $int13 = $int15;
+        $int14 = 1;
+    }
+    if (compare($string3, "") = 0 & $int14 = 0 & $component2 = null) {
+        $int13 = $int15;
+        $int14 = 1;
+    }
+    if ($int15 = $int1) {
+        $string0 = $string1;
+    }
+    $int15 = calc($int15 + 1);
+}
+if ($int13 <= $int1) {
+    $boolean11 = false;
+}
+if (compare(struct_param($struct12, param_1274), "") = 0) {
+    $int1 = 0;
+    $int13 = 0;
+}
+if_settext($component4, tostring($int1));
+if_settext($component5, tostring($int13));
+if_setscrollpos($component2, 0, 0);
+cc_deleteall($component2);
+if ($int1 = 0 & $int13 = 0) {
+    $string0 = "There are no hints available for this Task. Good luck!";
+}
+def_int $int16 = ~clientscript_5798($int0, $struct12, 0, $string0, 0, $component2, null, -1);
+if (cc_find($component2, 0) = true) {
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+}
+if (if_getheight(interface_1056:com_9) ! 90) {
+    if_setsize(interface_1056:com_9, 4, 90, ^setsize_minus, ^setsize_abs);
+}
+def_int $int17 = if_getheight(interface_1056:com_9);
+if_setonop(interface_1056:com_43, "clientscript_5870($int0, calc($int1 + 1))");
+if_sethide(interface_1056:com_46, $boolean11);
+if_setonop(interface_1056:com_34, "clientscript_5870($int0, calc($int1 - 1))");
+if_sethide(interface_1056:com_37, $boolean10);
+if ($int13 < 2) {
+    if_sethide(interface_1056:com_10, true);
+    $int17 = calc($int17 + if_getheight(interface_1056:com_10));
+} else if (%varplayerbit_9030 = 0 | ~script3999(%varplayerbit_10700) = 0 & %varplayerbit_10700 = %varplayerbit_8576) {
+    if_sethide(interface_1056:com_10, false);
+} else {
+    if_sethide(interface_1056:com_10, true);
+    $int17 = calc($int17 + if_getheight(interface_1056:com_10));
+}
+if_setsize(interface_1056:com_9, if_getwidth(interface_1056:com_9), $int17, ^setsize_abs, ^setsize_abs);
+if_setsize($component2, 3, 0, ^setsize_minus, ^setsize_minus);
+if ($int16 < $int17) {
+    if_sethide($component3, true);
+    if_setscrollsize($component2, 0, if_getheight($component2));
+    if_setscrollpos($component2, 0, 0);
+} else {
+    $int16 = calc($int16 + 5);
+    if_setscrollsize($component2, 0, max($int16, if_getheight($component2)));
+    if_setsize($component2, calc(if_getwidth($component3) + 2), 0, ^setsize_minus, ^setsize_minus);
+    if_setscrollpos($component2, 0, 0);
+    if_sethide($component3, false);
+    ~scrollbar_vertical($component3, $component2, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}

@@ -1,0 +1,46 @@
+// 1186
+[proc,clientscript_1186]
+def_int $int0 = 0;
+if (getwindowmode >= 2) {
+    if (if_hassub(chattop:chatmodallarge) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatmodal) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatoverlaylarge) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatoverlay) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    }
+}

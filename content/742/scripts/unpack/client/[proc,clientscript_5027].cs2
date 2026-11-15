@@ -1,0 +1,3 @@
+// 5027
+[proc,clientscript_5027](int $int0)(int)
+return(calc($int0 / pow(2, 8) & 31));

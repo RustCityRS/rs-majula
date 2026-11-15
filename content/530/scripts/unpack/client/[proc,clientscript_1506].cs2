@@ -1,0 +1,8 @@
+// 1506
+[proc,clientscript_1506](graphic $graphic0)
+if_setsize(interface_769:textbox, 455, 93, 0, 0);
+if_setsize(interface_769:com_2, 455, 93, 0, 0);
+if_setposition(interface_769:textbox, 45, 20, 0, 0);
+if_setposition(interface_769:com_2, 45, 20, 0, 0);
+if_sethide(interface_769:com_3, false);
+if_setgraphic(interface_769:com_3, $graphic0);

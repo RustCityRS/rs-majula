@@ -1,0 +1,17 @@
+// 622
+[proc,sm_hideall]
+if (%varplayer_1118 = 1) {
+    if_sethide(stockmarket:summarylayer, false);
+    if_sethide(stockmarket:offerlayer, false);
+    if_sethide(stockmarket:newofferlayer, false);
+    if_sethide(stockmarket:buylayer, false);
+    if_sethide(stockmarket:selllayer, false);
+    if_sethide(stockmarket:runninglayer, false);
+} else {
+    if_sethide(stockmarket:summarylayer, true);
+    if_sethide(stockmarket:offerlayer, true);
+    if_sethide(stockmarket:newofferlayer, true);
+    if_sethide(stockmarket:buylayer, true);
+    if_sethide(stockmarket:selllayer, true);
+    if_sethide(stockmarket:runninglayer, true);
+}

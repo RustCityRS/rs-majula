@@ -1,0 +1,14 @@
+// 1123
+[clientscript,script1123](component $component0)
+switch_int (%mourning_gun_ammo) {
+    case 1 :
+        if_setobject($component0, mourning_bloated_toad_red, 300);
+    case 2 :
+        if_setobject($component0, mourning_bloated_toad_green, 300);
+    case 3 :
+        if_setobject($component0, mourning_bloated_toad_blue, 300);
+    case 4 :
+        if_setobject($component0, mourning_bloated_toad_yellow, 300);
+    case default :
+        if_setobject($component0, null, 300);
+}

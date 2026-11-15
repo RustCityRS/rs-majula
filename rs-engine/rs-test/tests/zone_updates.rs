@@ -36,15 +36,15 @@ fn a_drop_after_the_zones_settle_is_sent_in_its_own_zone() {
         }
         client.packets();
 
-        let logs = *engine.cache.objs.debugnames.get("logs").unwrap();
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let logs = engine.cache.objs.get_by_debugname("logs").unwrap().id;
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&inv).unwrap().set(0, logs, 1);
         engine.cycle();
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(logs as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(logs.int()).p2_alt1(0);
         client.send(ClientProt::IfButton8, &p.finish());
         let mut packets = Vec::new();
         for _ in 0..2 {

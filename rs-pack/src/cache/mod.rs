@@ -17,42 +17,44 @@ use crate::cache::spotanim::SpotAnimTypeProvider;
 use crate::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use crate::cache::varbit::VarbitTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::varc::VarClientTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use area::{AreaMap, AreaTypeProvider};
 #[cfg(since_647)]
 use controller::ControllerTypeProvider;
 use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use quickchatphrase::QuickChatPhraseProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_crypto::huffman::Huffman;
+#[cfg(since_530)]
+use rs_ver::TypeId;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::sync::Arc;
 #[cfg(since_647)]
 use varcon::VarConTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use varobj::VarObjTypeProvider;
 use wordenc::WordEncProvider;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub use midi::MIDI_JINGLE_BASE;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod area;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod bas;
 #[cfg(since_647)]
 pub mod billboard;
@@ -66,21 +68,23 @@ pub mod dbtable;
 mod decode;
 pub mod r#enum;
 pub mod flo;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod flu;
 pub mod font;
+#[cfg(since_742)]
+pub mod headbar;
 #[cfg(since_647)]
 pub mod hitmark;
 pub mod hunt;
 pub mod idk;
 pub mod r#if;
 pub mod inv;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod js5;
 pub mod lenient;
 #[cfg(since_647)]
 pub mod light;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod loader;
 pub mod loc;
 pub mod map;
@@ -88,7 +92,7 @@ pub mod map;
 pub mod mel;
 pub mod mesanim;
 pub mod midi;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod msi;
 pub mod npc;
 pub mod obj;
@@ -100,51 +104,53 @@ pub mod particleemitter;
 pub mod provider;
 #[cfg(since_647)]
 pub mod quest;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod quickchatcat;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod quickchatphrase;
 pub mod script;
 pub mod seq;
 pub mod seq_frame;
+#[cfg(since_742)]
+pub mod skybox;
 pub mod spotanim;
 pub mod r#struct;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod texture;
 #[cfg(since_254)]
 pub mod varbit;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod varc;
 #[cfg(since_647)]
 pub mod varcon;
 pub mod varn;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod varobj;
 pub mod varp;
 pub mod vars;
 pub mod wordenc;
 
 pub struct CacheStore {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub crctable_bytes: Arc<[u8]>,
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub crc_buffer32: i32,
     #[cfg(all(since_244, before_274))]
     pub ondemand_zip: Arc<[u8]>,
     #[cfg(all(since_244, before_274))]
     pub build: Arc<[u8]>,
-    #[cfg(all(since_244, before_647))]
+    #[cfg(all(since_244, before_530))]
     pub ondemand: OndemandBlobs,
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub crcs: HashMap<&'static str, i32>,
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
     pub mapcrcs: MapSquareCrcs,
     pub objs: ObjTypeProvider,
     pub invs: InvTypeProvider,
     pub varps: VarPlayerTypeProvider,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varcs: VarClientTypeProvider,
     #[cfg(since_254)]
     pub varbits: VarbitTypeProvider,
@@ -176,20 +182,22 @@ pub struct CacheStore {
     pub midi_ids: HashMap<Box<str>, u16>,
     #[cfg(since_254)]
     pub midi_tick_lengths: Box<[Option<u16>]>,
-    #[cfg(before_647)]
+    #[cfg(all(since_254, before_530))]
+    pub midi_lengths_ms: Box<[Option<u32>]>,
+    #[cfg(before_530)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub huffman: Huffman,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub areas: AreaTypeProvider,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub area_map: AreaMap,
-    #[cfg(since_647)]
-    pub multiway_area: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
+    pub multiway_area: Option<TypeId>,
+    #[cfg(since_530)]
     pub varobjs: VarObjTypeProvider,
     #[cfg(since_647)]
     pub varcons: VarConTypeProvider,
@@ -197,7 +205,7 @@ pub struct CacheStore {
     pub varconbits: VarbitTypeProvider,
     #[cfg(since_647)]
     pub controllers: ControllerTypeProvider,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub chatphrases: QuickChatPhraseProvider,
 }
 
@@ -235,15 +243,15 @@ pub enum VarValue {
     Cursor(i32),
     #[cfg(since_647)]
     MapArea(i32),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Graphic(i32),
     #[cfg(since_647)]
     ChatPhrase(i32),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Jingle(i32),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ChatCat(i32),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Model(i32),
     #[cfg(since_647)]
     Texture(i32),
@@ -288,15 +296,15 @@ impl VarValue {
             ScriptVarType::Cursor => VarValue::Cursor(value),
             #[cfg(since_647)]
             ScriptVarType::MapArea => VarValue::MapArea(value),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             ScriptVarType::Graphic => VarValue::Graphic(value),
             #[cfg(since_647)]
             ScriptVarType::ChatPhrase => VarValue::ChatPhrase(value),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             ScriptVarType::Jingle => VarValue::Jingle(value),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             ScriptVarType::ChatCat => VarValue::ChatCat(value),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             ScriptVarType::Model => VarValue::Model(value),
             #[cfg(since_647)]
             ScriptVarType::Texture => VarValue::Texture(value),
@@ -344,14 +352,15 @@ impl VarValue {
             | VarValue::Idkit(v)
             | VarValue::DbRow(v)
             | VarValue::Midi(v) => *v,
+            #[cfg(since_530)]
+            VarValue::Graphic(v)
+            | VarValue::Jingle(v)
+            | VarValue::ChatCat(v)
+            | VarValue::Model(v) => *v,
             #[cfg(since_647)]
             VarValue::Cursor(v)
             | VarValue::MapArea(v)
-            | VarValue::Graphic(v)
             | VarValue::ChatPhrase(v)
-            | VarValue::Jingle(v)
-            | VarValue::ChatCat(v)
-            | VarValue::Model(v)
             | VarValue::Texture(v)
             | VarValue::Bas(v)
             | VarValue::Vorbis(v)

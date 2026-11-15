@@ -1,0 +1,7 @@
+// 6486
+[proc,clientscript_6486](component $component0)
+def_int $int1 = if_gettrans($component0);
+if ($int1 < 255) {
+    $int1 = min(255, calc($int1 + 10));
+    if_settrans($component0, $int1);
+}

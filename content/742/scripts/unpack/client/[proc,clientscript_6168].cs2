@@ -1,0 +1,13 @@
+// 6168
+[proc,clientscript_6168]
+def_int $int0 = 0;
+def_int $int1 = 10;
+if_sethide(interface_1273:com_15, false);
+~clientscript_6177(interface_1273:com_15);
+$int1 = ~clientscript_6178($int1, interface_1273:com_15);
+while ($int0 < 10) {
+    if (cc_find(interface_1273:com_15, $int0) = true) {
+        op377;
+    }
+    $int0 = calc($int0 + 1);
+}

@@ -35,6 +35,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use rs_vm::state::ExecutionState;
 use std::fs;
@@ -68,12 +69,13 @@ const BEFORE_ATTACKING_MELEE: i32 = 430;
 static TURN: Mutex<()> = Mutex::new(());
 
 fn varp_id(engine: &Engine, name: &str) -> u16 {
-    *engine
+    engine
         .cache
         .varps
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no varp {name}"))
+        .id
+        .g2()
 }
 
 fn tutorial(engine: &Engine, pid: u16) -> i32 {
@@ -90,17 +92,17 @@ fn set_tutorial(engine: &mut Engine, pid: u16, value: i32) {
         .set(id, VarValue::Int(value));
 }
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn backpack_total(engine: &Engine, pid: u16, name: &str) -> i32 {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let obj = obj(engine, name);
     engine
         .harness_player(pid)
@@ -131,12 +133,12 @@ fn loc_id(name: &str) -> u16 {
 }
 
 fn npc_nid(engine: &Engine, name: &str) -> u16 {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("no npc {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no npc {name}"))
+        .id;
     engine
         .npc_list
         .npcs
@@ -368,7 +370,7 @@ fn an_island_tree_gives_logs_and_the_fire_step() {
         );
         let mut client = developer(engine, "islandchopper", stand);
         set_tutorial(engine, client.pid, CUT_TREE);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let hatchet = obj(engine, "bronze_axe");
         engine
             .harness_player_mut(client.pid)
@@ -431,7 +433,7 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "daggerwielder", (3222, 3218));
         assert_eq!(tutorial(engine, client.pid), 0);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let dagger = obj(engine, "bronze_dagger");
         engine
             .harness_player_mut(client.pid)
@@ -442,7 +444,7 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
             .set(0, dagger, 1);
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(dagger as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(dagger.int()).p2_alt1(0);
         client.send(ClientProt::IfButton2, &p.finish());
         ticks(engine, &mut client, 2);
         assert_eq!(
@@ -572,7 +574,12 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
 /// The rat `npcadd` put down in the cow field (3258,3270), not one of the
 /// island's own.
 fn rat_beside(engine: &Engine) -> u16 {
-    let id = *engine.cache.npcs.debugnames.get("newbiegiantrat").unwrap();
+    let id = engine
+        .cache
+        .npcs
+        .get_by_debugname("newbiegiantrat")
+        .unwrap()
+        .id;
     engine
         .npc_list
         .npcs

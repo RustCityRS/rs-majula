@@ -1,0 +1,1029 @@
+// 438:0
+[background]
+type=graphic
+x=17
+y=26
+width=478
+height=295
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 438:1
+[left_side]
+type=graphic
+y=26
+width=33
+height=295
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 438:2
+[right_side]
+type=graphic
+x=479
+y=26
+width=32
+height=295
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 438:3
+[bottom]
+type=graphic
+x=15
+y=302
+width=479
+height=40
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 438:4
+[top]
+type=graphic
+x=14
+y=10
+width=482
+height=39
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 438:5
+[bottom_right]
+type=graphic
+x=467
+y=290
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+opbase= 
+
+// 438:6
+[bottom_left]
+type=graphic
+x=13
+y=290
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 438:7
+[top_left]
+type=graphic
+x=13
+y=23
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+opbase= 
+
+// 438:8
+[top_right]
+type=graphic
+x=467
+y=23
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+opbase= 
+
+// 438:9
+[title_bar]
+type=graphic
+x=16
+y=38
+width=479
+height=38
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 438:10
+[left_joint]
+type=graphic
+x=13
+y=40
+width=32
+height=32
+graphic="v2_stone_borders,9"
+tiling=yes
+colour=0xffffffff
+
+// 438:11
+[right_joint]
+type=graphic
+x=467
+y=40
+width=32
+height=32
+graphic="v2_stone_borders,10"
+tiling=yes
+colour=0xffffffff
+
+// 438:12
+[close_button]
+type=graphic
+x=471
+y=32
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 438:13
+[title]
+type=text
+x=20
+y=33
+width=471
+height=12
+textfont=b12_full
+text=Silver Casting
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 438:14
+[silvercast_controllayer]
+type=layer
+x=33
+y=67
+width=441
+height=241
+
+// 438:15
+[com_15]
+type=layer
+x=9
+y=5
+width=85
+height=115
+layer=silvercast_controllayer
+
+// 438:16
+[com_16]
+type=text
+x=11
+width=60
+height=60
+layer=com_15
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Saradomin Symbol
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 16)
+
+// 438:17
+[com_17]
+type=model
+x=26
+width=32
+height=32
+layer=com_15
+model=null
+modelzoom=300
+
+// 438:18
+[com_18]
+type=text
+x=-2
+y=31
+width=88
+height=84
+layer=com_15
+textfont=p11_full
+text=Make<br> Saradomin <br>Symbol
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 16)
+
+// 438:19
+[com_19]
+type=layer
+x=9
+y=5
+width=85
+height=115
+layer=silvercast_controllayer
+hide=yes
+
+// 438:20
+[com_20]
+type=model
+x=25
+width=32
+height=32
+layer=com_19
+model=null
+modelzoom=400
+
+// 438:21
+[com_21]
+type=text
+x=-2
+y=31
+width=87
+height=85
+layer=com_19
+textfont=p11_full
+text=You need a Holy Symbol mould to make this item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:22
+[com_22]
+type=layer
+x=9
+y=120
+width=85
+height=113
+layer=silvercast_controllayer
+
+// 438:23
+[com_23]
+type=text
+x=6
+width=60
+height=60
+layer=com_22
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Zamorak Symbol
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 17)
+
+// 438:24
+[com_24]
+type=model
+x=21
+y=1
+width=32
+height=32
+layer=com_22
+model=null
+modelzoom=300
+
+// 438:25
+[com_25]
+type=text
+y=32
+width=85
+height=83
+layer=com_22
+textfont=p11_full
+text=Make<br> Zamorak<br>Symbol
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 17)
+
+// 438:26
+[com_26]
+type=layer
+x=9
+y=120
+width=85
+height=113
+layer=silvercast_controllayer
+hide=yes
+
+// 438:27
+[com_27]
+type=model
+x=18
+width=32
+height=32
+layer=com_26
+model=null
+modelzoom=400
+
+// 438:28
+[com_28]
+type=text
+y=32
+width=84
+height=81
+layer=com_26
+textfont=p11_full
+text=You need an Unholy Symbol mould to make this item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:29
+[silvercast_sickle]
+type=layer
+x=96
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+
+// 438:30
+[silver_sickle_x]
+type=text
+x=10
+y=1
+width=60
+height=60
+layer=silvercast_sickle
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Silver Sickle
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 18)
+
+// 438:31
+[silvercast_sickle_model]
+type=model
+x=26
+y=1
+width=32
+height=32
+layer=silvercast_sickle
+model=null
+modelzoom=300
+
+// 438:32
+[silvercast_sickle_make_text]
+type=text
+y=32
+width=84
+height=84
+layer=silvercast_sickle
+textfont=p11_full
+text=Make<br>Silver<br>Sickle
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 18)
+
+// 438:33
+[com_33]
+type=layer
+x=96
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+hide=yes
+
+// 438:34
+[com_34]
+type=model
+x=21
+y=1
+width=32
+height=32
+layer=com_33
+model=null
+modelzoom=400
+
+// 438:35
+[com_35]
+type=text
+x=1
+y=32
+width=83
+height=83
+layer=com_33
+textfont=p11_full
+text=You need a <br>sickle mould<br> to make<br> this item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:36
+[silvercast_lightning]
+type=layer
+x=95
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+
+// 438:37
+[com_37]
+type=text
+x=9
+y=1
+width=60
+height=60
+layer=silvercast_lightning
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Lightning Rod
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 20)
+
+// 438:38
+[silvercast_lightning_model]
+type=model
+x=22
+y=1
+width=32
+height=32
+layer=silvercast_lightning
+model=null
+modelzoom=300
+
+// 438:39
+[silvercast_lightning_make_text]
+type=text
+x=-1
+y=32
+width=89
+height=80
+layer=silvercast_lightning
+textfont=p11_full
+text=Make<br>Lightning<br>Rod
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 20)
+
+// 438:40
+[com_40]
+type=layer
+x=95
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+hide=yes
+
+// 438:41
+[com_41]
+type=model
+x=23
+y=1
+width=32
+height=32
+layer=com_40
+model=null
+modelzoom=400
+
+// 438:42
+[com_42]
+type=text
+x=-1
+y=32
+width=87
+height=80
+layer=com_40
+textfont=p11_full
+text=You need a lightning rod mould to make this item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:43
+[silvercast_tiara]
+type=layer
+x=179
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+
+// 438:44
+[com_44]
+type=text
+x=10
+y=1
+width=60
+height=60
+layer=silvercast_tiara
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Tiara
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 23)
+
+// 438:45
+[silvercast_tiara_model]
+type=model
+x=26
+y=1
+width=32
+height=32
+layer=silvercast_tiara
+model=null
+modelzoom=300
+
+// 438:46
+[silvercast_tiara_make_text]
+type=text
+x=-2
+y=32
+width=86
+height=83
+layer=silvercast_tiara
+textfont=p11_full
+text=Make<br>Tiara
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 23)
+
+// 438:47
+[com_47]
+type=layer
+x=179
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+hide=yes
+
+// 438:48
+[com_48]
+type=model
+x=23
+y=1
+width=32
+height=32
+layer=com_47
+model=null
+modelzoom=400
+
+// 438:49
+[com_49]
+type=text
+y=32
+width=84
+height=84
+layer=com_47
+textfont=p11_full
+text=You need a<br> tiara mould <br>to make<br> a tiara.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:50
+[silvercast_commandrod]
+type=layer
+x=179
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+
+// 438:51
+[com_51]
+type=model
+x=23
+y=1
+width=32
+height=32
+layer=silvercast_commandrod
+model=null
+modelzoom=400
+opbase=C
+
+// 438:52
+[com_52]
+type=text
+x=12
+y=1
+width=60
+height=60
+layer=silvercast_commandrod
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Silvthrill Rod
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 25)
+
+// 438:53
+[silvercast_commandrod_model]
+type=model
+x=23
+y=1
+width=32
+height=32
+layer=silvercast_commandrod
+model=null
+modelzoom=300
+
+// 438:54
+[silvercast_commandrod_make_text]
+type=text
+x=-2
+y=32
+width=88
+height=80
+layer=silvercast_commandrod
+textfont=p11_full
+text=Make <br>Silvthril <br>Rod
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 25)
+
+// 438:55
+[com_55]
+type=layer
+x=179
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+hide=yes
+
+// 438:56
+[com_56]
+type=model
+x=23
+y=1
+width=32
+height=32
+layer=com_55
+model=null
+modelzoom=400
+
+// 438:57
+[com_57]
+type=text
+y=32
+width=85
+height=81
+layer=com_55
+textfont=p11_full
+text=You need a <br> rod mould <br>to make this <br>item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:58
+[silvercast_agrith]
+type=layer
+x=263
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+
+// 438:59
+[com_59]
+type=text
+x=9
+width=60
+height=60
+layer=silvercast_agrith
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Demonic Sigil
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 30)
+
+// 438:60
+[silvercast_agrith_model]
+type=model
+x=24
+width=32
+height=32
+layer=silvercast_agrith
+model=null
+modelzoom=300
+
+// 438:61
+[silvercast_agrith_make_text]
+type=text
+x=-2
+y=32
+width=86
+height=84
+layer=silvercast_agrith
+textfont=p11_full
+text=Make<br> Demonic<br>Sigil
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 30)
+
+// 438:62
+[com_62]
+type=layer
+x=263
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+hide=yes
+
+// 438:63
+[com_63]
+type=model
+x=19
+width=32
+height=32
+layer=com_62
+model=null
+modelzoom=400
+
+// 438:64
+[com_64]
+type=text
+x=-1
+y=32
+width=85
+height=84
+layer=com_62
+textfont=p11_full
+text=You need a<br> demonic sigil<br>mould to make<br>this item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:65
+[com_65]
+type=layer
+x=263
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+
+// 438:66
+[com_66]
+type=text
+x=8
+width=60
+height=60
+layer=com_65
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Silver Bolts
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 21)
+
+// 438:67
+[com_67]
+type=model
+x=22
+width=32
+height=32
+layer=com_65
+model=null
+modelzoom=300
+
+// 438:68
+[com_68]
+type=text
+y=32
+width=84
+height=81
+layer=com_65
+textfont=p11_full
+text=Make<br> Silver  <br>Crossbow<br> Bolts
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 21)
+
+// 438:69
+[com_69]
+type=layer
+x=263
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+hide=yes
+
+// 438:70
+[com_70]
+type=model
+x=20
+width=32
+height=32
+layer=com_69
+model=null
+modelzoom=400
+
+// 438:71
+[com_71]
+type=text
+y=31
+width=84
+height=81
+layer=com_69
+textfont=p11_full
+text=You need a<br> crossbow bolt<br>mould to make<br>this item.
+textalignh=centre
+textshadow=yes
+colour=0xffaa44
+
+// 438:72
+[com_72]
+type=layer
+x=348
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+
+// 438:73
+[com_73]
+type=text
+x=9
+width=60
+height=60
+layer=com_72
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Silvthril Chain
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 47)
+
+// 438:74
+[com_74]
+type=model
+x=24
+width=32
+height=32
+layer=com_72
+model=null
+modelzoom=400
+opbase=C
+
+// 438:75
+[com_75]
+type=text
+y=31
+width=84
+height=84
+layer=com_72
+textfont=p11_full
+text=Make<br> Silvthril <br>Chain
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 47)
+
+// 438:76
+[com_76]
+type=model
+x=24
+width=32
+height=32
+layer=com_72
+model=null
+modelzoom=300
+
+// 438:77
+[com_77]
+type=layer
+x=348
+y=5
+width=84
+height=115
+layer=silvercast_controllayer
+hide=yes
+
+// 438:78
+[com_78]
+type=layer
+x=348
+y=120
+width=84
+height=112
+layer=silvercast_controllayer
+
+// 438:79
+[com_79]
+type=text
+x=10
+width=60
+height=60
+layer=com_78
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+opbase=<col=ff9040>Silver Key
+op1=Make 1
+onload=crafting_level_hide(event_com, 26)
+
+// 438:80
+[com_80]
+type=model
+x=24
+width=32
+height=32
+layer=com_78
+model=null
+modelzoom=800
+
+// 438:81
+[com_81]
+type=text
+y=31
+width=84
+height=81
+layer=com_78
+textfont=p11_full
+text=Make<br>Silver<br>Key
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 26)
+
+// 438:82
+[com_82]
+type=model
+x=24
+width=32
+height=32
+layer=com_77
+model=null
+modelzoom=400
+
+// 438:83
+[com_83]
+type=text
+y=31
+width=84
+height=83
+layer=com_77
+textfont=p11_full
+text=You need a chain mould to make this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffaa44

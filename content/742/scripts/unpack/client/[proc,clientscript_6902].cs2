@@ -1,0 +1,39 @@
+// 6902
+[proc,clientscript_6902](component $component0)
+cc_deleteall($component0);
+def_int $int1 = calc(9 / 2);
+if (calc(9 % 2) ! 0) {
+    $int1 = calc($int1 + 1);
+}
+def_int $int2 = calc((if_getwidth($component0) - $int1 * 36) / max(calc($int1 - 1), 1));
+def_int $int3 = 0;
+def_obj $obj4 = null;
+def_int $int5 = 0;
+def_string $string0 = "";
+while ($int3 < 9) {
+    $obj4, $int5 = inv_getobj(duelwinnings, $int3), inv_getnum(duelwinnings, $int3);
+    if ($obj4 = null) {
+        $obj4, $int5 = inv_getobj(minecart_temp_inv, $int3), inv_getnum(minecart_temp_inv, $int3);
+    }
+    if ($obj4 ! null) {
+        if ($int5 <= 1) {
+            $string0 = oc_name($obj4);
+        } else {
+            $string0 = "<oc_name($obj4)> x <tostring_localised($int5, true)>";
+        }
+        cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setobject($obj4, $int5);
+        cc_setgraphicshadow(0x333333);
+        cc_setoutline(1);
+        if (cc_getid < $int1) {
+            cc_setposition(calc(cc_getid * (36 + $int2)), 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setonmouserepeat("aif_tooltip(interface_1365:com_27, event_com, event_comsubid, $string0, 200, p11_full, p11_full, null, 10, 2, 0, event_mousex, event_mousey)");
+        } else {
+            cc_setposition(calc((cc_getid - $int1) * (36 + $int2)), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setonmouserepeat("aif_tooltip(interface_1365:com_27, event_com, event_comsubid, $string0, 200, p11_full, p11_full, null, 10, 2, 2, event_mousex, event_mousey)");
+        }
+        cc_setonmouseleave("deltooltip(interface_1365:com_27)");
+    }
+    $int3 = calc($int3 + 1);
+}

@@ -6,6 +6,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::ParamValue;
 use rs_util::bits::{fits_bit_range, setbit_range_toint};
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::state::{QueuePriority, ScriptArgument};
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ControllerUid, ScriptError};
@@ -24,7 +25,7 @@ impl Controllers {
     pub fn add(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         lifecycle_at: Option<u32>,
         vars: VarSet,
     ) -> Option<ControllerUid> {
@@ -67,7 +68,7 @@ impl Controllers {
             .and_then(|&slot| self.slots[slot as usize].as_ref())
     }
 
-    pub fn find_exact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid> {
+    pub fn find_exact(&self, coord: CoordGrid, id: TypeId) -> Option<ControllerUid> {
         self.at.get(&coord.packed())?.iter().find_map(|&slot| {
             self.slots[slot as usize]
                 .as_ref()
@@ -111,7 +112,7 @@ impl Engine {
     pub(crate) fn controller_add(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         duration: i32,
     ) -> Result<ControllerUid, ScriptError> {
         let placed = if coord.x() < REGION_X {
@@ -128,11 +129,11 @@ impl Engine {
         let mut vars = VarSet::new(self.cache.varcons.types.iter().map(|v| v.var_type));
         if let Some(controller) = self.cache.controllers.get_by_id(id) {
             for (varcon, value) in controller.vars.iter() {
-                let Some(varcon) = self.cache.varcons.get_by_id(*varcon) else {
+                let Some(varcon) = self.cache.varcons.get_by_id(TypeId::new(*varcon)) else {
                     continue;
                 };
                 vars.set(
-                    varcon.id,
+                    varcon.id.g2(),
                     match value {
                         ParamValue::Int(value) => VarValue::from_int(varcon.var_type, *value),
                         ParamValue::String(value) => VarValue::String(value.to_string()),
@@ -140,10 +141,10 @@ impl Engine {
                 );
             }
             for (id, value) in controller.varbits.iter() {
-                let Some(varbit) = self.cache.varconbits.get_by_id(*id) else {
+                let Some(varbit) = self.cache.varconbits.get_by_id(TypeId::new(*id)) else {
                     continue;
                 };
-                let Some(varcon) = self.cache.varcons.get_by_id(varbit.basevar) else {
+                let Some(varcon) = self.cache.varcons.get_by_id(TypeId::new(varbit.basevar)) else {
                     continue;
                 };
                 let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
@@ -276,7 +277,7 @@ impl Engine {
             return;
         }
         controller.timer_clock = 0;
-        let id = controller.id as i32;
+        let id = controller.id.int();
         let Some(script) = self.script_by_key(ServerTriggerType::AiConTimer, Some(id), None) else {
             return;
         };

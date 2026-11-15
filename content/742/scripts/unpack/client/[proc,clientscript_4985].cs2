@@ -1,0 +1,11 @@
+// 4985
+[proc,clientscript_4985]
+def_int $int0 = -1;
+if (op718 = 1 & %varplayerbit_9550 > 0) {
+    $int0 = ~clientscript_4948(%varplayerbit_9550);
+    if ($int0 <= 0) {
+        ~clientscript_4899(4);
+    } else {
+    }
+} else {
+}

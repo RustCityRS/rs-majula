@@ -1,0 +1,720 @@
+// 683:0
+[com_0]
+type=rectangle
+x=9
+y=28
+width=173
+height=119
+colour=0x000000
+fill=yes
+trans=200
+
+// 683:1
+[com_1]
+type=rectangle
+x=15
+y=33
+width=161
+height=108
+colour=0x000000
+fill=yes
+trans=200
+
+// 683:2
+[com_2]
+type=rectangle
+x=25
+y=40
+width=143
+height=94
+colour=0x000000
+fill=yes
+trans=200
+
+// 683:3
+[com_3]
+type=graphic
+x=6
+y=25
+width=32
+height=32
+graphic="v2_stone_borders,28"
+colour=0x000000
+
+// 683:4
+[com_4]
+type=graphic
+x=38
+y=12
+width=116
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 683:5
+[com_5]
+type=graphic
+x=153
+y=25
+width=32
+height=32
+graphic="v2_stone_borders,29"
+colour=0x000000
+
+// 683:6
+[com_6]
+type=graphic
+x=168
+y=58
+width=32
+height=60
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0x000000
+
+// 683:7
+[com_7]
+type=graphic
+x=153
+y=118
+width=32
+height=32
+graphic="v2_stone_borders,31"
+colour=0x000000
+
+// 683:8
+[com_8]
+type=graphic
+x=38
+y=134
+width=115
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0x000000
+
+// 683:9
+[com_9]
+type=graphic
+x=6
+y=118
+width=32
+height=32
+graphic="v2_stone_borders,30"
+colour=0x000000
+
+// 683:10
+[com_10]
+type=graphic
+x=-8
+y=58
+width=32
+height=60
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0x000000
+
+// 683:11
+[divider]
+type=model
+model=null
+modelzoom=400
+
+// 683:12
+[com_12]
+type=graphic
+x=-8
+y=163
+width=32
+height=91
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 683:13
+[com_13]
+type=graphic
+x=6
+y=145
+width=177
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 683:14
+[com_14]
+type=graphic
+x=170
+y=161
+width=32
+height=91
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 683:15
+[com_15]
+type=graphic
+x=7
+y=236
+width=177
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 683:16
+[divider0]
+type=model
+height=32
+model=null
+modelzoom=400
+
+// 683:17
+[divider1]
+type=model
+width=32
+model=null
+modelzoom=400
+
+// 683:18
+[com_18]
+type=rectangle
+x=112
+y=177
+width=25
+height=25
+layer=control_layer
+colour=0x000000
+fill=yes
+trans=230
+
+// 683:19
+[com_19]
+type=rectangle
+x=147
+y=177
+width=25
+height=25
+layer=control_layer
+colour=0x000000
+fill=yes
+trans=230
+
+// 683:20
+[com_20]
+type=rectangle
+x=112
+y=211
+width=25
+height=25
+layer=control_layer
+colour=0x000000
+fill=yes
+trans=230
+
+// 683:21
+[com_21]
+type=rectangle
+x=147
+y=212
+width=25
+height=25
+layer=control_layer
+colour=0x000000
+fill=yes
+trans=230
+
+// 683:22
+[control_layer]
+type=layer
+width=190
+height=261
+
+// 683:23
+[selected_window_layer]
+type=layer
+x=41
+y=34
+width=105
+height=105
+layer=control_layer
+
+// 683:24
+[selected_window_2x1]
+type=model
+x=38
+y=45
+width=37
+height=19
+layer=selected_window_layer
+hide=yes
+model=model_32169
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:25
+[selected_window_3x1]
+type=model
+x=26
+y=45
+width=57
+height=19
+layer=selected_window_layer
+hide=yes
+model=model_32164
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:26
+[selected_window_4x1]
+type=model
+x=18
+y=45
+width=75
+height=19
+layer=selected_window_layer
+hide=yes
+model=model_32191
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:27
+[selected_window_5x1]
+type=model
+x=10
+y=45
+width=93
+height=19
+layer=selected_window_layer
+hide=yes
+model=model_32152
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:28
+[selected_window_t_joint]
+type=model
+x=26
+y=33
+width=57
+height=37
+layer=selected_window_layer
+hide=yes
+model=model_32161
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:29
+[selected_window_left_t_joint]
+type=model
+x=14
+y=30
+width=75
+height=37
+layer=selected_window_layer
+hide=yes
+model=model_32166
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:30
+[selected_window_right_t_joint]
+type=model
+x=14
+y=33
+width=75
+height=37
+layer=selected_window_layer
+hide=yes
+model=model_32188
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:31
+[selected_window_r_joint_3x2]
+type=model
+x=26
+y=44
+width=57
+height=37
+layer=selected_window_layer
+hide=yes
+model=model_32174
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:32
+[selected_window_r_joint_4x2]
+type=model
+x=15
+y=31
+width=75
+height=37
+layer=selected_window_layer
+hide=yes
+model=model_32189
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:33
+[selected_window_z_joint]
+type=model
+x=23
+y=22
+width=57
+height=56
+layer=selected_window_layer
+hide=yes
+model=model_32177
+modelangle=512,0,0
+modelzoom=3500
+
+// 683:34
+[catcon_rotate_left]
+type=graphic
+x=112
+y=177
+width=25
+height=25
+layer=control_layer
+graphic="catcon_catapult_icons,4"
+colour=0x000000
+transmitop=1
+op1=Rotate-Left
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,5")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,4")
+onop=catcon_repair_puzzle_rotate_left
+
+// 683:35
+[catcon_rotate_right]
+type=graphic
+x=147
+y=177
+width=25
+height=25
+layer=control_layer
+graphic="catcon_catapult_icons,6"
+colour=0x000000
+transmitop=1
+op1=Rotate-Right
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,7")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,6")
+onop=catcon_repair_puzzle_rotate_right
+
+// 683:36
+[catcon_flip]
+type=graphic
+x=112
+y=212
+width=25
+height=25
+layer=control_layer
+graphic="catcon_catapult_icons,0"
+colour=0x000000
+transmitop=1
+op1=Flip-Side
+onmouseover=graphic_swapper(catcon_repair_puzzle_side:catcon_flip, "catcon_catapult_icons,1")
+onmouseleave=graphic_swapper(catcon_repair_puzzle_side:catcon_flip, "catcon_catapult_icons,0")
+onop=catcon_repair_puzzle_flip
+
+// 683:37
+[catcon_reset]
+type=graphic
+x=147
+y=212
+width=25
+height=25
+layer=control_layer
+graphic="catcon_catapult_icons,8"
+colour=0x000000
+transmitop=1
+op1=Restart
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,9")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,8")
+
+// 683:38
+[catcon_catapult_up_arrow]
+type=model
+x=43
+y=166
+width=21
+height=28
+layer=control_layer
+model=model_32196
+modelorigin=0,-3
+modelzoom=3000
+transmitop=1
+opbase= 
+op1=Move-Up
+onmouseover=model_swapper(event_com, model_32160)
+onmouseleave=model_swapper(event_com, model_32196)
+onop=script842
+
+// 683:39
+[catcon_catapult_right_arrow]
+type=model
+x=66
+y=196
+width=28
+height=21
+layer=control_layer
+model=model_32196
+modelorigin=2,0
+modelangle=0,0,1530
+modelzoom=3000
+transmitop=1
+opbase= 
+op1=Move-Right
+onmouseover=model_swapper(event_com, model_32160)
+onmouseleave=model_swapper(event_com, model_32196)
+onop=script845
+
+// 683:40
+[catcon_catapult_left_arrow]
+type=model
+x=12
+y=196
+width=28
+height=21
+layer=control_layer
+model=model_32196
+modelorigin=-3,0
+modelangle=0,0,506
+modelzoom=3000
+transmitop=1
+opbase= 
+op1=Move-Left
+onmouseover=model_swapper(event_com, model_32160)
+onmouseleave=model_swapper(event_com, model_32196)
+onop=script844
+
+// 683:41
+[catcon_catapult_down_arrow]
+type=model
+x=43
+y=221
+width=21
+height=28
+layer=control_layer
+model=model_32196
+modelorigin=0,2
+modelangle=0,0,1012
+modelzoom=3000
+transmitop=1
+opbase= 
+op1=Move-Down
+onmouseover=model_swapper(event_com, model_32160)
+onmouseleave=model_swapper(event_com, model_32196)
+onop=script843
+
+// 683:42
+[divider2]
+type=model
+height=32
+model=null
+modelzoom=400
+
+// 683:43
+[confirm_restart_layer]
+type=layer
+width=190
+height=261
+hide=yes
+
+// 683:44
+[right_side_button]
+type=layer
+x=48
+y=176
+width=94
+height=27
+layer=confirm_restart_layer
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 683:45
+[right_side_button_1]
+type=layer
+x=49
+y=212
+width=94
+height=27
+layer=confirm_restart_layer
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 683:46
+[confirm_restart]
+type=text
+x=48
+y=176
+width=94
+height=27
+layer=confirm_restart_layer
+textfont=p12_full
+text=Yes, Restart
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9900
+transmitop=1
+op1=Restart
+
+// 683:47
+[cancel_restart]
+type=text
+x=49
+y=212
+width=94
+height=27
+layer=confirm_restart_layer
+textfont=p12_full
+text=No, Cancel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9900
+transmitop=1
+op1=Cancel
+
+// 683:48
+[com_48]
+type=text
+x=48
+y=63
+width=96
+height=38
+layer=confirm_restart_layer
+textfont=p12_full
+text=Are you sure you want to restart the puzzle?
+textalignh=centre
+textshadow=yes
+colour=0xcc9900
+
+// 683:49
+[tooltip_layer]
+type=layer
+x=-8
+y=-130
+width=192
+height=267
+layer=tooltip_area
+
+// 683:50
+[com_50]
+type=rectangle
+x=66
+y=196
+width=28
+height=21
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Move piece right.", 50, 180)
+
+// 683:51
+[tooltip_area]
+type=layer
+x=8
+y=130
+width=175
+height=131
+
+// 683:52
+[com_52]
+type=rectangle
+x=43
+y=166
+width=21
+height=28
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Move piece up.", 50, 180)
+
+// 683:53
+[com_53]
+type=rectangle
+x=43
+y=221
+width=21
+height=28
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Move piece down.", 50, 180)
+
+// 683:54
+[com_54]
+type=rectangle
+x=12
+y=196
+width=28
+height=21
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Move piece left.", 50, 180)
+
+// 683:55
+[com_55]
+type=rectangle
+x=112
+y=177
+width=25
+height=25
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Rotate piece counter-clockwise.", 25, 180)
+
+// 683:56
+[com_56]
+type=rectangle
+x=147
+y=177
+width=25
+height=25
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Rotate piece clockwise.", 25, 180)
+
+// 683:57
+[com_57]
+type=rectangle
+x=112
+y=212
+width=25
+height=25
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "View the other side of the catapult.", 25, 180)
+
+// 683:58
+[com_58]
+type=rectangle
+x=147
+y=212
+width=25
+height=25
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_repair_puzzle_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_repair_puzzle_side:tooltip_layer, "Restart building the catapult.", 25, 180)

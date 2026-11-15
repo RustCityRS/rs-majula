@@ -1,0 +1,11 @@
+// 1829
+[clientscript,clanwars_setup_prayer](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_noprayer = false) {
+    %clanwars_rulevarc_noprayer = true;
+} else {
+    %clanwars_rulevarc_noprayer = false;
+}
+~clanwars_resynch_prayer;

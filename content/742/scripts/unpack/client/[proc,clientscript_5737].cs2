@@ -1,0 +1,29 @@
+// 5737
+[proc,clientscript_5737]()(int)
+def_struct $struct0 = %varplayer_2501;
+if_sethide(interface_1237:com_35, true);
+if_sethide(interface_1237:com_36, true);
+if_sethide(interface_1237:com_37, true);
+if_sethide(interface_1237:com_38, true);
+if_sethide(interface_1237:com_39, true);
+if_sethide(interface_1237:com_40, true);
+def_int $int1 = if_getheight(interface_1237:com_34);
+if (compare(struct_param($struct0, param_1274), "") ! 0) {
+    $int1 = ~clientscript_5739(1, $int1, struct_param($struct0, param_1274), interface_1237:com_35, interface_1237:com_33);
+}
+if (compare(struct_param($struct0, param_1275), "") ! 0) {
+    $int1 = ~clientscript_5739(2, $int1, struct_param($struct0, param_1275), interface_1237:com_36, interface_1237:com_33);
+}
+if (compare(struct_param($struct0, param_1276), "") ! 0) {
+    $int1 = ~clientscript_5739(3, $int1, struct_param($struct0, param_1276), interface_1237:com_37, interface_1237:com_33);
+}
+if (compare(struct_param($struct0, param_1277), "") ! 0) {
+    $int1 = ~clientscript_5739(4, $int1, struct_param($struct0, param_1277), interface_1237:com_38, interface_1237:com_33);
+}
+if (compare(struct_param($struct0, param_1278), "") ! 0) {
+    $int1 = ~clientscript_5739(5, $int1, struct_param($struct0, param_1278), interface_1237:com_39, interface_1237:com_33);
+}
+if (compare(struct_param($struct0, param_1279), "") ! 0) {
+    $int1 = ~clientscript_5739(6, $int1, struct_param($struct0, param_1279), interface_1237:com_40, interface_1237:com_33);
+}
+return($int1);

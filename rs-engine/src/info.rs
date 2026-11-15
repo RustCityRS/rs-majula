@@ -1,13 +1,15 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::core::OtherPlayers;
 use crate::core::engine;
 use crate::watch::Target;
+#[cfg(since_530)]
+use rs_entity::MoveSpeed;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS, Npc, PathingEntity, Player};
 #[cfg(since_647)]
-use rs_entity::{MoveSpeed, dir_delta, face_dir};
+use rs_entity::{dir_delta, face_dir};
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_info::{NpcRenderer, Observer, PlayerRenderer};
@@ -84,7 +86,10 @@ impl PlayerSnapshot {
 
     #[cfg(before_647)]
     fn movement(pathing: &PathingEntity) -> (u64, u8) {
+        #[cfg(before_530)]
         let (code, bits) = steps(pathing.walk_dir, pathing.run_dir);
+        #[cfg(all(since_530, before_647))]
+        let (code, bits) = crawl_steps(pathing, |dir| dir as u16);
         (code as u64, bits)
     }
 
@@ -320,35 +325,25 @@ impl NpcSnapshot {
             coord: n.pathing.coord.packed(),
             len,
             code,
-            ntype: n.uid.id(),
+            ntype: n.uid.id().g2(),
             bits,
             flags,
         }
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn movement(pathing: &PathingEntity) -> (u16, u8) {
         steps(pathing.walk_dir, pathing.run_dir)
     }
 
-    /// A run, a crawl (a run of one step), or a walk.
+    #[cfg(all(since_530, before_647))]
+    fn movement(pathing: &PathingEntity) -> (u16, u8) {
+        crawl_steps(pathing, |dir| dir as u16)
+    }
+
     #[cfg(since_647)]
     fn movement(pathing: &PathingEntity) -> (u16, u8) {
-        if pathing.walk_dir == -1 {
-            return (0, 0);
-        }
-        let walk = NPC_DIR_MAP[pathing.walk_dir as usize] as u16;
-        if pathing.move_speed == MoveSpeed::Crawl {
-            // 1 + 2 + 1 + 3 = 7 bits
-            ((0b1100 << 3) | walk, 7)
-        } else if pathing.run_dir != -1 {
-            // 1 + 2 + 1 + 3 + 3 = 10 bits
-            let run = NPC_DIR_MAP[pathing.run_dir as usize] as u16;
-            ((0b1101 << 6) | (walk << 3) | run, 10)
-        } else {
-            // 1 + 2 + 3 = 6 bits
-            ((0b101 << 3) | walk, 6)
-        }
+        crawl_steps(pathing, |dir| NPC_DIR_MAP[dir as usize] as u16)
     }
 
     #[inline(always)]
@@ -368,8 +363,8 @@ impl NpcSnapshot {
     }
 }
 
-/// A run or a walk before 647, without the bit saying a block follows.
-#[cfg(before_647)]
+/// A run or a walk before 530, without the bit saying a block follows.
+#[cfg(before_530)]
 fn steps(walk_dir: i8, run_dir: i8) -> (u16, u8) {
     if run_dir != -1 {
         // 1 + 2 + 3 + 3 = 9 bits
@@ -382,6 +377,28 @@ fn steps(walk_dir: i8, run_dir: i8) -> (u16, u8) {
         ((((1 << 2) | 1) << 3) | walk_dir as u16, 6)
     } else {
         (0, 0)
+    }
+}
+
+/// A run, a crawl (a run of one step) or a walk, without the bit saying a
+/// block follows: 530's players and npcs, and 647's npcs, whose directions
+/// `dir` numbers.
+#[cfg(since_530)]
+#[inline(always)]
+fn crawl_steps(pathing: &PathingEntity, dir: impl Fn(i8) -> u16) -> (u16, u8) {
+    if pathing.walk_dir == -1 {
+        return (0, 0);
+    }
+    let walk = dir(pathing.walk_dir);
+    if pathing.move_speed == MoveSpeed::Crawl {
+        // 1 + 2 + 1 + 3 = 7 bits
+        ((0b1100 << 3) | walk, 7)
+    } else if pathing.run_dir != -1 {
+        // 1 + 2 + 1 + 3 + 3 = 10 bits
+        ((0b1101 << 6) | (walk << 3) | dir(pathing.run_dir), 10)
+    } else {
+        // 1 + 2 + 3 = 6 bits
+        ((0b101 << 3) | walk, 6)
     }
 }
 
@@ -504,10 +521,14 @@ pub struct PlayerInfo {
 }
 
 impl PlayerInfo {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     const BITS_ADD: usize = 11 + 5 + 5 + 1 + 1;
-    #[cfg(before_647)]
+    #[cfg(all(since_530, before_647))]
+    const BITS_ADD: usize = 11 + 1 + 5 + 3 + 1 + 5;
+    #[cfg(before_530)]
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
+    #[cfg(all(since_530, before_647))]
+    const BITS_RUN: usize = 1 + 2 + 1 + 3 + 3 + 1;
     #[cfg(before_647)]
     const BITS_EXTEND: usize = 1 + 2;
     #[cfg(before_647)]
@@ -783,8 +804,9 @@ impl PlayerInfo {
         }
     }
 
-    /// Encodes a player-add entry (23 bits) with position delta and jump flag,
-    /// followed by the low-definition update block.
+    /// Encodes a player-add entry (23 bits, 26 on 530 with the way it faces)
+    /// with position delta and jump flag, followed by the low-definition
+    /// update block.
     #[inline(always)]
     #[cfg(before_647)]
     fn add(
@@ -797,9 +819,21 @@ impl PlayerInfo {
         jump: bool,
     ) {
         // 11 + 5 + 5 + 1 + 1 = 23 bits
+        #[cfg(before_530)]
         self.bw.pbit::<23>(
             &mut self.buf,
             ((pid as i32) << 12) | ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | ((jump as i32) << 1) | 1,
+        );
+        // 11 + 1 + 5 + 3 + 1 + 5 = 26 bits
+        #[cfg(all(since_530, before_647))]
+        self.bw.pbit::<26>(
+            &mut self.buf,
+            ((pid as i32) << 15)
+                | (1 << 14)
+                | ((x & 0x1F) << 9)
+                | ((renderer.add_direction(pid) as i32) << 6)
+                | ((jump as i32) << 5)
+                | (z & 0x1F),
         );
         renderer.ready_low(pid);
         let appearance = Self::low_appearance(renderer, active, pid);
@@ -831,6 +865,7 @@ impl PlayerInfo {
     #[cfg(before_647)]
     fn teleport(&mut self, x: i32, y: i32, z: i32, jump: bool, extend: bool) {
         // 1 + 2 + 2 + 7 + 7 + 1 + 1 = 21 bits
+        #[cfg(before_530)]
         self.bw.pbit::<21>(
             &mut self.buf,
             (((1 << 2) | 3) << 18)
@@ -840,10 +875,21 @@ impl PlayerInfo {
                 | ((jump as i32) << 1)
                 | (extend as i32),
         );
+        // 1 + 2 + 7 + 1 + 2 + 1 + 7 = 21 bits
+        #[cfg(all(since_530, before_647))]
+        self.bw.pbit::<21>(
+            &mut self.buf,
+            (((1 << 2) | 3) << 18)
+                | ((z & 0x7F) << 11)
+                | ((jump as i32) << 10)
+                | ((y & 0x3) << 8)
+                | ((extend as i32) << 7)
+                | (x & 0x7F),
+        );
     }
 
     #[inline(always)]
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn idle(&mut self) {
         self.bw.pbit::<1>(&mut self.buf, 0);
     }
@@ -878,7 +924,7 @@ impl PlayerInfo {
     /// [`BuildArea::forget_untracked_appearances`]).
     ///
     /// Reads the observer's state without changing it.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn keyframe(
         renderer: &mut PlayerRenderer,
         players: OtherPlayers<'_>,
@@ -1181,20 +1227,24 @@ impl NpcInfo {
     const BITS_ADD: usize = 13 + 11 + 5 + 5 + 1;
     #[cfg(all(since_254, before_274))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1;
-    #[cfg(all(since_274, before_647))]
+    #[cfg(all(since_274, before_530))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1 + 1;
-    #[cfg(before_647)]
+    #[cfg(all(since_530, before_647))]
+    const BITS_ADD: usize = 15 + 1 + 3 + 1 + 5 + 14 + 5;
+    #[cfg(before_530)]
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     const BITS_RUN: usize = 1 + 2 + 1 + 3 + 3 + 1;
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     const BITS_ADD: usize = 15 + 2 + 5 + 1 + 3 + 5 + 14 + 1;
+    #[cfg(since_742)]
+    const BITS_ADD: usize = 15 + 1 + 2 + 1 + 3 + 5 + 5 + 15;
     const BITS_EXTEND: usize = 1 + 2;
     #[cfg(before_254)]
     const BITS_END: usize = 13;
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     const BITS_END: usize = 14;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     const BITS_END: usize = 15;
 
     /// Creates a new `NpcInfo` encoder with pre-allocated buffers.
@@ -1381,13 +1431,28 @@ impl NpcInfo {
         #[cfg(before_254)]
         self.bw
             .pbit::<24>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
-        #[cfg(all(since_254, before_647))]
+        #[cfg(all(since_254, before_530))]
         self.bw
             .pbit::<25>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
         #[cfg(before_274)]
         self.bw
             .pbit::<11>(&mut self.buf, ((x & 0x1F) << 6) | ((z & 0x1F) << 1) | 1);
-        #[cfg(all(since_274, before_647))]
+        // 15 + 1 + 3 + 1 + 5 = 25 bits, then 14 + 5 = 19 bits
+        #[cfg(all(since_530, before_647))]
+        {
+            let jump = s.flags & NpcSnapshot::JUMP != 0;
+            self.bw.pbit::<25>(
+                &mut self.buf,
+                ((nid as i32) << 10)
+                    | ((jump as i32) << 9)
+                    | ((renderer.add_direction(nid) as i32) << 6)
+                    | (1 << 5)
+                    | (z & 0x1F),
+            );
+            self.bw
+                .pbit::<19>(&mut self.buf, ((ntype as i32) << 5) | (x & 0x1F));
+        }
+        #[cfg(all(since_274, before_530))]
         {
             let jump = s.flags & NpcSnapshot::JUMP != 0;
             self.bw.pbit::<12>(
@@ -1395,7 +1460,7 @@ impl NpcInfo {
                 ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | ((jump as i32) << 1) | 1,
             );
         }
-        #[cfg(since_647)]
+        #[cfg(all(since_647, before_742))]
         {
             self.bw.pbit::<15>(&mut self.buf, nid as i32);
             self.bw.pbit::<2>(&mut self.buf, coord.y() as i32);
@@ -1407,6 +1472,19 @@ impl NpcInfo {
             self.bw.pbit::<14>(&mut self.buf, ntype as i32);
             self.bw
                 .pbit::<1>(&mut self.buf, (s.flags & NpcSnapshot::JUMP != 0) as i32);
+        }
+        #[cfg(since_742)]
+        {
+            self.bw.pbit::<15>(&mut self.buf, nid as i32);
+            self.bw
+                .pbit::<1>(&mut self.buf, (s.flags & NpcSnapshot::JUMP != 0) as i32);
+            self.bw.pbit::<2>(&mut self.buf, coord.y() as i32);
+            self.bw.pbit::<1>(&mut self.buf, 1);
+            self.bw
+                .pbit::<3>(&mut self.buf, renderer.add_direction(nid) as i32);
+            self.bw.pbit::<5>(&mut self.buf, x);
+            self.bw.pbit::<5>(&mut self.buf, z);
+            self.bw.pbit::<15>(&mut self.buf, ntype as i32);
         }
         renderer.ready_low(nid);
         renderer.write_low_block_for(&mut self.updates, nid, self.observer);
@@ -1443,7 +1521,7 @@ impl NpcInfo {
     /// More than one when they don't all fit in one.
     ///
     /// Reads the observer's state without changing it.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn keyframe(
         renderer: &mut NpcRenderer,
         npcs: &[Option<Box<ActiveNpc>>],
@@ -1471,7 +1549,7 @@ impl NpcInfo {
                 }
                 let (ntype, x, z) = other.map_or((0, 0, 0), |n| {
                     (
-                        n.npc.uid.id() as i32,
+                        n.npc.uid.id().int(),
                         n.npc.pathing.coord.x() as i32 - coord.x() as i32,
                         n.npc.pathing.coord.z() as i32 - coord.z() as i32,
                     )
@@ -1527,6 +1605,7 @@ mod client_decode_tests {
     use rs_info::EntityMasks;
     use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
     use rs_var::VarSet;
+    use rs_ver::TypeId;
 
     fn observer() -> ActivePlayer {
         let coord = CoordGrid::new(3222, 0, 3218);
@@ -1559,6 +1638,10 @@ mod client_decode_tests {
             reflection: Default::default(),
             #[cfg(since_647)]
             last_link: None,
+            #[cfg(since_647)]
+            lobby: false,
+            #[cfg(since_647)]
+            world: 0,
         }
     }
 
@@ -1585,7 +1668,7 @@ mod client_decode_tests {
             active.player.build_area.npcs.insert(nid);
             renderer.compute_info(nid as usize, &masks);
             let coord = active.player.pathing.coord;
-            let mut npc = Npc::new(0, nid, coord, 1, VarSet::new([].into_iter()));
+            let mut npc = Npc::new(TypeId::new(0), nid, coord, 1, VarSet::new([].into_iter()));
             npc.pathing.tele = false;
             npc.pathing.walk_dir = 1;
             npc.pathing.run_dir = if nid % 3 == 0 { 4 } else { -1 };
@@ -1679,6 +1762,20 @@ mod client_decode_tests {
                 self.g2() - 32768
             }
         }
+        #[cfg(since_742)]
+        fn g4s(&mut self) -> i32 {
+            let hi = self.g2();
+            (hi << 16) | self.g2()
+        }
+        #[cfg(since_742)]
+        fn gsmart2or4null(&mut self) -> i32 {
+            if self.b[self.pos] < 128 {
+                let value = self.g2();
+                if value == 32767 { -1 } else { value }
+            } else {
+                self.g4s() & i32::MAX
+            }
+        }
         fn gjstr(&mut self) -> String {
             let start = self.pos;
             while self.b[self.pos] != 0 {
@@ -1687,6 +1784,7 @@ mod client_decode_tests {
             self.pos += 1;
             String::from_utf8_lossy(&self.b[start..self.pos - 1]).into_owned()
         }
+        #[cfg(before_742)]
         fn hits(&mut self, count: i32) -> Vec<(i32, i32, i32, i32)> {
             (0..count)
                 .map(|_| (self.gsmart(), self.gsmart(), self.gsmart(), self.g1()))
@@ -1694,6 +1792,7 @@ mod client_decode_tests {
         }
         /// `Class244` mask 0x2 as the client reads each hit: (mark, amount,
         /// second mark, second amount, delay, bar), -1 where a part is absent.
+        #[cfg(before_742)]
         fn client_hits(&mut self, count: i32) -> Vec<(i32, i32, i32, i32, i32, i32)> {
             (0..count)
                 .map(|_| {
@@ -1713,6 +1812,45 @@ mod client_decode_tests {
                 })
                 .collect()
         }
+        /// The 742 client's hits: (mark, amount, second mark, second amount,
+        /// delay). A hit of nothing carries a byte, which `none` reads.
+        #[cfg(since_742)]
+        fn hits_742(
+            &mut self,
+            count: i32,
+            none: impl Fn(&mut Self) -> i32,
+        ) -> Vec<(i32, i32, i32, i32, i32)> {
+            (0..count)
+                .map(|_| {
+                    let (mut mark, mut amount, mut mark2, mut amount2) = (-1, -1, -1, -1);
+                    let first = self.gsmart();
+                    if first == 32767 {
+                        mark = self.gsmart();
+                        amount = self.gsmart();
+                        mark2 = self.gsmart();
+                        amount2 = self.gsmart();
+                    } else if first == 32766 {
+                        assert_eq!(none(self), 0);
+                    } else {
+                        mark = first;
+                        amount = self.gsmart();
+                    }
+                    (mark, amount, mark2, amount2, self.gsmart())
+                })
+                .collect()
+        }
+        /// The 742 client's head bars after the hits: (bar, duration, delay,
+        /// fill), with `fill` reading the fill.
+        #[cfg(since_742)]
+        fn health_bars(
+            &mut self,
+            count: i32,
+            fill: impl Fn(&mut Self) -> i32,
+        ) -> Vec<(i32, i32, i32, i32)> {
+            (0..count)
+                .map(|_| (self.gsmart(), self.gsmart(), self.gsmart(), fill(self)))
+                .collect()
+        }
     }
 
     fn two_hits(info: &mut EntityMasks) {
@@ -1727,12 +1865,13 @@ mod client_decode_tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn appearance_blocks_read_back_through_the_client() {
         let mut active = observer();
         let mut renderer = PlayerRenderer::new();
         active.player.display_name = Some("Appearance".into());
         active.player.colours = [1, 2, 3, 4, 5];
-        active.player.info.readyanim = Some(1426);
+        active.player.info.readyanim = Some(TypeId::new(1426));
         active.player.info.masks = PlayerInfoProt::Appearance as u16;
         for gender in [0, 1] {
             active.player.gender = gender;
@@ -1776,6 +1915,7 @@ mod client_decode_tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn appearance_transmog_and_skill_level_read_back_through_the_client() {
         let mut active = observer();
         let mut renderer = PlayerRenderer::new();
@@ -1804,6 +1944,7 @@ mod client_decode_tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn npc_blocks_read_back_through_the_client() {
         let mut renderer = NpcRenderer::new();
         let mut info = EntityMasks::new();
@@ -1815,17 +1956,17 @@ mod client_decode_tests {
             | NpcInfoProt::Damage as u16
             | NpcInfoProt::Damage2 as u16
             | NpcInfoProt::Anim as u16;
-        info.changetype = Some(4231);
+        info.changetype = Some(TypeId::new(4231));
         info.face_x = Some(3222 * 2 + 1);
         info.face_z = Some(3218 * 2 + 1);
-        info.spotanim = Some(74);
+        info.spotanim = Some(TypeId::new(74));
         info.spotanim_height = Some(92);
         info.spotanim_delay = Some(5);
         info.face_entity = Some(0x8000 + 12);
         info.say = Some("Moo".into());
         two_hits(&mut info);
         info.damage_source = Some(5);
-        info.anim_id = Some(5577);
+        info.anim_id = Some(TypeId::new(5577));
         info.anim_delay = Some(3);
         renderer.compute_info(9, &info);
         let mut npc_info = NpcInfo::new();
@@ -1871,6 +2012,7 @@ mod client_decode_tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn player_blocks_read_back_through_the_client() {
         let mut renderer = PlayerRenderer::new();
         let mut info = EntityMasks::new();
@@ -1880,11 +2022,11 @@ mod client_decode_tests {
             | PlayerInfoProt::FaceEntity as u16
             | PlayerInfoProt::SpotAnim as u16
             | PlayerInfoProt::Say as u16;
-        info.anim_id = Some(879);
+        info.anim_id = Some(TypeId::new(879));
         info.anim_delay = Some(3);
         two_hits(&mut info);
         info.face_entity = Some(42);
-        info.spotanim = Some(90);
+        info.spotanim = Some(TypeId::new(90));
         info.spotanim_height = Some(100);
         info.spotanim_delay = Some(30);
         info.say = Some("Hi".into());
@@ -1932,6 +2074,7 @@ mod client_decode_tests {
     /// of (7, 58) tiles, off the map, and the client's off-map reset dropped
     /// the player's animation (the coffin cutscene's throw).
     #[test]
+    #[cfg(before_742)]
     fn an_exact_move_reads_back_relative_to_the_players_tile() {
         let mut renderer = PlayerRenderer::new();
         let mut info = EntityMasks::new();
@@ -1972,6 +2115,7 @@ mod client_decode_tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn a_new_observer_receives_the_players_persistent_facing() {
         let mut renderer = PlayerRenderer::new();
         let mut active = observer();
@@ -2005,6 +2149,7 @@ mod client_decode_tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn a_life_point_hit_past_255_reads_back_whole() {
         let mut renderer = PlayerRenderer::new();
         let mut info = EntityMasks::new();
@@ -2040,6 +2185,7 @@ mod client_decode_tests {
     /// blue soak mark (5) beside it, as the client reads them. Two soaked hits
     /// in a tick are the largest hit block, and both read back whole.
     #[test]
+    #[cfg(before_742)]
     fn a_soaked_hit_reads_back_as_one_double_hitsplat() {
         let mut renderer = PlayerRenderer::new();
         let mut info = EntityMasks::new();
@@ -2087,13 +2233,14 @@ mod client_decode_tests {
     /// Hitsplat, 2011-04-13; void-634 HitSplat). Player 9 hits player 7 for a
     /// soaked 300; a miss from an npc lands with it.
     #[test]
+    #[cfg(before_742)]
     fn hits_are_bright_for_their_dealer_and_receiver_and_darker_for_others() {
         let mut renderer = PlayerRenderer::new();
         let mut info = EntityMasks::new();
         info.masks = PlayerInfoProt::Anim as u16
             | PlayerInfoProt::Damage as u16
             | PlayerInfoProt::Damage2 as u16;
-        info.anim_id = Some(424);
+        info.anim_id = Some(TypeId::new(424));
         info.anim_delay = Some(0);
         info.damage_type = Some(1);
         info.damage_taken = Some(300);
@@ -2159,5 +2306,383 @@ mod client_decode_tests {
         assert_eq!(r.g1(), 0x2);
         let count = r.g1();
         assert_eq!(r.client_hits(count), vec![(9, 40, -1, -1, 0, 255)]);
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn player_blocks_read_back_through_the_742_client() {
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::MoveType as u16
+            | PlayerInfoProt::Damage as u16
+            | PlayerInfoProt::Damage2 as u16
+            | PlayerInfoProt::Anim as u16
+            | PlayerInfoProt::TempMoveType as u16
+            | PlayerInfoProt::Say as u16
+            | PlayerInfoProt::FaceEntity as u16
+            | PlayerInfoProt::FaceCoord as u16
+            | PlayerInfoProt::SpotAnim as u16
+            | PlayerInfoProt::ExactMove as u16;
+        info.move_type = Some(2);
+        info.temp_move_type = Some(3);
+        two_hits(&mut info);
+        info.anim_id = Some(TypeId::new(879));
+        info.anim_delay = Some(4);
+        info.say = Some("Hi".into());
+        info.face_entity = Some(42);
+        info.face_x = Some(CoordGrid::fine(3224, 1));
+        info.face_z = Some(CoordGrid::fine(3219, 1));
+        info.spotanim = Some(TypeId::new(90));
+        info.spotanim_height = Some(100);
+        info.spotanim_delay = Some(30);
+        info.exactmove_start_x = Some(3223);
+        info.exactmove_start_z = Some(3218);
+        info.exactmove_end_x = Some(3222);
+        info.exactmove_end_z = Some(3217);
+        info.exactmove_begin = Some(5);
+        info.exactmove_finish = Some(30);
+        info.exactmove_dir = Some(2);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let mut player_info = PlayerInfo::new();
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 7 });
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        let mut mask = r.g1();
+        if mask & 0x8 != 0 {
+            mask += r.g1() << 8;
+        }
+        if mask & 0x2000 != 0 {
+            mask += r.g1() << 16;
+        }
+        assert_eq!(
+            mask & !0x8,
+            0x80 | 0x4 | 0x40 | 0x8000 | 0x400 | 0x2 | 0x10 | 0x1 | 0x200,
+            "mask bits"
+        );
+        assert_eq!(r.g1_alt1(), 2, "0x80 move type");
+        let count = r.g1_alt1();
+        assert_eq!(
+            r.hits_742(count, Reader::g1_alt3),
+            vec![(1, 25, -1, -1, 0), (2, 150, -1, -1, 0)],
+            "0x4 both hits in one block"
+        );
+        let bars = r.g1_alt1();
+        assert_eq!(
+            r.health_bars(bars, Reader::g1),
+            vec![(0, 0, 0, 60 * 255 / 100)],
+            "0x4 the health bar at the last hit's health"
+        );
+        for channel in 0..4 {
+            assert_eq!(r.gsmart2or4null(), 879, "0x40 anim channel {channel}");
+        }
+        assert_eq!(r.g1(), 4, "0x40 anim delay");
+        assert_eq!(r.g1_alt3(), 3, "0x8000 temp move type");
+        assert_eq!(r.gjstr(), "Hi", "0x400 say");
+        assert_eq!(r.g2_alt1(), 11079, "0x2 face coord: atan2(-4, -2)");
+        assert_eq!(r.g2(), 42, "0x10 face entity");
+        assert_eq!(r.g2_alt3(), 90, "0x1 spotanim id");
+        assert_eq!(r.g4s(), 100 << 16 | 30, "0x1 spotanim height and delay");
+        assert_eq!(r.g1_alt2() >> 3 & 0xF, 15, "0x1 no attachment");
+        // g1s_alt3, g1s, g1s_alt2, g1s: the client's signed reads.
+        let start_x = (128 - r.byte()) as i8;
+        let start_z = r.byte() as i8;
+        let end_x = (-r.byte()) as i8;
+        let end_z = r.byte() as i8;
+        assert_eq!(
+            (start_x, start_z, end_x, end_z),
+            (1, 0, 0, -1),
+            "0x200 offsets"
+        );
+        assert_eq!(
+            (r.g2_alt2(), r.g2_alt1(), r.g2()),
+            (5, 30, 0),
+            "0x200 begin, finish, direction (south)"
+        );
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn appearance_reads_back_through_the_742_client() {
+        let mut active = observer();
+        let mut renderer = PlayerRenderer::new();
+        active.player.display_name = Some("Appearance".into());
+        active.player.colours = [1, 2, 3, 4, 5];
+        active.player.info.readyanim = Some(TypeId::new(1426));
+        active.player.info.masks = PlayerInfoProt::Appearance as u16;
+        active.player.headicons = 1 | 16;
+        let body = |active: &mut ActivePlayer, renderer: &mut PlayerRenderer| {
+            active.generateappearance(17);
+            renderer.remove_temporary();
+            renderer.compute_info(1, &active.player.info, active.player.pathing.coord);
+            let bytes = renderer.high_block(1);
+            assert_eq!((bytes[0], bytes[1] as usize), (0x20, bytes.len() - 2));
+            // The client copies the body in backwards.
+            bytes[2..].iter().rev().copied().collect::<Vec<u8>>()
+        };
+
+        let worn = body(&mut active, &mut renderer);
+        let mut r = Reader { b: &worn, pos: 0 };
+        assert_eq!(r.g1(), 0, "flags");
+        assert_eq!(
+            (r.byte(), r.byte(), r.byte()),
+            (0, 1, 0),
+            "skull, prayer, shown"
+        );
+        for kit in [0, 0, 0, 0, 274, 0, 282, 292, 256, 289, 298, 266, 0] {
+            let hi = r.g1();
+            let value = if hi == 0 { 0 } else { (hi << 8) | r.g1() };
+            assert_eq!(value, kit);
+        }
+        assert_eq!(r.g2(), 0, "no recolours");
+        for colour in [1, 2, 3, 4, 5, 0, 0, 0, 0, 0] {
+            assert_eq!(r.g1(), colour);
+        }
+        assert_eq!(r.g2(), 1426);
+        assert_eq!(r.gjstr(), "Appearance");
+        assert_eq!(r.g1(), active.player.combat_level as i32);
+        assert_eq!((r.g1(), r.g1(), r.g1()), (0, 255, 0));
+        assert_eq!(r.pos, worn.len());
+
+        active.player.gender = 1;
+        active.player.headicons = 0;
+        active.player.transmog = Some(4231);
+        active.player.skill_level = 1500;
+        let transmog = body(&mut active, &mut renderer);
+        let mut r = Reader {
+            b: &transmog,
+            pos: 0,
+        };
+        assert_eq!(r.g1(), 0x1 | 0x4);
+        assert_eq!((r.byte(), r.byte(), r.byte()), (-1, -1, 0));
+        assert_eq!((r.g2(), r.gsmart2or4null(), r.g1()), (65535, 4231, 0));
+        for colour in [1, 2, 3, 4, 5, 0, 0, 0, 0, 0] {
+            assert_eq!(r.g1(), colour);
+        }
+        assert_eq!(r.g2(), 1426);
+        assert_eq!(r.gjstr(), "Appearance");
+        assert_eq!(r.g1(), active.player.combat_level as i32);
+        assert_eq!((r.g2(), r.g1()), (1500, 0));
+        assert_eq!(r.pos, transmog.len());
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn a_new_observer_receives_the_players_persistent_facing_742() {
+        let mut renderer = PlayerRenderer::new();
+        let mut active = observer();
+        let mut other = observer();
+        other.player.uid = PlayerUid::new("other".into(), 7);
+        other.player.info.last_appearance = Some(1);
+        other.player.info.last_appearance_info = Some(vec![1, 2, 3].into_boxed_slice());
+        other.player.info.masks = PlayerInfoProt::Appearance as u16;
+        renderer.compute_info(7, &other.player.info, other.player.pathing.coord);
+        renderer.remove_temporary();
+        other.player.info.masks = 0;
+        other.player.info.face_entity = Some(42);
+        other.player.info.orientation_x = Some(CoordGrid::fine(3223, 1));
+        other.player.info.orientation_z = Some(CoordGrid::fine(3218, 1));
+
+        let mut info = PlayerInfo::new();
+        renderer.cache_low(7, &other.player.info, other.player.pathing.coord);
+        renderer.ready_low(7);
+        let appearance = PlayerInfo::low_appearance(&renderer, &mut active, 7);
+        renderer.write_low_block_for(&mut info.updates, 7, Observer::default(), appearance);
+        let mut r = Reader {
+            b: &info.updates.data[..info.updates.pos],
+            pos: 0,
+        };
+        assert_eq!(r.g1(), 0x80 | 0x2 | 0x10 | 0x20);
+        assert_eq!(r.g1_alt1(), 1);
+        assert_eq!(r.g2_alt1(), 0x3000);
+        assert_eq!(r.g2(), 42);
+        assert_eq!(&r.b[r.pos..], &[3, 3, 2, 1]);
+        assert!(renderer.high_block(7).is_empty());
+    }
+
+    /// 647's hit rules on the 742 layout: the receiver and dealer see a hit
+    /// bright, a bystander darker and no splat for a hit of nothing (a byte
+    /// longer than its bright view), and one health bar follows the hits.
+    #[test]
+    #[cfg(since_742)]
+    fn hits_read_back_through_the_742_client() {
+        type Seen = (
+            Vec<(i32, i32, i32, i32, i32)>,
+            Vec<(i32, i32, i32, i32)>,
+            Vec<u8>,
+        );
+        fn seen(renderer: &PlayerRenderer, observer: u16) -> Seen {
+            let mut player_info = PlayerInfo::new();
+            renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: observer });
+            let bytes = player_info.updates.data[..player_info.updates.pos].to_vec();
+            let mut r = Reader { b: &bytes, pos: 0 };
+            assert_eq!(r.g1(), 0x4, "the hits mask alone");
+            let count = r.g1_alt1();
+            let hits = r.hits_742(count, Reader::g1_alt3);
+            let count = r.g1_alt1();
+            let bars = r.health_bars(count, Reader::g1);
+            assert_eq!(r.pos, bytes.len(), "{observer} reads every byte written");
+            (hits, bars, bytes)
+        }
+
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::Damage as u16 | PlayerInfoProt::Damage2 as u16;
+        info.damage_type = Some(1);
+        info.damage_taken = Some(300);
+        info.damage_current = Some(200);
+        info.damage_base = Some(u8::MAX);
+        info.damage_soak = Some(50);
+        info.damage_source = Some(9);
+        info.damage2_type = Some(8);
+        info.damage2_taken = Some(0);
+        info.damage2_current = Some(180);
+        info.damage2_base = Some(u8::MAX);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let bar = vec![(0, 0, 0, 180)];
+        let (taker, bars, _) = seen(&renderer, 7);
+        assert_eq!(
+            (taker, bars),
+            (vec![(1, 300, 5, 50, 0), (8, 0, -1, -1, 0)], bar.clone()),
+            "the receiver sees both bright"
+        );
+        let (dealer, _, _) = seen(&renderer, 9);
+        assert_eq!(
+            dealer,
+            vec![(1, 300, 5, 50, 0), (-1, -1, -1, -1, 0)],
+            "the dealer sees his hit bright, the npc's miss not at all"
+        );
+        let (bystander, bars, bytes) = seen(&renderer, 11);
+        assert_eq!(
+            (bystander, bars),
+            (vec![(15, 300, 19, 50, 0), (-1, -1, -1, -1, 0)], bar),
+            "a bystander sees the hit and its soak darker, the miss not at all"
+        );
+        assert_eq!(
+            bytes,
+            renderer.high_block(7),
+            "a bystander gets the shared block"
+        );
+
+        renderer.remove_temporary();
+        info.damage_taken = Some(32000);
+        info.damage_soak = Some(30000);
+        info.damage2_type = Some(10);
+        info.damage2_taken = Some(32000);
+        info.damage2_soak = Some(30000);
+        info.damage2_current = Some(0);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let (largest, bars, _) = seen(&renderer, 7);
+        assert_eq!(
+            (largest, bars),
+            (
+                vec![(1, 32000, 5, 30000, 0), (10, 32000, 5, 30000, 0)],
+                vec![(0, 0, 0, 0)]
+            ),
+            "two soaked hits, the largest block, read back whole"
+        );
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn npc_blocks_read_back_through_the_742_client() {
+        let mut renderer = NpcRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = NpcInfoProt::SpotAnim as u16
+            | NpcInfoProt::Say as u16
+            | NpcInfoProt::Anim as u16
+            | NpcInfoProt::Damage as u16
+            | NpcInfoProt::Damage2 as u16
+            | NpcInfoProt::FaceCoord as u16
+            | NpcInfoProt::FaceEntity as u16
+            | NpcInfoProt::ChangeType as u16;
+        info.spotanim = Some(TypeId::new(74));
+        info.spotanim_height = Some(92);
+        info.spotanim_delay = Some(5);
+        info.say = Some("Moo".into());
+        info.anim_id = Some(TypeId::new(5577));
+        info.anim_delay = Some(3);
+        two_hits(&mut info);
+        info.damage_source = Some(5);
+        info.face_x = Some(3222 * 2 + 1);
+        info.face_z = Some(3218 * 2 + 1);
+        info.face_entity = Some(0x8000 + 12);
+        info.changetype = Some(TypeId::new(4231));
+        renderer.compute_info(9, &info);
+        let mut npc_info = NpcInfo::new();
+        renderer.write_high_block_for(&mut npc_info.updates, 9, 5);
+        let bytes = &npc_info.updates.data[..npc_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        let mut mask = r.g1();
+        if mask & 0x4 != 0 {
+            mask += r.g1() << 8;
+        }
+        if mask & 0x400 != 0 {
+            mask += r.g1() << 16;
+        }
+        assert_eq!(
+            mask & !0x4,
+            0x40 | 0x10 | 0x1 | 0x8 | 0x2 | 0x80 | 0x20,
+            "mask bits"
+        );
+        assert_eq!(r.g2_alt3(), 74, "0x40 spotanim id");
+        assert_eq!(r.g4s_alt3(), 92 << 16 | 5, "0x40 spotanim height and delay");
+        assert_eq!(r.g1_alt1() >> 3 & 0xF, 15, "0x40 no attachment");
+        assert_eq!(r.gjstr(), "Moo", "0x10 say");
+        for channel in 0..4 {
+            assert_eq!(r.gsmart2or4null(), 5577, "0x1 anim channel {channel}");
+        }
+        assert_eq!(r.g1(), 3, "0x1 anim delay");
+        let count = r.g1_alt3();
+        assert_eq!(
+            r.hits_742(count, Reader::g1),
+            vec![(1, 25, -1, -1, 0), (2 + 14, 150, -1, -1, 0)],
+            "0x8 both hits in one block: player 5's bright, the other darker"
+        );
+        let bars = r.g1_alt2();
+        assert_eq!(
+            r.health_bars(bars, Reader::g1_alt1),
+            vec![(0, 0, 0, 60 * 255 / 100)],
+            "0x8 the health bar at the last hit's health"
+        );
+        assert_eq!(
+            (r.g2_alt1(), r.g2_alt2()),
+            (3222 * 2 + 1, 3218 * 2 + 1),
+            "0x2 face coord, fine"
+        );
+        assert_eq!(r.gsmart2or4null(), 4231, "0x80 change type");
+        assert_eq!(r.g2(), 0x8000 + 12, "0x20 face entity");
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn an_npc_add_reads_back_in_the_742_order() {
+        let mut active = observer();
+        let mut renderer = NpcRenderer::new();
+        let mut info = NpcInfo::new();
+        let here = active.player.pathing.coord;
+        let coord = CoordGrid::new(here.x() - 3, 0, here.z() + 5);
+        let mut npc = Npc::new(TypeId::new(4231), 77, coord, 1, VarSet::new([].into_iter()));
+        npc.pathing.tele = false;
+        npc.pathing.jump = true;
+        renderer.cache_low(77, &EntityMasks::new(), coord, 1);
+        info.add(&mut renderer, &mut active, 77, NpcSnapshot::new(&npc, 0));
+        info.bw.finish(&mut info.buf);
+
+        let b = &info.buf.data[..info.buf.pos];
+        let mut pos = 0;
+        assert_eq!(bits(b, &mut pos, 15), 77, "nid");
+        assert_eq!(bits(b, &mut pos, 1), 1, "jump");
+        assert_eq!(bits(b, &mut pos, 2), 0, "level");
+        assert_eq!(bits(b, &mut pos, 1), 1, "a block follows");
+        assert_eq!(bits(b, &mut pos, 3), 4, "facing: the client's default");
+        assert_eq!(bits(b, &mut pos, 5), 32 - 3, "dx");
+        assert_eq!(bits(b, &mut pos, 5), 5, "dz");
+        assert_eq!(bits(b, &mut pos, 15), 4231, "type");
+        assert_eq!(pos, NpcInfo::BITS_ADD);
+        assert!(active.player.build_area.npcs.contains(77));
     }
 }

@@ -1,0 +1,27 @@
+[ai_opplayer2,fai_barbarian_1] @barbarian_default_attack;
+// 2011 has no barbarian woman: Barbarian Village's barbarians are re-issued as
+// 17 npcs, 3246-3263, men and women alike, each "Barbarian" (cache 786; their
+// own names are void-634's, barbarian_outpost.npcs.toml and
+// barbarian_village.npcs.toml). 289's two barbarians are its whole barbarian
+// category, so the category keeps 289's set and takes in 2011's.
+[ai_opplayer2,_barbarian] @barbarian_default_attack;
+
+// 3259 (level 15 in cache 786) is void-634's Aitan, a barbarian archer
+// (barbarian_aitan, barbarian_bow): he shoots from range, as Falador's
+// crossbow guard does.
+[ai_queue1,fai_barbarian_14] ~npc_default_retaliate_ap;
+[ai_opplayer2,fai_barbarian_14] npc_setmode(applayer2);
+[ai_applayer2,fai_barbarian_14] ~npc_rangeattack;
+
+[label,barbarian_default_attack]
+if (%npc_action_delay > map_clock) return;
+// https://youtu.be/RdilejVd-cQ
+// total hits: 36
+// hits with yeargh: 8
+// hits without: 28
+if (random(4) = 0) {
+    // 289 cries "YYEEEEEAAARRRRGGHHHH!!!"; 2011's barbarians "may sometimes cry
+    // 'FOR GUNNAR!!!!!!!!!'" in battle (2011 wiki, Barbarian, 2011-05-18).
+    npc_say("FOR GUNNAR!!!!!!!!!");
+}
+~npc_default_attack;

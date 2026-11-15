@@ -1,0 +1,590 @@
+// 34:0
+[bg]
+type=rectangle
+y=30
+width=190
+height=201
+colour=0x170801
+fill=yes
+trans=166
+transmitop=10
+op10= 
+
+// 34:1
+[title]
+type=text
+y=7
+width=74
+height=14
+xmode=abs_centre
+textfont=p12_full
+text=Notes
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+transmitop=10
+op10= 
+
+// 34:2
+[del_text]
+type=text
+x=10
+width=165
+height=27
+ymode=abs_bottom
+textfont=p12_full
+text=Delete
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 34:3
+[add_button]
+type=graphic
+x=9
+y=4
+width=18
+height=18
+hide=yes
+graphic="notes_add_delete_icons,0"
+colour=0xffffffff
+transmitop=1
+op1=Add note
+onmouseover=graphic_swapper(event_com, "notes_add_delete_icons,1")
+onmouseleave=deltooltip_graphic_swapper(notes:add_tooltip, event_com, "notes_add_delete_icons,0")
+onmouserepeat=addtooltip(event_com, notes:add_tooltip, "Add note", 25, 5000)
+onrelease=notes_graphic_swapper(event_com, "notes_add_delete_icons,1")
+onhold=graphic_swapper(event_com, "notes_add_delete_icons,2")
+
+// 34:4
+[title_border]
+type=graphic
+y=14
+width=190
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 34:5
+[del_border]
+type=graphic
+y=218
+width=16384
+height=32
+widthmode=proportion
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 34:6
+[drag]
+type=layer
+x=10
+width=30
+height=231
+widthmode=minus
+ymode=abs_bottom
+
+// 34:7
+[del_button_noclick]
+type=layer
+x=166
+y=239
+width=18
+height=18
+noclickthrough=yes
+
+// 34:8
+[del_button_graphic]
+type=graphic
+x=166
+y=239
+width=18
+height=18
+graphic="notes_add_delete_icons,3"
+colour=0xffffffff
+transmitop=1,2
+op1=Delete
+op2=Delete all
+onmouseover=graphic_swapper(event_com, "notes_add_delete_icons,4")
+onmouseleave=deltooltip_graphic_swapper(notes:del_tooltip, event_com, "notes_add_delete_icons,3")
+onmouserepeat=addtooltip(event_com, notes:del_tooltip, "Delete note", 25, 5000)
+onrelease=notes_graphic_swapper(event_com, "notes_add_delete_icons,4")
+onhold=graphic_swapper(event_com, "notes_add_delete_icons,5")
+
+// 34:9
+[main]
+type=layer
+width=16391
+height=201
+widthmode=proportion
+layer=drag
+onload=notes_init
+
+// 34:10
+[dragger]
+type=rectangle
+y=5
+height=14
+widthmode=minus
+layer=drag
+hide=yes
+colour=0xffff00
+fill=yes
+trans=200
+
+// 34:11
+[del_button]
+type=layer
+width=16391
+height=30
+widthmode=proportion
+ymode=abs_bottom
+layer=drag
+transmitop=1,2
+candrop=yes
+op1=Delete
+op2=Delete all
+onmouseover=graphic_swapper(notes:del_button_graphic, "notes_add_delete_icons,4")
+onmouseleave=graphic_swapper(notes:del_button_graphic, "notes_add_delete_icons,3")
+onrelease=graphic_swapper(notes:del_button_graphic, "notes_add_delete_icons,4")
+onhold=graphic_swapper(notes:del_button_graphic, "notes_add_delete_icons,5")
+
+// 34:12
+[bottom]
+type=layer
+x=5
+y=156
+width=151
+height=32
+layer=drag
+hide=yes
+candrop=yes
+
+// 34:13
+[loading_mes]
+type=text
+y=5
+width=10
+height=100
+widthmode=minus
+xmode=abs_centre
+layer=main
+hide=yes
+textfont=p12_full
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 34:14
+[selected]
+type=rectangle
+y=5
+height=14
+widthmode=minus
+layer=main
+hide=yes
+colour=0xffff00
+fill=yes
+trans=200
+transmitop=10
+op10= 
+
+// 34:15
+[scrollbar]
+type=layer
+y=30
+width=16
+height=201
+xmode=abs_right
+
+// 34:16
+[colours]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+hide=yes
+noclickthrough=yes
+
+// 34:17
+[com_17]
+type=graphic
+x=82
+y=82
+width=16
+height=16
+layer=colours
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+
+// 34:18
+[add_tooltip_bounding_box]
+type=layer
+width=16391
+height=75
+widthmode=proportion
+
+// 34:19
+[add_tooltip]
+type=layer
+x=18
+y=10
+width=56
+height=25
+layer=add_tooltip_bounding_box
+transmitop=10
+op10= 
+
+// 34:20
+[del_tooltip_bounding_box]
+type=layer
+width=16391
+height=75
+widthmode=proportion
+ymode=abs_bottom
+
+// 34:21
+[del_tooltip]
+type=layer
+x=84
+y=26
+width=87
+height=27
+layer=del_tooltip_bounding_box
+
+// 34:22
+[grey_bg]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=colours
+colour=0xcccccc
+fill=yes
+trans=220
+onclick=notes_colour_abort
+
+// 34:23
+[menu_dialog]
+type=layer
+y=-27
+width=127
+height=92
+xmode=abs_centre
+ymode=abs_centre
+layer=colours
+noclickthrough=yes
+
+// 34:24
+[com_24]
+type=rectangle
+x=3
+y=3
+width=3
+height=3
+widthmode=minus
+heightmode=minus
+layer=menu_dialog
+colour=0x000000
+fill=yes
+trans=19
+
+// 34:25
+[com_25]
+type=graphic
+x=32
+y=-13
+width=64
+height=32
+widthmode=minus
+layer=menu_dialog
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 34:26
+[com_26]
+type=graphic
+x=-14
+y=32
+width=40
+height=64
+heightmode=minus
+layer=menu_dialog
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 34:27
+[com_27]
+type=graphic
+x=-23
+y=32
+width=40
+height=64
+heightmode=minus
+xmode=abs_right
+layer=menu_dialog
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 34:28
+[com_28]
+type=graphic
+x=32
+y=-16
+width=64
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=menu_dialog
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 34:29
+[com_29]
+type=graphic
+width=32
+height=32
+layer=menu_dialog
+graphic="v2_stone_borders,28"
+tiling=yes
+colour=0xffffffff
+
+// 34:30
+[com_30]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=menu_dialog
+graphic="v2_stone_borders,30"
+colour=0xffffffff
+
+// 34:31
+[com_31]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=menu_dialog
+graphic="v2_stone_borders,31"
+colour=0xffffffff
+
+// 34:32
+[com_32]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=menu_dialog
+graphic="v2_stone_borders,29"
+colour=0xffffffff
+
+// 34:33
+[com_33]
+type=text
+y=67
+width=107
+height=22
+ymode=abs_bottom
+layer=menu_dialog
+textfont=p12_full
+text=Select colour:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 34:34
+[com_34]
+type=rectangle
+x=-16
+y=46
+width=16
+height=13
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+colour=0xffffff
+fill=yes
+
+// 34:35
+[white]
+type=graphic
+x=-16
+y=40
+width=28
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+graphic="player_id_button,0"
+colour=0xffffffff
+transmitop=1
+op1=White
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
+onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "White", 25, 5000)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
+
+// 34:36
+[com_36]
+type=rectangle
+x=16
+y=46
+width=16
+height=13
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+colour=0x00ff00
+fill=yes
+
+// 34:37
+[green]
+type=graphic
+x=16
+y=40
+width=28
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+graphic="player_id_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Green
+op10= 
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
+onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "Green", 25, 5000)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
+
+// 34:38
+[com_38]
+type=rectangle
+x=-16
+y=17
+width=16
+height=13
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+colour=0xd69c00
+fill=yes
+
+// 34:39
+[amber]
+type=graphic
+x=-16
+y=11
+width=28
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+graphic="player_id_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Amber
+op10= 
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
+onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "Amber", 25, 5000)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
+
+// 34:40
+[com_40]
+type=rectangle
+x=16
+y=17
+width=16
+height=13
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+colour=0xff3f3f
+fill=yes
+
+// 34:41
+[red]
+type=graphic
+x=16
+y=11
+width=28
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+graphic="player_id_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Red
+op10= 
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
+onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "Red", 25, 5000)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
+
+// 34:42
+[colours_tooltip]
+type=layer
+x=11
+y=31
+width=56
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu_dialog
+
+// 34:43
+[close]
+type=graphic
+x=5
+y=5
+width=16
+height=16
+xmode=abs_right
+layer=menu_dialog
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onload=graphic_swapper(event_com, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=notes_colour_abort
+
+// 34:44
+[noclick]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+hide=yes
+noclickthrough=yes

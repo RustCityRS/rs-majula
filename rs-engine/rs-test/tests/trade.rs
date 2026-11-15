@@ -21,6 +21,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_util::base37::to_screen_name;
+use rs_ver::TypeId;
 
 const MAIN: u16 = 335;
 const SIDE: u16 = 336;
@@ -44,13 +45,13 @@ type Packets = Vec<(u16, Vec<u8>)>;
 /// An UPDATE_INV_FULL: `(inv, other, [(obj, count)] of its filled slots)`.
 type Inv = (u16, bool, Vec<(u16, i32)>);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// Runs `n` ticks, gathering what each client was sent.
@@ -157,23 +158,28 @@ fn messages(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, Option<String>, String)> {
 }
 
 fn count(engine: &Engine, pid: u16, inv: u16, obj: u16) -> i32 {
-    let inv = engine.harness_player(pid).unwrap().invs.get(&inv).unwrap();
+    let inv = engine
+        .harness_player(pid)
+        .unwrap()
+        .invs
+        .get(&TypeId::new(inv))
+        .unwrap();
     (0..inv.capacity as u16)
         .filter_map(|s| inv.get(s))
-        .filter(|i| i.obj == obj)
+        .filter(|i| i.obj == TypeId::new(obj))
         .map(|i| i.num as i32)
         .sum()
 }
 
 fn give(engine: &mut Engine, pid: u16, slot: u16, obj: u16, number: u32) {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(pid)
         .unwrap()
         .invs
         .get_mut(&inv)
         .unwrap()
-        .set(slot, obj, number);
+        .set(slot, TypeId::new(obj), number);
 }
 
 fn varp(engine: &Engine, pid: u16, varp: u16) -> i32 {
@@ -308,17 +314,21 @@ fn an_offer_reaches_the_other_as_their_other_inv() {
     runner::on_loaded_engine(|engine| {
         let coins = obj(engine, "coins");
         let (mut a, mut b) = traders(engine);
-        give(engine, a.pid, 0, coins, 1000);
+        give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
         // Offer-5, then Offer-All.
-        button(&mut a, 2, BACKPACK, coins, 0);
+        button(&mut a, 2, BACKPACK, coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        assert_eq!(count(engine, a.pid, TRADEOFFER, coins), 5, "Offer-5");
-        button(&mut a, 4, BACKPACK, coins, 0);
+        assert_eq!(count(engine, a.pid, TRADEOFFER, coins.g2()), 5, "Offer-5");
+        button(&mut a, 4, BACKPACK, coins.g2(), 0);
         let (pa, pb) = ticks(engine, &mut a, &mut b, 1);
-        assert_eq!(count(engine, a.pid, TRADEOFFER, coins), 1000, "Offer-All");
+        assert_eq!(
+            count(engine, a.pid, TRADEOFFER, coins.g2()),
+            1000,
+            "Offer-All"
+        );
         assert!(
-            invs(&pb).contains(&(TRADEOFFER, true, vec![(coins, 1000)])),
+            invs(&pb).contains(&(TRADEOFFER, true, vec![(coins.g2(), 1000)])),
             "the other sees it as the other's offer; sent {:?}",
             invs(&pb)
         );
@@ -343,11 +353,11 @@ fn both_accepting_twice_swaps_the_offers() {
         let coins = obj(engine, "coins");
         let axe = obj(engine, "bronze_axe");
         let (mut a, mut b) = traders(engine);
-        give(engine, a.pid, 0, coins, 1000);
-        give(engine, b.pid, 0, axe, 1);
+        give(engine, a.pid, 0, coins.g2(), 1000);
+        give(engine, b.pid, 0, axe.g2(), 1);
         open_trade(engine, &mut a, &mut b);
-        button(&mut a, 4, BACKPACK, coins, 0);
-        button(&mut b, 1, BACKPACK, axe, 0);
+        button(&mut a, 4, BACKPACK, coins.g2(), 0);
+        button(&mut b, 1, BACKPACK, axe.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
         button(&mut a, 1, ACCEPT, 0xFFFF, 0xFFFF);
         ticks(engine, &mut a, &mut b, 1);
@@ -366,21 +376,21 @@ fn both_accepting_twice_swaps_the_offers() {
         }
         let sent = invs(&pa);
         assert!(
-            sent.contains(&(TRADEOFFER, false, vec![(coins, 1000)]))
-                && sent.contains(&(TRADEOFFER, true, vec![(axe, 1)])),
+            sent.contains(&(TRADEOFFER, false, vec![(coins.g2(), 1000)]))
+                && sent.contains(&(TRADEOFFER, true, vec![(axe.g2(), 1)])),
             "both offers again, which 2011's confirm screen lists itself; sent {sent:?}"
         );
         button(&mut a, 1, CONFIRM_ACCEPT, 0xFFFF, 0xFFFF);
         button(&mut b, 1, CONFIRM_ACCEPT, 0xFFFF, 0xFFFF);
         let (pa, pb) = ticks(engine, &mut a, &mut b, 1);
         assert_eq!(
-            count(engine, b.pid, 93, coins),
+            count(engine, b.pid, 93, coins.g2()),
             1000,
             "the coins went across"
         );
-        assert_eq!(count(engine, a.pid, 93, axe), 1, "and the axe back");
-        assert_eq!(count(engine, a.pid, 93, coins), 0);
-        assert_eq!(count(engine, b.pid, 93, axe), 0);
+        assert_eq!(count(engine, a.pid, 93, axe.g2()), 1, "and the axe back");
+        assert_eq!(count(engine, a.pid, 93, coins.g2()), 0);
+        assert_eq!(count(engine, b.pid, 93, axe.g2()), 0);
         assert!(messages(&pa).iter().any(|m| m.2 == "Accepted trade."));
         assert!(messages(&pb).iter().any(|m| m.2 == "Accepted trade."));
         assert!(
@@ -397,18 +407,18 @@ fn declining_gives_the_offer_back() {
     runner::on_loaded_engine(|engine| {
         let coins = obj(engine, "coins");
         let (mut a, mut b) = traders(engine);
-        give(engine, a.pid, 0, coins, 1000);
+        give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
-        button(&mut a, 4, BACKPACK, coins, 0);
+        button(&mut a, 4, BACKPACK, coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
         button(&mut a, 1, DECLINE, 0xFFFF, 0xFFFF);
         let (_, pb) = ticks(engine, &mut a, &mut b, 1);
         assert_eq!(
-            count(engine, a.pid, 93, coins),
+            count(engine, a.pid, 93, coins.g2()),
             1000,
             "back in the backpack"
         );
-        assert_eq!(count(engine, a.pid, TRADEOFFER, coins), 0);
+        assert_eq!(count(engine, a.pid, TRADEOFFER, coins.g2()), 0);
         for pid in [a.pid, b.pid] {
             assert!(!engine.harness_player(pid).unwrap().is_interface_open(MAIN));
         }
@@ -427,14 +437,18 @@ fn a_removal_marks_the_trade_modified() {
     runner::on_loaded_engine(|engine| {
         let coins = obj(engine, "coins");
         let (mut a, mut b) = traders(engine);
-        give(engine, a.pid, 0, coins, 1000);
+        give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
         assert_eq!(varp(engine, a.pid, OFFER_MODIFIED), 0);
-        button(&mut a, 4, BACKPACK, coins, 0);
+        button(&mut a, 4, BACKPACK, coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 3, OFFER, coins, 0);
+        button(&mut a, 3, OFFER, coins.g2(), 0);
         let (_, pb) = ticks(engine, &mut a, &mut b, 1);
-        assert_eq!(count(engine, a.pid, TRADEOFFER, coins), 990, "Remove-10");
+        assert_eq!(
+            count(engine, a.pid, TRADEOFFER, coins.g2()),
+            990,
+            "Remove-10"
+        );
         assert_eq!(varp(engine, a.pid, OFFER_MODIFIED), 1, "own offer modified");
         assert_eq!(
             varp(engine, b.pid, OTHER_OFFER_MODIFIED),
@@ -446,7 +460,7 @@ fn a_removal_marks_the_trade_modified() {
             "the slot flashes on the other's screen"
         );
         // Examine on the other's offer (op9).
-        button(&mut b, 9, OTHER_OFFER, coins, 0);
+        button(&mut b, 9, OTHER_OFFER, coins.g2(), 0);
         let (_, pb) = ticks(engine, &mut a, &mut b, 1);
         let desc = engine.cache.objs.get_by_id(coins).unwrap().desc.clone();
         assert!(
@@ -476,11 +490,11 @@ fn the_confirm_screen_says_the_trade_was_modified() {
     runner::on_loaded_engine(|engine| {
         let coins = obj(engine, "coins");
         let (mut a, mut b) = traders(engine);
-        give(engine, a.pid, 0, coins, 1000);
+        give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
-        button(&mut a, 4, BACKPACK, coins, 0);
+        button(&mut a, 4, BACKPACK, coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 1, OFFER, coins, 0);
+        button(&mut a, 1, OFFER, coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
         button(&mut a, 1, ACCEPT, 0xFFFF, 0xFFFF);
         button(&mut b, 1, ACCEPT, 0xFFFF, 0xFFFF);

@@ -1,0 +1,24 @@
+// 1078
+[proc,quickchat_phrase_setint](int $int0)
+switch_int ($int0) {
+    case 0 :
+        activechatphrase_setdynamicint(0, %quickchat_phrase_int0);
+    case 1 :
+        activechatphrase_setdynamicint(1, %quickchat_phrase_int1);
+    case 2 :
+        activechatphrase_setdynamicint(2, %quickchat_phrase_int2);
+    case 3 :
+        activechatphrase_setdynamicint(3, %quickchat_phrase_int3);
+    case 4 :
+        activechatphrase_setdynamicint(4, %quickchat_phrase_int4);
+    case 5 :
+        activechatphrase_setdynamicint(5, %quickchat_phrase_int5);
+    case 6 :
+        activechatphrase_setdynamicint(6, %quickchat_phrase_int6);
+    case 7 :
+        activechatphrase_setdynamicint(7, %quickchat_phrase_int7);
+    case 8 :
+        activechatphrase_setdynamicint(8, %quickchat_phrase_int8);
+    case 9 :
+        activechatphrase_setdynamicint(9, %quickchat_phrase_int9);
+}

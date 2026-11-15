@@ -1,0 +1,185 @@
+// 5746
+[proc,clientscript_5746]
+def_enum $enum0 = ~clientscript_5763(%varplayer_2504);
+def_stat $stat1 = %varplayer_2504;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = calc(enum_getoutputcount($enum0) - 1);
+def_struct $struct5 = null;
+def_struct $struct6 = null;
+def_int $int7 = 1;
+def_boolean $boolean8 = true;
+def_int $int9 = 0;
+cc_deleteall(interface_1239:com_8);
+while ($int4 >= 0) {
+    $int9 = 0;
+    $int7 = 1;
+    $struct5 = enum(int, struct, $enum0, $int4);
+    $struct6 = enum(struct, struct, enum_5483, $struct5);
+    if ($struct6 ! null) {
+        $struct5 = $struct6;
+    }
+    if (~clientscript_5729($struct5, $stat1) = false) {
+        $int7 = 0;
+    } else if ($stat1 = attack) {
+        if (~comlevel < struct_param($struct5, param_2233)) {
+            $int7 = 0;
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1294)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1294))) < struct_param($struct5, param_1295)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1296)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1296))) < struct_param($struct5, param_1297)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1298)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1298))) < struct_param($struct5, param_1299)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1300)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1300))) < struct_param($struct5, param_1301)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1302)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1302))) < struct_param($struct5, param_1303)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1304)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1304))) < struct_param($struct5, param_1305)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1306)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1306))) < struct_param($struct5, param_1307)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1308)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1308))) < struct_param($struct5, param_1309)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1310)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1310))) < struct_param($struct5, param_1311)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_1312)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_1312))) < struct_param($struct5, param_1313)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_2227)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_2227))) < struct_param($struct5, param_2228)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+        if ($int7 = 1) {
+            switch_int (struct_param($struct5, param_2229)) {
+                case 1, 2, 5, 3, 4, 6 :
+                    if (stat_base(enum(int, stat, enum_681, struct_param($struct5, param_2229))) < struct_param($struct5, param_2230)) {
+                        $int7 = 0;
+                    }
+            }
+        }
+    } else {
+        if (struct_param($struct5, param_1294) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1295)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1296) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1297)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1298) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1299)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1300) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1301)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1302) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1303)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1304) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1305)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1306) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1307)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1308) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1309)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1310) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1311)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_1312) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_1313)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_2227) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_2228)) {
+            $int7 = 0;
+        }
+        if (struct_param($struct5, param_2229) = enum(stat, int, enum_1482, $stat1) & stat_base($stat1) < struct_param($struct5, param_2230)) {
+            $int7 = 0;
+        }
+    }
+    if ($int7 = 1) {
+        $boolean8 = ~task_requirements_fulfilled(struct_param($struct5, param_1268));
+        if (~task_get_progress(struct_param($struct5, param_1268)) = 2 & ~clientscript_5732($struct5) = 0) {
+            $int9 = 1;
+        } else {
+            $int9 = 0;
+        }
+        $int2, $int3 = ~clientscript_5747($struct5, $boolean8, $int9, $int2, $int3);
+    }
+    $int4 = max(-1, calc($int4 - 1));
+}
+if (calc((1 + $int3) * 54) > if_getheight(interface_1239:com_8)) {
+    if_sethide(interface_1239:com_9, false);
+    if_setscrollsize(interface_1239:com_8, if_getwidth(interface_1239:com_8), calc((1 + $int3) * 54));
+    if (%varclient_1771 ! -1) {
+        if_setscrollpos(interface_1239:com_8, 0, %varclient_1771);
+    }
+    ~scrollbar_vertical(interface_1239:com_9, interface_1239:com_8, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+    if_setonclick(interface_1239:com_8, "clientscript_5751");
+} else {
+    if_sethide(interface_1239:com_9, true);
+    if_setscrollsize(interface_1239:com_8, 0, 0);
+    if_setscrollpos(interface_1239:com_8, 0, 0);
+}

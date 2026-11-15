@@ -1,0 +1,5 @@
+// 4922
+[proc,clientscript_4922](int $int0)
+if (%varplayerbit_9570 ! $int0 & %varplayerbit_9579 ! $int0 & %varplayerbit_9588 ! $int0) {
+    ~clientscript_4942;
+}

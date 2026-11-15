@@ -1,0 +1,27 @@
+// 1555
+[proc,script1555](int $int0)
+if_setposition(chatdefault:caret, ~script1551(%chat_caret, %varclient_2023, p12_full, $int0), if_gety(chatdefault:caret), ^setpos_abs_left, ^setpos_abs_top);
+def_int $int1 = if_getwidth(chatdefault:inputarea);
+def_int $int2 = string_length(%varclient_2023);
+def_string $string0 = "";
+if (%chat_caret > 0) {
+    $string0 = substring(%varclient_2023, 0, min(%chat_caret, $int2));
+}
+def_int $int3 = calc(stringwidth($string0, p12_full) - $int1);
+if_setposition(chatdefault:input, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+if_setsize(chatdefault:input, max(stringwidth(if_gettext(chatdefault:input), p12_full), $int1), if_getheight(chatdefault:input), ^setsize_abs, ^setsize_abs);
+if ($int3 > 0) {
+    if_setposition(chatdefault:input, calc(if_getx(chatdefault:input) - $int3), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    if_setposition(chatdefault:caret, calc(if_getx(chatdefault:caret) - $int3), 0, ^setpos_abs_left, ^setpos_abs_centre);
+}
+if (string_length(%varclient_2023) <= 0) {
+    if_sethide(chatdefault:caret, true);
+    if_setontimer(chatdefault:input, null);
+} else {
+    if (applet_hasfocus = true) {
+        if_sethide(chatdefault:caret, false);
+    } else {
+        if_sethide(chatdefault:caret, true);
+    }
+    if_setontimer(chatdefault:input, "caret_flash(clientclock, chatdefault:caret)");
+}

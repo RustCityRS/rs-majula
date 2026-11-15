@@ -1,0 +1,310 @@
+// 145:0
+[com_0]
+type=model
+x=31
+width=434
+height=334
+model=model_3623
+modelorigin=0,-37
+modelangle=505,2047,0
+modelzoom=571
+modelunknown=0,3000,0
+
+// 145:1
+[com_1]
+type=layer
+x=77
+y=82
+width=322
+height=197
+scrollheight=400
+
+// 145:2
+[com_2]
+type=text
+x=84
+y=32
+width=62
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Dwarf
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(1)
+
+// 145:3
+[com_3]
+type=text
+x=82
+y=82
+width=183
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Wartface & Bentnoze
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(2)
+
+// 145:4
+[com_4]
+type=text
+x=83
+y=135
+width=123
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Pirate Pete
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(3)
+
+// 145:5
+[com_5]
+type=text
+x=80
+y=178
+width=143
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Lumbridge Guide
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(4)
+
+// 145:6
+[com_6]
+type=text
+x=83
+y=224
+width=100
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Evil Dave
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(5)
+
+// 145:7
+[com_7]
+type=text
+x=80
+y=328
+width=140
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Sir Amik Varze
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(6)
+
+// 145:8
+[com_8]
+type=text
+x=77
+y=376
+width=240
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Skrach 'Bone Cruncher' Uglogwee
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(7)
+
+// 145:9
+[com_9]
+type=text
+x=79
+y=274
+width=187
+height=14
+layer=com_1
+textfont=fontmetrics_495
+text=Monkey Ambassador
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1092(8)
+
+// 145:10
+[goblin]
+type=model
+x=18
+y=57
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:11
+[dwarf]
+type=model
+x=18
+y=8
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:12
+[pirate]
+type=model
+x=18
+y=108
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:13
+[guide]
+type=model
+x=18
+y=156
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:14
+[dave]
+type=model
+x=18
+y=202
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:15
+[monkey]
+type=model
+x=18
+y=253
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:16
+[amik]
+type=model
+x=18
+y=305
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:17
+[ogre]
+type=model
+x=18
+y=355
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+modelunknown=64536,3000,0
+
+// 145:18
+[scroll]
+type=layer
+x=401
+y=82
+width=16
+height=197
+onload=scrollbar_vertical_graphics(event_com, hundred_subquest_journal:com_1, 792, 789, 790, 791, 773, 788)
+
+// 145:19
+[com_19]
+type=graphic
+x=420
+y=18
+width=26
+height=23
+graphic=graphic_537
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 538)
+onmouseleave=graphic_swapper(event_com, 537)
+onop=if_close
+
+// 145:20
+[com_20]
+type=text
+x=142
+y=24
+width=200
+height=14
+textfont=fontmetrics_496
+text=Recipe for Disaster
+textalignh=centre
+textshadow=yes
+colour=0xffcc66
+
+// 145:21
+[com_21]
+type=text
+x=64
+y=40
+width=349
+height=40
+textfont=fontmetrics_495
+text=This quest is comprised of the 8 mini quests highlighted below
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933

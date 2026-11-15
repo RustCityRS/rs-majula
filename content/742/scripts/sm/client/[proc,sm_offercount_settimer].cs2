@@ -1,0 +1,8 @@
+// 602
+[proc,sm_offercount_settimer]
+if (%stock_offercount_timer <= 0) {
+    %stock_offercount_timer = 100;
+} else {
+    %stock_offercount_timer = calc(%stock_offercount_timer + 10);
+}
+if_setontimer(stockmarket:offercount, "script603");

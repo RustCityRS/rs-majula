@@ -1,9 +1,9 @@
 use crate::state::ScriptState;
 
 /// One past the highest opcode a handler can take.
-#[cfg(before_647)]
+#[cfg(before_530)]
 const LAST: u16 = 11000;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const LAST: u16 = 50101;
 
 /// A script opcode handler function pointer.

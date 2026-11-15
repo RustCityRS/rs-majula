@@ -1,0 +1,41 @@
+// 2475
+[clientscript,player_prefix_load](component $component0, component $component1, int $int2, int $int3)
+def_enum $enum4 = enum_1093;
+if (gender = 1) {
+    $enum4 = enum_3872;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int5 <= enum_getoutputcount($enum4)) {
+    cc_create($component0, ^iftype_text, $int5);
+    if ($int5 = 0 | $int5 >= $int2 & $int5 <= $int3) {
+        if ($int5 = 0) {
+            cc_settext("No Prefix");
+        } else {
+            cc_settext(enum(int, string, $enum4, $int5));
+        }
+        cc_setposition(0, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(165, 17, ^setsize_abs, ^setsize_abs);
+        cc_settextshadow(false);
+        cc_settextfont(p12_full);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setop(1, "Select");
+        cc_setonop("player_prefix_highlight(event_com, event_comsubid)");
+        if (~player_prefix_check($int5) = 1) {
+            cc_setcolour(0x11ff00);
+        } else {
+            cc_setcolour(0xff1100);
+        }
+        $int6 = calc($int6 + 19);
+    } else {
+        cc_sethide(true);
+    }
+    $int5 = calc(1 + $int5);
+}
+if ($int6 > if_getheight($component0)) {
+    if_setscrollsize($component0, 0, calc(25 + $int6));
+    if_sethide($component1, false);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_sethide($component1, true);
+}

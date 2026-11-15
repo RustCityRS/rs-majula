@@ -22,6 +22,8 @@ pub enum ReflectionCheck {
         class: String,
         method: String,
         params: Vec<String>,
+        #[cfg(since_742)]
+        return_type: String,
     },
 }
 
@@ -51,6 +53,8 @@ impl ServerProtMessage for ReflectionChecker<'_> {
                     class,
                     method,
                     params,
+                    #[cfg(since_742)]
+                    return_type,
                 } => {
                     buf.p1(4);
                     buf.pjstr(class, STRING_TERMINATOR);
@@ -59,6 +63,8 @@ impl ServerProtMessage for ReflectionChecker<'_> {
                     for param in params {
                         buf.pjstr(param, STRING_TERMINATOR);
                     }
+                    #[cfg(since_742)]
+                    buf.pjstr(return_type, STRING_TERMINATOR);
                 }
             }
         }
@@ -74,10 +80,16 @@ impl ServerProtMessage for ReflectionChecker<'_> {
                 class,
                 method,
                 params,
+                #[cfg(since_742)]
+                return_type,
             } => {
-                2 + Packet::sizejstr(class)
+                let size = 2
+                    + Packet::sizejstr(class)
                     + Packet::sizejstr(method)
-                    + params.iter().map(|p| Packet::sizejstr(p)).sum::<usize>()
+                    + params.iter().map(|p| Packet::sizejstr(p)).sum::<usize>();
+                #[cfg(since_742)]
+                let size = size + Packet::sizejstr(return_type);
+                size
             }
         };
         1 + size_of_val(&self.id) + self.checks.iter().map(check).sum::<usize>()

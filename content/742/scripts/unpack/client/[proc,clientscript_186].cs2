@@ -1,0 +1,92 @@
+// 186
+[proc,clientscript_186](component $component0, component $component1, graphic $graphic2, graphic $graphic3, graphic $graphic4, graphic $graphic5, graphic $graphic6, graphic $graphic7, graphic $graphic8, graphic $graphic9, graphic $graphic10, graphic $graphic11, graphic $graphic12, graphic $graphic13)
+def_int $int14 = if_getscrollheight($component1);
+def_int $int15 = if_getheight($component0);
+def_int $int16 = calc($int15 - 32);
+def_int $int17 = 0;
+if ($int14 > 0) {
+    $int17 = scale($int15, $int14, $int16);
+} else {
+    $int17 = $int16;
+}
+$int17 = max($int17, 20);
+def_int $int18 = if_getscrolly($component1);
+def_int $int19 = 0;
+def_int $int20 = 0;
+if ($int18 > 0) {
+    $int19 = calc($int14 - if_getheight($component1));
+    if ($int19 = 0) {
+        $int19 = 1;
+    }
+    if ($int18 > $int19) {
+        if_setscrollpos($component1, 0, $int19);
+        $int18 = $int19;
+    }
+    $int20 = scale($int18, $int19, calc($int16 - $int17));
+    $int20 = min(max($int20, 0), calc($int16 - $int17));
+}
+cc_create($component0, ^iftype_graphic, 0);
+cc_setposition(0, 21, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 42, ^setsize_abs, ^setsize_minus);
+cc_setgraphic($graphic3);
+cc_settiling(true);
+cc_setonclick(clientscript_720, $component0, $component1, event_mousey, "IIi");
+cc_create($component0, ^iftype_graphic, 1);
+cc_setposition(0, 16, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 5, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic2);
+cc_setalpha(true);
+cc_setonclick(clientscript_720, $component0, $component1, event_mousey, "IIi");
+cc_create($component0, ^iftype_graphic, 2);
+cc_setposition(0, 16, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(16, 5, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic4);
+cc_setalpha(true);
+cc_setonclick(clientscript_720, $component0, $component1, event_mousey, "IIi");
+cc_create($component0, ^iftype_graphic, 3);
+cc_setposition(0, calc(16 + $int20 + 5), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic6);
+cc_settiling(true);
+cc_setdraggable($component0, 0);
+cc_setdragrenderbehaviour(1);
+cc_setsize(16, calc($int17 - 10), ^setsize_abs, ^setsize_abs);
+cc_setondrag(clientscript_5505, $component0, $component1, event_mousey, 0, 0, "IIii1");
+cc_setondragcomplete(clientscript_5505, $component0, $component1, event_mousey, 0, 1, "IIii1");
+cc_create($component0, ^iftype_graphic, 4);
+cc_setposition(0, calc(16 + $int20), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 5, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic5);
+cc_settiling(false);
+cc_setalpha(true);
+cc_setondrag(clientscript_5505, $component0, $component1, event_mousey, -5, 0, "IIii1");
+cc_setondragcomplete(clientscript_5505, $component0, $component1, event_mousey, -5, 1, "IIii1");
+cc_create($component0, ^iftype_graphic, 5);
+cc_setposition(0, calc(16 + $int20 + $int17 - 5), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 5, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic7);
+cc_settiling(false);
+cc_setalpha(true);
+cc_setondrag(clientscript_5505, $component0, $component1, event_mousey, $int17, 0, "IIii1");
+cc_setondragcomplete(clientscript_5505, $component0, $component1, event_mousey, $int17, 1, "IIii1");
+cc_create($component0, ^iftype_graphic, 6);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic8);
+cc_settiling(false);
+cc_setalpha(true);
+cc_setonhold("clientscript_187($component0, $component1)");
+cc_setonmouseover("clientscript_5336(event_com, 6, $graphic10)");
+cc_setonmouseleave("clientscript_5336(event_com, 6, $graphic8)");
+cc_setonclick("clientscript_5336(event_com, 6, $graphic12)");
+cc_create($component0, ^iftype_graphic, 7);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic9);
+cc_settiling(false);
+cc_setalpha(true);
+cc_setonhold("clientscript_189($component0, $component1)");
+cc_setonmouseover("clientscript_5336(event_com, 7, $graphic11)");
+cc_setonmouseleave("clientscript_5336(event_com, 7, $graphic9)");
+cc_setonclick("clientscript_5336(event_com, 7, $graphic13)");
+if_setonscrollwheel($component0, "clientscript_5506($component0, $component1, event_mousey)");
+if_setonscrollwheel($component1, "clientscript_5506($component0, $component1, event_mousey)");

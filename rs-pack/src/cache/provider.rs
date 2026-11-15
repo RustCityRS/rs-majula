@@ -1,12 +1,13 @@
-use crate::pack::packed_data::PackedData;
+use crate::pack::packed_data::{COUNT_LEN, PackedData, read_count};
 use anyhow::Result;
 use rs_io::Packet;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub trait CacheType: Sized {
     type Context;
 
-    fn new(id: u16) -> Self;
+    fn new(id: TypeId) -> Self;
     fn decode(&mut self, buf: &mut Packet) {
         while buf.remaining() > 0 {
             let code = buf.g1();
@@ -20,6 +21,9 @@ pub trait CacheType: Sized {
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8);
     fn post_decode(_types: &mut Vec<Self>, _ctx: &Self::Context) {}
 
+    /// Clears what decoding the record's opcodes again would add to.
+    fn rewind(&mut self) {}
+
     /// The name configs and scripts know the record by. Client records carry
     /// none.
     fn debugname(&self) -> &str {
@@ -28,7 +32,7 @@ pub trait CacheType: Sized {
 }
 
 pub struct TypeProvider<T> {
-    pub debugnames: FxHashMap<Box<str>, u16>,
+    pub debugnames: FxHashMap<Box<str>, TypeId>,
     pub types: Box<[T]>,
 }
 
@@ -40,7 +44,7 @@ impl<T> TypeProvider<T> {
     {
         let raws = PackedData::entries(dat, idx)?
             .map(|(id, data)| {
-                let mut raw = Raw::new(id);
+                let mut raw = Raw::new(TypeId::try_from(id).expect("type id"));
                 raw.decode(&mut Packet::from(data.to_vec()));
                 raw
             })
@@ -53,13 +57,12 @@ impl<T> TypeProvider<T> {
         Raw: CacheType,
         T: From<Raw>,
     {
-        let mut dat = Packet::from(dat.to_vec());
-
-        let count = dat.g2() as usize;
+        let count = read_count(dat);
+        let mut dat = Packet::from(dat[COUNT_LEN..].to_vec());
 
         let mut raws: Vec<Raw> = Vec::with_capacity(count);
         for index in 0..count {
-            let mut entry = Raw::new(index as u16);
+            let mut entry = Raw::new(TypeId::try_from(index).expect("type id"));
             entry.decode(&mut dat);
             raws.push(entry);
         }
@@ -81,7 +84,10 @@ impl<T> TypeProvider<T> {
         for (index, raw) in raws.into_iter().enumerate() {
             let debugname = raw.debugname();
             if !debugname.is_empty() {
-                debugnames.insert(Box::from(debugname), index as u16);
+                debugnames.insert(
+                    Box::from(debugname),
+                    TypeId::try_from(index).expect("type id"),
+                );
             }
 
             types.push(T::from(raw));
@@ -93,11 +99,11 @@ impl<T> TypeProvider<T> {
         }
     }
 
-    pub fn get_by_id(&self, id: u16) -> Option<&T> {
-        self.types.get(id as usize)
+    pub fn get_by_id(&self, id: TypeId) -> Option<&T> {
+        self.types.get(id.index())
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn map<U>(self, f: impl FnMut(T) -> U) -> TypeProvider<U> {
         TypeProvider {
             debugnames: self.debugnames,

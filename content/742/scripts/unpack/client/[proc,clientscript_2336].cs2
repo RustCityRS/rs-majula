@@ -1,0 +1,41 @@
+// 2336
+[proc,clientscript_2336](int $int0)(any, int, int, int)
+if (%varclient_1928 = 0) {
+    switch_int ($int0) {
+        case 9114 :
+            return(9114, 1, 0, 255);
+        case 16830 :
+            return(16830, 1, 0, 35);
+        case 14239 :
+            return(14239, 1, 0, 50);
+        case 9873 :
+            return(9873, 1, 0, 50);
+        case 2901 :
+            return(2901, 1, 0, 0);
+        case 4282 :
+            return(4282, 1, 0, 255);
+        case 14234 :
+            return(14234, 1, 0, 100);
+        case 16827 :
+            return(16827, 1, 0, 20);
+    }
+} else if (%varclient_1928 = 1) {
+    switch_int ($int0) {
+        case 9114 :
+            return(9114, 1, 0, 255);
+        case 16830 :
+            return(16830, 1, 0, 35);
+        case 14239 :
+            return(20198, 1, 0, 190);
+        case 9873 :
+            return(2901, 1, 0, 0);
+        case 2901 :
+            return(2901, 1, 0, 0);
+        case 4282 :
+            return(2901, 1, 0, 0);
+        case 14234 :
+            return(14234, 1, 0, 100);
+        case 16827 :
+            return(16827, 1, 0, 20);
+    }
+}

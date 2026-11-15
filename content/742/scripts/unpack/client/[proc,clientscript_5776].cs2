@@ -1,0 +1,7 @@
+// 5776
+[proc,clientscript_5776]
+def_int $int0 = 0;
+if (%varplayerbit_8578 ! 0) {
+    $int0 = 1;
+}
+~clientscript_5777(%varplayerbit_8578, $int0);

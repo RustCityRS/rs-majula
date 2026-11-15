@@ -22,21 +22,21 @@ pub fn emit_inv_props(
     if opcode == 2 {
         props.push(("size".into(), def.size.to_string()));
     }
-    if def.stackall {
+    if opcode == 3 && def.stackall {
         props.push(("stackall".into(), "yes".into()));
     }
     let stockobj = def.stockobj.as_deref().unwrap_or_default();
     let stockcount = def.stockcount.as_deref().unwrap_or_default();
     let stockrate = def.stockrate.as_deref().unwrap_or_default();
-    if !stockobj.is_empty() {
+    if opcode == 4 && !stockobj.is_empty() {
         for i in 0..stockobj.len() {
-            let obj_name = if stockobj[i] == u16::MAX {
+            let obj_name = if stockobj[i].is_null() {
                 "null".to_string()
             } else {
                 registry
-                    .config_name("obj", stockobj[i] as u32)
+                    .config_name("obj", stockobj[i].raw())
                     .map(|s| s.to_string())
-                    .unwrap_or_else(|| format!("obj_{}", stockobj[i]))
+                    .unwrap_or_else(|| format!("obj_{}", stockobj[i].raw()))
             };
             let value = if stockrate[i] != 0 {
                 format!("{},{},{}", obj_name, stockcount[i], stockrate[i])
@@ -46,19 +46,19 @@ pub fn emit_inv_props(
             props.push((format!("stock{}", i + 1), value));
         }
     }
-    if def.restock {
+    if opcode == 5 && def.restock {
         props.push(("restock".into(), "yes".into()));
     }
-    if def.allstock {
+    if opcode == 6 && def.allstock {
         props.push(("allstock".into(), "yes".into()));
     }
-    if !def.protect {
+    if opcode == 7 && !def.protect {
         props.push(("protect".into(), "no".into()));
     }
-    if def.runweight {
+    if opcode == 8 && def.runweight {
         props.push(("runweight".into(), "yes".into()));
     }
-    if def.dummyinv {
+    if opcode == 9 && def.dummyinv {
         props.push(("dummyinv".into(), "yes".into()));
     }
     props

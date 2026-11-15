@@ -1,0 +1,10 @@
+// 1780
+[proc,clanwars_resynch_potions]
+if (%clanwars_rulevarc_nopotions = false) {
+    if_setgraphic(clanwars_setup:potions_indicator, 699);
+    if_settrans(clanwars_setup:potions, 0);
+} else {
+    if_setgraphic(clanwars_setup:potions_indicator, 698);
+    if_settrans(clanwars_setup:potions, 225);
+}
+~clanwars_updateside;

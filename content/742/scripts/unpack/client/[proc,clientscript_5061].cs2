@@ -1,0 +1,6 @@
+// 5061
+[proc,clientscript_5061](component $component0, obj $obj1, int $int2, int $int3)
+~clientscript_5063($component0, $obj1, $int2);
+if ($int3 = 1) {
+    ~clientscript_5062($component0, $obj1, $int2);
+}

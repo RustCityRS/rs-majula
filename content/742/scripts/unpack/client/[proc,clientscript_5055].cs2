@@ -1,0 +1,145 @@
+// 5055
+[proc,clientscript_5055](int $int0, string $string0, enum $enum1, component $component2, component $component3, component $component4)
+cc_deleteall($component2);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(40, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settiling(true);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(20, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(20, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setposition(7, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+cc_setsize(20, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 1, ^setpos_abs_right, ^setpos_abs_centre);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(0xffef5f);
+cc_settextshadow(true);
+cc_settext($string0);
+if_setonclick($component2, "clientscript_5064($int0)");
+cc_deleteall($component3);
+cc_deleteall($component4);
+def_int $int5 = 0;
+def_int $int6 = enum_getoutputcount(enum_3943);
+while ($int5 < $int6) {
+    cc_create($component3, ^iftype_rectangle, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_rectangle, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_rectangle, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+    cc_sethide(true);
+    cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+    cc_sethide(true);
+    $int5 = calc($int5 + 1);
+}
+def_int $int7 = -1;
+def_struct $struct8 = null;
+def_int $int9 = 0;
+$int5, $int6 = 0, enum_getoutputcount($enum1);
+while ($int5 < $int6) {
+    $int7 = enum(int, int, $enum1, $int5);
+    $struct8 = enum(int, struct, enum_3943, $int7);
+    if ($struct8 ! null) {
+        if (cc_find($component3, calc($int7 * 12)) = true) {
+            cc_setsize(24, 26, ^setsize_minus, ^setsize_abs);
+            cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+            cc_settrans(255);
+            cc_setop(1, "Select");
+            cc_setonop(clientscript_5070, event_op, $int7, false, "ii1");
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 1)) = true) {
+            cc_setsize(24, 26, ^setsize_abs, ^setsize_abs);
+            cc_setposition(0, $int9, ^setpos_abs_right, ^setpos_abs_top);
+            cc_settrans(255);
+            cc_setop(1, "Select & open settings");
+            cc_setonop(clientscript_5070, event_op, $int7, true, "ii1");
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 2)) = true) {
+            cc_setsize(40, 26, ^setsize_minus, ^setsize_abs);
+            cc_setposition(8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 3)) = true) {
+            cc_setsize(8, 26, ^setsize_abs, ^setsize_abs);
+            cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 4)) = true) {
+            cc_setsize(8, 26, ^setsize_abs, ^setsize_abs);
+            cc_setposition(24, $int9, ^setpos_abs_right, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 5)) = true) {
+            cc_setsize(8, 26, ^setsize_abs, ^setsize_abs);
+            cc_setposition(8, $int9, ^setpos_abs_right, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 6)) = true) {
+            cc_setsize(8, 26, ^setsize_abs, ^setsize_abs);
+            cc_setposition(16, $int9, ^setpos_abs_right, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 7)) = true) {
+            cc_setsize(8, 26, ^setsize_abs, ^setsize_abs);
+            cc_setposition(0, $int9, ^setpos_abs_right, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 8)) = true) {
+            cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+            cc_setposition(3, calc($int9 + 3), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setgraphic(struct_param($struct8, param_1465));
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 9)) = true) {
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_setposition(2, calc($int9 + 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setcolour(0xefdfcf);
+            cc_setfill(false);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 10)) = true) {
+            cc_setsize(17, 17, ^setsize_abs, ^setsize_abs);
+            cc_setposition(4, calc($int9 + 4), ^setpos_abs_right, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        if (cc_find($component3, calc($int7 * 12 + 11)) = true) {
+            cc_setsize(53, 26, ^setsize_minus, ^setsize_abs);
+            cc_setposition(24, $int9, ^setpos_abs_right, ^setpos_abs_top);
+            cc_settextfont(p11_full);
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            cc_setcolour(0xffefdf);
+            cc_settextshadow(true);
+            cc_settext(struct_param($struct8, param_1463));
+            cc_sethide(false);
+        }
+        $int9 = calc($int9 + 26);
+    }
+    $int5 = calc($int5 + 1);
+}
+if_setscrollsize($component3, 0, $int9);
+if_setscrollpos($component3, 0, 0);
+~scrollbar_vertical($component4, $component3, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");

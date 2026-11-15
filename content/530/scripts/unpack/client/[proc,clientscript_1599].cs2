@@ -1,0 +1,14 @@
+// 1599
+[proc,clientscript_1599]
+def_int $int0 = 11;
+def_enum $enum1 = enum_1130;
+if (gender = 1) {
+    $int0 = 10;
+    $enum1 = enum_1131;
+}
+if (%playerdesign2_client_arms = 0) {
+    %playerdesign2_client_arms = $int0;
+} else {
+    %playerdesign2_client_arms = calc(%playerdesign2_client_arms - 1);
+}
+baseidkit(3, enum(int, idkit, $enum1, %playerdesign2_client_arms));

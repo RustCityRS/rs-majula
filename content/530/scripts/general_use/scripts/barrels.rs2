@@ -1,0 +1,28 @@
+[oplocu,barrelwithtap]
+if (last_useitem ! beer_glass) {
+    ~displaymessage(^dm_default);
+    return;
+}
+
+// 2011: cache 786's map puts barrel_5698 (no ops), not this loc, on these
+// three spots, so these cases are 289's and never match. The 2011 wiki
+// disagrees with itself on a glass used there: Barbarian Village
+// (2011-05-16) says "now when using a glass on the barrel, the game says
+// "Nothing interesting happens"", Beer and Beer glass (2011-05-05) that the
+// barbarians attack. barrel_5698 has no script here.
+switch_coord(loc_coord) {
+    case 0_48_53_9_44 : @beer_barrel_beatdown;
+    case 0_48_53_5_53 : @beer_barrel_beatdown;
+    case 0_48_53_4_53 : @beer_barrel_beatdown;
+
+    case default : @fill_beer_glass;
+}
+
+[oplocu,barpumps]
+mes("I don't think I can get free beer here."); // any obj, think it might only be this loc specifcially (no 886 to check on osrs, other pumps dont work)
+
+[label,fill_beer_glass]
+anim(human_pickupfloor, 0);
+mes("You fill the glass with beer.");
+// sound_synth(tap_fill, 1, 0); -- void-634 lists no tap_fill
+inv_setslot(inv, last_useslot, beer, 1);

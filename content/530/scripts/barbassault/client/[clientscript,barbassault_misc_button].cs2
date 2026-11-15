@@ -1,0 +1,11 @@
+// 229
+[clientscript,barbassault_misc_button]
+if_sethide(interface_594:listlayer, true);
+if_sethide(interface_594:com_175, false);
+if_sethide(interface_594:com_177, true);
+if_sethide(interface_594:tops_scrollbar, true);
+if_sethide(interface_594:com_176, false);
+if_sethide(interface_594:com_178, true);
+if_setgraphic(interface_594:com_183, 1052);
+if_setgraphic(interface_594:com_184, 1045);
+if_setgraphic(interface_594:com_185, 1054);

@@ -1,0 +1,6 @@
+// 123
+[proc,clientscript_123]
+if_settext(friends2:friends_title, "Friends List - RuneScape <tostring(map_world)>");
+if_setonfriendtransmit(friends2:com_2, "clan_chat_ban_list_build");
+~clientscript_125;
+~clientscript_31(friends2:com_1, friends2:com_2, 792, 789, 790, 791, 773, 788);

@@ -1,0 +1,38 @@
+// 5040
+[proc,clientscript_5040]
+cc_deleteall(interface_1111:com_15);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_struct $struct2 = null;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 200;
+if (op718 = 1) {
+    while ($int0 < 200) {
+        cc_create(interface_1111:com_15, ^iftype_graphic, $int0);
+        $int1, $int3, $int4, $int5 = ~clientscript_5019($int0);
+        if ($int1 ! 0) {
+            $struct2 = enum(int, struct, enum_3943, $int1);
+            if ($struct2 ! null) {
+                cc_setgraphic(struct_param($struct2, param_1465));
+                if (struct_param($struct2, param_1466) = 1) {
+                    cc_settiling(true);
+                } else {
+                    cc_settiling(false);
+                }
+                ~clientscript_5041($struct2, $int3, $int4, $int5);
+                $int6 = calc($int6 - 1);
+            } else {
+                cc_sethide(true);
+            }
+        } else {
+            cc_sethide(true);
+        }
+        $int0 = calc($int0 + 1);
+    }
+    if_settext(interface_1111:com_84, tostring($int6));
+} else {
+    if_settext(interface_1111:com_84, "...");
+}
+~deltooltip_action(interface_1111:com_119);

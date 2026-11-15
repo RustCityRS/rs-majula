@@ -1,0 +1,6 @@
+// 5585
+[proc,clientscript_5585](int $int0, int $int1, component $component2, component $component3)
+if ($int0 = 83) {
+    if_settrans($component3, 0);
+    if_sendtofront($component2);
+}

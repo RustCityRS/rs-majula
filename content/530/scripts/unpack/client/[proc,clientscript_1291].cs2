@@ -1,0 +1,84 @@
+// 1291
+[proc,clientscript_1291](component $component0, obj $obj1, int $int2, component $component3, component $component4)
+def_int $int5 = 0;
+if ($obj1 = rake) {
+    $int5 = %farming_tools_rake;
+} else if ($obj1 = dibber) {
+    $int5 = %farming_tools_dibber;
+} else if ($obj1 = spade) {
+    $int5 = %farming_tools_spade;
+} else if ($obj1 = secateurs) {
+    $int5 = %farming_tools_secateurs;
+    if (%farming_tools_fairysecateurs = 1) {
+        $obj1 = fairy_enchanted_secateurs;
+    }
+} else if ($obj1 = watering_can_dummy) {
+    if (%farming_tools_wateringcan = 9) {
+        $obj1 = watering_can_8;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (8)");
+        if_setopbase($component0, "<col=ff9040><col=ff9040>Watering Can (8)");
+    } else if (%farming_tools_wateringcan = 8) {
+        $obj1 = watering_can_7;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (7)");
+        if_setopbase($component0, "<col=ff9040><col=ff9040>Watering Can (7)");
+    } else if (%farming_tools_wateringcan = 7) {
+        $obj1 = watering_can_6;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (6)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (6)");
+    } else if (%farming_tools_wateringcan = 6) {
+        $obj1 = watering_can_5;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (5)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (5)");
+    } else if (%farming_tools_wateringcan = 5) {
+        $obj1 = watering_can_4;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (4)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (4)");
+    } else if (%farming_tools_wateringcan = 4) {
+        $obj1 = watering_can_3;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (3)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (3)");
+    } else if (%farming_tools_wateringcan = 3) {
+        $obj1 = watering_can_2;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (2)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (2)");
+    } else if (%farming_tools_wateringcan = 2) {
+        $obj1 = watering_can_1;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (1)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (1)");
+    } else if (%farming_tools_wateringcan = 1) {
+        $obj1 = watering_can_0;
+        $int5 = 1;
+        if_settext($component3, "Watering Can (0)");
+        if_setopbase($component0, "<col=ff9040>Watering Can (0)");
+    } else {
+        $int5 = 0;
+        if_settext($component3, "Watering Can");
+        if_setopbase($component0, "<col=ff9040>Watering Can");
+    }
+} else if ($obj1 = gardening_trowel) {
+    $int5 = %farming_tools_trowel;
+} else if ($obj1 = bucket_empty) {
+    $int5 = %farming_tools_buckets;
+} else if ($obj1 = bucket_compost) {
+    $int5 = %farming_tools_compost;
+} else if ($obj1 = bucket_supercompost) {
+    $int5 = %farming_tools_supercompost;
+}
+if_setobject($component0, $obj1, -1);
+if_setoutline($component0, 1);
+if_settext($component4, "<tostring($int5)>/<tostring($int2)>");
+if ($int5 > 0) {
+    if_setcolour($component3, 0x7dd764);
+    if_setcolour($component4, 0x7dd764);
+} else {
+    if_setcolour($component3, 0x872300);
+    if_setcolour($component4, 0x872300);
+}

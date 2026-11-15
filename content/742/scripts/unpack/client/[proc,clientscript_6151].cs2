@@ -1,0 +1,5 @@
+// 6151
+[proc,clientscript_6151](string $string0)
+if_settext(interface_1268:com_1, $string0);
+%varclient_1888 = 0;
+if_setontimer(interface_1268:com_0, "clientscript_6152(1)");

@@ -1,0 +1,24 @@
+// 6302
+[proc,clientscript_6302](int $int0)(string)
+switch_int ($int0) {
+    case 0 :
+        return(%varclient_2388);
+    case 1 :
+        return(%varclient_2389);
+    case 2 :
+        return(%varclient_2390);
+    case 3 :
+        return(%varclient_2391);
+    case 4 :
+        return(%varclient_2392);
+    case 5 :
+        return(%varclient_2393);
+    case 6 :
+        return(%varclient_2394);
+    case 7 :
+        return(%varclient_2395);
+    case 8 :
+        return(%varclient_2396);
+    case 9 :
+        return(%varclient_2397);
+}

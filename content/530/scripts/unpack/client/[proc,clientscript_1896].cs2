@@ -1,0 +1,110 @@
+// 1896
+[proc,clientscript_1896](int $int0, int $int1)
+def_string $string0 = "kbase/view.ws?guid=hd_fullscreen_help";
+if ($int0 = 3) {
+    if (getwindowmode = 3) {
+        return;
+    }
+    if ($int1 = 3 & playermember = false) {
+        mes("Fullscreen mode is only available to members.");
+        return;
+    }
+    if (fullscreen_modecount = 0) {
+        mes("Your computer seems unable to enter the High Detail (fullscreen) mode.");
+        return;
+    }
+    if (getwindowmode < 1 & ($int1 = 1 | $int1 = 2)) {
+        ~clientscript_1886;
+    }
+    if (%selectedresolution < 0 | %selectedresolution >= fullscreen_modecount) {
+        %selectedresolution = max(fullscreen_lastmode, 0);
+    }
+    if (fullscreen_enter(fullscreen_getmode(%selectedresolution)) = true) {
+        switch_int ($int1) {
+            case 1 :
+                if (%last_windowmode < 1) {
+                    ~clientscript_1887(loginscreen:com_125, loginscreen:com_127, loginscreen:fader, loginscreen:com_128, loginscreen:com_129);
+                }
+                if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_226)");
+                ~clientscript_1174(loginscreen:windowmode_confirm);
+            case 2 :
+                if (%last_windowmode < 1) {
+                    ~clientscript_1887(loginscreen:com_125, loginscreen:com_127, loginscreen:fader, loginscreen:com_128, loginscreen:com_129);
+                }
+                if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_138)");
+                ~clientscript_1174(loginscreen:windowmode_confirm);
+        }
+        %last_windowmode = 3;
+        return;
+    }
+    setwindowmode(getdefaultwindowmode);
+    ~clientscript_1887(loginscreen:com_125, loginscreen:com_127, loginscreen:fader, loginscreen:com_128, loginscreen:com_129);
+    %last_windowmode = getwindowmode;
+    switch_int ($int1) {
+        case 1, 2 :
+            if_settext(loginscreen:general_messages_text, "RuneScape was unable to enter High Detail (fullscreen) at the specified resolution.<br><br>Please try a different resolution or a different display mode.");
+            if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu(loginscreen:com_138)");
+            if_settext(loginscreen:com_136, "Advanced info");
+            if_setonclick(loginscreen:com_136, "openurl_nologin($string0, true)");
+            ~clientscript_1174(loginscreen:general_messages);
+        case 3 :
+            mes("RuneScape was unable to enter the High Detail (fullscreen) mode.");
+    }
+    return;
+}
+def_int $int2 = 0;
+if (getwindowmode < 1) {
+    if ($int1 = 1 | $int1 = 2) {
+        ~clientscript_1886;
+    }
+    $int2 = 1;
+}
+setwindowmode($int0);
+if (getwindowmode ! $int0) {
+    %last_windowmode = getwindowmode;
+    switch_int ($int1) {
+        case 1 :
+            if_settext(loginscreen:general_messages_text, "RuneScape was unable to enter the chosen display mode.");
+            if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu(loginscreen:com_226)");
+            if_settext(loginscreen:com_136, "Advanced info");
+            if_setonclick(loginscreen:com_136, "openurl_nologin($string0, true)");
+            ~clientscript_1174(loginscreen:general_messages);
+        case 2 :
+            if_settext(loginscreen:general_messages_text, "RuneScape was unable to enter the chosen display mode.");
+            if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu(loginscreen:com_138)");
+            if_settext(loginscreen:com_136, "Advanced info");
+            if_setonclick(loginscreen:com_136, "openurl_nologin($string0, true)");
+            ~clientscript_1174(loginscreen:general_messages);
+        case 3 :
+            mes("RuneScape was unable to enter the chosen display mode.");
+    }
+    return;
+}
+if ($int2 = 1) {
+    switch_int ($int1) {
+        case 1 :
+            ~clientscript_1888;
+            if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_226)");
+            ~clientscript_1174(loginscreen:windowmode_confirm);
+        case 2 :
+            ~clientscript_1888;
+            if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_138)");
+            ~clientscript_1174(loginscreen:windowmode_confirm);
+        case 3 :
+            ~clientscript_1845;
+    }
+    %last_windowmode = getwindowmode;
+    return;
+}
+setdefaultwindowmode($int0);
+switch_int ($int1) {
+    case 1 :
+        ~clientscript_1888;
+        ~clientscript_1174(loginscreen:com_226);
+    case 2 :
+        ~clientscript_1888;
+        ~clientscript_1174(loginscreen:com_138);
+    case 3 :
+        ~clientscript_1845;
+}
+%last_windowmode = getwindowmode;

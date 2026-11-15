@@ -1,0 +1,15 @@
+// 6467
+[proc,clientscript_6467]()(int)
+def_enum $enum0 = enum_5960;
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = ~clientscript_6468(17, $int1);
+$int1 = ~clientscript_6468(16, $int1);
+$int1 = ~clientscript_6468(15, $int1);
+while ($int2 < calc(enum_getoutputcount($enum0) - 3)) {
+    $int1 = ~clientscript_6468($int2, $int1);
+    $int2 = calc($int2 + 1);
+}
+if_setscrollsize(interface_1311:com_78, 0, max($int1, if_getheight(interface_1311:com_78)));
+~scrollbar_vertical(interface_1311:com_82, interface_1311:com_78, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+~clientscript_6481(%varclient_1964, %varclient_1965);

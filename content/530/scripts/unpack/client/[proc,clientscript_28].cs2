@@ -1,0 +1,6 @@
+// 28
+[proc,clientscript_28]
+if (%tutorial < 1000 & %tutorial_version = 2) {
+    return;
+}
+if_setgraphic(interface_589:loot_button, 1071);

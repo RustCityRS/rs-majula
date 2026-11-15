@@ -1,0 +1,9 @@
+// 49
+[proc,clientscript_49](component $component0, component $component1)
+if (~clientscript_51($component0) = 0) {
+    if_sethide($component1, true);
+    if_setop($component0, 1, "Activate");
+} else {
+    if_sethide($component1, false);
+    if_setop($component0, 1, "Deactivate");
+}

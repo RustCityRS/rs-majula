@@ -1,0 +1,98 @@
+// 72:0
+[com_0]
+type=graphic
+x=2
+y=5
+width=57
+height=13
+graphic=graphic_302
+
+// 72:1
+[com_1]
+type=graphic
+x=421
+y=5
+width=57
+height=13
+graphic=graphic_301
+
+// 72:2
+[com_2]
+type=model
+x=207
+y=13
+width=64
+height=96
+model=model_2365
+modelangle=221,1877,0
+modelzoom=400
+
+// 72:3
+[com_3]
+type=text
+x=190
+y=12
+width=100
+height=90
+buttontype=pause
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x000000
+option=Churn 10
+
+// 72:4
+[com_4]
+type=text
+x=190
+y=12
+width=100
+height=90
+buttontype=pause
+script1=gt,47
+script1op1=stat_level,cooking
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x000000
+option=Churn 5
+
+// 72:5
+[com_5]
+type=text
+x=190
+y=12
+width=100
+height=90
+buttontype=pause
+script1=gt,47
+script1op1=stat_level,cooking
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x000000
+option=Churn 1
+
+// 72:6
+[com_6]
+type=text
+x=56
+y=1
+width=366
+height=31
+textfont=fontmetrics_497
+text=What would you like to make in the churn?
+textalignh=centre
+textalignv=centre
+colour=0x800000
+
+// 72:7
+[com_7]
+type=text
+x=190
+y=13
+width=100
+height=84
+textfont=fontmetrics_497
+text=Churn Cheese
+textalignh=centre
+textalignv=bottom
+colour=0x000000
+overcolour=0xffffff

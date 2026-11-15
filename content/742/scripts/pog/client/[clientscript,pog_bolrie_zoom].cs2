@@ -1,0 +1,10 @@
+// 516
+[clientscript,pog_bolrie_zoom]
+if (%pog_count < 300) {
+    %pog_count = calc(%pog_count + 1);
+}
+if (%pog_hatch_zoom_var > 0 & calc(%pog_count % 3) = 0) {
+    %pog_hatch_zoom_var = calc(%pog_hatch_zoom_var - 3);
+    %pog_hatch_fade_var = calc(%pog_hatch_fade_var + 1);
+    if_setmodelangle(pog_bolrie_dream:king_bolrie, 0, %pog_hatch_fade_var, 0, 0, 0, %pog_hatch_zoom_var);
+}

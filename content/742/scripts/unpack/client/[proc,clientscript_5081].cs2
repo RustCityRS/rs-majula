@@ -1,0 +1,71 @@
+// 5081
+[proc,clientscript_5081](component $component0, int $int1, enum $enum2, int $int3, int $int4, int $int5, int $int6)
+if (%varclient_1095 = false | %varclient_1095 = null) {
+    ~clientscript_5085($component0);
+    return;
+}
+sound_vorbis_volume(6185, 1, 0, 200);
+if_sethide(interface_1114:com_22, false);
+%varclient_160 = $int1;
+def_int $int7 = calc($int1 * 10);
+if (cc_find($component0, $int7) = true) {
+    cc_setontimer(null);
+}
+if (cc_find($component0, calc($int7 + 3)) = true) {
+    cc_setgraphic("aif_drop_down_button_1,7");
+}
+if (cc_find($component0, calc($int7 + 5)) = true) {
+    cc_setgraphic("aif_drop_down_button_1,6");
+}
+if (cc_find($component0, calc($int7 + 7)) = true) {
+    cc_setgraphic("aif_drop_down_button_1,8");
+}
+if (cc_find($component0, calc($int7 + 4)) = true) {
+    cc_settrans(255);
+}
+if (cc_find($component0, calc($int7 + 6)) = true) {
+    cc_settrans(255);
+}
+if (cc_find($component0, calc($int7 + 8)) = true) {
+    cc_settrans(255);
+}
+cc_deleteall(interface_1114:com_26);
+def_int $int8 = 0;
+while ($int8 < $int3) {
+    cc_create(interface_1114:com_26, ^iftype_rectangle, if_getnextsubid(interface_1114:com_26));
+    cc_sethide(true);
+    $int8 = calc($int8 + 1);
+}
+def_int $int9 = ~clientscript_5089($enum2);
+def_int $int10 = 0;
+$int8 = 0;
+while ($int8 < $int4) {
+    if ($int9 ! $int8) {
+        cc_create(interface_1114:com_26, ^iftype_text, if_getnextsubid(interface_1114:com_26));
+        cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(p11_full);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_setcolour(0xefb063);
+        cc_settextshadow(false);
+        cc_settext(enum(int, string, $enum2, $int8));
+        cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0xefb063)");
+        cc_setop(1, "Select");
+        cc_setonop("clientscript_5084($component0)");
+        $int10 = calc($int10 + cc_getheight);
+    } else {
+        cc_create(interface_1114:com_26, ^iftype_rectangle, if_getnextsubid(interface_1114:com_26));
+        cc_sethide(true);
+    }
+    $int8 = calc($int8 + 1);
+}
+if_setparam_int(interface_1114:com_23, param_1476, $int6);
+if_setparam_int(interface_1114:com_23, param_1477, $int10);
+if_setscrollsize(interface_1114:com_26, 0, $int10);
+~clientscript_5082($component0);
+if ($int4 > 4) {
+    ~scrollbar_vertical(interface_1114:com_27, interface_1114:com_26, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+} else {
+    cc_deleteall(interface_1114:com_27);
+}

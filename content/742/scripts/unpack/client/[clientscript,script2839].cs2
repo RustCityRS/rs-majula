@@ -1,0 +1,5 @@
+// 2839
+[clientscript,script2839]
+%nom_spline_step = 2;
+cam_movealong(0, %nom_spline_step, 350, 400, 1, %nom_spline_step);
+if_setoncamfinished(nom_cutscene_controller:cutscene_controller, "script2840");

@@ -1,0 +1,11 @@
+// 6231
+[proc,clientscript_6231]
+if (%varplayer_2611 = 1) {
+    if_sethide(lobbyscreen:com_31, false);
+    if_sethide(lobbyscreen:com_34, true);
+    %varplayer_2522 = 1;
+    ~clientscript_196;
+} else {
+    if_sethide(lobbyscreen:com_34, true);
+    ~lobbyscreen_entergame(lobbyscreen:com_0);
+}

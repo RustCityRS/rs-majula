@@ -24,6 +24,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -48,14 +49,22 @@ const VELRAK: (u16, u16) = (2931, 9685);
 const DUSTY_KEY: (u16, u16) = (2900, 9766);
 const BACKPACK: i32 = 149 << 16;
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "loc" => &engine.cache.locs.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
+}
+
+fn loc_id(engine: &Engine, name: &str) -> TypeId {
+    engine
+        .cache
+        .locs
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no loc {name}"))
+        .id
 }
 
 fn visitor(engine: &mut Engine, name: &str, (x, z): (u16, u16)) -> HarnessClient {
@@ -83,10 +92,10 @@ fn open(
     (x, z): (u16, u16),
     ticks: usize,
 ) -> Vec<String> {
-    let loc = id(engine, "loc", name);
+    let loc = loc_id(engine, name);
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -104,7 +113,7 @@ fn open(
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -116,7 +125,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> u32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -137,15 +146,15 @@ fn use_on(
     ticks: usize,
 ) -> Vec<String> {
     let obj = id(engine, "obj", obj);
-    let loc = id(engine, "loc", name);
+    let loc = loc_id(engine, name);
     let mut p = ClientPacket::new();
-    p.p2_alt2(obj as i32)
+    p.p2_alt2(obj.int())
         .p2_alt2(slot as i32)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
         .p2_alt2(x as i32)
         .p1_alt1(0)
-        .p2_alt1(loc as i32);
+        .p2_alt1(loc.int());
     client.send(ClientProt::OpLocT, &p.finish());
     let mut said = Vec::new();
     for _ in 0..ticks {
@@ -194,7 +203,7 @@ fn talk_to_velrak(
 }
 
 fn stands(engine: &Engine, name: &str, (x, z): (u16, u16)) -> bool {
-    let loc = id(engine, "loc", name);
+    let loc = loc_id(engine, name);
     engine
         .zones
         .zone(x, 0, z)

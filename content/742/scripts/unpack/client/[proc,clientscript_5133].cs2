@@ -1,0 +1,331 @@
+// 5133
+[proc,clientscript_5133]
+def_int $int0 = 0;
+def_int $int1 = ~script4293;
+if (~clientscript_5131 = 1) {
+    if_sethide(clansettings:com_395, true);
+    if_sethide(clansettings:com_403, true);
+    if_sethide(clansettings:com_411, true);
+    if_sethide(clansettings:com_419, true);
+    if_sethide(clansettings:com_427, true);
+    if_sethide(clansettings:com_435, true);
+    if_sethide(clansettings:com_443, true);
+    if_sethide(clansettings:com_451, true);
+    if_sethide(clansettings:com_459, true);
+    if_sethide(clansettings:com_467, true);
+    if_sethide(clansettings:com_475, true);
+    switch_int (%varclient_1569) {
+        case 0 :
+            if_sethide(clansettings:com_395, false);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 1 :
+            if_sethide(clansettings:com_403, false);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 2 :
+            if_sethide(clansettings:com_411, false);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 3 :
+            if_sethide(clansettings:com_419, false);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 4 :
+            if_sethide(clansettings:com_427, false);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 5 :
+            if_sethide(clansettings:com_435, false);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 100 :
+            if_sethide(clansettings:com_443, false);
+            if ($int1 > %varclient_1569) {
+                $int0 = 1;
+            }
+        case 101 :
+            if_sethide(clansettings:com_451, false);
+            if ($int1 > %varclient_1569) {
+                $int0 = 1;
+            }
+        case 102 :
+            if_sethide(clansettings:com_459, false);
+            if ($int1 > %varclient_1569) {
+                $int0 = 1;
+            }
+        case 103 :
+            if_sethide(clansettings:com_467, false);
+            if ($int1 > %varclient_1569) {
+                $int0 = 1;
+            }
+        case 125 :
+            if_sethide(clansettings:com_475, false);
+            if ($int1 > %varclient_1569) {
+                $int0 = 1;
+            }
+        case 126 :
+            $int0 = 0;
+        case 127 :
+            $int0 = 0;
+        case default :
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+    }
+}
+def_string $string0 = "";
+if_sethide(clansettings:com_562, false);
+if_sethide(clansettings:com_574, false);
+if_sethide(clansettings:com_607, false);
+if_sethide(clansettings:com_618, false);
+if_sethide(clansettings:com_640, false);
+if_sethide(clansettings:com_487, false);
+if_sethide(clansettings:com_596, false);
+if_sethide(clansettings:com_585, false);
+if_sethide(clansettings:com_629, false);
+if_sethide(clansettings:com_551, false);
+if_sethide(clansettings:com_538, false);
+if_sethide(clansettings:com_756, false);
+if_sethide(clansettings:com_743, false);
+if_sethide(clansettings:com_652, false);
+if_sethide(clansettings:com_663, false);
+if_sethide(clansettings:com_675, false);
+if_sethide(clansettings:com_688, false);
+if_sethide(clansettings:com_700, false);
+if_sethide(clansettings:com_797, false);
+if_sethide(clansettings:com_808, false);
+if_sethide(clansettings:com_819, false);
+if_sethide(clansettings:com_712, false);
+if_sethide(clansettings:com_786, false);
+if_sethide(clansettings:com_852, false);
+if_sethide(clansettings:com_830, false);
+if_sethide(clansettings:com_841, false);
+if_sethide(clansettings:com_724, false);
+if ($int0 = 1) {
+    if_sethide(clansettings:com_562, true);
+    if_sethide(clansettings:com_574, true);
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may upgrade the citadel.";
+        if_setonmouserepeat(clansettings:com_607, "clientscript_5138($string0, event_com)");
+    } else if (~clientscript_5145($int1) = 0) {
+        $string0 = "You may only allow upgrades to the citadel if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_607, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_607, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may downgrade the citadel.";
+        if_setonmouserepeat(clansettings:com_618, "clientscript_5138($string0, event_com)");
+    } else if (~clientscript_5147($int1) = 0) {
+        $string0 = "You may only allow downgrades to the citadel if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_618, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_618, true);
+    }
+    if (~clientscript_6026($int1) = 0) {
+        $string0 = "You may only allow transfer of resources if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_640, "clientscript_5138($string0, event_com)");
+    } else if (%varclient_1569 >= 100) {
+        if_sethide(clansettings:com_640, true);
+    }
+    if (~clientscript_6012($int1) = 0) {
+        $string0 = "You may only allow recruiting if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_487, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_487, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may change the noticeboard.";
+        if_setonmouserepeat(clansettings:com_596, "clientscript_5138($string0, event_com)");
+    } else if (~clientscript_6006($int1) = false) {
+        $string0 = "You may only allow adding of notices if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_596, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_596, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may change the signpost.";
+        if_setonmouserepeat(clansettings:com_585, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_6008($int1) = false) {
+        $string0 = "You may only allow adding to the signpost if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_585, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_585, true);
+    }
+    if (~clientscript_6010($int1) = 0) {
+        $string0 = "You may only allow editing of the clan battlefield if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_629, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_629, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may change who may lock the citadel.";
+        if_setonmouserepeat(clansettings:com_551, "clientscript_5138($string0, event_com)");
+    } else if (~clientscript_5149($int1) = 0) {
+        $string0 = "You may only allow locking of the citadel if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_551, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_551, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may change who may lock the keep.";
+        if_setonmouserepeat(clansettings:com_538, "clientscript_5138($string0, event_com)");
+    } else if (~clientscript_5148($int1) = 0) {
+        $string0 = "You may only allow locking of the keep if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_538, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_538, true);
+    }
+    if (~clientscript_5149($int1) = 0) {
+        $string0 = "You may only allow entry to the citadel if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_756, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_756, true);
+    }
+    if (~clientscript_5148($int1) = 0) {
+        $string0 = "You may only allow entry to the keep if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_743, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_743, true);
+    }
+    if (~clientscript_6014($int1) = 0) {
+        $string0 = "You may only allow starting of battles if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_652, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_652, true);
+    }
+    if (~clientscript_6016($int1) = 0) {
+        $string0 = "You may only allow a rank to lead Rated Clan Wars if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_663, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_663, true);
+    }
+    if (~clientscript_6018($int1) = 0) {
+        $string0 = "You may only allow a rank to call a vote if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_675, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_675, true);
+    }
+    if (~clientscript_6020($int1) = 0) {
+        $string0 = "You may only allow a rank to begin a meeting if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_688, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_688, true);
+    }
+    if (~clientscript_6022($int1) = 0) {
+        $string0 = "You may only set a rank as a party tech if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_700, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_700, true);
+    }
+    if (~clientscript_6024($int1) = 0) {
+        $string0 = "You may only set a rank as a theatre tech if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_797, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_797, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may set skill plot locks.";
+        if_setonmouserepeat(clansettings:com_808, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_5962($int1) = 0) {
+        $string0 = "You may only allow a rank to lock plots if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_808, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_808, true);
+    }
+    if (~clientscript_5964($int1) = 0) {
+        $string0 = "You may only allow a rank to checkresources if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_819, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_819, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may set gathering goals.";
+        if_setonmouserepeat(clansettings:com_712, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_5225($int1) = 0) {
+        $string0 = "You may only allow a rank to gather resources if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_712, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_712, true);
+    }
+    if (%varclient_1569 < 103) {
+        $string0 = "Only overseers and above may set the citadel's language.";
+        if_setonmouserepeat(clansettings:com_786, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_6028($int1) = 0) {
+        $string0 = "You may only allow a rank to change the stronghold's language if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_786, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_786, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admin ranks and above may remove the avatar habitat.";
+        if_setonmouserepeat(clansettings:com_852, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_6631($int1) = false) {
+        $string0 = "You may only allow another rank to remove the avatar habitat if your rank has permission.";
+        if_setonmouserepeat(clansettings:com_852, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_852, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admin ranks and above may customise the clan avatar.";
+        if_setonmouserepeat(clansettings:com_830, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_6633($int1) = false) {
+        $string0 = "You may only allow another rank to customise the clan avatar if your rank has permission.";
+        if_setonmouserepeat(clansettings:com_830, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_830, true);
+    }
+    if (%varclient_1569 < 100) {
+        $string0 = "Only admins and above may fill avatar buff slots.";
+        if_setonmouserepeat(clansettings:com_841, "clientscript_5139($string0, event_com)");
+    } else if (~clientscript_6635($int1) = false) {
+        $string0 = "You may only allow a rank to fill avatar buff slots if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_841, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_841, true);
+    }
+    if (%varclient_1569 < 103) {
+        $string0 = "Only overseers and above may move the build tick.";
+        if_setonmouserepeat(clansettings:com_724, "clientscript_5138($string0, event_com)");
+    } else if (~clientscript_6030($int1) = 0) {
+        $string0 = "You may only allow a rank to change the stronghold's build time if your rank has this permission.";
+        if_setonmouserepeat(clansettings:com_724, "clientscript_5138($string0, event_com)");
+    } else {
+        if_sethide(clansettings:com_724, true);
+    }
+} else {
+    $string0 = "Your rank is not high enough to alter this permission.";
+    if_setonmouserepeat(clansettings:com_607, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_618, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_640, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_487, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_596, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_585, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_629, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_551, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_538, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_756, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_743, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_652, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_663, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_675, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_688, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_700, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_797, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_808, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_819, "clientscript_5138($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_712, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_786, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_852, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_830, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_841, "clientscript_5139($string0, event_com)");
+    if_setonmouserepeat(clansettings:com_724, "clientscript_5138($string0, event_com)");
+}
+~clientscript_5135;

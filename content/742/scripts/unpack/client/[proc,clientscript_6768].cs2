@@ -1,0 +1,18 @@
+// 6768
+[proc,clientscript_6768](int $int0)(int)
+if (stat_base(farming) < struct_param(enum(int, struct, enum_5522, $int0), param_2236)) {
+    return(0);
+}
+switch_int ($int0) {
+    case 31 :
+        if (~ql4_skill_requirements_cache(struct_639) = false) {
+            return(0);
+        }
+    case 33 :
+        if (stat_base(magic) < 70 | stat_base(agility) < 60 | stat_base(crafting) < 61 | stat_base(construction) < 50 | ~ql4_skill_requirements_cache(struct_581) = false) {
+            return(0);
+        }
+    case default :
+        return(1);
+}
+return(1);

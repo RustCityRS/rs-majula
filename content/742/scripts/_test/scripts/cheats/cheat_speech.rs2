@@ -1,0 +1,7 @@
+// Audition a voice-over clip by its vorbis id: `~speech 687` plays it once, `~speechstop`
+// stops it. The client plays speech only while the player's voice-over volume is on.
+[debugproc,speech](vorbis $clip)
+sound_speech_volume($clip, 1, 0, 255);
+
+[debugproc,speechstop]
+sound_speech_stop;

@@ -1,0 +1,4 @@
+// 6251
+[proc,clientscript_6251](int $int0, component $component1, component $component2, string $string0)
+if_setonmouserepeat($component2, "aif_tooltip($component1, event_com, -1, $string0, 128, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int0, event_mousex, event_mousey)");
+if_setonmouseleave($component2, "deltooltip($component1)");

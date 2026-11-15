@@ -1,0 +1,46 @@
+// 4861
+[proc,clientscript_4861]
+if (op718 = 1) {
+    if_sethide(interface_1261:com_342, false);
+    if_sethide(interface_1261:com_339, false);
+    if_sethide(interface_1261:com_336, false);
+    if (%varclan_2553 > 0) {
+        if_sethide(interface_1261:com_300, false);
+    }
+    if (%varclan_2553 > 0) {
+        if_sethide(interface_1261:com_300, false);
+    }
+    if (%varclan_2554 > 0) {
+        if_sethide(interface_1261:com_303, false);
+    }
+    if (%varclan_2555 > 0) {
+        if_sethide(interface_1261:com_306, false);
+    }
+    if (%varclan_2556 > 0) {
+        if_sethide(interface_1261:com_309, false);
+    }
+    if (%varclan_2557 > 0) {
+        if_sethide(interface_1261:com_312, false);
+    }
+    if (%varclan_2558 > 0) {
+        if_sethide(interface_1261:com_315, false);
+    }
+    if (%varclan_2560 > 0) {
+        if_sethide(interface_1261:com_318, false);
+    }
+    if (%varclan_2561 > 0) {
+        if_sethide(interface_1261:com_321, false);
+    }
+    if (%varclan_2562 > 0) {
+        if_sethide(interface_1261:com_324, false);
+    }
+    if (%varclan_2563 > 0) {
+        if_sethide(interface_1261:com_327, false);
+    }
+    if (%varclan_2564 > 0) {
+        if_sethide(interface_1261:com_330, false);
+    }
+    if (%varclan_2565 > 0) {
+        if_sethide(interface_1261:com_333, false);
+    }
+}

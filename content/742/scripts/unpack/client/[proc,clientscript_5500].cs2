@@ -1,0 +1,9 @@
+// 5500
+[proc,clientscript_5500]
+cc_deleteall(interface_1177:com_0);
+cc_deleteall(toplevel_fullscreen:com_84);
+cc_deleteall(toplevel_fullscreen:com_41);
+if_setontimer(interface_1177:com_0, null);
+if_setontimer(toplevel_fullscreen:com_84, null);
+if_setontimer(toplevel_fullscreen:com_41, null);
+%varclient_1696 = -1;

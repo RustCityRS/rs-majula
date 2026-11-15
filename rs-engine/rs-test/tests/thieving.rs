@@ -38,6 +38,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::MoveRestrict;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::fs;
 use std::ops::RangeInclusive;
 
@@ -113,8 +114,8 @@ fn run(
 }
 
 fn count(engine: &Engine, pid: u16, obj: &str) -> u32 {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let obj = *engine.cache.objs.debugnames.get(obj).unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let obj = engine.cache.objs.get_by_debugname(obj).unwrap().id;
     engine
         .harness_player(pid)
         .unwrap()
@@ -142,7 +143,7 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
             .iter()
             .flatten()
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
-            .find(|(_, id, _)| LUMBRIDGE_MEN.contains(id))
+            .find(|(_, id, _)| LUMBRIDGE_MEN.contains(&id.g2()))
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
             .expect("a man of Lumbridge");
         let mut client = thief(engine, "pickpocket", x + 1, z);
@@ -176,9 +177,9 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
         // within 5 tiles (stealing_check_for_guard, _for_owner). The stall
         // hides the thief only while they stand behind it: wait for a tick
         // when none can see the thief's tile, as a player would.
-        let watchers: Vec<u16> = ["baker_merchant", "ardougne_guard"]
+        let watchers: Vec<TypeId> = ["baker_merchant", "ardougne_guard"]
             .iter()
-            .map(|n| *engine.cache.npcs.debugnames.get(*n).unwrap())
+            .map(|n| engine.cache.npcs.get_by_debugname(n).unwrap().id)
             .collect();
         for tick in 0..200 {
             let seen = engine.npc_list.npcs.iter().flatten().any(|n| {
@@ -325,13 +326,13 @@ fn the_market_guards_carry_market_guard() {
             "misc_man_4",
             "misc_man_6",
         ] {
-            let id = *engine.cache.npcs.debugnames.get(name).expect(name);
+            let id = engine.cache.npcs.get_by_debugname(name).expect(name).id;
             let value = engine
                 .cache
                 .npcs
                 .get_by_id(id)
                 .and_then(|n| n.params.as_deref())
-                .and_then(|p| p.get(&param));
+                .and_then(|p| p.get(&TypeId::from_int(param)));
             assert!(
                 matches!(value, Some(ParamValue::Int(1))),
                 "{name}: {value:?}"
@@ -354,10 +355,10 @@ fn a_stunned_player_cannot_walk() {
             .get_by_name("[walktrigger,stunned]")
             .map(|s| s.id)
             .expect("[walktrigger,stunned] is defined");
-        let stunned = engine.cache.varps.debugnames["stunned"];
+        let stunned = engine.cache.varps.get_by_debugname("stunned").unwrap().id;
         let until = engine.clock as i32 + 20;
         let player = engine.harness_player_mut(client.pid).unwrap();
-        player.vars.set(stunned, VarValue::Int(until));
+        player.vars.set(stunned.g2(), VarValue::Int(until));
         player.walktrigger = Some(walktrigger);
         // A walkable tile a few steps off: a click the pathfinder cannot reach
         // queues no steps, and the walk trigger fires only on a step.

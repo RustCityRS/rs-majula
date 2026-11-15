@@ -13,13 +13,13 @@ use rs_vm::trigger::ServerTriggerType;
 
 impl ClientGameHandler for OpPlayerT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let com = self.com.into();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let com = self.com;
         #[cfg(since_647)]
         if transmitted_inv(active, com).is_some() {
-            return opplayeru::handle(self.pid, com, self.slot, self.obj, active);
+            return opplayeru::handle(self.pid, com, self.slot, self.obj.g2(), active);
         }
         active.watch_use(Using::Spell(com), Target::Player(self.pid));
         if active.player.state.delayed {
@@ -27,12 +27,12 @@ impl ClientGameHandler for OpPlayerT {
             return Ok(());
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let slot = u16::MAX;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let slot = self.slot;
         #[cfg(since_647)]
-        if self.obj != u16::MAX {
+        if !self.obj.is_null() {
             active.unset_map_flag();
             return Ok(());
         }

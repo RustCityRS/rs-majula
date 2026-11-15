@@ -1,0 +1,226 @@
+// 1189:0
+[com_0]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+colour=0xffffffff
+
+// 1189:1
+[com_1]
+type=model
+width=64
+height=64
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+model=null
+modelzoom=400
+
+// 1189:2
+[com_2]
+type=graphic
+x=5
+y=30
+width=95
+height=95
+layer=com_14
+graphic=graphic_9049
+
+// 1189:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 1189:4
+[com_4]
+type=text
+x=100
+y=30
+width=395
+height=75
+textfont=verdana_11pt_regular
+text=You have just been handed this item!
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1189:5
+[com_5]
+type=graphic
+width=16391
+height=30
+widthmode=proportion
+xmode=abs_centre
+layer=com_3
+graphic=graphic_9039
+tiling=yes
+
+// 1189:6
+[com_6]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+layer=com_3
+graphic=graphic_9042
+
+// 1189:7
+[com_7]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+xmode=abs_right
+layer=com_3
+graphic=graphic_9045
+
+// 1189:8
+[com_8]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+layer=com_3
+graphic=graphic_9043
+
+// 1189:9
+[com_9]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_3
+graphic=graphic_9044
+
+// 1189:10
+[com_10]
+type=layer
+y=-3
+width=80
+height=20
+xmode=abs_centre
+ymode=abs_bottom
+pausebutton=yes
+onload=clientscript_5584(event_com, interface_1189:com_12, null, null)
+
+// 1189:11
+[com_11]
+type=graphic
+width=80
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_10
+graphic=graphic_9056
+
+// 1189:12
+[com_12]
+type=graphic
+width=80
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_10
+graphic=graphic_9057
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1189:13
+[com_13]
+type=graphic
+width=80
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_10
+graphic=graphic_9058
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1189:14
+[com_14]
+type=layer
+width=125
+heightmode=minus
+
+// 1189:15
+[com_15]
+type=layer
+x=20
+y=45
+width=64
+height=64
+layer=com_14
+
+// 1189:16
+[com_16]
+type=layer
+width=125
+heightmode=minus
+hide=yes
+
+// 1189:17
+[com_17]
+type=graphic
+y=-5
+width=110
+height=110
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_9050
+
+// 1189:18
+[com_18]
+type=model
+x=14
+y=39
+width=64
+height=64
+layer=com_16
+model=null
+modelzoom=400
+
+// 1189:19
+[com_19]
+type=graphic
+x=32
+y=56
+width=32
+height=32
+layer=com_16
+
+// 1189:20
+[com_20]
+type=model
+x=25
+y=56
+width=64
+height=64
+layer=com_16
+model=null
+modelzoom=400
+
+// 1189:21
+[com_21]
+type=graphic
+x=51
+y=73
+width=32
+height=32
+layer=com_16

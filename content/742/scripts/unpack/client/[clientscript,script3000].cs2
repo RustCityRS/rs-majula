@@ -1,0 +1,5 @@
+// 3000
+[clientscript,script3000]
+if (calc(clientclock % 50) = 0) {
+    ~script3001;
+}

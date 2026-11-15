@@ -1,0 +1,7 @@
+// 5282
+[proc,clientscript_5282]
+if (if_getx(interface_555:com_48) > 29) {
+    sound_vorbis_rate(7557, 1, 0, 200, random_sound_pitch(20, 20));
+    if_setposition(interface_555:com_48, calc(if_getx(interface_555:com_48) - 10), if_gety(interface_555:com_48), ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(interface_555:com_49, calc(if_getx(interface_555:com_49) - 10), if_gety(interface_555:com_49), ^setpos_abs_left, ^setpos_abs_top);
+}

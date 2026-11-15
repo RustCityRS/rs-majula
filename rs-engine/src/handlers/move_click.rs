@@ -165,9 +165,9 @@ fn handle(
         active.clear_pending_action()?;
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let speed = MoveSpeed::Run;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let speed = if active.player.move_speed == MoveSpeed::Run {
         MoveSpeed::Walk
     } else {

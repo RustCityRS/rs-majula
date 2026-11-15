@@ -1,0 +1,46 @@
+// 6636
+[proc,clientscript_6636]
+if (%varplayerbit_11846 > 0) {
+    if_setgraphic(interface_1333:com_17, enum(int, graphic, enum_6103, %varplayerbit_11846));
+}
+if (%varplayerbit_11847 > 0) {
+    if_setgraphic(interface_1333:com_18, enum(int, graphic, enum_6103, %varplayerbit_11847));
+}
+if (%varplayerbit_11848 > 0) {
+    if_setgraphic(interface_1333:com_19, enum(int, graphic, enum_6103, %varplayerbit_11848));
+}
+if (%varplayerbit_11871 < 3 | %varplayerbit_11848 = 0) {
+    if_setgraphic(interface_1333:com_11, 12343);
+    if_setonmouserepeat(interface_1333:com_19, null);
+    if_setonmouseleave(interface_1333:com_19, null);
+} else {
+    if_setgraphic(interface_1333:com_11, 12342);
+    if_setpausetext(interface_1333:com_19, "Select");
+    if_setonmouserepeat(interface_1333:com_19, "aif_tooltip(interface_1333:com_25, event_com, event_comsubid, enum(int, string, enum_6106, %varplayerbit_11848), 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1333:com_19, "deltooltip(interface_1333:com_25)");
+}
+if (%varplayerbit_11871 < 2 | %varplayerbit_11847 = 0) {
+    if_setgraphic(interface_1333:com_10, 12343);
+    if_setonmouserepeat(interface_1333:com_18, null);
+    if_setonmouseleave(interface_1333:com_18, null);
+} else {
+    if_setgraphic(interface_1333:com_10, 12342);
+    if_setpausetext(interface_1333:com_18, "Select");
+    if_setonmouserepeat(interface_1333:com_18, "aif_tooltip(interface_1333:com_25, event_com, event_comsubid, enum(int, string, enum_6106, %varplayerbit_11847), 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1333:com_18, "deltooltip(interface_1333:com_25)");
+}
+if (%varplayerbit_11846 = 0) {
+    if_setgraphic(interface_1333:com_9, 12343);
+    if_setonmouserepeat(interface_1333:com_17, null);
+    if_setonmouseleave(interface_1333:com_17, null);
+} else {
+    if_setgraphic(interface_1333:com_9, 12342);
+    if_setpausetext(interface_1333:com_17, "Select");
+    if_setonmouserepeat(interface_1333:com_17, "aif_tooltip(interface_1333:com_25, event_com, event_comsubid, enum(int, string, enum_6106, %varplayerbit_11846), 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1333:com_17, "deltooltip(interface_1333:com_25)");
+}
+def_string $string0 = "Summon the avatar with no buff active.";
+if_setgraphic(interface_1333:com_16, 12342);
+if_setpausetext(interface_1333:com_24, "Select");
+if_setonmouserepeat(interface_1333:com_24, "aif_tooltip(interface_1333:com_25, event_com, event_comsubid, $string0, 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1333:com_24, "deltooltip(interface_1333:com_25)");

@@ -1,0 +1,9 @@
+// 669
+[proc,clientscript_669]
+if (%varplayer_1108 = 2) {
+    ~clientscript_671;
+} else if (%varplayer_1108 = 5) {
+    ~clientscript_672;
+} else {
+    ~clientscript_670;
+}

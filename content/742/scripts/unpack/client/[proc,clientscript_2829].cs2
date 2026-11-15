@@ -1,0 +1,30 @@
+// 2829
+[proc,clientscript_2829]
+if (clientclock < %throbber_last) {
+    return;
+}
+%throbber_last = calc(clientclock + 5);
+switch_graphic (if_getgraphic(lobbyscreen:com_466)) {
+    case "loading_wheel_1,0" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,1");
+    case "loading_wheel_1,1" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,2");
+    case "loading_wheel_1,2" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,3");
+    case "loading_wheel_1,3" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,4");
+    case "loading_wheel_1,4" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,5");
+    case "loading_wheel_1,5" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,6");
+    case "loading_wheel_1,6" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,7");
+    case "loading_wheel_1,7" :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,0");
+    case default :
+        if_setgraphic(lobbyscreen:com_466, "loading_wheel_1,0");
+}
+%varclient_1773 = calc(%varclient_1773 + 1);
+if (%varclient_1773 >= 2000) {
+    ~clientscript_4015;
+}

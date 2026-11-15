@@ -1,0 +1,44 @@
+// 1635
+[proc,clientscript_1635](component $component0, stat $stat1)
+def_int $int2 = enum(stat, int, enum_1482, $stat1);
+def_boolean $boolean3 = ~clientscript_1636($stat1);
+def_enum $enum4 = enum_3495;
+if ($boolean3 = true) {
+    $enum4 = enum_371;
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+def_graphic $graphic5 = 10203;
+def_graphic $graphic6 = 10205;
+def_int $int7 = 1908;
+def_graphic $graphic8 = 10204;
+def_string $string0 = "You haven't reached the maximum level for this skill.";
+if ($boolean3 = true) {
+    if (testbit(%varplayer_2812, $int2) = ^true) {
+        $string0 = "If you select this skill you will receieve challenges for it.";
+    } else {
+        $string0 = "If you deselect this skill you will not receieve challenges for it.";
+    }
+    cc_setgraphic($graphic5);
+    cc_setop(1, "Choose");
+    cc_setopbase(enum(stat, string, enum_680, $stat1));
+    cc_setonop("clientscript_1637($stat1, $component0)");
+    cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic8)");
+    cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic5)");
+} else {
+    cc_setgraphic($graphic6);
+}
+cc_create($component0, ^iftype_graphic, 1);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(enum(int, graphic, $enum4, $int2));
+cc_setonmouserepeat("aif_tooltip(interface_631:com_35, event_com, event_comsubid, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+cc_setonmouseleave("deltooltip(interface_631:com_35)");
+if (testbit(%varplayer_2812, $int2) = ^true) {
+    cc_create($component0, ^iftype_graphic, 2);
+    cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setgraphic("mob_cross_icon,0");
+}

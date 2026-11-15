@@ -1,0 +1,7 @@
+// 1515
+[clientscript,clan_chat_onclansettingstransmit]
+if (%tutorial2_instructions = 0) {
+    ~clientscript_1517;
+} else {
+    ~clientscript_1516;
+}

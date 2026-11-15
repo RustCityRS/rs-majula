@@ -197,7 +197,12 @@ impl InputDecoder {
                     Input::Outside
                 }
             };
-            ms = (ms + u32::from(sample.gap) * SAMPLE_MS).min(at);
+            // The 530 client counts the samples it skipped before this one.
+            #[cfg(any(before_530, since_647))]
+            let units = u32::from(sample.gap);
+            #[cfg(all(since_530, before_647))]
+            let units = u32::from(sample.gap) + 1;
+            ms = (ms + units * SAMPLE_MS).min(at);
             out.push(Timed { ms, input });
         }
         self.move_ms = Some(ms);
@@ -329,11 +334,11 @@ mod tests {
     use super::*;
     #[cfg(any(rev = "225", since_254))]
     use rs_protocol::network::game::client_prot_message::ClientProtMessageInfo;
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     use std::iter;
 
     /// Encodes samples as the client's `EVENT_MOUSE_MOVE` does.
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     fn encode_moves(samples: &[(i32, i32)], tracked: &mut (i32, i32)) -> Vec<u8> {
         let mut out = Vec::new();
         let mut delta = 0u32;
@@ -360,7 +365,7 @@ mod tests {
         out
     }
 
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     #[test]
     fn decodes_mouse_moves() {
         let samples = [(10, 10), (12, 11), (100, 200), (100, 200), (101, 199)];
@@ -380,7 +385,7 @@ mod tests {
         );
     }
 
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     #[test]
     fn long_stills_and_outside() {
         let mut samples = vec![(5, 5)];
@@ -405,7 +410,15 @@ mod tests {
     #[cfg(since_647)]
     #[test]
     fn decodes_647_mouse_moves() {
+        #[cfg(before_742)]
         let mut buf = Packet::new(11);
+        #[cfg(since_742)]
+        let mut buf = Packet::new(13);
+        #[cfg(since_742)]
+        {
+            buf.p1(0);
+            buf.p1(0);
+        }
         buf.p1(192 + 3);
         buf.p4((200 << 16) | 100);
         buf.p2((2 << 12) | ((2 + 32) << 6) | (32 - 1));
@@ -432,13 +445,23 @@ mod tests {
     fn decodes_clicks() {
         let mut decoder = InputDecoder::default();
         let mut out = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let data = ((12 << 20) + (1 << 19) + 300 * 765 + 400_u32).to_be_bytes();
+        #[cfg(all(since_530, before_647))]
+        let data = {
+            let mut buf = Packet::new(6);
+            buf.p2_alt3((1 << 15) | 12);
+            buf.p4_alt3((300 << 16) | 400);
+            buf.data
+        };
         #[cfg(since_647)]
         let data = {
             let mut buf = Packet::new(6);
             buf.p2((1 << 15) | 12);
+            #[cfg(before_742)]
             buf.p4_alt2((300 << 16) | 400);
+            #[cfg(since_742)]
+            buf.p4((300 << 16) | 400);
             buf.data
         };
         decoder.mouse_click(3_000, &decode(&data).unwrap(), &mut out);
@@ -462,10 +485,14 @@ mod tests {
         assert!(!decoder.packet(&ClientProt::NoTimeout, 1_000, &[], &mut out));
         #[cfg(any(rev = "225", since_254))]
         {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let data = [0x01, 0x80, 0x02, 0x00, 0, 0];
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            let data = [0x01, 0x00, 0x00, 0x02];
+            #[cfg(all(since_647, before_742))]
             let data = [0x02, 0x80, 0x80, 0x01];
+            #[cfg(since_742)]
+            let data = [0x01, 0x00, 0x80, 0x02];
             let len = <EventCameraPosition as ClientProtMessageInfo>::FRAME.min();
             assert!(decoder.packet(
                 &ClientProt::EventCameraPosition,

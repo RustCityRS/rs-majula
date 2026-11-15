@@ -1,0 +1,32 @@
+// 6865
+[proc,clientscript_6865]
+def_graphic $graphic0 = null;
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+switch_int (map_lang) {
+    case 2 :
+        $graphic0 = 13687;
+        $graphic1 = 13688;
+        $graphic2 = 13689;
+        $graphic3 = 13690;
+    case 1 :
+        $graphic0 = 13683;
+        $graphic1 = 13684;
+        $graphic2 = 13685;
+        $graphic3 = 13686;
+    case 3 :
+        $graphic0 = 13691;
+        $graphic1 = 13692;
+        $graphic2 = 13693;
+        $graphic3 = 13694;
+    case default :
+        $graphic0 = 13679;
+        $graphic1 = 13680;
+        $graphic2 = 13681;
+        $graphic3 = 13682;
+}
+if_setgraphic(interface_1342:com_3, $graphic0);
+if_setgraphic(interface_1342:com_4, $graphic1);
+if_setgraphic(interface_1342:com_5, $graphic2);
+if_setgraphic(interface_1342:com_6, $graphic3);

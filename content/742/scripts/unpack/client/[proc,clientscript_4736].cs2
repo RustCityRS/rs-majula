@@ -1,0 +1,20 @@
+// 4736
+[proc,clientscript_4736](component $component0, int $int1)
+def_int $int2 = 806;
+def_inv $inv3 = null;
+if (%varplayerbit_9903 > 0) {
+    $inv3 = enum(int, inv, enum_3879, %varplayerbit_9903);
+    if ($inv3 ! null) {
+        $int2 = inv_size($inv3);
+    }
+}
+if_setscrollpos($component0, 0, 0);
+cc_deleteall($component0);
+def_int $int4 = 0;
+while ($int4 < $int2) {
+    cc_create($component0, ^iftype_graphic, $int4);
+    cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_sethide(true);
+    $int4 = calc($int4 + 1);
+}

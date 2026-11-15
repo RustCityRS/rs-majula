@@ -1,0 +1,45 @@
+// 5213
+[proc,clientscript_5213](int $int0)(component)
+switch_int ($int0) {
+    case 16 :
+        return(interface_1258:com_3);
+    case 17 :
+        return(interface_1258:com_4);
+    case 18 :
+        return(interface_1258:com_5);
+    case 19 :
+        return(interface_1258:com_6);
+    case 20 :
+        return(interface_1258:com_7);
+    case 21 :
+        return(interface_1258:com_8);
+    case 22 :
+        return(interface_1258:com_9);
+    case 23 :
+        return(interface_1258:com_10);
+    case 24 :
+        return(interface_1258:com_11);
+    case 25 :
+        return(interface_1258:com_12);
+    case 26 :
+        return(interface_1258:com_13);
+    case 27 :
+        return(interface_1258:com_14);
+    case 28 :
+        return(interface_1258:com_15);
+    case 29 :
+        return(interface_1258:com_16);
+    case 30 :
+        return(interface_1258:com_17);
+    case 31 :
+        return(interface_1258:com_18);
+    case 32 :
+        return(interface_1258:com_19);
+    case 33 :
+        return(interface_1258:com_20);
+    case 34 :
+        return(interface_1258:com_21);
+    case 49 :
+        return(interface_1258:com_22);
+}
+return(null);

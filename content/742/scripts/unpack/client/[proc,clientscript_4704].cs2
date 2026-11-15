@@ -1,0 +1,139 @@
+// 4704
+[proc,clientscript_4704]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = -1;
+$int0, $int1, $int2 = op106;
+switch_int ($int0) {
+    case 0 :
+    case 1 :
+    case 2 :
+    case 3 :
+        mes("Your password has been updated. Please leave the world and log in again.");
+    case 4 :
+        mes("Your account has been disabled. Check your Message Centre for details.");
+    case 5 :
+        mes("Your account has not logged out from its last session. Try again in a few minutes.");
+    case 6 :
+        mes("RuneScape has been updated! Please try again in a few minutes.");
+    case 7 :
+        mes("This world is full. Please try back later.");
+    case 8 :
+        mes("Unable to connect: login server offline.");
+    case 9 :
+        mes("Login limit exceeded: too many connections from your address.");
+    case 10 :
+        mes("Unable to connect: bad session id.");
+    case 11 :
+        mes("Your password is an extremely common choice, and is not secure. You must change it.");
+    case 12 :
+        mes("You need a member's account to log in to this world.");
+    case 13 :
+        mes("Could not complete login. Please try back later.");
+    case 14 :
+        mes("The server is being updated. Please wait a few minutes and try again.");
+    case 15 :
+    case 16 :
+        mes("Too many incorrect logins from your address. Please wait 5 minutes before trying again.");
+    case 17 :
+        mes("You are standing in a members-only area. To play on this world, move to a free area first.");
+    case 18 :
+        mes("Your account has been locked. If you have not received an account recovery email, please select 'Recover Account'.");
+    case 19 :
+        mes("Fullscreen is currently a members-only feature. To log in, either exit fullscreen via the options menu or use a member's account.");
+    case 20 :
+        mes("Invalid loginserver requested. Please try back later.");
+    case 21 :
+    case 22 :
+        mes("Malformed login packet. Please try again.");
+    case 23 :
+        mes("No reply from login server. Please wait a minute and try again.");
+    case 24 :
+        mes("Error loading your profile. Please contact customer support.");
+    case 25 :
+        mes("Unexpected loginserver response. Please try back later.");
+    case 26 :
+        mes("This computer's address has been blocked, as it was used to break our rules.");
+    case 27 :
+        mes("Service unavailable.");
+    case 28 :
+    case 29 :
+        switch_int (login_disallowresult) {
+            case 0 :
+                mes("You must have a Combat Level of at least 20 (not including Summoning) to enter a PvP world.");
+            case 1 :
+                mes("You are currently carrying lent items and cannot enter a PvP world.");
+            case 2 :
+                mes("You must be standing in the Wilderness or Edgeville to enter this bounty world.");
+            case 3 :
+                mes("You must have a total skill level of 1,000 or greater to enter this world.");
+            case 5 :
+                mes("You must have a total skill level of 1,500 or greater to enter this world.");
+            case 4 :
+                mes("You must move to a safe area before you can log in to a PvP or bounty world.");
+            case default :
+                mes("Unexpected server response. Please try back later.");
+        }
+    case 30 :
+        mes("This is not a member's account. Please choose a 'free' world from the website to play on this account.");
+    case 31 :
+    case 32 :
+        mes("Your account has negative membership credit. Please log into the billing system to add credit to your account.");
+    case 33 :
+    case 34 :
+    case 35 :
+    case 36 :
+    case 37 :
+        mes("Your account is currently inaccessible. Please try again in a few minutes.");
+    case 38 :
+    case 39 :
+        mes("The instance you tried to join no longer exists. Please try back later.");
+    case 40 :
+        mes("You need a member's account to log in to this instance.");
+    case 41 :
+        mes("The instance you tried to join is full. Please try back later.");
+    case 42 :
+    case 43 :
+    case 44 :
+        mes("Our systems are currently unavailable. Please try again in a few minutes.");
+    case 48 :
+        mes("Client token failure - please reload this page.");
+    case 45 :
+        switch_int ($int2) {
+            case 0 :
+                switch_int ($int1) {
+                    case 0 :
+                        mes("You must be near the TzHaar Fight Pits entrance to enter a global match.");
+                    case default :
+                        mes("Unable to log in. Please try back later.");
+                }
+            case 1 :
+                switch_int ($int1) {
+                    case 1 :
+                        mes("There was an error connecting to your meeting room. Please try again.");
+                    case 2 :
+                        mes("You need a higher rank to enter that private tent.");
+                    case 3 :
+                        mes("You need an invitation to enter that private room.");
+                    case default :
+                        mes("Unable to log in. Please try back later.");
+                }
+            case 4 :
+                switch_int ($int1) {
+                    case 1 :
+                        mes("You need to clear some inventory space to enter a Flash Factory game.");
+                    case 2 :
+                        mes("You must dismiss your follower before entering a Flash Factory game.");
+                }
+            case default :
+                mes("Unable to log in. Please try back later.");
+        }
+    case 46 :
+        mes("This instance is marked for deletion/rebuild. Please try again in a few minutes.");
+    case 47, 51 :
+        mes("You need to validate your email address to log in.");
+    case 50 :
+        mes("The Jagex Account Guardian is protecting this account.<br><br>This device is not recognised.<br><br>No new devices can be added for up to 24 hours as too many failed attempts to answer the security questions have been made.<br><br>During this time access will still be granted to any devices already trusted.");
+    case 52 :
+        mes("You need to validate this device to use with your account. Please follow the instructions in the window that will open shortly.");
+}

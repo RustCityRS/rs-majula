@@ -1,0 +1,8 @@
+// 6687
+[proc,clientscript_6687]
+%varclient_2015 = null;
+if (if_gethide(interface_1340:com_24) = true) {
+    return;
+}
+if_sethide(interface_1340:com_24, true);
+sound_vorbis_volume(6185, 1, 0, 200);

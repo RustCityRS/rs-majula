@@ -1,0 +1,32 @@
+// 3367
+[proc,clientscript_3367](string $string0, int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_graphic $graphic4 = null;
+cc_create(interface_1216:com_3, ^iftype_text, if_getnextsubid(interface_1216:com_3));
+cc_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize(0, 33, ^setsize_minus, ^setsize_abs);
+$int3 = calc(stringwidth($string0, verdana_15pt_regular) + stringwidth("New", verdana_15pt_regular));
+cc_setontimer("clientscript_3368(event_comsubid, $string0, calc(clientclock + $int0 * $int1))");
+$int2 = cc_getx;
+cc_create(interface_1216:com_3, ^iftype_graphic, if_getnextsubid(interface_1216:com_3));
+cc_setposition(0, 24, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize($int3, 33, ^setsize_abs, ^setsize_abs);
+cc_settiling(true);
+$graphic4 = 9240;
+cc_setontimer("clientscript_4226(event_comsubid, $graphic4, calc(clientclock + $int0 * $int1))");
+op1025;
+$int2 = cc_getx;
+$int3 = cc_getwidth;
+cc_create(interface_1216:com_3, ^iftype_graphic, if_getnextsubid(interface_1216:com_3));
+cc_setposition(calc($int2 - 50), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+$graphic4 = 9239;
+cc_setontimer("clientscript_4226(event_comsubid, $graphic4, calc(clientclock + $int0 * $int1))");
+op1025;
+cc_create(interface_1216:com_3, ^iftype_graphic, if_getnextsubid(interface_1216:com_3));
+cc_setposition(calc($int2 + $int3), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+$graphic4 = 9241;
+cc_setontimer("clientscript_4226(event_comsubid, $graphic4, calc(clientclock + $int0 * $int1))");
+op1025;

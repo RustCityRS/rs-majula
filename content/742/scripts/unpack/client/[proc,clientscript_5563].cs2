@@ -1,0 +1,63 @@
+// 5563
+[proc,clientscript_5563](int $int0, component $component1)
+def_int $int2 = calc($int0 + 20);
+def_int $int3 = calc($int0 + 40);
+def_int $int4 = calc($int0 + 60);
+def_int $int5 = calc($int0 + 80);
+def_int $int6 = calc($int0 + 100);
+def_int $int7 = calc($int0 + 120);
+def_int $int8 = -1;
+if (clientclock >= $int7) {
+    if_sethide($component1, true);
+    if_settrans($component1, 255);
+    if_setontimer($component1, null);
+}
+if (clientclock < $int2) {
+    $int8 = calc(if_gettrans($component1) - 15);
+    if ($int8 < 0) {
+        $int8 = 0;
+    }
+    if_settrans($component1, $int8);
+    if_setgraphic(toplevel_fullscreen:com_250, 8946);
+    if_setgraphic(toplevel:com_34, 8957);
+} else if (clientclock < $int3) {
+    $int8 = calc(if_gettrans($component1) + 15);
+    if ($int8 > 255) {
+        $int8 = 255;
+    }
+    if_settrans($component1, $int8);
+    if_setgraphic(toplevel_fullscreen:com_250, 8945);
+    if_setgraphic(toplevel:com_34, 8956);
+} else if (clientclock < $int4) {
+    $int8 = calc(if_gettrans($component1) - 15);
+    if ($int8 < 0) {
+        $int8 = 0;
+    }
+    if_settrans($component1, $int8);
+    if_setgraphic(toplevel_fullscreen:com_250, 8946);
+    if_setgraphic(toplevel:com_34, 8957);
+} else if (clientclock < $int5) {
+    $int8 = calc(if_gettrans($component1) + 15);
+    if ($int8 > 255) {
+        $int8 = 255;
+    }
+    if_settrans($component1, $int8);
+    if_setgraphic(toplevel_fullscreen:com_250, 8945);
+    if_setgraphic(toplevel:com_34, 8956);
+} else if (clientclock < $int6) {
+    $int8 = calc(if_gettrans($component1) - 15);
+    if ($int8 < 0) {
+        $int8 = 0;
+    }
+    if_settrans($component1, $int8);
+    if_setgraphic(toplevel_fullscreen:com_250, 8946);
+    if_setgraphic(toplevel:com_34, 8957);
+} else {
+    $int8 = calc(if_gettrans($component1) + 15);
+    if ($int8 > 255) {
+        $int8 = 255;
+    }
+    if_settrans($component1, $int8);
+    if_setgraphic(toplevel_fullscreen:com_250, 8945);
+    if_setgraphic(toplevel:com_34, 8956);
+}

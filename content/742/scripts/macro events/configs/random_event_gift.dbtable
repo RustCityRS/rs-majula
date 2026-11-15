@@ -1,0 +1,11 @@
+// 2011's Random event gift (2011 wiki, Random event gift: released with the
+// random event update of 25 February 2009): a solved random event gives a
+// gift, and opening it offers a choice of rewards, one per category. A row per
+// reward the wiki lists: its category (`slot`, the inventory slot the client
+// labels by category, cache-786 enum 2238) and the range of how many it
+// offers. A members obj is offered on members worlds only (oc_members).
+[random_event_gift]
+column=slot,int,INDEXED,REQUIRED
+column=reward,namedobj,REQUIRED
+column=min,int,REQUIRED
+column=max,int,REQUIRED

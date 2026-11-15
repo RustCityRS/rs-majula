@@ -1,0 +1,5 @@
+// 3481
+[clientscript,love_puzzle_sourceclick](int $int0)
+if ($int0 = 1) {
+    mes("Drag the tiles into the grid.");
+}
