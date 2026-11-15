@@ -937,7 +937,8 @@ impl GameMap {
     /// tile it is sampled at (every seventh tile, which each zone holds one
     /// of), before any collision is applied: collision written to an absent
     /// zone is dropped, so an unmarked zone stays absent and reads back
-    /// blocked.
+    /// blocked. A zone an earlier engine in the process left allocated starts
+    /// empty again, without that engine's npcs, players or changed locs.
     ///
     /// On a free-to-play world, a zone whose sampled tile is neither
     /// free-to-play nor bordering free-to-play land stays absent.
@@ -960,6 +961,7 @@ impl GameMap {
                             || rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8)
                             || rsmod::borders_zone_flag(x, z, y, ZoneFlag::Free as u8))
                     {
+                        rsmod::deallocate_if_present(x, z, y);
                         rsmod::allocate_if_absent(x, z, y);
                     }
                 }
