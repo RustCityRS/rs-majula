@@ -272,7 +272,7 @@ use rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead;
 use rs_protocol::network::game::server::if_setobject::IfSetObject;
 use rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead;
 use rs_protocol::network::game::server::if_setposition::IfSetPosition;
-#[cfg(before_245_2)]
+#[cfg(before_244)]
 use rs_protocol::network::game::server::if_setrecol::IfSetRecol;
 #[cfg(since_245_2)]
 use rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos;
@@ -307,7 +307,7 @@ use rs_protocol::network::game::server::rebuild_normal::RebuildNormal;
 use rs_protocol::network::game::server::rebuild_region::RebuildRegion;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::reset_anims::ResetAnims;
-#[cfg(before_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::reset_client_varcache::ResetClientVarCache;
 #[cfg(since_530)]
 use rs_protocol::network::game::server::run_client_script::{RunClientScript, ScriptParam};
@@ -348,6 +348,8 @@ use rs_protocol::network::game::server::varc_str_large::VarcStrLarge;
 use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
 use rs_protocol::network::game::server::varp_large::VarpLarge;
 use rs_protocol::network::game::server::varp_small::VarpSmall;
+#[cfg(before_530)]
+use rs_protocol::network::game::server::varp_sync::VarpSync;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::vorbis_speech_sound::VorbisSpeechSound;
 #[cfg(since_647)]
@@ -1822,7 +1824,7 @@ impl ActivePlayer {
     }
 
     /// Recolors an interface component model, remapping `src` color to `dst`.
-    #[cfg(before_245_2)]
+    #[cfg(before_244)]
     pub fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
         self.write(IfSetRecol { com, src, dst });
     }
@@ -2981,9 +2983,10 @@ impl ActivePlayer {
     /// Tells the client to clear its cached varp values, forcing a full
     /// resync on the next varp transmit.
     pub fn reset_client_varcache(&mut self) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
+        self.write(VarpSync);
+        #[cfg(since_530)]
         self.write(ResetClientVarCache);
-        // TODO(647): rev-647 has no RESET_CLIENT_VARCACHE packet modelled yet.
     }
 
     /// Plays a synthesised sound effect on the client.

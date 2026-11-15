@@ -76,7 +76,7 @@ pub mod if_setnpchead;
 pub mod if_setobject;
 pub mod if_setplayerhead;
 pub mod if_setposition;
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 pub mod if_setrecol;
 #[cfg(since_647)]
 pub mod if_setretex;
@@ -148,7 +148,7 @@ pub mod rebuild_region;
 pub mod reflection_checker;
 #[cfg(before_647)]
 pub mod reset_anims;
-#[cfg(before_647)]
+#[cfg(since_530)]
 pub mod reset_client_varcache;
 #[cfg(since_530)]
 pub mod run_client_script;
@@ -216,6 +216,8 @@ pub mod varc_str_large;
 pub mod varc_str_small;
 pub mod varp_large;
 pub mod varp_small;
+#[cfg(before_647)]
+pub mod varp_sync;
 #[cfg(since_647)]
 pub mod vorbis_sound;
 #[cfg(since_647)]

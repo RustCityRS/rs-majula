@@ -20,7 +20,7 @@ pub enum ZoneProt {
     #[cfg(since_530)]
     MapProjAnimHalfsq = ServerProt::MapProjAnimHalfsq as u8,
     #[cfg(since_530)]
-    ServerProt530_104 = ServerProt::ServerProt530_104 as u8,
+    MapProjAnimHalfsqSrc = ServerProt::MapProjAnimHalfsqSrc as u8,
 }
 
 #[cfg(rev = "647")]

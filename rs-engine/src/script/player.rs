@@ -1449,7 +1449,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setrecol`
-    #[cfg(before_245_2)]
+    #[cfg(before_244)]
     fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
         self.if_setrecol(com, src, dst);
     }

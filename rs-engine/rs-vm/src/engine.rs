@@ -1739,7 +1739,7 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID.
     /// * `src` - The source color to replace.
     /// * `dst` - The destination color to apply.
-    #[cfg(before_245_2)]
+    #[cfg(before_244)]
     fn if_setrecol(&mut self, com: u16, src: u16, dst: u16);
 
     /// Assigns an interface component to a tab slot.

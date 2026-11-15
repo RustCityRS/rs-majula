@@ -158,7 +158,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         },
     );
     check(seen, if_settext::IfSetText { com: 16, text: "" });
-    #[cfg(before_245_2)]
+    #[cfg(before_244)]
     check(
         seen,
         if_setrecol::IfSetRecol {
@@ -442,7 +442,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
             val: -123456,
         },
     );
-    check(seen, reset_client_varcache::ResetClientVarCache);
+    check(seen, varp_sync::VarpSync);
     check(seen, reset_anims::ResetAnims);
     check(seen, set_multiway::SetMultiway { hide: true });
     check(seen, unset_map_flag::UnsetMapFlag);

@@ -51,7 +51,7 @@ use rs_protocol::network::game::server::loc_merge::LocMerge;
 #[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 #[cfg(all(since_530, before_647))]
-use rs_protocol::network::game::server::map_projanim_halfsq::ServerProt530_104;
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsqSrc;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
 #[cfg(since_647)]
@@ -1187,7 +1187,7 @@ impl ScriptEngine for Engine {
         let coord = ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8;
         #[cfg(all(since_530, before_647))]
         let message = match projectile.wearpos {
-            Some(wearpos) => ZoneMessage::ServerProt530_104(ServerProt530_104 {
+            Some(wearpos) => ZoneMessage::MapProjAnimHalfsqSrc(MapProjAnimHalfsqSrc {
                 coord,
                 dx: projectile.dx,
                 dz: projectile.dz,

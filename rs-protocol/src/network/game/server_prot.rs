@@ -73,7 +73,7 @@ server_prot! {
     PlayerInfo = 184, // NXT naming
     TutOpen = 185,
     MapAnim = 191,
-    ResetClientVarCache = 193, // NXT naming
+    VarpSync = 193,
     IfOpenSide = 195,
     IfSetPlayerHead = 197, // NXT naming
     IfSetText = 201, // NXT naming
@@ -115,11 +115,10 @@ server_prot! {
     IfSetColour = 78,
     UpdateRebootTimer = 85,
     PlayerInfo = 86,
-    ResetClientVarCache = 87,
+    VarpSync = 87,
     UpdateZonePartialFollows = 94,
     MessageGame = 95,
     SetMultiway = 97,
-    IfSetRecol = 103,
     IfSetPlayerHead = 108,
     IfOpenOverlay = 158,
     IfSetHide = 123,
@@ -169,7 +168,7 @@ server_prot! {
     IfSetTabActive = 8,
     ObjDel = 13,
     UpdateZonePartialEnclosed = 15, // NXT naming
-    ResetClientVarCache = 25, // NXT naming
+    VarpSync = 25,
     UpdateRebootTimer = 26, // NXT naming
     EnableTracking = 28,
     IfSetTab = 29,
@@ -275,7 +274,7 @@ server_prot! {
     NpcInfo = 123, // NXT naming
     UpdateStat = 136, // NXT naming
     IfSetTabActive = 138,
-    ResetClientVarCache = 140, // NXT naming
+    VarpSync = 140,
     IfOpenChat = 141,
     UpdateRebootTimer = 143, // NXT naming
     LastLoginInfo = 146, // NXT naming
@@ -359,7 +358,7 @@ server_prot! {
     LocMerge = 176,
     IfSetColour = 183, // NXT naming
     FriendListLoaded = 185,
-    ResetClientVarCache = 190, // NXT naming
+    VarpSync = 190,
     IfSetPlayerHead = 192, // NXT naming
     MinimapToggle = 194,
     UpdateZonePartialEnclosed = 195, // NXT naming
@@ -429,7 +428,7 @@ server_prot! {
     IfSetColour = 160, // NXT naming
     UnsetMapFlag = 164, // NXT has "SET_MAP_FLAG" but we cannot control the position
     UpdateFriendList = 168, // NXT naming
-    ResetClientVarCache = 172, // VARP_SYNC in the 289 client, same 0-byte resync
+    VarpSync = 172,
     ObjReveal = 176,
     SynthSound = 177, // NXT naming
     TutFlash = 181,
@@ -461,7 +460,6 @@ server_prot! {
     IfSetColour = 2,
     MidiSong = 4,
     IfSetTargetParam = 9,
-    ServerProt530_11 = 11,
     ServerProt530_13 = 13,
     ObjCount = 14,
     MapProjAnim = 16,
@@ -469,7 +467,6 @@ server_prot! {
     LocAnim = 20,
     IfSetHide = 21,
     UpdateInvPartial = 22,
-    ServerProt530_23 = 23,
     CamReset = 24,
     UpdateZonePartialFollows = 26,
     CamShake = 27,
@@ -480,7 +477,6 @@ server_prot! {
     UpdateStat = 38,
     UrlOpen = 42,
     SetPlayerOp = 44,
-    ServerProt530_47 = 47,
     VarcStrLarge = 48,
     IfSetObject = 50,
     MessageFriendchat = 54,
@@ -498,11 +494,10 @@ server_prot! {
     VarbitLarge = 84,
     UpdateRebootTimer = 85,
     Logout = 86,
-    ServerProt530_89 = 89,
-    ServerProt530_90 = 90,
+    ResetClientVarCache = 89,
     SoundArea = 97,
     NpcAnimSpecific = 102,
-    ServerProt530_104 = 104,
+    MapProjAnimHalfsqSrc = 104,
     UpdateInvFull = 105,
     IfSetPlayerHeadIgnoreworn = 111,
     UpdateZoneFullFollows = 112,
@@ -514,7 +509,7 @@ server_prot! {
     VarcStrSmall = 123,
     CamLookat = 125,
     UpdateIgnoreList = 126,
-    ResetClientVarCache = 128,
+    VarpSync = 128,
     IfSetModel = 130,
     ResetAnims = 131,
     IfSetAngle = 132,
@@ -558,7 +553,6 @@ server_prot! {
     LocAnimSpecific = 235,
     ObjDel = 240,
     MessageQuickchatPrivate = 247,
-    ServerProt530_253 = 253,
 }
 
 #[cfg(rev = "647")]
@@ -651,6 +645,7 @@ server_prot! {
     ObjDel = 103,
     ChatFilterSettingsPrivatechat = 104,
     IfSetHide = 105,
+    ResetClientVarCache = 106,
     WorldlistFetchReply = 107,
     MessagePrivate = 108,
     MapAnim = 109,
@@ -693,6 +688,7 @@ server_prot! {
     IfSetPosition = 16,
     IfSetAnim = 17,
     FriendlistLoaded = 18,
+    ResetClientVarCache = 19,
     Unknown20 = 20,
     LogoutFull = 21,
     VarcSmall = 22,

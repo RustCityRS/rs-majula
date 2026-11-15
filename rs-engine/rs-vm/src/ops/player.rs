@@ -573,7 +573,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2046
-        #[cfg(before_245_2)]
+        #[cfg(before_244)]
         active_player_mut!(m, IF_SETRECOL => |s, player| {
             let dst = s.pop_int_as::<u16>()?;
             let src = s.pop_int_as::<u16>()?;

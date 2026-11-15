@@ -60,7 +60,7 @@ use rs_protocol::network::game::server::logout::Logout;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 use rs_protocol::network::game::server::map_projanim_halfsq::{
-    MapProjAnimHalfsq, ServerProt530_104,
+    MapProjAnimHalfsq, MapProjAnimHalfsqSrc,
 };
 use rs_protocol::network::game::server::message_friendchat::MessageFriendchat;
 use rs_protocol::network::game::server::message_game::MessageGame;
@@ -115,6 +115,7 @@ use rs_protocol::network::game::server::varc_str_large::VarcStrLarge;
 use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
 use rs_protocol::network::game::server::varp_large::VarpLarge;
 use rs_protocol::network::game::server::varp_small::VarpSmall;
+use rs_protocol::network::game::server::varp_sync::VarpSync;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
 use rs_protocol::network::game::zone_prot::ZoneProt;
@@ -260,7 +261,7 @@ fn server_prot_ids_follow_the_530_table() {
     assert_eq!(ServerProt::PlayerInfo.id(), 225);
     assert_eq!(ServerProt::NpcInfo.id(), 32);
     assert_eq!(ServerProt::LastLoginInfo.id(), 164);
-    assert_eq!(ServerProt::NAMES.len(), 102);
+    assert_eq!(ServerProt::NAMES.len(), 97);
 }
 
 #[test]
@@ -654,8 +655,10 @@ fn shared_misc_packets_fit_the_530_size_table() {
     assert!(encode(&Logout).is_empty());
     assert_eq!(ResetAnims::PROT.id(), 131);
     assert!(encode(&ResetAnims).is_empty());
-    assert_eq!(ResetClientVarCache::PROT.id(), 128);
+    assert_eq!(ResetClientVarCache::PROT.id(), 89);
     assert!(encode(&ResetClientVarCache).is_empty());
+    assert_eq!(VarpSync::PROT.id(), 128);
+    assert!(encode(&VarpSync).is_empty());
     assert_eq!(UrlOpen::PROT.id(), 42);
     assert_eq!(encode(&UrlOpen { url: "a" }), [b'a']);
     let checks = [ReflectionCheck::FieldValue {
@@ -938,7 +941,7 @@ fn zone_prot_ids_are_server_prot_ids() {
         ZoneProt::MapProjAnim as u8,
         ZoneProt::SoundArea as u8,
         ZoneProt::MapProjAnimHalfsq as u8,
-        ZoneProt::ServerProt530_104 as u8,
+        ZoneProt::MapProjAnimHalfsqSrc as u8,
     ];
     ids.sort_unstable();
     assert_eq!(
@@ -1067,7 +1070,7 @@ fn projectiles_send_the_source_only_in_the_enclosed_form() {
     );
 
     let sourced = |source, wearpos| {
-        let projectile = ServerProt530_104 {
+        let projectile = MapProjAnimHalfsqSrc {
             coord: 0xA5,
             dx: -2,
             dz: 3,
@@ -1087,7 +1090,7 @@ fn projectiles_send_the_source_only_in_the_enclosed_form() {
         assert_eq!(buf.pos, 17);
         buf.data
     };
-    assert_eq!(ServerProt530_104::PROT.id(), 104);
+    assert_eq!(MapProjAnimHalfsqSrc::PROT.id(), 104);
     assert_eq!(SIZES[104], 0);
     let tail = [0, 7, 0x12, 0x34, 0xF6, 20, 1, 2, 3, 4, 16, 64];
     assert_eq!(
@@ -1096,6 +1099,18 @@ fn projectiles_send_the_source_only_in_the_enclosed_form() {
     );
     assert_eq!(sourced(6, 0), [&[0xA5, 0xFE, 3, 0, 6][..], &tail].concat());
     assert_eq!(sourced(0, 3), [&[0xA5, 0xFE, 3, 0, 0][..], &tail].concat());
+    assert_eq!(
+        sourced(2049, 3),
+        [&[0xA5, 0xFE, 3, 0, 0][..], &tail].concat()
+    );
+    assert_eq!(
+        sourced(2048, 15),
+        [&[0xA5, 0xFE, 3, 0, 0][..], &tail].concat()
+    );
+    assert_eq!(
+        sourced(-2048, 15),
+        [&[0xA5, 0xFE, 3, 0x80, 0][..], &tail].concat()
+    );
 }
 
 #[test]
