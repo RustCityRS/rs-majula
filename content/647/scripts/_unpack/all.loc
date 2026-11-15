@@ -22890,6 +22890,9 @@ model=5,model_1511
 name=Gate
 cursor1=1,cursor_open
 desc=The left hand side of the gate.
+// 289's category (areas/area_barbarian_outpost/configs/barbarian_outpost.loc): the gate's
+// script is [oploc1,_outpost_gate].
+category=outpost_gate
 
 // 2116
 [barbariangater]
@@ -22901,6 +22904,9 @@ model=5,model_1511
 name=Gate
 cursor1=1,cursor_open
 desc=The right hand side of the gate.
+// 289's category (areas/area_barbarian_outpost/configs/barbarian_outpost.loc): the gate's
+// script is [oploc1,_outpost_gate].
+category=outpost_gate
 
 // 2117
 [scorpionwall]
