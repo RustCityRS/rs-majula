@@ -1,0 +1,10 @@
+// 5564
+[proc,clientscript_5564](int $int0)(string, int)
+def_string $string0 = ~tostring_shortform($int0);
+if ($int0 < 100000) {
+    return($string0, ^yellow);
+} else if ($int0 >= 10000000) {
+    return($string0, 0x00ff80);
+} else {
+    return($string0, ^white);
+}

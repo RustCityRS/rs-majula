@@ -1,0 +1,57 @@
+// 742's quest list is the Noticeboard window's Quests page (questlist_v4, 190): a row per quest
+// id, each a child of questlist_v4:quests the client draws (ql4_sort). A row's ops follow its
+// state: a quest with an overview not yet started offers View Quest Overview, View Quest Journal,
+// Toggle Map Hint; once started, View Quest Journal, View Quest Overview; one without an overview
+// offers View Quest Journal only (op 2 is its map hint before it starts).
+[if_button1,questlist_v4:quests] @questlist_op(1, last_slot);
+[if_button2,questlist_v4:quests] @questlist_op(2, last_slot);
+
+[label,questlist_op](int $op, int $quest)
+def_struct $struct = enum(int, struct, enum_2252, $quest);
+if ($struct = null) {
+    return;
+}
+def_int $state = ~quest_state($quest);
+def_boolean $overview = false;
+if (struct_param($struct, param_694) = 1) {
+    $overview = true;
+}
+if ($overview = true & (($state = 0 & $op = 1) | ($state ! 0 & $op = 2))) {
+    // The page's right side shows the quest's overview: com_4, in place of "Select a quest"
+    // (com_0, com_1). No client script swaps them, so the server does.
+    if_sethide(questlist_v4:com_0, true);
+    if_sethide(questlist_v4:com_1, true);
+    if_sethide(questlist_v4:com_3, true);
+    if_sethide(questlist_v4:com_4, false);
+    %varplayer_1385 = $quest;
+    %ql4_quest = $struct;
+    // The requirements line's text; its arrival also runs clientscript_4011 again, which lays
+    // the first lines out beside the quest's icon (clientscript_4249 sizes them before it
+    // indents them, so the first run leaves "Start point:" under its own text).
+    %varclient_2381 = "";
+    return;
+}
+if ($op = 1 | ($overview = true & $state = 0 & $op = 2)) {
+    @questlist_journal($quest);
+}
+
+// View Quest Journal: 289's [if_button,questlist:<quest>], ported as [label,questlist_<quest>].
+// Each quest's port adds its row here.
+[label,questlist_journal](int $quest)
+switch_int ($quest) {
+    case ^questlist_cook : @questlist_cook;
+    case ^questlist_doric : @questlist_doric;
+    case ^questlist_hunt : @questlist_hunt;
+    case ^questlist_blackarmgang : @questlist_blackarmgang;
+    case ^questlist_runemysteries : @questlist_runemysteries;
+    case ^questlist_imp : @questlist_imp;
+    case ^questlist_priest : @questlist_priest;
+    case ^questlist_prince : @questlist_prince;
+    case ^questlist_haunted : @questlist_haunted;
+    case ^questlist_demon : @questlist_demon;
+    case ^questlist_vampire : @questlist_vampire;
+    case ^questlist_druid : @questlist_druid;
+    case ^questlist_junglepotion : @questlist_junglepotion;
+    case ^questlist_ball : @questlist_ball;
+    case ^questlist_unstable : @questlist_unstable;
+}

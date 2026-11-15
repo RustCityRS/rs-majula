@@ -1,0 +1,610 @@
+// 1164:0
+[com_0]
+type=layer
+width=131
+height=24
+xmode=abs_centre
+layer=com_26
+onmouseover=clientscript_5409(interface_1164:com_13, interface_1164:com_15, interface_1164:com_14)
+onmouseleave=clientscript_5410(interface_1164:com_13, interface_1164:com_15, interface_1164:com_14)
+
+// 1164:1
+[com_1]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_31
+graphic=graphic_7920
+
+// 1164:2
+[com_2]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_31
+graphic=graphic_7922
+
+// 1164:3
+[com_3]
+type=graphic
+width=111
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+graphic=graphic_7921
+tiling=yes
+
+// 1164:4
+[com_4]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_30
+graphic=graphic_7920
+
+// 1164:5
+[com_5]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_30
+graphic=graphic_7922
+
+// 1164:6
+[com_6]
+type=graphic
+width=111
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+graphic=graphic_7921
+tiling=yes
+
+// 1164:7
+[com_7]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_29
+graphic=graphic_7920
+
+// 1164:8
+[com_8]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_29
+graphic=graphic_7922
+
+// 1164:9
+[com_9]
+type=graphic
+width=111
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+graphic=graphic_7921
+tiling=yes
+
+// 1164:10
+[com_10]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_28
+graphic=graphic_7920
+
+// 1164:11
+[com_11]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_28
+graphic=graphic_7922
+
+// 1164:12
+[com_12]
+type=graphic
+width=111
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+graphic=graphic_7921
+tiling=yes
+
+// 1164:13
+[com_13]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_26
+graphic=graphic_7920
+
+// 1164:14
+[com_14]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_26
+graphic=graphic_7922
+
+// 1164:15
+[com_15]
+type=graphic
+width=111
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_26
+graphic=graphic_7921
+tiling=yes
+
+// 1164:16
+[com_16]
+type=layer
+y=29
+width=215
+height=272
+xmode=abs_centre
+
+// 1164:17
+[com_17]
+type=text
+y=-2
+width=109
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+textfont=p12_full
+text=Spectator
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5b241
+
+// 1164:18
+[com_18]
+type=layer
+width=131
+height=24
+xmode=abs_centre
+layer=com_31
+onmouseover=clientscript_5409(interface_1164:com_1, interface_1164:com_3, interface_1164:com_2)
+onmouseleave=clientscript_5410(interface_1164:com_1, interface_1164:com_3, interface_1164:com_2)
+
+// 1164:19
+[com_19]
+type=text
+y=-2
+width=109
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+textfont=p12_full
+text=Freestyle
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5b241
+
+// 1164:20
+[com_20]
+type=layer
+width=131
+height=24
+xmode=abs_centre
+layer=com_30
+onmouseover=clientscript_5409(interface_1164:com_4, interface_1164:com_6, interface_1164:com_5)
+onmouseleave=clientscript_5410(interface_1164:com_4, interface_1164:com_6, interface_1164:com_5)
+
+// 1164:21
+[com_21]
+type=text
+y=-2
+width=109
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+textfont=p12_full
+text=Special
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5b241
+
+// 1164:22
+[com_22]
+type=layer
+width=131
+height=24
+xmode=abs_centre
+layer=com_29
+onmouseover=clientscript_5409(interface_1164:com_7, interface_1164:com_9, interface_1164:com_8)
+onmouseleave=clientscript_5410(interface_1164:com_7, interface_1164:com_9, interface_1164:com_8)
+
+// 1164:23
+[com_23]
+type=text
+y=-2
+width=109
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+textfont=p12_full
+text=Endurance
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5b241
+
+// 1164:24
+[com_24]
+type=layer
+width=131
+height=24
+xmode=abs_centre
+layer=com_28
+onmouseover=clientscript_5409(interface_1164:com_10, interface_1164:com_12, interface_1164:com_11)
+onmouseleave=clientscript_5410(interface_1164:com_10, interface_1164:com_12, interface_1164:com_11)
+
+// 1164:25
+[com_25]
+type=text
+y=4
+width=109
+height=16
+xmode=abs_centre
+layer=com_26
+textfont=p12_full
+text=Climber
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5b241
+
+// 1164:26
+[com_26]
+type=layer
+y=83
+width=137
+height=29
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_1164:com_33)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1164:com_33, "Fight one match after another, getting a new handicap after each battle. Then either leave with what you have or gamble that you'll beat the next boss for far greater rewards.", 10, 200)
+
+// 1164:27
+[com_27]
+type=text
+y=111
+width=109
+height=16
+xmode=abs_centre
+textfont=p11_full
+text=Floor Progress: XX
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbab5b5
+
+// 1164:28
+[com_28]
+type=layer
+y=135
+width=137
+height=29
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_1164:com_33)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1164:com_33, "Fight from floor to floor with one inventory of items. The higher you reach, the more reward you'll receive.", 10, 200)
+
+// 1164:29
+[com_29]
+type=layer
+y=168
+width=137
+height=29
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_1164:com_33)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1164:com_33, "Try your luck against one of a set of specially set up battles.", 10, 200)
+
+// 1164:30
+[com_30]
+type=layer
+y=200
+width=137
+height=29
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_1164:com_33)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1164:com_33, "Fight one of the matches you've fought so far in the tower, setting your own rules, but for no reward.", 10, 200)
+
+// 1164:31
+[com_31]
+type=layer
+y=232
+width=137
+height=29
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_1164:com_33)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1164:com_33, "Watch another player in battle.", 10, 200)
+
+// 1164:32
+[com_32]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+
+// 1164:33
+[com_33]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_32
+
+// 1164:34
+[com_34]
+type=graphic
+x=9
+y=9
+width=199
+height=247
+layer=com_16
+graphic=graphic_8384
+tiling=yes
+
+// 1164:35
+[com_35]
+type=graphic
+y=9
+width=96
+height=22
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_8385
+
+// 1164:36
+[com_36]
+type=graphic
+y=9
+width=96
+height=22
+xmode=abs_right
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_8385
+hflip=yes
+
+// 1164:37
+[com_37]
+type=graphic
+y=10
+width=101
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_8387
+tiling=yes
+hflip=yes
+
+// 1164:38
+[com_38]
+type=graphic
+width=55
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_8386
+hflip=yes
+
+// 1164:39
+[com_39]
+type=graphic
+y=30
+width=22
+height=78
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_8388
+
+// 1164:40
+[com_40]
+type=graphic
+x=1
+width=21
+height=144
+ymode=abs_centre
+layer=com_16
+graphic=graphic_8389
+tiling=yes
+
+// 1164:41
+[com_41]
+type=graphic
+x=1
+y=41
+width=21
+height=56
+layer=com_16
+graphic=graphic_8390
+
+// 1164:42
+[com_42]
+type=graphic
+width=96
+height=44
+layer=com_16
+graphic=graphic_8393
+
+// 1164:43
+[com_43]
+type=graphic
+y=30
+width=22
+height=78
+xmode=abs_right
+ymode=abs_bottom
+layer=com_16
+graphic=graphic_8388
+hflip=yes
+
+// 1164:44
+[com_44]
+type=graphic
+x=1
+width=21
+height=141
+xmode=abs_right
+ymode=abs_centre
+layer=com_16
+graphic=graphic_8389
+tiling=yes
+hflip=yes
+
+// 1164:45
+[com_45]
+type=graphic
+x=1
+y=41
+width=21
+height=56
+xmode=abs_right
+layer=com_16
+graphic=graphic_8390
+hflip=yes
+
+// 1164:46
+[com_46]
+type=graphic
+width=96
+height=44
+xmode=abs_right
+layer=com_16
+graphic=graphic_8393
+hflip=yes
+
+// 1164:47
+[com_47]
+type=graphic
+y=1
+width=30
+height=43
+xmode=abs_centre
+layer=com_16
+graphic=graphic_8394
+tiling=yes
+hflip=yes
+
+// 1164:48
+[com_48]
+type=graphic
+x=60
+y=7
+width=42
+height=35
+layer=com_16
+graphic=graphic_8391
+tiling=yes
+
+// 1164:49
+[com_49]
+type=graphic
+x=60
+y=7
+width=42
+height=35
+xmode=abs_right
+layer=com_16
+graphic=graphic_8391
+tiling=yes
+hflip=yes
+
+// 1164:50
+[com_50]
+type=graphic
+y=7
+width=12
+height=35
+xmode=abs_centre
+layer=com_16
+graphic=graphic_8392
+tiling=yes
+hflip=yes
+
+// 1164:51
+[com_51]
+type=text
+x=1
+y=13
+width=60
+height=20
+xmode=abs_centre
+layer=com_16
+textfont=p12_full
+text=Modes
+textalignh=centre
+textalignv=centre
+colour=0xf5b241
+
+// 1164:52
+[com_52]
+type=layer
+x=184
+y=12
+width=19
+height=19
+layer=com_16
+transmitop=1
+op1=Close
+onmouseover=clientscript_5399(interface_1164:com_53)
+onmouseleave=clientscript_5400(interface_1164:com_53)
+onop=closebutton_click
+
+// 1164:53
+[com_53]
+type=graphic
+width=19
+height=19
+layer=com_52
+graphic=graphic_8278

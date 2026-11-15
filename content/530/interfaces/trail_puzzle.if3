@@ -1,0 +1,122 @@
+// 363:0
+[puzzle_hint_scroll]
+type=model
+x=3
+y=3
+width=30
+height=27
+layer=puzzle_complete_layer2
+model=model_3374
+modelorigin=0,2
+modelangle=360,672,0
+modelzoom=1010
+modelunknown=63922,3000,0
+transmitop=1
+op1=Hint
+
+// 363:1
+[puzzleback]
+type=model
+x=159
+y=43
+width=204
+height=203
+layer=content_layer
+model=model_3437
+modelorigin=2,17
+modelangle=512,0,0
+modelzoom=430
+modelunknown=64193,3000,0
+
+// 363:2
+[puzzle_complete_layer2]
+type=layer
+x=110
+y=249
+width=42
+height=47
+layer=content_layer
+
+// 363:3
+[puzzle_complete_layer1]
+type=layer
+x=156
+y=40
+width=210
+height=210
+layer=content_layer
+hide=yes
+
+// 363:4
+[puzzletop]
+type=model
+x=156
+y=40
+width=211
+height=210
+layer=content_layer
+model=model_3438
+modelorigin=2,16
+modelangle=512,0,0
+modelzoom=444
+modelunknown=64181,3000,0
+
+// 363:5
+[trail_close]
+type=graphic
+x=473
+y=13
+width=26
+height=23
+layer=content_layer
+graphic=graphic_539
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(trail_puzzle:trail_close, 540)
+onmouseleave=graphic_swapper(trail_puzzle:trail_close, 539)
+onop=if_close
+
+// 363:6
+[puzzle_layer]
+type=layer
+x=170
+y=53
+width=183
+height=183
+layer=content_layer
+oninvtransmit=clientscript_80{trail_puzzleinv}
+
+// 363:7
+[com_7]
+type=text
+x=3
+y=32
+width=41
+height=17
+layer=puzzle_complete_layer2
+textfont=fontmetrics_494
+text=Hint
+textalignv=centre
+colour=0xfad782
+transmitop=1
+op1=Hint
+
+// 363:8
+[com_8]
+type=model
+x=2
+y=5
+width=204
+height=203
+layer=puzzle_complete_layer1
+model=model_3437
+modelorigin=2,17
+modelangle=512,0,0
+modelzoom=430
+modelunknown=64193,3000,0
+
+// 363:9
+[content_layer]
+type=layer
+width=512
+height=334

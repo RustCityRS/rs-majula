@@ -1,0 +1,903 @@
+// 1367:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_6910(event_com, interface_1367:com_1, interface_1367:com_4, interface_1367:com_66)
+
+// 1367:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+
+// 1367:2
+[com_2]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4260(event_com)
+
+// 1367:3
+[com_3]
+type=layer
+y=13
+width=26
+height=46
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+
+// 1367:4
+[com_4]
+type=layer
+width=150
+heightmode=minus
+ymode=abs_centre
+layer=com_3
+
+// 1367:5
+[com_5]
+type=layer
+width=5
+height=144
+widthmode=minus
+layer=com_4
+onload=clientscript_5924(event_com)
+
+// 1367:6
+[com_6]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+textfont=verdana_11pt_regular
+text=Your stake:
+textalignv=centre
+textshadow=yes
+colour=0xf4b13c
+
+// 1367:7
+[com_7]
+type=layer
+width=18
+height=104
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+
+// 1367:8
+[com_8]
+type=layer
+width=28
+height=30
+xmode=abs_right
+layer=com_5
+noclickthrough=yes
+transmitop=1
+op1=Add money from pouch
+onmouseleave=deltooltip(interface_1367:com_70)
+onmouserepeat=aif_tooltip(interface_1367:com_70, event_com, -1, "Add coins from your money pouch to your stake.", 150, p11_full, p11_full, null, 10, 2, 1, event_mousex, event_mousey)
+
+// 1367:9
+[com_9]
+type=graphic
+width=34
+height=34
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+graphic=graphic_8958
+onmouseover=settrans(event_com, 100)
+onmouseleave=settrans(event_com, 0)
+
+// 1367:10
+[com_10]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf4b13c
+onload=clientscript_6936
+onmouseleave=deltooltip(interface_1367:com_70)
+oninvtransmit=clientscript_6936{dueloffer}
+onmouserepeat=aif_tooltip(interface_1367:com_70, event_com, -1, "This is the value of your stake.", 250, p11_full, p11_full, null, 10, 2, 2, event_mousex, event_mousey)
+onvarctransmit=clientscript_6936{varclient_546, varclient_1333}
+
+// 1367:11
+[com_11]
+type=layer
+width=5
+height=144
+widthmode=minus
+ymode=abs_bottom
+layer=com_4
+onload=clientscript_5924(event_com)
+
+// 1367:12
+[com_12]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_11
+textfont=verdana_11pt_regular
+text=Their stake:
+textalignv=centre
+textshadow=yes
+colour=0xf4b13c
+
+// 1367:13
+[com_13]
+type=layer
+width=18
+height=104
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+
+// 1367:14
+[com_14]
+type=layer
+width=18
+height=104
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+
+// 1367:15
+[com_15]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_11
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf4b13c
+onmouseleave=deltooltip(interface_1367:com_70)
+onmouserepeat=aif_tooltip(interface_1367:com_70, event_com, -1, "This is the value of your opponent's stake", 250, p11_full, p11_full, null, 10, 2, 0, event_mousex, event_mousey)
+
+// 1367:16
+[com_16]
+type=layer
+width=336
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+
+// 1367:17
+[com_17]
+type=layer
+width=190
+height=74
+widthmode=minus
+heightmode=minus
+layer=com_16
+onload=clientscript_5924(event_com)
+
+// 1367:18
+[com_18]
+type=layer
+y=-80
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 0, "If selected, neither player can wear items on their heads.")
+
+// 1367:19
+[com_19]
+type=layer
+x=-40
+y=-40
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 1, "If selected, neither player can wear items on their backs, such as capes.")
+
+// 1367:20
+[com_20]
+type=layer
+y=-40
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 2, "If selected, neither player can wear items around their necks, such as amulets.")
+
+// 1367:21
+[com_21]
+type=layer
+x=-45
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 3, "If selected, neither player can wield weapons in their right hands.")
+
+// 1367:22
+[com_22]
+type=layer
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 4, "If selected, neither player can wear items on their torsos.")
+
+// 1367:23
+[com_23]
+type=layer
+x=45
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 5, "If selected, neither player can wield items in their left hands, such as shields, or 2-handed weapons such as bows.")
+
+// 1367:24
+[com_24]
+type=layer
+y=40
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 7, "If selected, neither player can wear items on their legs.")
+
+// 1367:25
+[com_25]
+type=layer
+x=-45
+y=80
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 9, "If selected, neither player can wear items on their hands.")
+
+// 1367:26
+[com_26]
+type=layer
+y=80
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 10, "If selected, neither player can wear items on their feet.")
+
+// 1367:27
+[com_27]
+type=layer
+x=45
+y=80
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 12, "If selected, neither player can wear rings.")
+
+// 1367:28
+[com_28]
+type=layer
+x=40
+y=-40
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Toggle slot
+onload=clientscript_6923(event_com, interface_1367:com_70, 13, "If selected, neither player can keep items in their quivers.")
+
+// 1367:29
+[com_29]
+type=layer
+width=190
+height=74
+heightmode=minus
+xmode=abs_right
+layer=com_16
+
+// 1367:30
+[com_30]
+type=layer
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 4, "No Ranged", "Neither player is allowed to use ranged attacks.", 0)
+
+// 1367:31
+[com_31]
+type=layer
+y=14
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 5, "No Melee", "Neither player is allowed to use melee attacks.", 0)
+
+// 1367:32
+[com_32]
+type=layer
+y=28
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 6, "No Magic", "Neither player is allowed to use magic attacks.", 0)
+
+// 1367:33
+[com_33]
+type=layer
+y=42
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 12, "Fun Weapons", "Both players will use a 'fun weapon', such as a rubber chicken.", 0)
+
+// 1367:34
+[com_34]
+type=layer
+y=56
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 0, "No Forfeit", "Neither player is allowed to forfeit the duel.", 0)
+
+// 1367:35
+[com_35]
+type=layer
+y=70
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 7, "No Drinks", "Neither player will be allowed to use drinks, such as Strength potions.", 0)
+
+// 1367:36
+[com_36]
+type=layer
+y=84
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 8, "No Food", "Neither player will be allowed to use food.", 0)
+
+// 1367:37
+[com_37]
+type=layer
+y=98
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 9, "No Prayer", "Neither player will be allowed to use prayers.", 0)
+
+// 1367:38
+[com_38]
+type=layer
+y=112
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 1, "No Movement", "Players stand next to each other and aren't allowed to move or use holding spells.", 0)
+
+// 1367:39
+[com_39]
+type=layer
+y=126
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 10, "Obstacles", "The duel will be in an arena with obstacles.", 0)
+
+// 1367:40
+[com_40]
+type=layer
+y=140
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 28, "Enable Summoning", "Players can summon familiars during the duel.", 1)
+
+// 1367:41
+[com_41]
+type=layer
+y=154
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_29
+transmitop=1
+op1=Toggle
+onload=clientscript_6919(event_com, interface_1367:com_70, 13, "No Special Attacks", "Neither player will be allowed to use special attacks.", 1)
+
+// 1367:42
+[com_42]
+type=layer
+y=24
+width=10
+height=24
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_29
+transmitop=1
+op1=Use previous settings
+onmouseleave=deltooltip(interface_1367:com_70)
+onmouserepeat=aif_tooltip(interface_1367:com_70, event_com, -1, "Use the settings from your last duel.", 200, p11_full, p11_full, null, 10, 2, 3, event_mousex, event_mousey)
+
+// 1367:43
+[com_43]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1367:44
+[com_44]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1367:45
+[com_45]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1367:46
+[com_46]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+
+// 1367:47
+[com_47]
+type=text
+width=16
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_46
+textfont=verdana_13pt_regular
+text=Use previous
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1367:48
+[com_48]
+type=layer
+width=10
+height=24
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_29
+transmitop=1
+op1=Use favourite settings
+onmouseleave=deltooltip(interface_1367:com_70)
+onmouserepeat=aif_tooltip(interface_1367:com_70, event_com, -1, "Use your favourite saved settings.", 200, p11_full, p11_full, null, 10, 2, 3, event_mousex, event_mousey)
+
+// 1367:49
+[com_49]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1367:50
+[com_50]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1367:51
+[com_51]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1367:52
+[com_52]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+
+// 1367:53
+[com_53]
+type=text
+width=16
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_52
+textfont=verdana_13pt_regular
+text=Use favourite
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1367:54
+[com_54]
+type=layer
+y=4
+height=70
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_16
+onload=clientscript_6933(event_com)
+
+// 1367:55
+[com_55]
+type=text
+width=4
+height=24
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_54
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf4b13c
+
+// 1367:56
+[com_56]
+type=layer
+x=10
+width=150
+height=24
+xmode=abs_right
+ymode=abs_bottom
+layer=com_54
+transmitop=1
+op1=Accept
+
+// 1367:57
+[com_57]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+
+// 1367:58
+[com_58]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+
+// 1367:59
+[com_59]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+
+// 1367:60
+[com_60]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+noclickthrough=yes
+
+// 1367:61
+[com_61]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+
+// 1367:62
+[com_62]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+
+// 1367:63
+[com_63]
+type=text
+width=16
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 1367:64
+[com_64]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4261(event_com)
+
+// 1367:65
+[com_65]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 1367:66
+[com_66]
+type=text
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_65
+textfont=palatino_linotype_18pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1367:67
+[com_67]
+type=layer
+x=8
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_1
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1367:68
+[com_68]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_67
+graphic="aif_bronze_close_button_1,0"
+
+// 1367:69
+[com_69]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_67
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1367:70
+[com_70]
+type=layer
+width=1
+height=1
+layer=com_0
+
+// 1367:71
+[com_71]
+type=layer
+x=10
+width=150
+height=24
+ymode=abs_bottom
+layer=com_54
+transmitop=1
+op1=Save settings as favourite
+onmouseleave=deltooltip(interface_1367:com_70)
+onmouserepeat=aif_tooltip(interface_1367:com_70, event_com, -1, "Save these settings as your favourite.", 200, p11_full, p11_full, null, 10, 2, 0, event_mousex, event_mousey)
+
+// 1367:72
+[com_72]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1367:73
+[com_73]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1367:74
+[com_74]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1367:75
+[com_75]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+
+// 1367:76
+[com_76]
+type=text
+width=16
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_75
+textfont=verdana_13pt_regular
+text=Save
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1

@@ -1,0 +1,17 @@
+// 5042
+[proc,clientscript_5042](component $component0, int $int1)
+def_int $int2 = calc(get_mousex - ~if_getx_absolute(interface_1111:com_12));
+def_int $int3 = calc(get_mousey - ~if_gety_absolute(interface_1111:com_12));
+def_int $int4 = if_getwidth(interface_1111:com_12);
+def_int $int5 = if_getheight(interface_1111:com_12);
+if ($int2 > $int4 | $int2 < 0 | $int3 > $int5 | $int3 < 0) {
+    $int2, $int3 = calc($int4 / 2), calc($int5 / 2);
+}
+$int2 = calc($int2 + if_getscrollx(interface_1111:com_12));
+$int3 = calc($int3 + if_getscrolly(interface_1111:com_12));
+def_int $int6 = calc(%varclient_1396 * (112 + 2 + 2));
+%varclient_1396 = max(min(calc(%varclient_1396 - $int1), 21), 3);
+def_int $int7 = calc(%varclient_1396 * (112 + 2 + 2));
+def_int $int8 = calc(scale($int7, $int6, $int2) - $int2);
+def_int $int9 = calc(scale($int7, $int6, $int3) - $int3);
+~clientscript_5044($component0, $int8, $int9);

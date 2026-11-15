@@ -1,0 +1,38 @@
+// 6147
+[proc,clientscript_6147](component $component0, int $int1, int $int2, int $int3, int $int4)
+def_coord $coord5 = %varclient_1904;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_coord $coord11 = null;
+def_coord $coord12 = null;
+def_coord $coord13 = null;
+def_coord $coord14 = null;
+$int6 = calc(300 + random(250));
+$int7 = calc(2 + random(6));
+$int8 = 0;
+$int9 = calc(%varclient_1906 + 250 + random(300));
+spline_new(0, $int7);
+spline_new(1, $int7);
+while ($int8 < $int7) {
+    $coord11, $coord12, $coord13, $coord14 = ~clientscript_6150($int1, $int4, movecoord($coord5, 1, 0, 1));
+    $int10 = calc($int2 + scale($int8, calc($int7 - 1), calc($int9 - $int2)));
+    spline_addpoint(0, $int8, $coord11, $int10, $coord12, $int10, 0);
+    spline_addpoint(1, $int8, $coord5, calc(400 + %varclient_1906), $coord5, calc(400 + %varclient_1906), 0);
+    $int1 = calc($int1 + $int4);
+    $int8 = calc($int8 + 1);
+}
+if ($int3 = -1) {
+    $int3 = $int6;
+}
+cam_movealong(0, 0, $int3, $int6, 1, 0);
+$int1 = calc($int1 - $int4);
+while ($int1 < 0) {
+    $int1 = calc($int1 + 8);
+}
+while ($int1 > 7) {
+    $int1 = calc($int1 - 8);
+}
+if_setoncamfinished($component0, "clientscript_6148($component0, $int1, $int9, $int4, $int6, 0)");

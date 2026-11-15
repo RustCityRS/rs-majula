@@ -1,0 +1,36 @@
+// 4643
+[proc,clientscript_4643](int $int0)(int)
+switch_int ($int0) {
+    case default :
+        return(0);
+    case 1 :
+        if (stat_base(attack) >= 30 & stat_base(magic) >= 30 & stat_base(ranged) >= 30) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 4 :
+        if (stat_base(strength) >= 70) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 2 :
+        if (stat_base(agility) >= 55 & stat_base(thieving) >= 55) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 3 :
+        if (stat_base(thieving) >= 45 & stat_base(attack) >= 60 & stat_base(dungeoneering) >= 55) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 6 :
+        if (stat_base(strength) >= 75) {
+            return(1);
+        } else {
+            return(0);
+        }
+}

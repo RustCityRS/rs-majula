@@ -1,0 +1,7 @@
+// 1466
+[proc,bank_v2_get_size]()(int)
+if (playermember = true) {
+    return(~clientscript_1248);
+} else {
+    return(~clientscript_1329);
+}

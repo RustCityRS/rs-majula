@@ -1,0 +1,5 @@
+// 230
+[clientscript,snapshot_ignore_help_open]
+~snapshot_hide_help;
+~snapshot_help_show_blackout;
+if_sethide(snapshot_main_v2:ignore_help_layer, false);

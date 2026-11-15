@@ -1,0 +1,11 @@
+// 5244
+[proc,clientscript_5244](int $int0)
+if ($int0 = 1) {
+    if_setgraphic(interface_1128:com_331, 6370);
+    if_setgraphic(interface_1128:com_332, 6371);
+    if_setgraphic(interface_1128:com_333, 6372);
+} else {
+    if_setgraphic(interface_1128:com_0, 6370);
+    if_setgraphic(interface_1128:com_1, 6371);
+    if_setgraphic(interface_1128:com_2, 6372);
+}

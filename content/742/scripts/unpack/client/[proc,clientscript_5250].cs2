@@ -1,0 +1,69 @@
+// 5250
+[proc,clientscript_5250](int $int0)
+switch_int (%varplayer_2373) {
+    case 2 :
+        if ($int0 = 1) {
+            if_settext(interface_1127:com_18, "Battle-mage Helm");
+            if_settext(interface_1127:com_17, "Strong against melee and magical attacks, weak against ranged.");
+        }
+        if ($int0 = 2) {
+            if_settext(interface_1127:com_18, "Trickster Hood");
+            if_settext(interface_1127:com_17, "Strong against ranged and magical attacks, weak against melee.");
+        }
+        if ($int0 = 3) {
+            if_settext(interface_1127:com_18, "Vanguard Helm");
+            if_settext(interface_1127:com_17, "Strong against melee and ranged attacks, weak against magic.");
+        }
+    case 1 :
+        if ($int0 = 1) {
+            if_settext(interface_1127:com_18, "Battle-mage robe legs");
+            if_settext(interface_1127:com_17, "Strong against melee and magical attacks, weak against ranged.");
+        }
+        if ($int0 = 2) {
+            if_settext(interface_1127:com_18, "Trickster robe legs");
+            if_settext(interface_1127:com_17, "Strong against ranged and magical attacks, weak against melee.");
+        }
+        if ($int0 = 3) {
+            if_settext(interface_1127:com_18, "Vanguard leg armour");
+            if_settext(interface_1127:com_17, "Strong against melee and ranged attacks, weak against magic.");
+        }
+    case 3 :
+        if ($int0 = 1) {
+            if_settext(interface_1127:com_18, "Battle-mage robe");
+            if_settext(interface_1127:com_17, "Strong against melee and magical attacks, weak against ranged.");
+        }
+        if ($int0 = 2) {
+            if_settext(interface_1127:com_18, "Trickster robe");
+            if_settext(interface_1127:com_17, "Strong against ranged and magical attacks, weak against melee.");
+        }
+        if ($int0 = 3) {
+            if_settext(interface_1127:com_18, "Vanguard body armour");
+            if_settext(interface_1127:com_17, "Strong against melee and ranged attacks, weak against magic.");
+        }
+    case 5 :
+        if ($int0 = 1) {
+            if_settext(interface_1127:com_18, "Battle-mage gloves");
+            if_settext(interface_1127:com_17, "Strong against melee and magical attacks, weak against ranged.");
+        }
+        if ($int0 = 2) {
+            if_settext(interface_1127:com_18, "Trickster gloves");
+            if_settext(interface_1127:com_17, "Strong against ranged and magical attacks, weak against melee.");
+        }
+        if ($int0 = 3) {
+            if_settext(interface_1127:com_18, "Vanguard gloves");
+            if_settext(interface_1127:com_17, "Strong against melee and ranged attacks, weak against magic.");
+        }
+    case 4 :
+        if ($int0 = 1) {
+            if_settext(interface_1127:com_18, "Battle-mage boots");
+            if_settext(interface_1127:com_17, "Strong against melee and magical attacks, weak against ranged.");
+        }
+        if ($int0 = 2) {
+            if_settext(interface_1127:com_18, "Trickster boots");
+            if_settext(interface_1127:com_17, "Strong against ranged and magical attacks, weak against melee.");
+        }
+        if ($int0 = 3) {
+            if_settext(interface_1127:com_18, "Vanguard boots");
+            if_settext(interface_1127:com_17, "Strong against melee and ranged attacks, weak against magic.");
+        }
+}

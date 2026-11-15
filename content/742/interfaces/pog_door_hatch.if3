@@ -1,0 +1,46 @@
+// 605:0
+[hatch]
+type=model
+width=20679
+height=23503
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+model=model_28320
+modelorigin=-24,14
+modelangle=0,2044,0
+modelzoom=266
+modelobjwidth=646
+modelobjheight=479
+onload=pog_hatch_zoom_onload
+ontimer=pog_hatch_zoom
+
+// 605:1
+[fade]
+type=model
+width=16807
+height=19088
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+model=model_4835
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=127
+modelanim=seq_1378
+modelobjwidth=525
+modelobjheight=389
+transmitop=10
+op10= 
+
+// 605:2
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion

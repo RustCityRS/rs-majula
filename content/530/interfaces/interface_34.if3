@@ -1,0 +1,49 @@
+// 34:0
+[com_0]
+type=model
+x=9
+y=7
+width=69
+height=68
+layer=content_layer
+model=model_4607
+modelangle=512,0,0
+modelzoom=1600
+modelunknown=63796,3000,0
+
+// 34:1
+[com_1]
+type=text
+x=7
+y=77
+width=75
+height=15
+layer=content_layer
+textfont=fontmetrics_495
+text=Draughts
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+
+// 34:2
+[rank]
+type=text
+x=7
+y=96
+width=75
+height=15
+layer=content_layer
+textfont=fontmetrics_494
+text=Rank: %1
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+onload=clientscript_1273
+onvartransmit=clientscript_1273{boardgames_draughts_rank}
+
+// 34:3
+[content_layer]
+type=layer
+width=88
+height=122
+xmode=abs_right

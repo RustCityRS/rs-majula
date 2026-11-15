@@ -1,0 +1,54 @@
+// 1129:0
+[com_0]
+type=text
+x=-2
+y=12
+width=15367
+height=2116
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+textfont=welcome_font_tiny
+text=The energy will be absorbed in rows, through the pipes.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1129:1
+[com_1]
+type=text
+x=-2
+y=-23
+width=15367
+height=2116
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+textfont=welcome_font_tiny
+text=Arrange the energy cells so the tree will receive them in sequence.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1129:2
+[com_2]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+
+// 1129:3
+[com_3]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion

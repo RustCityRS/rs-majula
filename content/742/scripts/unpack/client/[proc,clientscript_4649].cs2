@@ -1,0 +1,12 @@
+// 4649
+[proc,clientscript_4649]
+switch_int (%varplayerbit_9367) {
+    case default :
+        return;
+    case 1 :
+        ~clientscript_4650;
+    case 2 :
+        ~clientscript_4652;
+    case 3 :
+        ~clientscript_4651;
+}

@@ -18,6 +18,7 @@ use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, settexts, talk_to};
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::collections::BTreeSet;
@@ -32,31 +33,32 @@ static TURN: Mutex<()> = Mutex::new(());
 const COFFIN: (u16, u16, u16) = (158, 3080, 9785);
 const ATTACK: usize = 0;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("obj.pack names {name}"))
+        .id
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine
+    engine
         .cache
         .varps
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("varp.pack names {name}"))
+        .id
+        .g2()
 }
 
-fn npc_type(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn npc_type(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id
 }
 
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
@@ -112,8 +114,8 @@ fn login(
     items: &[(&str, i32)],
 ) -> HarnessClient {
     let (quest, count) = (varp(engine, "vampire"), varp(engine, "vampire_count_slain"));
-    let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let items: Vec<(u16, i32)> = items.iter().map(|&(n, c)| (obj(engine, n), c)).collect();
+    let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let items: Vec<(TypeId, i32)> = items.iter().map(|&(n, c)| (obj(engine, n), c)).collect();
     engine.harness_reset();
     let mut client = engine
         .harness_login_returning("vampire_slayer")
@@ -157,7 +159,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
 }
 
 fn total(engine: &Engine, client: &HarnessClient, inv: &str, name: &str) -> i32 {
-    let inv = *engine.cache.invs.debugnames.get(inv).unwrap();
+    let inv = engine.cache.invs.get_by_debugname(inv).unwrap().id;
     let o = obj(engine, name);
     engine
         .harness_player(client.pid)
@@ -459,7 +461,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
         );
 
         // Morgan ends it.
-        let bank = *engine.cache.invs.debugnames.get("bank").unwrap();
+        let bank = engine.cache.invs.get_by_debugname("bank").unwrap().id;
         let stake = obj(engine, "stake");
         let mut client = visit(engine, "morgan", 2, 1, &[("stake", 1)]);
         // A new player's bank comes when it is first opened: one made here,
@@ -576,7 +578,7 @@ fn the_count_fights_on_his_own_skeleton() {
             ("defend_anim", 3332),
             ("death_anim", 12604),
         ] {
-            let value = params.get(&pack_id("param", param));
+            let value = params.get(&TypeId::from_int(pack_id("param", param)));
             assert!(
                 matches!(value, Some(ParamValue::Int(v)) if *v == seq),
                 "{param} is {value:?}, not {seq}"
@@ -815,7 +817,7 @@ fn the_coffin_plays_2011s_cutscene() {
 
 /// Whether loc `name` stands at `x`,`z` on level 0.
 fn loc_at(engine: &Engine, name: &str, x: u16, z: u16) -> bool {
-    let id = pack_id("loc", name) as u16;
+    let id = TypeId::from_int(pack_id("loc", name));
     engine
         .zones
         .zone(x, 0, z)

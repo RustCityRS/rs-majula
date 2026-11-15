@@ -1,0 +1,5 @@
+// 3293
+[clientscript,scrollbar_vertical_jump_2](component $component0, component $component1, component $component2, int $int3)
+if (cc_find($component0, 1) = true) {
+    cc_dragpickup(0, calc(cc_getheight / 2));
+}

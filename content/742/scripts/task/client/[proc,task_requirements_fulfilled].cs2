@@ -1,0 +1,404 @@
+// 3224
+[proc,task_requirements_fulfilled](int $int0)(boolean)
+def_int $int1 = 0;
+def_struct $struct2 = ~clientscript_6798($int0);
+if (struct_param($struct2, param_1270) ! 4094) {
+    return(~ql4_requirements(1, struct_param($struct2, param_1270)));
+}
+def_struct $struct3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 1;
+while ($int6 <= 12) {
+    switch_int ($int6) {
+        case 1 :
+            $int4 = struct_param($struct2, param_1294);
+            $int5 = struct_param($struct2, param_1295);
+        case 2 :
+            $int4 = struct_param($struct2, param_1296);
+            $int5 = struct_param($struct2, param_1297);
+        case 3 :
+            $int4 = struct_param($struct2, param_1298);
+            $int5 = struct_param($struct2, param_1299);
+        case 4 :
+            $int4 = struct_param($struct2, param_1300);
+            $int5 = struct_param($struct2, param_1301);
+        case 5 :
+            $int4 = struct_param($struct2, param_1302);
+            $int5 = struct_param($struct2, param_1303);
+        case 6 :
+            $int4 = struct_param($struct2, param_1304);
+            $int5 = struct_param($struct2, param_1305);
+        case 7 :
+            $int4 = struct_param($struct2, param_1306);
+            $int5 = struct_param($struct2, param_1307);
+        case 8 :
+            $int4 = struct_param($struct2, param_1308);
+            $int5 = struct_param($struct2, param_1309);
+        case 9 :
+            $int4 = struct_param($struct2, param_1310);
+            $int5 = struct_param($struct2, param_1311);
+        case 10 :
+            $int4 = struct_param($struct2, param_1312);
+            $int5 = struct_param($struct2, param_1313);
+        case 11 :
+            $int4 = struct_param($struct2, param_2227);
+            $int5 = struct_param($struct2, param_2228);
+        case 12 :
+            $int4 = struct_param($struct2, param_2229);
+            $int5 = struct_param($struct2, param_2230);
+    }
+    if ($int4 > 0 & $int4 < 60) {
+        if (stat_base(enum(int, stat, enum_681, $int4)) < $int5) {
+            return(false);
+        }
+    } else if ($int4 = 60) {
+        $struct3 = ~clientscript_5795($int5);
+        if ($struct3 = null) {
+            return(false);
+        }
+        if (~task_get_progress($int5) ! 2) {
+            return(false);
+        }
+    } else if ($int4 = 61 & ~ql4_getprogress($int5) ! 2) {
+        return(false);
+    }
+    if ($int4 = 0) {
+        $int6 = 13;
+    } else {
+        $int6 = calc($int6 + 1);
+    }
+}
+if (~comlevel < struct_param($struct2, param_2233)) {
+    return(false);
+}
+switch_int ($int0) {
+    case default :
+        return(true);
+    case 12 :
+        if (%peng_spy_explain = 0) {
+            return(false);
+        }
+    case 23 :
+        if (%fairyring_use = 0) {
+            return(false);
+        }
+    case 49 :
+        if (%emote_music = 0) {
+            return(false);
+        }
+    case 59 :
+        if (%varplayer_492 < 4) {
+            return(false);
+        }
+    case 107 :
+        if (%dragonquest < 2 | %dragonslayer_instructions_shield = 1 & %dragonquest < 10) {
+            return(false);
+        }
+    case 147 :
+        if (%fairyring_use = 0) {
+            return(false);
+        }
+    case 167 :
+        if (%fairyring_use = 0) {
+            return(false);
+        }
+    case 175 :
+        if (%scorpcatcher < 6 & %varplayerbit_3378 = 0) {
+            return(false);
+        }
+    case 177 :
+        if (%brut_craft_ship = 0) {
+            return(false);
+        }
+    case 178 :
+        if (%brut_fishing_s = 0) {
+            return(false);
+        }
+    case 180 :
+        if (%brut_craft_ship = 0) {
+            return(false);
+        }
+    case 316 :
+        if (%brut_fishing_s = 0) {
+            return(false);
+        }
+    case 321 :
+        if (%brut_craft_ship = 0) {
+            return(false);
+        }
+    case 322 :
+        if (%brut_smith_hasta = 0) {
+            return(false);
+        }
+    case 323 :
+        if (%brut_herb_potion = 0) {
+            return(false);
+        }
+    case 219 :
+        if (~comlevel < 100) {
+            return(false);
+        }
+    case 331 :
+        if (~comlevel < 100) {
+            return(false);
+        }
+    case 248 :
+        if (%kr_knightwaves_state < 8) {
+            return(false);
+        }
+    case 249 :
+        if (%fairyring_use = 0) {
+            return(false);
+        }
+    case 276 :
+        if (%qp < 33) {
+            return(false);
+        }
+    case 281 :
+        if (%sos_emote_flap < 1) {
+            return(false);
+        }
+        if (%sos_emote_doh < 1) {
+            return(false);
+        }
+        if (%sos_emote_idea < 1) {
+            return(false);
+        }
+        if (%sos_emote_stamp < 1) {
+            return(false);
+        }
+    case 285 :
+        if (%vm_necklace < 1) {
+            return(false);
+        }
+    case 289 :
+        if (~comlevel < 40) {
+            return(false);
+        }
+    case 294 :
+        if (%fairyring_use = 0) {
+            return(false);
+        }
+    case 300 :
+        if (~task_kudos_available < 153) {
+            return(false);
+        }
+    case 3000 :
+        if (date_minutes < %varplayer_451) {
+            return(false);
+        }
+        if (%qp < %tog_qp_before_return & ~script4218 > 0) {
+            return(false);
+        }
+    case 3001 :
+        if (~comlevel < 40) {
+            return(false);
+        }
+    case 3002 :
+        if (%peng_spy_week_peng = 10) {
+            return(false);
+        }
+        if (%varplayerbit_5275 = 50) {
+            return(false);
+        }
+        if (%peng_quest < 135) {
+            return(false);
+        }
+        if (%peng_spy_explain = 0) {
+            return(false);
+        }
+    case 3003 :
+        if (%eviltree_interactions_today >= 2) {
+            return(false);
+        }
+    case 3005 :
+        if (stat(hunter) < 17) {
+            return(false);
+        }
+    case 3007 :
+        if (%varplayerbit_5251 ! 0 & %varplayerbit_5252 ! 0 & %varplayerbit_5253 ! 0) {
+            return(false);
+        }
+    case 3035 :
+        if (%varplayerbit_11931 = 1) {
+            return(false);
+        }
+    case 3008 :
+        if (%varplayer_1199 = date_runeday) {
+            return(false);
+        }
+    case 3009 :
+        if (%firedup_quest < 90) {
+            return(false);
+        }
+    case 3010 :
+        if (date_minutes < %varplayerbit_6305) {
+            return(false);
+        }
+    case 3011 :
+        if (%qp < 33) {
+            return(false);
+        }
+    case 3012 :
+        if (stat_base(runecraft) < 50) {
+            return(false);
+        }
+    case 3013 :
+        if (~comlevel < 40) {
+            return(false);
+        }
+    case 3015 :
+        if (stat_base(attack) < 65 & stat_base(defence) < 65) {
+            return(false);
+        }
+    case 3031 :
+        if (~comlevel < 48) {
+            return(false);
+        }
+    case 3034 :
+        if (calc(stat_base(strength) + stat_base(attack)) < 130 & stat_base(attack) < 99 & stat_base(strength) < 99) {
+            return(false);
+        }
+    case 3500 :
+        if (~script4098 ! 3500) {
+            return(false);
+        }
+    case 3501 :
+        if (~script4098 ! 3501) {
+            return(false);
+        }
+    case 3505 :
+        if (~script4098 ! 3505) {
+            return(false);
+        }
+    case 3511 :
+        if (~script4098 ! 3511) {
+            return(false);
+        }
+    case 3502 :
+        if (~script4098 ! 3502) {
+            return(false);
+        }
+    case 3503 :
+        if (~script4098 ! 3503) {
+            return(false);
+        }
+    case 3504 :
+        if (~script4098 ! 3504) {
+            return(false);
+        }
+    case 3506 :
+        if (~script4098 ! 3506) {
+            return(false);
+        }
+    case 3508 :
+        if (~script4098 ! 3508) {
+            return(false);
+        }
+    case 3509 :
+        if (~script4098 ! 3509) {
+            return(false);
+        }
+    case 3507 :
+        if (~script4098 ! 3507) {
+            return(false);
+        }
+    case 3523 :
+        if (~script4098 ! 3523) {
+            return(false);
+        }
+    case 3510 :
+        if (~script4098 ! 3510) {
+            return(false);
+        }
+    case 3512 :
+        if (~script4098 ! 3512) {
+            return(false);
+        }
+    case 3513 :
+        if (~script4098 ! 3513) {
+            return(false);
+        }
+    case 3514 :
+        if (~script4098 ! 3514) {
+            return(false);
+        }
+    case 3515 :
+        if (%tutorial < 135 | %tutorial > 160 | %tutorial3_tool = 0 | %tutorial3_tool = 1) {
+            return(false);
+        }
+    case 3516 :
+        if (%tutorial < 135 | %tutorial > 160 | %tutorial3_tool = 2 | %tutorial3_tool = 3) {
+            return(false);
+        }
+    case 3517 :
+        if (%tutorial < 140 | %tutorial3_tool = 0 | %tutorial3_tool = 1 | stat_base(woodcutting) > 1) {
+            return(false);
+        }
+    case 3518 :
+        if (%tutorial < 140 | %tutorial3_tool = 2 | %tutorial3_tool = 3 | stat_base(mining) > 1) {
+            return(false);
+        }
+    case 3519 :
+        if (~script4098 ! 3519) {
+            return(false);
+        }
+    case 3520 :
+        if (~script4098 ! 3521 | %tutorial3_postquest > 2) {
+            return(false);
+        }
+    case 3521 :
+        if (~script4098 ! 3521 | %tutorial3_postquest ! 5) {
+            return(false);
+        }
+    case 858 :
+        if (%priestperil < 60 & %giantdwarf_quest < 5) {
+            return(false);
+        }
+    case 881 :
+        if (%macro_event_uid < 7 | %macro_whirlpool_counter < 7) {
+            return(false);
+        }
+    case 656 :
+        if (%thzfe_makecuredisease ! 1) {
+            return(false);
+        }
+    case 623 :
+        if (%thigui_quest < 20) {
+            return(false);
+        }
+    case 659 :
+        if (%myreque_2_quest < 280) {
+            return(false);
+        }
+    case 961 :
+        if (%fairyring_use = 0) {
+            return(false);
+        }
+    case 985 :
+        if (calc(inv_total(inv, rcguild_tablet_blood) + inv_total(bank, rcguild_tablet_blood)) = 0 | %myq4_main_quest < 490) {
+            return(false);
+        }
+    case 976 :
+        if (%myq4_vyrewatch_cremate_count < 200) {
+            return(false);
+        }
+    case 991 :
+        if (~clientscript_6034 < 500) {
+            return(false);
+        }
+    case 980 :
+        if (stat_base(defence) < 70 | stat_base(attack) < 70 & stat_base(ranged) < 70) {
+            return(false);
+        }
+    case 982 :
+        if (%varplayerbit_9757 < 110) {
+            return(false);
+        }
+    case 3042 :
+        if (~clientscript_6787 = 0) {
+            return(false);
+        }
+}
+return(true);

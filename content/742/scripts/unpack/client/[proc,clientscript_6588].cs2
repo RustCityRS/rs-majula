@@ -1,0 +1,20 @@
+// 6588
+[proc,clientscript_6588]
+def_component $component0 = interface_1253:com_88;
+def_int $int1 = op2613($component0);
+def_int $int2 = ~scale_round($int1, 65535, 360);
+def_int $int3 = 8;
+def_int $int4 = calc($int2 + $int3);
+if ($int4 > 359) {
+    $int4 = max(0, calc($int4 - 359));
+}
+def_int $int5 = ~scale_round($int4, 360, 65535);
+%varclient_1801 = $int4;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_struct $struct8 = ~clientscript_5936(%varplayerbit_10860);
+~clientscript_5891;
+%varclient_1783 = ~clientscript_5932($int4);
+~clientscript_5899;
+if_set2dangle($component0, $int5);
+~clientscript_5897($int2, $int4);

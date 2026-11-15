@@ -1,0 +1,42 @@
+// 265
+[proc,fishcomp_draw_hook]
+if_sethide(fishcomp_side:com_5, true);
+if_sethide(fishcomp_side:com_0, true);
+if_sethide(fishcomp_side:com_7, true);
+if_sethide(fishcomp_side:com_9, true);
+if_sethide(fishcomp_side:com_11, true);
+if_sethide(fishcomp_side:com_13, true);
+if_sethide(fishcomp_side:com_6, true);
+if_sethide(fishcomp_side:com_1, true);
+if_sethide(fishcomp_side:com_8, true);
+if_sethide(fishcomp_side:com_10, true);
+if_sethide(fishcomp_side:com_12, true);
+if_sethide(fishcomp_side:com_14, true);
+def_string $string0 = "Hook: None";
+switch_int (%fishcomp_client_hook) {
+    case 2 :
+        $string0 = "Hook: slim";
+        if_sethide(fishcomp_side:com_6, false);
+    case 1 :
+        $string0 = "Hook: standard";
+        if_sethide(fishcomp_side:com_1, false);
+    case 3 :
+        $string0 = "Hook: large";
+        if_sethide(fishcomp_side:com_8, false);
+    case 6 :
+        $string0 = "Hook: double";
+        if_sethide(fishcomp_side:com_10, false);
+    case 4 :
+        $string0 = "Hook: bone";
+        if_sethide(fishcomp_side:com_12, false);
+    case 5 :
+        $string0 = "Hook: wooden";
+        if_sethide(fishcomp_side:com_14, false);
+}
+if_settext(fishcomp_side:com_103, $string0);
+if (%fishcomp_client_hook = 0) {
+    if_setontimer(fishcomp_side:com_107, "clientscript_6255");
+} else {
+    if_setontimer(fishcomp_side:com_107, null);
+    if_sethide(fishcomp_side:com_106, false);
+}

@@ -1,0 +1,11 @@
+// 3370
+[proc,clientscript_3370](int $int0, int $int1)
+if (cc_find(interface_1216:com_3, $int0) = true) {
+    if (clientclock > calc($int1 + 50)) {
+        cc_setposition(cc_getx, max(calc(cc_gety - 2), 0), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settrans(min(255, calc(cc_gettrans + 7)));
+    }
+    if (cc_gettrans >= 255) {
+        cc_delete;
+    }
+}

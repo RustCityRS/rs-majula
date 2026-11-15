@@ -1,0 +1,46 @@
+// 729:0
+[com_0]
+type=rectangle
+width=512
+height=334
+colour=0x46341d
+fill=yes
+trans=160
+
+// 729:1
+[com_1]
+type=model
+x=48
+y=46
+width=340
+height=231
+model=model_32729
+modelorigin=0,-35
+modelangle=1847,1936,133
+modelzoom=528
+modelunknown=0,3000,0
+
+// 729:2
+[text]
+type=text
+x=250
+y=210
+width=262
+height=124
+textfont=fontmetrics_645
+textshadow=yes
+colour=0xcc9900
+
+// 729:3
+[com_3]
+type=graphic
+x=467
+y=7
+width=26
+height=23
+graphic=graphic_539
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 540)
+onmouseleave=graphic_swapper(event_com, 539)
+onop=if_close

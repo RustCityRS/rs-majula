@@ -1,0 +1,7 @@
+// 1427
+[proc,clientscript_1427]
+if_setonsubchange(toplevel:mainmodal, null);
+if (detailget_antialiasing_default ! detailget_antialiasing) {
+    detail_antialiasing(0);
+    detail_antialiasing_default(0);
+}

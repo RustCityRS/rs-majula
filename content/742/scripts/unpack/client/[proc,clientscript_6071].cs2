@@ -1,0 +1,50 @@
+// 6071
+[proc,clientscript_6071](int $int0)
+switch_int ($int0) {
+    case 0 :
+        if_setgraphic(interface_1178:com_31, 8742);
+        if_setgraphic(interface_1178:com_37, 8743);
+        if_setgraphic(interface_1178:com_38, 8744);
+        if_setgraphic(interface_1178:com_39, 8745);
+        if_setgraphic(interface_1178:com_40, 8746);
+        if_setgraphic(interface_1178:com_41, 8747);
+        if_setgraphic(interface_1178:com_42, 8748);
+        if_setgraphic(interface_1178:com_43, 8749);
+        if_setgraphic(interface_1178:com_44, 8750);
+        if_setgraphic(interface_1178:com_49, 8758);
+        if_setgraphic(interface_1178:com_50, 8759);
+        if_setgraphic(interface_1178:com_51, 8760);
+        if_setgraphic(interface_1178:com_52, 8761);
+        if_sethide(interface_1178:com_49, false);
+        if_sethide(interface_1178:com_50, false);
+        if_sethide(interface_1178:com_51, false);
+        if_sethide(interface_1178:com_52, false);
+        if_sethide(interface_1178:com_53, true);
+        if_sethide(interface_1178:com_54, true);
+        if_sethide(interface_1178:com_46, true);
+        if_sethide(interface_1178:com_45, false);
+        if_sethide(interface_1178:com_76, false);
+        if_sethide(interface_1178:com_74, false);
+    case 1 :
+        if_setgraphic(interface_1178:com_31, 10428);
+        if_setgraphic(interface_1178:com_37, 10429);
+        if_setgraphic(interface_1178:com_38, 10430);
+        if_setgraphic(interface_1178:com_39, 10431);
+        if_setgraphic(interface_1178:com_40, 10432);
+        if_setgraphic(interface_1178:com_41, 10433);
+        if_setgraphic(interface_1178:com_42, 10434);
+        if_setgraphic(interface_1178:com_43, 10435);
+        if_setgraphic(interface_1178:com_44, 10436);
+        if_setgraphic(interface_1178:com_53, 8762);
+        if_setgraphic(interface_1178:com_54, 8763);
+        if_sethide(interface_1178:com_53, false);
+        if_sethide(interface_1178:com_54, false);
+        if_sethide(interface_1178:com_49, true);
+        if_sethide(interface_1178:com_50, true);
+        if_sethide(interface_1178:com_51, true);
+        if_sethide(interface_1178:com_52, true);
+        if_sethide(interface_1178:com_46, false);
+        if_sethide(interface_1178:com_45, true);
+        if_sethide(interface_1178:com_76, true);
+        if_sethide(interface_1178:com_74, true);
+}

@@ -1,0 +1,8 @@
+// 6592
+[proc,clientscript_6592](component $component0)
+if (if_getgraphic($component0) = 8364) {
+    if_setgraphic($component0, 8365);
+}
+if (if_getgraphic($component0) = 8367) {
+    if_setgraphic($component0, 8366);
+}

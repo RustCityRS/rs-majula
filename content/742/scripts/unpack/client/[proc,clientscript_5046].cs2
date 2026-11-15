@@ -1,0 +1,12 @@
+// 5046
+[proc,clientscript_5046](component $component0, int $int1, int $int2, int $int3, int $int4)
+if ($int2 < 1) {
+    ~clientscript_5047($int1, 0, 40, $int3, $int4);
+    if_setontimer($component0, "clientscript_5046($component0, %varclient_1396, 1, $int3, $int4)");
+} else if ($int2 < 2) {
+    ~clientscript_5047($int1, 40, 80, $int3, $int4);
+    if_setontimer($component0, "clientscript_5046($component0, %varclient_1396, 2, $int3, $int4)");
+} else {
+    ~clientscript_5047($int1, 80, 112, $int3, $int4);
+    if_setontimer($component0, null);
+}

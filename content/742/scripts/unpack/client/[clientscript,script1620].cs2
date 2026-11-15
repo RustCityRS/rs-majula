@@ -1,0 +1,7 @@
+// 1620
+[clientscript,script1620](component $component0, int $int1, int $int2, int $int3, int $int4)
+$int4 = calc($int4 + clientclock);
+if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
+    cc_settrans($int2);
+    cc_setontimer("script1621($component0, $int1, $int3, $int4)");
+}

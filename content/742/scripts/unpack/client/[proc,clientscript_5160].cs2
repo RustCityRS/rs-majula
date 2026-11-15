@@ -1,0 +1,7 @@
+// 5160
+[proc,clientscript_5160](component $component0, component $component1, component $component2, int $int3, int $int4)
+if (%varclient_1592 ! $int3 | %varclient_1593 ! $int4) {
+    %varclient_1592 = $int3;
+    %varclient_1593 = $int4;
+    ~clientscript_5161($component0, $component1, $component2, $int3, $int4);
+}

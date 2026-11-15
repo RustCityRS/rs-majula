@@ -1,0 +1,15 @@
+// 1431
+[proc,clientscript_1431]()(int)
+def_int $int0 = map_world;
+def_int $int1 = 0;
+def_string $string0 = "";
+def_int $int2 = 0;
+def_string $string1 = "";
+def_int $int3 = 0;
+if ($int0 ! -1) {
+    $int1, $string0, $int2, $string1, $int3 = worldlist_specific($int0);
+    if (testbit($int1, 2) = ^true) {
+        return(1);
+    }
+}
+return(0);

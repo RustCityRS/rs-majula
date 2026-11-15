@@ -1,0 +1,112 @@
+#testscript
+
+// 289's drop tables (drop tables/scripts) on 2011's npcs. Each case stands
+// apart from the others: drops lie on the ground for 200 ticks. An npc's death
+// queue (ai_queue3) runs its category's or its own table: 289's death, then,
+// if a player earned the kill (npc_findhero), the drops at its tile. A 2011
+// cow and chicken carry 289's categories (npc/configs/npc_289_base.npc).
+
+// A cow: its bones (death_drop), raw beef and a cowhide, every time.
+[label,test_a_cow_drops_bones_beef_and_hide]
+setup_player("test_player")
+p_telejump(0_50_50_30_30)
+npc_add(movecoord(coord, 2, 0, 0), cow, 50)
+assert_eq(npc_param(death_drop), bones)
+def_coord $at = npc_coord;
+npc_heropoints(80)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, bones))
+assert_true(obj_find($at, raw_beef))
+assert_true(obj_find($at, cow_hide))
+
+// A chicken: its bones and raw chicken every time (feathers half the time).
+[label,test_a_chicken_drops_bones_and_raw_chicken]
+setup_player("test_player")
+p_telejump(0_50_50_30_36)
+npc_add(movecoord(coord, 2, 0, 0), chicken, 50)
+def_coord $at = npc_coord;
+npc_heropoints(30)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, bones))
+assert_true(obj_find($at, raw_chicken))
+
+// No player earned the kill: 289 drops nothing.
+[label,test_an_npc_nobody_killed_drops_nothing]
+setup_player("test_player")
+p_telejump(0_50_50_30_42)
+npc_add(movecoord(coord, 2, 0, 0), cow, 50)
+def_coord $at = npc_coord;
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_false(obj_find($at, bones))
+assert_false(obj_find($at, raw_beef))
+
+// 2011's giant rat (86, 289's giantrat) takes 289's category, so 289's table:
+// its bones and raw rat meat.
+[label,test_a_giant_rat_drops_bones_and_rat_meat]
+setup_player("test_player")
+p_telejump(0_50_50_36_30)
+npc_add(movecoord(coord, 2, 0, 0), giantrat, 50)
+def_coord $at = npc_coord;
+npc_heropoints(50)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, bones))
+assert_true(obj_find($at, raw_rat_meat))
+
+// 2011 re-issued its monsters under new ids; each joins the table of the 289
+// npc of its name and combat level (drop_reissues_2011.rs2). A level-111 blue
+// dragon of 2011's (4681) is 289's blue_dragon: its blue dragonhide, always.
+[label,test_a_2011_blue_dragon_takes_289_s_table]
+setup_player("test_player")
+p_telejump(0_50_50_42_30)
+npc_add(movecoord(coord, 3, 0, 0), blue_dragon2, 50)
+def_coord $at = npc_coord;
+npc_heropoints(100)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, dragonhide_blue))
+
+// 2011's Lumbridge goblins (12353-12358) are 289's level-2 goblin by name and
+// level (npc_clones_2011.npc): its life points, so they can die, and its table.
+[label,test_a_2011_lumbridge_goblin_is_289_s_goblin]
+setup_player("test_player")
+p_telejump(0_50_50_42_36)
+npc_add(movecoord(coord, 2, 0, 0), goblin_12353, 50)
+assert_eq(npc_stat(hitpoints), 50)
+def_coord $at = npc_coord;
+npc_heropoints(50)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, bones))
+
+// Brimhaven Dungeon's metal dragons keep 289's ids in 2011 (1590-1592) and
+// 289's tables. A bronze dragon: 2011's life points (2011 wiki), its dragon
+// bones and five bronze bars, every time.
+[label,test_a_bronze_dragon_drops_dragon_bones_and_bronze_bars]
+setup_player("test_player")
+p_telejump(0_50_50_48_30)
+npc_add(movecoord(coord, 3, 0, 0), bronze_dragon, 50)
+assert_eq(npc_stat(hitpoints), 1220)
+assert_eq(npc_param(death_drop), dragon_bones)
+def_coord $at = npc_coord;
+npc_heropoints(100)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, dragon_bones))
+assert_true(obj_find($at, bronze_bar))
+
+// A steel dragon: its dragon bones and five steel bars.
+[label,test_a_steel_dragon_drops_dragon_bones_and_steel_bars]
+setup_player("test_player")
+p_telejump(0_50_50_48_40)
+npc_add(movecoord(coord, 3, 0, 0), steel_dragon, 50)
+assert_eq(npc_stat(hitpoints), 2100)
+def_coord $at = npc_coord;
+npc_heropoints(100)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, dragon_bones))
+assert_true(obj_find($at, steel_bar))

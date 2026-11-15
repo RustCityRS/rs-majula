@@ -1,0 +1,13 @@
+// 4009
+[clientscript,task_hintarrow_hover](int $int0, int $int1, component $component2, int $int3)
+if ($int3 = -1) {
+    ~clientscript_5780($int0, $int1, $component2);
+} else {
+    ~clientscript_5781($int0, $int1, $component2, $int3);
+}
+if ($int0 = 0) {
+    ~deltooltip_action(task_main:com_210);
+    ~deltooltip_action(interface_1220:com_31);
+    ~deltooltip_action(interface_1056:com_18);
+    ~deltooltip_action(interface_1221:com_22);
+}

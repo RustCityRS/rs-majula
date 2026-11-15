@@ -1,0 +1,7 @@
+// 6136
+[proc,clientscript_6136](string $string0)
+cc_setfill(true);
+cc_settrans(255);
+cc_setonop("clientscript_6135");
+cc_setop(1, $string0);
+cc_setnoclickthrough(true);

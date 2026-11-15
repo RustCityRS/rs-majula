@@ -1,0 +1,4 @@
+// 4096
+[proc,clientscript_4096](int $int0)
+if_settrans(interface_1198:com_0, $int0);
+if_settrans(interface_1198:com_1, calc($int0 / 2));

@@ -1,0 +1,52 @@
+// 2335
+[proc,godwars_overlay_updatecontents](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10)
+if (%godwars2_counter_zaros < 4000) {
+    if_settext($component10, tostring(%godwars2_counter_zaros));
+} else {
+    if_settext($component10, "Max");
+}
+if (%godwars_counter_armadyl < 4000) {
+    if_settext($component5, tostring(%godwars_counter_armadyl));
+} else {
+    if_settext($component5, "Max");
+}
+if (%varplayerbit_3941 < 4000) {
+    if_settext($component6, tostring(%varplayerbit_3941));
+} else {
+    if_settext($component6, "Max");
+}
+if (%godwars_counter_saradomin < 4000) {
+    if_settext($component7, tostring(%godwars_counter_saradomin));
+} else {
+    if_settext($component7, "Max");
+}
+if (%varplayerbit_3942 < 4000) {
+    if_settext($component8, tostring(%varplayerbit_3942));
+} else {
+    if_settext($component8, "Max");
+}
+if (%godwars2_counter_zaros < 40) {
+    if_setcolour($component9, 0xf5b241);
+} else {
+    if_setcolour($component9, 0xff6401);
+}
+if (%godwars_counter_armadyl < 40) {
+    if_setcolour($component1, 0xf5b241);
+} else {
+    if_setcolour($component1, 0xff6401);
+}
+if (%varplayerbit_3941 < 40) {
+    if_setcolour($component2, 0xf5b241);
+} else {
+    if_setcolour($component2, 0xff6401);
+}
+if (%godwars_counter_saradomin < 40) {
+    if_setcolour($component3, 0xf5b241);
+} else {
+    if_setcolour($component3, 0xff6401);
+}
+if (%varplayerbit_3942 < 40) {
+    if_setcolour($component4, 0xf5b241);
+} else {
+    if_setcolour($component4, 0xff6401);
+}

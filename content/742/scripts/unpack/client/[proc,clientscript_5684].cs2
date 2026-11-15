@@ -1,0 +1,9 @@
+// 5684
+[proc,clientscript_5684](component $component0)
+if (if_find($component0) = true) {
+    if (if_getgraphic($component0) = 7844) {
+        if_setgraphic($component0, 7845);
+    } else {
+        if_setgraphic($component0, 7846);
+    }
+}

@@ -1,0 +1,5 @@
+// 1391
+[proc,clientscript_1391]
+if (calc(clientclock - %varclient_160) >= 50) {
+    if_settext(interface_378:location, op5419);
+}

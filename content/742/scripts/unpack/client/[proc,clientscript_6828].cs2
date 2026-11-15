@@ -1,0 +1,7 @@
+// 6828
+[proc,clientscript_6828]
+if_setontimer(interface_1351:com_92, null);
+if_setontimer(interface_1351:com_93, null);
+if_setposition(interface_1351:com_92, 0, 15, ^setpos_abs_centre, ^setpos_abs_centre);
+if_setposition(interface_1351:com_93, 0, 15, ^setpos_abs_centre, ^setpos_abs_centre);
+~clientscript_6830;

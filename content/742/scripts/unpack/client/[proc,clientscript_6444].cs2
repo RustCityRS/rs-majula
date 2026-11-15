@@ -1,0 +1,142 @@
+// 6444
+[proc,clientscript_6444](int $int0)
+if_settext(interface_1316:com_1, "Do not show again");
+if_settext(interface_1316:com_44, "Continue");
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+if_sethide(interface_1316:com_23, true);
+if ($int0 = 0) {
+    if_sethide(interface_1316:com_43, true);
+    if_sethide(interface_1316:com_19, true);
+    if_sethide(interface_1316:com_20, true);
+}
+if ($int0 = 1) {
+    switch_int (map_lang) {
+        case 1 :
+            $graphic2 = 13979;
+        case 2 :
+            $graphic2 = 13981;
+        case 3 :
+            $graphic2 = 13983;
+        case default :
+            $graphic2 = 13977;
+    }
+    switch_int (date_runeday) {
+        case 3890 :
+            $graphic1 = 13971;
+        case 3891 :
+            $graphic1 = 13970;
+        case 3892 :
+            $graphic1 = 13969;
+        case 3893 :
+            $graphic1 = 13968;
+        case 3894 :
+            $graphic1 = 13967;
+            switch_int (map_lang) {
+                case 1 :
+                    $graphic2 = 13978;
+                case 2 :
+                    $graphic2 = 13980;
+                case 3 :
+                    $graphic2 = 13982;
+                case default :
+                    $graphic2 = 13976;
+            }
+    }
+    if_setgraphic(interface_1316:com_19, $graphic1);
+    if_setgraphic(interface_1316:com_20, $graphic2);
+}
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+def_graphic $graphic5 = null;
+def_graphic $graphic6 = null;
+switch_int (map_lang) {
+    case 1 :
+        if ($int0 = 0) {
+            $graphic3 = 13954;
+        } else {
+            $graphic3 = 13938;
+        }
+        if ($int0 = 0) {
+            $graphic4 = 13955;
+        } else {
+            $graphic4 = 13939;
+        }
+        if ($int0 = 0) {
+            $graphic5 = 13956;
+        } else {
+            $graphic5 = 13940;
+        }
+        if ($int0 = 0) {
+            $graphic6 = 13957;
+        } else {
+            $graphic6 = 13941;
+        }
+    case 2 :
+        if ($int0 = 0) {
+            $graphic3 = 13958;
+        } else {
+            $graphic3 = 13942;
+        }
+        if ($int0 = 0) {
+            $graphic4 = 13959;
+        } else {
+            $graphic4 = 13943;
+        }
+        if ($int0 = 0) {
+            $graphic5 = 13960;
+        } else {
+            $graphic5 = 13944;
+        }
+        if ($int0 = 0) {
+            $graphic6 = 13961;
+        } else {
+            $graphic6 = 13945;
+        }
+    case 3 :
+        if ($int0 = 0) {
+            $graphic3 = 13962;
+        } else {
+            $graphic3 = 13946;
+        }
+        if ($int0 = 0) {
+            $graphic4 = 13963;
+        } else {
+            $graphic4 = 13947;
+        }
+        if ($int0 = 0) {
+            $graphic5 = 13964;
+        } else {
+            $graphic5 = 13948;
+        }
+        if ($int0 = 0) {
+            $graphic6 = 13965;
+        } else {
+            $graphic6 = 13949;
+        }
+    case default :
+        if ($int0 = 0) {
+            $graphic3 = 13950;
+        } else {
+            $graphic3 = 13934;
+        }
+        if ($int0 = 0) {
+            $graphic4 = 13951;
+        } else {
+            $graphic4 = 13935;
+        }
+        if ($int0 = 0) {
+            $graphic5 = 13952;
+        } else {
+            $graphic5 = 13936;
+        }
+        if ($int0 = 0) {
+            $graphic6 = 13953;
+        } else {
+            $graphic6 = 13937;
+        }
+}
+if_setgraphic(interface_1316:com_3, $graphic3);
+if_setgraphic(interface_1316:com_4, $graphic4);
+if_setgraphic(interface_1316:com_5, $graphic5);
+if_setgraphic(interface_1316:com_6, $graphic6);

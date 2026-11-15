@@ -1,0 +1,7 @@
+// 5119
+[proc,clientscript_5119](int $int0)
+if (%varclient_777 ! $int0) {
+    sound_vorbis_volume(6185, 1, 0, 200);
+    %varclient_777 = $int0;
+}
+~clientscript_5121;

@@ -1,0 +1,5 @@
+// 2894
+[clientscript,sfa_shard_update](component $component0)
+if (%sfa_reward_points >= 0) {
+    if_settext($component0, tostring(%sfa_reward_points));
+}

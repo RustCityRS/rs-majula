@@ -1,0 +1,9 @@
+// 5331
+[proc,clientscript_5331]
+if (%varclient_1606 = 1) {
+    %varclient_1606 = 0;
+} else {
+    %varclient_1606 = 1;
+}
+~clientscript_4725;
+return;

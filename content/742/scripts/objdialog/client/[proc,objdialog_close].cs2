@@ -1,0 +1,12 @@
+// 573
+[proc,objdialog_close]
+cc_deleteall(objdialog:resultlist);
+if_sethide(chattop:mes_layer_hide, false);
+if_sethide(chattop:mes_layer, true);
+if_sethide(chattop:mes_layer_large, true);
+if_setonkey(objdialog:searchtext, null);
+if_setondialogabort(objdialog:searchtext, null);
+if_setontimer(objdialog:searchtext, null);
+if (getwindowmode >= 2) {
+    ~subchanged;
+}

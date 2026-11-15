@@ -1,0 +1,7 @@
+// 5211
+[proc,clientscript_5211](boolean $boolean0)
+if_sethide(toplevel_fullscreen:com_54, $boolean0);
+if_sethide(toplevel_fullscreen:xpx2smallbuttonlayer, $boolean0);
+if ($boolean0 = true) {
+    if_sethide(toplevel_fullscreen:com_68, $boolean0);
+}

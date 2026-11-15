@@ -1,0 +1,9 @@
+// 5240
+[proc,clientscript_5240](component $component0)
+if (%rand_player_tab = 0) {
+    if ($component0 = interface_1126:com_192) {
+        if_setcolour($component0, 0xebe0bc);
+    }
+} else if ($component0 = interface_1126:com_187) {
+    if_setcolour($component0, 0xebe0bc);
+}

@@ -1,0 +1,4 @@
+// 163
+[clientscript,cws_toggle](component $component0)
+if_setgraphic($component0, "warning_icons,1");
+return;

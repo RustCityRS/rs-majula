@@ -1,0 +1,373 @@
+// 766:0
+[background_layer]
+type=layer
+width=512
+height=334
+
+// 766:1
+[title]
+type=text
+x=22
+y=31
+width=468
+height=17
+textfont=fontmetrics_496
+text=Oh dear, you are dead...but don't worry!
+textalignh=centre
+colour=0xff981f
+
+// 766:2
+[com_2]
+type=model
+x=19
+y=56
+width=42
+height=36
+model=model_40604
+modelorigin=4,8
+modelangle=168,1966,0
+modelzoom=688
+modelunknown=0,3000,0
+
+// 766:3
+[com_3]
+type=model
+x=28
+y=119
+width=32
+height=32
+model=model_2544
+modelangle=438,1264,0
+modelzoom=784
+modelunknown=0,3000,0
+
+// 766:4
+[com_4]
+type=model
+x=28
+y=179
+width=32
+height=32
+model=model_2529
+modelangle=1750,1831,0
+modelzoom=784
+modelunknown=0,3000,0
+
+// 766:5
+[com_5]
+type=model
+x=26
+y=230
+width=38
+height=40
+model=model_40772
+modelorigin=0,9
+modelangle=201,84,0
+modelzoom=682
+modelunknown=0,3000,0
+
+// 766:6
+[com_6]
+type=model
+x=265
+y=64
+width=32
+height=32
+model=model_18526
+modelangle=306,69,0
+modelzoom=985
+modelunknown=0,3000,0
+
+// 766:7
+[hammer]
+type=model
+x=265
+y=119
+width=32
+height=32
+model=model_2376
+modelangle=336,1996,0
+modelzoom=656
+modelunknown=0,3000,0
+
+// 766:8
+[com_8]
+type=model
+x=265
+y=176
+width=32
+height=32
+model=model_2825
+modelangle=201,69,0
+modelzoom=528
+modelunknown=0,3000,0
+
+// 766:9
+[com_9]
+type=model
+x=265
+y=232
+width=32
+height=32
+model=model_18511
+modelangle=405,2041,0
+modelzoom=2192
+modelunknown=0,3000,0
+
+// 766:10
+[com_10]
+type=text
+x=75
+y=61
+width=170
+height=50
+textfont=fontmetrics_495
+text=You can buy a new tinderbox from the general store.
+textshadow=yes
+colour=0xbe9664
+
+// 766:11
+[com_11]
+type=text
+x=75
+y=119
+width=170
+height=50
+textfont=fontmetrics_495
+text=Make a new axe by mining copper and tin ore, smelting them into a bronze bar, then using that bar on an anvil.
+textshadow=yes
+colour=0xbe9664
+
+// 766:12
+[com_12]
+type=text
+x=75
+y=176
+width=170
+height=50
+textfont=fontmetrics_495
+text=Monlum, the Mining Tutor in the mine across the river, will give you a new pickaxe. 
+textshadow=yes
+colour=0xbe9664
+
+// 766:13
+[com_13]
+type=text
+x=75
+y=230
+width=170
+height=50
+textfont=fontmetrics_495
+text=You can get a new crayfish cage from Finlay, the Fishing Tutor on the river bank behind Lumbridge chapel.
+textshadow=yes
+colour=0xbe9664
+
+// 766:14
+[com_14]
+type=text
+x=320
+y=61
+width=170
+height=50
+textfont=fontmetrics_495
+text=You can get new combat equipment from the combat tutors north of Lumbridge Castle.
+textshadow=yes
+colour=0xbe9664
+
+// 766:15
+[com_15]
+type=text
+x=320
+y=119
+width=170
+height=50
+textfont=fontmetrics_495
+text=You can buy a new hammer from the general store or get one for free from Sani, the Smithing Tutor.
+textshadow=yes
+colour=0xbe9664
+
+// 766:16
+[com_16]
+type=text
+x=319
+y=177
+width=170
+height=50
+textfont=fontmetrics_495
+text=If you find yourself in need of some more gold, defeated goblins often drop some.
+textshadow=yes
+colour=0xbe9664
+
+// 766:17
+[com_17]
+type=text
+x=319
+y=230
+width=170
+height=50
+textfont=fontmetrics_495
+text=Tutors can help you with skills and give you basic equipment. Look for this icon on your minimap.
+textshadow=yes
+colour=0xbe9664
+
+// 766:18
+[com_18]
+type=text
+x=36
+y=281
+width=442
+height=15
+textfont=fontmetrics_496
+text=More information is available in the manual on our website.
+textalignh=centre
+textshadow=yes
+colour=0xbe9664
+
+// 766:19
+[background]
+type=graphic
+x=17
+y=26
+width=480
+height=293
+layer=background_layer
+graphic=graphic_297
+tiling=yes
+opbase=  
+
+// 766:20
+[left_side]
+type=graphic
+y=26
+width=28
+height=290
+layer=background_layer
+graphic=graphic_821
+tiling=yes
+opbase= 
+
+// 766:21
+[right_side]
+type=graphic
+x=479
+y=26
+width=47
+height=285
+layer=background_layer
+graphic=graphic_823
+tiling=yes
+opbase= 
+
+// 766:22
+[bottom]
+type=graphic
+x=15
+y=302
+width=462
+height=26
+layer=background_layer
+graphic=graphic_822
+tiling=yes
+
+// 766:23
+[top]
+type=graphic
+x=14
+y=10
+width=464
+height=34
+layer=background_layer
+graphic=graphic_820
+tiling=yes
+opbase= 
+
+// 766:24
+[bottom_right]
+type=graphic
+x=467
+y=290
+width=32
+height=32
+layer=background_layer
+graphic=graphic_827
+opbase= 
+
+// 766:25
+[bottom_left]
+type=graphic
+x=13
+y=290
+width=32
+height=32
+layer=background_layer
+graphic=graphic_826
+
+// 766:26
+[top_left]
+type=graphic
+x=13
+y=23
+width=32
+height=32
+layer=background_layer
+graphic=graphic_824
+opbase= 
+
+// 766:27
+[top_right]
+type=graphic
+x=467
+y=23
+width=32
+height=32
+layer=background_layer
+graphic=graphic_825
+opbase= 
+
+// 766:28
+[title_bar]
+type=graphic
+x=16
+y=38
+width=478
+height=35
+layer=background_layer
+graphic=graphic_828
+tiling=yes
+
+// 766:29
+[left_joint]
+type=graphic
+x=13
+y=40
+width=32
+height=32
+layer=background_layer
+graphic=graphic_829
+tiling=yes
+
+// 766:30
+[right_joint]
+type=graphic
+x=467
+y=40
+width=32
+height=32
+layer=background_layer
+graphic=graphic_830
+tiling=yes
+
+// 766:31
+[close_button]
+type=graphic
+x=471
+y=32
+width=16
+height=16
+layer=background_layer
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close

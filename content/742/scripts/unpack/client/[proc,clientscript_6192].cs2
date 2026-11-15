@@ -1,0 +1,35 @@
+// 6192
+[proc,clientscript_6192]
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic(lobbyscreen:com_415, 10787);
+        if_setgraphic(lobbyscreen:com_424, 10791);
+    case 1 :
+        if_setgraphic(lobbyscreen:com_415, 10789);
+        if_setgraphic(lobbyscreen:com_424, 10793);
+    case 2 :
+        if_setgraphic(lobbyscreen:com_415, 10788);
+        if_setgraphic(lobbyscreen:com_424, 10792);
+    case 3 :
+        if_setgraphic(lobbyscreen:com_415, 10790);
+        if_setgraphic(lobbyscreen:com_424, 10794);
+}
+if (%varclient_1919 < 1) {
+    if (%varplayer_2611 = 1) {
+        ~clientscript_6190;
+        %varplayer_2522 = 1;
+        ~clientscript_196;
+        return;
+    }
+    if_settext(lobbyscreen:com_418, " - A unique Cape!<br>- An exclusive in-game title 'The Real'<br>- Up to 20 additional Bank Spaces<br>- An XP lamp in a skill of your choice");
+    if_setposition(lobbyscreen:com_421, if_getx(lobbyscreen:com_421), 390, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen:com_425, if_getx(lobbyscreen:com_425), 278, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(lobbyscreen:com_31, true);
+    if_sethide(lobbyscreen:com_34, false);
+    if_sethide(lobbyscreen:com_338, true);
+    if_sethide(lobbyscreen:com_382, true);
+    if_sethide(lobbyscreen:com_409, false);
+    if_setsize(lobbyscreen:com_425, 240, if_getheight(lobbyscreen:com_425), ^setsize_abs, ^setsize_abs);
+} else {
+    ~clientscript_6190;
+}

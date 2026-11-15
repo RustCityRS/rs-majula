@@ -1,0 +1,48 @@
+// 1799
+[proc,clientscript_1799](component $component0, component $component1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_struct $struct4 = null;
+while ($int2 <= 4) {
+    $struct4 = enum(int, struct, enum_1604, $int2);
+    cc_create($component0, 5, calc($int2 * 4));
+    cc_setposition(4, $int3, 0, 0);
+    cc_setsize(17, 17, 0, 0);
+    if (map_members = false & struct_param($struct4, param_557) = true) {
+        cc_setgraphic(698);
+    } else if ($int2 = 0) {
+        cc_setgraphic(699);
+    } else {
+        cc_setgraphic(697);
+    }
+    cc_create($component0, 4, calc($int2 * 4 + 1));
+    cc_setposition(25, $int3, 0, 0);
+    cc_setsize(25, 17, 1, 0);
+    cc_settext(struct_param($struct4, param_555));
+    cc_settextfont(495);
+    cc_settextalign(0, 0, 0);
+    cc_setcolour(0xc8aa64);
+    cc_settextshadow(true);
+    cc_create($component0, 4, calc($int2 * 4 + 2));
+    cc_setposition(4, calc($int3 + 17), 0, 0);
+    cc_setsize(8, calc(paraheight(struct_param($struct4, param_556), calc(if_getwidth($component0) - 8), 494) * 10 + 3), 1, 0);
+    cc_settext(struct_param($struct4, param_556));
+    cc_settextfont(494);
+    cc_settextalign(0, 0, 0);
+    cc_setcolour(0xc8aa64);
+    cc_settextshadow(true);
+    .cc_create($component0, 3, calc($int2 * 4 + 3));
+    .cc_setposition(4, $int3, 0, 0);
+    .cc_setsize(8, calc(17 + cc_getheight), 1, 0);
+    .cc_settrans(255);
+    .cc_setop(1, struct_param($struct4, param_555));
+    .cc_setonop("clanwars_setup_arena_buttons(event_op, $int2)");
+    $int3 = calc($int3 + .cc_getheight);
+    if ($int2 < 4) {
+        $int3 = calc($int3 + 3);
+    }
+    $int2 = calc($int2 + 1);
+}
+if_setscrollsize($component0, 0, $int3);
+if_setscrollpos($component0, 0, 0);
+~clientscript_31($component1, $component0, 792, 789, 790, 791, 773, 788);

@@ -1,0 +1,13 @@
+// 6348
+[proc,clientscript_6348](int $int0)(component, int)
+def_component $component1 = null;
+def_int $int2 = -1;
+def_int $int3 = 0;
+$component1, $int2, $int3 = ~clientscript_6380($int0);
+if ($component1 = null) {
+    return(null, -1);
+}
+def_component $component4 = null;
+def_int $int5 = -1;
+$component4, $int5 = ~clientscript_6349($component1, $int2, $int3);
+return($component4, $int5);

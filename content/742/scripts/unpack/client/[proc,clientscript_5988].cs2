@@ -1,0 +1,8 @@
+// 5988
+[proc,clientscript_5988](int $int0, int $int1)
+def_component $component2 = ~clientscript_5991($int0);
+if ($component2 = null) {
+    mes("Nothing happens, as if somthing has gone wrong.");
+    return;
+}
+if_sethide($component2, false);

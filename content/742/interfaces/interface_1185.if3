@@ -1,0 +1,292 @@
+// 1185:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=clientscript_5590
+
+// 1185:1
+[com_1]
+type=layer
+width=250
+height=30
+xmode=abs_centre
+
+// 1185:2
+[com_2]
+type=graphic
+x=80
+y=10
+width=95
+height=95
+ymode=abs_bottom
+graphic=graphic_9049
+
+// 1185:3
+[com_3]
+type=graphic
+x=80
+y=10
+width=95
+height=95
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_9049
+
+// 1185:4
+[com_4]
+type=model
+x=98
+y=32
+width=60
+height=55
+ymode=abs_bottom
+model=null
+modelzoom=400
+
+// 1185:5
+[com_5]
+type=model
+x=98
+y=32
+width=60
+height=55
+xmode=abs_right
+ymode=abs_bottom
+model=null
+modelzoom=400
+
+// 1185:6
+[com_6]
+type=graphic
+width=16391
+height=30
+widthmode=proportion
+xmode=abs_centre
+layer=com_0
+graphic=graphic_9039
+tiling=yes
+
+// 1185:7
+[com_7]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+layer=com_0
+graphic=graphic_9042
+
+// 1185:8
+[com_8]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_9045
+
+// 1185:9
+[com_9]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+layer=com_0
+graphic=graphic_9043
+
+// 1185:10
+[com_10]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_9044
+
+// 1185:11
+[com_11]
+type=graphic
+width=80
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+graphic=graphic_9041
+hflip=yes
+
+// 1185:12
+[com_12]
+type=graphic
+width=42
+height=35
+layer=com_1
+graphic=graphic_9040
+
+// 1185:13
+[com_13]
+type=graphic
+width=42
+height=35
+xmode=abs_right
+layer=com_1
+graphic=graphic_9040
+hflip=yes
+
+// 1185:14
+[com_14]
+type=text
+width=23223
+height=9291
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+textfont=verdana_13pt_regular
+text=Select an option
+textalignh=centre
+textalignv=centre
+colour=0xe6be78
+
+// 1185:15
+[com_15]
+type=layer
+x=10
+y=5
+width=225
+height=20
+ymode=abs_bottom
+pausebutton=yes
+onmouseover=clientscript_5587(interface_1185:com_17, interface_1185:com_19, interface_1185:com_18, interface_1185:com_20, interface_1185:com_21)
+onmouseleave=clientscript_5588(interface_1185:com_17, interface_1185:com_19, interface_1185:com_18, interface_1185:com_20, interface_1185:com_21)
+
+// 1185:16
+[com_16]
+type=layer
+x=10
+y=5
+width=225
+height=20
+xmode=abs_right
+ymode=abs_bottom
+pausebutton=yes
+onmouseover=clientscript_5587(interface_1185:com_22, interface_1185:com_24, interface_1185:com_23, interface_1185:com_25, interface_1185:com_26)
+onmouseleave=clientscript_5588(interface_1185:com_22, interface_1185:com_24, interface_1185:com_23, interface_1185:com_25, interface_1185:com_26)
+
+// 1185:17
+[com_17]
+type=graphic
+width=35
+height=20
+layer=com_15
+graphic=graphic_9059
+
+// 1185:18
+[com_18]
+type=graphic
+width=35
+height=20
+xmode=abs_right
+layer=com_15
+graphic=graphic_9061
+
+// 1185:19
+[com_19]
+type=graphic
+width=70
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_15
+graphic=graphic_9060
+hflip=yes
+
+// 1185:20
+[com_20]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_15
+textfont=verdana_11pt_regular
+text=Option 1
+textalignh=centre
+textalignv=centre
+colour=0xc8c8c8
+
+// 1185:21
+[com_21]
+type=text
+x=5
+width=40
+height=20
+layer=com_15
+textfont=verdana_11pt_regular
+text=1.
+textalignh=centre
+textalignv=centre
+colour=0xc8c8c8
+
+// 1185:22
+[com_22]
+type=graphic
+width=35
+height=20
+layer=com_16
+graphic=graphic_9059
+
+// 1185:23
+[com_23]
+type=graphic
+width=35
+height=20
+xmode=abs_right
+layer=com_16
+graphic=graphic_9061
+
+// 1185:24
+[com_24]
+type=graphic
+width=70
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_16
+graphic=graphic_9060
+hflip=yes
+
+// 1185:25
+[com_25]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_16
+textfont=verdana_11pt_regular
+text=Option 2
+textalignh=centre
+textalignv=centre
+colour=0xc8c8c8
+
+// 1185:26
+[com_26]
+type=text
+x=5
+width=40
+height=20
+layer=com_16
+textfont=verdana_11pt_regular
+text=2.
+textalignh=centre
+textalignv=centre
+colour=0xc8c8c8

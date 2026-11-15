@@ -16,6 +16,7 @@ use crate::clients::client_db::{profile_from_save, to_save};
 use crate::clients::client_game::create_io;
 use crate::core::{Engine, LoginRequest, engine_mut};
 use crate::handlers::client_cheat::spawn_bots;
+#[cfg(since_647)]
 use crate::phases::controller::Controllers;
 use crate::region::{login_coord, place_returning};
 use crate::save::{PlayerProfile, load_binary, save_binary};
@@ -27,8 +28,9 @@ use rs_grid::CoordGrid;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
@@ -48,7 +50,22 @@ use tokio::sync::mpsc::{Sender, UnboundedReceiver};
 /// client does.
 const SEED: [u32; 4] = [0; 4];
 
+/// Rev-530 client (`rg.i`) lengths by opcode: -1 is var-byte, -2 is var-short.
+#[cfg(all(since_530, before_647))]
+const SERVER_PROT_SIZES: [i8; 256] = [
+    -1, 0, 8, 0, 2, 0, 0, 0, 0, 12, 0, 1, 0, 3, 7, 0, 15, 6, 0, 0, 4, 7, -2, -1, 2, 0, 2, 8, 0, 0,
+    0, 0, -2, 5, 0, 0, 8, 3, 6, 0, 0, 0, -1, 0, -1, 0, 0, 6, -2, 0, 12, 0, 0, 0, -1, -2, 10, 0, 0,
+    0, 3, 0, -1, 0, 0, 5, 6, 0, 0, 8, -1, -1, 0, 8, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 6, 2, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 0, 0, -2, 0, 0, 0, 0, 0, 12, 2, 0, -2, -2, 20, 0, 0,
+    10, 0, 15, 0, -1, 0, 8, -2, 0, 0, 0, 8, 0, 12, 0, 0, 7, 0, 0, 0, 0, 0, -1, -1, 0, 4, 5, 0, 0,
+    0, 6, 0, 0, 0, 0, 8, 9, 0, 0, 0, 2, -1, 0, -2, 0, 4, 14, 0, 0, 0, 24, 0, -2, 5, 0, 0, 0, 10, 0,
+    0, 4, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 2, 1, 0, 0, 2, -1, 1, 0, 0, 0, 0, 14, 0, 0, 0, 0, 10, 5,
+    0, 0, 0, 0, 0, -2, 0, 0, 9, 0, 0, 8, 0, 0, 0, 0, -2, 6, 0, 0, 0, -2, 0, 3, 0, 1, 7, 0, 0, 0, 0,
+    3, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 3, 0, 0,
+];
+
 /// Rev-647 `ServerProt.java` lengths by opcode: -1 is var-byte, -2 is var-short.
+#[cfg(since_647)]
 const SERVER_PROT_SIZES: [i8; 133] = [
     -2, 8, -2, 2, 4, 2, 0, 6, -1, 2, -1, 2, 0, 1, -2, 4, -2, 2, -1, 4, -1, -1, -1, -2, 0, 4, 6, -1,
     3, 4, -1, -2, -1, 20, -2, 4, 4, 8, 7, 1, 1, -2, 3, 6, 4, 12, 4, -1, 10, 6, 8, 8, 3, -2, 6, 6,
@@ -105,9 +122,9 @@ impl HarnessClient {
 
     /// Every packet the engine has flushed since the last call -- the
     /// session's only reader, since each read advances the ISAAC mirror -- as
-    /// `(opcode, payload)`, read the way the 647 client reads them: a 1- or
-    /// 2-byte smart opcode unmasked with ISAAC, framed by the client's own
-    /// size for that opcode.
+    /// `(opcode, payload)`, read the way the client reads them: the opcode
+    /// unmasked with ISAAC (one byte on 530, a 1- or 2-byte smart on 647),
+    /// framed by the client's own size for that opcode.
     ///
     /// # Panics
     /// On an opcode the client has no prot for: the client would fail too.
@@ -121,6 +138,9 @@ impl HarnessClient {
             while pos < chunk.len() {
                 let b0 = chunk[pos].wrapping_sub(self.out_isaac.next_int() as u8);
                 pos += 1;
+                #[cfg(all(since_530, before_647))]
+                let opcode = b0 as u16;
+                #[cfg(since_647)]
                 let opcode = if b0 < 128 {
                     b0 as u16
                 } else {
@@ -153,7 +173,8 @@ impl HarnessClient {
     }
 
     /// The text of every MESSAGE_GAME among `packets`, as the client reads it:
-    /// `gsmart type; g4; g1 flags; [names]; gjstr text`.
+    /// `gsmart type; g4; g1 flags; [names]; gjstr text` on 647, and `gjstr
+    /// text` with type 0 on 530.
     ///
     /// Leaves out the VM's debug-build report of a slow script ("Warning [cpu
     /// time]: ..."), which a busy machine sends at random and the game never
@@ -164,29 +185,35 @@ impl HarnessClient {
             .iter()
             .filter(|(op, _)| *op == opcode)
             .map(|(_, p)| {
-                let mut pos = 0;
-                let kind = if p[0] < 128 {
+                #[cfg(all(since_530, before_647))]
+                let (kind, pos) = (0, 0);
+                #[cfg(since_647)]
+                let (kind, pos) = {
+                    let mut pos = 0;
+                    let kind = if p[0] < 128 {
+                        pos += 1;
+                        p[0] as i32
+                    } else {
+                        pos += 2;
+                        (((p[0] as i32) << 8) | p[1] as i32) - 32768
+                    };
+                    pos += 4;
+                    let flags = p[pos];
                     pos += 1;
-                    p[0] as i32
-                } else {
-                    pos += 2;
-                    (((p[0] as i32) << 8) | p[1] as i32) - 32768
-                };
-                pos += 4;
-                let flags = p[pos];
-                pos += 1;
-                let skip_str = |pos: &mut usize| {
-                    while p[*pos] != 0 {
+                    let skip_str = |pos: &mut usize| {
+                        while p[*pos] != 0 {
+                            *pos += 1;
+                        }
                         *pos += 1;
-                    }
-                    *pos += 1;
-                };
-                if flags & 1 != 0 {
-                    skip_str(&mut pos);
-                    if flags & 2 != 0 {
+                    };
+                    if flags & 1 != 0 {
                         skip_str(&mut pos);
+                        if flags & 2 != 0 {
+                            skip_str(&mut pos);
+                        }
                     }
-                }
+                    (kind, pos)
+                };
                 let end = pos
                     + p[pos..]
                         .iter()
@@ -273,7 +300,7 @@ impl Engine {
         coord: CoordGrid,
         exit: Option<CoordGrid>,
     ) -> Option<PlayerProfile> {
-        let tutorial_done = *self.cache.varps.debugnames.get("tutorial")?;
+        let tutorial_done = self.cache.varps.get_by_debugname("tutorial")?.id;
         Some(PlayerProfile {
             x: coord.x(),
             z: coord.z(),
@@ -286,7 +313,7 @@ impl Engine {
             stats: [0; STAT_COUNT],
             levels: [1; STAT_COUNT],
             // `login.rs2` sends anyone under 1000 to character creation.
-            varps: vec![(tutorial_done, 1000)],
+            varps: vec![(tutorial_done.g2(), 1000)],
             invs: Vec::new(),
             afk_zones: [0; 2],
             last_afk_zone: 0,
@@ -295,6 +322,7 @@ impl Engine {
             trade_chat: 0,
             last_date: 0,
             exit,
+            #[cfg(since_647)]
             display_name: None,
         })
     }
@@ -322,6 +350,10 @@ impl Engine {
             // Fixed, the client's default: content opens `toplevel` (548) for
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
+            #[cfg(since_647)]
+            lobby: false,
+            #[cfg(since_647)]
+            world: 1,
         };
         let engine = self as *mut Engine;
         // `ActivePlayer::new` and the `[login]` trigger read the global
@@ -339,8 +371,16 @@ impl Engine {
         });
         let reply = io.bytes_rx.try_recv().expect("login response");
         assert_eq!(reply[0], 2);
-        assert_eq!(reply[2], 0);
-        assert_eq!(reply.len(), 2 + reply[1] as usize);
+        #[cfg(all(since_530, before_647))]
+        {
+            assert_eq!(reply[1], 0);
+            assert_eq!(reply.len(), 12);
+        }
+        #[cfg(since_647)]
+        {
+            assert_eq!(reply[2], 0);
+            assert_eq!(reply.len(), 2 + reply[1] as usize);
+        }
         assert_eq!(u16::from_be_bytes([reply[8], reply[9]]), pid);
         Some(HarnessClient {
             pid,
@@ -420,7 +460,7 @@ impl Engine {
     }
 
     /// Drops an obj on the ground for everyone, as a map spawn would be.
-    pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: u16, count: u32) {
+    pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: TypeId, count: u32) {
         let coord = CoordGrid::new(x, y, z);
         let engine = self as *mut Engine;
         with_engine(self, || {
@@ -459,7 +499,7 @@ impl Engine {
             // test (its last fight, its action delay, whom it fought) would read as the
             // future: its single-combat lock held until the clock caught up ("Someone else
             // is fighting that."). Its vars start fresh, as at its spawn.
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 npc.npc.vars = VarSet::new(self.cache.varns.types.iter().map(|v| v.var_type));
             }
@@ -476,7 +516,10 @@ impl Engine {
             }
         }
         self.drop_region_zones();
-        self.controllers = Controllers::default();
+        #[cfg(since_647)]
+        {
+            self.controllers = Controllers::default();
+        }
         self.clock = 0;
     }
 
@@ -541,7 +584,8 @@ impl Engine {
     }
 
     /// Spawns controller `id` at `coord` as `controller_add` does.
-    pub fn harness_controller_add(&mut self, coord: CoordGrid, id: u16) -> bool {
+    #[cfg(since_647)]
+    pub fn harness_controller_add(&mut self, coord: CoordGrid, id: TypeId) -> bool {
         self.controller_add(coord, id, 0).is_ok()
     }
 
@@ -636,7 +680,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
 
     let (target, category) = match subject_of(trigger) {
         Subject::Loc => {
-            let id = subject_id as u16;
+            let id = TypeId::from_int(subject_id);
             let zone = engine.zones.zone(grid.x(), grid.y(), grid.z());
             let loc = zone
                 .and_then(|z| z.get_loc(grid.x(), grid.z(), id).map(|i| z.locs[i]))
@@ -659,10 +703,10 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
                 serial: loc.serial(),
             });
             let category = cache.locs.get_by_id(id).and_then(|t| t.category);
-            (Some(target), category.map(|c| c as i32))
+            (Some(target), category.map(|c| c.int()))
         }
         Subject::Npc => {
-            let id = subject_id as u16;
+            let id = TypeId::from_int(subject_id);
             let npc = engine
                 .npc_list
                 .npcs
@@ -672,7 +716,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
                 .map(|n| n.npc.uid)
                 .ok_or_else(|| ScriptError::Runtime(format!("test_op: no npc of type {id}")))?;
             let category = cache.npcs.get_by_id(id).and_then(|t| t.category);
-            (Some(ScriptSubject::Npc(npc)), category.map(|c| c as i32))
+            (Some(ScriptSubject::Npc(npc)), category.map(|c| c.int()))
         }
         Subject::Other => (None, None),
     };

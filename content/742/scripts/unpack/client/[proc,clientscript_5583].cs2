@@ -1,0 +1,19 @@
+// 5583
+[proc,clientscript_5583](int $int0, int $int1)
+if ($int0 = 16 & if_gethide(interface_1193:com_3) = false) {
+    if_setcolour(interface_1193:com_3, 0xdb9000);
+    if_setcolour(interface_1193:com_12, 0xdb9000);
+    if_sendtofront(interface_1193:com_11);
+} else if ($int0 = 17 & if_gethide(interface_1193:com_23) = false) {
+    if_setcolour(interface_1193:com_23, 0xdb9000);
+    if_setcolour(interface_1193:com_24, 0xdb9000);
+    if_sendtofront(interface_1193:com_13);
+} else if ($int0 = 18 & if_gethide(interface_1193:com_28) = false) {
+    if_setcolour(interface_1193:com_28, 0xdb9000);
+    if_setcolour(interface_1193:com_29, 0xdb9000);
+    if_sendtofront(interface_1193:com_14);
+} else if ($int0 = 19 & if_gethide(interface_1193:com_33) = false) {
+    if_setcolour(interface_1193:com_33, 0xdb9000);
+    if_setcolour(interface_1193:com_34, 0xdb9000);
+    if_sendtofront(interface_1193:com_15);
+}

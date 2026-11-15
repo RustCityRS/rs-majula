@@ -1,0 +1,22 @@
+// 5997
+[proc,clientscript_5997](component $component0, int $int1)
+cc_deleteall($component0);
+def_int $int2 = if_getwidth($component0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $setposh5 = ^setpos_abs_left;
+while ($int3 < $int2) {
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_setsize(1, 0, ^setsize_abs, ^setsize_minus);
+    cc_setcolour(^black);
+    cc_setfill(true);
+    if ($int1 = 1) {
+        $setposh5 = ^setpos_abs_left;
+    } else {
+        $setposh5 = ^setpos_abs_right;
+    }
+    cc_setposition($int3, 0, $setposh5, ^setpos_abs_centre);
+    $int4 = scale($int3, $int2, 255);
+    cc_settrans($int4);
+    $int3 = calc($int3 + 1);
+}

@@ -1,0 +1,3 @@
+// 289's player/scripts/changestat.rs2: a stat's change recomputes the combat
+// varps (attack and defence rolls, max hit) from the new level.
+[changestat,_] gosub(player_combat_stat);

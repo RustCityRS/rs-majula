@@ -1,0 +1,1061 @@
+// 667:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=container
+
+// 667:1
+[universe]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=equipscreen_init(event_com)
+
+// 667:2
+[container]
+type=layer
+width=488
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+
+// 667:3
+[com_3]
+type=layer
+x=-2
+y=11
+width=14
+height=292
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=container
+
+// 667:4
+[com_4]
+type=layer
+x=317
+y=28
+width=156
+height=253
+layer=com_3
+
+// 667:5
+[com_5]
+type=graphic
+x=56
+y=95
+width=4
+height=9
+layer=com_4
+graphic=graphic_9282
+
+// 667:6
+[com_6_]
+type=graphic
+x=56
+y=55
+width=4
+height=9
+layer=com_4
+graphic=graphic_9280
+
+// 667:7
+[player]
+type=layer
+width=160
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+
+// 667:8
+[com_6]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=player
+colour=0x000000
+fill=yes
+trans=225
+
+// 667:9
+[worn_items_layer]
+type=layer
+width=157
+height=236
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+
+// 667:10
+[com_10]
+type=graphic
+y=3
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:11
+[headslot]
+type=graphic
+x=-41
+y=3
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:12
+[capeslot]
+type=graphic
+x=-40
+y=42
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:13
+[necklaceslot]
+type=graphic
+y=42
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:14
+[arrowslot]
+type=graphic
+x=41
+y=42
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:15
+[weaponslot]
+type=graphic
+x=-54
+y=81
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+opbase=weaponslot
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:16
+[bodyslot]
+type=graphic
+y=81
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:17
+[shieldslot]
+type=graphic
+x=53
+y=81
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:18
+[legslot]
+type=graphic
+y=121
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:19
+[footslot]
+type=graphic
+y=161
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:20
+[handslot]
+type=graphic
+x=-54
+y=161
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:21
+[ringslot]
+type=graphic
+x=54
+y=161
+width=36
+height=36
+xmode=abs_centre
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, 9167)
+onmouseleave=graphic_swapper(event_com, "miscgraphics,0")
+
+// 667:22
+[com_24]
+type=text
+y=218
+width=69
+height=17
+widthmode=minus
+xmode=abs_right
+layer=worn_items_layer
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 667:23
+[com_25]
+type=graphic
+x=-22
+y=217
+width=17
+height=18
+xmode=abs_centre
+layer=worn_items_layer
+graphic="options_icons_small,0"
+colour=0xffffffff
+
+// 667:24
+[com_24_]
+type=layer
+x=9
+width=149
+height=283
+ymode=abs_centre
+layer=com_3
+
+// 667:25
+[com_27]
+type=text
+height=15
+widthmode=minus
+layer=com_24_
+textfont=b12_full
+text=Attack Bonuses
+textshadow=yes
+colour=0xff981f
+
+// 667:26
+[com_28]
+type=text
+y=80
+height=15
+widthmode=minus
+layer=com_24_
+textfont=b12_full
+text=Defence Bonuses
+textshadow=yes
+colour=0xff981f
+
+// 667:27
+[com_29]
+type=text
+y=212
+height=15
+widthmode=minus
+layer=com_24_
+textfont=b12_full
+text=Other Bonuses
+textshadow=yes
+colour=0xff981f
+
+// 667:28
+[stabatt]
+type=text
+y=14
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Stab:
+textshadow=yes
+colour=0xff981f
+
+// 667:29
+[slashatt]
+type=text
+y=27
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Slash:
+textshadow=yes
+colour=0xff981f
+
+// 667:30
+[crushatt]
+type=text
+y=40
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Crush:
+textshadow=yes
+colour=0xff981f
+
+// 667:31
+[magicatt]
+type=text
+y=53
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Magic:
+textshadow=yes
+colour=0xff981f
+
+// 667:32
+[rangeatt]
+type=text
+y=66
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Ranged:
+textshadow=yes
+colour=0xff981f
+
+// 667:33
+[stabdef]
+type=text
+y=94
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Stab:
+textshadow=yes
+colour=0xff981f
+
+// 667:34
+[slashdef]
+type=text
+y=107
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Slash:
+textshadow=yes
+colour=0xff981f
+
+// 667:35
+[crushdef]
+type=text
+y=120
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Crush:
+textshadow=yes
+colour=0xff981f
+
+// 667:36
+[magicdef]
+type=text
+y=133
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Magic:
+textshadow=yes
+colour=0xff981f
+
+// 667:37
+[rangedef]
+type=text
+y=146
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Ranged:
+textshadow=yes
+colour=0xff981f
+
+// 667:38
+[summoningdef]
+type=text
+y=159
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Summoning:
+textshadow=yes
+colour=0xff981f
+
+// 667:39
+[com_41]
+type=text
+y=172
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Absorb Melee:
+textshadow=yes
+colour=0xff981f
+
+// 667:40
+[com_42]
+type=text
+y=185
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Absorb Magic:
+textshadow=yes
+colour=0xff981f
+
+// 667:41
+[com_43]
+type=text
+y=198
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Absorb Ranged:
+textshadow=yes
+colour=0xff981f
+
+// 667:42
+[wearstrength]
+type=text
+y=226
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Strength:
+textshadow=yes
+colour=0xff981f
+
+// 667:43
+[com_45]
+type=text
+y=239
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Ranged Strength:
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 667:44
+[wearprayer]
+type=text
+y=252
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Prayer:
+textshadow=yes
+colour=0xff981f
+
+// 667:45
+[com_47]
+type=text
+y=265
+width=5
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_24_
+textfont=p12_full
+text=Magic Damage:
+textshadow=yes
+colour=0xff981f
+
+// 667:46
+[bank_button]
+type=layer
+x=5
+y=4
+width=34
+height=36
+xmode=abs_right
+layer=com_3
+hide=yes
+transmitop=1
+op1=Show bank
+onmouseleave=deltooltip(equip_screen2:tooltip)
+onop=script2318(event_op)
+onmouserepeat=script1160(event_com, event_comsubid, equip_screen2:tooltip, "Return to the bank", 25, 300)
+
+// 667:47
+[bank_button_graphics]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=bank_button
+
+// 667:48
+[com_50]
+type=model
+width=30
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=bank_button
+model=model_7131
+modelorigin=-1,0
+modelangle=512,0,0
+modelzoom=2300
+
+// 667:49
+[popup]
+type=layer
+y=8
+width=4
+height=23
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=container
+hide=yes
+noclickthrough=yes
+
+// 667:50
+[com_52]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup
+colour=0x000000
+fill=yes
+trans=175
+
+// 667:51
+[popup_contents]
+type=layer
+width=200
+height=255
+xmode=abs_centre
+ymode=abs_centre
+layer=popup
+
+// 667:52
+[com_54]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_contents
+graphic=tradebacking
+tiling=yes
+
+// 667:53
+[com_55]
+type=graphic
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=popup_contents
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 667:54
+[com_56]
+type=graphic
+x=-13
+width=32
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=popup_contents
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 667:55
+[com_57]
+type=graphic
+x=-12
+width=32
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=popup_contents
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 667:56
+[com_58]
+type=graphic
+y=-12
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_contents
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 667:57
+[com_59]
+type=graphic
+width=32
+height=32
+layer=popup_contents
+graphic="v2_stone_borders,35"
+
+// 667:58
+[com_60]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=popup_contents
+graphic="v2_stone_borders,37"
+
+// 667:59
+[com_61]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=popup_contents
+graphic="v2_stone_borders,6"
+
+// 667:60
+[com_62]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=popup_contents
+graphic="v2_stone_borders,7"
+
+// 667:61
+[comparison_title]
+type=text
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=popup_contents
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 667:62
+[popup_close]
+type=layer
+y=8
+width=120
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_contents
+transmitop=1
+op1=Done
+onop=equipscreen_comparison_close
+
+// 667:63
+[com_65]
+type=text
+y=8
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_contents
+textfont=b12_full
+text=Done
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 667:64
+[tooltip]
+type=layer
+width=1
+height=1
+layer=universe
+
+// 667:65
+[com_65_]
+type=graphic
+x=96
+y=55
+width=4
+height=9
+layer=com_4
+graphic=graphic_9280
+
+// 667:66
+[com_66]
+type=graphic
+x=41
+y=95
+width=4
+height=9
+layer=com_4
+graphic=graphic_9280
+
+// 667:67
+[com_67]
+type=graphic
+x=96
+y=95
+width=4
+height=9
+layer=com_4
+graphic=graphic_9280
+
+// 667:68
+[com_68]
+type=graphic
+x=109
+y=95
+width=4
+height=9
+layer=com_4
+graphic=graphic_9282
+
+// 667:69
+[com_69]
+type=graphic
+x=45
+y=95
+width=11
+height=9
+layer=com_4
+graphic=graphic_9281
+
+// 667:70
+[com_70]
+type=graphic
+x=99
+y=95
+width=11
+height=9
+layer=com_4
+graphic=graphic_9281
+
+// 667:71
+[com_71]
+type=graphic
+x=74
+y=39
+width=9
+height=4
+layer=com_4
+graphic=graphic_9283
+
+// 667:72
+[com_72]
+type=graphic
+x=74
+y=78
+width=9
+height=4
+layer=com_4
+graphic=graphic_9283
+
+// 667:73
+[com_73]
+type=graphic
+x=74
+y=117
+width=9
+height=4
+layer=com_4
+graphic=graphic_9283
+
+// 667:74
+[com_74]
+type=graphic
+x=74
+y=157
+width=9
+height=4
+layer=com_4
+graphic=graphic_9283
+
+// 667:75
+[com_75]
+type=graphic
+x=20
+y=117
+width=9
+height=4
+layer=com_4
+graphic=graphic_9283
+
+// 667:76
+[com_76]
+type=graphic
+x=127
+y=117
+width=9
+height=4
+layer=com_4
+graphic=graphic_9283
+
+// 667:77
+[com_77]
+type=graphic
+x=127
+y=157
+width=9
+height=4
+layer=com_4
+graphic=graphic_9285
+
+// 667:78
+[com_78]
+type=graphic
+x=20
+y=158
+width=9
+height=4
+layer=com_4
+graphic=graphic_9285
+
+// 667:79
+[com_79]
+type=graphic
+x=20
+y=121
+width=9
+height=37
+layer=com_4
+graphic=graphic_9284
+
+// 667:80
+[com_80]
+type=graphic
+x=127
+y=121
+width=9
+height=37
+layer=com_4
+graphic=graphic_9284
+
+// 667:81
+[com_81]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4260(event_com)
+
+// 667:82
+[com_82]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 667:83
+[com_83]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4261(event_com)
+
+// 667:84
+[com_84]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 667:85
+[com_85]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_84
+textfont=palatino_linotype_18pt_regular
+text=Equipment Bonuses
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 667:86
+[com_86]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_0
+onload=aif_build_close_button_layer(event_com)
+
+// 667:87
+[com_87]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_86
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 667:88
+[com_88]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_86
+onload=aif_build_close_button_over(event_com)

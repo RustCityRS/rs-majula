@@ -1,0 +1,15 @@
+// 6356
+[proc,clientscript_6356]()(int)
+def_int $int0 = cc_gety;
+def_component $component1 = op1506;
+while ($component1 ! null) {
+    $int0 = calc($int0 + if_gety($component1) - if_getscrolly($component1));
+    $component1 = op543($component1);
+}
+if (getwindowmode < 2) {
+    return(calc($int0 - if_getheight(toplevel:com_1)));
+} else if (if_gethide(toplevel_fullscreen:com_418) = false) {
+    return(calc($int0 - if_getheight(toplevel_fullscreen:com_418)));
+} else {
+    return($int0);
+}

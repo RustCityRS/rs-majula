@@ -1,0 +1,18 @@
+// 5657
+[proc,clientscript_5657](component $component0, int $int1, int $int2)
+if (cc_find($component0, $int1) = true) {
+    if ($int2 < 10) {
+        $int2 = calc($int2 + 1);
+        cc_setontimer("clientscript_5657($component0, $int1, $int2)");
+        return;
+    }
+    if (cc_gettrans < 255) {
+        cc_settrans(min(calc(cc_gettrans + 2), 255));
+        cc_setposition(0, max(calc(cc_gety - 4), 0), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if (cc_gettrans >= 255) {
+        cc_delete;
+    } else {
+        cc_setontimer("clientscript_5657($component0, $int1, $int2)");
+    }
+}

@@ -1,0 +1,9 @@
+// 3972
+[proc,clientscript_3972](int $int0, int $int1, component $component2, component $component3)
+def_int $int4 = max(1, if_getwidth($component2));
+def_int $int5 = max(1, if_getheight($component2));
+$int0 = max(1, $int0);
+$int1 = max(1, $int1);
+$int0 = min($int0, calc($int4 - if_getwidth($component3)));
+$int1 = min($int1, calc($int5 - if_getheight($component3)));
+if_setposition($component3, scale($int0, $int4, 16384), scale($int1, $int5, 16384), ^setpos_rel_left, ^setpos_rel_top);

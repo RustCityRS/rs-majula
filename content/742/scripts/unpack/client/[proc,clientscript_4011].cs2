@@ -1,0 +1,61 @@
+// 4011
+[proc,clientscript_4011]
+if (%ql4_quest = null) {
+    return;
+}
+def_int $int0 = ~ql4_getprogress(struct_param(%ql4_quest, param_847));
+if ($int0 = 2) {
+    if_settext(questlist_v4:com_456, "Quest complete!");
+} else if ($int0 = 1) {
+    if_settext(questlist_v4:com_456, "Started");
+} else {
+    if_settext(questlist_v4:com_456, "Not started");
+}
+def_string $string0 = struct_param(%ql4_quest, param_845);
+def_int $int1 = stringwidth($string0, op1028(questlist_v4:com_392));
+if_setsize(questlist_v4:com_10, calc($int1 + 30), if_getheight(questlist_v4:com_10), ^setsize_abs, ^setsize_abs);
+if_settext(questlist_v4:com_392, $string0);
+if_setgraphic(questlist_v4:com_436, struct_param(%ql4_quest, param_952));
+$int1 = ~clientscript_4249("<col=ebe076>Start point:</col>", struct_param(%ql4_quest, param_948), questlist_v4:com_404, questlist_v4:com_405, questlist_v4:com_406, null, null, $int0, 0);
+$int1 = ~clientscript_4249("<col=ebe076>Requirements:</col>", %varclient_2381, questlist_v4:com_407, questlist_v4:com_408, questlist_v4:com_409, null, null, $int0, $int1);
+$int1 = ~clientscript_4249("<col=ebe076>Required items:</col>", struct_param(%ql4_quest, param_949), questlist_v4:com_410, questlist_v4:com_411, questlist_v4:com_412, questlist_v4:com_413, questlist_v4:com_418, $int0, $int1);
+$int1 = ~clientscript_4249("<col=ebe076>Combat:</col>", struct_param(%ql4_quest, param_950), questlist_v4:com_419, questlist_v4:com_420, questlist_v4:com_421, null, null, $int0, $int1);
+switch_struct (%ql4_quest) {
+    case struct_658 :
+        if (%sheep >= 21 & %varplayerbit_7997 = 0) {
+            $string0 = struct_param(%ql4_quest, param_1212);
+        } else {
+            $string0 = struct_param(%ql4_quest, param_951);
+        }
+    case struct_659 :
+        if (%hetty >= 3 & %varplayerbit_7998 = 0) {
+            $string0 = struct_param(%ql4_quest, param_1212);
+        } else {
+            $string0 = struct_param(%ql4_quest, param_951);
+        }
+    case struct_1137 :
+        if (%rjquest = 100) {
+            $string0 = struct_param(%ql4_quest, param_1212);
+        } else {
+            $string0 = struct_param(%ql4_quest, param_951);
+        }
+    case struct_10527 :
+        if_settext(questlist_v4:com_441, "Offer");
+        if_clearops(questlist_v4:com_437);
+        if_setpausetext(questlist_v4:com_437, "Offer");
+        if_setposition(questlist_v4:com_437, 0, if_gety(questlist_v4:com_437), ^setpos_abs_centre, ^setpos_abs_top);
+        if_sethide(questlist_v4:com_442, true);
+        if_sethide(questlist_v4:com_447, true);
+        if_sethide(questlist_v4:com_448, true);
+        $string0 = %varclient_2398;
+    case default :
+        $string0 = struct_param(%ql4_quest, param_951);
+}
+$int1 = ~clientscript_4249("<col=ebe076>Rewards:</col>", $string0, questlist_v4:com_422, questlist_v4:com_423, questlist_v4:com_424, questlist_v4:com_425, questlist_v4:com_430, $int0, $int1);
+if ($int1 > if_getheight(questlist_v4:com_403)) {
+    if_setscrollsize(questlist_v4:com_403, 0, $int1);
+    ~scrollbar_vertical(questlist_v4:com_431, questlist_v4:com_403, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+} else {
+    if_setscrollsize(questlist_v4:com_403, 0, 0);
+    cc_deleteall(questlist_v4:com_431);
+}

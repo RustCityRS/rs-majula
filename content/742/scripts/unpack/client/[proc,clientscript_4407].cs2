@@ -1,0 +1,5 @@
+// 4407
+[proc,clientscript_4407](component $component0, int $int1, cursor $cursor2)
+if ($int1 >= 1 & $int1 <= 10) {
+    if_setopcursor($component0, $int1, $cursor2);
+}

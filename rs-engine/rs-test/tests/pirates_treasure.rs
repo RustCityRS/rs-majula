@@ -15,6 +15,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -29,14 +30,14 @@ const HECTOR_CHEST: (u16, u16, u16) = (2079, 3219, 3396);
 /// The X under the Saradomin statue in Falador park (general_use/scripts/spade.rs2).
 const DIG: (u16, u16) = (2999, 3383);
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
 }
 
 fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
@@ -45,7 +46,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -55,12 +56,12 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, count: u32) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -72,7 +73,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, coun
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -288,13 +289,13 @@ fn frank_and_luthas_as_2011s() {
         let banana = id(engine, "obj", "banana");
         tele(engine, &mut client, 2944, 0, 3151);
         give(engine, &client, 0, "karamja_rum", 1);
-        use_on_loc(&mut client, rum, 0, BANANA_CRATE);
+        use_on_loc(&mut client, rum.g2(), 0, BANANA_CRATE);
         let t = converse(engine, &mut client, &[], 60);
         says(&t, &["You stash the rum in the crate."]);
         assert_eq!(var(engine, &client, "crate_rum"), 1);
         for _ in 0..10 {
             give(engine, &client, 1, "banana", 1);
-            use_on_loc(&mut client, banana, 1, BANANA_CRATE);
+            use_on_loc(&mut client, banana.g2(), 1, BANANA_CRATE);
             let t = converse(engine, &mut client, &[], 60);
             says(&t, &["You pack a banana into the crate."]);
         }
@@ -406,7 +407,7 @@ fn the_key_the_chest_and_the_casket() {
         let key = id(engine, "obj", "chest_key");
         let slot = (0..28u16)
             .find(|&s| {
-                let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+                let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
                 engine
                     .harness_player(client.pid)
                     .unwrap()
@@ -419,7 +420,7 @@ fn the_key_the_chest_and_the_casket() {
             })
             .expect("the key in the backpack");
         tele(engine, &mut client, 3219, 1, 3395);
-        use_on_loc(&mut client, key, slot, HECTOR_CHEST);
+        use_on_loc(&mut client, key.g2(), slot, HECTOR_CHEST);
         let said = messages(engine, &mut client, 12);
         for line in [
             "You unlock the chest.",
@@ -438,10 +439,10 @@ fn the_key_the_chest_and_the_casket() {
         let spade = id(engine, "obj", "spade");
         give(engine, &client, 0, "spade", 1);
         tele(engine, &mut client, DIG.0, 0, DIG.1);
-        op_held1(&mut client, spade, 0);
+        op_held1(&mut client, spade.g2(), 0);
         settle(engine, &mut client, 3);
         let (gardener, _, _) = npc_near(engine, "falador_gardener", DIG.0, DIG.1);
-        op_held1(&mut client, spade, 0);
+        op_held1(&mut client, spade.g2(), 0);
         let said = messages(engine, &mut client, 4);
         assert!(
             said.iter()
@@ -471,7 +472,7 @@ fn the_key_the_chest_and_the_casket() {
             engine.remove_npc(nid);
         }
         tele(engine, &mut client, DIG.0, 0, DIG.1);
-        op_held1(&mut client, spade, 0);
+        op_held1(&mut client, spade.g2(), 0);
         let said = messages(engine, &mut client, 12);
         for line in [
             "You dig a hole in the ground...",
@@ -485,7 +486,7 @@ fn the_key_the_chest_and_the_casket() {
         assert_eq!(var(engine, &client, "hunt"), 4, "complete");
         assert_eq!(held(engine, &client, "pirate_casket"), 1, "Hector's casket");
         let casket = id(engine, "obj", "pirate_casket");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let cslot = (0..28u16)
             .find(|&s| {
                 engine
@@ -500,7 +501,7 @@ fn the_key_the_chest_and_the_casket() {
             })
             .unwrap();
         engine.harness_close_modal(client.pid);
-        op_held1(&mut client, casket, cslot);
+        op_held1(&mut client, casket.g2(), cslot);
         let said = messages(engine, &mut client, 4);
         assert!(
             said.iter()

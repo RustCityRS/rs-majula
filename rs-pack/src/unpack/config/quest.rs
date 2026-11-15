@@ -1,11 +1,12 @@
 use super::UnpackedPacks;
 use crate::cache::quest::{QuestType, QuestVarRequirement};
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn var_requirement(requirement: &QuestVarRequirement, kind: &str, packs: &UnpackedPacks) -> String {
     let var = u16::try_from(requirement.var).map_or_else(
         |_| requirement.var.to_string(),
-        |id| packs.reference(kind, id),
+        |id| packs.reference(kind, TypeId::from_g2(id)),
     );
     format!(
         "{var},{},{},{}",
@@ -86,7 +87,7 @@ pub fn emit_quest_props(
         p.push((13, "questreq".into(), packs.reference("quest", *quest)));
     }
     for (stat, level) in &def.statrequirement {
-        let stat = packs.reference("stat", *stat as u16);
+        let stat = packs.reference("stat", TypeId::from_g2((*stat).into()));
         p.push((14, "statreq".into(), format!("{stat},{level}")));
     }
     if opcode == 15 {

@@ -1,0 +1,24 @@
+// 5706
+[proc,clientscript_5706](component $component0, int $int1)
+if (if_gety($component0) = $int1) {
+    %varclient_1752 = 0;
+    if_setontimer(interface_1218:com_74, null);
+} else if (if_gety($component0) > $int1) {
+    if (if_gety($component0) > calc($int1 + 70)) {
+        if_setposition($component0, if_getx($component0), calc(if_gety($component0) - 8), ^setpos_abs_left, ^setpos_abs_top);
+    } else if (if_gety($component0) > calc($int1 + 30)) {
+        if_setposition($component0, if_getx($component0), calc(if_gety($component0) - 3), ^setpos_abs_left, ^setpos_abs_top);
+    } else if (if_gety($component0) > calc($int1 + 20)) {
+        if_setposition($component0, if_getx($component0), calc(if_gety($component0) - 2), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        if_setposition($component0, if_getx($component0), calc(if_gety($component0) - 1), ^setpos_abs_left, ^setpos_abs_top);
+    }
+} else if (if_gety($component0) < calc($int1 - 70)) {
+    if_setposition($component0, if_getx($component0), calc(if_gety($component0) + 8), ^setpos_abs_left, ^setpos_abs_top);
+} else if (if_gety($component0) < calc($int1 - 30)) {
+    if_setposition($component0, if_getx($component0), calc(if_gety($component0) + 3), ^setpos_abs_left, ^setpos_abs_top);
+} else if (if_gety($component0) < calc($int1 - 20)) {
+    if_setposition($component0, if_getx($component0), calc(if_gety($component0) + 2), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setposition($component0, if_getx($component0), calc(if_gety($component0) + 1), ^setpos_abs_left, ^setpos_abs_top);
+}

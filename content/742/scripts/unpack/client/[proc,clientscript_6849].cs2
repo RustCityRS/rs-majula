@@ -1,0 +1,40 @@
+// 6849
+[proc,clientscript_6849](int $int0)(int)
+switch_int ($int0) {
+    case 34770 :
+        return(1);
+    case 38593 :
+        return(2);
+    case 42598 :
+        return(3);
+    case 46967 :
+        return(4);
+    case 50790 :
+        return(5);
+    case 54613 :
+        return(6);
+    case 58800 :
+        return(7);
+    case 63169 :
+        return(8);
+    case 2002 :
+        return(9);
+    case 5825 :
+        return(10);
+    case 9830 :
+        return(11);
+    case 14199 :
+        return(12);
+    case 18204 :
+        return(13);
+    case 22391 :
+        return(14);
+    case 26396 :
+        return(15);
+    case 30765 :
+        return(16);
+    case 0 :
+        return(0);
+    case default :
+        return(-1);
+}

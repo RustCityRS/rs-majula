@@ -1,0 +1,48 @@
+// 6848
+[proc,clientscript_6848](component $component0)
+def_int $int1 = ~clientscript_6849(op2613(interface_1354:com_35));
+def_int $int2 = ~clientscript_6850($component0);
+def_boolean $boolean3 = null;
+if ($int1 = -1) {
+    return;
+}
+if ($int2 = -1) {
+    return;
+}
+if ($int2 = $int1) {
+    return;
+}
+if (%varplayerbit_12032 = 35 & $int1 = 4 | %varplayerbit_12032 = 57 & $int1 = 7 | %varplayerbit_12032 = 67 & $int1 = 10 | %varplayerbit_12032 = 92 & $int1 = 13) {
+    mes("The sundial's gnomon feels like it's locked in place.");
+    return;
+    return;
+}
+~clientscript_6843;
+if ($int1 = 0) {
+    if ($int2 >= 1 & $int2 <= 8) {
+        if_setposition(interface_1354:com_35, -13, 61, ^setpos_abs_centre, ^setpos_abs_centre);
+        if_set2dangle(interface_1354:com_35, 63169);
+        $int1 = 8;
+    } else {
+        if_setposition(interface_1354:com_35, 12, 62, ^setpos_abs_centre, ^setpos_abs_centre);
+        if_set2dangle(interface_1354:com_35, 2002);
+        $int1 = 9;
+    }
+}
+if ($int2 > $int1) {
+    if (calc($int2 - $int1) <= 7) {
+        $boolean3 = false;
+    } else {
+        $boolean3 = true;
+    }
+} else if ($int2 < $int1) {
+    if (calc($int1 - $int2) <= 7) {
+        $boolean3 = true;
+    } else {
+        $boolean3 = false;
+    }
+} else if ($int2 = $int1) {
+    ~clientscript_6853($int2);
+    return;
+}
+if_setontimer(interface_1354:com_35, "clientscript_6851(clientclock, $int1, $int2, $boolean3)");

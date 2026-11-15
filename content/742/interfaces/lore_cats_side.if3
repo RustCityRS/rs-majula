@@ -1,0 +1,325 @@
+// 663:0
+[com_0]
+type=rectangle
+x=8
+y=28
+width=173
+height=111
+colour=0x000000
+fill=yes
+trans=200
+
+// 663:1
+[com_1]
+type=rectangle
+x=14
+y=31
+width=161
+height=105
+colour=0x000000
+fill=yes
+trans=200
+
+// 663:2
+[com_2]
+type=rectangle
+x=24
+y=36
+width=143
+height=95
+colour=0x000000
+fill=yes
+trans=200
+
+// 663:3
+[lore_chathead]
+type=model
+x=58
+y=39
+width=78
+height=86
+model=null
+modelorigin=4,4
+modelangle=2033,1833,0
+modelzoom=2168
+onvartransmit=script819{lore_npc_head}
+
+// 663:4
+[com_4]
+type=graphic
+x=5
+y=25
+width=32
+height=32
+graphic="v2_stone_borders,28"
+colour=0x000000
+
+// 663:5
+[com_5]
+type=graphic
+x=37
+y=12
+width=116
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 663:6
+[com_6]
+type=graphic
+x=152
+y=25
+width=32
+height=32
+graphic="v2_stone_borders,29"
+colour=0x000000
+
+// 663:7
+[com_7]
+type=graphic
+x=167
+y=57
+width=32
+height=53
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0x000000
+
+// 663:8
+[com_8]
+type=graphic
+x=152
+y=110
+width=32
+height=32
+graphic="v2_stone_borders,31"
+colour=0x000000
+
+// 663:9
+[com_9]
+type=graphic
+x=37
+y=126
+width=115
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0x000000
+
+// 663:10
+[com_10]
+type=graphic
+x=5
+y=110
+width=32
+height=32
+graphic="v2_stone_borders,30"
+colour=0x000000
+
+// 663:11
+[com_11]
+type=graphic
+x=-9
+y=57
+width=32
+height=53
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0x000000
+
+// 663:12
+[com_12]
+type=graphic
+x=-1
+y=169
+width=32
+height=47
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 663:13
+[com_13]
+type=graphic
+x=13
+y=153
+width=164
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 663:14
+[com_14]
+type=graphic
+x=164
+y=169
+width=32
+height=47
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 663:15
+[com_15]
+type=graphic
+x=12
+y=199
+width=165
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 663:16
+[size_icon]
+type=graphic
+x=126
+y=173
+width=25
+height=25
+layer=cat_bounding_box
+graphic="lore_icons,1"
+colour=0x000000
+onmouseleave=deltooltip(lore_cats_side:build_layer)
+onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Size Percentage", 25, 300)
+
+// 663:17
+[size_percentage]
+type=text
+x=126
+y=200
+width=32
+height=15
+layer=cat_bounding_box
+textfont=p11_full
+text=100%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onmouseleave=deltooltip(lore_cats_side:build_layer)
+onvartransmit=script820{lore_npc_stats}
+onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Size Percentage", 25, 300)
+
+// 663:18
+[hunger_icon]
+type=graphic
+x=31
+y=173
+width=25
+height=25
+layer=cat_bounding_box
+graphic="lore_icons,0"
+colour=0x000000
+onmouseleave=deltooltip(lore_cats_side:build_layer)
+onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Hunger Percentage", 25, 300)
+
+// 663:19
+[hunger]
+type=text
+x=27
+y=200
+width=32
+height=15
+layer=cat_bounding_box
+textfont=p11_full
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onmouseleave=deltooltip(lore_cats_side:build_layer)
+onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Hunger Percentage", 25, 300)
+
+// 663:20
+[com_20]
+type=layer
+x=23
+y=218
+width=38
+height=38
+layer=cat_bounding_box
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 663:21
+[call_animal_button]
+type=graphic
+x=29
+y=225
+width=25
+height=25
+layer=cat_bounding_box
+graphic="lore_icons,3"
+colour=0x000000
+transmitop=1
+op1=Call Cat
+onmouseleave=deltooltip(lore_cats_side:build_layer)
+onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Call", 25, 300)
+
+// 663:22
+[com_22]
+type=layer
+x=129
+y=218
+width=38
+height=38
+layer=cat_bounding_box
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 663:23
+[dismiss_button]
+type=graphic
+x=137
+y=225
+width=25
+height=25
+layer=cat_bounding_box
+graphic="lore_icons,5"
+colour=0x000000
+transmitop=1,2
+op1=Dismiss Cat
+op2=Dismiss Now
+onmouseleave=deltooltip(lore_cats_side:build_layer)
+onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Dismiss Cat", 25, 300)
+
+// 663:24
+[com_24]
+type=graphic
+x=13
+y=145
+width=166
+height=20
+graphic=lore_stats_box
+colour=0x000000
+
+// 663:25
+[lore_name]
+type=text
+x=13
+y=143
+width=165
+height=22
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+colour=0xcc9900
+
+// 663:26
+[build_layer]
+type=layer
+width=189
+height=260
+layer=cat_bounding_box
+
+// 663:27
+[cat_bounding_box]
+type=layer
+width=190
+height=261

@@ -1,0 +1,43 @@
+// 4832
+[proc,clientscript_4832](component $component0, int $int1)
+~clientscript_4834($component0);
+if (cc_find($component0, $int1) = true) {
+    if (cc_getgraphic = "aif_checkbox_large,5") {
+        switch_int (%varplayerbit_9558) {
+            case 1 :
+                switch_component ($component0) {
+                    case interface_1258:com_428, interface_1258:com_360, interface_1258:com_286 :
+                        %varplayerbit_9567 = calc(1 + $int1);
+                    case interface_1258:com_416, interface_1258:com_346, interface_1258:com_270 :
+                        %varplayerbit_9568 = calc(1 + $int1);
+                    case interface_1258:com_404, interface_1258:com_332, interface_1258:com_254 :
+                        %varplayerbit_9569 = calc(1 + $int1);
+                }
+            case 2 :
+                switch_component ($component0) {
+                    case interface_1258:com_428, interface_1258:com_360, interface_1258:com_286 :
+                        %varplayerbit_9576 = calc(1 + $int1);
+                    case interface_1258:com_416, interface_1258:com_346, interface_1258:com_270 :
+                        %varplayerbit_9577 = calc(1 + $int1);
+                    case interface_1258:com_404, interface_1258:com_332, interface_1258:com_254 :
+                        %varplayerbit_9578 = calc(1 + $int1);
+                }
+            case 3 :
+                switch_component ($component0) {
+                    case interface_1258:com_428, interface_1258:com_360, interface_1258:com_286 :
+                        %varplayerbit_9585 = calc(1 + $int1);
+                    case interface_1258:com_416, interface_1258:com_346, interface_1258:com_270 :
+                        %varplayerbit_9586 = calc(1 + $int1);
+                    case interface_1258:com_404, interface_1258:com_332, interface_1258:com_254 :
+                        %varplayerbit_9587 = calc(1 + $int1);
+                }
+        }
+        cc_setgraphic("aif_checkbox_large,0");
+    } else {
+        ~clientscript_4834($component0);
+    }
+}
+~clientscript_4838;
+~clientscript_4810;
+~clientscript_4840;
+~clientscript_4814;

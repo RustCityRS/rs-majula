@@ -1,0 +1,13 @@
+// 54
+[clientscript,wilderness_level_update](component $component0)
+def_int $int1 = 0;
+if (~inzone(0_46_55_0_0, 3_53_67_5_63, coord) = true | ~inzone(0_45_61_0_0, 3_45_61_63_63, coord) = true) {
+    $int1 = calc((coordz(coord) - 3520) / 8 + 1);
+} else if (~inzone(0_46_155_0_0, 3_52_169_63_63, coord) = true) {
+    $int1 = calc((coordz(coord) - 9920) / 8 + 1);
+} else {
+    if_settext($component0, "");
+    return;
+}
+$int1 = max(min($int1, 99), 0);
+if_settext($component0, "Level: <tostring($int1)>");

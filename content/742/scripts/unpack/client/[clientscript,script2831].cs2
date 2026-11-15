@@ -1,0 +1,12 @@
+// 2831
+[clientscript,script2831](int $int0, idkit $idkit1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+baseidkit($int2, $idkit1);
+if ($int2 = 1) {
+    %playerdesign3_jaw = $idkit1;
+} else {
+    %playerdesign3_head = $idkit1;
+}
+~player_kit_hair_redraw;

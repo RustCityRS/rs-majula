@@ -1,0 +1,561 @@
+// 403:0
+[window]
+type=layer
+width=512
+height=334
+
+// 403:1
+[background]
+type=graphic
+x=30
+y=21
+width=62
+height=32
+widthmode=minus
+heightmode=minus
+layer=window
+graphic=tradebacking
+tiling=yes
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 403:2
+[border_layer]
+type=layer
+width=512
+height=334
+layer=window
+
+// 403:3
+[com_3]
+type=graphic
+x=17
+y=52
+width=32
+height=241
+layer=border_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:4
+[com_4]
+type=graphic
+x=462
+y=52
+width=32
+height=241
+layer=border_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:5
+[com_5]
+type=graphic
+x=61
+y=21
+width=390
+height=32
+layer=border_layer
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:6
+[com_6]
+type=graphic
+x=61
+y=304
+width=390
+height=32
+layer=border_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:7
+[com_7]
+type=graphic
+x=30
+y=292
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:8
+[com_8]
+type=graphic
+x=450
+y=21
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:9
+[com_9]
+type=graphic
+x=450
+y=292
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:10
+[com_10]
+type=graphic
+x=30
+y=21
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:11
+[com_11]
+type=text
+x=24
+y=25
+width=464
+height=19
+textfont=b12_full
+text=What wood do you want converting to planks?
+textalignh=centre
+colour=0xff981f
+
+// 403:12
+[woodplanks]
+type=layer
+x=132
+y=56
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Wood plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:13
+[oakplanks]
+type=layer
+x=284
+y=56
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Oak plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:14
+[teakplanks]
+type=layer
+x=132
+y=184
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Teak plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:15
+[mahoganyplanks]
+type=layer
+x=284
+y=184
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Mahogany plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:16
+[poh_sawmill_wood]
+type=model
+x=133
+y=68
+width=93
+height=74
+model=model_12355
+modelorigin=1,20
+modelangle=126,1789,0
+modelzoom=400
+
+// 403:17
+[poh_sawmill_oak]
+type=model
+x=285
+y=68
+width=93
+height=74
+model=model_12305
+modelorigin=1,20
+modelangle=125,1789,0
+modelzoom=400
+
+// 403:18
+[poh_sawmill_teak]
+type=model
+x=133
+y=196
+width=93
+height=74
+model=model_12329
+modelorigin=1,20
+modelangle=125,1789,0
+modelzoom=400
+
+// 403:19
+[poh_sawmill_mag]
+type=model
+x=285
+y=196
+width=93
+height=74
+model=model_12303
+modelorigin=1,20
+modelangle=125,1789,0
+modelzoom=400
+
+// 403:20
+[com_20]
+type=text
+x=133
+y=145
+width=93
+height=38
+textfont=p12_full
+text=Wood<br>Cost = 100
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:21
+[com_21]
+type=text
+x=285
+y=145
+width=93
+height=38
+textfont=p12_full
+text=Oak<br>Cost = 250
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:22
+[com_22]
+type=text
+x=133
+y=273
+width=93
+height=38
+textfont=p12_full
+text=Teak<br>Cost = 500
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:23
+[com_23]
+type=text
+x=285
+y=273
+width=93
+height=38
+textfont=p12_full
+text=Mahogany<br>Cost = 1500
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:24
+[wood_buy]
+type=layer
+x=132
+y=56
+width=96
+height=90
+
+// 403:25
+[wood_buy_all]
+type=text
+width=96
+height=90
+layer=wood_buy
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:26
+[wood_buy_x]
+type=text
+width=96
+height=90
+layer=wood_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:27
+[wood_buy_10]
+type=text
+width=96
+height=90
+layer=wood_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:28
+[wood_buy_5]
+type=text
+width=96
+height=90
+layer=wood_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:29
+[close_button]
+type=graphic
+x=460
+y=25
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 403:30
+[wood_buy_1]
+type=text
+width=96
+height=90
+layer=wood_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:31
+[oak_buy]
+type=layer
+x=284
+y=56
+width=96
+height=90
+
+// 403:32
+[oak_buy_all]
+type=text
+width=96
+height=90
+layer=oak_buy
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:33
+[oak_buy_x]
+type=text
+width=96
+height=90
+layer=oak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:34
+[oak_buy_10]
+type=text
+width=96
+height=90
+layer=oak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:35
+[oak_buy_5]
+type=text
+width=96
+height=90
+layer=oak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:36
+[oak_buy_1]
+type=text
+width=96
+height=90
+layer=oak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:37
+[teak_buy]
+type=layer
+x=132
+y=185
+width=96
+height=90
+
+// 403:38
+[teak_buy_all]
+type=text
+width=96
+height=90
+layer=teak_buy
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:39
+[teak_buy_x]
+type=text
+width=96
+height=90
+layer=teak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:40
+[teak_buy_10]
+type=text
+width=96
+height=90
+layer=teak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:41
+[teak_buy_5]
+type=text
+width=96
+height=90
+layer=teak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:42
+[teak_buy_1]
+type=text
+width=96
+height=90
+layer=teak_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:43
+[mahogany_buy]
+type=layer
+x=284
+y=185
+width=96
+height=90
+
+// 403:44
+[mahogany_buy_all]
+type=text
+width=96
+height=90
+layer=mahogany_buy
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:45
+[mahogany_buy_x]
+type=text
+width=96
+height=90
+layer=mahogany_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:46
+[mahogany_buy_10]
+type=text
+width=96
+height=90
+layer=mahogany_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:47
+[mahogany_buy_5]
+type=text
+width=96
+height=90
+layer=mahogany_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:48
+[mahogany_buy_1]
+type=text
+width=96
+height=90
+layer=mahogany_buy
+textfont=p12_full
+colour=0xffff00
+
+// 403:49
+[com_49]
+type=graphic
+x=4
+y=4
+width=26
+height=23
+layer=com_50
+graphic="close_buttons,1"
+colour=0xffffffff
+
+// 403:50
+[com_50]
+type=layer
+x=468
+y=22
+width=32
+height=32
+hide=yes

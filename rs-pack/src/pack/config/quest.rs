@@ -188,7 +188,7 @@ pub fn pack_quests(
                     // 17
                     "icon" => parse_ref(&registry.sprites, "sprites", value, |v| {
                         client.p1(17);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 18

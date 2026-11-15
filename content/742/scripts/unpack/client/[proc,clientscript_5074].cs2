@@ -1,0 +1,25 @@
+// 5074
+[proc,clientscript_5074](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($component0, $int1) = true) {
+    if (%evq_region_sw = null) {
+        cc_sethide(true);
+        return;
+    }
+    $int2, $int3 = calc(coordx(coord) - coordx(%evq_region_sw)), calc(coordz(coord) - coordz(%evq_region_sw));
+    if ($int2 < 0 | $int2 >= 112 | $int3 < 0 | $int3 >= 112) {
+        cc_sethide(true);
+        return;
+    }
+    $int4 = calc(%varclient_1396 + 1);
+    cc_sethide(false);
+    cc_setposition(calc(($int2 + 2) * %varclient_1396 - 1), calc(if_getscrollheight($component0) - (($int3 + 2) * %varclient_1396 + $int4)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int4, $int4, ^setsize_abs, ^setsize_abs);
+    if (calc(clientclock % 40) < 20) {
+        cc_setcolour(0x8f8f8f);
+    } else {
+        cc_setcolour(0xdddd00);
+    }
+}

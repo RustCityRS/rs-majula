@@ -1,0 +1,8 @@
+// 1191
+[proc,clientscript_1191](int $int0, component $component1)
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = 0) {
+    detail_grounddecor_on(0);
+} else {
+    detail_grounddecor_on(1);
+}

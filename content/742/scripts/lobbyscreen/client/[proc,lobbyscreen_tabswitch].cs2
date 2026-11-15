@@ -1,0 +1,93 @@
+// 3060
+[proc,lobbyscreen_tabswitch](int $int0)
+if (enum(int, component, enum_941, $int0) = null) {
+    return;
+}
+if (if_gethide(enum(int, component, enum_941, $int0)) = false) {
+    return;
+}
+if_sethide(enum(int, component, enum_941, 0), true);
+if_sethide(enum(int, component, enum_941, 1), true);
+if_sethide(enum(int, component, enum_941, 2), true);
+if_sethide(enum(int, component, enum_941, 5), true);
+if_sethide(enum(int, component, enum_941, 3), true);
+if_sethide(enum(int, component, enum_941, 4), true);
+if_setcolour(lobbyscreen:playerinfo_tab_text, 0xebe0bc);
+if_setcolour(lobbyscreen:worldselect_tab_text, 0xebe0bc);
+if_setcolour(lobbyscreen:friendslist_tab_text, 0xebe0bc);
+if_setcolour(lobbyscreen:clanchat_tab_text, 0xebe0bc);
+if_setcolour(lobbyscreen:com_255, 0xebe0bc);
+if_setcolour(lobbyscreen:options_tab_text, 0xebe0bc);
+if_setgraphic(lobbyscreen:playerinfo_tab_graphic, graphic_4672);
+if_setgraphic(lobbyscreen:com_12, graphic_4672);
+if_setgraphic(lobbyscreen:friendslist_tab_graphic, graphic_4672);
+if_setgraphic(lobbyscreen:clanchat_tab_graphic, graphic_4672);
+if_setgraphic(lobbyscreen:com_254, graphic_4672);
+if_setgraphic(lobbyscreen:options_tab_graphic, graphic_4672);
+if_setonmouseover(lobbyscreen:playerinfo_tab, "text_colour_swapper(lobbyscreen:playerinfo_tab_text, 0xfafafa)");
+if_setonmouseover(lobbyscreen:worldselect_tab, "text_colour_swapper(lobbyscreen:worldselect_tab_text, 0xfafafa)");
+if_setonmouseover(lobbyscreen:friendslist_tab, "text_colour_swapper(lobbyscreen:friendslist_tab_text, 0xfafafa)");
+if_setonmouseover(lobbyscreen:clanchat_tab, "text_colour_swapper(lobbyscreen:clanchat_tab_text, 0xfafafa)");
+if_setonmouseover(lobbyscreen:com_191, "text_colour_swapper(lobbyscreen:com_255, 0xfafafa)");
+if_setonmouseover(lobbyscreen:options_tab, "text_colour_swapper(lobbyscreen:options_tab_text, 0xfafafa)");
+if_setonmouseleave(lobbyscreen:playerinfo_tab, "text_colour_swapper(lobbyscreen:playerinfo_tab_text, 0xebe0bc)");
+if_setonmouseleave(lobbyscreen:worldselect_tab, "text_colour_swapper(lobbyscreen:worldselect_tab_text, 0xebe0bc)");
+if_setonmouseleave(lobbyscreen:friendslist_tab, "text_colour_swapper(lobbyscreen:friendslist_tab_text, 0xebe0bc)");
+if_setonmouseleave(lobbyscreen:clanchat_tab, "text_colour_swapper(lobbyscreen:clanchat_tab_text, 0xebe0bc)");
+if_setonmouseleave(lobbyscreen:com_191, "text_colour_swapper(lobbyscreen:com_255, 0xebe0bc)");
+if_setonmouseleave(lobbyscreen:options_tab, "text_colour_swapper(lobbyscreen:options_tab_text, 0xebe0bc)");
+if ($int0 ! 5) {
+    ~script3161(0);
+}
+if ($int0 ! 3) {
+    ~script4556(0);
+}
+if ($int0 = 1) {
+    if_setposition(lobbyscreen:update_timer, 0, 3, ^setpos_abs_centre, ^setpos_abs_bottom);
+    if_setsize(lobbyscreen:menu, 655, 26, ^setsize_abs, ^setsize_minus);
+    worldlist_pingworlds(true);
+} else {
+    if_setposition(lobbyscreen:update_timer, 0, 241, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setsize(lobbyscreen:menu, 655, 477, ^setsize_abs, ^setsize_abs);
+    worldlist_pingworlds(false);
+}
+if ($int0 = 4) {
+    if_sethide(lobbyscreen:login, true);
+} else {
+    if_sethide(lobbyscreen:login, false);
+}
+if_sethide(enum(int, component, enum_941, $int0), false);
+switch_int ($int0) {
+    case 0 :
+        if_setgraphic(lobbyscreen:playerinfo_tab_graphic, graphic_4671);
+        if_setonmouseover(lobbyscreen:playerinfo_tab, null);
+        if_setonmouseleave(lobbyscreen:playerinfo_tab, null);
+        cc_deleteall(lobbyscreen:playerinfo_tab);
+    case 1 :
+        if_setgraphic(lobbyscreen:com_12, graphic_4671);
+        if_setonmouseover(lobbyscreen:worldselect_tab, null);
+        if_setonmouseleave(lobbyscreen:worldselect_tab, null);
+        cc_deleteall(lobbyscreen:worldselect_tab);
+    case 2 :
+        if_setgraphic(lobbyscreen:friendslist_tab_graphic, graphic_4671);
+        if_setonmouseover(lobbyscreen:friendslist_tab, null);
+        if_setonmouseleave(lobbyscreen:friendslist_tab, null);
+        cc_deleteall(lobbyscreen:friendslist_tab);
+    case 5 :
+        if_setgraphic(lobbyscreen:clanchat_tab_graphic, graphic_4671);
+        if_setonmouseover(lobbyscreen:clanchat_tab, null);
+        if_setonmouseleave(lobbyscreen:clanchat_tab, null);
+        cc_deleteall(lobbyscreen:clanchat_tab);
+        ~script3161(1);
+    case 3 :
+        if_setgraphic(lobbyscreen:com_254, graphic_4671);
+        if_setonmouseover(lobbyscreen:com_191, null);
+        if_setonmouseleave(lobbyscreen:com_191, null);
+        cc_deleteall(lobbyscreen:com_191);
+        ~script4556(1);
+    case 4 :
+        if_setgraphic(lobbyscreen:options_tab_graphic, graphic_4671);
+        if_setonmouseover(lobbyscreen:options_tab, null);
+        if_setonmouseleave(lobbyscreen:options_tab, null);
+        cc_deleteall(lobbyscreen:options_tab);
+}

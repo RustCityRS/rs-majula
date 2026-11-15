@@ -1,0 +1,23 @@
+// 5570
+[proc,clientscript_5570](intarray $intarray0, int $int1, int $int2)
+def_int $int3 = calc(($int1 + $int2) / 2);
+def_int $int4 = $int1;
+def_int $int5 = $int1;
+def_int $int6 = -1;
+while ($int5 < $int2) {
+    if ($intarray0($int5) <= $int3) {
+        $int6 = $intarray0($int5);
+        $intarray0($int5) = $intarray0($int4);
+        $intarray0($int4) = $int6;
+        $int4 = calc($int4 + 1);
+    }
+    $int5 = calc($int5 + 1);
+}
+$intarray0($int2) = $intarray0($int4);
+$intarray0($int4) = $int3;
+if ($int1 < calc($int4 - 1)) {
+    ~clientscript_5570(intarray0, $int1, calc($int4 - 1));
+}
+if (calc($int4 + 1) < $int2) {
+    ~clientscript_5570(intarray0, calc($int4 + 1), $int2);
+}

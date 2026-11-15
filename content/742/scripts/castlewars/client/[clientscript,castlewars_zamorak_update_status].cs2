@@ -1,0 +1,67 @@
+// 1368
+[clientscript,castlewars_zamorak_update_status]
+if_settext(castlewars_status_overlay_zamorak:zamorak_score, "Zamorak = <tostring(%castlewars_zamorak_score)>");
+if_settext(castlewars_status_overlay_zamorak:saradomin_score, "<tostring(%castlewars_saradomin_score)> = Saradomin");
+if_settext(castlewars_status_overlay_zamorak:time_remaining, "<tostring(%castlewars_timer)> min");
+if (%castlewars_zamorak_maindoor = 0) {
+    if_settext(castlewars_status_overlay_zamorak:health, "Health: <tostring(%castlewars_zamorak_maindoor)>%");
+    if_setcolour(castlewars_status_overlay_zamorak:health, ^red);
+} else {
+    if_settext(castlewars_status_overlay_zamorak:health, "Health <tostring(%castlewars_zamorak_maindoor)>%");
+    if_setcolour(castlewars_status_overlay_zamorak:health, ^green);
+}
+if (%castlewars_saradomin_flag = 0) {
+    if_settext(castlewars_status_overlay_zamorak:saradomin_flag, "Safe");
+    if_setcolour(castlewars_status_overlay_zamorak:saradomin_flag, ^green);
+} else if (%castlewars_saradomin_flag = 1) {
+    if_settext(castlewars_status_overlay_zamorak:saradomin_flag, "Taken");
+    if_setcolour(castlewars_status_overlay_zamorak:saradomin_flag, ^red);
+} else if (%castlewars_saradomin_flag = 2) {
+    if_settext(castlewars_status_overlay_zamorak:saradomin_flag, "Dropped");
+    if_setcolour(castlewars_status_overlay_zamorak:saradomin_flag, ^yellow);
+}
+if (%castlewars_zamorak_flag = 0) {
+    if_settext(castlewars_status_overlay_zamorak:zamorak_flag, "Safe");
+    if_setcolour(castlewars_status_overlay_zamorak:zamorak_flag, ^green);
+} else if (%castlewars_zamorak_flag = 1) {
+    if_settext(castlewars_status_overlay_zamorak:zamorak_flag, "Taken");
+    if_setcolour(castlewars_status_overlay_zamorak:zamorak_flag, ^red);
+} else if (%castlewars_zamorak_flag = 2) {
+    if_settext(castlewars_status_overlay_zamorak:zamorak_flag, "Dropped");
+    if_setcolour(castlewars_status_overlay_zamorak:zamorak_flag, ^yellow);
+}
+if (%castlewars_zamorak_sidedoor = 1) {
+    if_settext(castlewars_status_overlay_zamorak:door, "Unlocked");
+    if_setcolour(castlewars_status_overlay_zamorak:door, ^red);
+} else {
+    if_settext(castlewars_status_overlay_zamorak:door, "Locked");
+    if_setcolour(castlewars_status_overlay_zamorak:door, ^green);
+}
+if (%castlewars_zamorak_tunnel1 = 1) {
+    if_settext(castlewars_status_overlay_zamorak:tunnel1, "Cleared");
+    if_setcolour(castlewars_status_overlay_zamorak:tunnel1, ^red);
+} else {
+    if_settext(castlewars_status_overlay_zamorak:tunnel1, "Collapsed");
+    if_setcolour(castlewars_status_overlay_zamorak:tunnel1, ^green);
+}
+if (%castlewars_zamorak_tunnel2 = 1) {
+    if_settext(castlewars_status_overlay_zamorak:tunnel2, "Cleared");
+    if_setcolour(castlewars_status_overlay_zamorak:tunnel2, ^red);
+} else {
+    if_settext(castlewars_status_overlay_zamorak:tunnel2, "Collapsed");
+    if_setcolour(castlewars_status_overlay_zamorak:tunnel2, ^green);
+}
+if (%castlewars_zamorak_catapult = 1) {
+    if_settext(castlewars_status_overlay_zamorak:catapult, "Destroyed");
+    if_setcolour(castlewars_status_overlay_zamorak:catapult, ^red);
+} else {
+    if_settext(castlewars_status_overlay_zamorak:catapult, "Operational");
+    if_setcolour(castlewars_status_overlay_zamorak:catapult, ^green);
+}
+if_setobject(castlewars_status_overlay_zamorak:sara_flag, castlewars_sara_flag_dummy, -1);
+if_setobject(castlewars_status_overlay_zamorak:zam_flag, castlewars_zam_flag_dummy, -1);
+if_setobject(castlewars_status_overlay_zamorak:main_door_pic, castlewars_main_door_dummy, -1);
+if_setobject(castlewars_status_overlay_zamorak:side_door_pic, castlewars_side_door_dummy, -1);
+if_setobject(castlewars_status_overlay_zamorak:tunnel1_pic, castlewars_tunnal1_dummy, -1);
+if_setobject(castlewars_status_overlay_zamorak:tunnel2_pic, castlewars_tunnel2_dummy, -1);
+if_setobject(castlewars_status_overlay_zamorak:catapult_pic, castlewars_catapult_dummy, -1);

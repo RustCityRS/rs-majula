@@ -1,0 +1,21 @@
+// 6599
+[proc,clientscript_6599](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+$int3 = scale($int1, $int2, 100);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = calc(inv_total(inv_674, enum(int, obj, enum_6063, 0)) + inv_total(inv_674, enum(int, obj, enum_6063, 1)));
+def_int $int8 = calc(enum(int, int, enum_6060, 0) + enum(int, int, enum_6060, 1));
+if (if_find($component0) = true) {
+    $int4, $int5 = op706;
+    if ($int2 < 500) {
+        $int6 = calc($int4 / $int8);
+        $int4 = calc($int4 - $int6 * $int7);
+    }
+    $int3 = calc($int4 * $int3 / 100);
+    cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+    if ($int2 < 500) {
+        if_setsize(interface_1326:com_77, calc($int4 + 22), if_getheight(interface_1326:com_77), ^setsize_abs, ^setsize_abs);
+    }
+}

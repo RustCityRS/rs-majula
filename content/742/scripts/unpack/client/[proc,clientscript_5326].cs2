@@ -1,0 +1,9 @@
+// 5326
+[proc,clientscript_5326](component $component0)
+def_component $component1 = interface_310:com_17;
+def_component $component2 = interface_310:com_19;
+~clientscript_5330;
+if_setonvarcstrtransmit($component0, "clientscript_5327{varclient_2161, varclient_2163, varclient_2213, varclient_2214, varclient_2215, varclient_2311, varclient_2312, varclient_2313, varclient_2319, varclient_2320, varclient_2321, varclient_2322, varclient_2323, varclient_2324, varclient_2325}");
+if_setonvarctransmit($component0, "clientscript_5327{varclient_1606}");
+~scrollbar_vertical($component2, $component1, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+~clientscript_4725;

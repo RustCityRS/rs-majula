@@ -1,0 +1,45 @@
+// 4709
+[proc,clientscript_4709](enum $enum0, enum $enum1, int $int2, int $int3, int $int4, component $component5, component $component6, component $component7, component $component8, int $int9, int $int10, int $int11, graphic $graphic12, int $rgb13, int $rgb14, int $rgb15, graphic $graphic16, graphic $graphic17, graphic $graphic18, graphic $graphic19, graphic $graphic20, graphic $graphic21, graphic $graphic22)
+def_int $int23 = 0;
+def_int $int24 = 0;
+$int24, $int23 = ~clientscript_4710($enum1, $int2, $component5, $component6, $component7, $component8, tradebacking_dark, "scrollbar_v2,1", "scrollbar_v2,1", ^white, ^yellow, p11_full);
+cc_create($component6, ^iftype_graphic, if_getnextsubid($component6));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(if_getwidth($component6), if_getheight($component6), ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic12);
+cc_settiling(true);
+cc_create($component6, ^iftype_rectangle, if_getnextsubid($component6));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(if_getwidth($component6), if_getheight($component6), ^setsize_abs, ^setsize_abs);
+cc_setcolour(^black);
+if_setscrollsize($component7, if_getwidth($component7), calc($int4 * 15));
+def_int $int25 = $int3;
+def_int $int26 = -1;
+def_string $string0 = "";
+while ($int25 <= $int4) {
+    $int26 = if_getnextsubid($component7);
+    $string0 = enum(int, string, $enum1, $int25);
+    cc_create($component7, ^iftype_text, $int26);
+    cc_settext($string0);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setposition(5, calc($int26 * 15), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(if_getwidth($component7) - 16), 15, ^setsize_abs, ^setsize_abs);
+    cc_settextshadow(false);
+    cc_settextfont($graphic16);
+    cc_setop(1, "Select");
+    cc_setonop("clientscript_4713($enum0, event_comsubid)");
+    if ($int25 > $int4) {
+        cc_setcolour($rgb14);
+        cc_setonmouseleave("dropdownbox_mouseoutelement($component7, $int26, $rgb14)");
+        cc_setonclick("clientscript_4715($component6, $component7, $component8, $component5, $int23, $int24, $string0, $rgb14)");
+    } else {
+        cc_setcolour($rgb13);
+        cc_setonmouseleave("dropdownbox_mouseoutelement($component7, $int26, $rgb13)");
+        cc_setonclick("clientscript_4715($component6, $component7, $component8, $component5, $int23, $int24, $string0, $rgb13)");
+    }
+    cc_setonmouseover("dropdownbox_mouseoverelement($component7, $int26, $rgb15)");
+    $int25 = calc($int25 + 1);
+}
+if ($component8 ! null) {
+    ~scrollbar_vertical($component8, $component7, $graphic17, $graphic18, $graphic19, $graphic20, $graphic21, $graphic22);
+}

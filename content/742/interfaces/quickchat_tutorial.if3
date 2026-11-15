@@ -1,0 +1,401 @@
+// 157:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 157:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 157:2
+[com_2]
+type=graphic
+x=13
+y=53
+width=7
+height=241
+graphic="v2_stone_borders_alt,1"
+tiling=yes
+colour=0x000000
+
+// 157:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders_alt,4"
+colour=0x000000
+
+// 157:4
+[com_4]
+type=graphic
+x=468
+y=51
+width=32
+height=243
+graphic="v2_stone_borders_alt,3"
+tiling=yes
+colour=0x000000
+
+// 157:5
+[com_5]
+type=graphic
+x=44
+y=20
+width=424
+height=7
+graphic="v2_stone_borders_alt,0"
+tiling=yes
+colour=0x000000
+
+// 157:6
+[com_6]
+type=graphic
+x=45
+y=294
+width=423
+height=32
+graphic="v2_stone_borders_alt,2"
+tiling=yes
+colour=0x000000
+
+// 157:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders_alt,6"
+colour=0x000000
+
+// 157:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders_alt,5"
+colour=0x000000
+
+// 157:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders_alt,7"
+colour=0x000000
+
+// 157:10
+[com_10]
+type=graphic
+x=24
+y=49
+width=465
+height=6
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0x000000
+
+// 157:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders_alt,9"
+colour=0x000000
+
+// 157:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders_alt,10"
+colour=0x000000
+
+// 157:13
+[closebutton]
+type=graphic
+x=473
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 157:14
+[title]
+type=text
+x=21
+y=30
+width=471
+height=16
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xcc9800
+
+// 157:15
+[com_15]
+type=graphic
+x=19
+y=275
+width=474
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0x000000
+
+// 157:16
+[com_16]
+type=graphic
+x=22
+y=8
+width=20
+height=20
+layer=pagecontrols
+graphic=graphic_1161
+colour=0x000000
+
+// 157:17
+[pagecontrols]
+type=layer
+x=176
+y=287
+width=166
+height=33
+hide=yes
+
+// 157:18
+[com_18]
+type=graphic
+x=42
+y=8
+width=93
+height=20
+layer=pagecontrols
+graphic=graphic_1162
+tiling=yes
+colour=0x000000
+
+// 157:19
+[com_19]
+type=graphic
+x=124
+y=8
+width=20
+height=20
+layer=pagecontrols
+graphic=graphic_1163
+tiling=yes
+colour=0x000000
+
+// 157:20
+[pagecount]
+type=text
+x=18
+y=10
+width=136
+height=16
+layer=pagecontrols
+textfont=b12_full
+text=Page 1 of 7
+textalignh=centre
+textshadow=yes
+colour=0xffa861
+
+// 157:21
+[button_next]
+type=graphic
+x=147
+y=9
+width=16
+height=16
+layer=pagecontrols
+graphic="catcon_catapult_arrows,2"
+colour=0x000000
+transmitop=1
+op1= Continue
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
+
+// 157:22
+[button_back]
+type=graphic
+x=3
+y=9
+width=16
+height=16
+layer=pagecontrols
+graphic="catcon_catapult_arrows,0"
+colour=0x000000
+transmitop=1
+op1= Continue
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,1")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,0")
+
+// 157:23
+[main]
+type=layer
+width=512
+height=334
+onload=quickchat_tutorial_init
+onvartransmit=quickchat_tutorial_loadcontent{gamearea_master}
+
+// 157:24
+[scrollbar]
+type=layer
+x=477
+y=54
+width=16
+height=235
+
+// 157:25
+[text]
+type=layer
+x=19
+y=54
+width=474
+height=235
+layer=main
+
+// 157:26
+[com_26]
+type=graphic
+x=139
+y=5
+width=9
+height=24
+layer=buttoncontrol
+graphic="v2_stone_button,6"
+colour=0x000000
+
+// 157:27
+[com_27]
+type=graphic
+x=26
+y=20
+width=122
+height=9
+layer=buttoncontrol
+graphic="v2_stone_button,7"
+colour=0x000000
+
+// 157:28
+[com_28]
+type=graphic
+x=26
+y=5
+width=122
+height=9
+layer=buttoncontrol
+graphic="v2_stone_button,5"
+colour=0x000000
+
+// 157:29
+[com_29]
+type=graphic
+x=26
+y=5
+width=9
+height=24
+layer=buttoncontrol
+graphic="v2_stone_button,4"
+colour=0x000000
+
+// 157:30
+[button]
+type=text
+x=26
+y=5
+width=123
+height=24
+layer=buttoncontrol
+textfont=p11_full
+text=Shortcut keys
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onmouseover=quickchat_tutorial_button_mouseover
+onmouseleave=quickchat_tutorial_button_mouseleave
+
+// 157:31
+[com_31]
+type=graphic
+x=26
+y=5
+width=9
+height=9
+layer=buttoncontrol
+graphic="v2_stone_button,0"
+colour=0x000000
+
+// 157:32
+[com_32]
+type=graphic
+x=139
+y=5
+width=9
+height=9
+layer=buttoncontrol
+graphic="v2_stone_button,1"
+colour=0x000000
+
+// 157:33
+[com_33]
+type=graphic
+x=26
+y=20
+width=9
+height=9
+layer=buttoncontrol
+graphic="v2_stone_button,2"
+colour=0x000000
+
+// 157:34
+[com_34]
+type=graphic
+x=139
+y=20
+width=9
+height=9
+layer=buttoncontrol
+graphic="v2_stone_button,3"
+colour=0x000000
+
+// 157:35
+[buttoncontrol]
+type=layer
+x=344
+y=288
+width=149
+height=33
+hide=yes

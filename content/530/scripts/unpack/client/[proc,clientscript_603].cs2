@@ -1,0 +1,7 @@
+// 603
+[proc,clientscript_603]
+if (%stock_offercount_timer <= 0) {
+    if_setontimer(stockmarket:offercount, null);
+    ~clientscript_621;
+}
+%stock_offercount_timer = calc(%stock_offercount_timer - 1);

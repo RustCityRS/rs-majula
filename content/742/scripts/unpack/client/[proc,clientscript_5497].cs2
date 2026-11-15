@@ -1,0 +1,14 @@
+// 5497
+[proc,clientscript_5497](int $int0)
+def_int $int1 = 0;
+if ($int0 = 0) {
+    while ($int1 < 11) {
+        ~clientscript_5498($int1, interface_1177:com_0);
+        $int1 = calc($int1 + 1);
+    }
+    if (cc_find(interface_1177:com_0, 9) = true & cc_gettrans = 255) {
+        ~clientscript_5500;
+    }
+} else if (if_find(interface_1177:com_0) = true) {
+    cc_setontimer("clientscript_5497(calc($int0 - 1))");
+}

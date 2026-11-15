@@ -1,0 +1,12 @@
+// 5882
+[proc,clientscript_5882]
+if (%varclient_1784 = 1) {
+    return;
+}
+if (%varplayerbit_10861 > 0) {
+    return;
+}
+sound_vorbis_volume(~clientscript_2336(9114));
+%varclient_1784 = 1;
+~clientscript_5916;
+return;

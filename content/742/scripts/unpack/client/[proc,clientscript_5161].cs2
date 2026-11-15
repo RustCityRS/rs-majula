@@ -1,0 +1,8 @@
+// 5161
+[proc,clientscript_5161](component $component0, component $component1, component $component2, int $int3, int $int4)
+def_int $int5 = if_getheight($component1);
+def_int $int6 = calc(($int5 - $int4) * 64 / $int5);
+if_setcolour($component0, $int6);
+%varplayerbit_9642 = calc($int6 % 64);
+~clientscript_5168($int4);
+if_setcolour($component2, op879(%varplayer_2347));

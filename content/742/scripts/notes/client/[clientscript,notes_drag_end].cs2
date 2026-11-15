@@ -1,0 +1,9 @@
+// 2451
+[clientscript,notes_drag_end](component $component0)
+if_sethide(notes:dragger, true);
+if_setgraphic(notes:del_button_graphic, "notes_add_delete_icons,3");
+%notes_scrolldelay = 0;
+~notes_click(0);
+if ($component0 ! null) {
+    if_sethide(notes:noclick, false);
+}

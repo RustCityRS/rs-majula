@@ -1,0 +1,149 @@
+// 289's autocast on 530's staff tab (interface_90): Spell com_5 picks a normal
+// spell and com_4 a defensive one, from staff_spells. %lastcastspell is 289's
+// %attackstyle_magic: 3 while autocasting, 1 while choosing a defensive spell.
+[if_button,interface_90:com_5] @open_autocast_interface(0);
+[if_button,interface_90:com_4] @open_autocast_interface(1);
+[if_button,staff_spells:ssb0] @set_autocast_spell(^wind_strike);
+[if_button,staff_spells:ssb1] @set_autocast_spell(^water_strike);
+[if_button,staff_spells:ssb2] @set_autocast_spell(^earth_strike);
+[if_button,staff_spells:ssb3] @set_autocast_spell(^fire_strike);
+[if_button,staff_spells:ssb4] @set_autocast_spell(^wind_bolt);
+[if_button,staff_spells:ssb5] @set_autocast_spell(^water_bolt);
+[if_button,staff_spells:ssb6] @set_autocast_spell(^earth_bolt);
+[if_button,staff_spells:ssb7] @set_autocast_spell(^fire_bolt);
+[if_button,staff_spells:ssb8] @set_autocast_spell(^wind_blast);
+[if_button,staff_spells:ssb9] @set_autocast_spell(^water_blast);
+[if_button,staff_spells:ssb10] @set_autocast_spell(^earth_blast);
+[if_button,staff_spells:ssb11] @set_autocast_spell(^fire_blast);
+[if_button,staff_spells:ssb12] @set_autocast_spell(^wind_wave);
+[if_button,staff_spells:ssb13] @set_autocast_spell(^water_wave);
+[if_button,staff_spells:ssb14] @set_autocast_spell(^earth_wave);
+[if_button,staff_spells:ssb15] @set_autocast_spell(^fire_wave);
+
+[label,open_autocast_interface](int $defensive)
+if_close;
+if (p_finduid(uid) = false) { // cant open autocast interface if delayed
+    return;
+}
+~player_autocast_reset;
+%lastcastspell = $defensive;
+~combat_tab_side(staff_spells);
+
+[if_button,staff_spells:cancelspell]
+if_close;
+if (p_finduid(uid) = true) {
+    %lastcastspell = 0;
+    ~combat_tab_open;
+}
+
+// todo: allow setting autocast to go through delays.
+[label,set_autocast_spell](int $spell)
+if_close;
+if (p_finduid(uid) = true) {
+    def_dbrow $spell_data = ~get_spell_data($spell);
+    if (~check_spell_requirements($spell_data) = false) {
+        return;
+    }
+    if (%lastcastspell = 1) {
+        %autocast_defmode = 1;
+    } else {
+        %autocast_defmode = 0;
+    }
+    %varplayer_59 = $spell;
+    %lastcastspell = 3;
+    %com_mode = 3;
+    ~combat_tab_open;
+    ~player_combat_stat;
+}
+
+// the spell's icon layers on interface_90, normal then defensive
+[proc,autocast_spell_icons](int $spell)(component, component)
+switch_int ($spell) {
+    case ^wind_strike : return(interface_90:com_45, interface_90:com_145);
+    case ^water_strike : return(interface_90:com_47, interface_90:com_147);
+    case ^earth_strike : return(interface_90:com_49, interface_90:com_149);
+    case ^fire_strike : return(interface_90:com_51, interface_90:com_151);
+    case ^wind_bolt : return(interface_90:com_53, interface_90:com_153);
+    case ^water_bolt : return(interface_90:com_55, interface_90:com_155);
+    case ^earth_bolt : return(interface_90:com_57, interface_90:com_157);
+    case ^fire_bolt : return(interface_90:com_59, interface_90:com_159);
+    case ^wind_blast : return(interface_90:com_61, interface_90:com_161);
+    case ^water_blast : return(interface_90:com_63, interface_90:com_163);
+    case ^earth_blast : return(interface_90:com_65, interface_90:com_165);
+    case ^fire_blast : return(interface_90:com_67, interface_90:com_167);
+    case ^wind_wave : return(interface_90:com_69, interface_90:com_169);
+    case ^water_wave : return(interface_90:com_71, interface_90:com_171);
+    case ^earth_wave : return(interface_90:com_73, interface_90:com_173);
+    case ^fire_wave : return(interface_90:com_75, interface_90:com_175);
+    case default : return(null, null);
+}
+
+// only right after interface_90 opens: a hide sent while it is closed loads it
+// off-screen and outlives its next open
+[proc,combat_staff_spell_icons]
+if (~player_autocast_enabled = false) {
+    if_sethide(interface_90:com_83, false);
+    if_sethide(interface_90:com_183, false);
+    return;
+}
+def_component $normal;
+def_component $defensive;
+$normal, $defensive = ~autocast_spell_icons(%varplayer_59);
+if ($normal = null) {
+    return;
+}
+if (%autocast_defmode = 1) {
+    if_sethide(interface_90:com_183, true);
+    if_sethide($defensive, false);
+} else {
+    if_sethide(interface_90:com_83, true);
+    if_sethide($normal, false);
+}
+
+[proc,player_autocast_enabled]()(boolean)
+if (testbit(%lastcastspell, 0) = ^true & %lastcastspell = 3 & %varplayer_59 > 0) {
+    return(true);
+}
+return(false);
+
+// puts a mounted staff tab back to its defaults and unlights its Spell buttons;
+// the clamp reads the autocast state, as the weapon may already have changed
+[proc,player_autocast_reset]
+def_boolean $was_autocasting = ~player_autocast_enabled;
+def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
+def_component $normal;
+def_component $defensive;
+if ($was_autocasting = true & $weapon ! null & oc_category($weapon) = weapon_staff) {
+    $normal, $defensive = ~autocast_spell_icons(%varplayer_59);
+    if ($normal ! null) {
+        if_sethide($normal, true);
+        if_sethide($defensive, true);
+    }
+    if_sethide(interface_90:com_83, false);
+    if_sethide(interface_90:com_183, false);
+}
+%lastcastspell = 0;
+%varplayer_59 = null;
+%autocast_defmode = 0;
+if ($was_autocasting = true & %com_mode > 2) {
+    %com_mode = 2;
+}
+
+[proc,.player_autocast_reset]
+.%lastcastspell = 0;
+.%varplayer_59 = null;
+.%autocast_defmode = 0;
+
+// magic xp: autocast follows the Spell button it was chosen from, a manual cast
+// is defensive from a defensive melee style (289)
+[proc,player_magic_damagestyle]()(int)
+if (~player_autocast_enabled = true) {
+    if (%autocast_defmode = 1) {
+        return(^style_magic_defensive);
+    }
+    return(^style_magic_normal);
+}
+if (%damagestyle = ^style_melee_defensive) {
+    return(^style_magic_defensive);
+}
+return(^style_magic_normal);

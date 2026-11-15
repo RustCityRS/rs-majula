@@ -1,0 +1,73 @@
+// 6175
+[proc,clientscript_6175](int $int0, component $component1)
+%varclient_1911 = $int0;
+if (%varclient_1910 < 1 & cc_find($component1, 0) = true) {
+    if ($int0 = 0) {
+        cc_setgraphic(10685);
+    } else {
+        cc_setgraphic(10695);
+    }
+}
+if (%varclient_1910 < 2 & cc_find($component1, 1) = true) {
+    if ($int0 = 1) {
+        cc_setgraphic(10686);
+    } else {
+        cc_setgraphic(10696);
+    }
+}
+if (%varclient_1910 < 3 & cc_find($component1, 2) = true) {
+    if ($int0 = 2) {
+        cc_setgraphic(10687);
+    } else {
+        cc_setgraphic(10697);
+    }
+}
+if (%varclient_1910 < 4 & cc_find($component1, 3) = true) {
+    if ($int0 = 3) {
+        cc_setgraphic(10688);
+    } else {
+        cc_setgraphic(10698);
+    }
+}
+if (%varclient_1910 < 5 & cc_find($component1, 4) = true) {
+    if ($int0 = 4) {
+        cc_setgraphic(10689);
+    } else {
+        cc_setgraphic(10699);
+    }
+}
+if (%varclient_1910 < 6 & cc_find($component1, 5) = true) {
+    if ($int0 = 5) {
+        cc_setgraphic(10690);
+    } else {
+        cc_setgraphic(10700);
+    }
+}
+if (%varclient_1910 < 7 & cc_find($component1, 6) = true) {
+    if ($int0 = 6) {
+        cc_setgraphic(10691);
+    } else {
+        cc_setgraphic(10701);
+    }
+}
+if (%varclient_1910 < 8 & cc_find($component1, 7) = true) {
+    if ($int0 = 7) {
+        cc_setgraphic(10692);
+    } else {
+        cc_setgraphic(10702);
+    }
+}
+if (%varclient_1910 < 9 & cc_find($component1, 8) = true) {
+    if ($int0 = 8) {
+        cc_setgraphic(10693);
+    } else {
+        cc_setgraphic(10703);
+    }
+}
+if (%varclient_1910 < 10 & cc_find($component1, 9) = true) {
+    if ($int0 = 9) {
+        cc_setgraphic(10694);
+    } else {
+        cc_setgraphic(10704);
+    }
+}

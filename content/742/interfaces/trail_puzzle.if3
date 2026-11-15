@@ -1,0 +1,135 @@
+// 363:0
+[puzzle_hint_scroll]
+type=model
+y=3
+width=30
+height=27
+xmode=abs_centre
+layer=puzzle_complete_layer2
+model=model_3374
+modelorigin=0,2
+modelangle=360,672,0
+modelzoom=1010
+
+// 363:1
+[puzzleback]
+type=model
+x=98
+y=21
+width=296
+height=297
+layer=content_layer
+model=model_3437
+modelorigin=3,24
+modelangle=512,0,0
+modelzoom=293
+
+// 363:2
+[puzzle_complete_layer2]
+type=layer
+x=7
+y=279
+width=42
+height=44
+layer=content_layer
+onmouseover=script3629(trail_puzzle:puzzle_complete_layer1, trail_puzzle:puzzle_hint_text, ^white)
+onmouseleave=script3630(trail_puzzle:puzzle_complete_layer1, trail_puzzle:puzzle_hint_text, 0xfad782)
+
+// 363:3
+[puzzletop]
+type=model
+x=92
+y=14
+width=311
+height=311
+layer=content_layer
+model=model_3438
+modelorigin=3,24
+modelangle=512,0,0
+modelzoom=299
+
+// 363:4
+[puzzle_layer]
+type=layer
+x=108
+y=30
+width=275
+height=275
+layer=content_layer
+oninvtransmit=trail_puzzle_generation(event_com){trail_puzzleinv}
+
+// 363:5
+[puzzle_complete_layer1]
+type=layer
+x=108
+y=30
+width=275
+height=275
+layer=content_layer
+hide=yes
+oninvtransmit=script3501(event_com){trail_puzzlehintinv}
+
+// 363:6
+[puzzleback_1]
+type=model
+x=-10
+y=-9
+width=296
+height=297
+layer=puzzle_complete_layer1
+model=model_3437
+modelorigin=3,24
+modelangle=512,0,0
+modelzoom=293
+
+// 363:7
+[puzzletop_1]
+type=model
+x=-16
+y=-16
+width=311
+height=311
+layer=puzzle_complete_layer1
+model=model_3438
+modelorigin=3,24
+modelangle=512,0,0
+modelzoom=299
+transmitop=10
+op10= 
+
+// 363:8
+[trail_close]
+type=graphic
+x=473
+y=13
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,4"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(trail_puzzle:trail_close, "close_buttons,5")
+onmouseleave=graphic_swapper(trail_puzzle:trail_close, "close_buttons,4")
+onop=closebutton_click
+
+// 363:9
+[puzzle_hint_text]
+type=text
+width=41
+height=17
+xmode=abs_centre
+ymode=abs_bottom
+layer=puzzle_complete_layer2
+textfont=p11_full
+text=Hint
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xfad782
+
+// 363:10
+[content_layer]
+type=layer
+width=512
+height=334

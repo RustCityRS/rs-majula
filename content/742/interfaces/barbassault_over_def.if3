@@ -1,0 +1,106 @@
+// 487:0
+[barbassault_defender_wave_]
+type=graphic
+x=492
+y=1
+width=17
+height=13
+layer=content_layer_1
+graphic="barbassault_icons,0"
+colour=0x000000
+
+// 487:1
+[barbassault_defender_wave__text]
+type=text
+x=415
+y=-9
+width=72
+height=32
+layer=content_layer_1
+textfont=barbassault_font
+text=Wave 1
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 487:2
+[barbassault_defender_hear]
+type=graphic
+x=493
+y=24
+width=17
+height=13
+layer=content_layer_1
+graphic="barbassault_icons,1"
+colour=0x000000
+
+// 487:3
+[barbassault_defender_hear_detail_text]
+type=text
+x=439
+y=11
+width=48
+height=32
+layer=content_layer_1
+textfont=barbassault_font
+text=Tofu
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 487:4
+[barbassault_defender_shout]
+type=graphic
+x=491
+y=46
+width=17
+height=13
+layer=content_layer_1
+graphic="barbassault_icons,2"
+colour=0x000000
+
+// 487:5
+[barbassault_defender_shout_text]
+type=text
+x=382
+y=33
+width=106
+height=32
+layer=content_layer_1
+textfont=barbassault_font
+text=Poison meat
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 487:6
+[barbassault_defender_horn]
+type=graphic
+x=492
+y=66
+width=17
+height=13
+layer=content_layer_1
+graphic="barbassault_icons,6"
+colour=0x000000
+
+// 487:7
+[barbassault_defender_horn_text]
+type=text
+x=429
+y=56
+width=59
+height=32
+layer=content_layer_1
+textfont=barbassault_font
+text=Healer
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 487:8
+[content_layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_right

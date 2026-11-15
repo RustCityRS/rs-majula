@@ -1,0 +1,7 @@
+// 4090
+[proc,clientscript_4090](int $int0, int $int1)
+if ($int0 = 1) {
+    if_setontimer(interface_1202:com_0, "clientscript_4091($int1)");
+} else {
+    if_setontimer(interface_1202:com_0, "clientscript_4092($int1)");
+}

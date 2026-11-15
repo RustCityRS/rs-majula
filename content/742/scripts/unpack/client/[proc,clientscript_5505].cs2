@@ -1,0 +1,21 @@
+// 5505
+[proc,clientscript_5505](component $component0, component $component1, int $int2, int $int3, int $int4)
+$int2 = calc($int2 + $int3);
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($component0, 3) = true) {
+    cc_setposition(0, calc($int2 + 21), ^setpos_abs_left, ^setpos_abs_top);
+    if (.cc_find($component0, 4) = true) {
+        .cc_setposition(0, calc($int2 + 16), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (.cc_find($component0, 5) = true) {
+        .cc_setposition(0, calc($int2 + cc_getheight + 21), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int5 = calc(if_getheight($component0) - 32 - (cc_getheight + 10));
+    if ($int5 <= 0) {
+        return;
+    }
+    $int6 = calc(if_getscrollheight($component1) - if_getheight($component1));
+    $int2 = calc($int2 * $int6 / $int5);
+    ~clientscript_5507($component0, $component1, $int2, $int4);
+}

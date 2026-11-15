@@ -1,0 +1,110 @@
+// 458:0
+[multi3t]
+type=text
+y=-1
+width=480
+height=17
+textfont=q8_full
+text=Select an Option
+textalignh=centre
+colour=0x800000
+
+// 458:1
+[vyre_multi3a]
+type=text
+y=23
+width=480
+height=17
+textfont=q8_full
+text=option1
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Ok
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 458:2
+[vyre_multi3b]
+type=text
+y=47
+width=480
+height=17
+textfont=q8_full
+text=option2
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Ok
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 458:3
+[vyre_multi3c]
+type=text
+y=71
+width=480
+height=17
+textfont=q8_full
+text=option3
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Ok
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 458:4
+[com_4]
+type=graphic
+width=57
+height=13
+layer=multi3swords
+graphic="sworddecor,1"
+colour=0x000000
+
+// 458:5
+[com_5]
+type=graphic
+x=280
+width=57
+height=13
+layer=multi3swords
+graphic="sworddecor,0"
+colour=0x000000
+
+// 458:6
+[multi3swords]
+type=layer
+x=72
+y=1
+width=337
+height=13
+
+// 458:7
+[com_7]
+type=graphic
+width=57
+height=13
+layer=com_9
+graphic="sworddecor,1"
+colour=0x000000
+
+// 458:8
+[com_8]
+type=graphic
+x=419
+width=57
+height=13
+layer=com_9
+graphic="sworddecor,0"
+colour=0x000000
+
+// 458:9
+[com_9]
+type=layer
+x=2
+y=1
+width=476
+height=13
+hide=yes

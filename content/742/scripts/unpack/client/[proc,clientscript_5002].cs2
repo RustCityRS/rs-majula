@@ -1,0 +1,34 @@
+// 5002
+[proc,clientscript_5002](component $component0)
+~clientscript_4408($component0);
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+def_int $int1 = ~clientscript_4964($component0);
+def_int $int2 = 0;
+if (op718 = 1) {
+    $int2 = ~clientscript_4949($int1);
+    switch_int ($int2) {
+        case 17 :
+            cc_setgraphic(7431);
+        case 18 :
+            cc_setgraphic(7430);
+        case 19 :
+            cc_setgraphic(7433);
+        case 1 :
+            cc_setgraphic(7422);
+        case 2 :
+            cc_setgraphic(7423);
+        case 3 :
+            cc_setgraphic(7424);
+        case 4 :
+            cc_setgraphic(7425);
+        case 5 :
+            cc_setgraphic(7426);
+        case 6 :
+            cc_setgraphic(7427);
+        case 7 :
+            cc_setgraphic(7428);
+    }
+}

@@ -1,0 +1,13 @@
+// 4338
+[proc,script4338](int $int0)(string)
+def_string $string0 = "";
+if ($int0 < 10) {
+    $string0 = append_num("00:0", $int0);
+} else if ($int0 < 60) {
+    $string0 = append_num("00:", $int0);
+} else if ($int0 < 959) {
+    $string0 = "0<tostring(calc($int0 / 100))>:<tostring(calc($int0 % 100))>";
+} else {
+    $string0 = "<tostring(calc($int0 / 100))>:<tostring(calc($int0 % 100))>";
+}
+return($string0);

@@ -1,0 +1,471 @@
+// 1238:0
+[com_0]
+type=layer
+y=-16
+width=62
+height=83
+ymode=abs_centre
+layer=com_19
+
+// 1238:1
+[com_1]
+type=model
+x=-2
+y=8
+width=59
+height=70
+layer=com_19
+model=model_65652
+modelorigin=9,3
+modelangle=0,1780,0
+modelzoom=1494
+modelanim=chatidle2
+
+// 1238:2
+[com_2]
+type=graphic
+x=1
+y=65
+width=5
+height=13
+layer=com_19
+graphic="aif_progress_bar_txt_window,0"
+
+// 1238:3
+[com_3]
+type=graphic
+x=35
+y=65
+width=7
+height=13
+layer=com_19
+graphic="aif_progress_bar_txt_window,0"
+hflip=yes
+
+// 1238:4
+[com_4]
+type=graphic
+x=6
+y=65
+width=32
+height=13
+layer=com_19
+graphic="aif_progress_bar_txt_window,1"
+
+// 1238:5
+[com_5]
+type=text
+x=-1
+y=62
+width=43
+height=19
+layer=com_19
+textfont=verdana_11pt_regular
+text=2000
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9e2b4
+onload=clientscript_944(event_com)
+onvartransmit=clientscript_944(event_com){varplayer_2521}
+
+// 1238:6
+[com_6]
+type=text
+y=2
+width=66
+height=26
+layer=com_19
+textfont=p11_full
+text=Ga'al-Jeh
+textshadow=yes
+colour=0xe9e2b4
+
+// 1238:7
+[com_7]
+type=layer
+y=29
+width=59
+height=31
+ymode=abs_centre
+layer=com_19
+
+// 1238:8
+[com_8]
+type=layer
+x=-6
+y=33
+width=765
+height=503
+
+// 1238:9
+[com_9]
+type=layer
+x=1
+y=3
+width=111
+height=381
+layer=com_8
+
+// 1238:10
+[com_10]
+type=graphic
+x=10
+y=6
+width=71
+height=104
+layer=com_9
+graphic=window_texture_2
+
+// 1238:11
+[com_11]
+type=graphic
+x=19
+width=55
+height=11
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,2"
+
+// 1238:12
+[com_12]
+type=graphic
+x=19
+y=104
+width=55
+height=11
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,2"
+vflip=yes
+
+// 1238:13
+[com_13]
+type=graphic
+x=74
+width=12
+height=11
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+
+// 1238:14
+[com_14]
+type=graphic
+x=7
+y=11
+width=12
+height=100
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,1"
+hflip=yes
+
+// 1238:15
+[com_15]
+type=graphic
+x=74
+y=11
+width=12
+height=100
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,1"
+
+// 1238:16
+[com_16]
+type=graphic
+x=74
+y=104
+width=12
+height=11
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+vflip=yes
+
+// 1238:17
+[com_17]
+type=graphic
+x=7
+y=104
+width=12
+height=11
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+vflip=yes
+hflip=yes
+
+// 1238:18
+[com_18]
+type=graphic
+x=7
+width=12
+height=11
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+hflip=yes
+
+// 1238:19
+[com_19]
+type=layer
+x=17
+y=8
+width=83
+height=120
+layer=com_9
+
+// 1238:20
+[com_20]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1238:21
+[com_21]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1238:22
+[com_22]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1238:23
+[com_23]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=script4205(event_com, struct_1746)
+
+// 1238:24
+[com_24]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=script4205(event_com, struct_1747)
+
+// 1238:25
+[com_25]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=script4205(event_com, struct_1748)
+
+// 1238:26
+[com_26]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1238:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1238:28
+[com_28]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1238:29
+[com_29]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_28
+
+// 1238:30
+[com_30]
+type=model
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_28
+model=null
+modelzoom=1600
+modelobjwidth=44
+modelobjheight=65
+
+// 1238:31
+[com_31]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1238:32
+[com_32]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+colour=0xffffff
+fill=yes
+trans=150
+
+// 1238:33
+[com_33]
+type=graphic
+width=12
+height=18
+ymode=abs_centre
+layer=com_7
+graphic="aif_progress_bar_frame_3,0"
+
+// 1238:34
+[com_34]
+type=graphic
+width=12
+height=18
+xmode=abs_right
+ymode=abs_centre
+layer=com_7
+graphic="aif_progress_bar_frame_3,0"
+hflip=yes
+
+// 1238:35
+[com_35]
+type=graphic
+width=12
+height=18
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+graphic="aif_progress_bar_frame_3,1"
+tiling=yes
+hflip=yes
+
+// 1238:36
+[com_36]
+type=layer
+x=6
+width=12
+height=19
+widthmode=minus
+ymode=abs_centre
+layer=com_7
+
+// 1238:37
+[com_37]
+type=layer
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_36
+
+// 1238:38
+[com_38]
+type=graphic
+width=4
+height=8
+ymode=abs_centre
+layer=com_37
+graphic="aif_progress_bar_fill_1,0"
+
+// 1238:39
+[com_39]
+type=graphic
+width=4
+height=8
+xmode=abs_right
+ymode=abs_centre
+layer=com_37
+graphic="aif_progress_bar_fill_1,2"
+
+// 1238:40
+[com_40]
+type=graphic
+width=4
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+graphic="aif_progress_bar_fill_1,1"
+tiling=yes
+
+// 1238:41
+[com_41]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+hide=yes
+
+// 1238:42
+[com_42]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_41
+hide=yes
+textfont=verdana_11pt_regular
+text=0%
+textalignh=centre
+textalignv=centre
+colour=0xd5d9d3
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)

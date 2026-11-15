@@ -1,0 +1,64 @@
+// 1362
+[clientscript,chatdefault_init]
+def_int $int0 = 0;
+if_setonkey(chatdefault:input, "chatdefault_onkey(event_keycode, event_keychar)");
+if_setonchattransmit(filterbuttons:container, "chatdefault_updatechatbox(true)");
+if_setonclantransmit(filterbuttons:container, "chatdefault_updatechatbox(true)");
+if_setonfriendtransmit(filterbuttons:container, "chatdefault_updatechatbox(false)");
+if_setonmisctransmit(filterbuttons:container, "rebootwatch");
+if_setonvarcstrtransmit(filterbuttons:container, "script710{varclient_2022}");
+%varclient_2023 = "";
+%chat_caret = 0;
+%chat_highlight = -1;
+%chat_view = 0;
+%chat_lastcount = chat_gethistorylength;
+%chatout_readpos = -1;
+%chatout_writepos = 0;
+%varclient_2024 = "";
+%varclient_2025 = "";
+%varclient_2026 = "";
+%varclient_2027 = "";
+%varclient_2028 = "";
+%varclient_2029 = "";
+%varclient_2030 = "";
+%varclient_2031 = "";
+%varclient_2032 = "";
+%varclient_2033 = "";
+%varclient_2034 = "";
+%varclient_2035 = "";
+%varclient_2036 = "";
+%varclient_2037 = "";
+%varclient_2038 = "";
+%varclient_2039 = "";
+%varclient_2040 = "";
+%varclient_2041 = "";
+%varclient_2042 = "";
+%varclient_2043 = "";
+%varclient_2298 = "";
+~script1558(true);
+if_sethide(chatdefault:input, false);
+if (getwindowmode >= 2) {
+    cc_deleteall(chattop:chat_border);
+    ~clientscript_5392(chattop:chat_border, 22, 0);
+    if_setgraphic(chattop:chat_graphic, graphic_1247);
+    if_setalpha(chattop:chat_graphic, true);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chatdefault:divider_line, true);
+    if_sethide(chatdefault:divider_graphic, false);
+    if_setcolour(chatdefault:caret, ^white);
+    if_settextshadow(chatdefault:input, true);
+    if_setcolour(chatdefault:input, ^white);
+} else {
+    if_setgraphic(chattop:chat_graphic, chat_background);
+    if_sethide(chattop:chat_graphic, false);
+    cc_deleteall(chattop:chat_border);
+    ~script1088(chattop:chat_border, 0);
+    if_sethide(chatdefault:divider_line, false);
+    if_sethide(chatdefault:divider_graphic, true);
+    if_setcolour(chatdefault:caret, ^black);
+    if_settextshadow(chatdefault:input, false);
+    if_setcolour(chatdefault:input, ^black);
+}
+%chat_lastscrollpos = if_getheight(chatdefault:scrollarea);
+~redraw_chat_buttons;
+%varclient_2022 = "";
