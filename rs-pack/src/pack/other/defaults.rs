@@ -1,5 +1,7 @@
 use crate::pack::names::AssetNames;
 use crate::pack::packed_data::PackedData;
+#[cfg(since_742)]
+use crate::types::WearPos;
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
 #[cfg(since_742)]
@@ -70,6 +72,27 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
             (GROUP_WEARPOS, 1) => {
                 let types: Vec<_> = (0..buf.g1()).map(|_| buf.g1().to_string()).collect();
                 writeln!(out, "wearpostype={}", types.join(","))?;
+            }
+            #[cfg(since_742)]
+            (GROUP_WEARPOS, 3 | 4) => {
+                let key = if code == 3 {
+                    "replaceheldleft"
+                } else {
+                    "replaceheldright"
+                };
+                writeln!(out, "{key}={}", WearPos::try_from(buf.g1())?.config_str())?;
+            }
+            #[cfg(since_742)]
+            (GROUP_WEARPOS, 5 | 6) => {
+                let key = if code == 5 {
+                    "replaceheldleftreset"
+                } else {
+                    "replaceheldrightreset"
+                };
+                let slots = (0..buf.g1())
+                    .map(|_| Ok(WearPos::try_from(buf.g1())?.config_str()))
+                    .collect::<Result<Vec<_>>>()?;
+                writeln!(out, "{key}={}", slots.join(","))?;
             }
             #[cfg(since_742)]
             (GROUP_GRAPHICS, 7) => {
@@ -177,6 +200,23 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
                 }
             }
             #[cfg(since_742)]
+            (GROUP_WEARPOS, "replaceheldleft" | "replaceheldright") => {
+                out.p1(if key == "replaceheldleft" { 3 } else { 4 });
+                out.p1(WearPos::from_config_str(value) as u8);
+            }
+            #[cfg(since_742)]
+            (GROUP_WEARPOS, "replaceheldleftreset" | "replaceheldrightreset") => {
+                out.p1(if key == "replaceheldleftreset" { 5 } else { 6 });
+                let slots: Vec<_> = list
+                    .filter(|slot| !slot.is_empty())
+                    .map(|slot| WearPos::from_config_str(slot) as u8)
+                    .collect();
+                out.p1(slots.len() as u8);
+                for slot in slots {
+                    out.p1(slot);
+                }
+            }
+            #[cfg(since_742)]
             (_, _) if field_key(group, key).is_some() => {
                 let (code, kind) = field_key(group, key).unwrap();
                 out.p1(code);
@@ -212,12 +252,12 @@ enum Field {
 fn field(group: u32, code: u8) -> Option<Field> {
     Some(match (group, code) {
         (GROUP_GRAPHICS, 4 | 8 | 10) | (GROUP_UNKNOWN7, 11) => Field::Flag,
-        (GROUP_GRAPHICS, 9 | 11 | 13..=15) | (GROUP_WEARPOS, 3 | 4) => Field::U8,
+        (GROUP_GRAPHICS, 9 | 11 | 13..=15) => Field::U8,
         (GROUP_UNKNOWN4, 1) => Field::U16,
         (GROUP_GRAPHICS, 5 | 6) => Field::U24,
         (GROUP_UNKNOWN7, 12 | 13) => Field::I32,
         (GROUP_GRAPHICS, 12) => Field::U16Pair,
-        (GROUP_WEARPOS, 5 | 6) | (GROUP_UNKNOWN7, 5..=7) => Field::ByteList,
+        (GROUP_UNKNOWN7, 5..=7) => Field::ByteList,
         (GROUP_UNKNOWN7, 1..=4 | 8..=10) | (GROUP_UNKNOWN8, 1) => Field::Value,
         _ => return None,
     })
