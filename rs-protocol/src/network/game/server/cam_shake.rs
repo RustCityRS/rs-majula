@@ -5,7 +5,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(CamShake, Buffered, Fixed)]
 pub struct CamShake {
     pub direction: u8,
@@ -14,7 +14,7 @@ pub struct CamShake {
     pub frequency: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for CamShake {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.direction);
@@ -31,7 +31,7 @@ impl ServerProtMessage for CamShake {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(CamShake, Buffered, Fixed)]
 pub struct CamShake {
     pub direction: u8,
@@ -40,16 +40,49 @@ pub struct CamShake {
     pub frequency: u8,
     /// The wobble's starting phase.
     pub cycle: u16,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for CamShake {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.verify);
+        buf.p1(self.direction);
+        buf.p1(self.jitter);
+        buf.p1(self.amplitude);
+        buf.p1(self.frequency);
+        buf.p2(self.cycle);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.direction)
+            + size_of_val(&self.jitter)
+            + size_of_val(&self.amplitude)
+            + size_of_val(&self.frequency)
+            + size_of_val(&self.cycle)
+            + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for CamShake {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p1_alt2(self.jitter);
         buf.p1(self.amplitude);
         buf.p2_alt3(self.cycle);
         buf.p1(self.direction);
         buf.p1_alt1(self.frequency);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.jitter);
+        buf.p1_alt2(self.amplitude);
+        buf.p1_alt2(self.frequency);
+        buf.p2_alt2(self.cycle);
+        buf.p1_alt2(self.direction);
     }
 
     fn sizeof(&self) -> usize {

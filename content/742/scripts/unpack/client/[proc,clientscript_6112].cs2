@@ -1,0 +1,23 @@
+// 6112
+[proc,clientscript_6112](int $int0, int $int1, component $component2, component $component3)
+def_string $string0 = tostring($int0);
+def_string $string1 = tostring($int1);
+if ($component2 = interface_1265:com_142 | $component2 = interface_1265:com_143) {
+    $string0 = append(append(tostring(calc($int0 / 10)), "."), tostring(calc($int0 % 10)));
+    $string1 = append(append(tostring(calc($int1 / 10)), "."), tostring(calc($int1 % 10)));
+}
+if_settext($component2, $string0);
+if_settext($component3, "(<$string1>)");
+def_int $rgb4 = ^green;
+def_int $rgb5 = ^red;
+if ($component2 = interface_1265:com_165) {
+    $rgb4 = ^red;
+    $rgb5 = ^green;
+}
+if ($int0 > $int1) {
+    if_setcolour($component2, $rgb4);
+} else if ($int0 < $int1) {
+    if_setcolour($component2, $rgb5);
+} else {
+    if_setcolour($component2, ^white);
+}

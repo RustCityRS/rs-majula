@@ -1,7 +1,9 @@
 use super::UnpackedPacks;
 use crate::cache::flo::FloTypeRaw;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::provider::CacheType;
+#[cfg(since_530)]
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_flo_props(
@@ -12,7 +14,7 @@ pub fn emit_flo_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         if opcode == 1 {
             p.push((1, "colour".into(), format!("0x{:06X}", def.colour)));
@@ -28,10 +30,10 @@ pub fn emit_flo_props(
         }
         let name = def.debugname();
         if !name.is_empty() {
-            _registry.flo_names.insert(def.id, name.to_string());
+            _registry.flo_names.insert(def.id.g2(), name.to_string());
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         if opcode == 1 {
             p.push((1, "colour".into(), format!("0x{:x}", def.colour)));
@@ -40,11 +42,11 @@ pub fn emit_flo_props(
             p.push((
                 2,
                 "texture".into(),
-                _registry.reference("texture", def.texture_u8_raw as u16),
+                _registry.reference("texture", TypeId::from_g2(def.texture_u8_raw.into())),
             ));
         }
         if opcode == 3 {
-            let material = _registry.reference("texture", def.texture_u16_raw);
+            let material = _registry.reference("texture", TypeId::from_g2(def.texture_u16_raw));
             p.push((3, "material".into(), material));
         }
         if !def.occlude {
@@ -77,9 +79,22 @@ pub fn emit_flo_props(
             let v = def.waterfogscale;
             p.push((14, "waterfogscale".into(), v.to_string()));
         }
+        #[cfg(since_647)]
         if opcode == 16 {
             let v = def.waterfogoffset;
             p.push((16, "waterfogoffset".into(), v.to_string()));
+        }
+    }
+    #[cfg(since_742)]
+    {
+        if let Some(v) = def.waterfogunknowna {
+            p.push((20, "waterfogunknowna".into(), v.to_string()));
+        }
+        if let Some(v) = def.waterfogunknownb {
+            p.push((21, "waterfogunknownb".into(), v.to_string()));
+        }
+        if let Some(v) = def.waterfogunknownc {
+            p.push((22, "waterfogunknownc".into(), v.to_string()));
         }
     }
     p.into_iter()

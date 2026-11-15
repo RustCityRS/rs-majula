@@ -9,6 +9,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::fs;
 
@@ -100,10 +101,10 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
             .get_by_name("[walktrigger,stunned]")
             .unwrap()
             .id;
-        let stunned = engine.cache.varps.debugnames["stunned"];
+        let stunned = engine.cache.varps.get_by_debugname("stunned").unwrap().id;
         let until = engine.clock as i32 + 20;
         let player = engine.harness_player_mut(clients[last].pid).unwrap();
-        player.vars.set(stunned, VarValue::Int(until));
+        player.vars.set(stunned.g2(), VarValue::Int(until));
         player.walktrigger = Some(trigger);
         for client in &mut clients {
             for x in 3223..3228 {
@@ -137,7 +138,7 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
             .find_map(|line| {
                 line.split_once('=')
                     .filter(|(_, name)| *name == "poordoor")
-                    .map(|(id, _)| id.parse::<u16>().unwrap())
+                    .map(|(id, _)| TypeId::new(id.parse().unwrap()))
             })
             .unwrap();
         engine
@@ -149,11 +150,7 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
         engine.cycle();
         click(&mut clients[0], 2552, 3099);
         let mut packet = ClientPacket::new();
-        packet
-            .p2_alt1(3098)
-            .p2_alt1(door as i32)
-            .p1(0)
-            .p2_alt2(2551);
+        packet.p2_alt1(3098).p2_alt1(door.int()).p1(0).p2_alt2(2551);
         clients[0].send(ClientProt::OpLoc1, &packet.finish());
         engine.harness_inputs();
         assert_eq!(engine.pathfinding_stats().requests, 2);

@@ -1,0 +1,19 @@
+// 3228
+[proc,script3228](int $int0, int $int1, int $int2)(boolean)
+def_boolean $boolean3 = ~clientscript_5639($int0, $int1, $int2);
+if ($boolean3 = true) {
+    switch_int ($int0) {
+        case 7 :
+            op385(8);
+        case 8 :
+            op385(10);
+    }
+} else {
+    switch_int ($int0) {
+        case 7 :
+            op385(9);
+        case 8 :
+            op385(11);
+    }
+}
+return($boolean3);

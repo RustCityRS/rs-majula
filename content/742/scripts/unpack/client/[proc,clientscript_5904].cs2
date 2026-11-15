@@ -1,0 +1,10 @@
+// 5904
+[proc,clientscript_5904](component $component0)
+if_setontimer($component0, null);
+return;
+def_int $int1 = if_getx($component0);
+$int1 = max(-162, calc($int1 - 1));
+if_setposition($component0, $int1, -16, ^setpos_abs_centre, ^setpos_abs_centre);
+if ($int1 = -162) {
+    if_setontimer($component0, null);
+}

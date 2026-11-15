@@ -1,0 +1,23 @@
+// 5086
+[proc,clientscript_5086](component $component0, int $int1, int $int2)
+if ($int1 = %varclient_160) {
+    $int2 = 255;
+}
+def_int $int3 = calc($int1 * 10);
+if (cc_find($component0, $int3) = true) {
+    if ($int2 = 255) {
+        cc_setontimer(null);
+        if (.cc_find($component0, calc($int3 + 4)) = true) {
+            .cc_settrans(255);
+        }
+        if (.cc_find($component0, calc($int3 + 6)) = true) {
+            .cc_settrans(255);
+        }
+        if (.cc_find($component0, calc($int3 + 8)) = true) {
+            .cc_settrans(255);
+        }
+    } else {
+        cc_setontimer("clientscript_5087(event_com, event_comsubid, $int2)");
+        ~clientscript_5088($component0, $int2);
+    }
+}

@@ -1,0 +1,72 @@
+// 4725
+[proc,clientscript_4725]
+def_int $int0 = 20316177;
+def_int $int1 = 20316179;
+def_component $component2 = interface_310:com_11;
+def_int $int3 = 20316172;
+def_component $component4 = interface_310:com_14;
+def_component $component5 = interface_310:com_13;
+def_component $component6 = interface_310:com_18;
+def_string $string0 = "";
+cc_deleteall($component2);
+cc_deleteall($component5);
+def_int $int7 = 15;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_graphic $graphic10 = null;
+def_graphic $graphic11 = null;
+while ($int8 <= 15) {
+    $int9 = if_getnextsubid($component2);
+    cc_create($component2, ^iftype_text, $int9);
+    cc_setsize(5, $int7, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, calc($int9 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext(~clientscript_5329($int8));
+    cc_settextfont(verdana_11pt_regular);
+    cc_setcolour(0xbeb28c);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $graphic10 = 7715;
+    $graphic11 = 7716;
+    cc_create($component5, ^iftype_graphic, $int9);
+    cc_setgraphic($graphic10);
+    cc_setop(1, "Target");
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(18, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setonmouseover("clientscript_5336(event_com, event_comsubid, $graphic11)");
+    cc_setonmouseleave("clientscript_5336(event_com, event_comsubid, $graphic10)");
+    cc_settargetverb("Add Actor");
+    cc_settargetcursors(cursor_target, null);
+    cc_create($component6, ^iftype_rectangle, if_getnextsubid($component6));
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(18, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    $string0 = "Add someone to the actor list. Click this, then click on the person you would like to add.";
+    cc_setonmouserepeat("aif_tooltip(interface_310:com_26, event_com, event_comsubid, $string0, 90, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(interface_310:com_26)");
+    $graphic10 = 7718;
+    $graphic11 = 7719;
+    cc_create($component4, ^iftype_graphic, $int9);
+    cc_setgraphic($graphic10);
+    cc_setop(1, "Remove");
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(3, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setonmouseover("clientscript_5336(event_com, event_comsubid, $graphic11)");
+    cc_setonmouseleave("clientscript_5336(event_com, event_comsubid, $graphic10)");
+    cc_create($component6, ^iftype_rectangle, if_getnextsubid($component6));
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(3, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    $string0 = "Add someone to the actor list. Click this, then click on the person you would like to add.";
+    $string0 = "Remove this person from the actor list.";
+    cc_setonmouserepeat("aif_tooltip(interface_310:com_26, event_com, event_comsubid, $string0, 90, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(interface_310:com_26)");
+    $int8 = calc($int8 + 1);
+}
+if (%varclient_1606 = 0) {
+    $graphic10 = "aif_checkbox_large,5";
+    $graphic11 = "aif_checkbox_large,6";
+} else {
+    $graphic10 = "aif_checkbox_large,0";
+    $graphic11 = "aif_checkbox_large,1";
+}
+if_setgraphic(interface_310:com_20, $graphic10);
+if_setonmouseover(interface_310:com_20, "graphic_swapper(event_com, $graphic11)");
+if_setonmouseleave(interface_310:com_20, "graphic_swapper(event_com, $graphic10)");

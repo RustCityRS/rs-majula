@@ -1,0 +1,14 @@
+// 2471
+[clientscript,script2471]
+if (%follower_obj = obj_24906 | %follower_obj = obj_24907 | %follower_obj = obj_24908) {
+    return;
+}
+if_sethide(enum(npc, component, enum_1092, %lore_npc_head), true);
+if (getwindowmode >= 2) {
+    if_setgraphic(topstat_lore:com_0, 8644);
+    if_setgraphic(topstat_lore:com_1, 8645);
+} else {
+    if_setgraphic(topstat_lore:com_0, "topstat_fill_full,3");
+    if_setgraphic(topstat_lore:com_1, "topstat_fill_full,4");
+}
+if_sethide(topstat_lore:main_ops, true);

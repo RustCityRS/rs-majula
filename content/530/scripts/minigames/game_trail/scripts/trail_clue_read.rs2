@@ -1,0 +1,164 @@
+
+[proc,full_trail_readclue_map](interface $map)
+if_openmain($map);
+
+// 2011 reads every text clue in one box, trail_cluelong (345): its eight
+// lines are com1-8 (cache 786; 289's com_2-9). 289's four-line box,
+// trail_clue, is gone, so a clue of four lines or fewer sits in the middle
+// four of the eight, as it did in 289's box (grade C: 2011's placement is
+// unseen). 289's proc follows as comments.
+[proc,full_trail_readclue](string $string)
+split_init($string, 235, 8, q8_full);
+def_int $pagetotal = split_pagecount;
+def_int $lines = split_linecount(0);
+
+if($lines = 1) {
+    if_settext(trail_cluelong:trail_cluelong_line1, "");
+    if_settext(trail_cluelong:trail_cluelong_line2, "");
+    if_settext(trail_cluelong:trail_cluelong_line3, "");
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line5, "");
+    if_settext(trail_cluelong:trail_cluelong_line6, "");
+    if_settext(trail_cluelong:trail_cluelong_line7, "");
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 2) {
+    if_settext(trail_cluelong:trail_cluelong_line1, "");
+    if_settext(trail_cluelong:trail_cluelong_line2, "");
+    if_settext(trail_cluelong:trail_cluelong_line3, "");
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line6, "");
+    if_settext(trail_cluelong:trail_cluelong_line7, "");
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 3) {
+    if_settext(trail_cluelong:trail_cluelong_line1, "");
+    if_settext(trail_cluelong:trail_cluelong_line2, "");
+    if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 2));
+    if_settext(trail_cluelong:trail_cluelong_line6, "");
+    if_settext(trail_cluelong:trail_cluelong_line7, "");
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 4) {
+    if_settext(trail_cluelong:trail_cluelong_line1, "");
+    if_settext(trail_cluelong:trail_cluelong_line2, "");
+    if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 2));
+    if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 3));
+    if_settext(trail_cluelong:trail_cluelong_line7, "");
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 5) {
+    if_settext(trail_cluelong:trail_cluelong_line1, "");
+    if_settext(trail_cluelong:trail_cluelong_line2, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 2));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 3));
+    if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 4));
+    if_settext(trail_cluelong:trail_cluelong_line7, "");
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 6) {
+    if_settext(trail_cluelong:trail_cluelong_line1, "");
+    if_settext(trail_cluelong:trail_cluelong_line2, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 2));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 3));
+    if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 4));
+    if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 5));
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 7) {
+    if_settext(trail_cluelong:trail_cluelong_line1, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line2, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 2));
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 3));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 4));
+    if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 5));
+    if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 6));
+    if_settext(trail_cluelong:trail_cluelong_line8, "");
+} else if($lines = 8) {
+    if_settext(trail_cluelong:trail_cluelong_line1, split_get(0, 0));
+    if_settext(trail_cluelong:trail_cluelong_line2, split_get(0, 1));
+    if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 2));
+    if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 3));
+    if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 4));
+    if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 5));
+    if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 6));
+    if_settext(trail_cluelong:trail_cluelong_line8, split_get(0, 7));
+} else {
+    mes("TRAIL DEBUG: Failed to get linecount for clue. <tostring($lines)>");
+    return;
+}
+
+if_openmain(trail_cluelong);
+
+// [proc,full_trail_readclue](string $string)
+// split_init($string, 235, 8, q8_full);
+// def_int $pagetotal = split_pagecount;
+// def_int $lines = split_linecount(0);
+
+// if($lines = 1) {
+//     if_settext(trail_clue:com_2, "");
+//     if_settext(trail_clue:com_3, split_get(0, 0));
+//     if_settext(trail_clue:com_4, "");
+//     if_settext(trail_clue:com_5, "");
+// } else if($lines = 2) {
+//     if_settext(trail_clue:com_2, "");
+//     if_settext(trail_clue:com_3, split_get(0, 0));
+//     if_settext(trail_clue:com_4, split_get(0, 1));
+//     if_settext(trail_clue:com_5, "");
+// } else if($lines = 3) {
+//     if_settext(trail_clue:com_2, split_get(0, 0));
+//     if_settext(trail_clue:com_3, split_get(0, 1));
+//     if_settext(trail_clue:com_4, split_get(0, 2));
+//     if_settext(trail_clue:com_5, "");
+// } else if($lines = 4) {
+//     if_settext(trail_clue:com_2, split_get(0, 0));
+//     if_settext(trail_clue:com_3, split_get(0, 1));
+//     if_settext(trail_clue:com_4, split_get(0, 2));
+//     if_settext(trail_clue:com_5, split_get(0, 3));
+// } else if($lines = 5) {
+//     if_settext(trail_cluelong:trail_cluelong_line2, "");
+//     if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 0));
+//     if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 1));
+//     if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 2));
+//     if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 3));
+//     if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 4));
+//     if_settext(trail_cluelong:trail_cluelong_line8, "");
+//     if_settext(trail_cluelong:close_button, "");
+// } else if($lines = 6) {
+//     if_settext(trail_cluelong:trail_cluelong_line2, "");
+//     if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 0));
+//     if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 1));
+//     if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 2));
+//     if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 3));
+//     if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 4));
+//     if_settext(trail_cluelong:trail_cluelong_line8, split_get(0, 5));
+//     if_settext(trail_cluelong:close_button, "");
+// } else if($lines = 7) {
+//     if_settext(trail_cluelong:trail_cluelong_line2, split_get(0, 0));
+//     if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 1));
+//     if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 2));
+//     if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 3));
+//     if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 4));
+//     if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 5));
+//     if_settext(trail_cluelong:trail_cluelong_line8, split_get(0, 6));
+//     if_settext(trail_cluelong:close_button, "");
+// } else if($lines = 8) {
+//     if_settext(trail_cluelong:trail_cluelong_line2, split_get(0, 0));
+//     if_settext(trail_cluelong:trail_cluelong_line3, split_get(0, 1));
+//     if_settext(trail_cluelong:trail_cluelong_line4, split_get(0, 2));
+//     if_settext(trail_cluelong:trail_cluelong_line5, split_get(0, 3));
+//     if_settext(trail_cluelong:trail_cluelong_line6, split_get(0, 4));
+//     if_settext(trail_cluelong:trail_cluelong_line7, split_get(0, 5));
+//     if_settext(trail_cluelong:trail_cluelong_line8, split_get(0, 6));
+//     if_settext(trail_cluelong:close_button, split_get(0, 7));
+// } else {
+//     mes("TRAIL DEBUG: Failed to get linecount for clue. <tostring($lines)>");
+//     return;
+// }
+
+// if($lines > 4) {
+//     if_openmain(trail_cluelong);
+// } else {
+//     if_openmain(trail_clue);
+// }

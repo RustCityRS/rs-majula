@@ -3,12 +3,12 @@ use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
 use crate::core::{Engine, OtherPlayers, engine, engine_mut};
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::handlers::ClientGameHandler;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::handlers::reflection_check_reply::ReflectionChecks;
 use crate::pathfinding::PendingPath;
 use crate::phases::logout::TIMEOUT_NO_RESPONSE;
 use crate::phases::shared::EntityId;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::{REGION_X, template_square};
 #[cfg(before_274)]
 use crate::watch::TRACKING_TICKS;
@@ -27,7 +27,7 @@ use rs_info::PlayerRenderer;
 use rs_inv::Inventory;
 use rs_io::{Packet, PacketFrame};
 use rs_pack::cache::inv::InvScope;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::map::XteaKeyStore;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitType;
@@ -39,37 +39,37 @@ use rs_protocol::network::game::MAX_PACKET_SIZE;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::{ClientProtMessage, unpack_coord};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic1;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic2;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic3;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic4;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic5;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic6;
-#[cfg(all(since_254, before_647))]
+#[cfg(all(since_254, before_530))]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic7;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic1;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic2;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic3;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic4;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic5;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic6;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic7;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic8;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatOpLogic9;
 use rs_protocol::network::game::client_prot::ChatSetMode;
 use rs_protocol::network::game::client_prot::ClientCheat;
@@ -87,15 +87,17 @@ use rs_protocol::network::game::client_prot::EventMouseMove;
 use rs_protocol::network::game::client_prot::EventTracking;
 use rs_protocol::network::game::client_prot::FriendListAdd;
 use rs_protocol::network::game::client_prot::FriendListDel;
-#[cfg(before_647)]
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client_prot::GameloginContinue;
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::IdkSaveDesign;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::IdleTimer;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::IfButton;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::IfButtonD;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::IfButtonT;
 use rs_protocol::network::game::client_prot::IgnoreListAdd;
 use rs_protocol::network::game::client_prot::IgnoreListDel;
@@ -170,44 +172,49 @@ use rs_protocol::network::game::client_prot::OpPlayerU;
 #[cfg(rev = "225")]
 use rs_protocol::network::game::client_prot::RebuildGetMaps;
 use rs_protocol::network::game::client_prot::ResumePCountDialog;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::ResumePStringDialog;
 use rs_protocol::network::game::client_prot::ResumePauseButton;
 use rs_protocol::network::game::client_prot::SendSnapshot;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::SetChatfiltersettings;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client_prot::TutClickSide;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::WindowStatus;
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
+use rs_protocol::network::game::client_prot::WorldLatency;
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::{
-    ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, ClickWorldMap,
-    ClientDetailoptionsStatus, CreateCheckName, EventKeyboard, FaceSquare, FriendSetRank,
-    MapBuildLoading, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6, OpPlayer7,
-    OpPlayer8, OpPlayer9, OpPlayer10, ReflectionCheckReply, ResumePClanforumqfcDialog,
-    ResumePHslDialog, ResumePNameDialog, ResumePObjDialog, SoundSongPreloaded, TransmitvarVerifyId,
-    UrlRequest, VideoEnd, WorldLatency, WorldlistFetch,
+    ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClientDetailoptionsStatus, FaceSquare,
+    FriendSetRank, MapBuildLoading, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6,
+    OpPlayer7, OpPlayer8, ReflectionCheckReply, ResumePNameDialog, ResumePObjDialog,
+    SoundSongPreloaded, TransmitvarVerifyId, UrlRequest,
 };
 #[cfg(since_647)]
+use rs_protocol::network::game::client_prot::{
+    ClanchannelKickUser, ClickWorldMap, CreateCheckName, EventKeyboard, OpPlayer9, OpPlayer10,
+    ResumePClanforumqfcDialog, ResumePHslDialog, VideoEnd, WorldlistFetch,
+};
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::{
     IfButton1, IfButton2, IfButton3, IfButton4, IfButton5, IfButton6, IfButton7, IfButton8,
     IfButton9, IfButton10,
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client_prot::{OpLoc6, OpNpc6, OpObj6};
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info::player::appearance::{Appearance, Look, WEAR_SLOTS, Wear};
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::cam_look_at::CamLookAt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::cam_lookat::CamLookat;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::cam_move_to::CamMoveTo;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::cam_moveto::CamMoveto;
 use rs_protocol::network::game::server::cam_reset::CamReset;
 use rs_protocol::network::game::server::cam_shake::CamShake;
@@ -231,31 +238,31 @@ use rs_protocol::network::game::server::friendlist_loaded::FriendListLoaded;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::friendlist_loaded::FriendlistLoaded;
 use rs_protocol::network::game::server::hint_arrow::HintArrow;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::hint_arrow::HintArrowKind;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_close::IfClose;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::if_closesub::IfClosesub;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::if_movesub::IfMovesub;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_openchat::IfOpenChat;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_openmain::IfOpenMain;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_openmain_side::IfOpenMainSide;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use rs_protocol::network::game::server::if_openoverlay::IfOpenOverlay;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_openside::IfOpenSide;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::if_opensub::IfOpensub;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::if_opentop::IfOpentop;
 use rs_protocol::network::game::server::if_setanim::IfSetAnim;
 use rs_protocol::network::game::server::if_setcolour::IfSetColour;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::if_setevents::IfSetEvents;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::if_setgraphic::IfSetGraphic;
@@ -269,9 +276,9 @@ use rs_protocol::network::game::server::if_setposition::IfSetPosition;
 use rs_protocol::network::game::server::if_setrecol::IfSetRecol;
 #[cfg(since_245_2)]
 use rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_settab::IfSetTab;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::if_settab_active::IfSetTabActive;
 use rs_protocol::network::game::server::if_settext::IfSetText;
 use rs_protocol::network::game::server::last_login_info::LastLoginInfo;
@@ -291,39 +298,39 @@ use rs_protocol::network::game::server::midi_song::MidiSong;
 use rs_protocol::network::game::server::minimap_toggle::MinimapToggle;
 use rs_protocol::network::game::server::npc_info::NpcInfo;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::p_countdialog::PCountDialog;
 use rs_protocol::network::game::server::player_info::PlayerInfo;
 #[cfg(any(rev = "225", since_244))]
 use rs_protocol::network::game::server::rebuild_normal::RebuildNormal;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::rebuild_region::RebuildRegion;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::reset_anims::ResetAnims;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::reset_client_varcache::ResetClientVarCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::run_client_script::{RunClientScript, ScriptParam};
 #[cfg(since_647)]
 use rs_protocol::network::game::server::set_map_flag::SetMapFlag;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::set_multiway::SetMultiway;
 #[cfg(since_254)]
 use rs_protocol::network::game::server::set_player_op::SetPlayerOp;
 use rs_protocol::network::game::server::synth_sound::SynthSound;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::tut_flash::TutFlash;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::tut_open::TutOpen;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::unset_map_flag::UnsetMapFlag;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::update_inv_full::InvItem;
 use rs_protocol::network::game::server::update_inv_full::UpdateInvFull;
 use rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server::update_inv_stop_transmit::UpdateInvStopTransmit;
-#[cfg(any(rev = "225", all(since_244, before_647)))]
+#[cfg(any(rev = "225", all(since_244, before_530)))]
 use rs_protocol::network::game::server::update_pid::UpdatePid;
 use rs_protocol::network::game::server::update_runenergy::UpdateRunEnergy;
 use rs_protocol::network::game::server::update_runweight::UpdateRunWeight;
@@ -331,13 +338,13 @@ use rs_protocol::network::game::server::update_stat::UpdateStat;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::varc_large::VarcLarge;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::varc_small::VarcSmall;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::varc_str_large::VarcStrLarge;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
 use rs_protocol::network::game::server::varp_large::VarpLarge;
 use rs_protocol::network::game::server::varp_small::VarpSmall;
@@ -350,9 +357,10 @@ use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_254)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::QueuePriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_vm::state::ScriptArgument;
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
@@ -360,12 +368,14 @@ use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ComId, ScriptError};
 use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::borrow::Cow;
+#[cfg(all(since_530, before_647))]
+use std::cell::Cell;
 use std::cell::RefCell;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Write as _;
@@ -375,8 +385,8 @@ use std::str;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
 
-type PartialInvUpdate = Vec<(u16, Option<(u16, i32)>)>;
-type FullInvUpdate = Vec<Option<(u16, i32)>>;
+type PartialInvUpdate = Vec<(u16, Option<(TypeId, i32)>)>;
+type FullInvUpdate = Vec<Option<(TypeId, i32)>>;
 
 /// Wraps a [`Player`] entity together with its network [`ClientHandle`] and
 /// per-tick buffered output packets.
@@ -406,23 +416,53 @@ pub struct ActivePlayer {
     pub watch: Box<Watch>,
     pub(crate) capture: Option<Vec<Vec<u8>>>,
     pub(crate) pending_path: Option<PendingPath>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) reflection: ReflectionChecks,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) last_link: Option<u32>,
+    #[cfg(since_647)]
+    pub lobby: bool,
+    #[cfg(since_647)]
+    pub world: u16,
+    #[cfg(all(since_530, before_647))]
+    verify: Cell<u16>,
 }
 
 /// The interface a component is on. From 647 a component is addressed as
 /// `interface << 16 | component`, so that is the hash's high half.
 fn root_layer(com: ComId) -> Option<i32> {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let root = engine()
         .interfaces()
         .get_by_id(com as u16)
         .map(|i| i.root_layer);
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let root = Some(com >> 16);
     root
+}
+
+/// The component a 530 inventory update names: `com` when the client copies
+/// the slots into it (an if1 inventory component), else -1, which only fills
+/// the client's copy of the inv.
+#[cfg(all(since_530, before_647))]
+fn inv_key(com: ComId) -> i32 {
+    let inventory = engine()
+        .interfaces()
+        .get_by_id(com)
+        .is_some_and(|c| c.iop.is_some());
+    if inventory { com } else { -1 }
+}
+
+/// The 530 hit type (0 block, 1 damage, 2 poison, 3 disease) that draws a
+/// 2011 hitmark: 530 has no style, crit, soak, heal or darker splats.
+#[cfg(all(since_530, before_647))]
+pub(crate) fn hit_type(hitmark: u8) -> u8 {
+    match hitmark % 14 {
+        8 => 0,
+        6 => 2,
+        7 => 3,
+        _ => 1,
+    }
 }
 
 /// The wear positions (`equip.constant`) that show the body kits.
@@ -446,7 +486,7 @@ const BODY_WEARPOS: [usize; 7] = [
 ];
 
 /// The BAS a player has until scripts set one: 2011's unarmed stance.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const DEFAULT_BAS: u16 = 1426;
 
 impl ActivePlayer {
@@ -474,13 +514,13 @@ impl ActivePlayer {
         let varps = engine().varps();
         let vars = VarSet::new((0..varps.count()).map(|id| {
             varps
-                .get_by_id(id as u16)
+                .get_by_id(TypeId::from_int(id as i32))
                 .map(|v| v.var_type)
                 .unwrap_or(ScriptVarType::Int)
         }));
 
         let mut player = Player::new(uid, coord, vars, bot);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             player.varcs = VarSet::new(engine().varcs().types().map(|v| v.var_type));
         }
@@ -504,11 +544,25 @@ impl ActivePlayer {
             watch: Box::default(),
             capture: None,
             pending_path: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             reflection: ReflectionChecks::default(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             last_link: None,
+            #[cfg(since_647)]
+            lobby: false,
+            #[cfg(since_647)]
+            world: 0,
+            #[cfg(all(since_530, before_647))]
+            verify: Cell::new(0),
         }
+    }
+
+    /// The next transmit verify id, which the 530 client echoes back plus one.
+    #[cfg(all(since_530, before_647))]
+    pub(crate) fn next_verify(&self) -> u16 {
+        let verify = self.verify.get().wrapping_add(1);
+        self.verify.set(verify);
+        verify
     }
 
     /// Sends a server protocol message to the client, routing it through
@@ -893,6 +947,18 @@ impl ActivePlayer {
             self.player.refresh_modal = false;
         }
 
+        // A full-screen toplevel lasts as long as its interface: once the
+        // main modal has closed for the tick, the gameframe comes back.
+        #[cfg(since_530)]
+        if self.player.modal_main.is_none()
+            && engine()
+                .layout
+                .fullscreen_tops
+                .contains(&self.player.toplevel)
+        {
+            self.if_open_top(self.player.frame_toplevel, 0);
+        }
+
         // The client's input report: sent now, then from a fresh start.
         #[cfg(before_274)]
         if engine().clock.is_multiple_of(TRACKING_TICKS) {
@@ -910,7 +976,7 @@ impl ActivePlayer {
     }
 
     pub fn cam_moveto(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(CamMoveTo {
             x,
             z,
@@ -918,18 +984,20 @@ impl ActivePlayer {
             rate,
             rate2,
         });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(CamMoveto {
             local_x: x,
             local_z: z,
             height,
             const_speed: rate,
             var_speed: rate2,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
         });
     }
 
     pub fn cam_lookat(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(CamLookAt {
             x,
             z,
@@ -937,18 +1005,20 @@ impl ActivePlayer {
             rate,
             rate2,
         });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(CamLookat {
             local_x: x,
             local_z: z,
             height,
             const_speed: rate,
             var_speed: rate2,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
         });
     }
 
     pub fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(CamShake {
             direction,
             jitter,
@@ -957,13 +1027,15 @@ impl ActivePlayer {
         });
         // 647 adds the wobble's starting phase; a shake starts at the start,
         // as the pre-647 client began every shake at cycle 0.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(CamShake {
             direction,
             jitter,
             amplitude,
             frequency,
             cycle: 0,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
         });
     }
 
@@ -1026,7 +1098,7 @@ impl ActivePlayer {
         self.player.update_map();
 
         if zone_changed {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             {
                 let was_multi = rsmod::is_zone_flagged(
                     old_zone.x(),
@@ -1045,13 +1117,13 @@ impl ActivePlayer {
         }
 
         // 4. The areas painted on the tile changed -> area exit/enter triggers.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.trigger_areas(coord);
     }
 
     /// Fires `[areaexit,...]` for each triggering area the player's tile no
     /// longer has, then `[area,...]` for each it gained.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn trigger_areas(&mut self, coord: CoordGrid) {
         let engine = engine();
         let tile = engine.area_tile(coord);
@@ -1061,19 +1133,19 @@ impl ActivePlayer {
         }
         let left = mem::replace(&mut self.player.areas, areas);
         for area in left {
-            if area != u16::MAX && !areas.contains(&area) {
+            if !area.is_null() && !areas.contains(&area) {
                 self.trigger_area(ServerTriggerType::AreaExit, area);
             }
         }
         for area in areas {
-            if area != u16::MAX && !left.contains(&area) {
+            if !area.is_null() && !left.contains(&area) {
                 self.trigger_area(ServerTriggerType::Area, area);
             }
         }
     }
 
-    #[cfg(since_647)]
-    fn trigger_area(&mut self, trigger: ServerTriggerType, area: u16) {
+    #[cfg(since_530)]
+    fn trigger_area(&mut self, trigger: ServerTriggerType, area: TypeId) {
         let engine = engine();
         if !engine
             .cache
@@ -1083,7 +1155,7 @@ impl ActivePlayer {
         {
             return;
         }
-        if let Some(script) = engine.script_by_key(trigger, Some(area as i32), None) {
+        if let Some(script) = engine.script_by_key(trigger, Some(area.int()), None) {
             let _ = self
                 .player
                 .state
@@ -1141,7 +1213,12 @@ impl ActivePlayer {
 
     /// Sends a camera reset packet to the client, restoring the default camera.
     pub fn cam_reset(&mut self) {
+        #[cfg(any(before_530, since_647))]
         self.write(CamReset);
+        #[cfg(all(since_530, before_647))]
+        self.write(CamReset {
+            verify: self.next_verify(),
+        });
     }
 
     /// Sends the chat filter settings (public, private, trade) to the client.
@@ -1207,19 +1284,23 @@ impl ActivePlayer {
     /// # Arguments
     /// * `nid` - The world index of the NPC to highlight.
     pub fn hint_npc(&mut self, nid: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(HintArrow {
             hint: 1,
             arg1: nid,
             arg2: 0,
             arg3: 0,
         });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(HintArrow {
             slot: 0,
             icon: 0,
-            kind: HintArrowKind::Npc { npc_index: nid },
-            model_id: 0xFFFF,
+            kind: HintArrowKind::Npc {
+                npc_index: nid,
+                #[cfg(since_742)]
+                flash_rate: 0,
+            },
+            model_id: TypeId::NULL,
         });
     }
 
@@ -1232,7 +1313,7 @@ impl ActivePlayer {
     /// * `z` - The absolute tile Z coordinate.
     /// * `height` - The vertical offset of the arrow above the tile.
     pub fn hint_tile(&mut self, offset: u8, x: u16, z: u16, height: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(HintArrow {
             hint: offset,
             arg1: x,
@@ -1243,7 +1324,7 @@ impl ActivePlayer {
         // implied the player's plane). This command keeps the bytes it has
         // always sent: slot 0, icon 0, the tile's centre, range 0;
         // `hint_coord_slot` sends the rest.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             let _ = offset;
             let level = self.player.pathing.coord.y();
@@ -1258,7 +1339,7 @@ impl ActivePlayer {
                     height,
                     range: 0,
                 },
-                model_id: 0xFFFF,
+                model_id: TypeId::NULL,
             });
         }
     }
@@ -1276,7 +1357,7 @@ impl ActivePlayer {
     /// * `level`, `x`, `z` - The tile.
     /// * `height` - How high over the tile, in the client's quarter units.
     /// * `range` - How far away the minimap still shows it, in 32-tile units.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[allow(clippy::too_many_arguments)]
     pub fn hint_coord_slot(
         &mut self,
@@ -1288,7 +1369,7 @@ impl ActivePlayer {
         z: u16,
         height: u8,
         range: u16,
-        model: Option<u16>,
+        model: Option<TypeId>,
     ) {
         self.write(HintArrow {
             slot,
@@ -1301,32 +1382,36 @@ impl ActivePlayer {
                 height,
                 range,
             },
-            model_id: model.unwrap_or(0xFFFF),
+            model_id: model.unwrap_or(TypeId::NULL),
         });
     }
 
     /// Rev-647: a hint arrow over an npc in one of the client's eight slots,
     /// with a model the client draws at the local player's feet, turned toward
     /// the npc, or none.
-    #[cfg(since_647)]
-    pub fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>) {
+    #[cfg(since_530)]
+    pub fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<TypeId>) {
         self.write(HintArrow {
             slot,
             icon,
-            kind: HintArrowKind::Npc { npc_index: nid },
-            model_id: model.unwrap_or(0xFFFF),
+            kind: HintArrowKind::Npc {
+                npc_index: nid,
+                #[cfg(since_742)]
+                flash_rate: 0,
+            },
+            model_id: model.unwrap_or(TypeId::NULL),
         });
     }
 
     /// Rev-647: clears the hint arrow in one of the client's eight slots,
     /// leaving the others.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn hint_stop_slot(&mut self, slot: u8) {
         self.write(HintArrow {
             slot,
             icon: 0,
             kind: HintArrowKind::Stop,
-            model_id: 0xFFFF,
+            model_id: TypeId::NULL,
         });
     }
 
@@ -1335,49 +1420,53 @@ impl ActivePlayer {
     /// # Arguments
     /// * `slot` - The player index (pid) to highlight.
     pub fn hint_player(&mut self, slot: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(HintArrow {
             hint: 10,
             arg1: slot,
             arg2: 0,
             arg3: 0,
         });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(HintArrow {
             slot: 0,
             icon: 0,
-            kind: HintArrowKind::Player { player_index: slot },
-            model_id: 0xFFFF,
+            kind: HintArrowKind::Player {
+                player_index: slot,
+                #[cfg(since_742)]
+                flash_rate: 0,
+            },
+            model_id: TypeId::NULL,
         });
     }
 
     /// Clears any active hint arrow on the client. The wire type `-1` (`0xFF`) tells the
     /// client to remove the arrow.
     pub fn stop_hint(&mut self) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(HintArrow {
             hint: 0xFF,
             arg1: 0,
             arg2: 0,
             arg3: 0,
         });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(HintArrow {
             slot: 0,
             icon: 0,
             kind: HintArrowKind::Stop,
-            model_id: 0xFFFF,
+            model_id: TypeId::NULL,
         });
     }
 
     /// Sends an interface close packet to the client.
     pub fn if_close(&mut self) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfClose {});
         // Rev-647 closes per-slot: IF_CLOSESUB names the parent component hash
         // the sub-interface was mounted on, so a close goes to each slot a
         // modal actually opened in rather than to a single screen-wide modal.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         for parent in [
             take(&mut self.player.modal_chat_parent),
             take(&mut self.player.modal_main_parent),
@@ -1391,9 +1480,9 @@ impl ActivePlayer {
 
     /// Sends a packet to open both a main interface and a side interface.
     pub fn if_open_main_side(&mut self, com: u16, side: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfOpenMainSide { com, side });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             self.if_open_main(com);
             self.if_open_side(side);
@@ -1411,9 +1500,9 @@ impl ActivePlayer {
     /// guide fills it with its own backdrop, which in the main slot showed as
     /// a tinted box.
     pub fn if_open_main(&mut self, com: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfOpenMain { com });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             let layout = &engine().layout;
             let slots = if layout.wide_screen_ifaces.contains(&com) {
@@ -1448,9 +1537,9 @@ impl ActivePlayer {
     /// parent hash, so closing the default slot while an objbox is open in the
     /// small one leaves the dialogue on screen.
     pub fn if_open_chat(&mut self, com: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfOpenChat { com });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             let parent_hash = engine().layout.dialogue_slot(com);
             if parent_hash == 0 {
@@ -1476,9 +1565,9 @@ impl ActivePlayer {
     /// (`LightDetailClientOption.method2499`) and so brings the tabs back. A
     /// type-0 panel went with the client's close and left the tabs hidden.
     pub fn if_open_side(&mut self, com: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfOpenSide { com });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             let parent = self.toplevel_slot(&engine().layout.overlay_tab);
             if parent == 0 {
@@ -1511,7 +1600,7 @@ impl ActivePlayer {
             self.player.last_login_date
         };
         let days_since_login = ((self.player.last_date - previous) / (60 * 60 * 24)) as u16;
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(LastLoginInfo {
             ip: 2130706433,
             login: days_since_login,
@@ -1522,112 +1611,158 @@ impl ActivePlayer {
         });
         // Rev-647 only reports the day count; the welcome-screen extras
         // (ip/recovery/messages) are gone from the packet.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(LastLoginInfo {
             login: days_since_login as i32,
         });
     }
 
     /// Sets the animation playing on an interface component.
-    pub fn if_setanim(&mut self, com: i32, seq: u16) {
-        #[cfg(before_647)]
+    pub fn if_setanim(&mut self, com: i32, seq: TypeId) {
+        #[cfg(before_530)]
         self.write(IfSetAnim {
             com: com as u16,
             seq,
         });
-        #[cfg(since_647)]
-        self.write(IfSetAnim { com, seq });
+        #[cfg(since_530)]
+        self.write(IfSetAnim {
+            com,
+            seq,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the color of an interface component.
     pub fn if_setcolour(&mut self, com: i32, colour: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetColour {
             com: com as u16,
             colour,
         });
-        #[cfg(since_647)]
-        self.write(IfSetColour { com, colour });
+        #[cfg(since_530)]
+        self.write(IfSetColour {
+            com,
+            colour,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the visibility of an interface component.
     pub fn if_sethide(&mut self, com: i32, hide: bool) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetHide {
             com: com as u16,
             hide,
         });
-        #[cfg(since_647)]
-        self.write(IfSetHide { com, hidden: hide });
+        #[cfg(since_530)]
+        self.write(IfSetHide {
+            com,
+            hidden: hide,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the model displayed on an interface component.
-    pub fn if_setmodel(&mut self, com: i32, model: u16) {
-        #[cfg(before_647)]
+    pub fn if_setmodel(&mut self, com: i32, model: TypeId) {
+        #[cfg(before_530)]
         self.write(IfSetModel {
             com: com as u16,
             model,
         });
-        #[cfg(since_647)]
-        self.write(IfSetModel { com, model });
+        #[cfg(since_530)]
+        self.write(IfSetModel {
+            com,
+            model,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the graphic (a sprite) displayed on an interface component.
     #[cfg(since_647)]
-    pub fn if_setgraphic(&mut self, com: i32, graphic: u16) {
+    pub fn if_setgraphic(&mut self, com: i32, graphic: TypeId) {
         self.write(IfSetGraphic { com, graphic });
     }
 
     /// Sets an NPC head model on an interface component.
-    pub fn if_setnpchead(&mut self, com: i32, npc: u16) {
-        #[cfg(before_647)]
+    pub fn if_setnpchead(&mut self, com: i32, npc: TypeId) {
+        #[cfg(before_530)]
         self.write(IfSetNpcHead {
             com: com as u16,
             npc,
         });
-        #[cfg(since_647)]
-        self.write(IfSetNpcHead { com, npc });
+        #[cfg(since_530)]
+        self.write(IfSetNpcHead {
+            com,
+            npc,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets an item model on an interface component with a given zoom scale.
-    pub fn if_setobject(&mut self, com: i32, obj: u16, scale: i32) {
-        #[cfg(before_647)]
+    pub fn if_setobject(&mut self, com: i32, obj: TypeId, scale: i32) {
+        #[cfg(before_530)]
         self.write(IfSetObject {
             com: com as u16,
             obj,
             scale: scale as u16,
         });
-        #[cfg(since_647)]
-        self.write(IfSetObject { com, obj, scale });
+        #[cfg(since_530)]
+        self.write(IfSetObject {
+            com,
+            obj,
+            scale,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the local player's head model on an interface component.
     pub fn if_setplayerhead(&mut self, com: i32) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetPlayerHead { com: com as u16 });
-        #[cfg(since_647)]
-        self.write(IfSetPlayerHead { com });
+        #[cfg(since_530)]
+        self.write(IfSetPlayerHead {
+            com,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the position of an interface component.
     pub fn if_setposition(&mut self, com: i32, x: u16, y: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetPosition {
             com: com as u16,
             x,
             y,
         });
-        #[cfg(since_647)]
-        self.write(IfSetPosition { com, x, y });
+        #[cfg(since_530)]
+        self.write(IfSetPosition {
+            com,
+            x,
+            y,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sets the scrollbar position on an interface component.
     #[cfg(since_245_2)]
     pub fn if_setscrollpos(&mut self, com: i32, y: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetScrollPos { com: com as u16, y });
-        #[cfg(since_647)]
-        self.write(IfSetScrollPos { com, y });
+        #[cfg(since_530)]
+        self.write(IfSetScrollPos {
+            com,
+            y,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Opens an overlay interface over the game view (a minigame's timer, the
@@ -1638,9 +1773,9 @@ impl ActivePlayer {
     /// overlay is no modal, and stays while the player walks and talks.
     #[cfg(since_244)]
     pub fn if_openoverlay(&mut self, com: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfOpenOverlay { com });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             let parent = self.toplevel_slot(&engine().layout.overlay);
             if parent == 0 {
@@ -1694,11 +1829,11 @@ impl ActivePlayer {
 
     /// Assigns an interface component to a tab slot on the client.
     pub fn if_settab(&mut self, com: u16, tab: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetTab { com, tab });
         // TODO(647): rev-647 has no tab packets — tabs are laid out via
         // IF_OPENSUB by content (interface milestone).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let _ = (com, tab);
     }
 
@@ -1706,21 +1841,26 @@ impl ActivePlayer {
     /// has no tab packet: it keeps its selected tab in the `if_switchside_varc`
     /// varc, in the same order as the tabs.
     pub fn if_settabactive(&mut self, tab: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetTabActive { tab });
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.varc_transmit(engine().layout.switch_side, tab as i32);
     }
 
     /// Sets the text content of an interface component.
     pub fn if_settext(&mut self, com: i32, text: &str) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(IfSetText {
             com: com as u16,
             text,
         });
-        #[cfg(since_647)]
-        self.write(IfSetText { com, text });
+        #[cfg(since_530)]
+        self.write(IfSetText {
+            com,
+            text,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Sends the logout packet and marks the player as having received it.
@@ -1875,7 +2015,7 @@ impl ActivePlayer {
     /// Where on the client's screen an inventory's `slot` is drawn (its top
     /// left), from where the interface it's in is open. `None` in a layer
     /// that scrolls (the bank), whose slots move with it.
-    fn slot_on_screen(&self, com: u16, slot: u16) -> Option<(i16, i16)> {
+    fn slot_on_screen(&self, com: ComId, slot: u16) -> Option<(i16, i16)> {
         // Where the client draws its main, chat and side areas.
         #[cfg(rev = "225")]
         const AREAS: [(i16, i16); 3] = [(8, 11), (22, 375), (562, 231)];
@@ -1922,13 +2062,13 @@ impl ActivePlayer {
     /// members' and banknotes are passed over.
     fn needs_menu(&self, op: Op) -> bool {
         let engine = engine();
-        let obj = |id: u16| {
+        let obj = |id: TypeId| {
             engine
                 .objs()
                 .get_by_id(id)
                 .filter(|t| (engine.members || !t.members) && t.certtemplate.is_none())
         };
-        let inv_top = |com: u16, id: u16| {
+        let inv_top = |com: ComId, id: TypeId| {
             let interface = engine.interfaces().get_by_id(com)?;
             let obj = obj(id)?;
             Some(menu::inv_top(
@@ -1973,7 +2113,7 @@ impl ActivePlayer {
         engine()
             .varps()
             .get_by_debugname("option_mouse")
-            .is_some_and(|varp| self.player.vars.get(varp.id).as_int() == 1)
+            .is_some_and(|varp| self.player.vars.get(varp.id.g2()).as_int() == 1)
     }
 
     /// Notes something the player did for the replay's timeline.
@@ -1995,7 +2135,7 @@ impl ActivePlayer {
             return;
         }
         let engine = engine();
-        let obj = |id: u16| {
+        let obj = |id: TypeId| {
             engine
                 .objs()
                 .get_by_id(id)
@@ -2032,12 +2172,12 @@ impl ActivePlayer {
     }
 
     /// Records a click on interface component `com`.
-    pub fn watch_button(&mut self, com: u16) {
+    pub fn watch_button(&mut self, com: ComId) {
         self.watch_op(Op::Other);
         if !self.watch.recording() {
             return;
         }
-        let name = self.component_name(com.into());
+        let name = self.component_name(com);
         self.watch
             .note_fmt(engine().clock, format_args!("Click {name}"));
     }
@@ -2047,7 +2187,7 @@ impl ActivePlayer {
     /// (while clicks on it carry `id`). `None` when it turns into nothing,
     /// which the client offers no options on.
     #[cfg(since_289)]
-    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+    pub fn shown_loc(&self, id: TypeId) -> Option<TypeId> {
         match engine().locs().get_by_id(id) {
             Some(ty) => ty.multi_loc(self.multivar(ty.multivar)),
             None => Some(id),
@@ -2063,14 +2203,14 @@ impl ActivePlayer {
                 .varbits()
                 .get_by_id(var)
                 .map(|var| self.varbit(var)),
-            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var).as_int()),
+            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var.g2()).as_int()),
             None => None,
         };
         value.unwrap_or(-1)
     }
 
     #[cfg(before_289)]
-    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+    pub fn shown_loc(&self, id: TypeId) -> Option<TypeId> {
         Some(id)
     }
 
@@ -2078,16 +2218,16 @@ impl ActivePlayer {
     /// multi-npc that the client draws as another by a variable, with that
     /// one's name and options (2011's Osman, npc 5282, is Osman by varbit
     /// 3280). `None` when it shows as nothing.
-    #[cfg(since_647)]
-    pub fn shown_npc(&self, id: u16) -> Option<u16> {
+    #[cfg(since_530)]
+    pub fn shown_npc(&self, id: TypeId) -> Option<TypeId> {
         match engine().npcs().get_by_id(id) {
             Some(ty) => ty.multi_npc(self.multivar(ty.multivar)),
             None => Some(id),
         }
     }
 
-    #[cfg(before_647)]
-    pub fn shown_npc(&self, id: u16) -> Option<u16> {
+    #[cfg(before_530)]
+    pub fn shown_npc(&self, id: TypeId) -> Option<TypeId> {
         Some(id)
     }
 
@@ -2129,13 +2269,13 @@ impl ActivePlayer {
 
     /// An interface component's name, e.g. `magic:wind_strike`.
     pub(crate) fn component_name(&self, com: ComId) -> Cow<'static, str> {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let name = engine()
             .interfaces()
             .get_by_id(com as u16)
             .and_then(|i| i.com_name.as_deref())
             .map_or_else(|| Cow::Owned(format!("component {com}")), Cow::Borrowed);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let name = engine().layout.component_name(com);
         name
     }
@@ -2293,7 +2433,7 @@ impl ActivePlayer {
         &self,
         event_type: i16,
         coord: CoordGrid,
-        obj: u16,
+        obj: TypeId,
         count: i32,
         to37: Option<u64>,
     ) {
@@ -2385,45 +2525,68 @@ impl ActivePlayer {
     /// * `interface` - The toplevel interface.
     /// * `mode` - IF_OPENTOP's mode byte: `0`, or `2` for the client to
     ///   rebuild its scene behind a "Loading - please wait." screen.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn if_open_top(&mut self, interface: u16, mode: u8) {
         self.player.toplevel = interface;
-        self.write(IfOpentop { interface, mode });
+        if !engine().layout.fullscreen_tops.contains(&interface) {
+            self.player.frame_toplevel = interface;
+        }
+        self.write(IfOpentop {
+            interface,
+            mode,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+            #[cfg(since_742)]
+            xtea_keys: [0; 4],
+        });
     }
 
     /// Rev-647: mounts a sub-interface at a parent component hash, and
     /// records it as the client will (`Player::sub_opened`). Modal tracking
     /// lives in the open paths that choose the slot, so permanent subs (tabs,
     /// orbs, chatbox) are never mistaken for modals.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn if_open_sub(&mut self, interface: u16, com: i32, walkable: u8) {
         self.player.sub_opened(com, interface, walkable);
         self.write(IfOpensub {
             interface,
             com,
             walkable,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+            #[cfg(since_742)]
+            xtea_keys: [0; 4],
         });
     }
 
     /// Rev-647: closes whatever sub-interface is mounted at the parent
     /// component hash.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn if_close_sub(&mut self, com: i32) {
         self.player.sub_closed(com);
-        self.write(IfClosesub { com });
+        self.write(IfClosesub {
+            com,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Rev-647: moves the sub-interface mounted at `from` onto `to`, as a
     /// window-mode switch carries the gameframe from one toplevel to the other.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn if_move_sub(&mut self, com: i32, com2: i32) {
         self.player.sub_moved(com, com2);
-        self.write(IfMovesub { com, com2 });
+        self.write(IfMovesub {
+            com,
+            com2,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Rev-647: the hash of a gameframe slot on the current toplevel, or 0 if
     /// the toplevel has no such slot.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn toplevel_slot(&self, slots: &HashMap<u16, u16>) -> i32 {
         let top = self.player.toplevel;
         slots
@@ -2432,7 +2595,7 @@ impl ActivePlayer {
     }
 
     /// Rev-647: sets the client-side event mask for a component slot range.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn if_set_events(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
         let from = if slot1 == u16::MAX { -1 } else { slot1 as i32 };
         let to = if slot2 == u16::MAX { -1 } else { slot2 as i32 };
@@ -2446,26 +2609,43 @@ impl ActivePlayer {
             slot1,
             slot2,
             settings,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
         });
     }
 
     /// Rev-647: transmits a client variable, picking the small or large
-    /// packet by value range. The value is mirrored on the player so
-    /// server-side consumers (`applydesign`) can read the design preview back.
-    #[cfg(since_647)]
+    /// packet by value range (a signed byte on 647, an unsigned one on 530).
+    /// The value is mirrored on the player so server-side consumers
+    /// (`applydesign`) can read the design preview back.
+    #[cfg(since_530)]
     pub fn varc_transmit(&mut self, id: u16, val: i32) {
         let varcs = engine().varcs();
-        let varc = varcs.get_by_id(id, false).unwrap();
+        let varc = varcs.get_by_id(TypeId::new(id), false).unwrap();
         self.player.varcs[varcs.index(id, false)] = VarValue::from_int(varc.var_type, val);
-        if (-128..=127).contains(&val) {
-            self.write(VarcSmall { id, val: val as u8 });
+        #[cfg(all(since_530, before_647))]
+        let small = (0..=255).contains(&val);
+        #[cfg(since_647)]
+        let small = (-128..=127).contains(&val);
+        if small {
+            self.write(VarcSmall {
+                id,
+                val: val as u8,
+                #[cfg(all(since_530, before_647))]
+                verify: self.next_verify(),
+            });
         } else {
-            self.write(VarcLarge { id, val });
+            self.write(VarcLarge {
+                id,
+                val,
+                #[cfg(all(since_530, before_647))]
+                verify: self.next_verify(),
+            });
         }
     }
 
     /// Rev-647: transmits a string client variable.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
         let index = engine().varcs().index(id, true);
         self.player.varcs[index] = VarValue::String(val.into());
@@ -2473,24 +2653,36 @@ impl ActivePlayer {
         // Foundations' run hint) wrapped it, the client read the stream out of step and dropped
         // the connection ("Connection lost", in-client runs ufrest10 and ufrest13).
         if VarcStrSmall::sizeof_str(val) > u8::MAX as usize {
-            self.write(VarcStrLarge { id, val });
+            self.write(VarcStrLarge {
+                id,
+                val,
+                #[cfg(all(since_530, before_647))]
+                verify: self.next_verify(),
+            });
         } else {
-            self.write(VarcStrSmall { id, val });
+            self.write(VarcStrSmall {
+                id,
+                val,
+                #[cfg(all(since_530, before_647))]
+                verify: self.next_verify(),
+            });
         }
     }
 
     /// Rev-647: invokes a clientscript (cs2) with no parameters.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn run_client_script(&mut self, script_id: i32) {
         self.write(RunClientScript {
             script_id,
             params: Vec::new(),
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
         });
     }
 
     /// Rev-647 `runclientscript*`: invokes a CS2 script with typed int/string
     /// parameters.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn run_client_script_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
         let params = args
             .into_iter()
@@ -2499,7 +2691,12 @@ impl ActivePlayer {
                 ScriptArgument::String(s) => ScriptParam::Str(s),
             })
             .collect();
-        self.write(RunClientScript { script_id, params });
+        self.write(RunClientScript {
+            script_id,
+            params,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 
     /// Rev-647 public chat: `MESSAGE_PUBLIC` for each player this client
@@ -2581,19 +2778,21 @@ impl ActivePlayer {
     /// packet for it: the `meslayer_mode7` clientscript shows the prompt,
     /// 289's client's, in the chat box and answers RESUME_P_COUNTDIALOG.
     pub fn p_countdialog(&mut self) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(PCountDialog);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.write(RunClientScript {
             script_id: engine().layout.count_dialog,
             params: vec![ScriptParam::Str("Enter amount:".into())],
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
         });
     }
 
     pub(crate) fn needs_rebuild(&self) -> bool {
         let area = &self.player.build_area;
         let coord = self.player.pathing.coord;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if area.rebuild || (coord.x() >= REGION_X) != area.dynamic {
             return true;
         }
@@ -2617,13 +2816,25 @@ impl ActivePlayer {
             return;
         }
         let coord = self.player.pathing.coord;
-        #[cfg(since_647)]
+        // The 530 client walks its own player to the rebuild's tile (bj.a ->
+        // ob.a), so a step builds around last tick's tile, where the client
+        // already has the player, and this tick's walk or run plays as usual.
+        #[cfg(all(since_530, before_647))]
+        let coord = {
+            let pathing = &self.player.pathing;
+            if pathing.tele || pathing.jump || pathing.last_coord.y() != coord.y() {
+                coord
+            } else {
+                pathing.last_coord
+            }
+        };
+        #[cfg(since_530)]
         let dynamic = coord.x() >= REGION_X;
         self.player.build_area.rebuild_normal(&coord);
         let base = self.map_base();
         self.watch.anticheat.rebuilt(base, engine().clock);
-        let zone_x = self.player.pathing.coord.zone_x();
-        let zone_z = self.player.pathing.coord.zone_z();
+        let zone_x = coord.zone_x();
+        let zone_z = coord.zone_z();
         #[cfg(rev = "225")]
         {
             let cache = engine().cache;
@@ -2646,12 +2857,13 @@ impl ActivePlayer {
                 crcs: crcs.into_iter().collect(),
             });
         }
-        #[cfg(all(since_244, before_647))]
+        #[cfg(all(since_244, before_530))]
         self.write(RebuildNormal { zone_x, zone_z });
-        // Rev-647: the rebuild carries the PlayerInfo init bit-stream on the
-        // first login (self position + 18-bit packed regions per slot) and
-        // the XTEA key blocks for every mapsquare covering the build area.
-        #[cfg(since_647)]
+        // From 530 the rebuild carries the XTEA key blocks for every
+        // mapsquare covering the build area; 647 adds the PlayerInfo init
+        // bit-stream on the first login (self position + 18-bit packed
+        // regions per slot).
+        #[cfg(since_530)]
         {
             self.player.build_area.rebuild = false;
             if dynamic != self.player.build_area.dynamic {
@@ -2662,26 +2874,36 @@ impl ActivePlayer {
                 self.rebuild_region(zone_x, zone_z, coord);
                 return;
             }
-            let first_login = self.player.pending_login;
-            let player_regions = if first_login {
-                engine().player_renderer.regions().to_vec()
-            } else {
-                Vec::new()
-            };
             let xtea_keys = XteaKeyStore::global()
                 .map(|s| s.snapshot_build_area(coord.x(), coord.z()))
                 .unwrap_or_default();
+            #[cfg(all(since_530, before_647))]
             self.write(RebuildNormal {
-                self_index: self.player.uid.pid(),
                 player_x: coord.x(),
                 player_z: coord.z(),
                 player_plane: coord.y(),
-                login: first_login,
-                player_regions,
                 xtea_keys,
             });
-            if first_login {
-                self.player.pending_login = false;
+            #[cfg(since_647)]
+            {
+                let first_login = self.player.pending_login;
+                let player_regions = if first_login {
+                    engine().player_renderer.regions().to_vec()
+                } else {
+                    Vec::new()
+                };
+                self.write(RebuildNormal {
+                    self_index: self.player.uid.pid(),
+                    player_x: coord.x(),
+                    player_z: coord.z(),
+                    player_plane: coord.y(),
+                    login: first_login,
+                    player_regions,
+                    xtea_keys,
+                });
+                if first_login {
+                    self.player.pending_login = false;
+                }
             }
         }
     }
@@ -2690,7 +2912,7 @@ impl ActivePlayer {
     /// on every level, with the XTEA keys of the mapsquares they come from in
     /// the order the client first meets them. A rebuild between this and
     /// REBUILD_NORMAL empties the client's npc list.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn rebuild_region(&mut self, zone_x: u16, zone_z: u16, coord: CoordGrid) {
         let regions = &engine().regions;
         let mut templates = Vec::with_capacity((13 * 13) << 2);
@@ -2716,6 +2938,15 @@ impl ActivePlayer {
                     .collect()
             })
             .unwrap_or_default();
+        #[cfg(all(since_530, before_647))]
+        self.write(RebuildRegion {
+            player_x: coord.x(),
+            player_z: coord.z(),
+            player_plane: coord.y(),
+            templates,
+            xtea_keys,
+        });
+        #[cfg(since_647)]
         self.write(RebuildRegion {
             player_x: coord.x(),
             player_z: coord.z(),
@@ -2728,7 +2959,7 @@ impl ActivePlayer {
     }
 
     /// Stops tracking every npc, as the client's npc list was emptied.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn forget_npcs(&mut self) {
         let npcs = &mut engine_mut().npc_list;
         for &nid in self.player.build_area.npcs.iter() {
@@ -2800,8 +3031,8 @@ impl ActivePlayer {
     }
 
     /// Sends a full inventory update to the client for the given component.
-    #[cfg(before_647)]
-    pub fn update_inv_full(&mut self, com: u16, objs: &[Option<(u16, i32)>]) {
+    #[cfg(before_530)]
+    pub fn update_inv_full(&mut self, com: u16, objs: &[Option<(TypeId, i32)>]) {
         // prevent a client crash by capping to inv size || interface size
         let size = engine()
             .interfaces()
@@ -2815,23 +3046,40 @@ impl ActivePlayer {
         });
     }
 
+    /// Sends a full inventory update to the client. The 530 client keys its
+    /// inventories by inv id and also copies the slots into `com` when that
+    /// is an if1 inventory component, which draws only from its own slots.
+    #[cfg(all(since_530, before_647))]
+    pub fn update_inv_full(&mut self, com: ComId, inv_id: TypeId, objs: &[Option<(TypeId, i32)>]) {
+        self.send_inv_full(inv_key(com), inv_id, false, objs);
+    }
+
     /// Sends a full inventory update to the client. Rev-647 keys client
     /// inventories by inv id — the interface binding comes from the cache
     /// component defs, so no component travels on the wire.
     #[cfg(since_647)]
-    pub fn update_inv_full(&mut self, inv_id: u16, objs: &[Option<(u16, i32)>]) {
+    pub fn update_inv_full(&mut self, inv_id: TypeId, objs: &[Option<(TypeId, i32)>]) {
         self.send_inv_full(inv_id, false, objs);
     }
 
-    /// Sends another player's inventory whole, which the 647 client keeps
-    /// apart from the player's own copy of that inv (trade's other offer).
-    #[cfg(since_647)]
-    pub fn update_inv_other_full(&mut self, inv_id: u16, objs: &[Option<(u16, i32)>]) {
+    /// Sends another player's inventory whole, which the client keeps apart
+    /// from the player's own copy of that inv (trade's other offer).
+    #[cfg(since_530)]
+    pub fn update_inv_other_full(&mut self, inv_id: TypeId, objs: &[Option<(TypeId, i32)>]) {
+        #[cfg(all(since_530, before_647))]
+        self.send_inv_full(-1, inv_id, true, objs);
+        #[cfg(since_647)]
         self.send_inv_full(inv_id, true, objs);
     }
 
-    #[cfg(since_647)]
-    fn send_inv_full(&mut self, inv_id: u16, other: bool, objs: &[Option<(u16, i32)>]) {
+    #[cfg(since_530)]
+    fn send_inv_full(
+        &mut self,
+        #[cfg(all(since_530, before_647))] com: i32,
+        inv_id: TypeId,
+        other: bool,
+        objs: &[Option<(TypeId, i32)>],
+    ) {
         let slots: Vec<Option<InvItem>> = objs
             .iter()
             .map(|slot| {
@@ -2842,6 +3090,8 @@ impl ActivePlayer {
             })
             .collect();
         self.write(UpdateInvFull {
+            #[cfg(all(since_530, before_647))]
+            com,
             inv_id,
             other,
             capacity: slots.len() as u16,
@@ -2852,13 +3102,33 @@ impl ActivePlayer {
     /// Sends a partial inventory update to the client.
     ///
     /// Each entry is `(slot, item)` for one changed slot.
-    pub fn update_inv_partial(&mut self, id: u16, objs: &[(u16, Option<(u16, i32)>)]) {
+    #[cfg(any(before_530, since_647))]
+    pub fn update_inv_partial(&mut self, id: u16, objs: &[(u16, Option<(TypeId, i32)>)]) {
         self.write(UpdateInvPartial {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             com: id,
             #[cfg(since_647)]
-            inv_id: id,
+            inv_id: TypeId::new(id),
             #[cfg(since_647)]
+            other: false,
+            objs,
+        });
+    }
+
+    /// Sends a partial inventory update for `inv_id` to the client, copied
+    /// into `com` too when that is an if1 inventory component.
+    ///
+    /// Each entry is `(slot, item)` for one changed slot.
+    #[cfg(all(since_530, before_647))]
+    pub fn update_inv_partial(
+        &mut self,
+        com: ComId,
+        inv_id: TypeId,
+        objs: &[(u16, Option<(TypeId, i32)>)],
+    ) {
+        self.write(UpdateInvPartial {
+            com: inv_key(com),
+            inv_id,
             other: false,
             objs,
         });
@@ -2866,11 +3136,11 @@ impl ActivePlayer {
 
     /// Tells the client to stop expecting inventory updates for a component.
     pub fn update_inv_stop_transmit(&mut self, com: ComId) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(UpdateInvStopTransmit { com: com as u16 });
         // TODO(647): port with the inventory milestone — no rev-647
         // stop-transmit packet is modelled yet.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let _ = com;
     }
 
@@ -2878,14 +3148,14 @@ impl ActivePlayer {
     pub fn update_pid(&mut self, pid: u16) {
         #[cfg(rev = "225")]
         self.write(UpdatePid { pid });
-        #[cfg(all(since_244, before_647))]
+        #[cfg(all(since_244, before_530))]
         self.write(UpdatePid {
             pid,
             members: self.member(),
         });
         // Rev-647 has no UPDATE_PID packet — the slot index travels in the
         // rebuild/GPI init block instead (map/login milestone).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let _ = pid;
     }
 
@@ -2966,7 +3236,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sends `update_inv_full` packets for each bound component.
     /// * Clears the `dirty` flag on non-shared inventories.
-    pub fn update_invs(&mut self, shared_invs: &mut FxHashMap<u16, Inventory>) {
+    pub fn update_invs(&mut self, shared_invs: &mut FxHashMap<TypeId, Inventory>) {
         thread_local! {
             // Full payload (every slot) for first-seen components.
             static FULL: RefCell<FullInvUpdate> = RefCell::new(Vec::with_capacity(48));
@@ -3003,10 +3273,12 @@ impl ActivePlayer {
             let has_dirty = !inv.dirty_slots.is_empty();
             // Before 647 first sight is per component; from 647 it is per inv
             // (below), so the per-component scratch payload is never built.
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let any_first_seen = coms
                 .iter()
                 .any(|&c| !self.player.inv_first_seen.contains(&(c as u16)));
+            #[cfg(all(since_530, before_647))]
+            let any_first_seen = coms.iter().any(|c| !self.player.inv_first_seen.contains(c));
             #[cfg(since_647)]
             let any_first_seen = false;
 
@@ -3038,21 +3310,21 @@ impl ActivePlayer {
             #[cfg(since_647)]
             {
                 let _ = coms;
-                let first = !self.player.inv_first_seen.contains(inv_id);
+                let first = !self.player.inv_first_seen.contains(&inv_id.g2());
                 if first || has_dirty {
-                    let full: Vec<Option<(u16, i32)>> = inv
+                    let full: Vec<Option<(TypeId, i32)>> = inv
                         .slots
                         .iter()
                         .map(|i| i.map(|it| (it.obj, it.num as i32)))
                         .collect();
                     self.update_inv_full(*inv_id, &full);
                     if first {
-                        self.player.inv_first_seen.insert(*inv_id);
+                        self.player.inv_first_seen.insert(inv_id.g2());
                         any_full = true;
                     }
                 }
             }
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             for &com in coms {
                 let com = com as u16;
                 if !self.player.inv_first_seen.contains(&com) {
@@ -3061,6 +3333,16 @@ impl ActivePlayer {
                     any_full = true;
                 } else if has_dirty {
                     PARTIAL.with_borrow(|p| self.update_inv_partial(com, p));
+                }
+            }
+            #[cfg(all(since_530, before_647))]
+            for &com in coms {
+                if !self.player.inv_first_seen.contains(&com) {
+                    FULL.with_borrow(|f| self.update_inv_full(com, *inv_id, f));
+                    self.player.inv_first_seen.insert(com);
+                    any_full = true;
+                } else if has_dirty {
+                    PARTIAL.with_borrow(|p| self.update_inv_partial(com, *inv_id, p));
                 }
             }
 
@@ -3113,7 +3395,7 @@ impl ActivePlayer {
             return;
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         thread_local! {
             static FULL: RefCell<FullInvUpdate> = RefCell::new(Vec::with_capacity(48));
             static PARTIAL: RefCell<PartialInvUpdate> = RefCell::new(Vec::with_capacity(48));
@@ -3123,8 +3405,8 @@ impl ActivePlayer {
         // while iterating, then restore it. Nothing in the loop mutates the map.
         let transmits = take(&mut self.player.inv_other_transmits);
         // From 647 one update goes per inv, however many components show it.
-        #[cfg(since_647)]
-        let mut sent: Vec<u16> = Vec::new();
+        #[cfg(since_530)]
+        let mut sent: Vec<TypeId> = Vec::new();
 
         for (&com, &(uid, inv_id)) in &transmits {
             let Some(source) = players.get((uid & 0x7FF) as u16) else {
@@ -3142,23 +3424,23 @@ impl ActivePlayer {
             // "other" flag, apart from their own copy of that inv: send it
             // whole on first sight and whenever a slot changed, as the
             // player's own invs go.
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 let _ = com;
-                let first = !self.player.inv_other_first_seen.contains(&inv_id);
+                let first = !self.player.inv_other_first_seen.contains(&inv_id.g2());
                 if sent.contains(&inv_id) || (!first && inv.dirty_slots.is_empty()) {
                     continue;
                 }
-                let full: Vec<Option<(u16, i32)>> = inv
+                let full: Vec<Option<(TypeId, i32)>> = inv
                     .slots
                     .iter()
                     .map(|i| i.map(|it| (it.obj, it.num as i32)))
                     .collect();
                 self.update_inv_other_full(inv_id, &full);
-                self.player.inv_other_first_seen.insert(inv_id);
+                self.player.inv_other_first_seen.insert(inv_id.g2());
                 sent.push(inv_id);
             }
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             {
                 let com = com as u16;
                 let first_seen = !self.player.inv_first_seen.contains(&com);
@@ -3253,7 +3535,7 @@ impl ActivePlayer {
     pub fn sync_varps(&mut self) {
         let varps = engine().varps();
         for id in 0..self.player.vars.len() {
-            let Some(varp) = varps.get_by_id(id as u16) else {
+            let Some(varp) = varps.get_by_id(TypeId::from_int(id as i32)) else {
                 continue;
             };
             if !varp.transmit {
@@ -3346,7 +3628,7 @@ impl ActivePlayer {
     /// # Arguments
     /// * `com` - The interface component ID to open.
     pub fn open_tutorial(&mut self, com: u16) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(TutOpen { com });
         // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         self.player.open_tutorial(com);
@@ -3357,10 +3639,10 @@ impl ActivePlayer {
     /// # Arguments
     /// * `tab` - The tab index to flash.
     pub fn tut_flash(&mut self, tab: u8) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.write(TutFlash { tab });
         // TODO(647): rev-647 has no TUT_FLASH packet (interface milestone).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let _ = tab;
     }
 
@@ -3391,7 +3673,7 @@ impl ActivePlayer {
             }
             self.player.modal_tutorial = None;
             // -1 (u16::MAX on the wire) tells the client to close the tutorial.
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             self.write(TutOpen { com: u16::MAX });
             // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         }
@@ -3408,7 +3690,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sets `player.info.appearance` and enables the
     ///   `PlayerInfoProt::Appearance` mask.
-    pub fn buildappearance(&mut self, inv_id: u16) {
+    pub fn buildappearance(&mut self, inv_id: TypeId) {
         self.player.info.appearance = Some(inv_id);
         self.player.info.masks |= PlayerInfoProt::Appearance as u16;
     }
@@ -3509,8 +3791,16 @@ impl ActivePlayer {
     /// * `healthbar` - The overhead bar's fill, 0-255.
     /// * `source` - The pid of the player who dealt it, if a player did: they
     ///   see it bright, as this player does; everyone else darker.
-    #[cfg(since_647)]
+    ///
+    /// The 530 client has no soak splat and no dealer tint, and draws the
+    /// hitmark as its own hit type ([`hit_type`]).
+    #[cfg(since_530)]
     pub fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>) {
+        #[cfg(all(since_530, before_647))]
+        let _ = (soak, source);
+        #[cfg(all(since_530, before_647))]
+        let hitmark = hit_type(hitmark);
+        #[cfg(since_647)]
         let soak = (soak > 0).then_some(soak);
         if self.player.info.apply_damage2(
             amount,
@@ -3519,8 +3809,11 @@ impl ActivePlayer {
             u8::MAX,
             PlayerInfoProt::Damage2 as u16,
         ) {
-            self.player.info.damage2_soak = soak;
-            self.player.info.damage2_source = source;
+            #[cfg(since_647)]
+            {
+                self.player.info.damage2_soak = soak;
+                self.player.info.damage2_source = source;
+            }
             return;
         }
         self.player.info.apply_damage(
@@ -3530,8 +3823,11 @@ impl ActivePlayer {
             u8::MAX,
             PlayerInfoProt::Damage as u16,
         );
-        self.player.info.damage_soak = soak;
-        self.player.info.damage_source = source;
+        #[cfg(since_647)]
+        {
+            self.player.info.damage_soak = soak;
+            self.player.info.damage_source = source;
+        }
     }
 
     /// Executes the player's pending walk trigger script, if any.
@@ -3594,20 +3890,20 @@ impl ActivePlayer {
                 headicons: self.player.headicons,
                 look: self.look(),
                 colours: &self.player.colours,
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 anims: [
-                    info.readyanim.unwrap(),
-                    info.turnanim.unwrap(),
-                    info.walkanim.unwrap(),
-                    info.walkanim_b.unwrap(),
-                    info.walkanim_l.unwrap(),
-                    info.walkanim_r.unwrap(),
-                    info.runanim.unwrap(),
+                    info.readyanim.unwrap().g2(),
+                    info.turnanim.unwrap().g2(),
+                    info.walkanim.unwrap().g2(),
+                    info.walkanim_b.unwrap().g2(),
+                    info.walkanim_l.unwrap().g2(),
+                    info.walkanim_r.unwrap().g2(),
+                    info.runanim.unwrap().g2(),
                 ],
                 #[cfg(before_647)]
                 username37: self.uid().username37(),
-                #[cfg(since_647)]
-                bas: info.readyanim.unwrap_or(DEFAULT_BAS),
+                #[cfg(since_530)]
+                bas: info.readyanim.unwrap_or(TypeId::new(DEFAULT_BAS)),
                 #[cfg(since_647)]
                 name: &self.player.shown_name(),
                 combat_level: self.player.combat_level,
@@ -3638,7 +3934,7 @@ impl ActivePlayer {
         let worn = self
             .player
             .invs
-            .get(&self.player.info.appearance.unwrap_or(0));
+            .get(&self.player.info.appearance.unwrap_or(TypeId::new(0)));
         let mut skipped_slots = [false; WEAR_SLOTS];
         if let Some(worn) = worn {
             let objs = engine().objs();
@@ -3660,17 +3956,26 @@ impl ActivePlayer {
                 continue;
             }
             if let Some(item) = worn.and_then(|inv| inv.get(slot as u16)) {
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 {
-                    *wear = Wear::Obj(item.obj);
+                    *wear = Wear::Obj(item.obj.g2());
                 }
-                #[cfg(since_647)]
+                #[cfg(all(since_530, before_742))]
                 if let Some(wearid) = engine()
                     .objs()
                     .get_by_id(item.obj)
                     .and_then(|obj| obj.wearid)
                 {
                     *wear = Wear::Obj(wearid);
+                }
+                // 742 takes the obj id; a wearid still marks an obj with a wear model.
+                #[cfg(since_742)]
+                if engine()
+                    .objs()
+                    .get_by_id(item.obj)
+                    .is_some_and(|obj| obj.wearid.is_some())
+                {
+                    *wear = Wear::Obj(item.obj.g2());
                 }
             } else if let Some(kit) = self.body_kit(slot) {
                 *wear = Wear::Kit(kit);
@@ -3698,7 +4003,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Updates `player.info` animation fields and sets the
     ///   `PlayerInfoProt::Anim` mask.
-    pub fn anim(&mut self, id: Option<u16>, delay: u8) {
+    pub fn anim(&mut self, id: Option<TypeId>, delay: u8) {
         let seqs = engine().seqs();
         let cur_pri = self
             .player
@@ -3769,7 +4074,7 @@ impl ActivePlayer {
         let id = varp.id;
         let transmit = varp.transmit;
         let value = VarValue::from_int(varp.var_type, value);
-        self.set_varp(id, value, transmit);
+        self.set_varp(id.g2(), value, transmit);
         true
     }
 
@@ -3786,7 +4091,7 @@ impl ActivePlayer {
     /// the client is sent the change.
     #[cfg(since_254)]
     pub fn set_varbit(&mut self, varbit: &VarbitType, value: i32) {
-        let Some(varp) = engine().varps().get_by_id(varbit.basevar) else {
+        let Some(varp) = engine().varps().get_by_id(TypeId::new(varbit.basevar)) else {
             return;
         };
         let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
@@ -3838,7 +4143,7 @@ pub trait EnginePlayer {
     /// Re-sends all state needed after a client reconnection.
     fn on_reconnect(&mut self) -> Result<(), ScriptError>;
 
-    /// Writes a single zone event message to the client.
+    /// Writes a follows-type zone event to the client.
     fn write_zone_message(&mut self, message: &ZoneMessage);
 
     /// Sends full and incremental zone updates (objects, locs, events) to
@@ -4021,45 +4326,54 @@ impl EnginePlayer for ActivePlayer {
             engine_mut().flush_input_paths();
         }
 
+        // The lobby answers only its own requests; the rest need the world.
+        #[cfg(since_647)]
+        let ignored =
+            self.lobby && !matches!(prot, ClientProt::NoTimeout | ClientProt::WorldlistFetch);
+        #[cfg(before_647)]
+        let ignored = false;
+
         #[rustfmt::skip]
         let success = if malformed {
             debug!("Malformed {prot:?}: {} byte(s)", buf.len());
             self.watch.anticheat.malformed();
             false
+        } else if ignored {
+            false
         } else {
             let len = buf.len();
             let result = match prot {
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatCycleLogic1 => AnticheatCycleLogic1::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatCycleLogic2 => AnticheatCycleLogic2::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatCycleLogic3 => AnticheatCycleLogic3::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatCycleLogic4 => AnticheatCycleLogic4::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatCycleLogic5 => AnticheatCycleLogic5::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatCycleLogic6 => AnticheatCycleLogic6::decode(&mut buf, len).handle(self),
-                #[cfg(all(since_254, before_647))]
+                #[cfg(all(since_254, before_530))]
                 ClientProt::AnticheatCycleLogic7 => AnticheatCycleLogic7::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic1 => AnticheatOpLogic1::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic2 => AnticheatOpLogic2::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic3 => AnticheatOpLogic3::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic4 => AnticheatOpLogic4::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic5 => AnticheatOpLogic5::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic6 => AnticheatOpLogic6::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic7 => AnticheatOpLogic7::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic8 => AnticheatOpLogic8::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::AnticheatOpLogic9 => AnticheatOpLogic9::decode(&mut buf, len).handle(self),
                 ClientProt::ChatSetMode => ChatSetMode::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
@@ -4080,43 +4394,43 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::MapBuildComplete => MapBuildComplete::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListAdd => FriendListAdd::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListDel => FriendListDel::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::IdkSaveDesign => IdkSaveDesign::decode(&mut buf, len).handle(self),
                 #[cfg(before_647)]
                 ClientProt::IdleTimer => IdleTimer::decode(&mut buf, len).handle(self),
                 #[cfg(before_647)]
                 ClientProt::IfButton => IfButton::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton1 => IfButton1::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton2 => IfButton2::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton3 => IfButton3::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton4 => IfButton4::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton5 => IfButton5::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton6 => IfButton6::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton7 => IfButton7::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton8 => IfButton8::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton9 => IfButton9::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButton10 => IfButton10::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButtonD => IfButtonD::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::IfButtonT => IfButtonT::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::OpNpc6 => OpNpc6::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::OpLoc6 => OpLoc6::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::OpObj6 => OpObj6::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::WindowStatus => WindowStatus::decode(&mut buf, len).handle(self),
                 ClientProt::IgnoreListAdd => IgnoreListAdd::decode(&mut buf, len).handle(self),
                 ClientProt::IgnoreListDel => IgnoreListDel::decode(&mut buf, len).handle(self),
@@ -4190,43 +4504,45 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(rev = "225")]
                 ClientProt::RebuildGetMaps => RebuildGetMaps::decode(&mut buf, len).handle(self),
                 ClientProt::ResumePCountDialog => ResumePCountDialog::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ResumePStringDialog => {
                     ResumePStringDialog::decode(&mut buf, len).handle(self)
                 }
                 ClientProt::ResumePauseButton => ResumePauseButton::decode(&mut buf, len).handle(self),
                 ClientProt::SendSnapshot => SendSnapshot::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 ClientProt::TutClickSide => TutClickSide::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::EventKeyboard => EventKeyboard::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ClientDetailoptionsStatus => ClientDetailoptionsStatus::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(all(since_530, before_647))]
+                ClientProt::GameloginContinue => GameloginContinue::decode(&mut buf, len).handle(self),
+                #[cfg(all(since_647, before_742))]
                 ClientProt::WorldLatency => WorldLatency::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::MapBuildLoading => MapBuildLoading::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::TransmitvarVerifyId => TransmitvarVerifyId::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::VideoEnd => VideoEnd::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ReflectionCheckReply => ReflectionCheckReply::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::FaceSquare => FaceSquare::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::OpPlayer6 => OpPlayer6::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::OpPlayer7 => OpPlayer7::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::OpPlayer8 => OpPlayer8::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::OpPlayer9 => OpPlayer9::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::OpPlayer10 => OpPlayer10::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ResumePNameDialog => ResumePNameDialog::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ResumePObjDialog => ResumePObjDialog::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::ResumePHslDialog => ResumePHslDialog::decode(&mut buf, len).handle(self),
@@ -4234,15 +4550,15 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::ResumePClanforumqfcDialog => ResumePClanforumqfcDialog::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::MessagePrivate => MessagePrivate::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::MessageQuickchatPublic => MessageQuickchatPublic::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::MessageQuickchatPrivate => MessageQuickchatPrivate::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::FriendSetRank => FriendSetRank::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ClanJoinchatLeavechat => ClanJoinchatLeavechat::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ClanKickUser => ClanKickUser::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::ClanchannelKickUser => ClanchannelKickUser::decode(&mut buf, len).handle(self),
@@ -4250,14 +4566,20 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::WorldlistFetch => WorldlistFetch::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::ClickWorldMap => ClickWorldMap::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::ApCoordT => ApCoordT::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::SoundSongPreloaded => SoundSongPreloaded::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 ClientProt::UrlRequest => UrlRequest::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::CreateCheckName => CreateCheckName::decode(&mut buf, len).handle(self),
+                #[cfg(since_742)]
+                ClientProt::Unknown1 | ClientProt::Unknown2 | ClientProt::Unknown10 | ClientProt::Unknown14
+                | ClientProt::Unknown15 | ClientProt::Unknown29 | ClientProt::Unknown60 | ClientProt::Unknown61
+                | ClientProt::Unknown63 | ClientProt::Unknown89 | ClientProt::Unknown91 | ClientProt::Unknown92
+                | ClientProt::Unknown93 | ClientProt::Unknown97 | ClientProt::Unknown98 | ClientProt::Unknown100
+                | ClientProt::Unknown101 | ClientProt::Unknown102 => Ok(()),
             };
             match result {
                 Ok(_) => true,
@@ -4318,7 +4640,7 @@ impl EnginePlayer for ActivePlayer {
         // screen / renderer NPE on any player-model interface component).
         // The stored move type goes out from `Player::sync_move_types` on the
         // first info phase, as it does whenever it changes.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             self.player.info.masks |= PlayerInfoProt::Appearance as u16;
         }
@@ -4390,7 +4712,7 @@ impl EnginePlayer for ActivePlayer {
         self.close_modal(true)?;
         self.sync_tabs();
         self.player.inv_first_seen.clear();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.player.inv_other_first_seen.clear();
         for i in 0..self.player.stats.len() {
             self.update_stat(i);
@@ -4402,34 +4724,14 @@ impl EnginePlayer for ActivePlayer {
         Ok(())
     }
 
-    /// Dispatches a zone event message to the client by cloning and writing
-    /// the appropriate server protocol variant (ObjAdd, ObjDel, LocAddChange,
-    /// LocDel, MapAnim, etc.).
-    ///
-    /// # Arguments
-    /// * `message` - The zone event to relay to the client.
+    /// Writes a follows-type zone event to the client. Only private obj
+    /// events are follows-type; the rest go in the shared enclosed buffer.
     fn write_zone_message(&mut self, message: &ZoneMessage) {
         match message {
             ZoneMessage::ObjAdd(m) => self.write(m.clone()),
             ZoneMessage::ObjDel(m) => self.write(m.clone()),
             ZoneMessage::ObjCount(m) => self.write(m.clone()),
-            ZoneMessage::ObjReveal(m) => self.write(m.clone()),
-            ZoneMessage::LocAddChange(m) => self.write(m.clone()),
-            ZoneMessage::LocDel(m) => self.write(m.clone()),
-            ZoneMessage::LocAnim(m) => self.write(m.clone()),
-            ZoneMessage::LocMerge(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::LocPrefetch(m) => self.write(m.clone()),
-            ZoneMessage::MapAnim(m) => self.write(m.clone()),
-            ZoneMessage::MapProjAnim(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::MapProjAnimHalfsq(m) => self.write(m.clone()),
-            #[cfg(since_289)]
-            ZoneMessage::SoundArea(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::SoundVorbisArea(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::TextCoord(m) => self.write(m.clone()),
+            _ => {}
         }
     }
 
@@ -4771,7 +5073,7 @@ impl EnginePlayer for ActivePlayer {
                     self.player.jump();
                 }
                 self.cancel_input_path();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 if coord.x() >= REGION_X && from.x() < REGION_X {
                     self.player.region_entry = Some(from);
                 }

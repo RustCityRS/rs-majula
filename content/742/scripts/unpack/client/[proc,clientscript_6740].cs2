@@ -1,0 +1,13 @@
+// 6740
+[proc,clientscript_6740]
+if_settext(interface_1343:com_17, "Select a Challenge");
+if_settext(interface_1343:com_11, "Select a Challenge in the list to the left to view its details.");
+if_settext(interface_1343:com_3, "Select a Challenge.");
+if_settext(interface_1343:com_130, "You can find a Challenge in the list to the left. There are many to choose from!");
+if_setgraphic(interface_1343:com_18, "mob_cross_icon,0");
+if_setgraphic(interface_1343:com_19, 13901);
+if_sethide(interface_1343:com_19, true);
+if_sethide(interface_1343:com_16, true);
+if_sethide(interface_1343:com_25, true);
+if_sethide(interface_1343:com_24, true);
+if_settext(interface_1343:com_5, "Select a Daily Challenge to view its rewards.");

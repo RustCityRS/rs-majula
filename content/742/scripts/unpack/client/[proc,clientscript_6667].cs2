@@ -1,0 +1,17 @@
+// 6667
+[proc,clientscript_6667]
+if (%varclient_2009 > 0) {
+    if (%varclient_2009 ! 6) {
+        if_settext(interface_1332:com_25, enum(int, string, enum_6105, %varclient_2009));
+    }
+    if_setgraphic(interface_1332:com_7, enum(int, graphic, enum_6103, %varclient_2009));
+    if_setonmouserepeat(interface_1332:com_20, "aif_tooltip(interface_1332:com_30, event_com, -1, enum(int, string, enum_6106, %varclient_2009), 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1332:com_20, "deltooltip(interface_1332:com_30)");
+    if_setcolour(interface_1332:com_25, ^white);
+} else {
+    if_settext(interface_1332:com_25, "N/A");
+    if_setgraphic(interface_1332:com_7, null);
+    if_setonmouserepeat(interface_1332:com_20, null);
+    if_setonmouseleave(interface_1332:com_20, null);
+    if_setcolour(interface_1332:com_25, 0x999999);
+}

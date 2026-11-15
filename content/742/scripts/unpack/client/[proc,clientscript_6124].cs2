@@ -1,0 +1,9 @@
+// 6124
+[proc,clientscript_6124](coord $coord0, coord $coord1, int $int2, int $int3, coord $coord4, coord $coord5, int $int6, int $int7, int $int8)
+spline_new(0, 2);
+spline_new(1, 2);
+spline_addpoint(0, 0, $coord0, $int2, $coord0, $int2, 0);
+spline_addpoint(1, 0, $coord4, $int6, $coord4, $int6, 0);
+spline_addpoint(0, 1, $coord1, $int3, $coord1, $int3, 0);
+spline_addpoint(1, 1, $coord5, $int7, $coord5, $int7, 0);
+cam_movealong(0, 0, $int8, $int8, 1, 0);

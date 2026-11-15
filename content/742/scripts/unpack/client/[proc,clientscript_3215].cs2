@@ -1,0 +1,35 @@
+// 3215
+[proc,clientscript_3215](int $key0, char $char1)
+def_string $string0 = if_gettext(lobbyscreen:com_306);
+def_string $string1 = $string0;
+def_string $string2 = "";
+if ($key0 = ^key_left) {
+    if (%varclient_1660 > 0) {
+        %varclient_1660 = calc(%varclient_1660 - 1);
+    }
+} else if ($key0 = ^key_right) {
+    if (%varclient_1660 < string_length($string0)) {
+        %varclient_1660 = calc(%varclient_1660 + 1);
+    }
+} else if ($key0 = ^key_home) {
+    %varclient_1660 = 0;
+} else if ($key0 = ^key_end) {
+    %varclient_1660 = string_length($string0);
+} else if ($key0 = ^key_v & keyheld_ctrl = true) {
+    $string2 = getclipboard;
+    $string2 = substring($string2, 0, min(calc(320 - string_length($string0)), string_length($string2)));
+    $string1 = substring($string0, 0, %varclient_1660);
+    $string1 = append($string1, $string2);
+    $string1 = append($string1, substring($string0, %varclient_1660, string_length($string0)));
+    %varclient_1660 = calc(%varclient_1660 + string_length($string2));
+} else {
+    $string1, %varclient_1660 = ~script802(%varclient_1660, $string0, 3, $key0, $char1);
+}
+if_settext(lobbyscreen:com_306, $string1);
+def_int $int2 = stringwidth(substring($string1, 0, %varclient_1660), op1028(lobbyscreen:com_306));
+def_int $int3 = 4;
+if (calc($int2 + 4) > if_getwidth(lobbyscreen:com_305)) {
+    $int3 = calc(-4 - ($int2 - if_getwidth(lobbyscreen:com_305)));
+}
+if_setposition(lobbyscreen:com_306, $int3, if_gety(lobbyscreen:com_306), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(lobbyscreen:com_307, ~script1551(%varclient_1660, $string1, op1028(lobbyscreen:com_306), $int3), if_gety(lobbyscreen:com_307), ^setpos_abs_left, ^setpos_abs_top);

@@ -1,0 +1,11 @@
+// 1188
+[proc,script1188]
+if (getwindowmode >= 2) {
+    if_setgraphic(chattop:chat_graphic, 8489);
+    if_setalpha(chattop:chat_graphic, true);
+    if_sethide(chattop:chat_graphic, false);
+    cc_deleteall(chattop:chat_border);
+    ~clientscript_5392(chattop:chat_border, 0, 0);
+    ~chatbox_resize_reset(false);
+    if_sethide(toplevel_fullscreen:com_90, true);
+}

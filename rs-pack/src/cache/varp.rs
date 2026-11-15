@@ -3,11 +3,12 @@ use super::provider::{CacheType, TypeProvider};
 pub use crate::types::VarPlayerScope;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type VarPlayerTypeProvider = TypeProvider<VarPlayerType>;
 
 pub struct VarPlayerType {
-    pub id: u16,
+    pub id: TypeId,
     pub scope: VarPlayerScope,
     pub var_type: ScriptVarType,
     pub protect: bool,
@@ -17,7 +18,7 @@ pub struct VarPlayerType {
 }
 
 pub struct VarPlayerTypeRaw {
-    pub id: u16,
+    pub id: TypeId,
     pub scope: VarPlayerScope,
     pub var_type: ScriptVarType,
     pub protect: bool,
@@ -29,7 +30,7 @@ pub struct VarPlayerTypeRaw {
 impl CacheType for VarPlayerTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             scope: VarPlayerScope::Temp,

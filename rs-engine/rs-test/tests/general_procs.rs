@@ -22,6 +22,7 @@ use rs_entity::player::StaffModLevel;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 /// Lumbridge, east of the castle.
 const HOME: (u16, u16) = (3222, 3218);
@@ -132,22 +133,22 @@ fn is_open(engine: &Engine, client: &HarnessClient, iface: u16) -> bool {
 }
 
 fn varp(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
-    let id = *engine
+    let id = engine
         .cache
         .varps
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("no varp {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no varp {name}"))
+        .id;
     engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(id)
+        .get(id.g2())
         .as_int()
 }
 
 fn inv_total(engine: &Engine, client: &HarnessClient, obj: u16) -> u32 {
-    let id = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let id = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let inv = engine
         .harness_player(client.pid)
         .unwrap()
@@ -156,7 +157,7 @@ fn inv_total(engine: &Engine, client: &HarnessClient, obj: u16) -> u32 {
         .expect("inv");
     (0..inv.capacity)
         .filter_map(|slot| inv.get(slot as u16))
-        .filter(|i| i.obj == obj)
+        .filter(|i| i.obj == TypeId::new(obj))
         .map(|i| i.num)
         .sum()
 }
@@ -191,13 +192,18 @@ fn quest_complete2_lists_the_rewards_on_2011_s_scroll() {
 #[test]
 fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
     runner::on_loaded_engine(|engine| {
-        let lamp = *engine.cache.objs.debugnames.get("macro_genilamp").unwrap();
+        let lamp = engine
+            .cache
+            .objs
+            .get_by_debugname("macro_genilamp")
+            .unwrap()
+            .id;
         let mut client = developer(engine, "lamprub");
         cheat(&mut client, "~give macro_genilamp 1");
         ticks(engine, &mut client, 2);
-        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp given");
+        assert_eq!(inv_total(engine, &client, lamp.g2()), 1, "the lamp given");
 
-        button1(&mut client, BACKPACK, 0, lamp as i32);
+        button1(&mut client, BACKPACK, 0, lamp.int());
         ticks(engine, &mut client, 2);
         assert!(is_open(engine, &client, LAMP), "Rub opens 2011's lamp");
         assert_eq!(varp(engine, &client, "if1"), 0);
@@ -229,7 +235,11 @@ fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
             engine.harness_player(client.pid).unwrap().stats.xp[ATTACK] - xp,
             100
         );
-        assert_eq!(inv_total(engine, &client, lamp), 0, "the lamp is used up");
+        assert_eq!(
+            inv_total(engine, &client, lamp.g2()),
+            0,
+            "the lamp is used up"
+        );
         assert_eq!(varp(engine, &client, "if1"), 0);
         assert!(!is_open(engine, &client, LAMP), "the lamp closes");
         assert!(
@@ -250,9 +260,9 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
         let mut client = developer(engine, "lampmyst");
         cheat(&mut client, "~give law_reward_lamp 1");
         ticks(engine, &mut client, 2);
-        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp given");
+        assert_eq!(inv_total(engine, &client, lamp.g2()), 1, "the lamp given");
 
-        button1(&mut client, BACKPACK, 0, lamp as i32);
+        button1(&mut client, BACKPACK, 0, lamp.int());
         ticks(engine, &mut client, 2);
         assert!(is_open(engine, &client, LAMP), "Rub opens 2011's lamp");
 
@@ -270,7 +280,7 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
             engine.harness_player(client.pid).unwrap().stats.xp[ATTACK],
             xp
         );
-        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp is kept");
+        assert_eq!(inv_total(engine, &client, lamp.g2()), 1, "the lamp is kept");
 
         // At level 30: 10,000 xp (the engine's tenths), and the lamp is used up.
         {
@@ -289,7 +299,11 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
             engine.harness_player(client.pid).unwrap().stats.xp[ATTACK] - xp,
             100_000
         );
-        assert_eq!(inv_total(engine, &client, lamp), 0, "the lamp is used up");
+        assert_eq!(
+            inv_total(engine, &client, lamp.g2()),
+            0,
+            "the lamp is used up"
+        );
         assert!(!is_open(engine, &client, LAMP), "the lamp closes");
         assert!(
             texts
@@ -334,14 +348,14 @@ fn rub_and_go(
     name: &str,
     multi: u16,
     option: u16,
-) -> ((u16, u16), Option<u16>, Vec<String>) {
-    let obj = *engine.cache.objs.debugnames.get(name).unwrap();
+) -> ((u16, u16), Option<TypeId>, Vec<String>) {
+    let obj = engine.cache.objs.get_by_debugname(name).unwrap().id;
     engine.harness_telejump(client.pid, HOME.0, 0, HOME.1);
     cheat(client, "~clearinv inv");
     ticks(engine, client, 2);
     cheat(client, &format!("~give {name} 1"));
     ticks(engine, client, 2);
-    rub(client, obj);
+    rub(client, obj.g2());
     let mut said = messages(&ticks(engine, client, 3));
     assert!(
         is_open(engine, client, multi),
@@ -349,7 +363,7 @@ fn rub_and_go(
     );
     resume(client, com(multi, option));
     said.extend(messages(&ticks(engine, client, 8)));
-    let id = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let id = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let left = engine
         .harness_player(client.pid)
         .unwrap()
@@ -373,12 +387,12 @@ fn near(at: (u16, u16), x: (u16, u16), z: (u16, u16)) -> bool {
 fn teleport_jewellery_goes_to_2011_s_places() {
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "jeweller");
-        let seven = *engine
+        let seven = engine
             .cache
             .objs
-            .debugnames
-            .get("ring_of_dueling_7")
-            .unwrap();
+            .get_by_debugname("ring_of_dueling_7")
+            .unwrap()
+            .id;
         let (at, left, said) = rub_and_go(engine, &mut client, "ring_of_dueling_8", 234, 4);
         assert!(
             near(at, (2412, 2415), (2847, 2849)),
@@ -390,12 +404,12 @@ fn teleport_jewellery_goes_to_2011_s_places() {
             "{said:?}"
         );
 
-        let seven = *engine
+        let seven = engine
             .cache
             .objs
-            .debugnames
-            .get("necklace_of_minigames_7")
-            .unwrap();
+            .get_by_debugname("necklace_of_minigames_7")
+            .unwrap()
+            .id;
         let (at, left, said) = rub_and_go(engine, &mut client, "necklace_of_minigames_8", 230, 3);
         assert!(
             near(at, (2519, 2521), (3572, 3574)),
@@ -403,12 +417,12 @@ fn teleport_jewellery_goes_to_2011_s_places() {
         );
         assert_eq!(left, Some(seven));
 
-        let three = *engine
+        let three = engine
             .cache
             .objs
-            .debugnames
-            .get("amulet_of_glory_3")
-            .unwrap();
+            .get_by_debugname("amulet_of_glory_3")
+            .unwrap()
+            .id;
         let (at, left, said) = rub_and_go(engine, &mut client, "amulet_of_glory_4", 234, 2);
         assert!(
             near(at, (3087, 3089), (3496, 3498)),
@@ -491,7 +505,12 @@ fn a_289_book_turns_its_pages_on_2011_s_book() {
 #[test]
 fn taking_the_temple_s_wine_burns_the_thief() {
     runner::on_loaded_engine(|engine| {
-        let wine = *engine.cache.objs.debugnames.get("wine_of_zamorak").unwrap();
+        let wine = engine
+            .cache
+            .objs
+            .get_by_debugname("wine_of_zamorak")
+            .unwrap()
+            .id;
         let mut client = developer(engine, "winethief");
         engine.harness_add_obj(2930, 0, 3515, wine, 1);
         // West of it: east of it, past the wall, is a 2-wide loc (loc_15573).
@@ -499,7 +518,7 @@ fn taking_the_temple_s_wine_burns_the_thief() {
         ticks(engine, &mut client, 2);
         let life = life_points(engine, &client);
         let mut p = ClientPacket::new();
-        p.p2_alt1(wine as i32).p2_alt2(3515).p1(0).p2(2930);
+        p.p2_alt1(wine.int()).p2_alt2(3515).p1(0).p2(2930);
         client.send(ClientProt::OpObj3, &p.finish());
         let said = messages(&ticks(engine, &mut client, 6));
         assert!(

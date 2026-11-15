@@ -1,0 +1,57 @@
+// 4831
+[proc,clientscript_4831](component $component0)
+if (if_gethide($component0) = true) {
+    return;
+}
+~clientscript_4834($component0);
+switch_int (%varplayerbit_9558) {
+    case 1 :
+        switch_component ($component0) {
+            case interface_1258:com_428, interface_1258:com_360, interface_1258:com_286 :
+                if (%varplayerbit_9567 > 0 & cc_find($component0, calc(%varplayerbit_9567 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+            case interface_1258:com_416, interface_1258:com_346, interface_1258:com_270 :
+                if (%varplayerbit_9568 > 0 & cc_find($component0, calc(%varplayerbit_9568 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+            case interface_1258:com_404, interface_1258:com_332, interface_1258:com_254 :
+                if (%varplayerbit_9569 > 0 & cc_find($component0, calc(%varplayerbit_9569 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+        }
+    case 2 :
+        switch_component ($component0) {
+            case interface_1258:com_428, interface_1258:com_360, interface_1258:com_286 :
+                if (%varplayerbit_9576 > 0 & cc_find($component0, calc(%varplayerbit_9576 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+            case interface_1258:com_416, interface_1258:com_346, interface_1258:com_270 :
+                if (%varplayerbit_9577 > 0 & cc_find($component0, calc(%varplayerbit_9577 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+            case interface_1258:com_404, interface_1258:com_332, interface_1258:com_254 :
+                if (%varplayerbit_9578 > 0 & cc_find($component0, calc(%varplayerbit_9578 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+        }
+    case 3 :
+        switch_component ($component0) {
+            case interface_1258:com_428, interface_1258:com_360, interface_1258:com_286 :
+                if (%varplayerbit_9585 > 0 & cc_find($component0, calc(%varplayerbit_9585 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+            case interface_1258:com_416, interface_1258:com_346, interface_1258:com_270 :
+                if (%varplayerbit_9586 > 0 & cc_find($component0, calc(%varplayerbit_9586 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+            case interface_1258:com_404, interface_1258:com_332, interface_1258:com_254 :
+                if (%varplayerbit_9587 > 0 & cc_find($component0, calc(%varplayerbit_9587 - 1)) = true) {
+                    cc_setgraphic("aif_checkbox_large,0");
+                }
+        }
+}
+~clientscript_4838;
+~clientscript_4810;
+~clientscript_4840;
+~clientscript_4814;

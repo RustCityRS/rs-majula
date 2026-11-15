@@ -1,0 +1,6 @@
+// 771
+[proc,clientscript_771](obj $obj0)(int)
+if ($obj0 = village_snake_hide) {
+    return(calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)));
+}
+return(~inv_total_available(inv, $obj0));

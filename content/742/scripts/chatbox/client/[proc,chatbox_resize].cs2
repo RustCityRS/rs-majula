@@ -1,0 +1,33 @@
+// 1651
+[proc,chatbox_resize](int $int0, boolean $boolean1)
+def_component $component2 = toplevel_fullscreen:com_93;
+def_component $component3 = toplevel_fullscreen:com_65;
+def_component $component4 = toplevel_fullscreen:com_90;
+def_component $component5 = toplevel_fullscreen:chattop;
+def_int $int6 = if_getheight($component2);
+def_int $int7 = if_gety($component3);
+def_int $int8 = if_getheight($component4);
+if (~script1653 = true) {
+    $int0 = calc($int6 - 172);
+    if_sethide($component4, true);
+} else if (%chat_view ! -1) {
+    if_sethide($component4, false);
+}
+def_int $int9 = calc($int6 - $int7 - $int0 - $int8 - 26);
+if ($boolean1 = true) {
+    $int9 = calc($int9 - $int9 % 14 + 1);
+}
+if ($int9 < 142) {
+    $int9 = 142;
+}
+%chat_lastscrollpos = calc(%chat_lastscrollpos - ($int9 + 2 - if_getheight($component5)));
+if_setsize($component5, 519, calc($int9 + 2), ^setsize_abs, ^setsize_abs);
+if_setposition($component5, 0, 26, ^setpos_abs_left, ^setpos_abs_bottom);
+if ($boolean1 = true) {
+    %chatbox_resize = $int9;
+}
+def_int $int10 = calc(if_gety($component5) - 2 - $int8 - $int7);
+$int10 = calc($int10 + 4);
+if_setposition($component4, 0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(toplevel_fullscreen:pmchat, 0, calc(if_gety($component5) - 88), ^setpos_abs_left, ^setpos_abs_top);
+~rebuildchatbox;

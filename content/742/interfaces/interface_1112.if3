@@ -1,0 +1,101 @@
+// 1112:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_5090(event_com)
+
+// 1112:1
+[com_1]
+type=layer
+x=5
+y=5
+width=100
+height=100
+xmode=abs_right
+layer=com_0
+
+// 1112:2
+[com_2]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+
+// 1112:3
+[com_3]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic=window_texture_2
+tiling=yes
+trans=150
+
+// 1112:4
+[com_4]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+
+// 1112:5
+[com_5]
+type=layer
+height=45
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=clanwars_caller_init(event_com, interface_1112:com_7, interface_1112:com_8)
+
+// 1112:6
+[com_6]
+type=graphic
+width=13
+height=13
+layer=com_5
+graphic="coppa_mouth_button,2"
+transmitop=1,2
+opbase=<ff9040>Caller</col>
+op1=Set
+op2=Clear
+onop=meslayer_mode12(event_op)
+
+// 1112:7
+[com_7]
+type=text
+x=15
+width=100
+height=15
+layer=com_5
+textfont=b12_full
+textshadow=yes
+colour=0x00ffff
+transmitop=1,2
+opbase=<ff9040>Caller</col>
+op1=Set
+op2=Clear
+onop=meslayer_mode12(event_op)
+
+// 1112:8
+[com_8]
+type=text
+height=15
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_5
+textfont=p12_full
+textshadow=yes
+colour=0x00ffff

@@ -1,0 +1,8 @@
+// 1110
+[clientscript,bankpin_button](int $int0)
+if ($int0 ! 1) {
+    return;
+}
+%bankpin_counter = min(calc(%bankpin_counter + 1), 3);
+sound_synth(pin_beep, 1, 0);
+~bankpin_shuffle(1);

@@ -1,0 +1,6 @@
+// 5316
+[proc,clientscript_5316](component $component0, int $int1, int $int2)
+if ($int1 >= 0 & $int1 < 40 & $int2 >= 0 & $int2 < 40 & cc_find($component0, $int1) = true & .cc_find($component0, $int2) = true) {
+    cc_setposition(0, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setposition(0, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}

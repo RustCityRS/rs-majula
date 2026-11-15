@@ -1,0 +1,37 @@
+// 289's snelms (skill_crafting/scripts/snelm/snelm.rs2), their objs as 2011
+// names them (configs/snelm/snelm.obj). The chisel's sound is void-634's
+// cut_gem (synth 2586, as gem cutting has it). snelm_reduction serves Mort
+// Myre's snails, which wait for their port.
+[opheldu,_category_3]
+if(last_useitem = chisel) @craft_snelm(last_item);
+~displaymessage(^dm_default);
+
+// weakqueued in osrs
+[label,craft_snelm](obj $shell)
+if(stat(crafting) < 15) {
+    mes("You need a Crafting level of 15 to craft the shell into a helmet."); // osrs
+    return;
+}
+inv_del(inv, $shell, 1);
+inv_add(inv, oc_param($shell, next_obj_stage), 1);
+mes("You chisel the shell into a helmet.");
+anim(human_snailshellcutting, 0);
+// 289 pays with stat_advance; 2011's xp counter counts what ~givexp pays
+// (player/scripts/xp.rs2).
+~givexp(crafting, 325);
+sound_synth(chisel, 1, 0);
+
+[proc,snelm_reduction](int $damage)(int)
+def_obj $head = inv_getobj(worn, ^wearpos_hat);
+if($head = null) {
+    return ($damage);
+}
+def_int $reduction = 0;
+if($head = blood_n_tar_snelm | $head = snelm_point_red+black | $head = snelm_point_blue) {
+    $reduction = 12;
+} else if($head = snelm_round_blue | $head = snelm_round_orange | $head = snelm_point_yellow) {
+    $reduction = 8;
+} else if($head = snelm_round_swamp | $head = snelm_round_swamp | $head = snelm_round_yellow) {
+    $reduction = 4;
+}
+return (max(0, sub($damage, $reduction)));

@@ -1,0 +1,4 @@
+// 3052
+[proc,lobbyscreen_pane_friendslist_chat_load](component $component0)
+if_setonfriendtransmit($component0, "lobbyscreen_pane_friendslist_chat_build($component0)");
+~lobbyscreen_pane_friendslist_chat_build($component0);

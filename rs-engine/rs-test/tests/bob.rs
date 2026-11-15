@@ -5,6 +5,7 @@
 
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
+use rs_ver::TypeId;
 
 const BOB: u16 = 519;
 
@@ -21,7 +22,7 @@ fn bob_answers_289_s_quest_question() {
             .npcs
             .iter()
             .flatten()
-            .find(|n| n.npc.uid.id() == BOB)
+            .find(|n| n.npc.uid.id() == TypeId::new(BOB))
             .map(|n| {
                 (
                     n.npc.uid.nid(),

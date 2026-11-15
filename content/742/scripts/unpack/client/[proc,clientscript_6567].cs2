@@ -1,0 +1,24 @@
+// 6567
+[proc,clientscript_6567]
+if (%varclient_1781 < 0 | %varclient_1781 >= 13) {
+    return;
+}
+def_graphic $graphic0 = null;
+def_struct $struct1 = ~clientscript_5936(%varclient_1781);
+def_int $int2 = struct_param($struct1, param_2268);
+def_obj $obj3 = inv_getobj(inv_665, %varclient_1781);
+def_int $int4 = inv_getnum(inv_665, %varclient_1781);
+if (%varplayerbit_10861 > 0) {
+    $graphic0 = ~clientscript_5941(%varclient_1781);
+    if_setgraphic(interface_1253:com_209, ~clientscript_6267($graphic0));
+    if_setgraphic(interface_1253:com_35, ~clientscript_6267($graphic0));
+    if_settext(interface_1253:com_169, ~clientscript_5909($int2, %varplayerbit_10865, $obj3, $int4));
+} else {
+    if_setgraphic(interface_1253:com_209, null);
+    if_setgraphic(interface_1253:com_35, null);
+    if_settext(interface_1253:com_169, "");
+}
+if_settext(interface_1253:com_168, "Spins remaining: <tostring(calc(%varplayerbit_10862 + %varplayerbit_11026 + %varclient_1800))>");
+~clientscript_6670($int2, $obj3, $int4);
+~clientscript_5910($int2);
+~clientscript_1968;

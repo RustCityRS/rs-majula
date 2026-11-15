@@ -1,4 +1,4 @@
-#[cfg(any(since_647, test))]
+#[cfg(any(since_530, test))]
 use anyhow::bail;
 use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
@@ -36,7 +36,7 @@ impl PrivatePack {
         &self.dir
     }
 
-    #[cfg(any(since_647, test))]
+    #[cfg(any(since_530, test))]
     pub fn check_unchanged(&self, pack: &Path, name: &str) -> Result<()> {
         let original = fs::read_to_string(pack.join(name))?;
         let compiled = fs::read_to_string(self.dir.join(name))?;
@@ -53,7 +53,7 @@ impl PrivatePack {
         Ok(())
     }
 
-    #[cfg(any(since_647, test))]
+    #[cfg(any(since_530, test))]
     pub fn pin(&self, pack: &Path, name: &str, verify: bool) -> Result<()> {
         if verify {
             return self.check_unchanged(pack, name);

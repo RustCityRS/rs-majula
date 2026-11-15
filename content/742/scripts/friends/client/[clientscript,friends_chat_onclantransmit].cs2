@@ -1,0 +1,7 @@
+// 203
+[clientscript,friends_chat_onclantransmit](component $component0)
+if (minimenuopen(friendschat:clanlist, -1) = true) {
+    if_setontimer(friendschat:clanlist, "friends_chat_minimenu_timer");
+    return;
+}
+~script518;

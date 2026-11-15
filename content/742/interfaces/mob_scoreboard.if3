@@ -1,0 +1,311 @@
+// 851:0
+[model]
+type=model
+width=483
+height=322
+xmode=abs_centre
+ymode=abs_centre
+model=model_47690
+modelorigin=0,170
+modelzoom=416
+
+// 851:1
+[mob_name1]
+type=text
+x=63
+y=12
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:2
+[mob_name2]
+type=text
+x=63
+y=34
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:3
+[mob_name3]
+type=text
+x=63
+y=58
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:4
+[mob_name4]
+type=text
+x=63
+y=80
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:5
+[mob_name5]
+type=text
+x=63
+y=102
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:6
+[mob_name6]
+type=text
+x=64
+y=124
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:7
+[mob_name7]
+type=text
+x=64
+y=147
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:8
+[mob_name8]
+type=text
+x=64
+y=168
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:9
+[mob_name9]
+type=text
+x=64
+y=190
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:10
+[mob_name10]
+type=text
+x=64
+y=212
+width=181
+height=14
+layer=content_layer
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:11
+[last_ten]
+type=text
+x=36
+y=307
+width=445
+height=16
+textfont=p12_full
+text=Rank scoreboard of top 10 players who have played recently.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 851:12
+[title]
+type=text
+y=54
+width=283
+height=19
+xmode=abs_centre
+textfont=b12_full
+text=Mobilising Armies Scoreboard
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 851:13
+[content_layer]
+type=layer
+x=31
+y=75
+width=437
+height=240
+scrollheight=602
+
+// 851:14
+[mob_score1]
+type=text
+x=251
+y=12
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:15
+[mob_score2]
+type=text
+x=251
+y=34
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:16
+[mob_score3]
+type=text
+x=251
+y=58
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:17
+[mob_score4]
+type=text
+x=251
+y=80
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:18
+[mob_score5]
+type=text
+x=251
+y=102
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:19
+[mob_score6]
+type=text
+x=252
+y=124
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:20
+[mob_score7]
+type=text
+x=252
+y=147
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:21
+[mob_score8]
+type=text
+x=252
+y=168
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:22
+[mob_score9]
+type=text
+x=252
+y=190
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:23
+[mob_score10]
+type=text
+x=252
+y=212
+width=80
+height=14
+layer=content_layer
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:24
+[close_button]
+type=graphic
+x=380
+y=49
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

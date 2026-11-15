@@ -1,0 +1,10 @@
+// 836
+[proc,clientscript_836]
+if (%music_v3_protect = 1 | %cutscene_status = 1) {
+    return;
+}
+if (%musicloop = 1) {
+    ~addtooltip_action(music_v3:com_11, music_v3:music_tooltip_layer, "Track loop on.", 25, 189);
+} else {
+    ~addtooltip_action(music_v3:com_11, music_v3:music_tooltip_layer, "Track loop off.", 25, 189);
+}

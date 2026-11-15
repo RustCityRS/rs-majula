@@ -1,0 +1,9 @@
+// 2001
+[proc,clientscript_2001](obj $obj0)(string)
+def_int $int1 = %varclient_1878;
+def_int $int2 = calc($int1 / 1000);
+$int1 = calc($int1 - $int2 * 1000);
+if ($int1 < 0) {
+    $int1 = calc(0 - $int1);
+}
+return("<tostring($int2)>.<tostring(calc($int1 / 100))>kg");

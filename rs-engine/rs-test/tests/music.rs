@@ -77,12 +77,13 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16,
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine
+    engine
         .cache
         .varps
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no varp {name}"))
+        .id
+        .g2()
 }
 
 fn unlocked(engine: &Engine, pid: u16, track: i32) -> bool {

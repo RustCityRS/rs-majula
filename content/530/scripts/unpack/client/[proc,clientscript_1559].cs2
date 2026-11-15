@@ -1,0 +1,8 @@
+// 1559
+[proc,clientscript_1559]
+~v2_stone_button_in_filled_proc(interface_771:com_40);
+if_setonmouseleave(interface_771:com_40, "deltooltip(interface_771:com_399)");
+if_setonmouseover(interface_771:com_37, null);
+if_setonmouseleave(interface_771:com_37, "v2_stone_button_filled_deltooltip(interface_771:com_399, event_com)");
+if_setonmouseover(interface_771:com_37, "v2_stone_button_out_filled(event_com)");
+~clientscript_680(interface_771:com_37);

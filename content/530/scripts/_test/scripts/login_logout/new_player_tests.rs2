@@ -1,0 +1,36 @@
+#testscript
+
+// A new character (setup_player's) logs in to Lumbridge on the design screen (interface 771,
+// login_logout/scripts/new_player.rs2), a main modal: while it is open the player is busy, runs
+// no normal queue, and p_finduid cannot take the player back after a tick. Tests that need the
+// player free shut it as a finished character would never see it: %tutorial at 1000 first, so
+// the close gives no starter kit.
+[proc,test_skip_design]
+%tutorial = 1000;
+if_close;
+
+[label,test_a_new_character_starts_in_lumbridge_on_the_design_screen]
+setup_player("test_player");
+assert_eq(coordx(coord), 3222);
+assert_eq(coordz(coord), 3218);
+assert_lt(%tutorial, 1000);
+assert_true(busy);
+
+// Shut without confirming, the screen finishes the character: Tutorial Island's leaving kit.
+[label,test_shutting_the_design_screen_gives_the_starter_kit]
+def_player_uid $uid = setup_player("test_player");
+if_close;
+test_tick(2);
+assert_true(p_finduid($uid));
+assert_eq(%tutorial, 1000);
+assert_eq(inv_total(inv, bronze_axe), 1);
+assert_eq(inv_total(inv, bronze_arrow), 25);
+assert_eq(inv_total(bank, coins), 25);
+
+[label,test_skipping_the_design_screen_gives_no_kit]
+def_player_uid $uid = setup_player("test_player");
+~test_skip_design;
+assert_false(busy);
+test_tick(2);
+assert_true(p_finduid($uid));
+assert_eq(inv_total(inv, bronze_axe), 0);

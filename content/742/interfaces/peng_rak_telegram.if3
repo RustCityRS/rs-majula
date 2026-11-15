@@ -1,0 +1,196 @@
+// 700:0
+[com_0]
+type=model
+x=14
+y=-40
+width=468
+height=371
+layer=content_layer
+model=model_46962
+modelorigin=-5,8
+modelangle=481,0,0
+modelzoom=851
+
+// 700:1
+[wom1]
+type=text
+x=98
+y=140
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+text=9 MO x 64 D4
+colour=0x6a542e
+
+// 700:2
+[wom2]
+type=text
+x=98
+y=156
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+colour=0x6a542e
+
+// 700:3
+[wom3]
+type=text
+x=98
+y=172
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+text=Naval
+colour=0x6a542e
+
+// 700:4
+[wom4]
+type=text
+x=98
+y=188
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+colour=0x6a542e
+
+// 700:5
+[wom5]
+type=text
+x=98
+y=204
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+text=HQ
+colour=0x6a542e
+
+// 700:6
+[wom6]
+type=text
+x=98
+y=220
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+text=658: Latest transmission; Heading south after recent
+colour=0x6a542e
+
+// 700:7
+[wom7]
+type=text
+x=98
+y=236
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+text=sighting; Communications suspended; Near Yanille;
+colour=0x6a542e
+
+// 700:8
+[wom8]
+type=text
+x=98
+y=252
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+colour=0x6a542e
+
+// 700:9
+[wom9]
+type=text
+x=98
+y=268
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+colour=0x6a542e
+
+// 700:10
+[wom10]
+type=text
+x=98
+y=284
+width=335
+height=17
+layer=content_layer
+textfont=p12_full
+text=Fin
+colour=0x6a542e
+
+// 700:11
+[com_11]
+type=text
+x=133
+y=90
+width=32
+height=32
+layer=content_layer
+textfont=welcome_font_small
+text=KGP 
+textshadow=yes
+colour=0x6a542e
+
+// 700:12
+[com_12]
+type=text
+x=185
+y=22
+width=273
+height=97
+layer=content_layer
+textfont=welcome_font_small
+text=KGP Bureau of Intelligence and Communication
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x6a542e
+transmitop=10
+op10= 
+
+// 700:13
+[com_13]
+type=graphic
+x=435
+y=26
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 700:14
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 700:15
+[com_15]
+type=model
+x=7
+y=-34
+width=443
+height=324
+model=model_46963
+modelorigin=-3,-18
+modelangle=481,0,0
+modelzoom=851
+transmitop=10
+op10= 

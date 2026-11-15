@@ -1,0 +1,16 @@
+// 5309
+[proc,clientscript_5309](int $int0)
+def_graphic $graphic1 = 7287;
+def_int $int2 = 7706;
+def_int $int3 = 7289;
+def_int $int4 = 0;
+while ($int4 < enum_getoutputcount(enum_840)) {
+    if (cc_find(interface_823:com_3, $int4) = true) {
+        if ($int4 ! $int0) {
+            cc_setgraphic($graphic1);
+        } else {
+            cc_setgraphic($graphic1);
+        }
+    }
+    $int4 = calc($int4 + 1);
+}

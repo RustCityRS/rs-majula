@@ -1,0 +1,12 @@
+// 5876
+[proc,clientscript_5876](int $int0)(obj, int)
+switch_int ($int0) {
+    case 1 :
+        return(coins, 50);
+    case 2 :
+        return(coins, 10000);
+    case 3 :
+        return(coins, 10000000);
+    case 4 :
+        return(double_spin_ticket, 1);
+}

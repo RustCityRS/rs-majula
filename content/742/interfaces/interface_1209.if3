@@ -1,0 +1,285 @@
+// 1209:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 1209:1
+[com_1]
+type=layer
+x=7
+y=23
+width=221
+height=34
+onvarctransmit=clientscript_5618{varclient_1751}
+
+// 1209:2
+[com_2]
+type=graphic
+x=167
+y=662
+width=15989
+height=15080
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_1
+graphic=graphic_8489
+
+// 1209:3
+[com_3]
+type=layer
+x=7
+y=7
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_1
+
+// 1209:4
+[com_4]
+type=graphic
+x=2
+y=2
+width=16056
+height=15073
+widthmode=proportion
+heightmode=proportion
+layer=com_3
+graphic=background_texture
+trans=91
+
+// 1209:5
+[com_5]
+type=graphic
+width=10
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1209:6
+[com_6]
+type=graphic
+width=10
+height=16391
+heightmode=proportion
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1209:7
+[com_7]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1209:8
+[com_8]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,0"
+vflip=yes
+
+// 1209:9
+[com_9]
+type=graphic
+width=10
+height=10
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1209:10
+[com_10]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1209:11
+[com_11]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1209:12
+[com_12]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1209:13
+[com_13]
+type=layer
+x=681
+y=7235
+width=14865
+height=7336
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_1
+onvartransmit=clientscript_5616{varplayer_2472}
+
+// 1209:14
+[com_14]
+type=graphic
+x=219
+y=2241
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_13
+graphic=background_texture
+trans=91
+
+// 1209:15
+[com_15]
+type=graphic
+x=1
+y=2
+width=16391
+height=13926
+widthmode=proportion
+heightmode=proportion
+layer=com_13
+graphic=rand_grad_02
+
+// 1209:16
+[com_16]
+type=layer
+width=16656
+height=18318
+widthmode=proportion
+heightmode=proportion
+layer=com_13
+
+// 1209:17
+[com_17]
+type=graphic
+width=10
+height=16391
+heightmode=proportion
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1209:18
+[com_18]
+type=graphic
+width=16056
+height=10
+widthmode=proportion
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1209:19
+[com_19]
+type=graphic
+width=16056
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,0"
+vflip=yes
+
+// 1209:20
+[com_20]
+type=graphic
+x=1
+width=10
+height=16391
+heightmode=proportion
+xmode=abs_right
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1209:21
+[com_21]
+type=graphic
+width=10
+height=10
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1209:22
+[com_22]
+type=graphic
+x=2
+width=10
+height=10
+xmode=abs_right
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1209:23
+[com_23]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1209:24
+[com_24]
+type=graphic
+x=2
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1209:25
+[com_25]
+type=text
+x=1
+y=1934
+width=15100
+height=3887
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=proportion_top
+layer=com_1
+textfont=verdana_11pt_regular
+text=Time remaining
+textalignh=centre
+textalignv=centre
+textshadow=yes

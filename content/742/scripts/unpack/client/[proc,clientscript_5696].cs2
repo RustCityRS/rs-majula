@@ -1,0 +1,11 @@
+// 5696
+[proc,clientscript_5696](int $int0)
+if (cc_find(interface_1218:com_30, $int0) = true) {
+    cc_setcolour(^white);
+    if (cc_getgraphic = 9309) {
+        cc_setgraphic(9308);
+    } else {
+        cc_setgraphic(9310);
+    }
+}
+if_sethide(interface_1218:com_80, true);

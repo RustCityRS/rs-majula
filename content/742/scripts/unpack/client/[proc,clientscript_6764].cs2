@@ -1,0 +1,30 @@
+// 6764
+[proc,clientscript_6764](int $int0)(int)
+if (comlevel_active < struct_param(enum(int, struct, enum_5513, $int0), param_2236)) {
+    return(0);
+}
+switch_int ($int0) {
+    case 10 :
+        if (stat_base(strength) < 60 & stat_base(agility) < 60 | comlevel_active < 70) {
+            return(0);
+        }
+    case 11 :
+        if (stat_base(strength) < 60 & stat_base(agility) < 60 | comlevel_active < 70) {
+            return(0);
+        }
+    case 12 :
+        if (stat_base(strength) < 60 & stat_base(agility) < 60 | comlevel_active < 70) {
+            return(0);
+        }
+    case 13 :
+        if (stat_base(strength) < 60 & stat_base(agility) < 60 | comlevel_active < 70) {
+            return(0);
+        }
+    case 19 :
+        if (stat_base(strength) < 70 & stat_base(agility) < 70 & stat_base(ranged) < 70 & stat_base(hitpoints) < 70 | comlevel_active < 110) {
+            return(0);
+        }
+    case default :
+        return(1);
+}
+return(1);

@@ -1,0 +1,145 @@
+// 6757
+[proc,clientscript_6757]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = struct_param(struct_11515, param_1268);
+if ($int2 = 4092) {
+    return;
+}
+def_struct $struct3 = ~clientscript_5795($int2);
+if_sethide(interface_1345:com_34, false);
+if_settext(interface_1345:com_84, struct_param($struct3, param_1266));
+~script4532(interface_1345:com_84);
+if (struct_param($struct3, param_1290) = 1) {
+    if_settext(interface_1345:com_177, "Free to play content");
+    if_setcolour(interface_1345:com_177, 0x676767);
+    if_setgraphic(interface_1345:com_176, 13165);
+} else if (playermember = false) {
+    if_settext(interface_1345:com_177, "Runescape member: Click to subscribe!");
+    if_setcolour(interface_1345:com_177, 0x959595);
+    if_setgraphic(interface_1345:com_176, 13166);
+} else if (map_members = false) {
+    if_settext(interface_1345:com_177, "Member's world");
+    if_setcolour(interface_1345:com_177, 0x959595);
+    if_setgraphic(interface_1345:com_176, 13166);
+} else {
+    if_settext(interface_1345:com_177, "Runescape member");
+    if_setcolour(interface_1345:com_177, 0x676767);
+    if_setgraphic(interface_1345:com_176, 13165);
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+def_component $component10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+while ($int11 < 12 & $int12 = 0) {
+    switch_int ($int11) {
+        case 0 :
+            $int4 = struct_param($struct3, param_1294);
+            $int5 = struct_param($struct3, param_1295);
+            $component6 = interface_1345:com_1;
+            $component7 = interface_1345:com_15;
+            $component8 = interface_1345:com_16;
+            $component10 = interface_1345:com_13;
+            $component9 = interface_1345:com_14;
+        case 1 :
+            $int4 = struct_param($struct3, param_1296);
+            $int5 = struct_param($struct3, param_1297);
+            $component6 = interface_1345:com_2;
+            $component7 = interface_1345:com_95;
+            $component8 = interface_1345:com_96;
+            $component10 = interface_1345:com_93;
+            $component9 = interface_1345:com_94;
+        case 2 :
+            $int4 = struct_param($struct3, param_1298);
+            $int5 = struct_param($struct3, param_1299);
+            $component6 = interface_1345:com_3;
+            $component7 = interface_1345:com_102;
+            $component8 = interface_1345:com_103;
+            $component10 = interface_1345:com_100;
+            $component9 = interface_1345:com_101;
+        case 3 :
+            $int4 = struct_param($struct3, param_1300);
+            $int5 = struct_param($struct3, param_1301);
+            $component6 = interface_1345:com_4;
+            $component7 = interface_1345:com_109;
+            $component8 = interface_1345:com_110;
+            $component10 = interface_1345:com_107;
+            $component9 = interface_1345:com_108;
+        case 4 :
+            $int4 = struct_param($struct3, param_1302);
+            $int5 = struct_param($struct3, param_1303);
+            $component6 = interface_1345:com_5;
+            $component7 = interface_1345:com_116;
+            $component8 = interface_1345:com_117;
+            $component10 = interface_1345:com_114;
+            $component9 = interface_1345:com_115;
+        case 5 :
+            $int4 = struct_param($struct3, param_1304);
+            $int5 = struct_param($struct3, param_1305);
+            $component6 = interface_1345:com_6;
+            $component7 = interface_1345:com_123;
+            $component8 = interface_1345:com_124;
+            $component10 = interface_1345:com_121;
+            $component9 = interface_1345:com_122;
+        case 6 :
+            $int4 = struct_param($struct3, param_1306);
+            $int5 = struct_param($struct3, param_1307);
+            $component6 = interface_1345:com_9;
+            $component7 = interface_1345:com_130;
+            $component8 = interface_1345:com_131;
+            $component10 = interface_1345:com_128;
+            $component9 = interface_1345:com_129;
+        case 7 :
+            $int4 = struct_param($struct3, param_1308);
+            $int5 = struct_param($struct3, param_1309);
+            $component6 = interface_1345:com_132;
+            $component7 = interface_1345:com_138;
+            $component8 = interface_1345:com_139;
+            $component10 = interface_1345:com_136;
+            $component9 = interface_1345:com_137;
+        case 8 :
+            $int4 = struct_param($struct3, param_1310);
+            $int5 = struct_param($struct3, param_1311);
+            $component6 = interface_1345:com_140;
+            $component7 = interface_1345:com_146;
+            $component8 = interface_1345:com_147;
+            $component10 = interface_1345:com_144;
+            $component9 = interface_1345:com_145;
+        case 9 :
+            $int4 = struct_param($struct3, param_1312);
+            $int5 = struct_param($struct3, param_1313);
+            $component6 = interface_1345:com_148;
+            $component7 = interface_1345:com_154;
+            $component8 = interface_1345:com_155;
+            $component10 = interface_1345:com_152;
+            $component9 = interface_1345:com_153;
+        case 10 :
+            $int4 = struct_param($struct3, param_2227);
+            $int5 = struct_param($struct3, param_2228);
+            $component6 = interface_1345:com_156;
+            $component7 = interface_1345:com_162;
+            $component8 = interface_1345:com_163;
+            $component10 = interface_1345:com_160;
+            $component9 = interface_1345:com_161;
+        case 11 :
+            $int4 = struct_param($struct3, param_2229);
+            $int5 = struct_param($struct3, param_2230);
+            $component6 = interface_1345:com_164;
+            $component7 = interface_1345:com_170;
+            $component8 = interface_1345:com_171;
+            $component10 = interface_1345:com_168;
+            $component9 = interface_1345:com_169;
+    }
+    $int11 = calc(1 + $int11);
+    if ($int4 = 0) {
+        $int12 = 1;
+    } else {
+        ~clientscript_6758($int2, $int11, $int4, $int5, $component6, $component7, $component8, $component10, $component9);
+    }
+}
+if_setsize(interface_1345:com_35, 400, calc(115 + 23 * $int11), ^setsize_abs, ^setsize_abs);

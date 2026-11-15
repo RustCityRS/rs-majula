@@ -1,0 +1,58 @@
+// 524:0
+[fader]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script1135(event_com)
+onvarctransmit=script1135(event_com){tutorial3_cutscene_tracker}
+
+// 524:1
+[text_layer]
+type=layer
+width=465
+height=70
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+
+// 524:2
+[com_2]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=text_layer
+colour=0x112526
+fill=yes
+trans=150
+
+// 524:3
+[title_txt]
+type=text
+height=25
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=text_layer
+textfont=quill_oblique_large
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x666fff
+
+// 524:4
+[desc_txt]
+type=text
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=text_layer
+textfont=q8_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x666fff

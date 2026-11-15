@@ -41,30 +41,30 @@ against unmodified cache content.
 
 ## What's in the repo
 
-| Folder | What it is |
-|---|---|
-| [`rs-engine/`](rs-engine/README.md) | The game engine and its sub-crates. Its README is the full technical write-up. |
-| [`rs-pack/`](rs-pack/README.md) | The content and cache compiler. The server also runs it at startup. |
-| `rs-protocol/` | The wire codec, with no game logic in it. |
-| `rs-server/` | The game server: startup, sockets, the web client's HTTP server and the terminal dashboard. |
-| `rs-db/` | The database layer and its migrations. |
-| `rs-web/` | The website. |
-| `rs-console/` | The staff console, plus `api/`, the admin API it shares with the worlds and the website. |
-| `rs-ver/` | Picks the game revision at build time. |
-| [`rs-ether/`](rs-ether/README.md) | An Elixir sidecar for cross-world social features. It's a **git submodule**, and logins need it. |
-| `content/`, `.keys/`, `public/` | Game content (packed at startup), the RSA key pair and the web client. All included. |
+| Folder                              | What it is                                                                                                                          |
+|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| [`rs-engine/`](rs-engine/README.md) | The game engine and its sub-crates. Its README is the full technical write-up.                                                      |
+| [`rs-pack/`](rs-pack/README.md)     | The content and cache compiler. The server also runs it at startup.                                                                 |
+| `rs-protocol/`                      | The wire codec, with no game logic in it.                                                                                           |
+| `rs-server/`                        | The game server: startup, sockets, the web client's HTTP server and the terminal dashboard.                                         |
+| `rs-db/`                            | The database layer and its migrations.                                                                                              |
+| `rs-web/`                           | The website.                                                                                                                        |
+| `rs-console/`                       | The staff console, plus `api/`, the admin API it shares with the worlds and the website.                                            |
+| `rs-ver/`                           | Picks the game revision at build time.                                                                                              |
+| [`rs-ether/`](rs-ether/README.md)   | An Elixir sidecar for cross-world social features. It's a **git submodule**, and logins need it.                                    |
+| `content/`, `.keys/`, `public/`     | Game content (packed at startup), the RSA key pairs (`classic/` for 225-530, `js5/` for 647 and 742) and the clients. All included. |
 
 ----
 
 ## What you need
 
-| Tool | Version | Why |
-|---|---|---|
+| Tool                    | Version                                 | Why                                                                                                                                                              |
+|-------------------------|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Rust** (via `rustup`) | stable, **1.95 or newer**, edition 2024 | `rust-toolchain.toml` pins it, so `rustup` installs the right one for you. Builds use `-C target-cpu=native`, so a binary is tuned to the machine that built it. |
-| **A C linker** | any | Every Rust build needs one: MSVC Build Tools on Windows, `cc` or `clang` on Linux and macOS. |
-| **Docker** with Compose | any | **Needed to log in.** It runs Postgres 17 (`docker-compose.yml`), where accounts live. |
-| **Elixir** with `mix` | `~> 1.15` | **Needed to log in.** It runs the `rs-ether` sidecar, which checks logins across worlds. The server starts it from source for you. |
-| **Git** | any | `rs-ether` is a submodule, so clone with `--recursive`. |
+| **A C linker**          | any                                     | Every Rust build needs one: MSVC Build Tools on Windows, `cc` or `clang` on Linux and macOS.                                                                     |
+| **Docker** with Compose | any                                     | **Needed to log in.** It runs Postgres 17 (`docker-compose.yml`), where accounts live.                                                                           |
+| **Elixir** with `mix`   | `~> 1.15`                               | **Needed to log in.** It runs the `rs-ether` sidecar, which checks logins across worlds. The server starts it from source for you.                               |
+| **Git**                 | any                                     | `rs-ether` is a submodule, so clone with `--recursive`.                                                                                                          |
 
 > [!NOTE]
 > Without Postgres or the ether sidecar, the server still starts and serves the web client,
@@ -125,7 +125,7 @@ See [`rs-ether/README.md`](rs-ether/README.md) for more on the sidecar.
 
 ## Playing
 
-**In a browser.** Open http://localhost:8080/ in any browser with WebAssembly, phones
+**In a browser (225–289).** Open http://localhost:8080/ in any browser with WebAssembly, phones
 included.
 
 **With the original Java client (225–289).** Find `public/<REV>/client.jar` for your revision and run:
@@ -135,6 +135,38 @@ java -cp client.jar client 10 0 highmem members 10
 ```
 
 The arguments are: node id, port offset, `lowmem` or `highmem`, `free` or `members`, store id.
+
+**With the original Java client (530).**
+
+```bash
+java -Xmx512m -jar public/530/launcher.jar 1 live english game0
+```
+
+The first argument is the world. The client connects to port `40000 + world` on localhost, so
+world 1 (node 10) is port 40001. For high detail, run `public/530/hd/launcher.jar` the same way
+and choose High detail on the title screen. It ships the 2009 OpenGL natives for Windows, Linux,
+Solaris and macOS (Intel and PowerPC, on Apple's Java 6 or 5); without them it plays in standard
+detail. Windows x64 needs the Visual C++ 2005 runtime (`MSVCR80.dll`), Linux `libXxf86vm`.
+
+**With the original Java client (647).**
+
+```bash
+java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
+  -cp public/647/client.jar client 1 1 1 live english game0
+```
+
+The three `1`s are the world. The client connects to port `40000 + world` on localhost, so
+world 1 (node 10) is port 40001.
+
+**With the original Java client (742).** The client is an applet, so start it from the world's
+`jav_config.ws`:
+
+```bash
+java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
+  deploy/client/AppletLoader.java http://127.0.0.1:8080/jav_config.ws
+```
+
+For world 2 (node 11), use port 8081 and add `18=2 8=2` after the URL (the world and lobby ids).
 
 ----
 
@@ -158,18 +190,18 @@ check it, and `rs-web migrate` applies any changes.
 
 ### Settings
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--port` | `8000` | The public port. |
-| `--root` | `rs-web` | Where the templates, `public/` and `worlds.json` are. |
-| `--public-host` | `localhost` | The site's hostname, for links it gives out. |
-| `--https` | `false` | Set when the site is served over HTTPS. |
-| `--real-ip-header` | unset | The header a proxy puts the visitor's address in (e.g. `cf-connecting-ip`), so per-address limits see the visitor, not the proxy. Only set it when the proxy is the only way in, or visitors can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
-| `--metrics-host`, `--metrics-port` | `127.0.0.1`, `8160` | Prometheus metrics (requests, response times, registrations), away from the public port. Port `0` turns them off. |
-| `--admin-host`, `--admin-port` | `127.0.0.1`, `8190` | The private admin API the staff console uses for news and messages. Port `0` turns it off. |
-| `--media-dir` | `rs-web/media` in debug builds (`RS_WEB_MEDIA_DIR`) | Where news images and videos go. Release builds without it take no uploads. |
-| `--log-format` | `text` | `json` writes JSON lines for journald and Loki. `deploy/grafana/web.alloy` ships those and the metrics. |
-| `--theme` | `auto` (`RS_WEB_THEME`) | `auto` gives the site Jagex's 2004 winter look from 7 December to 5 January (snow on the logo and title boxes, snowflakes behind them, holly on every page's frame) and the plain look otherwise. `christmas` or `plain` keeps one look all year. |
+| Flag                               | Default                                             | What it does                                                                                                                                                                                                                                                                      |
+|------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--port`                           | `8000`                                              | The public port.                                                                                                                                                                                                                                                                  |
+| `--root`                           | `rs-web`                                            | Where the templates, `public/` and `worlds.json` are.                                                                                                                                                                                                                             |
+| `--public-host`                    | `localhost`                                         | The site's hostname, for links it gives out.                                                                                                                                                                                                                                      |
+| `--https`                          | `false`                                             | Set when the site is served over HTTPS.                                                                                                                                                                                                                                           |
+| `--real-ip-header`                 | unset                                               | The header a proxy puts the visitor's address in (e.g. `cf-connecting-ip`), so per-address limits see the visitor, not the proxy. Only set it when the proxy is the only way in, or visitors can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
+| `--metrics-host`, `--metrics-port` | `127.0.0.1`, `8160`                                 | Prometheus metrics (requests, response times, registrations), away from the public port. Port `0` turns them off.                                                                                                                                                                 |
+| `--admin-host`, `--admin-port`     | `127.0.0.1`, `8190`                                 | The private admin API the staff console uses for news and messages. Port `0` turns it off.                                                                                                                                                                                        |
+| `--media-dir`                      | `rs-web/media` in debug builds (`RS_WEB_MEDIA_DIR`) | Where news images and videos go. Release builds without it take no uploads.                                                                                                                                                                                                       |
+| `--log-format`                     | `text`                                              | `json` writes JSON lines for journald and Loki. `deploy/grafana/web.alloy` ships those and the metrics.                                                                                                                                                                           |
+| `--theme`                          | `auto` (`RS_WEB_THEME`)                             | `auto` gives the site Jagex's 2004 winter look from 7 December to 5 January (snow on the logo and title boxes, snowflakes behind them, holly on every page's frame) and the plain look otherwise. `christmas` or `plain` keeps one look all year.                                 |
 
 ### How it works
 
@@ -179,15 +211,15 @@ check it, and `rs-web migrate` applies any changes.
   every 10 seconds. A world shows as OFFLINE once its heartbeat is 30 seconds old. World `N`
   is node `N + 9`.
 - **Templates** use [minijinja](https://docs.rs/minijinja).
-  - `templates/pages/` is served by URL, so `/faq/billing` shows `pages/faq/billing.html`.
-  - `templates/views/` is rendered by handlers with data.
-  - `templates/layout/` holds the shared pieces.
-  - `templates/since_289/` holds the pages that look different from revision 289 on. A 289+
-    build looks there first.
+    - `templates/pages/` is served by URL, so `/faq/billing` shows `pages/faq/billing.html`.
+    - `templates/views/` is rendered by handlers with data.
+    - `templates/layout/` holds the shared pieces.
+    - `templates/since_289/` holds the pages that look different from revision 289 on. A 289+
+      build looks there first.
 
   Debug builds pick up template edits without a restart.
-- **News** is written in Markdown and stored along with its HTML. Images, GIFs and videos
-  (PNG, JPEG, GIF, WebP, MP4, WebM, up to 50 MB, checked by their content) come in through the
+- **News** is written in Markdown and stored along with its HTML. Images, GIFs and videos (PNG, JPEG, GIF, WebP, MP4,
+  WebM, up to 50 MB, checked by their content) come in through the
   admin API. They're saved in `--media-dir` under their content's hash and served at
   `/news/media/` with a year-long cache. Keep that folder outside the release folder and back
   it up, because it isn't in the database.
@@ -213,12 +245,12 @@ To try the check locally, use Cloudflare's test keys:
 RS_TURNSTILE_SITE_KEY=1x00000000000000000000AA RS_TURNSTILE_SECRET=1x0000000000000000000000000000000AA cargo run -p rs-web
 ```
 
-| Test key | Behaviour |
-|---|---|
-| Site key `1x00000000000000000000AA` | Shows the box, then passes |
-| Site key `1x00000000000000000000BB` | Passes without showing it |
-| Site key `3x00000000000000000000FF` | Always asks for a click |
-| Secret `2x0000000000000000000000000000000AA` | Fails every check |
+| Test key                                     | Behaviour                  |
+|----------------------------------------------|----------------------------|
+| Site key `1x00000000000000000000AA`          | Shows the box, then passes |
+| Site key `1x00000000000000000000BB`          | Passes without showing it  |
+| Site key `3x00000000000000000000FF`          | Always asks for a click    |
+| Secret `2x0000000000000000000000000000000AA` | Fails every check          |
 
 ----
 
@@ -244,12 +276,12 @@ with debug worlds, so there's nothing else to set.
 
 Roles follow the game's staff levels. Each one can do everything the one above it can.
 
-| Role | Level | Can |
-|---|---|---|
-| `trial` | 1 | Kick, and mute for up to 2 days. No bans, lifting sanctions, deciding appeals, bulk dismissing, or sanctioning linked accounts. |
-| `moderator` | 1 | Kick, mute and ban, look players up, read chat logs, free stuck sessions. Can't change anyone's account. |
-| `admin` | 2 | Reboot, broadcast, maintenance mode, send players home, reset passwords, restore items, roll back saves, change the hiscores and what the economy tracks, post news. |
-| `maintainer` | 3 | Manage staff accounts, change players' stats and items, reload scripts, shut down and start worlds. |
+| Role         | Level | Can                                                                                                                                                                  |
+|--------------|-------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `trial`      | 1     | Kick, and mute for up to 2 days. No bans, lifting sanctions, deciding appeals, bulk dismissing, or sanctioning linked accounts.                                      |
+| `moderator`  | 1     | Kick, mute and ban, look players up, read chat logs, free stuck sessions. Can't change anyone's account.                                                             |
+| `admin`      | 2     | Reboot, broadcast, maintenance mode, send players home, reset passwords, restore items, roll back saves, change the hiscores and what the economy tracks, post news. |
+| `maintainer` | 3     | Manage staff accounts, change players' stats and items, reload scripts, shut down and start worlds.                                                                  |
 
 Nobody can moderate staff at or above their own level, or see the recordings, chat, timeline,
 addresses or other logs of staff above them.
@@ -270,8 +302,8 @@ role or authenticator signs that account out everywhere.
 - **Schedule** reboots and broadcasts for later, once or on repeat. If the console was down
   and a job is more than 5 minutes late, it's skipped, and the audit log says so.
 - **Controls** are kill switches for trading, the duel arena, dropping, picking up, shops,
-  banking, or a script by name. There's also a lockdown for accounts younger than a set age
-  (staff are exempt). They stay on until turned off, and come back on any world that restarts.
+  banking, or a script by name. There's also a lockdown for accounts younger than a set age (staff are exempt). They
+  stay on until turned off, and come back on any world that restarts.
 
 **Players**
 
@@ -385,14 +417,14 @@ and actions. Pins, saved filters, CSV export (audited) and your time zone follow
 **Data** lives in `rs-console/data/`. `RS_ADMIN_DATA` or `--data-dir` moves it. Back up the
 whole folder.
 
-| File | Holds |
-|---|---|
-| `users.json` | Accounts, with argon2 password hashes and TOTP secrets |
-| `audit.jsonl` | Everything done, sign-ins included. Only ever added to. |
-| `cases.jsonl` | Every change to a case. Only ever added to, and cases are rebuilt from it at startup. |
-| `offences.jsonl` | Sanctions given by template, which the template ladders count. Trimmed to the newest 20,000 now and then. |
-| `media/` | Images and videos posted on cases, shown only to signed-in staff |
-| `notes.jsonl`, `prefs.json`, `controls.json`, `schedule.json`, `economy.json`, `economy-samples.jsonl` | Staff notes, account preferences, kill switches, scheduled jobs and economy tracking |
+| File                                                                                                   | Holds                                                                                                     |
+|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `users.json`                                                                                           | Accounts, with argon2 password hashes and TOTP secrets                                                    |
+| `audit.jsonl`                                                                                          | Everything done, sign-ins included. Only ever added to.                                                   |
+| `cases.jsonl`                                                                                          | Every change to a case. Only ever added to, and cases are rebuilt from it at startup.                     |
+| `offences.jsonl`                                                                                       | Sanctions given by template, which the template ladders count. Trimmed to the newest 20,000 now and then. |
+| `media/`                                                                                               | Images and videos posted on cases, shown only to signed-in staff                                          |
+| `notes.jsonl`, `prefs.json`, `controls.json`, `schedule.json`, `economy.json`, `economy-samples.jsonl` | Staff notes, account preferences, kill switches, scheduled jobs and economy tracking                      |
 
 ----
 
@@ -478,8 +510,8 @@ puts the flag where theirs went. On 244 and 245.2 the yaw also corrects the came
 keys turn.
 
 **Chat**, private messages and `::` commands are typed into the client again from the packets
-that sent them, a key at a time, ending as they were sent, so the client shows them as it did
-(274+ reports no keys at all). The timeline lists them too.
+that sent them, a key at a time, ending as they were sent, so the client shows them as it did (274+ reports no keys at
+all). The timeline lists them too.
 
 **Free look.** The Free look button pauses and hands the client to you. Your mouse works its
 menus, tabs and tooltips and the arrow keys turn the camera, while the player's cursor is still
@@ -492,37 +524,37 @@ same spot.
 
 These flag sessions for staff to review. They never act on their own.
 
-| Flag | Means |
-|---|---|
-| Modified client | An `ANTICHEAT_*` packet had the wrong contents (they're fixed per revision family: 225-245.2 and 254-289), or a packet was shorter than any the client sends of its kind. |
-| Rejected requests | 10 or more requests (and a tenth of all actions) that the world turned down as ones the client wouldn't make: buttons on interfaces that aren't open or don't have them, objs in slots that hold something else. Mistyped cheat commands don't count. |
-| Auto-banned | The world banned the account (48 hours) for a packet only a modified client sends: an abuse report with a reason the screen doesn't offer, an offender name that can't exist, or a private message to such a name. The stats say which. |
-| No game loop | 20+ actions and none of the heartbeats the client's game loop sends (`ANTICHEAT_CYCLELOGIC3/4`, or `4/7` from 254). It isn't running the client. |
-| Forged heartbeats | The game loop sends its two heartbeats a fixed number of cycles apart (`CYCLELOGIC4` every 111 and `3` every 128, plus `5` every 86 on 244-245.2; from 254, `7` every 63 and `4` every 193), so their counts always keep that ratio. Once there are 15 of the rarer one, a count more than 3 (and 6%) off what the ratio predicts means something else is sending them. A real client is within a count or two. |
-| Never drew | 254+: 20+ actions and 30 `CYCLELOGIC4`s (about 2 minutes) without a single `CYCLELOGIC1`, which the client sends from drawing the game every 1175 frames. |
-| Missing op checks | The client sends `ANTICHEAT_OPLOGIC*` with certain actions once a hidden count passes a threshold. The world mirrors the counts and expects them. |
-| Actions without clicks | 254+: over a quarter of 20+ actions came without the click the client reports alongside each one. |
-| Actions while unfocused | 3+ actions while the client said its window had lost focus (not on touch screens, whose keyboard takes focus). A real click focuses the window first, and a script's fake click doesn't. Before 254, the click's press is judged from the input reports. |
-| Clicked what it wasn't shown | Actions in 3+ separate stretches (including "use" and spells) on an NPC or player the world wasn't sending the client, a loc outside its map, or an obj in a zone it wasn't sent since the map was built. Anything that just left view still counts as shown for 10 ticks, to allow for clicks made before the update arrived, and actions within 10 ticks of the first count once, so one stalled connection doesn't count several times. |
-| Menu options without right-click | Most of 5+ actions on options a left click can't pick (worked out from the types, the way the client builds its menu) came with no right press to open the menu. Not counted for players' options, one-button mouse mode or touch screens. |
-| No mouse | 20+ actions and no mouse reports at all. |
-| Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last reported spot. |
-| Clockwork clicks | 30+ clicks at very even intervals. |
-| Forged minimap clicks | A minimap click ends in 14 bytes: the spot clicked, the camera's yaw, the minimap's random tilt and zoom, where the client drew the player, and the fixed values 57, 89 and 63. Two or more with wrong fixed values, values out of range, or a spot that (worked out as the client does) doesn't lead to the tile walked to. |
-| Minimap position off | Most of 5+ minimap clicks drew the player more than 8 tiles from where the world has them. |
-| Instant reactions | Half of 20+ reactions came faster than 180ms, network included. A reaction is the first action after the thing being worked on went away (a rock ran out, a tree fell, an NPC died) or after an obj they then took appeared, timed from when the world sent it to when the action arrived. Only counted after a second with no actions, so clicking away the whole time isn't a reaction. |
-| Even reactions | 20+ reactions that hardly vary (standard deviation under 0.15 of the mean). People have a long tail. |
-| Long days | 16+ hours played on 3 or more of the last 7 days (UTC), from the account's recorded sessions. |
-| No long breaks | Played for 3 days without ever stopping for 4 hours. |
-| Instant relogs | 4 in 5 of 5+ returns this week came within 15 seconds. A return is a login after a session the player didn't end themselves: a lost connection, an idle logout, a kick or ban, or a reboot. It's timed from when the world let them go (a lost connection keeps them in for a while, and the client reconnects by itself meanwhile), or from the world coming back after a reboot. Logouts are left out, because world hops are back in seconds. |
-| Repeated laps | Of 150+ recent actions, a fifth of them walks, 85% or more of the runs of 4 were seen before: the same tiles, booth and order every lap. A person's walks land a tile or two off. |
-| Same pixel clicks | Half of 20+ aimed clicks on inventory slots hit the same pixel of the slot. A click only counts after the cursor moved, so clicking the same slot again where the cursor already is (withdrawing one at a time) isn't aiming. Slots that scroll, like the bank, aren't judged. |
-| Even slot clicks | 50+ clicks on inventory slots spread over the whole slot (8.3+ pixels from their average, where a perfectly even spread is 9.2) instead of bunching on the obj in the middle. Not for touch screens. |
-| Straight mouse moves | 254+: 60% of 30+ moves (5+ samples, 40+ pixels) went in a dead straight line. |
-| Steady mouse moves | 254+: 60% of 30+ moves were no faster through their middle third than 1.3 times their ends. People speed up and slow down, and move about twice as fast midway. |
-| Repeated mouse curves | 254+: 40% of 20+ curved moves followed the shape of an earlier one. |
-| Anti-AFK | An hour in total of 15+ minute stretches with no actions, clicks or chat, no idle report from the client, and nothing but tiny mouse nudges or one or two keys at even intervals (or, from 274, where keys aren't reported, nothing at all). |
-| Camera never turned | 225 and 254+: 3+ hours and 300+ actions without the camera turning once. |
+| Flag                             | Means                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Modified client                  | An `ANTICHEAT_*` packet had the wrong contents (they're fixed per revision family: 225-245.2 and 254-289), or a packet was shorter than any the client sends of its kind.                                                                                                                                                                                                                                                                        |
+| Rejected requests                | 10 or more requests (and a tenth of all actions) that the world turned down as ones the client wouldn't make: buttons on interfaces that aren't open or don't have them, objs in slots that hold something else. Mistyped cheat commands don't count.                                                                                                                                                                                            |
+| Auto-banned                      | The world banned the account (48 hours) for a packet only a modified client sends: an abuse report with a reason the screen doesn't offer, an offender name that can't exist, or a private message to such a name. The stats say which.                                                                                                                                                                                                          |
+| No game loop                     | 20+ actions and none of the heartbeats the client's game loop sends (`ANTICHEAT_CYCLELOGIC3/4`, or `4/7` from 254). It isn't running the client.                                                                                                                                                                                                                                                                                                 |
+| Forged heartbeats                | The game loop sends its two heartbeats a fixed number of cycles apart (`CYCLELOGIC4` every 111 and `3` every 128, plus `5` every 86 on 244-245.2; from 254, `7` every 63 and `4` every 193), so their counts always keep that ratio. Once there are 15 of the rarer one, a count more than 3 (and 6%) off what the ratio predicts means something else is sending them. A real client is within a count or two.                                  |
+| Never drew                       | 254+: 20+ actions and 30 `CYCLELOGIC4`s (about 2 minutes) without a single `CYCLELOGIC1`, which the client sends from drawing the game every 1175 frames.                                                                                                                                                                                                                                                                                        |
+| Missing op checks                | The client sends `ANTICHEAT_OPLOGIC*` with certain actions once a hidden count passes a threshold. The world mirrors the counts and expects them.                                                                                                                                                                                                                                                                                                |
+| Actions without clicks           | 254+: over a quarter of 20+ actions came without the click the client reports alongside each one.                                                                                                                                                                                                                                                                                                                                                |
+| Actions while unfocused          | 3+ actions while the client said its window had lost focus (not on touch screens, whose keyboard takes focus). A real click focuses the window first, and a script's fake click doesn't. Before 254, the click's press is judged from the input reports.                                                                                                                                                                                         |
+| Clicked what it wasn't shown     | Actions in 3+ separate stretches (including "use" and spells) on an NPC or player the world wasn't sending the client, a loc outside its map, or an obj in a zone it wasn't sent since the map was built. Anything that just left view still counts as shown for 10 ticks, to allow for clicks made before the update arrived, and actions within 10 ticks of the first count once, so one stalled connection doesn't count several times.       |
+| Menu options without right-click | Most of 5+ actions on options a left click can't pick (worked out from the types, the way the client builds its menu) came with no right press to open the menu. Not counted for players' options, one-button mouse mode or touch screens.                                                                                                                                                                                                       |
+| No mouse                         | 20+ actions and no mouse reports at all.                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Cursor jumps                     | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last reported spot.                                                                                                                                                                                                                                                                                                                                                             |
+| Clockwork clicks                 | 30+ clicks at very even intervals.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Forged minimap clicks            | A minimap click ends in 14 bytes: the spot clicked, the camera's yaw, the minimap's random tilt and zoom, where the client drew the player, and the fixed values 57, 89 and 63. Two or more with wrong fixed values, values out of range, or a spot that (worked out as the client does) doesn't lead to the tile walked to.                                                                                                                     |
+| Minimap position off             | Most of 5+ minimap clicks drew the player more than 8 tiles from where the world has them.                                                                                                                                                                                                                                                                                                                                                       |
+| Instant reactions                | Half of 20+ reactions came faster than 180ms, network included. A reaction is the first action after the thing being worked on went away (a rock ran out, a tree fell, an NPC died) or after an obj they then took appeared, timed from when the world sent it to when the action arrived. Only counted after a second with no actions, so clicking away the whole time isn't a reaction.                                                        |
+| Even reactions                   | 20+ reactions that hardly vary (standard deviation under 0.15 of the mean). People have a long tail.                                                                                                                                                                                                                                                                                                                                             |
+| Long days                        | 16+ hours played on 3 or more of the last 7 days (UTC), from the account's recorded sessions.                                                                                                                                                                                                                                                                                                                                                    |
+| No long breaks                   | Played for 3 days without ever stopping for 4 hours.                                                                                                                                                                                                                                                                                                                                                                                             |
+| Instant relogs                   | 4 in 5 of 5+ returns this week came within 15 seconds. A return is a login after a session the player didn't end themselves: a lost connection, an idle logout, a kick or ban, or a reboot. It's timed from when the world let them go (a lost connection keeps them in for a while, and the client reconnects by itself meanwhile), or from the world coming back after a reboot. Logouts are left out, because world hops are back in seconds. |
+| Repeated laps                    | Of 150+ recent actions, a fifth of them walks, 85% or more of the runs of 4 were seen before: the same tiles, booth and order every lap. A person's walks land a tile or two off.                                                                                                                                                                                                                                                                |
+| Same pixel clicks                | Half of 20+ aimed clicks on inventory slots hit the same pixel of the slot. A click only counts after the cursor moved, so clicking the same slot again where the cursor already is (withdrawing one at a time) isn't aiming. Slots that scroll, like the bank, aren't judged.                                                                                                                                                                   |
+| Even slot clicks                 | 50+ clicks on inventory slots spread over the whole slot (8.3+ pixels from their average, where a perfectly even spread is 9.2) instead of bunching on the obj in the middle. Not for touch screens.                                                                                                                                                                                                                                             |
+| Straight mouse moves             | 254+: 60% of 30+ moves (5+ samples, 40+ pixels) went in a dead straight line.                                                                                                                                                                                                                                                                                                                                                                    |
+| Steady mouse moves               | 254+: 60% of 30+ moves were no faster through their middle third than 1.3 times their ends. People speed up and slow down, and move about twice as fast midway.                                                                                                                                                                                                                                                                                  |
+| Repeated mouse curves            | 254+: 40% of 20+ curved moves followed the shape of an earlier one.                                                                                                                                                                                                                                                                                                                                                                              |
+| Anti-AFK                         | An hour in total of 15+ minute stretches with no actions, clicks or chat, no idle report from the client, and nothing but tiny mouse nudges or one or two keys at even intervals (or, from 274, where keys aren't reported, nothing at all).                                                                                                                                                                                                     |
+| Camera never turned              | 225 and 254+: 3+ hours and 300+ actions without the camera turning once.                                                                                                                                                                                                                                                                                                                                                                         |
 
 A session's score is the total of its flags' weights, and the measurements behind them are kept
 with it. The checks on behaviour over time (Instant reactions and everything below it) weigh 15
@@ -540,62 +572,62 @@ before `migrate`).
 
 **The world**
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--node-id <ID>` | `10` | The world's node id. 10 is world 1, 11 is world 2, and so on. The ports below are worked out from it. |
-| `--members <BOOL>` | `true` | Members or free-to-play rules. `--members false` runs a free world. |
-| `--client-pathfinder` | `true` | Trust the paths the client works out for walking. |
-| `--pathfinder-threads` | `1` | Search threads per world. `1` runs on the engine thread; larger values use a bounded worker pool. Input keeps the final route request per player while processing each click's walk trigger. |
-| `--tick-offset-ms` | unset | Align ticks to an offset from `0` to `599` ms within the tick cycle. Four worlds sharing four cores can use `0`, `150`, `300`, and `450` to spread their CPU work. |
-| `--verify` | `true` | Check at startup that the packed cache matches byte for byte. |
-| `--pack-cache <BOOL>` | `true` in debug, `false` in release | Reuse what earlier startups packed from content that hasn't changed since, kept in `data/pack-cache/<rev>`, to speed up development. `--pack-cache false` packs everything. |
-| `--no-tui` | `false` | Log to stdout instead of showing the dashboard. It does this by itself when stdout isn't a terminal. |
-| `--auto-register <BOOL>` | `true` in debug, `false` in release | Create an account the first time an unknown name logs in (debug builds also make it staff level 3). In release, players register on the website. |
-| `--auto-migrate <BOOL>` | `true` in debug, `false` in release | Apply database changes at startup. When off, the server only checks the schema and keeps logins offline until `rs-server migrate` has run. |
-| `--replay-days <DAYS>` | `7` (`RS_REPLAY_DAYS`) | Days to keep session recordings. `0` records nothing. |
-| `--block-multilog <BOOL>` | `false` in debug, `true` in release (`RS_BLOCK_MULTILOG`) | Refuse a login ("Login limit exceeded") while another account is online, on any world, from the same browser. Needs the web client patched by `deploy/patch.py`, which gives each browser its id. |
+| Flag                      | Default                                                   | What it does                                                                                                                                                                                          |
+|---------------------------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--node-id <ID>`          | `10`                                                      | The world's node id. 10 is world 1, 11 is world 2, and so on. The ports below are worked out from it.                                                                                                 |
+| `--members <BOOL>`        | `true`                                                    | Members or free-to-play rules. `--members false` runs a free world.                                                                                                                                   |
+| `--client-pathfinder`     | `true`                                                    | Trust the paths the client works out for walking.                                                                                                                                                     |
+| `--pathfinder-threads`    | `1`                                                       | Search threads per world. `1` runs on the engine thread; larger values use a bounded worker pool. Input keeps the final route request per player while processing each click's walk trigger.          |
+| `--tick-offset-ms`        | unset                                                     | Align ticks to an offset from `0` to `599` ms within the tick cycle. Four worlds sharing four cores can use `0`, `150`, `300`, and `450` to spread their CPU work.                                    |
+| `--verify`                | `true`                                                    | Check at startup that the packed cache matches byte for byte.                                                                                                                                         |
+| `--pack-cache <BOOL>`     | `true` in debug, `false` in release                       | Reuse what earlier startups packed from content that hasn't changed since, kept in `data/pack-cache/<rev>`, to speed up development. `--pack-cache false` packs everything.                           |
+| `--no-tui`                | `false`                                                   | Log to stdout instead of showing the dashboard. It does this by itself when stdout isn't a terminal.                                                                                                  |
+| `--auto-register <BOOL>`  | `true` in debug, `false` in release                       | Create an account the first time an unknown name logs in (debug builds also make it staff level 3). In release, players register on the website.                                                      |
+| `--auto-migrate <BOOL>`   | `true` in debug, `false` in release                       | Apply database changes at startup. When off, the server only checks the schema and keeps logins offline until `rs-server migrate` has run.                                                            |
+| `--replay-days <DAYS>`    | `7` (`RS_REPLAY_DAYS`)                                    | Days to keep session recordings. `0` records nothing.                                                                                                                                                 |
+| `--block-multilog <BOOL>` | `false` in debug, `true` in release (`RS_BLOCK_MULTILOG`) | Refuse a login ("Login limit exceeded") while another account is online, on any world, from the same browser. Needs the web client patched by `deploy/web/patch.py`, which gives each browser its id. |
 
 **Network**
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--host <HOST>` | `0.0.0.0` | Address the game and HTTP ports listen on. |
-| `--http-port <PORT>` | `8070 + node_id` (`8080`) | The web client and cache files. |
-| `--tcp-port <PORT>` | `43584 + node_id` (`43594`); 647: `39991 + node_id` (`40001`) | The game protocol port. |
-| `--private-key <PATH>` | `.keys/private.pem` | The RSA private key for the login handshake. |
-| `--real-ip-header <NAME>` | unset | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
-| `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`) | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. On 647, in-game links (the advisor's forums, the members' game warning and so on) open on the first, and open nothing when unset. |
+| Flag                      | Default                                                                    | What it does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+|---------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--host <HOST>`           | `0.0.0.0`                                                                  | Address the game and HTTP ports listen on.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `--http-port <PORT>`      | `8070 + node_id` (`8080`)                                                  | The web client and cache files.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `--tcp-port <PORT>`       | `43584 + node_id` (`43594`); 530, 647 and 742: `39991 + node_id` (`40001`) | The game protocol port.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `--private-key <PATH>`    | `.keys/classic/private.pem`; 647 and 742: `.keys/js5/private.pem`          | The RSA private key for the login handshake.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `--real-ip-header <NAME>` | unset                                                                      | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. In a list such as `x-forwarded-for`, the last entry is used.                                                                                                                                                                                                                             |
+| `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`)                                                   | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. On 647, in-game links (the advisor's forums, the members' game warning and so on) open on the first, and open nothing when unset. |
 
 **Database**
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--db-host <HOST>` | `localhost` (`RS_DB_HOST`) | Postgres hostname. |
-| `--db-port <PORT>` | `5432` (`RS_DB_PORT`) | Postgres port. |
-| `--db-name <NAME>` | `postgres` (`RS_DB_NAME`) | Database name. |
-| `--db-user <USER>` | `postgres` (`RS_DB_USER`) | Database user. |
+| Flag               | Default                                   | What it does                                   |
+|--------------------|-------------------------------------------|------------------------------------------------|
+| `--db-host <HOST>` | `localhost` (`RS_DB_HOST`)                | Postgres hostname.                             |
+| `--db-port <PORT>` | `5432` (`RS_DB_PORT`)                     | Postgres port.                                 |
+| `--db-name <NAME>` | `postgres` (`RS_DB_NAME`)                 | Database name.                                 |
+| `--db-user <USER>` | `postgres` (`RS_DB_USER`)                 | Database user.                                 |
 | `--db-pass <PASS>` | `RS_DB_PASS`, or `password` in debug only | Database password. Required in release builds. |
 
 The defaults match `docker-compose.yml`, so locally the server connects with no extra flags.
 
 **Secrets and the admin API**
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--pepper <PEPPER>` | `RS_PEPPER`, or `localhost` in debug only | The secret mixed into every password hash. Required in release builds. |
-| `--cookie <COOKIE>` | `RS_COOKIE`, or `rs_secret` in debug only | The Erlang cookie every ether node in the cluster shares. Required in release builds. |
+| Flag                      | Default                                        | What it does                                                                             |
+|---------------------------|------------------------------------------------|------------------------------------------------------------------------------------------|
+| `--pepper <PEPPER>`       | `RS_PEPPER`, or `localhost` in debug only      | The secret mixed into every password hash. Required in release builds.                   |
+| `--cookie <COOKIE>`       | `RS_COOKIE`, or `rs_secret` in debug only      | The Erlang cookie every ether node in the cluster shares. Required in release builds.    |
 | `--admin-secret <SECRET>` | `RS_ADMIN_SECRET`, or `rs_admin` in debug only | Shared with `rs-console`, which signs every request with it. Required in release builds. |
-| `--admin-port <PORT>` | `8270 + node_id` (`8280`) | The private admin API the staff console calls. `0` turns it off. |
-| `--admin-host <HOST>` | `127.0.0.1` | Address the admin API listens on. Keep it private: loopback or a Tailscale address. |
+| `--admin-port <PORT>`     | `8270 + node_id` (`8280`)                      | The private admin API the staff console calls. `0` turns it off.                         |
+| `--admin-host <HOST>`     | `127.0.0.1`                                    | Address the admin API listens on. Keep it private: loopback or a Tailscale address.      |
 
 **The ether cluster**
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--ether-port <PORT>` | `5000 + node_id` (`5010`) | The ether sidecar's port. |
-| `--node-host <HOST>` | `127.0.0.1` (`RS_NODE_HOST`) | The host part of this world's ether node name (`world<id>@<host>`). Other worlds must be able to reach it. |
-| `--cluster <LIST>` | empty (`RS_CLUSTER_HOSTS`) | The ether nodes, comma-separated (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10` to `world20` on `--node-host`. |
-| `--ether-release <PATH>` | unset (`RS_ETHER_RELEASE`) | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source. |
+| Flag                     | Default                      | What it does                                                                                                                      |
+|--------------------------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| `--ether-port <PORT>`    | `5000 + node_id` (`5010`)    | The ether sidecar's port.                                                                                                         |
+| `--node-host <HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | The host part of this world's ether node name (`world<id>@<host>`). Other worlds must be able to reach it.                        |
+| `--cluster <LIST>`       | empty (`RS_CLUSTER_HOSTS`)   | The ether nodes, comma-separated (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10` to `world20` on `--node-host`. |
+| `--ether-release <PATH>` | unset (`RS_ETHER_RELEASE`)   | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.                                  |
 
 ----
 
@@ -603,11 +635,11 @@ The defaults match `docker-compose.yml`, so locally the server connects with no 
 
 These are set in `.cargo/config.toml`.
 
-| Profile | Use it for | Command |
-|---|---|---|
-| `dev` (default) | Everyday work. No optimisation, full debug info, fast to compile, and hot reload is on. | `cargo run -p rs-server` |
-| `dev-opt` | Running a real world locally. `dev` with `opt-level = 2`. | `cargo run --profile dev-opt -p rs-server` |
-| `release` | Production and benchmarks. `opt-level = 3`, fat LTO, and `panic = "unwind"`, which the engine's crash recovery (`catch_unwind`) depends on. Slowest to compile. | `cargo run --release -p rs-server` |
+| Profile         | Use it for                                                                                                                                                      | Command                                    |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+| `dev` (default) | Everyday work. No optimisation, full debug info, fast to compile, and hot reload is on.                                                                         | `cargo run -p rs-server`                   |
+| `dev-opt`       | Running a real world locally. `dev` with `opt-level = 2`.                                                                                                       | `cargo run --profile dev-opt -p rs-server` |
+| `release`       | Production and benchmarks. `opt-level = 3`, fat LTO, and `panic = "unwind"`, which the engine's crash recovery (`catch_unwind`) depends on. Slowest to compile. | `cargo run --release -p rs-server`         |
 
 ----
 
@@ -621,78 +653,17 @@ The engine supports several revisions of the game. Pick one by changing `REV` in
 REV = "289"
 ```
 
-| Revision | Date | Updates it includes |
-|---|---|---|
-| **225** | 18 May 2004 | [Big Chompy Bird Hunting](https://runescape.wiki/w/Update:Big_Chompy_Bird_Hunting) |
-| **244** | 28 Jun 2004 | [New game update system](https://runescape.wiki/w/Update:New_game_update_system), [Agility improved and bug fixes](https://runescape.wiki/w/Update:Agility_improved_and_bug_fixes), [New in-game Player Moderators](https://runescape.wiki/w/Update:New_In-Game_Player_Moderators), [Special Attacks](https://runescape.wiki/w/Update:Special_Attacks), [Various tweaks to the game](https://runescape.wiki/w/Update:Various_tweaks_to_the_game), [Lots more improvements](https://runescape.wiki/w/Update:Lots_more_improvements) |
-| **245.2** | 13 Jul 2004 | [Easier to rearrange bank](https://runescape.wiki/w/Update:Easier_to_rearrange_bank), [Priest In Peril](https://runescape.wiki/w/Update:Priest_In_Peril_Quest), [Nature Spirit](https://runescape.wiki/w/Update:Nature_Spirit_Quest) |
-| **254** | 7 Sep 2004 | [Quest Journals and Chompy Hats](https://runescape.wiki/w/Update:Quest_Journals_and_Chompy_Hats), [Agility, Potions and Parties!](https://runescape.wiki/w/Update:Agility,_Potions_and_Parties!), [New Random Events!](https://runescape.wiki/w/Update:New_Random_Events!), [Death Plateau](https://runescape.wiki/w/Update:Death_Plateau_Quest), [Troll Stronghold](https://runescape.wiki/w/Update:Troll_Stronghold_Quest), [Herblore Additions](https://runescape.wiki/w/Update:Herblore_Additions), [Situation in the Sands](https://runescape.wiki/w/Update:Situation_in_the_Sands) |
-| **274** | 24 Nov 2004 | [Tai Bwo Wannai Trio](https://runescape.wiki/w/Update:Tai_Bwo_Wannai_Trio), [Plague City Part 4](https://runescape.wiki/w/Update:Plague_City_Part_4_Released), [Skills, Duels and the Kalphite](https://runescape.wiki/w/Update:Skills,_Duels_and_the_Kalphite), [Eadgar's Ruse](https://runescape.wiki/w/Update:Eadgars_Ruse), [Morytania Expansion](https://runescape.wiki/w/Update:Morytania_Expansion), [Mort'ton, Shades and Mage Armour](https://runescape.wiki/w/Update:Mortton_Shades_and_Mage_Armour), [Mage Armour Updated](https://runescape.wiki/w/Update:Mage_Armour_Updated), [Treasure Trails and Changes](https://runescape.wiki/w/Update:Treasure_Trails_and_Changes), [The Fremennik Trials](https://runescape.wiki/w/Update:The_Fremennik_Trials), [Horror From The Deep](https://runescape.wiki/w/Update:Horror_From_The_Deep), [Burthorpe Games Room](https://runescape.wiki/w/Update:Burthorpe_Games_Room) |
-| **289** | 17 Jan 2005 | [Throne Of Miscellania](https://runescape.wiki/w/Update:Throne_Of_Miscellania), [Monkey Madness](https://runescape.wiki/w/Update:Monkey_Madness), [Various Small Changes](https://runescape.wiki/w/Update:Various_Small_Changes.), [More Small Changes](https://runescape.wiki/w/Update:More_Small_Changes), [Castle Wars](https://runescape.wiki/w/Update:Castle_Wars), [Changes to Castle Wars](https://runescape.wiki/w/Update:Changes_to_Castle_Wars), [Santa, Flax and Castlewars](https://runescape.wiki/w/Update:Santa,_Flax_and_Castlewars), [The Haunted Mine](https://runescape.wiki/w/Update:The_Haunted_Mine), [Troll Romance, Banks and Chat](https://runescape.wiki/w/Update:Troll_Romance,_Banks_and_Chat), [In Search Of The Myreque](https://runescape.wiki/w/Update:In_Search_Of_The_Myreque), [Trawler Game Update](https://runescape.wiki/w/Update:Trawler_Game_Update), [Karamja Dungeon](https://runescape.wiki/w/Update:Karamja_Dungeon) |
-| **647** | 17 May 2011 | The 2011 game, from [OpenRS2 cache 786](https://archive.openrs2.org/caches/runescape/786), with 289's content ported to it and 2011's changes made where they are known. See [Revision 647](#revision-647). |
-
-### Revision 647
-
-647 is a JS5 (dat2) revision. Its cache is built from `content/647/` when the server starts
-and goes to the client over JS5, so there is no JAGGRAB, no HTTP cache and no web client. It
-plays through the original Java client in `public/647/client.jar`, with only its login and
-JS5 RSA moduli patched to match `.keys/public-647.pem`. All other class and resource bytes
-match [OpenRS2 client 31063](https://archive.openrs2.org/clients/31063).
-
-The complete unpacked cache is included in `content/647/`. Startup packs these sources
-straight into memory, including the client JS5 groups and server definitions. No cache
-download, regeneration command or intermediate disk cache is needed.
-
-```bash
-docker compose up -d
-REV=647 cargo run --profile dev-opt -p rs-server
-java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
-  -cp public/647/client.jar client 1 1 1 live english game0
-```
-
-Run the client in a separate terminal with Java 17 or 21. The `--add-opens` flag permits
-the stock native-library loader to load the Software, OpenGL and DirectX renderers.
-Its built-in desktop launcher connects to localhost; the three server IDs select ports
-`40000 + id`, so World 1 uses the default server port `40001`. Node 10 is World 1, node 11
-is World 2, and so on. This launcher does not use `jav_config.ws` or HTTP port 80.
-The lobby advertises the world ID matching the server's listening port. Custom
-TCP ports must be between 40001 and 55535; use `port - 40000` for the client's server IDs.
-
-To reproduce the RSA patch, or verify that no other client changes are present:
-
-```bash
-python deploy/patch_client_647.py
-python deploy/patch_client_647.py --check
-```
-
-The patcher downloads a hash-pinned original JAR. Pass `--original <path>` to use a local
-copy instead. The original SHA-256 is
-`b7d38915a8fb878d2e2762ba63dac195e68fc8a7ecd9dcc1e738e17f875b6086`.
-
-Assets are versioned directly in their folders, such as `models`, `animations`, `sprites`
-and `maps`. Both compilers scan the revision's `scripts` directory recursively: `.rs2` targets
-the server, `.cs2` targets the client, and `.gs2` compiles for both. Folders only organize source,
-so existing features keep their server layout, such as `interface_bank/scripts/*.rs2`,
-with `interface_bank/client/*.cs2` and `interface_bank/global/*.gs2` beside it.
-Names such as `skill_combat` and nested `scripts`, `configs` and `interfaces` folders
-are preserved.
-Engine declarations and common constants sit directly under `scripts`; feature configs
-remain beside their scripts.
-Configs and constants are shared by default; a `// @scope(server)` or `// @scope(client)`
-header restricts their target. Shared procedures may only reference shared definitions.
-647 config imports use `scripts/configs/_unpack`; older revisions keep `scripts/_unpack`.
-Each config name has one section per
-type; put client and server properties together in that section. Update filenames, headers and
-references when renaming a `.pack` entry. See [647 source formats](rs-pack/README.md#647-source-formats)
-for editing and repacking.
-
-Startup checks the original config and archive CRCs. Use `--verify false` for deliberate
-client-content changes. The full group comparison runs offline against the committed
-reference tables:
-
-```bash
-REV=647 cargo test -p rs-pack --test crc_gate -- --ignored
-```
+| Revision  | Date        | Updates it includes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|-----------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **225**   | 18 May 2004 | [Big Chompy Bird Hunting](https://runescape.wiki/w/Update:Big_Chompy_Bird_Hunting)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **244**   | 28 Jun 2004 | [New game update system](https://runescape.wiki/w/Update:New_game_update_system), [Agility improved and bug fixes](https://runescape.wiki/w/Update:Agility_improved_and_bug_fixes), [New in-game Player Moderators](https://runescape.wiki/w/Update:New_In-Game_Player_Moderators), [Special Attacks](https://runescape.wiki/w/Update:Special_Attacks), [Various tweaks to the game](https://runescape.wiki/w/Update:Various_tweaks_to_the_game), [Lots more improvements](https://runescape.wiki/w/Update:Lots_more_improvements)                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **245.2** | 13 Jul 2004 | [Easier to rearrange bank](https://runescape.wiki/w/Update:Easier_to_rearrange_bank), [Priest In Peril](https://runescape.wiki/w/Update:Priest_In_Peril_Quest), [Nature Spirit](https://runescape.wiki/w/Update:Nature_Spirit_Quest)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **254**   | 7 Sep 2004  | [Quest Journals and Chompy Hats](https://runescape.wiki/w/Update:Quest_Journals_and_Chompy_Hats), [Agility, Potions and Parties!](https://runescape.wiki/w/Update:Agility,_Potions_and_Parties!), [New Random Events!](https://runescape.wiki/w/Update:New_Random_Events!), [Death Plateau](https://runescape.wiki/w/Update:Death_Plateau_Quest), [Troll Stronghold](https://runescape.wiki/w/Update:Troll_Stronghold_Quest), [Herblore Additions](https://runescape.wiki/w/Update:Herblore_Additions), [Situation in the Sands](https://runescape.wiki/w/Update:Situation_in_the_Sands)                                                                                                                                                                                                                                                                                                                                                                        |
+| **274**   | 24 Nov 2004 | [Tai Bwo Wannai Trio](https://runescape.wiki/w/Update:Tai_Bwo_Wannai_Trio), [Plague City Part 4](https://runescape.wiki/w/Update:Plague_City_Part_4_Released), [Skills, Duels and the Kalphite](https://runescape.wiki/w/Update:Skills,_Duels_and_the_Kalphite), [Eadgar's Ruse](https://runescape.wiki/w/Update:Eadgars_Ruse), [Morytania Expansion](https://runescape.wiki/w/Update:Morytania_Expansion), [Mort'ton, Shades and Mage Armour](https://runescape.wiki/w/Update:Mortton_Shades_and_Mage_Armour), [Mage Armour Updated](https://runescape.wiki/w/Update:Mage_Armour_Updated), [Treasure Trails and Changes](https://runescape.wiki/w/Update:Treasure_Trails_and_Changes), [The Fremennik Trials](https://runescape.wiki/w/Update:The_Fremennik_Trials), [Horror From The Deep](https://runescape.wiki/w/Update:Horror_From_The_Deep), [Burthorpe Games Room](https://runescape.wiki/w/Update:Burthorpe_Games_Room)                                |
+| **289**   | 17 Jan 2005 | [Throne Of Miscellania](https://runescape.wiki/w/Update:Throne_Of_Miscellania), [Monkey Madness](https://runescape.wiki/w/Update:Monkey_Madness), [Various Small Changes](https://runescape.wiki/w/Update:Various_Small_Changes.), [More Small Changes](https://runescape.wiki/w/Update:More_Small_Changes), [Castle Wars](https://runescape.wiki/w/Update:Castle_Wars), [Changes to Castle Wars](https://runescape.wiki/w/Update:Changes_to_Castle_Wars), [Santa, Flax and Castlewars](https://runescape.wiki/w/Update:Santa,_Flax_and_Castlewars), [The Haunted Mine](https://runescape.wiki/w/Update:The_Haunted_Mine), [Troll Romance, Banks and Chat](https://runescape.wiki/w/Update:Troll_Romance,_Banks_and_Chat), [In Search Of The Myreque](https://runescape.wiki/w/Update:In_Search_Of_The_Myreque), [Trawler Game Update](https://runescape.wiki/w/Update:Trawler_Game_Update), [Karamja Dungeon](https://runescape.wiki/w/Update:Karamja_Dungeon) |
+| **530**   | 1 Feb 2009  | The early 2009 game, from [OpenRS2 cache 254](https://archive.openrs2.org/caches/runescape/254), with 647's server content carried back to it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **647**   | 17 May 2011 | The 2011 game, from [OpenRS2 cache 786](https://archive.openrs2.org/caches/runescape/786), with 289's content ported to it and 2011's changes made where they are known.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **742**   | 7 Nov 2012  | The last RuneScape 2 game, from [OpenRS2 cache 544](https://archive.openrs2.org/caches/runescape/544), with 647's content ported to it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ----
 
@@ -718,15 +689,15 @@ node, and the nodes join into one cluster for cross-world social features.
    build, so old worlds keep running during a rollout, as long as each migration is backward
    compatible.
 
-4. **Patch every release you deploy.** The repo's `.keys/private.pem` is public. Copy
-   `deploy/patch.py` to the server, and in each unpacked release, before starting the world, run
+4. **Patch every release you deploy.** The repo's `.keys/classic/private.pem` is public. Copy
+   `deploy/web/patch.py` to the server, and in each unpacked release, before starting the world, run
    `python3 /path/to/patch.py` (it needs `openssl`).
-   - It writes a new key and patches `public/<rev>/client.js` to match. Run it on the server
-     only, and never commit or upload the key. The Java client keeps the old key, so it can't
-     log in afterwards.
-   - It also turns the web client's login uid (a fixed 1337 in the build) into a random id per
-     browser. Worlds log it with each login, so the staff console can link accounts played from
-     the same browser, the way it does by address.
+    - It writes a new key and patches `public/<rev>/client.js` to match. Run it on the server
+      only, and never commit or upload the key. The Java client keeps the old key, so it can't
+      log in afterwards.
+    - It also turns the web client's login uid (a fixed 1337 in the build) into a random id per
+      browser. Worlds log it with each login, so the staff console can link accounts played from
+      the same browser, the way it does by address.
 
 5. **Name nodes by hosts they can reach.** Give each world `--node-host` (its private IP or
    hostname) and every world the same `--cluster` list, e.g.
@@ -741,35 +712,34 @@ node, and the nodes join into one cluster for cross-world social features.
 7. **Put TLS on a reverse proxy.** The web client connects back to its page's own host over
    `ws` or `wss`, so terminate TLS for the website and for each world's HTTP port. Behind a
    proxy every connection seems to come from the proxy, so:
-   - have the proxy put the player's address in a header (nginx:
-     `proxy_set_header X-Real-IP $remote_addr;`),
-   - start the world with `--real-ip-header x-real-ip`,
-   - and listen only where the proxy can reach it (e.g. `--host 127.0.0.1`).
+    - have the proxy put the player's address in a header (nginx:
+      `proxy_set_header X-Real-IP $remote_addr;`),
+    - start the world with `--real-ip-header x-real-ip`,
+    - and listen only where the proxy can reach it (e.g. `--host 127.0.0.1`).
 
 8. **Run one staff console, privately.**
-   - Put `rs-console` on a host that can reach every world's admin API over the private network
-     (on the worlds' own host, they can stay on `127.0.0.1`). Give it the same
-     `RS_ADMIN_SECRET`, and `RS_ADMIN_DATA` on a disk that persists.
-   - List the worlds' private admin URLs in a worlds file passed with `--worlds`. For replays,
-     give each world its public `client` address (e.g. `https://w1.example.com`), which the
-     console's browser loads `/replay` from.
-   - Serve it over HTTPS on the private network only (e.g. `tailscale serve --bg 8150`), and
-     start it with `--https true --origin https://<that host>`. Never expose it, or any admin
-     API, to the internet.
-   - Create the first account with `rs-console user add <name> --role maintainer`, run in the
-     console's environment with its `--worlds`. The worlds must be up, since it asks one whether
-     the name is game staff.
-   - Worlds come back after a console reboot only if their service manager restarts them
-     (systemd `Restart=always`).
-   - To post world actions to a Discord channel (reboots, shutdowns, starts, cancelled reboots,
-     broadcasts, maintenance, scheduled jobs, kill switches and lockdowns), make a webhook in the
-     channel's settings (Integrations, then Webhooks) and give its URL as
-     `RS_ADMIN_DISCORD_WEBHOOK`. Each action is one message, however many worlds it covered.
-     The URL lets anyone post to the channel, so keep it as secret as `RS_ADMIN_SECRET`.
-   - For news, give `rs-web` the same `RS_ADMIN_SECRET` and an admin port the console can reach
-     privately (`--admin-host`, `--admin-port`), and point the console at it with
-     `RS_ADMIN_WEB_URL`. Give the website a `--media-dir` outside the release folder for news
-     images and videos, and let its database login insert, update and delete `news_posts`.
+    - Put `rs-console` on a host that can reach every world's admin API over the private network (on the worlds' own
+      host, they can stay on `127.0.0.1`). Give it the same
+      `RS_ADMIN_SECRET`, and `RS_ADMIN_DATA` on a disk that persists.
+    - List the worlds' private admin URLs in a worlds file passed with `--worlds`. For replays,
+      give each world its public `client` address (e.g. `https://w1.example.com`), which the
+      console's browser loads `/replay` from.
+    - Serve it over HTTPS on the private network only (e.g. `tailscale serve --bg 8150`), and
+      start it with `--https true --origin https://<that host>`. Never expose it, or any admin
+      API, to the internet.
+    - Create the first account with `rs-console user add <name> --role maintainer`, run in the
+      console's environment with its `--worlds`. The worlds must be up, since it asks one whether
+      the name is game staff.
+    - Worlds come back after a console reboot only if their service manager restarts them (systemd `Restart=always`).
+    - To post world actions to a Discord channel (reboots, shutdowns, starts, cancelled reboots,
+      broadcasts, maintenance, scheduled jobs, kill switches and lockdowns), make a webhook in the
+      channel's settings (Integrations, then Webhooks) and give its URL as
+      `RS_ADMIN_DISCORD_WEBHOOK`. Each action is one message, however many worlds it covered.
+      The URL lets anyone post to the channel, so keep it as secret as `RS_ADMIN_SECRET`.
+    - For news, give `rs-web` the same `RS_ADMIN_SECRET` and an admin port the console can reach
+      privately (`--admin-host`, `--admin-port`), and point the console at it with
+      `RS_ADMIN_WEB_URL`. Give the website a `--media-dir` outside the release folder for news
+      images and videos, and let its database login insert, update and delete `news_posts`.
 
 9. **Keep recordings out of routine backups.** Session recordings are big and short-lived, so
    dump with `pg_dump --exclude-table-data=replay_chunks`.

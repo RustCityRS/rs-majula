@@ -1,36 +1,38 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::pack_registry::PackRegistry;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::JagArchive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
+#[cfg(all(since_530, before_647))]
+use crate::cache::texture::MATERIAL_FIELDS;
+#[cfg(since_530)]
 use crate::cache::texture::{OP_NAMES, TextureDef, TextureOp};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::incremental::Stage;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, insert_archive, versions_dep};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::AssetNames;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::{media, palette};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::Result;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
 use std::fs;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::mem::take;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_textures_jag(registry: &PackRegistry, content_dir: &Path) -> Vec<u8> {
     let tex_dir = content_dir.join("textures");
     if !tex_dir.exists() {
@@ -78,7 +80,7 @@ pub fn pack_textures_jag(registry: &PackRegistry, content_dir: &Path) -> Vec<u8>
     jag.build(JagArchive::Textures.compression())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
@@ -122,7 +124,7 @@ pub fn pack_archive(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_texture(def: &TextureDef) -> Vec<u8> {
     let mut out = Vec::new();
     out.push(def.ops.len() as u8);
@@ -147,33 +149,37 @@ pub fn encode_texture(def: &TextureDef) -> Vec<u8> {
 
     out.push(def.color_op);
     out.push(def.alpha_op);
+    #[cfg(since_647)]
     out.push(def.mod_op);
+    #[cfg(since_647)]
     out.extend_from_slice(&def.trailing_material);
+    #[cfg(all(since_530, before_647))]
+    out.extend_from_slice(&def.material);
 
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn w_u8(v: u8) -> Vec<u8> {
     vec![v]
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn w_u16(v: u16) -> Vec<u8> {
     v.to_be_bytes().to_vec()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn w_i16(v: i16) -> Vec<u8> {
     (v as u16).to_be_bytes().to_vec()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn w_u24(v: u32) -> Vec<u8> {
     vec![(v >> 16) as u8, (v >> 8) as u8, v as u8]
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_named_field(op: u8, key: &str, val: &str) -> Option<(u8, Vec<u8>)> {
     let b = |s: &str| -> bool { s == "yes" || s == "1" || s == "true" };
     let u8v = |s: &str| -> Vec<u8> { w_u8(s.parse().unwrap_or(0)) };
@@ -296,15 +302,19 @@ fn parse_named_field(op: u8, key: &str, val: &str) -> Option<(u8, Vec<u8>)> {
     })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_texture_text(text: &str) -> TextureDef {
     let mut def = TextureDef {
         ops: Vec::new(),
         connections: Vec::new(),
         color_op: 0,
         alpha_op: 0,
+        #[cfg(since_647)]
         mod_op: 0,
+        #[cfg(since_647)]
         trailing_material: Vec::new(),
+        #[cfg(all(since_530, before_647))]
+        material: [0; 9],
     };
 
     enum Section {
@@ -361,8 +371,21 @@ pub fn parse_texture_text(text: &str) -> TextureDef {
             Section::Texture => match key {
                 "color" => def.color_op = parse_op_ref(val),
                 "alpha" => def.alpha_op = parse_op_ref(val),
+                #[cfg(since_647)]
                 "mod" => def.mod_op = parse_op_ref(val),
+                #[cfg(since_647)]
                 "trailing" => def.trailing_material = hex_decode(val),
+                #[cfg(all(since_530, before_647))]
+                _ => {
+                    if let Some(i) = MATERIAL_FIELDS.iter().position(|&(name, _)| name == key) {
+                        def.material[i] = if MATERIAL_FIELDS[i].1 {
+                            val.parse::<i8>().unwrap_or(0) as u8
+                        } else {
+                            val.parse().unwrap_or(0)
+                        };
+                    }
+                }
+                #[cfg(since_647)]
                 _ => {}
             },
             Section::Op => {
@@ -412,7 +435,7 @@ pub fn parse_texture_text(text: &str) -> TextureDef {
     def
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn hex_decode(s: &str) -> Vec<u8> {
     let s = s.trim();
     if s.is_empty() {
@@ -428,7 +451,7 @@ fn hex_decode(s: &str) -> Vec<u8> {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn hex_nibble(b: u8) -> u8 {
     match b {
         b'0'..=b'9' => b - b'0',
@@ -438,10 +461,10 @@ fn hex_nibble(b: u8) -> u8 {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_op_ref(val: &str) -> u8 {
     val.strip_prefix("op").unwrap_or(val).parse().unwrap_or(0)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod source;

@@ -1,0 +1,23 @@
+// 6602
+[proc,clientscript_6602]
+if_sethide(interface_1327:com_45, false);
+switch_int (%varplayerbit_11817) {
+    case 0 :
+        if_sethide(interface_1327:com_45, true);
+    case 1 :
+        ~clientscript_6603(interface_1327:com_27);
+    case 2 :
+        ~clientscript_6603(interface_1327:com_8);
+    case 3 :
+        ~clientscript_6603(interface_1327:com_9);
+    case 4 :
+        ~clientscript_6603(interface_1327:com_10);
+    case 5 :
+        ~clientscript_6603(interface_1327:com_13);
+    case 6 :
+        ~clientscript_6603(interface_1327:com_11);
+    case 7 :
+        ~clientscript_6603(interface_1327:com_12);
+    case 8 :
+        ~clientscript_6603(interface_1327:com_24);
+}

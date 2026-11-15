@@ -1,0 +1,32 @@
+// 5222
+[proc,clientscript_5222](int $int0)
+def_int $int1 = ~clientscript_4949($int0);
+def_int $int2 = ~clientscript_4959($int0);
+def_component $component3 = ~clientscript_4972($int0);
+if ($component3 = null) {
+    return;
+}
+def_component $component4 = op543($component3);
+def_component $component5 = op543($component4);
+def_string $string0 = "";
+def_string $string1 = "Empty skill plot";
+def_int $int6 = 3;
+if ($int0 = 1) {
+    $string0 = "Citadel : Tier <tostring($int2)>";
+} else if ($int0 = 2) {
+    $string0 = "Storehouse : Tier <tostring($int2)>";
+} else if ($int0 = 3) {
+    $string0 = "Battlefield : Tier <tostring($int2)>";
+} else {
+    $string1 = enum(int, string, enum_4287, $int1);
+    if ($int2 > 0) {
+        $string0 = "<$string1> : Tier <tostring($int2)>";
+    } else {
+        $string0 = "Empty skill plot";
+    }
+}
+if (if_getx($component4) < calc(if_getwidth($component5) / 2 - 50)) {
+    $int6 = 1;
+}
+if_setonmouserepeat($component3, "aif_tooltip(interface_1261:com_153, $component3, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int6, event_mousex, event_mousey)");
+if_setonmouseleave($component3, "deltooltip(interface_1261:com_153)");

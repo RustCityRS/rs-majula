@@ -1,0 +1,10 @@
+// 4038
+[proc,script4038]
+%loginscreen_focus = 17;
+if_sethide(account_create:create_layer, true);
+if_sethide(account_create:border, true);
+if_sethide(account_create:u13_layer, false);
+if_setgraphic(account_create:com_17, "corner_flourish,0");
+if_setgraphic(account_create:com_14, "corner_flourish,0");
+if_setgraphic(account_create:com_16_, "corner_flourish,0");
+if_setgraphic(account_create:com_15, "corner_flourish,0");

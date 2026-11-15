@@ -1,0 +1,21 @@
+// 1180
+[proc,clientscript_1180]
+def_string $string0 = "";
+def_int $int0 = string_length(%varclient_665);
+while ($int0 > 0) {
+    $string0 = append($string0, "*");
+    $int0 = calc($int0 - 1);
+}
+if (calc(clientclock % 40) < 20 & login_reply ! -3 & login_reply ! 21 & login_reply ! 1) {
+    if (%loginscreen_focus = 1) {
+        if_settext(loginscreen:username, append(%varclient_664, "|"));
+        if_settext(loginscreen:password, $string0);
+    } else if (%loginscreen_focus = 2) {
+        if_settext(loginscreen:username, %varclient_664);
+        if_settext(loginscreen:password, append($string0, "|"));
+    }
+} else {
+    if_settext(loginscreen:username, %varclient_664);
+    if_settext(loginscreen:password, $string0);
+}
+~clientscript_711(loginscreen:com_334);

@@ -29,6 +29,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const SMITHING: usize = 13;
@@ -58,13 +59,13 @@ const CLAWS: i32 = ANVIL_IF | 209;
 /// collision map: the cases take turns.
 static TURN: Mutex<()> = Mutex::new(());
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
@@ -87,7 +88,7 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
         let copper = obj(engine, "copper_ore");
         let tin = obj(engine, "tin_ore");
         let bronze = obj(engine, "bronze_bar");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let mut client = engine.harness_login_returning("smelter").expect("login");
@@ -185,7 +186,7 @@ fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
 /// Uses the first bronze bar in the backpack on Lumbridge's anvil (OPLOCT).
 fn bar_on_anvil(engine: &Engine, client: &mut HarnessClient) {
     let bronze = obj(engine, "bronze_bar");
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let player = engine.harness_player(client.pid).unwrap();
     let backpack = player.invs.get(&inv).unwrap();
     let slot = (0..28)
@@ -193,7 +194,7 @@ fn bar_on_anvil(engine: &Engine, client: &mut HarnessClient) {
         .expect("a bronze bar");
     let (loc, x, z) = ANVIL;
     let mut p = ClientPacket::new();
-    p.p2_alt2(bronze as i32)
+    p.p2_alt2(bronze.int())
         .p2_alt2(slot as i32)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
@@ -212,7 +213,7 @@ fn at_the_anvil(
 ) -> (HarnessClient, Packets, Vec<String>) {
     let hammer = obj(engine, "hammer");
     let bronze = obj(engine, "bronze_bar");
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
@@ -267,7 +268,7 @@ fn a_bronze_bar_on_lumbridge_s_anvil_opens_2011_s_slots() {
             "2011's anvil interface; the game said {said:?}"
         );
         assert!(
-            objects(&sent).contains(&(DAGGER, dagger)),
+            objects(&sent).contains(&(DAGGER, dagger.g2())),
             "the bronze dagger in its slot; sent {:?}",
             objects(&sent)
         );
@@ -286,7 +287,7 @@ fn make_1_smiths_a_bronze_dagger_and_make_all_the_rest() {
     runner::on_loaded_engine(|engine| {
         let bronze = obj(engine, "bronze_bar");
         let dagger = obj(engine, "bronze_dagger");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (mut client, _, said) = at_the_anvil(engine, "anvilsmith", 3);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(player.is_interface_open(300), "the game said {said:?}");

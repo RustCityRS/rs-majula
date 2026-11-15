@@ -1,0 +1,24 @@
+// 1369
+[proc,clientscript_1369](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+~clientscript_1088($component0, 0);
+~clientscript_2046;
+def_string $string0 = null;
+if (%worldmap_focus ! null) {
+    $string0 = worldmap_getmap(%worldmap_focus);
+    if (string_length($string0) <= 0) {
+        $string0 = "main";
+    }
+}
+worldmap_setmap($string0);
+%varclient_684 = $string0;
+%worldmap_zoom = worldmap_getconfigzoom;
+~clientscript_1372;
+~worldmap_showoverview(0);
+~clientscript_1376(0, $component5);
+~clientscript_1378(0);
+~worldmap_key_build(%worldmap_keysort, $component1, $component2, $component3);
+if_setonkey($component4, "clientscript_1382(event_keycode, event_keychar, $component4)");
+%varclient_663 = "";
+if (%worldmap_focus ! null & worldmap_coordinmap(%worldmap_focus, $string0) = true) {
+    if_setontimer($component0, "clientscript_2054(calc(clientclock + 5), $component0, %worldmap_focus)");
+}

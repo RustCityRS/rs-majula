@@ -1,0 +1,5 @@
+// 2171
+[clientscript,ql4_button_filter_op](int $int0)
+if ($int0 = 1) {
+    ~ql4_filter(0);
+}

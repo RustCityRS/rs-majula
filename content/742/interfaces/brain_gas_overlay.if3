@@ -1,0 +1,38 @@
+// 515:0
+[contents]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 515:1
+[com_1]
+type=model
+x=6
+width=64836
+height=64732
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+model=model_23154
+modelorigin=-9,1
+modelangle=0,0,256
+modelanim=smokeoverlay
+modelnodepth=yes
+modelobjwidth=1212
+modelobjheight=1138
+
+// 515:2
+[com_2]
+type=rectangle
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=contents
+colour=0x006633
+fill=yes
+trans=196

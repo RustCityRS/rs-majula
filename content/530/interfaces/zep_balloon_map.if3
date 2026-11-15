@@ -1,0 +1,579 @@
+// 469:0
+[com_0]
+type=rectangle
+x=1
+width=511
+height=335
+layer=contents
+colour=0x2d2406
+fill=yes
+
+// 469:1
+[com_1]
+type=model
+x=-58
+y=145
+width=648
+height=195
+layer=contents
+model=model_19486
+modelorigin=22,-128
+modelangle=309,1996,0
+modelzoom=505
+modelanim=zep_balloon_journey_castlewars_entrana
+modelunknown=65469,987,0
+
+// 469:2
+[com_2]
+type=model
+x=-78
+y=-25
+width=683
+height=357
+layer=contents
+model=model_19487
+modelorigin=25,-46
+modelangle=309,1996,0
+modelzoom=505
+modelunknown=65283,1086,0
+
+// 469:3
+[castle]
+type=text
+x=65
+y=232
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Castle
+colour=0xd4b082
+
+// 469:4
+[wars]
+type=text
+x=74
+y=251
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Wars
+colour=0xd4b082
+
+// 469:5
+[grand]
+type=text
+x=53
+y=126
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Grand
+textlineheight=21
+colour=0xd4b082
+
+// 469:6
+[tree]
+type=text
+x=66
+y=146
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Tree
+colour=0xd4b082
+
+// 469:7
+[varrock]
+type=text
+x=358
+y=27
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Varrock
+colour=0xd4b082
+
+// 469:8
+[entrana]
+type=text
+x=199
+y=119
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Entrana
+colour=0xd4b082
+
+// 469:9
+[taverley]
+type=text
+x=266
+y=54
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Taverley
+colour=0xd4b082
+
+// 469:10
+[crafting]
+type=text
+x=290
+y=132
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Crafting
+colour=0xd4b082
+
+// 469:11
+[guild]
+type=text
+x=305
+y=151
+width=32
+height=32
+layer=contents
+textfont=fontmetrics_645
+text=Guild
+colour=0xd4b082
+
+// 469:12
+[zep_interface_balloon]
+type=model
+x=223
+y=55
+width=45
+height=77
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=307,1991,0
+modelzoom=505
+modelunknown=65121,1010,0
+
+// 469:13
+[zep_close]
+type=graphic
+x=483
+y=4
+width=26
+height=23
+layer=contents
+graphic=graphic_541
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 542)
+onmouseleave=graphic_swapper(event_com, 541)
+onop=if_close
+
+// 469:14
+[btn_cast]
+type=graphic
+x=58
+y=229
+width=99
+height=53
+layer=contents
+transmitop=1
+op1=Castle Wars
+onmouseleave=zep_mouse_leave(zep_balloon_map:castle, zep_balloon_map:wars)
+onmouserepeat=zep_mouse_over(zep_balloon_map:castle, zep_balloon_map:wars)
+
+// 469:15
+[btn_gno]
+type=graphic
+x=51
+y=125
+width=99
+height=53
+layer=contents
+transmitop=1
+op1=Grand Tree
+onmouseleave=zep_mouse_leave(zep_balloon_map:grand, zep_balloon_map:tree)
+onmouserepeat=zep_mouse_over(zep_balloon_map:grand, zep_balloon_map:tree)
+
+// 469:16
+[btn_craft]
+type=graphic
+x=289
+y=133
+width=116
+height=53
+layer=contents
+transmitop=1
+op1=Crafting Guild
+onmouseleave=zep_mouse_leave(zep_balloon_map:crafting, zep_balloon_map:guild)
+onmouserepeat=zep_mouse_over(zep_balloon_map:crafting, zep_balloon_map:guild)
+
+// 469:17
+[btn_ent]
+type=graphic
+x=199
+y=121
+width=77
+height=34
+layer=contents
+transmitop=1
+op1=Entrana
+onmouseleave=text_colour_swapper(zep_balloon_map:entrana, 0xd4b082)
+onmouserepeat=text_colour_swapper(zep_balloon_map:entrana, 0xdbdbb7)
+
+// 469:18
+[btn_tav]
+type=graphic
+x=266
+y=54
+width=81
+height=35
+layer=contents
+transmitop=1
+op1=Taverley
+onmouseleave=text_colour_swapper(zep_balloon_map:taverley, 0xd4b082)
+onmouserepeat=text_colour_swapper(zep_balloon_map:taverley, 0xdbdbb7)
+
+// 469:19
+[btn_varr]
+type=graphic
+x=356
+y=25
+width=83
+height=35
+layer=contents
+transmitop=1
+op1=Varrock
+onmouseleave=text_colour_swapper(zep_balloon_map:varrock, 0xd4b082)
+onmouserepeat=text_colour_swapper(zep_balloon_map:varrock, 0xdbdbb7)
+
+// 469:20
+[mod_craft]
+type=model
+x=317
+y=107
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+modelunknown=65057,1009,0
+
+// 469:21
+[mod_varr]
+type=model
+x=386
+y=3
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+modelunknown=65057,1009,0
+
+// 469:22
+[mod_tav]
+type=model
+x=295
+y=16
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+modelunknown=65057,1009,0
+
+// 469:23
+[mod_gno]
+type=model
+x=69
+y=100
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+modelunknown=65057,1009,0
+
+// 469:24
+[mod_cast]
+type=model
+x=80
+y=198
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+modelunknown=65057,1009,0
+
+// 469:25
+[mod_ent]
+type=model
+x=221
+y=103
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+modelunknown=65057,1009,0
+
+// 469:26
+[contents]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 469:27
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 469:28
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 469:29
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 469:30
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_821
+tiling=yes
+
+// 469:31
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_820
+tiling=yes
+
+// 469:32
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_822
+tiling=yes
+
+// 469:33
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_823
+tiling=yes
+
+// 469:34
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_824
+tiling=yes
+
+// 469:35
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_825
+tiling=yes
+
+// 469:36
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_827
+tiling=yes
+
+// 469:37
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_826
+tiling=yes
+
+// 469:38
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 469:39
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 469:40
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 469:41
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 469:42
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 469:43
+[com_43]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 469:44
+[com_44]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 469:45
+[com_45]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 469:46
+[com_46]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=graphic_297
+tiling=yes
+outline=2

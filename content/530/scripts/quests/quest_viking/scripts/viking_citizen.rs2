@@ -1,0 +1,10 @@
+// 289's viking_citizen.rs2, as far as ported content needs it: what a
+// Rellekka citizen says when the player fails to pickpocket them.
+
+[proc,viking_citizen_fail_say]
+switch_int(random(4)) {
+    case 0 : npc_say("You shame us, <~get_viking_name>!");
+    case 1 : npc_say("How can you steal from me, <~get_viking_name>?");
+    case 2 : npc_say("You have betrayed your heritage, <~get_viking_name>!");
+    case 3 : npc_say("Why would you try to steal from me, <~get_viking_name>?");
+}

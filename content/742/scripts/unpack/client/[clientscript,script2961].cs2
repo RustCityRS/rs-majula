@@ -1,0 +1,17 @@
+// 2961
+[clientscript,script2961](component $component0, component $component1, boolean $boolean2)
+if ($boolean2 = true) {
+    if (%loginscreen_camera_disabled = true) {
+        if_setgraphic($component0, "animatedcam,2");
+    } else {
+        if_setgraphic($component0, "animatedcam,1");
+    }
+    if_setcolour($component1, 0xebe0bc);
+} else {
+    if (%loginscreen_camera_disabled = true) {
+        if_setgraphic($component0, "animatedcam,0");
+    } else {
+        if_setgraphic($component0, "animatedcam,3");
+    }
+    if_setcolour($component1, 0xb2aa9f);
+}

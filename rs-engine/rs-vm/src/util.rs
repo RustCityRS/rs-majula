@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::engine::ProjAnimHalfsq;
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
@@ -23,6 +23,7 @@ use rs_pack::cache::spotanim::SpotAnimType;
 use rs_pack::cache::r#struct::StructType;
 #[cfg(since_647)]
 use rs_pack::cache::{provider::CacheType, varobj::VarObjType};
+use rs_ver::TypeId;
 use std::sync::Arc;
 
 pub const LOOTDROP_DURATION: u64 = (200 * 3) >> 1;
@@ -83,7 +84,7 @@ pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
 /// What [`Inventory::delete_with_vars`] took, ready to put down: the items
 /// without varobjs as one, then each with its own.
 pub(crate) fn taken_items(
-    obj: u16,
+    obj: TypeId,
     completed: u32,
     with_vars: Vec<Item>,
 ) -> impl Iterator<Item = Item> {
@@ -102,20 +103,20 @@ pub(crate) fn pop_varobj<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .varobjs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::VarObjNotFound(id))
 }
 
 /// Errors unless obj `obj` lists `varobj` in its `objvar`.
 #[cfg(since_647)]
 pub(crate) fn require_objvar<E: ScriptEngine + 'static>(
-    obj: u16,
+    obj: TypeId,
     varobj: &VarObjType,
 ) -> Result<()> {
     let obj_type = engine::<E>()
         .objs()
         .get_by_id(obj)
-        .ok_or(ScriptError::ObjNotFound(obj as i32))?;
+        .ok_or(ScriptError::ObjNotFound(obj.int()))?;
     if obj_type
         .objvar
         .as_deref()
@@ -579,7 +580,7 @@ pub(crate) fn pop_count(state: &mut ScriptState) -> Result<u32> {
 
 /// Whether something at `from` may be put at `to`: see
 /// [`ScriptEngine::region_allows`], with either region the script selected.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn region_allows<E: ScriptEngine + 'static>(
     state: &ScriptState,
     from: CoordGrid,
@@ -590,7 +591,7 @@ pub(crate) fn region_allows<E: ScriptEngine + 'static>(
         || state.active_region2.is_some() && engine.region_allows(from, to, state.active_region2)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[allow(clippy::extra_unused_type_parameters)]
 pub(crate) fn region_allows<E: ScriptEngine + 'static>(
     _state: &ScriptState,
@@ -614,12 +615,12 @@ pub(crate) fn teleport_allowed<E: ScriptEngine + 'static>(
     allowed
 }
 
-/// Pops an interface component. Before 647 it is the component's own id,
+/// Pops an interface component. Before 530 it is the component's own id,
 /// which must fit a `u16`.
 pub(crate) fn pop_com(state: &mut ScriptState) -> Result<ComId> {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let com = ComId::from(state.pop_int_as::<u16>()?);
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let com = state.pop_int();
     Ok(com)
 }
@@ -651,7 +652,7 @@ pub(crate) fn pop_enum<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .enums()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::EnumNotFound(id))
 }
 
@@ -671,7 +672,7 @@ pub(crate) fn pop_dbrow<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .dbrows()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::DbRowNotFound(id))
 }
 
@@ -711,7 +712,7 @@ pub(crate) fn pop_inv<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .invs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::InvNotFound(id))
 }
 
@@ -731,7 +732,7 @@ pub(crate) fn pop_idk<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .idks()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::IdkNotFound(id))
 }
 
@@ -808,10 +809,18 @@ pub(crate) fn jingle_midi_id<E: ScriptEngine + 'static>(name: &str) -> Option<u1
     engine::<E>().midi_id(name.to_ascii_lowercase().as_str())
 }
 
-#[cfg(since_254)]
+#[cfg(since_274)]
 pub(crate) fn midi_tick_length<E: ScriptEngine + 'static>(id: i32) -> Result<u16> {
     engine::<E>()
         .midi_tick_length(id)
+        .ok_or(ScriptError::SongNotFound(id))
+}
+
+#[cfg(all(since_254, before_530))]
+pub(crate) fn midi_length_ms<E: ScriptEngine + 'static>(id: i32) -> Result<u16> {
+    engine::<E>()
+        .midi_length_ms(id)
+        .map(|ms| ms.min(u32::from(u16::MAX)) as u16)
         .ok_or(ScriptError::SongNotFound(id))
 }
 
@@ -831,7 +840,7 @@ pub(crate) fn pop_npc<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .npcs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::NpcNotFound(id))
 }
 
@@ -851,7 +860,7 @@ pub(crate) fn pop_obj<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .objs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::ObjNotFound(id))
 }
 
@@ -871,7 +880,7 @@ pub(crate) fn pop_loc<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .locs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::LocNotFound(id))
 }
 
@@ -891,7 +900,7 @@ pub(crate) fn pop_param<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .params()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::ParamNotFound(id))
 }
 
@@ -933,7 +942,7 @@ pub(crate) fn pop_seq<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .seqs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::SeqNotFound(id))
 }
 
@@ -953,13 +962,13 @@ pub(crate) fn pop_spotanim<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .spotanims()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::SpotanimNotFound(id))
 }
 
 /// The half square at the centre of a `size` square whose south-west tile
 /// is `coord`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn halfsq(coord: CoordGrid, size: u8) -> (u16, u16) {
     (
         (coord.x() << 1) + size as u16,
@@ -968,10 +977,13 @@ pub(crate) fn halfsq(coord: CoordGrid, size: u8) -> (u16, u16) {
 }
 
 /// Pops a BAS wearpos, or -1 for none.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn pop_wearpos(state: &mut ScriptState) -> Result<Option<u8>> {
     match state.pop_int() {
         -1 => Ok(None),
+        #[cfg(all(since_530, before_647))]
+        wearpos @ 0..=15 => Ok(Some(wearpos as u8)),
+        #[cfg(since_647)]
         wearpos @ 0..=63 => Ok(Some(wearpos as u8)),
         wearpos => Err(ScriptError::Runtime(format!("Invalid wearpos: {wearpos}"))),
     }
@@ -979,21 +991,27 @@ pub(crate) fn pop_wearpos(state: &mut ScriptState) -> Result<Option<u8>> {
 
 /// The spotanim, heights, delays, peak and arc every halfsq projanim command
 /// ends with, popped before the arguments that say where it flies.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) struct ProjAnimTail {
-    spotanim: u16,
+    spotanim: TypeId,
     src_height: i32,
     dst_height: u8,
     start: u16,
     end: u16,
     peak: u8,
+    #[cfg(all(since_530, before_647))]
+    arc: u8,
+    #[cfg(since_647)]
     arc: u16,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn pop_projanim_tail<E: ScriptEngine + 'static>(
     state: &mut ScriptState,
 ) -> Result<ProjAnimTail> {
+    #[cfg(all(since_530, before_647))]
+    let arc = state.pop_int_as::<u8>()?;
+    #[cfg(since_647)]
     let arc = state.pop_int_as::<u16>()?;
     let peak = state.pop_int_as::<u8>()?;
     let end = state.pop_int_as::<u16>()?;
@@ -1012,7 +1030,7 @@ pub(crate) fn pop_projanim_tail<E: ScriptEngine + 'static>(
     })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ProjAnimTail {
     /// Casts the projectile from half square `from` to `to` on `level`. With
     /// a wearpos the client takes the start height as a signed offset.
@@ -1075,7 +1093,7 @@ pub(crate) fn pop_struct<E: ScriptEngine + 'static>(
     let id = state.pop_int();
     engine::<E>()
         .structs()
-        .get_by_id(id as u16)
+        .get_by_id(TypeId::from_int(id))
         .ok_or(ScriptError::StructNotFound(id))
 }
 
@@ -1141,13 +1159,13 @@ pub(crate) fn get_inv<'a, E: ScriptEngine + 'static>(
 /// # Call Stack
 /// **Calls:** [`cache`], [`stackmode`], [`engine_mut`] (for shared), [`ScriptPlayer::get_or_create_inv`].
 pub(crate) fn get_inv_mut<E: ScriptEngine + 'static>(
-    inv_id: u16,
+    inv_id: TypeId,
     player: &mut impl ScriptPlayer,
 ) -> Result<&mut Inventory> {
     let inv = engine::<E>()
         .invs()
         .get_by_id(inv_id)
-        .ok_or(ScriptError::InvNotFound(inv_id as i32))?;
+        .ok_or(ScriptError::InvNotFound(inv_id.int()))?;
     let stackmode = stackmode(inv);
     let size = inv.size as usize;
     match inv.scope {
@@ -1178,17 +1196,17 @@ pub(crate) fn get_inv_mut<E: ScriptEngine + 'static>(
 /// **Calls:** [`cache`], [`stackmode`], [`ScriptPlayer::get_or_create_inv`],
 /// [`ScriptPlayer::get_inv_pair_mut`].
 pub(crate) fn get_inv_pair_mut<E: ScriptEngine + 'static>(
-    inv_a: u16,
-    inv_b: u16,
+    inv_a: TypeId,
+    inv_b: TypeId,
     player: &mut impl ScriptPlayer,
 ) -> Result<(&mut Inventory, &mut Inventory)> {
     let invs = engine::<E>().invs();
     let a = invs
         .get_by_id(inv_a)
-        .ok_or(ScriptError::InvNotFound(inv_a as i32))?;
+        .ok_or(ScriptError::InvNotFound(inv_a.int()))?;
     let b = invs
         .get_by_id(inv_b)
-        .ok_or(ScriptError::InvNotFound(inv_b as i32))?;
+        .ok_or(ScriptError::InvNotFound(inv_b.int()))?;
     let sa = stackmode(a);
     let sb = stackmode(b);
     // ensure both exist
@@ -1196,7 +1214,7 @@ pub(crate) fn get_inv_pair_mut<E: ScriptEngine + 'static>(
     player.get_or_create_inv(b.id, b.size as usize, sb);
     player
         .get_inv_pair_mut(inv_a, inv_b)
-        .ok_or(ScriptError::InvNotFound(inv_a as i32))
+        .ok_or(ScriptError::InvNotFound(inv_a.int()))
 }
 
 /// Calculates how many items of the given type cannot fit into an inventory.
@@ -1248,7 +1266,7 @@ pub(crate) fn inv_itemspace(
 ///
 /// # Returns
 /// The un-certificated item ID, or the object's own ID if it is not a certificate.
-pub(crate) fn uncert(obj: &ObjType) -> u16 {
+pub(crate) fn uncert(obj: &ObjType) -> TypeId {
     if obj.certtemplate.is_some()
         && let Some(certlink) = obj.certlink
     {
@@ -1269,7 +1287,7 @@ pub(crate) fn uncert(obj: &ObjType) -> u16 {
 ///
 /// # Returns
 /// The certificated item ID, or the object's own ID if no certificate form exists.
-pub(crate) fn cert(obj: &ObjType) -> u16 {
+pub(crate) fn cert(obj: &ObjType) -> TypeId {
     if obj.certtemplate.is_none()
         && let Some(certlink) = obj.certlink
     {
@@ -1314,7 +1332,7 @@ pub(crate) fn inv_total_param<E: ScriptEngine + 'static>(
         let value = obj_type
             .params
             .as_ref()
-            .and_then(|p| p.get(&(param.id as i32)))
+            .and_then(|p| p.get(&param.id))
             .map(|v| match v {
                 ParamValue::Int(i) => *i,
                 _ => param.default_int,

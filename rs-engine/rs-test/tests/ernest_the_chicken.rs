@@ -32,12 +32,13 @@ const DOOR_4TO7: (u16, u16, u16) = (144, 3108, 9758);
 const DOOR_1TO2: (u16, u16, u16) = (137, 3105, 9765);
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine
+    engine
         .cache
         .varps
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no varp {name}"))
+        .id
+        .g2()
 }
 
 fn loc(engine: &Engine, name: &str) -> u16 {
@@ -242,7 +243,7 @@ fn the_front_doors_open_from_outside_only() {
 /// A spawn of npc `name`, and a tile beside it that one step from the npc
 /// reaches.
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
@@ -329,8 +330,8 @@ fn ernest_pays_2011s_reward() {
         let (nid, x, y, z) = beside(engine, "professor_oddenstein");
         let mut client = login(engine, "ernest_reward", (x, y, z));
         let haunted = varp(engine, "haunted");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let obj = |e: &Engine, n: &str| *e.cache.objs.debugnames.get(n).unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let obj = |e: &Engine, n: &str| e.cache.objs.get_by_debugname(n).unwrap().id;
         let parts = [
             obj(engine, "pressure_gauge"),
             obj(engine, "oil_can"),

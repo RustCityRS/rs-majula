@@ -1,0 +1,24 @@
+// 370
+[proc,playerdesign4_button_highlight](component $component0, boolean $boolean1)
+if ($boolean1 = true) {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic(8710);
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic(8704);
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic(8707);
+    }
+} else {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic(8709);
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic(8703);
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic(8706);
+    }
+    ~playerdesign4_tooltip_clear;
+}

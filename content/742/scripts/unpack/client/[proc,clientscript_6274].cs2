@@ -1,0 +1,7 @@
+// 6274
+[proc,clientscript_6274](component $component0, int $int1)
+if (%varclient_1934 = $int1) {
+    if_setgraphic($component0, 11232);
+} else {
+    if_setgraphic($component0, 11230);
+}

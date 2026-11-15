@@ -1,4 +1,7 @@
 [login,_]
+if (map_lobby = true) {
+    return;
+}
 mes("Welcome to RuneScape.")
 // register the timers that replenish stats (ported from rev-225);
 // hp is separate so rapid heal/restore can retune it independently

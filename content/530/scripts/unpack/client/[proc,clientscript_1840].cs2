@@ -1,0 +1,26 @@
+// 1840
+[proc,clientscript_1840](component $component0, int $int1, int $int2)(int)
+def_struct $struct3 = enum(int, struct, enum_1805, $int1);
+if ($struct3 = null) {
+    return($int2);
+}
+def_string $string0 = struct_param($struct3, param_596);
+cc_create($component0, 5, if_getnextsubid($component0));
+cc_setgraphic(struct_param($struct3, param_595));
+cc_setposition(3, $int2, 0, 0);
+cc_setsize(15, 15, 0, 0);
+cc_setopbase("<col=ff9040><$string0></col>");
+cc_setop(1, "Highlight");
+cc_setonop("clientscript_1381($int1)");
+cc_create($component0, 4, if_getnextsubid($component0));
+cc_settext($string0);
+cc_setposition(18, $int2, 0, 0);
+cc_setsize(calc(cc_getx + 3), 15, 1, 0);
+cc_setcolour(^white);
+cc_settextfont(495);
+cc_settextshadow(true);
+cc_settextalign(0, 0, 0);
+cc_setopbase("<col=ff9040><$string0></col>");
+cc_setop(1, "Highlight");
+cc_setonop("clientscript_1381($int1)");
+return(calc($int2 + cc_getheight));

@@ -15,6 +15,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -22,33 +23,34 @@ use std::sync::Mutex;
 /// collision map: the cases take turns.
 static TURN: Mutex<()> = Mutex::new(());
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine
+    engine
         .cache
         .varps
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no varp {name}"))
+        .id
+        .g2()
 }
 
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
 /// the npc reaches, so no wall stands between (npcs wander).
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
@@ -170,7 +172,7 @@ fn every_prince_ali_rescue_npc_answers_every_branch() {
 fn aggie_mixes_skin_paste_without_flour() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (ashes, berries, water, paste) = (
             obj(engine, "ashes"),
             obj(engine, "redberries"),
@@ -221,7 +223,7 @@ fn aggie_mixes_skin_paste_without_flour() {
 fn aggie_makes_dyes_from_her_2011_menu() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (coins, onion, yellow) = (
             obj(engine, "coins"),
             obj(engine, "onion"),

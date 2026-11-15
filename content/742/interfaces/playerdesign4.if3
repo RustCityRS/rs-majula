@@ -1,0 +1,2226 @@
+// 1028:0
+[com_0]
+type=graphic
+width=25
+height=44
+layer=com_136
+graphic=graphic_10513
+
+// 1028:1
+[com_1]
+type=graphic
+width=25
+height=44
+widthmode=minus
+xmode=abs_right
+layer=com_136
+graphic=graphic_10514
+
+// 1028:2
+[fill_2]
+type=graphic
+width=16056
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=colours_container
+graphic=window_texture
+tiling=yes
+
+// 1028:3
+[bottom_1]
+type=graphic
+width=72
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=colours_container
+graphic="corner_frame_2,2"
+
+// 1028:4
+[left_1]
+type=graphic
+width=38
+height=100
+heightmode=minus
+ymode=abs_centre
+layer=colours_container
+graphic="corner_frame_1,1"
+tiling=yes
+hflip=yes
+
+// 1028:5
+[right_1]
+type=graphic
+width=38
+height=100
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colours_container
+graphic="corner_frame_1,1"
+tiling=yes
+
+// 1028:6
+[top_1]
+type=graphic
+x=-1
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=colours_container
+graphic="corner_frame_2,0"
+
+// 1028:7
+[fill_1]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=tabs_container
+graphic=window_texture
+tiling=yes
+
+// 1028:8
+[bottom_left_3]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=colours_container
+graphic="corner_frame_1,4"
+hflip=yes
+
+// 1028:9
+[top_right_2]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=colours_container
+graphic="corner_frame_1,5"
+
+// 1028:10
+[bottom_right_3]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=colours_container
+graphic="corner_frame_1,4"
+
+// 1028:11
+[top_left_2]
+type=graphic
+width=38
+height=72
+layer=colours_container
+graphic="corner_frame_1,5"
+hflip=yes
+
+// 1028:12
+[top_side]
+type=graphic
+width=72
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=tabs_container
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 1028:13
+[bottom_side]
+type=graphic
+width=20
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=tabs_container
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 1028:14
+[bottom_left_2]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=tabs_container
+graphic="corner_frame_1,4"
+hflip=yes
+
+// 1028:15
+[bottom_right_2]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=tabs_container
+graphic="corner_frame_1,4"
+
+// 1028:16
+[top_left_1]
+type=graphic
+width=38
+height=32
+layer=tabs_container
+graphic="corner_frame_1,5"
+tiling=yes
+hflip=yes
+
+// 1028:17
+[top_right_1]
+type=graphic
+width=38
+height=29
+xmode=abs_right
+layer=tabs_container
+graphic="corner_frame_1,5"
+tiling=yes
+
+// 1028:18
+[fill]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=menu_container
+graphic=window_texture
+tiling=yes
+colour=0xffffffff
+
+// 1028:19
+[com_19]
+type=rectangle
+x=8
+y=5
+width=16
+height=34
+widthmode=minus
+layer=menu_container
+colour=0x000000
+fill=yes
+trans=200
+
+// 1028:20
+[ts]
+type=graphic
+x=38
+width=277
+height=8
+layer=menu_container
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 1028:21
+[rs]
+type=graphic
+width=38
+height=87
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=menu_container
+graphic="corner_frame_1,1"
+tiling=yes
+colour=0xffffffff
+
+// 1028:22
+[bs]
+type=graphic
+x=38
+width=277
+height=8
+ymode=abs_bottom
+layer=menu_container
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 1028:23
+[ls]
+type=graphic
+y=38
+width=38
+height=87
+heightmode=minus
+layer=menu_container
+graphic="corner_frame_1,1"
+tiling=yes
+hflip=yes
+colour=0xffffffff
+
+// 1028:24
+[ts_1]
+type=graphic
+x=38
+y=35
+width=277
+height=8
+layer=menu_container
+graphic="corner_frame_2,1"
+tiling=yes
+
+// 1028:25
+[blc]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=menu_container
+graphic="corner_frame_1,4"
+hflip=yes
+colour=0xffffffff
+
+// 1028:26
+[tlc]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=menu_container
+graphic="corner_frame_1,0"
+colour=0xffffffff
+
+// 1028:27
+[trc]
+type=graphic
+width=38
+height=72
+layer=menu_container
+graphic="corner_frame_1,0"
+hflip=yes
+colour=0xffffffff
+
+// 1028:28
+[brc]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=menu_container
+graphic="corner_frame_1,4"
+colour=0xffffffff
+
+// 1028:29
+[black]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+
+// 1028:30
+[universe]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+onload=playerdesign4_init(event_com)
+
+// 1028:31
+[com_31]
+type=layer
+width=800
+height=600
+onload=clientscript_2724(playerdesign4:com_195, playerdesign4:com_199, playerdesign4:com_203, playerdesign4:com_207, playerdesign4:com_61, playerdesign4:com_111, playerdesign4:com_164, playerdesign4:com_169)
+
+// 1028:32
+[com_32]
+type=layer
+width=765
+height=503
+layer=universe
+
+// 1028:33
+[com_33]
+type=graphic
+width=153
+height=100
+layer=com_32
+graphic=graphic_10488
+
+// 1028:34
+[com_34]
+type=graphic
+x=153
+width=153
+height=100
+layer=com_32
+graphic=graphic_10489
+
+// 1028:35
+[com_35_]
+type=graphic
+x=306
+width=153
+height=100
+layer=com_32
+graphic=graphic_10490
+
+// 1028:36
+[com_36]
+type=graphic
+x=459
+width=153
+height=100
+layer=com_32
+graphic=graphic_10491
+
+// 1028:37
+[com_37]
+type=graphic
+x=612
+width=153
+height=100
+layer=com_32
+graphic=graphic_10492
+
+// 1028:38
+[com_38]
+type=graphic
+y=100
+width=153
+height=100
+layer=com_32
+graphic=graphic_10493
+
+// 1028:39
+[com_39]
+type=graphic
+x=153
+y=100
+width=153
+height=100
+layer=com_32
+graphic=graphic_10494
+
+// 1028:40
+[com_40]
+type=graphic
+x=306
+y=100
+width=153
+height=100
+layer=com_32
+graphic=graphic_10495
+
+// 1028:41
+[com_41]
+type=graphic
+x=459
+y=100
+width=153
+height=100
+layer=com_32
+graphic=graphic_10496
+
+// 1028:42
+[com_42]
+type=graphic
+x=612
+y=100
+width=153
+height=100
+layer=com_32
+graphic=graphic_10497
+
+// 1028:43
+[com_43]
+type=graphic
+y=200
+width=153
+height=100
+layer=com_32
+graphic=graphic_10498
+
+// 1028:44
+[com_44]
+type=graphic
+x=153
+y=200
+width=153
+height=100
+layer=com_32
+graphic=graphic_10499
+
+// 1028:45
+[com_45]
+type=graphic
+x=306
+y=200
+width=153
+height=100
+layer=com_32
+graphic=graphic_10500
+
+// 1028:46
+[com_46]
+type=graphic
+x=459
+y=200
+width=153
+height=100
+layer=com_32
+graphic=graphic_10501
+
+// 1028:47
+[com_47]
+type=graphic
+y=300
+width=153
+height=100
+layer=com_32
+graphic=graphic_10503
+
+// 1028:48
+[com_48]
+type=graphic
+x=612
+y=200
+width=153
+height=100
+layer=com_32
+graphic=graphic_10502
+
+// 1028:49
+[com_49]
+type=graphic
+x=153
+y=300
+width=153
+height=100
+layer=com_32
+graphic=graphic_10504
+
+// 1028:50
+[com_50]
+type=graphic
+x=306
+y=300
+width=153
+height=100
+layer=com_32
+graphic=graphic_10505
+
+// 1028:51
+[com_51]
+type=graphic
+x=459
+y=300
+width=153
+height=100
+layer=com_32
+graphic=graphic_10506
+
+// 1028:52
+[com_52]
+type=graphic
+x=612
+y=300
+width=153
+height=100
+layer=com_32
+graphic=graphic_10507
+
+// 1028:53
+[com_53]
+type=graphic
+y=400
+width=153
+height=100
+layer=com_32
+graphic=graphic_10508
+
+// 1028:54
+[com_54]
+type=graphic
+x=153
+y=400
+width=153
+height=100
+layer=com_32
+graphic=graphic_10509
+
+// 1028:55
+[com_55]
+type=graphic
+x=306
+y=400
+width=153
+height=100
+layer=com_32
+graphic=graphic_10510
+
+// 1028:56
+[com_56]
+type=graphic
+x=459
+y=400
+width=153
+height=100
+layer=com_32
+graphic=graphic_10511
+
+// 1028:57
+[com_57]
+type=graphic
+x=612
+y=400
+width=153
+height=100
+layer=com_32
+graphic=graphic_10512
+
+// 1028:58
+[backdrop]
+type=layer
+x=6
+y=40
+width=512
+height=334
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+
+// 1028:59
+[com_35]
+type=layer
+height=26
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+hide=yes
+
+// 1028:60
+[com_60]
+type=graphic
+width=549
+height=85
+xmode=abs_centre
+layer=com_35
+graphic=graphic_10515
+
+// 1028:61
+[com_61]
+type=graphic
+y=2
+width=233
+height=35
+xmode=abs_centre
+layer=com_35
+graphic=graphic_10545
+
+// 1028:62
+[male]
+type=layer
+x=-205
+y=46
+width=50
+height=30
+xmode=abs_centre
+layer=com_35
+noclickthrough=yes
+transmitop=1
+op1=Male
+
+// 1028:63
+[female]
+type=layer
+x=-129
+y=46
+width=50
+height=30
+xmode=abs_centre
+layer=com_35
+noclickthrough=yes
+transmitop=1
+op1=Female
+
+// 1028:64
+[com_64]
+type=layer
+x=82
+y=48
+width=326
+height=19
+xmode=abs_centre
+layer=com_35
+
+// 1028:65
+[skincolours]
+type=layer
+x=75
+width=76
+widthmode=minus
+heightmode=minus
+layer=com_64
+
+// 1028:66
+[com_66]
+type=text
+x=4
+y=-1
+width=75
+heightmode=minus
+layer=com_64
+textfont=verdana_11pt_regular
+text=Skin colour:
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1028:67
+[roles]
+type=layer
+y=99
+height=160
+widthmode=minus
+xmode=abs_centre
+layer=com_35
+
+// 1028:68
+[role0]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:69
+[role1]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:70
+[role2]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:71
+[role3]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:72
+[role4]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:73
+[role5]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:74
+[role6]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:75
+[role7]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:76
+[role8]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:77
+[role9]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:78
+[role10]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:79
+[role11]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:80
+[role12]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:81
+[role13]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:82
+[role14]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:83
+[role15]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:84
+[role16]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:85
+[role17]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:86
+[role18]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:87
+[role19]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:88
+[role20]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:89
+[role21]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:90
+[role22]
+type=layer
+layer=roles
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:91
+[no_role]
+type=layer
+y=237
+width=50
+height=50
+xmode=abs_centre
+layer=com_35
+hide=yes
+
+// 1028:92
+[com_72]
+type=rectangle
+y=7
+width=14
+height=24
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=no_role
+colour=0xeaeaea
+fill=yes
+
+// 1028:93
+[com_73]
+type=graphic
+y=10
+width=14
+height=7
+widthmode=minus
+xmode=abs_centre
+layer=no_role
+graphic=avatar_msg_bubble_top
+tiling=yes
+colour=0xffffffff
+
+// 1028:94
+[com_74]
+type=graphic
+width=14
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=no_role
+graphic=avatar_msg_bubble_bottom
+tiling=yes
+colour=0xffffffff
+
+// 1028:95
+[com_75]
+type=graphic
+y=7
+width=7
+height=24
+heightmode=minus
+ymode=abs_bottom
+layer=no_role
+graphic=avatar_msg_bubble_side
+tiling=yes
+colour=0xffffffff
+
+// 1028:96
+[com_76]
+type=graphic
+y=7
+width=7
+height=24
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=no_role
+graphic=avatar_msg_bubble_side
+tiling=yes
+hflip=yes
+colour=0xffffffff
+
+// 1028:97
+[com_77]
+type=graphic
+y=10
+width=7
+height=7
+layer=no_role
+graphic=avatar_msg_bubble_corner
+colour=0xffffffff
+
+// 1028:98
+[com_78]
+type=graphic
+y=10
+width=7
+height=7
+xmode=abs_right
+layer=no_role
+graphic=avatar_msg_bubble_corner
+hflip=yes
+colour=0xffffffff
+
+// 1028:99
+[com_79]
+type=graphic
+width=7
+height=7
+ymode=abs_bottom
+layer=no_role
+graphic=avatar_msg_bubble_corner
+vflip=yes
+colour=0xffffffff
+
+// 1028:100
+[com_80]
+type=graphic
+width=7
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=no_role
+graphic=avatar_msg_bubble_corner
+vflip=yes
+hflip=yes
+colour=0xffffffff
+
+// 1028:101
+[com_81]
+type=graphic
+width=30
+height=11
+xmode=abs_centre
+layer=no_role
+graphic=avatar_msg_bubble_arrow
+colour=0xffffffff
+
+// 1028:102
+[outfits]
+type=layer
+y=12
+height=226
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_35
+
+// 1028:103
+[outfit0]
+type=layer
+layer=outfits
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:104
+[outfit1]
+type=layer
+layer=outfits
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:105
+[outfit2]
+type=layer
+layer=outfits
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:106
+[outfit3]
+type=layer
+layer=outfits
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:107
+[outfit4]
+type=layer
+layer=outfits
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:108
+[outfit5]
+type=layer
+layer=outfits
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=*
+
+// 1028:109
+[customise_page]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+hide=yes
+
+// 1028:110
+[com_110]
+type=graphic
+y=9
+width=549
+height=55
+xmode=abs_centre
+layer=customise_page
+graphic=graphic_10516
+
+// 1028:111
+[com_111]
+type=graphic
+y=7
+width=255
+height=35
+xmode=abs_centre
+layer=customise_page
+graphic=graphic_10529
+
+// 1028:112
+[character_name_main_layer]
+type=layer
+x=16
+y=116
+width=375
+height=270
+layer=universe
+hide=yes
+
+// 1028:113
+[tabs_container]
+type=layer
+x=15
+y=70
+width=350
+height=68
+layer=customise_page
+
+// 1028:114
+[tabs_graphics]
+type=layer
+width=313
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs_container
+
+// 1028:115
+[tabs]
+type=layer
+width=313
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs_container
+
+// 1028:116
+[skin]
+type=graphic
+x=-125
+width=47
+height=47
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="custom_selection_icons,0"
+colour=0xffffffff
+transmitop=1
+op1=Skin colour
+
+// 1028:117
+[hair]
+type=graphic
+x=-75
+width=47
+height=47
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="custom_selection_icons,1"
+colour=0xffffffff
+transmitop=1
+op1=Hair
+
+// 1028:118
+[torso]
+type=graphic
+x=-25
+width=47
+height=47
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="custom_selection_icons,2"
+colour=0xffffffff
+transmitop=1
+op1=Torso
+
+// 1028:119
+[legs]
+type=graphic
+x=25
+width=47
+height=47
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="custom_selection_icons,4"
+colour=0xffffffff
+transmitop=1
+op1=Legs
+
+// 1028:120
+[boots]
+type=graphic
+x=75
+width=47
+height=47
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="custom_selection_icons,5"
+colour=0xffffffff
+transmitop=1
+op1=Boots
+
+// 1028:121
+[beard]
+type=graphic
+x=125
+width=47
+height=47
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="custom_selection_icons,6"
+colour=0xffffffff
+transmitop=1
+op1=Beard
+
+// 1028:122
+[menu_container]
+type=layer
+x=15
+y=140
+width=350
+height=305
+layer=customise_page
+
+// 1028:123
+[colour_set]
+type=layer
+x=456
+y=140
+width=100
+height=27
+layer=customise_page
+transmitop=1
+op1=Choose My Colour
+
+// 1028:124
+[menu_graphics]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu_container
+
+// 1028:125
+[menu_text]
+type=layer
+y=8
+width=31
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=menu_container
+
+// 1028:126
+[menu_scrollbar]
+type=layer
+x=10
+y=9
+width=16
+height=79
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=menu_container
+
+// 1028:127
+[menu_inner]
+type=layer
+x=10
+y=9
+width=45
+height=59
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=menu_container
+
+// 1028:128
+[menu]
+type=layer
+y=9
+width=16
+height=32
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu_inner
+
+// 1028:129
+[colours_container]
+type=layer
+x=368
+y=140
+width=84
+height=305
+layer=customise_page
+
+// 1028:130
+[colours_graphics]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colours_container
+
+// 1028:131
+[colours_scrollbar]
+type=layer
+x=8
+width=16
+height=12
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colours_container
+
+// 1028:132
+[colours]
+type=layer
+x=-7
+width=41
+height=15
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colours_container
+noclickthrough=yes
+
+// 1028:133
+[player]
+type=model
+x=-69
+y=40
+width=512
+height=334
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+model=null
+modelzoom=800
+
+// 1028:134
+[spotanim]
+type=model
+x=-69
+y=40
+width=512
+height=334
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+model=null
+modelzoom=800
+
+// 1028:135
+[bottombuttons]
+type=layer
+height=26
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+
+// 1028:136
+[com_136]
+type=layer
+x=10
+y=11
+width=274
+height=44
+xmode=abs_right
+ymode=abs_bottom
+layer=bottombuttons
+
+// 1028:137
+[back]
+type=layer
+x=166
+y=205
+width=120
+height=33
+xmode=abs_centre
+ymode=abs_centre
+layer=bottombuttons
+noclickthrough=yes
+transmitop=1
+op1=Back
+onmouseover=clientscript_2723(playerdesign4:com_196, playerdesign4:com_197, playerdesign4:com_198, 1, 0)
+onmouseleave=clientscript_2723(playerdesign4:com_196, playerdesign4:com_197, playerdesign4:com_198, 0, 0)
+
+// 1028:138
+[confirm]
+type=layer
+x=290
+y=205
+width=120
+height=33
+xmode=abs_centre
+ymode=abs_centre
+layer=bottombuttons
+hide=yes
+noclickthrough=yes
+transmitop=1
+op1=Confirm
+onmouseover=clientscript_2723(playerdesign4:com_200, playerdesign4:com_201, playerdesign4:com_202, 1, 1)
+onmouseleave=clientscript_2723(playerdesign4:com_200, playerdesign4:com_201, playerdesign4:com_202, 0, 1)
+
+// 1028:139
+[com_139_]
+type=layer
+x=290
+y=205
+width=120
+height=33
+xmode=abs_centre
+ymode=abs_centre
+layer=bottombuttons
+noclickthrough=yes
+transmitop=1
+op1=Continue
+onmouseover=clientscript_2723(playerdesign4:com_192, playerdesign4:com_193, playerdesign4:com_194, 1, 1)
+onmouseleave=clientscript_2723(playerdesign4:com_192, playerdesign4:com_193, playerdesign4:com_194, 0, 1)
+
+// 1028:140
+[tooltip]
+type=layer
+width=1
+height=1
+hide=yes
+
+// 1028:141
+[border]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=character_name_main_layer
+
+// 1028:142
+[background_texture]
+type=graphic
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:143
+[background_texture_1]
+type=graphic
+x=100
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:144
+[background_texture_2]
+type=graphic
+x=200
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:145
+[background_texture_3]
+type=graphic
+x=300
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:146
+[background_texture_5]
+type=graphic
+y=100
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:147
+[background_texture_6]
+type=graphic
+x=100
+y=100
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:148
+[background_texture_7]
+type=graphic
+x=200
+y=100
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:149
+[background_texture_8]
+type=graphic
+x=300
+y=100
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:150
+[background_texture_10]
+type=graphic
+y=200
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:151
+[background_texture_11]
+type=graphic
+x=100
+y=200
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:152
+[background_texture_12]
+type=graphic
+x=200
+y=200
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:153
+[background_texture_13]
+type=graphic
+x=300
+y=200
+width=100
+height=100
+layer=border
+graphic=window_texture
+
+// 1028:154
+[com_139]
+type=rectangle
+x=38
+y=8
+width=76
+height=27
+widthmode=minus
+layer=border
+colour=0x000000
+fill=yes
+trans=200
+
+// 1028:155
+[bottom_left_corner]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_1,2"
+hflip=yes
+
+// 1028:156
+[left_side]
+type=graphic
+width=38
+height=144
+heightmode=minus
+ymode=abs_centre
+layer=border
+graphic="corner_frame_1,1"
+tiling=yes
+hflip=yes
+
+// 1028:157
+[right_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=border
+graphic="corner_frame_1,1"
+tiling=yes
+
+// 1028:158
+[upper_top_side]
+type=graphic
+width=76
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=border
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 1028:159
+[bottom_2]
+type=graphic
+width=76
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 1028:160
+[bottom_right_corner]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_1,2"
+
+// 1028:161
+[top_left_corner]
+type=graphic
+width=38
+height=72
+layer=border
+graphic="corner_frame_1,0"
+hflip=yes
+
+// 1028:162
+[top_right_corner]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=border
+graphic="corner_frame_1,0"
+
+// 1028:163
+[lower_top_side]
+type=graphic
+y=35
+width=76
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=border
+graphic="corner_frame_2,1"
+tiling=yes
+
+// 1028:164
+[com_164]
+type=graphic
+y=6
+width=260
+height=35
+xmode=abs_centre
+layer=border
+graphic=graphic_10521
+
+// 1028:165
+[com_150]
+type=rectangle
+y=75
+width=329
+height=1
+xmode=abs_centre
+layer=border
+colour=0x161513
+
+// 1028:166
+[com_151]
+type=rectangle
+y=76
+width=329
+height=1
+xmode=abs_centre
+layer=border
+colour=0x2d2d2d
+
+// 1028:167
+[com_152]
+type=rectangle
+y=211
+width=329
+height=1
+xmode=abs_centre
+layer=border
+colour=0x161513
+
+// 1028:168
+[com_153]
+type=rectangle
+y=212
+width=329
+height=1
+xmode=abs_centre
+layer=border
+colour=0x2d2d2d
+
+// 1028:169
+[com_169]
+type=graphic
+y=41
+width=370
+height=35
+xmode=abs_centre
+layer=border
+graphic=graphic_10525
+
+// 1028:170
+[com_155]
+type=text
+y=115
+width=329
+height=96
+xmode=abs_centre
+layer=border
+textfont=verdana_11pt_regular
+text=Characters names can be up to 12 characters long and may contain letters, numbers, spaces, underscores and dashes only.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1028:171
+[com_156]
+type=layer
+y=115
+width=329
+height=96
+xmode=abs_centre
+layer=border
+hide=yes
+
+// 1028:172
+[please_enter_text]
+type=text
+y=2
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=com_156
+textfont=verdana_11pt_regular
+text=Sorry, that name is already taken.<br>Why not try one of these names:
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1028:173
+[suggestion_1]
+type=text
+y=37
+width=100
+height=16
+layer=com_156
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 1
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 1028:174
+[suggestion_2]
+type=text
+y=37
+width=100
+height=16
+xmode=abs_centre
+layer=com_156
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 2
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 1028:175
+[suggestion_3]
+type=text
+y=37
+width=100
+height=16
+xmode=abs_right
+layer=com_156
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 3
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 1028:176
+[suggestion_4]
+type=text
+y=59
+width=100
+height=16
+layer=com_156
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 4
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 1028:177
+[suggestion_5]
+type=text
+y=59
+width=100
+height=16
+xmode=abs_centre
+layer=com_156
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 5
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 1028:178
+[suggestion_6]
+type=text
+y=59
+width=100
+height=16
+xmode=abs_right
+layer=com_156
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 6
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 1028:179
+[previous_suggestions]
+type=text
+y=78
+width=130
+height=16
+layer=com_156
+hide=yes
+textfont=verdana_11pt_regular
+text=<u=CDBE9A>Previous Suggestions
+textlineheight=14
+textalignv=centre
+textshadow=yes
+colour=0xcdbe9a
+transmitop=1
+op1=Previous Suggestions
+onmouseover=script3950(event_com, 1)
+onmouseleave=script3950(event_com, 0)
+
+// 1028:180
+[more_suggestions]
+type=text
+y=78
+width=110
+height=16
+xmode=abs_right
+layer=com_156
+textfont=verdana_11pt_regular
+text=<u=CDBE9A>More Suggestions
+textlineheight=14
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xcdbe9a
+transmitop=1
+op1=More Suggestions
+onmouseover=script3950(event_com, 1)
+onmouseleave=script3950(event_com, 0)
+
+// 1028:181
+[character_name_group]
+type=layer
+y=78
+height=50
+widthmode=minus
+xmode=abs_centre
+layer=character_name_main_layer
+
+// 1028:182
+[continue]
+type=layer
+y=102
+width=120
+height=33
+xmode=abs_centre
+ymode=abs_centre
+layer=character_name_main_layer
+noclickthrough=yes
+transmitop=1
+op1=Continue
+onmouseover=clientscript_2723(playerdesign4:com_204, playerdesign4:com_205, playerdesign4:com_206, 1, 1)
+onmouseleave=clientscript_2723(playerdesign4:com_204, playerdesign4:com_205, playerdesign4:com_206, 0, 1)
+
+// 1028:183
+[character_name_label_text]
+type=text
+x=29
+y=9
+width=100
+height=27
+layer=character_name_group
+textfont=verdana_11pt_regular
+text=Character Name
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1028:184
+[com_176]
+type=graphic
+x=325
+y=13
+width=22
+height=22
+layer=character_name_group
+hide=yes
+graphic="symbols_1,1"
+onmouseover=script3934(event_com)
+onmouseleave=script3935
+
+// 1028:185
+[com_177]
+type=layer
+x=137
+y=10
+width=180
+height=27
+layer=character_name_group
+onmouseover=loginscreen_button_highlight(playerdesign4:com_178, graphic_3817, playerdesign4:com_179, graphic_3818, playerdesign4:com_180, graphic_3819)
+onmouseleave=loginscreen_button_highlight(playerdesign4:com_178, graphic_3814, playerdesign4:com_179, graphic_3815, playerdesign4:com_180, graphic_3816)
+onclick=create_focus(6, 1)
+
+// 1028:186
+[com_178]
+type=graphic
+width=16
+height=27
+layer=com_177
+graphic=graphic_3814
+
+// 1028:187
+[com_179]
+type=graphic
+x=16
+width=32
+height=27
+widthmode=minus
+layer=com_177
+graphic=graphic_3815
+tiling=yes
+
+// 1028:188
+[com_180]
+type=graphic
+width=16
+height=27
+xmode=abs_right
+layer=com_177
+graphic=graphic_3816
+
+// 1028:189
+[com_181]
+type=layer
+width=1
+widthmode=minus
+heightmode=minus
+layer=com_177
+
+// 1028:190
+[com_182]
+type=text
+x=6
+width=11
+widthmode=minus
+heightmode=minus
+layer=com_181
+textfont=verdana_11pt_regular
+textalignv=centre
+colour=0xebe0bc
+
+// 1028:191
+[com_183]
+type=rectangle
+x=6
+y=4
+width=1
+height=19
+layer=com_177
+hide=yes
+colour=0xebe0bc
+fill=yes
+
+// 1028:192
+[com_192]
+type=graphic
+width=34
+height=33
+layer=com_139_
+graphic=graphic_10285
+
+// 1028:193
+[com_193]
+type=graphic
+x=34
+width=68
+height=33
+widthmode=minus
+layer=com_139_
+graphic=graphic_10286
+
+// 1028:194
+[com_194]
+type=graphic
+width=34
+height=33
+xmode=abs_right
+layer=com_139_
+graphic=graphic_10287
+
+// 1028:195
+[com_195]
+type=graphic
+y=1
+width=130
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=com_139_
+graphic=graphic_10533
+
+// 1028:196
+[com_196]
+type=graphic
+width=34
+height=33
+layer=back
+graphic=graphic_10778
+
+// 1028:197
+[com_197]
+type=graphic
+x=34
+width=66
+height=33
+widthmode=minus
+layer=back
+graphic=graphic_10779
+
+// 1028:198
+[com_198]
+type=graphic
+width=34
+height=33
+xmode=abs_right
+layer=back
+graphic=graphic_10780
+
+// 1028:199
+[com_199]
+type=graphic
+y=1
+width=130
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=back
+graphic=graphic_10517
+
+// 1028:200
+[com_200]
+type=graphic
+width=34
+height=33
+layer=confirm
+graphic=graphic_10285
+
+// 1028:201
+[com_201]
+type=graphic
+x=34
+width=68
+height=33
+widthmode=minus
+layer=confirm
+graphic=graphic_10286
+
+// 1028:202
+[com_202]
+type=graphic
+width=34
+height=33
+xmode=abs_right
+layer=confirm
+graphic=graphic_10287
+
+// 1028:203
+[com_203]
+type=graphic
+y=1
+width=130
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=confirm
+graphic=graphic_10537
+
+// 1028:204
+[com_204]
+type=graphic
+width=34
+height=33
+layer=continue
+graphic=graphic_10285
+
+// 1028:205
+[com_205]
+type=graphic
+x=34
+width=68
+height=33
+widthmode=minus
+layer=continue
+graphic=graphic_10286
+
+// 1028:206
+[com_206]
+type=graphic
+width=34
+height=33
+xmode=abs_right
+layer=continue
+graphic=graphic_10287
+
+// 1028:207
+[com_207]
+type=graphic
+y=1
+width=130
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=continue
+graphic=graphic_10533

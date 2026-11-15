@@ -9,11 +9,11 @@ use rs_protocol::network::game::client::opplayer3::OpPlayer3;
 use rs_protocol::network::game::client::opplayer4::OpPlayer4;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::opplayer5::OpPlayer5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::opplayer6::OpPlayer6;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::opplayer7::OpPlayer7;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::opplayer8::OpPlayer8;
 #[cfg(since_647)]
 use rs_protocol::network::game::client::opplayer9::OpPlayer9;
@@ -93,21 +93,21 @@ impl ClientGameHandler for OpPlayer5 {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientGameHandler for OpPlayer6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(6, self.pid, active)
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientGameHandler for OpPlayer7 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(7, self.pid, active)
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientGameHandler for OpPlayer8 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(8, self.pid, active)

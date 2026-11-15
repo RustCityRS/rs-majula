@@ -1,0 +1,34 @@
+// Doric's Quest's journal (289's quests/quest_doric/scripts/doric_journal.rs2), View on the quest
+// list's row (quest_list.rs2), under its cache 786 name "Doric's Quest".
+// - Not started: the 2010-08-17 recording (YouTube I3zXxHk5zY0, 8-11s) shows it word for word,
+//   all in one colour: "...speaking to Doric who is north of Falador." and "There aren't any
+//   requirements but Level 15 Mining will help." (void-634's has "North" and coloured names; 289's
+//   speaks of "his home").
+// - Started and complete: void-634's lines (DoricsQuest.kt), unverified: no 2011 recording of
+//   them is found. Its complete stage is 289's word for word.
+[label,questlist_doric]
+def_string $text;
+
+if (%doricquest = 0) {
+    // The recording breaks the line before "Falador.", though the whole sentence (371 px in
+    // p12_full) fits the 404-px row: a break in Jagex's text, kept as one. 289's text breaks
+    // this sentence by hand too, a word earlier.
+    $text = "@dbl@I can start this quest by speaking to Doric who is north of|@dbl@Falador.||@dbl@There aren't any requirements but Level 15 Mining will help.";
+} else if (%doricquest < ^doric_complete) {
+    $text = "@str@I have spoken to Doric.||@dbl@I need to collect some items and bring them to @dre@Doric.|";
+    $text = append($text, ~doric_journal_item(clay, 6, "Clay"));
+    $text = append($text, ~doric_journal_item(copper_ore, 4, "Copper Ore"));
+    $text = append($text, ~doric_journal_item(iron_ore, 2, "Iron Ore"));
+} else {
+    $text = "@str@I have spoken to Doric.||@str@I have collected some Clay, Copper Ore, and Iron Ore.||@str@Doric rewarded me for all my hard work.|@str@I can now use Doric's Anvils whenever I want.|@red@QUEST COMPLETE!";
+}
+
+~quest_journal("Doric's Quest", $text);
+
+// void-634's line for each material: struck through once carried, else how many more.
+[proc,doric_journal_item](obj $obj, int $needed, string $name)(string)
+def_int $have = inv_total(inv, $obj);
+if ($have >= $needed) {
+    return("@str@<tostring($needed)> <$name>.|");
+}
+return("@dre@<tostring($needed)> <$name>@dbl@ - I need <tostring(sub($needed, $have))> more.|");

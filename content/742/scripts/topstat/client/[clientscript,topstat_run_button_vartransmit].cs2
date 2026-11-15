@@ -1,0 +1,4 @@
+// 1316
+[clientscript,topstat_run_button_vartransmit](component $component0)
+%option_run_status_varc = %option_run;
+~topstat_run_button_update($component0);

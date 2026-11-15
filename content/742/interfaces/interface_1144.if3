@@ -1,0 +1,602 @@
+// 1144:0
+[com_0]
+type=layer
+x=10
+y=8
+width=36
+height=110
+widthmode=minus
+heightmode=minus
+layer=com_5
+onload=clientscript_4735(event_com, 74973185)
+
+// 1144:1
+[com_1]
+type=layer
+x=10
+y=8
+width=16
+height=110
+heightmode=minus
+xmode=abs_right
+layer=com_5
+
+// 1144:2
+[com_2]
+type=layer
+x=20
+y=16
+width=40
+height=78
+widthmode=minus
+ymode=abs_bottom
+layer=com_5
+
+// 1144:3
+[com_3]
+type=layer
+x=4
+y=9
+width=501
+height=308
+onload=clientscript_4734
+onvarctransmit=clientscript_4737(event_com){trade_pricechecker_value_0}
+
+// 1144:4
+[com_4]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4260(event_com)
+
+// 1144:5
+[com_5]
+type=layer
+x=6
+y=30
+width=12
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1144:6
+[com_6]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4261(event_com)
+
+// 1144:7
+[com_7]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+
+// 1144:8
+[com_8]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_3
+onload=aif_build_close_button_layer(event_com)
+
+// 1144:9
+[com_9]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+hide=yes
+noclickthrough=yes
+
+// 1144:10
+[com_10]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_9
+colour=0x2e2816
+fill=yes
+trans=74
+
+// 1144:11
+[com_11]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1144:12
+[com_12]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+onload=aif_build_close_button_over(event_com)
+
+// 1144:13
+[com_13]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic=window_texture_2
+tiling=yes
+
+// 1144:14
+[com_14]
+type=graphic
+width=10
+height=10
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1144:15
+[com_15]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1144:16
+[com_16]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1144:17
+[com_17]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1144:18
+[com_18]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1144:19
+[com_19]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1144:20
+[com_20]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1144:21
+[com_21]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1144:22
+[com_22]
+type=text
+x=10
+width=20
+height=10
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+textfont=verdana_13pt_regular
+text=Total of 0 items
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb3a357
+
+// 1144:23
+[com_23]
+type=text
+x=10
+width=20
+height=10
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+hide=yes
+textfont=verdana_13pt_regular
+text=Description
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb3a357
+
+// 1144:24
+[com_24]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+textfont=palatino_linotype_18pt_regular
+text=Wise Old Man
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1144:25
+[com_25]
+type=layer
+width=130
+height=28
+ymode=abs_centre
+layer=com_51
+
+// 1144:26
+[com_26]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_25
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1144:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_25
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1144:28
+[com_28]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_25
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1144:29
+[com_29]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_25
+transmitop=1
+op1=Accept
+onload=script4213(event_com)
+
+// 1144:30
+[com_30]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_25
+
+// 1144:31
+[com_31]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+textfont=verdana_13pt_regular
+text=Accept
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1144:32
+[com_32]
+type=layer
+width=130
+height=28
+xmode=abs_right
+ymode=abs_centre
+layer=com_51
+
+// 1144:33
+[com_33]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1144:34
+[com_34]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1144:35
+[com_35]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1144:36
+[com_36]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+transmitop=1
+op1=Decline
+onload=script4213(event_com)
+onop=clientscript_4742(event_op)
+
+// 1144:37
+[com_37]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+
+// 1144:38
+[com_38]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+textfont=verdana_13pt_regular
+text=Decline
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1144:39
+[com_39]
+type=layer
+width=400
+height=150
+xmode=abs_centre
+ymode=abs_centre
+onvartransmit=clientscript_4740{varplayer_2397}
+
+// 1144:40
+[com_40]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+graphic=window_texture_2
+tiling=yes
+
+// 1144:41
+[com_41]
+type=graphic
+width=10
+height=10
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1144:42
+[com_42]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1144:43
+[com_43]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1144:44
+[com_44]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1144:45
+[com_45]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1144:46
+[com_46]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1144:47
+[com_47]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1144:48
+[com_48]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_39
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1144:49
+[com_49]
+type=text
+x=10
+y=9
+width=100
+height=70
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_39
+textfont=verdana_13pt_regular
+text=Confirm delete
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb3a357
+
+// 1144:50
+[com_50]
+type=model
+x=16
+y=16
+width=70
+height=70
+layer=com_39
+model=null
+modelzoom=800
+
+// 1144:51
+[com_51]
+type=layer
+y=15
+width=46
+height=38
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_39

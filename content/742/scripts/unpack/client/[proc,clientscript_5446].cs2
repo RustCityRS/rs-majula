@@ -1,0 +1,7 @@
+// 5446
+[proc,clientscript_5446](component $component0, int $int1)
+if (%varclient_1680 = $int1) {
+    if_setcolour($component0, ^white);
+} else {
+    if_setcolour($component0, 0xf5b241);
+}

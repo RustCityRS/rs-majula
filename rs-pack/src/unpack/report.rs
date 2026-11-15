@@ -1,36 +1,36 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::namecrack;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::JAG_ARCHIVES;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Result, ensure};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::crc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::collections::{BTreeMap, BTreeSet, HashSet};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::fmt::{Display, Write as _};
 use std::fs;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::io;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::path::{Path, PathBuf};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::{error, info};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::{info, warn};
 
 pub struct RecordLeftover {
     pub config_type: &'static str,
-    pub id: u16,
+    pub id: u32,
     pub bytes: usize,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct ArchiveCrc {
     name: String,
     idx0_file: Option<usize>,
@@ -38,14 +38,14 @@ struct ArchiveCrc {
     expected: Option<i32>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct ConfigCrc {
     name: String,
     computed: i32,
     expected: i32,
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 struct Js5OndemandCrc {
     table: &'static str,
     id: usize,
@@ -54,7 +54,7 @@ struct Js5OndemandCrc {
     recomputed: Option<i32>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[derive(Default)]
 pub struct CrcReport {
     archives: Vec<ArchiveCrc>,
@@ -63,7 +63,7 @@ pub struct CrcReport {
     js5_ondemand: Vec<Js5OndemandCrc>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl CrcReport {
     pub fn new() -> Self {
         Self::default()
@@ -188,7 +188,7 @@ impl CrcReport {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct UnknownJagFile {
     archive: String,
     id: usize,
@@ -199,7 +199,7 @@ struct UnknownJagFile {
     candidates: Vec<String>,
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 struct Js5Unread {
     index: usize,
     file: usize,
@@ -207,7 +207,7 @@ struct Js5Unread {
     reason: &'static str,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[derive(Default)]
 pub struct LeftoverReport {
     unknown_jag: Vec<UnknownJagFile>,
@@ -219,7 +219,7 @@ pub struct LeftoverReport {
     extra_indices: Vec<usize>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl LeftoverReport {
     pub fn new() -> Self {
         Self::default()
@@ -410,7 +410,7 @@ impl LeftoverReport {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub struct PackDiffReport {
     committed_dir: PathBuf,
     unpacked_dir: PathBuf,
@@ -420,7 +420,7 @@ pub struct PackDiffReport {
     maps: Option<MapDiff>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct PackFileDiff {
     name: String,
     is_new_file: bool,
@@ -428,13 +428,13 @@ struct PackFileDiff {
     removed: Vec<IdEntry>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct IdEntry {
     id: String,
     name: String,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct MapDiff {
     unpacked_dir: PathBuf,
     added: Vec<(u8, u8)>,
@@ -442,7 +442,7 @@ struct MapDiff {
     unchanged: usize,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl MapDiff {
     fn has_delta(&self) -> bool {
         !self.added.is_empty() || !self.removed.is_empty()
@@ -464,7 +464,7 @@ impl MapDiff {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl PackDiffReport {
     pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> io::Result<Self> {
         let committed = collect_pack_files(committed_dir)?;
@@ -667,7 +667,7 @@ impl PackDiffReport {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn collect_pack_files(root: &Path) -> io::Result<BTreeMap<String, PathBuf>> {
     let mut files = BTreeMap::new();
     if root.exists() {
@@ -676,7 +676,7 @@ fn collect_pack_files(root: &Path) -> io::Result<BTreeMap<String, PathBuf>> {
     Ok(files)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn collect_packs_into(
     root: &Path,
     dir: &Path,
@@ -695,7 +695,7 @@ fn collect_packs_into(
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn parse_pack(path: &Path) -> io::Result<BTreeMap<String, String>> {
     let text = fs::read_to_string(path)?;
     let mut map = BTreeMap::new();
@@ -707,12 +707,12 @@ fn parse_pack(path: &Path) -> io::Result<BTreeMap<String, String>> {
     Ok(map)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn id_key(id: &str) -> (i64, String) {
     (id.parse::<i64>().unwrap_or(i64::MAX), id.to_string())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn collect_map_squares(dir: &Path) -> io::Result<BTreeSet<(u8, u8)>> {
     let mut squares = BTreeSet::new();
     if dir.exists() {
@@ -730,7 +730,7 @@ fn collect_map_squares(dir: &Path) -> io::Result<BTreeSet<(u8, u8)>> {
     Ok(squares)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn parse_map_square(name: &str) -> Option<(u8, u8)> {
     let (x, z) = name
         .strip_suffix(".jm2")?
@@ -739,7 +739,7 @@ fn parse_map_square(name: &str) -> Option<(u8, u8)> {
     Some((x.parse().ok()?, z.parse().ok()?))
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn unknown_row(
     archive: impl Display,
     id: impl Display,
@@ -751,7 +751,7 @@ fn unknown_row(
     format!("{archive:<16}{id:>6}{hash:>14}{packed:>11}{unpacked:>11}{crc:>16}\n")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn archive_crc_row(
     name: impl Display,
     idx0: impl Display,
@@ -762,7 +762,7 @@ fn archive_crc_row(
     format!("{name:<16}{idx0:<6}{cache:>11}{constant:>15}  {status}\n")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn config_crc_row(
     ty: impl Display,
     cache: impl Display,
@@ -772,7 +772,7 @@ fn config_crc_row(
     format!("{ty:<16}{cache:>11}{constant:>15}  {status}\n")
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 fn js5_ondemand_row(
     table: impl Display,
     id: impl Display,
@@ -784,17 +784,17 @@ fn js5_ondemand_row(
     format!("{table:<8}{id:<8}{version:<9}{listed:>11}{recomputed:>15}  {status}\n")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn dat_trailing_row(ty: impl Display, bytes: impl Display) -> String {
     format!("{ty:<16}{bytes}\n")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn record_trailing_row(ty: impl Display, id: impl Display, bytes: impl Display) -> String {
     format!("{ty:<16}{id:<8}{bytes}\n")
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 fn js5_unread_row(
     index: impl Display,
     file: impl Display,
@@ -804,7 +804,7 @@ fn js5_unread_row(
     format!("{index:<8}{file:<8}{size:<11}{reason}\n")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     match expected {
         Some(e) if e == computed => ("OK", false),
@@ -813,7 +813,7 @@ fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn idx0_of(name: &str) -> Option<usize> {
     JAG_ARCHIVES
         .iter()
@@ -822,15 +822,22 @@ fn idx0_of(name: &str) -> Option<usize> {
         .map(|id| id as usize)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
+enum Status {
+    Ok,
+    Note,
+    Fail,
+}
+
+#[cfg(since_530)]
 /// One line per unpack step for the run report.
 pub(super) struct StepResult {
     name: &'static str,
     outcome: String,
-    ok: bool,
+    status: Status,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 /// Run one unpack step, recording success/failure without aborting the run.
 pub(super) fn step<F>(results: &mut Vec<StepResult>, name: &'static str, f: F)
 where
@@ -845,7 +852,7 @@ where
             results.push(StepResult {
                 name,
                 outcome,
-                ok: true,
+                status: Status::Ok,
             });
         }
         Err(e) => {
@@ -853,26 +860,41 @@ where
             results.push(StepResult {
                 name,
                 outcome: format!("ERROR: {e:#}"),
-                ok: false,
+                status: Status::Fail,
             });
         }
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
+/// Records something the report shows without failing the run.
+pub(super) fn note(results: &mut Vec<StepResult>, name: &'static str, outcome: String) {
+    info!("  {name}: {outcome}");
+    results.push(StepResult {
+        name,
+        outcome,
+        status: Status::Note,
+    });
+}
+
+#[cfg(since_530)]
 pub(super) fn write_report(results: &[StepResult], report_path: &Path) -> Result<()> {
-    let mut report_text = String::from("rev-647 unpack report\n=====================\n");
+    let mut report_text = String::from(concat!(
+        "rev-",
+        env!("REV"),
+        " unpack report\n=====================\n"
+    ));
     let mut failures = 0usize;
     for r in results {
-        if !r.ok {
-            failures += 1;
-        }
-        report_text.push_str(&format!(
-            "{} {:<24} {}\n",
-            if r.ok { "OK  " } else { "FAIL" },
-            r.name,
-            r.outcome
-        ));
+        let status = match r.status {
+            Status::Ok => "OK  ",
+            Status::Note => "NOTE",
+            Status::Fail => {
+                failures += 1;
+                "FAIL"
+            }
+        };
+        report_text.push_str(&format!("{status} {:<24} {}\n", r.name, r.outcome));
     }
     report_text.push_str(&format!("\n{} steps, {} failed\n", results.len(), failures));
     fs::write(report_path, &report_text)?;

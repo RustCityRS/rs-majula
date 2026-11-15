@@ -1,0 +1,41 @@
+// 5077
+[proc,clientscript_5077](component $component0, int $int1, int $int2, int $int3, string $string0)
+if (if_gethide(interface_1111:com_18) = false | if_gethide(interface_1111:com_6) = true) {
+    ~deltooltip_action(interface_1111:com_119);
+    return;
+}
+if (~clientscript_4761(25) = false) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = ~if_getx_absolute(interface_1111:com_6);
+def_int $int11 = ~if_gety_absolute(interface_1111:com_6);
+def_int $int12 = if_getwidth(interface_1111:com_6);
+def_int $int13 = if_getheight(interface_1111:com_6);
+if (cc_find($component0, $int1) = true) {
+    $int4, $int5 = ~cc_getx_absolute, ~cc_gety_absolute;
+    $int9, $int6 = calc($int4 - $int10), calc($int5 - $int11);
+    $int8, $int7 = calc($int9 + cc_getwidth), calc($int6 + cc_getheight);
+    if (calc($int13 - $int7) > 150) {
+        ~aif_tooltip_draw(interface_1111:com_119, $component0, $int1, $string0, $int12, p11_full, p11_full, null, 10, 2, 2, $int2, $int3);
+        return;
+    }
+    if ($int6 > 125) {
+        ~aif_tooltip_draw(interface_1111:com_119, $component0, $int1, $string0, $int12, p11_full, p11_full, null, 10, 2, 0, $int2, $int3);
+        return;
+    }
+    if (calc($int12 - $int8) > 150) {
+        ~aif_tooltip_draw(interface_1111:com_119, $component0, $int1, $string0, $int12, p11_full, p11_full, null, 10, 2, 1, $int2, $int3);
+        return;
+    }
+    if ($int9 > 225) {
+        ~aif_tooltip_draw(interface_1111:com_119, $component0, $int1, $string0, $int12, p11_full, p11_full, null, 10, 2, 3, $int2, $int3);
+        return;
+    }
+    ~aif_tooltip_draw(interface_1111:com_119, $component0, $int1, $string0, $int12, p11_full, p11_full, null, 10, 2, -1, calc($int4 + $int2), calc($int5 + $int3));
+}

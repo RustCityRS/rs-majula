@@ -1,0 +1,16 @@
+// Hetty's cauldron (289's quest_hetty.rs2). At 2011 it is loc 2024, a multiloc on varp 67
+// (%hetty): it offers "Drink-from" only once the ingredients are in (2, cauldron_14339), and
+// none before or after (cauldron_14338, cache 786). So 289's "As nice as that looks I think
+// I'll give it a miss for now." cannot be reached and is not ported.
+[oploc1,hettycauldron]
+if(%hetty ! ^hetty_objects_given) {
+    return;
+}
+~mesbox("You drink from the cauldron, it tastes horrible! You feel yourself imbued with power.");
+queue(hetty_quest_complete, 0, 0);
+
+[queue,hetty_quest_complete]
+%hetty = ^hetty_complete;
+stat_advance(magic, 3250);
+session_log(^log_adventure, "Quest complete: Witch's Potion");
+~send_quest_complete2(^questlist_hetty, eye_of_newt, 250, ^hetty_questpoints, "You have completed the Witch's Potion Quest!", "325 Magic XP");

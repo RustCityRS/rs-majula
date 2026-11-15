@@ -1,0 +1,44 @@
+// 2414
+[clientscript,peng_rak_eng_onload]
+if (%peng_rak_quest = 120) {
+    if_sethide(peng_rak_engine:fish_tools, false);
+    if_sethide(peng_rak_engine:normal_tools, true);
+    if (inv_total(inv, peng_rak_tool_swordfish) = 0) {
+        if_sethide(peng_rak_engine:swordfish, true);
+    }
+    if (inv_total(inv, peng_rak_hat_octopus) = 0 & inv_total(worn, peng_rak_hat_octopus) = 0) {
+        if_sethide(peng_rak_engine:octopus, true);
+    }
+    if (inv_total(inv, peng_rak_tool_seaweed) = 0) {
+        if_sethide(peng_rak_engine:seaweed, true);
+    }
+    if (inv_total(inv, peng_rak_hat_pufferfish) = 0 & inv_total(worn, peng_rak_hat_pufferfish) = 0) {
+        if_sethide(peng_rak_engine:blowfish, true);
+    }
+    if (inv_total(inv, peng_rak_tool_eel) = 0) {
+        if_sethide(peng_rak_engine:eel, true);
+    }
+    if (inv_total(inv, peng_rak_tool_sharktooth) = 0) {
+        if_sethide(peng_rak_engine:sharktooth, true);
+    }
+    if (inv_total(inv, peng_rak_tool_crab) = 0) {
+        if_sethide(peng_rak_engine:crab, true);
+    }
+} else {
+    if_sethide(peng_rak_engine:fish_tools, true);
+    if_sethide(peng_rak_engine:normal_tools, false);
+}
+if_setmodelanim(peng_rak_engine:gauge, null);
+if_sethide(peng_rak_engine:wirebox_cover, false);
+if_setmodel(peng_rak_engine:wirebox, model_46967);
+if_setmodelanim(peng_rak_engine:gauge, seq_11762);
+if_sethide(peng_rak_engine:lever_down, true);
+if_sethide(peng_rak_engine:lever_up, false);
+if_sethide(peng_rak_engine:bellows_demo, true);
+if_sethide(peng_rak_engine:bellows, false);
+if_setmodelanim(peng_rak_engine:lever_up, null);
+if_sethide(peng_rak_engine:lever_up_fish, true);
+if_sethide(peng_rak_engine:lever_down_fish, true);
+if_sethide(peng_rak_engine:blowfish_demo, true);
+%peng_rak_eng_tools = 0;
+%peng_rak_eng_state = 0;

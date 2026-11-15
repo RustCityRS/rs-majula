@@ -1,0 +1,10 @@
+// 6569
+[proc,clientscript_6569]
+~clientscript_6572;
+if_sethide(interface_1253:com_40, true);
+if (if_gethide(interface_1253:com_34) = false) {
+    if_sethide(interface_1253:com_40, false);
+} else if (if_gethide(interface_1253:com_39) = false & %varplayerbit_10861 > 0) {
+    if_sethide(interface_1253:com_40, false);
+    ~clientscript_6570;
+}

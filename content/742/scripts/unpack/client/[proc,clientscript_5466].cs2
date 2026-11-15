@@ -1,0 +1,7 @@
+// 5466
+[proc,clientscript_5466]
+def_int $int0 = if_getwidth(interface_1159:com_39);
+def_int $int1 = 0;
+$int1 = calc($int0 - 33);
+$int1 = scale($int1, 100, %varclient_1672);
+if_setsize(interface_1159:com_17, $int1, if_getheight(interface_1159:com_17), ^setsize_abs, ^setsize_abs);

@@ -1,0 +1,11 @@
+// From 289's duel_arena_settings.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,duel_arena_melee_check]()(boolean)
+if (~in_duel_arena(coord) = false) {
+    return(true);
+}
+if (testbit(%dueloptions, ^no_melee) = ^true) {
+    mes("Melee has been turned off for this duel."); // https://imgur.com/e55BeqU
+    return(false);
+}
+return(true);

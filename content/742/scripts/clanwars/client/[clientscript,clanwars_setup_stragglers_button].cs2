@@ -1,0 +1,9 @@
+// 1823
+[clientscript,clanwars_setup_stragglers_button](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_nostragglers = true) {
+    %clanwars_rulevarc_nostragglers = false;
+    ~script1772;
+}

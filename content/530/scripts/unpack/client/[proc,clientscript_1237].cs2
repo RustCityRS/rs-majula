@@ -1,0 +1,12 @@
+// 1237
+[proc,clientscript_1237]
+if (compare(%varclient_667, %varclient_668) ! 0) {
+    if_settext(loginscreen:com_413, "The values in the `Password' and `Confirm Password' boxes are not the same.");
+    if_setcolour(loginscreen:com_413, 0x8c320a);
+    return;
+}
+if_sethide(loginscreen:com_427, true);
+if_settext(loginscreen:com_428, "Please wait...");
+if_setonclick(loginscreen:com_428, null);
+unknown_command_5605(%varclient_666, %varclient_667, %signpost_if_model, %mourning_mirror, %prayer_custom_view_client, %topstat_prayer_button_client);
+if_setontimer(loginscreen:com_409, "clientscript_1238");

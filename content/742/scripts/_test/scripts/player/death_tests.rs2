@@ -1,0 +1,85 @@
+#testscript
+
+// Damage, death and the ring of life: 289's player/scripts/damage.rs2 and
+// death.rs2 on 2011's life points (%life_points, varbit 7198, ten to a
+// hitpoint) and 2011's hitmarks (skill_combat/configs/hitmark.constant).
+
+// 0_38_53_42_44: open ground by the Gnome Stronghold agility course, far from
+// Lumbridge, where a death sends you.
+
+// A hit takes life points and paints a plain 2011 hit (hitmark 3) with the bar
+// at what is left: 70 of 100 is 178 of 255.
+[label,test_a_hit_paints_2011s_plain_hitmark]
+setup_player("test_player")
+%life_points = 100
+~damage_self(30)
+assert_eq(%life_points, 70)
+assert_called_with("damage", "3,30,0,178")
+
+// A miss is 2011's hitmark 8, and takes nothing.
+[label,test_a_miss_paints_2011s_miss]
+setup_player("test_player")
+%life_points = 100
+~damage_self(0)
+assert_eq(%life_points, 100)
+assert_called_with("damage", "8,0,0,255")
+
+// Poison hits in life points with 2011's poison hitmark (6): 289's 3 is 30.
+[label,test_poison_hits_in_life_points]
+setup_player("test_player")
+%life_points = 100
+queue(poison_damage, 0, 3)
+test_tick(2)
+assert_eq(%life_points, 70)
+assert_called_with("damage", "6,30,0,178")
+
+// A lethal hit queues death: the player respawns by Lumbridge castle with
+// full life points and keeps the three priciest objs; the rest drop.
+[label,test_a_lethal_hit_kills_and_respawns_in_lumbridge]
+setup_player("test_player")
+p_telejump(0_38_53_42_44)
+%life_points = 100
+inv_add(inv, abyssal_whip, 1)
+inv_add(inv, rune_scimitar, 1)
+inv_add(inv, mithril_sword, 1)
+inv_add(inv, vial_water, 1)
+queue(damage_player, 0, 100)
+test_tick(10)
+assert_called_with("mes", "Oh dear, you are dead!")
+assert_eq(%life_points, 100)
+assert_lte(abs(calc(coordx(coord) - 3221)), 2)
+assert_lte(abs(calc(coordz(coord) - 3218)), 2)
+assert_eq(inv_total(inv, abyssal_whip), 1)
+assert_eq(inv_total(inv, rune_scimitar), 1)
+assert_eq(inv_total(inv, mithril_sword), 1)
+assert_eq(inv_total(inv, vial_water), 0)
+
+// The rest drop where the player died, with their bones: inv_dropall drops
+// a tradeable obj and deletes an untradeable one.
+[label,test_death_drops_the_rest_where_you_died]
+setup_player("test_player")
+p_telejump(0_38_53_42_44)
+%life_points = 100
+inv_add(inv, abyssal_whip, 1)
+inv_add(inv, rune_scimitar, 1)
+inv_add(inv, mithril_sword, 1)
+inv_add(inv, vial_water, 1)
+queue(damage_player, 0, 100)
+test_tick(10)
+assert_true(obj_find(0_38_53_42_44, vial_water))
+assert_true(obj_find(0_38_53_42_44, bones))
+
+// Under a tenth of life points, a worn ring of life breaks and teleports the
+// player to Lumbridge instead of letting them die.
+[label,test_the_ring_of_life_saves_you]
+setup_player("test_player")
+p_telejump(0_38_53_42_44)
+%life_points = 100
+inv_setslot(worn, ^wearpos_ring, ring_of_life, 1)
+queue(damage_player, 0, 95)
+test_tick(8)
+assert_called_with("mes", "Your Ring of Life saves you and is destroyed in the process.")
+assert_eq(inv_total(worn, ring_of_life), 0)
+assert_eq(%life_points, 5)
+assert_lte(abs(calc(coordx(coord) - 3221)), 2)
+assert_lte(abs(calc(coordz(coord) - 3218)), 2)

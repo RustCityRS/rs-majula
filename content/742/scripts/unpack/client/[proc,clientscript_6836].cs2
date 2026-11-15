@@ -1,0 +1,16 @@
+// 6836
+[proc,clientscript_6836]
+if_sethide(interface_1351:com_135, true);
+if_sethide(interface_1351:com_136, true);
+if (%varplayerbit_12084 < 2) {
+    if_sethide(interface_1351:com_8, false);
+    if_sethide(interface_1351:com_9, true);
+} else if (%varplayerbit_12084 = 2) {
+    if_sethide(interface_1351:com_8, true);
+    if_sethide(interface_1351:com_9, false);
+}
+if (if_gethide(interface_1351:com_85) = true) {
+    if_sethide(interface_1351:com_85, false);
+} else if (if_gethide(interface_1351:com_85) = false) {
+    if_sethide(interface_1351:com_85, true);
+}

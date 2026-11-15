@@ -1,0 +1,116 @@
+// 5573
+[proc,clientscript_5573](int $int0)
+def_int $int1 = 0;
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = 1;
+switch_int ($int0) {
+    case 0 :
+        $int1 = %varclient_1735;
+        $component2 = interface_1180:com_7;
+        $component3 = interface_1180:com_86;
+    case 1 :
+        $int1 = %varclient_1736;
+        $component2 = interface_1180:com_8;
+        $component3 = interface_1180:com_97;
+        $int4 = -1;
+    case 2 :
+        $int1 = %varclient_1737;
+        $component2 = interface_1180:com_12;
+        $component3 = interface_1180:com_108;
+    case 3 :
+        $int1 = %varclient_1738;
+        $component2 = interface_1180:com_13;
+        $component3 = interface_1180:com_119;
+        $int4 = -1;
+    case 4 :
+        $int1 = %varclient_1739;
+        $component2 = interface_1180:com_14;
+        $component3 = interface_1180:com_130;
+    case 5 :
+        $int1 = %varclient_1740;
+        $component2 = interface_1180:com_15;
+        $component3 = interface_1180:com_141;
+        $int4 = -1;
+    case 6 :
+        $int1 = %varclient_1741;
+        $component2 = interface_1180:com_16;
+        $component3 = interface_1180:com_152;
+    case 7 :
+        $int1 = %varclient_1742;
+        $component2 = interface_1180:com_17;
+        $component3 = interface_1180:com_163;
+        $int4 = -1;
+    case 8 :
+        $int1 = %varclient_1743;
+        $component2 = interface_1180:com_18;
+        $component3 = interface_1180:com_174;
+    case 9 :
+        $int1 = %varclient_1744;
+        $component2 = interface_1180:com_19;
+        $component3 = interface_1180:com_185;
+        $int4 = -1;
+}
+def_int $int5 = scale($int1, 200, 100);
+def_int $int6 = calc(-30 - scale($int5, 100, 205));
+def_int $int7 = scale($int5, 100, 255);
+if_setposition($component2, calc($int4 * 150), $int6, ^setpos_abs_centre, ^setpos_abs_centre);
+if_settrans($component3, $int7);
+def_int $int8 = 0;
+switch_int ($int0) {
+    case 0 :
+        %varclient_1735 = calc(%varclient_1735 + 1);
+        if (%varclient_1735 > 200) {
+            if_sethide($component2, true);
+            if_setontimer($component2, null);
+        }
+    case 1 :
+        %varclient_1736 = calc(%varclient_1736 + 1);
+        if (%varclient_1736 > 200) {
+            $int8 = 1;
+        }
+    case 2 :
+        %varclient_1737 = calc(%varclient_1737 + 1);
+        if (%varclient_1737 > 200) {
+            $int8 = 1;
+        }
+    case 3 :
+        %varclient_1738 = calc(%varclient_1738 + 1);
+        if (%varclient_1738 > 200) {
+            $int8 = 1;
+        }
+    case 4 :
+        %varclient_1739 = calc(%varclient_1739 + 1);
+        if (%varclient_1739 > 200) {
+            $int8 = 1;
+        }
+    case 5 :
+        %varclient_1740 = calc(%varclient_1740 + 1);
+        if (%varclient_1740 > 200) {
+            $int8 = 1;
+        }
+    case 6 :
+        %varclient_1741 = calc(%varclient_1741 + 1);
+        if (%varclient_1741 > 200) {
+            $int8 = 1;
+        }
+    case 7 :
+        %varclient_1742 = calc(%varclient_1742 + 1);
+        if (%varclient_1742 > 200) {
+            $int8 = 1;
+        }
+    case 8 :
+        %varclient_1743 = calc(%varclient_1743 + 1);
+        if (%varclient_1743 > 200) {
+            $int8 = 1;
+        }
+    case 9 :
+        %varclient_1744 = calc(%varclient_1744 + 1);
+        if (%varclient_1744 > 200) {
+            $int8 = 1;
+        }
+}
+if ($int8 = 1) {
+    if_sethide($component2, true);
+    if_setontimer($component2, null);
+}
