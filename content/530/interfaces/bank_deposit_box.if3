@@ -1,0 +1,190 @@
+// 11:0
+[com_0]
+type=graphic
+x=88
+y=23
+width=352
+height=240
+graphic=graphic_297
+tiling=yes
+opbase=  
+
+// 11:1
+[com_1]
+type=graphic
+x=68
+y=46
+width=32
+height=193
+graphic=graphic_821
+tiling=yes
+opbase= 
+
+// 11:2
+[com_2]
+type=graphic
+x=81
+y=22
+width=32
+height=32
+graphic=graphic_824
+opbase= 
+
+// 11:3
+[com_3]
+type=graphic
+x=427
+y=46
+width=32
+height=189
+graphic=graphic_823
+tiling=yes
+opbase= 
+
+// 11:4
+[com_4]
+type=graphic
+x=107
+y=247
+width=314
+height=32
+graphic=graphic_822
+tiling=yes
+
+// 11:5
+[com_5]
+type=graphic
+x=112
+y=9
+width=308
+height=32
+graphic=graphic_820
+tiling=yes
+opbase= 
+
+// 11:6
+[com_6]
+type=graphic
+x=81
+y=235
+width=32
+height=32
+graphic=graphic_826
+
+// 11:7
+[com_7]
+type=graphic
+x=415
+y=22
+width=32
+height=32
+graphic=graphic_825
+opbase= 
+
+// 11:8
+[com_8]
+type=graphic
+x=415
+y=235
+width=32
+height=32
+graphic=graphic_827
+opbase= 
+
+// 11:9
+[com_9]
+type=graphic
+x=87
+y=34
+width=353
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 11:10
+[com_10]
+type=graphic
+x=81
+y=36
+width=32
+height=32
+graphic=graphic_829
+tiling=yes
+
+// 11:11
+[com_11]
+type=graphic
+x=415
+y=36
+width=32
+height=32
+graphic=graphic_830
+tiling=yes
+
+// 11:12
+[title]
+type=text
+x=93
+y=30
+width=343
+height=16
+textfont=fontmetrics_496
+text=The Bank of RuneScape - Deposit Box
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 11:13
+[bobdump]
+type=graphic
+x=2
+y=1
+width=21
+height=21
+xmode=abs_right
+ymode=abs_bottom
+layer=bounding_box
+graphic=graphic_777
+transmitop=1
+op1=Deposit beast of burden inventory
+onmouseleave=deltooltip(bank_deposit_box:build_layer)
+onmouserepeat=addtooltip(event_com, bank_deposit_box:build_layer, "Empty your beast of burden's inventory into your bank", 25, 100)
+
+// 11:14
+[com_14]
+type=graphic
+x=422
+y=30
+width=16
+height=16
+graphic=graphic_831
+trans=20
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 11:15
+[icons]
+type=layer
+x=102
+y=66
+width=325
+height=183
+
+// 11:16
+[bounding_box]
+type=layer
+x=73
+y=14
+width=367
+height=246
+
+// 11:17
+[build_layer]
+type=layer
+y=-1
+width=367
+height=247
+layer=bounding_box

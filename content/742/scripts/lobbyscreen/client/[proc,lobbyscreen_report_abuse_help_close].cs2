@@ -1,0 +1,26 @@
+// 3198
+[proc,lobbyscreen_report_abuse_help_close](component $component0, component $component1, component $component2, component $component3, component $component4)
+def_component $component5 = null;
+def_int $int6 = 0;
+if_sethide($component3, true);
+if_settext($component0, "");
+if_settext($component1, "");
+if_setsize($component2, if_getwidth($component2), 300, ^setsize_abs, ^setsize_abs);
+switch_component ($component4) {
+    case lobbyscreen_report_abuse_ignore:main :
+        $component5 = lobbyscreen:report_abuse_ignore_body;
+        $int6 = 300;
+    case lobbyscreen_report_abuse_stage1:main :
+        $component5 = lobbyscreen:report_abuse_stage1_body;
+        $int6 = 122;
+    case lobbyscreen_report_abuse_stage1_namelist:main :
+        $component5 = lobbyscreen:com_43;
+        $int6 = 303;
+    case lobbyscreen_report_abuse_stage2:main :
+        $component5 = lobbyscreen:report_abuse_stage2_body;
+        $int6 = 312;
+}
+if ($component5 ! null) {
+    if_setsize($component5, if_getwidth($component5), $int6, ^setsize_abs, ^setsize_abs);
+    if_setsize($component4, if_getwidth($component4), $int6, ^setsize_abs, ^setsize_abs);
+}

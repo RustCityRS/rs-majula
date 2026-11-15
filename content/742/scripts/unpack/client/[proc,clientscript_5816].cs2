@@ -1,0 +1,6 @@
+// 5816
+[proc,clientscript_5816](int $int0, int $int1, component $component2)(int, int)
+def_int $int3 = if_getx($component2);
+def_int $int4 = if_gety($component2);
+if_setposition($component2, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+return($int3, $int4);

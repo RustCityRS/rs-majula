@@ -1,0 +1,14 @@
+// 6663
+[proc,clientscript_6663](int $int0)(struct)
+def_struct $struct1 = null;
+switch_int ($int0) {
+    case 1 :
+        $struct1 = struct_11437;
+    case 3 :
+        $struct1 = struct_11434;
+    case 4 :
+        $struct1 = struct_11436;
+    case 5 :
+        $struct1 = struct_11435;
+}
+return($struct1);

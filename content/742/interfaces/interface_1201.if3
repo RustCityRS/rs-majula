@@ -1,0 +1,551 @@
+// 1201:0
+[com_0]
+type=text
+width=16384
+height=3440
+widthmode=proportion
+heightmode=proportion
+layer=com_19
+textfont=p11_full
+text=Glittering spark
+textalignh=centre
+textalignv=centre
+
+// 1201:1
+[com_1]
+type=layer
+y=30
+width=13351
+height=5059
+widthmode=proportion
+heightmode=proportion
+layer=com_14
+
+// 1201:2
+[com_2]
+type=graphic
+x=2
+y=2
+width=16060
+height=15935
+widthmode=proportion
+heightmode=proportion
+layer=com_4
+graphic=background_texture
+trans=150
+
+// 1201:3
+[com_3]
+type=graphic
+x=2
+y=2
+width=16194
+height=16072
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+graphic=graphic_8489
+trans=150
+
+// 1201:4
+[com_4]
+type=layer
+y=-75
+width=15565
+height=6987
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+
+// 1201:5
+[com_5]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+
+// 1201:6
+[com_6]
+type=layer
+width=16391
+height=26889
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+
+// 1201:7
+[com_7]
+type=text
+x=17
+y=13
+width=12265
+height=879
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+hide=yes
+textfont=p11_full
+text=Life-giving spark
+textalignh=centre
+textalignv=centre
+
+// 1201:8
+[com_8]
+type=layer
+x=1
+y=6
+width=15565
+height=3665
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+
+// 1201:9
+[com_9]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_8
+
+// 1201:10
+[com_10]
+type=graphic
+x=2
+y=2
+width=15728
+height=15073
+widthmode=proportion
+heightmode=proportion
+layer=com_9
+graphic=background_texture
+trans=150
+
+// 1201:11
+[com_11]
+type=text
+x=34
+y=-2
+width=11591
+height=18528
+widthmode=proportion
+heightmode=proportion
+layer=com_8
+textfont=verdana_15pt_regular
+text=Lit fires: 0
+textalignh=centre
+textalignv=centre
+
+// 1201:12
+[com_12]
+type=graphic
+x=7
+y=4
+width=3027
+height=12116
+widthmode=proportion
+heightmode=proportion
+layer=com_8
+graphic="staticons,16"
+
+// 1201:13
+[com_13]
+type=layer
+x=7
+y=5
+width=14487
+height=13541
+widthmode=proportion
+heightmode=proportion
+layer=com_8
+onmouseleave=deltooltip(interface_1201:com_46)
+onmouserepeat=addtooltip(event_com, interface_1201:com_46, "Light fires to strengthen yourself and weaken Char.", 50, 250)
+
+// 1201:14
+[com_14]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+scrollwidth=174
+scrollheight=552
+onload=crcs_agility_open
+
+// 1201:15
+[com_15]
+type=model
+x=1
+y=42
+width=27
+height=90
+xmode=abs_centre
+layer=com_6
+model=model_31537
+modelorigin=0,44
+modelzoom=515
+
+// 1201:16
+[com_16]
+type=text
+y=65
+width=16384
+height=2818
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_6
+textfont=verdana_11pt_regular
+text= Buff time remaining:
+textalignh=centre
+textalignv=centre
+
+// 1201:17
+[com_17]
+type=text
+y=80
+width=16391
+height=3012
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_6
+textfont=verdana_15pt_regular
+text=10
+textalignh=centre
+textalignv=centre
+
+// 1201:18
+[com_18]
+type=layer
+x=16
+y=36
+width=12854
+height=5048
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+onmouseleave=deltooltip(interface_1201:com_46)
+onmouserepeat=addtooltip(event_com, interface_1201:com_46, "Use your fires to absorb Char's sparks to gain a buff.", 50, 250)
+
+// 1201:19
+[com_19]
+type=layer
+x=17
+y=10
+width=12619
+height=6599
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+onmouseleave=deltooltip(interface_1201:com_46)
+onmouserepeat=addtooltip(event_com, interface_1201:com_46, "With each hit landed, you have a chance to do extra damage.", 50, 250)
+
+// 1201:20
+[com_20]
+type=layer
+x=17
+y=10
+width=12615
+height=6553
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+hide=yes
+onmouseleave=deltooltip(interface_1201:com_46)
+onmouserepeat=addtooltip(event_com, interface_1201:com_46, "With each hit landed, you have a chance to regenerate lifepoints.", 50, 250)
+
+// 1201:21
+[com_21]
+type=layer
+x=17
+y=10
+width=12615
+height=6553
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+hide=yes
+onmouseleave=deltooltip(interface_1201:com_46)
+onmouserepeat=addtooltip(event_com, interface_1201:com_46, "With each hit landed, you have a chance to slow Char's attacks.", 50, 250)
+
+// 1201:22
+[com_22]
+type=graphic
+width=10
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1201:23
+[com_23]
+type=graphic
+width=10
+height=16391
+heightmode=proportion
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1201:24
+[com_24]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1201:25
+[com_25]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,0"
+vflip=yes
+
+// 1201:26
+[com_26]
+type=graphic
+width=10
+height=10
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1201:27
+[com_27]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1201:28
+[com_28]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1201:29
+[com_29]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1201:30
+[com_30]
+type=graphic
+width=10
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1201:31
+[com_31]
+type=graphic
+width=10
+height=16391
+heightmode=proportion
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1201:32
+[com_32]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1201:33
+[com_33]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,0"
+vflip=yes
+
+// 1201:34
+[com_34]
+type=graphic
+width=10
+height=10
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1201:35
+[com_35]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1201:36
+[com_36]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1201:37
+[com_37]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1201:38
+[com_38]
+type=graphic
+width=10
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1201:39
+[com_39]
+type=graphic
+width=10
+height=16391
+heightmode=proportion
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1201:40
+[com_40]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1201:41
+[com_41]
+type=graphic
+width=16384
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,0"
+vflip=yes
+
+// 1201:42
+[com_42]
+type=graphic
+width=10
+height=10
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1201:43
+[com_43]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1201:44
+[com_44]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1201:45
+[com_45]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1201:46
+[com_46]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 1201:47
+[com_47]
+type=text
+width=16384
+height=3440
+widthmode=proportion
+heightmode=proportion
+layer=com_20
+textfont=p11_full
+text=Life-giving spark
+textalignh=centre
+textalignv=centre
+
+// 1201:48
+[com_48]
+type=text
+width=16384
+height=3440
+widthmode=proportion
+heightmode=proportion
+layer=com_21
+textfont=p11_full
+text=Cooling spark
+textalignh=centre
+textalignv=centre

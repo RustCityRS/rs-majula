@@ -1,0 +1,41 @@
+// 5733
+[proc,clientscript_5733](int $int0)(int)
+def_int $int1 = 0;
+if (~clientscript_5767 = 0 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+    return(1);
+}
+switch_int ($int0) {
+    case 1 :
+        if (%varplayerbit_10515 = 1 | %varplayerbit_8576 = 584 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 13, 14, 11 :
+        if (%varplayerbit_10516 = 1 | %varplayerbit_8576 = 585 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 21, 16, 15, 23 :
+        if (%varplayerbit_10517 = 1 | %varplayerbit_8576 = 586 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 10 :
+        if (%varplayerbit_10518 = 1 | %varplayerbit_8576 = 587 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 20 :
+        if (%varplayerbit_10519 = 1 | %varplayerbit_8576 = 588 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 24 :
+        if (%varplayerbit_10520 = 1 | %varplayerbit_8576 = 589 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 18, 17, 19 :
+        if (%varplayerbit_10521 = 1 | %varplayerbit_8576 = 590 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+    case 9, 7 :
+        if (%varplayerbit_10522 = 1 | %varplayerbit_8576 = 591 | ~clientscript_5765(enum(int, stat, enum_681, $int0)) = 1) {
+            return(1);
+        }
+}
+return(0);

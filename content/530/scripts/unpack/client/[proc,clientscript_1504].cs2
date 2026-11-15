@@ -1,0 +1,9 @@
+// 1504
+[proc,clientscript_1504]
+if (getwindowmode >= 2) {
+    if_sethide(interface_764:com_45, false);
+    if_sethide(interface_764:window_layer, true);
+} else {
+    if_sethide(interface_764:com_45, true);
+    if_sethide(interface_764:window_layer, false);
+}

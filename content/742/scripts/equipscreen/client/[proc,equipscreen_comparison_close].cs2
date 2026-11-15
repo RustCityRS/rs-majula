@@ -1,0 +1,10 @@
+// 2947
+[proc,equipscreen_comparison_close]
+%varclient_2343 = "";
+%varclient_2344 = "";
+%varclient_2345 = "";
+%varclient_2346 = "";
+%varclient_2347 = "";
+if_sethide(equip_screen2:popup, true);
+if_sethide(inventory_wear2:popup, true);
+if_sethide(bank_v2_side:popup, true);

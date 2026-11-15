@@ -1,0 +1,920 @@
+// 1127:0
+[com_0]
+type=graphic
+x=-62
+y=-34
+width=350
+height=253
+layer=com_4
+graphic=window_texture_1
+
+// 1127:1
+[com_1]
+type=graphic
+x=4
+y=4
+width=277
+height=96
+layer=com_4
+graphic=window_texture_2
+
+// 1127:2
+[com_2]
+type=graphic
+x=3
+y=106
+width=279
+height=99
+layer=com_4
+graphic=window_texture_2
+
+// 1127:3
+[com_3]
+type=layer
+x=1
+y=1
+width=314
+height=252
+layer=com_15
+onload=script4260(event_com)
+
+// 1127:4
+[com_4]
+type=layer
+x=15
+y=33
+width=287
+height=216
+layer=com_15
+onload=clientscript_5249
+onvarctransmit=clientscript_5249{varclient_1604}
+
+// 1127:5
+[com_5]
+type=layer
+x=3
+y=104
+width=280
+height=102
+layer=com_4
+onload=clientscript_5254(event_com)
+
+// 1127:6
+[com_6]
+type=layer
+x=25
+y=65
+width=85
+height=88
+ymode=abs_centre
+layer=com_15
+onmouseover=clientscript_5250(1)
+onmouseleave=clientscript_5251
+
+// 1127:7
+[com_7]
+type=layer
+x=117
+y=65
+width=85
+height=90
+ymode=abs_centre
+layer=com_15
+onmouseover=clientscript_5250(2)
+onmouseleave=clientscript_5251
+
+// 1127:8
+[com_8]
+type=layer
+x=210
+y=65
+width=85
+height=90
+ymode=abs_centre
+layer=com_15
+onmouseover=clientscript_5250(3)
+onmouseleave=clientscript_5251
+
+// 1127:9
+[com_9]
+type=model
+x=51
+y=163
+width=29
+height=38
+layer=com_15
+hide=yes
+model=model_44704
+modelorigin=13,18
+modelzoom=476
+
+// 1127:10
+[com_10]
+type=model
+x=145
+y=160
+width=27
+height=45
+layer=com_15
+hide=yes
+model=model_45328
+modelorigin=13,22
+modelzoom=476
+
+// 1127:11
+[com_11]
+type=model
+x=225
+y=155
+width=56
+height=50
+layer=com_15
+hide=yes
+model=model_44633
+modelorigin=-1,24
+modelzoom=476
+
+// 1127:12
+[com_12]
+type=text
+x=26
+y=200
+width=84
+height=33
+layer=com_15
+textfont=p11_full
+text=Battlemage
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa88d65
+
+// 1127:13
+[com_13]
+type=text
+x=117
+y=200
+width=86
+height=34
+layer=com_15
+textfont=p11_full
+text=Trickster
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa88d65
+
+// 1127:14
+[com_14]
+type=text
+x=211
+y=200
+width=84
+height=35
+layer=com_15
+textfont=p11_full
+text=Vanguard
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa88d65
+
+// 1127:15
+[com_15]
+type=layer
+x=88
+y=41
+width=315
+height=254
+onload=clientscript_5118(event_com)
+
+// 1127:16
+[com_16]
+type=graphic
+x=381
+y=49
+width=16
+height=15
+graphic="aif_bronze_close_button_1,0"
+
+// 1127:17
+[com_17]
+type=text
+x=6
+y=29
+width=272
+height=69
+layer=com_4
+textfont=verdana_11pt_regular_multiline
+text=Select the reward you would prefer:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa88d65
+
+// 1127:18
+[com_18]
+type=text
+x=5
+y=8
+width=279
+height=26
+layer=com_4
+textfont=b12_full
+text=You have received a piece of hybrid armour!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xefbe65
+
+// 1127:19
+[com_19]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1127:20
+[com_20]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1127:21
+[com_21]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1127:22
+[com_22]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1746)
+
+// 1127:23
+[com_23]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1747)
+
+// 1127:24
+[com_24]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1748)
+
+// 1127:25
+[com_25]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1127:26
+[com_26]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1749)
+
+// 1127:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 1127:28
+[com_28]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_27
+
+// 1127:29
+[com_29]
+type=model
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_27
+model=null
+modelzoom=1600
+modelobjwidth=67
+modelobjheight=70
+
+// 1127:30
+[com_30]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1127:31
+[com_31]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+colour=0x000000
+fill=yes
+trans=150
+
+// 1127:32
+[com_32]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1127:33
+[com_33]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1127:34
+[com_34]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1127:35
+[com_35]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+onload=script4205(event_com, struct_1746)
+
+// 1127:36
+[com_36]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+onload=script4205(event_com, struct_1747)
+
+// 1127:37
+[com_37]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+onload=script4205(event_com, struct_1748)
+
+// 1127:38
+[com_38]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1127:39
+[com_39]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+onload=script4205(event_com, struct_1749)
+
+// 1127:40
+[com_40]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 1127:41
+[com_41]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_40
+
+// 1127:42
+[com_42]
+type=model
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_40
+model=null
+modelzoom=1600
+modelobjwidth=67
+modelobjheight=72
+
+// 1127:43
+[com_43]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_7
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1127:44
+[com_44]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_43
+colour=0x000000
+fill=yes
+trans=150
+
+// 1127:45
+[com_45]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1127:46
+[com_46]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1127:47
+[com_47]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1127:48
+[com_48]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+onload=script4205(event_com, struct_1746)
+
+// 1127:49
+[com_49]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+onload=script4205(event_com, struct_1747)
+
+// 1127:50
+[com_50]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+onload=script4205(event_com, struct_1748)
+
+// 1127:51
+[com_51]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1127:52
+[com_52]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+onload=script4205(event_com, struct_1749)
+
+// 1127:53
+[com_53]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+
+// 1127:54
+[com_54]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_53
+
+// 1127:55
+[com_55]
+type=model
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_53
+model=null
+modelzoom=1600
+modelobjwidth=67
+modelobjheight=72
+
+// 1127:56
+[com_56]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_8
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1127:57
+[com_57]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+colour=0x000000
+fill=yes
+trans=150
+
+// 1127:58
+[com_58]
+type=layer
+x=10
+y=24
+width=298
+height=225
+layer=com_15
+onload=script4261(event_com)
+
+// 1127:59
+[com_59]
+type=graphic
+x=381
+y=49
+width=16
+height=15
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+onclick=closebutton_click
+
+// 1127:60
+[com_60]
+type=layer
+x=3
+y=3
+width=280
+height=97
+layer=com_4
+onload=clientscript_5254(event_com)
+
+// 1127:61
+[com_61]
+type=model
+x=44
+y=164
+width=45
+height=39
+layer=com_15
+hide=yes
+model=model_44631
+modelorigin=0,-2
+modelangle=398,0,0
+modelzoom=885
+
+// 1127:62
+[com_62]
+type=model
+x=137
+y=161
+width=46
+height=44
+layer=com_15
+hide=yes
+model=model_45329
+modelangle=535,0,0
+modelzoom=885
+
+// 1127:63
+[com_63]
+type=model
+x=228
+y=165
+width=47
+height=39
+layer=com_15
+hide=yes
+model=model_44627
+modelorigin=0,5
+modelangle=548,0,0
+modelzoom=885
+
+// 1127:64
+[com_64]
+type=model
+x=49
+y=156
+width=32
+height=51
+layer=com_15
+hide=yes
+model=model_44672
+modelorigin=2,2
+modelangle=398,1024,0
+modelzoom=885
+
+// 1127:65
+[com_65]
+type=model
+x=147
+y=156
+width=23
+height=52
+layer=com_15
+hide=yes
+model=model_45335
+modelorigin=2,0
+modelangle=535,1024,0
+modelzoom=1012
+
+// 1127:66
+[com_66]
+type=model
+x=238
+y=156
+width=29
+height=57
+layer=com_15
+hide=yes
+model=model_44658
+modelorigin=0,2
+modelangle=548,0,0
+modelzoom=871
+
+// 1127:67
+[com_67]
+type=model
+x=43
+y=160
+width=48
+height=45
+layer=com_15
+hide=yes
+model=model_44573
+modelorigin=-3,1
+modelangle=398,1024,0
+modelzoom=560
+
+// 1127:68
+[com_68]
+type=model
+x=132
+y=159
+width=53
+height=50
+layer=com_15
+hide=yes
+model=model_45317
+modelorigin=-3,0
+modelangle=535,1024,0
+modelzoom=504
+
+// 1127:69
+[com_69]
+type=model
+x=230
+y=161
+width=45
+height=42
+layer=com_15
+hide=yes
+model=model_44699
+modelorigin=10,14
+modelangle=473,218,0
+modelzoom=306
+
+// 1127:70
+[com_70]
+type=model
+x=46
+y=164
+width=45
+height=34
+layer=com_15
+hide=yes
+model=model_44662
+modelorigin=-6,4
+modelangle=164,347,0
+modelzoom=560
+
+// 1127:71
+[com_71]
+type=model
+x=138
+y=165
+width=44
+height=39
+layer=com_15
+hide=yes
+model=model_45316
+modelorigin=-6,4
+modelangle=182,386,0
+modelzoom=504
+
+// 1127:72
+[com_72]
+type=model
+x=233
+y=163
+width=36
+height=39
+layer=com_15
+hide=yes
+model=model_44700
+modelorigin=2,4
+modelangle=204,85,0
+modelzoom=518
+
+// 1127:73
+[com_73]
+type=layer
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=com_15
+
+// 1127:74
+[com_74]
+type=layer
+x=115
+y=27
+width=265
+height=133
+
+// 1127:75
+[com_75]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_73
+textfont=verdana_13pt_regular
+text=Congratulations!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)

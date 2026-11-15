@@ -1,0 +1,1959 @@
+// 632:0
+[com_0]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+
+// 632:1
+[com_1]
+type=layer
+y=5
+width=498
+height=29
+xmode=abs_centre
+layer=com_14
+
+// 632:2
+[com_2]
+type=graphic
+y=10
+width=3
+height=595
+xmode=abs_centre
+layer=com_36
+graphic=graphic_7640
+
+// 632:3
+[com_3]
+type=graphic
+y=137
+width=418
+height=5
+xmode=abs_centre
+layer=com_36
+graphic=graphic_11767
+
+// 632:4
+[com_4]
+type=graphic
+y=268
+width=418
+height=5
+xmode=abs_centre
+layer=com_36
+graphic=graphic_11767
+
+// 632:5
+[com_5]
+type=graphic
+y=399
+width=418
+height=5
+xmode=abs_centre
+layer=com_36
+graphic=graphic_11767
+
+// 632:6
+[com_6]
+type=layer
+x=15
+y=15
+width=206
+height=118
+layer=com_36
+onload=clientscript_4168(1)
+onvartransmit=clientscript_4168(1){varplayer_2814}
+oninvtransmit=clientscript_4168(1){inv}
+
+// 632:7
+[com_7]
+type=layer
+x=15
+y=15
+width=206
+height=118
+xmode=abs_right
+layer=com_36
+onload=clientscript_4168(2)
+onvartransmit=clientscript_4168(2){varplayer_2814}
+oninvtransmit=clientscript_4168(2){inv}
+
+// 632:8
+[com_8]
+type=layer
+x=15
+y=146
+width=206
+height=118
+layer=com_36
+onload=clientscript_4168(3)
+onvartransmit=clientscript_4168(3){varplayer_2814}
+oninvtransmit=clientscript_4168(3){inv}
+
+// 632:9
+[com_9]
+type=layer
+x=15
+y=146
+width=206
+height=118
+xmode=abs_right
+layer=com_36
+onload=clientscript_4168(4)
+onvartransmit=clientscript_4168(4){varplayer_2814}
+oninvtransmit=clientscript_4168(4){inv}
+
+// 632:10
+[com_10]
+type=layer
+x=15
+y=277
+width=206
+height=118
+layer=com_36
+onload=clientscript_4168(5)
+onvartransmit=clientscript_4168(5){varplayer_2814}
+oninvtransmit=clientscript_4168(5){inv}
+
+// 632:11
+[com_11]
+type=layer
+x=15
+y=277
+width=206
+height=118
+xmode=abs_right
+layer=com_36
+onload=clientscript_4168(6)
+onvartransmit=clientscript_4168(6){varplayer_2814}
+oninvtransmit=clientscript_4168(6){inv}
+
+// 632:12
+[com_12]
+type=layer
+x=15
+y=408
+width=206
+height=180
+layer=com_36
+onload=clientscript_4168(7)
+onvartransmit=clientscript_4168(7){varplayer_2814}
+oninvtransmit=clientscript_4168(7){inv}
+
+// 632:13
+[com_13]
+type=layer
+x=15
+y=408
+width=206
+height=180
+xmode=abs_right
+layer=com_36
+onload=clientscript_4168(8)
+onvartransmit=clientscript_4168(8){varplayer_2814}
+oninvtransmit=clientscript_4168(8){inv}
+
+// 632:14
+[com_14]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 632:15
+[com_15]
+type=graphic
+x=9
+y=9
+width=100
+height=100
+xmode=abs_right
+layer=com_0
+graphic=window_texture_1
+
+// 632:16
+[com_16]
+type=graphic
+x=11
+y=10
+width=100
+height=100
+layer=com_0
+graphic=window_texture_1
+
+// 632:17
+[com_17]
+type=graphic
+y=10
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:18
+[com_18]
+type=graphic
+x=-97
+y=10
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:19
+[com_19]
+type=graphic
+x=98
+y=10
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:20
+[com_20]
+type=graphic
+y=110
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:21
+[com_21]
+type=graphic
+x=197
+y=109
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:22
+[com_22]
+type=graphic
+x=97
+y=110
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:23
+[com_23]
+type=graphic
+x=-195
+y=110
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:24
+[com_24]
+type=graphic
+x=99
+y=210
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:25
+[com_25]
+type=graphic
+x=197
+y=209
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:26
+[com_26]
+type=graphic
+x=-195
+y=210
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:27
+[com_27]
+type=graphic
+x=-99
+y=210
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:28
+[com_28]
+type=graphic
+y=210
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:29
+[com_29]
+type=graphic
+x=197
+y=225
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:30
+[com_30]
+type=graphic
+x=104
+y=225
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:31
+[com_31]
+type=graphic
+x=4
+y=225
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:32
+[com_32]
+type=graphic
+x=-96
+y=225
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:33
+[com_33]
+type=graphic
+x=-195
+y=225
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:34
+[com_34]
+type=graphic
+x=-98
+y=110
+width=100
+height=100
+xmode=abs_centre
+layer=com_0
+graphic=window_texture_1
+
+// 632:35
+[com_35]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+
+// 632:36
+[com_36]
+type=layer
+x=19
+y=38
+width=450
+height=276
+layer=com_14
+scrollheight=600
+
+// 632:37
+[com_37]
+type=graphic
+x=5
+y=5
+width=64
+height=53
+xmode=abs_right
+layer=com_35
+graphic=graphic_13990
+hflip=yes
+
+// 632:38
+[com_38]
+type=graphic
+x=5
+y=5
+width=64
+height=53
+layer=com_35
+graphic=aif_window_stone_topl_corn
+
+// 632:39
+[com_39]
+type=graphic
+x=5
+y=5
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_35
+graphic=aif_window_stone_topl_corn
+vflip=yes
+hflip=yes
+
+// 632:40
+[com_40]
+type=graphic
+x=5
+y=5
+width=64
+height=53
+ymode=abs_bottom
+layer=com_35
+graphic=aif_window_stone_topl_corn
+vflip=yes
+
+// 632:41
+[com_41]
+type=graphic
+x=69
+y=323
+width=375
+height=6
+layer=com_35
+graphic=graphic_9698
+vflip=yes
+
+// 632:42
+[com_42]
+type=graphic
+x=5
+y=58
+width=8
+height=219
+layer=com_35
+graphic=aif_window_stone_left_corner_3
+
+// 632:43
+[com_43]
+type=graphic
+x=5
+y=58
+width=8
+height=219
+xmode=abs_right
+layer=com_35
+graphic=aif_window_stone_left_corner_3
+hflip=yes
+
+// 632:44
+[com_44]
+type=graphic
+width=55
+height=29
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:45
+[com_45]
+type=graphic
+x=53
+width=55
+height=29
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:46
+[com_46]
+type=graphic
+x=106
+width=55
+height=29
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:47
+[com_47]
+type=graphic
+x=159
+width=55
+height=29
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:48
+[com_48]
+type=graphic
+width=55
+height=29
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:49
+[com_49]
+type=graphic
+x=54
+width=55
+height=29
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:50
+[com_50]
+type=graphic
+x=108
+width=55
+height=29
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:51
+[com_51]
+type=graphic
+x=162
+width=55
+height=29
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13994
+
+// 632:52
+[com_52]
+type=graphic
+width=133
+height=35
+xmode=abs_centre
+layer=com_1
+graphic=graphic_9654
+
+// 632:53
+[com_53]
+type=graphic
+x=-86
+width=42
+height=35
+xmode=abs_centre
+layer=com_1
+graphic=graphic_9653
+
+// 632:54
+[com_54]
+type=graphic
+x=87
+width=42
+height=35
+xmode=abs_centre
+layer=com_1
+graphic=graphic_9653
+hflip=yes
+
+// 632:55
+[com_55]
+type=text
+y=2
+width=190
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+textfont=fontmetrics_13121
+text=Halloween Reward Shop
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:56
+[com_56]
+type=layer
+x=-1
+y=2
+width=16
+height=15
+xmode=abs_right
+layer=com_1
+onload=aif_build_close_button_layer(event_com)
+
+// 632:57
+[com_57]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_6
+graphic=graphic_11878
+
+// 632:58
+[com_58]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_6
+graphic=graphic_13989
+
+// 632:59
+[com_59]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_6
+model=null
+modelzoom=800
+
+// 632:60
+[com_60]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_6
+textfont=verdana_15pt_regular
+text=Celestial Hood
+textalignv=centre
+textshadow=yes
+
+// 632:61
+[com_61]
+type=text
+x=3
+y=52
+width=200
+height=34
+layer=com_6
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:62
+[com_62]
+type=text
+x=3
+y=90
+width=88
+height=23
+layer=com_6
+textfont=verdana_11pt_regular
+text=25 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:63
+[com_63]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_6
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_65)
+onmouseleave=clientscript_4166(interface_632:com_65)
+
+// 632:64
+[com_64]
+type=graphic
+width=74
+height=23
+layer=com_63
+graphic=graphic_9082
+
+// 632:65
+[com_65]
+type=graphic
+width=74
+height=23
+layer=com_63
+graphic=graphic_9085
+trans=255
+
+// 632:66
+[com_66]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_63
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:67
+[com_67]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_6
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:68
+[com_68]
+type=graphic
+width=74
+height=23
+layer=com_67
+graphic=graphic_7893
+
+// 632:69
+[com_69]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_67
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:70
+[com_70]
+type=layer
+x=19
+y=38
+width=62
+height=58
+widthmode=minus
+heightmode=minus
+layer=com_14
+
+// 632:71
+[com_71]
+type=layer
+x=19
+y=38
+width=16
+height=276
+xmode=abs_right
+layer=com_14
+onload=clientscript_1638(event_com, interface_632:com_36)
+
+// 632:72
+[com_72]
+type=graphic
+width=61
+height=61
+layer=com_70
+graphic=graphic_13156
+
+// 632:73
+[com_73]
+type=graphic
+width=61
+height=61
+ymode=abs_bottom
+layer=com_70
+graphic=graphic_13156
+vflip=yes
+
+// 632:74
+[com_74]
+type=graphic
+width=61
+height=61
+xmode=abs_right
+layer=com_70
+graphic=graphic_13156
+hflip=yes
+
+// 632:75
+[com_75]
+type=graphic
+width=61
+height=61
+xmode=abs_right
+ymode=abs_bottom
+layer=com_70
+graphic=graphic_13156
+vflip=yes
+hflip=yes
+
+// 632:76
+[com_76]
+type=graphic
+x=61
+width=328
+height=15
+layer=com_70
+graphic=graphic_13157
+
+// 632:77
+[com_77]
+type=graphic
+x=61
+width=328
+height=15
+ymode=abs_bottom
+layer=com_70
+graphic=graphic_13157
+vflip=yes
+
+// 632:78
+[com_78]
+type=graphic
+width=15
+height=154
+ymode=abs_centre
+layer=com_70
+graphic=graphic_13158
+
+// 632:79
+[com_79]
+type=graphic
+width=15
+height=154
+xmode=abs_right
+ymode=abs_centre
+layer=com_70
+graphic=graphic_13158
+hflip=yes
+
+// 632:80
+[com_80]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_7
+graphic=graphic_11878
+
+// 632:81
+[com_81]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_7
+graphic=graphic_13989
+
+// 632:82
+[com_82]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_7
+model=null
+modelzoom=800
+
+// 632:83
+[com_83]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_7
+textfont=verdana_15pt_regular
+text=Celestial Torso
+textalignv=centre
+textshadow=yes
+
+// 632:84
+[com_84]
+type=text
+x=3
+y=52
+width=200
+height=34
+layer=com_7
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:85
+[com_85]
+type=text
+x=3
+y=90
+width=88
+height=23
+layer=com_7
+textfont=verdana_11pt_regular
+text=25 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:86
+[com_86]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_7
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_88)
+onmouseleave=clientscript_4166(interface_632:com_88)
+
+// 632:87
+[com_87]
+type=graphic
+width=74
+height=23
+layer=com_86
+graphic=graphic_9082
+
+// 632:88
+[com_88]
+type=graphic
+width=74
+height=23
+layer=com_86
+graphic=graphic_9085
+trans=255
+
+// 632:89
+[com_89]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_86
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:90
+[com_90]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_7
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:91
+[com_91]
+type=graphic
+width=74
+height=23
+layer=com_90
+graphic=graphic_7893
+
+// 632:92
+[com_92]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_90
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:93
+[com_93]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_8
+graphic=graphic_11878
+
+// 632:94
+[com_94]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_8
+graphic=graphic_13989
+
+// 632:95
+[com_95]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_8
+model=null
+modelzoom=800
+
+// 632:96
+[com_96]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_8
+textfont=verdana_15pt_regular
+text=Celestial Skirt
+textalignv=centre
+textshadow=yes
+
+// 632:97
+[com_97]
+type=text
+x=3
+y=52
+width=200
+height=34
+layer=com_8
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:98
+[com_98]
+type=text
+x=3
+y=90
+width=88
+height=23
+layer=com_8
+textfont=verdana_11pt_regular
+text=25 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:99
+[com_99]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_8
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_101)
+onmouseleave=clientscript_4166(interface_632:com_101)
+
+// 632:100
+[com_100]
+type=graphic
+width=74
+height=23
+layer=com_99
+graphic=graphic_9082
+
+// 632:101
+[com_101]
+type=graphic
+width=74
+height=23
+layer=com_99
+graphic=graphic_9085
+trans=255
+
+// 632:102
+[com_102]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_99
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:103
+[com_103]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_8
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:104
+[com_104]
+type=graphic
+width=74
+height=23
+layer=com_103
+graphic=graphic_7893
+
+// 632:105
+[com_105]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_103
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:106
+[com_106]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_9
+graphic=graphic_11878
+
+// 632:107
+[com_107]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_9
+graphic=graphic_13989
+
+// 632:108
+[com_108]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_9
+model=null
+modelzoom=800
+
+// 632:109
+[com_109]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_9
+textfont=verdana_15pt_regular
+text=Celestial Gloves
+textalignv=centre
+textshadow=yes
+
+// 632:110
+[com_110]
+type=text
+x=3
+y=52
+width=200
+height=34
+layer=com_9
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:111
+[com_111]
+type=text
+x=3
+y=90
+width=88
+height=23
+layer=com_9
+textfont=verdana_11pt_regular
+text=25 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:112
+[com_112]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_9
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_114)
+onmouseleave=clientscript_4166(interface_632:com_114)
+
+// 632:113
+[com_113]
+type=graphic
+width=74
+height=23
+layer=com_112
+graphic=graphic_9082
+
+// 632:114
+[com_114]
+type=graphic
+width=74
+height=23
+layer=com_112
+graphic=graphic_9085
+trans=255
+
+// 632:115
+[com_115]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_112
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:116
+[com_116]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_9
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:117
+[com_117]
+type=graphic
+width=74
+height=23
+layer=com_116
+graphic=graphic_7893
+
+// 632:118
+[com_118]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_116
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:119
+[com_119]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_10
+graphic=graphic_11878
+
+// 632:120
+[com_120]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_10
+graphic=graphic_13989
+
+// 632:121
+[com_121]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_10
+model=null
+modelzoom=800
+
+// 632:122
+[com_122]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_10
+textfont=verdana_15pt_regular
+text=Celestial Boots
+textalignv=centre
+textshadow=yes
+
+// 632:123
+[com_123]
+type=text
+x=3
+y=52
+width=200
+height=34
+layer=com_10
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:124
+[com_124]
+type=text
+x=3
+y=90
+width=88
+height=23
+layer=com_10
+textfont=verdana_11pt_regular
+text=25 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:125
+[com_125]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_10
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_127)
+onmouseleave=clientscript_4166(interface_632:com_127)
+
+// 632:126
+[com_126]
+type=graphic
+width=74
+height=23
+layer=com_125
+graphic=graphic_9082
+
+// 632:127
+[com_127]
+type=graphic
+width=74
+height=23
+layer=com_125
+graphic=graphic_9085
+trans=255
+
+// 632:128
+[com_128]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_125
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:129
+[com_129]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_10
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:130
+[com_130]
+type=graphic
+width=74
+height=23
+layer=com_129
+graphic=graphic_7893
+
+// 632:131
+[com_131]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_129
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:132
+[com_132]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_11
+graphic=graphic_11878
+
+// 632:133
+[com_133]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_11
+graphic=graphic_13989
+
+// 632:134
+[com_134]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_11
+model=null
+modelzoom=800
+
+// 632:135
+[com_135]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_11
+textfont=verdana_15pt_regular
+text=Celestial Cloak
+textalignv=centre
+textshadow=yes
+
+// 632:136
+[com_136]
+type=text
+x=3
+y=52
+width=200
+height=34
+layer=com_11
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:137
+[com_137]
+type=text
+x=3
+y=90
+width=88
+height=23
+layer=com_11
+textfont=verdana_11pt_regular
+text=25 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:138
+[com_138]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_11
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_140)
+onmouseleave=clientscript_4166(interface_632:com_140)
+
+// 632:139
+[com_139]
+type=graphic
+width=74
+height=23
+layer=com_138
+graphic=graphic_9082
+
+// 632:140
+[com_140]
+type=graphic
+width=74
+height=23
+layer=com_138
+graphic=graphic_9085
+trans=255
+
+// 632:141
+[com_141]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_138
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:142
+[com_142]
+type=layer
+x=117
+y=90
+width=74
+height=23
+layer=com_11
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:143
+[com_143]
+type=graphic
+width=74
+height=23
+layer=com_142
+graphic=graphic_7893
+
+// 632:144
+[com_144]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_142
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:145
+[com_145]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_12
+graphic=graphic_11878
+
+// 632:146
+[com_146]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_12
+graphic=graphic_13989
+
+// 632:147
+[com_147]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_12
+model=null
+modelzoom=800
+
+// 632:148
+[com_148]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_12
+textfont=verdana_15pt_regular
+text=Ectoplasmator
+textalignv=centre
+textshadow=yes
+
+// 632:149
+[com_149]
+type=text
+x=3
+y=116
+width=200
+height=34
+layer=com_12
+textfont=verdana_11pt_regular_multiline
+text=You do not currently own this item.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:150
+[com_150]
+type=text
+x=3
+y=52
+width=200
+height=65
+layer=com_12
+textfont=verdana_11pt_regular_multiline
+text=When fighting ghosts and spirits with this item in your inventory you will gain a small prayer boost for each kill you make.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:151
+[com_151]
+type=text
+x=3
+y=5
+width=88
+height=23
+ymode=abs_bottom
+layer=com_12
+textfont=verdana_11pt_regular
+text=50 Ectoplasm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:152
+[com_152]
+type=layer
+x=117
+y=5
+width=74
+height=23
+ymode=abs_bottom
+layer=com_12
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_154)
+onmouseleave=clientscript_4166(interface_632:com_154)
+
+// 632:153
+[com_153]
+type=graphic
+width=74
+height=23
+layer=com_152
+graphic=graphic_9082
+
+// 632:154
+[com_154]
+type=graphic
+width=74
+height=23
+layer=com_152
+graphic=graphic_9085
+trans=255
+
+// 632:155
+[com_155]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_152
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:156
+[com_156]
+type=layer
+x=117
+y=5
+width=74
+height=23
+ymode=abs_bottom
+layer=com_12
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:157
+[com_157]
+type=graphic
+width=74
+height=23
+layer=com_156
+graphic=graphic_7893
+
+// 632:158
+[com_158]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_156
+textfont=verdana_11pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:159
+[com_159]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 632:160
+[com_160]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+onload=aif_build_close_button_over(event_com)
+
+// 632:161
+[com_161]
+type=graphic
+x=5
+y=5
+width=5
+height=41
+widthmode=minus
+layer=com_13
+graphic=graphic_11878
+
+// 632:162
+[com_162]
+type=graphic
+x=3
+y=3
+width=46
+height=46
+layer=com_13
+graphic=graphic_13989
+
+// 632:163
+[com_163]
+type=model
+x=10
+y=10
+width=32
+height=32
+layer=com_13
+model=null
+modelzoom=800
+
+// 632:164
+[com_164]
+type=text
+x=54
+y=16
+width=153
+height=15
+layer=com_13
+textfont=verdana_15pt_regular
+text=Donate Ectoplasm
+textalignv=centre
+textshadow=yes
+
+// 632:165
+[com_165]
+type=text
+x=3
+y=52
+width=200
+height=96
+layer=com_13
+textfont=verdana_11pt_regular_multiline
+text=You may donate excess ectoplasm to your team to help take control of an area. You can only do this once you have purchased every other item in the store.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 632:166
+[com_166]
+type=layer
+x=117
+y=5
+width=74
+height=23
+ymode=abs_bottom
+layer=com_13
+transmitop=1
+op1=Accept
+onmouseover=clientscript_1639(interface_632:com_168)
+onmouseleave=clientscript_4166(interface_632:com_168)
+
+// 632:167
+[com_167]
+type=graphic
+width=74
+height=23
+layer=com_166
+graphic=graphic_9082
+
+// 632:168
+[com_168]
+type=graphic
+width=74
+height=23
+layer=com_166
+graphic=graphic_9085
+trans=255
+
+// 632:169
+[com_169]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_166
+textfont=verdana_11pt_regular
+text=Donate
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffd500
+
+// 632:170
+[com_170]
+type=layer
+x=117
+y=5
+width=74
+height=23
+ymode=abs_bottom
+layer=com_13
+hide=yes
+transmitop=1
+op1=Accept
+
+// 632:171
+[com_171]
+type=graphic
+width=74
+height=23
+layer=com_170
+graphic=graphic_7893
+
+// 632:172
+[com_172]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_170
+textfont=verdana_11pt_regular
+text=Donate
+textalignh=centre
+textalignv=centre
+textshadow=yes

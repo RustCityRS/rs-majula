@@ -1,0 +1,10 @@
+// 3401
+[proc,lobbyscreen_pane_friendslist_chatbox_resize_load]
+if (%chatbox_resize_lobby < 0 | %chatbox_resize_lobby > calc(if_getheight(lobbyscreen_pane_friendslist:chatbox_resize) - if_getheight(lobbyscreen_pane_friendslist:chatbox_resize_dragger))) {
+    ~lobbyscreen_pane_friendslist_chatbox_resize_reset;
+} else {
+    ~lobbyscreen_pane_friendslist_chatbox_resize(%chatbox_resize_lobby, true);
+}
+if_setdraggable(lobbyscreen_pane_friendslist:chatbox_resize_dragger, lobbyscreen_pane_friendslist:chatbox_resize, -1);
+if_setondrag(lobbyscreen_pane_friendslist:chatbox_resize_dragger, "lobbyscreen_pane_friendslist_chatbox_resize_drag(event_mousey, false)");
+if_setondragcomplete(lobbyscreen_pane_friendslist:chatbox_resize_dragger, "lobbyscreen_pane_friendslist_chatbox_resize_drag(event_mousey, true)");

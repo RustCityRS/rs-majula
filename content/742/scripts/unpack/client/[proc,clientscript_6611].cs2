@@ -1,0 +1,35 @@
+// 6611
+[proc,clientscript_6611](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int0 = 1) {
+    if (enum(int, int, enum_6060, $int1) = 1) {
+        cc_setgraphic(12168);
+    }
+    if (enum(int, int, enum_6060, $int1) = 2) {
+        cc_setgraphic(12166);
+    }
+    if (enum(int, int, enum_6060, $int1) = 3) {
+        cc_setgraphic(12162);
+    }
+    if (enum(int, int, enum_6060, $int1) = 4) {
+        cc_setgraphic(12158);
+    }
+    $int2, $int3 = op706;
+    cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+} else {
+    if (enum(int, int, enum_6060, $int1) = 1) {
+        cc_setgraphic(12169);
+    }
+    if (enum(int, int, enum_6060, $int1) = 2) {
+        cc_setgraphic(12167);
+    }
+    if (enum(int, int, enum_6060, $int1) = 3) {
+        cc_setgraphic(12163);
+    }
+    if (enum(int, int, enum_6060, $int1) = 4) {
+        cc_setgraphic(12159);
+    }
+    $int2, $int3 = op706;
+    cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+}

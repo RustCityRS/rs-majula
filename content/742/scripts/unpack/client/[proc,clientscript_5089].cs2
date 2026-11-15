@@ -1,0 +1,41 @@
+// 5089
+[proc,clientscript_5089](enum $enum0)(int)
+switch_enum ($enum0) {
+    case enum_3922 :
+        return(%varplayerbit_9537);
+    case enum_3923 :
+        return(%varplayerbit_9533);
+    case enum_3924 :
+        return(%varplayerbit_9534);
+    case enum_3939 :
+        return(%varplayerbit_9532);
+    case enum_3925 :
+        return(%varplayerbit_9520);
+    case enum_3926 :
+        return(%varplayerbit_9521);
+    case enum_3927 :
+        return(%varplayerbit_9522);
+    case enum_3929 :
+        return(%varplayerbit_9523);
+    case enum_3931 :
+        return(%varplayerbit_9524);
+    case enum_3932 :
+        return(%varplayerbit_9525);
+    case enum_3933 :
+        return(%varplayerbit_9526);
+    case enum_3934 :
+        return(%varplayerbit_9527);
+    case enum_3935 :
+        return(%varplayerbit_9528);
+    case enum_3936 :
+        return(%varplayerbit_9529);
+    case enum_3937 :
+        return(%varplayerbit_9530);
+    case enum_3938 :
+        return(%varplayerbit_9531);
+    case enum_3941 :
+        return(%varplayerbit_9535);
+    case enum_3942 :
+        return(%varplayerbit_9536);
+}
+return(0);

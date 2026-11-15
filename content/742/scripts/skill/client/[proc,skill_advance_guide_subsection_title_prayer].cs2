@@ -1,0 +1,14 @@
+// 1003
+[proc,skill_advance_guide_subsection_title_prayer](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
+        return("Prayers", 0);
+    case 1 :
+        return("Equipment", 1);
+    case 2 :
+        return("Dungeoneering", 0);
+    case 3 :
+        return("Milestones", 0);
+    case default :
+        return("", -1);
+}

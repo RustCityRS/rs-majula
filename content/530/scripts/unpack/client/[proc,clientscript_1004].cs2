@@ -1,0 +1,157 @@
+// 1004
+[proc,clientscript_1004](int $int0, int $int1)(int, obj, string, string)
+switch_int ($int0) {
+    case 0 :
+        switch_int ($int1) {
+            case 0 :
+                return(-1, invis_rod, "You can see what each of these prayers does by selecting the Prayer icon on your side interface. Move your mouse over the icon of the prayer you want and a description will be available.", "");
+            case 1 :
+                return(1, levelup_icon_prayer, "Thick Skin", "You can now use the <col=000080>Thick Skin</col> prayer.");
+            case 2 :
+                return(4, levelup_icon_prayer, "Burst of Strength", "You can now use the <col=000080>Burst of Strength</col> prayer.");
+            case 3 :
+                return(7, levelup_icon_prayer, "Clarity of Thought", "You can now use the <col=000080>Clarity of Thought</col> prayer.");
+            case 4 :
+                return(8, levelup_icon_prayer, "Sharp Eye", "You can now use the <col=000080>Sharp Eye</col> prayer.");
+            case 5 :
+                return(9, levelup_icon_prayer, "Mystic Will", "You can now use the <col=000080>Mystic Will</col> prayer.");
+            case 6 :
+                return(10, levelup_icon_prayer, "Rock Skin", "You can now use the <col=000080>Rock Skin</col> prayer.");
+            case 7 :
+                return(13, levelup_icon_prayer, "Superhuman Strength", "You can now use the <col=000080>Superhuman Strength</col> prayer.");
+            case 8 :
+                return(16, levelup_icon_prayer, "Improved Reflexes", "You can now use the <col=000080>Improved Reflexes</col> prayer.");
+            case 9 :
+                return(19, levelup_icon_prayer, "Rapid Restore", "You can now use the <col=000080>Rapid Restore</col> prayer.");
+            case 10 :
+                return(22, levelup_icon_prayer, "Rapid Heal", "You can now use the <col=000080>Rapid Heal</col> prayer.");
+            case 11 :
+                return(25, levelup_icon_prayer, "Protect Item", "You can now use the <col=000080>Protect Item</col> prayer.");
+            case 12 :
+                return(26, levelup_icon_prayer, "Hawk Eye", "You can now use the <col=000080>Hawk Eye</col> prayer.");
+            case 13 :
+                return(27, levelup_icon_prayer, "Mystic Lore", "You can now use the <col=000080>Mystic Lore</col> prayer.");
+            case 14 :
+                return(28, levelup_icon_prayer, "Steel Skin", "You can now use the <col=000080>Steel Skin</col> prayer.");
+            case 15 :
+                return(31, levelup_icon_prayer, "Ultimate Strength", "You can now use the <col=000080>Ultimate Strength</col> prayer.");
+            case 16 :
+                return(34, levelup_icon_prayer, "Incredible Reflexes", "You can now use the <col=000080>Incredible Reflexes</col> prayer.");
+            case 17 :
+                return(35, levelup_icon_prayer, "Members: Protect from Summoning", "Members can now use the <col=000080>Protect from Summoning</col> prayer.");
+            case 18 :
+                return(37, levelup_icon_prayer, "Protect from Magic", "You can now use the <col=000080>Protect from Magic</col> prayer.");
+            case 19 :
+                return(40, levelup_icon_prayer, "Protect from Missiles", "You can now use the <col=000080>Protect from Missiles</col> prayer.");
+            case 20 :
+                return(43, levelup_icon_prayer, "Protect from Melee", "You can now use the <col=000080>Protect from Melee</col> prayer.");
+            case 21 :
+                return(44, levelup_icon_prayer, "Eagle Eye", "You can now use the <col=000080>Eagle Eye</col> prayer.");
+            case 22 :
+                return(45, levelup_icon_prayer, "Mystic Might", "You can now use the <col=000080>Mystic Might</col> prayer.");
+            case 23 :
+                return(46, levelup_icon_prayer, "Members: Retribution", "Members can now use the <col=000080>Retribution</col> prayer.");
+            case 24 :
+                return(49, levelup_icon_prayer, "Members: Redemption", "Members can now use the <col=000080>Redemption</col> prayer.");
+            case 25 :
+                return(52, levelup_icon_prayer, "Members: Smite", "Members can now use the <col=000080>Smite</col> prayer.");
+            case 26 :
+                return(60, levelup_icon_prayer, "Members: Chivalry<br> (after King's Ransom)", "Members now have the Prayer level required to use the <col=000080>Chivalry</col> prayer (after King's Ransom).");
+            case 27 :
+                return(70, levelup_icon_prayer, "Members: Piety<br> (after King's Ransom)", "Members now have the Prayer level required to use the <col=000080>Piety</col> prayer (after King's Ransom).");
+        }
+    case 1 :
+        switch_int ($int1) {
+            case 0 :
+                return(10, basic_tk_helm, "Initiate sallet<br> (after Recruitment Drive and with 20 Defence)", "Members now have the Prayer level required to wear <col=000080>initiate sallets</col> (after Recruitment Drive, with level 20 Defence).");
+            case 1 :
+                return(10, basic_tk_body, "Initiate hauberk<br> (after Recruitment Drive and with 20 Defence)", "Members now have the Prayer level required to wear <col=000080>initiate hauberks</col> (after Recruitment Drive, with level 20 Defence).");
+            case 2 :
+                return(10, basic_tk_legs, "Initiate cuisse<br> (after Recruitment Drive and with 20 Defence)", "Members now have the Prayer level required to wear <col=000080>initiate cuisses</col> (after Recruitment Drive, with level 20 Defence).");
+            case 3 :
+                return(20, basic_tk_rank2_helm, "Proselyte sallet<br> (after Slug Menace and with 30 Defence)", "Members now have the Prayer level required to wear <col=000080>proselyte sallets</col> (after Slug Menace, with level 30 Defence).");
+            case 4 :
+                return(20, basic_tk_rank2_body, "Proselyte hauberk<br> (after Slug Menace and with 30 Defence)", "Members now have the Prayer level required to wear <col=000080>proselyte hauberks</col> (after Slug Menace, with level 30 Defence).");
+            case 5 :
+                return(20, basic_tk_rank2_legs, "Proselyte cuisse<br> (after Slug Menace and with 30 Defence)", "Members now have the Prayer level required to wear <col=000080>proselyte cuisses</col> (after Slug Menace, with level 30 Defence).");
+            case 6 :
+                return(20, basic_tk_rank2_plateskirt, "Proselyte plateskirt<br> (after Slug Menace and with 30 Defence)", "Members now have the Prayer level required to wear <col=000080>proselyte plateskirts</col> (after Slug Menace, with level 30 Defence).");
+            case 7 :
+                return(20, trail_guthix_robe_t, "Guthix robe top", "Members can now wear <col=000080>Guthix robe tops</col>.");
+            case 8 :
+                return(20, trail_guthix_robe_l, "Guthix robe legs", "Members can now wear <col=000080>Guthix robe legs</col>.");
+            case 9 :
+                return(20, trail_saradomin_robe_t, "Saradomin robe top", "Members can now wear <col=000080>Saradomin robe tops</col>.");
+            case 10 :
+                return(20, trail_saradomin_robe_l, "Saradomin robe legs", "Members can now wear <col=000080>Saradomin robe legs</col>.");
+            case 11 :
+                return(20, trail_zamorak_robe_t, "Zamorak robe top", "Members can now wear <col=000080>Zamorak robe tops</col>.");
+            case 12 :
+                return(20, trail_zamorak_robe_l, "Zamorak robe legs", "Members can now wear <col=000080>Zamorak robe legs</col>.");
+            case 13 :
+                return(25, ancient_goblin_mace, "Ancient Mace<br> (after Another Slice of H.A.M., with 15 Attack)", "Members now have the Prayer level required to wield the <col=000080>Ancient Mace</col> (after Another Slice of H.A.M. with level 15 Attack).");
+            case 14 :
+                return(40, trail_guthix_cloak, "Guthix cloak", "Members can now wear <col=000080>Guthix cloaks</col>.");
+            case 15 :
+                return(40, trail_guthix_mitre, "Guthix mitre<br> (with level 40 Magic)", "Members now have the Prayer level required to wield <col=000080>Guthix mitres</col> (with level 40 Magic).");
+            case 16 :
+                return(40, trail_saradomin_cloak, "Saradomin cloak", "Members can now wear <col=000080>Saradomin cloaks</col>.");
+            case 17 :
+                return(40, trail_saradomin_mitre, "Saradomin mitre<br> (with level 40 Magic)", "Members now have the Prayer level required to wield <col=000080>Saradomin mitres</col> (with level 40 Magic).");
+            case 18 :
+                return(40, trail_zamorak_cloak, "Zamorak cloak", "Members can now wear <col=000080>Zamorak cloaks</col>.");
+            case 19 :
+                return(40, trail_zamorak_mitre, "Zamorak mitre<br> (with level 40 Magic)", "Members now have the Prayer level required to wield <col=000080>Zamorak mitres</col> (with level 40 Magic).");
+            case 20 :
+                return(50, stringstar, "Use completed Prayer books<br>to bless holy and unholy symbols<br>(after Horror from the Deep)", "Members now have the Prayer level required to use completed prayer books to bless <col=000080>holy</col> and <col=000080>unholy symbols</col> (after Horror from the Deep).");
+            case 21 :
+                return(55, sum2_spirit_shield, "Members: Spirit shield<br> (after Summer's End and with 40 Defence)", "Members now have the Prayer level required to wield <col=000080>spirit shields</col> (after Summer's End, with level 40 Defence).");
+            case 22 :
+                return(60, trail_guthix_scarf, "Guthix stole", "Members can now wear <col=000080>Guthix stoles</col>.");
+            case 23 :
+                return(60, trail_guthix_staff, "Guthix crozier", "Members can now wield <col=000080>Guthix croziers</col>.");
+            case 24 :
+                return(60, trail_saradomin_scarf, "Saradomin stole", "Members can now wear <col=000080>Saradomin stoles</col>.");
+            case 25 :
+                return(60, trail_saradomin_staff, "Saradomin crozier", "Members can now wield <col=000080>Saradomin croziers</col>.");
+            case 26 :
+                return(60, trail_zamorak_scarf, "Zamorak stole", "Members can now wear <col=000080>Zamorak stoles</col>.");
+            case 27 :
+                return(60, trail_zamorak_staff, "Zamorak crozier", "Members can now wield <col=000080>Zamorak croziers</col>.");
+            case 28 :
+                return(60, sum2_spirit_shield_blessed, "Blessed spirit shield<br> (after Summer's End and with 70 Defence)", "Members now have the Prayer level required to wield <col=000080>blessed spirit shields</col> (after Summer's End, with level 70 Defence).");
+            case 29 :
+                return(70, sum2_spirit_shield_arcane, "Arcane spirit shield<br> (after Summer's End and with 65 Magic and 75 Defence)", "Members now have the Prayer level required to wield <col=000080>arcane spirit shields</col> (after Summer's End, with level 65 Magic and 75 Defence).");
+            case 30 :
+                return(70, sum2_spirit_shield_spectral, "Spectral spirit shield<br> (after Summer's End and with 65 Magic and 75 Defence)", "Members now have the Prayer level required to wield <col=000080>spectral spirit shields</col> (after Summer's End, with level 65 Magic and 75 Defence).");
+            case 31 :
+                return(75, sum2_spirit_shield_divine, "Divine spirit shield<br> (after Summer's End and with 75 Defence)", "Members now have the Prayer level required to wield <col=000080>divine spirit shields</col> (after Summer's End, with level 75 Defence).");
+            case 32 :
+                return(75, sum2_spirit_shield_elysian, "Elysian spirit shield<br> (after Summer's End and with 75 Defence)", "Members now have the Prayer level required to wield <col=000080>elysian spirit shields</col> (after Summer's End, with level 75 Defence).");
+        }
+    case 2 :
+        switch_int ($int1) {
+            case 0 :
+                return(2, gravestone_dummyitem, "Repair somebody else's gravestone", "You can now <col=000080>repair</col> somebody else's <col=000080>gravestone</col>!");
+            case 1 :
+                return(12, guide_icon_dummy, "Prayer Tutor - new info available", "There is new information available from the <col=000080>Prayer Tutor</col> in <col=000080>Lumbridge Chapel</col>.");
+            case 2 :
+                return(31, levelup_icon_prayer, "Monastery", "Abbot Langley will now let you enter the <col=000080>Monastery</col> west of <col=000080>Edgeville</col>.");
+            case 3 :
+                return(43, guide_icon_dummy, "Prayer Tutor - new info available", "There is new information available from the <col=000080>Prayer Tutor</col> in <col=000080>Lumbridge Chapel</col>.");
+            case 4 :
+                return(70, gravestone_dummyitem, "Bless somebody else's gravestone", "You can now <col=000080>bless somebody else's <col=000080>gravestone</col>!");
+            case 5 :
+                return(85, sum2_holy_elixir, "Members: Bless spirit shields<br> (after Summer's End)", "Members can now <col=000080>bless spirit shields</col> (after Summer's End).");
+            case 6 :
+                return(90, sum2_sigil_arcane, "Members: Create arcane spirit shields<br> (after Summer's End and with 85 Smithing)", "Members can now create <col=000080>arcane spirit shields</col> (after Summer's End, with level 85 Smithing).");
+            case 7 :
+                return(90, sum2_sigil_divine, "Members: Create divine spirit shields<br> (after Summer's End and with 85 Smithing)", "Members can now create <col=000080>divine spirit shields</col> (after Summer's End, with level 85 Smithing).");
+            case 8 :
+                return(90, sum2_sigil_elysian, "Members: Create elysian spirit shields<br> (after Summer's End and with 85 Smithing)", "Members can now create <col=000080>elysian spirit shields</col> (after Summer's End, with level 85 Smithing).");
+            case 9 :
+                return(90, sum2_sigil_spectral, "Members: Create spectral spirit shields<br> (after Summer's End and with 85 Smithing)", "Members can now create <col=000080>spectral spirit shields</col> (after Summer's End, with level 85 Smithing).");
+            case 10 :
+                return(99, skillcape_prayer, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Prayer<col=000080>. Why not visit <col=800000>Brother Jared<col=000080> upstairs at the <col=800000>Monastery<col=000080>? He has something special that is only available to true masters of the <col=800000>Prayer<col=000080> skill!");
+        }
+}

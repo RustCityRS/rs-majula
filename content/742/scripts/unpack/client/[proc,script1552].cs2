@@ -1,0 +1,9 @@
+// 1552
+[proc,script1552](int $int0, string $string0, fontmetrics $fontmetrics1, component $component2, int $int3)(int)
+def_int $int4 = 0;
+if (cc_find($component2, $int3) = true | $int3 = -1 & if_find($component2) = true) {
+    $int4 = calc(cc_getx + cc_getwidth / 2);
+} else {
+    return(0);
+}
+return(~script1551($int0, $string0, $fontmetrics1, calc($int4 - stringwidth(~script1602($string0), $fontmetrics1) / 2)));

@@ -1,37 +1,37 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result};
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::java_string_hash;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use serde_json::Value;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::{
     collections::HashMap,
     fs,
     path::Path,
     sync::{Arc, OnceLock},
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::info;
 
 #[derive(Debug, Clone)]
 pub struct TerrainData {
     pub levels: usize,
     pub tiles: Vec<TerrainTile>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub env_opcode_order: Vec<u8>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub environment: Option<EnvironmentData>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub lights: Vec<LightData>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub env_params: Option<EnvParams>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub skybox: Option<SkyboxData>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub camera: Option<CameraData>,
 }
 
@@ -45,7 +45,7 @@ pub struct TerrainTile {
     pub underlay_id: Option<u8>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct EnvironmentData {
     pub sun_color: Option<u32>,
@@ -58,7 +58,7 @@ pub struct EnvironmentData {
     pub env_map: Option<[u16; 6]>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct LightData {
     pub flags_raw: u8,
@@ -72,13 +72,13 @@ pub struct LightData {
     pub light_type_ref: Option<u16>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct EnvParams {
     pub values: [u8; 3],
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct SkyboxData {
     pub param0: u16,
@@ -88,13 +88,13 @@ pub struct SkyboxData {
     pub param4: u16,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct CameraData {
     pub planes: [CameraPlane; 4],
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub enum CameraPlane {
     Clear,
@@ -102,7 +102,7 @@ pub enum CameraPlane {
     CopyPrev,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct NpcSpawn {
     pub level: u8,
@@ -111,7 +111,7 @@ pub struct NpcSpawn {
     pub npc_id: u16,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ObjSpawn {
     pub level: u8,
@@ -181,7 +181,7 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
         tiles.push(tile);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let (env_opcode_order, environment, lights, env_params, skybox, camera) = {
         let mut env_opcode_order = Vec::new();
         let mut environment = None;
@@ -261,22 +261,22 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
     TerrainData {
         levels,
         tiles,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         env_opcode_order,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         environment,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         lights,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         env_params,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         skybox,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         camera,
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_environment(buf: &mut Packet<&[u8]>) -> EnvironmentData {
     let flags = buf.g1();
     let sun_color = if flags & 0x01 != 0 {
@@ -331,7 +331,7 @@ fn parse_environment(buf: &mut Packet<&[u8]>) -> EnvironmentData {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_light(buf: &mut Packet<&[u8]>) -> LightData {
     let flags_raw = buf.g1();
     let x = buf.g2();
@@ -370,9 +370,9 @@ pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
     let mut loc_id: i32 = -1;
 
     while buf.remaining() > 0 {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let delta = buf.gextended1or2();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let delta = buf.gsmart1or2();
         if delta == 0 {
             break;
@@ -402,7 +402,7 @@ pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
     locs
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
     let mut spawns = Vec::new();
     let mut buf = Packet::from(data);
@@ -422,7 +422,7 @@ pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
     spawns
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_obj_spawn_binary(data: &[u8]) -> Vec<ObjSpawn> {
     let mut spawns = Vec::new();
     let mut buf = Packet::from(data);
@@ -442,16 +442,16 @@ pub fn parse_obj_spawn_binary(data: &[u8]) -> Vec<ObjSpawn> {
 }
 
 /// XTEA keys for map region decryption, keyed by name hash of "l{mx}_{mz}".
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Clone)]
 pub struct XteaKeyStore {
     keys: Arc<HashMap<i32, [i32; 4]>>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 static GLOBAL: OnceLock<XteaKeyStore> = OnceLock::new();
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl XteaKeyStore {
     /// Load XTEA keys from an OpenRS2-format keys.json file.
     pub fn load(path: &Path) -> anyhow::Result<Self> {
@@ -508,7 +508,7 @@ impl XteaKeyStore {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn load_xtea_keys(keys_path: &Path) -> Result<HashMap<i32, [i32; 4]>> {
     let data = fs::read_to_string(keys_path)
         .with_context(|| format!("reading {}", keys_path.display()))?;

@@ -1,9 +1,10 @@
 use super::UnpackedPacks;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::emit_params;
 use crate::cache::loc::LocTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::types::loc_shape_key;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_loc_props(
@@ -16,19 +17,22 @@ pub fn emit_loc_props(
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
+        #[cfg(before_530)]
         if let Some(models) = &def.models {
             let pairs = models
                 .iter()
-                .map(|model| (model.model, model.shape))
+                .map(|model| (model.model.g2(), model.shape))
                 .collect::<Vec<_>>();
             let mut models = Vec::new();
-            super::push_loc_model_refs(def.id, &pairs, registry, &mut models);
+            super::push_loc_model_refs(def.id.raw(), &pairs, registry, &mut models);
             let code = if opcode == 5 { 5 } else { 1 };
             p.extend(models.into_iter().map(|(key, value)| (code, key, value)));
         }
+        #[cfg(before_530)]
         if let Some(desc) = &def.desc {
             p.push((3, "desc".into(), desc.to_string()));
         }
+        #[cfg(before_530)]
         if let Some(value) = def.active {
             p.push((
                 19,
@@ -36,15 +40,18 @@ pub fn emit_loc_props(
                 if value == 1 { "yes" } else { "no" }.into(),
             ));
         }
+        #[cfg(before_530)]
         if def.hillskew == 1 {
             p.push((21, "hillskew".into(), "yes".into()));
         }
         if let Some(value) = def.mapfunction {
             p.push((60, "mapfunction".into(), value.to_string()));
         }
+        #[cfg(before_530)]
         if let Some(value) = def.mapscene {
             p.push((68, "mapscene".into(), value.to_string()));
         }
+        #[cfg(before_530)]
         if opcode == 69 {
             let value = def.forceapproach as u8;
             let dir = match value {
@@ -56,7 +63,7 @@ pub fn emit_loc_props(
             };
             p.push((69, "forceapproach".into(), dir.into()));
         }
-        #[cfg(since_254)]
+        #[cfg(all(since_254, before_530))]
         if let Some(value) = def.raiseobject {
             p.push((
                 75,
@@ -64,20 +71,39 @@ pub fn emit_loc_props(
                 if value == 1 { "yes" } else { "no" }.into(),
             ));
         }
-        #[cfg(since_289)]
-        if let Ok(var) = u16::try_from(def.transform_varbit) {
+        #[cfg(all(since_289, before_530))]
+        if let Some(var) = def.transform_varbit.non_null() {
             p.push((77, "multivar".into(), super::varbit_ref(var, registry)));
             if let Some(locs) = &def.multiloc {
                 for (i, &loc) in locs.iter().enumerate() {
-                    if loc != -1 {
+                    if !loc.is_null() {
                         p.push((
                             77,
                             "multiloc".into(),
-                            format!("{i},{}", super::loc_ref(loc as u16, registry)),
+                            format!("{i},{}", super::loc_ref(loc, registry)),
                         ));
                     }
                 }
             }
+        }
+    }
+
+    #[cfg(all(since_530, before_647))]
+    if opcode == 1 || opcode == 5 {
+        let (key, models) = match &def.hd_models {
+            Some(models) => ("modelsd", models),
+            None => ("model", def.models.as_ref().unwrap()),
+        };
+        for model in models.iter() {
+            p.push((
+                opcode,
+                key.into(),
+                format!(
+                    "{},{}",
+                    loc_shape_key(model.shape),
+                    registry.reference("model", model.model)
+                ),
+            ));
         }
     }
 
@@ -123,7 +149,7 @@ pub fn emit_loc_props(
         p.push((18, "blockrange".into(), "no".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 19 {
         let active = match def.active.unwrap_or(0) {
             0 => "no".to_owned(),
@@ -133,7 +159,7 @@ pub fn emit_loc_props(
         p.push((19, "active".into(), active));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.hillskew == 1 {
         p.push((21, "hillskew".into(), "yes".into()));
     }
@@ -146,20 +172,20 @@ pub fn emit_loc_props(
         p.push((23, "occlude".into(), "yes".into()));
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     if opcode == 24 {
         let name = registry
-            .config_name("seq", def.anim.unwrap_or(u16::MAX) as u32)
+            .config_name("seq", def.anim.unwrap_or(TypeId::NULL).raw())
             .map(|s| s.to_string())
-            .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(u16::MAX)));
+            .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(TypeId::NULL)));
         p.push((24, "anim".into(), name));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 24 {
         p.push((
             24,
             "anim".into(),
-            registry.reference("seq", def.anim.unwrap_or(u16::MAX)),
+            registry.reference("seq", def.anim.unwrap_or(TypeId::NULL)),
         ));
     }
 
@@ -167,7 +193,7 @@ pub fn emit_loc_props(
         p.push((25, "hasalpha".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.interact_type == 1 {
         p.push((27, "blockwalk".into(), "yes".into()));
     }
@@ -190,7 +216,7 @@ pub fn emit_loc_props(
         p.push((39, "contrast".into(), def.contrast.to_string()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
             let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, src[i], dst[i], _reverse_hsl);
@@ -199,7 +225,7 @@ pub fn emit_loc_props(
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let (Some(src), Some(dst)) = (&def.retex_s, &def.retex_d) {
         for i in 0..src.len() {
             p.push((
@@ -215,11 +241,19 @@ pub fn emit_loc_props(
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(palette) = &def.recol_palette {
         for (i, b) in palette.iter().enumerate() {
             p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
         }
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.recolindices {
+        p.push((44, "recolindices".into(), super::mask_indices(mask)));
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.retexindices {
+        p.push((45, "retexindices".into(), super::mask_indices(mask)));
     }
 
     if def.mirror {
@@ -242,12 +276,12 @@ pub fn emit_loc_props(
         p.push((67, "resizez".into(), def.resizez.to_string()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 69 {
         p.push((69, "forceapproach".into(), def.forceapproach.config_str()));
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     for (code, key, value) in [
         (70, "offsetx", def.offsetx),
         (71, "offsety", def.offsety),
@@ -257,7 +291,7 @@ pub fn emit_loc_props(
             p.push((code, key.into(), (value as u16).to_string()));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     for (code, key, value) in [
         (70, "offsetx", def.offsetx),
         (71, "offsety", def.offsety),
@@ -277,7 +311,7 @@ pub fn emit_loc_props(
         p.push((74, "breakroutefinding".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 75 {
         let raise = match def.raiseobject.unwrap_or(0) {
             0 => "no".to_owned(),
@@ -287,9 +321,9 @@ pub fn emit_loc_props(
         p.push((75, "raiseobject".into(), raise));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(multiloc) = &def.multiloc {
-        let has_default = (opcode == 92) || multiloc.last().copied().unwrap_or(-1) != -1;
+        let has_default = (opcode == 92) || multiloc.last().is_some_and(|id| !id.is_null());
         p.extend(super::multi_lines(
             (if has_default { 92 } else { 77 }, "multiloc"),
             "loc",
@@ -300,8 +334,11 @@ pub fn emit_loc_props(
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(ambient_sfx_id) = def.ambient_sfx_id {
+        #[cfg(all(since_530, before_647))]
+        let kind = "synth";
+        #[cfg(since_647)]
         let kind = if def.bgsound_vorbis {
             "vorbis"
         } else {
@@ -318,8 +355,11 @@ pub fn emit_loc_props(
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(ids) = &def.sfx_random_ids {
+        #[cfg(all(since_530, before_647))]
+        let kind = "synth";
+        #[cfg(since_647)]
         let kind = if def.randomsound_vorbis {
             "vorbis"
         } else {
@@ -334,7 +374,7 @@ pub fn emit_loc_props(
         p.push((79, "randomsound".into(), values.join(",")));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.hillskew == 2 {
         p.push((
             81,
@@ -343,33 +383,33 @@ pub fn emit_loc_props(
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.hide_minimap {
         p.push((82, "istexture".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !def.minimap_visible {
         p.push((88, "hardshadow".into(), "no".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !def.blocks_npcs {
         p.push((89, "randomanimframe".into(), "no".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.unknown_90 {
         p.push((90, "unknown90".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.members_only {
         p.push((91, "members".into(), "yes".into()));
     }
 
     // Disambiguate by range: if param fits in 0..65535, it is the 2 byte form.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.hillskew == 3 {
         let code = if (0..=65535).contains(&def.hillskew_param.unwrap_or(-1)) {
             93
@@ -383,9 +423,14 @@ pub fn emit_loc_props(
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.hillskew == 4 {
         p.push((94, "hillchange".into(), "ceiling_skew".into()));
+    }
+
+    #[cfg(all(since_530, before_647))]
+    if def.hillskew == 5 {
+        p.push((95, "hillchange".into(), "skew_to_fit".into()));
     }
 
     #[cfg(since_647)]
@@ -397,32 +442,42 @@ pub fn emit_loc_props(
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    if def.unknown_96 {
+        p.push((96, "unknown96".into(), "yes".into()));
+    }
+
+    #[cfg(since_530)]
     if def.msirotate {
         p.push((97, "msirotate".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.hasparticles {
         p.push((98, "hasparticles".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_742))]
     if let Some((op, cursor)) = def.cursor_op1 {
         p.push((
             99,
             "cursor1".into(),
-            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+            format!("{},{}", op + 1, registry.cursor(cursor)),
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_742))]
     if let Some((op, cursor)) = def.cursor_op2 {
         p.push((
             100,
             "cursor2".into(),
-            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+            format!("{},{}", op + 1, registry.cursor(cursor)),
         ));
+    }
+
+    #[cfg(all(since_530, before_647))]
+    if let Some(value) = def.unknown_101 {
+        p.push((101, "unknown101".into(), value.to_string()));
     }
 
     #[cfg(since_647)]
@@ -430,11 +485,11 @@ pub fn emit_loc_props(
         p.push((
             101,
             "mapfunction".into(),
-            def.mapfunction.unwrap_or(0).to_string(),
+            def.mapfunction.map_or(0, TypeId::g2).to_string(),
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(msi_id) = def.msi_id {
         p.push((102, "msi".into(), registry.reference("msi", msi_id)));
     }
@@ -559,19 +614,33 @@ pub fn emit_loc_props(
         p.push((178, "bgsounddropoffrange".into(), def.op178.to_string()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_742)]
+    if def.antimacro {
+        p.push((189, "antimacro".into(), "yes".into()));
+    }
+    #[cfg(since_742)]
+    for (i, cursor) in def.cursor.iter().enumerate() {
+        if let Some(cursor) = cursor {
+            p.push((
+                190 + i as u8,
+                format!("cursor{}", i + 1),
+                registry.reference("cursor", *cursor),
+            ));
+        }
+    }
+    #[cfg(since_530)]
     if opcode == 249 {
         p.extend(emit_params(_data, registry));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         p.into_iter()
             .filter(|(code, _, _)| *code == opcode)
             .map(|(_, key, value)| (key, value))
             .collect()
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         let mut props: Vec<_> = p
             .into_iter()

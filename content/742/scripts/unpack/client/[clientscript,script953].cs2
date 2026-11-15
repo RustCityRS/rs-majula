@@ -1,0 +1,10 @@
+// 953
+[clientscript,script953]
+switch_int (%rand_ready_state_player4) {
+    case 0 :
+        if_setcolour(rand_dungeon_rewards_v2:readyborder_player4, 0xffb400);
+    case 1 :
+        if_setcolour(rand_dungeon_rewards_v2:readyborder_player4, ^green);
+    case 2 :
+        if_setcolour(rand_dungeon_rewards_v2:readyborder_player4, ^red);
+}

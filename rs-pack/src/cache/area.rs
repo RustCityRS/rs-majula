@@ -3,6 +3,7 @@ use crate::pack::incremental::Cached;
 use anyhow::{Result, bail, ensure};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub type AreaTypeProvider = TypeProvider<AreaType>;
@@ -12,16 +13,16 @@ pub const MULTIWAY: &str = "multiway";
 
 pub const TILE_AREAS: usize = 5;
 
-/// The areas painted on a tile, `u16::MAX` in the slots left.
-pub type TileAreas = [u16; TILE_AREAS];
+/// The areas painted on a tile, null in the slots left.
+pub type TileAreas = [TypeId; TILE_AREAS];
 
-pub const NO_AREAS: TileAreas = [u16::MAX; TILE_AREAS];
+pub const NO_AREAS: TileAreas = [TypeId::NULL; TILE_AREAS];
 
 /// Tiles in a map square level.
 const TILES: usize = 1 << 12;
 
 pub struct AreaType {
-    pub id: u16,
+    pub id: TypeId,
     pub trigger: bool,
     debugname: Box<str>,
 }
@@ -29,7 +30,7 @@ pub struct AreaType {
 impl CacheType for AreaType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         AreaType {
             id,
             trigger: false,
@@ -72,8 +73,8 @@ impl Default for AreaMap {
 }
 
 impl AreaMap {
-    pub fn paint(&mut self, level: u8, x: u16, z: u16, area: u16) -> Result<()> {
-        ensure!(area != u16::MAX, "Invalid area id: {area}");
+    pub fn paint(&mut self, level: u8, x: u16, z: u16, area: TypeId) -> Result<()> {
+        ensure!(!area.is_null(), "Invalid area id: {area}");
         let tiles = self
             .squares
             .entry(square(level, x, z))
@@ -81,7 +82,7 @@ impl AreaMap {
         let set = &mut tiles[tile(x, z)];
         let mut areas = self.sets[*set as usize];
         ensure!(!areas.contains(&area), "Area {area} painted twice");
-        let Some(slot) = areas.iter_mut().find(|slot| **slot == u16::MAX) else {
+        let Some(slot) = areas.iter_mut().find(|slot| slot.is_null()) else {
             bail!("More than {TILE_AREAS} areas on one tile");
         };
         *slot = area;
@@ -122,7 +123,7 @@ impl Cached for AreaMap {
         buf.p4(self.sets.len() as i32);
         for set in &self.sets {
             for &area in set {
-                buf.p2(area);
+                buf.p2(area.g2());
             }
         }
         buf.p4(self.squares.len() as i32);
@@ -149,7 +150,7 @@ impl Cached for AreaMap {
         for _ in 0..count(&mut buf, TILE_AREAS << 1)? {
             let mut set = NO_AREAS;
             for area in &mut set {
-                *area = buf.g2();
+                *area = TypeId::from_g2(buf.g2());
             }
             sets.push(set);
         }

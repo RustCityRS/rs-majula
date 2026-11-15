@@ -1,0 +1,11 @@
+// 5547
+[proc,clientscript_5547](int $int0)
+def_int $int1 = 0;
+if (%varclient_1724 < ~clientscript_5550 & %varclient_1726 = false) {
+    %varclient_1808 = %varclient_1809;
+    sound_vorbis_volume(9178, 1, 0, 50);
+    %varclient_1724 = calc(%varclient_1724 + 1);
+    $int1 = ~clientscript_5545;
+    if_setontimer(interface_1178:com_78, "clientscript_5551(-100, $int1, 0, $int0)");
+    %varclient_1726 = true;
+}

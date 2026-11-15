@@ -1,0 +1,13 @@
+// 4731
+[proc,clientscript_4731](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int2, $int3, $int4 = op435;
+def_int $int5 = calc(op1037 + (%varclient_1653 - $int0) * 2);
+def_int $int6 = calc(cam_getangle_xa - (%varclient_1654 - $int1));
+if ($int3 = 1 & %camera_control_mode ! 1 & (%cutscene_status ! 1 | %cutscene_status = 1 & %varplayerbit_10196 = 1) & op5516 = 1) {
+    cam_forceangle($int6, $int5);
+}
+%varclient_1653 = $int0;
+%varclient_1654 = $int1;

@@ -1,0 +1,16 @@
+// 6055
+[proc,clientscript_6055](component $component0, int $int1)
+def_int $int2 = if_getwidth($component0);
+def_int $int3 = 0;
+if ($int1 = 0) {
+    $int3 = min(223, calc($int2 + 12));
+    if ($int3 = 223) {
+        if_setontimer($component0, null);
+    }
+} else {
+    $int3 = max(5, calc($int2 - 12));
+    if ($int3 = 5) {
+        if_setontimer($component0, null);
+    }
+}
+if_setsize($component0, $int3, if_getheight($component0), ^setsize_abs, ^setsize_abs);

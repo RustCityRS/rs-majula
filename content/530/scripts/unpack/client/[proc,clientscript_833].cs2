@@ -1,0 +1,9 @@
+// 833
+[proc,clientscript_833](int $int0, int $int1)
+if ($int0 = 2) {
+    if (~music_getvar($int1) = ^true) {
+        mes("This track was unlocked <enum_string(enum_1349, $int1)>");
+    } else {
+        mes("This track unlocks <enum_string(enum_1349, $int1)>");
+    }
+}

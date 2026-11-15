@@ -1,0 +1,406 @@
+// 499:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+colour=0x46341d
+fill=yes
+trans=80
+
+// 499:1
+[com_1]
+type=model
+x=11
+y=7
+width=334
+height=51
+layer=layer_1
+model=model_20852
+modelorigin=0,-3
+modelangle=512,1024,0
+modelzoom=1357
+modelunknown=63984,2733,0
+
+// 499:2
+[com_2]
+type=model
+x=-4
+y=66
+width=372
+height=264
+layer=layer_1
+model=model_20836
+modelorigin=74,-21
+modelangle=512,0,0
+modelzoom=1393
+modelunknown=63966,2794,0
+
+// 499:3
+[skill_guide_v2_scroll_middle]
+type=model
+x=359
+y=38
+width=142
+height=253
+layer=layer_1
+model=model_20850
+modelorigin=-17,1
+modelangle=520,1024,0
+modelzoom=1442
+modelunknown=64036,2883,0
+
+// 499:4
+[skill_guide_v2_scroll_top]
+type=model
+x=353
+y=32
+width=154
+height=12
+layer=layer_1
+model=model_20837
+modelorigin=-2,-1
+modelangle=517,1024,0
+modelzoom=1442
+modelunknown=63882,2893,0
+
+// 499:5
+[skill_guide_v2_scroll_bottom]
+type=model
+x=352
+y=316
+width=154
+height=12
+layer=layer_1
+model=model_20837
+modelorigin=-2,-1
+modelangle=517,1024,0
+modelzoom=1442
+modelunknown=63882,2893,0
+
+// 499:6
+[title_text]
+type=text
+x=35
+y=7
+width=291
+height=34
+layer=layer_1
+textfont=fontmetrics_645
+text=Skill
+textalignh=centre
+colour=0x46320a
+
+// 499:7
+[info]
+type=layer
+x=21
+y=76
+width=296
+height=239
+layer=layer_1
+onload=skill_advance_guide_init_v2
+onvartransmit=skill_advance_guide_init_v2{skill_guide_v2}
+
+// 499:8
+[info_scrollbar]
+type=layer
+x=316
+y=76
+width=16
+height=239
+layer=layer_1
+
+// 499:9
+[subsection_title]
+type=text
+x=35
+y=40
+width=291
+height=13
+layer=layer_1
+textfont=fontmetrics_494
+text=Description
+textalignh=centre
+colour=0x46320a
+
+// 499:10
+[subsection_button_1]
+type=text
+x=371
+y=44
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_1, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_1, 0x46320a)
+
+// 499:11
+[subsection_button_2]
+type=text
+x=371
+y=61
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_2, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_2, 0x46320a)
+
+// 499:12
+[subsection_button_3]
+type=text
+x=371
+y=78
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_3, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_3, 0x46320a)
+
+// 499:13
+[subsection_button_4]
+type=text
+x=371
+y=95
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_4, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_4, 0x46320a)
+
+// 499:14
+[subsection_button_5]
+type=text
+x=371
+y=112
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_5, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_5, 0x46320a)
+
+// 499:15
+[subsection_button_6]
+type=text
+x=371
+y=129
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_6, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_6, 0x46320a)
+
+// 499:16
+[subsection_button_7]
+type=text
+x=371
+y=146
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_7, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_7, 0x46320a)
+
+// 499:17
+[subsection_button_8]
+type=text
+x=371
+y=163
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_8, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_8, 0x46320a)
+
+// 499:18
+[subsection_button_9]
+type=text
+x=371
+y=180
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_9, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_9, 0x46320a)
+
+// 499:19
+[subsection_button_10]
+type=text
+x=371
+y=197
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_10, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_10, 0x46320a)
+
+// 499:20
+[subsection_button_11]
+type=text
+x=371
+y=214
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_11, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_11, 0x46320a)
+
+// 499:21
+[subsection_button_12]
+type=text
+x=371
+y=231
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_12, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_12, 0x46320a)
+
+// 499:22
+[subsection_button_13]
+type=text
+x=371
+y=248
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_13, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_13, 0x46320a)
+
+// 499:23
+[subsection_button_14]
+type=text
+x=371
+y=265
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_14, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_14, 0x46320a)
+
+// 499:24
+[subsection_button_15]
+type=text
+x=371
+y=282
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_15, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_15, 0x46320a)
+
+// 499:25
+[subsection_button_16]
+type=text
+x=371
+y=299
+width=115
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+textalignh=centre
+colour=0x46320a
+transmitop=1
+op1=Open subsection
+onmouseover=text_colour_swapper(skill_guide_v2:subsection_button_14, 0x645028)
+onmouseleave=text_colour_swapper(skill_guide_v2:subsection_button_14, 0x46320a)
+
+// 499:26
+[close_button]
+type=graphic
+x=482
+y=6
+width=26
+height=23
+layer=layer_1
+graphic=graphic_541
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(skill_guide_v2:close_button, 542)
+onmouseleave=graphic_swapper(skill_guide_v2:close_button, 541)
+onop=if_close
+onclick=if_close
+
+// 499:27
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre

@@ -1,0 +1,243 @@
+// 4770
+[proc,clientscript_4770](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)(int)
+def_int $int6 = calc($int1 / 8);
+def_int $int7 = 38;
+def_graphic $graphic8 = 7438;
+def_graphic $graphic9 = aif_window_stone_header_fill;
+def_graphic $graphic10 = null;
+def_string $string0 = "";
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = calc(%varclan_2580 - %varclan_2633);
+def_int $int14 = 0;
+def_string $string1 = "";
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+if ($int2 < 1 | $int2 > 900) {
+    return(0);
+}
+$graphic10, $string0, $int11, $int12, $int14, $int15, $int16, $int17 = ~clientscript_4791($int2);
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setposition(2, calc($int7 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(4, $int7, ^setsize_minus, ^setsize_abs);
+if (calc($int6 % 2) = 0) {
+    cc_setcolour(0x181715);
+} else {
+    cc_setcolour(0x211f1c);
+}
+cc_setfill(true);
+cc_setop(1, "Details for");
+cc_setonop("clientscript_4776($int2, $int6, $int5)");
+cc_setonvarctransmit("clientscript_4773($int2, $int6, $int5){varclient_1560}");
+def_int $int18 = calc($int1 + 1);
+cc_setonmouseover("clientscript_4779($component0, $int18, 1)");
+cc_setonmouseleave("clientscript_4779($component0, $int18, 0)");
+cc_setdraggable($component0, -1);
+cc_setdragrenderbehaviour(3);
+cc_setdragdeadzone(8);
+cc_setdragdeadtime(30);
+cc_setopbase($string0);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic($graphic9);
+cc_setsize(4, $int7, ^setsize_minus, ^setsize_abs);
+cc_setposition(2, calc($int7 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+cc_sethide(true);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setposition(8, calc(3 + $int7 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic8);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setposition(9, calc(4 + $int7 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic10);
+if ($int2 = 16 | $int2 = 17 | $int2 = 18) {
+    cc_set2dangle(49149);
+}
+cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_text, $int1);
+cc_setposition(48, calc($int7 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(92, $int7, ^setsize_minus, ^setsize_abs);
+cc_settextfont(verdana_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 16);
+cc_setcolour(0xd0c0a8);
+def_int $int19 = $int11;
+if ($int2 > 300 & $int2 < 600) {
+    $int19 = calc($int19 - $int12);
+}
+def_string $string2 = "";
+if ($int15 = 5) {
+    if ($int19 = 1) {
+        $string2 = "(Basic)";
+    } else if ($int19 = 2) {
+        $string2 = "(Medium)";
+    } else if ($int19 = 3) {
+        $string2 = "(Grand)";
+    }
+} else {
+    $string2 = "(Tier <tostring($int19)>)";
+}
+cc_settext("<$string0><br><$string2>");
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_text, $int1);
+cc_settext("<tostring($int3)>%");
+cc_settextfont(verdana_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 16);
+cc_setsize(34, $int7, ^setsize_abs, ^setsize_abs);
+cc_setposition(21, calc($int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+if ($int2 < 300) {
+    cc_sethide(true);
+} else {
+    cc_sethide(false);
+}
+if ($int3 < 100) {
+    cc_setcolour(0x863e2c);
+} else if ($int4 = 1) {
+    cc_setcolour(0x43636f);
+} else if ($int4 = 2) {
+    cc_setcolour(0x2b4a2c);
+} else if ($int4 = 3) {
+    cc_setcolour(0x977847);
+} else if ($int4 = 0) {
+    cc_setcolour(0xd0c0a8);
+    cc_settext("N/A");
+}
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+if ($int2 > 300 & $int2 < 600) {
+    if ($int3 < 100) {
+        cc_sethide(false);
+        cc_setposition(5, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(7542);
+        if ($int15 = 1) {
+            if ($int14 = 0) {
+                $string1 = "Your citadel will become dilapidated this tick!";
+            } else if ($int14 = 1 & $int11 > 1) {
+                $string1 = "Your citadel will lose a tier this tick. You may lose tiers on other buildings!";
+            } else if ($int14 = 1) {
+                $string1 = "Your citadel will accrue double upkeep this tick.";
+            } else if ($int14 > 1) {
+                $string1 = "Your citadel owes double upkeep this tick.";
+            }
+        } else if ($int14 = 0) {
+            $string1 = "This building will become dilapidated this tick.";
+        } else if ($int14 = 1 & $int11 > 1) {
+            $string1 = "This building will lose a tier this tick!";
+        } else if ($int14 = 1) {
+            $string1 = "This building will accrue double upkeep this tick.";
+        } else if ($int14 > 1) {
+            $string1 = "This building owes double upkeep this tick.";
+        }
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    } else if (~clientscript_4787(%varclan_2580) = 0) {
+        cc_sethide(false);
+        cc_setposition(5, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(7542);
+        $string1 = "You need more members to visit your citadel this week to avoid this building degrading.";
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    } else if ($int14 > 1) {
+        $string1 = "This building owes double upkeep this tick.";
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    }
+} else if ($int2 = 601) {
+    if (~clientscript_4785 = 0) {
+        cc_sethide(false);
+        cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(7542);
+        $string1 = "You lack some skill plot prerequisites to build this upgrade.";
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    } else if (~clientscript_4786(%varclan_2580) = 0) {
+        cc_sethide(false);
+        cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(7542);
+        $string1 = "You need more members to visit your citadel this week to build this upgrade.";
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    } else {
+        cc_sethide(true);
+    }
+} else if ($int2 > 600) {
+    if (~clientscript_4787(%varclan_2580) = 0) {
+        cc_sethide(false);
+        cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(7542);
+        $string1 = "Cannot upgrade: not enough full members have visited to perform upkeep.";
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    } else if ($int13 < $int11) {
+        cc_sethide(false);
+        cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(7542);
+        $string1 = "Cannot upgrade: citadel walls will be too low tier. You will still be charged!";
+        cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+        cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+        cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+    } else if ($int2 = 603 | $int2 = 602) {
+        if (%varclient_1561 = 0) {
+            %varclient_1561 = 1;
+        } else {
+            cc_sethide(false);
+            cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+            cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic(7542);
+            $string1 = "Cannot upgrade: You may upgrade only one of storehouse or battlefield per week.";
+            cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+            cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+            cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+        }
+    } else if ($int2 >= 604 & $int2 <= 615) {
+        if (%varclient_1562 < 2) {
+            %varclient_1562 = calc(%varclient_1562 + 1);
+        } else {
+            cc_sethide(false);
+            cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+            cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic(7542);
+            $string1 = "Cannot upgrade: You may upgrade only two skilling plots per week.";
+            cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
+            cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
+            cc_setonmouseleave("clientscript_4781($component0, event_comsubid, 0)");
+        }
+    } else {
+        cc_sethide(true);
+    }
+} else {
+    cc_sethide(true);
+}
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+def_string $string3 = "Cancel this job.";
+if ($int2 > 600 | $int2 < 300) {
+    cc_sethide(false);
+    cc_setposition(5, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(7545);
+    cc_setonmouseover("clientscript_4780($component0, event_comsubid, 1)");
+    cc_setonmouserepeat("clientscript_4783($string3, $component0, event_comsubid)");
+    cc_setonmouseleave("clientscript_4780($component0, event_comsubid, 0)");
+    cc_setop(1, "Cancel");
+    cc_setonop("deltooltip(interface_1115:com_186)");
+} else {
+    cc_sethide(true);
+}
+$int1 = calc($int1 + 1);
+return($int1);

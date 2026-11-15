@@ -1,0 +1,17 @@
+// 4063
+[clientscript,warguild_select_token_server]
+if (%varplayerbit_8669 = 1) {
+    return;
+}
+switch_int (%varplayerbit_8668) {
+    case 1 :
+        ~warguild_select_token_type(warguild_token_choice:attack_layer);
+    case 4 :
+        ~warguild_select_token_type(warguild_token_choice:combat_layer);
+    case 5 :
+        ~warguild_select_token_type(warguild_token_choice:balance_layer);
+    case 3 :
+        ~warguild_select_token_type(warguild_token_choice:strength_layer);
+    case 2 :
+        ~warguild_select_token_type(warguild_token_choice:defence_layer);
+}

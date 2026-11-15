@@ -1,0 +1,26 @@
+// 6880
+[proc,clientscript_6880]
+def_graphic $graphic0 = 13784;
+def_graphic $graphic1 = 13786;
+def_graphic $graphic2 = 13785;
+def_graphic $graphic3 = 13782;
+def_graphic $graphic4 = 13783;
+if (%varplayerbit_12195 = 0) {
+    if_setonmouseover(interface_1311:com_259, null);
+    if_setonmouseleave(interface_1311:com_259, null);
+    if_setgraphic(interface_1311:com_260, $graphic3);
+    if (%varplayerbit_12196 = 1) {
+        if_setgraphic(interface_1311:com_259, $graphic0);
+        if_setonmouseover(interface_1311:com_260, "graphic_swapper(event_com, $graphic4)");
+        if_setonmouseleave(interface_1311:com_260, "graphic_swapper(event_com, $graphic3)");
+    } else {
+        if_setgraphic(interface_1311:com_259, $graphic1);
+    }
+} else {
+    if_setgraphic(interface_1311:com_259, $graphic3);
+    if_setonmouseover(interface_1311:com_259, "graphic_swapper(event_com, $graphic4)");
+    if_setonmouseleave(interface_1311:com_259, "graphic_swapper(event_com, $graphic3)");
+    if_setgraphic(interface_1311:com_260, $graphic2);
+    if_setonmouseover(interface_1311:com_260, null);
+    if_setonmouseleave(interface_1311:com_260, null);
+}

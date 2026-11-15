@@ -1,0 +1,25 @@
+// 5575
+[proc,clientscript_5575]
+if (%varclient_1728 = 1) {
+    %varclient_1729 = calc(%varclient_1729 + 1);
+    if (%varclient_1729 >= 80) {
+        %varclient_1728 = 0;
+    }
+} else {
+    %varclient_1729 = calc(%varclient_1729 - 1);
+    if (%varclient_1729 <= 0) {
+        %varclient_1728 = 1;
+    }
+}
+def_int $int0 = calc(255 * %varclient_1729 / 80);
+if ($int0 < 230 & $int0 >= 123) {
+    $int0 = calc($int0 - $int0 / 20);
+}
+if ($int0 > 25 & $int0 <= 122) {
+    $int0 = calc($int0 + $int0 / 20);
+}
+if_settrans(interface_1182:com_46, $int0);
+if_settrans(interface_1182:com_45, $int0);
+$int0 = calc(255 - $int0);
+if_settrans(interface_1182:com_48, $int0);
+if_settrans(interface_1182:com_49, $int0);

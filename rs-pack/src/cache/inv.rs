@@ -2,15 +2,16 @@ use super::provider::{CacheType, TypeProvider};
 pub use crate::types::InvScope;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type InvTypeProvider = TypeProvider<InvType>;
 
 pub struct InvType {
-    pub id: u16,
+    pub id: TypeId,
     pub scope: InvScope,
     pub size: u16,
     pub stackall: bool,
-    pub stockobj: Option<Box<[u16]>>,
+    pub stockobj: Option<Box<[TypeId]>>,
     pub stockcount: Option<Box<[u16]>>,
     pub stockrate: Option<Box<[i32]>>,
     pub restock: bool,
@@ -22,11 +23,11 @@ pub struct InvType {
 }
 
 pub struct InvTypeRaw {
-    pub id: u16,
+    pub id: TypeId,
     pub scope: InvScope,
     pub size: u16,
     pub stackall: bool,
-    pub stockobj: Option<Box<[u16]>>,
+    pub stockobj: Option<Box<[TypeId]>>,
     pub stockcount: Option<Box<[u16]>>,
     pub stockrate: Option<Box<[i32]>>,
     pub restock: bool,
@@ -40,7 +41,7 @@ pub struct InvTypeRaw {
 impl CacheType for InvTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         InvTypeRaw {
             id,
             scope: InvScope::Temp,
@@ -69,6 +70,8 @@ impl CacheType for InvTypeRaw {
             7 => self.protect = false,
             8 => self.runweight = true,
             9 => self.dummyinv = true,
+            #[cfg(since_742)]
+            10 => self.stockrate = Some((0..buf.g1()).map(|_| buf.g4s()).collect()),
             250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
             _ => crate::unknown_opcode!("inv", code),
         }
@@ -86,9 +89,12 @@ impl InvTypeRaw {
         let mut counts = Vec::with_capacity(count);
         let mut rates = Vec::with_capacity(count);
         for _ in 0..count {
-            objs.push(buf.g2());
+            objs.push(TypeId::from_g2(buf.g2()));
             counts.push(buf.g2());
+            #[cfg(before_742)]
             rates.push(buf.g4s());
+            #[cfg(since_742)]
+            rates.push(0);
         }
         self.stockobj = Some(objs.into_boxed_slice());
         self.stockcount = Some(counts.into_boxed_slice());

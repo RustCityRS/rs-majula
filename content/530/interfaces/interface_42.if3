@@ -1,0 +1,49 @@
+// 42:0
+[com_0]
+type=model
+x=-10
+y=-15
+width=119
+height=118
+layer=content_layer
+model=model_11101
+modelangle=512,0,0
+modelzoom=459
+modelunknown=64167,3000,0
+
+// 42:1
+[com_1]
+type=text
+x=-22
+y=79
+width=107
+height=15
+layer=content_layer
+textfont=fontmetrics_495
+text=Runesquares
+textalignh=right
+textshadow=yes
+colour=0xaaaaaa
+
+// 42:2
+[rank]
+type=text
+x=13
+y=93
+width=72
+height=11
+layer=content_layer
+textfont=fontmetrics_494
+text=Rank: %1
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+onload=clientscript_1275
+onvartransmit=clientscript_1275{boardgames_runesquares_rank}
+
+// 42:3
+[content_layer]
+type=layer
+width=98
+height=110
+xmode=abs_right

@@ -1,0 +1,7 @@
+// 1875
+[proc,clientscript_1875]
+if (unknown_command_5420 = true) {
+    if_settext(loginscreen:com_217, "Please choose a game world from the list.<br>This will cause the applet to reload.");
+} else {
+    if_settext(loginscreen:com_217, "Please choose a game world from the list.");
+}

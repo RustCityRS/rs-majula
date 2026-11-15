@@ -1,0 +1,9 @@
+// 6238
+[proc,clientscript_6238]
+if (%varclient_1925 = 1) {
+    if_sethide(interface_1285:com_31, false);
+    if_sethide(interface_1285:com_30, false);
+} else {
+    if_sethide(interface_1285:com_31, true);
+    if_sethide(interface_1285:com_30, true);
+}

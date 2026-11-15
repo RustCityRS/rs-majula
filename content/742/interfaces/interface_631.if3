@@ -1,0 +1,450 @@
+// 631:0
+[com_0]
+type=layer
+width=500
+height=320
+xmode=abs_centre
+ymode=abs_centre
+
+// 631:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=clientscript_4027(event_com)
+
+// 631:2
+[com_2]
+type=text
+x=38
+y=245
+width=264
+height=38
+layer=com_0
+textfont=verdana_11pt_regular_multiline
+text=Click your maxed skills to toggle whether or not you will receive Daily Challenges for them.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 631:3
+[com_3]
+type=layer
+y=5
+width=100
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 631:4
+[com_4]
+type=graphic
+width=42
+heightmode=minus
+ymode=abs_centre
+layer=com_3
+graphic=graphic_8391
+
+// 631:5
+[com_5]
+type=graphic
+width=42
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+graphic=graphic_8391
+hflip=yes
+
+// 631:6
+[com_6]
+type=graphic
+width=84
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+graphic=graphic_8392
+tiling=yes
+
+// 631:7
+[com_7]
+type=text
+height=5
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_3
+textfont=verdana_13pt_regular
+text=Select Challenge Skills
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 631:8
+[com_8]
+type=layer
+y=65
+width=445
+height=229
+xmode=abs_centre
+layer=com_0
+
+// 631:9
+[com_9]
+type=layer
+width=55
+height=55
+layer=com_8
+onload=clientscript_1635(event_com, attack)
+onvartransmit=clientscript_1635(event_com, attack){varplayer_2812}
+
+// 631:10
+[com_10]
+type=layer
+width=55
+height=55
+xmode=abs_right
+layer=com_8
+onload=clientscript_1635(event_com, prayer)
+onvartransmit=clientscript_1635(event_com, prayer){varplayer_2812}
+
+// 631:11
+[com_11]
+type=layer
+y=58
+width=55
+height=55
+layer=com_8
+onload=clientscript_1635(event_com, agility)
+onvartransmit=clientscript_1635(event_com, agility){varplayer_2812}
+
+// 631:12
+[com_12]
+type=layer
+x=65
+y=58
+width=55
+height=55
+layer=com_8
+onload=clientscript_1635(event_com, herblore)
+onvartransmit=clientscript_1635(event_com, herblore){varplayer_2812}
+
+// 631:13
+[com_13]
+type=layer
+x=130
+y=58
+width=55
+height=55
+layer=com_8
+onload=clientscript_1635(event_com, thieving)
+onvartransmit=clientscript_1635(event_com, thieving){varplayer_2812}
+
+// 631:14
+[com_14]
+type=layer
+y=58
+width=55
+height=55
+xmode=abs_centre
+layer=com_8
+onload=clientscript_1635(event_com, crafting)
+onvartransmit=clientscript_1635(event_com, crafting){varplayer_2812}
+
+// 631:15
+[com_15]
+type=layer
+x=130
+y=58
+width=55
+height=55
+xmode=abs_right
+layer=com_8
+onload=clientscript_1635(event_com, runecraft)
+onvartransmit=clientscript_1635(event_com, runecraft){varplayer_2812}
+
+// 631:16
+[com_16]
+type=layer
+x=65
+y=58
+width=55
+height=55
+xmode=abs_right
+layer=com_8
+onload=clientscript_1635(event_com, mining)
+onvartransmit=clientscript_1635(event_com, mining){varplayer_2812}
+
+// 631:17
+[com_17]
+type=layer
+y=58
+width=55
+height=55
+xmode=abs_right
+layer=com_8
+onload=clientscript_1635(event_com, smithing)
+onvartransmit=clientscript_1635(event_com, smithing){varplayer_2812}
+
+// 631:18
+[com_18]
+type=layer
+y=58
+width=55
+height=55
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, fishing)
+onvartransmit=clientscript_1635(event_com, fishing){varplayer_2812}
+
+// 631:19
+[com_19]
+type=layer
+x=65
+y=58
+width=55
+height=55
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, cooking)
+onvartransmit=clientscript_1635(event_com, cooking){varplayer_2812}
+
+// 631:20
+[com_20]
+type=layer
+x=130
+y=58
+width=55
+height=55
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, firemaking)
+onvartransmit=clientscript_1635(event_com, firemaking){varplayer_2812}
+
+// 631:21
+[com_21]
+type=layer
+y=58
+width=55
+height=55
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, woodcutting)
+onvartransmit=clientscript_1635(event_com, woodcutting){varplayer_2812}
+
+// 631:22
+[com_22]
+type=layer
+x=130
+y=58
+width=55
+height=55
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, fletching)
+onvartransmit=clientscript_1635(event_com, fletching){varplayer_2812}
+
+// 631:23
+[com_23]
+type=layer
+x=65
+y=58
+width=55
+height=55
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, slayer)
+onvartransmit=clientscript_1635(event_com, slayer){varplayer_2812}
+
+// 631:24
+[com_24]
+type=layer
+x=65
+y=174
+width=55
+height=55
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, farming)
+onvartransmit=clientscript_1635(event_com, farming){varplayer_2812}
+
+// 631:25
+[com_25]
+type=layer
+x=65
+y=174
+width=55
+height=55
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, construction)
+onvartransmit=clientscript_1635(event_com, construction){varplayer_2812}
+
+// 631:26
+[com_26]
+type=layer
+x=130
+y=174
+width=55
+height=55
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, hunter)
+onvartransmit=clientscript_1635(event_com, hunter){varplayer_2812}
+
+// 631:27
+[com_27]
+type=layer
+x=195
+y=174
+width=55
+height=55
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, summoning)
+onvartransmit=clientscript_1635(event_com, summoning){varplayer_2812}
+
+// 631:28
+[com_28]
+type=layer
+x=65
+y=174
+width=55
+height=55
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_8
+onload=clientscript_1635(event_com, dungeoneering)
+onvartransmit=clientscript_1635(event_com, dungeoneering){varplayer_2812}
+
+// 631:29
+[com_29]
+type=layer
+x=130
+y=240
+width=135
+height=26
+xmode=abs_centre
+layer=com_0
+transmitop=1
+op1=Confirm
+
+// 631:30
+[com_30]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+onload=clientscript_5387(event_com, struct_7319)
+
+// 631:31
+[com_31]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+onload=clientscript_5387(event_com, struct_7320)
+
+// 631:32
+[com_32]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+onload=clientscript_5387(event_com, struct_7321)
+
+// 631:33
+[com_33]
+type=text
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_29
+textfont=verdana_11pt_regular
+text=Confirm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 631:34
+[com_34]
+type=layer
+x=130
+y=270
+width=135
+height=26
+xmode=abs_centre
+layer=com_0
+transmitop=1
+op1=Cancel
+
+// 631:35
+[com_35]
+type=layer
+width=50
+height=50
+layer=com_0
+
+// 631:36
+[com_36]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+onload=clientscript_5387(event_com, struct_7319)
+
+// 631:37
+[com_37]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+onload=clientscript_5387(event_com, struct_7320)
+
+// 631:38
+[com_38]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+onload=clientscript_5387(event_com, struct_7321)
+
+// 631:39
+[com_39]
+type=text
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_34
+textfont=verdana_11pt_regular
+text=Not right now
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf

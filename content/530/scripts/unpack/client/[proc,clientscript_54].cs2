@@ -1,0 +1,10 @@
+// 54
+[proc,clientscript_54]
+def_int $int0 = coordz(coord);
+def_int $int1 = calc(($int0 - 9920) / 8 + 1);
+def_int $int2 = calc(($int0 - 3520) / 8 + 1);
+if ($int0 > 6400) {
+    if_settext(wilderness_overlay:wilderness_level_text, "Level: <tostring($int1)>");
+} else {
+    if_settext(wilderness_overlay:wilderness_level_text, "Level: <tostring($int2)>");
+}

@@ -1,0 +1,8 @@
+// 5403
+[proc,clientscript_5403](component $component0, string $string0)
+if_settext(interface_1172:com_4, $string0);
+%varclient_1669 = 0;
+if_sethide(interface_1172:com_2, true);
+if_sethide(interface_1172:com_5, false);
+if_sethide(interface_1172:com_7, true);
+if_setontimer(interface_1172:com_5, "clientscript_5405(0, interface_1172:com_5, $component0)");

@@ -1,0 +1,462 @@
+// 74:0
+[com_0]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+graphic=window_texture_1
+tiling=yes
+
+// 74:1
+[com_1]
+type=layer
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 74:2
+[com_2]
+type=layer
+height=122
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 74:3
+[com_3]
+type=text
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+textfont=p11_full
+text=Potions
+textalignv=centre
+textshadow=yes
+
+// 74:4
+[com_4]
+type=layer
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+onload=clientscript_5254(event_com)
+
+// 74:5
+[com_5]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+graphic=window_texture_2
+tiling=yes
+
+// 74:6
+[com_6]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_4
+
+// 74:7
+[com_7]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_6, "3doseadvanced_hunter_potion", 1)
+
+// 74:8
+[com_8]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_4
+
+// 74:9
+[com_9]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_8, "3dosefarming_potion", 1)
+
+// 74:10
+[com_10]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_4
+
+// 74:11
+[com_11]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_10, "3dosescentless_potion", 1)
+
+// 74:12
+[com_12]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+
+// 74:13
+[scentless_store]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_12, "3dosesaradomin_potion", 1)
+
+// 74:14
+[com_14]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+
+// 74:15
+[guthix_store]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_14, "3dosezamorak_potion", 1)
+
+// 74:16
+[com_16]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+
+// 74:17
+[farming_store]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_16, "3doseguthix_potion", 1)
+
+// 74:18
+[com_18]
+type=layer
+y=130
+height=122
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 74:19
+[com_19]
+type=text
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_18
+textfont=p11_full
+text=Ingredients
+textalignv=centre
+textshadow=yes
+
+// 74:20
+[com_20]
+type=layer
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_18
+onload=clientscript_5254(event_com)
+
+// 74:21
+[com_21]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+graphic=window_texture_2
+tiling=yes
+
+// 74:22
+[com_22]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_20
+
+// 74:23
+[com_23]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_22, ecosystem_corrupt_vine, 1)
+
+// 74:24
+[com_24]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_20
+
+// 74:25
+[com_25]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_24, ecosystem_marble_vine, 1)
+
+// 74:26
+[com_26]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_20
+
+// 74:27
+[hunter_store]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_26, ecosystem_shadow_vine, 1)
+
+// 74:28
+[com_28]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+
+// 74:29
+[saradomin_store]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_28, ecosystem_saradomin_vine, 1)
+
+// 74:30
+[com_30]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+
+// 74:31
+[com_31]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_30, ecosystem_zamorak_vine, 1)
+
+// 74:32
+[com_32]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+
+// 74:33
+[zamorak_store]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, ecosystem_potion_storage_side:com_32, ecosystem_guthix_vine, 1)

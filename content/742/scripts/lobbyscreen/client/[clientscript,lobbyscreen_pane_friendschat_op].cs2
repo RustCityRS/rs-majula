@@ -1,0 +1,14 @@
+// 4564
+[clientscript,lobbyscreen_pane_friendschat_op](string $string0, int $int0)
+switch_int ($int0) {
+    case 6 :
+        friend_add(removetags($string0));
+    case 7 :
+        ignore_add(removetags($string0));
+    case 8 :
+        friend_del(removetags($string0));
+    case 9 :
+        ignore_del(removetags($string0));
+    case 10 :
+        ~friendschat_kick($string0);
+}

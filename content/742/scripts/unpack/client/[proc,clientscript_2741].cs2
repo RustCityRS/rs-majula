@@ -1,0 +1,18 @@
+// 2741
+[proc,clientscript_2741]
+if_sethide(interface_1050:com_1, true);
+if_sethide(interface_1050:com_2, true);
+if_sethide(interface_1050:com_7, true);
+if_sethide(interface_1050:com_8, true);
+if_sethide(interface_1050:com_9, true);
+if_sethide(interface_1050:com_10, true);
+if_sethide(interface_1050:com_11, true);
+if_sethide(interface_1050:com_12, true);
+if_sethide(interface_1050:com_13, true);
+if_sethide(interface_1050:com_14, true);
+if_sethide(interface_1050:com_15, true);
+if_sethide(interface_1050:com_16, true);
+if_settrans(interface_1050:com_17, 255);
+if_settrans(interface_1050:com_4, 255);
+if_setontimer(interface_1050:com_4, "clientscript_3965(event_com)");
+%varclient_1885 = 0;

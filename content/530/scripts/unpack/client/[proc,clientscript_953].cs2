@@ -1,0 +1,7 @@
+// 953
+[proc,clientscript_953](component $component0, component $component1)
+if (%tooltip_built = 0) {
+    ~clientscript_915($component0);
+    if_setcolour($component1, 0xe5b219);
+    %tooltip_built = 1;
+}

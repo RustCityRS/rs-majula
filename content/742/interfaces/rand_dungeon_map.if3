@@ -1,0 +1,88 @@
+// 942:0
+[main_layer]
+type=layer
+width=512
+height=334
+onload=rand_map_reset
+
+// 942:1
+[com_1]
+type=graphic
+x=91
+y=2
+width=170
+height=330
+layer=main_layer
+graphic=rand_map_background
+colour=0xffffffff
+
+// 942:2
+[com_2]
+type=graphic
+x=261
+y=2
+width=170
+height=330
+layer=main_layer
+graphic=rand_map_background
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 942:3
+[room_layer]
+type=layer
+x=131
+y=38
+width=256
+height=256
+layer=main_layer
+transmitop=10
+op10= 
+
+// 942:4
+[door_layer]
+type=layer
+x=131
+y=38
+width=256
+height=256
+layer=main_layer
+transmitop=10
+op10=  
+
+// 942:5
+[player_layer]
+type=layer
+x=131
+y=38
+width=256
+height=256
+layer=main_layer
+
+// 942:6
+[confirm_close]
+type=graphic
+x=404
+y=14
+width=16
+height=16
+layer=main_layer
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 942:7
+[tooltip_layer]
+type=layer
+width=512
+height=334
+layer=main_layer
+transmitop=10
+op10=    

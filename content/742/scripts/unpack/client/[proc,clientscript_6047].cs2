@@ -1,0 +1,11 @@
+// 6047
+[proc,clientscript_6047](component $component0, int $int1)
+def_int $int2 = 8;
+def_int $int3 = 118;
+def_int $int4 = min(calc($int1 + $int2), $int3);
+if ($int4 = $int3) {
+    if_setontimer($component0, null);
+} else {
+    if_setontimer($component0, "clientscript_5920(event_com, $int4)");
+}
+if_setposition($component0, $int4, -16, ^setpos_abs_centre, ^setpos_abs_centre);

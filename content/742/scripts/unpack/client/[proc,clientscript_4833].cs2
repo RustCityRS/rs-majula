@@ -1,0 +1,27 @@
+// 4833
+[proc,clientscript_4833](component $component0)
+def_component $component1 = null;
+switch_component ($component0) {
+    case interface_1258:com_423 :
+        $component1 = interface_1258:com_428;
+    case interface_1258:com_355 :
+        $component1 = interface_1258:com_360;
+    case interface_1258:com_281 :
+        $component1 = interface_1258:com_286;
+    case interface_1258:com_411 :
+        $component1 = interface_1258:com_416;
+    case interface_1258:com_341 :
+        $component1 = interface_1258:com_346;
+    case interface_1258:com_265 :
+        $component1 = interface_1258:com_270;
+    case interface_1258:com_399 :
+        $component1 = interface_1258:com_404;
+    case interface_1258:com_327 :
+        $component1 = interface_1258:com_332;
+    case interface_1258:com_249 :
+        $component1 = interface_1258:com_254;
+}
+~clientscript_4834($component1);
+~clientscript_4838;
+~clientscript_4810;
+~clientscript_4814;

@@ -1,0 +1,11 @@
+// 2202
+[proc,script2202](string $string0)(boolean)
+def_int $int0 = string_length($string0);
+def_int $int1 = 0;
+while ($int1 < $int0) {
+    if (string_indexof_string("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", substring($string0, $int1, calc($int1 + 1)), 0) = -1) {
+        return(true);
+    }
+    $int1 = calc($int1 + 1);
+}
+return(false);

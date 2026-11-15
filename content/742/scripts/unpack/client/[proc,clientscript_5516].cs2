@@ -1,0 +1,14 @@
+// 5516
+[proc,clientscript_5516](component $component0, component $component1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (if_find($component1) = true & cc_param(param_358) > 0) {
+    $int2 = calc(cc_param(param_358) - 1);
+    $int3 = calc($int2 + 10);
+    while ($int3 >= $int2) {
+        if (.cc_find($component0, $int3) = true) {
+            .cc_setontimer("clientscript_5518(event_com, event_comsubid)");
+        }
+        $int3 = calc($int3 - 1);
+    }
+}

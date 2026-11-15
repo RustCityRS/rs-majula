@@ -10,8 +10,9 @@ use rs_protocol::network::game::client::opobj2::OpObj2;
 use rs_protocol::network::game::client::opobj3::OpObj3;
 use rs_protocol::network::game::client::opobj4::OpObj4;
 use rs_protocol::network::game::client::opobj5::OpObj5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::opobj6::OpObj6;
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::trigger::ServerTriggerType;
@@ -26,7 +27,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj1 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(1, self.x, self.z, self.obj, active)
+        handle(1, self.x, self.z, self.obj.g2(), active)
     }
 }
 
@@ -40,7 +41,7 @@ impl ClientGameHandler for OpObj1 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj2 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(2, self.x, self.z, self.obj, active)
+        handle(2, self.x, self.z, self.obj.g2(), active)
     }
 }
 
@@ -54,7 +55,7 @@ impl ClientGameHandler for OpObj2 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj3 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(3, self.x, self.z, self.obj, active)
+        handle(3, self.x, self.z, self.obj.g2(), active)
     }
 }
 
@@ -68,7 +69,7 @@ impl ClientGameHandler for OpObj3 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj4 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(4, self.x, self.z, self.obj, active)
+        handle(4, self.x, self.z, self.obj.g2(), active)
     }
 }
 
@@ -82,13 +83,15 @@ impl ClientGameHandler for OpObj4 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj5 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(5, self.x, self.z, self.obj, active)
+        handle(5, self.x, self.z, self.obj.g2(), active)
     }
 }
 
 /// Handles the `OpObj6` client protocol message: Examine. The client sends
 /// only the obj type, and walks nowhere; the answer is the type's `desc`.
-#[cfg(since_647)]
+/// The 530 client sends it for a held obj too, unless more than 100000 are
+/// stacked: it shows that count itself.
+#[cfg(since_530)]
 impl ClientGameHandler for OpObj6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
@@ -143,7 +146,7 @@ fn handle(
 ) -> Result<(), ScriptError> {
     active.watch_op(Op::Obj {
         op,
-        id: obj_id,
+        id: TypeId::new(obj_id),
         x,
         z,
     });
@@ -168,7 +171,7 @@ fn handle(
         return Ok(());
     };
 
-    let obj_type = engine.objs().get_by_id(obj_id);
+    let obj_type = engine.objs().get_by_id(TypeId::new(obj_id));
     if let Some(ot) = &obj_type {
         if let Some(ops) = &ot.op {
             if (op == 1 && ops.first().is_none_or(|o| o.is_none()))
@@ -191,7 +194,7 @@ fn handle(
 
     let target = InteractionTarget::Obj {
         coord: CoordGrid::new(x, y, z),
-        id: obj_id,
+        id: TypeId::new(obj_id),
         serial: obj.serial(),
     };
 

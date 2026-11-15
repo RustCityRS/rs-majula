@@ -1,0 +1,21 @@
+// 6189
+[proc,clientscript_6189]
+%varclient_1919 = 0;
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic(lobbyscreen:com_388, 10940);
+    case 1 :
+        if_setgraphic(lobbyscreen:com_388, 10942);
+    case 2 :
+        if_setgraphic(lobbyscreen:com_388, 10941);
+    case 3 :
+        if_setgraphic(lobbyscreen:com_388, 10943);
+}
+if_sethide(lobbyscreen:com_34, false);
+if_sethide(lobbyscreen:com_338, true);
+if_sethide(lobbyscreen:com_409, true);
+if_sethide(lobbyscreen:com_382, false);
+if_sethide(lobbyscreen:com_31, true);
+if_settext(lobbyscreen:com_396, "By validating your email you'll receive these great rewards:");
+if_setsize(lobbyscreen:com_425, 240, if_getheight(lobbyscreen:com_390), ^setsize_abs, ^setsize_abs);
+if_setonvartransmit(lobbyscreen:com_382, "clientscript_6214{varplayer_2611}");

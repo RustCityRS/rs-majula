@@ -1,0 +1,6 @@
+// 829
+[proc,script829](struct $struct0, enum $enum1)(int)
+if ($struct0 = struct_845) {
+    return(calc(fullscreen_modecount - 1));
+}
+return(calc(enum_getoutputcount($enum1) - 1));

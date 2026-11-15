@@ -1,0 +1,11 @@
+// 736
+[proc,clientscript_736](component $component0, int $int1)
+if ($component0 = null) {
+    if_sethide(toplevel_fullscreen:arrow, true);
+    if_setposition(toplevel_fullscreen:arrow, 0, 0, 0, 0);
+    if_setontimer(toplevel_fullscreen:stones_off, null);
+    return;
+}
+if_sethide(toplevel_fullscreen:arrow, false);
+~clientscript_802($component0, $int1);
+if_setontimer(toplevel_fullscreen:stones_off, "clientscript_735($component0, $int1)");

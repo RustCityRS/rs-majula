@@ -7,7 +7,7 @@ pub struct NpcInfoFaceCoord {
     pub z: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl InfoMessage for NpcInfoFaceCoord {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
         buf.p2(self.x);
@@ -19,11 +19,31 @@ impl InfoMessage for NpcInfoFaceCoord {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl InfoMessage for NpcInfoFaceCoord {
+    fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        buf.p2_alt2(self.x);
+        buf.p2(self.z);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.x) + size_of_val(&self.z)
+    }
+}
+
 #[cfg(since_647)]
 impl InfoMessage for NpcInfoFaceCoord {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
-        buf.p2(self.x);
-        buf.p2_alt1(self.z);
+        #[cfg(before_742)]
+        {
+            buf.p2(self.x);
+            buf.p2_alt1(self.z);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2_alt1(self.x);
+            buf.p2_alt2(self.z);
+        }
     }
 
     fn sizeof(&self) -> usize {

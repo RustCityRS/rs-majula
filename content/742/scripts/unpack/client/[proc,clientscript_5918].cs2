@@ -1,0 +1,25 @@
+// 5918
+[proc,clientscript_5918](component $component0, int $int1)
+def_int $int2 = if_getwidth($component0);
+def_int $int3 = 150;
+def_int $int4 = 0;
+def_int $int5 = 15;
+def_int $int6 = calc($int3 - $int4);
+def_int $int7 = calc($int6 / $int5);
+if ($int1 = 0) {
+    $int2 = min(calc($int2 + $int7), $int3);
+    if ($int2 = $int3) {
+        $int1 = 1;
+        if_setontimer($component0, "clientscript_5918(event_com, $int1)");
+        ~clientscript_5914;
+        sound_vorbis_volume(~clientscript_2336(4282));
+        sound_vorbis_volume(~clientscript_2337(5712));
+        sound_vorbis_volume(~clientscript_2337(5713));
+    }
+} else {
+    $int2 = max(calc($int2 - $int7), $int4);
+    if ($int2 = $int4) {
+        if_setontimer($component0, null);
+    }
+}
+if_setsize($component0, $int2, if_getheight($component0), ^setsize_abs, ^setsize_abs);

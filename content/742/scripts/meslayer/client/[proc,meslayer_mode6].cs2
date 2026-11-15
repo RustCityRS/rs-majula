@@ -1,0 +1,23 @@
+// 107
+[proc,meslayer_mode6](string $string0)
+if (%has_displayname_client = false) {
+    return;
+}
+if (%snapshot_open = true) {
+    mes("You can't do that while you're reporting abuse.");
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+%friendtomessage = $string0;
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, "Enter message to send to <%friendtomessage>");
+%meslayermode = 6;
+~meslayer_setupinput("");
+if_setonclick(chattop:mes_layer, null);
+~script2026;
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+~script1188;

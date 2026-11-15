@@ -12,22 +12,23 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const BACKPACK: i32 = 149 << 16;
 const DOOR: (u16, u16, u16) = (1804, 3115, 3450);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn give_key(engine: &mut Engine, client: &HarnessClient) {
     let key = obj(engine, "edgevilledungeonkey");
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -86,7 +87,7 @@ fn the_brass_key_door_is_locked_and_the_key_opens_it_from_either_side() {
         for (from, to) in [((3115, 3449), (3115, 3450)), ((3115, 3450), (3115, 3449))] {
             stand(engine, &mut client, from.0, from.1);
             let mut p = ClientPacket::new();
-            p.p2_alt2(key as i32)
+            p.p2_alt2(key.int())
                 .p2_alt2(0)
                 .p2(z as i32)
                 .p4_alt2(BACKPACK)

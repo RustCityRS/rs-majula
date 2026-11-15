@@ -1,0 +1,179 @@
+// 6089
+[proc,clientscript_6089](inv $inv0, int $int1, int $int2, int $int3)
+def_component $component4 = interface_1265:com_20;
+def_component $component5 = interface_1265:com_25;
+def_component $component6 = interface_1265:com_26;
+def_component $component7 = interface_1265:com_24;
+def_component $component8 = interface_1265:com_23;
+def_component $component9 = interface_1265:com_27;
+if ($inv0 = %shop_sample) {
+    $component4 = interface_1265:com_21;
+    $component5 = interface_1265:com_96;
+    $component6 = interface_1265:com_97;
+    $component7 = null;
+    $component8 = interface_1265:com_95;
+    $component9 = interface_1265:com_98;
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+$int10, $int11 = ~clientscript_6095($int3);
+$int12 = calc(if_getwidth($component4) / $int10);
+$int14 = calc($int2 / $int12 * $int11);
+$int13 = calc($int2 % $int12 * $int10);
+cc_create($component4, ^iftype_graphic, $int1);
+def_int $int15 = 0;
+def_graphic $graphic16 = null;
+def_graphic $graphic17 = null;
+def_obj $obj18 = inv_getobj($inv0, $int1);
+def_string $string0 = ~obj_warning_arg($obj18);
+if ($int3 = 0) {
+    $int15 = 48;
+    $graphic16 = 10448;
+    $graphic17 = 10451;
+} else {
+    $int15 = 151;
+    $graphic16 = 10453;
+    $graphic17 = 10456;
+}
+cc_setsize($int15, 52, ^setsize_abs, ^setsize_abs);
+if ($inv0 = %varplayer_2561 & $int1 = %varplayer_2563) {
+    cc_setgraphic($graphic17);
+    cc_setonmouseover("clientscript_6100($int3, 1, 1, event_com, event_comsubid)");
+    cc_setonmouseleave("clientscript_6100($int3, 1, 0, event_com, event_comsubid)");
+} else {
+    cc_setgraphic($graphic16);
+    cc_setonmouseover("clientscript_6100($int3, 0, 1, event_com, event_comsubid)");
+    cc_setonmouseleave("clientscript_6100($int3, 0, 0, event_com, event_comsubid)");
+}
+cc_setposition(calc($int13 + 2), calc($int14 + 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setopbase("<col=ff981f><oc_name($obj18)></col>");
+cc_setop(1, "Info");
+if ($inv0 = %shop_sample) {
+    cc_setonop("clientscript_6105(%shop_sample, $int1)");
+    cc_setop(2, "Take 1");
+    cc_setop(3, "Take 5");
+    if ($obj18 = unlit_candle) {
+        cc_setop(3, "Take 4");
+    }
+    cc_setop(4, "Take 10");
+    cc_setop(5, "Take 50");
+    cc_setop(6, "Take 500");
+    cc_setop(7, "Take All");
+} else if ($inv0 = inv) {
+    cc_setonop("clientscript_6105(inv, $int1)");
+    cc_setop(2, "Sell 1");
+    cc_setop(3, "Sell 5");
+    if ($obj18 = unlit_candle) {
+        cc_setop(3, "Sell 4");
+    }
+    cc_setop(4, "Sell 10");
+    cc_setop(5, "Sell 50");
+    cc_setop(6, "Sell 500");
+    cc_setop(7, "");
+} else {
+    cc_setonop("clientscript_6105(%shop, $int1)");
+    cc_setop(2, "Buy 1");
+    cc_setop(3, "Buy 5");
+    if ($obj18 = unlit_candle) {
+        cc_setop(3, "Buy 4");
+    }
+    cc_setop(4, "Buy 10");
+    cc_setop(5, "Buy 50");
+    cc_setop(6, "Buy 500");
+    cc_setop(7, "Buy All");
+}
+if ($int3 = 0) {
+    if (compare($string0, "") ! 0) {
+        $string0 = "<oc_name($obj18)><br>(Requirements not met)";
+    } else {
+        $string0 = oc_name($obj18);
+    }
+    if (%shop_sample = null | $inv0 = %shop_sample | $inv0 = inv) {
+        cc_setonmouserepeat("clientscript_6090(cc_gety, event_mousex, event_mousey, $string0, event_com, $int1)");
+    } else {
+        cc_setonmouserepeat("clientscript_6090(calc(cc_gety + 28), event_mousex, event_mousey, $string0, event_com, $int1)");
+    }
+    cc_create($component5, ^iftype_text, $int1);
+} else {
+    cc_create($component5, ^iftype_text, $int1);
+    cc_setcolour(0xf7edb7);
+    cc_setsize(calc(151 - 53), calc(52 - 18), ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int13 + 47), calc($int14 + 3), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(verdana_11pt_regular);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 13);
+    cc_settext(oc_name($obj18));
+}
+cc_create($component6, ^iftype_graphic, $int1);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+if ($int3 = 0) {
+    cc_setposition(calc($int13 + 10), calc($int14 + (52 - 38) / 2), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    cc_setposition(calc($int13 + 10), calc($int14 + (52 - 22) / 2), ^setpos_abs_left, ^setpos_abs_top);
+}
+def_int $int19 = 0;
+if (oc_param($obj18, param_258) = 1 | oc_param($obj18, param_259) = 1) {
+    $int19 = 1;
+}
+if ($int19 = 1) {
+    cc_setobject_nonum($obj18, inv_getnum($inv0, $int1));
+} else {
+    cc_setobject_alwaysnum($obj18, inv_getnum($inv0, $int1));
+}
+cc_setgraphicshadow(0x302020);
+cc_setoutline(1);
+cc_create($component8, ^iftype_text, $int1);
+cc_setcolour(0xe5b051);
+cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int13 + $int15 - 33), calc($int14 + 40), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+def_int $int20 = ~buyprice($obj18);
+if ($int20 = -1) {
+    cc_settext("N/A");
+} else if ($inv0 = %shop_sample) {
+    cc_settext("Free!");
+} else if ($inv0 = inv) {
+    if (testbit(%varclient_1879, $int1) = ^false) {
+        $int20 = -1;
+        cc_settext("N/A");
+    } else {
+        $int20 = ~clientscript_6077($obj18);
+        cc_settext(~tostring_shortform($int20));
+    }
+} else {
+    cc_settext(~tostring_shortform($int20));
+}
+if ($inv0 ! %shop_sample) {
+    if ($int20 > 100000) {
+        cc_setcolour(^white);
+    } else if ($int20 > 10000000) {
+        cc_setcolour(0x00ff88);
+    }
+}
+if ($component7 ! null) {
+    cc_setposition(calc($int13 + $int15 - 45), calc($int14 + 40), ^setpos_abs_left, ^setpos_abs_top);
+    cc_create($component7, ^iftype_graphic, $int1);
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int13 + $int15 - 12), calc($int14 + 39), ^setpos_abs_left, ^setpos_abs_top);
+    if ($inv0 = inv & testbit(%varclient_1879, $int1) = ^false) {
+        cc_setgraphic("km_shopitems,0");
+    } else {
+        cc_setgraphic(enum(obj, graphic, enum_200, %shop_currency));
+    }
+}
+cc_create($component9, ^iftype_graphic, $int1);
+cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int13 + 36), calc($int14 + 6), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("km_shopitems,0");
+~script812($obj18);
+$string0 = ~obj_warning_arg($obj18);
+if (%shop_sample = null | $inv0 = %shop_sample | $inv0 = inv) {
+    cc_setonmouserepeat("clientscript_6090(cc_gety, event_mousex, event_mousey, $string0, event_com, $int1)");
+} else {
+    cc_setonmouserepeat("clientscript_6090(calc(cc_gety + 28), event_mousex, event_mousey, $string0, event_com, $int1)");
+}
+cc_setonmouseleave("deltooltip(interface_1265:com_89)");
+return;

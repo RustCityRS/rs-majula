@@ -1,0 +1,33 @@
+// 6905
+[proc,clientscript_6905](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+if ($int0 = 2) {
+    if_sethide($component5, true);
+    if_sethide($component6, true);
+    if_sethide($component7, false);
+    if_setmodelanim($component3, chatang4);
+    if_setmodelanim($component4, chatang4);
+    ~clientscript_6906(0, $component1);
+    ~clientscript_6906(1, $component2);
+    if_setonop($component1, "clientscript_6904(1, $component1, $component2, $component3, $component4, $component5, $component6, $component7)");
+    if_setonop($component2, "clientscript_6908");
+} else if ($int0 = 1) {
+    if_sethide($component5, true);
+    if_sethide($component6, false);
+    if_sethide($component7, true);
+    if_setmodelanim($component3, chathap4);
+    if_setmodelanim($component4, chathap4);
+    ~clientscript_6906(1, $component1);
+    ~clientscript_6906(0, $component2);
+    if_setonop($component1, "clientscript_6908");
+    if_setonop($component2, "clientscript_6904(2, $component1, $component2, $component3, $component4, $component5, $component6, $component7)");
+} else {
+    if_sethide($component5, false);
+    if_sethide($component6, true);
+    if_sethide($component7, true);
+    if_setmodelanim($component3, chatidle2);
+    if_setmodelanim($component4, chatidle2);
+    ~clientscript_6906(0, $component1);
+    ~clientscript_6906(0, $component2);
+    if_setonop($component1, "clientscript_6904(1, $component1, $component2, $component3, $component4, $component5, $component6, $component7)");
+    if_setonop($component2, "clientscript_6904(2, $component1, $component2, $component3, $component4, $component5, $component6, $component7)");
+}

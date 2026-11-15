@@ -1,0 +1,12 @@
+// 5576
+[proc,clientscript_5576]
+if_settext(interface_1181:com_60, tostring_localised(%varplayerbit_10300, true));
+if_settext(interface_1181:com_166, "Select an item to buy.");
+if_settext(interface_1181:com_6, "Select an item to buy.");
+if_setobject(interface_1181:com_225, factory_mask, 1);
+if_setobject(interface_1181:com_4, factory_top, 1);
+if_setobject(interface_1181:com_3, factory_trousers, 1);
+if_setobject(interface_1181:com_2, factory_gloves, 1);
+if_setobject(interface_1181:com_1, factory_boots, 1);
+if_setobject_nonum(interface_1181:com_0, roguesden_kit, 1);
+~scrollbar_vertical(interface_1181:com_45, interface_1181:com_30, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

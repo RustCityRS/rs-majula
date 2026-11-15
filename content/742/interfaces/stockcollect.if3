@@ -1,0 +1,765 @@
+// 109:0
+[shadow]
+type=rectangle
+x=4
+y=4
+width=366
+height=305
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:1
+[contents]
+type=layer
+width=366
+height=305
+xmode=abs_centre
+ymode=abs_centre
+
+// 109:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+graphic=tradebacking
+tiling=yes
+
+// 109:3
+[com_3]
+type=graphic
+width=32
+height=4
+heightmode=minus
+ymode=abs_centre
+layer=contents
+graphic="v2_stone_borders_alt,1"
+tiling=yes
+
+// 109:4
+[com_4]
+type=graphic
+width=32
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=contents
+graphic="v2_stone_borders_alt,3"
+tiling=yes
+
+// 109:5
+[com_5]
+type=graphic
+width=4
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=contents
+graphic="v2_stone_borders_alt,0"
+tiling=yes
+
+// 109:6
+[com_6]
+type=graphic
+width=4
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=contents
+graphic="v2_stone_borders_alt,2"
+tiling=yes
+
+// 109:7
+[com_7]
+type=graphic
+width=32
+height=32
+layer=contents
+graphic="v2_stone_borders_alt,4"
+
+// 109:8
+[com_8]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=contents
+graphic="v2_stone_borders_alt,6"
+
+// 109:9
+[com_9]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=contents
+graphic="v2_stone_borders_alt,5"
+
+// 109:10
+[com_10]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=contents
+graphic="v2_stone_borders_alt,7"
+
+// 109:11
+[com_11]
+type=graphic
+y=27
+width=4
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=contents
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+
+// 109:12
+[com_12]
+type=graphic
+y=15
+width=32
+height=32
+layer=contents
+graphic="v2_stone_borders_alt,9"
+
+// 109:13
+[com_13]
+type=graphic
+y=15
+width=32
+height=32
+xmode=abs_right
+layer=contents
+graphic="v2_stone_borders_alt,10"
+
+// 109:14
+[closebutton]
+type=graphic
+x=8
+y=8
+width=16
+height=16
+xmode=abs_right
+layer=contents
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 109:15
+[com_15]
+type=graphic
+x=11
+y=5
+width=25
+height=25
+layer=contents
+graphic=grand_exchange_icon_25
+
+// 109:16
+[title]
+type=text
+y=6
+height=21
+widthmode=minus
+xmode=abs_centre
+layer=contents
+textfont=b12_full
+text= Collection Box
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=stockcollect_onload
+
+// 109:17
+[com_17]
+type=rectangle
+x=19
+y=44
+width=106
+height=80
+layer=contents
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:18
+[offerbutton0]
+type=layer
+x=14
+y=39
+width=106
+height=80
+layer=contents
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:19
+[offersummary0]
+type=layer
+x=14
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:20
+[offertooltip0]
+type=layer
+x=14
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:21
+[com_21]
+type=rectangle
+x=135
+y=44
+width=106
+height=80
+layer=contents
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:22
+[offerbutton1]
+type=layer
+x=130
+y=39
+width=106
+height=80
+layer=contents
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:23
+[offersummary1]
+type=layer
+x=130
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:24
+[offertooltip1]
+type=layer
+x=130
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:25
+[com_25]
+type=rectangle
+x=251
+y=44
+width=106
+height=80
+layer=contents
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:26
+[offerbutton2]
+type=layer
+x=246
+y=39
+width=106
+height=80
+layer=contents
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:27
+[offersummary2]
+type=layer
+x=246
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:28
+[offertooltip2]
+type=layer
+x=246
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:29
+[offerbutton2_hide]
+type=layer
+x=246
+y=39
+width=106
+height=80
+layer=contents
+
+// 109:30
+[com_30]
+type=rectangle
+x=19
+y=134
+width=106
+height=80
+layer=contents
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:31
+[offerbutton3]
+type=layer
+x=14
+y=129
+width=106
+height=80
+layer=contents
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:32
+[offersummary3]
+type=layer
+x=14
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:33
+[offertooltip3]
+type=layer
+x=14
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:34
+[offerbutton3_hide]
+type=layer
+x=14
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:35
+[com_35]
+type=rectangle
+x=135
+y=134
+width=106
+height=80
+layer=contents
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:36
+[offerbutton4]
+type=layer
+x=130
+y=129
+width=106
+height=80
+layer=contents
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:37
+[offersummary4]
+type=layer
+x=130
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:38
+[offertooltip4]
+type=layer
+x=130
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:39
+[offerbutton4_hide]
+type=layer
+x=130
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:40
+[com_40]
+type=rectangle
+x=251
+y=134
+width=106
+height=80
+layer=contents
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:41
+[offerbutton5]
+type=layer
+x=246
+y=129
+width=106
+height=80
+layer=contents
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:42
+[offersummary5]
+type=layer
+x=246
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:43
+[offertooltip5]
+type=layer
+x=246
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:44
+[offerbutton5_hide]
+type=layer
+x=246
+y=129
+width=106
+height=80
+layer=contents
+
+// 109:45
+[lending_container]
+type=layer
+x=2
+y=12
+width=150
+height=73
+xmode=abs_centre
+ymode=abs_bottom
+layer=contents
+hide=yes
+
+// 109:46
+[com_46]
+type=rectangle
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=lending_container
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:47
+[lending]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=lending_container
+
+// 109:48
+[com_48]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=lending
+graphic=tradebacking
+tiling=yes
+
+// 109:49
+[com_49]
+type=graphic
+width=4
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=lending
+graphic="v2_stone_borders_alt,0"
+tiling=yes
+
+// 109:50
+[com_50]
+type=graphic
+width=4
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=lending
+graphic="v2_stone_borders_alt,2"
+tiling=yes
+
+// 109:51
+[com_51]
+type=graphic
+width=32
+height=4
+heightmode=minus
+ymode=abs_centre
+layer=lending
+graphic="v2_stone_borders_alt,1"
+tiling=yes
+
+// 109:52
+[com_52]
+type=graphic
+width=32
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=lending
+graphic="v2_stone_borders_alt,3"
+tiling=yes
+
+// 109:53
+[com_53]
+type=graphic
+width=32
+height=32
+layer=lending
+graphic="v2_stone_borders_alt,4"
+
+// 109:54
+[com_54]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=lending
+graphic="v2_stone_borders_alt,5"
+
+// 109:55
+[com_55]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=lending
+graphic="v2_stone_borders_alt,6"
+
+// 109:56
+[com_56]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=lending
+graphic="v2_stone_borders_alt,7"
+
+// 109:57
+[lending_title]
+type=text
+y=6
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=lending
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 109:58
+[lending_item]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=lending
+outline=1
+graphicshadow=3355443
+transmitop=1,10
+op1=*
+op10=Examine
+
+// 109:59
+[lending_indicator]
+type=text
+y=7
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=lending
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 109:60
+[tooltip0]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip0
+
+// 109:61
+[tooltip1]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip1
+
+// 109:62
+[tooltip2]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip2
+
+// 109:63
+[com_63]
+type=rectangle
+width=120
+height=80
+layer=offerbutton2_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:64
+[com_64]
+type=graphic
+width=120
+height=80
+layer=offerbutton2_hide
+graphic=mesh
+tiling=yes
+
+// 109:65
+[tooltip3]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip3
+
+// 109:66
+[com_66]
+type=rectangle
+width=140
+height=110
+layer=offerbutton3_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:67
+[com_67]
+type=graphic
+width=140
+height=110
+layer=offerbutton3_hide
+graphic=mesh
+tiling=yes
+
+// 109:68
+[tooltip4]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip4
+
+// 109:69
+[com_69]
+type=rectangle
+width=140
+height=110
+layer=offerbutton4_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:70
+[com_70]
+type=graphic
+width=140
+height=110
+layer=offerbutton4_hide
+graphic=mesh
+tiling=yes
+
+// 109:71
+[tooltip5]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip5
+
+// 109:72
+[com_72]
+type=rectangle
+width=140
+height=110
+layer=offerbutton5_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:73
+[com_73]
+type=graphic
+width=140
+height=110
+layer=offerbutton5_hide
+graphic=mesh
+tiling=yes

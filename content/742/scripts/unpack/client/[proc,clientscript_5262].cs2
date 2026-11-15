@@ -1,0 +1,32 @@
+// 5262
+[proc,clientscript_5262](int $int0, int $int1, component $component2)
+if ($int1 = 50) {
+    if ($int0 = 1) {
+        switch_component ($component2) {
+            case interface_1132:com_10 :
+                if_sethide(interface_1132:com_22, true);
+                if_sethide(interface_1132:com_23, true);
+                if_setontimer($component2, null);
+            case interface_1132:com_11 :
+                if_sethide(interface_1132:com_27, true);
+                if_sethide(interface_1132:com_28, true);
+                if_setontimer($component2, null);
+        }
+    } else {
+        switch_component ($component2) {
+            case interface_1132:com_10 :
+                if_settext(interface_1132:com_23, tostring(calc($int0 - 1)));
+                if_setontimer($component2, "clientscript_5262(calc($int0 - 1), 0, $component2)");
+            case interface_1132:com_11 :
+                if_settext(interface_1132:com_28, tostring(calc($int0 - 1)));
+                if_setontimer($component2, "clientscript_5262(calc($int0 - 1), 0, $component2)");
+        }
+    }
+} else {
+    switch_component ($component2) {
+        case interface_1132:com_10 :
+            if_setontimer($component2, "clientscript_5262($int0, calc($int1 + 1), interface_1132:com_10)");
+        case interface_1132:com_11 :
+            if_setontimer($component2, "clientscript_5262($int0, calc($int1 + 1), interface_1132:com_11)");
+    }
+}

@@ -22,6 +22,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
@@ -36,13 +37,13 @@ const HORIZON: i32 = (SEXTANT as i32) << 16 | 2;
 const SUN: i32 = (SEXTANT as i32) << 16 | 5;
 const TILT_DOWN: i32 = (SEXTANT as i32) << 16 | 3;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// A player in Lumbridge holding `items`, one to a slot from slot 0.
@@ -50,8 +51,8 @@ fn holder(engine: &mut Engine, name: &str, items: &[&str]) -> HarnessClient {
     engine.harness_reset();
     let client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
-    let objs: Vec<u16> = items.iter().map(|i| obj(engine, i)).collect();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let objs: Vec<TypeId> = items.iter().map(|i| obj(engine, i)).collect();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine
         .harness_player_mut(client.pid)
         .and_then(|p| p.invs.get_mut(&inv))
@@ -129,7 +130,7 @@ fn a_clue_reads_in_2011s_one_clue_box() {
     runner::on_loaded_engine(|engine| {
         let clue = obj(engine, "trail_clue_easy_vague003");
         let mut client = holder(engine, "cluereader", &["trail_clue_easy_vague003"]);
-        op1(&mut client, BACKPACK, clue, 0);
+        op1(&mut client, BACKPACK, clue.g2(), 0);
         let packets = ticks(engine, &mut client, 3);
         assert!(
             engine
@@ -171,7 +172,7 @@ fn a_map_clue_opens_2011s_map() {
             "mapreader",
             &["trail_clue_easy_vague003", "trail_clue_easy_map004"],
         );
-        op1(&mut client, BACKPACK, text, 0);
+        op1(&mut client, BACKPACK, text.g2(), 0);
         ticks(engine, &mut client, 3);
         assert!(
             engine
@@ -182,7 +183,7 @@ fn a_map_clue_opens_2011s_map() {
         );
         // Reading the map with the clue box open closes the box, as 289's
         // OPHELD did, and opens the map: 289's inter_176, 2011's trail_map09.
-        op1(&mut client, BACKPACK, map, 1);
+        op1(&mut client, BACKPACK, map.g2(), 1);
         ticks(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(player.is_interface_open(354), "trail_map09");
@@ -195,7 +196,7 @@ fn the_sextant_moves_on_2011s_coordinates() {
     runner::on_loaded_engine(|engine| {
         let sextant = obj(engine, "trail_sextant");
         let mut client = holder(engine, "navigator", &["trail_sextant"]);
-        op1(&mut client, BACKPACK, sextant, 0);
+        op1(&mut client, BACKPACK, sextant.g2(), 0);
         let packets = ticks(engine, &mut client, 3);
         assert!(
             engine
@@ -235,7 +236,7 @@ fn a_puzzle_box_shows_its_pieces() {
     runner::on_loaded_engine(|engine| {
         let puzzle = obj(engine, "trail_clue_hard_riddle014_puzzlebox");
         let mut client = holder(engine, "puzzler", &["trail_clue_hard_riddle014_puzzlebox"]);
-        op1(&mut client, BACKPACK, puzzle, 0);
+        op1(&mut client, BACKPACK, puzzle.g2(), 0);
         let packets = ticks(engine, &mut client, 3);
         assert!(
             engine
@@ -271,7 +272,12 @@ fn a_puzzle_box_shows_its_pieces() {
         );
 
         // Move a piece beside the gap: it slides into it.
-        let pieces = *engine.cache.invs.debugnames.get("trail_puzzleinv").unwrap();
+        let pieces = engine
+            .cache
+            .invs
+            .get_by_debugname("trail_puzzleinv")
+            .unwrap()
+            .id;
         let pid = client.pid;
         let grid = |engine: &Engine| {
             let inv = engine
@@ -294,7 +300,7 @@ fn a_puzzle_box_shows_its_pieces() {
         let piece = before[beside as usize].expect("a piece beside the gap");
         let mut p = ClientPacket::new();
         p.p4((PUZZLE as i32) << 16 | 4)
-            .p2_alt3(piece as i32)
+            .p2_alt3(piece.int())
             .p2_alt1(beside as i32);
         client.send(ClientProt::IfButton1, &p.finish());
         let moved = ticks(engine, &mut client, 2);
@@ -316,15 +322,20 @@ fn the_last_casket_of_an_easy_trail_opens_2011s_reward_box() {
         let mut client = holder(engine, "treasure", &["trail_clue_easy_map001_casket"]);
         // 289's %trail_status: the trail's steps so far in bits 0-3, at an
         // easy trail's last (^trail_easy_maxsteps, 4).
-        let status = *engine.cache.varps.debugnames.get("trail_status").unwrap();
+        let status = engine
+            .cache
+            .varps
+            .get_by_debugname("trail_status")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
             .vars
-            .set(status, VarValue::Int(4));
+            .set(status.g2(), VarValue::Int(4));
         set_recording(true);
         forget_calls();
-        op1(&mut client, BACKPACK, casket, 0);
+        op1(&mut client, BACKPACK, casket.g2(), 0);
         let packets = ticks(engine, &mut client, 3);
         let said = calls_for("mes");
         assert!(
@@ -345,7 +356,7 @@ fn the_last_casket_of_an_easy_trail_opens_2011s_reward_box() {
         // waits for the reward box to close.
         client.send(ClientProt::CloseModal, &[]);
         ticks(engine, &mut client, 2);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let backpack = engine
             .harness_player(client.pid)
             .unwrap()

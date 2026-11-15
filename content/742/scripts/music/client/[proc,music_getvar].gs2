@@ -1,0 +1,77 @@
+// 837
+[proc,music_getvar](int $int0)(int)
+switch_int (calc($int0 / 32)) {
+    case 0 :
+        return(testbit(%musicmulti_1, calc($int0 & 31)));
+    case 1 :
+        return(testbit(%musicmulti_2, calc($int0 & 31)));
+    case 2 :
+        return(testbit(%musicmulti_3, calc($int0 & 31)));
+    case 3 :
+        return(testbit(%musicmulti_4, calc($int0 & 31)));
+    case 4 :
+        return(testbit(%musicmulti_5, calc($int0 & 31)));
+    case 5 :
+        return(testbit(%musicmulti_6, calc($int0 & 31)));
+    case 6 :
+        return(testbit(%musicmulti_7, calc($int0 & 31)));
+    case 7 :
+        return(testbit(%musicmulti_8, calc($int0 & 31)));
+    case 8 :
+        return(testbit(%musicmulti_9, calc($int0 & 31)));
+    case 9 :
+        return(testbit(%musicmulti_10, calc($int0 & 31)));
+    case 10 :
+        return(testbit(%musicmulti_11, calc($int0 & 31)));
+    case 11 :
+        return(testbit(%musicmulti_12, calc($int0 & 31)));
+    case 12 :
+        return(testbit(%musicmulti_13, calc($int0 & 31)));
+    case 13 :
+        return(testbit(%musicmulti_14, calc($int0 & 31)));
+    case 14 :
+        return(testbit(%musicmulti_15, calc($int0 & 31)));
+    case 15 :
+        return(testbit(%musicmulti_16, calc($int0 & 31)));
+    case 16 :
+        return(testbit(%musicmulti_17, calc($int0 & 31)));
+    case 17 :
+        return(testbit(%musicmulti_18, calc($int0 & 31)));
+    case 18 :
+        return(testbit(%musicmulti_19, calc($int0 & 31)));
+    case 19 :
+        return(testbit(%musicmulti_20, calc($int0 & 31)));
+    case 20 :
+        return(testbit(%musicmulti_21, calc($int0 & 31)));
+    case 21 :
+        return(testbit(%musicmulti_22, calc($int0 & 31)));
+    case 22 :
+        return(testbit(%musicmulti_23, calc($int0 & 31)));
+    case 23 :
+        return(testbit(%musicmulti_24, calc($int0 & 31)));
+    case 24 :
+        return(testbit(%musicmulti_25, calc($int0 & 31)));
+    case 25 :
+        return(testbit(%musicmulti_26, calc($int0 & 31)));
+    case 26 :
+        return(testbit(%musicmulti_27, calc($int0 & 31)));
+    case 27 :
+        return(^true);
+    case 28 :
+        return(testbit(%musicmulti_29, calc($int0 & 31)));
+    case 29 :
+        return(testbit(%musicmulti_30, calc($int0 & 31)));
+    case 30 :
+        return(testbit(%musicmulti_31, calc($int0 & 31)));
+    case 31 :
+        return(testbit(%varplayer_2246, calc($int0 & 31)));
+    case 32 :
+        return(testbit(%varplayer_2430, calc($int0 & 31)));
+    case 33 :
+        return(testbit(%varplayer_2559, calc($int0 & 31)));
+    case 34 :
+        return(testbit(%varplayer_2632, calc($int0 & 31)));
+    case 35 :
+        return(testbit(%varplayer_2770, calc($int0 & 31)));
+}
+return(null);

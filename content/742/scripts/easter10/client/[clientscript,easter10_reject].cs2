@@ -1,0 +1,11 @@
+// 2216
+[clientscript,easter10_reject]
+if (%easter10_conveyorstatus = 2) {
+    if (%easter10_pushbarstatus = 0) {
+        sound_synth(synth_8731, 1, 0);
+    }
+    %easter10_pushbarstatus = 1;
+    if_setontimer(easter10_nuts:content, "script2214");
+} else {
+    mes("There is nothing to push off!");
+}

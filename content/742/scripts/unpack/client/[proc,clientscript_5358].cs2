@@ -1,0 +1,40 @@
+// 5358
+[proc,clientscript_5358](int $int0, component $component1)
+switch_int ($int0) {
+    case 0 :
+        $int0 = 1;
+    case 1 :
+        $int0 = 4;
+    case 2 :
+        $int0 = 7;
+    case 3 :
+        $int0 = 10;
+    case 4 :
+        $int0 = 13;
+    case default :
+        return;
+}
+if (cc_find($component1, 1) = true) {
+    cc_setgraphic(7766);
+    cc_setonmouseleave("clientscript_5357(1, $component1)");
+}
+if (cc_find($component1, 4) = true) {
+    cc_setgraphic(7766);
+    cc_setonmouseleave("clientscript_5357(4, $component1)");
+}
+if (cc_find($component1, 7) = true) {
+    cc_setgraphic(7766);
+    cc_setonmouseleave("clientscript_5357(7, $component1)");
+}
+if (cc_find($component1, 10) = true) {
+    cc_setgraphic(7766);
+    cc_setonmouseleave("clientscript_5357(10, $component1)");
+}
+if (cc_find($component1, 13) = true) {
+    cc_setgraphic(7766);
+    cc_setonmouseleave("clientscript_5357(13, $component1)");
+}
+if (cc_find($component1, $int0) = true) {
+    cc_setgraphic(7767);
+    cc_setonmouseleave(null);
+}

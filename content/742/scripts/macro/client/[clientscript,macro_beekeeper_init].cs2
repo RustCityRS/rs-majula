@@ -1,0 +1,21 @@
+// 2124
+[clientscript,macro_beekeeper_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8)
+%beekeeper_lid_y = random(2048);
+%beekeeper_uppermiddle_y = random(2048);
+%beekeeper_lowermiddle_y = random(2048);
+%beekeeper_legs_y = random(2048);
+%beekeeper_lid_x = calc(25 - randominc(50));
+%beekeeper_lid_z = calc(25 - randominc(50));
+%beekeeper_uppermiddle_x = calc(25 - randominc(50));
+%beekeeper_uppermiddle_z = calc(25 - randominc(50));
+%beekeeper_lowermiddle_x = calc(25 - randominc(50));
+%beekeeper_lowermiddle_z = calc(25 - randominc(50));
+%beekeeper_legs_x = calc(25 - randominc(50));
+%beekeeper_legs_z = calc(25 - randominc(50));
+~macro_beekeeper_update($component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8);
+if_setontimer($component0, "macro_beekeeper_timer($component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8)");
+def_int $int9 = calc(clientclock + 100);
+if_setontimer(beehive:start_1_model, "clientscript_5613(beehive:start_1_model, random(63), random(127), random(2), $int9)");
+if_setontimer(beehive:start_2_model, "clientscript_5613(beehive:start_2_model, random(63), random(127), random(2), $int9)");
+if_setontimer(beehive:start_3_model, "clientscript_5613(beehive:start_3_model, random(63), random(127), random(2), $int9)");
+if_setontimer(beehive:start_4_model, "clientscript_5613(beehive:start_4_model, random(63), random(127), random(2), $int9)");

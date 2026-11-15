@@ -1,0 +1,7 @@
+// 3478
+[proc,love_puzzle_node](component $component0, int $int1, int $int2, int $rgb3)
+cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+cc_setsize(6, 6, ^setsize_abs, ^setsize_abs);
+cc_setcolour($rgb3);
+cc_setfill(true);
+cc_setposition(calc($int1 * 16), calc($int2 * 16), ^setpos_abs_centre, ^setpos_abs_centre);

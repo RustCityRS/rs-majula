@@ -1,0 +1,5 @@
+// 6642
+[proc,clientscript_6642](string $string0)
+def_int $int0 = calc(clientclock + 100);
+if_settext(interface_1334:com_43, $string0);
+if_setontimer(interface_1334:com_43, "clientscript_6643($string0, $int0)");

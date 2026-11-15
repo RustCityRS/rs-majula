@@ -1,0 +1,14 @@
+// 2240
+[proc,script2240]()(int)
+def_int $int0 = 5;
+$int0 = calc(%easter10_nutworkers + %easter10_chocworkers + %easter10_fruitworkers + %easter10_fcworkers + %easter10_teggworkers + %easter10_neggworkers);
+if (%easter10_neggrepair = true) {
+    $int0 = calc($int0 + 1);
+}
+if (%easter10_teggrepair = true) {
+    $int0 = calc($int0 + 1);
+}
+if (%easter10_fcrepair = true) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

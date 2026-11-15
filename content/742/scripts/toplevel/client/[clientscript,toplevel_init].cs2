@@ -1,0 +1,13 @@
+// 1433
+[clientscript,toplevel_init]
+~clientscript_6382;
+if (getwindowmode >= 1) {
+    if_setonvarctransmit(toplevel_fullscreen:mainoverlay, "toplevel_fovchange{fov}");
+    if_setonvarctransmit(toplevel:com_5, "toplevel_fovchange{fov}");
+}
+if_setonvarctransmit(chattop:mes_layer, "meslayer_varc_update{meslayermode}");
+if_setonresize(toplevel_fullscreen:com_93, "window_resize");
+if (%varclient_1694 = -1) {
+    %varclient_1694 = 100;
+}
+~toplevel_minimenu_setup;

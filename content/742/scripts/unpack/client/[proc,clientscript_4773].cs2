@@ -1,0 +1,9 @@
+// 4773
+[proc,clientscript_4773](int $int0, int $int1, int $int2)
+if (op718 = 1 & %varplayerbit_9555 = $int0) {
+    if (%varclient_1560 = 1) {
+        ~clientscript_4768;
+        ~clientscript_4777($int0, $int1, $int2);
+    }
+    %varclient_1560 = 0;
+}

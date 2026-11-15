@@ -1,26 +1,49 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol_macros::server_prot;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(IfMovesub, Buffered, Fixed)]
 pub struct IfMovesub {
     pub com: i32,
     pub com2: i32,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for IfMovesub {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt2(self.com);
+        buf.p2_alt2(self.verify);
+        buf.p4_alt2(self.com2);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com) + size_of_val(&self.com2) + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfMovesub {
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt2(self.com2);
-        buf.p4_alt2(self.com);
+        #[cfg(before_742)]
+        {
+            buf.p4_alt2(self.com2);
+            buf.p4_alt2(self.com);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4_alt1(self.com);
+            buf.p4_alt1(self.com2);
+        }
     }
 
     fn sizeof(&self) -> usize {

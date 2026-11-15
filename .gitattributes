@@ -35,6 +35,8 @@
 *.json text eol=lf
 *.xml text eol=lf
 *.sh text eol=lf
+*.fms text eol=lf
+*.huffman text eol=lf
 # sqlx checksums the exact bytes: a CRLF checkout would build a binary that
 # rejects the production database's migrations
 *.sql text eol=lf
@@ -64,19 +66,27 @@
 *.mid binary
 *.ogg binary
 *.ob2 binary
-*.huffman binary
 *.sample binary
 *.skel binary
 *.vorbis binary
 *.cso binary
+*.anim binary
+*.base binary
+*.cutscene binary
+*.program binary
+*.js5 binary
+# 225's bases are text
+content/225/**/*.base text diff
+# Shader sources stay byte-exact, line endings and all
+*.arb -text diff
+*.glsl -text diff
 
+# 530, 647 and 742 check out LF; their .synth and .fm are text (225-289's are binary)
+content/530/** eol=lf
 content/647/** eol=lf
+content/742/** eol=lf
+content/530/**/*.synth text diff eol=lf
 content/647/**/*.synth text diff eol=lf
 content/647/**/*.fm text diff eol=lf
-content/647/**/*.fms text diff eol=lf
-content/647/**/*.huffman text diff eol=lf
-content/647/**/*.sample text diff eol=lf
-content/647/**/*.vorbis text diff eol=lf
-content/647/shaders/**/*.arb -text diff
-content/647/shaders/**/*.glsl -text diff
-*.js5 binary
+content/742/**/*.synth text diff eol=lf
+content/742/**/*.fm text diff eol=lf

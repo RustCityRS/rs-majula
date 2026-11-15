@@ -1,0 +1,88 @@
+// 5747
+[proc,clientscript_5747](struct $struct0, boolean $boolean1, int $int2, int $int3, int $int4)(int, int)
+cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
+if ($int2 = 1) {
+    cc_setgraphic(7635);
+} else {
+    cc_setgraphic(7629);
+}
+cc_setsize(12, 51, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
+if ($int2 = 1) {
+    cc_setgraphic(7636);
+} else {
+    cc_setgraphic(7630);
+}
+cc_setsize(434, 51, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 12), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
+if ($int2 = 1) {
+    cc_setgraphic(7637);
+} else {
+    cc_setgraphic(7631);
+}
+cc_setsize(12, 51, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 12 + 434), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create(interface_1239:com_8, ^iftype_text, $int3);
+cc_settext(struct_param($struct0, param_1266));
+cc_settextfont(verdana_13pt_regular);
+cc_setcolour(0xebe0bc);
+cc_setsize(330, 13, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 70), calc((51 + 3) * ($int4 / 1) + 1), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create(interface_1239:com_8, ^iftype_text, $int3);
+cc_settext(struct_param($struct0, param_1273));
+cc_settextfont(verdana_11pt_regular_multiline);
+cc_setcolour(0xd7d6b2);
+cc_setsize(330, 30, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 70), calc((51 + 3) * ($int4 / 1) + 16), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
+if (struct_param($struct0, param_1270) ! 4094) {
+    cc_setgraphic(struct_param(enum(int, struct, enum_2252, struct_param($struct0, param_1270)), param_952));
+} else {
+    cc_setgraphic(struct_param($struct0, param_1271));
+}
+cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 7), calc((51 + 3) * ($int4 / 1) + 5), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+def_string $string0 = "";
+def_int $int5 = 3;
+cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
+if ($int2 = 1) {
+    cc_setgraphic(9603);
+} else if ($boolean1 = true) {
+    cc_setgraphic(9601);
+} else {
+    cc_setgraphic(9602);
+}
+cc_setsize(34, 34, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 12 + 434 - 34 - 4), calc((51 + 3) * ($int4 / 1) + (51 - 34) / 2), ^setpos_abs_left, ^setpos_abs_top);
+if ($int2 = 1) {
+    $string0 = "Task Complete";
+} else if ($boolean1 = true) {
+    $string0 = "Requirements met.";
+} else {
+    $string0 = "Requirements not met.";
+}
+cc_setonmouserepeat("aif_tooltip(interface_1239:com_10, interface_1239:com_8, $int3, $string0, 175, null, null, null, 12, 3, $int5, event_mousex, event_mousey)");
+cc_setonmouseleave("deltooltip(interface_1239:com_10)");
+$int3 = calc($int3 + 1);
+cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
+cc_setsize(456, 51, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "Select");
+cc_setopbase(append("<col=00ff00>", struct_param($struct0, param_1266)));
+cc_setonmouseover("clientscript_5748(event_comsubid)");
+if ($int2 = 0) {
+    cc_setonmouseleave("clientscript_5749(event_comsubid)");
+} else {
+    cc_setonmouseleave("clientscript_5750(event_comsubid)");
+}
+$int3 = calc($int3 + 1);
+$int4 = calc($int4 + 1);
+return($int3, $int4);

@@ -1,0 +1,12 @@
+// 6739
+[proc,clientscript_6739](int $int0, int $int1, string $string0, component $component2, component $component3)(int)
+if_sethide($component2, false);
+if_settext($component2, $string0);
+if_settextfont($component2, verdana_11pt_regular_multiline);
+if_settextalign($component2, ^settextalign_centre, ^settextalign_centre, 13);
+def_int $int4 = calc(if_getwidth($component3) - 40);
+def_int $int5 = 0;
+def_int $int6 = calc(15 * paraheight($string0, $int4, verdana_11pt_regular_multiline));
+if_setsize($component2, $int4, $int6, ^setsize_abs, ^setsize_abs);
+if_setposition($component2, 0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+return(calc($int1 + $int6));

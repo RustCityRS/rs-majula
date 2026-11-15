@@ -1,0 +1,52 @@
+// 5272
+[proc,clientscript_5272](component $component0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+$int2 = calc($int2 / 2);
+def_int $int4 = $int2;
+def_int $int5 = if_getheight($component0);
+if (cc_find($component0, $int1) = true) {
+    if (if_getwidth($component0) < 260) {
+        if ($int2 = 4) {
+            cc_settextfont(p11_full);
+        } else if ($int2 = 1) {
+            cc_settextfont(b12_full);
+        } else {
+            cc_settextfont(p12_full);
+        }
+    } else if ($int2 >= 7) {
+        cc_settextfont(p11_full);
+    } else if ($int2 <= 4) {
+        cc_settextfont(b12_full);
+    } else {
+        cc_settextfont(p12_full);
+    }
+    if ($int2 > 4) {
+        $int4 = ~clientscript_5276($int2, 2);
+        $int3 = calc($int1 / 4 * $int5 / $int4);
+        if (calc($int1 / 2 % 2) = 0) {
+            cc_setposition(2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setposition(2, $int3, ^setpos_abs_right, ^setpos_abs_top);
+        }
+        cc_setsize(calc(if_getwidth($component0) / 2 - 4), calc($int5 / $int4), ^setsize_abs, ^setsize_abs);
+    } else {
+        $int3 = calc($int1 / 2 * $int5 / $int2);
+        cc_setposition(2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(6, calc($int5 / $int2), ^setsize_minus, ^setsize_abs);
+    }
+}
+$int1 = calc($int1 + 1);
+if (cc_find($component0, $int1) = true) {
+    if ($int2 > 4) {
+        if (calc($int1 / 2 % 2) = 0) {
+            cc_setposition(2, calc($int3 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setposition(2, calc($int3 + 1), ^setpos_abs_right, ^setpos_abs_top);
+        }
+        cc_setsize(calc(if_getwidth($component0) / 2 - 4), calc($int5 / $int4 - 2), ^setsize_abs, ^setsize_abs);
+    } else {
+        cc_setposition(2, calc($int3 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(4, calc($int5 / $int2 - 2), ^setsize_minus, ^setsize_abs);
+    }
+}
+return(calc($int1 + 1));

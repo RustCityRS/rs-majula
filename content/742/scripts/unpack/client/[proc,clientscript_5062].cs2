@@ -1,0 +1,24 @@
+// 5062
+[proc,clientscript_5062](component $component0, obj $obj1, int $int2)
+def_int $int3 = calc($obj1 * 12);
+if ($int2 = 1) {
+    if (cc_find($component0, calc($int3 + 2)) = true) {
+        cc_setgraphic(7552);
+    }
+    if (cc_find($component0, calc($int3 + 3)) = true) {
+        cc_setgraphic(7551);
+    }
+    if (cc_find($component0, calc($int3 + 4)) = true) {
+        cc_setgraphic(7553);
+    }
+} else {
+    if (cc_find($component0, calc($int3 + 2)) = true) {
+        cc_setgraphic(7549);
+    }
+    if (cc_find($component0, calc($int3 + 3)) = true) {
+        cc_setgraphic(7548);
+    }
+    if (cc_find($component0, calc($int3 + 4)) = true) {
+        cc_setgraphic(7550);
+    }
+}

@@ -1,0 +1,12 @@
+// 6313
+[proc,clientscript_6313](string $string0, obj $obj0, int $int1)(string)
+if ($int1 <= 0 | $obj0 = null) {
+    return($string0);
+}
+if (string_length($string0) > 0) {
+    $string0 = append($string0, "<br>");
+}
+if ($obj0 = nails) {
+    return(append($string0, "Nails: <tostring($int1)>"));
+}
+return(append($string0, "<oc_name($obj0)>: <tostring($int1)>"));

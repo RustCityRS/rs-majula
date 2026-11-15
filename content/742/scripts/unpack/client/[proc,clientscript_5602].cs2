@@ -1,0 +1,16 @@
+// 5602
+[proc,clientscript_5602](coord $coord0)
+spline_new(0, 6);
+spline_new(1, 6);
+spline_addpoint(0, 0, ~clientscript_5605($coord0, 24, 18), 373, ~clientscript_5605($coord0, 22, 18), 373, 0);
+spline_addpoint(1, 0, ~clientscript_5605($coord0, 30, 18), 52, ~clientscript_5605($coord0, 28, 18), 52, 0);
+spline_addpoint(0, 1, ~clientscript_5605($coord0, 28, 15), 373, ~clientscript_5605($coord0, 29, 15), 373, 0);
+spline_addpoint(1, 1, ~clientscript_5605($coord0, 36, 18), 52, ~clientscript_5605($coord0, 38, 18), 52, 0);
+spline_addpoint(0, 2, ~clientscript_5605($coord0, 33, 14), 373, ~clientscript_5605($coord0, 34, 13), 373, 0);
+spline_addpoint(1, 2, ~clientscript_5605($coord0, 33, 22), 52, ~clientscript_5605($coord0, 32, 23), 52, 0);
+spline_addpoint(0, 3, ~clientscript_5605($coord0, 37, 17), 373, ~clientscript_5605($coord0, 37, 18), 373, 0);
+spline_addpoint(1, 3, ~clientscript_5605($coord0, 30, 16), 52, ~clientscript_5605($coord0, 30, 15), 52, 0);
+spline_addpoint(0, 4, ~clientscript_5605($coord0, 34, 21), 373, ~clientscript_5605($coord0, 33, 22), 373, 0);
+spline_addpoint(1, 4, ~clientscript_5605($coord0, 32, 14), 52, ~clientscript_5605($coord0, 33, 14), 52, 0);
+spline_addpoint(0, 5, ~clientscript_5605($coord0, 29, 19), 373, ~clientscript_5605($coord0, 28, 18), 373, 0);
+spline_addpoint(1, 5, ~clientscript_5605($coord0, 34, 16), 52, ~clientscript_5605($coord0, 34, 17), 52, 0);

@@ -1,0 +1,10 @@
+// 187
+[proc,clientscript_187](component $component0, component $component1)
+def_int $int2 = calc(if_getscrolly($component1) - 4);
+switch_component ($component1) {
+    case interface_590:com_8 :
+        $int2 = ~clientscript_191($component1, $int2, 1);
+}
+if (cc_find($component0, 3) = true) {
+    ~clientscript_5507($component0, $component1, $int2, 1);
+}

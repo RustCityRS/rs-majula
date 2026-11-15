@@ -1,0 +1,287 @@
+// 400:0
+[com_0]
+type=model
+x=16
+y=22
+width=473
+height=298
+model=model_15194
+modelangle=514,0,0
+modelzoom=300
+
+// 400:1
+[com_1]
+type=model
+x=241
+y=151
+width=32
+height=32
+model=model_15195
+modelangle=514,0,0
+modelzoom=430
+
+// 400:2
+[poh_tablet_ardougneteleport]
+type=model
+x=297
+y=135
+width=69
+height=67
+buttontype=normal
+script1=lt,2
+script1op1=pushvar,if1
+model=model_15178
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15177
+option=Ardougne Teleport
+
+// 400:3
+[poh_tablet_bonestobananas]
+type=model
+x=381
+y=136
+width=71
+height=66
+buttontype=normal
+script1=eq,0
+script1op1=pushvar,if2
+model=model_15180
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15179
+option=Bones to Bananas
+
+// 400:4
+[poh_tablet_bonestopeaches]
+type=model
+x=381
+y=217
+width=70
+height=69
+buttontype=normal
+script1=lt,3
+script1op1=pushvar,if2
+model=model_15182
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15181
+option=Bones to Peaches
+
+// 400:5
+[poh_tablet_camelotteleport]
+type=model
+x=298
+y=217
+width=67
+height=67
+buttontype=normal
+script1=lt,2
+script1op1=pushvar,if1
+model=model_15184
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15183
+option=Camelot Teleport
+
+// 400:6
+[poh_tablet_enchantdiamond]
+type=model
+x=214
+y=53
+width=66
+height=68
+buttontype=normal
+script1=lt,2
+script1op1=pushvar,if2
+model=model_15186
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15185
+option=Enchant Diamond
+
+// 400:7
+[poh_tablet_enchantdragonstone]
+type=model
+x=48
+y=214
+width=66
+height=68
+buttontype=normal
+script1=lt,3
+script1op1=pushvar,if2
+model=model_15188
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15185
+option=Enchant Dragonstone
+
+// 400:8
+[poh_tablet_enchantemerald]
+type=model
+x=49
+y=132
+width=66
+height=66
+buttontype=normal
+script1=eq,0
+script1op1=pushvar,if2
+model=model_15189
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15185
+option=Enchant Emerald
+
+// 400:9
+[poh_tablet_enchantonyx]
+type=model
+x=50
+y=51
+width=66
+height=67
+buttontype=normal
+script1=lt,3
+script1op1=pushvar,if2
+model=model_15190
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15185
+option=Enchant Onyx
+
+// 400:10
+[poh_tablet_enchantruby]
+type=model
+x=130
+y=214
+width=67
+height=68
+buttontype=normal
+script1=lt,2
+script1op1=pushvar,if2
+model=model_15191
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15185
+option=Enchant Ruby
+
+// 400:11
+[poh_tablet_enchantsapphire]
+type=model
+x=131
+y=134
+width=67
+height=67
+buttontype=normal
+model=model_15192
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15185
+option=Enchant Sapphire
+
+// 400:12
+[poh_tablet_faladorteleport]
+type=model
+x=214
+y=133
+width=67
+height=67
+buttontype=normal
+script1=eq,0
+script1op1=pushvar,if1
+model=model_15193
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15187
+option=Falador Teleport
+
+// 400:13
+[poh_tablet_lumbridgeteleport]
+type=model
+x=132
+y=52
+width=66
+height=67
+buttontype=normal
+script1=lt,1
+script1op1=pushvar,if1
+model=model_15197
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15196
+option=Lumbridge Teleport
+
+// 400:14
+[poh_tablet_teleporttohouse]
+type=model
+x=383
+y=54
+width=69
+height=69
+buttontype=normal
+script1=lt,3
+script1op1=pushvar,if1
+model=model_15201
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15200
+option=Teleport to house
+
+// 400:15
+[poh_tablet_varrockteleport]
+type=model
+x=215
+y=215
+width=65
+height=68
+buttontype=normal
+model=model_15203
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15202
+option=Varrock Teleport
+
+// 400:16
+[poh_tablet_watchtowerteleport]
+type=model
+x=298
+y=54
+width=69
+height=66
+buttontype=normal
+script1=lt,3
+script1op1=pushvar,if1
+model=model_15205
+modelangle=514,0,0
+modelzoom=200
+activemodel=model_15204
+option=Watchtower teleport
+
+// 400:17
+[com_17]
+type=graphic
+x=487
+y=4
+width=26
+height=23
+overlayer=com_19
+graphic=graphic_535
+
+// 400:18
+[com_18]
+type=graphic
+x=5
+y=5
+width=26
+height=23
+layer=com_19
+buttontype=close
+graphic=graphic_536
+
+// 400:19
+[com_19]
+type=layer
+x=482
+y=-1
+width=32
+height=32
+hide=yes

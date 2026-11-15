@@ -1,5 +1,6 @@
 use crate::lifetime::EntityLifeTime;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
+use rs_ver::TypeId;
 pub use rs_vm::ObjSerial;
 
 /// Number of ticks after which a private ground object becomes visible to all players.
@@ -99,11 +100,11 @@ impl Obj {
     /// # Returns
     /// A new `Obj` with core fields bit-packed and metadata set to sentinel values.
     #[inline(always)]
-    pub const fn new(coord: CoordGrid, lifetime: EntityLifeTime, id: u16, count: u32) -> Self {
+    pub const fn new(coord: CoordGrid, lifetime: EntityLifeTime, id: TypeId, count: u32) -> Self {
         let packed = (((coord.x() & COORD_MASK as u16) as u128) << LOCAL_X_SHIFT)
             | (((coord.z() & COORD_MASK as u16) as u128) << LOCAL_Z_SHIFT)
             | ((lifetime as u128) << LIFETIME_SHIFT)
-            | ((id as u128) << ID_SHIFT)
+            | ((id.g2() as u128) << ID_SHIFT)
             | (((count as u128) & COUNT_MASK) << COUNT_SHIFT)
             | (LAST_CLOCK_MASK << LAST_CLOCK_SHIFT);
         Self(packed)
@@ -154,8 +155,8 @@ impl Obj {
 
     /// Returns the obj type identifier from the config.
     #[inline(always)]
-    pub const fn id(&self) -> u16 {
-        ((self.0 >> ID_SHIFT) & ID_MASK) as u16
+    pub const fn id(&self) -> TypeId {
+        TypeId::new(((self.0 >> ID_SHIFT) & ID_MASK) as u16)
     }
 
     /// Returns the stack count of this object.

@@ -1,0 +1,11 @@
+// 6350
+[proc,clientscript_6350](int $int0)(component)
+if (~getsidehidden($int0) = false) {
+    if (getwindowmode >= 2) {
+        return(toplevel_fullscreen:com_72);
+    } else {
+        return(toplevel:com_16);
+    }
+} else {
+    return(~getsideicon($int0));
+}

@@ -1,0 +1,5 @@
+// 2858
+[proc,machinima_camera_up]
+if (%machinima_livecamera_height < 5000) {
+    %machinima_livecamera_height = calc(%machinima_livecamera_height + 50);
+}

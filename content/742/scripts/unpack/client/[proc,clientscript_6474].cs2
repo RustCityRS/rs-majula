@@ -1,0 +1,36 @@
+// 6474
+[proc,clientscript_6474](component $component0, int $int1)
+def_int $int2 = %varplayerbit_11480;
+if ($component0 = interface_1311:com_72) {
+    $int2 = calc((%varplayerbit_11480 + 1) % 2);
+}
+if ($int1 = 1) {
+    if ($component0 = interface_1311:com_71) {
+        if ($int2 = 1) {
+            if_setgraphic($component0, 10487);
+        } else {
+            if_setgraphic($component0, 10487);
+        }
+    } else if ($component0 = interface_1311:com_72) {
+        if ($int2 = 1) {
+            if_setgraphic($component0, 10485);
+        } else {
+            if_setgraphic($component0, 10485);
+        }
+    }
+} else {
+    ~deltooltip_action(interface_1311:com_87);
+    if ($component0 = interface_1311:com_71) {
+        if ($int2 = 1) {
+            if_setgraphic($component0, 10487);
+        } else {
+            if_setgraphic($component0, 10486);
+        }
+    } else if ($component0 = interface_1311:com_72) {
+        if ($int2 = 1) {
+            if_setgraphic($component0, 10485);
+        } else {
+            if_setgraphic($component0, 10484);
+        }
+    }
+}

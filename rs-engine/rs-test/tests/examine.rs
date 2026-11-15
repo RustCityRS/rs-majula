@@ -1,34 +1,36 @@
-//! Rev-647 examine is answered by the server.
+//! From rev 530 examine is answered by the server.
 //!
-//! 225/289 clients examined from the cache's `desc`; the 647 client sends the
-//! type id (OPNPC6/OPLOC6/OPOBJ6, `Statics1.do_action`: `p2(type id)`) and
-//! prints whatever game message comes back. Until these had handlers they
+//! 225/289 clients examined from the cache's `desc`; the 530 and 647 clients
+//! send the type id (OPNPC6/OPLOC6/OPOBJ6, 647 `Statics1.do_action`: `p2(type
+//! id)`, 530 `p2_alt3` for locs and objs) and print whatever game message
+//! comes back. Until these had handlers they
 //! fell through to the engine's unhandled-packet catch-all and examine said
 //! nothing. Each case sends the frame as the client does and reads the reply
 //! the way the client reads MESSAGE_GAME.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 #[test]
 fn examine_answers_with_the_types_desc() {
     runner::on_loaded_engine(|engine| {
-        let npc = *engine.cache.npcs.debugnames.get("hans").expect("hans");
+        let npc = engine.cache.npcs.get_by_debugname("hans").expect("hans").id;
         // Locs load from the JS5 cache, which has no names: `tree2`.
         let loc = 1278;
-        let obj = *engine
+        let obj = engine
             .cache
             .objs
-            .debugnames
-            .get("tinderbox")
-            .expect("tinderbox");
+            .get_by_debugname("tinderbox")
+            .expect("tinderbox")
+            .id;
 
         assert_eq!(
-            examine(engine, ClientProt::OpNpc6, npc),
+            examine(engine, ClientProt::OpNpc6, npc.g2()),
             [(0, "Servant of the Duke of Lumbridge.".to_string())]
         );
         assert_eq!(
@@ -36,7 +38,7 @@ fn examine_answers_with_the_types_desc() {
             [(0, "A commonly found tree.".to_string())]
         );
         assert_eq!(
-            examine(engine, ClientProt::OpObj6, obj),
+            examine(engine, ClientProt::OpObj6, obj.g2()),
             [(0, "Useful for lighting a fire.".to_string())]
         );
 
@@ -46,7 +48,7 @@ fn examine_answers_with_the_types_desc() {
                 engine
                     .cache
                     .objs
-                    .get_by_id(id)
+                    .get_by_id(TypeId::new(id))
                     .is_some_and(|t| t.desc.is_none())
             })
             .expect("an obj with no desc");
@@ -61,7 +63,14 @@ fn examine(engine: &mut Engine, prot: ClientProt, id: u16) -> Vec<(i32, String)>
     engine.cycle();
     client.packets();
 
-    client.send(prot, &id.to_be_bytes());
+    #[cfg(all(since_530, before_647))]
+    let payload = match prot {
+        ClientProt::OpNpc6 => id.to_be_bytes(),
+        _ => [(id as u8).wrapping_add(128), (id >> 8) as u8],
+    };
+    #[cfg(since_647)]
+    let payload = id.to_be_bytes();
+    client.send(prot, &payload);
     engine.cycle();
     HarnessClient::game_messages(&client.packets())
 }

@@ -1,0 +1,25 @@
+// 6712
+[proc,clientscript_6712](int $int0)(any, int, int, int, int)
+if (%varclient_1928 = 0) {
+    switch_int ($int0) {
+        case 9891 :
+            return(9891, 1, 0, calc(random(20) + 30), 150);
+        case 14230 :
+            return(14230, 1, 0, calc(random(20) + 30), 150);
+        case 9908 :
+            return(9908, 1, 0, calc(random(20) + 30), 150);
+        case 9892 :
+            return(9892, 1, 0, calc(random(20) + 30), 150);
+    }
+} else if (%varclient_1928 = 1) {
+    switch_int ($int0) {
+        case 9891 :
+            return(15765, 1, 0, calc(random(20) + 30), 150);
+        case 14230 :
+            return(15766, 1, 0, calc(random(20) + 30), 150);
+        case 9908 :
+            return(15760, 1, 0, calc(random(20) + 30), 150);
+        case 9892 :
+            return(15759, 1, 0, calc(random(20) + 30), 150);
+    }
+}

@@ -11,7 +11,7 @@ pub struct VarpLarge {
     pub val: i32,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for VarpLarge {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
@@ -23,11 +23,30 @@ impl ServerProtMessage for VarpLarge {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for VarpLarge {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.val);
+        buf.p2_alt2(self.id);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.id) + size_of_val(&self.val)
+    }
+}
+
 #[cfg(since_647)]
 impl ServerProtMessage for VarpLarge {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
         buf.p4_alt2(self.val);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt1(self.val);
+        buf.p2_alt2(self.id);
     }
 
     fn sizeof(&self) -> usize {

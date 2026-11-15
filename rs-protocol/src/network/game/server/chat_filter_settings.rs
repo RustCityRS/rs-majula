@@ -36,7 +36,10 @@ pub struct ChatFilterSettings {
 #[cfg(since_647)]
 impl ServerProtMessage for ChatFilterSettings {
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
         buf.p1_alt3(self.public);
+        #[cfg(since_742)]
+        buf.p1_alt2(self.public);
         buf.p1_alt2(self.trade);
     }
 

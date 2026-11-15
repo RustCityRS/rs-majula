@@ -1,0 +1,16 @@
+// 347
+[clientscript,script347](component $component0, int $int1, int $int2)
+if (cc_find($component0, $int1) = true) {
+    if ($int2 = -1) {
+        cc_setontimer("player_kit_player_rotate(event_com, event_comsubid, 0)");
+        cc_setonclick("script347(event_com, event_comsubid, event_mousex)");
+    } else {
+        $int2 = calc($int2 - cc_getwidth / 2);
+        if ($int2 >= 0) {
+            cc_setontimer("player_kit_player_rotate(event_com, event_comsubid, 1)");
+        } else {
+            cc_setontimer("player_kit_player_rotate(event_com, event_comsubid, -1)");
+        }
+        cc_setonclick("script347(event_com, event_comsubid, -1)");
+    }
+}

@@ -1,0 +1,407 @@
+// 289's anvil smithing (skill_smithing/scripts/smithing/smithing.rs2) on 2011's
+// anvil interface, smithing_new (300, cache 786). 289 transmitted the products
+// in inv columns (smithing.inv) and its interface coloured their names and bars
+// itself from %modified_smith and %smithbars. 2011's has a slot per product,
+// with Make All, X, 5 and 1 under it, and no script to fill them (its one
+// onload, cs2 870, places its scrollbar): the server
+// puts each product in its slot (if_setobject) and colours its name and bars,
+// as void-634's Anvil.kt does. smithing.dbtable gives each of 289's products
+// its slot; the buttons below find the product by the slot and the bar.
+//
+// 2011's anvil adds crossbow bolts and limbs, nails of every metal, the iron
+// spit, the bullseye lantern frame, the mithril grapple tip and pickaxes,
+// which 289 does not make; their slots stay hidden until they are ported.
+
+// 2011's buttons, Make All, X, 5 and 1 under each slot, where 289 had Make 1,
+// 5 and 10 on each inv column (inv_button1-3).
+// Dagger
+[if_button,smithing_new:smith_dagger_all] @smithing_anvil_button(smithing_new:smith_dagger_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_dagger_x] @smithing_anvil_button(smithing_new:smith_dagger_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_dagger_5] @smithing_anvil_button(smithing_new:smith_dagger_pic, 5);
+[if_button,smithing_new:smith_dagger_1] @smithing_anvil_button(smithing_new:smith_dagger_pic, 1);
+// Hatchet
+[if_button,smithing_new:smith_axe_all] @smithing_anvil_button(smithing_new:smith_axe_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_axe_x] @smithing_anvil_button(smithing_new:smith_axe_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_axe_5] @smithing_anvil_button(smithing_new:smith_axe_pic, 5);
+[if_button,smithing_new:smith_axe_1] @smithing_anvil_button(smithing_new:smith_axe_pic, 1);
+// Mace
+[if_button,smithing_new:smith_mace_all] @smithing_anvil_button(smithing_new:smith_mace_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_mace_x] @smithing_anvil_button(smithing_new:smith_mace_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_mace_5] @smithing_anvil_button(smithing_new:smith_mace_pic, 5);
+[if_button,smithing_new:smith_mace_1] @smithing_anvil_button(smithing_new:smith_mace_pic, 1);
+// Medium helm
+[if_button,smithing_new:smith_medhelm_all] @smithing_anvil_button(smithing_new:smith_medhelm_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_medhelm_x] @smithing_anvil_button(smithing_new:smith_medhelm_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_medhelm_5] @smithing_anvil_button(smithing_new:smith_medhelm_pic, 5);
+[if_button,smithing_new:smith_medhelm_1] @smithing_anvil_button(smithing_new:smith_medhelm_pic, 1);
+// Sword
+[if_button,smithing_new:smith_sword_all] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_sword_x] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_sword_5] @smithing_anvil_button(smithing_new:smith_sword_pic, 5);
+[if_button,smithing_new:smith_sword_1] @smithing_anvil_button(smithing_new:smith_sword_pic, 1);
+// Dart tips
+[if_button,smithing_new:smith_darttip_all] @smithing_anvil_button(smithing_new:smith_darttip_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_darttip_x] @smithing_anvil_button(smithing_new:smith_darttip_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_darttip_5] @smithing_anvil_button(smithing_new:smith_darttip_pic, 5);
+[if_button,smithing_new:smith_darttip_1] @smithing_anvil_button(smithing_new:smith_darttip_pic, 1);
+// Nails
+[if_button,smithing_new:smith_nails_all] @smithing_anvil_button(smithing_new:smith_nails_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_nails_x] @smithing_anvil_button(smithing_new:smith_nails_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_nails_5] @smithing_anvil_button(smithing_new:smith_nails_pic, 5);
+[if_button,smithing_new:smith_nails_1] @smithing_anvil_button(smithing_new:smith_nails_pic, 1);
+// Bronze wire
+[if_button,smithing_new:smith_wire_all] @smithing_anvil_button(smithing_new:smith_wire_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_wire_x] @smithing_anvil_button(smithing_new:smith_wire_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_wire_5] @smithing_anvil_button(smithing_new:smith_wire_pic, 5);
+[if_button,smithing_new:smith_wire_1] @smithing_anvil_button(smithing_new:smith_wire_pic, 1);
+// Studs
+[if_button,smithing_new:smith_studs_all] @smithing_anvil_button(smithing_new:smith_studs_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_studs_x] @smithing_anvil_button(smithing_new:smith_studs_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_studs_5] @smithing_anvil_button(smithing_new:smith_studs_pic, 5);
+[if_button,smithing_new:smith_studs_1] @smithing_anvil_button(smithing_new:smith_studs_pic, 1);
+// Arrow tips
+[if_button,smithing_new:smith_arrowtip_all] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_arrowtip_x] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_arrowtip_5] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, 5);
+[if_button,smithing_new:smith_arrowtip_1] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, 1);
+// Scimitar
+[if_button,smithing_new:smith_scimitar_all] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_scimitar_x] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_scimitar_5] @smithing_anvil_button(smithing_new:smith_scimitar_pic, 5);
+[if_button,smithing_new:smith_scimitar_1] @smithing_anvil_button(smithing_new:smith_scimitar_pic, 1);
+// Longsword
+[if_button,smithing_new:smith_longsword_all] @smithing_anvil_button(smithing_new:smith_longsword_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_longsword_x] @smithing_anvil_button(smithing_new:smith_longsword_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_longsword_5] @smithing_anvil_button(smithing_new:smith_longsword_pic, 5);
+[if_button,smithing_new:smith_longsword_1] @smithing_anvil_button(smithing_new:smith_longsword_pic, 1);
+// Throwing knife
+[if_button,smithing_new:smith_throwingknife_all] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_throwingknife_x] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_throwingknife_5] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, 5);
+[if_button,smithing_new:smith_throwingknife_1] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, 1);
+// Full helm
+[if_button,smithing_new:smith_fullhelm_all] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_fullhelm_x] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_fullhelm_5] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, 5);
+[if_button,smithing_new:smith_fullhelm_1] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, 1);
+// Square shield
+[if_button,smithing_new:com_157] @smithing_anvil_button(smithing_new:com_154, ^smithing_make_all);
+[if_button,smithing_new:com_158] @smithing_anvil_button(smithing_new:com_154, ^smithing_make_x);
+[if_button,smithing_new:com_159] @smithing_anvil_button(smithing_new:com_154, 5);
+[if_button,smithing_new:com_160] @smithing_anvil_button(smithing_new:com_154, 1);
+// Warhammer
+[if_button,smithing_new:smith_warhammer_all] @smithing_anvil_button(smithing_new:smith_warhammer_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_warhammer_x] @smithing_anvil_button(smithing_new:smith_warhammer_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_warhammer_5] @smithing_anvil_button(smithing_new:smith_warhammer_pic, 5);
+[if_button,smithing_new:smith_warhammer_1] @smithing_anvil_button(smithing_new:smith_warhammer_pic, 1);
+// Battleaxe
+[if_button,smithing_new:smith_battleaxe_all] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_battleaxe_x] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_battleaxe_5] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, 5);
+[if_button,smithing_new:smith_battleaxe_1] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, 1);
+// Chainbody
+[if_button,smithing_new:smith_chainbody_all] @smithing_anvil_button(smithing_new:smith_chainbody_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_chainbody_x] @smithing_anvil_button(smithing_new:smith_chainbody_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_chainbody_5] @smithing_anvil_button(smithing_new:smith_chainbody_pic, 5);
+[if_button,smithing_new:smith_chainbody_1] @smithing_anvil_button(smithing_new:smith_chainbody_pic, 1);
+// Kiteshield
+[if_button,smithing_new:smith_kiteshield_all] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_kiteshield_x] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_kiteshield_5] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, 5);
+[if_button,smithing_new:smith_kiteshield_1] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, 1);
+// Claws
+[if_button,smithing_new:smith_claws_all] @smithing_anvil_button(smithing_new:smith_claws_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_claws_x] @smithing_anvil_button(smithing_new:smith_claws_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_claws_5] @smithing_anvil_button(smithing_new:smith_claws_pic, 5);
+[if_button,smithing_new:smith_claws_1] @smithing_anvil_button(smithing_new:smith_claws_pic, 1);
+// 2-h sword
+[if_button,smithing_new:com_221] @smithing_anvil_button(smithing_new:com_218, ^smithing_make_all);
+[if_button,smithing_new:com_222] @smithing_anvil_button(smithing_new:com_218, ^smithing_make_x);
+[if_button,smithing_new:com_223] @smithing_anvil_button(smithing_new:com_218, 5);
+[if_button,smithing_new:com_224] @smithing_anvil_button(smithing_new:com_218, 1);
+// Plateskirt
+[if_button,smithing_new:smith_plateskirt_all] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_plateskirt_x] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_plateskirt_5] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, 5);
+[if_button,smithing_new:smith_plateskirt_1] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, 1);
+// Platelegs
+[if_button,smithing_new:smith_platelegs_all] @smithing_anvil_button(smithing_new:smith_platelegs_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_platelegs_x] @smithing_anvil_button(smithing_new:smith_platelegs_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_platelegs_5] @smithing_anvil_button(smithing_new:smith_platelegs_pic, 5);
+[if_button,smithing_new:smith_platelegs_1] @smithing_anvil_button(smithing_new:smith_platelegs_pic, 1);
+// Platebody
+[if_button,smithing_new:smith_platebody_all] @smithing_anvil_button(smithing_new:smith_platebody_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_platebody_x] @smithing_anvil_button(smithing_new:smith_platebody_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_platebody_5] @smithing_anvil_button(smithing_new:smith_platebody_pic, 5);
+[if_button,smithing_new:smith_platebody_1] @smithing_anvil_button(smithing_new:smith_platebody_pic, 1);
+
+[label,smithing_anvil_button](component $slot, int $count)
+def_dbrow $data = ~smithing_anvil_row(%smithing_bar, $slot);
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+if ($count = ^smithing_make_x) {
+    // 2011's Make X (cache 786) asks how many, as void-634's Anvil.kt does
+    // ("Enter amount:").
+    p_countdialog;
+    if (last_int <= 0) return;
+    $count = last_int;
+} else if ($count = ^smithing_make_all) {
+    // As many as the bars make, as void-634's Anvil.kt makes.
+    $count = divide(inv_total(inv, db_getfield($data, smithing:bar, 0)), db_getfield($data, smithing:bar_amount, 0));
+}
+@attempt_smithing(db_getfield($data, smithing:ifproduct, 0), $count);
+
+// The row of the product the bar makes in the slot, or null.
+[proc,smithing_anvil_row](obj $bar, component $slot)(dbrow)
+db_find(smithing:bar, $bar);
+def_dbrow $row = db_findnext;
+def_component $item;
+def_component _$name;
+def_component _$bars;
+while ($row ! null) {
+    $item, _$name, _$bars = db_getfield($row, smithing:slot, 0);
+    if ($item = $slot) {
+        return ($row);
+    }
+    $row = db_findnext;
+}
+return (null);
+
+
+[oplocu,_anvil]
+if (~in_tutorial_island(coord) = true) {
+    // This happens with any item, not just bars.
+    if (%varplayer_419 < ^newbie_mining_instructor_before_smelt_bronze_bar) {
+        ~mesbox("This is an anvil used for smithing.|You'll learn how to use it soon.");
+        return;
+    }
+
+    if (%varplayer_419 < ^newbie_mining_instructor_smith_a_dagger) {
+        ~mesbox("You need a hammer to work the metal with.|Talk to the mining instructor to get one");
+        return;
+    }
+}
+
+if(loc_type = doric_anvil) {
+    // Doric's Quest is not ported: Doric's lines wait for it.
+    if (%doricquest = 0) {
+        mes("You must complete Doric's Quest to use this anvil.");
+        // if(npc_find(coord, doric, 5, 0) = true) @doric_not_started_anvil;
+        return;
+    }
+    if (%doricquest = 10) {
+        mes("You must complete Doric's Quest to use this anvil.");
+        // if(npc_find(coord, doric, 5, 0) = true) @doric_materials;
+        return;
+    }
+}
+
+if(loc_type = viking_anvil) {
+    if(%viking < ^viking_complete) {
+        mes("Only Fremenniks may use this anvil.");
+        return;
+    }
+}
+
+// Legends' Quest's golden bowl waits for the quest's port.
+// if (last_useitem = gold_bar & %legendsquest >= ^legends_asked_gujuo_holy_water) @make_golden_bowl;
+if (oc_category(last_useitem) = category_151) @smithing_anvil_interface(last_useitem);
+else if (last_useitem = dragonshield_a | last_useitem = dragonshield_b) @make_dragon_sq;
+else ~displaymessage(^dm_default);
+
+// 289 stopped transmitting its inv columns on close ([if_close,smithing]);
+// 2011's slots are no invs.
+
+[label,smithing_anvil_interface](obj $last_item)
+def_struct $struct = oc_param($last_item, smithing_anvil_struct);
+if ($struct = null) {
+    // https://web.archive.org/web/20170122060114/https://www.neoseeker.com/forums/2410/t682388-silver/
+    ~chatplayer("<p,neutral>Perhaps I should use this in a furnace instead.");
+    return;
+}
+def_int $levelrequired = struct_param($struct, levelrequired);
+def_int $player_level = stat(smithing);
+// check if high enough level
+if ($player_level < $levelrequired) {
+    ~mesbox("You need a Smithing level of at least <tostring($levelrequired)> to work <lowercase(oc_name(struct_param($struct, namedobj)))>s.");
+    return;
+}
+// check if player has a hammer
+if (inv_total(inv, hammer) < 1) {
+    ~mesbox("You need a hammer to work the metal with.");
+    return;
+}
+// 289 set %smithbars and %modified_smith here for its interface to colour the
+// names and bars, and %if1 for the darts' text once Tourist Trap taught them;
+// the slots are coloured below instead.
+%smithing_bar = $last_item;
+// 289's other_layer was one slot, Bronze wire for bronze and Steel nails for
+// steel: 2011 has a slot for each (wire, com81; nails, com73), and its nails
+// show by default.
+if ($last_item = bronze_bar) {
+    if_sethide(smithing_new:smith_wire, false);
+    if_sethide(smithing_new:smith_nails, true);
+} else if ($last_item = steel_bar) {
+    if_sethide(smithing_new:smith_studs, false);
+    if_sethide(smithing_new:smith_nails, false);
+    if_sethide(smithing_new:smith_wire, true);
+}  else {
+    if_sethide(smithing_new:smith_nails, true);
+    if_sethide(smithing_new:smith_wire, true);
+    if_sethide(smithing_new:smith_studs, true);
+}
+// hide studs button if its not steel
+if ($last_item ! steel_bar) {
+    if_sethide(smithing_new:smith_studs, true);
+} else {
+    if_sethide(smithing_new:smith_studs, false);
+}
+// hide claws button if death plateau is not complete
+if(%death_equiproom < ^death_complete) {
+    if_sethide(smithing_new:smith_claws, true);
+} else {
+    if_sethide(smithing_new:smith_claws, false);
+}
+// 289 always showed the darts, white once Tourist Trap taught them; 2011's
+// darts slot is hidden until the server shows it (cache 786), and void-634's
+// Anvil.kt shows it after Tourist Trap.
+if (%desertrescue >= ^desertrescue_learned_darts) {
+    if_sethide(smithing_new:smith_darttip, false);
+} else {
+    if_sethide(smithing_new:smith_darttip, true);
+}
+// 2011's crossbow bolts and limbs show by default; 289 makes neither.
+if_sethide(smithing_new:smith_bolts, true);
+if_sethide(smithing_new:smith_limbs, true);
+// each of the bar's products in its slot
+db_find(smithing:bar, $last_item);
+def_dbrow $data = db_findnext;
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+def_int $bars = inv_total(inv, $last_item);
+def_component $item;
+def_component $name;
+def_component $bar_text;
+while ($data ! null) {
+    $item, $name, $bar_text = db_getfield($data, smithing:slot, 0);
+    if_setobject($item, db_getfield($data, smithing:product, 0), db_getfield($data, smithing:product_amount, 0));
+    // 289's names are white from their level up (smithing.if's activecolour).
+    // On the island 289's tutorial showed only the bronze dagger white; that
+    // is not carried to 2011's anvil interface.
+    if ($player_level >= db_getfield($data, smithing:levelrequired, 0)) {
+        if_setcolour($name, ^white_rgb);
+    } else {
+        if_setcolour($name, ^black_rgb);
+    }
+    if ($bars >= db_getfield($data, smithing:bar_amount, 0)) {
+        if_setcolour($bar_text, ^smithing_bars_rgb);
+    } else {
+        if_setcolour($bar_text, ^smithing_nobars_rgb);
+    }
+    $data = db_findnext;
+}
+
+if_openmain(smithing_new);
+
+[label,attempt_smithing](obj $last_item, int $count)
+if_close;
+// get item data from db
+db_find(smithing:ifproduct, $last_item);
+def_dbrow $data = db_findnext;
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+// todo: check if they have tourist trap completed for dart tips
+// IT CHECKS FOR DARTS FIRST BTW (before members check)
+switch_obj(db_getfield($data,smithing:product,0)) {
+     case bronze_dart_tip, iron_dart_tip, steel_dart_tip, mithril_dart_tip, adamant_dart_tip, rune_dart_tip :
+         if (%desertrescue < ^desertrescue_learned_darts) {
+             ~mesbox("You're not sure how to make darts yet.");
+             return;
+         }
+ }
+
+// This check comes after darts but before mems, confirmed.
+// 289's last_item is the clicked product; 2011's button carries none, so it
+// is $last_item here.
+if (~in_tutorial_island(coord) = true & $last_item ! bronze_dagger) {
+    ~mesbox("You cannot make this on Tutorial Island.");
+    return;
+}
+
+// check if mems obj is selected
+if (oc_members($last_item) = true & map_members = ^false) {
+    mes("You can only make that on a members' server.");
+    return;
+}
+// check if player has enough bars
+def_int $bar_amount = db_getfield($data,smithing:bar_amount,0);
+def_namedobj $bar = db_getfield($data, smithing:bar, 0);
+if (inv_total(inv, $bar) < $bar_amount) {
+    ~mesbox("You don't have enough <lowercase(oc_name($bar))>s to make <db_getfield($data,smithing:end_message,0)>."); // https://youtu.be/Xud7h207rZc?t=286
+    return;
+}
+// check if player has high enough level
+def_int $levelrequired = db_getfield($data,smithing:levelrequired,0);
+if (stat(smithing) < $levelrequired) {
+    ~mesbox("You need a Smithing level of <tostring($levelrequired)> to make <db_getfield($data,smithing:levelfailmessage,0)>.");
+    return;
+}
+// play anim and sound
+// 2011's human_smithing (seq 898) strikes the anvil itself: its frames 11 and
+// 23 each play one of synths 3190, 3188 and 3189 at random (cache 786), and
+// void-634's Anvil.kt sends no sound.
+// 289's anvil_4 is left out, here and below.
+anim(human_smithing, 0);
+// sound_synth(anvil_4, 1, 0);
+// delay player during whole smithing sesh
+// https://oldschool.runescape.wiki/w/Update:Dev_Blog:_Third_Old_School_RuneScape_Content_Poll
+if (~in_tutorial_island(coord) = true) {
+    ~tut_smithing_anvil($count);
+} else {
+    ~smithing_anvil($data, $count);
+}
+//--------------------------
+
+//--------------------------
+// items appear in the inventory after 2 ticks, then the player is delayed for 3 ticks after
+// https://youtu.be/vQixsBb7wPQ?t=95, level up interface takes 3 ticks to appear
+[proc,smithing_anvil](dbrow $data, int $count)
+p_delay(1);
+def_int $bar_amount = db_getfield($data,smithing:bar_amount,0);
+def_namedobj $bar = db_getfield($data, smithing:bar, 0);
+def_namedobj $product = db_getfield($data, smithing:product, 0);
+def_int $product_amount = db_getfield($data,smithing:product_amount,0);
+// delete bars
+inv_del(inv, $bar, $bar_amount);
+// add product
+inv_add(inv, $product, $product_amount);
+// add smithing xp
+def_struct $struct = oc_param($bar, smithing_anvil_struct);
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(smithing, calc($bar_amount * struct_param($struct, xpperbar)));
+// display message
+mes("You hammer the <struct_param($struct, name_text)> and make <db_getfield($data,smithing:end_message,0)>.");
+p_delay(2);
+// end smithing if count is less than 1
+$count = calc($count - 1);
+// check if player has enough bars
+if (inv_total(inv, $bar) < $bar_amount & $count > 0) {
+    ~mesbox("You don't have enough <lowercase(oc_name($bar))>s to make any more."); // https://youtu.be/Xud7h207rZc?t=286
+    return;
+}
+if ($count < 1) {
+    return;
+}
+// play anim and sound
+anim(human_smithing, 0);
+// sound_synth(anvil_4, 1, 0);
+// recall proc
+~smithing_anvil($data, $count);
+//--------------------------

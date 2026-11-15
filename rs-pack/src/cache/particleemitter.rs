@@ -1,8 +1,9 @@
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct ParticleEmitterType {
-    pub id: u16,
+    pub id: TypeId,
     pub angles: [u16; 4],
     pub unused2: u8,
     pub speed: [i32; 2],
@@ -44,7 +45,7 @@ fn effector_list(buf: &mut Packet) -> Vec<u16> {
 impl CacheType for ParticleEmitterType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             angles: [0; 4],

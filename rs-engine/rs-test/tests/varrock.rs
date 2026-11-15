@@ -17,12 +17,12 @@ static TURN: Mutex<()> = Mutex::new(());
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
 /// the npc reaches (npcs wander).
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
