@@ -116,6 +116,14 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
                 }
             }
             #[cfg(since_742)]
+            (GROUP_UNKNOWN4, 1) => {
+                writeln!(
+                    out,
+                    "titlescreensong={}",
+                    names.name("songs", buf.g2() as u32)
+                )?;
+            }
+            #[cfg(since_742)]
             (GROUP_GRAPHICS, 12) => {
                 writeln!(out, "initialwindowsize={},{}", buf.g2(), buf.g2())?;
             }
@@ -198,6 +206,11 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
                         }
                     }
                 }
+            }
+            #[cfg(since_742)]
+            (GROUP_UNKNOWN4, "titlescreensong") => {
+                out.p1(1);
+                out.p2(names.id("songs", value)? as u16);
             }
             #[cfg(since_742)]
             (GROUP_GRAPHICS, "initialwindowsize") => {
@@ -290,7 +303,6 @@ fn player_recols(text: &str) -> Result<Vec<(u16, Vec<u16>)>> {
 enum Field {
     Flag,
     U8,
-    U16,
     I32,
     ByteList,
     Value,
@@ -301,7 +313,6 @@ fn field(group: u32, code: u8) -> Option<Field> {
     Some(match (group, code) {
         (GROUP_GRAPHICS, 4 | 8 | 10) | (GROUP_UNKNOWN7, 11) => Field::Flag,
         (GROUP_GRAPHICS, 9 | 11 | 13..=15) => Field::U8,
-        (GROUP_UNKNOWN4, 1) => Field::U16,
         (GROUP_UNKNOWN7, 12 | 13) => Field::I32,
         (GROUP_UNKNOWN7, 5..=7) => Field::ByteList,
         (GROUP_UNKNOWN7, 1..=4 | 8..=10) | (GROUP_UNKNOWN8, 1) => Field::Value,
@@ -326,7 +337,6 @@ fn unpack_field(buf: &mut Packet, kind: Field) -> String {
     match kind {
         Field::Flag => "yes".to_owned(),
         Field::U8 => buf.g1().to_string(),
-        Field::U16 => buf.g2().to_string(),
         Field::I32 => buf.g4s().to_string(),
         Field::ByteList => list(buf),
         Field::Value => {
@@ -361,7 +371,6 @@ fn pack_field(out: &mut PackedData, kind: Field, value: &str) -> Result<()> {
     match kind {
         Field::Flag => {}
         Field::U8 => out.p1(numbers[0] as u8),
-        Field::U16 => out.p2(numbers[0] as u16),
         Field::I32 => out.p4(numbers[0] as i32),
         Field::ByteList => list(out, &numbers),
         Field::Value => {
