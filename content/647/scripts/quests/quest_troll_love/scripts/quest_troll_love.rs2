@@ -1,0 +1,9 @@
+// 289's quests/quest_troll_love/scripts/quest_troll_love.rs2: only the proc Dunstan's talk (Death
+// Plateau) calls. The rest of Troll Romance is not ported yet.
+[proc,trollromance_dunstan_has_materials]()(boolean)
+if (inv_total(inv, yew_logs) > 0 | inv_total(inv, maple_logs) > 0) {
+    if (inv_total(inv, iron_bar) > 0 & inv_total(inv, rope) > 0) {
+        return (true);
+    }
+}
+return (false);
