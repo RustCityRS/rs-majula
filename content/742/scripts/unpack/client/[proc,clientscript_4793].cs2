@@ -1,0 +1,46 @@
+// 4793
+[proc,clientscript_4793](int $int0, int $int1)(int, int, int, int, int, int)
+switch_int ($int0) {
+    case 1 :
+        return(%varclan_2634, %varclan_2635, %varclan_2636, %varclan_2637, %varclan_2638, %varclan_2639);
+    case 2 :
+        return(%varclan_2640, %varclan_2641, %varclan_2642, %varclan_2643, %varclan_2644, %varclan_2645);
+    case 3 :
+        return(%varclan_2646, %varclan_2647, %varclan_2648, %varclan_2649, %varclan_2650, %varclan_2651);
+    case 4 :
+        switch_int ($int1) {
+            case 1 :
+                return(%varclan_2652, %varclan_2653, %varclan_2654, %varclan_2655, %varclan_2656, %varclan_2657);
+            case 2 :
+                return(%varclan_2658, %varclan_2659, %varclan_2660, %varclan_2661, %varclan_2662, %varclan_2663);
+            case 3 :
+                return(%varclan_2664, %varclan_2665, %varclan_2666, %varclan_2667, %varclan_2668, %varclan_2669);
+            case 4 :
+                return(%varclan_2670, %varclan_2671, %varclan_2672, %varclan_2673, %varclan_2674, %varclan_2675);
+            case 5 :
+                return(%varclan_2676, %varclan_2677, %varclan_2678, %varclan_2679, %varclan_2680, %varclan_2681);
+            case 6 :
+                return(%varclan_2682, %varclan_2683, %varclan_2684, %varclan_2685, %varclan_2686, %varclan_2687);
+            case 7 :
+                return(%varclan_2688, %varclan_2689, %varclan_2690, %varclan_2691, %varclan_2692, %varclan_2693);
+            case 8 :
+                return(%varclan_2694, %varclan_2695, %varclan_2696, %varclan_2697, %varclan_2698, %varclan_2699);
+            case 9 :
+                return(%varclan_2700, %varclan_2701, %varclan_2702, %varclan_2703, %varclan_2704, %varclan_2705);
+            case 10 :
+                return(%varclan_2706, %varclan_2707, %varclan_2708, %varclan_2709, %varclan_2710, %varclan_2711);
+            case 11 :
+                return(%varclan_2712, %varclan_2713, %varclan_2714, %varclan_2715, %varclan_2716, %varclan_2717);
+            case 12 :
+                return(%varclan_2718, %varclan_2719, %varclan_2720, %varclan_2721, %varclan_2722, %varclan_2723);
+        }
+    case 5 :
+        switch_int ($int1) {
+            case 1 :
+                return(%varclan_2149, %varclan_2150, %varclan_2151, %varclan_2152, %varclan_2153, %varclan_2154);
+            case 2 :
+                return(%varclan_2166, %varclan_2167, %varclan_2168, %varclan_2169, %varclan_2170, %varclan_2171);
+            case 3 :
+                return(%varclan_2183, %varclan_2184, %varclan_2185, %varclan_2186, %varclan_2187, %varclan_2188);
+        }
+}

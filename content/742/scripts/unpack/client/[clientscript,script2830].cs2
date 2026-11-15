@@ -1,0 +1,7 @@
+// 2830
+[clientscript,script2830](int $int0, boolean $boolean1)
+if ($int0 ! 1) {
+    return;
+}
+%player_kit_hair_client = $boolean1;
+~player_kit_hair_redraw;

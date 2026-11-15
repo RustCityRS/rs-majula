@@ -1,0 +1,24 @@
+// 198
+[proc,clientscript_198](int $int0)(graphic)
+switch_int ($int0) {
+    case 0 :
+        return(1004);
+    case 1 :
+        return(1012);
+    case 2 :
+        return(1011);
+    case 3 :
+        return(1010);
+    case 4 :
+        return(1009);
+    case 5 :
+        return(1008);
+    case 6 :
+        return(1007);
+    case 7 :
+        return(1006);
+    case 127 :
+        return(1005);
+    case default :
+        return(null);
+}

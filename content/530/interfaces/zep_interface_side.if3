@@ -1,0 +1,356 @@
+// 471:0
+[x]
+type=text
+x=5
+y=4
+width=19
+height=33
+layer=com_26
+textfont=fontmetrics_645
+text=X
+textshadow=yes
+colour=0x996600
+
+// 471:1
+[x2]
+type=text
+x=5
+y=55
+width=19
+height=33
+layer=com_26
+textfont=fontmetrics_645
+text=X
+textshadow=yes
+colour=0x996600
+
+// 471:2
+[zep_if_sandbags]
+type=text
+x=35
+y=4
+width=32
+height=32
+layer=com_26
+textfont=fontmetrics_645
+text=%1
+textshadow=yes
+colour=0xcccccc
+onvartransmit=clientscript_1261{zep_if_var}
+
+// 471:3
+[zep_if_logs]
+type=text
+x=35
+y=54
+width=32
+height=32
+layer=com_26
+textfont=fontmetrics_645
+text=%1
+textshadow=yes
+colour=0xcccccc
+
+// 471:4
+[zep_btn_sandbags]
+type=text
+x=22
+y=31
+width=63
+height=62
+layer=zep_bounding_box
+textfont=fontmetrics_495
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Sandbags
+onmouseleave=deltooltip(zep_interface_side:zep_tooltip)
+onmouserepeat=addtooltip(event_com, zep_interface_side:zep_tooltip, "Move up more.", 50, 150)
+
+// 471:5
+[zep_btn_relax]
+type=text
+x=6
+y=138
+width=67
+height=33
+layer=zep_bounding_box
+textfont=fontmetrics_645
+text=Relax
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Relax
+onmouseleave=deltooltip(zep_interface_side:zep_tooltip)
+onmouserepeat=addtooltip(event_com, zep_interface_side:zep_tooltip, "Move forward.", 50, 150)
+
+// 471:6
+[zep_btn_tug]
+type=text
+x=34
+y=175
+width=50
+height=73
+layer=zep_bounding_box
+textfont=fontmetrics_495
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Tug
+onmouseleave=deltooltip(zep_interface_side:zep_tooltip)
+onmouserepeat=addtooltip(event_com, zep_interface_side:zep_tooltip, "Move down.", 50, 150)
+
+// 471:7
+[zep_controls]
+type=text
+x=18
+y=-2
+width=162
+height=32
+textfont=fontmetrics_645
+text=Balloon Controls
+textshadow=yes
+colour=0x996600
+
+// 471:8
+[zep_btn_close]
+type=text
+x=103
+y=138
+width=49
+height=31
+layer=zep_bounding_box
+textfont=fontmetrics_645
+text=Bail 
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Bail
+onmouseleave=deltooltip(zep_interface_side:zep_tooltip)
+onmouserepeat=addtooltip(event_com, zep_interface_side:zep_tooltip, "We're doomed.", 50, 150)
+
+// 471:9
+[zep_btn_logs]
+type=text
+x=9
+y=96
+width=91
+height=39
+layer=zep_bounding_box
+textfont=fontmetrics_495
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Logs
+onmouseleave=deltooltip(zep_interface_side:zep_tooltip)
+onmouserepeat=addtooltip(event_com, zep_interface_side:zep_tooltip, "Move up.", 50, 150)
+
+// 471:10
+[zep_btn_tug_emerg]
+type=text
+x=106
+y=176
+width=53
+height=74
+layer=zep_bounding_box
+textfont=fontmetrics_495
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Emergency tug
+onmouseleave=deltooltip(zep_interface_side:zep_tooltip)
+onmouserepeat=addtooltip(event_com, zep_interface_side:zep_tooltip, "Move down more.", 50, 150)
+
+// 471:11
+[zep_sandbag]
+type=model
+x=31
+y=54
+width=32
+height=32
+model=model_19723
+modelzoom=600
+modelunknown=0,3000,0
+
+// 471:12
+[com_12]
+type=model
+x=24
+y=20
+width=32
+height=32
+layer=com_15
+model=model_19721
+modelzoom=800
+modelunknown=0,3000,0
+
+// 471:13
+[com_13]
+type=model
+x=13
+y=20
+width=32
+height=32
+layer=com_15
+model=model_19721
+modelzoom=800
+modelunknown=0,3000,0
+
+// 471:14
+[com_14]
+type=model
+x=18
+y=6
+width=32
+height=32
+layer=com_15
+model=model_19721
+modelzoom=800
+modelunknown=0,3000,0
+
+// 471:15
+[com_15]
+type=layer
+x=11
+y=97
+width=74
+height=53
+
+// 471:16
+[arrow]
+type=model
+x=51
+y=31
+width=32
+height=32
+model=model_19720
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:17
+[arrow_1]
+type=model
+x=51
+y=58
+width=32
+height=32
+model=model_19720
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:18
+[arrow_2]
+type=model
+x=72
+y=102
+width=32
+height=32
+model=model_19720
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:19
+[arrow_3]
+type=model
+x=57
+y=188
+width=32
+height=32
+model=model_19720
+modelangle=1024,0,0
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:20
+[arrow_4]
+type=model
+x=130
+y=176
+width=32
+height=32
+model=model_19720
+modelangle=1024,0,0
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:21
+[arrow_5]
+type=model
+x=130
+y=206
+width=32
+height=32
+model=model_19720
+modelangle=1024,0,0
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:22
+[arrow_6]
+type=model
+x=67
+y=140
+width=32
+height=32
+model=model_19719
+modelzoom=2000
+modelunknown=0,3000,0
+
+// 471:23
+[zep_rope_red]
+type=model
+x=112
+y=192
+width=32
+height=32
+model=model_19718
+modelzoom=800
+modelunknown=0,3000,0
+
+// 471:24
+[bail_basket]
+type=model
+x=152
+y=138
+width=32
+height=32
+model=model_19484
+modelangle=477,2041,0
+modelzoom=1680
+modelunknown=0,3000,0
+
+// 471:25
+[zep_rope]
+type=model
+x=41
+y=191
+width=32
+height=32
+model=model_19722
+modelzoom=800
+modelunknown=0,3000,0
+
+// 471:26
+[com_26]
+type=layer
+x=108
+y=46
+width=70
+height=91
+
+// 471:27
+[zep_bounding_box]
+type=layer
+width=190
+height=261
+
+// 471:28
+[zep_tooltip]
+type=layer
+x=33
+y=71
+width=115
+height=43
+layer=zep_bounding_box

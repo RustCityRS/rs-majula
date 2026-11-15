@@ -1,0 +1,15 @@
+// 5455
+[proc,clientscript_5455](int $int0)
+if ($int0 = 1) {
+    if (%varclient_1684 = 1) {
+        %varclient_1684 = 4;
+    } else {
+        %varclient_1684 = calc(%varclient_1684 - 1);
+    }
+} else if (%varclient_1684 = 4) {
+    %varclient_1684 = 1;
+} else {
+    %varclient_1684 = calc(%varclient_1684 + 1);
+}
+~clientscript_5456;
+sound_vorbis_volume(8088, 1, 0, 255);

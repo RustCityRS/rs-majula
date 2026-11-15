@@ -1,0 +1,17 @@
+// 3947
+[proc,script3947](string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, int $int0)
+if ($int0 = 1) {
+    if_setop(playerdesign4:suggestion_1, 1, $string0);
+    if_setop(playerdesign4:suggestion_2, 1, $string1);
+    if_setop(playerdesign4:suggestion_3, 1, $string2);
+    if_setop(playerdesign4:suggestion_4, 1, $string3);
+    if_setop(playerdesign4:suggestion_5, 1, $string4);
+    if_setop(playerdesign4:suggestion_6, 1, $string5);
+} else {
+    if_setop(no_displayname:suggestion_1, 1, $string0);
+    if_setop(no_displayname:suggestion_2, 1, $string1);
+    if_setop(no_displayname:suggestion_3, 1, $string2);
+    if_setop(no_displayname:suggestion_4, 1, $string3);
+    if_setop(no_displayname:suggestion_5, 1, $string4);
+    if_setop(no_displayname:suggestion_6, 1, $string5);
+}

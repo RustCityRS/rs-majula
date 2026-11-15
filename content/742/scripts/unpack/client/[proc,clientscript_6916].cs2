@@ -1,0 +1,17 @@
+// 6916
+[proc,clientscript_6916](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+if ($int2 < 0) {
+    if_setposition($component0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    return;
+}
+def_int $int3 = max(calc(20 - $int2), 0);
+def_component $component4 = if_getlayer($component0);
+def_int $int5 = calc((if_getwidth($component4) - if_getwidth($component0)) / 2);
+def_int $int6 = calc((if_getheight($component4) - if_getheight($component0)) / 2);
+if ($int3 > 0) {
+    if_setposition($component0, scale($int3, 20, $int5), scale($int3, 20, $int6), ^setpos_abs_right, ^setpos_abs_top);
+    return;
+}
+if_setposition($component0, 0, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setontimer($component0, null);

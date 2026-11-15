@@ -1,0 +1,8 @@
+[queue,rune_mysteries_complete]
+%runemysteries = ^runemysteries_complete;
+session_log(^log_adventure, "Quest complete: Rune Mysteries");
+// 2011's scroll (2011-05-15 NBvmMylvOY8, 459s).
+~send_quest_complete2(^questlist_runemysteries, air_talisman, 250, ^runemysteries_questpoints, "You have completed Rune Mysteries!", "Access to the Runecrafting skill and rune essence mine|Air talisman");
+// The Task System's "Rune Mysteries" (task 349, a quest task), as Cook's Assistant's is shown
+// completing in 2011 (quest_cook.rs2).
+~task_complete(349);

@@ -1,0 +1,39 @@
+// 3968
+[clientscript,script3968]
+if (%task_toggle_popup = 1 | %varclient_1425 = %varclient_1426) {
+    return;
+}
+if (getwindowmode >= 2 & %varplayerbit_9030 = 1) {
+    %varclient_1425 = %varclient_1426;
+    return;
+}
+%varclient_1427 = 0;
+def_struct $struct0 = ~clientscript_5795(%varclient_1425);
+def_int $int1 = 1;
+if (getwindowmode >= 2) {
+    if (if_gethide(toplevel_fullscreen:icon3) = true | if_getgraphic(toplevel_fullscreen:icon3) = null) {
+        $int1 = 0;
+    }
+} else if (if_gethide(toplevel:icon3) = true | if_getgraphic(toplevel:icon3) = null) {
+    $int1 = 0;
+}
+if_setonop(interface_1055:task_title_text, null);
+if (if_gethide(interface_1055:com_2) = true & if_gethide(interface_1055:com_0_) = true) {
+    if ($struct0 ! null) {
+        if_settrans(interface_1055:com_3, 255);
+        if_setontimer(interface_1055:com_2, "script3969");
+        if_sethide(interface_1055:com_2, false);
+    } else {
+        if_sethide(interface_1055:com_0_, true);
+        if_sethide(interface_1055:com_2, true);
+    }
+}
+%varclient_1426 = %varclient_1425;
+switch_int (%varclient_1425) {
+    case 3036, 3037, 3038, 3039, 3040 :
+        if_settext(interface_1055:com_14, "Challenge Complete!");
+    case 3041 :
+        if_settext(interface_1055:com_14, "Job Complete!");
+    case default :
+        if_settext(interface_1055:com_14, "Task Complete!");
+}

@@ -1,0 +1,153 @@
+// 88:0
+[com_0]
+type=layer
+width=508
+height=330
+xmode=abs_centre
+ymode=abs_centre
+onload=contact_spell
+
+// 88:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4260(event_com)
+
+// 88:2
+[com_2]
+type=layer
+y=12
+width=28
+height=47
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+onload=clientscript_5254(event_com)
+
+// 88:3
+[com_3]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+colour=0xffffff
+fill=yes
+trans=225
+
+// 88:4
+[scroll_layer]
+type=layer
+x=5
+width=25
+height=10
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+
+// 88:5
+[model_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=scroll_layer
+
+// 88:6
+[caption_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=scroll_layer
+
+// 88:7
+[com_7]
+type=layer
+x=5
+width=16
+height=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+
+// 88:8
+[com_8]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4261(event_com)
+
+// 88:9
+[com_9]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 88:10
+[com_10]
+type=text
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+textfont=palatino_linotype_18pt_regular
+text=Choose a character
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 88:11
+[com_11]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_0
+onload=aif_build_close_button_layer(event_com)
+
+// 88:12
+[com_12]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+onop=closebutton_click
+
+// 88:13
+[com_13]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+onload=aif_build_close_button_over(event_com)

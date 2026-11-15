@@ -1,0 +1,41 @@
+// 6152
+[proc,clientscript_6152](int $int0)
+%varclient_1888 = calc(%varclient_1888 + 1);
+switch_int ($int0) {
+    case 1 :
+        if (%varclient_1888 > 50) {
+            %varclient_1888 = 0;
+            if_settrans(interface_1268:com_2, 255);
+            if_setontimer(interface_1268:com_0, "clientscript_6152(2)");
+        } else {
+            if_setontimer(interface_1268:com_0, "clientscript_6152(1)");
+            if_settrans(interface_1268:com_2, scale(%varclient_1888, 50, 255));
+        }
+    case 2 :
+        if (%varclient_1888 > 150) {
+            %varclient_1888 = 0;
+            if_setontimer(interface_1268:com_0, "clientscript_6152(3)");
+        } else {
+            if_setontimer(interface_1268:com_0, "clientscript_6152(2)");
+        }
+    case 3 :
+        if (%varclient_1888 > 50) {
+            %varclient_1888 = 0;
+            if_settrans(interface_1268:com_2, 0);
+            if_setontimer(interface_1268:com_0, "clientscript_6152(4)");
+            if_sethide(interface_1268:com_2, true);
+            if_sethide(interface_1268:com_1, true);
+        } else {
+            if_setontimer(interface_1268:com_0, "clientscript_6152(3)");
+            if_settrans(interface_1268:com_2, calc(255 - scale(%varclient_1888, 50, 255)));
+        }
+    case 4 :
+        if (%varclient_1888 > 150) {
+            %varclient_1888 = 0;
+            if_settrans(interface_1268:com_0, 255);
+            if_setontimer(interface_1268:com_0, null);
+        } else {
+            if_setontimer(interface_1268:com_0, "clientscript_6152(4)");
+            if_settrans(interface_1268:com_0, scale(%varclient_1888, 150, 255));
+        }
+}

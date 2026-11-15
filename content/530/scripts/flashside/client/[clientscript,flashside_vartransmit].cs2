@@ -1,0 +1,16 @@
+// 117
+[clientscript,flashside_vartransmit]
+if (%varplayerbit_3756 < 1 | %varplayerbit_3756 > 15 | ~getsidehidden(calc(%varplayerbit_3756 - 1)) = false) {
+    if_setontimer(toplevel_fullscreen:stones_on, null);
+    if_setontimer(toplevel:backhmid1_hide, null);
+    ~clientscript_736(null, -1);
+    ~clientscript_1364;
+    return;
+}
+if (%varplayerbit_3756 = calc(14 + 1)) {
+    ~clientscript_736(toplevel_fullscreen:topstat_run, -1);
+} else {
+    ~clientscript_736(~getsideicon_resizeable(calc(%varplayerbit_3756 - 1)), -1);
+}
+if_setontimer(toplevel_fullscreen:stones_on, "flashside_timer");
+if_setontimer(toplevel:backhmid1_hide, "flashside_timer");

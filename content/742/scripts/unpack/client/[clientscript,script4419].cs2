@@ -1,0 +1,13 @@
+// 4419
+[clientscript,script4419](component $component0)
+if (if_getheight(if_getlayer($component0)) > 69) {
+    ~script4544($component0, null, null, null, 14, 70, 3, 1);
+    if_setgraphic(clan_info:arrow1, "aif_symbol_set_1,5");
+    if_setgraphic(clan_info:arrow2, "aif_symbol_set_1,5");
+    if_setnoclickthrough(clan_info:com_40, false);
+} else if (if_getheight(if_getlayer($component0)) = 14) {
+    ~script4544($component0, null, null, null, 14, 70, 3, 1);
+    if_setgraphic(clan_info:arrow1, "aif_symbol_set_1,4");
+    if_setgraphic(clan_info:arrow2, "aif_symbol_set_1,4");
+    if_setnoclickthrough(clan_info:com_40, true);
+}

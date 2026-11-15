@@ -1,0 +1,213 @@
+// 565:0
+[com_0]
+type=layer
+x=111
+y=266
+width=270
+height=20
+hide=yes
+pausebutton=yes
+pausetext=Toggle
+onmouseover=text_colour_swapper(cws_warning_10:warn3, ^white)
+onmouseleave=text_colour_swapper(cws_warning_10:warn3, 0xff981f)
+
+// 565:1
+[com_1]
+type=layer
+x=98
+y=34
+width=333
+height=263
+
+// 565:2
+[com_2]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4260(event_com)
+
+// 565:3
+[com_3]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 565:4
+[com_4]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4261(event_com)
+
+// 565:5
+[com_5]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 565:6
+[com_6]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+textfont=palatino_linotype_18pt_regular
+text=Warning!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 565:7
+[com_7]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_1
+onload=aif_build_close_button_layer(event_com)
+
+// 565:8
+[com_8]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 565:9
+[com_9]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+onload=aif_build_close_button_over(event_com)
+
+// 565:10
+[warning]
+type=text
+x=108
+y=84
+width=315
+height=87
+textfont=p12_full
+text=The desert is a VERY dangerous place. Do not<br> enter if you are afraid of dying. Beware of high temperatures, sandstorms, robbers and slavers.<br> No responsibility is taken by Shantay if anything<br> bad should happen to you, in any circumstances whatsoever.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+onload=cws_setup(cws_warning_10:com_0, cws_warning_10:cws_toggle_button, 10)
+onvartransmit=cws_setup(cws_warning_10:com_0, cws_warning_10:cws_toggle_button, 10){cws_var}
+
+// 565:11
+[com_15]
+type=graphic
+x=191
+y=42
+width=19
+height=19
+graphic="warning_icons,0"
+
+// 565:12
+[com_16]
+type=graphic
+x=319
+y=42
+width=19
+height=19
+graphic="warning_icons,0"
+
+// 565:13
+[warn1]
+type=text
+x=108
+y=204
+width=315
+height=15
+textfont=p12_full
+text=Proceed regardless
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+pausebutton=yes
+pausetext=Proceed
+onmouseover=text_colour_swapper(event_com, 0xff981f)
+onmouseleave=text_colour_swapper(event_com, ^red)
+
+// 565:14
+[warn2]
+type=text
+x=108
+y=236
+width=315
+height=15
+textfont=p12_full
+text=Stay out
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+pausebutton=yes
+pausetext=Stay out
+onmouseover=text_colour_swapper(event_com, 0xff981f)
+onmouseleave=text_colour_swapper(event_com, ^red)
+
+// 565:15
+[warn3]
+type=text
+x=1
+y=2
+width=315
+height=15
+layer=com_0
+textfont=p12_full
+text=Don't ask me this again
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 565:16
+[cws_toggle_button]
+type=graphic
+x=2
+width=19
+height=19
+layer=com_0
+graphic="warning_icons,1"

@@ -1,0 +1,37 @@
+// 1133:0
+[com_0]
+type=layer
+x=8
+y=24
+width=85
+height=290
+
+// 1133:1
+[com_1]
+type=graphic
+width=85
+height=290
+layer=com_0
+graphic=graphic_7697
+
+// 1133:2
+[com_2]
+type=layer
+x=-2
+y=18
+width=493
+height=1
+ymode=abs_bottom
+layer=com_0
+onvartransmit=clientscript_5258{varplayer_2376, varplayer_2377}
+
+// 1133:3
+[com_3]
+type=graphic
+x=2
+y=-18
+width=85
+height=287
+ymode=abs_bottom
+layer=com_2
+graphic=graphic_7696

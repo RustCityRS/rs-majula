@@ -1,0 +1,7 @@
+// 52
+[proc,clientscript_52](int $int0, graphic $graphic1, graphic $graphic2, component $component3)
+if (stat_base(prayer) < $int0) {
+    if_setgraphic($component3, $graphic1);
+} else {
+    if_setgraphic($component3, $graphic2);
+}

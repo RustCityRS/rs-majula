@@ -1,0 +1,57 @@
+// 6522
+[proc,clientscript_6522]
+def_struct $struct0 = enum(int, struct, enum_974, %varplayerbit_11646);
+def_struct $struct1 = enum(int, struct, enum_974, %varplayerbit_11647);
+def_struct $struct2 = enum(int, struct, enum_974, %varplayerbit_11648);
+if_sethide(interface_1302:com_20, false);
+if_setgraphic(interface_1302:com_23, struct_param($struct0, param_2557));
+if_setgraphic(interface_1302:com_29, struct_param($struct1, param_2557));
+if_setgraphic(interface_1302:com_15, struct_param($struct2, param_2557));
+if_setgraphic(interface_1302:com_22, ~clientscript_6523(struct_param($struct0, param_2563)));
+if_setgraphic(interface_1302:com_28, ~clientscript_6523(struct_param($struct1, param_2563)));
+if_setgraphic(interface_1302:com_14, ~clientscript_6523(struct_param($struct2, param_2563)));
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+def_graphic $graphic5 = null;
+switch_int (struct_param($struct0, param_2558)) {
+    case 1 :
+        $graphic3 = 11645;
+    case 2 :
+        $graphic3 = 11648;
+    case 3 :
+        $graphic3 = 11651;
+}
+switch_int (struct_param($struct1, param_2558)) {
+    case 1 :
+        $graphic4 = 11645;
+    case 2 :
+        $graphic4 = 11648;
+    case 3 :
+        $graphic4 = 11651;
+}
+switch_int (struct_param($struct2, param_2558)) {
+    case 1 :
+        $graphic5 = 11645;
+    case 2 :
+        $graphic5 = 11648;
+    case 3 :
+        $graphic5 = 11651;
+}
+if ($graphic3 ! null) {
+    if_sethide(interface_1302:com_24, false);
+    if_setgraphic(interface_1302:com_24, $graphic3);
+} else {
+    if_sethide(interface_1302:com_24, true);
+}
+if ($graphic4 ! null) {
+    if_sethide(interface_1302:com_30, false);
+    if_setgraphic(interface_1302:com_30, $graphic4);
+} else {
+    if_sethide(interface_1302:com_30, true);
+}
+if ($graphic5 ! null) {
+    if_sethide(interface_1302:com_21, false);
+    if_setgraphic(interface_1302:com_21, $graphic5);
+} else {
+    if_sethide(interface_1302:com_21, true);
+}

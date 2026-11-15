@@ -29,6 +29,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const AGILITY: usize = 16;
@@ -102,10 +103,14 @@ fn the_gnome_course_log_in_2011s_balance_stance() {
         assert_eq!(player.stats.xp[AGILITY] - xp, 75);
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 750);
         assert!(
-            stances.contains(&Some(BALANCE_BAS)),
+            stances.contains(&Some(TypeId::new(BALANCE_BAS))),
             "balanced in BAS {BALANCE_BAS}; stances {stances:?}"
         );
-        assert_eq!(player.info.readyanim, Some(HUMAN_BAS), "stands as before");
+        assert_eq!(
+            player.info.readyanim,
+            Some(TypeId::new(HUMAN_BAS)),
+            "stands as before"
+        );
     });
 }
 

@@ -1,0 +1,23 @@
+// 4112
+[clientscript,script4112](int $int0)
+if (%varplayer_1109 = null) {
+    return;
+}
+def_int $int1 = 0;
+if ($int0 > 100 & %stock_offerprice_visible > 2045222520) {
+    $int1 = ^max_32bit_int;
+} else if ($int0 < 100 & %stock_offerprice_visible <= 1) {
+    $int1 = 1;
+} else {
+    $int1 = scale($int0, 100, %stock_offerprice_visible);
+    if ($int1 = %stock_offerprice_visible) {
+        if ($int0 >= 100) {
+            $int1 = calc($int1 + 1);
+        } else {
+            $int1 = calc($int1 - 1);
+        }
+    }
+}
+%stock_offerprice_visible = $int1;
+if_settext(stockmarket:offerprice, "<tostring_localised(%stock_offerprice_visible, true)> gp");
+~sm_offerprice_settimer;

@@ -1,0 +1,6 @@
+// 1483
+[clientscript,bank_v2_tab_highlight_revert](int $int0, component $component1)
+if (clientclock >= $int0) {
+    if_setontimer($component1, null);
+    ~bank_v2_tab_highlight(%open_bank_tab);
+}

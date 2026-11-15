@@ -1,0 +1,79 @@
+// 173:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 173:1
+[chathead]
+type=model
+x=420
+width=32
+height=32
+ymode=abs_centre
+layer=layer_1
+model=null
+modelangle=40,166,0
+modelzoom=796
+modelunknown=0,3000,0
+
+// 173:2
+[com_2]
+type=model
+x=420
+width=32
+height=32
+ymode=abs_centre
+layer=layer_1
+model=null
+modelangle=40,166,0
+modelzoom=2000
+modelunknown=0,3000,0
+transmitop=10
+op10= 
+
+// 173:3
+[com_3]
+type=text
+x=2
+width=370
+height=17
+ymode=proportion_top
+layer=layer_1
+textfont=fontmetrics_497
+text=Name
+textalignh=centre
+colour=0x800000
+
+// 173:4
+[com_4]
+type=text
+x=2
+y=2420
+width=370
+height=11468
+heightmode=proportion
+ymode=proportion_top
+layer=layer_1
+textfont=fontmetrics_497
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 173:5
+[com_5]
+type=text
+x=2
+y=111
+width=370
+height=17
+layer=layer_1
+textfont=fontmetrics_497
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

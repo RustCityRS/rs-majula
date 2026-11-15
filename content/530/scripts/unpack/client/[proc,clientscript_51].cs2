@@ -1,0 +1,84 @@
+// 51
+[proc,clientscript_51](component $component0)(int)
+if ($component0 = prayer:com_5) {
+    return(%prayer0);
+}
+if ($component0 = prayer:com_7) {
+    return(%prayer1);
+}
+if ($component0 = prayer:com_9) {
+    return(%varplayer_85);
+}
+if ($component0 = prayer:com_11) {
+    return(%varplayer_862);
+}
+if ($component0 = prayer:com_13) {
+    return(%varplayer_863);
+}
+if ($component0 = prayer:com_15) {
+    return(%varplayer_86);
+}
+if ($component0 = prayer:com_17) {
+    return(%varplayer_87);
+}
+if ($component0 = prayer:com_19) {
+    return(%varplayer_88);
+}
+if ($component0 = prayer:com_21) {
+    return(%varplayer_89);
+}
+if ($component0 = prayer:com_23) {
+    return(%varplayer_90);
+}
+if ($component0 = prayer:com_25) {
+    return(%varplayer_91);
+}
+if ($component0 = prayer:com_27) {
+    return(%varplayer_864);
+}
+if ($component0 = prayer:com_29) {
+    return(%varplayer_865);
+}
+if ($component0 = prayer:com_31) {
+    return(%prayer9);
+}
+if ($component0 = prayer:com_33) {
+    return(%prayer10);
+}
+if ($component0 = prayer:com_35) {
+    return(%prayer11);
+}
+if ($component0 = prayer:com_37) {
+    return(%prayer12);
+}
+if ($component0 = prayer:com_39) {
+    return(%varplayer_96);
+}
+if ($component0 = prayer:com_41) {
+    return(%varplayer_97);
+}
+if ($component0 = prayer:com_43) {
+    return(%varplayer_866);
+}
+if ($component0 = prayer:com_45) {
+    return(%varplayer_867);
+}
+if ($component0 = prayer:com_47) {
+    return(%prayer_drain_counter);
+}
+if ($component0 = prayer:com_49) {
+    return(%prayer_drain_effect);
+}
+if ($component0 = prayer:com_51) {
+    return(%prayer_drain_resistance);
+}
+if ($component0 = prayer:com_53) {
+    return(%varplayer_1168);
+}
+if ($component0 = prayer:com_55) {
+    return(%varplayer_1052);
+}
+if ($component0 = prayer:com_57) {
+    return(%varplayer_1053);
+}
+return(0);

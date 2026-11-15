@@ -1,0 +1,66 @@
+// 4920
+[proc,clientscript_4920]
+def_component $component0 = null;
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int (%varplayerbit_9552) {
+    case 0 :
+        $component0 = interface_1259:com_189;
+        $component1 = interface_1259:com_183;
+        $component2 = interface_1259:com_47;
+    case 1, 3, 4 :
+        $component0 = interface_1261:com_375;
+        $component1 = interface_1261:com_369;
+        $component2 = interface_1261:com_141;
+    case 2, 5 :
+        $component0 = interface_1258:com_625;
+        $component1 = interface_1258:com_619;
+        $component2 = interface_1258:com_137;
+    case 6 :
+        $component0 = interface_1260:com_318;
+        $component1 = interface_1260:com_312;
+        $component2 = interface_1260:com_102;
+}
+def_string $string0 = "";
+if (%varclient_1557 = 0 & %varclient_1558 < 6 & %varclient_1558 = 0 & %varclient_1559 < 20) {
+} else {
+}
+if (%varclient_1557 = 0 & %varclient_1558 = 0 & %varclient_1559 = 0) {
+    if_settext($component1, "Due!");
+    return;
+}
+if (%varclient_1557 > 0) {
+    $string0 = append($string0, "<tostring(%varclient_1557)>d ");
+}
+if (%varclient_1558 > 0) {
+    $string0 = append($string0, "<tostring(%varclient_1558)>h ");
+}
+if (%varclient_1559 > 0) {
+    $string0 = append($string0, "<tostring(%varclient_1559)>m");
+}
+if_settext($component1, $string0);
+def_string $string1 = "";
+if (op718 = 1) {
+    if_settext($component0, tostring(%varclan_2136));
+    if (~clientscript_4786(calc(%varclan_2580 - %varclan_2633)) = 1) {
+        if_setcolour($component0, 0x28c851);
+        $string1 = "Sufficient full members have visited to allow all upkeep and upgrades.";
+    } else if (~clientscript_4787(calc(%varclan_2580 - %varclan_2633)) = 1) {
+        if (%varclan_2580 = 7) {
+            if_setcolour($component0, 0x28c851);
+            $string1 = "Sufficient full members have visited to allow all upkeep and upgrades.";
+        } else {
+            if_setcolour($component0, 0xd0c420);
+            $string1 = "Sufficient full members have visited to allow all upkeep, but not to upgrade your citadel.";
+        }
+    } else if (%varclan_2136 > 4) {
+        if_setcolour($component0, 0xc4312d);
+        $string1 = "More full members must visit your citadel to allow you to perform upkeep on it.";
+    } else {
+        if_setcolour($component0, 0xc4312d);
+        $string1 = "More full members must visit your citadel to avoid losing access to it next build tick.";
+    }
+    if_setonmouserepeat($component2, "aif_tooltip(interface_1259:com_57, event_com, -1, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave($component2, "deltooltip(interface_1259:com_57)");
+}
+return;

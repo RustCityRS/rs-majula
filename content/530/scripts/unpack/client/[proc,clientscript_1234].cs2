@@ -1,0 +1,39 @@
+// 1234
+[proc,clientscript_1234]
+if (create_reply = -3) {
+    return;
+}
+if_setontimer(loginscreen:com_404, null);
+if_sethide(loginscreen:com_364, false);
+if_settext(loginscreen:com_365, "Next");
+if_setonclick(loginscreen:com_365, "clientscript_1233");
+if (create_reply = 2) {
+    ~clientscript_1174(loginscreen:com_405);
+    return;
+}
+if_setcolour(loginscreen:com_361, 0x8c320a);
+if (create_reply = -4) {
+    if_settext(loginscreen:com_361, "There was an error contacting the server.<br>Please try using a different world.");
+} else if (create_reply = -5) {
+    if_settext(loginscreen:com_361, "Connection timed out.<br>Please try using a different world.");
+} else if (create_reply = -5) {
+    if_settext(loginscreen:com_361, "No response from server.<br>Please try using a different world.");
+} else if (create_reply = 3) {
+    if_settext(loginscreen:com_361, "There was an error contacting the create system.<br>Please try again.");
+} else if (create_reply = 7) {
+    if_settext(loginscreen:com_361, "The server is very busy.<br>Please try again in a minute.");
+} else if (create_reply = 9) {
+    if_settext(loginscreen:com_361, "You cannot create an account at this time.<br>Please try again later.");
+} else if (create_reply = 10) {
+    if_settext(loginscreen:com_361, "The date of birth you entered<br>was invalid!");
+} else if (create_reply = 11) {
+    if_settext(loginscreen:com_361, "The date of birth you entered<br>is in the future!");
+} else if (create_reply = 12) {
+    if_settext(loginscreen:com_361, "The date of birth you entered<br>was this year!");
+} else if (create_reply = 13) {
+    if_settext(loginscreen:com_361, "The date of birth you entered<br>was last year!");
+} else if (create_reply = 14) {
+    if_settext(loginscreen:com_361, "The country you entered was invalid!");
+} else {
+    if_settext(loginscreen:com_361, "Unexpected server response.<br>Please try again.");
+}

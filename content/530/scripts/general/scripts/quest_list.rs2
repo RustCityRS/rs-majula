@@ -1,0 +1,33 @@
+// 530's quest tab (interface 274) is a component per quest, which the client
+// colours from the quests' vars (clientscript 7). Read Journal, the row's op1
+// (transmitop=1), opens that quest's journal: 289's
+// [if_button,questlist:<quest>], ported as [label,questlist_<quest>]. Each
+// quest's port adds its row here, on its component (questlist.constant).
+[if_button,interface_274:com_14] @questlist_cook;
+[if_button,interface_274:com_16] @questlist_doric;
+[if_button,interface_274:com_22] @questlist_hunt;
+[if_button,interface_274:com_28] @questlist_blackarmgang;
+[if_button,interface_274:com_26] @questlist_runemysteries;
+[if_button,interface_274:com_20] @questlist_imp;
+[if_button,interface_274:com_24] @questlist_priest;
+[if_button,interface_274:com_23] @questlist_prince;
+[if_button,interface_274:com_18] @questlist_haunted;
+[if_button,interface_274:com_15] @questlist_demon;
+[if_button,interface_274:com_29] @questlist_vampire;
+[if_button,interface_274:com_27] @questlist_sheep;
+[if_button,interface_274:com_30] @questlist_hetty;
+[if_button,interface_274:com_47] @questlist_druid;
+[if_button,interface_274:com_80] @questlist_junglepotion;
+[if_button,interface_274:com_123] @questlist_ball;
+
+// The tab's diary button swaps it for the Achievement Diary list (interface
+// 259), whose own button swaps back.
+[if_button,interface_274:com_3] ~questlist_swap(interface_259);
+[if_button,interface_259:com_8] ~questlist_swap(interface_274);
+
+[proc,questlist_swap](interface $interface)
+if (getwindowmode < 2) {
+    if_opensub($interface, toplevel:side2);
+} else {
+    if_opensub($interface, toplevel_fullscreen:side2);
+}

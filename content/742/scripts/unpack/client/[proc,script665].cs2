@@ -1,0 +1,10 @@
+// 665
+[proc,script665](int $rgb0, int $int1, component $component2, int $int3)
+cc_create($component2, ^iftype_rectangle, $int3);
+cc_settrans(255);
+cc_setfill(true);
+cc_setcolour($rgb0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+$int1 = min($int1, 250);
+cc_setontimer("script666(calc(clientclock + $int1), $component2, $int3)");

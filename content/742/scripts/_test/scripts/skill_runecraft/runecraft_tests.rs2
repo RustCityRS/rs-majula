@@ -1,0 +1,65 @@
+#testscript
+
+// Every tile 289's runecrafting puts a player on -- inside each temple, and
+// back outside its ruins -- is open ground on the 2011 map. Several temples
+// were rebuilt or moved between the two (air's ruins, Zanaris, the water,
+// fire and body temples), so a 289 tile that 2011 walled over would strand
+// the player.
+[label,test_runecraft_tiles_open_in_2011]
+// Types 1 (air) to 11 (death); runecraft.constant's ^air.. carry 289's
+// trailing `;`, which makes them strings.
+def_int $tiles = 0;
+def_int $type = 1;
+while ($type <= 11) {
+    def_dbrow $data = ~get_runecraft_data($type);
+    if ($data = null) {
+        test_fail("no runecraft_table row for type <tostring($type)>");
+        return;
+    }
+    def_string $name = db_getfield($data, runecraft_table:name, 0);
+    def_int $i = 0;
+    while ($i < db_getfieldcount($data, runecraft_table:enter_coord)) {
+        if (map_blocked(map_findsquare(db_getfield($data, runecraft_table:enter_coord, $i))) = true) {
+            test_fail("<$name>: enter tile <tostring($i)> is blocked");
+        }
+        $tiles = calc($tiles + 1);
+        $i = calc($i + 1);
+    }
+    $i = 0;
+    while ($i < db_getfieldcount($data, runecraft_table:exit_coord)) {
+        if (map_blocked(map_findsquare(db_getfield($data, runecraft_table:exit_coord, $i))) = true) {
+            test_fail("<$name>: exit tile <tostring($i)> is blocked");
+        }
+        $tiles = calc($tiles + 1);
+        $i = calc($i + 1);
+    }
+    $type = calc($type + 1);
+}
+// 14 tiles in (cosmic has four) and 19 out (chaos has nine).
+assert_eq($tiles, 33);
+
+// The essence mine's way back, to each wizard who sends players there.
+[label,test_essence_mine_returns_open_in_2011]
+if (map_blocked(^essence_mine_to_aubury) = true) {
+    test_fail("Aubury's return tile is blocked");
+}
+if (map_blocked(^essence_mine_to_sedridor) = true) {
+    test_fail("Sedridor's return tile is blocked");
+}
+if (map_blocked(^essence_mine_to_disentor) = true) {
+    test_fail("Distentor's return tile is blocked");
+}
+if (map_blocked(^essence_mine_to_brimstail) = true) {
+    test_fail("Brimstail's return tile is blocked");
+}
+if (map_blocked(^essence_mine_to_cromperty) = true) {
+    test_fail("Cromperty's return tile is blocked");
+}
+def_int $i = 0;
+while ($i < enum_getoutputcount(essence_mine_teleports)) {
+    if (map_blocked(enum(int, coord, essence_mine_teleports, $i)) = true) {
+        test_fail("essence mine arrival <tostring($i)> is blocked");
+    }
+    $i = calc($i + 1);
+}
+assert_eq($i, 22);

@@ -1,0 +1,4 @@
+// 5138
+[proc,clientscript_5138](string $string0, component $component0)
+def_int $int1 = calc(if_getx($component0) + if_getwidth($component0) / 2);
+~aif_tooltip(clansettings:tooltip_layer, $component0, -1, $string0, 150, null, null, null, 13, 4, 2, $int1, if_gety($component0));

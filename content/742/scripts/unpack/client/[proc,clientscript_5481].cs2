@@ -1,0 +1,19 @@
+// 5481
+[proc,clientscript_5481]()(boolean)
+if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3) {
+    return(true);
+}
+if (%sc_team ! 0) {
+    return(true);
+}
+switch_obj (inv_getobj(worn, 1)) {
+    case barbassault_playericon_attacker_01, barbassault_playericon_attacker_02, barbassault_playericon_attacker_03, barbassault_playericon_attacker_04, barbassault_playericon_attacker_05 :
+        return(true);
+}
+if (%varplayerbit_10131 = 1) {
+    return(true);
+}
+if (%varclient_186 = true) {
+    return(true);
+}
+return(false);

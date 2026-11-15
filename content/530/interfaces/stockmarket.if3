@@ -1,0 +1,2429 @@
+// 105:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 105:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=graphic_297
+tiling=yes
+
+// 105:2
+[com_2]
+type=graphic
+x=13
+y=53
+width=7
+height=241
+graphic=graphic_955
+tiling=yes
+
+// 105:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic=graphic_958
+
+// 105:4
+[com_4]
+type=graphic
+x=468
+y=51
+width=32
+height=243
+graphic=graphic_957
+tiling=yes
+
+// 105:5
+[com_5]
+type=graphic
+x=44
+y=20
+width=424
+height=7
+graphic=graphic_954
+tiling=yes
+
+// 105:6
+[com_6]
+type=graphic
+x=45
+y=294
+width=423
+height=32
+graphic=graphic_956
+tiling=yes
+
+// 105:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic=graphic_960
+
+// 105:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic=graphic_959
+
+// 105:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic=graphic_961
+
+// 105:10
+[com_10]
+type=graphic
+x=24
+y=49
+width=465
+height=6
+graphic=graphic_962
+tiling=yes
+
+// 105:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic=graphic_963
+
+// 105:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic=graphic_964
+
+// 105:13
+[closebutton]
+type=graphic
+x=473
+y=30
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+onclick=if_close
+
+// 105:14
+[title]
+type=text
+x=21
+y=30
+width=471
+height=16
+textfont=fontmetrics_496
+text=Grand Exchange
+textalignh=centre
+textshadow=yes
+colour=0xcc9800
+onload=stockmarket_onload
+onvartransmit=stockmarket_onvartransmit{varplayer_1109, varplayer_1112, varplayer_1111, varplayer_1110, varplayer_1113}
+
+// 105:15
+[com_15]
+type=graphic
+x=25
+y=26
+width=25
+height=25
+graphic=graphic_1164
+
+// 105:16
+[summarylayer]
+type=layer
+width=512
+height=334
+
+// 105:17
+[com_17]
+type=text
+x=21
+y=60
+width=471
+height=14
+layer=summarylayer
+textfont=fontmetrics_494
+text=Shown below is a summary of all your current offers.
+textalignh=centre
+textshadow=yes
+colour=0xcc9900
+
+// 105:18
+[offersummary0]
+type=layer
+x=30
+y=80
+width=140
+height=110
+layer=summarylayer
+transmitop=1,2
+op1=Make Offer
+op2=Abort Offer
+
+// 105:19
+[offerchoosetype0]
+type=layer
+x=30
+y=80
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:20
+[com_20]
+type=graphic
+y=43
+width=32
+height=45
+layer=offerchoosetype0
+graphic=graphic_1075
+tiling=yes
+
+// 105:21
+[com_21]
+type=graphic
+x=14
+y=27
+width=47
+height=32
+layer=offerchoosetype0
+graphic=graphic_1074
+tiling=yes
+
+// 105:22
+[com_22]
+type=graphic
+x=47
+y=44
+width=32
+height=45
+layer=offerchoosetype0
+graphic=graphic_1075
+tiling=yes
+
+// 105:23
+[com_23]
+type=graphic
+x=14
+y=71
+width=47
+height=32
+layer=offerchoosetype0
+graphic=graphic_1074
+tiling=yes
+
+// 105:24
+[com_24]
+type=graphic
+x=63
+y=43
+width=32
+height=45
+layer=offerchoosetype0
+graphic=graphic_1075
+tiling=yes
+
+// 105:25
+[com_25]
+type=graphic
+x=77
+y=27
+width=47
+height=32
+layer=offerchoosetype0
+graphic=graphic_1074
+tiling=yes
+
+// 105:26
+[com_26]
+type=graphic
+x=110
+y=44
+width=32
+height=45
+layer=offerchoosetype0
+graphic=graphic_1075
+tiling=yes
+
+// 105:27
+[com_27]
+type=graphic
+x=77
+y=71
+width=47
+height=32
+layer=offerchoosetype0
+graphic=graphic_1074
+tiling=yes
+
+// 105:28
+[choosesell0_icon]
+type=graphic
+x=83
+y=48
+width=35
+height=35
+layer=offerchoosetype0
+graphic=graphic_1168
+
+// 105:29
+[choosebuy0_icon]
+type=graphic
+x=20
+y=48
+width=35
+height=35
+layer=offerchoosetype0
+graphic=graphic_1170
+
+// 105:30
+[choosebuy0]
+type=layer
+x=12
+y=43
+width=51
+height=46
+layer=offerchoosetype0
+transmitop=1
+op1=Make Buy Offer
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy0_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy0_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip0, "Buy", 25, 100)
+onclick=deltooltip(stockmarket:tooltip0)
+
+// 105:31
+[choosesell0]
+type=layer
+x=75
+y=43
+width=51
+height=46
+layer=offerchoosetype0
+transmitop=1
+op1=Make Sell Offer
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell0_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell0_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip0, "Sell", 25, 100)
+onclick=deltooltip(stockmarket:tooltip0)
+
+// 105:32
+[offertooltip0]
+type=layer
+x=30
+y=80
+width=140
+height=110
+layer=summarylayer
+
+// 105:33
+[tooltip0]
+type=layer
+width=10
+height=10
+layer=offertooltip0
+
+// 105:34
+[offersummary1]
+type=layer
+x=186
+y=80
+width=140
+height=110
+layer=summarylayer
+transmitop=1,2
+op1=Make Offer
+op2=Abort Offer
+
+// 105:35
+[offerchoosetype1]
+type=layer
+x=186
+y=80
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:36
+[com_36]
+type=graphic
+y=43
+width=32
+height=45
+layer=offerchoosetype1
+graphic=graphic_1075
+tiling=yes
+
+// 105:37
+[com_37]
+type=graphic
+x=14
+y=27
+width=47
+height=32
+layer=offerchoosetype1
+graphic=graphic_1074
+tiling=yes
+
+// 105:38
+[com_38]
+type=graphic
+x=47
+y=44
+width=32
+height=45
+layer=offerchoosetype1
+graphic=graphic_1075
+tiling=yes
+
+// 105:39
+[com_39]
+type=graphic
+x=14
+y=71
+width=47
+height=32
+layer=offerchoosetype1
+graphic=graphic_1074
+tiling=yes
+
+// 105:40
+[com_40]
+type=graphic
+x=63
+y=43
+width=32
+height=45
+layer=offerchoosetype1
+graphic=graphic_1075
+tiling=yes
+
+// 105:41
+[com_41]
+type=graphic
+x=77
+y=27
+width=47
+height=32
+layer=offerchoosetype1
+graphic=graphic_1074
+tiling=yes
+
+// 105:42
+[com_42]
+type=graphic
+x=110
+y=44
+width=32
+height=45
+layer=offerchoosetype1
+graphic=graphic_1075
+tiling=yes
+
+// 105:43
+[com_43]
+type=graphic
+x=77
+y=71
+width=47
+height=32
+layer=offerchoosetype1
+graphic=graphic_1074
+tiling=yes
+
+// 105:44
+[choosesell1_icon]
+type=graphic
+x=83
+y=48
+width=35
+height=35
+layer=offerchoosetype1
+graphic=graphic_1168
+
+// 105:45
+[choosebuy1_icon]
+type=graphic
+x=20
+y=48
+width=35
+height=35
+layer=offerchoosetype1
+graphic=graphic_1170
+
+// 105:46
+[choosebuy1]
+type=layer
+x=12
+y=43
+width=51
+height=46
+layer=offerchoosetype1
+transmitop=1
+op1=Make Buy Offer
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy1_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy1_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip1, "Buy", 25, 100)
+onclick=deltooltip(stockmarket:tooltip1)
+
+// 105:47
+[choosesell1]
+type=layer
+x=75
+y=43
+width=51
+height=46
+layer=offerchoosetype1
+transmitop=1
+op1=Make Sell Offer
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell1_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell1_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip1, "Sell", 25, 100)
+onclick=deltooltip(stockmarket:tooltip1)
+
+// 105:48
+[offertooltip1]
+type=layer
+x=186
+y=80
+width=140
+height=110
+layer=summarylayer
+
+// 105:49
+[tooltip1]
+type=layer
+width=10
+height=10
+layer=offertooltip1
+
+// 105:50
+[offersummary2]
+type=layer
+x=342
+y=80
+width=140
+height=110
+layer=summarylayer
+transmitop=1,2
+op1=Make Offer
+op2=Abort Offer
+
+// 105:51
+[offerchoosetype2]
+type=layer
+x=342
+y=80
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:52
+[com_52]
+type=graphic
+y=43
+width=32
+height=45
+layer=offerchoosetype2
+graphic=graphic_1075
+tiling=yes
+
+// 105:53
+[com_53]
+type=graphic
+x=14
+y=27
+width=47
+height=32
+layer=offerchoosetype2
+graphic=graphic_1074
+tiling=yes
+
+// 105:54
+[com_54]
+type=graphic
+x=47
+y=44
+width=32
+height=45
+layer=offerchoosetype2
+graphic=graphic_1075
+tiling=yes
+
+// 105:55
+[com_55]
+type=graphic
+x=14
+y=71
+width=47
+height=32
+layer=offerchoosetype2
+graphic=graphic_1074
+tiling=yes
+
+// 105:56
+[com_56]
+type=graphic
+x=63
+y=43
+width=32
+height=45
+layer=offerchoosetype2
+graphic=graphic_1075
+tiling=yes
+
+// 105:57
+[com_57]
+type=graphic
+x=77
+y=27
+width=47
+height=32
+layer=offerchoosetype2
+graphic=graphic_1074
+tiling=yes
+
+// 105:58
+[com_58]
+type=graphic
+x=110
+y=44
+width=32
+height=45
+layer=offerchoosetype2
+graphic=graphic_1075
+tiling=yes
+
+// 105:59
+[com_59]
+type=graphic
+x=77
+y=71
+width=47
+height=32
+layer=offerchoosetype2
+graphic=graphic_1074
+tiling=yes
+
+// 105:60
+[choosesell2_icon]
+type=graphic
+x=83
+y=48
+width=35
+height=35
+layer=offerchoosetype2
+graphic=graphic_1168
+
+// 105:61
+[choosebuy2_icon]
+type=graphic
+x=20
+y=48
+width=35
+height=35
+layer=offerchoosetype2
+graphic=graphic_1170
+
+// 105:62
+[choosebuy2]
+type=layer
+x=12
+y=43
+width=51
+height=46
+layer=offerchoosetype2
+transmitop=1
+op1=Make Buy Offer
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy2_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy2_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip2, "Buy", 25, 100)
+onclick=deltooltip(stockmarket:tooltip2)
+
+// 105:63
+[choosesell2]
+type=layer
+x=75
+y=43
+width=51
+height=46
+layer=offerchoosetype2
+transmitop=1
+op1=Make Sell Offer
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell2_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell2_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip2, "Sell", 25, 100)
+onclick=deltooltip(stockmarket:tooltip2)
+
+// 105:64
+[offertooltip2]
+type=layer
+x=342
+y=80
+width=140
+height=110
+layer=summarylayer
+
+// 105:65
+[tooltip2]
+type=layer
+width=10
+height=10
+layer=offertooltip2
+
+// 105:66
+[offerbutton2_hide]
+type=layer
+x=342
+y=80
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:67
+[com_67]
+type=rectangle
+width=140
+height=110
+layer=offerbutton2_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 105:68
+[com_68]
+type=graphic
+width=140
+height=110
+layer=offerbutton2_hide
+graphic=graphic_1167
+tiling=yes
+
+// 105:69
+[offersummary3]
+type=layer
+x=30
+y=200
+width=140
+height=110
+layer=summarylayer
+transmitop=1,2
+op1=Make Offer
+op2=Abort Offer
+
+// 105:70
+[offerchoosetype3]
+type=layer
+x=30
+y=200
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:71
+[com_71]
+type=graphic
+y=43
+width=32
+height=45
+layer=offerchoosetype3
+graphic=graphic_1075
+tiling=yes
+
+// 105:72
+[com_72]
+type=graphic
+x=14
+y=27
+width=47
+height=32
+layer=offerchoosetype3
+graphic=graphic_1074
+tiling=yes
+
+// 105:73
+[com_73]
+type=graphic
+x=47
+y=44
+width=32
+height=45
+layer=offerchoosetype3
+graphic=graphic_1075
+tiling=yes
+
+// 105:74
+[com_74]
+type=graphic
+x=14
+y=71
+width=47
+height=32
+layer=offerchoosetype3
+graphic=graphic_1074
+tiling=yes
+
+// 105:75
+[com_75]
+type=graphic
+x=63
+y=43
+width=32
+height=45
+layer=offerchoosetype3
+graphic=graphic_1075
+tiling=yes
+
+// 105:76
+[com_76]
+type=graphic
+x=77
+y=27
+width=47
+height=32
+layer=offerchoosetype3
+graphic=graphic_1074
+tiling=yes
+
+// 105:77
+[com_77]
+type=graphic
+x=110
+y=44
+width=32
+height=45
+layer=offerchoosetype3
+graphic=graphic_1075
+tiling=yes
+
+// 105:78
+[com_78]
+type=graphic
+x=77
+y=71
+width=47
+height=32
+layer=offerchoosetype3
+graphic=graphic_1074
+tiling=yes
+
+// 105:79
+[choosesell3_icon]
+type=graphic
+x=83
+y=48
+width=35
+height=35
+layer=offerchoosetype3
+graphic=graphic_1168
+
+// 105:80
+[choosebuy3_icon]
+type=graphic
+x=20
+y=48
+width=35
+height=35
+layer=offerchoosetype3
+graphic=graphic_1170
+
+// 105:81
+[choosebuy3]
+type=layer
+x=12
+y=43
+width=51
+height=46
+layer=offerchoosetype3
+transmitop=1
+op1=Make Buy Offer
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy3_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy3_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip3, "Buy", 25, 100)
+onclick=deltooltip(stockmarket:tooltip3)
+
+// 105:82
+[choosesell3]
+type=layer
+x=75
+y=43
+width=51
+height=46
+layer=offerchoosetype3
+transmitop=1
+op1=Make Sell Offer
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell3_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell3_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip3, "Sell", 25, 100)
+onclick=deltooltip(stockmarket:tooltip3)
+
+// 105:83
+[offertooltip3]
+type=layer
+x=30
+y=200
+width=140
+height=110
+layer=summarylayer
+
+// 105:84
+[tooltip3]
+type=layer
+width=10
+height=10
+layer=offertooltip3
+
+// 105:85
+[offerbutton3_hide]
+type=layer
+x=30
+y=200
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:86
+[com_86]
+type=rectangle
+width=140
+height=110
+layer=offerbutton3_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 105:87
+[com_87]
+type=graphic
+width=140
+height=110
+layer=offerbutton3_hide
+graphic=graphic_1167
+tiling=yes
+
+// 105:88
+[offersummary4]
+type=layer
+x=186
+y=200
+width=140
+height=110
+layer=summarylayer
+transmitop=1,2
+op1=Make Offer
+op2=Abort Offer
+
+// 105:89
+[offerchoosetype4]
+type=layer
+x=186
+y=200
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:90
+[com_90]
+type=graphic
+y=43
+width=32
+height=45
+layer=offerchoosetype4
+graphic=graphic_1075
+tiling=yes
+
+// 105:91
+[com_91]
+type=graphic
+x=14
+y=27
+width=47
+height=32
+layer=offerchoosetype4
+graphic=graphic_1074
+tiling=yes
+
+// 105:92
+[com_92]
+type=graphic
+x=47
+y=44
+width=32
+height=45
+layer=offerchoosetype4
+graphic=graphic_1075
+tiling=yes
+
+// 105:93
+[com_93]
+type=graphic
+x=14
+y=71
+width=47
+height=32
+layer=offerchoosetype4
+graphic=graphic_1074
+tiling=yes
+
+// 105:94
+[com_94]
+type=graphic
+x=63
+y=43
+width=32
+height=45
+layer=offerchoosetype4
+graphic=graphic_1075
+tiling=yes
+
+// 105:95
+[com_95]
+type=graphic
+x=77
+y=27
+width=47
+height=32
+layer=offerchoosetype4
+graphic=graphic_1074
+tiling=yes
+
+// 105:96
+[com_96]
+type=graphic
+x=110
+y=44
+width=32
+height=45
+layer=offerchoosetype4
+graphic=graphic_1075
+tiling=yes
+
+// 105:97
+[com_97]
+type=graphic
+x=77
+y=71
+width=47
+height=32
+layer=offerchoosetype4
+graphic=graphic_1074
+tiling=yes
+
+// 105:98
+[choosesell4_icon]
+type=graphic
+x=83
+y=48
+width=35
+height=35
+layer=offerchoosetype4
+graphic=graphic_1168
+
+// 105:99
+[choosebuy4_icon]
+type=graphic
+x=20
+y=48
+width=35
+height=35
+layer=offerchoosetype4
+graphic=graphic_1170
+
+// 105:100
+[choosebuy4]
+type=layer
+x=12
+y=43
+width=51
+height=46
+layer=offerchoosetype4
+transmitop=1
+op1=Make Buy Offer
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy4_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy4_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip4, "Buy", 25, 100)
+onclick=deltooltip(stockmarket:tooltip4)
+
+// 105:101
+[choosesell4]
+type=layer
+x=75
+y=43
+width=51
+height=46
+layer=offerchoosetype4
+transmitop=1
+op1=Make Sell Offer
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell4_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell4_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip4, "Sell", 25, 100)
+onclick=deltooltip(stockmarket:tooltip4)
+
+// 105:102
+[offertooltip4]
+type=layer
+x=186
+y=200
+width=140
+height=110
+layer=summarylayer
+
+// 105:103
+[tooltip4]
+type=layer
+width=10
+height=10
+layer=offertooltip4
+
+// 105:104
+[offerbutton4_hide]
+type=layer
+x=186
+y=200
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:105
+[com_105]
+type=rectangle
+width=140
+height=110
+layer=offerbutton4_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 105:106
+[com_106]
+type=graphic
+width=140
+height=110
+layer=offerbutton4_hide
+graphic=graphic_1167
+tiling=yes
+
+// 105:107
+[offersummary5]
+type=layer
+x=342
+y=200
+width=140
+height=110
+layer=summarylayer
+transmitop=1,2
+op1=Make Offer
+op2=Abort Offer
+
+// 105:108
+[offerchoosetype5]
+type=layer
+x=342
+y=200
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:109
+[com_109]
+type=graphic
+y=43
+width=32
+height=45
+layer=offerchoosetype5
+graphic=graphic_1075
+tiling=yes
+
+// 105:110
+[com_110]
+type=graphic
+x=14
+y=27
+width=47
+height=32
+layer=offerchoosetype5
+graphic=graphic_1074
+tiling=yes
+
+// 105:111
+[com_111]
+type=graphic
+x=47
+y=44
+width=32
+height=45
+layer=offerchoosetype5
+graphic=graphic_1075
+tiling=yes
+
+// 105:112
+[com_112]
+type=graphic
+x=14
+y=71
+width=47
+height=32
+layer=offerchoosetype5
+graphic=graphic_1074
+tiling=yes
+
+// 105:113
+[com_113]
+type=graphic
+x=63
+y=43
+width=32
+height=45
+layer=offerchoosetype5
+graphic=graphic_1075
+tiling=yes
+
+// 105:114
+[com_114]
+type=graphic
+x=77
+y=27
+width=47
+height=32
+layer=offerchoosetype5
+graphic=graphic_1074
+tiling=yes
+
+// 105:115
+[com_115]
+type=graphic
+x=110
+y=44
+width=32
+height=45
+layer=offerchoosetype5
+graphic=graphic_1075
+tiling=yes
+
+// 105:116
+[com_116]
+type=graphic
+x=77
+y=71
+width=47
+height=32
+layer=offerchoosetype5
+graphic=graphic_1074
+tiling=yes
+
+// 105:117
+[choosesell5_icon]
+type=graphic
+x=83
+y=48
+width=35
+height=35
+layer=offerchoosetype5
+graphic=graphic_1168
+
+// 105:118
+[choosebuy5_icon]
+type=graphic
+x=20
+y=48
+width=35
+height=35
+layer=offerchoosetype5
+graphic=graphic_1170
+
+// 105:119
+[choosebuy5]
+type=layer
+x=12
+y=43
+width=51
+height=46
+layer=offerchoosetype5
+transmitop=1
+op1=Make Buy Offer
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy5_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy5_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip5, "Buy", 25, 100)
+onclick=deltooltip(stockmarket:tooltip5)
+
+// 105:120
+[choosesell5]
+type=layer
+x=75
+y=43
+width=51
+height=46
+layer=offerchoosetype5
+transmitop=1
+op1=Make Sell Offer
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell5_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell5_icon)
+onmouserepeat=clientscript_647(event_com, stockmarket:tooltip5, "Sell", 25, 100)
+onclick=deltooltip(stockmarket:tooltip5)
+
+// 105:121
+[offertooltip5]
+type=layer
+x=342
+y=200
+width=140
+height=110
+layer=summarylayer
+
+// 105:122
+[tooltip5]
+type=layer
+width=10
+height=10
+layer=offertooltip5
+
+// 105:123
+[offerbutton5_hide]
+type=layer
+x=342
+y=200
+width=140
+height=110
+layer=summarylayer
+hide=yes
+
+// 105:124
+[com_124]
+type=rectangle
+width=140
+height=110
+layer=offerbutton5_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 105:125
+[com_125]
+type=graphic
+width=140
+height=110
+layer=offerbutton5_hide
+graphic=graphic_1167
+tiling=yes
+
+// 105:126
+[offerlayer]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 105:127
+[backbutton]
+type=graphic
+x=25
+y=276
+width=35
+height=35
+layer=offerlayer
+graphic=graphic_1147
+transmitop=1
+op1=Back
+onmouseover=stock_backbutton_highlight_on(event_com)
+onmouseleave=stock_backbutton_highlight_off(event_com)
+onop=stockmarket_choosecancel
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Back to offer summary", 25, 300)
+
+// 105:128
+[com_128]
+type=graphic
+x=19
+y=249
+width=474
+height=32
+layer=offerlayer
+graphic=graphic_851
+tiling=yes
+
+// 105:129
+[box1]
+type=layer
+x=43
+y=60
+width=426
+height=90
+layer=offerlayer
+onload=clientscript_100(event_com)
+
+// 105:130
+[com_130]
+type=graphic
+x=187
+y=61
+width=32
+height=87
+layer=offerlayer
+graphic=graphic_1075
+tiling=yes
+
+// 105:131
+[box2]
+type=layer
+x=43
+y=152
+width=426
+height=84
+layer=offerlayer
+onload=clientscript_100(event_com)
+
+// 105:132
+[com_132]
+type=graphic
+x=244
+y=153
+width=32
+height=81
+layer=offerlayer
+graphic=graphic_1075
+tiling=yes
+
+// 105:133
+[offertype_text]
+type=text
+x=43
+y=66
+width=159
+height=16
+layer=offerlayer
+textfont=fontmetrics_496
+text=Buy Offer
+textalignh=centre
+textshadow=yes
+colour=0xcc9800
+
+// 105:134
+[offertype_icon]
+type=graphic
+x=175
+y=67
+width=16
+height=14
+layer=offerlayer
+graphic=graphic_1157
+
+// 105:135
+[com_135]
+type=graphic
+x=44
+y=68
+width=157
+height=32
+layer=offerlayer
+graphic=graphic_1074
+tiling=yes
+
+// 105:136
+[offeritem_backing]
+type=graphic
+x=102
+y=92
+width=40
+height=36
+layer=offerlayer
+graphic=graphic_1137
+
+// 105:137
+[offeritem_pulsate]
+type=graphic
+x=102
+y=92
+width=40
+height=36
+layer=offerlayer
+graphic=graphic_1140
+trans=255
+
+// 105:138
+[offeritem_model]
+type=graphic
+x=104
+y=94
+width=36
+height=32
+layer=offerlayer
+graphicshadow=3158064
+
+// 105:139
+[offeritem_marketpriceicon]
+type=graphic
+x=53
+y=132
+width=16
+height=14
+layer=offerlayer
+graphic=graphic_1158
+
+// 105:140
+[offeritem_marketprice]
+type=text
+x=59
+y=131
+width=140
+height=16
+layer=offerlayer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x999900
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onmouserepeat=addtooltip(event_com, stockmarket:offertooltip, "Current item Market Price", 25, 300)
+
+// 105:141
+[offeritem_name]
+type=text
+x=210
+y=66
+width=250
+height=16
+layer=offerlayer
+textfont=fontmetrics_496
+text=Choose an item to exchange
+textshadow=yes
+colour=0xcc9900
+
+// 105:142
+[offeritem_desc]
+type=text
+x=210
+y=94
+width=250
+height=33
+layer=offerlayer
+textfont=fontmetrics_494
+textshadow=yes
+colour=0xc1a875
+
+// 105:143
+[com_143]
+type=graphic
+x=211
+y=132
+width=16
+height=14
+layer=offerlayer
+graphic=graphic_1150
+
+// 105:144
+[com_144]
+type=graphic
+x=443
+y=132
+width=16
+height=14
+layer=offerlayer
+graphic=graphic_1151
+
+// 105:145
+[com_145]
+type=text
+x=210
+y=131
+width=250
+height=16
+layer=offerlayer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffa861
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onmouserepeat=addtooltip(event_com, stockmarket:offertooltip, "Current item price range (Minimum/Maximum Price)", 25, 300)
+
+// 105:146
+[com_146]
+type=text
+x=47
+y=157
+width=208
+height=16
+layer=offerlayer
+textfont=fontmetrics_496
+text=Quantity:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 105:147
+[com_147]
+type=graphic
+x=75
+y=178
+width=20
+height=20
+layer=offerlayer
+graphic=graphic_1161
+
+// 105:148
+[com_148]
+type=graphic
+x=95
+y=178
+width=113
+height=20
+layer=offerlayer
+graphic=graphic_1162
+tiling=yes
+
+// 105:149
+[com_149]
+type=graphic
+x=208
+y=178
+width=20
+height=20
+layer=offerlayer
+graphic=graphic_1163
+tiling=yes
+
+// 105:150
+[offercount]
+type=text
+x=83
+y=180
+width=136
+height=16
+layer=offerlayer
+textfont=fontmetrics_496
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffa861
+
+// 105:151
+[com_151]
+type=text
+x=262
+y=157
+width=202
+height=16
+layer=offerlayer
+textfont=fontmetrics_496
+text=Price per item:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 105:152
+[com_152]
+type=graphic
+x=289
+y=178
+width=20
+height=20
+layer=offerlayer
+graphic=graphic_1161
+
+// 105:153
+[com_153]
+type=graphic
+x=309
+y=178
+width=108
+height=20
+layer=offerlayer
+graphic=graphic_1162
+tiling=yes
+
+// 105:154
+[com_154]
+type=graphic
+x=417
+y=178
+width=20
+height=20
+layer=offerlayer
+graphic=graphic_1163
+tiling=yes
+
+// 105:155
+[offerprice]
+type=text
+x=295
+y=180
+width=136
+height=16
+layer=offerlayer
+textfont=fontmetrics_496
+text=1 gp
+textalignh=centre
+textshadow=yes
+colour=0xffa861
+
+// 105:156
+[newofferlayer]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 105:157
+[offercount_minus]
+type=layer
+x=55
+y=181
+width=13
+height=13
+layer=newofferlayer
+transmitop=1
+op1=Decrease Quantity
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=stock_offercount_minus
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Decrease quantity by 1", 25, 300)
+
+// 105:158
+[com_158]
+type=graphic
+x=55
+y=181
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1152
+onmouseover=stock_minus_highlight_on(event_com)
+onmouseleave=stock_minus_highlight_off(event_com)
+
+// 105:159
+[offercount_plus]
+type=layer
+x=235
+y=181
+width=13
+height=13
+layer=newofferlayer
+transmitop=1
+opbase= 
+op1=Increase Quantity
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=stock_offercount_plus
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Increase quantity by 1", 25, 300)
+
+// 105:160
+[com_160]
+type=graphic
+x=235
+y=181
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1153
+onmouseover=stock_plus_highlight_on(event_com)
+onmouseleave=stock_plus_highlight_off(event_com)
+
+// 105:161
+[com_161]
+type=graphic
+x=52
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:162
+[offercount_1]
+type=text
+x=52
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+transmitop=1
+op1=Add 1
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_598
+
+// 105:163
+[com_163]
+type=graphic
+x=93
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:164
+[offercount_10]
+type=text
+x=93
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+text=10
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Add 10
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_599
+
+// 105:165
+[com_165]
+type=graphic
+x=134
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:166
+[offercount_100]
+type=text
+x=134
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+text=100
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Add 100
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_600
+
+// 105:167
+[com_167]
+type=graphic
+x=175
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:168
+[offercount_1000]
+type=text
+x=175
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+text=1000
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Add 1000
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_865
+
+// 105:169
+[com_169]
+type=graphic
+x=216
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:170
+[offercount_set]
+type=text
+x=216
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+text=...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Edit Quantity
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Enter custom quantity", 25, 300)
+
+// 105:171
+[offerprice_minus]
+type=layer
+x=269
+y=181
+width=13
+height=13
+layer=newofferlayer
+transmitop=1
+op1=Decrease Price
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_604
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Decrease price by 1", 25, 300)
+
+// 105:172
+[com_172]
+type=graphic
+x=269
+y=181
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1152
+onmouseover=stock_minus_highlight_on(event_com)
+onmouseleave=stock_minus_highlight_off(event_com)
+
+// 105:173
+[offerprice_plus]
+type=layer
+x=444
+y=181
+width=13
+height=13
+layer=newofferlayer
+transmitop=1
+op1=Increase Price
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_605
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Increase price by 1", 25, 300)
+
+// 105:174
+[com_174]
+type=graphic
+x=444
+y=181
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1153
+onmouseover=stock_plus_highlight_on(event_com)
+onmouseleave=stock_plus_highlight_off(event_com)
+
+// 105:175
+[com_175]
+type=graphic
+x=266
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:176
+[com_176]
+type=graphic
+x=276
+y=211
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1150
+
+// 105:177
+[com_177]
+type=text
+x=266
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Offer Minimum Price
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_606
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Set price to item's Minimum Price", 25, 300)
+
+// 105:178
+[com_178]
+type=graphic
+x=319
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:179
+[com_179]
+type=graphic
+x=328
+y=211
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1158
+
+// 105:180
+[offerprice_market]
+type=text
+x=319
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Offer Market Price
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=stock_offerprice_market
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Set price to item's Market Price", 25, 300)
+
+// 105:181
+[com_181]
+type=graphic
+x=372
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:182
+[com_182]
+type=graphic
+x=382
+y=211
+width=16
+height=14
+layer=newofferlayer
+graphic=graphic_1151
+
+// 105:183
+[com_183]
+type=text
+x=372
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Offer Maximum Price
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onop=clientscript_608
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Set price to item's Maximum Price", 25, 300)
+
+// 105:184
+[com_184]
+type=graphic
+x=425
+y=200
+width=35
+height=35
+layer=newofferlayer
+graphic=graphic_1146
+onmouseover=clientscript_643(event_com)
+onmouseleave=clientscript_645(event_com)
+
+// 105:185
+[offerprice_set]
+type=text
+x=425
+y=205
+width=35
+height=25
+layer=newofferlayer
+textfont=fontmetrics_494
+text=...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Edit Price
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Enter custom price", 25, 300)
+
+// 105:186
+[com_186]
+type=graphic
+x=186
+y=239
+width=20
+height=20
+layer=offerlayer
+graphic=graphic_1161
+
+// 105:187
+[com_187]
+type=graphic
+x=206
+y=239
+width=108
+height=20
+layer=offerlayer
+graphic=graphic_1162
+tiling=yes
+
+// 105:188
+[com_188]
+type=graphic
+x=314
+y=239
+width=20
+height=20
+layer=offerlayer
+graphic=graphic_1163
+tiling=yes
+
+// 105:189
+[totalvalue]
+type=text
+x=186
+y=239
+width=148
+height=20
+layer=offerlayer
+textfont=fontmetrics_496
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe573
+onmouseleave=deltooltip(stockmarket:offertooltip)
+
+// 105:190
+[makeofferbutton]
+type=layer
+x=200
+y=270
+width=120
+height=43
+layer=newofferlayer
+transmitop=1
+op1=Confirm Offer
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=stock_v2_stone_button_filled(event_com)
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Confirm this offer and return to the summary view", 25, 300)
+
+// 105:191
+[com_191]
+type=text
+x=200
+y=270
+width=120
+height=43
+layer=newofferlayer
+textfont=fontmetrics_496
+text=Confirm Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 105:192
+[buylayer]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 105:193
+[com_193]
+type=layer
+x=102
+y=94
+width=40
+height=36
+layer=buylayer
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Click here to search for an item to buy", 25, 300)
+
+// 105:194
+[com_194]
+type=layer
+x=102
+y=94
+width=40
+height=36
+layer=buylayer
+transmitop=1
+op1=Choose Item
+onmouseover=clientscript_664(stockmarket:offeritem_backing, -1)
+onmouseleave=clientscript_665(stockmarket:offeritem_backing, -1)
+
+// 105:195
+[com_195]
+type=graphic
+x=105
+y=97
+width=16
+height=14
+layer=buylayer
+graphic=graphic_1154
+
+// 105:196
+[com_196]
+type=text
+x=210
+y=94
+width=250
+height=33
+layer=buylayer
+textfont=fontmetrics_494
+text=Click the icon to the left to search for items.
+textshadow=yes
+colour=0xc1a875
+
+// 105:197
+[selllayer]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 105:198
+[com_198]
+type=layer
+x=102
+y=94
+width=40
+height=36
+layer=selllayer
+onmouseleave=deltooltip(stockmarket:offertooltip)
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Use your inventory to select an item to sell here", 25, 300)
+
+// 105:199
+[com_199]
+type=text
+x=210
+y=94
+width=250
+height=33
+layer=selllayer
+textfont=fontmetrics_494
+text=Select an item in your inventory to sell.
+textshadow=yes
+colour=0xc1a875
+
+// 105:200
+[runninglayer]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 105:201
+[progresstext]
+type=text
+x=90
+y=267
+width=260
+height=30
+layer=runninglayer
+textfont=fontmetrics_494
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc1a875
+
+// 105:202
+[progressbar]
+type=layer
+x=70
+y=299
+width=300
+height=15
+layer=runninglayer
+
+// 105:203
+[offerabort]
+type=graphic
+x=350
+y=272
+width=20
+height=20
+layer=runninglayer
+graphic=graphic_1165
+transmitop=1
+op1=Abort Offer
+onmouseover=clientscript_617(event_com)
+onmouseleave=clientscript_618(event_com)
+onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Abort offer", 25, 100)
+onclick=clientscript_618(event_com)
+
+// 105:204
+[com_204]
+type=graphic
+x=380
+y=262
+width=32
+height=32
+layer=runninglayer
+graphic=graphic_846
+
+// 105:205
+[com_205]
+type=graphic
+x=412
+y=248
+width=82
+height=32
+layer=runninglayer
+graphic=graphic_828
+tiling=yes
+
+// 105:206
+[com_206]
+type=graphic
+x=366
+y=287
+width=32
+height=32
+layer=runninglayer
+graphic=graphic_841
+
+// 105:207
+[com_207]
+type=graphic
+x=386
+y=268
+width=107
+height=51
+layer=runninglayer
+graphic=graphic_1136
+tiling=yes
+
+// 105:208
+[com_208]
+type=graphic
+x=395
+y=276
+width=40
+height=36
+layer=runninglayer
+graphic=graphic_1138
+onmouseover=clientscript_664(event_com, -1)
+onmouseleave=clientscript_665(event_com, -1)
+
+// 105:209
+[offercollect_a]
+type=graphic
+x=397
+y=278
+width=36
+height=32
+layer=runninglayer
+
+// 105:210
+[com_210]
+type=graphic
+x=444
+y=276
+width=40
+height=36
+layer=runninglayer
+graphic=graphic_1138
+onmouseover=clientscript_664(event_com, -1)
+onmouseleave=clientscript_665(event_com, -1)
+
+// 105:211
+[offercollect_b]
+type=graphic
+x=446
+y=278
+width=36
+height=32
+layer=runninglayer
+
+// 105:212
+[tooltiplayer]
+type=layer
+width=512
+height=334
+
+// 105:213
+[offertooltip]
+type=layer
+width=10
+height=10
+layer=tooltiplayer

@@ -1,0 +1,270 @@
+// 2725
+[proc,clientscript_2725]
+def_int $int0 = 0;
+def_component $component1 = rand_overlay:com_20;
+def_int $int2 = -1;
+cc_deleteall($component1);
+~deltooltip_action(rand_overlay:com_33);
+if (%varclient_1812 = 1) {
+    ~clientscript_2726($component1, 1, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1813 = 1) {
+    ~clientscript_2726($component1, 2, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1814 = 1) {
+    ~clientscript_2726($component1, 3, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1815 = 1) {
+    ~clientscript_2726($component1, 4, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1816 = 1) {
+    ~clientscript_2726($component1, 5, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1817 = 1) {
+    ~clientscript_2726($component1, 6, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1818 = 1) {
+    ~clientscript_2726($component1, 7, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1819 = 1) {
+    ~clientscript_2726($component1, 8, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1820 = 1) {
+    ~clientscript_2726($component1, 9, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1821 = 1) {
+    ~clientscript_2726($component1, 10, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1822 = 1) {
+    ~clientscript_2726($component1, 11, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1823 = 1) {
+    ~clientscript_2726($component1, 12, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1824 = 1) {
+    ~clientscript_2726($component1, 13, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1825 = 1) {
+    ~clientscript_2726($component1, 14, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1826 = 1) {
+    ~clientscript_2726($component1, 15, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1827 = 1) {
+    ~clientscript_2726($component1, 16, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1828 = 1) {
+    ~clientscript_2726($component1, 17, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1829 = 1) {
+    ~clientscript_2726($component1, 18, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1830 = 1) {
+    ~clientscript_2726($component1, 19, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1831 = 1) {
+    ~clientscript_2726($component1, 20, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1832 = 1) {
+    ~clientscript_2726($component1, 21, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1833 = 1) {
+    ~clientscript_2726($component1, 22, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1834 = 1) {
+    ~clientscript_2726($component1, 23, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1835 = 1) {
+    ~clientscript_2726($component1, 24, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1836 = 1) {
+    ~clientscript_2726($component1, 25, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1837 = 1) {
+    ~clientscript_2726($component1, 26, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1838 = 1) {
+    ~clientscript_2726($component1, 27, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1839 = 1) {
+    ~clientscript_2726($component1, 28, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1840 = 1) {
+    ~clientscript_2726($component1, 29, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1841 = 1) {
+    ~clientscript_2726($component1, 30, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1842 = 1) {
+    ~clientscript_2726($component1, 31, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1843 = 1) {
+    ~clientscript_2726($component1, 32, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1844 = 1) {
+    ~clientscript_2726($component1, 33, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1845 = 1) {
+    ~clientscript_2726($component1, 34, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1846 = 1) {
+    ~clientscript_2726($component1, 35, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1847 = 1) {
+    ~clientscript_2726($component1, 36, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1848 = 1) {
+    ~clientscript_2726($component1, 37, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1849 = 1) {
+    ~clientscript_2726($component1, 38, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1850 = 1) {
+    ~clientscript_2726($component1, 39, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1851 = 1) {
+    ~clientscript_2726($component1, 40, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1852 = 1) {
+    ~clientscript_2726($component1, 41, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1853 = 1) {
+    ~clientscript_2726($component1, 42, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1854 = 1) {
+    ~clientscript_2726($component1, 43, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1855 = 1) {
+    ~clientscript_2726($component1, 44, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1856 = 1) {
+    ~clientscript_2726($component1, 45, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1857 = 1) {
+    ~clientscript_2726($component1, 46, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1858 = 1) {
+    ~clientscript_2726($component1, 47, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1859 = 1) {
+    ~clientscript_2726($component1, 48, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1860 = 1) {
+    ~clientscript_2726($component1, 49, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1861 = 1) {
+    ~clientscript_2726($component1, 50, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1862 = 1) {
+    ~clientscript_2726($component1, 51, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1863 = 1) {
+    ~clientscript_2726($component1, 52, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1864 = 1) {
+    ~clientscript_2726($component1, 53, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1865 = 1) {
+    ~clientscript_2726($component1, 54, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1866 = 1) {
+    ~clientscript_2726($component1, 55, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1867 = 1) {
+    ~clientscript_2726($component1, 56, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1868 = 1) {
+    ~clientscript_2726($component1, 57, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1869 = 1) {
+    ~clientscript_2726($component1, 58, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1870 = 1) {
+    ~clientscript_2726($component1, 59, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1871 = 1) {
+    ~clientscript_2726($component1, 60, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1872 = 1) {
+    ~clientscript_2726($component1, 61, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1873 = 1) {
+    ~clientscript_2726($component1, 62, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1874 = 1) {
+    ~clientscript_2726($component1, 63, $int0);
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_1875 = 1) {
+    ~clientscript_2726($component1, 64, $int0);
+    $int0 = calc($int0 + 1);
+}
+if ($int0 = 0) {
+    if_sethide(rand_overlay:com_22, true);
+    if_sethide(rand_overlay:com_23, false);
+} else {
+    if_sethide(rand_overlay:com_22, false);
+    if_sethide(rand_overlay:com_23, true);
+}

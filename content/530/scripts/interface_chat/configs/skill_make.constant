@@ -1,0 +1,11 @@
+// void-634's make-X prompt when the caller gives none (MakeAmount)
+^skill_make_text = "What would you like to make?"
+
+// The dialogue's verb in 2011's make-X (its clientscript 1111). 530's make-X
+// dialogues say Make on every button; callers still name it.
+^skill_make_make = 0
+^skill_make_cook = 2
+
+// The zoom an item's model is drawn at when the caller gives none (the
+// dialogues' own models are at 400, a model's default).
+^skill_make_zoom = 160

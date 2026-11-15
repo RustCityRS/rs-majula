@@ -1,0 +1,8 @@
+// 5210
+[proc,clientscript_5210](component $component0)
+if (%varplayerbit_6448 = 1) {
+    ~clientscript_5211(true);
+    return;
+}
+~clientscript_5211(false);
+if_setonvartransmit($component0, null);

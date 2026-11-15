@@ -451,7 +451,7 @@ entire operational configuration:
 | `--host`                            | `0.0.0.0`                  | Bind address for both TCP game and HTTP                                       |
 | `--http-port`                       | `8070 + node_id`           | Web/client port (8080 for node 10)                                            |
 | `--tcp-port`                        | `43584 + node_id`          | Game port (43594 for node 10 — the canonical RS port)                         |
-| `--private-key`                     | `keys/private.pem`         | RSA private key (PEM) for the login block                                     |
+| `--private-key`                     | `.keys/classic/private.pem` | RSA private key (PEM) for the login block                                     |
 | `--members` / `--client-pathfinder` | `true`                     | World flags passed to `Engine::new`                                           |
 | `--no-tui`                          | `false`                    | Force headless stdout logging                                                 |
 | `--verify`                          | `true`                     | Validate packed cache byte-identity during `pack_all`                         |

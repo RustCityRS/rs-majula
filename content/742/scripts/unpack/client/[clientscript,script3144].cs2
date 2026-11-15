@@ -1,0 +1,23 @@
+// 3144
+[clientscript,script3144](component $component0, component $component1, int $int2, int $int3, string $string0)
+if (cc_find($component0, $int2) = true) {
+    if_sethide(lobbyscreen_pane_worldselect:com_65, false);
+    if_sethide(lobbyscreen_pane_worldselect:com_66, false);
+    if_setposition(lobbyscreen_pane_worldselect:com_65, if_getx(lobbyscreen_pane_worldselect:com_65), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen_pane_worldselect:com_66, if_getx(lobbyscreen_pane_worldselect:com_66), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (cc_find($component1, $int2) = true) {
+    if (cc_getgraphic = "world_select_hearts,2") {
+        cc_setgraphic("world_select_hearts,3");
+    } else if (cc_getgraphic = "world_select_hearts,6") {
+        cc_setgraphic("world_select_hearts,7");
+    }
+}
+if ($int3 = 1) {
+    if_setcolour(lobbyscreen_pane_worldselect:com_65, 0x606060);
+    if_setcolour(lobbyscreen_pane_worldselect:com_66, 0x404040);
+} else {
+    if_setcolour(lobbyscreen_pane_worldselect:com_66, 0x606060);
+    if_setcolour(lobbyscreen_pane_worldselect:com_65, 0x404040);
+}
+return;

@@ -1,0 +1,315 @@
+// 728:0
+[com_0]
+type=rectangle
+width=190
+height=261
+colour=0x554a32
+fill=yes
+trans=150
+
+// 728:1
+[com_1]
+type=graphic
+x=2
+y=73
+width=188
+height=165
+graphic=graphic_1136
+tiling=yes
+trans=100
+onmouseleave=clientscript_919(event_com, interface_728:com_27, interface_728:com_20, interface_728:back, interface_728:com_22, interface_728:com_23)
+onmouserepeat=clientscript_918(event_com, interface_728:com_27, 0, interface_728:com_20, interface_728:back, interface_728:com_22, interface_728:com_23)
+
+// 728:2
+[com_2]
+type=rectangle
+y=72
+width=190
+height=167
+colour=0x554a32
+fill=yes
+trans=150
+
+// 728:3
+[com_3]
+type=model
+x=13
+y=3
+width=51
+height=62
+model=model_32728
+modelorigin=2,30
+modelangle=4,1810,0
+modelzoom=700
+modelanim=seq_8973
+modelunknown=0,3000,0
+
+// 728:4
+[text_1]
+type=text
+x=3
+y=76
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=bottom
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:5
+[text_2]
+type=text
+x=3
+y=92
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:6
+[text_3]
+type=text
+x=3
+y=108
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:7
+[text_4]
+type=text
+x=3
+y=124
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:8
+[text_5]
+type=text
+x=3
+y=140
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:9
+[text_6]
+type=text
+x=3
+y=156
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:10
+[text_7]
+type=text
+x=3
+y=172
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:11
+[text_8]
+type=text
+x=3
+y=188
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:12
+[text_9]
+type=text
+x=3
+y=204
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:13
+[text_10]
+type=text
+x=3
+y=220
+width=186
+height=17
+textfont=fontmetrics_307
+textalignv=centre
+onvartransmit=clientscript_776(event_com){varplayer_1207}
+
+// 728:14
+[com_14]
+type=text
+x=2
+y=244
+width=186
+height=14
+textfont=fontmetrics_496
+textalignh=centre
+textalignv=centre
+colour=0xcccccc
+onvartransmit=clientscript_912(event_com){varplayer_1207}
+
+// 728:15
+[com_15]
+type=graphic
+y=224
+width=189
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 728:16
+[com_16]
+type=graphic
+y=58
+width=189
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 728:17
+[com_17]
+type=graphic
+x=93
+y=25
+width=23
+height=23
+graphic=graphic_782
+transmitop=1
+opbase=<col=ff9040>Autopilot
+op1=Toggle
+onload=clientscript_923(event_com)
+onmouseleave=deltooltip(interface_728:tooltip)
+onvartransmit=clientscript_923(event_com){varplayer_1207}
+onop=clientscript_916(event_com)
+onmouserepeat=clientscript_917(event_com, interface_728:tooltip)
+
+// 728:18
+[exit]
+type=graphic
+x=137
+y=25
+width=23
+height=23
+graphic=graphic_783
+transmitop=1
+op1=Return to Lumbridge
+onmouseover=graphic_swapper(event_com, 784)
+onmouseleave=deltooltip_graphic_swapper(interface_728:tooltip, event_com, 783)
+onop=clan_switch_tab(event_com)
+onmouserepeat=clientscript_917(event_com, interface_728:tooltip)
+
+// 728:19
+[com_19]
+type=layer
+x=83
+y=15
+width=87
+height=43
+onload=clientscript_100(event_com)
+
+// 728:20
+[com_20]
+type=graphic
+x=6
+y=241
+width=20
+height=16
+graphic=graphic_785
+transmitop=1
+op1=First page
+onmouseover=graphic_swapper(event_com, 786)
+onmouseleave=deltooltip_graphic_swapper(interface_728:tooltip, event_com, 785)
+onop=equipscreen_comparison_close
+onmouserepeat=clientscript_917(event_com, interface_728:tooltip)
+
+// 728:21
+[back]
+type=graphic
+x=52
+y=242
+width=16
+height=16
+graphic=graphic_1172
+transmitop=1
+op1=Previous page
+onmouseover=graphic_swapper(event_com, 1173)
+onmouseleave=deltooltip_graphic_swapper(interface_728:tooltip, event_com, 1172)
+onop=equipscreen_comparison_close
+onmouserepeat=clientscript_917(event_com, interface_728:tooltip)
+
+// 728:22
+[com_22]
+type=graphic
+x=120
+y=242
+width=16
+height=16
+graphic=graphic_1174
+transmitop=1
+op1=Next page
+onmouseover=graphic_swapper(event_com, 1175)
+onmouseleave=deltooltip_graphic_swapper(interface_728:tooltip, event_com, 1174)
+onop=equipscreen_comparison_close
+onmouserepeat=clientscript_917(event_com, interface_728:tooltip)
+
+// 728:23
+[com_23]
+type=graphic
+x=164
+y=241
+width=20
+height=16
+graphic=graphic_787
+transmitop=1
+op1=Last page
+onmouseover=graphic_swapper(event_com, 801)
+onmouseleave=deltooltip_graphic_swapper(interface_728:tooltip, event_com, 787)
+onop=equipscreen_comparison_close
+onmouserepeat=clientscript_917(event_com, interface_728:tooltip)
+
+// 728:24
+[com_24]
+type=layer
+width=190
+height=261
+
+// 728:25
+[tooltip]
+type=layer
+width=190
+height=261
+layer=com_24
+
+// 728:26
+[com_26]
+type=layer
+x=40
+y=140
+width=110
+height=121
+
+// 728:27
+[com_27]
+type=layer
+width=1
+height=1
+layer=com_26

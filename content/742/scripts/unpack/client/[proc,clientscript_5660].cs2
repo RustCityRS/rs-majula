@@ -1,0 +1,194 @@
+// 5660
+[proc,clientscript_5660]
+if_setposition(interface_1215:com_5, 2, if_gety(interface_1215:com_5), ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(interface_1215:com_7, 2, if_gety(interface_1215:com_7), ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(interface_1215:com_9, 2, if_gety(interface_1215:com_9), ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(interface_1215:com_5, 25, 25, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1215:com_7, 25, 25, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1215:com_9, 25, 25, ^setsize_abs, ^setsize_abs);
+switch_int (%varplayerbit_10440) {
+    case 1 :
+        if_setgraphic(interface_1215:com_5, "staticons,0");
+    case 2 :
+        if_setgraphic(interface_1215:com_5, "staticons,1");
+    case 5 :
+        if_setgraphic(interface_1215:com_5, "staticons,2");
+    case 6 :
+        if_setgraphic(interface_1215:com_5, "staticons,6");
+    case 3 :
+        if_setgraphic(interface_1215:com_5, "staticons,3");
+    case 4 :
+        if_setgraphic(interface_1215:com_5, "staticons,5");
+    case 7 :
+        if_setgraphic(interface_1215:com_5, "staticons,4");
+    case 12 :
+        if_setgraphic(interface_1215:com_5, "staticons2,0");
+    case 11 :
+        if_setgraphic(interface_1215:com_5, "staticons,10");
+    case 13 :
+        if_setgraphic(interface_1215:com_5, "staticons,12");
+    case 14 :
+        if_setgraphic(interface_1215:com_5, "staticons,13");
+    case 15 :
+        if_setgraphic(interface_1215:com_5, "staticons,14");
+    case 16 :
+        if_setgraphic(interface_1215:com_5, "staticons,15");
+    case 17 :
+        if_setgraphic(interface_1215:com_5, "staticons,16");
+    case 18 :
+        if_setgraphic(interface_1215:com_5, "staticons,17");
+    case 8 :
+        if_setgraphic(interface_1215:com_5, "staticons,7");
+    case 9 :
+        if_setgraphic(interface_1215:com_5, "staticons,8");
+    case 10 :
+        if_setgraphic(interface_1215:com_5, "staticons,9");
+    case 19 :
+        if_setgraphic(interface_1215:com_5, "staticons,11");
+    case 20 :
+        if_setgraphic(interface_1215:com_5, "staticons2,1");
+    case 21 :
+        if_setgraphic(interface_1215:com_5, "staticons2,2");
+    case 22 :
+        if_setgraphic(interface_1215:com_5, "staticons2,6");
+    case 23 :
+        if_setgraphic(interface_1215:com_5, "staticons2,5");
+    case 24 :
+        if_setgraphic(interface_1215:com_5, "staticons2,7");
+    case 25 :
+        if_setgraphic(interface_1215:com_5, "staticons2,13");
+    case 30 :
+        if_setgraphic(interface_1215:com_5, "stonemenusideicons,0");
+        if_setposition(interface_1215:com_5, 4, if_gety(interface_1215:com_5), ^setpos_abs_right, ^setpos_abs_top);
+        if_setsize(interface_1215:com_5, 22, 22, ^setsize_abs, ^setsize_abs);
+    case 31 :
+        if_setgraphic(interface_1215:com_5, "stonemenusideicons,1");
+        if_setposition(interface_1215:com_5, 4, if_gety(interface_1215:com_5), ^setpos_abs_right, ^setpos_abs_top);
+        if_setsize(interface_1215:com_5, 22, 22, ^setsize_abs, ^setsize_abs);
+    case default :
+        if_setgraphic(interface_1215:com_5, null);
+}
+switch_int (%varplayerbit_10441) {
+    case 1 :
+        if_setgraphic(interface_1215:com_7, "staticons,0");
+    case 2 :
+        if_setgraphic(interface_1215:com_7, "staticons,1");
+    case 5 :
+        if_setgraphic(interface_1215:com_7, "staticons,2");
+    case 6 :
+        if_setgraphic(interface_1215:com_7, "staticons,6");
+    case 3 :
+        if_setgraphic(interface_1215:com_7, "staticons,3");
+    case 4 :
+        if_setgraphic(interface_1215:com_7, "staticons,5");
+    case 7 :
+        if_setgraphic(interface_1215:com_7, "staticons,4");
+    case 12 :
+        if_setgraphic(interface_1215:com_7, "staticons2,0");
+    case 11 :
+        if_setgraphic(interface_1215:com_7, "staticons,10");
+    case 13 :
+        if_setgraphic(interface_1215:com_7, "staticons,12");
+    case 14 :
+        if_setgraphic(interface_1215:com_7, "staticons,13");
+    case 15 :
+        if_setgraphic(interface_1215:com_7, "staticons,14");
+    case 16 :
+        if_setgraphic(interface_1215:com_7, "staticons,15");
+    case 17 :
+        if_setgraphic(interface_1215:com_7, "staticons,16");
+    case 18 :
+        if_setgraphic(interface_1215:com_7, "staticons,17");
+    case 8 :
+        if_setgraphic(interface_1215:com_7, "staticons,7");
+    case 9 :
+        if_setgraphic(interface_1215:com_7, "staticons,8");
+    case 10 :
+        if_setgraphic(interface_1215:com_7, "staticons,9");
+    case 19 :
+        if_setgraphic(interface_1215:com_7, "staticons,11");
+    case 20 :
+        if_setgraphic(interface_1215:com_7, "staticons2,1");
+    case 21 :
+        if_setgraphic(interface_1215:com_7, "staticons2,2");
+    case 22 :
+        if_setgraphic(interface_1215:com_7, "staticons2,6");
+    case 23 :
+        if_setgraphic(interface_1215:com_7, "staticons2,5");
+    case 24 :
+        if_setgraphic(interface_1215:com_7, "staticons2,7");
+    case 25 :
+        if_setgraphic(interface_1215:com_7, "staticons2,13");
+    case 30 :
+        if_setgraphic(interface_1215:com_7, "stonemenusideicons,0");
+        if_setposition(interface_1215:com_7, 4, if_gety(interface_1215:com_7), ^setpos_abs_right, ^setpos_abs_top);
+        if_setsize(interface_1215:com_7, 22, 22, ^setsize_abs, ^setsize_abs);
+    case 31 :
+        if_setgraphic(interface_1215:com_7, "stonemenusideicons,1");
+        if_setposition(interface_1215:com_7, 4, if_gety(interface_1215:com_7), ^setpos_abs_right, ^setpos_abs_top);
+        if_setsize(interface_1215:com_7, 22, 22, ^setsize_abs, ^setsize_abs);
+    case default :
+        if_setgraphic(interface_1215:com_7, null);
+}
+switch_int (%varplayerbit_10442) {
+    case 1 :
+        if_setgraphic(interface_1215:com_9, "staticons,0");
+    case 2 :
+        if_setgraphic(interface_1215:com_9, "staticons,1");
+    case 5 :
+        if_setgraphic(interface_1215:com_9, "staticons,2");
+    case 6 :
+        if_setgraphic(interface_1215:com_9, "staticons,6");
+    case 3 :
+        if_setgraphic(interface_1215:com_9, "staticons,3");
+    case 4 :
+        if_setgraphic(interface_1215:com_9, "staticons,5");
+    case 7 :
+        if_setgraphic(interface_1215:com_9, "staticons,4");
+    case 12 :
+        if_setgraphic(interface_1215:com_9, "staticons2,0");
+    case 11 :
+        if_setgraphic(interface_1215:com_9, "staticons,10");
+    case 13 :
+        if_setgraphic(interface_1215:com_9, "staticons,12");
+    case 14 :
+        if_setgraphic(interface_1215:com_9, "staticons,13");
+    case 15 :
+        if_setgraphic(interface_1215:com_9, "staticons,14");
+    case 16 :
+        if_setgraphic(interface_1215:com_9, "staticons,15");
+    case 17 :
+        if_setgraphic(interface_1215:com_9, "staticons,16");
+    case 18 :
+        if_setgraphic(interface_1215:com_9, "staticons,17");
+    case 8 :
+        if_setgraphic(interface_1215:com_9, "staticons,7");
+    case 9 :
+        if_setgraphic(interface_1215:com_9, "staticons,8");
+    case 10 :
+        if_setgraphic(interface_1215:com_9, "staticons,9");
+    case 19 :
+        if_setgraphic(interface_1215:com_9, "staticons,11");
+    case 20 :
+        if_setgraphic(interface_1215:com_9, "staticons2,1");
+    case 21 :
+        if_setgraphic(interface_1215:com_9, "staticons2,2");
+    case 22 :
+        if_setgraphic(interface_1215:com_9, "staticons2,6");
+    case 23 :
+        if_setgraphic(interface_1215:com_9, "staticons2,5");
+    case 24 :
+        if_setgraphic(interface_1215:com_9, "staticons2,7");
+    case 25 :
+        if_setgraphic(interface_1215:com_9, "staticons2,13");
+    case 30 :
+        if_setgraphic(interface_1215:com_9, "stonemenusideicons,0");
+        if_setposition(interface_1215:com_9, 4, if_gety(interface_1215:com_9), ^setpos_abs_right, ^setpos_abs_top);
+        if_setsize(interface_1215:com_9, 22, 22, ^setsize_abs, ^setsize_abs);
+    case 31 :
+        if_setgraphic(interface_1215:com_9, "stonemenusideicons,1");
+        if_setposition(interface_1215:com_9, 4, if_gety(interface_1215:com_9), ^setpos_abs_right, ^setpos_abs_top);
+        if_setsize(interface_1215:com_9, 22, 22, ^setsize_abs, ^setsize_abs);
+    case default :
+        if_setgraphic(interface_1215:com_9, null);
+}

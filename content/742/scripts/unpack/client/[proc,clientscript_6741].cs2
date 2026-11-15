@@ -1,0 +1,58 @@
+// 6741
+[proc,clientscript_6741]
+def_graphic $graphic0 = "mob_cross_icon,0";
+def_string $string0 = "A new Daily Challenge will be unlocked tomorrow.";
+def_struct $struct1 = null;
+if (%varplayerbit_11985 > 0 & %varplayerbit_11986 > 0) {
+    switch_int (%varplayerbit_11985) {
+        case 8 :
+            $struct1 = enum(int, struct, enum_5530, %varplayerbit_11986);
+        case 1 :
+            $struct1 = enum(int, struct, enum_5513, %varplayerbit_11986);
+        case 22 :
+            $struct1 = enum(int, struct, enum_5526, %varplayerbit_11986);
+        case 16 :
+            $struct1 = enum(int, struct, enum_5515, %varplayerbit_11986);
+        case 11 :
+            $struct1 = enum(int, struct, enum_5532, %varplayerbit_11986);
+        case 25 :
+            $struct1 = enum(int, struct, enum_5519, %varplayerbit_11986);
+        case 21 :
+            $struct1 = enum(int, struct, enum_5522, %varplayerbit_11986);
+        case 17 :
+            $struct1 = enum(int, struct, enum_5520, %varplayerbit_11986);
+        case 15 :
+            $struct1 = enum(int, struct, enum_5524, %varplayerbit_11986);
+        case 19 :
+            $struct1 = enum(int, struct, enum_5523, %varplayerbit_11986);
+        case 9 :
+            $struct1 = enum(int, struct, enum_5525, %varplayerbit_11986);
+        case 23 :
+            $struct1 = enum(int, struct, enum_5514, %varplayerbit_11986);
+        case 13 :
+            $struct1 = enum(int, struct, enum_5516, %varplayerbit_11986);
+        case 7 :
+            $struct1 = enum(int, struct, enum_5529, %varplayerbit_11986);
+        case 12 :
+            $struct1 = enum(int, struct, enum_5521, %varplayerbit_11986);
+        case 20 :
+            $struct1 = enum(int, struct, enum_5527, %varplayerbit_11986);
+        case 14 :
+            $struct1 = enum(int, struct, enum_5528, %varplayerbit_11986);
+        case 24 :
+            $struct1 = enum(int, struct, enum_5517, %varplayerbit_11986);
+        case 10 :
+            $struct1 = enum(int, struct, enum_5518, %varplayerbit_11986);
+        case 18 :
+            $struct1 = enum(int, struct, enum_5531, %varplayerbit_11986);
+    }
+    $graphic0 = struct_param($struct1, param_1271);
+    $string0 = struct_param($struct1, param_1266);
+}
+if_setgraphic(interface_1343:com_47, $graphic0);
+if_settext(interface_1343:com_49, $string0);
+if (%varplayerbit_11987 >= struct_param(~clientscript_6783(1), param_2235)) {
+    if_setgraphic(interface_1343:com_48, 13902);
+} else {
+    if_setgraphic(interface_1343:com_48, 13901);
+}

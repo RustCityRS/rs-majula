@@ -1,0 +1,13 @@
+// 1659
+[proc,clientscript_1659]
+if (%varclient_1733 = 1) {
+    if_setgraphic(interface_1180:com_30, "conq_tick_box,1");
+    if_sethide(interface_1180:com_11, true);
+    if_setop(interface_1180:com_43, 1, "Hide");
+}
+if (%varclient_1734 = 1) {
+    if_set2dangle(interface_1180:com_43, 32768);
+    if_sethide(interface_1180:com_41, true);
+    if_setsize(interface_1180:com_6, 172, 50, ^setsize_abs, ^setsize_abs);
+    if_setop(interface_1180:com_43, 1, "Unhide");
+}

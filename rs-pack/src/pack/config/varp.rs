@@ -1,5 +1,5 @@
 use super::config_entry;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::{client_table_of, is_string_var};
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -19,17 +19,17 @@ pub fn pack_varps(
     let configs = parse_config_sections_cached(file_cache, "varp", constants)?;
 
     let mut server = PackedData::new(pack.max);
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let mut client = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         client.start_entry();
 
         let Some((debugname, props)) = config_entry("varp", pack, &configs, id) else {
             server.skip_entry();
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             client.skip_entry();
             continue;
         };
@@ -60,7 +60,7 @@ pub fn pack_varps(
 
                 // 5
                 "clientcode" => parse_number(value, |v| {
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     {
                         client.p1(5);
                         client.p2(v);
@@ -87,11 +87,11 @@ pub fn pack_varps(
 
         // done
         server.finish_entry();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         client.finish_entry();
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = client_table_of(
         &configs,
         pack,

@@ -1,0 +1,725 @@
+// 1299:0
+[com_0]
+type=layer
+width=512
+height=334
+layer=com_12
+
+// 1299:1
+[com_1]
+type=layer
+x=135
+y=54
+width=241
+height=44
+layer=com_12
+
+// 1299:2
+[com_2]
+type=layer
+x=135
+y=98
+width=241
+height=61
+layer=com_12
+
+// 1299:3
+[com_3]
+type=layer
+x=135
+y=157
+width=241
+height=102
+layer=com_12
+
+// 1299:4
+[com_4]
+type=text
+x=2
+y=2
+width=237
+height=99
+layer=com_3
+textfont=p11_full
+text=Te audiere non possum mussa sapientum fixa est in aure. Valce lacerete. Eheu vircuit vircui fert locustus.
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1299:5
+[com_5]
+type=text
+x=16
+y=7
+width=208
+height=34
+layer=com_2
+textfont=b12_full
+text=Chen...ima gibta se chen.
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1299:6
+[com_6]
+type=graphic
+y=47
+width=168
+height=14
+xmode=abs_centre
+layer=com_2
+graphic=graphic_9486
+
+// 1299:7
+[com_7]
+type=graphic
+x=8
+width=50
+height=33
+ymode=abs_centre
+layer=com_1
+graphic=graphic_9256
+
+// 1299:8
+[com_8]
+type=graphic
+x=58
+width=130
+height=33
+ymode=abs_centre
+layer=com_1
+graphic=graphic_9257
+
+// 1299:9
+[com_9]
+type=graphic
+x=188
+width=50
+height=33
+ymode=abs_centre
+layer=com_1
+graphic=graphic_9258
+
+// 1299:10
+[com_10]
+type=text
+x=26
+width=194
+height=32
+ymode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+text=CONGRATULATIONS!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1299:11
+[com_11]
+type=graphic
+width=311
+height=311
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+graphic=graphic_7803
+
+// 1299:12
+[com_12]
+type=layer
+width=512
+height=334
+
+// 1299:13
+[com_13]
+type=layer
+x=130
+y=261
+width=125
+height=20
+layer=com_12
+hide=yes
+onrelease=closebutton_click
+
+// 1299:14
+[com_14]
+type=layer
+x=130
+y=261
+width=125
+height=20
+layer=com_12
+hide=yes
+
+// 1299:15
+[com_15]
+type=layer
+x=130
+y=261
+width=125
+height=20
+layer=com_12
+hide=yes
+
+// 1299:16
+[com_16]
+type=layer
+x=130
+y=261
+width=125
+height=20
+layer=com_12
+hide=yes
+
+// 1299:17
+[com_17]
+type=layer
+x=257
+y=261
+width=125
+height=20
+layer=com_12
+
+// 1299:18
+[com_18]
+type=layer
+x=257
+y=261
+width=125
+height=20
+layer=com_12
+hide=yes
+
+// 1299:19
+[com_19]
+type=graphic
+x=345
+y=7
+width=120
+height=210
+layer=com_0
+graphic=graphic_11959
+
+// 1299:20
+[com_20]
+type=graphic
+x=79
+y=125
+width=60
+height=200
+layer=com_0
+graphic=graphic_11960
+
+// 1299:21
+[com_21]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1299:22
+[com_22]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1299:23
+[com_23]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1299:24
+[com_24]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_17
+transmitop=1
+op1=Return to Varrock
+onload=script4213(event_com)
+onop=closebutton_click
+
+// 1299:25
+[com_25]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=clientscript_4412(event_com, struct_2822)
+
+// 1299:26
+[com_26]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_17
+
+// 1299:27
+[com_27]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_26
+textfont=verdana_11pt_regular
+text=Return to Varrock
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1299:28
+[com_28]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1299:29
+[com_29]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1299:30
+[com_30]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1299:31
+[com_31]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2821)
+
+// 1299:32
+[com_32]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+transmitop=1
+op1=Play again
+onload=script4213(event_com)
+
+// 1299:33
+[com_33]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2822)
+
+// 1299:34
+[com_34]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+
+// 1299:35
+[com_35]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+textfont=verdana_11pt_regular
+text=Play Again
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1299:36
+[com_36]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_15
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1299:37
+[com_37]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_15
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1299:38
+[com_38]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_15
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1299:39
+[com_39]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_15
+onload=clientscript_4412(event_com, struct_2821)
+
+// 1299:40
+[com_40]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_15
+transmitop=1
+op1=Play again
+onload=script4213(event_com)
+onclick=clientscript_6564
+
+// 1299:41
+[com_41]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_15
+onload=clientscript_4412(event_com, struct_2822)
+
+// 1299:42
+[com_42]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_15
+
+// 1299:43
+[com_43]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+textfont=verdana_11pt_regular
+text=Play Again
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1299:44
+[com_44]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1299:45
+[com_45]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1299:46
+[com_46]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1299:47
+[com_47]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4412(event_com, struct_2821)
+
+// 1299:48
+[com_48]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_14
+transmitop=1
+op1=Play again
+onload=script4213(event_com)
+onclick=clientscript_6564
+
+// 1299:49
+[com_49]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4412(event_com, struct_2822)
+
+// 1299:50
+[com_50]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_14
+
+// 1299:51
+[com_51]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_50
+textfont=verdana_11pt_regular
+text=Play Again
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1299:52
+[com_52]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1299:53
+[com_53]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1299:54
+[com_54]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1299:55
+[com_55]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4412(event_com, struct_2821)
+
+// 1299:56
+[com_56]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_13
+transmitop=1
+op1=Play again
+onload=script4213(event_com)
+onclick=clientscript_6564
+
+// 1299:57
+[com_57]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4412(event_com, struct_2822)
+
+// 1299:58
+[com_58]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_13
+
+// 1299:59
+[com_59]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+textfont=verdana_11pt_regular
+text=Play Again
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1299:60
+[com_60]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_18
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1299:61
+[com_61]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_18
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1299:62
+[com_62]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_18
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1299:63
+[com_63]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_18
+transmitop=1
+op1=Continue
+onload=script4213(event_com)
+onop=closebutton_click
+
+// 1299:64
+[com_64]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_18
+onload=clientscript_4412(event_com, struct_2822)
+
+// 1299:65
+[com_65]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_18
+
+// 1299:66
+[com_66]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_65
+textfont=verdana_11pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)

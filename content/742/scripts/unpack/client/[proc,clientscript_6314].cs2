@@ -1,0 +1,12 @@
+// 6314
+[proc,clientscript_6314](component $component0)
+if (testbit(%varclient_841, 0) = ^true) {
+    if_clearops($component0);
+    if_clearscripthooks($component0);
+    if_setpausetext($component0, "Back");
+} else {
+    if_setop($component0, 1, "Close");
+    if_setonop($component0, "closebutton_click");
+    if_setpausetext($component0, "");
+}
+if_setonvarctransmit($component0, "clientscript_6314($component0){varclient_841}");

@@ -1,0 +1,103 @@
+// 1046
+[clientscript,quickchat_phrase_listdialog_onkey](int $key0, char $char1, component $component2, component $component3, component $component4, chatphrase $chatphrase5, int $int6)
+def_int $int7 = 1;
+def_int $int8 = 0;
+def_int $int9 = 1000;
+def_int $int10 = -1;
+if (char_isalphanumeric($char1) = true) {
+    while ($int8 < $int6) {
+        if (cc_find($component3, calc(~clientscript_1844($int8) + 1)) = true & string_indexof_char(lowercase(cc_gettext), char_tolowercase($char1), 0) = 0 & .cc_find($component3, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, 0, 0);
+            .cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+            if ($int8 < %quickchat_menu_select) {
+                if (cc_gety < if_getscrolly($component3)) {
+                    ~clientscript_72($component4, $component3, cc_gety);
+                }
+            } else if ($int8 > %quickchat_menu_select & calc(cc_gety + cc_getheight) > calc(if_getheight($component3) + if_getscrolly($component3))) {
+                ~clientscript_72($component4, $component3, calc(cc_gety + cc_getheight - if_getheight($component3)));
+            }
+            %quickchat_menu_select = $int8;
+            return;
+        }
+        $int8 = calc($int8 + 1);
+    }
+    return;
+}
+if ($key0 = 104) {
+    if ($int6 = 0) {
+        return;
+    }
+    if (%quickchat_menu_select <= 0) {
+        %quickchat_menu_select = calc($int6 - 1);
+    } else {
+        %quickchat_menu_select = calc(%quickchat_menu_select - 1);
+    }
+    if (cc_find($component3, calc(~clientscript_1844(%quickchat_menu_select) + 1)) = true) {
+        if (.cc_find($component3, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, 0, 0);
+            .cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+        }
+        if (cc_gety < if_getscrolly($component3)) {
+            ~clientscript_72($component4, $component3, calc(if_getscrolly($component3) - cc_getheight));
+        } else if (calc(cc_gety + cc_getheight) > calc(if_getheight($component3) + if_getscrolly($component3))) {
+            ~clientscript_72($component4, $component3, if_getscrollheight($component3));
+        }
+    }
+    return;
+}
+if ($key0 = 105) {
+    if ($int6 = 0) {
+        return;
+    }
+    if (%quickchat_menu_select = calc($int6 - 1)) {
+        %quickchat_menu_select = 0;
+    } else {
+        %quickchat_menu_select = calc(%quickchat_menu_select + 1);
+    }
+    if (cc_find($component3, calc(~clientscript_1844(%quickchat_menu_select) + 1)) = true) {
+        if (.cc_find($component3, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, 0, 0);
+            .cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+        }
+        if (calc(cc_gety + cc_getheight) > calc(if_getheight($component3) + if_getscrolly($component3))) {
+            ~clientscript_72($component4, $component3, calc(if_getscrolly($component3) + cc_getheight));
+        } else if (cc_gety < if_getscrolly($component3)) {
+            ~clientscript_72($component4, $component3, 0);
+        }
+    }
+    return;
+}
+if ($key0 = 102) {
+    ~clientscript_1050(%quickchat_mode, %varclient_659);
+    return;
+}
+if ($key0 = 13) {
+    ~clientscript_1054;
+    return;
+}
+if ($key0 = 84) {
+    if (%quickchat_menu_select >= 0 & cc_find($component3, calc(%quickchat_menu_select + 1)) = true) {
+        ~clientscript_1074($component2, $chatphrase5, ~clientscript_1844(%quickchat_menu_select));
+    }
+    return;
+}
+if ($key0 = 85) {
+    if (%quickchat_backspace = 0) {
+        ~clientscript_1054;
+    } else {
+        %quickchat_menu_select = -1;
+        if_sethide(chatdefault:quickchat_countdialog, true);
+        if_sethide(chatdefault:quickchat_listdialog, true);
+        if_sethide(chatdefault:quickchat_objdialog, true);
+        if_sethide(chatdefault:quickchat_menu, false);
+        if_sethide(chatdefault:quickchat_path, false);
+        if_sethide(chatdefault:quickchat_title, true);
+    }
+    return;
+}

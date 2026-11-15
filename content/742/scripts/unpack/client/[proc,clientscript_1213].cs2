@@ -1,0 +1,14 @@
+// 1213
+[proc,clientscript_1213](int $int0)
+def_int $int1 = 0;
+if ($int0 = 0) {
+    while ($int1 < 10) {
+        ~clientscript_5498($int1, toplevel_fullscreen:com_84);
+        $int1 = calc($int1 + 1);
+    }
+    if (cc_find(toplevel_fullscreen:com_84, 9) = true & cc_gettrans = 255) {
+        ~clientscript_5500;
+    }
+} else if (if_find(toplevel_fullscreen:com_84) = true) {
+    cc_setontimer("clientscript_1213(calc($int0 - 1))");
+}

@@ -1,0 +1,9 @@
+// 6505
+[proc,clientscript_6505]
+def_int $int0 = 0;
+while ($int0 < 13) {
+    ~clientscript_5902($int0);
+    $int0 = calc($int0 + 1);
+}
+~clientscript_5903;
+return;

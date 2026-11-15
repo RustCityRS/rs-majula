@@ -1,0 +1,19 @@
+// 4174
+[proc,clientscript_4174](struct $struct0)(int)
+if ($struct0 = null) {
+    return(0);
+}
+def_obj $obj1 = ~clientscript_4173(struct_param($struct0, param_2788));
+if ($obj1 = null) {
+    return(0);
+}
+if (($obj1 = skillcape_qp | $obj1 = skillcape_qp_hood) & %qp < %qp_total) {
+    return(0);
+}
+if (($obj1 = skillcape_completionist | $obj1 = skillcape_completionist_hood) & %varplayerbit_12381 = 1) {
+    return(0);
+}
+if (($obj1 = skillcape_completionist_insane | $obj1 = skillcape_completionist_insane_hood) & %varplayerbit_12381 = 1 & %varplayerbit_12382 = 1) {
+    return(0);
+}
+return(1);

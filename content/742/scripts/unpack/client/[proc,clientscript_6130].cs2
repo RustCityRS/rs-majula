@@ -1,0 +1,7 @@
+// 6130
+[proc,clientscript_6130]
+if_setontimer(interface_1270:com_5, "clientscript_6132");
+if_setonmouserepeat(interface_1270:com_38, "clientscript_6131(event_mousex, event_mousey)");
+%varclient_1891 = 0;
+%varclient_1892 = 0;
+if_sethide(interface_1270:com_35, true);

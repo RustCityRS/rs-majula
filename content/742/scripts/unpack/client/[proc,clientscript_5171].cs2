@@ -1,0 +1,86 @@
+// 5171
+[proc,clientscript_5171](int $int0)(graphic)
+def_enum $enum1 = ~clientscript_4827($int0);
+if ($enum1 = null) {
+    return(null);
+}
+def_graphic $graphic2 = null;
+def_int $int3 = 0;
+switch_int ($int0) {
+    case 21 :
+        $int3 = %varclan_2330;
+    case 22 :
+        $int3 = %varclan_2340;
+    case 23 :
+        $int3 = %varclan_2350;
+    case 24 :
+        $int3 = %varclan_2360;
+    case 25 :
+        $int3 = %varclan_2370;
+    case 26 :
+        $int3 = %varclan_2380;
+    case 27 :
+        $int3 = %varclan_2390;
+    case 28 :
+        $int3 = %varclan_2400;
+    case 31 :
+        $int3 = %varclan_2460;
+    case 32 :
+        $int3 = %varclan_2470;
+    case 33 :
+        $int3 = %varclan_2480;
+    case 34 :
+        $int3 = %varclan_2490;
+    case 35 :
+        $int3 = %varclan_2500;
+    case 41 :
+        $int3 = %varclan_2410;
+    case 42 :
+        $int3 = %varclan_2420;
+    case 43 :
+        $int3 = %varclan_2430;
+    case 44 :
+        $int3 = %varclan_2440;
+    case 45 :
+        $int3 = %varclan_2450;
+    case 51 :
+        $int3 = %varclan_2510;
+    case 61 :
+        $int3 = %varclan_2846;
+    case 100 :
+        $int3 = %varclan_2210;
+    case 101 :
+        $int3 = %varclan_2220;
+    case 102 :
+        $int3 = %varclan_2240;
+    case 103 :
+        $int3 = %varclan_2190;
+    case 104 :
+        $int3 = %varclan_2230;
+    case 105 :
+        $int3 = %varclan_2200;
+    case 106 :
+        $int3 = %varclan_2260;
+    case 107 :
+        $int3 = %varclan_2270;
+    case 108 :
+        $int3 = %varclan_2280;
+    case 109 :
+        $int3 = %varclan_2250;
+    case 110 :
+        $int3 = %varclan_2290;
+    case 111 :
+        $int3 = %varclan_2300;
+    case 112 :
+        $int3 = %varclan_2310;
+    case 113 :
+        $int3 = %varclan_2320;
+}
+if ($int3 <= 0) {
+    return(null);
+}
+if ($enum1 = null) {
+    return(null);
+}
+$graphic2 = enum(int, graphic, $enum1, $int3);
+return($graphic2);

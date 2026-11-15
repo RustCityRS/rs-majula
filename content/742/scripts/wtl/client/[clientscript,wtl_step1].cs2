@@ -1,0 +1,5 @@
+// 1629
+[clientscript,wtl_step1]
+%wtl_spline_step = 1;
+cam_movealong(0, %wtl_spline_step, 200, 100, 1, %wtl_spline_step);
+if_setoncamfinished(wtl_cutscenes:cutscene_controller, "script1631");

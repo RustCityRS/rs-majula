@@ -1,0 +1,11 @@
+// 2024
+[proc,clientscript_2024](int $int0)
+if ($int0 = 1) {
+    if_setgraphic(interface_378:com_189, 1597);
+    if_setgraphic(interface_378:com_190, 1598);
+    if_setgraphic(interface_378:com_191, 1597);
+} else {
+    if_setgraphic(interface_378:com_189, 1595);
+    if_setgraphic(interface_378:com_190, 1596);
+    if_setgraphic(interface_378:com_191, 1595);
+}

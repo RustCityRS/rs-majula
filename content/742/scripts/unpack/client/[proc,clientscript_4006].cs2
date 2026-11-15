@@ -1,0 +1,10 @@
+// 4006
+[proc,clientscript_4006](component $component0)
+if (calc(clientclock % 25) ! 0) {
+    return;
+}
+if (if_gethide($component0) = true) {
+    if_sethide($component0, false);
+} else {
+    if_sethide($component0, true);
+}

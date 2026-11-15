@@ -1,0 +1,8 @@
+// 1607
+[proc,clientscript_1607]
+if_sethide(interface_771:com_29, true);
+if (gender = 1) {
+    ~clientscript_1715;
+} else {
+    ~clientscript_1712;
+}

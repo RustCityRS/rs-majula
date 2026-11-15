@@ -1,0 +1,193 @@
+#testscript
+
+// A region is found by any of its tiles and by its uid, and freed 50 ticks
+// after its creation if no player comes.
+[label,test_region_find_and_free]
+def_coord $origin = region_create(4, 16, 16)
+def_region_uid $uid = region_uid
+assert_true($origin = region_getcoord(0, 0, 0))
+assert_gte(coordx($origin), 6400)
+assert_true(region_findbycoord(movecoord($origin, 127, 0, 127)))
+assert_true(region_uid = $uid)
+assert_false(region_findbycoord(movecoord($origin, 128, 0, 0)))
+assert_true(region_findbyuid($uid))
+test_tick(40)
+assert_true(region_findbyuid($uid))
+test_tick(20)
+assert_false(region_findbyuid($uid))
+assert_false(region_findbycoord($origin))
+
+// A region with a player in it stays.
+[label,test_a_region_with_a_player_stays]
+setup_player("test_player")
+~test_skip_design
+def_coord $origin = region_create(1, 1, 1)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump(movecoord($origin, 4, 0, 4))
+test_tick(60)
+assert_true(region_findbycoord($origin))
+
+// A region goes the tick its last player leaves, as OSRS deletes an
+// instance.
+[label,test_a_region_goes_when_its_last_player_leaves]
+def_player_uid $player = setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+def_region_uid $uid = region_uid
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+test_tick(5)
+assert_true(region_findbyuid($uid))
+assert_true(p_finduid($player))
+p_telejump(0_50_50_20_20)
+test_tick(1)
+assert_false(region_findbyuid($uid))
+
+// A drop still on its way when the region's last player leaves goes with
+// the region, rather than landing in its freed slot.
+[label,test_a_delayed_drop_goes_with_its_region]
+def_player_uid $player = setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+inv_add(inv, coins, 20)
+inv_dropitem_delayed(inv, $inside, coins, 10, 1000, 3)
+test_tick(5)
+assert_true(obj_find($inside, coins))
+assert_true(p_finduid($player))
+def_coord $later = movecoord($inside, 1, 0, 0)
+inv_dropitem_delayed(inv, $later, coins, 10, 1000, 3)
+p_telejump(0_50_50_20_20)
+test_tick(5)
+assert_false(obj_find($later, coins))
+
+// region_getcoord takes the level, then the tiles east and north.
+[label,test_region_getcoord_takes_the_level_first]
+def_coord $origin = region_create(2, 2, 2)
+assert_true(region_getcoord(1, 3, 5) = movecoord($origin, 3, 1, 5))
+
+// A find that misses leaves the region it had.
+[label,test_region_find_misses_keep_the_region]
+def_coord $origin = region_create(1, 1, 1)
+def_region_uid $uid = region_uid
+assert_false(region_findbycoord(0_50_50_0_0))
+assert_false(region_findbyuid(-1))
+assert_true(region_uid = $uid)
+assert_true(region_getcoord(0, 0, 0) = $origin)
+
+// region_set copies one zone onto the zone it names, which a player can
+// then stand in.
+[label,test_region_set_copies_one_zone]
+setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_20_20)
+def_coord $origin = region_create(2, 2, 3)
+region_set(0, 1, 2, 0_50_50_16_16, 1)
+def_coord $copy = movecoord($origin, 12, 0, 20)
+p_telejump($copy)
+assert_true(coord = $copy)
+
+// Its own region lets a player in; once left and freed, its old tiles stay
+// out of reach.
+[label,test_region_teleports_need_their_region]
+def_player_uid $player = setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+assert_true(coord = $inside)
+p_telejump(0_50_50_20_20)
+test_tick(60)
+assert_false(region_findbycoord($inside))
+assert_true(p_finduid($player))
+p_telejump($inside)
+assert_true(coord = 0_50_50_20_20)
+
+// A tile of another region is reached only once a script selects it.
+[label,test_region_teleports_never_reach_another_region]
+setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_20_20)
+def_coord $first = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+def_coord $second = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 1)
+assert_true(region_findbycoord($first))
+p_telejump($first)
+assert_true(coord = $first)
+p_telejump($second)
+assert_true(coord = $first)
+assert_true(region_findbycoord($second))
+p_telejump($second)
+assert_true(coord = $second)
+
+// A dot-prefixed region command uses the secondary region, as npcs do, and
+// a player may go to either region a script selected.
+[label,test_secondary_region]
+setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_20_20)
+def_coord $first = region_create(1, 1, 1)
+def_coord $second = .region_create(1, 1, 1)
+assert_false($first = $second)
+assert_true(region_getcoord(0, 0, 0) = $first)
+assert_true(.region_getcoord(0, 0, 0) = $second)
+assert_false(region_uid = .region_uid)
+.region_set(0, 0, 0, 0_50_50_16_16, 0)
+def_coord $inside = movecoord($second, 4, 0, 4)
+assert_true(.region_findbycoord($inside))
+assert_false(.region_findbycoord(0_50_50_0_0))
+assert_true(.region_getcoord(0, 0, 0) = $second)
+p_telejump($inside)
+assert_true(coord = $inside)
+assert_true(region_getcoord(0, 0, 0) = $first)
+
+// An npc added in a region for 0 ticks stays until the region goes, as the
+// leaked KBD instance adds its dragon; outside a region 0 is 1 tick.
+[label,test_an_npc_added_in_a_region_for_0_ticks_stays]
+def_player_uid $player = setup_player("test_player")
+~test_skip_design
+def_coord $origin = region_create(1, 1, 1)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump(movecoord($origin, 2, 0, 2))
+npc_add(movecoord($origin, 4, 0, 4), man, 0)
+def_npc_uid $man = npc_uid;
+npc_add(0_50_50_20_24, man, 0)
+def_npc_uid $outside = npc_uid;
+test_tick(20)
+assert_true(npc_finduid($man))
+assert_false(npc_finduid($outside))
+assert_true(p_finduid($player))
+p_telejump(0_50_50_20_20)
+test_tick(60)
+assert_false(npc_finduid($man))
+
+// An npc teleported by another script is in its new zone at once, as the
+// reference engine moves zone presence with every teleport.
+[label,test_npc_tele_moves_its_zone_at_once]
+npc_add(0_50_50_10_10, man, 50)
+def_npc_uid $man = npc_uid;
+npc_tele(0_50_50_40_40)
+def_boolean $old = false;
+npc_findallzone(0_50_50_10_10)
+while (npc_findnext = true) {
+    if (npc_uid = $man) {
+        $old = true;
+    }
+}
+assert_false($old)
+def_boolean $new = false;
+npc_findallzone(0_50_50_40_40)
+while (npc_findnext = true) {
+    if (npc_uid = $man) {
+        $new = true;
+    }
+}
+assert_true($new)
+if (npc_finduid($man) = true) {
+    npc_del;
+}

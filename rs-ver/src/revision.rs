@@ -1,6 +1,8 @@
 use std::env;
 
-pub const REVS: &[&str] = &["225", "244", "245.2", "254", "274", "289", "647"];
+// CI and release read this list from one line with sed.
+#[rustfmt::skip]
+pub const REVS: &[&str] = &["225", "244", "245.2", "254", "274", "289", "530", "647", "742"];
 
 pub fn compile_target_revision() {
     assert!(!REVS.is_empty(), "REVS must list at least one revision");

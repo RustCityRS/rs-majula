@@ -1,0 +1,27 @@
+// 6102
+[proc,clientscript_6102]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if_settext(interface_1265:com_67, ~tostring_shortform(%varplayer_2564));
+if (%varplayer_2561 ! null & %varplayer_2563 ! -1) {
+    if (%varplayer_2561 = inv) {
+        $int0 = ~clientscript_6076(%varplayer_2562, %varplayer_2564);
+    } else {
+        $int0 = ~clientscript_6075(%varplayer_2562, %varplayer_2564);
+    }
+    if ($int0 = -1) {
+        if_settext(interface_1265:com_205, "N/A");
+        if_setgraphic(interface_1265:com_18, "km_shopitems,0");
+    } else if (%varplayer_2561 = %shop_sample) {
+        if_settext(interface_1265:com_205, "Free!");
+        if_setgraphic(interface_1265:com_18, null);
+    } else {
+        if_settext(interface_1265:com_205, ~tostring_shortform($int0));
+        if_setgraphic(interface_1265:com_18, enum(obj, graphic, enum_200, %shop_currency));
+    }
+    $int1 = parawidth(if_gettext(interface_1265:com_205), if_getwidth(interface_1265:com_79), verdana_11pt_regular);
+    if (%varplayer_2561 ! %shop_sample) {
+        $int1 = calc($int1 + 2 + if_getwidth(interface_1265:com_18));
+    }
+    if_setsize(interface_1265:com_17, $int1, 15, ^setsize_abs, ^setsize_abs);
+}

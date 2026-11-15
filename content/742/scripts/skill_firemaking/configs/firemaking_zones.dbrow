@@ -1,0 +1,16 @@
+[firemaking_zones]
+table=coord_pair_table
+// Grand Exchange courtyard - firemaking IS allowed here despite being indoors
+// (roof-flagged). The desk restriction is left to map_locaddunsafe.
+// inzone() only tests rectangles, so the octagon is approximated with Z-bands.
+// jcoord = level_mapsquareX_mapsquareZ_localX_localZ; mapsquare (49,54).
+// south chamfer
+data=coord_pair,0_49_54_18_7,0_49_54_48_10
+data=coord_pair,0_49_54_14_11,0_49_54_52_14
+data=coord_pair,0_49_54_10_15,0_49_54_56_17
+// full-width middle band
+data=coord_pair,0_49_54_7_18,0_49_54_59_49
+// north chamfer
+data=coord_pair,0_49_54_10_50,0_49_54_56_52
+data=coord_pair,0_49_54_14_53,0_49_54_52_56
+data=coord_pair,0_49_54_18_57,0_49_54_48_60

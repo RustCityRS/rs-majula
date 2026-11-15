@@ -1,0 +1,337 @@
+// 1132:0
+[com_0]
+type=layer
+x=26
+y=53
+width=53
+height=39
+layer=com_7
+onmouseleave=deltooltip(interface_1132:com_12)
+onmouserepeat=aif_tooltip(interface_1132:com_12, event_com, -1, "Strike at a nearby bloodveld.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1132:1
+[com_1]
+type=layer
+x=27
+y=112
+width=53
+height=39
+layer=com_7
+onmouseleave=deltooltip(interface_1132:com_12)
+onmouserepeat=aif_tooltip(interface_1132:com_12, event_com, -1, "Vanescula shrieks, causing piercing damage to bloodvelds nearby.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1132:2
+[com_2]
+type=layer
+x=114
+y=52
+width=53
+height=39
+layer=com_7
+onmouseleave=deltooltip(interface_1132:com_12)
+onmouserepeat=aif_tooltip(interface_1132:com_12, event_com, -1, "Select this attack, then select a location to move to, damaging any bloodvelds in Vanescula's path.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1132:3
+[com_3]
+type=layer
+x=116
+y=112
+width=53
+height=39
+layer=com_7
+onmouseleave=deltooltip(interface_1132:com_12)
+onmouserepeat=aif_tooltip(interface_1132:com_12, event_com, -1, "Select this attack then select a bloodveld for hard-hitting, single target damage.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1132:4
+[com_4]
+type=text
+x=4
+y=4
+width=180
+height=17
+textfont=q8_full
+text=Vanescula
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1132:5
+[com_5]
+type=text
+x=4
+y=25
+width=180
+height=12
+textfont=p11_full
+text=Combat Lvl: 424
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1132:6
+[com_6]
+type=layer
+x=4
+y=40
+width=182
+height=219
+
+// 1132:7
+[com_7]
+type=layer
+width=190
+height=261
+
+// 1132:8
+[com_8]
+type=layer
+x=91
+y=62
+width=91
+height=61
+layer=com_6
+targetmask=npc,coord
+targetverb=Shadow stalk
+ontargetleave=graphic_swapper(interface_1132:com_13, "combatboxes_large,0")
+ontargetenter=graphic_swapper(interface_1132:com_13, "combatboxes_large,1")
+
+// 1132:9
+[com_9]
+type=layer
+x=90
+y=4
+width=91
+height=61
+layer=com_6
+targetmask=loc,coord
+targetverb=Dart
+ontargetleave=graphic_swapper(interface_1132:com_16, "combatboxes_large,0")
+ontargetenter=graphic_swapper(interface_1132:com_16, "combatboxes_large,1")
+
+// 1132:10
+[com_10]
+type=layer
+x=2
+y=62
+width=91
+height=61
+layer=com_6
+transmitop=1
+op1=Shriek
+onclick=graphic_swapper(interface_1132:com_19, "combatboxes_large,1")
+onrelease=graphic_swapper(interface_1132:com_19, "combatboxes_large,0")
+
+// 1132:11
+[com_11]
+type=layer
+x=2
+y=4
+width=91
+height=61
+layer=com_6
+transmitop=1
+op1=Melee
+onclick=graphic_swapper(interface_1132:com_24, "combatboxes_large,1")
+onrelease=graphic_swapper(interface_1132:com_24, "combatboxes_large,0")
+
+// 1132:12
+[com_12]
+type=layer
+x=-4
+y=-40
+width=50
+height=50
+layer=com_6
+
+// 1132:13
+[com_13]
+type=graphic
+x=1
+y=1
+width=89
+height=57
+layer=com_8
+graphic="combatboxes_large,0"
+
+// 1132:14
+[com_14]
+type=graphic
+x=31
+y=10
+width=31
+height=25
+layer=com_8
+graphic=graphic_7698
+colour=0xffffffff
+
+// 1132:15
+[com_15]
+type=text
+x=13
+y=37
+width=66
+height=12
+layer=com_8
+textfont=p11_full
+text=Shadow stalk
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1132:16
+[com_16]
+type=graphic
+x=1
+y=1
+width=89
+height=57
+layer=com_9
+graphic="combatboxes_large,0"
+
+// 1132:17
+[com_17]
+type=graphic
+x=30
+y=11
+width=34
+height=24
+layer=com_9
+graphic="combaticons,8"
+
+// 1132:18
+[com_18]
+type=text
+x=13
+y=37
+width=66
+height=12
+layer=com_9
+textfont=p11_full
+text=Dart
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1132:19
+[com_19]
+type=graphic
+x=1
+y=1
+width=89
+height=57
+layer=com_10
+graphic="combatboxes_large,0"
+
+// 1132:20
+[com_20]
+type=graphic
+x=35
+y=10
+width=25
+height=25
+layer=com_10
+graphic="headicons_pk_interface,7"
+
+// 1132:21
+[com_21]
+type=text
+x=13
+y=37
+width=66
+height=12
+layer=com_10
+textfont=p11_full
+text=Shriek
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1132:22
+[com_22]
+type=graphic
+x=1
+y=2
+width=89
+height=57
+layer=com_10
+hide=yes
+graphic="combatboxes_large,0"
+trans=79
+colour=0x717171
+
+// 1132:23
+[com_23]
+type=text
+x=32
+y=13
+width=32
+height=32
+layer=com_10
+hide=yes
+textfont=quill_oblique_large
+text=4
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1132:24
+[com_24]
+type=graphic
+x=1
+y=1
+width=89
+height=57
+layer=com_11
+graphic="combatboxes_large,0"
+
+// 1132:25
+[com_25]
+type=graphic
+x=30
+y=11
+width=34
+height=24
+layer=com_11
+graphic="combaticons,14"
+
+// 1132:26
+[com_26]
+type=text
+x=13
+y=37
+width=66
+height=12
+layer=com_11
+textfont=p11_full
+text=Melee
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1132:27
+[com_27]
+type=graphic
+x=1
+y=1
+width=89
+height=57
+layer=com_11
+hide=yes
+graphic="combatboxes_large,0"
+trans=79
+colour=0x717171
+
+// 1132:28
+[com_28]
+type=text
+x=31
+y=12
+width=32
+height=32
+layer=com_11
+hide=yes
+textfont=quill_oblique_large
+text=4
+textalignh=centre
+textalignv=centre
+textshadow=yes

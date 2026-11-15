@@ -1,0 +1,25 @@
+// 5172
+[proc,clientscript_5172]()(int, int)
+def_int $int0 = calc(%varplayerbit_4949 + %varplayerbit_4950 + %varplayerbit_4951 + %varplayerbit_4952 + %varplayerbit_4953 + %varplayerbit_4954 + %varplayerbit_4955 + %varplayerbit_4956 + %varplayerbit_4957 + %varplayerbit_4958 + %varplayerbit_4959 + %varplayerbit_4960 + %varplayerbit_4961 + %varplayerbit_4962 + %varplayerbit_4963 + %varplayerbit_4964 + %varplayerbit_4965 + %varplayerbit_4966 + %varplayerbit_4967 + %varplayerbit_4968 + %varplayerbit_4969 + %varplayerbit_4970 + %varplayerbit_4971 + %varplayerbit_4972 + %varplayerbit_4973 + %varplayerbit_4974 + %varplayerbit_4975 + %varplayerbit_4976 + %varplayerbit_4977 + %varplayerbit_4978 + %varplayerbit_4979 + %varplayerbit_4980 + %varplayerbit_4981 + %varplayerbit_4982 + %varplayerbit_4983 + %varplayerbit_4984 + %varplayerbit_4985 + %varplayerbit_4986 + %varplayerbit_4987 + %varplayerbit_4988 + %varplayerbit_4989 + %varplayerbit_4991 + %varplayerbit_4992 + %varplayerbit_4993 + %varplayerbit_4994 + %varplayerbit_4995 + %varplayerbit_4996 + %varplayerbit_4997 + %varplayerbit_4998 + %varplayerbit_4999 + %varplayerbit_5998 + %varplayerbit_5001 + %varplayerbit_5002 + %varplayerbit_5003 + %varplayerbit_8180 + %varplayerbit_8181 + %varplayerbit_8188 + %varplayerbit_8191 + %varplayerbit_8192 + %varplayerbit_8193 + %varplayerbit_8194 + %varplayerbit_8517 + %varplayerbit_8518 + %varplayerbit_8519 + %varplayerbit_8520 + %varplayerbit_8521 + %varplayerbit_8522 + %varplayerbit_8523 + %varplayerbit_8524 + %varplayerbit_8525 + %varplayerbit_8526 + %varplayerbit_8527 + %varplayerbit_8528 + %varplayerbit_8529 + %varplayerbit_8530 + %varplayerbit_8531 + %varplayerbit_8532 + %varplayerbit_8533 + %varplayerbit_8534 + %varplayerbit_8535 + %varplayerbit_8536 + %varplayerbit_8537 + %varplayerbit_8538 + %varplayerbit_8539 + %varplayerbit_8540 + %varplayerbit_8541 + %varplayerbit_8542 + %varplayerbit_8543 + %varplayerbit_8544 + %varplayerbit_8545 + %varplayerbit_8546 + %varplayerbit_8547 + %varplayerbit_8548 + %varplayerbit_8549 + %varplayerbit_8550 + %varplayerbit_8551 + %varplayerbit_8552 + %varplayerbit_8553 + %varplayerbit_8554 + %varplayerbit_8555 + %varplayerbit_8556 + %varplayerbit_8557 + %varplayerbit_8558 + %varplayerbit_8559 + %varplayerbit_8560 + %varplayerbit_8561 + %varplayerbit_8562 + %varplayerbit_8563 + %varplayerbit_8564 + %varplayerbit_8565 + %varplayerbit_8566 + %varplayerbit_8567 + %varplayerbit_8568 + %varplayerbit_8569 + %varplayerbit_8570 + %varplayerbit_8571 + %varplayerbit_8572 + %varplayerbit_8573 + %varplayerbit_8574 + %varplayerbit_8781 + %task_tut4_money_pile + %task_tut4_skills + %task_tut4_get_axes + %task_tut4_how_to_2 + %task_tut4_speak_to_jack + %task_tut4_rest_up);
+if (%task_tut4_man_goblin = 3) {
+    $int0 = calc($int0 + 1);
+}
+if (%task_tut4_third_hook = 3) {
+    $int0 = calc($int0 + 1);
+}
+if (%lumbcat_quest = 60) {
+    $int0 = calc($int0 + 1);
+}
+if (%prieststart = 5) {
+    $int0 = calc($int0 + 1);
+}
+if (%motwl_main > 59) {
+    $int0 = calc($int0 + 1);
+}
+if (%runemysteries = 6) {
+    $int0 = calc($int0 + 1);
+}
+if (%cookquest = 2) {
+    $int0 = calc($int0 + 1);
+}
+return($int0, 133);

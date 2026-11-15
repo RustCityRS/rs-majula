@@ -1,0 +1,10 @@
+// 5805
+[proc,clientscript_5805]
+sound_vorbis_volume(5251, 1, 0, 120);
+if (if_gethide(task_main:com_167) = true) {
+    if_sethide(task_main:com_167, false);
+    if_sethide(task_main:com_168, true);
+} else {
+    if_sethide(task_main:com_167, true);
+    if_sethide(task_main:com_168, false);
+}

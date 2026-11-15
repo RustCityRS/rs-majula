@@ -1,0 +1,19 @@
+// 102
+[proc,clientscript_102](string $string0)
+if (%meslayermode < 2) {
+    if (getwindowmode >= 2) {
+        if_sethide(toplevel_fullscreen:chattop, false);
+    }
+    if_sethide(chattop:mes_layer, false);
+    if_sethide(chattop:mes_layer_large, true);
+    if_sethide(chattop:mes_layer_hide, true);
+    if_settext(chattop:mes_text, $string0);
+    if_settext(chattop:mes_text2, "Click here to continue");
+    %meslayermode = 1;
+    if_setonclick(chattop:mes_layer, "meslayer_close");
+    if_setonkey(chattop:mes_text2, null);
+    if_setcolour(chattop:mes_text2, 0x000080);
+    if_setonmouserepeat(chattop:mes_text2, "text_colour_swapper(event_com, ^white)");
+    if_setonmouseleave(chattop:mes_text2, "text_colour_swapper(event_com, 0x000080)");
+    ~clientscript_1188;
+}

@@ -1,0 +1,17 @@
+// 5738
+[proc,clientscript_5738]
+def_int $int0 = if_gety(interface_1237:com_5);
+def_int $int1 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+if (%varplayer_2502 ! null & (~script3999(struct_param(%varplayer_2502, param_1268)) = 0 | %varplayer_2502 = struct_6879)) {
+    if_sethide(interface_1237:com_48, false);
+    if (%varplayer_2502 ! struct_6879) {
+        $int1, $string0 = ~clientscript_5755(%varplayer_2504, %varplayer_2502);
+        $string1 = "Get your <$string0> level to <tostring($int1)> to unlock: ";
+    }
+    $string1 = append($string1, struct_param(%varplayer_2502, param_1273));
+    $int0 = ~clientscript_5739(1, $int0, $string1, interface_1237:com_5, interface_1237:com_48);
+} else {
+    $int0 = ~clientscript_5739(1, $int0, "Explore the world of Runescape for new and exciting adventures!", interface_1237:com_5, interface_1237:com_48);
+}

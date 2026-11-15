@@ -1,0 +1,62 @@
+// 749:0
+[topstat_prayer]
+type=layer
+width=57
+height=34
+
+// 749:1
+[topstat_background_prayer]
+type=graphic
+width=57
+height=34
+layer=topstat_prayer
+graphic=graphic_1206
+onload=clientscript_812
+onstattransmit=clientscript_812{prayer}
+
+// 749:2
+[topstat_circle_prayer]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_prayer
+graphic=graphic_1209
+
+// 749:3
+[com_3]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_prayer
+graphic=graphic_1245
+tiling=yes
+
+// 749:4
+[from_define_101]
+type=text
+x=31
+y=15
+width=24
+height=14
+layer=topstat_prayer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800
+onload=topstat_set_text_skill(event_com, prayer)
+onstattransmit=topstat_set_text_skill(event_com, prayer){prayer}
+
+// 749:5
+[topstat_graphic_prayer]
+type=graphic
+x=6
+y=7
+width=20
+height=20
+layer=topstat_prayer
+graphic=graphic_1198

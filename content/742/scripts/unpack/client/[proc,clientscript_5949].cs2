@@ -1,0 +1,36 @@
+// 5949
+[proc,clientscript_5949](int $int0)(graphic)
+def_graphic $graphic1 = null;
+def_int $int2 = -1;
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+switch_int (map_lang) {
+    case 0 :
+        $graphic1 = 9943;
+        $int2 = 9939;
+        $graphic3 = 9935;
+        $graphic4 = 9931;
+    case 1 :
+        $graphic1 = 9940;
+        $int2 = 9936;
+        $graphic3 = 9932;
+        $graphic4 = 9928;
+    case 2 :
+        $graphic1 = 9942;
+        $int2 = 9938;
+        $graphic3 = 9934;
+        $graphic4 = 9930;
+    case 3 :
+        $graphic1 = 9941;
+        $int2 = 9937;
+        $graphic3 = 9933;
+        $graphic4 = 9929;
+}
+switch_int ($int0) {
+    case 0 :
+        return($graphic1);
+    case 1 :
+        return($graphic3);
+    case 2 :
+        return($graphic4);
+}

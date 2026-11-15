@@ -1,0 +1,269 @@
+// 314:0
+[com_0]
+type=graphic
+x=3
+y=2
+width=152
+height=165
+layer=com_8
+graphic=graphic_6282
+
+// 314:1
+[com_1]
+type=graphic
+x=-3
+y=24
+width=39
+height=39
+xmode=abs_centre
+layer=com_8
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 314:2
+[com_2]
+type=graphic
+x=-3
+y=1
+width=39
+height=39
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 314:3
+[com_3]
+type=graphic
+x=-3
+y=22
+width=39
+height=39
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_8
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 314:4
+[com_4]
+type=layer
+y=2
+width=40
+height=51
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+
+// 314:5
+[com_5]
+type=text
+y=5
+width=130
+height=21
+xmode=abs_centre
+textfont=b12_full
+text=Ship Store
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 314:6
+[com_6]
+type=text
+y=28
+width=130
+height=40
+xmode=abs_centre
+textfont=p11_full
+text=Jones will let you take up to three treasure items. Choose wisely!
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 314:7
+[com_7]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+onop=closebutton_click
+
+// 314:8
+[com_8]
+type=layer
+x=17
+y=66
+width=157
+height=170
+
+// 314:9
+[com_9]
+type=layer
+y=232
+width=12855
+height=1576
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+
+// 314:10
+[com_10]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_7
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 314:11
+[com_11]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_7
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 314:12
+[com_12]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_7
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 314:13
+[com_13]
+type=text
+y=234
+width=155
+height=21
+xmode=abs_centre
+textfont=p11_full
+text=xxxxxxxxxxxxxxxx
+textlineheight=21
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onload=clientscript_4681
+
+// 314:14
+[com_14]
+type=graphic
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_9
+graphic=window_texture_2
+tiling=yes
+
+// 314:15
+[com_15]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 314:16
+[com_16]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 314:17
+[com_17]
+type=graphic
+width=138
+height=10
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 314:18
+[com_18]
+type=graphic
+width=10
+height=8
+xmode=abs_right
+ymode=abs_centre
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 314:19
+[com_19]
+type=graphic
+width=10
+height=8
+ymode=abs_centre
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 314:20
+[com_20]
+type=graphic
+x=7
+width=15402
+height=10
+widthmode=proportion
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 314:21
+[com_21]
+type=graphic
+width=10
+height=10
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 314:22
+[com_22]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_2,1"

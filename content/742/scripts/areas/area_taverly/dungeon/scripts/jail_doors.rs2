@@ -1,0 +1,53 @@
+// Taverley Dungeon's locked doors: 289's jail_doors.rs2 line for line.
+// W = 2011 wiki; C = cache 786; V = void-634.
+//
+// W (Jail key, 2011-04-17; Taverley Dungeon, 2011-05-16): the jailer's key opens Velrak's cell and the cell
+//    beside it; the dusty key opens the door to the blue dragons.
+// C: both cells' doors are di2_singleprisondoor (31838), at 0_45_151_51_25 (angle 1) and _51_31 (angle 3), on
+//    the cell's side of the wall line (maps/l45_151.jm2). 289's dungeonjail stood on the corridor's side (_51_26
+//    and _51_30), so here the door's own tile is inside the cell and 289's $entering reads the other way.
+// C: the cell door swings to di2_singleprisondoor_open_inactive (31840), 2011's open form without a Close, where
+//    289 swung its ctratgatea. Which of 2011's two open forms the jail showed, no source says.
+// C: the dusty key's gate is deepdungeondoor (2623) on 289's tile and at 289's angle: as 289.
+// V: void-634 opens the dusty key's gate on Open with the key in the backpack and says "The gate is locked.".
+//    No 2011 source shows the gate: 289's use of the key and 289's messages are kept.
+// Waiting: 289's [oploc1,ctratgatea] is Clock Tower's, which 647 does not have yet.
+[oploc1,di2_singleprisondoor] @unlock_taverley_jaildoor(false);
+[oplocu,di2_singleprisondoor]
+if (last_useitem = jail_key) {
+    @unlock_taverley_jaildoor(true);
+}
+~displaymessage(^dm_default);
+
+[oploc1,deepdungeondoor] @unlock_taverley_jaildoor(false);
+[oplocu,deepdungeondoor]
+if (last_useitem = dusty_key) {
+    @unlock_taverley_jaildoor(true);
+}
+~displaymessage(^dm_default);
+
+[label,unlock_taverley_jaildoor](boolean $key_used)
+def_boolean $on_door_tile = ~check_axis(coord, loc_coord, loc_angle);
+def_boolean $entering = $on_door_tile;
+def_loc $replacement = ctratgatea;
+if (loc_type = di2_singleprisondoor) {
+    // C: the cell doors stand on the cell's side
+    $entering = true;
+    if ($on_door_tile = true) {
+        $entering = false;
+    }
+    $replacement = di2_singleprisondoor_open_inactive;
+}
+def_string $name = lowercase(loc_name);
+if ($entering = true & $key_used = false) {
+    // the dusty key door loc is called "gate" in OSRS (and in 2007: https://youtu.be/_NuF1ZpxSXw?si=qskufTNPRUqU0rjZ&t=113),
+    // these messages there use gate instead of door so we'll just futureproof here
+    mes("This <$name> is locked.");
+    return;
+}
+if ($key_used = true) {
+    mes("You unlock the <$name>.");
+} else {
+    mes("The <$name> locks shut behind you.");
+}
+~open_and_close_door2($replacement, $on_door_tile, grate_open);

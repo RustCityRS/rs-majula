@@ -1,0 +1,10 @@
+// 1753
+[clientscript,brew_sweetgrub](component $component0, component $component1)
+if (%brew_varc_sweetgrubs > 0) {
+    if_setmodel($component0, model_15704);
+    if_setcolour($component1, 0x33ff00);
+} else {
+    if_setmodel($component0, model_15703);
+    if_setcolour($component1, 0x910000);
+}
+if_settext($component1, tostring(%brew_varc_sweetgrubs));

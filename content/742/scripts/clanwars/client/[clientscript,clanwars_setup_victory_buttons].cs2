@@ -1,0 +1,9 @@
+// 1821
+[clientscript,clanwars_setup_victory_buttons](int $int0, int $int1)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_endtype ! $int1) {
+    %clanwars_rulevarc_endtype = $int1;
+    ~script1770;
+}

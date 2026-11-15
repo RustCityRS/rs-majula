@@ -1,0 +1,8 @@
+// 6920
+[proc,clientscript_6920](component $component0, int $int1, int $int2, component $component3, int $int4, boolean $boolean5, boolean $boolean6)
+if (cc_find($component0, $int1) = true & .cc_find($component0, $int2) = true) {
+    ~clientscript_6921($component0, $component3, $int4, $boolean5);
+}
+if ($boolean6 = true) {
+    ~deltooltip_action($component3);
+}

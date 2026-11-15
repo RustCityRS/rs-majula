@@ -85,13 +85,24 @@ impl Engine {
                 continue;
             }
 
+            // The lobby holds no session and loads nothing: a player logging
+            // out of the game goes back to it while still being saved.
+            #[cfg(since_647)]
+            let lobby = request.lobby;
+            #[cfg(before_647)]
+            let lobby = false;
+
             // A login still in flight would race this one for the session,
             // and a logout still saving would be loaded before its final
             // save lands.
-            let busy = (self.find_pid_by_user37(user37).is_some() && !request.reconnect)
-                || self.logout_saves.contains_key(&user37)
-                || self.offline_edits.contains(&user37)
-                || self.pending_logins.iter().any(|p| p.user37 == user37);
+            let busy = !lobby
+                && ((self.find_pid_by_user37(user37).is_some() && !request.reconnect)
+                    || self.logout_saves.contains_key(&user37)
+                    || self.offline_edits.contains(&user37)
+                    || self
+                        .pending_logins
+                        .iter()
+                        .any(|p| p.user37 == user37 && !p.lobby()));
             if busy {
                 request
                     .handle
@@ -102,11 +113,13 @@ impl Engine {
             if let Some(tx) = &self.ether_tx {
                 let id = self.next_login_id;
                 self.next_login_id = id.wrapping_add(1);
-                let _ = tx.send(EtherOutbound::LoginCheck {
-                    user37,
-                    max_per_ip: MAX_PLAYING_PER_IP,
-                    ip: Some(ip),
-                });
+                if !lobby {
+                    let _ = tx.send(EtherOutbound::LoginCheck {
+                        user37,
+                        max_per_ip: MAX_PLAYING_PER_IP,
+                        ip: Some(ip),
+                    });
+                }
                 if let Some(db_tx) = &self.db_tx {
                     let _ = db_tx.send(DbRequest::Authenticate {
                         login: id,
@@ -122,7 +135,7 @@ impl Engine {
                     user37,
                     request,
                     clock: self.clock,
-                    ether_allowed: false,
+                    ether_allowed: lobby,
                     auth: None,
                     muted_until: None,
                     unread_messages: 0,

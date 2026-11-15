@@ -1,0 +1,10 @@
+// 1881
+[proc,clientscript_1881](int $int0)
+if_setscrollsize(loginscreen:com_224, 0, $int0);
+if ($int0 >= if_getheight(loginscreen:com_224)) {
+    ~clientscript_31(loginscreen:com_225, loginscreen:com_224, 798, 795, 796, 797, 793, 794);
+    ~clientscript_72(loginscreen:com_225, loginscreen:com_224, if_getscrolly(loginscreen:com_224));
+} else {
+    if_setscrollpos(loginscreen:com_224, 0, 0);
+    cc_deleteall(loginscreen:com_225);
+}

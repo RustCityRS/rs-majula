@@ -1,0 +1,46 @@
+// 4363
+[clientscript,clan_noticeboard_event_show](int $int0, string $string0, clanforumqfc $clanforumqfc0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if_settext(clan_noticeboard:event_text, $string0);
+if_setgraphic($component1, "aif_notetabs,1");
+if ($clanforumqfc0 ! null) {
+    if_setonop(clan_noticeboard:qfc_button, "script4330($clanforumqfc0)");
+    if_sethide(clan_noticeboard:qfc_button_disabled, true);
+} else {
+    if_clearops(clan_noticeboard:qfc_button);
+    if_sethide(clan_noticeboard:qfc_button_disabled, false);
+}
+if (activeclansettings_find_listened = true) {
+    if (~script4616($int2, $int3) > 0 & $int4 > 0 & $int5 > 0 & $int6 > 0) {
+        if_sethide(clan_noticeboard:watch_layer, false);
+    }
+    ~clan_noticeboard_watch_tick_update(clan_noticeboard:watch_tick);
+} else {
+    if_sethide(clan_noticeboard:watch_layer, true);
+}
+%clan_event_current_varp = $int0;
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic(clan_noticeboard:event_1, "aif_notetabs,3");
+    case 2 :
+        if_setgraphic(clan_noticeboard:event_2, "aif_notetabs,3");
+    case 3 :
+        if_setgraphic(clan_noticeboard:event_3, "aif_notetabs,3");
+    case 4 :
+        if_setgraphic(clan_noticeboard:event_4, "aif_notetabs,3");
+    case 5 :
+        if_setgraphic(clan_noticeboard:event_5, "aif_notetabs,3");
+    case 6 :
+        if_setgraphic(clan_noticeboard:event_6, "aif_notetabs,3");
+    case 7 :
+        if_setgraphic(clan_noticeboard:event_7, "aif_notetabs,3");
+    case 8 :
+        if_setgraphic(clan_noticeboard:event_8, "aif_notetabs,3");
+}
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_1, 1);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_2, 2);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_3, 3);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_4, 4);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_5, 5);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_6, 6);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_7, 7);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_8, 8);

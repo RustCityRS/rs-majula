@@ -1,0 +1,133 @@
+// 6000
+[proc,clientscript_6000](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, graphic $graphic7, graphic $graphic8, graphic $graphic9)(int, int, int, int, int)
+def_component $component10 = interface_1143:com_76;
+def_int $int11 = 0;
+def_struct $struct12 = null;
+def_string $string0 = "";
+def_int $int13 = 0;
+def_enum $enum14 = enum_5724;
+def_int $int15 = enum_getoutputcount($enum14);
+def_int $intarray0(calc($int15 + 1));
+def_struct $structarray1(enum_getoutputcount($enum14));
+def_int $int16 = 0;
+def_int $int17 = -1;
+def_int $int18 = 0;
+def_int $int19 = 0;
+while ($int18 < $int15) {
+    $intarray0($int18) = $int18;
+    $int18 = calc($int18 + 1);
+}
+$int18 = 0;
+$int16 = 1;
+def_int $int20 = 0;
+def_int $int21 = 0;
+switch_int (%varclient_1659) {
+    case default :
+        $intarray0(enum_getoutputcount($enum14)) = -1;
+        ~clientscript_5999(intarray0, 0, enum_getoutputcount($enum14), $enum14);
+        $int18 = calc($int15 - 1);
+        while ($int18 >= 0) {
+            if (enum(int, struct, $enum14, $intarray0(calc($int18 + 1))) ! null) {
+                $structarray1($int18) = enum(int, struct, $enum14, $intarray0(calc($int18 + 1)));
+            }
+            $int18 = calc($int18 - 1);
+        }
+    case 1 :
+        $intarray0(enum_getoutputcount($enum14)) = -1;
+        ~clientscript_5999(intarray0, 0, enum_getoutputcount($enum14), $enum14);
+        $int18 = calc($int15 - 1);
+        while ($int18 >= 0) {
+            if (enum(int, struct, $enum14, $intarray0(calc($int15 - $int18))) ! null) {
+                $structarray1($int18) = enum(int, struct, $enum14, $intarray0(calc($int15 - $int18)));
+            }
+            $int18 = calc($int18 - 1);
+        }
+    case 2 :
+        $intarray0(enum_getoutputcount($enum14)) = -1;
+        ~clientscript_5998(intarray0, 0, enum_getoutputcount($enum14), $enum14);
+        $int18 = calc($int15 + 1);
+        if (enum(int, struct, $enum14, $intarray0(0)) ! null) {
+            $structarray1($int18) = enum(int, struct, $enum14, $intarray0(0));
+        }
+        while ($int18 >= 0) {
+            if (enum(int, struct, $enum14, $intarray0(calc($int18 + 1))) ! null) {
+                $structarray1($int18) = enum(int, struct, $enum14, $intarray0(calc($int18 + 1)));
+            }
+            $int18 = calc($int18 - 1);
+        }
+    case 3 :
+        $intarray0(enum_getoutputcount($enum14)) = -1;
+        ~clientscript_5998(intarray0, 0, enum_getoutputcount($enum14), $enum14);
+        $int18 = calc($int15 - 1);
+        while ($int18 >= 0) {
+            if (enum(int, struct, $enum14, $intarray0(calc($int15 - $int18))) ! null) {
+                $structarray1($int18) = enum(int, struct, $enum14, $intarray0(calc($int15 - $int18)));
+            }
+            $int18 = calc($int18 - 1);
+        }
+}
+$int18 = 0;
+def_int $int22 = 1;
+def_int $int23 = 1;
+while ($int22 <= 1) {
+    if ($int23 > 1) {
+        cc_create($component10, ^iftype_text, $int5);
+        $int5 = calc($int5 + 1);
+        if ($int22 = 1) {
+            cc_setposition(11, $int4, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            $int2 = calc($int2 + $int3 + $int4);
+            cc_setposition(11, $int2, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        $int11 = cc_gety;
+        cc_setsize(calc(if_getwidth($component10) - 20), 13, ^setsize_abs, ^setsize_abs);
+        switch_int ($int22) {
+            case 1 :
+                cc_settext("Tier 1");
+            case 2 :
+                cc_settext("Tier 2");
+            case 3 :
+                cc_settext("Tier 3");
+            case 4 :
+                cc_settext("Tier 4");
+        }
+        cc_settextfont(verdana_13pt_regular);
+        cc_settextshadow(true);
+        cc_setcolour(0xe6be78);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+        if ($int22 = 1) {
+            cc_create($component10, ^iftype_text, $int5);
+            $int5 = calc($int5 + 1);
+            cc_setposition(7, $int11, ^setpos_abs_right, ^setpos_abs_top);
+            cc_setsize(calc(if_getwidth($component10) - 20), 13, ^setsize_abs, ^setsize_abs);
+            cc_settext("Scroll Down For More Tiers");
+            cc_settextfont(verdana_13pt_regular);
+            cc_settextshadow(true);
+            cc_setcolour(0xe6be78);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, 13);
+        }
+        cc_create($component10, ^iftype_rectangle, $int5);
+        $int5 = calc($int5 + 1);
+        if ($int22 = 1) {
+            cc_setposition(11, 23, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            $int2 = calc($int2 + 17);
+            cc_setposition(11, $int2, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        cc_setsize(calc(if_getwidth($component10) - 20), 1, ^setsize_abs, ^setsize_abs);
+        cc_setcolour(0xe6be78);
+        $int2 = calc(cc_gety + cc_getheight);
+    }
+    $int18 = 0;
+    $int0 = 0;
+    $int1 = $int4;
+    while ($int18 < enum_getoutputcount($enum14)) {
+        $struct12 = $structarray1($int18);
+        if (struct_param($struct12, param_1993) = $int22) {
+            $int0, $int1, $int2, $int3, $int5 = ~clientscript_5351($struct12, $int0, $int1, $int2, $int3, $int4, $int5, $int6, $graphic7, $graphic8, $graphic9);
+        }
+        $int18 = calc($int18 + 1);
+    }
+    $int22 = calc($int22 + 1);
+}
+return($int0, $int1, $int2, $int3, $int5);

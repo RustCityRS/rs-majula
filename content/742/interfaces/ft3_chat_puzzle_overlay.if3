@@ -1,0 +1,217 @@
+// 973:0
+[ft3_chat_puzzle_overall_layer]
+type=layer
+x=7
+y=24
+width=376
+height=105
+
+// 973:1
+[ft3_head]
+type=model
+x=169
+y=34
+width=33
+height=32
+layer=ft3_chat_puzzle_overall_layer
+model=model_22511
+modelorigin=0,-1
+modelangle=568,0,0
+modelzoom=400
+
+// 973:2
+[ft3_chatpuzzle_status_bar]
+type=graphic
+x=3
+y=13
+width=367
+height=52
+layer=ft3_chat_puzzle_overall_layer
+graphic=fairy_ui_bar
+trans=5
+colour=0x000000
+
+// 973:3
+[ft3_chatpuzzle_sad_head]
+type=graphic
+width=50
+height=50
+layer=ft3_chat_puzzle_overall_layer
+graphic="fairy_gnarly,0"
+colour=0x000000
+
+// 973:4
+[ft3_chatpuzzle_happy_head]
+type=graphic
+x=324
+y=2
+width=50
+height=50
+layer=ft3_chat_puzzle_overall_layer
+graphic="fairy_gnarly,1"
+colour=0x000000
+
+// 973:5
+[neg_reaction]
+type=text
+x=54
+y=41
+width=110
+height=16
+layer=ft3_chat_puzzle_overall_layer
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 973:6
+[pos_reaction]
+type=text
+x=210
+y=41
+width=107
+height=16
+layer=ft3_chat_puzzle_overall_layer
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xffff00
+
+// 973:7
+[npc_mood_text]
+type=text
+x=105
+y=17
+width=200
+height=16
+layer=ft3_chat_puzzle_overall_layer
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 973:8
+[neutral_arrow_0]
+type=layer
+x=19
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:9
+[arrow0]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_0
+graphic=fairy_ui_arrow
+colour=0x000000
+
+// 973:10
+[neutral_arrow_1]
+type=layer
+x=71
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:11
+[neutral_arrow_2]
+type=layer
+x=124
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:12
+[arrow2]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_2
+graphic=fairy_ui_arrow
+colour=0x000000
+
+// 973:13
+[neutral_arrow_neutral]
+type=layer
+x=176
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:14
+[arrow_neutral]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_neutral
+graphic=fairy_ui_arrow
+colour=0x000000
+
+// 973:15
+[neutral_arrow_3]
+type=layer
+x=229
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:16
+[arrow3]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_3
+graphic=fairy_ui_arrow
+colour=0x000000
+
+// 973:17
+[neutral_arrow_4]
+type=layer
+x=281
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:18
+[neutral_arrow_5]
+type=layer
+x=334
+y=67
+width=18
+height=32
+layer=ft3_chat_puzzle_overall_layer
+
+// 973:19
+[arrow5]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_5
+graphic=fairy_ui_arrow
+colour=0x000000
+
+// 973:20
+[arrow4]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_4
+graphic=fairy_ui_arrow
+colour=0x000000
+
+// 973:21
+[arrow1]
+type=graphic
+width=18
+height=9
+layer=neutral_arrow_1
+graphic=fairy_ui_arrow
+colour=0x000000

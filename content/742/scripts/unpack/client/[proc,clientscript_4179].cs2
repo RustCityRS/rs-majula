@@ -1,0 +1,9 @@
+// 4179
+[proc,clientscript_4179](component $component0)
+def_int $int1 = if_gettrans($component0);
+if ($int1 < 255) {
+    $int1 = min(255, calc($int1 + 10));
+    if_settrans($component0, $int1);
+} else {
+    if_setontimer($component0, null);
+}

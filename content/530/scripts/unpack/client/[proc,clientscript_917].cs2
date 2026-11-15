@@ -1,0 +1,24 @@
+// 917
+[proc,clientscript_917](component $component0, component $component1)
+def_string $string0 = "";
+if ($component0 = interface_728:com_17) {
+    %tooltip_built = 0;
+    if (%varplayerbit_4536 = 0) {
+        $string0 = "Turns off the <col=7f0000>autopilot</col>, letting you fly manually.";
+    } else {
+        $string0 = "Turns on the <col=7f0000>autopilot</col> to fly you automatically around the mapsquare.";
+    }
+} else if ($component0 = interface_728:exit) {
+    $string0 = "Return to Lumbridge.";
+} else if ($component0 = interface_728:com_20) {
+    $string0 = "First page.";
+} else if ($component0 = interface_728:back) {
+    $string0 = "Previous page.";
+} else if ($component0 = interface_728:com_22) {
+    $string0 = "Next page.";
+} else if ($component0 = interface_728:com_23) {
+    $string0 = "Last page.";
+} else {
+    return;
+}
+~addtooltip_action($component0, $component1, $string0, 25, 110);

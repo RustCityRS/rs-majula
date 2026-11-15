@@ -1,0 +1,7 @@
+// 6674
+[proc,clientscript_6674](int $int0, obj $obj1, int $int2)
+if (%varplayerbit_10861 > 0) {
+    if_settext(interface_1253:com_253, "Claim later");
+} else {
+    if_settext(interface_1253:com_253, "Done");
+}

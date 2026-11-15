@@ -1,0 +1,6 @@
+// 201
+[proc,script201]
+if (%last_clanchannelowner_attempttorejoin = 1 & %last_clanchannelowner_init = true & string_length(%last_clanchannelowner) > 0) {
+    clan_joinchat(%last_clanchannelowner);
+    %last_clanchannelowner_attempttorejoin = 2;
+}

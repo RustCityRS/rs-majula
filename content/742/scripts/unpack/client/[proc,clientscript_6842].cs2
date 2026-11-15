@@ -1,0 +1,5 @@
+// 6842
+[proc,clientscript_6842]
+if_setposition(interface_1354:com_35, 0, 63, ^setpos_abs_centre, ^setpos_abs_centre);
+if_set2dangle(interface_1354:com_35, 0);
+~clientscript_6843;

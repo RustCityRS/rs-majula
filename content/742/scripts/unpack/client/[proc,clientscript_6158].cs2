@@ -1,0 +1,32 @@
+// 6158
+[proc,clientscript_6158]
+if_settext(interface_1274:com_5, tostring(%varclient_1909));
+if_settext(interface_1274:com_2, tostring(%varclient_1916));
+switch_int (%varclient_1917) {
+    case 1 :
+        if_setgraphic(interface_1274:com_8, 10708);
+    case 2 :
+        if_setgraphic(interface_1274:com_8, 10709);
+    case 3 :
+        if_setgraphic(interface_1274:com_8, 10710);
+    case default :
+        if_setgraphic(interface_1274:com_8, login_cross);
+}
+def_string $string0 = "Runesphere Active!";
+switch_int (%varclient_1918) {
+    case 1 :
+        if_sethide(interface_1274:com_9, false);
+        $string0 = "Runesphere Active on the Bottom Floor!";
+        if_setonmouserepeat(interface_1274:com_9, "clientscript_5484(interface_1274:com_9, interface_1274:com_10, $string0)");
+    case 2 :
+        if_sethide(interface_1274:com_9, false);
+        $string0 = "Runesphere Active on the Middle Floor!";
+        if_setonmouserepeat(interface_1274:com_9, "clientscript_5484(interface_1274:com_9, interface_1274:com_10, $string0)");
+    case default :
+        if_sethide(interface_1274:com_9, true);
+}
+if (%varclient_1918 ! 0) {
+    if_sethide(interface_1274:com_9, false);
+} else {
+    if_sethide(interface_1274:com_9, true);
+}

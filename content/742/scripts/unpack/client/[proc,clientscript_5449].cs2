@@ -1,0 +1,5 @@
+// 5449
+[proc,clientscript_5449](component $component0, int $int1)
+if (%varclient_1681 ! $int1) {
+    if_setgraphic($component0, 8431);
+}
