@@ -414,7 +414,11 @@ pub fn minimap_states(packets: &[(u16, Vec<u8>)]) -> Vec<u8> {
 /// Every URL_OPEN's url.
 pub fn urls(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
     of(packets, ServerProt::UrlOpen)
-        .map(|p| String::from_utf8_lossy(p).into_owned())
+        .map(|p| {
+            #[cfg(since_742)]
+            let p = &p[1..p.len() - 1];
+            String::from_utf8_lossy(p).into_owned()
+        })
         .collect()
 }
 

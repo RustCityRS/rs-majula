@@ -185,7 +185,7 @@ pub mod sound_song_preloaded;
 pub mod transmitvar_verifyid;
 pub mod tut_clickside;
 #[cfg(since_742)]
-pub mod unknown;
+pub mod unhandled;
 #[cfg(since_530)]
 pub mod url_request;
 #[cfg(since_647)]

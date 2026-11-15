@@ -8,22 +8,22 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 #[client_prot(Fixed(1), ClientEvent)]
-pub struct Unknown1;
+pub struct SimpleToolkitChange;
 
-impl ClientProtMessage for Unknown1 {
+impl ClientProtMessage for SimpleToolkitChange {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown1
+        SimpleToolkitChange
     }
 }
 
 #[client_prot(Fixed(1), ClientEvent)]
-pub struct Unknown2;
+pub struct CutsceneFinished;
 
-impl ClientProtMessage for Unknown2 {
+impl ClientProtMessage for CutsceneFinished {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown2
+        CutsceneFinished
     }
 }
 
@@ -38,150 +38,150 @@ impl ClientProtMessage for Unknown10 {
 }
 
 #[client_prot(VarShort { min: 0 }, ClientEvent)]
-pub struct Unknown14;
+pub struct CreateAccount;
 
-impl ClientProtMessage for Unknown14 {
+impl ClientProtMessage for CreateAccount {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown14
+        CreateAccount
     }
 }
 
 #[client_prot(VarByte { min: 0 }, ClientEvent)]
-pub struct Unknown15;
+pub struct AffinedClansettingsAddBannedFromChannel;
 
-impl ClientProtMessage for Unknown15 {
+impl ClientProtMessage for AffinedClansettingsAddBannedFromChannel {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown15
+        AffinedClansettingsAddBannedFromChannel
     }
 }
 
 #[client_prot(VarShort { min: 0 }, ClientEvent)]
-pub struct Unknown29;
+pub struct AddNewEmailAddress;
 
-impl ClientProtMessage for Unknown29 {
+impl ClientProtMessage for AddNewEmailAddress {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown29
+        AddNewEmailAddress
     }
 }
 
 #[client_prot(Fixed(4), ClientEvent)]
-pub struct Unknown60;
+pub struct SoundSongEnd;
 
-impl ClientProtMessage for Unknown60 {
+impl ClientProtMessage for SoundSongEnd {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown60
+        SoundSongEnd
     }
 }
 
 #[client_prot(Fixed(7), ClientEvent)]
-pub struct Unknown61;
+pub struct EventNativeMouseClick;
 
-impl ClientProtMessage for Unknown61 {
+impl ClientProtMessage for EventNativeMouseClick {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown61
+        EventNativeMouseClick
     }
 }
 
 #[client_prot(Fixed(2), ClientEvent)]
-pub struct Unknown63;
+pub struct DirectxFailure;
 
-impl ClientProtMessage for Unknown63 {
+impl ClientProtMessage for DirectxFailure {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown63
+        DirectxFailure
     }
 }
 
 #[client_prot(Fixed(15), ClientEvent)]
-pub struct Unknown89;
+pub struct AutoSetupResult;
 
-impl ClientProtMessage for Unknown89 {
+impl ClientProtMessage for AutoSetupResult {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown89
+        AutoSetupResult
     }
 }
 
 #[client_prot(Fixed(9), ClientEvent)]
-pub struct Unknown91;
+pub struct SendPingReply;
 
-impl ClientProtMessage for Unknown91 {
+impl ClientProtMessage for SendPingReply {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown91
+        SendPingReply
     }
 }
 
 #[client_prot(Fixed(1), ClientEvent)]
-pub struct Unknown92;
+pub struct CreateLogProgress;
 
-impl ClientProtMessage for Unknown92 {
+impl ClientProtMessage for CreateLogProgress {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown92
+        CreateLogProgress
     }
 }
 
 #[client_prot(Fixed(4), ClientEvent)]
-pub struct Unknown93;
+pub struct PingStatistics;
 
-impl ClientProtMessage for Unknown93 {
+impl ClientProtMessage for PingStatistics {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown93
+        PingStatistics
     }
 }
 
 #[client_prot(VarShort { min: 0 }, ClientEvent)]
-pub struct Unknown97;
+pub struct BugReport;
 
-impl ClientProtMessage for Unknown97 {
+impl ClientProtMessage for BugReport {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown97
+        BugReport
     }
 }
 
 #[client_prot(VarByte { min: 0 }, ClientEvent)]
-pub struct Unknown98;
+pub struct EventNativeMouseMove;
 
-impl ClientProtMessage for Unknown98 {
+impl ClientProtMessage for EventNativeMouseMove {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown98
+        EventNativeMouseMove
     }
 }
 
 #[client_prot(Fixed(0), ClientEvent)]
-pub struct Unknown100;
+pub struct UidPassportResendRequest;
 
-impl ClientProtMessage for Unknown100 {
+impl ClientProtMessage for UidPassportResendRequest {
     fn decode(_: &mut Packet, _: usize) -> Self {
-        Unknown100
+        UidPassportResendRequest
     }
 }
 
 #[client_prot(VarByte { min: 0 }, ClientEvent)]
-pub struct Unknown101;
+pub struct SendEmailValidationCode;
 
-impl ClientProtMessage for Unknown101 {
+impl ClientProtMessage for SendEmailValidationCode {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown101
+        SendEmailValidationCode
     }
 }
 
 #[client_prot(VarShort { min: 0 }, ClientEvent)]
-pub struct Unknown102;
+pub struct ChangeEmailAddress;
 
-impl ClientProtMessage for Unknown102 {
+impl ClientProtMessage for ChangeEmailAddress {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         buf.pos = len;
-        Unknown102
+        ChangeEmailAddress
     }
 }

@@ -4578,11 +4578,13 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(since_647)]
                 ClientProt::CreateCheckName => CreateCheckName::decode(&mut buf, len).handle(self),
                 #[cfg(since_742)]
-                ClientProt::Unknown1 | ClientProt::Unknown2 | ClientProt::Unknown10 | ClientProt::Unknown14
-                | ClientProt::Unknown15 | ClientProt::Unknown29 | ClientProt::Unknown60 | ClientProt::Unknown61
-                | ClientProt::Unknown63 | ClientProt::Unknown89 | ClientProt::Unknown91 | ClientProt::Unknown92
-                | ClientProt::Unknown93 | ClientProt::Unknown97 | ClientProt::Unknown98 | ClientProt::Unknown100
-                | ClientProt::Unknown101 | ClientProt::Unknown102 => Ok(()),
+                ClientProt::SimpleToolkitChange | ClientProt::CutsceneFinished | ClientProt::Unknown10
+                | ClientProt::CreateAccount | ClientProt::AffinedClansettingsAddBannedFromChannel
+                | ClientProt::AddNewEmailAddress | ClientProt::SoundSongEnd | ClientProt::EventNativeMouseClick
+                | ClientProt::DirectxFailure | ClientProt::AutoSetupResult | ClientProt::SendPingReply
+                | ClientProt::CreateLogProgress | ClientProt::PingStatistics | ClientProt::BugReport
+                | ClientProt::EventNativeMouseMove | ClientProt::UidPassportResendRequest
+                | ClientProt::SendEmailValidationCode | ClientProt::ChangeEmailAddress => Ok(()),
             };
             match result {
                 Ok(_) => true,
