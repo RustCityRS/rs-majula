@@ -1,0 +1,3 @@
+// 5627
+[proc,clientscript_5627](component $component0)
+if_setontimer($component0, "clientscript_5628(if_getwidth($component0), if_getheight($component0))");

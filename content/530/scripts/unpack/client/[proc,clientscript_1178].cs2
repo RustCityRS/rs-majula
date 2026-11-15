@@ -1,0 +1,4 @@
+// 1178
+[proc,clientscript_1178]
+%pvpw_countdown_value = max(0, calc(%pvpw_countdown_value - 1));
+if_settext(statusicons:pvpw_countdown, tostring(calc(%pvpw_countdown_value * 2 / 100)));

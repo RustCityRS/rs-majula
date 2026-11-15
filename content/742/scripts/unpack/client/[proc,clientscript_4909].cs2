@@ -1,0 +1,21 @@
+// 4909
+[proc,clientscript_4909](coord $coord0)(int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 216;
+def_int $int4 = 216;
+def_int $int5 = 127;
+if ($coord0 = null) {
+    return(0, 0);
+}
+def_int $int6 = coordx($coord0);
+if ($int6 > $int5 | $int6 < 0) {
+    return(-1, -1);
+}
+def_int $int7 = calc($int5 - coordz($coord0));
+if ($int7 > 127 | $int7 < 0) {
+    return(-1, -1);
+}
+$int1 = calc($int6 * $int3 / $int5);
+$int2 = calc($int7 * $int4 / $int5);
+return($int1, $int2);

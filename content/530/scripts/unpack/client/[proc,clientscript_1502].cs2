@@ -1,0 +1,28 @@
+// 1502
+[proc,clientscript_1502]
+def_int $int0 = 0;
+def_component $component1 = null;
+if (%varplayerbit_4932 = 1) {
+    if (%varplayerbit_4931 = 0 | %varplayerbit_4931 = 1 | %varplayerbit_4931 = 3) {
+        if_setontimer(bank_v2_side:inventory_layer, "clientscript_1503(calc(clientclock + 20))");
+    } else if (%varplayerbit_4931 = 5) {
+        $component1 = enum(int, component, enum_1615, ~bank_v2_get_newtab);
+        if ($component1 ! null) {
+            ~clientscript_1725($component1);
+        }
+    } else if (%varplayerbit_4931 = 10) {
+        $int0 = 2;
+        while ($int0 < 10) {
+            ~clientscript_1728(enum(int, component, enum_1615, $int0));
+            $int0 = calc($int0 + 1);
+        }
+        ~clientscript_1725(enum(int, component, enum_1615, 2));
+    } else if (%varplayerbit_4931 = 15) {
+        ~clientscript_1728(enum(int, component, enum_1615, 2));
+        if_setontimer(bank_v2_side:inventory_layer, "clientscript_1503(calc(clientclock + 20))");
+    } else if (%varplayerbit_4931 = 20) {
+        ~clientscript_1725(enum(int, component, enum_1615, 1));
+    } else if (%varplayerbit_4931 = 22) {
+        ~clientscript_1728(enum(int, component, enum_1615, 1));
+    }
+}

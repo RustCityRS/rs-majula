@@ -1,0 +1,15 @@
+// 5464
+[proc,clientscript_5464]
+if (%varclient_1671 >= 48) {
+    if_setsize(interface_1159:com_23, if_getwidth(interface_1159:com_23), 105, ^setsize_abs, ^setsize_abs);
+    if_setsize(interface_1159:com_31, if_getwidth(interface_1159:com_31), 72, ^setsize_abs, ^setsize_abs);
+} else if (%varclient_1671 >= 24) {
+    if_setsize(interface_1159:com_23, if_getwidth(interface_1159:com_23), 79, ^setsize_abs, ^setsize_abs);
+    if_setsize(interface_1159:com_31, if_getwidth(interface_1159:com_31), 48, ^setsize_abs, ^setsize_abs);
+} else if (%varclient_1670 > 0) {
+    if_setsize(interface_1159:com_23, if_getwidth(interface_1159:com_23), 55, ^setsize_abs, ^setsize_abs);
+    if_setsize(interface_1159:com_31, if_getwidth(interface_1159:com_31), 24, ^setsize_abs, ^setsize_abs);
+} else {
+    if_setsize(interface_1159:com_23, if_getwidth(interface_1159:com_23), 37, ^setsize_abs, ^setsize_abs);
+    if_setsize(interface_1159:com_31, if_getwidth(interface_1159:com_31), 1, ^setsize_abs, ^setsize_abs);
+}

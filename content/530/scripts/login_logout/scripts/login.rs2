@@ -1,0 +1,153 @@
+[login,_]
+mes("Welcome to RuneScape.")
+// register the timers that replenish stats (ported from rev-225);
+// hp is separate so rapid heal/restore can retune it independently
+settimer(stat_regen, 100);
+settimer(stat_boost_restore, 100);
+settimer(health_regen, 100);
+// 289's login hooks (login_logout/login.rs2), as their systems are ported.
+// Music: nothing plays yet, so the square's [mapzone] plays its track
+// (music.rs2). 289's %musicplay = 1 (Auto) went with 530's music player's
+// buttons; the song end and automatic unlocks start here instead.
+%currentsong = null;
+softtimer(music_end, 1);
+~music_unlock_automatic;
+~thieving_stall_timers_login;
+~sa_login;
+// random event timer
+settimer(general_macro_events, 500);
+// for logout out during a general macro event, they respawn when you log back in
+// queue:
+// - https://youtu.be/T0ulsgorBkY?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
+// - https://youtu.be/HwGAzcmvF9k?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
+// npc spawns only after interface is closed
+queue(macro_event_login, 0, 0);
+// so antifire persists after logging back in
+~set_antifire_login;
+// Varp 281 is the tutorial's, which the client reads as done at 1000. There is no tutorial: a
+// character below 1000 is a new one, which designs itself and starts in Lumbridge (new_player.rs2).
+~open_game_frame()
+~login_finish()
+if (%tutorial < 1000) {
+    ~new_player_start;
+    return;
+}
+// 289's resume of its Tutorial Island (tutorial/), for a player who entered it by its cheat.
+if (%varplayer_419 > ^newbie_basics_instructor_start & %varplayer_419 < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
+    @start_tutorial;
+}
+
+[proc,login_finish]()
+cam_reset
+set_player_op(null, 2, ^false);
+set_player_op("Follow", 3, ^false);
+set_player_op("Trade with", 4, ^false);
+set_player_op(null, 5, ^false);
+
+[proc,open_game_frame]()
+if (getwindowmode < 2) {
+    if_opentop(toplevel)
+} else {
+    if_opentop(toplevel_fullscreen)
+}
+~initalltabs()
+~initorbs()
+
+[proc,initorbs]()
+// The summoning orb (interface 747) is members-only and stays blank until
+// show_summoning_orb (varbit 4280 = varplayer_1160 bit 23) is set -- the client's
+// [proc,subchanged] hides 747:8 whenever it reads 0. void rev-634 defaults the
+// var to true and re-sends it on every `interfaceOpened("summoning_orb")`, so
+// seed it here, before the mount, and only on a members world.
+def_int $summoning = ^false;
+if (map_members = ^true) {
+    $summoning = ^true;
+    %lore_lore_available = ^true;
+}
+
+if (getwindowmode < 2) {
+    if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints)
+    if_opensub(topstat_prayer, toplevel:topstat_prayer)
+    if_opensub(topstat_run, toplevel:topstat_run)
+    if ($summoning = ^true) {
+        if_opensub(topstat_lore, toplevel:topstat_lore)
+    }
+    if_opensub(filterbuttons, toplevel:filterbuttons)
+    if_opensub(chattop, toplevel:chattop)
+    // split/private chat overlay (matches void rev-634 gameframe); sits in the
+    // 512x69 slot just below the chatbox
+    if_opensub(pmchat, toplevel:pmchat)
+    // status icons such as multiway combat, in the slot sized for them
+    if_opensub(statusicons, toplevel:statusicons)
+} else {
+    if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints)
+    if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer)
+    if_opensub(topstat_run, toplevel_fullscreen:topstat_run)
+    if ($summoning = ^true) {
+        if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore)
+    }
+    if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons)
+    if_opensub(chattop, toplevel_fullscreen:chattop)
+    if_opensub(pmchat, toplevel_fullscreen:pmchat)
+    if_opensub(statusicons, toplevel_fullscreen:statusicons)
+}
+
+if_opensub(chatdefault, chattop:chatdefault)
+
+// The prayer orb's quick prayers, selecting (varc 181) and on (182), which
+// void-634's server sends as the orb opens (PrayerList.kt). The client
+// starts both at -1, and the prayer book offers Activate only while 181 is 0
+// (clientscript 1237): unsent, no prayer can be clicked. Quick prayers
+// themselves are not ported.
+%prayer_custom_view_client = false
+%topstat_prayer_button_client = false
+
+[proc,initalltabs]()
+inv_transmit(inv, inventory:inv)
+inv_transmit(worn, wornitems:com_28)
+
+// 530's side slots: 0 the worn weapon's tab (opened with the weapon's category,
+// skill_combat's update_weapon_category), 1 stats, 2 quests (interface 274),
+// 3 inventory, 4 worn, 5 prayer, 6 magic, 7 summoning (empty until a familiar
+// is out), 8 friends, 9 ignore (551), 10 clan chat (589), 11 options,
+// 12 emotes, 13 music, and 99 the frame's logout button (clientscripts
+// getsideicon and getsidelayer).
+if (getwindowmode < 2) {
+    if_opensub(stats, toplevel:side1)
+    if_opensub(interface_274, toplevel:side2)
+    if_opensub(inventory, toplevel:side3)
+    if_opensub(wornitems, toplevel:side4)
+    if_opensub(prayer, toplevel:side5)
+    if_opensub(magic, toplevel:side6)
+    if_opensub(friends2, toplevel:side8)
+    if_opensub(interface_551, toplevel:side9)
+    if_opensub(interface_589, toplevel:side10)
+    if_opensub(options, toplevel:side11)
+    if_opensub(emotes, toplevel:side12)
+    if_opensub(music_v3, toplevel:side13)
+    if_opensub(logout, toplevel:side99)
+} else {
+    if_opensub(stats, toplevel_fullscreen:side1)
+    if_opensub(interface_274, toplevel_fullscreen:side2)
+    if_opensub(inventory, toplevel_fullscreen:side3)
+    if_opensub(wornitems, toplevel_fullscreen:side4)
+    if_opensub(prayer, toplevel_fullscreen:side5)
+    if_opensub(magic, toplevel_fullscreen:side6)
+    if_opensub(friends2, toplevel_fullscreen:side8)
+    if_opensub(interface_551, toplevel_fullscreen:side9)
+    if_opensub(interface_589, toplevel_fullscreen:side10)
+    if_opensub(options, toplevel_fullscreen:side11)
+    if_opensub(emotes, toplevel_fullscreen:side12)
+    if_opensub(music_v3, toplevel_fullscreen:side13)
+    if_opensub(logout, toplevel_fullscreen:side99)
+}
+
+// The inventory and worn tabs are if1 inventories, the quest list and prayer
+// book static if3 components whose ops the cache already transmits: none needs
+// if_setevents. The music player's list (music_v3, 187) is com1's children,
+// one per place 0-646 (clientscript 828); Click to play (op1) and Unlock hint
+// (op2) need their events, sent after the tab opens (an open drops them).
+~update_questlist;
+if_setevents(music_v3:jukebox, 0, 646, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
+
+~update_all(inv_getobj(worn, ^wearpos_rhand));

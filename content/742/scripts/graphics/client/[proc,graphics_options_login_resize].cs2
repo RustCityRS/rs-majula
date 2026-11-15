@@ -1,0 +1,21 @@
+// 2918
+[proc,graphics_options_login_resize](boolean $boolean0)
+def_int $int1 = 0;
+def_int $int2 = 33;
+if ($boolean0 = false) {
+    return;
+}
+$int2 = 30;
+if (if_getheight(loginscreen_graphics_options:universe) < calc(if_getheight(loginscreen_graphics_options:contents) + 146)) {
+    if_setposition(loginscreen_graphics_options:border, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setposition(loginscreen_graphics_options:contents, 0, calc(if_gety(loginscreen_graphics_options:border) + $int2), ^setpos_abs_centre, ^setpos_abs_top);
+    if_sethide(loginscreen:runescape_logo, true);
+} else {
+    $int1 = calc(if_gety(loginscreen:runescape_logo) + if_getheight(loginscreen:runescape_logo));
+    if_setposition(loginscreen_graphics_options:border, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if (calc(if_gety(loginscreen_graphics_options:border) - 2) < $int1) {
+        if_setposition(loginscreen_graphics_options:border, 0, calc($int1 + 2), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if_setposition(loginscreen_graphics_options:contents, 0, calc(if_gety(loginscreen_graphics_options:border) + $int2), ^setpos_abs_centre, ^setpos_abs_top);
+    if_sethide(loginscreen:runescape_logo, false);
+}

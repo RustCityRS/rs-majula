@@ -1,0 +1,6 @@
+// 5236
+[proc,clientscript_5236]
+def_int $int0 = calc(120 - scale(120, 100, %rand_display_stage));
+if (if_getwidth(interface_1126:com_124) < $int0) {
+    if_setsize(interface_1126:com_124, calc(if_getwidth(interface_1126:com_124) + 1), if_getheight(interface_1126:com_124), ^setsize_abs, ^setsize_abs);
+}

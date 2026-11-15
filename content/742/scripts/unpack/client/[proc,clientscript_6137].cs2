@@ -1,0 +1,30 @@
+// 6137
+[proc,clientscript_6137](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = 80;
+def_int $int7 = 40;
+def_int $int8 = 20;
+def_string $string0 = "Place beacon";
+cc_create(interface_1270:com_122, ^iftype_rectangle, 0);
+cc_setsize($int6, $int6, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int0 - $int7), calc($int1 - $int7), ^setpos_abs_left, ^setpos_abs_top);
+~clientscript_6136($string0);
+cc_create(interface_1270:com_122, ^iftype_rectangle, 1);
+cc_setsize($int7, $int7, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int0 - $int8), calc($int1 - $int8), ^setpos_abs_left, ^setpos_abs_top);
+~clientscript_6136($string0);
+cc_create(interface_1270:com_123, ^iftype_rectangle, 0);
+cc_setsize($int6, $int6, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int2 - $int7), calc($int3 - $int7), ^setpos_abs_left, ^setpos_abs_top);
+~clientscript_6136($string0);
+cc_create(interface_1270:com_123, ^iftype_rectangle, 1);
+cc_setsize($int7, $int7, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int2 - $int8), calc($int3 - $int8), ^setpos_abs_left, ^setpos_abs_top);
+~clientscript_6136($string0);
+cc_create(interface_1270:com_124, ^iftype_rectangle, 0);
+cc_setsize($int6, $int6, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 - $int7), calc($int5 - $int7), ^setpos_abs_left, ^setpos_abs_top);
+~clientscript_6136($string0);
+cc_create(interface_1270:com_124, ^iftype_rectangle, 1);
+cc_setsize($int7, $int7, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 - $int8), calc($int5 - $int8), ^setpos_abs_left, ^setpos_abs_top);
+~clientscript_6136($string0);

@@ -7,7 +7,7 @@
 //! script, tests included, and fails on any opcode the engine's registry has
 //! no handler for.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use std::collections::BTreeMap;
 

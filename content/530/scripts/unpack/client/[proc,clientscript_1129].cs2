@@ -1,0 +1,7 @@
+// 1129
+[proc,clientscript_1129]
+def_int $int0 = 0;
+if (detailget_grounddecor_on = 1) {
+    $int0 = 1;
+}
+~clientscript_1435(enum_1577, $int0, 1, graphics_options:com_83, graphics_options:com_84, graphics_options:com_85, null, 897, 788, 788, 1040, 0xcf0000, ^white, ^yellow, 494, 792, 789, 790, 791, 773, 788);

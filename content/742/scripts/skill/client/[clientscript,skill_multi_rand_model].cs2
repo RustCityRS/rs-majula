@@ -1,0 +1,45 @@
+// 2265
+[clientscript,skill_multi_rand_model](component $component0)
+if_sethide($component0, false);
+switch_component ($component0) {
+    case skill_multi_rand:model1 :
+        if (%skill_multi_obj1 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj1, -1);
+        }
+    case skill_multi_rand:model2 :
+        if (%skill_multi_obj2 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj2, -1);
+        }
+    case skill_multi_rand:model3 :
+        if (%skill_multi_obj3 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj3, -1);
+        }
+    case skill_multi_rand:model4 :
+        if (%skill_multi_obj4 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj4, -1);
+        }
+    case skill_multi_rand:model5 :
+        if (%skill_multi_obj5 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj5, -1);
+        }
+    case skill_multi_rand:model6 :
+        if (%skill_multi_obj6 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj6, -1);
+        }
+    case skill_multi_rand:model7 :
+        if (%skill_multi_obj7 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj7, -1);
+        }
+    case skill_multi_rand:model8 :
+        if (%skill_multi_obj8 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj8, -1);
+        }
+    case skill_multi_rand:model9 :
+        if (%skill_multi_obj9 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj9, -1);
+        }
+    case skill_multi_rand:model10 :
+        if (%skill_multi_obj10 ! null) {
+            if_setobject_wearcol($component0, %skill_multi_obj10, -1);
+        }
+}

@@ -1,0 +1,7 @@
+// 188
+[clientscript,large_button_highlight](component $component0)
+if (getwindowmode >= 2) {
+    if_setgraphic($component0, 8557);
+} else {
+    if_setgraphic($component0, large_button_highlight);
+}

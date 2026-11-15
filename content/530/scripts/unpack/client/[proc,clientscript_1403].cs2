@@ -1,0 +1,9 @@
+// 1403
+[proc,clientscript_1403](component $component0)
+if ($component0 = interface_205:choosemale | $component0 = interface_205:choosemale2) {
+    if_setcolour(interface_205:choosemale, ^green);
+    if_setcolour(interface_205:choosefemale, ^black);
+} else if ($component0 = interface_205:choosefemale | $component0 = interface_205:choosefemale2) {
+    if_setcolour(interface_205:choosefemale, ^green);
+    if_setcolour(interface_205:choosemale, ^black);
+}

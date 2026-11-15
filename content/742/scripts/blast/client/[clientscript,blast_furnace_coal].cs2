@@ -1,0 +1,7 @@
+// 2040
+[clientscript,blast_furnace_coal](component $component0)
+if (%blast_furnace_coal = 0) {
+    if_settext($component0, "Coal to add: <tostring(%blast_furnace_coal_required)>");
+} else {
+    if_settext($component0, "Coal in furnace: <tostring(%blast_furnace_coal)>");
+}

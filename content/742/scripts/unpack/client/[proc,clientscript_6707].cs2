@@ -1,0 +1,12 @@
+// 6707
+[proc,clientscript_6707](int $int0)(int)
+def_int $int1 = 0;
+def_stat $stat2 = null;
+while ($int1 < enum_getoutputcount(enum_681)) {
+    $stat2 = enum(int, stat, enum_681, calc($int1 + 1));
+    if ($stat2 ! null & stat_base($stat2) >= $int0) {
+        return(0);
+    }
+    $int1 = calc($int1 + 1);
+}
+return(1);

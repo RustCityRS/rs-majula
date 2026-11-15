@@ -1,0 +1,8 @@
+// 6104
+[proc,clientscript_6104]
+if (%varplayer_2561 ! null & %varplayer_2563 ! -1) {
+    ~clientscript_6108(%varplayer_2561, %varplayer_2563);
+    ~clientscript_6111;
+} else {
+    ~clientscript_6107;
+}

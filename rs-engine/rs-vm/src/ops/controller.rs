@@ -4,6 +4,7 @@ use crate::register::OpsRegistry;
 use crate::state::ScriptState;
 use crate::util::{pop_coord, pop_script};
 use crate::{ControllerUid, ScriptError, handlers, none};
+use rs_ver::TypeId;
 use runec::opcodes::*;
 
 /// The active controller, or with `secondary` the `.active_controller` a
@@ -59,7 +60,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 5303
         none!(m, CONTROLLER_FINDEXACT => |s| {
-            let id = s.pop_int_as::<u16>()?;
+            let id = s.pop_int_as::<TypeId>()?;
             let coord = pop_coord(s)?;
             let found = engine::<E>().controller_findexact(coord, id);
             if found.is_some() {
@@ -71,7 +72,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 5304
         none!(m, CONTROLLER_ADD => |s| {
             let duration = s.pop_int();
-            let id = s.pop_int_as::<u16>()?;
+            let id = s.pop_int_as::<TypeId>()?;
             let coord = pop_coord(s)?;
             let uid = engine_mut::<E>().controller_add(coord, id, duration)?;
             set_active_controller(s, Some(uid), s.int_operand() != 0);

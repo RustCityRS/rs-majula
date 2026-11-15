@@ -1,0 +1,17 @@
+// 1870
+[proc,clientscript_1870](int $int0)
+if (%varclient_546 = 1) {
+    if_settext(loginscreen:com_256, "<col=7f0000>N/A</col>");
+    if_setgraphic(loginscreen:com_255, 1555);
+    if_setonclick(loginscreen:com_236, null);
+    if_setonmouseover(loginscreen:com_236, null);
+    if_setonmouseleave(loginscreen:com_236, null);
+    return;
+}
+def_graphic $graphic1 = 1551;
+def_graphic $graphic2 = 1552;
+if_settext(loginscreen:com_256, tostring($int0));
+if_setgraphic(loginscreen:com_255, $graphic1);
+if_setonclick(loginscreen:com_236, "clientscript_1871($int0, 2)");
+if_setonmouseover(loginscreen:com_236, "graphic_swapper2(loginscreen:com_255, $graphic2, loginscreen:com_256, 0xffe1be)");
+if_setonmouseleave(loginscreen:com_236, "graphic_swapper2(loginscreen:com_255, $graphic1, loginscreen:com_256, 0x461e00)");

@@ -1,0 +1,16 @@
+// 6378
+[proc,clientscript_6378](component $component0)(boolean)
+if ($component0 = null) {
+    return(true);
+}
+$component0 = ~clientscript_6379($component0);
+if (getwindowmode >= 2) {
+    switch_int (op543($component0)) {
+        case 48889906 :
+            if (if_hassub(toplevel_fullscreen:mainmodal) = true) {
+                return(true);
+            }
+        case default :
+            return(false);
+    }
+}

@@ -1,0 +1,1082 @@
+// 583:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 583:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=graphic_297
+tiling=yes
+
+// 583:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic=graphic_821
+tiling=yes
+
+// 583:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic=graphic_824
+
+// 583:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic=graphic_823
+tiling=yes
+
+// 583:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic=graphic_820
+tiling=yes
+
+// 583:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic=graphic_822
+tiling=yes
+
+// 583:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic=graphic_826
+
+// 583:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic=graphic_825
+
+// 583:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic=graphic_827
+
+// 583:10
+[com_10]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 583:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic=graphic_829
+
+// 583:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic=graphic_830
+
+// 583:13
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(cws_doomsayer:close_button, 832)
+onmouseleave=graphic_swapper(cws_doomsayer:close_button, 831)
+onop=if_close
+
+// 583:14
+[com_14]
+type=text
+x=19
+y=30
+width=474
+height=16
+textfont=fontmetrics_496
+text=Reset Warning Messages
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 583:15
+[com_15]
+type=text
+x=36
+y=-79
+width=134
+height=14
+textfont=fontmetrics_495
+text=Body Text
+textshadow=yes
+colour=0xff981f
+
+// 583:16
+[scrolling_layer]
+type=layer
+x=23
+y=55
+width=449
+height=265
+scrollwidth=336
+scrollheight=550
+
+// 583:17
+[scrollbar_layer]
+type=layer
+x=474
+y=58
+width=16
+height=258
+opbase= 
+onload=scrollbar_vertical_graphics(event_com, cws_doomsayer:scrolling_layer, 792, 789, 790, 791, 773, 788)
+
+// 583:18
+[dagganoth_kings_ladder]
+type=graphic
+x=8
+y=8
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 1){cws_var}
+
+// 583:19
+[goblin_cave_rope]
+type=graphic
+x=122
+y=8
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 13){cws_var_2}
+
+// 583:20
+[com_20]
+type=graphic
+x=235
+y=8
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 4){cws_var}
+
+// 583:21
+[com_21]
+type=graphic
+x=348
+y=8
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 3){cws_var}
+
+// 583:22
+[com_22]
+type=graphic
+x=8
+y=77
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 6){cws_var}
+
+// 583:23
+[com_23]
+type=graphic
+x=122
+y=77
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 5){cws_var}
+
+// 583:24
+[com_24]
+type=graphic
+x=235
+y=77
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 2){cws_var}
+
+// 583:25
+[com_25]
+type=graphic
+x=348
+y=77
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 11){cws_var_2}
+
+// 583:26
+[ham_tunnel]
+type=graphic
+x=8
+y=146
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 14){cws_var_2}
+
+// 583:27
+[fairy_rings]
+type=graphic
+x=122
+y=146
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 15){cws_var_2}
+
+// 583:28
+[lumbridge_cellar]
+type=graphic
+x=348
+y=146
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 16){cws_var_2}
+
+// 583:29
+[mort_myre]
+type=graphic
+x=8
+y=214
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 20){cws_var_2}
+
+// 583:30
+[com_30]
+type=graphic
+x=122
+y=214
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 9){cws_var}
+
+// 583:31
+[genie_cave]
+type=graphic
+x=235
+y=214
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 17){cws_var_2}
+
+// 583:32
+[shantay_pass]
+type=graphic
+x=348
+y=214
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 10){cws_var}
+
+// 583:33
+[com_33]
+type=graphic
+x=8
+y=282
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 12){cws_var_2}
+
+// 583:34
+[com_34]
+type=graphic
+x=235
+y=282
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+opbase=[if_button1,cws_doomsayer:King Black Dragon] @cws_toggle_reset(22);
+onvartransmit=cws_graphic_swap_2(event_com, 8){cws_var}
+
+// 583:35
+[com_35]
+type=graphic
+x=348
+y=282
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 7){cws_var}
+
+// 583:36
+[com_36]
+type=graphic
+x=8
+y=350
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 19){cws_var_2}
+
+// 583:37
+[com_37]
+type=graphic
+x=122
+y=350
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 18){cws_var_2}
+
+// 583:38
+[com_38]
+type=graphic
+x=122
+y=282
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 23){cws_var_3}
+
+// 583:39
+[com_39]
+type=graphic
+x=235
+y=146
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 24){cws_var_3}
+
+// 583:40
+[godwars_area]
+type=graphic
+x=235
+y=350
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 25){cws_var_3}
+
+// 583:41
+[duel_arena]
+type=graphic
+x=348
+y=350
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 26){cws_var_3}
+
+// 583:42
+[com_42]
+type=graphic
+x=8
+y=418
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 21){cws_var_3}
+
+// 583:43
+[com_43]
+type=graphic
+x=122
+y=418
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 27){cws_var_3}
+
+// 583:44
+[chaos_tunnels2]
+type=graphic
+x=235
+y=418
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 28){cws_var_3}
+
+// 583:45
+[chaos_tunnels3]
+type=graphic
+x=348
+y=418
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 29){cws_var_3}
+
+// 583:46
+[com_46]
+type=graphic
+x=8
+y=486
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 30){cws_var_3}
+
+// 583:47
+[com_47]
+type=graphic
+x=122
+y=486
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 22){cws_var}
+
+// 583:48
+[com_48]
+type=graphic
+x=235
+y=486
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+onvartransmit=cws_graphic_swap_2(event_com, 31){cws_var_2}
+
+// 583:49
+[com_49]
+type=graphic
+x=348
+y=486
+width=90
+height=56
+layer=scrolling_layer
+graphic=graphic_833
+transmitop=10
+op10= 
+onvartransmit=cws_graphic_swap_2(event_com, 32){cws_var_3}
+
+// 583:50
+[com_50]
+type=text
+x=10
+y=10
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Dagannoth Kings' Ladder
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:51
+[com_51]
+type=text
+x=124
+y=10
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Lumbridge Swamp Cave Rope
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:52
+[com_52]
+type=text
+x=237
+y=10
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Stronghold of Security Ladders
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:53
+[com_53]
+type=text
+x=350
+y=10
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Falador Mole Lair
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:54
+[com_54]
+type=text
+x=10
+y=79
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Dropped Items in Random Events
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:55
+[com_55]
+type=text
+x=124
+y=79
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Player-Owned Houses
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:56
+[com_56]
+type=text
+x=237
+y=79
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Contact Dungeon Ladder
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:57
+[com_57]
+type=text
+x=350
+y=79
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Icy Path Area
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:58
+[com_58]
+type=text
+x=10
+y=148
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=H.A.M. Tunnel from Mill
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:59
+[com_59]
+type=text
+x=124
+y=148
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Fairy Ring to Dorgesh-Kaan
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:60
+[com_60]
+type=text
+x=350
+y=148
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Lumbridge Cellar
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:61
+[com_61]
+type=text
+x=10
+y=216
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Mort Myre
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:62
+[com_62]
+type=text
+x=124
+y=216
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Observatory Stairs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:63
+[com_63]
+type=text
+x=350
+y=216
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Shantay Pass
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:64
+[com_64]
+type=text
+x=237
+y=216
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Elid Genie Cave
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:65
+[com_65]
+type=text
+x=10
+y=284
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Watchtower Shaman Cave
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:66
+[com_66]
+type=text
+x=237
+y=284
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Trollheim Wilderness Entrance
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:67
+[com_67]
+type=text
+x=350
+y=284
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Wilderness Ditch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:68
+[com_68]
+type=text
+x=10
+y=352
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Dorgesh-Kaan City Exit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:69
+[com_69]
+type=text
+x=124
+y=352
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Dorgesh-Kaan Tunnel to Kalphites
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:70
+[com_70]
+type=text
+x=124
+y=284
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Ranging Guild Tower
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:71
+[com_71]
+type=text
+x=237
+y=148
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Death Plateau
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:72
+[com_72]
+type=text
+x=237
+y=352
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=God Wars Wilderness Agility Route
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:73
+[com_73]
+type=text
+x=350
+y=352
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Duel Arena
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:74
+[com_74]
+type=text
+x=10
+y=420
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Bounty Hunter
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:75
+[com_75]
+type=text
+x=124
+y=420
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Chaos Tunnels (East)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:76
+[com_76]
+type=text
+x=237
+y=421
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Chaos Tunnels (Central)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:77
+[com_77]
+type=text
+x=350
+y=421
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Chaos Tunnels (West)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:78
+[corporeal_beast_text]
+type=text
+x=10
+y=488
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Corporeal Beast<br>(Dangerous)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:79
+[clanwars_ffa_safe_text]
+type=text
+x=124
+y=488
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Clan Wars<br>Free-for-all<br>(Safe)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:80
+[clanwars_ffa_dangerous_text]
+type=text
+x=237
+y=488
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=Clan Wars<br>Free-for-all<br>(Dangerous)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Toggle
+
+// 583:81
+[com_81]
+type=text
+x=350
+y=488
+width=84
+height=52
+layer=scrolling_layer
+textfont=fontmetrics_494
+text=PvP Worlds
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Toggle
+op10= 

@@ -1,0 +1,68 @@
+// 2671
+[proc,script2671]
+if (%varplayerbit_6454 = 0) {
+    if_sethide(topstat_lore:details_op1, false);
+    if_sethide(topstat_lore:details_layer, true);
+} else {
+    if_sethide(topstat_lore:details_op1, true);
+    if_sethide(topstat_lore:details_layer, false);
+}
+if (%varplayerbit_6454 = 2) {
+    if_sethide(topstat_lore:attack_op1, false);
+    if_sethide(topstat_lore:com_15, true);
+} else {
+    if_sethide(topstat_lore:attack_op1, true);
+    if_sethide(topstat_lore:com_15, false);
+}
+if (%varplayerbit_6454 = 3) {
+    if_sethide(topstat_lore:call_op1, false);
+    if_sethide(topstat_lore:call_layer, true);
+} else {
+    if_sethide(topstat_lore:call_op1, true);
+    if_sethide(topstat_lore:call_layer, false);
+}
+if (%varplayerbit_6454 = 4) {
+    if_sethide(topstat_lore:dismiss_op1, false);
+    if_sethide(topstat_lore:dismiss_layer, true);
+} else {
+    if_sethide(topstat_lore:dismiss_op1, true);
+    if_sethide(topstat_lore:dismiss_layer, false);
+}
+if (%varplayerbit_6454 = 5) {
+    if_sethide(topstat_lore:bob_op1, false);
+    if_sethide(topstat_lore:bob_layer, true);
+} else {
+    if_sethide(topstat_lore:bob_op1, true);
+    if_sethide(topstat_lore:bob_layer, false);
+}
+if (%varplayerbit_6454 = 6) {
+    if_sethide(topstat_lore:renew_op1, false);
+    if_sethide(topstat_lore:renew_layer, true);
+} else {
+    if_sethide(topstat_lore:renew_op1, true);
+    if_sethide(topstat_lore:renew_layer, false);
+}
+if (%varplayerbit_6454 = 7) {
+    if_sethide(topstat_lore:interact_op1, false);
+    if_sethide(topstat_lore:interact_layer, true);
+} else {
+    if_sethide(topstat_lore:interact_op1, true);
+    if_sethide(topstat_lore:interact_layer, false);
+}
+if (%follower_obj = obj_24906 | %follower_obj = obj_24907 | %follower_obj = obj_24908) {
+    if_sethide(topstat_lore:call_op1, false);
+    if_sethide(topstat_lore:call_layer, true);
+    if_sethide(topstat_lore:attack_op1, true);
+    if_sethide(topstat_lore:com_15, true);
+    if_sethide(topstat_lore:dismiss_op1, true);
+    if_sethide(topstat_lore:dismiss_layer, false);
+    if_sethide(topstat_lore:bob_op1, true);
+    if_sethide(topstat_lore:bob_layer, true);
+    if_sethide(topstat_lore:renew_op1, true);
+    if_sethide(topstat_lore:renew_layer, true);
+    if_sethide(topstat_lore:interact_op1, true);
+    if_sethide(topstat_lore:interact_layer, true);
+    if_sethide(topstat_lore:details_op1, true);
+    if_sethide(topstat_lore:details_layer, false);
+}
+return;

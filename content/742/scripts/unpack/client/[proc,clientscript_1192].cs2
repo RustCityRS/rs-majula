@@ -1,0 +1,9 @@
+// 1192
+[proc,clientscript_1192](component $component0)
+if (%varplayerbit_12301 = 1) {
+    if_setgraphic($component0, "wild_ditch_sign_button,0");
+    if_setcolour(cws_doomsayer:com_87, ^red);
+} else if (%varplayerbit_12301 = 0) {
+    if_setgraphic($component0, "wild_ditch_sign_button,1");
+    if_setcolour(cws_doomsayer:com_87, ^green);
+}

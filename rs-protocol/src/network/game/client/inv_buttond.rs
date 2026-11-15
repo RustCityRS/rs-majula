@@ -25,15 +25,19 @@ impl ClientProtMessage for InvButtonD {
 }
 
 #[cfg(since_244)]
-#[client_prot(Fixed(7), UserEvent)]
+#[cfg_attr(before_530, client_prot(Fixed(7), UserEvent))]
+#[cfg_attr(since_530, client_prot(Fixed(9), UserEvent))]
 pub struct InvButtonD {
+    #[cfg(before_530)]
     pub com: u16,
+    #[cfg(since_530)]
+    pub com: i32,
     pub slot: u16,
     pub slot2: u16,
     pub mode: u8,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_530))]
 impl ClientProtMessage for InvButtonD {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         InvButtonD {
@@ -41,6 +45,22 @@ impl ClientProtMessage for InvButtonD {
             slot: buf.g2(),
             slot2: buf.g2(),
             mode: buf.g1(),
+        }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtMessage for InvButtonD {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let slot = buf.g2();
+        let com = buf.g4s_alt1();
+        let slot2 = buf.g2_alt2();
+        let mode = buf.g1_alt3();
+        InvButtonD {
+            com,
+            slot,
+            slot2,
+            mode,
         }
     }
 }

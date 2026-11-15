@@ -1,0 +1,125 @@
+// 440:0
+[qip_digsite_rectangle_lv1]
+type=rectangle
+x=4
+y=33
+width=16647
+height=19628
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=64
+
+// 440:1
+[qip_digsite_scroll_lv1]
+type=model
+x=4
+y=-7
+width=243
+height=299
+xmode=abs_centre
+ymode=abs_centre
+model=model_17345
+modelorigin=-13,3
+modelangle=456,2041,0
+modelzoom=594
+modelunknown=64112,3000,0
+
+// 440:2
+[qip_digsite_roset_lv1]
+type=model
+x=74
+y=106
+width=71
+height=117
+xmode=abs_centre
+ymode=abs_centre
+model=model_17342
+modelorigin=-83,-110
+modelangle=456,2041,0
+modelzoom=594
+modelunknown=64107,3000,0
+
+// 440:3
+[com_3]
+type=text
+x=-3
+y=-92
+width=198
+height=17
+xmode=abs_centre
+ymode=abs_centre
+textfont=fontmetrics_496
+text=Certificate of Qualification
+textalignh=centre
+colour=0x000000
+
+// 440:4
+[com_4]
+type=text
+x=-2
+y=-55
+width=196
+height=50
+xmode=abs_centre
+ymode=abs_centre
+textfont=fontmetrics_497
+text=Earth Sciences Level 1<br>This is to certify that
+textalignh=centre
+colour=0x000000
+
+// 440:5
+[examname]
+type=text
+x=-2
+y=-7
+width=47
+height=17
+xmode=abs_centre
+ymode=abs_centre
+textfont=fontmetrics_497
+text=<name>
+textalignh=centre
+colour=0x000000
+
+// 440:6
+[com_6]
+type=text
+x=2
+y=33
+width=195
+height=34
+xmode=abs_centre
+ymode=abs_centre
+textfont=fontmetrics_497
+text=has passed the Level 1<br>Earth Sciences exam.
+textalignh=centre
+colour=0x000000
+
+// 440:7
+[com_7]
+type=graphic
+x=240
+y=-151
+width=26
+height=23
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_539
+
+// 440:8
+[qip_digsite_close_lv1]
+type=graphic
+x=240
+y=-151
+width=26
+height=23
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_540
+transmitop=1
+op1=Close
+onop=if_close

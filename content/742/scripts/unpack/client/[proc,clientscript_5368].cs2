@@ -1,0 +1,8 @@
+// 5368
+[proc,clientscript_5368](int $int0)
+%varclient_1658 = calc(%varclient_1658 + 1);
+def_int $int1 = calc(%varclient_1658 * 255 / %varclient_1656);
+$int1 = min(255, max(0, $int1));
+if (cc_find(interface_951:com_24, $int0) = true) {
+    cc_settrans($int1);
+}

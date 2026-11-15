@@ -1,0 +1,21 @@
+// 1893
+[proc,clientscript_1893](int $int0)
+if (detailget_antialiasing ! detailget_antialiasing_default) {
+    detail_antialiasing(0);
+    detail_antialiasing_default(0);
+} else {
+    setwindowmode(getdefaultwindowmode);
+}
+if_setontimer(loginscreen:windowmode_confirm, null);
+~clientscript_1888;
+%last_windowmode = getwindowmode;
+def_string $string0 = "kbase/view.ws?guid=hd_fullscreen_help";
+if ($int0 = 1) {
+    if_settext(loginscreen:general_messages_text, "The change of detail mode has been cancelled.<br><br>Perhaps different settings on the Graphics Options menu would work better for you?");
+    if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu(loginscreen:com_138)");
+    if_settext(loginscreen:com_136, "Advanced info");
+    if_setonclick(loginscreen:com_136, "openurl_nologin($string0, true)");
+    ~clientscript_1174(loginscreen:general_messages);
+} else {
+    ~clientscript_1174(loginscreen:com_138);
+}

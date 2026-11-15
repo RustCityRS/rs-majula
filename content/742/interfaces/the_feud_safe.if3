@@ -1,0 +1,439 @@
+// 330:0
+[feud_safe_l1]
+type=layer
+width=600
+height=500
+layer=contents
+
+// 330:1
+[feud_safe]
+type=model
+x=-77
+y=-121
+width=676
+height=587
+layer=contents
+model=model_6039
+modelorigin=4,123
+modelangle=41,2036,0
+modelzoom=207
+
+// 330:2
+[feud_bh]
+type=layer
+x=337
+y=97
+width=155
+height=170
+layer=contents
+
+// 330:3
+[feud_safe_close]
+type=graphic
+x=483
+y=4
+width=26
+height=23
+layer=contents
+graphic="close_buttons,7"
+colour=0x000000
+onmouseover=graphic_swapper(event_com, "close_buttons,6")
+onmouseleave=graphic_swapper(event_com, "close_buttons,7")
+onclick=closebutton_click
+
+// 330:4
+[feud_over_model1]
+type=model
+x=93
+y=15
+width=34
+height=33
+layer=feud_bh
+model=model_6040
+modelorigin=4,3
+modelangle=397,276,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 1
+
+// 330:5
+[feud_overstate_model2]
+type=model
+x=117
+y=43
+width=32
+height=37
+layer=feud_bh
+model=model_6040
+modelorigin=2,5
+modelangle=450,460,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 2
+
+// 330:6
+[feud_overstate_model3]
+type=model
+x=116
+y=83
+width=33
+height=36
+layer=feud_bh
+model=model_6040
+modelorigin=0,5
+modelangle=404,619,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 3
+
+// 330:7
+[feud_overstate_model4]
+type=model
+x=97
+y=118
+width=36
+height=32
+layer=feud_bh
+model=model_6040
+modelorigin=-4,3
+modelangle=429,819,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 4
+
+// 330:8
+[feud_overstate_model5]
+type=model
+x=62
+y=128
+width=37
+height=32
+layer=feud_bh
+model=model_6040
+modelorigin=-6,0
+modelangle=435,1048,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 5
+
+// 330:9
+[feud_overstate_model6]
+type=model
+x=25
+y=118
+width=36
+height=33
+layer=feud_bh
+model=model_6040
+modelorigin=-6,-3
+modelangle=444,1216,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 6
+
+// 330:10
+[feud_overstate_model7]
+type=model
+x=6
+y=81
+width=31
+height=38
+layer=feud_bh
+model=model_6040
+modelorigin=-3,-6
+modelangle=499,1425,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 7
+
+// 330:11
+[feud_overstate_model8]
+type=model
+x=7
+y=40
+width=32
+height=39
+layer=feud_bh
+model=model_6040
+modelorigin=0,-6
+modelangle=468,1642,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 8
+
+// 330:12
+[feud_overstate_model9]
+type=model
+x=30
+y=16
+width=35
+height=33
+layer=feud_bh
+model=model_6040
+modelorigin=4,-5
+modelangle=421,1821,0
+modelzoom=1400
+transmitop=1
+op1=Move the dial to 9
+
+// 330:13
+[feud_reset_model]
+type=model
+x=67
+y=63
+width=40
+height=35
+layer=feud_bh
+model=model_6042
+modelorigin=6,-2
+modelangle=467,2026,0
+modelzoom=1297
+transmitop=1
+op1=Reset the mechanism
+
+// 330:14
+[contents]
+type=layer
+x=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 330:15
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 330:16
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 330:17
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 330:18
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 330:19
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 330:20
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 330:21
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 330:22
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 330:23
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 330:24
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 330:25
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 330:26
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 330:27
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 330:28
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 330:29
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 330:30
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 330:31
+[com_31]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 330:32
+[com_32]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 330:33
+[com_33]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 330:34
+[com_34]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

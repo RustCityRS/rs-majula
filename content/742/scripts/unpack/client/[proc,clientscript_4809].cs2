@@ -1,0 +1,19 @@
+// 4809
+[proc,clientscript_4809]
+if_sethide(interface_1258:com_445, true);
+if_sethide(interface_1258:com_379, true);
+if_sethide(interface_1258:com_307, true);
+if_sethide(interface_1258:com_433, true);
+if_sethide(interface_1258:com_367, true);
+if_sethide(interface_1258:com_295, true);
+if (~clientscript_4828(%varplayerbit_9558) = true) {
+    if_sethide(interface_1258:com_433, false);
+    if_sethide(interface_1258:com_367, false);
+    if_sethide(interface_1258:com_295, false);
+} else {
+    if_sethide(interface_1258:com_445, false);
+    if_sethide(interface_1258:com_379, false);
+    if_sethide(interface_1258:com_307, false);
+}
+~clientscript_4840;
+~clientscript_4814;

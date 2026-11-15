@@ -1,0 +1,13 @@
+// 1189
+[proc,clientscript_1189](int $int0, component $component1)
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = 0) {
+    detail_removeroofs_option(0);
+} else {
+    detail_removeroofs_option(1);
+}
+if (detailget_removeroofs_option = 0 & getwindowmode >= 1) {
+    if_settext(loginscreen:com_68, "Roofs<br>(in-game only)");
+} else {
+    if_settext(loginscreen:com_68, "Remove roofs");
+}

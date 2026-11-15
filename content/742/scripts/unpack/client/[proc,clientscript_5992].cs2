@@ -1,0 +1,12 @@
+// 5992
+[proc,clientscript_5992]()(int)
+if (~script4550(interface_1259) = true) {
+    return(0);
+} else if (~script4550(interface_1261) = true) {
+    return(1);
+} else if (~script4550(interface_1258) = true) {
+    return(2);
+} else if (~script4550(interface_1260) = true) {
+    return(3);
+}
+return(-1);

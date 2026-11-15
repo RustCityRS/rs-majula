@@ -1,0 +1,36 @@
+// 3095
+[proc,script3095](component $component0, component $component1, int $int2)
+def_string $string0 = "";
+def_string $string1 = "";
+switch_int ($int2) {
+    case 4 :
+        $string0 = "www";
+        $string1 = "account_settings.ws?mod=messages";
+        if_setonop($component0, "lobbyscreen_link($string0, $string1, true)");
+    case 11 :
+        $string0 = "www";
+        $string1 = "account_settings.ws?mod=security";
+        if_setonop($component0, "lobbyscreen_link($string0, $string1, true)");
+    case 18 :
+        $string0 = "accountappeal";
+        $string1 = "lockchoice.ws";
+        if_setonop($component0, "script3089($string0, $string1, true)");
+    case 31 :
+        $string0 = "www";
+        $string1 = "account_settings.ws?mod=charname";
+        if_setonop($component0, "lobbyscreen_link($string0, $string1, true)");
+    case 32, 12, 19, 40, 30, -2000, -3000 :
+        $string0 = "dob";
+        $string1 = "set_members_dob.ws";
+        if_setonop($component0, "lobbyscreen_link($string0, $string1, true)");
+    case 21 :
+        if_setonclick($component0, "lobby_hop_abort");
+        if_setonclick($component1, null);
+        return;
+    case 50, 52, 49 :
+        if_setonclick($component0, "clientscript_6714");
+        if_setonclick($component1, null);
+    case default :
+        if_setonop($component0, null);
+}
+if_setonop($component1, "lobby_popup_close");

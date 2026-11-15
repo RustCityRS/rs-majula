@@ -1,0 +1,52 @@
+// 385
+[proc,playerdesign4_backdrop](struct $struct0)
+if ($struct0 = %last_windowmode & $struct0 ! null) {
+    return;
+}
+%last_windowmode = $struct0;
+switch_struct ($struct0) {
+    case struct_1112 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_adventurer);
+    case struct_1118 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_athlete);
+    case struct_1120 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_chef);
+    case struct_1127 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_crafter);
+    case struct_1125 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_farmer);
+    case struct_1122 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_fisherman);
+    case struct_1128 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_fletcher);
+    case struct_1129 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_herblorist);
+    case struct_1119 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_hunter);
+    case struct_1114 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_mage);
+    case struct_1124 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_miner);
+    case struct_1121 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_priest);
+    case struct_1115 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_ranger);
+    case struct_1130 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_runecrafter);
+    case struct_1116 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_slayer);
+    case struct_1126 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_smith);
+    case struct_1131 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_summoner);
+    case struct_1117 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_thief);
+    case struct_1113 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_warrior);
+    case struct_1123 :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_woodcutter);
+    case default :
+        if_opensubclient(playerdesign4:backdrop, avatar_creation_adventurer);
+    case null :
+        if_closesubclient(playerdesign4:backdrop);
+}

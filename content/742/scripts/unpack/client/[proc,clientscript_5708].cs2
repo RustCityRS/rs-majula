@@ -1,0 +1,5 @@
+// 5708
+[proc,clientscript_5708](int $int0)
+if (cc_find(interface_1218:com_161, $int0) = true) {
+    cc_setcolour(0xdb9000);
+}

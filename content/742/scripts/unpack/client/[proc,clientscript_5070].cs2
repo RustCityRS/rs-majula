@@ -1,0 +1,19 @@
+// 5070
+[proc,clientscript_5070](int $int0, obj $obj1, boolean $boolean2)
+if ($int0 ! 1 | enum(int, struct, enum_3943, $obj1) = null) {
+    return;
+}
+sound_vorbis_volume(6185, 1, 0, 200);
+if ($obj1 = %varplayerbit_9516) {
+    $boolean2 = if_gethide(interface_1111:com_18);
+} else {
+    if_setscrollpos(interface_1111:com_27, 0, 0);
+    %varplayerbit_9517, %varplayerbit_9518, %varplayerbit_9519 = 0, 0, 0;
+}
+%varplayerbit_9516 = $obj1;
+if ($boolean2 = true) {
+    ~clientscript_5073(false);
+} else {
+    ~clientscript_5073(true);
+}
+~clientscript_5067;

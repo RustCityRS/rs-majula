@@ -1,0 +1,12 @@
+// 5885
+[proc,clientscript_5885](int $int0, int $int1)
+def_component $component2 = interface_1253:com_88;
+def_int $int3 = op2613($component2);
+def_int $int4 = ~scale_round($int3, 65535, 360);
+if ($int4 >= $int0 & $int4 <= $int1) {
+    if_setontimer(interface_1253:com_88, "clientscript_5883(1, 0, 0, $int4)");
+    if_setontimer(interface_1253:com_53, null);
+} else if (calc($int4 + 360) >= $int0 & calc($int4 + 360) <= $int1) {
+    if_setontimer(interface_1253:com_88, "clientscript_5883(1, 0, 0, $int4)");
+    if_setontimer(interface_1253:com_53, null);
+}

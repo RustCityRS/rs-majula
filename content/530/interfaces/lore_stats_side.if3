@@ -1,0 +1,2310 @@
+// 662:0
+[com_0]
+type=rectangle
+x=8
+y=28
+width=173
+height=111
+colour=0x000000
+fill=yes
+trans=200
+
+// 662:1
+[lore_chathead]
+type=model
+x=53
+y=13
+width=78
+height=86
+layer=lore_chathead_1
+model=null
+modelangle=2033,1833,0
+modelzoom=2168
+modelunknown=0,2168,0
+onvartransmit=lore_head_update{lore_npc_head, lore_incubators_var}
+
+// 662:2
+[com_2]
+type=rectangle
+x=14
+y=31
+width=161
+height=105
+colour=0x000000
+fill=yes
+trans=200
+
+// 662:3
+[com_3]
+type=rectangle
+x=23
+y=36
+width=143
+height=95
+colour=0x000000
+fill=yes
+trans=200
+
+// 662:4
+[lore_chathead_1]
+type=layer
+x=5
+y=26
+width=178
+height=114
+
+// 662:5
+[com_5]
+type=graphic
+x=5
+y=25
+width=32
+height=32
+graphic=graphic_856
+
+// 662:6
+[com_6]
+type=graphic
+x=37
+y=12
+width=116
+height=32
+graphic=graphic_851
+tiling=yes
+opbase= 
+
+// 662:7
+[com_7]
+type=graphic
+x=152
+y=25
+width=32
+height=32
+graphic=graphic_857
+
+// 662:8
+[com_8]
+type=graphic
+x=167
+y=57
+width=32
+height=53
+graphic=graphic_852
+tiling=yes
+
+// 662:9
+[com_9]
+type=graphic
+x=152
+y=110
+width=32
+height=32
+graphic=graphic_859
+
+// 662:10
+[com_10]
+type=graphic
+x=37
+y=126
+width=115
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 662:11
+[com_11]
+type=graphic
+x=5
+y=110
+width=32
+height=32
+graphic=graphic_858
+
+// 662:12
+[com_12]
+type=graphic
+x=-9
+y=57
+width=32
+height=53
+graphic=graphic_852
+tiling=yes
+
+// 662:13
+[com_13]
+type=graphic
+x=-1
+y=169
+width=32
+height=47
+graphic=graphic_1075
+tiling=yes
+
+// 662:14
+[com_14]
+type=graphic
+x=13
+y=153
+width=164
+height=32
+graphic=graphic_1074
+tiling=yes
+
+// 662:15
+[com_15]
+type=graphic
+x=164
+y=169
+width=32
+height=47
+graphic=graphic_1075
+tiling=yes
+
+// 662:16
+[com_16]
+type=graphic
+x=12
+y=199
+width=165
+height=32
+graphic=graphic_1074
+tiling=yes
+
+// 662:17
+[com_17]
+type=graphic
+x=-10
+y=-2
+width=166
+height=20
+layer=com_19
+graphic=graphic_1196
+
+// 662:18
+[lore_magic_button]
+type=rectangle
+width=146
+height=14
+layer=com_19
+colour=0xffff00
+trans=255
+
+// 662:19
+[com_19]
+type=layer
+x=21
+y=5
+width=146
+height=14
+layer=lore_familairs
+
+// 662:20
+[com_20]
+type=model
+x=3
+width=143
+height=13
+layer=com_19
+model=model_31706
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64284,2306,0
+
+// 662:21
+[com_21]
+type=model
+x=2
+width=9
+height=13
+layer=com_19
+model=model_31717
+modelorigin=67,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64282,2306,0
+
+// 662:22
+[com_22]
+type=model
+x=9
+width=9
+height=13
+layer=com_19
+model=model_31703
+modelorigin=60,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64280,2306,0
+
+// 662:23
+[com_23]
+type=model
+x=16
+width=9
+height=13
+layer=com_19
+model=model_31709
+modelorigin=53,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64278,2306,0
+
+// 662:24
+[com_24]
+type=model
+x=23
+width=9
+height=13
+layer=com_19
+model=model_31718
+modelorigin=46,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64276,2306,0
+
+// 662:25
+[com_25]
+type=model
+x=31
+width=8
+height=13
+layer=com_19
+model=model_31705
+modelorigin=38,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64274,2306,0
+
+// 662:26
+[com_26]
+type=model
+x=38
+width=8
+height=13
+layer=com_19
+model=model_31715
+modelorigin=31,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64272,2306,0
+
+// 662:27
+[com_27]
+type=model
+x=45
+width=8
+height=13
+layer=com_19
+model=model_31714
+modelorigin=24,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64270,2306,0
+
+// 662:28
+[com_28]
+type=model
+x=52
+width=8
+height=13
+layer=com_19
+model=model_31708
+modelorigin=17,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64268,2306,0
+
+// 662:29
+[com_29]
+type=model
+x=59
+width=8
+height=13
+layer=com_19
+model=model_31702
+modelorigin=10,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64266,2306,0
+
+// 662:30
+[com_30]
+type=model
+x=66
+width=8
+height=13
+layer=com_19
+model=model_31711
+modelorigin=3,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64264,2306,0
+
+// 662:31
+[com_31]
+type=model
+x=73
+width=8
+height=13
+layer=com_19
+model=model_31712
+modelorigin=-4,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64262,2306,0
+
+// 662:32
+[com_32]
+type=model
+x=80
+width=8
+height=13
+layer=com_19
+model=model_31704
+modelorigin=-11,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64260,2306,0
+
+// 662:33
+[com_33]
+type=model
+x=87
+width=8
+height=13
+layer=com_19
+model=model_31719
+modelorigin=-18,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64258,2306,0
+
+// 662:34
+[com_34]
+type=model
+x=94
+width=8
+height=13
+layer=com_19
+model=model_31707
+modelorigin=-25,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64256,2306,0
+
+// 662:35
+[com_35]
+type=model
+x=101
+width=8
+height=13
+layer=com_19
+model=model_31716
+modelorigin=-32,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64254,2306,0
+
+// 662:36
+[com_36]
+type=model
+x=108
+width=8
+height=13
+layer=com_19
+model=model_31700
+modelorigin=-39,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64252,2306,0
+
+// 662:37
+[com_37]
+type=model
+x=115
+width=9
+height=13
+layer=com_19
+model=model_31701
+modelorigin=-46,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64250,2306,0
+
+// 662:38
+[com_38]
+type=model
+x=122
+width=9
+height=13
+layer=com_19
+model=model_31699
+modelorigin=-53,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64248,2306,0
+
+// 662:39
+[com_39]
+type=model
+x=129
+width=9
+height=13
+layer=com_19
+model=model_31713
+modelorigin=-60,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64246,2306,0
+
+// 662:40
+[com_40]
+type=model
+x=136
+width=9
+height=13
+layer=com_19
+model=model_31710
+modelorigin=-67,0
+modelangle=500,0,0
+modelzoom=1153
+modelunknown=64244,2306,0
+
+// 662:41
+[lore_magic]
+type=text
+y=-1
+width=146
+height=15
+layer=com_19
+textfont=fontmetrics_494
+text=S P E C I A L   M O V E
+textalignh=centre
+textalignv=bottom
+colour=0xffffcc
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onvartransmit=clientscript_756{lore_spell_points}
+onstattransmit=clientscript_756{summoning}
+onmouserepeat=clientscript_777(event_com, lore_stats_side:build_layer, 43384900, 1)
+
+// 662:42
+[points_icon]
+type=graphic
+x=32
+y=173
+width=25
+height=25
+layer=lore_familairs
+graphic=graphic_1182
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Summoning points remaining")
+
+// 662:43
+[points_left]
+type=text
+x=29
+y=200
+width=32
+height=15
+layer=lore_familairs
+textfont=fontmetrics_494
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onstattransmit=lore_points_update{summoning}
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Summoning points remaining")
+
+// 662:44
+[time_icon]
+type=graphic
+x=134
+y=173
+width=25
+height=25
+layer=lore_familairs
+graphic=graphic_1178
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Familiar time remaining")
+
+// 662:45
+[animal_time_left]
+type=text
+x=131
+y=200
+width=32
+height=15
+layer=lore_familairs
+textfont=fontmetrics_494
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onvartransmit=clientscript_752{lore_timer_var}
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Familiar time remaining")
+
+// 662:46
+[size_icon]
+type=graphic
+x=126
+y=173
+width=25
+height=25
+layer=lore_pets
+graphic=graphic_1177
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Pet size percentage")
+
+// 662:47
+[size_percentage]
+type=text
+x=126
+y=200
+width=32
+height=15
+layer=lore_pets
+textfont=fontmetrics_494
+text=100%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onvartransmit=clientscript_753{lore_npc_stats}
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Pet size percentage")
+
+// 662:48
+[hunger_icon]
+type=graphic
+x=31
+y=173
+width=25
+height=25
+layer=lore_pets
+graphic=graphic_1176
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Pet hunger percentage")
+
+// 662:49
+[hunger]
+type=text
+x=27
+y=200
+width=32
+height=15
+layer=lore_pets
+textfont=fontmetrics_494
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Pet hunger percentage")
+
+// 662:50
+[com_50]
+type=layer
+x=23
+y=218
+width=38
+height=38
+layer=lore_bounding_box
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 662:51
+[call_animal_button]
+type=graphic
+x=29
+y=225
+width=25
+height=25
+layer=lore_bounding_box
+graphic=graphic_1179
+transmitop=1
+op1=Call Follower
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Call familiar")
+
+// 662:52
+[com_52]
+type=layer
+x=129
+y=218
+width=38
+height=38
+layer=lore_bounding_box
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 662:53
+[dismiss_button]
+type=graphic
+x=137
+y=225
+width=25
+height=25
+layer=lore_bounding_box
+graphic=graphic_1181
+transmitop=1,2
+op1=Dismiss Familiar
+op2=Dismiss Now
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Dismiss familiar")
+
+// 662:54
+[com_54]
+type=graphic
+x=13
+y=145
+width=166
+height=20
+graphic=graphic_1196
+
+// 662:55
+[lore_name]
+type=text
+x=15
+y=143
+width=165
+height=22
+layer=lore_bounding_box
+textfont=fontmetrics_496
+textalignh=centre
+textalignv=centre
+colour=0xcc9900
+
+// 662:56
+[com_56]
+type=graphic
+x=8
+y=28
+width=32
+height=45
+layer=lore_familairs
+graphic=graphic_297
+tiling=yes
+
+// 662:57
+[com_57]
+type=graphic
+x=26
+y=26
+width=32
+height=32
+layer=lore_familairs
+graphic=graphic_852
+
+// 662:58
+[com_58]
+type=graphic
+x=11
+y=44
+width=32
+height=32
+layer=lore_familairs
+graphic=graphic_859
+opbase= 
+
+// 662:59
+[com_59]
+type=graphic
+x=-8
+y=60
+width=32
+height=32
+layer=lore_familairs
+graphic=graphic_853
+
+// 662:60
+[com_60]
+type=graphic
+x=7
+y=43
+width=32
+height=32
+layer=lore_familairs
+graphic=graphic_1074
+opbase= 
+
+// 662:61
+[lore_pouch_counter]
+type=text
+x=7
+y=62
+width=32
+height=13
+layer=lore_familairs
+textfont=fontmetrics_494
+text=9999
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+oninvtransmit=lore_pouch_counter{inv}
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Scrolls remaining")
+
+// 662:62
+[lore_pets]
+type=layer
+x=2
+y=1
+width=190
+height=261
+layer=lore_bounding_box
+hide=yes
+
+// 662:63
+[lore_familairs]
+type=layer
+width=190
+height=261
+layer=lore_bounding_box
+hide=yes
+
+// 662:64
+[com_64]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+transmitop=10
+op10= 
+
+// 662:65
+[com_65]
+type=graphic
+width=32
+height=36
+layer=com_64
+graphic=graphic_1195
+transmitop=10
+targetmask=npc,player
+opbase=Dreadfowl Strike
+op10= 
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_71, lore_stats_side:build_layer, 1194, 1195, 4, "Dreadfowl Strike", "A magical attack", lore_dreadfowl_strike, 1, null, 0, null, 0, null, 0)
+
+// 662:66
+[com_66]
+type=layer
+x=76
+y=218
+width=38
+height=38
+layer=lore_familairs
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 662:67
+[bobdump]
+type=graphic
+x=84
+y=227
+width=21
+height=21
+layer=lore_familairs
+graphic=graphic_777
+transmitop=1
+op1=Take BoB
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Take Beast of Burden items")
+
+// 662:68
+[build_layer]
+type=layer
+width=189
+height=260
+layer=lore_bounding_box
+
+// 662:69
+[com_69]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:70
+[com_70]
+type=graphic
+width=32
+height=36
+layer=com_69
+graphic=graphic_1195
+targetmask=npc
+opbase=Wolf Howl
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_69, lore_stats_side:build_layer, 1194, 1195, 1, "Howl", "Makes NPCs flee for a short time", lore_howl, 1, null, 0, null, 0, null, 0)
+
+// 662:71
+[com_71]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:72
+[com_72]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:73
+[com_73]
+type=graphic
+width=32
+height=36
+layer=com_72
+graphic=graphic_1195
+targetmask=obj
+opbase=Rise From The Ashes
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_72, lore_stats_side:build_layer, 1194, 1195, 72, "Rise From The Ashes", "The miracle of life. Must target 'Ashes'.", lore_rise_from_the_ashes, 1, null, 0, null, 0, null, 0)
+
+// 662:74
+[com_74]
+type=layer
+x=31
+y=51
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:75
+[com_75]
+type=graphic
+x=31
+width=32
+height=36
+layer=com_71
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Dreadfowl Strike
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_71, lore_stats_side:build_layer, 1194, 1195, 4, "Dreadfowl Strike", "A magical attack", lore_dreadfowl_strike, 1, null, 0, null, 0, null, 0)
+
+// 662:76
+[com_76]
+type=graphic
+width=32
+height=36
+layer=com_71
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Dreadfowl Strike
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_71, lore_stats_side:build_layer, 1194, 1195, 4, "Dreadfowl Strike", "A magical attack", lore_dreadfowl_strike, 1, null, 0, null, 0, null, 0)
+
+// 662:77
+[com_77]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:78
+[com_78]
+type=graphic
+width=32
+height=36
+layer=com_77
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Vampire Touch
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_77, lore_stats_side:build_layer, 1194, 1195, 31, "Vampire Touch", "A magical attack that may also heal 2 of your Hitpoints", lore_vampire_touch, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:79
+[com_79]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:80
+[com_80]
+type=graphic
+width=32
+height=32
+layer=com_79
+graphic=graphic_1195
+transmitop=1
+opbase=Herbcall
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_79, lore_stats_side:build_layer, 1194, 1195, 41, "Herbcall", "Has a chance to produce a grimy herb", lore_herbcall, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:81
+[com_81]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:82
+[com_82]
+type=graphic
+width=32
+height=32
+layer=com_81
+graphic=graphic_1195
+transmitop=1
+opbase=Stony Shell
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_81, lore_stats_side:build_layer, 1194, 1195, 16, "Stony Shell", "Boosts your Defence by 4.", lore_stony_shell, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:83
+[com_83]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:84
+[com_84]
+type=graphic
+width=32
+height=32
+layer=com_83
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Evil Flames
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_83, lore_stats_side:build_layer, 1194, 1195, 42, "Evil Flames", "Causes Magic-based damage and drains target's Ranged", lore_evil_flames, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:85
+[com_85]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:86
+[com_86]
+type=graphic
+width=32
+height=36
+layer=com_85
+graphic=graphic_1195
+transmitop=1
+opbase=Fruitfall
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_85, lore_stats_side:build_layer, 1194, 1195, 69, "Fruitfall", "Produces random fruit nearby", lore_fruitfall, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:87
+[com_87]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:88
+[com_88]
+type=graphic
+width=32
+height=32
+layer=com_87
+graphic=graphic_1195
+transmitop=1
+opbase=Thieving Fingers
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_87, lore_stats_side:build_layer, 1194, 1195, 47, "Thieving Fingers", "Boosts your Thieving", lore_thieving_fingers, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:89
+[com_89]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:90
+[com_90]
+type=graphic
+width=32
+height=36
+layer=com_89
+graphic=graphic_1195
+transmitop=1
+opbase=Egg Spawn
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_89, lore_stats_side:build_layer, 1194, 1195, 10, "Egg Spawn", "Spawns red spiders' eggs nearby", lore_egg_spawn, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:91
+[com_91]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:92
+[com_92]
+type=graphic
+width=32
+height=32
+layer=com_91
+graphic=graphic_1195
+transmitop=1
+opbase=Fish Rain
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_91, lore_stats_side:build_layer, 1194, 1195, 56, "Fish Rain", "Makes fish appear nearby", lore_fish_rain, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:93
+[com_93]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:94
+[com_94]
+type=graphic
+width=32
+height=32
+layer=com_93
+graphic=graphic_1195
+transmitop=1
+opbase=Abyssal Stealth
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_93, lore_stats_side:build_layer, 1194, 1195, 62, "Abyssal Stealth", "Boosts your Thieving and Agility", lore_abyssal_stealth, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:95
+[com_95]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:96
+[com_96]
+type=graphic
+width=32
+height=32
+layer=com_95
+graphic=graphic_1195
+targetmask=loc
+opbase=Multichop
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_95, lore_stats_side:build_layer, 1194, 1195, 33, "Multichop", "Cuts up to 3 logs from a nearby tree", lore_multichop, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:97
+[com_97]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:98
+[com_98]
+type=graphic
+width=32
+height=36
+layer=com_97
+graphic=graphic_1195
+transmitop=1
+opbase=Unburden
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_97, lore_stats_side:build_layer, 1194, 1195, 40, "Unburden", "Restores run energy based on your current Agility level", lore_unburden, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:99
+[com_99]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:100
+[com_100]
+type=graphic
+width=32
+height=32
+layer=com_99
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Crushing Claw
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_99, lore_stats_side:build_layer, 1194, 1195, 74, "Crushing Claw", "Causes Magic-based damage and drains target's Defence", lore_crushing_claw, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:101
+[com_101]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:102
+[com_102]
+type=graphic
+width=32
+height=32
+layer=com_101
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Mantis Strike
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_101, lore_stats_side:build_layer, 1194, 1195, 75, "Mantis Strike", "Causes Magic-based damage, drains other player's Prayer and binds", lore_mantis_strike, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:103
+[com_103]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+targetmask=player
+
+// 662:104
+[com_104]
+type=graphic
+width=32
+height=32
+layer=com_103
+graphic=graphic_1195
+targetmask=player
+opbase=Famine
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_103, lore_stats_side:build_layer, 1194, 1195, 70, "Famine", "Destroys target player's food", lore_famine, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:105
+[com_105]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:106
+[com_106]
+type=graphic
+width=32
+height=32
+layer=com_105
+graphic=graphic_1195
+transmitop=1
+opbase=Sandstorm
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_105, lore_stats_side:build_layer, 1194, 1195, 25, "Sandstorm", "Deals damage to nearby opponents", lore_sandstorm, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:107
+[com_107]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+targetmask=npc,loc
+
+// 662:108
+[com_108]
+type=graphic
+width=32
+height=32
+layer=com_107
+graphic=graphic_1195
+transmitop=1
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_107, lore_stats_side:build_layer, 1194, 1195, 19, "Venom Shot", "Has a chance of making your next Ranged attack poisonous", lore_envenom_weapon, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:109
+[com_109]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:110
+[com_110]
+type=graphic
+width=32
+height=32
+layer=com_109
+graphic=graphic_1195
+transmitop=1
+opbase=Cheese Feast
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_109, lore_stats_side:build_layer, 1194, 1195, 23, "Cheese Feast", "Generates 4 cheese that appears in the Albino Rat's inventory.", lore_cheese_feast, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:111
+[com_111]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:112
+[com_112]
+type=graphic
+width=32
+height=32
+layer=com_111
+graphic=graphic_1195
+transmitop=1
+opbase=Insane Ferocity
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_111, lore_stats_side:build_layer, 1194, 1195, 32, "Insane Ferocity", "Boosts the Honey Badgers Attack and Strength, at the expense of Defence.", lore_insane_ferocity, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:113
+[com_113]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:114
+[com_114]
+type=graphic
+width=32
+height=32
+layer=com_113
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Toad Bark
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_113, lore_stats_side:build_layer, 1194, 1195, 66, "Toad Bark", "Damages a target", lore_toad_bark, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:115
+[com_115]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:116
+[com_116]
+type=graphic
+width=32
+height=36
+layer=com_115
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Arctic Blast
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_115, lore_stats_side:build_layer, 1194, 1195, 71, "Arctic Blast", "Magical attack that can stun the target", lore_arctic_blast, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:117
+[com_117]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:118
+[com_118]
+type=graphic
+width=32
+height=32
+layer=com_117
+graphic=graphic_1195
+targetmask=heldobj
+opbase=Winter Storage
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_117, lore_stats_side:build_layer, 1194, 1195, 96, "Winter Storage", "Banks one item from your inventory", lore_winter_storage, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onclick=magic_entertargetmode(event_com)
+
+// 662:119
+[com_119]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:120
+[com_120]
+type=graphic
+width=32
+height=32
+layer=com_119
+graphic=graphic_1195
+transmitop=1
+opbase=Healing Aura
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_119, lore_stats_side:build_layer, 1194, 1195, 88, "Healing Aura", "Heals 15% of your Hitpoints.", lore_healing_aura, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:121
+[com_121]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:122
+[com_122]
+type=graphic
+width=32
+height=32
+layer=com_121
+graphic=graphic_1195
+targetmask=heldobj
+opbase=Ophedian Incubation
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_121, lore_stats_side:build_layer, 1194, 1195, 63, "Ophidian Incubation", "Turns a bird egg into a cockatrice egg", lore_ophedian_incubation, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onclick=magic_entertargetmode(event_com)
+
+// 662:123
+[com_123]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:124
+[com_124]
+type=graphic
+width=32
+height=32
+layer=com_123
+graphic=graphic_1195
+transmitop=1
+opbase=Adamantite Shell
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_123, lore_stats_side:build_layer, 1194, 1195, 67, "Testudo", "Boosts your Defence by 8.", lore_adamantite_shell, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:125
+[com_125]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:126
+[com_126]
+type=graphic
+width=32
+height=32
+layer=com_125
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Slime Trail
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_125, lore_stats_side:build_layer, 1194, 1195, 13, "Slime Spray", "Damages an enemy", lore_slime_trail, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:127
+[com_127]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:128
+[com_128]
+type=graphic
+width=32
+height=32
+layer=com_127
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Electric Lash
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_127, lore_stats_side:build_layer, 1194, 1195, 18, "Electric Lash", "Mild damaging attack that causes a very short stun", lore_electric_lash, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:129
+[com_129]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:130
+[com_130]
+type=graphic
+width=32
+height=32
+layer=com_129
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Dissolve
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_129, lore_stats_side:build_layer, 1194, 1195, 55, "Dissolve", "Causes Magic-based damage and drains target's Attack", lore_dissolve, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:131
+[com_131]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:132
+[com_132]
+type=graphic
+width=32
+height=32
+layer=com_131
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Dissolve
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_131, lore_stats_side:build_layer, 1194, 1195, 54, "Abyssal Drain", "Causes Magic-based damage and drains target's Magic", lore_abyssal_drain, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:133
+[com_133]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:134
+[com_134]
+type=graphic
+width=32
+height=32
+layer=com_133
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Dissolve
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_133, lore_stats_side:build_layer, 1194, 1195, 43, "Petrifying Gaze", "Damages a target and causes combat stat damage, unless target is wielding a mirror shield", lore_petrify, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:135
+[com_135]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:136
+[com_136]
+type=graphic
+width=32
+height=32
+layer=com_135
+graphic=graphic_1195
+transmitop=1
+opbase=Tireless Run
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_135, lore_stats_side:build_layer, 1194, 1195, 52, "Tireless Run", "Boosts your Agility and restores run energy", lore_tireless_run, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:137
+[com_137]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:138
+[com_138]
+type=graphic
+width=32
+height=32
+layer=com_137
+graphic=graphic_1195
+transmitop=1
+opbase=Blood Drain
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_137, lore_stats_side:build_layer, 1194, 1195, 49, "Blood Drain", "Heals stat damage, poison and disease at the cost of Hitpoints.", lore_blood_drain, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:139
+[com_139]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:140
+[com_140]
+type=graphic
+width=32
+height=32
+layer=com_139
+graphic=graphic_1195
+transmitop=1
+opbase=Dust Cloud
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_139, lore_stats_side:build_layer, 1194, 1195, 61, "Dust Cloud", "Affects the area around you, damaging all enemies", lore_dust_cloud, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:141
+[com_141]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:142
+[com_142]
+type=graphic
+width=32
+height=32
+layer=com_141
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Overwhelming Waters
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_141, lore_stats_side:build_layer, 1194, 1195, 58, "Doomsphere Device", "A water-based magical attack", lore_overwhelming_waters, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:143
+[com_143]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:144
+[com_144]
+type=graphic
+width=32
+height=32
+layer=com_143
+graphic=graphic_1195
+targetmask=loc
+opbase=Generate Compost
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_143, lore_stats_side:build_layer, 1194, 1195, 28, "Generate Compost", "Fills an empty compost bin with compost", lore_generate_compost, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:145
+[com_145]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:146
+[com_146]
+type=graphic
+width=32
+height=32
+layer=com_145
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Nesting
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_145, lore_stats_side:build_layer, 1194, 1195, 78, "Acorn Missile", "Inflicts up to 11 damage on up to 3 opponents. Chance of acorn being dropped.", lore_nesting, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:147
+[com_147]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:148
+[com_148]
+type=graphic
+width=32
+height=32
+layer=com_147
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Poison Blast
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_147, lore_stats_side:build_layer, 1194, 1195, 64, "Poisonous Blast", "A poison-inducing attack", lore_poisonous_blast, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:149
+[com_149]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:150
+[com_150]
+type=graphic
+width=32
+height=32
+layer=com_149
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Deadly Claw
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_149, lore_stats_side:build_layer, 1194, 1195, 77, "Deadly Claw", "Three magical attacks at once", lore_deadly_claw, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:151
+[com_151]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:152
+[com_152]
+type=graphic
+width=32
+height=32
+layer=com_151
+graphic=graphic_1195
+targetmask=loc
+opbase=Regrowth
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_151, lore_stats_side:build_layer, 1194, 1195, 80, "Regrowth", "Will cause a farmed tree that has been chopped down to regrow faster.", lore_regrowth, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:153
+[com_153]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:154
+[com_154]
+type=graphic
+width=32
+height=32
+layer=com_153
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Spike Shot
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_153, lore_stats_side:build_layer, 1194, 1195, 83, "Spike Shot", "Damaging strike that stuns the target", lore_spike_shot, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:155
+[com_155]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:156
+[com_156]
+type=graphic
+width=32
+height=32
+layer=com_155
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Bull Rush
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_155, lore_stats_side:build_layer, 1194, 1195, 86, "Bull Rush", "Damages the target with a chance to stun them; damage dealt depends on minotaur type", lore_bull_rush, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:157
+[com_157]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:158
+[com_158]
+type=graphic
+width=32
+height=32
+layer=com_157
+graphic=graphic_1195
+transmitop=1
+targetmask=player
+opbase=Magic Might
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_157, lore_stats_side:build_layer, 1194, 1195, 92, "Magic Focus", "Boosts your Magic by 7.", lore_magic_might, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:159
+[com_159]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:160
+[com_160]
+type=graphic
+width=32
+height=32
+layer=com_159
+graphic=graphic_1195
+targetmask=heldobj
+opbase=Swallow Whole
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_159, lore_stats_side:build_layer, 1194, 1195, 68, "Swallow Whole", "Allows you to eat a fish without having to cook it", lore_swallow_whole, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onclick=magic_entertargetmode(event_com)
+
+// 662:161
+[com_161]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:162
+[com_162]
+type=graphic
+width=32
+height=32
+layer=com_161
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Swamp Plague
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_161, lore_stats_side:build_layer, 1194, 1195, 85, "Swamp Plague", "Area-effect, magical poison attack", lore_swamp_plague, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:163
+[com_163]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:164
+[com_164]
+type=graphic
+width=32
+height=32
+layer=com_163
+graphic=graphic_1195
+transmitop=1
+opbase=Call To Arms
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_163, lore_stats_side:build_layer, 1194, 1195, 34, "Call To Arms", "Teleports you to the Pest Control landing boat area", lore_call_to_arms, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:165
+[com_165]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:166
+[com_166]
+type=graphic
+width=32
+height=32
+layer=com_165
+graphic=graphic_1195
+transmitop=1
+opbase=Call To Arms
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_165, lore_stats_side:build_layer, 1194, 1195, 79, "Titan's Constitution", "Boosts your Defence and Hitpoints significantly", lore_titans_constitution, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:167
+[com_167]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:168
+[com_168]
+type=graphic
+width=32
+height=32
+layer=com_167
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Bull Rush
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_167, lore_stats_side:build_layer, 1194, 1195, 89, "Boil", "Damages a player, with extra damage based on how much armour they are wearing", lore_boil, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:169
+[com_169]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:170
+[com_170]
+type=graphic
+width=32
+height=32
+layer=com_169
+graphic=graphic_1195
+transmitop=1
+opbase=Steel of Legends
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_169, lore_stats_side:build_layer, 1194, 1195, 99, "Steel of Legends", "Makes the Steel Titan's next attack 4 attacks at once.", lore_steel_of_legends, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:171
+[com_171]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:172
+[com_172]
+type=graphic
+width=32
+height=32
+layer=com_171
+graphic=graphic_1195
+transmitop=1
+opbase=Explode
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_172, lore_stats_side:build_layer, 1194, 1195, 29, "Explode", "Detonates the chinchompa", lore_explode, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:173
+[com_173]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:174
+[com_174]
+type=graphic
+width=32
+height=32
+layer=com_173
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Goad
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_173, lore_stats_side:build_layer, 1194, 1195, 57, "Goad", "Sends your spirit graahk to attack an enemy", lore_goad, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:175
+[com_175]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:176
+[com_176]
+type=graphic
+width=32
+height=32
+layer=com_175
+graphic=graphic_1195
+transmitop=1
+opbase=Ambush
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_175, lore_stats_side:build_layer, 1194, 1195, 57, "Ambush", "Brings your spirit kyatt to attack an enemy you are fighting.", lore_ambush, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:177
+[com_177]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:178
+[com_178]
+type=graphic
+width=32
+height=32
+layer=com_177
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Obsidian Thunder
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_177, lore_stats_side:build_layer, 1194, 1195, 83, "Ebon Thunder", "Magical attack that also drains points from the target's Special Attack bar", lore_obsidian_thunder, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:179
+[com_179]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:180
+[com_180]
+type=graphic
+width=32
+height=32
+layer=com_179
+graphic=graphic_1195
+transmitop=1
+opbase=Mountian Strength
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_179, lore_stats_side:build_layer, 1194, 1195, 73, "Volcanic Strength", "Gives a 9 point Strength boost", lore_mountain_strength, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:181
+[com_181]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:182
+[com_182]
+type=graphic
+width=32
+height=32
+layer=com_181
+graphic=graphic_1195
+transmitop=1
+opbase=Chaotic Runecrafting
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_181, lore_stats_side:build_layer, 1194, 1195, 93, "Essence Shipment", "Transports all the pure essence from your inventory and all pure essence held by the Abyssal Titan to your bank", lore_chaotic_runecrafting, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:183
+[com_183]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:184
+[com_184]
+type=graphic
+width=32
+height=32
+layer=com_183
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Goad
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_183, lore_stats_side:build_layer, 1194, 1195, 17, "Pester", "Sends the spirit mosquito to attack an enemy", lore_mosquito_attack, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:185
+[com_185]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:186
+[com_186]
+type=graphic
+width=32
+height=32
+layer=com_185
+graphic=graphic_1195
+transmitop=1
+opbase=Explode
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_185, lore_stats_side:build_layer, 1194, 1195, 22, "Fireball Assault", "Damages multiple targets", lore_lava_assault, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:187
+[com_187]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:188
+[com_188]
+type=graphic
+width=32
+height=32
+layer=com_187
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Rending
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_187, lore_stats_side:build_layer, 1194, 1195, 57, "Rending", "Causes Magic-based damage and drains target's Strength", lore_rending, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:189
+[com_189]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:190
+[com_190]
+type=graphic
+width=32
+height=32
+layer=com_189
+graphic=graphic_1195
+transmitop=1
+opbase=Iron Within
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_189, lore_stats_side:build_layer, 1194, 1195, 95, "Iron Within", "Makes the Iron Titan strike 3 times on it's next attack.", lore_iron_within, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:191
+[com_191]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:192
+[com_192]
+type=graphic
+width=32
+height=32
+layer=com_191
+graphic=graphic_1195
+targetmask=heldobj
+opbase=Chaotic Runecrafting
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_191, lore_stats_side:build_layer, 1194, 1195, 46, "Immense Heat", "Smelts a gold bar into an item of jewellery without need of a furnace", lore_immense_heat, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onclick=magic_entertargetmode(event_com)
+
+// 662:193
+[com_193]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:194
+[com_194]
+type=graphic
+width=32
+height=32
+layer=com_193
+graphic=graphic_1195
+targetmask=npc,player
+opbase=Inferno
+targetverb=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_193, lore_stats_side:build_layer, 1194, 1195, 76, "Inferno", "Damaging magical attack that can disarm the target's weapon or shield", lore_inferno, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:195
+[com_195]
+type=layer
+x=7
+y=27
+width=32
+height=32
+layer=lore_familairs
+hide=yes
+
+// 662:196
+[com_196]
+type=graphic
+width=32
+height=32
+layer=com_195
+graphic=graphic_1195
+transmitop=1
+opbase=Clay deposit
+op1=Cast
+onload=clientscript_774(event_com, lore_stats_side:com_195, lore_stats_side:build_layer, 1194, 1195, 3, "Clay deposit", "Instantly deposits a certain amount of tiers of clay back in the base", sc_lore_clay_deposit, 1, null, 0, null, 0, null, 0)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+
+// 662:197
+[lore_bounding_box]
+type=layer
+width=190
+height=261

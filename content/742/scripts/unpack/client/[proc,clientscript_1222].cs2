@@ -1,0 +1,8 @@
+// 1222
+[proc,clientscript_1222](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = calc(if_getwidth(toplevel_fullscreen:com_72) - ($int2 + $int0 / 2 + 42));
+def_int $int5 = calc(if_getheight(toplevel_fullscreen:com_72) - $int3);
+if_setsize(toplevel_fullscreen:com_84, $int0, $int1, ^setsize_abs, ^setsize_abs);
+$int4 = max($int4, 0);
+$int5 = max($int5, 0);
+if_setposition(toplevel_fullscreen:com_84, $int4, $int5, ^setpos_abs_right, ^setpos_abs_bottom);

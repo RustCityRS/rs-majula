@@ -1,15 +1,17 @@
-use super::decode::read_optional_id;
+use super::decode::{read_big_id, read_id};
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 use std::array::from_fn;
 
 pub struct BasType {
-    pub id: u16,
-    pub readyanim: Option<u16>,
-    pub walkanim: Option<u16>,
-    pub anims: Vec<(u8, u16)>,
+    pub id: TypeId,
+    pub readyanim: Option<TypeId>,
+    pub walkanim: Option<TypeId>,
+    pub anims: Vec<(u8, TypeId)>,
     pub rotate: (u8, u8),
     pub transform: Vec<(u8, [i16; 6])>,
+    #[cfg(since_647)]
     pub op28: Vec<Option<u8>>,
     pub turnspeed: u8,
     pub turnmax: u16,
@@ -21,17 +23,22 @@ pub struct BasType {
     pub pitch: i16,
     pub walkspeed: Option<u8>,
     pub overlayheight: Option<u16>,
-    pub readyanim_random: Vec<(u16, u8)>,
+    #[cfg(since_647)]
+    pub readyanim_random: Vec<(TypeId, u8)>,
+    #[cfg(since_647)]
     pub noshadow: bool,
+    #[cfg(since_647)]
     pub op54: (u8, u8),
+    #[cfg(since_647)]
     pub op55: Vec<(u8, u16)>,
+    #[cfg(since_647)]
     pub slotoffset: Vec<(u8, [i16; 3])>,
 }
 
 impl CacheType for BasType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             readyanim: None,
@@ -39,6 +46,7 @@ impl CacheType for BasType {
             anims: Vec::new(),
             rotate: (0, 0),
             transform: Vec::new(),
+            #[cfg(since_647)]
             op28: Vec::new(),
             turnspeed: 0,
             turnmax: 0,
@@ -50,10 +58,15 @@ impl CacheType for BasType {
             pitch: 0,
             walkspeed: None,
             overlayheight: None,
+            #[cfg(since_647)]
             readyanim_random: Vec::new(),
+            #[cfg(since_647)]
             noshadow: false,
+            #[cfg(since_647)]
             op54: (0, 0),
+            #[cfg(since_647)]
             op55: Vec::new(),
+            #[cfg(since_647)]
             slotoffset: Vec::new(),
         }
     }
@@ -61,15 +74,17 @@ impl CacheType for BasType {
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
             1 => {
-                self.readyanim = read_optional_id(buf);
-                self.walkanim = read_optional_id(buf);
+                self.readyanim = read_big_id(buf).non_null();
+                self.walkanim = read_big_id(buf).non_null();
             }
-            2..=9 | 38..=44 | 46..=51 => self.anims.push((code, buf.g2())),
+            2..=9 | 38..=42 => self.anims.push((code, read_big_id(buf))),
+            43 | 44 => self.anims.push((code, read_id(buf))),
             26 => self.rotate = (buf.g1(), buf.g1()),
             27 => {
                 let slot = buf.g1();
                 self.transform.push((slot, from_fn(|_| buf.g2s())));
             }
+            #[cfg(since_647)]
             28 => {
                 self.op28 = (0..buf.g1())
                     .map(|_| {
@@ -88,12 +103,21 @@ impl CacheType for BasType {
             36 => self.pitch = buf.g2s(),
             37 => self.walkspeed = Some(buf.g1()),
             45 => self.overlayheight = Some(buf.g2()),
+            #[cfg(since_647)]
+            46..=51 => self.anims.push((code, read_big_id(buf))),
+            #[cfg(since_647)]
             52 => {
-                self.readyanim_random = (0..buf.g1()).map(|_| (buf.g2(), buf.g1())).collect();
+                self.readyanim_random = (0..buf.g1())
+                    .map(|_| (read_big_id(buf), buf.g1()))
+                    .collect();
             }
+            #[cfg(since_647)]
             53 => self.noshadow = true,
+            #[cfg(since_647)]
             54 => self.op54 = (buf.g1(), buf.g1()),
+            #[cfg(since_647)]
             55 => self.op55.push((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
             56 => {
                 let slot = buf.g1();
                 self.slotoffset.push((slot, from_fn(|_| buf.g2s())));

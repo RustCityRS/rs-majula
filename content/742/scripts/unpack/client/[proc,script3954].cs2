@@ -1,0 +1,9 @@
+// 3954
+[proc,script3954](int $int0)(boolean)
+def_boolean $boolean1 = ~clientscript_5640($int0);
+if ($boolean1 = true) {
+    op385(12);
+} else {
+    op385(13);
+}
+return($boolean1);

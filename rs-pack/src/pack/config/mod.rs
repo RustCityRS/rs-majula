@@ -1,33 +1,33 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, insert_archive};
 use crate::pack::pack::{ConfigProperties, ConfigSections};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::pack::{
     FileCache, collect_config_files, parse_config_sections, parse_config_sections_cached,
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::pack_registry::PackedFile;
 use crate::pack::pack_registry::{PackFile, PackId};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rayon::prelude::*;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::{encode_group_entries, reference::FileInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::path::Path;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod area;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod bas;
 #[cfg(since_647)]
 pub mod billboard;
@@ -40,8 +40,10 @@ pub mod dbrow;
 pub mod dbtable;
 pub mod r#enum;
 pub mod flo;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod flu;
+#[cfg(since_742)]
+pub mod headbar;
 #[cfg(since_647)]
 pub mod hitmark;
 pub mod hunt;
@@ -52,10 +54,10 @@ pub mod light;
 pub mod loc;
 #[cfg(since_647)]
 pub mod mel;
-#[cfg(all(since_274, before_647))]
+#[cfg(all(since_274, before_530))]
 pub mod mes;
 pub mod mesanim;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod msi;
 pub mod npc;
 pub mod obj;
@@ -66,16 +68,18 @@ pub mod particleeffector;
 pub mod particleemitter;
 #[cfg(since_647)]
 pub mod quest;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod quickchatcat;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod quickchatphrase;
 pub mod seq;
+#[cfg(since_742)]
+pub mod skybox;
 pub mod spotanim;
 pub mod r#struct;
 #[cfg(since_254)]
 pub mod varbit;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod varc;
 #[cfg(since_647)]
 pub mod varclansetting;
@@ -83,12 +87,12 @@ pub mod varclansetting;
 pub mod varcon;
 #[cfg(since_647)]
 pub mod varconbit;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod varobj;
 pub mod varp;
 pub mod vars;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn is_string_var(props: &ConfigProperties) -> bool {
     props
         .iter()
@@ -98,7 +102,7 @@ pub(super) fn is_string_var(props: &ConfigProperties) -> bool {
 }
 
 /// A table the cache holds empty, with section IDs from its pack registry.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_empty_table(source_dir: &Path, type_name: &str, pack: &PackFile) -> Result<PackedData> {
     let files = collect_config_files(source_dir, type_name);
     let sections = parse_config_sections(&files, &HashMap::new())?;
@@ -122,7 +126,7 @@ pub fn pack_empty_table(source_dir: &Path, type_name: &str, pack: &PackFile) -> 
     Ok(packed)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_archives(
     store: &mut PackedCache,
     config: &HashMap<String, PackedFile>,
@@ -142,12 +146,16 @@ pub fn pack_archives(
         }
     }
     write_config_archive(store, archive::CONFIG, versions, config_groups)?;
+    #[cfg(since_647)]
     write_config_archive(
         store,
         archive::BILLBOARDS,
         versions,
         BTreeMap::from([(0, read_config_entries(config, "billboard")?)]),
     )?;
+    #[cfg(all(since_530, before_647))]
+    write_config_archive(store, archive::PARTICLES, versions, BTreeMap::new())?;
+    #[cfg(since_647)]
     write_config_archive(
         store,
         archive::PARTICLES,
@@ -201,7 +209,7 @@ pub fn pack_archives(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn read_config_entries<'a>(
     config: &'a HashMap<String, PackedFile>,
     name: &str,
@@ -212,11 +220,10 @@ fn read_config_entries<'a>(
     Ok(PackedData::entries(&client.dat, &client.idx)
         .with_context(|| format!("Reading {name} configs"))?
         .filter(|(_, data)| !data.is_empty())
-        .map(|(id, data)| (id as u32, data))
         .collect())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn write_config_archive(
     store: &mut PackedCache,
     aid: u8,
@@ -250,7 +257,7 @@ fn write_config_archive(
 
 /// The sections of a kind's `_unpack/all.<kind>`: the configs the cache holds.
 /// A section anywhere else is the server's own.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn cache_sections(file_cache: &FileCache, kind: &str) -> HashSet<String> {
     file_cache
         .collect(kind)
@@ -267,7 +274,7 @@ pub(super) fn cache_sections(file_cache: &FileCache, kind: &str) -> HashSet<Stri
 
 /// The cache's table for a type whose bodies only the server reads: an empty
 /// entry per section.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn client_table(
     file_cache: &FileCache,
     kind: &str,
@@ -278,7 +285,7 @@ pub(super) fn client_table(
 }
 
 /// The ids of the params the cache holds.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn cache_params(file_cache: &FileCache, param: &PackFile) -> HashSet<PackId> {
     cache_sections(file_cache, "param")
         .iter()
@@ -288,7 +295,7 @@ pub(super) fn cache_params(file_cache: &FileCache, param: &PackFile) -> HashSet<
 
 /// A param the cache holds is written where it stands in the record, for both
 /// sides. The server's own params stay on the server.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn mark_client_params(
     props: &[(String, String)],
     param: &PackFile,
@@ -311,7 +318,7 @@ pub(super) fn mark_client_params(
 /// The cache's table, each `_unpack` section written by `write`. It ends at the
 /// last of them. The server's own sections before that leave an empty entry and
 /// any after it stay out.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn client_table_with(
     file_cache: &FileCache,
     kind: &str,
@@ -331,7 +338,7 @@ pub(super) fn client_table_with(
 
 /// [`client_table_with`] over parsed sections, with `client` telling which
 /// sections the cache holds.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn client_table_of(
     configs: &ConfigSections,
     pack: &PackFile,
@@ -365,7 +372,7 @@ pub(super) fn client_table_of(
 }
 
 /// A table only the client reads: an entry per section, by registry id.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn client_config_table(
     file_cache: &FileCache,
     kind: &str,
@@ -400,12 +407,12 @@ pub(super) fn config_entry<'a>(
     id: PackId,
 ) -> Option<(&'a str, &'a ConfigProperties)> {
     let name = pack.get_by_id(id);
-    if cfg!(before_647) && name.is_none() {
+    if cfg!(before_530) && name.is_none() {
         panic!("Unknown {kind} id: {id}");
     }
     let name = name?;
     let props = configs.get(name);
-    if cfg!(before_647) && props.is_none() {
+    if cfg!(before_530) && props.is_none() {
         panic!("Unknown {kind} config: {name}");
     }
     Some((name, props?))

@@ -1,0 +1,51 @@
+// 5620
+[proc,clientscript_5620](component $component0, component $component1)
+def_int $int2 = 0;
+if (if_find($component1) = true) {
+    cc_setopcursor(1, cursor_firemaking);
+    if (getwindowmode = ^windowmode_small) {
+        $int2 = 1800;
+    } else {
+        $int2 = calc(2 * (if_getheight(interface_1199:com_14) / 3));
+    }
+    op1123($int2);
+    cc_setmodelanim(seq_15700);
+    switch_component ($component1) {
+        case interface_1199:com_8 :
+            if (cc_gety >= 0) {
+                if_setontimer($component0, null);
+                return;
+            }
+            cc_setposition(0, calc(cc_gety + 1), ^setpos_abs_centre, ^setpos_abs_top);
+        case interface_1199:com_6 :
+            if (cc_getx <= calc(if_getwidth(interface_1199:com_14) - cc_getwidth)) {
+                if_setontimer($component0, null);
+                return;
+            }
+            cc_setposition(calc(cc_getx - 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        case interface_1199:com_2 :
+            if (cc_gety <= calc(if_getheight(interface_1199:com_14) - cc_getheight)) {
+                if_setontimer($component0, null);
+                return;
+            }
+            cc_setposition(0, calc(cc_gety - 1), ^setpos_abs_centre, ^setpos_abs_top);
+        case interface_1199:com_10 :
+            if (cc_gety <= calc(if_getheight(interface_1199:com_14) - cc_getheight)) {
+                if_setontimer($component0, null);
+                return;
+            }
+            cc_setposition(calc(cc_getx + 1), calc(cc_gety - 1), ^setpos_abs_left, ^setpos_abs_top);
+        case interface_1199:com_4 :
+            if (cc_getx >= cc_getwidth) {
+                if_setontimer($component0, null);
+                return;
+            }
+            cc_setposition(calc(cc_getx + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        case interface_1199:com_12 :
+            if (cc_gety >= 0) {
+                if_setontimer($component0, null);
+                return;
+            }
+            cc_setposition(calc(cc_getx + 1), calc(cc_gety + 1), ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

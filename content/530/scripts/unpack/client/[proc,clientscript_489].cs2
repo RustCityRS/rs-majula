@@ -1,0 +1,6 @@
+// 489
+[proc,clientscript_489]
+~clientscript_504;
+if_setgraphic(interface_591:com_268, 1043);
+if_setonmouseleave(interface_591:com_268, "deltooltip(interface_591:com_299)");
+if_setonmouseover(interface_591:com_268, null);

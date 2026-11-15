@@ -1,0 +1,16 @@
+// 5533
+[proc,clientscript_5533]
+def_int $int0 = if_getscrollx(interface_1179:com_10);
+if ($int0 <= 0) {
+    if_settrans(interface_1179:com_8, 150);
+    if_setgraphic(interface_1179:com_8, "sm_select_body_button,0");
+} else {
+    if_settrans(interface_1179:com_8, 0);
+}
+if ($int0 >= calc(if_getscrollwidth(interface_1179:com_10) - if_getwidth(interface_1179:com_10))) {
+    if_settrans(interface_1179:com_9, 150);
+    if_setgraphic(interface_1179:com_9, "sm_select_body_button,2");
+} else {
+    if_settrans(interface_1179:com_9, 0);
+}
+%playerdesign2_client_feet = $int0;

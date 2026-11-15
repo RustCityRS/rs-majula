@@ -1,0 +1,42 @@
+// 700
+[proc,clientscript_700](component $component0)
+if ($component0 = bankpin_main:com_11) {
+    if_settext($component0, tostring(%wilderness_jmod_boss_immune));
+    return;
+}
+if ($component0 = bankpin_main:com_12) {
+    if_settext($component0, tostring(%elem_4_main));
+    return;
+}
+if ($component0 = bankpin_main:com_13) {
+    if_settext($component0, tostring(%elem_4_column_faceing));
+    return;
+}
+if ($component0 = bankpin_main:com_14) {
+    if_settext($component0, tostring(%elem_4_slider_1));
+    return;
+}
+if ($component0 = bankpin_main:com_15) {
+    if_settext($component0, tostring(%elem_4_slider_2));
+    return;
+}
+if ($component0 = bankpin_main:com_16) {
+    if_settext($component0, tostring(%elem_4_slider_3));
+    return;
+}
+if ($component0 = bankpin_main:com_17) {
+    if_settext($component0, tostring(%elem_4_slider_4));
+    return;
+}
+if ($component0 = bankpin_main:com_18) {
+    if_settext($component0, tostring(%elem_4_slider_5));
+    return;
+}
+if ($component0 = bankpin_main:com_19) {
+    if_settext($component0, tostring(%elem_4_slider_6));
+    return;
+}
+if ($component0 = bankpin_main:com_20) {
+    if_settext($component0, tostring(%elem_4_slider_7));
+    return;
+}

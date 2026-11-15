@@ -20,20 +20,21 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::fs;
 
 const BACKPACK: i32 = 149 << 16;
 
 /// An obj's id from the cache's names; a loc's from 647's registry, since
 /// 647's locs carry no debugname.
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     if kind == "obj" {
-        return *engine
+        return engine
             .cache
             .objs
-            .debugnames
-            .get(name)
-            .unwrap_or_else(|| panic!("no obj {name}"));
+            .get_by_debugname(name)
+            .unwrap_or_else(|| panic!("no obj {name}"))
+            .id;
     }
     let path = format!(
         "{}/../../content/647/pack/loc.pack",
@@ -43,7 +44,7 @@ fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
         .expect(&path)
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
-        .and_then(|(i, _)| i.parse().ok())
+        .and_then(|(i, _)| i.parse().ok().map(TypeId::new))
         .unwrap_or_else(|| panic!("no loc {name}"))
 }
 
@@ -52,8 +53,8 @@ fn holder(engine: &mut Engine, name: &str, at: (u8, u16, u16), items: &[&str]) -
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
-    let objs: Vec<u16> = items.iter().map(|i| id(engine, "obj", i)).collect();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let objs: Vec<TypeId> = items.iter().map(|i| id(engine, "obj", i)).collect();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine
         .harness_player_mut(client.pid)
         .and_then(|p| p.invs.get_mut(&inv))
@@ -76,18 +77,19 @@ fn ticks(engine: &mut Engine, n: usize) {
 }
 
 fn has(engine: &Engine, pid: u16, obj: u16) -> bool {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine.harness_player(pid).unwrap().invs.get(&inv).unwrap();
-    (0..backpack.capacity as u16).any(|s| backpack.get(s).is_some_and(|i| i.obj == obj))
+    (0..backpack.capacity as u16)
+        .any(|s| backpack.get(s).is_some_and(|i| i.obj == TypeId::new(obj)))
 }
 
 /// Any clue or casket of a trail in the backpack, other than `except`.
 fn trail_item(engine: &Engine, pid: u16, except: u16) -> Option<String> {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine.harness_player(pid).unwrap().invs.get(&inv).unwrap();
     (0..backpack.capacity as u16)
         .filter_map(|s| backpack.get(s))
-        .filter(|i| i.obj != except)
+        .filter(|i| i.obj != TypeId::new(except))
         .filter_map(|i| {
             engine
                 .cache
@@ -144,7 +146,7 @@ fn loc_there(engine: &Engine, (y, x, z): (u8, u16, u16), loc: u16) -> bool {
     engine
         .zones
         .zone(x, y, z)
-        .is_some_and(|zone| zone.get_loc(x, z, loc).is_some())
+        .is_some_and(|zone| zone.get_loc(x, z, TypeId::from(loc)).is_some())
 }
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, (_, x, z): (u8, u16, u16)) {
@@ -185,25 +187,25 @@ fn a_2011_drawer_opens_and_its_search_moves_the_trail() {
             &["trail_clue_easy_simple011"],
         );
         assert!(
-            loc_there(engine, spot, closed),
+            loc_there(engine, spot, closed.g2()),
             "2011's drawers at the spot"
         );
         let said = beside(
             engine,
             &mut client,
             spot,
-            |c| op_loc1(c, closed, spot),
-            |e| loc_there(e, spot, open),
+            |c| op_loc1(c, closed.g2(), spot),
+            |e| loc_there(e, spot, open.g2()),
         );
         assert!(
-            loc_there(engine, spot, open),
+            loc_there(engine, spot, open.g2()),
             "the drawers opened; said {said:?}"
         );
-        op_loc1(&mut client, open, spot);
+        op_loc1(&mut client, open.g2(), spot);
         ticks(engine, 8);
-        assert!(!has(engine, client.pid, clue), "the clue is used");
+        assert!(!has(engine, client.pid, clue.g2()), "the clue is used");
         assert!(
-            trail_item(engine, client.pid, clue).is_some(),
+            trail_item(engine, client.pid, clue.g2()).is_some(),
             "the trail goes on: a new clue or a casket"
         );
     });
@@ -223,21 +225,24 @@ fn a_2011_crate_search_moves_the_trail() {
             (0, 3289, 3200),
             &["trail_clue_easy_simple006"],
         );
-        assert!(loc_there(engine, spot, crate_), "2011's crate at the spot");
+        assert!(
+            loc_there(engine, spot, crate_.g2()),
+            "2011's crate at the spot"
+        );
         let pid = client.pid;
         let said = beside(
             engine,
             &mut client,
             spot,
-            |c| op_loc1(c, crate_, spot),
-            |e| !has(e, pid, clue),
+            |c| op_loc1(c, crate_.g2(), spot),
+            |e| !has(e, pid, clue.g2()),
         );
         assert!(
-            !has(engine, client.pid, clue),
+            !has(engine, client.pid, clue.g2()),
             "the clue is used; said {said:?}"
         );
         assert!(
-            trail_item(engine, client.pid, clue).is_some(),
+            trail_item(engine, client.pid, clue.g2()).is_some(),
             "the trail goes on"
         );
     });
@@ -261,23 +266,26 @@ fn a_289_chest_opens_and_its_search_moves_the_trail() {
             (1, 3041, 3362),
             &["trail_clue_easy_vague013"],
         );
-        assert!(loc_there(engine, spot, closed), "289's chest at the spot");
+        assert!(
+            loc_there(engine, spot, closed.g2()),
+            "289's chest at the spot"
+        );
         let said = beside(
             engine,
             &mut client,
             spot,
-            |c| op_loc1(c, closed, spot),
-            |e| loc_there(e, spot, open),
+            |c| op_loc1(c, closed.g2(), spot),
+            |e| loc_there(e, spot, open.g2()),
         );
         assert!(
-            loc_there(engine, spot, open),
+            loc_there(engine, spot, open.g2()),
             "the chest opened; said {said:?}"
         );
-        op_loc2(&mut client, open, spot);
+        op_loc2(&mut client, open.g2(), spot);
         ticks(engine, 8);
-        assert!(!has(engine, client.pid, clue), "the clue is used");
+        assert!(!has(engine, client.pid, clue.g2()), "the clue is used");
         assert!(
-            trail_item(engine, client.pid, clue).is_some(),
+            trail_item(engine, client.pid, clue.g2()).is_some(),
             "the trail goes on"
         );
     });
@@ -297,10 +305,10 @@ fn a_spade_on_a_map_clues_spot_digs_up_its_casket() {
             &["spade", "trail_clue_easy_map004"],
         );
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(spade as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(spade.int()).p2_alt1(0);
         client.send(ClientProt::IfButton1, &p.finish());
         ticks(engine, 6);
-        assert!(!has(engine, client.pid, clue), "the map is used");
-        assert!(has(engine, client.pid, casket), "its casket");
+        assert!(!has(engine, client.pid, clue.g2()), "the map is used");
+        assert!(has(engine, client.pid, casket.g2()), "its casket");
     });
 }

@@ -1,0 +1,48 @@
+// 2724
+[proc,clientscript_2724](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+def_graphic $graphic8 = 10533;
+def_graphic $graphic9 = 10517;
+def_graphic $graphic10 = 10537;
+def_graphic $graphic11 = 10533;
+def_graphic $graphic12 = 10545;
+def_graphic $graphic13 = 10529;
+def_graphic $graphic14 = 10521;
+def_graphic $graphic15 = 10525;
+switch_int (map_lang) {
+    case 0 :
+    case 2 :
+        $graphic8 = 10534;
+        $graphic9 = 10518;
+        $graphic10 = 10538;
+        $graphic11 = 10534;
+        $graphic12 = 10546;
+        $graphic13 = 10530;
+        $graphic14 = 10522;
+        $graphic15 = 10526;
+    case 3 :
+        $graphic8 = 10535;
+        $graphic9 = 10519;
+        $graphic10 = 10539;
+        $graphic11 = 10535;
+        $graphic12 = 10547;
+        $graphic13 = 10531;
+        $graphic14 = 10523;
+        $graphic15 = 10527;
+    case 1 :
+        $graphic8 = 10536;
+        $graphic9 = 10520;
+        $graphic10 = 10540;
+        $graphic11 = 10536;
+        $graphic12 = 10548;
+        $graphic13 = 10548;
+        $graphic14 = 10524;
+        $graphic15 = 10528;
+}
+if_setgraphic($component0, $graphic8);
+if_setgraphic($component1, $graphic9);
+if_setgraphic($component2, $graphic10);
+if_setgraphic($component3, $graphic11);
+if_setgraphic($component4, $graphic12);
+if_setgraphic($component5, $graphic13);
+if_setgraphic($component6, $graphic14);
+if_setgraphic($component7, $graphic15);

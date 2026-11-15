@@ -1,0 +1,3 @@
+// 5020
+[proc,clientscript_5020](int $int0)(int)
+return(max(calc($int0 & 127), 1));

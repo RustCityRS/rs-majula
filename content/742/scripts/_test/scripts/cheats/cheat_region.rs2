@@ -1,0 +1,147 @@
+// ::instance <rotation> copies the 64x64 tiles around you, every level, into
+// a new region turned <rotation> quarter turns clockwise and puts you on the
+// same tile of the copy. It sets no exit coord, so leaving it, by
+// ::instanceleave or by logging out in it, brings you back to the tile you
+// entered it from. The controller_0 on its south-west tile keeps where the
+// copy came from, its size, how it's turned and that tile.
+[debugproc,instance](int $rotation)
+~instance_copy(movecoord(0_0_0_0_0, clearbit_range(calc(coordx(coord) - 32), 0, 2), 0, clearbit_range(calc(coordz(coord) - 32), 0, 2)), 63, $rotation);
+
+// ::instancezone <rotation> does the same with the 8x8 zone you are in.
+[debugproc,instancezone](int $rotation)
+~instance_copy(movecoord(0_0_0_0_0, clearbit_range(coordx(coord), 0, 2), 0, clearbit_range(coordz(coord), 0, 2)), 7, $rotation);
+
+// Copies the area from $from to $last tiles north-east of it, every level,
+// into a new region turned $rotation and puts you on the same tile of the
+// copy.
+[proc,instance_copy](coord $from, int $last, int $rotation)
+if_close;
+if (p_finduid(uid) = false) { return; }
+if ($rotation < 0 | $rotation > 3) {
+    mes("Turn it 0 to 3 quarter turns.");
+    return;
+}
+if (region_findbycoord(coord) = true) {
+    mes("You are in an instance already: ::instanceleave to leave it.");
+    return;
+}
+def_int $zones = calc(($last + 1) / 8);
+def_coord $origin = region_create(4, $zones, $zones);
+~instance_set($from, $zones, $rotation);
+controller_add($origin, controller_0, 0);
+%config43_0 = coordx($from);
+%config43_1 = coordz($from);
+%config43_2 = $rotation;
+%config43_3 = $last;
+%config43_4 = coord;
+p_telejump(~instance_tile(coord, $from, $rotation, $last));
+mes("Instance <tostring(region_uid)>, turned <tostring($rotation)>. ::instancespin to turn it, ::instanceleave to leave.");
+
+// ::instancespin <rotation> copies the area of your ::instance or
+// ::instancezone again, turned <rotation>, with you in it: you keep your tile
+// of the area.
+[debugproc,instancespin](int $rotation)
+if_close;
+if (p_finduid(uid) = false) { return; }
+if ($rotation < 0 | $rotation > 3) {
+    mes("Turn it 0 to 3 quarter turns.");
+    return;
+}
+if (region_findbycoord(coord) = false) {
+    mes("You are not in an instance.");
+    return;
+}
+if (controller_findexact(region_getcoord(0, 0, 0), controller_0) = false) {
+    mes("This is not an ::instance.");
+    return;
+}
+def_coord $from = movecoord(0_0_0_0_0, %config43_0, 0, %config43_1);
+def_coord $source = ~instance_source($from, %config43_2, %config43_3);
+~instance_set($from, calc((%config43_3 + 1) / 8), $rotation);
+%config43_2 = $rotation;
+p_telejump(~instance_tile($source, $from, $rotation, %config43_3));
+mes("Turned <tostring($rotation)>.");
+
+// ::instanceleave takes you back to the tile you entered the instance from,
+// where logging out in it would. The region goes the tick you leave it.
+[debugproc,instanceleave]
+if_close;
+if (p_finduid(uid) = false) { return; }
+if (region_findbycoord(coord) = false) {
+    mes("You are not in an instance.");
+    return;
+}
+if (controller_findexact(region_getcoord(0, 0, 0), controller_0) = false) {
+    mes("This is not an ::instance.");
+    return;
+}
+p_telejump(%config43_4);
+mes("Left the instance.");
+
+// Sets each zone of the area $zones zones across from $from, every level,
+// onto the region, the area turned $rotation.
+[proc,instance_set](coord $from, int $zones, int $rotation)
+def_int $level = 0;
+def_int $a = 0;
+def_int $b = 0;
+while ($level < 4) {
+    $a = 0;
+    while ($a < $zones) {
+        $b = 0;
+        while ($b < $zones) {
+            ~instance_set_zone(movecoord($from, calc($a * 8), $level, calc($b * 8)), $level, $a, $b, calc($zones - 1), $rotation);
+            $b = calc($b + 1);
+        }
+        $a = calc($a + 1);
+    }
+    $level = calc($level + 1);
+}
+
+// Sets the zone at $source, zone $a, $b of an area $last + 1 zones across,
+// where the area turned $rotation puts it.
+[proc,instance_set_zone](coord $source, int $level, int $a, int $b, int $last, int $rotation)
+if ($rotation = 1) {
+    region_set($level, $b, calc($last - $a), $source, 1);
+    return;
+}
+if ($rotation = 2) {
+    region_set($level, calc($last - $a), calc($last - $b), $source, 2);
+    return;
+}
+if ($rotation = 3) {
+    region_set($level, calc($last - $b), $a, $source, 3);
+    return;
+}
+region_set($level, $a, $b, $source, 0);
+
+// Where the area tile under $here lands in the copy turned $rotation, the
+// area reaching $last tiles north-east of $from.
+[proc,instance_tile](coord $here, coord $from, int $rotation, int $last)(coord)
+def_int $x = calc(coordx($here) - coordx($from));
+def_int $z = calc(coordz($here) - coordz($from));
+if ($rotation = 1) {
+    return(region_getcoord(coordy($here), $z, calc($last - $x)));
+}
+if ($rotation = 2) {
+    return(region_getcoord(coordy($here), calc($last - $x), calc($last - $z)));
+}
+if ($rotation = 3) {
+    return(region_getcoord(coordy($here), calc($last - $z), $x));
+}
+return(region_getcoord(coordy($here), $x, $z));
+
+// The area tile you stand on in the copy turned $rotation.
+[proc,instance_source](coord $from, int $rotation, int $last)(coord)
+def_coord $origin = region_getcoord(0, 0, 0);
+def_int $x = calc(coordx(coord) - coordx($origin));
+def_int $z = calc(coordz(coord) - coordz($origin));
+if ($rotation = 1) {
+    return(movecoord($from, calc($last - $z), coordy(coord), $x));
+}
+if ($rotation = 2) {
+    return(movecoord($from, calc($last - $x), coordy(coord), calc($last - $z)));
+}
+if ($rotation = 3) {
+    return(movecoord($from, $z, coordy(coord), calc($last - $x)));
+}
+return(movecoord($from, $x, coordy(coord), $z));

@@ -1,0 +1,52 @@
+// 5654
+[proc,clientscript_5654]
+if (%xp_counter = ^max_32bit_int) {
+    if_settext(interface_1215:com_4, "Lots!");
+} else {
+    if_settext(interface_1215:com_4, tostring_localised(calc(%xp_counter / 10), true));
+}
+if (%varplayer_2475 = ^max_32bit_int) {
+    if_settext(interface_1215:com_6, "Lots!");
+} else {
+    if_settext(interface_1215:com_6, tostring_localised(calc(%varplayer_2475 / 10), true));
+}
+if (%varplayer_2476 = ^max_32bit_int) {
+    if_settext(interface_1215:com_8, "Lots!");
+} else {
+    if_settext(interface_1215:com_8, tostring_localised(calc(%varplayer_2476 / 10), true));
+}
+if_setsize(interface_1215:com_4, stringwidth(if_gettext(interface_1215:com_4), op1028(interface_1215:com_4)), if_getheight(interface_1215:com_4), ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1215:com_6, stringwidth(if_gettext(interface_1215:com_6), op1028(interface_1215:com_6)), if_getheight(interface_1215:com_6), ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1215:com_8, stringwidth(if_gettext(interface_1215:com_8), op1028(interface_1215:com_8)), if_getheight(interface_1215:com_8), ^setsize_abs, ^setsize_abs);
+def_int $int0 = max(max(if_getwidth(interface_1215:com_4), if_getwidth(interface_1215:com_6)), if_getwidth(interface_1215:com_8));
+$int0 = calc($int0 + 33);
+~clientscript_5660;
+if_sethide(interface_1215:com_4, true);
+if_sethide(interface_1215:com_6, true);
+if_sethide(interface_1215:com_8, true);
+if_sethide(interface_1215:com_5, true);
+if_sethide(interface_1215:com_7, true);
+if_sethide(interface_1215:com_9, true);
+def_int $int1 = 0;
+if (%varplayerbit_10444 = 1) {
+    if_sethide(interface_1215:com_4, false);
+    if_sethide(interface_1215:com_5, false);
+    if_setposition(interface_1215:com_10, $int0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+    $int1 = calc(if_gety(interface_1215:com_5) + if_getheight(interface_1215:com_5));
+}
+if (%varplayerbit_10445 = 1) {
+    if_sethide(interface_1215:com_6, false);
+    if_sethide(interface_1215:com_7, false);
+    if_setposition(interface_1215:com_6, 28, $int1, ^setpos_abs_right, ^setpos_abs_top);
+    if_setposition(interface_1215:com_7, if_getx(interface_1215:com_7), $int1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(interface_1215:com_11, $int0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+    $int1 = calc(if_gety(interface_1215:com_7) + if_getheight(interface_1215:com_7));
+}
+if (%varplayerbit_10446 = 1) {
+    if_sethide(interface_1215:com_8, false);
+    if_sethide(interface_1215:com_9, false);
+    if_setposition(interface_1215:com_8, 28, $int1, ^setpos_abs_right, ^setpos_abs_top);
+    if_setposition(interface_1215:com_9, if_getx(interface_1215:com_9), $int1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(interface_1215:com_12, $int0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+}
+~clientscript_5652;

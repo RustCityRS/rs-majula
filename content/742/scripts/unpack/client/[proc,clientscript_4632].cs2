@@ -1,0 +1,95 @@
+// 4632
+[proc,clientscript_4632](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+if (%varclient_1520 > 2000000) {
+    $string1 = "over <tostring_localised(2000000, true)>";
+} else {
+    $string1 = tostring_localised(%varclient_1520, true);
+}
+$int1 = min(^max_32bit_int, calc(1000 * %varclient_1520 / max(1, %varclient_1521) / 1000));
+$int2 = calc(1000 * %varclient_1520 / max(1, %varclient_1521) % 1000);
+if ($int2 = 0) {
+    $string0 = tostring($int1);
+} else {
+    $string0 = append(tostring($int1), ".");
+    if ($int2 < 100) {
+        $string0 = append($string0, "0");
+    }
+    if ($int2 < 10) {
+        $string0 = append($string0, "0");
+    }
+    $string0 = append($string0, tostring($int2));
+    if (calc($int2 % 10) = 0) {
+        $string0 = substring($string0, 0, calc(string_length($string0) - 2));
+    }
+    if (calc($int2 % 100) = 0) {
+        $string0 = substring($string0, 0, calc(string_length($string0) - 2));
+    }
+}
+$string3 = tostring_localised(%varclient_1522, true);
+if ($int0 = 0) {
+    if (%varclient_1520 > 2000) {
+        $string5 = "Behold <%varclient_2149>, champion of <$string1> bouts in the Duel Arena!";
+    } else if (%varclient_1520 = 1) {
+        $string5 = "Here stands <%varclient_2149>, once victor of a duel.";
+    } else {
+        $string5 = "Here stands <%varclient_2149>, victor of <$string1> duels.";
+    }
+    $string2 = "<%varclient_2149> defeats <$string0> opponents for every loss!";
+    if (%varclient_1522 > 250) {
+        $string3 = "over <tostring_localised(250, true)>";
+    }
+    $string4 = "<%varclient_2149> has vanquished <tostring_localised(%varclient_1522, true)> opponents in a row.";
+} else if ($int0 = 1) {
+    if (%varclient_1520 > 2000) {
+        $string5 = "Behold <%varclient_2149>, taker of <$string1> heads in the Wilderness!";
+    } else {
+        $string5 = "Here stands <%varclient_2149>, who has killed <$string1> opponents in the Wilderness.";
+    }
+    $string2 = "Vanquisher of <$string0> foes for every fall!";
+    if (%varclient_1522 > 250) {
+        $string3 = "Over <tostring_localised(250, true)>";
+    }
+    $string4 = "<$string3> victims in succession have rendered their souls to <%varclient_2149>.";
+}
+if_settext(interface_21:com_1, $string5);
+if_settext(interface_21:com_3, $string4);
+if_settext(interface_21:com_2, $string2);
+if_settext(interface_21:com_4, "Highest value Wilderness kill:<br><tostring_localised(%varplayer_2185, true)> coins.");
+if_sethide(interface_21:com_18, false);
+if_sethide(interface_21:com_49, false);
+if_sethide(interface_21:com_2, true);
+if_sethide(interface_21:com_3, true);
+if (%varclient_1524 = 1) {
+    if_sethide(interface_21:com_2, false);
+    if (%varclient_1522 > 1) {
+        if_sethide(interface_21:com_3, false);
+    }
+}
+if_sethide(interface_21:com_4, true);
+if ($int0 = 1 & %varplayer_2185 > 0) {
+    if_sethide(interface_21:com_4, false);
+}
+def_int $int3 = if_getheight(interface_21:com_17);
+if_setposition(interface_21:com_18, if_getx(interface_21:com_18), if_gety(interface_21:com_4), ^setpos_abs_left, ^setpos_abs_top);
+if (if_gethide(interface_21:com_4) = true) {
+    if_sethide(interface_21:com_18, true);
+    if_setposition(interface_21:com_3, if_getx(interface_21:com_3), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    if_setposition(interface_21:com_2, if_getx(interface_21:com_2), if_getheight(interface_21:com_3), ^setpos_abs_left, ^setpos_abs_bottom);
+} else {
+    $int3 = calc($int3 - if_getheight(interface_21:com_4));
+}
+if_setposition(interface_21:com_49, if_getx(interface_21:com_18), if_gety(interface_21:com_2), ^setpos_abs_left, ^setpos_abs_top);
+if (if_gethide(interface_21:com_3) = false) {
+    $int3 = calc($int3 - (if_getheight(interface_21:com_3) + if_getheight(interface_21:com_2)));
+} else {
+    if_sethide(interface_21:com_49, true);
+}
+if_setsize(interface_21:com_1, if_getwidth(interface_21:com_1), $int3, ^setsize_abs, ^setsize_abs);

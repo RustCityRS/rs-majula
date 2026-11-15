@@ -1,0 +1,8 @@
+// 3682
+[clientscript,script3682]
+if (string_length(%music_searchstring) = 0 & %meslayermode ! 14) {
+    if_setgraphic(music_v3:music_search, "music_header_icons,8");
+    ~meslayer_mode14;
+} else {
+    ~music_search_close;
+}

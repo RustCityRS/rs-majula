@@ -1,0 +1,5 @@
+// 4252
+[proc,clientscript_4252](component $component0)
+if (~userflowflags(6) = true) {
+    if_settext($component0, "Congratulations on creating your RuneScape account.<br><br>Check your email to activate your free trial now and enter the exclusive world of RuneScape members today!");
+}

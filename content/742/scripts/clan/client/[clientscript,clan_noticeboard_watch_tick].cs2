@@ -1,0 +1,53 @@
+// 4619
+[clientscript,clan_noticeboard_watch_tick](component $component0)
+switch_int (%clan_event_current_varp) {
+    case 1 :
+        if (%clan_event_notification_1 = 0) {
+            %clan_event_notification_1 = 1;
+        } else {
+            %clan_event_notification_1 = 0;
+        }
+    case 2 :
+        if (%clan_event_notification_2 = 0) {
+            %clan_event_notification_2 = 1;
+        } else {
+            %clan_event_notification_2 = 0;
+        }
+    case 3 :
+        if (%clan_event_notification_3 = 0) {
+            %clan_event_notification_3 = 1;
+        } else {
+            %clan_event_notification_3 = 0;
+        }
+    case 4 :
+        if (%clan_event_notification_4 = 0) {
+            %clan_event_notification_4 = 1;
+        } else {
+            %clan_event_notification_4 = 0;
+        }
+    case 5 :
+        if (%clan_event_notification_5 = 0) {
+            %clan_event_notification_5 = 1;
+        } else {
+            %clan_event_notification_5 = 0;
+        }
+    case 6 :
+        if (%clan_event_notification_6 = 0) {
+            %clan_event_notification_6 = 1;
+        } else {
+            %clan_event_notification_6 = 0;
+        }
+    case 7 :
+        if (%clan_event_notification_7 = 0) {
+            %clan_event_notification_7 = 1;
+        } else {
+            %clan_event_notification_7 = 0;
+        }
+    case 8 :
+        if (%clan_event_notification_8 = 0) {
+            %clan_event_notification_8 = 1;
+        } else {
+            %clan_event_notification_8 = 0;
+        }
+}
+~clan_noticeboard_watch_tick_update($component0);

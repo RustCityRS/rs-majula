@@ -1,0 +1,5 @@
+// 1196
+[clientscript,script1196](int $int0, int $int1)
+if (clientclock > calc($int1 + 50)) {
+    ~script1197($int0);
+}

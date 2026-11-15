@@ -1,3 +1,5 @@
+use rs_ver::TypeId;
+
 /// Stack mode for a container.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum StackMode {
@@ -21,7 +23,7 @@ pub struct Inventory {
     pub stack_mode: StackMode,
     pub dirty: bool,
     pub dirty_slots: Vec<u16>,
-    pub stockobj: Box<[u16]>,
+    pub stockobj: Box<[TypeId]>,
 }
 
 impl Inventory {
@@ -113,7 +115,7 @@ impl Inventory {
 
     /// Returns the deduplicated, sorted set of changed slots paired with their
     /// current contents, suitable for a partial inventory update.
-    pub fn collect_dirty(&self) -> Vec<(u16, Option<(u16, i32)>)> {
+    pub fn collect_dirty(&self) -> Vec<(u16, Option<(TypeId, i32)>)> {
         let mut slots = self.dirty_slots.clone();
         slots.sort_unstable();
         slots.dedup();
@@ -126,7 +128,7 @@ impl Inventory {
 
     /// Add an item. Stackable items merge into existing stacks.
     /// Returns the count that could NOT be added (0 = full success).
-    pub fn add(&mut self, item_id: u16, count: u32, stackable: bool) -> u32 {
+    pub fn add(&mut self, item_id: TypeId, count: u32, stackable: bool) -> u32 {
         self.add_item(Item::new(item_id, count), stackable)
     }
 
@@ -188,14 +190,14 @@ impl Inventory {
     /// (i.e. a shop's base stock), a slot emptied to count 0 is kept occupied at
     /// count 0 rather than cleared, so the item shows as out-of-stock and restocks
     /// over time. Non-stock items are cleared from their slot as usual.
-    pub fn delete(&mut self, item_id: u16, count: u32) -> u32 {
+    pub fn delete(&mut self, item_id: TypeId, count: u32) -> u32 {
         self.delete_each(item_id, count, |_| {})
     }
 
     /// Removes up to `count` of an item as [`delete`](Self::delete) does,
     /// returning the count removed and, as each slot held them, those of the
     /// items that carried varobjs.
-    pub fn delete_with_vars(&mut self, item_id: u16, count: u32) -> (u32, Vec<Item>) {
+    pub fn delete_with_vars(&mut self, item_id: TypeId, count: u32) -> (u32, Vec<Item>) {
         let mut with_vars = Vec::new();
         let completed = self.delete_each(item_id, count, |item| {
             if item.has_vars() {
@@ -207,7 +209,7 @@ impl Inventory {
 
     /// Sets the varobjs of the item in `slot`. The client never sees them, so
     /// the slot isn't sent again.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn set_var(&mut self, slot: u16, var: i32) {
         if let Some(Some(item)) = self.slots.get_mut(slot as usize) {
             item.var = var;
@@ -216,7 +218,7 @@ impl Inventory {
 
     /// Removes up to `count` of an item as [`delete`](Self::delete) does,
     /// handing what each slot gave up to `taken`.
-    pub fn delete_each(&mut self, item_id: u16, count: u32, mut taken: impl FnMut(Item)) -> u32 {
+    pub fn delete_each(&mut self, item_id: TypeId, count: u32, mut taken: impl FnMut(Item)) -> u32 {
         let stock_obj = self.stockobj.contains(&item_id);
         let mut remaining = count;
         for i in 0..self.slots.len() {
@@ -299,7 +301,7 @@ impl Inventory {
     /// **Called by:** VM `INV_SETSLOT` op, `Engine::get_shared_inv` (stock initialization),
     /// player save loading, shop restock (`cleanup.rs`), `Inventory::move_to_slot_to`.
     /// **Calls:** nothing.
-    pub fn set(&mut self, slot: u16, id: u16, count: u32) {
+    pub fn set(&mut self, slot: u16, id: TypeId, count: u32) {
         self.set_item(slot, Item::new(id, count));
     }
 
@@ -386,7 +388,7 @@ impl Inventory {
     }
 
     /// Total count of `item_id` across all slots.
-    pub fn total(&self, item_id: u16) -> u32 {
+    pub fn total(&self, item_id: TypeId) -> u32 {
         self.slots
             .iter()
             .filter_map(|s| s.as_ref())
@@ -429,7 +431,7 @@ impl Inventory {
     /// # Call Stack
     /// **Called by:** handler validation (`inv_button.rs`, `opheld.rs`, `opheldu.rs`).
     /// **Calls:** `Inventory::get`.
-    pub fn has_at(&self, slot: u16, item_id: u16) -> bool {
+    pub fn has_at(&self, slot: u16, item_id: TypeId) -> bool {
         self.get(slot).is_some_and(|item| item.obj == item_id)
     }
 
@@ -515,7 +517,7 @@ impl Inventory {
     /// # Call Stack
     /// **Called by:** `ActivePlayer` inventory transmit logic (`active_player.rs`).
     /// **Calls:** nothing.
-    pub fn collect_slots(&self) -> Vec<Option<(u16, i32)>> {
+    pub fn collect_slots(&self) -> Vec<Option<(TypeId, i32)>> {
         self.slots
             .iter()
             .map(|s| s.map(|item| item.as_pair()))
@@ -539,7 +541,7 @@ impl Inventory {
     /// # Call Stack
     /// **Called by:** `InvButtonD` handler (`inv_buttond.rs`) for partial transmit after drag.
     /// **Calls:** `Inventory::get`.
-    pub fn collect_slots_at(&self, slots: &[u16]) -> Vec<Option<(u16, i32)>> {
+    pub fn collect_slots_at(&self, slots: &[u16]) -> Vec<Option<(TypeId, i32)>> {
         slots
             .iter()
             .map(|&slot| self.get(slot).map(|item| item.as_pair()))
@@ -550,20 +552,20 @@ impl Inventory {
 /// An item in a container.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Item {
-    pub obj: u16,
+    pub obj: TypeId,
     pub num: u32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub var: i32,
 }
 
 impl Item {
     /// `num` of `obj`, its varobjs all 0.
     #[inline]
-    pub const fn new(obj: u16, num: u32) -> Self {
+    pub const fn new(obj: TypeId, num: u32) -> Self {
         Self {
             obj,
             num,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             var: 0,
         }
     }
@@ -572,18 +574,18 @@ impl Item {
     /// varobjs.
     #[inline]
     pub const fn stacks_with(&self, other: &Item) -> bool {
-        self.obj == other.obj && self.var() == other.var()
+        self.obj.raw() == other.obj.raw() && self.var() == other.var()
     }
 
     /// The 32 bits this item's varobjs share.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[inline]
     pub const fn var(&self) -> i32 {
         self.var
     }
 
     /// The 32 bits this item's varobjs share: none before 647.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[inline]
     pub const fn var(&self) -> i32 {
         0
@@ -598,7 +600,7 @@ impl Item {
     /// Returns this item as the `(obj_id, count)` pair used for network
     /// transmission, with the count cast to `i32` for the client protocol.
     #[inline]
-    pub fn as_pair(&self) -> (u16, i32) {
+    pub fn as_pair(&self) -> (TypeId, i32) {
         (self.obj, self.num as i32)
     }
 }
@@ -637,74 +639,74 @@ mod tests {
     #[test]
     fn add_stackable_item_stacks() {
         let mut inv = Inventory::new(28);
-        assert_eq!(inv.add(1, 5, true), 0);
-        assert_eq!(inv.add(1, 10, true), 0);
-        assert_eq!(inv.total(1), 15);
+        assert_eq!(inv.add(TypeId::new(1), 5, true), 0);
+        assert_eq!(inv.add(TypeId::new(1), 10, true), 0);
+        assert_eq!(inv.total(TypeId::new(1)), 15);
         assert_eq!(inv.freespace(), 27);
     }
 
     #[test]
     fn add_non_stackable_uses_individual_slots() {
         let mut inv = Inventory::new(5);
-        assert_eq!(inv.add(1, 3, false), 0);
+        assert_eq!(inv.add(TypeId::new(1), 3, false), 0);
         assert_eq!(inv.freespace(), 2);
-        assert_eq!(inv.total(1), 3);
+        assert_eq!(inv.total(TypeId::new(1)), 3);
     }
 
     #[test]
     fn add_non_stackable_overflow() {
         let mut inv = Inventory::new(3);
-        let overflow = inv.add(1, 5, false);
+        let overflow = inv.add(TypeId::new(1), 5, false);
         assert_eq!(overflow, 2);
-        assert_eq!(inv.total(1), 3);
+        assert_eq!(inv.total(TypeId::new(1)), 3);
         assert!(inv.is_full());
     }
 
     #[test]
     fn add_stackable_overflow_at_stack_limit() {
         let mut inv = Inventory::new(28);
-        inv.add(1, STACK_LIMIT, true);
-        let overflow = inv.add(1, 100, true);
+        inv.add(TypeId::new(1), STACK_LIMIT, true);
+        let overflow = inv.add(TypeId::new(1), 100, true);
         assert_eq!(overflow, 100);
-        assert_eq!(inv.total(1), STACK_LIMIT);
+        assert_eq!(inv.total(TypeId::new(1)), STACK_LIMIT);
     }
 
     #[test]
     fn add_stackable_partial_overflow_at_limit() {
         let mut inv = Inventory::new(28);
-        inv.add(1, STACK_LIMIT - 50, true);
-        let overflow = inv.add(1, 100, true);
+        inv.add(TypeId::new(1), STACK_LIMIT - 50, true);
+        let overflow = inv.add(TypeId::new(1), 100, true);
         assert_eq!(overflow, 50);
-        assert_eq!(inv.total(1), STACK_LIMIT);
+        assert_eq!(inv.total(TypeId::new(1)), STACK_LIMIT);
     }
 
     #[test]
     fn add_stackable_new_slot_capped_at_limit() {
         let mut inv = Inventory::new(28);
-        let overflow = inv.add(1, STACK_LIMIT + 100, true);
+        let overflow = inv.add(TypeId::new(1), STACK_LIMIT + 100, true);
         assert_eq!(overflow, 100);
-        assert_eq!(inv.total(1), STACK_LIMIT);
+        assert_eq!(inv.total(TypeId::new(1)), STACK_LIMIT);
     }
 
     #[test]
     fn add_stackable_full_inventory_returns_count() {
         let mut inv = Inventory::new(1);
-        inv.add(1, 5, true);
-        let overflow = inv.add(2, 10, true);
+        inv.add(TypeId::new(1), 5, true);
+        let overflow = inv.add(TypeId::new(2), 10, true);
         assert_eq!(overflow, 10);
     }
 
     #[test]
     fn add_zero_count() {
         let mut inv = Inventory::new(28);
-        assert_eq!(inv.add(1, 0, true), 0);
+        assert_eq!(inv.add(TypeId::new(1), 0, true), 0);
         assert!(!inv.dirty);
     }
 
     #[test]
     fn add_sets_dirty() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 1, true);
+        inv.add(TypeId::new(1), 1, true);
         assert!(inv.dirty);
     }
 
@@ -713,9 +715,9 @@ mod tests {
     #[test]
     fn always_stack_mode_stacks_non_stackable() {
         let mut inv = Inventory::with_stack_mode(28, StackMode::Always);
-        inv.add(1, 5, false);
-        inv.add(1, 10, false);
-        assert_eq!(inv.total(1), 15);
+        inv.add(TypeId::new(1), 5, false);
+        inv.add(TypeId::new(1), 10, false);
+        assert_eq!(inv.total(TypeId::new(1)), 15);
         assert_eq!(inv.freespace(), 27);
     }
 
@@ -724,9 +726,9 @@ mod tests {
     #[test]
     fn never_stack_mode_doesnt_stack_stackable() {
         let mut inv = Inventory::with_stack_mode(5, StackMode::Never);
-        inv.add(1, 3, true);
+        inv.add(TypeId::new(1), 3, true);
         assert_eq!(inv.freespace(), 2);
-        assert_eq!(inv.total(1), 3);
+        assert_eq!(inv.total(TypeId::new(1)), 3);
         // each item in separate slot with num=1
         for i in 0..3 {
             let item = inv.get(i).unwrap();
@@ -739,44 +741,44 @@ mod tests {
     #[test]
     fn delete_removes_items() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 100, true);
-        let removed = inv.delete(1, 50);
+        inv.add(TypeId::new(1), 100, true);
+        let removed = inv.delete(TypeId::new(1), 50);
         assert_eq!(removed, 50);
-        assert_eq!(inv.total(1), 50);
+        assert_eq!(inv.total(TypeId::new(1)), 50);
     }
 
     #[test]
     fn delete_more_than_available() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 30, true);
-        let removed = inv.delete(1, 100);
+        inv.add(TypeId::new(1), 30, true);
+        let removed = inv.delete(TypeId::new(1), 100);
         assert_eq!(removed, 30);
-        assert_eq!(inv.total(1), 0);
+        assert_eq!(inv.total(TypeId::new(1)), 0);
         assert_eq!(inv.freespace(), 28);
     }
 
     #[test]
     fn delete_non_existent_item() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 10, true);
-        let removed = inv.delete(2, 5);
+        inv.add(TypeId::new(1), 10, true);
+        let removed = inv.delete(TypeId::new(2), 5);
         assert_eq!(removed, 0);
     }
 
     #[test]
     fn delete_across_multiple_slots() {
         let mut inv = Inventory::with_stack_mode(28, StackMode::Never);
-        inv.add(1, 5, false);
-        let removed = inv.delete(1, 3);
+        inv.add(TypeId::new(1), 5, false);
+        let removed = inv.delete(TypeId::new(1), 3);
         assert_eq!(removed, 3);
-        assert_eq!(inv.total(1), 2);
+        assert_eq!(inv.total(TypeId::new(1)), 2);
     }
 
     #[test]
     fn delete_partial_from_stacked() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 100, true);
-        inv.delete(1, 30);
+        inv.add(TypeId::new(1), 100, true);
+        inv.delete(TypeId::new(1), 30);
         let item = inv.get(0).unwrap();
         assert_eq!(item.num, 70);
     }
@@ -784,16 +786,16 @@ mod tests {
     #[test]
     fn delete_keeps_stock_obj_slot_at_zero() {
         let mut inv = Inventory::new(28);
-        inv.stockobj = Box::from([10u16, 20]);
-        inv.set(0, 10, 5); // stock object
-        inv.set(1, 99, 3); // not a stock object
+        inv.stockobj = Box::from([TypeId::new(10), TypeId::new(20)]);
+        inv.set(0, TypeId::new(10), 5); // stock object
+        inv.set(1, TypeId::new(99), 3); // not a stock object
 
         // Buying out a stock object keeps its slot occupied at count 0.
-        inv.delete(10, 5);
-        assert_eq!(inv.get(0), Some(&Item::new(10, 0)));
+        inv.delete(TypeId::new(10), 5);
+        assert_eq!(inv.get(0), Some(&Item::new(TypeId::new(10), 0)));
 
         // A non-stock object is cleared from its slot as usual.
-        inv.delete(99, 3);
+        inv.delete(TypeId::new(99), 3);
         assert_eq!(inv.get(1), None);
     }
 
@@ -801,8 +803,8 @@ mod tests {
     fn delete_clears_slot_without_stock_list() {
         // No stockobj configured -> a fully removed item clears its slot.
         let mut inv = Inventory::new(28);
-        inv.set(0, 10, 5);
-        inv.delete(10, 5);
+        inv.set(0, TypeId::new(10), 5);
+        inv.delete(TypeId::new(10), 5);
         assert_eq!(inv.get(0), None);
     }
 
@@ -811,7 +813,7 @@ mod tests {
     #[test]
     fn remove_from_slot() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 100, true);
+        inv.add(TypeId::new(1), 100, true);
         assert!(inv.remove(0, 40));
         assert_eq!(inv.get(0).unwrap().num, 60);
     }
@@ -819,7 +821,7 @@ mod tests {
     #[test]
     fn remove_entire_slot() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 50, true);
+        inv.add(TypeId::new(1), 50, true);
         assert!(inv.remove(0, 50));
         assert!(inv.get(0).is_none());
     }
@@ -827,7 +829,7 @@ mod tests {
     #[test]
     fn remove_more_than_slot_clears_slot() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 30, true);
+        inv.add(TypeId::new(1), 30, true);
         assert!(inv.remove(0, 100));
         assert!(inv.get(0).is_none());
     }
@@ -849,8 +851,8 @@ mod tests {
     #[test]
     fn clear_empties_all_slots() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 10, true);
-        inv.add(2, 20, true);
+        inv.add(TypeId::new(1), 10, true);
+        inv.add(TypeId::new(2), 20, true);
         inv.clear();
         assert_eq!(inv.freespace(), 28);
         assert!(inv.dirty);
@@ -861,24 +863,24 @@ mod tests {
     #[test]
     fn set_places_item_at_slot() {
         let mut inv = Inventory::new(28);
-        inv.set(5, 42, 100);
-        assert_eq!(inv.get(5).unwrap().obj, 42);
+        inv.set(5, TypeId::new(42), 100);
+        assert_eq!(inv.get(5).unwrap().obj, TypeId::new(42));
         assert_eq!(inv.get(5).unwrap().num, 100);
     }
 
     #[test]
     fn set_overwrites_existing() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 50);
-        inv.set(0, 2, 100);
-        assert_eq!(inv.get(0).unwrap().obj, 2);
+        inv.set(0, TypeId::new(1), 50);
+        inv.set(0, TypeId::new(2), 100);
+        assert_eq!(inv.get(0).unwrap().obj, TypeId::new(2));
         assert_eq!(inv.get(0).unwrap().num, 100);
     }
 
     #[test]
     fn set_invalid_slot_no_panic() {
         let mut inv = Inventory::new(5);
-        inv.set(10, 1, 50); // should not panic
+        inv.set(10, TypeId::new(1), 50); // should not panic
     }
 
     // --- Move to slot (within same inventory) ---
@@ -886,28 +888,28 @@ mod tests {
     #[test]
     fn move_to_slot_swaps() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 10);
-        inv.set(1, 2, 20);
+        inv.set(0, TypeId::new(1), 10);
+        inv.set(1, TypeId::new(2), 20);
         inv.move_to_slot(0, 1);
-        assert_eq!(inv.get(0).unwrap().obj, 2);
-        assert_eq!(inv.get(1).unwrap().obj, 1);
+        assert_eq!(inv.get(0).unwrap().obj, TypeId::new(2));
+        assert_eq!(inv.get(1).unwrap().obj, TypeId::new(1));
     }
 
     #[test]
     fn move_to_slot_with_empty() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 10);
+        inv.set(0, TypeId::new(1), 10);
         inv.move_to_slot(0, 5);
         assert!(inv.get(0).is_none());
-        assert_eq!(inv.get(5).unwrap().obj, 1);
+        assert_eq!(inv.get(5).unwrap().obj, TypeId::new(1));
     }
 
     #[test]
     fn move_to_slot_invalid_noop() {
         let mut inv = Inventory::new(5);
-        inv.set(0, 1, 10);
+        inv.set(0, TypeId::new(1), 10);
         inv.move_to_slot(0, 10); // invalid b
-        assert_eq!(inv.get(0).unwrap().obj, 1);
+        assert_eq!(inv.get(0).unwrap().obj, TypeId::new(1));
     }
 
     // --- Delete slot ---
@@ -915,7 +917,7 @@ mod tests {
     #[test]
     fn delete_slot_clears() {
         let mut inv = Inventory::new(28);
-        inv.set(3, 1, 50);
+        inv.set(3, TypeId::new(1), 50);
         inv.delete_slot(3);
         assert!(inv.get(3).is_none());
     }
@@ -927,7 +929,7 @@ mod tests {
         let mut inv = Inventory::new(3);
         assert_eq!(inv.freespace(), 3);
         assert!(!inv.is_full());
-        inv.add(1, 3, false);
+        inv.add(TypeId::new(1), 3, false);
         assert_eq!(inv.freespace(), 0);
         assert!(inv.is_full());
     }
@@ -935,20 +937,20 @@ mod tests {
     #[test]
     fn total_across_modes() {
         let mut inv = Inventory::with_stack_mode(28, StackMode::Never);
-        inv.add(1, 5, false);
-        assert_eq!(inv.total(1), 5);
-        assert_eq!(inv.total(2), 0);
+        inv.add(TypeId::new(1), 5, false);
+        assert_eq!(inv.total(TypeId::new(1)), 5);
+        assert_eq!(inv.total(TypeId::new(2)), 0);
     }
 
     #[test]
     fn has_at_checks_specific_slot() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 10);
-        inv.set(1, 2, 20);
-        assert!(inv.has_at(0, 1));
-        assert!(!inv.has_at(0, 2));
-        assert!(inv.has_at(1, 2));
-        assert!(!inv.has_at(5, 1));
+        inv.set(0, TypeId::new(1), 10);
+        inv.set(1, TypeId::new(2), 20);
+        assert!(inv.has_at(0, TypeId::new(1)));
+        assert!(!inv.has_at(0, TypeId::new(2)));
+        assert!(inv.has_at(1, TypeId::new(2)));
+        assert!(!inv.has_at(5, TypeId::new(1)));
     }
 
     #[test]
@@ -967,12 +969,12 @@ mod tests {
     #[test]
     fn move_from_slot_restacks() {
         let mut inv = Inventory::new(28);
-        inv.set(5, 1, 10);
-        inv.set(0, 1, 5);
+        inv.set(5, TypeId::new(1), 10);
+        inv.set(0, TypeId::new(1), 5);
         let overflow = inv.move_from_slot(5, true);
         assert_eq!(overflow, 0);
         assert!(inv.get(5).is_none());
-        assert_eq!(inv.total(1), 15);
+        assert_eq!(inv.total(TypeId::new(1)), 15);
     }
 
     #[test]
@@ -995,11 +997,11 @@ mod tests {
     fn move_from_slot_to_dest() {
         let mut src = Inventory::new(28);
         let mut dest = Inventory::new(28);
-        src.set(3, 1, 25);
+        src.set(3, TypeId::new(1), 25);
         let overflow = src.move_from_slot_to(&mut dest, 3, true);
         assert_eq!(overflow, 0);
         assert!(src.get(3).is_none());
-        assert_eq!(dest.total(1), 25);
+        assert_eq!(dest.total(TypeId::new(1)), 25);
     }
 
     // --- Move to slot to (cross-inventory swap) ---
@@ -1008,18 +1010,18 @@ mod tests {
     fn move_to_slot_to_swaps() {
         let mut a = Inventory::new(28);
         let mut b = Inventory::new(28);
-        a.set(0, 1, 10);
-        b.set(0, 2, 20);
+        a.set(0, TypeId::new(1), 10);
+        b.set(0, TypeId::new(2), 20);
         a.move_to_slot_to(&mut b, 0, 0);
-        assert_eq!(a.get(0).unwrap().obj, 2);
-        assert_eq!(b.get(0).unwrap().obj, 1);
+        assert_eq!(a.get(0).unwrap().obj, TypeId::new(2));
+        assert_eq!(b.get(0).unwrap().obj, TypeId::new(1));
     }
 
     #[test]
     fn move_to_slot_to_with_empty_src() {
         let mut a = Inventory::new(28);
         let mut b = Inventory::new(28);
-        b.set(0, 2, 20);
+        b.set(0, TypeId::new(2), 20);
         a.move_to_slot_to(&mut b, 0, 0);
         assert!(a.get(0).is_some());
         assert!(b.get(0).is_none());
@@ -1029,10 +1031,10 @@ mod tests {
     fn move_to_slot_to_with_empty_dest() {
         let mut a = Inventory::new(28);
         let mut b = Inventory::new(28);
-        a.set(0, 1, 10);
+        a.set(0, TypeId::new(1), 10);
         a.move_to_slot_to(&mut b, 0, 0);
         assert!(a.get(0).is_none());
-        assert_eq!(b.get(0).unwrap().obj, 1);
+        assert_eq!(b.get(0).unwrap().obj, TypeId::new(1));
     }
 
     // --- Collect slots ---
@@ -1040,13 +1042,13 @@ mod tests {
     #[test]
     fn collect_slots_represents_inventory() {
         let mut inv = Inventory::new(3);
-        inv.set(0, 1, 10);
-        inv.set(2, 3, 30);
+        inv.set(0, TypeId::new(1), 10);
+        inv.set(2, TypeId::new(3), 30);
         let collected = inv.collect_slots();
         assert_eq!(collected.len(), 3);
-        assert_eq!(collected[0], Some((1, 10)));
+        assert_eq!(collected[0], Some((TypeId::new(1), 10)));
         assert_eq!(collected[1], None);
-        assert_eq!(collected[2], Some((3, 30)));
+        assert_eq!(collected[2], Some((TypeId::new(3), 30)));
     }
 
     // --- Edge cases ---
@@ -1054,23 +1056,23 @@ mod tests {
     #[test]
     fn multiple_different_items() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 10, true);
-        inv.add(2, 20, true);
-        inv.add(3, 30, true);
-        assert_eq!(inv.total(1), 10);
-        assert_eq!(inv.total(2), 20);
-        assert_eq!(inv.total(3), 30);
+        inv.add(TypeId::new(1), 10, true);
+        inv.add(TypeId::new(2), 20, true);
+        inv.add(TypeId::new(3), 30, true);
+        assert_eq!(inv.total(TypeId::new(1)), 10);
+        assert_eq!(inv.total(TypeId::new(2)), 20);
+        assert_eq!(inv.total(TypeId::new(3)), 30);
         assert_eq!(inv.freespace(), 25);
     }
 
     #[test]
     fn add_same_non_stackable_item_fills_slots() {
         let mut inv = Inventory::new(5);
-        inv.add(1, 5, false);
+        inv.add(TypeId::new(1), 5, false);
         assert!(inv.is_full());
         for i in 0..5 {
             let item = inv.get(i).unwrap();
-            assert_eq!(item.obj, 1);
+            assert_eq!(item.obj, TypeId::new(1));
             assert_eq!(item.num, 1);
         }
     }
@@ -1078,10 +1080,10 @@ mod tests {
     #[test]
     fn dirty_flag_reset_manually() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 10, true);
+        inv.add(TypeId::new(1), 10, true);
         assert!(inv.dirty);
         inv.dirty = false;
-        inv.delete(1, 5);
+        inv.delete(TypeId::new(1), 5);
         assert!(inv.dirty);
     }
 
@@ -1090,26 +1092,26 @@ mod tests {
     #[test]
     fn add_stackable_exactly_at_stack_limit() {
         let mut inv = Inventory::new(28);
-        assert_eq!(inv.add(1, STACK_LIMIT, true), 0);
-        assert_eq!(inv.total(1), STACK_LIMIT);
+        assert_eq!(inv.add(TypeId::new(1), STACK_LIMIT, true), 0);
+        assert_eq!(inv.total(TypeId::new(1)), STACK_LIMIT);
         // adding 1 more should overflow by 1
-        assert_eq!(inv.add(1, 1, true), 1);
-        assert_eq!(inv.total(1), STACK_LIMIT);
+        assert_eq!(inv.add(TypeId::new(1), 1, true), 1);
+        assert_eq!(inv.total(TypeId::new(1)), STACK_LIMIT);
     }
 
     #[test]
     fn total_saturating_add_multiple_slots_never_mode() {
         // In Never mode, each item gets its own slot with num=1
         let mut inv = Inventory::with_stack_mode(100, StackMode::Never);
-        inv.add(1, 50, true);
-        assert_eq!(inv.total(1), 50);
+        inv.add(TypeId::new(1), 50, true);
+        assert_eq!(inv.total(TypeId::new(1)), 50);
     }
 
     #[test]
     fn total_with_always_mode_single_stack() {
         let mut inv = Inventory::with_stack_mode(10, StackMode::Always);
-        inv.add(1, 1000, false);
-        assert_eq!(inv.total(1), 1000);
+        inv.add(TypeId::new(1), 1000, false);
+        assert_eq!(inv.total(TypeId::new(1)), 1000);
         assert_eq!(inv.freespace(), 9);
     }
 
@@ -1118,9 +1120,9 @@ mod tests {
         // Engine does: (count - (freespace - (inv.size - size))).max(0)
         // for non-stackable items. Test freespace accurately.
         let mut inv = Inventory::new(10);
-        inv.add(1, 3, false);
+        inv.add(TypeId::new(1), 3, false);
         assert_eq!(inv.freespace(), 7);
-        inv.add(2, 4, false);
+        inv.add(TypeId::new(2), 4, false);
         assert_eq!(inv.freespace(), 3);
         assert!(!inv.is_full());
     }
@@ -1130,47 +1132,47 @@ mod tests {
     #[test]
     fn cert_conversion_stackable_to_stackable() {
         let mut inv = Inventory::new(28);
-        inv.add(100, 50, true);
-        let removed = inv.delete(100, 20);
-        let overflow = inv.add(101, removed, true);
+        inv.add(TypeId::new(100), 50, true);
+        let removed = inv.delete(TypeId::new(100), 20);
+        let overflow = inv.add(TypeId::new(101), removed, true);
         assert_eq!(overflow, 0);
-        assert_eq!(inv.total(100), 30);
-        assert_eq!(inv.total(101), 20);
+        assert_eq!(inv.total(TypeId::new(100)), 30);
+        assert_eq!(inv.total(TypeId::new(101)), 20);
     }
 
     #[test]
     fn uncert_conversion_stackable_to_nonstackable() {
         let mut inv = Inventory::new(28);
-        inv.add(101, 10, true);
-        let removed = inv.delete(101, 5);
-        let overflow = inv.add(100, removed, false);
+        inv.add(TypeId::new(101), 10, true);
+        let removed = inv.delete(TypeId::new(101), 5);
+        let overflow = inv.add(TypeId::new(100), removed, false);
         assert_eq!(overflow, 0);
-        assert_eq!(inv.total(101), 5);
-        assert_eq!(inv.total(100), 5);
+        assert_eq!(inv.total(TypeId::new(101)), 5);
+        assert_eq!(inv.total(TypeId::new(100)), 5);
     }
 
     #[test]
     fn cert_cross_inventory() {
         let mut src = Inventory::new(28);
         let mut dest = Inventory::with_stack_mode(28, StackMode::Always);
-        src.add(100, 50, true);
-        let removed = src.delete(100, 30);
-        let overflow = dest.add(101, removed, true);
+        src.add(TypeId::new(100), 50, true);
+        let removed = src.delete(TypeId::new(100), 30);
+        let overflow = dest.add(TypeId::new(101), removed, true);
         assert_eq!(overflow, 0);
-        assert_eq!(src.total(100), 20);
-        assert_eq!(dest.total(101), 30);
+        assert_eq!(src.total(TypeId::new(100)), 20);
+        assert_eq!(dest.total(TypeId::new(101)), 30);
     }
 
     #[test]
     fn uncert_cross_inventory_with_overflow() {
         let mut src = Inventory::with_stack_mode(28, StackMode::Always);
         let mut dest = Inventory::new(3);
-        src.add(101, 10, true);
-        let removed = src.delete(101, 10);
-        let overflow = dest.add(100, removed, false);
+        src.add(TypeId::new(101), 10, true);
+        let removed = src.delete(TypeId::new(101), 10);
+        let overflow = dest.add(TypeId::new(100), removed, false);
         assert_eq!(overflow, 7);
-        assert_eq!(src.total(101), 0);
-        assert_eq!(dest.total(100), 3);
+        assert_eq!(src.total(TypeId::new(101)), 0);
+        assert_eq!(dest.total(TypeId::new(100)), 3);
     }
 
     // --- move_from_slot patterns (from INV_MOVEFROMSLOT) ---
@@ -1179,9 +1181,9 @@ mod tests {
     fn move_from_slot_same_inv_restacks_stackable() {
         let mut inv = Inventory::new(28);
         // Put stackable item manually in slot 5
-        inv.set(5, 1, 10);
+        inv.set(5, TypeId::new(1), 10);
         // Also have some in slot 0 already
-        inv.set(0, 1, 5);
+        inv.set(0, TypeId::new(1), 5);
         // move_from_slot should restack
         let overflow = inv.move_from_slot(5, true);
         assert_eq!(overflow, 0);
@@ -1192,32 +1194,32 @@ mod tests {
     #[test]
     fn move_from_slot_same_inv_nonstackable_takes_new_slot() {
         let mut inv = Inventory::new(28);
-        inv.set(10, 1, 1);
+        inv.set(10, TypeId::new(1), 1);
         let overflow = inv.move_from_slot(10, false);
         assert_eq!(overflow, 0);
         // slot 10 cleared, item re-added to first free slot (0)
         assert!(inv.get(10).is_none());
-        assert_eq!(inv.get(0).unwrap().obj, 1);
+        assert_eq!(inv.get(0).unwrap().obj, TypeId::new(1));
     }
 
     #[test]
     fn move_from_slot_to_cross_inv_stackable() {
         let mut src = Inventory::new(28);
         let mut dest = Inventory::new(28);
-        src.set(3, 1, 25);
-        dest.add(1, 10, true);
+        src.set(3, TypeId::new(1), 25);
+        dest.add(TypeId::new(1), 10, true);
         let overflow = src.move_from_slot_to(&mut dest, 3, true);
         assert_eq!(overflow, 0);
         assert!(src.get(3).is_none());
-        assert_eq!(dest.total(1), 35);
+        assert_eq!(dest.total(TypeId::new(1)), 35);
     }
 
     #[test]
     fn move_from_slot_to_cross_inv_full_dest() {
         let mut src = Inventory::new(28);
         let mut dest = Inventory::new(1);
-        src.set(0, 1, 5);
-        dest.add(2, 1, true); // dest full with different item
+        src.set(0, TypeId::new(1), 5);
+        dest.add(TypeId::new(2), 1, true); // dest full with different item
         let overflow = src.move_from_slot_to(&mut dest, 0, true);
         assert_eq!(overflow, 5);
         assert!(src.get(0).is_none());
@@ -1228,12 +1230,12 @@ mod tests {
     #[test]
     fn move_to_slot_same_inv_both_occupied() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 10);
-        inv.set(5, 2, 20);
+        inv.set(0, TypeId::new(1), 10);
+        inv.set(5, TypeId::new(2), 20);
         inv.move_to_slot(0, 5);
-        assert_eq!(inv.get(0).unwrap().obj, 2);
+        assert_eq!(inv.get(0).unwrap().obj, TypeId::new(2));
         assert_eq!(inv.get(0).unwrap().num, 20);
-        assert_eq!(inv.get(5).unwrap().obj, 1);
+        assert_eq!(inv.get(5).unwrap().obj, TypeId::new(1));
         assert_eq!(inv.get(5).unwrap().num, 10);
     }
 
@@ -1250,12 +1252,12 @@ mod tests {
     fn move_to_slot_to_cross_inv_different_slots() {
         let mut a = Inventory::new(28);
         let mut b = Inventory::new(28);
-        a.set(3, 10, 100);
-        b.set(7, 20, 200);
+        a.set(3, TypeId::new(10), 100);
+        b.set(7, TypeId::new(20), 200);
         a.move_to_slot_to(&mut b, 3, 7);
-        assert_eq!(a.get(3).unwrap().obj, 20);
+        assert_eq!(a.get(3).unwrap().obj, TypeId::new(20));
         assert_eq!(a.get(3).unwrap().num, 200);
-        assert_eq!(b.get(7).unwrap().obj, 10);
+        assert_eq!(b.get(7).unwrap().obj, TypeId::new(10));
         assert_eq!(b.get(7).unwrap().num, 100);
     }
 
@@ -1265,25 +1267,25 @@ mod tests {
     fn never_mode_individual_slot_operations() {
         let mut inv = Inventory::with_stack_mode(14, StackMode::Never);
         // Add equipment-style items
-        inv.add(100, 1, true); // stackable flag ignored in Never mode
-        inv.add(200, 1, true);
-        inv.add(300, 1, true);
+        inv.add(TypeId::new(100), 1, true); // stackable flag ignored in Never mode
+        inv.add(TypeId::new(200), 1, true);
+        inv.add(TypeId::new(300), 1, true);
         assert_eq!(inv.freespace(), 11);
         // Each item in its own slot
-        assert_eq!(inv.get(0).unwrap().obj, 100);
-        assert_eq!(inv.get(1).unwrap().obj, 200);
-        assert_eq!(inv.get(2).unwrap().obj, 300);
+        assert_eq!(inv.get(0).unwrap().obj, TypeId::new(100));
+        assert_eq!(inv.get(1).unwrap().obj, TypeId::new(200));
+        assert_eq!(inv.get(2).unwrap().obj, TypeId::new(300));
     }
 
     #[test]
     fn never_mode_delete_specific_items() {
         let mut inv = Inventory::with_stack_mode(14, StackMode::Never);
-        inv.add(100, 3, false);
-        inv.add(200, 2, false);
-        let removed = inv.delete(100, 2);
+        inv.add(TypeId::new(100), 3, false);
+        inv.add(TypeId::new(200), 2, false);
+        let removed = inv.delete(TypeId::new(100), 2);
         assert_eq!(removed, 2);
-        assert_eq!(inv.total(100), 1);
-        assert_eq!(inv.total(200), 2);
+        assert_eq!(inv.total(TypeId::new(100)), 1);
+        assert_eq!(inv.total(TypeId::new(200)), 2);
     }
 
     // --- Bank patterns (Always stack mode) ---
@@ -1291,21 +1293,21 @@ mod tests {
     #[test]
     fn always_mode_bank_operations() {
         let mut bank = Inventory::with_stack_mode(800, StackMode::Always);
-        bank.add(1, 1000, false);
-        bank.add(2, 500, false);
-        bank.add(1, 500, false);
-        assert_eq!(bank.total(1), 1500);
-        assert_eq!(bank.total(2), 500);
+        bank.add(TypeId::new(1), 1000, false);
+        bank.add(TypeId::new(2), 500, false);
+        bank.add(TypeId::new(1), 500, false);
+        assert_eq!(bank.total(TypeId::new(1)), 1500);
+        assert_eq!(bank.total(TypeId::new(2)), 500);
         assert_eq!(bank.freespace(), 798);
     }
 
     #[test]
     fn always_mode_delete_partial_stack() {
         let mut bank = Inventory::with_stack_mode(800, StackMode::Always);
-        bank.add(1, 1000, false);
-        let removed = bank.delete(1, 600);
+        bank.add(TypeId::new(1), 1000, false);
+        let removed = bank.delete(TypeId::new(1), 600);
         assert_eq!(removed, 600);
-        assert_eq!(bank.total(1), 400);
+        assert_eq!(bank.total(TypeId::new(1)), 400);
     }
 
     // --- Combined cross-inventory scenarios ---
@@ -1314,24 +1316,24 @@ mod tests {
     fn bank_to_inventory_withdraw() {
         let mut bank = Inventory::with_stack_mode(800, StackMode::Always);
         let mut inv = Inventory::new(28);
-        bank.add(1, 100, false);
-        let removed = bank.delete(1, 50);
-        let overflow = inv.add(1, removed, false);
+        bank.add(TypeId::new(1), 100, false);
+        let removed = bank.delete(TypeId::new(1), 50);
+        let overflow = inv.add(TypeId::new(1), removed, false);
         assert_eq!(overflow, 22);
-        assert_eq!(bank.total(1), 50);
-        assert_eq!(inv.total(1), 28);
+        assert_eq!(bank.total(TypeId::new(1)), 50);
+        assert_eq!(inv.total(TypeId::new(1)), 28);
     }
 
     #[test]
     fn inventory_to_bank_deposit() {
         let mut inv = Inventory::new(28);
         let mut bank = Inventory::with_stack_mode(800, StackMode::Always);
-        inv.add(1, 10, false);
-        let removed = inv.delete(1, 10);
-        let overflow = bank.add(1, removed, true);
+        inv.add(TypeId::new(1), 10, false);
+        let removed = inv.delete(TypeId::new(1), 10);
+        let overflow = bank.add(TypeId::new(1), removed, true);
         assert_eq!(overflow, 0);
-        assert_eq!(inv.total(1), 0);
-        assert_eq!(bank.total(1), 10);
+        assert_eq!(inv.total(TypeId::new(1)), 0);
+        assert_eq!(bank.total(TypeId::new(1)), 10);
     }
 
     // --- collect_slots for transmit ---
@@ -1339,18 +1341,18 @@ mod tests {
     #[test]
     fn collect_slots_with_mixed_items() {
         let mut inv = Inventory::new(5);
-        inv.set(0, 10, 100);
-        inv.set(2, 20, 200);
-        inv.set(4, 30, 300);
+        inv.set(0, TypeId::new(10), 100);
+        inv.set(2, TypeId::new(20), 200);
+        inv.set(4, TypeId::new(30), 300);
         let slots = inv.collect_slots();
         assert_eq!(
             slots,
             vec![
-                Some((10, 100)),
+                Some((TypeId::new(10), 100)),
                 None,
-                Some((20, 200)),
+                Some((TypeId::new(20), 200)),
                 None,
-                Some((30, 300)),
+                Some((TypeId::new(30), 300)),
             ]
         );
     }
@@ -1367,22 +1369,22 @@ mod tests {
     #[test]
     fn delete_zero_count() {
         let mut inv = Inventory::new(28);
-        inv.add(1, 50, true);
-        let removed = inv.delete(1, 0);
+        inv.add(TypeId::new(1), 50, true);
+        let removed = inv.delete(TypeId::new(1), 0);
         assert_eq!(removed, 0);
-        assert_eq!(inv.total(1), 50);
+        assert_eq!(inv.total(TypeId::new(1)), 50);
     }
 
     #[test]
     fn delete_across_mixed_stacked_slots() {
         // Manually place same item in multiple slots (simulates edge case)
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 30);
-        inv.set(5, 1, 20);
-        inv.set(10, 1, 10);
-        let removed = inv.delete(1, 45);
+        inv.set(0, TypeId::new(1), 30);
+        inv.set(5, TypeId::new(1), 20);
+        inv.set(10, TypeId::new(1), 10);
+        let removed = inv.delete(TypeId::new(1), 45);
         assert_eq!(removed, 45);
-        assert_eq!(inv.total(1), 15);
+        assert_eq!(inv.total(TypeId::new(1)), 15);
     }
 
     // --- Dirty flag patterns ---
@@ -1391,15 +1393,15 @@ mod tests {
     fn dirty_flag_on_all_mutations() {
         let mut inv = Inventory::new(28);
 
-        inv.add(1, 1, true);
+        inv.add(TypeId::new(1), 1, true);
         assert!(inv.dirty);
         inv.dirty = false;
 
-        inv.delete(1, 1);
+        inv.delete(TypeId::new(1), 1);
         assert!(inv.dirty);
         inv.dirty = false;
 
-        inv.set(0, 1, 10);
+        inv.set(0, TypeId::new(1), 10);
         assert!(inv.dirty);
         inv.dirty = false;
 
@@ -1407,8 +1409,8 @@ mod tests {
         assert!(inv.dirty);
         inv.dirty = false;
 
-        inv.set(0, 1, 10);
-        inv.set(1, 2, 20);
+        inv.set(0, TypeId::new(1), 10);
+        inv.set(1, TypeId::new(2), 20);
         inv.dirty = false;
         inv.move_to_slot(0, 1);
         assert!(inv.dirty);
@@ -1422,24 +1424,30 @@ mod tests {
     fn dirty_slots_tracks_changed_slot() {
         let mut inv = Inventory::new(28);
         inv.clear_dirty();
-        inv.set(3, 10, 100);
-        assert_eq!(inv.collect_dirty(), vec![(3, Some((10, 100)))]);
+        inv.set(3, TypeId::new(10), 100);
+        assert_eq!(inv.collect_dirty(), vec![(3, Some((TypeId::new(10), 100)))]);
     }
 
     #[test]
     fn dirty_slots_dedup_and_sorted() {
         let mut inv = Inventory::new(28);
-        inv.set(5, 1, 1);
-        inv.set(2, 2, 2);
-        inv.set(5, 3, 3); // same slot twice -> deduped, reflects latest value
+        inv.set(5, TypeId::new(1), 1);
+        inv.set(2, TypeId::new(2), 2);
+        inv.set(5, TypeId::new(3), 3); // same slot twice -> deduped, reflects latest value
         let dirty = inv.collect_dirty();
-        assert_eq!(dirty, vec![(2, Some((2, 2))), (5, Some((3, 3)))]);
+        assert_eq!(
+            dirty,
+            vec![
+                (2, Some((TypeId::new(2), 2))),
+                (5, Some((TypeId::new(3), 3)))
+            ]
+        );
     }
 
     #[test]
     fn collect_dirty_reflects_current_value() {
         let mut inv = Inventory::new(28);
-        inv.set(4, 7, 70);
+        inv.set(4, TypeId::new(7), 70);
         inv.remove(4, 70); // slot now empty
         // Slot 4 was touched twice but should report its current (empty) contents.
         assert_eq!(inv.collect_dirty(), vec![(4, None)]);
@@ -1448,7 +1456,7 @@ mod tests {
     #[test]
     fn clear_dirty_resets_change_set() {
         let mut inv = Inventory::new(28);
-        inv.set(1, 1, 1);
+        inv.set(1, TypeId::new(1), 1);
         assert!(inv.dirty);
         assert!(!inv.dirty_slots.is_empty());
         inv.clear_dirty();
@@ -1460,7 +1468,7 @@ mod tests {
     #[test]
     fn clear_marks_every_slot_dirty() {
         let mut inv = Inventory::new(5);
-        inv.set(0, 1, 1);
+        inv.set(0, TypeId::new(1), 1);
         inv.clear_dirty();
         inv.clear();
         let dirty = inv.collect_dirty();
@@ -1474,13 +1482,16 @@ mod tests {
     #[test]
     fn move_to_slot_marks_both_slots() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 10);
-        inv.set(1, 2, 20);
+        inv.set(0, TypeId::new(1), 10);
+        inv.set(1, TypeId::new(2), 20);
         inv.clear_dirty();
         inv.move_to_slot(0, 1);
         assert_eq!(
             inv.collect_dirty(),
-            vec![(0, Some((2, 20))), (1, Some((1, 10)))]
+            vec![
+                (0, Some((TypeId::new(2), 20))),
+                (1, Some((TypeId::new(1), 10)))
+            ]
         );
     }
 
@@ -1489,7 +1500,7 @@ mod tests {
     #[test]
     fn remove_exact_count_clears_slot() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 42);
+        inv.set(0, TypeId::new(1), 42);
         assert!(inv.remove(0, 42));
         assert!(inv.get(0).is_none());
     }
@@ -1497,7 +1508,7 @@ mod tests {
     #[test]
     fn remove_one_from_one_clears() {
         let mut inv = Inventory::new(28);
-        inv.set(0, 1, 1);
+        inv.set(0, TypeId::new(1), 1);
         assert!(inv.remove(0, 1));
         assert!(inv.get(0).is_none());
         assert_eq!(inv.freespace(), 28);
@@ -1508,13 +1519,17 @@ mod tests {
     #[test]
     fn collect_slots_at_specific_indices() {
         let mut inv = Inventory::new(10);
-        inv.set(0, 10, 100);
-        inv.set(3, 20, 200);
-        inv.set(7, 30, 300);
+        inv.set(0, TypeId::new(10), 100);
+        inv.set(3, TypeId::new(20), 200);
+        inv.set(7, TypeId::new(30), 300);
         let result = inv.collect_slots_at(&[0, 3, 7]);
         assert_eq!(
             result,
-            vec![Some((10, 100)), Some((20, 200)), Some((30, 300))]
+            vec![
+                Some((TypeId::new(10), 100)),
+                Some((TypeId::new(20), 200)),
+                Some((TypeId::new(30), 300))
+            ]
         );
     }
 
@@ -1528,9 +1543,9 @@ mod tests {
     #[test]
     fn collect_slots_at_mixed() {
         let mut inv = Inventory::new(10);
-        inv.set(2, 5, 50);
+        inv.set(2, TypeId::new(5), 50);
         let result = inv.collect_slots_at(&[0, 2, 4]);
-        assert_eq!(result, vec![None, Some((5, 50)), None]);
+        assert_eq!(result, vec![None, Some((TypeId::new(5), 50)), None]);
     }
 
     #[test]
@@ -1543,17 +1558,17 @@ mod tests {
     #[test]
     fn collect_slots_at_empty_input() {
         let mut inv = Inventory::new(10);
-        inv.set(0, 1, 10);
+        inv.set(0, TypeId::new(1), 10);
         let result = inv.collect_slots_at(&[]);
         assert!(result.is_empty());
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn varobjs_keep_items_apart_and_move_with_them() {
         let with_var = |var, num| Item {
             var,
-            ..Item::new(1, num)
+            ..Item::new(TypeId::new(1), num)
         };
         let mut bank = Inventory::with_stack_mode(10, StackMode::Always);
         bank.add_item(with_var(7, 1), false);
@@ -1568,9 +1583,9 @@ mod tests {
         inv.move_to_slot_to(&mut bank, 0, 5);
         assert_eq!(bank.get(5), Some(&with_var(9, 1)));
 
-        bank.add(1, 4, false);
+        bank.add(TypeId::new(1), 4, false);
         assert_eq!(
-            bank.delete_with_vars(1, 7),
+            bank.delete_with_vars(TypeId::new(1), 7),
             (7, vec![with_var(7, 2), with_var(9, 1)])
         );
     }

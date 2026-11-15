@@ -1,0 +1,85 @@
+// 5041
+[proc,clientscript_5041](struct $struct0, int $int1, int $int2, int $int3)
+cc_setop(6, "Delete");
+cc_setparam_int(param_1474, $int1);
+cc_setparam_int(param_1475, $int2);
+def_string $string0 = struct_param($struct0, param_1463);
+cc_setopbase("<col=ff9040><$string0>");
+def_enum $enum4 = null;
+switch_int (struct_param($struct0, param_1466)) {
+    case 1 :
+        cc_setparam_int(param_1476, ~clientscript_5020($int3));
+        cc_setparam_int(param_1477, ~clientscript_5021($int3));
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5022($int3))>");
+        }
+    case 2 :
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5023($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1471);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5024($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1472);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5025($int3))>");
+        }
+    case 3 :
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5026($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1471);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5027($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1472);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5028($int3))>");
+        }
+    case 4 :
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5029($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1471);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5030($int3))>");
+        }
+    case 5 :
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5031($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1471);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5032($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1472);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5033($int3))>");
+        }
+    case 6 :
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5034($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1471);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5035($int3))>");
+        }
+        $enum4 = struct_param($struct0, param_1472);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, ~clientscript_5036($int3))>");
+        }
+    case default :
+        $enum4 = struct_param($struct0, param_1470);
+        if ($enum4 ! null) {
+            $string0 = append($string0, "<br><enum(int, string, $enum4, -1)> <enum(int, string, $enum4, $int3)>");
+        }
+}
+cc_setonmouserepeat("clientscript_5077(event_com, event_comsubid, $string0, event_mousex, event_mousey)");
+cc_setonmouseleave("deltooltip(interface_1111:com_119)");

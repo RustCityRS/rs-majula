@@ -1,5 +1,5 @@
 use super::config_entry;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::{cache_params, client_table_with, mark_client_params};
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -49,11 +49,11 @@ pub fn pack_structs(
         server.finish_entry();
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let client = None;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let cache_params = cache_params(file_cache, &registry.param);
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = Some(client_table_with(
         file_cache,
         "struct",

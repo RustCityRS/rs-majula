@@ -1,0 +1,32 @@
+#testscript
+
+// Procs the PR's 289 added to general/scripts/misc (inv_procs.rs2,
+// loc_procs.rs2), ported as it has them. 289 calls them from Castle Wars,
+// which 647 has not ported yet.
+
+[label,test_inv_getslot_finds_an_objs_slot]
+setup_player("test_player");
+inv_clear(inv);
+inv_add(inv, bronze_dagger, 1);
+inv_add(inv, coins, 25);
+assert_eq(~inv_getslot(inv, coins), 1);
+assert_eq(~inv_getslot(inv, bronze_dagger), 0);
+assert_null(~inv_getslot(inv, iron_dagger));
+
+[label,test_inv_delenum_deletes_every_obj_the_enum_lists]
+// enum_738 lists objs (cache 786: 436 copper ore, 438 tin ore, ...).
+setup_player("test_player");
+inv_clear(inv);
+inv_add(inv, copper_ore, 1);
+inv_add(inv, tin_ore, 1);
+inv_add(inv, coins, 25);
+~inv_delenum(inv, enum_738);
+assert_eq(inv_total(inv, copper_ore), 0);
+assert_eq(inv_total(inv, tin_ore), 0);
+assert_eq(inv_total(inv, coins), 25);
+
+[label,test_loc_addsafe_coord_keeps_a_free_tile]
+setup_player("test_player");
+def_coord $safe = ~loc_addsafe_coord(coord);
+assert_eq(coordx($safe), coordx(coord));
+assert_eq(coordz($safe), coordz(coord));

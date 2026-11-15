@@ -1,0 +1,2625 @@
+// 917:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 917:1
+[com_1]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+
+// 917:2
+[com_2]
+type=layer
+width=765
+height=500
+layer=com_1
+
+// 917:3
+[com_3]
+type=layer
+y=61
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 917:4
+[com_4]
+type=layer
+width=765
+height=503
+layer=com_1
+
+// 917:5
+[com_5]
+type=layer
+x=8
+y=7
+width=19
+height=19
+xmode=abs_right
+layer=com_1
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 917:6
+[com_6]
+type=layer
+y=14
+width=30
+height=110
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+
+// 917:7
+[com_7]
+type=graphic
+y=3
+width=61
+height=61
+ymode=abs_bottom
+layer=com_4
+graphic=graphic_13156
+2dangle=32768
+hflip=yes
+
+// 917:8
+[com_8]
+type=graphic
+y=3
+width=61
+height=61
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic=graphic_13156
+2dangle=32768
+
+// 917:9
+[com_9]
+type=rectangle
+x=4
+y=61
+width=8
+height=65
+widthmode=minus
+heightmode=minus
+layer=com_2
+colour=0x0b0b0b
+fill=yes
+
+// 917:10
+[com_10]
+type=graphic
+width=16391
+height=61
+widthmode=proportion
+layer=com_2
+graphic=graphic_13155
+
+// 917:11
+[com_11]
+type=layer
+width=16412
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 917:12
+[com_12]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+onclick=script4473(event_com, task_main:com_67)
+
+// 917:13
+[com_13]
+type=graphic
+width=15
+height=122
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic=graphic_13158
+hflip=yes
+
+// 917:14
+[com_14]
+type=graphic
+width=15
+height=122
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+graphic=graphic_13158
+
+// 917:15
+[com_15]
+type=graphic
+width=122
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+graphic=graphic_13157
+vflip=yes
+
+// 917:16
+[com_16]
+type=graphic
+y=6
+width=256
+height=32
+xmode=abs_centre
+layer=com_2
+graphic=graphic_13260
+onload=clientscript_3973(event_com)
+
+// 917:17
+[com_17]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_5
+graphic=graphic_8278
+
+// 917:18
+[com_18]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_5
+graphic=graphic_8279
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 917:19
+[com_19]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_5
+graphic=graphic_8280
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 917:20
+[com_20]
+type=layer
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+
+// 917:21
+[com_21]
+type=graphic
+width=8
+height=23
+xmode=abs_right
+ymode=abs_centre
+layer=com_20
+graphic="aif_info_display_brown_1,0"
+hflip=yes
+
+// 917:22
+[com_22]
+type=graphic
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+graphic="aif_info_display_brown_1,1"
+tiling=yes
+hflip=yes
+
+// 917:23
+[com_23]
+type=graphic
+width=8
+height=23
+ymode=abs_centre
+layer=com_20
+graphic="aif_info_display_brown_1,0"
+
+// 917:24
+[com_24]
+type=text
+x=17
+y=3
+height=20
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_20
+textfont=verdana_11pt_regular
+text=Click on a Task to view its details
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:25
+[com_25]
+type=layer
+y=29
+height=52
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 917:26
+[com_26_]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_25
+
+// 917:27
+[com_27_]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_26_
+graphic=window_texture_2
+tiling=yes
+
+// 917:28
+[com_28_]
+type=graphic
+width=10
+height=10
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 917:29
+[com_29]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 917:30
+[com_30]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 917:31
+[com_31]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 917:32
+[com_32]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 917:33
+[com_33]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 917:34
+[com_34]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 917:35
+[com_35]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_26_
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 917:36
+[com_36]
+type=layer
+x=3
+y=3
+width=21
+height=6
+widthmode=minus
+heightmode=minus
+layer=com_25
+onload=task_main_list_populate(63, 999, 999)
+onvartransmit=task_main_list_populate(999, 999, 999){varplayer_1960, varplayer_1960}
+
+// 917:37
+[com_37]
+type=rectangle
+x=295
+y=72
+width=71
+height=56
+layer=com_36
+hide=yes
+colour=0xbb873d
+
+// 917:38
+[com_38]
+type=layer
+x=717
+y=3
+width=16
+height=6
+heightmode=minus
+layer=com_25
+
+// 917:39
+[com_39]
+type=layer
+height=132
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 917:40
+[com_40]
+type=graphic
+width=8
+height=30
+xmode=abs_right
+layer=com_39
+graphic="aif_info_display_brown_1,0"
+hflip=yes
+
+// 917:41
+[com_41]
+type=graphic
+width=8
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=com_39
+graphic="aif_info_display_brown_1,1"
+hflip=yes
+
+// 917:42
+[com_42]
+type=graphic
+width=8
+height=30
+layer=com_39
+graphic="aif_info_display_brown_1,0"
+
+// 917:43
+[com_43]
+type=layer
+x=294
+y=6
+width=121
+height=19
+layer=com_39
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Your overall progress.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+onvarctransmit=task_main_display_totals{varclient_1424}
+
+// 917:44
+[com_44]
+type=text
+x=62
+width=24
+height=20
+layer=com_43
+textfont=p11_full
+text=999
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+onvarctransmit=task_main_display_totals{varclient_1424}
+
+// 917:45
+[com_45]
+type=text
+x=65
+width=45
+height=20
+layer=com_43
+textfont=p11_full
+text=/
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+
+// 917:46
+[com_46]
+type=text
+x=89
+width=24
+height=20
+layer=com_43
+textfont=p11_full
+text=999
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+onvarctransmit=task_main_display_totals{varclient_1423}
+
+// 917:47
+[com_47]
+type=text
+x=-7
+width=70
+height=20
+layer=com_43
+textfont=p11_full
+text=Overall:
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+
+// 917:48
+[com_48]
+type=layer
+x=170
+y=5
+width=121
+height=19
+layer=com_39
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Your progress in the current locality.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+onvarctransmit=task_main_display_totals{varclient_1424}
+
+// 917:49
+[com_49]
+type=graphic
+width=6
+height=19
+layer=com_48
+graphic=graphic_4305
+
+// 917:50
+[com_50]
+type=graphic
+x=6
+width=110
+height=19
+xmode=abs_right
+layer=com_48
+graphic=graphic_4306
+
+// 917:51
+[com_51]
+type=graphic
+x=115
+width=6
+height=19
+layer=com_48
+graphic=graphic_4307
+
+// 917:52
+[com_52]
+type=graphic
+x=2
+y=2
+width=4
+height=15
+widthmode=minus
+layer=com_48
+graphic="task_progbar,1"
+tiling=yes
+
+// 917:53
+[com_53]
+type=text
+x=66
+y=1
+width=24
+height=20
+layer=com_48
+textfont=p11_full
+text=999
+textalignh=centre
+textalignv=centre
+onvarctransmit=task_main_display_totals{varclient_1424}
+
+// 917:54
+[com_54]
+type=text
+x=69
+y=1
+width=45
+height=20
+layer=com_48
+textfont=p11_full
+text=/
+textalignh=centre
+textalignv=centre
+
+// 917:55
+[com_55]
+type=text
+x=93
+y=1
+width=24
+height=20
+layer=com_48
+textfont=p11_full
+text=999
+textalignh=centre
+textalignv=centre
+onvarctransmit=task_main_display_totals{varclient_1423}
+
+// 917:56
+[com_56]
+type=text
+x=-2
+y=1
+width=70
+height=20
+layer=com_48
+textfont=p11_full
+text=Progress:
+textalignh=centre
+textalignv=centre
+
+// 917:57
+[com_57]
+type=layer
+x=22
+y=5
+width=145
+height=21
+layer=com_39
+
+// 917:58
+[com_58]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+layer=com_57
+
+// 917:59
+[com_59]
+type=layer
+width=16391
+height=21
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+onload=script4494(event_com, struct_1784)
+
+// 917:60
+[com_60]
+type=layer
+width=16391
+height=21
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+onload=script4494(event_com, struct_1785)
+
+// 917:61
+[com_61]
+type=layer
+width=16391
+height=21
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+onload=script4494(event_com, struct_1786)
+
+// 917:62
+[com_62]
+type=layer
+width=16391
+height=21
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+onload=script4494(event_com, struct_1787)
+
+// 917:63
+[com_63]
+type=layer
+width=16391
+height=21
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+
+// 917:64
+[com_64]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+heightmode=minus
+ymode=abs_bottom
+layer=com_57
+
+// 917:65
+[com_65]
+type=graphic
+width=16
+height=16391
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=com_64
+graphic=window_texture_2
+tiling=yes
+
+// 917:66
+[com_66]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_64
+
+// 917:67
+[com_67]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_64
+onload=aif_dropdownbox_setup(enum_3487, "Select area", 10, 5, task_main:com_58, task_main:com_66, task_main:com_68, event_com, task_main:com_12)
+
+// 917:68
+[com_68]
+type=rectangle
+height=15
+widthmode=minus
+layer=com_67
+colour=0x474237
+fill=yes
+
+// 917:69
+[com_69]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_64
+onload=script4495(event_com, struct_1788)
+
+// 917:70
+[com_70]
+type=graphic
+x=6
+y=7
+width=14
+height=17
+layer=com_39
+
+// 917:71
+[com_71]
+type=layer
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+hide=yes
+
+// 917:72
+[com_72]
+type=graphic
+width=8
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_71
+graphic="aif_info_display_brown_1,0"
+hflip=yes
+
+// 917:73
+[com_73]
+type=graphic
+width=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+graphic="aif_info_display_brown_1,1"
+hflip=yes
+
+// 917:74
+[com_74]
+type=graphic
+width=8
+heightmode=minus
+ymode=abs_centre
+layer=com_71
+graphic="aif_info_display_brown_1,0"
+
+// 917:75
+[com_75]
+type=text
+x=6
+y=2
+width=80
+height=26
+widthmode=minus
+layer=com_71
+textfont=p11_full
+text=Performing these Tasks in order will provide an introduction to the game.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 917:76
+[com_76]
+type=layer
+x=8
+y=5
+width=66
+height=20
+xmode=abs_right
+layer=com_0
+
+// 917:77
+[com_77]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_76
+onload=clientscript_4412(event_com, struct_2433)
+
+// 917:78
+[com_78]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_76
+onload=clientscript_4412(event_com, struct_2434)
+
+// 917:79
+[com_79]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_76
+onload=clientscript_4412(event_com, struct_2435)
+
+// 917:80
+[com_80]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_76
+onload=clientscript_4412(event_com, struct_2821)
+
+// 917:81
+[com_81]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_76
+
+// 917:82
+[com_82]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_81
+textfont=verdana_11pt_regular
+text=Options
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 917:83
+[com_83]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_76
+transmitop=1
+op1=Options
+onload=script4213(event_com)
+onop=clientscript_5804
+
+// 917:84
+[com_84]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_76
+onload=clientscript_4412(event_com, struct_2822)
+
+// 917:85
+[com_85]
+type=layer
+y=24
+height=22
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_0
+noclickthrough=yes
+
+// 917:86
+[com_86]
+type=rectangle
+y=1
+height=280
+widthmode=minus
+heightmode=minus
+layer=com_85
+colour=0x2f2f2f
+fill=yes
+trans=75
+
+// 917:87
+[com_87]
+type=rectangle
+height=91
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_85
+colour=0x000000
+
+// 917:88
+[com_88]
+type=graphic
+height=92
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_85
+graphic=window_texture_2
+
+// 917:89
+[com_89]
+type=layer
+y=165
+height=165
+widthmode=minus
+heightmode=minus
+layer=com_85
+
+// 917:90
+[com_90_]
+type=layer
+x=7
+width=14
+widthmode=minus
+heightmode=minus
+layer=com_89
+hide=yes
+
+// 917:91
+[com_91]
+type=layer
+width=17
+widthmode=minus
+heightmode=minus
+layer=com_90_
+
+// 917:92
+[com_92]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_91
+
+// 917:93
+[com_93]
+type=layer
+width=20
+heightmode=minus
+xmode=abs_right
+layer=com_91
+
+// 917:94
+[com_94]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_90_
+
+// 917:95
+[com_95]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_89
+hide=yes
+
+// 917:96
+[com_96]
+type=text
+x=10
+y=14
+width=35
+height=30
+widthmode=minus
+heightmode=minus
+layer=com_95
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 917:97
+[com_97]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_89
+hide=yes
+
+// 917:98
+[com_98]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_97
+
+// 917:99
+[com_99]
+type=layer
+x=6
+width=10
+widthmode=minus
+heightmode=minus
+layer=com_98
+
+// 917:100
+[com_100]
+type=layer
+x=6
+width=10
+widthmode=minus
+heightmode=minus
+layer=com_98
+
+// 917:101
+[com_101]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_97
+
+// 917:102
+[com_102]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_89
+hide=yes
+
+// 917:103
+[com_103]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_102
+
+// 917:104
+[com_104]
+type=text
+x=10
+y=2
+width=4
+height=22
+widthmode=minus
+layer=com_103
+textfont=verdana_11pt_regular
+text=Cannot pin this Task
+textalignv=centre
+colour=0x33ff00
+
+// 917:105
+[com_105]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:106
+[com_106]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:107
+[com_107]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:108
+[com_108]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:109
+[com_109]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:110
+[com_110]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:111
+[com_111]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:112
+[com_112]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:113
+[com_113]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:114
+[com_114]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:115
+[com_115]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:116
+[com_116]
+type=text
+x=10
+y=24
+width=4
+height=30
+widthmode=minus
+layer=com_103
+textfont=p11_full
+textalignv=centre
+colour=0xdedede
+
+// 917:117
+[com_117]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_102
+
+// 917:118
+[com_118]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_85
+
+// 917:119
+[com_119]
+type=layer
+x=-276
+y=149
+width=4086
+height=17
+widthmode=proportion
+xmode=abs_centre
+layer=com_118
+transmitop=1
+op1=Description
+onmouseover=task_main_tab_hover(1)
+onmouseleave=task_main_tab_hover(0)
+onop=task_main_summary_tab(0)
+
+// 917:120
+[summary_hints_tab_l]
+type=graphic
+width=6
+heightmode=minus
+layer=com_119
+graphic="task_tab,0"
+
+// 917:121
+[summary_hints_tab_m]
+type=graphic
+x=5
+width=10
+widthmode=minus
+heightmode=minus
+layer=com_119
+graphic="task_tab,1"
+
+// 917:122
+[summary_hints_tab_r]
+type=graphic
+width=6
+heightmode=minus
+xmode=abs_right
+layer=com_119
+graphic="task_tab,0"
+hflip=yes
+
+// 917:123
+[com_123]
+type=text
+width=16384
+height=16
+widthmode=proportion
+layer=com_119
+textfont=verdana_11pt_regular
+text=Description
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:124
+[com_124]
+type=layer
+x=-92
+y=149
+width=4086
+height=17
+widthmode=proportion
+xmode=abs_centre
+layer=com_118
+transmitop=1
+op1=Rewards
+onmouseover=task_main_tab_hover(2)
+onmouseleave=task_main_tab_hover(0)
+onop=task_main_summary_tab(1)
+
+// 917:125
+[summary_rewards_tab_l]
+type=graphic
+width=6
+heightmode=minus
+layer=com_124
+graphic="task_tab,0"
+
+// 917:126
+[summary_rewards_tab_m]
+type=graphic
+x=5
+width=10
+widthmode=minus
+heightmode=minus
+layer=com_124
+graphic="task_tab,1"
+
+// 917:127
+[summary_rewards_tab_r]
+type=graphic
+width=6
+heightmode=minus
+xmode=abs_right
+layer=com_124
+graphic="task_tab,0"
+hflip=yes
+
+// 917:128
+[summary_rewards_label]
+type=text
+width=16384
+height=1
+widthmode=proportion
+heightmode=minus
+layer=com_124
+textfont=verdana_11pt_regular
+text=Rewards
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:129
+[com_129]
+type=layer
+x=92
+y=149
+width=4086
+height=17
+widthmode=proportion
+xmode=abs_centre
+layer=com_118
+transmitop=1
+op1=Hints
+onmouseover=task_main_tab_hover(3)
+onmouseleave=task_main_tab_hover(0)
+onop=task_main_summary_tab(2)
+
+// 917:130
+[com_26]
+type=graphic
+width=6
+heightmode=minus
+layer=com_129
+graphic="task_tab,0"
+
+// 917:131
+[com_27]
+type=graphic
+x=5
+width=10
+widthmode=minus
+heightmode=minus
+layer=com_129
+graphic="task_tab,1"
+
+// 917:132
+[com_28]
+type=graphic
+width=6
+heightmode=minus
+xmode=abs_right
+layer=com_129
+graphic="task_tab,0"
+hflip=yes
+
+// 917:133
+[com_133]
+type=text
+width=16384
+widthmode=proportion
+heightmode=minus
+layer=com_129
+textfont=verdana_11pt_regular
+text=Hints
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:134
+[com_134]
+type=layer
+x=276
+y=149
+width=4086
+height=17
+widthmode=proportion
+xmode=abs_centre
+layer=com_118
+transmitop=1
+op1=Requirements
+onmouseover=task_main_tab_hover(4)
+onmouseleave=task_main_tab_hover(0)
+onop=task_main_summary_tab(3)
+
+// 917:135
+[com_135]
+type=graphic
+width=6
+heightmode=minus
+layer=com_134
+graphic="task_tab,0"
+
+// 917:136
+[com_136]
+type=graphic
+x=5
+width=10
+widthmode=minus
+heightmode=minus
+layer=com_134
+graphic="task_tab,1"
+
+// 917:137
+[com_137]
+type=graphic
+width=6
+heightmode=minus
+xmode=abs_right
+layer=com_134
+graphic="task_tab,0"
+hflip=yes
+
+// 917:138
+[com_138]
+type=text
+width=16384
+height=1
+widthmode=proportion
+heightmode=minus
+layer=com_134
+textfont=verdana_11pt_regular
+text=Requirements
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:139
+[com_139]
+type=text
+x=229
+y=93
+width=430
+height=53
+layer=com_118
+textfont=b12_full
+text=Title of the task (which is potentially fairly long)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:140
+[summary_difficulty]
+type=text
+x=79
+y=120
+width=150
+height=25
+layer=com_118
+textfont=p11_full
+text=None
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:141
+[summary_difficulty_icon]
+type=graphic
+x=65
+y=126
+width=11
+height=11
+layer=com_118
+graphic=graphic_4330
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "The difficulty rating of this Task.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 917:142
+[com_142]
+type=graphic
+x=-337
+y=95
+width=50
+height=50
+xmode=abs_centre
+layer=com_118
+graphic="task_icons_lumbridge,32"
+
+// 917:143
+[summary_area]
+type=text
+x=79
+y=94
+width=150
+height=25
+layer=com_118
+textfont=p11_full
+text=None
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 917:144
+[area_icon]
+type=graphic
+x=63
+y=99
+width=14
+height=17
+layer=com_118
+graphic=graphic_4283
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "The locality where this Task can be completed.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 917:145
+[summary_close]
+type=layer
+x=5
+y=96
+width=71
+height=19
+xmode=abs_right
+layer=com_118
+transmitop=1
+op1=Back
+onmouseover=task_main_close_hover(0)
+onmouseleave=task_main_close_hover(1)
+onop=task_main_closesummary
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Close this window and return to the list of Tasks.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 917:146
+[close_bg_l]
+type=graphic
+width=6
+height=19
+layer=summary_close
+graphic="task_pin_but,0"
+
+// 917:147
+[close_bg_m]
+type=graphic
+x=6
+width=12
+height=19
+widthmode=minus
+layer=summary_close
+graphic="task_pin_but,1"
+
+// 917:148
+[close_bg_r]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+layer=summary_close
+graphic="task_pin_but,0"
+hflip=yes
+
+// 917:149
+[close_arrow]
+type=graphic
+x=5
+width=14
+height=11
+ymode=abs_centre
+layer=summary_close
+graphic="task_arrow,0"
+
+// 917:150
+[close_text]
+type=text
+x=30
+y=-1
+width=44
+widthmode=minus
+heightmode=minus
+layer=summary_close
+textfont=verdana_11pt_regular
+text=Back
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+
+// 917:151
+[com_151]
+type=layer
+x=5
+y=120
+width=71
+height=21
+xmode=abs_right
+layer=com_118
+transmitop=1
+op1=Pin
+onmouseover=task_main_pin_hover(0)
+onmouseleave=task_main_pin_hover(1)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Pin this Task to refer to it from the side window.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 917:152
+[com_90]
+type=graphic
+width=6
+height=19
+ymode=abs_centre
+layer=com_151
+graphic="task_pin_but,0"
+
+// 917:153
+[pin_button_r]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=com_151
+graphic="task_pin_but,0"
+hflip=yes
+
+// 917:154
+[pin_button_m]
+type=graphic
+x=6
+width=12
+height=19
+widthmode=minus
+ymode=abs_centre
+layer=com_151
+graphic="task_pin_but,1"
+
+// 917:155
+[pin_button_icon]
+type=graphic
+x=5
+y=5
+width=11
+height=11
+layer=com_151
+graphic="task_pin_symbol,0"
+
+// 917:156
+[pin_button_text]
+type=text
+x=8
+y=1
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_151
+textfont=verdana_11pt_regular
+text=Pin
+textalignh=centre
+textalignv=centre
+colour=0xefb063
+
+// 917:157
+[com_157]
+type=rectangle
+x=58
+y=96
+width=1
+height=49
+layer=com_118
+colour=0x4e4d4d
+
+// 917:158
+[com_158]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 917:159
+[com_159]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_158
+colour=0x2f2f2f
+fill=yes
+trans=75
+
+// 917:160
+[com_160]
+type=layer
+width=300
+height=234
+xmode=abs_centre
+ymode=abs_centre
+layer=com_158
+
+// 917:161
+[com_161]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_160
+onload=clientscript_4758(event_com)
+
+// 917:162
+[com_162]
+type=layer
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_160
+
+// 917:163
+[com_163]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_162
+
+// 917:164
+[com_164]
+type=text
+y=6
+width=100
+height=20
+xmode=abs_centre
+layer=com_163
+textfont=verdana_13pt_regular
+text=Options
+textalignh=centre
+textshadow=yes
+colour=0xe3eabc
+
+// 917:165
+[com_165]
+type=text
+x=27
+y=28
+width=243
+height=20
+layer=com_163
+textfont=verdana_11pt_regular
+text=Check to hide already-completed Tasks.
+textalignv=centre
+textshadow=yes
+colour=0xe1e1e1
+
+// 917:166
+[com_166]
+type=layer
+x=7
+y=30
+width=16
+height=16
+layer=com_163
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Check to hide completed Tasks.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 917:167
+[com_167]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_166
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_selected_layer_onload(event_com)
+onop=clientscript_5805
+
+// 917:168
+[com_168]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_166
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_deselected_layer_onload(event_com)
+onop=clientscript_5805
+
+// 917:169
+[com_169]
+type=text
+x=27
+y=51
+width=243
+height=32
+layer=com_163
+textfont=verdana_11pt_regular
+text=Check to hide Tasks which are not part of a set.
+textlineheight=13
+textalignv=centre
+textshadow=yes
+colour=0xe1e1e1
+
+// 917:170
+[com_170]
+type=layer
+x=7
+y=59
+width=16
+height=16
+layer=com_163
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Check to hide Tasks which are not part of a set.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 917:171
+[com_171]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_170
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_selected_layer_onload(event_com)
+onop=clientscript_5806
+
+// 917:172
+[com_172]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_170
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_deselected_layer_onload(event_com)
+onop=clientscript_5806
+
+// 917:173
+[com_173]
+type=text
+x=27
+y=86
+width=243
+height=20
+layer=com_163
+textfont=verdana_11pt_regular
+text=Check to hide "Task Complete" popups.
+textlineheight=13
+textalignv=centre
+textshadow=yes
+colour=0xe1e1e1
+
+// 917:174
+[com_174]
+type=layer
+x=7
+y=88
+width=16
+height=16
+layer=com_163
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Check to turn off popups on completing a Task.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 917:175
+[com_175]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_174
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_selected_layer_onload(event_com)
+onop=clientscript_5807
+
+// 917:176
+[com_176]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_174
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_deselected_layer_onload(event_com)
+onop=clientscript_5807
+
+// 917:177
+[com_177]
+type=text
+x=27
+y=109
+width=243
+height=20
+layer=com_163
+textfont=verdana_11pt_regular
+text=Check to hide "Active Task" window.
+textlineheight=13
+textalignv=centre
+textshadow=yes
+colour=0xe1e1e1
+
+// 917:178
+[com_178]
+type=layer
+x=7
+y=111
+width=16
+height=16
+layer=com_163
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Check to turn off the window that reminds you of your Active Task.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 917:179
+[com_179]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_178
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_selected_layer_onload(event_com)
+onop=clientscript_5808
+
+// 917:180
+[com_180]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_178
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_deselected_layer_onload(event_com)
+onop=clientscript_5808
+
+// 917:181
+[com_181]
+type=text
+x=27
+y=132
+width=243
+height=20
+layer=com_163
+textfont=verdana_11pt_regular
+text=Check to hide "Task Info" window.
+textlineheight=13
+textalignv=centre
+textshadow=yes
+colour=0xe1e1e1
+
+// 917:182
+[com_182]
+type=layer
+x=7
+y=134
+width=16
+height=16
+layer=com_163
+onmouseleave=deltooltip(task_main:com_210)
+onmouserepeat=aif_tooltip(task_main:com_210, event_com, -1, "Check to hide the window that tells you what Task you have just completed.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 917:183
+[com_183]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_182
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_selected_layer_onload(event_com)
+onop=clientscript_5809
+
+// 917:184
+[com_184]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_182
+transmitop=1
+op1=Toggle
+onload=aif_checkbox_deselected_layer_onload(event_com)
+onop=clientscript_5809
+
+// 917:185
+[com_185]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_162
+noclickthrough=yes
+
+// 917:186
+[com_186]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_185
+colour=0x2f2f2f
+fill=yes
+trans=75
+
+// 917:187
+[com_187]
+type=layer
+y=31
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_162
+
+// 917:188
+[com_188]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 917:189
+[com_189]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 917:190
+[com_190]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 917:191
+[com_191]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 917:192
+[com_192]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 917:193
+[com_193]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+
+// 917:194
+[com_194]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_193
+textfont=verdana_13pt_regular
+text=Tutorial is ON
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 917:195
+[com_195]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_187
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 917:196
+[com_196]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_195
+colour=0x000000
+fill=yes
+trans=100
+
+// 917:197
+[com_197]
+type=layer
+y=1
+width=74
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_162
+
+// 917:198
+[com_198]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_197
+onload=clientscript_4412(event_com, struct_2433)
+
+// 917:199
+[com_199]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_197
+onload=clientscript_4412(event_com, struct_2434)
+
+// 917:200
+[com_200]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_197
+onload=clientscript_4412(event_com, struct_2435)
+
+// 917:201
+[com_201]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_197
+onload=clientscript_4412(event_com, struct_2821)
+
+// 917:202
+[com_202]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_197
+
+// 917:203
+[com_203]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_202
+textfont=verdana_11pt_regular
+text=Okay
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 917:204
+[com_204]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_197
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_5811
+
+// 917:205
+[com_205]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_197
+onload=clientscript_4412(event_com, struct_2822)
+
+// 917:206
+[com_206]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_160
+onload=clientscript_4759(event_com)
+
+// 917:207
+[com_207]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_160
+onload=aif_build_close_button_layer(event_com)
+
+// 917:208
+[com_208]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_207
+transmitop=1
+op1=Close
+onload=clientscript_5810(event_com)
+onop=clientscript_5811
+
+// 917:209
+[com_209]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_207
+onload=aif_build_close_button_over(event_com)
+
+// 917:210
+[com_210]
+type=layer
+y=29
+height=52
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 917:211
+[com_211]
+type=layer
+x=1
+width=149
+height=35
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 917:212
+[com_212]
+type=graphic
+width=9
+height=35
+layer=com_211
+graphic=graphic_13145
+
+// 917:213
+[com_213]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_211
+graphic=graphic_13146
+
+// 917:214
+[com_214]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_211
+graphic=graphic_13147
+
+// 917:215
+[com_215]
+type=text
+x=2
+width=147
+height=28
+layer=com_211
+textfont=fontmetrics_13121
+text=Featured
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)
+
+// 917:216
+[com_216]
+type=layer
+x=150
+width=149
+height=35
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 917:217
+[com_217]
+type=graphic
+width=9
+height=35
+layer=com_216
+graphic=graphic_13145
+
+// 917:218
+[com_218]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_216
+graphic=graphic_13146
+
+// 917:219
+[com_219]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_216
+graphic=graphic_13147
+
+// 917:220
+[com_220]
+type=text
+x=2
+width=147
+height=28
+layer=com_216
+textfont=fontmetrics_13121
+text=Challenges
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)
+
+// 917:221
+[com_221]
+type=layer
+x=299
+width=149
+height=35
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 917:222
+[com_222]
+type=graphic
+width=9
+height=35
+layer=com_221
+graphic=graphic_13145
+
+// 917:223
+[com_223]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_221
+graphic=graphic_13146
+
+// 917:224
+[com_224]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_221
+graphic=graphic_13147
+
+// 917:225
+[com_225]
+type=text
+x=2
+width=147
+height=28
+layer=com_221
+textfont=fontmetrics_13121
+text=Quests
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)
+
+// 917:226
+[com_226]
+type=layer
+x=448
+width=149
+height=35
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 917:227
+[com_227]
+type=graphic
+width=9
+height=35
+layer=com_226
+graphic=graphic_13142
+
+// 917:228
+[com_228]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_226
+graphic=graphic_13143
+
+// 917:229
+[com_229]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_226
+graphic=graphic_13144
+
+// 917:230
+[com_230]
+type=text
+x=2
+width=147
+height=28
+layer=com_226
+textfont=fontmetrics_13121
+text=Achievements
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 917:231
+[com_231]
+type=layer
+x=597
+width=149
+height=35
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 917:232
+[com_232]
+type=graphic
+width=9
+height=35
+layer=com_231
+graphic=graphic_13145
+
+// 917:233
+[com_233]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_231
+graphic=graphic_13146
+
+// 917:234
+[com_234]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_231
+graphic=graphic_13147
+
+// 917:235
+[com_235]
+type=text
+x=2
+width=147
+height=28
+layer=com_231
+textfont=fontmetrics_13121
+text=Minigames
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)

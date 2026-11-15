@@ -1,11 +1,12 @@
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type MesAnimTypeProvider = TypeProvider<MesAnimType>;
 
 pub struct MesAnimType {
-    pub id: u16,
+    pub id: TypeId,
     pub len: [Option<u16>; 4],
     debugname: Box<str>,
 }
@@ -13,7 +14,7 @@ pub struct MesAnimType {
 impl CacheType for MesAnimType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         MesAnimType {
             id,
             len: [None; 4],

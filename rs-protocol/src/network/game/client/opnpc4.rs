@@ -23,7 +23,10 @@ impl ClientProtMessage for OpNpc4 {
 #[cfg(since_647)]
 impl ClientProtMessage for OpNpc4 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
+        #[cfg(before_742)]
         let (ctrl, nid) = (buf.g1_alt3() != 0, buf.g2_alt3());
+        #[cfg(since_742)]
+        let (ctrl, nid) = (buf.g1() != 0, buf.g2_alt1());
         OpNpc4 { nid, ctrl }
     }
 }

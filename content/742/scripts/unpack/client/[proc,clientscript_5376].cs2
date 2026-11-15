@@ -1,0 +1,15 @@
+// 5376
+[proc,clientscript_5376]
+def_int $int0 = 0;
+while ($int0 < 8) {
+    if (cc_find(interface_951:com_24, calc($int0 * 6 + 3)) = true) {
+        cc_setontimer(null);
+    }
+    if (cc_find(interface_951:com_24, calc($int0 * 6 + 4)) = true) {
+        cc_setontimer(null);
+    }
+    if (cc_find(interface_951:com_24, calc($int0 * 6 + 5)) = true) {
+        cc_setontimer(null);
+    }
+    $int0 = calc($int0 + 1);
+}

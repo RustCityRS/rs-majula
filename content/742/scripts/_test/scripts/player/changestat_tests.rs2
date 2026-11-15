@@ -1,0 +1,13 @@
+#testscript
+
+// 289's [changestat,_] (player/scripts/changestat.rs2) reruns
+// ~player_combat_stat when a stat changes: a boosted Attack raises the stab
+// attack roll (%com_stabattack) at once.
+
+[label,test_player_port_stat_change_updates_the_rolls]
+setup_player("test_player");
+~player_combat_stat;
+def_int $before = %com_stabattack;
+stat_add(attack, 10, 0);
+test_tick(2);
+assert_gt(%com_stabattack, $before);

@@ -1,0 +1,710 @@
+// 1309:0
+[com_0]
+type=layer
+x=112
+y=98
+width=233
+height=48
+layer=com_4
+
+// 1309:1
+[com_1]
+type=layer
+x=114
+y=146
+width=232
+height=47
+layer=com_4
+
+// 1309:2
+[com_2]
+type=layer
+x=116
+y=198
+width=233
+height=50
+layer=com_4
+
+// 1309:3
+[com_3]
+type=layer
+width=300
+height=230
+xmode=abs_centre
+ymode=abs_centre
+
+// 1309:4
+[com_4]
+type=layer
+y=17
+width=450
+height=297
+xmode=abs_centre
+
+// 1309:5
+[com_5]
+type=graphic
+y=2
+width=200
+height=4
+xmode=abs_centre
+layer=com_16
+graphic=button_dropshadow_bottom
+tiling=yes
+vflip=yes
+
+// 1309:6
+[com_6]
+type=graphic
+y=7
+width=504
+height=4
+xmode=abs_centre
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_bottom
+tiling=yes
+
+// 1309:7
+[com_7]
+type=graphic
+x=7
+y=154
+width=4
+height=326
+xmode=proportion_left
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_left
+tiling=yes
+hflip=yes
+
+// 1309:8
+[com_8]
+type=graphic
+x=16263
+y=154
+width=4
+height=326
+xmode=proportion_left
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_left
+tiling=yes
+
+// 1309:9
+[com_9]
+type=graphic
+x=7
+y=-42
+width=4
+height=4
+xmode=proportion_left
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_corner
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1309:10
+[com_10]
+type=graphic
+x=16263
+y=-42
+width=4
+height=4
+xmode=proportion_left
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_corner
+tiling=yes
+vflip=yes
+
+// 1309:11
+[com_11]
+type=graphic
+x=7
+y=16145
+width=4
+height=4
+xmode=proportion_left
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_corner
+tiling=yes
+hflip=yes
+
+// 1309:12
+[com_12]
+type=graphic
+x=16263
+y=16145
+width=4
+height=4
+xmode=proportion_left
+ymode=proportion_top
+layer=com_16
+graphic=button_dropshadow_corner
+tiling=yes
+
+// 1309:13
+[com_13]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_3
+graphic=graphic_8384
+tiling=yes
+
+// 1309:14
+[com_14]
+type=layer
+y=1
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1309:15
+[com_15]
+type=layer
+y=39
+width=300
+height=185
+xmode=abs_centre
+layer=com_3
+
+// 1309:16
+[com_16]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_3
+
+// 1309:17
+[com_17]
+type=graphic
+width=9830
+height=53
+widthmode=proportion
+xmode=abs_centre
+layer=com_32
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 1309:18
+[com_18]
+type=graphic
+width=67
+height=27
+xmode=abs_right
+layer=com_32
+graphic=aif_window_stone_close_corner_1
+
+// 1309:19
+[com_19]
+type=graphic
+x=5
+width=67
+height=27
+layer=com_32
+graphic=aif_window_stone_left_corner_1
+
+// 1309:20
+[com_20]
+type=layer
+y=2221
+width=250
+height=28
+xmode=abs_centre
+ymode=proportion_top
+layer=com_15
+transmitop=1
+op1=Invite
+onmouseover=clientscript_6425(event_com, 1)
+onmouseleave=clientscript_6425(event_com, 2)
+onmouserepeat=clientscript_6436(event_com)
+onclick=clientscript_6425(event_com, 3)
+
+// 1309:21
+[com_21]
+type=layer
+y=22
+width=250
+height=35
+xmode=abs_centre
+layer=com_15
+hide=yes
+noclickthrough=yes
+onmouseleave=deltooltip(interface_1309:com_0)
+onmouserepeat=clientscript_6435(event_com)
+
+// 1309:22
+[com_22]
+type=layer
+y=6737
+width=250
+height=28
+xmode=abs_centre
+ymode=proportion_top
+layer=com_15
+transmitop=1
+op1=View-invitation
+onmouseover=clientscript_6425(event_com, 1)
+onmouseleave=clientscript_6425(event_com, 2)
+onmouserepeat=clientscript_5332(event_com, interface_1309:com_1, "View your current invitation.", 60, 200)
+onclick=clientscript_6425(event_com, 3)
+
+// 1309:23
+[com_23]
+type=layer
+y=73
+width=250
+height=35
+xmode=abs_centre
+layer=com_15
+hide=yes
+noclickthrough=yes
+onmouseleave=deltooltip(interface_1309:com_1)
+onmouserepeat=clientscript_5332(event_com, interface_1309:com_1, "You have no group invitations.", 60, 200)
+
+// 1309:24
+[com_24]
+type=layer
+y=10988
+width=250
+height=28
+xmode=abs_centre
+ymode=proportion_top
+layer=com_15
+transmitop=1
+op1=Leave-group
+onmouseover=clientscript_6425(event_com, 1)
+onmouseleave=clientscript_6425(event_com, 2)
+onmouserepeat=clientscript_5332(event_com, interface_1309:com_2, "Leave your current co-op Slayer group.", 60, 200)
+onclick=clientscript_6425(event_com, 3)
+
+// 1309:25
+[com_25]
+type=graphic
+width=15
+height=16391
+heightmode=proportion
+layer=com_22
+graphic=graphic_7920
+
+// 1309:26
+[com_26]
+type=graphic
+width=14581
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_22
+graphic=graphic_7921
+
+// 1309:27
+[com_27]
+type=graphic
+width=15
+height=16391
+heightmode=proportion
+xmode=abs_right
+layer=com_22
+graphic=graphic_7922
+
+// 1309:28
+[com_28]
+type=layer
+y=121
+width=250
+height=35
+xmode=abs_centre
+layer=com_15
+hide=yes
+noclickthrough=yes
+onmouseleave=deltooltip(interface_1309:com_2)
+onmouserepeat=clientscript_5332(event_com, interface_1309:com_2, "You are not currently in a group.", 60, 200)
+
+// 1309:29
+[com_29]
+type=graphic
+width=15
+height=16391
+heightmode=proportion
+layer=com_24
+graphic=graphic_7920
+
+// 1309:30
+[com_30]
+type=graphic
+width=14581
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_24
+graphic=graphic_7921
+
+// 1309:31
+[com_31]
+type=graphic
+width=15
+height=16391
+heightmode=proportion
+xmode=abs_right
+layer=com_24
+graphic=graphic_7922
+
+// 1309:32
+[com_32]
+type=layer
+x=-1
+y=1
+width=16384
+height=30
+widthmode=proportion
+xmode=abs_centre
+layer=com_14
+
+// 1309:33
+[com_33]
+type=graphic
+width=15
+height=16384
+heightmode=proportion
+layer=com_20
+graphic=graphic_7920
+
+// 1309:34
+[com_34]
+type=graphic
+width=14581
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_20
+graphic=graphic_7921
+
+// 1309:35
+[com_35]
+type=graphic
+width=15
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_20
+graphic=graphic_7922
+
+// 1309:36
+[com_36]
+type=text
+y=-3
+width=14745
+height=32
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+textfont=verdana_13pt_regular
+text=Invite player
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfff8e3
+
+// 1309:37
+[com_37]
+type=text
+y=-3
+width=14745
+height=32
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+textfont=verdana_13pt_regular
+text=View invitation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfff8e3
+
+// 1309:38
+[com_38]
+type=text
+y=-3
+width=14745
+height=32
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+textfont=verdana_13pt_regular
+text=Leave group
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfff8e3
+
+// 1309:39
+[com_39]
+type=graphic
+x=-9
+y=-1
+width=13107
+height=6
+widthmode=proportion
+xmode=abs_centre
+layer=com_14
+graphic=graphic_9698
+tiling=yes
+vflip=yes
+
+// 1309:40
+[com_40]
+type=graphic
+width=364
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_bot_brdr_left
+
+// 1309:41
+[com_41]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_14
+graphic=aif_window_stone_close_corner_3
+
+// 1309:42
+[com_42]
+type=graphic
+width=8
+height=190
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_14
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1309:43
+[com_43]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_14
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1309:44
+[com_44]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_14
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 1309:45
+[com_45]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_bot_brdr_left
+
+// 1309:46
+[com_46]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_bot_brdr_left
+
+// 1309:47
+[com_47]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1309:48
+[com_48]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_14
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1309:49
+[com_49]
+type=graphic
+x=2
+y=6
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_14
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1309:50
+[com_50]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_14
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 1309:51
+[com_51]
+type=graphic
+width=8
+height=190
+heightmode=minus
+ymode=abs_centre
+layer=com_14
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1309:52
+[com_52]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_side_brdr_small
+
+// 1309:53
+[com_53]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1309:54
+[com_54]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_14
+graphic=aif_window_stone_bot_corn
+
+// 1309:55
+[com_55]
+type=graphic
+width=64
+height=53
+layer=com_14
+graphic=aif_window_stone_topl_corn
+
+// 1309:56
+[com_56]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+layer=com_14
+graphic=aif_window_stone_topr_corn
+
+// 1309:57
+[com_57]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_14
+
+// 1309:58
+[com_58]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_57
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1309:59
+[com_59]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_57
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1309:60
+[com_60]
+type=text
+width=13107
+height=13107
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=palatino_linotype_18pt_regular
+text=Co-op Slayer
+textalignh=centre
+colour=0xebe0bc

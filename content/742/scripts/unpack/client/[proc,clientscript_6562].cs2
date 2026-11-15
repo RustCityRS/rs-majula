@@ -1,0 +1,41 @@
+// 6562
+[proc,clientscript_6562](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = if_gettrans($component0);
+if ($int1 > 33) {
+    $int3 = max(33, calc($int1 - 5));
+} else {
+    $int5 = 1;
+    $int3 = 33;
+}
+if ($int2 > 48) {
+    $int4 = max(48, calc($int2 - 5));
+} else {
+    $int6 = 1;
+    $int4 = 48;
+}
+if ($int7 < 255) {
+    if_settrans($component0, min(255, calc($int7 + 5)));
+}
+if ($int6 = 1 & $int5 = 1 | $int7 = 255) {
+    if (if_getgraphic($component0) = 9249) {
+        if_setgraphic($component0, 9248);
+        if_settrans($component0, 0);
+        if_setsize($component0, 200, 200, ^setsize_abs, ^setsize_abs);
+    } else if (if_getgraphic($component0) = 9248) {
+        if_setgraphic($component0, 9247);
+        if_settrans($component0, 0);
+        if_setsize($component0, 200, 200, ^setsize_abs, ^setsize_abs);
+    } else {
+        if_sethide($component0, true);
+        if_sethide(interface_1318:com_4, false);
+        if_sethide(interface_1318:com_0, false);
+    }
+} else {
+    if_setsize($component0, $int3, $int4, ^setsize_abs, ^setsize_abs);
+}

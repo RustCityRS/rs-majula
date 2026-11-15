@@ -1,0 +1,9 @@
+// 1235
+[proc,clientscript_1235]
+if_sethide(loginscreen:com_388, true);
+if_settext(loginscreen:com_389, "Please wait...");
+if_setonclick(loginscreen:com_389, null);
+unknown_command_5604(if_gettext(loginscreen:com_394));
+if_settext(loginscreen:com_386, "Usernames can be a maximum of 12 characters long and may contain letters, numbers and underscores. Note: first letters will be capitalised and underscores will be converted into spaces. For example, the username red_rooster would display in the game as Red Rooster.");
+if_setcolour(loginscreen:com_386, 0x461e00);
+if_setontimer(loginscreen:com_405, "clientscript_1236");

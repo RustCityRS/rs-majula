@@ -1,0 +1,3 @@
+// 1718
+[proc,script1718](stat $stat0, int $int1)(int)
+return(calc(stat_base($stat0) * $int1 / 100));

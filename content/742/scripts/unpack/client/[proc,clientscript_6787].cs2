@@ -1,0 +1,119 @@
+// 6787
+[proc,clientscript_6787]()(int)
+def_int $int0 = 0;
+if (~ql4_getprogress_detail(%vkq2_quest, 2, 63) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%chosen_quest, 110) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%dwarfrock_quest, 110) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_detail(%evq_quest, 3, 147) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%contact, 130) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%mah3_main, 240) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%demonslayer_main, 3) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%deserttreasure, 15) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_detail(%apmeken_master, 10, 315) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%dragonquest, 10) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%dream_prog, 28) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%crestquest, 11) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%arenaquest, 14) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%viking, 10) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%hauntedmine, 11) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%grail, 10) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%horrorquest, 10) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%legendsquest, 75) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%zanaris, 6) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%love, 150) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%mom2_main, 60) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_detail(%mm_main, 1, 9) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%mdaughter_quest_var, 70) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%myarm, 320) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%nom_quest, 12) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%hundred_main_quest_var, 5) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%agrith_quest, 125) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%elidquest, 60) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%brain_quest_var, 130) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%mah4_main, 90) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%vkq3_quest, 40) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%dillo_quest, 63) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%troll_love, 45) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%troll_quest, 50) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%vampire_quest, 3) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%wanted_main, 11) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if (~ql4_getprogress_basic(%luc2_main_quest, 910) = 2) {
+    $int0 = calc($int0 + 1);
+}
+if ($int0 >= 20) {
+    return(1);
+} else {
+    return(0);
+}

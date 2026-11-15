@@ -1,6 +1,7 @@
 use crate::lifetime::EntityLifeTime;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_ver::TypeId;
 pub use rs_vm::LocSerial;
 use std::mem;
 
@@ -15,20 +16,35 @@ const LIFETIME_SHIFT: u32 = 6;
 /// Bit offset for the base (original) info within the packed `u128`.
 const BASE_INFO_SHIFT: u32 = 7;
 /// Bit offset for the current (possibly modified) info within the packed `u128`.
+#[cfg(before_742)]
 const CURRENT_INFO_SHIFT: u32 = 44;
+#[cfg(since_742)]
+const CURRENT_INFO_SHIFT: u32 = 45;
 /// Bit offset for the `last_clock` field within the packed `u128`.
+#[cfg(before_742)]
 const LAST_CLOCK_SHIFT: u32 = 81;
+#[cfg(since_742)]
+const LAST_CLOCK_SHIFT: u32 = 83;
 /// Bit offset for the removed flag within the packed `u128`.
+#[cfg(before_742)]
 const REMOVED_SHIFT: u32 = 113;
+#[cfg(since_742)]
+const REMOVED_SHIFT: u32 = 115;
 /// Bit offset for the [`LocSerial`] within the packed `u128`.
+#[cfg(before_742)]
 const SERIAL_SHIFT: u32 = 114;
+#[cfg(since_742)]
+const SERIAL_SHIFT: u32 = 116;
 
 /// Mask for the 3-bit local-coordinate fields.
 const COORD_MASK: u128 = 0x7;
 /// Mask for the single-bit lifetime field.
 const LIFETIME_MASK: u128 = 0x1;
 /// Mask for the 37-bit info field (id, shape, angle, blockwalk, blockrange, width, length).
+#[cfg(before_742)]
 const INFO_MASK: u128 = 0x1FFFFFFFFF;
+#[cfg(since_742)]
+const INFO_MASK: u128 = 0x3FFFFFFFFF;
 /// Mask for the 32-bit `last_clock` field. Its all-ones value is the `u32::MAX`
 /// "no timer" sentinel.
 const LAST_CLOCK_MASK: u128 = 0xFFFFFFFF;
@@ -42,20 +58,41 @@ const SERIAL_MASK: u128 = (1 << LocSerial::BITS) - 1;
 /// Bit offset for the loc type id within the info word.
 const ID_SHIFT: u32 = 0;
 /// Bit offset for the shape within the info word.
+#[cfg(before_742)]
 const SHAPE_SHIFT: u32 = 16;
+#[cfg(since_742)]
+const SHAPE_SHIFT: u32 = 17;
 /// Bit offset for the angle within the info word.
+#[cfg(before_742)]
 const ANGLE_SHIFT: u32 = 21;
+#[cfg(since_742)]
+const ANGLE_SHIFT: u32 = 22;
 /// Bit offset for the blockwalk flag within the info word.
+#[cfg(before_742)]
 const BLOCKWALK_SHIFT: u32 = 23;
+#[cfg(since_742)]
+const BLOCKWALK_SHIFT: u32 = 24;
 /// Bit offset for the blockrange flag within the info word.
+#[cfg(before_742)]
 const BLOCKRANGE_SHIFT: u32 = 24;
+#[cfg(since_742)]
+const BLOCKRANGE_SHIFT: u32 = 25;
 /// Bit offset for the width field within the info word.
+#[cfg(before_742)]
 const WIDTH_SHIFT: u32 = 25;
+#[cfg(since_742)]
+const WIDTH_SHIFT: u32 = 26;
 /// Bit offset for the length field within the info word.
+#[cfg(before_742)]
 const LENGTH_SHIFT: u32 = 31;
+#[cfg(since_742)]
+const LENGTH_SHIFT: u32 = 32;
 
 /// Mask for the 16-bit loc type id.
+#[cfg(before_742)]
 const ID_MASK: u64 = 0xFFFF;
+#[cfg(since_742)]
+const ID_MASK: u64 = 0x1FFFF;
 /// Mask for the 5-bit shape.
 const SHAPE_MASK: u64 = 0x1F;
 /// Mask for the 2-bit angle.
@@ -115,6 +152,10 @@ const LENGTH_MASK: u64 = 0x3F;
 /// - `81..113` last_clock (32 bits)
 /// - `113`     removed
 /// - `114..128` serial (14 bits)
+///
+/// From 742 the id is 17 bits (locs reach 78,747), so each info takes 38 bits
+/// and the serial 12: base `7..45`, current `45..83`, last_clock `83..115`,
+/// removed `115`, serial `116..128`.
 #[derive(Debug, Clone, Copy)]
 pub struct Loc(u128);
 
@@ -150,7 +191,7 @@ impl Loc {
     pub const fn new(
         coord: CoordGrid,
         lifetime: EntityLifeTime,
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         blockwalk: bool,
@@ -250,8 +291,8 @@ impl Loc {
     /// This reflects the current info, which may differ from the base info if the
     /// loc has been changed at runtime.
     #[inline(always)]
-    pub const fn id(&self) -> u16 {
-        (self.current_info() & ID_MASK) as u16
+    pub const fn id(&self) -> TypeId {
+        TypeId::from_int((self.current_info() & ID_MASK) as i32)
     }
 
     /// Returns the current rendering shape of this loc.
@@ -396,7 +437,7 @@ impl Loc {
     #[allow(clippy::too_many_arguments)]
     pub const fn change(
         &mut self,
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         blockwalk: bool,
@@ -461,7 +502,7 @@ impl Loc {
     #[inline(always)]
     #[allow(clippy::too_many_arguments)]
     const fn pack_info(
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         blockwalk: bool,
@@ -479,7 +520,7 @@ impl Loc {
         } else {
             length
         };
-        ((id as u64 & ID_MASK) << ID_SHIFT)
+        ((id.raw() as u64 & ID_MASK) << ID_SHIFT)
             | ((shape as u64 & SHAPE_MASK) << SHAPE_SHIFT)
             | ((angle as u64 & ANGLE_MASK) << ANGLE_SHIFT)
             | ((blockwalk as u64 & BLOCKWALK_MASK) << BLOCKWALK_SHIFT)

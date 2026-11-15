@@ -1,0 +1,54 @@
+// 5712
+[proc,clientscript_5712](int $int0)
+switch_int ($int0) {
+    case 1 :
+        %lvl_attack_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 2 :
+        %lvl_strength_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 5 :
+        %lvl_defence_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 3 :
+        %lvl_ranged_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 7 :
+        %lvl_prayer_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 4 :
+        %lvl_magic_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 6 :
+        %lvl_hitpoints_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 8 :
+        %lvl_agility_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 9 :
+        %lvl_herblore_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 10 :
+        %lvl_thieving_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 11 :
+        %lvl_crafting_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 19 :
+        %lvl_fletching_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 13 :
+        %lvl_mining_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 14 :
+        %lvl_smithing_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 15 :
+        %lvl_fishing_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 16 :
+        %lvl_cooking_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 17 :
+        %lvl_firemaking_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 18 :
+        %lvl_woodcutting_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 12 :
+        %lvl_runecraft_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 20 :
+        %lvl_slayer_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 21 :
+        %lvl_farming_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 22 :
+        %lvl_construction_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 23 :
+        %lvl_hunter_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 24 :
+        %lvl_summoning_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+    case 25 :
+        %lvl_dungeoneering_before_levelup_varc = stat_base(enum(int, stat, enum_681, $int0));
+}

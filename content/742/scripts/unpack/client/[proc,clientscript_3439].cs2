@@ -1,0 +1,19 @@
+// 3439
+[proc,clientscript_3439]
+if_sethide(interface_1128:com_194, false);
+if_sethide(interface_1128:com_90, false);
+if_sethide(interface_1128:com_119, false);
+if_sethide(interface_1128:com_157, false);
+if_sethide(interface_1128:com_231, false);
+if_sethide(interface_1128:com_268, false);
+if_sethide(interface_1128:com_305, false);
+if_settext(interface_1128:com_9, append("20", "/<tostring(20)>"));
+if_settext(interface_1128:com_137, append("20", "/<tostring(20)>"));
+if_settext(interface_1128:com_175, append("30", "/<tostring(20)>"));
+if_settext(interface_1128:com_212, append("28", "/<tostring(20)>"));
+if_settext(interface_1128:com_249, append("24", "/<tostring(20)>"));
+if_settext(interface_1128:com_286, append("26", "/<tostring(20)>"));
+if_settext(interface_1128:com_323, append("200", "/<tostring(200)>"));
+if_settext(interface_1128:com_13, tostring(%varplayerbit_5505));
+~clientscript_5389;
+~clientscript_5245;

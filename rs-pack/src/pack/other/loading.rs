@@ -1,6 +1,11 @@
 use crate::pack::text::{Number, TextCodec};
 use anyhow::{Result, ensure};
 
+#[cfg(before_742)]
+const FONT: Number = Number::I32;
+#[cfg(since_742)]
+const FONT: Number = Number::BigSmartNull;
+
 fn alignment(c: &mut TextCodec<'_>) -> Result<()> {
     c.choice("align_x", Number::U8, &["left", "centre", "right"])?;
     c.choice("align_y", Number::U8, &["top", "centre", "bottom"])?;
@@ -14,21 +19,32 @@ fn progress(c: &mut TextCodec<'_>) -> Result<()> {
     c.number("width", Number::U16)?;
     c.number("height", Number::U16)?;
     c.number("text_y", Number::I16)?;
-    c.reference("font", Number::I32, "fontmetrics")?;
+    c.reference("font", FONT, "fontmetrics")?;
     c.number("text_colour", Number::U32)?;
+    Ok(())
+}
+
+fn timing(c: &mut TextCodec<'_>, prefix: &str) -> Result<()> {
+    c.number(&format!("{prefix}duration"), Number::U24)?;
+    c.number(&format!("{prefix}fade_duration"), Number::U16)?;
     Ok(())
 }
 
 pub fn transcode(gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
     if gid == 0 {
         let version = c.number("version", Number::U8)?;
+        #[cfg(before_742)]
         ensure!(version <= 3, "Unsupported loading screen version");
+        #[cfg(since_742)]
+        ensure!(version == 4, "Unsupported loading screen version");
         let count = c.number("element_types", Number::U8)? as usize;
         c.array("element_versions", Number::U8, count)?;
         let count = c.number("sequences", Number::U8)?;
         c.number("max_sequence", Number::U8)?;
         if version > 2 {
             c.reference("default_screen", Number::I16, "screen")?;
+            #[cfg(since_742)]
+            timing(c, "default_")?;
         }
         for _ in 0..count {
             c.number("sequence", Number::U8)?;
@@ -36,12 +52,14 @@ pub fn transcode(gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
             let count = c.number("screens", Number::U16)?;
             for _ in 0..count {
                 c.reference("screen", Number::U16, "screen")?;
+                #[cfg(since_742)]
+                timing(c, "")?;
             }
         }
         return Ok(());
     }
-    c.number("duration", Number::U24)?;
-    c.number("fade_duration", Number::U16)?;
+    #[cfg(before_742)]
+    timing(c, "")?;
     let count = c.number("elements", Number::U8)?;
     for _ in 0..count {
         let kind = c.choice(
@@ -106,7 +124,7 @@ pub fn transcode(gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
                 c.number("line_height", Number::U8)?;
                 c.number("width", Number::U16)?;
                 c.number("height", Number::U16)?;
-                c.reference("font", Number::I32, "fontmetrics")?;
+                c.reference("font", FONT, "fontmetrics")?;
                 c.number("colour", Number::U32)?;
                 c.number("shadow", Number::U32)?;
             }

@@ -1,0 +1,142 @@
+// 6389
+[proc,clientscript_6389](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+if (%varplayerbit_11465 < 18) {
+    $int4 = calc($int4 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2525));
+    $int5 = calc($int5 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2530));
+    $int6 = calc($int6 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2529));
+    $int7 = calc($int7 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2528));
+    $int8 = calc($int8 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2527));
+    $int9 = calc($int9 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2526));
+}
+if (%varplayerbit_11466 < 18) {
+    $int4 = calc($int4 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2525));
+    $int5 = calc($int5 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2530));
+    $int6 = calc($int6 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2529));
+    $int7 = calc($int7 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2528));
+    $int8 = calc($int8 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2527));
+    $int9 = calc($int9 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2526));
+}
+if (%varplayerbit_11467 < 18) {
+    $int4 = calc($int4 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2525));
+    $int5 = calc($int5 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2530));
+    $int6 = calc($int6 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2529));
+    $int7 = calc($int7 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2528));
+    $int8 = calc($int8 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2527));
+    $int9 = calc($int9 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2526));
+}
+if (%varplayerbit_11468 < 18) {
+    $int4 = calc($int4 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2525));
+    $int5 = calc($int5 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2530));
+    $int6 = calc($int6 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2529));
+    $int7 = calc($int7 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2528));
+    $int8 = calc($int8 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2527));
+    $int9 = calc($int9 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2526));
+}
+cc_deleteall(interface_396:com_13);
+def_int $int10 = 392;
+def_int $int11 = 342;
+def_int $int12 = 200;
+cc_create(interface_396:com_13, ^iftype_line, 0);
+cc_setsize(0, calc($int4 * $int10 / 100), ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc((0 - $int4 * $int10 / 100) / 2), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour(0x4f9900);
+cc_setlinewid(4);
+cc_setlinedirection(false);
+cc_create(interface_396:com_13, ^iftype_line, 1);
+cc_setsize(0, calc($int7 * $int10 / 100), ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc($int7 * $int10 / 100 / 2), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour(0x4f9900);
+cc_setlinewid(4);
+cc_setlinedirection(false);
+cc_create(interface_396:com_13, ^iftype_line, 2);
+cc_setsize(calc($int5 * $int11 / 100), calc($int5 * $int12 / 100), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int5 * $int11 / 100 / 2), calc(0 - $int5 * $int12 / 100 / 2), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour(0x4f9900);
+cc_setlinewid(3);
+cc_setlinedirection(true);
+cc_create(interface_396:com_13, ^iftype_line, 3);
+cc_setsize(calc($int6 * $int11 / 100), calc($int6 * $int12 / 100), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int6 * $int11 / 100 / 2), calc($int6 * $int12 / 100 / 2), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour(0x4f9900);
+cc_setlinewid(3);
+cc_setlinedirection(false);
+cc_create(interface_396:com_13, ^iftype_line, 4);
+cc_setsize(calc($int8 * $int11 / 100), calc($int8 * $int12 / 100), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc(0 - $int8 * $int11 / 100 / 2), calc($int8 * $int12 / 100 / 2), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour(0x4f9900);
+cc_setlinewid(3);
+cc_setlinedirection(true);
+cc_create(interface_396:com_13, ^iftype_line, 5);
+cc_setsize(calc($int9 * $int11 / 100), calc($int9 * $int12 / 100), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc(0 - $int9 * $int11 / 100 / 2), calc(0 - $int9 * $int12 / 100 / 2), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour(0x4f9900);
+cc_setlinewid(3);
+cc_setlinedirection(false);
+cc_create(interface_396:com_13, ^iftype_graphic, 6);
+cc_setposition(0, calc(0 - $int4 * $int10 / 100), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(11626);
+cc_create(interface_396:com_13, ^iftype_graphic, 7);
+cc_setposition(0, calc($int7 * $int10 / 100), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(11626);
+cc_create(interface_396:com_13, ^iftype_graphic, 8);
+cc_setposition(calc($int5 * $int11 / 100), calc(0 - $int5 * $int12 / 100), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(11626);
+cc_create(interface_396:com_13, ^iftype_graphic, 9);
+cc_setposition(calc($int6 * $int11 / 100), calc($int6 * $int12 / 100), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(11626);
+cc_create(interface_396:com_13, ^iftype_graphic, 10);
+cc_setposition(calc(0 - $int8 * $int11 / 100), calc($int8 * $int12 / 100), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(11626);
+cc_create(interface_396:com_13, ^iftype_graphic, 11);
+cc_setposition(calc(0 - $int9 * $int11 / 100), calc(0 - $int9 * $int12 / 100), ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(11626);
+def_int $int13 = 0;
+if (%varplayerbit_11457 = 0 | %varplayerbit_11458 = 0 | %varplayerbit_11459 = 0) {
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2525));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2525));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2525));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2525));
+}
+if (%varplayerbit_11457 = 1 | %varplayerbit_11458 = 1 | %varplayerbit_11459 = 1) {
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2526));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2526));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2526));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2526));
+}
+if (%varplayerbit_11457 = 2 | %varplayerbit_11458 = 2 | %varplayerbit_11459 = 2) {
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2527));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2527));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2527));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2527));
+}
+if (%varplayerbit_11457 = 3 | %varplayerbit_11458 = 3 | %varplayerbit_11459 = 3) {
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2528));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2528));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2528));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2528));
+}
+if (%varplayerbit_11457 = 4 | %varplayerbit_11458 = 4 | %varplayerbit_11459 = 4) {
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2529));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2529));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2529));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2529));
+}
+if (%varplayerbit_11457 = 5 | %varplayerbit_11458 = 5 | %varplayerbit_11459 = 5) {
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11465), param_2530));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11466), param_2530));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11467), param_2530));
+    $int13 = calc($int13 + oc_param(enum(int, obj, enum_5933, %varplayerbit_11468), param_2530));
+}
+if_settext(interface_396:com_12, tostring($int13));

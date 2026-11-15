@@ -1,0 +1,24 @@
+// 6213
+[proc,clientscript_6213]
+if (%varplayer_2611 = 1) {
+    switch_int (map_lang) {
+        case 0 :
+            if_setgraphic(lobbyscreen:com_344, 10944);
+        case 1 :
+            if_setgraphic(lobbyscreen:com_344, 10946);
+        case 2 :
+            if_setgraphic(lobbyscreen:com_344, 10945);
+        case 3 :
+            if_setgraphic(lobbyscreen:com_344, 10947);
+    }
+    if_sethide(lobbyscreen:com_346, true);
+    if_setposition(lobbyscreen:com_352, if_getx(lobbyscreen:com_352), 130, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(lobbyscreen:com_351, false);
+    if_settext(lobbyscreen:com_351, "");
+    if_settext(lobbyscreen:com_353, " - Over 150 extra Quests<br> - 9 Exclusive Skills<br> - Over 40 Minigames<br> - Join the Members Loyalty Programme<br> - Extra Spins on the Squeal of Fortune<br> - Unlock over 400 extra bank spaces<br> - And much more!<br><br>You'll also get some extra rewards for validating,<br>including a title, cape and bank space!");
+    if_setposition(lobbyscreen:com_353, if_getx(lobbyscreen:com_353), 181, ^setpos_abs_left, ^setpos_abs_top);
+    if_settext(lobbyscreen:com_352, "Congratulations! You're eligible for a 14 day Free Members trial! Start your trial now by validating your email and you'll soon be enjoying the full benefits of membership, including:");
+    if_setsize(lobbyscreen:com_346, 300, if_getheight(lobbyscreen:com_346), ^setsize_abs, ^setsize_abs);
+    if_setonvartransmit(lobbyscreen:com_338, null);
+    if_sethide(lobbyscreen:com_377, true);
+}

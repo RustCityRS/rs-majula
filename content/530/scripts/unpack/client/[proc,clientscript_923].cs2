@@ -1,0 +1,9 @@
+// 923
+[proc,clientscript_923](component $component0)
+if (%varplayerbit_4536 = 1) {
+    if_setop($component0, 1, "Turn on");
+    if_setgraphic($component0, 782);
+} else {
+    if_setop($component0, 1, "Turn off");
+    if_setgraphic($component0, 781);
+}

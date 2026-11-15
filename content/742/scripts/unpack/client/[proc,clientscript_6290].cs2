@@ -1,0 +1,17 @@
+// 6290
+[proc,clientscript_6290](int $int0)
+cc_create(interface_1296:com_3, ^iftype_text, 0);
+cc_setsize(90, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+%varclient_1933 = 0;
+if ($int0 < 1) {
+    cc_settext("Fee: <~tostring_spacer($int0, ",")>");
+    cc_setcolour(^red);
+} else {
+    cc_settext("Fee: + <~tostring_spacer($int0, ",")>");
+    cc_setcolour(^green);
+}
+cc_settextshadow(true);
+if_setontimer(interface_1296:com_3, "clientscript_6291");

@@ -1,0 +1,11 @@
+// 5193
+[proc,clientscript_5193]()(int)
+switch_int (%varplayerbit_9646) {
+    case 1 :
+        return(%varplayerbit_9647);
+    case 2 :
+        return(%varplayerbit_9648);
+    case 3 :
+        return(%varplayerbit_9649);
+}
+return(-1);

@@ -1,0 +1,408 @@
+// 5019
+[proc,clientscript_5019](int $int0)(int, int, int, int)
+switch_int ($int0) {
+    case 0 :
+        return(%varclan_871, %varclan_22, %varclan_23, %varclan_24);
+    case 1 :
+        return(%varclan_872, %varclan_26, %varclan_27, %varclan_28);
+    case 2 :
+        return(%varclan_873, %varclan_30, %varclan_31, %varclan_32);
+    case 3 :
+        return(%varclan_874, %varclan_34, %varclan_35, %varclan_36);
+    case 4 :
+        return(%varclan_875, %varclan_38, %varclan_39, %varclan_40);
+    case 5 :
+        return(%varclan_876, %varclan_42, %varclan_43, %varclan_44);
+    case 6 :
+        return(%varclan_877, %varclan_46, %varclan_47, %varclan_48);
+    case 7 :
+        return(%varclan_878, %varclan_50, %varclan_51, %varclan_52);
+    case 8 :
+        return(%varclan_879, %varclan_54, %varclan_55, %varclan_56);
+    case 9 :
+        return(%varclan_880, %varclan_58, %varclan_59, %varclan_60);
+    case 10 :
+        return(%varclan_881, %varclan_62, %varclan_63, %varclan_64);
+    case 11 :
+        return(%varclan_882, %varclan_66, %varclan_67, %varclan_68);
+    case 12 :
+        return(%varclan_883, %varclan_70, %varclan_71, %varclan_72);
+    case 13 :
+        return(%varclan_884, %varclan_74, %varclan_75, %varclan_76);
+    case 14 :
+        return(%varclan_885, %varclan_78, %varclan_79, %varclan_80);
+    case 15 :
+        return(%varclan_886, %varclan_82, %varclan_83, %varclan_84);
+    case 16 :
+        return(%varclan_887, %varclan_86, %varclan_87, %varclan_88);
+    case 17 :
+        return(%varclan_888, %varclan_90, %varclan_91, %varclan_92);
+    case 18 :
+        return(%varclan_889, %varclan_94, %varclan_95, %varclan_96);
+    case 19 :
+        return(%varclan_890, %varclan_98, %varclan_99, %varclan_100);
+    case 20 :
+        return(%varclan_891, %varclan_102, %varclan_103, %varclan_104);
+    case 21 :
+        return(%varclan_892, %varclan_106, %varclan_107, %varclan_108);
+    case 22 :
+        return(%varclan_893, %varclan_110, %varclan_111, %varclan_112);
+    case 23 :
+        return(%varclan_894, %varclan_114, %varclan_115, %varclan_116);
+    case 24 :
+        return(%varclan_895, %varclan_118, %varclan_119, %varclan_120);
+    case 25 :
+        return(%varclan_896, %varclan_122, %varclan_123, %varclan_124);
+    case 26 :
+        return(%varclan_897, %varclan_126, %varclan_127, %varclan_128);
+    case 27 :
+        return(%varclan_898, %varclan_130, %varclan_131, %varclan_132);
+    case 28 :
+        return(%varclan_899, %varclan_134, %varclan_135, %varclan_136);
+    case 29 :
+        return(%varclan_900, %varclan_138, %varclan_139, %varclan_140);
+    case 30 :
+        return(%varclan_901, %varclan_142, %varclan_143, %varclan_144);
+    case 31 :
+        return(%varclan_902, %varclan_146, %varclan_147, %varclan_148);
+    case 32 :
+        return(%varclan_903, %varclan_150, %varclan_151, %varclan_152);
+    case 33 :
+        return(%varclan_904, %varclan_154, %varclan_155, %varclan_156);
+    case 34 :
+        return(%varclan_905, %varclan_158, %varclan_159, %varclan_160);
+    case 35 :
+        return(%varclan_906, %varclan_162, %varclan_163, %varclan_164);
+    case 36 :
+        return(%varclan_907, %varclan_166, %varclan_167, %varclan_168);
+    case 37 :
+        return(%varclan_908, %varclan_170, %varclan_171, %varclan_172);
+    case 38 :
+        return(%varclan_909, %varclan_174, %varclan_175, %varclan_176);
+    case 39 :
+        return(%varclan_910, %varclan_178, %varclan_179, %varclan_180);
+    case 40 :
+        return(%varclan_911, %varclan_182, %varclan_183, %varclan_184);
+    case 41 :
+        return(%varclan_912, %varclan_186, %varclan_187, %varclan_188);
+    case 42 :
+        return(%varclan_913, %varclan_190, %varclan_191, %varclan_192);
+    case 43 :
+        return(%varclan_914, %varclan_194, %varclan_195, %varclan_196);
+    case 44 :
+        return(%varclan_915, %varclan_198, %varclan_199, %varclan_200);
+    case 45 :
+        return(%varclan_916, %varclan_202, %varclan_203, %varclan_204);
+    case 46 :
+        return(%varclan_917, %varclan_206, %varclan_207, %varclan_208);
+    case 47 :
+        return(%varclan_918, %varclan_210, %varclan_211, %varclan_212);
+    case 48 :
+        return(%varclan_919, %varclan_214, %varclan_215, %varclan_216);
+    case 49 :
+        return(%varclan_920, %varclan_218, %varclan_219, %varclan_220);
+    case 50 :
+        return(%varclan_921, %varclan_222, %varclan_223, %varclan_224);
+    case 51 :
+        return(%varclan_922, %varclan_226, %varclan_227, %varclan_228);
+    case 52 :
+        return(%varclan_923, %varclan_230, %varclan_231, %varclan_232);
+    case 53 :
+        return(%varclan_924, %varclan_234, %varclan_235, %varclan_236);
+    case 54 :
+        return(%varclan_925, %varclan_238, %varclan_239, %varclan_240);
+    case 55 :
+        return(%varclan_926, %varclan_242, %varclan_243, %varclan_244);
+    case 56 :
+        return(%varclan_927, %varclan_246, %varclan_247, %varclan_248);
+    case 57 :
+        return(%varclan_928, %varclan_250, %varclan_251, %varclan_252);
+    case 58 :
+        return(%varclan_929, %varclan_254, %varclan_255, %varclan_256);
+    case 59 :
+        return(%varclan_930, %varclan_258, %varclan_259, %varclan_260);
+    case 60 :
+        return(%varclan_931, %varclan_262, %varclan_263, %varclan_264);
+    case 61 :
+        return(%varclan_932, %varclan_266, %varclan_267, %varclan_268);
+    case 62 :
+        return(%varclan_933, %varclan_270, %varclan_271, %varclan_272);
+    case 63 :
+        return(%varclan_934, %varclan_274, %varclan_275, %varclan_276);
+    case 64 :
+        return(%varclan_935, %varclan_278, %varclan_279, %varclan_280);
+    case 65 :
+        return(%varclan_936, %varclan_282, %varclan_283, %varclan_284);
+    case 66 :
+        return(%varclan_937, %varclan_286, %varclan_287, %varclan_288);
+    case 67 :
+        return(%varclan_938, %varclan_290, %varclan_291, %varclan_292);
+    case 68 :
+        return(%varclan_939, %varclan_294, %varclan_295, %varclan_296);
+    case 69 :
+        return(%varclan_940, %varclan_298, %varclan_299, %varclan_300);
+    case 70 :
+        return(%varclan_941, %varclan_302, %varclan_303, %varclan_304);
+    case 71 :
+        return(%varclan_942, %varclan_306, %varclan_307, %varclan_308);
+    case 72 :
+        return(%varclan_943, %varclan_310, %varclan_311, %varclan_312);
+    case 73 :
+        return(%varclan_944, %varclan_314, %varclan_315, %varclan_316);
+    case 74 :
+        return(%varclan_945, %varclan_318, %varclan_319, %varclan_320);
+    case 75 :
+        return(%varclan_946, %varclan_322, %varclan_323, %varclan_324);
+    case 76 :
+        return(%varclan_947, %varclan_326, %varclan_327, %varclan_328);
+    case 77 :
+        return(%varclan_948, %varclan_330, %varclan_331, %varclan_332);
+    case 78 :
+        return(%varclan_949, %varclan_334, %varclan_335, %varclan_336);
+    case 79 :
+        return(%varclan_950, %varclan_338, %varclan_339, %varclan_340);
+    case 80 :
+        return(%varclan_951, %varclan_342, %varclan_343, %varclan_344);
+    case 81 :
+        return(%varclan_952, %varclan_346, %varclan_347, %varclan_348);
+    case 82 :
+        return(%varclan_953, %varclan_350, %varclan_351, %varclan_352);
+    case 83 :
+        return(%varclan_954, %varclan_354, %varclan_355, %varclan_356);
+    case 84 :
+        return(%varclan_955, %varclan_358, %varclan_359, %varclan_360);
+    case 85 :
+        return(%varclan_956, %varclan_362, %varclan_363, %varclan_364);
+    case 86 :
+        return(%varclan_957, %varclan_366, %varclan_367, %varclan_368);
+    case 87 :
+        return(%varclan_958, %varclan_370, %varclan_371, %varclan_372);
+    case 88 :
+        return(%varclan_959, %varclan_374, %varclan_375, %varclan_376);
+    case 89 :
+        return(%varclan_960, %varclan_378, %varclan_379, %varclan_380);
+    case 90 :
+        return(%varclan_961, %varclan_382, %varclan_383, %varclan_384);
+    case 91 :
+        return(%varclan_962, %varclan_386, %varclan_387, %varclan_388);
+    case 92 :
+        return(%varclan_963, %varclan_390, %varclan_391, %varclan_392);
+    case 93 :
+        return(%varclan_964, %varclan_394, %varclan_395, %varclan_396);
+    case 94 :
+        return(%varclan_965, %varclan_398, %varclan_399, %varclan_400);
+    case 95 :
+        return(%varclan_966, %varclan_402, %varclan_403, %varclan_404);
+    case 96 :
+        return(%varclan_967, %varclan_406, %varclan_407, %varclan_408);
+    case 97 :
+        return(%varclan_968, %varclan_410, %varclan_411, %varclan_412);
+    case 98 :
+        return(%varclan_969, %varclan_414, %varclan_415, %varclan_416);
+    case 99 :
+        return(%varclan_970, %varclan_418, %varclan_419, %varclan_420);
+    case 100 :
+        return(%varclan_971, %varclan_422, %varclan_423, %varclan_424);
+    case 101 :
+        return(%varclan_972, %varclan_426, %varclan_427, %varclan_428);
+    case 102 :
+        return(%varclan_973, %varclan_430, %varclan_431, %varclan_432);
+    case 103 :
+        return(%varclan_974, %varclan_434, %varclan_435, %varclan_436);
+    case 104 :
+        return(%varclan_975, %varclan_438, %varclan_439, %varclan_440);
+    case 105 :
+        return(%varclan_976, %varclan_442, %varclan_443, %varclan_444);
+    case 106 :
+        return(%varclan_977, %varclan_446, %varclan_447, %varclan_448);
+    case 107 :
+        return(%varclan_978, %varclan_450, %varclan_451, %varclan_452);
+    case 108 :
+        return(%varclan_979, %varclan_454, %varclan_455, %varclan_456);
+    case 109 :
+        return(%varclan_980, %varclan_458, %varclan_459, %varclan_460);
+    case 110 :
+        return(%varclan_981, %varclan_462, %varclan_463, %varclan_464);
+    case 111 :
+        return(%varclan_982, %varclan_466, %varclan_467, %varclan_468);
+    case 112 :
+        return(%varclan_983, %varclan_470, %varclan_471, %varclan_472);
+    case 113 :
+        return(%varclan_984, %varclan_474, %varclan_475, %varclan_476);
+    case 114 :
+        return(%varclan_985, %varclan_478, %varclan_479, %varclan_480);
+    case 115 :
+        return(%varclan_986, %varclan_482, %varclan_483, %varclan_484);
+    case 116 :
+        return(%varclan_987, %varclan_486, %varclan_487, %varclan_488);
+    case 117 :
+        return(%varclan_988, %varclan_490, %varclan_491, %varclan_492);
+    case 118 :
+        return(%varclan_989, %varclan_494, %varclan_495, %varclan_496);
+    case 119 :
+        return(%varclan_990, %varclan_498, %varclan_499, %varclan_500);
+    case 120 :
+        return(%varclan_991, %varclan_502, %varclan_503, %varclan_504);
+    case 121 :
+        return(%varclan_992, %varclan_506, %varclan_507, %varclan_508);
+    case 122 :
+        return(%varclan_993, %varclan_510, %varclan_511, %varclan_512);
+    case 123 :
+        return(%varclan_994, %varclan_514, %varclan_515, %varclan_516);
+    case 124 :
+        return(%varclan_995, %varclan_518, %varclan_519, %varclan_520);
+    case 125 :
+        return(%varclan_996, %varclan_522, %varclan_523, %varclan_524);
+    case 126 :
+        return(%varclan_997, %varclan_526, %varclan_527, %varclan_528);
+    case 127 :
+        return(%varclan_998, %varclan_530, %varclan_531, %varclan_532);
+    case 128 :
+        return(%varclan_999, %varclan_534, %varclan_535, %varclan_536);
+    case 129 :
+        return(%varclan_1000, %varclan_538, %varclan_539, %varclan_540);
+    case 130 :
+        return(%varclan_1001, %varclan_542, %varclan_543, %varclan_544);
+    case 131 :
+        return(%varclan_1002, %varclan_546, %varclan_547, %varclan_548);
+    case 132 :
+        return(%varclan_1003, %varclan_550, %varclan_551, %varclan_552);
+    case 133 :
+        return(%varclan_1004, %varclan_554, %varclan_555, %varclan_556);
+    case 134 :
+        return(%varclan_1005, %varclan_558, %varclan_559, %varclan_560);
+    case 135 :
+        return(%varclan_1006, %varclan_562, %varclan_563, %varclan_564);
+    case 136 :
+        return(%varclan_1007, %varclan_566, %varclan_567, %varclan_568);
+    case 137 :
+        return(%varclan_1008, %varclan_570, %varclan_571, %varclan_572);
+    case 138 :
+        return(%varclan_1009, %varclan_574, %varclan_575, %varclan_576);
+    case 139 :
+        return(%varclan_1010, %varclan_578, %varclan_579, %varclan_580);
+    case 140 :
+        return(%varclan_1011, %varclan_582, %varclan_583, %varclan_584);
+    case 141 :
+        return(%varclan_1012, %varclan_586, %varclan_587, %varclan_588);
+    case 142 :
+        return(%varclan_1013, %varclan_590, %varclan_591, %varclan_592);
+    case 143 :
+        return(%varclan_1014, %varclan_594, %varclan_595, %varclan_596);
+    case 144 :
+        return(%varclan_1015, %varclan_598, %varclan_599, %varclan_600);
+    case 145 :
+        return(%varclan_1016, %varclan_602, %varclan_603, %varclan_604);
+    case 146 :
+        return(%varclan_1017, %varclan_606, %varclan_607, %varclan_608);
+    case 147 :
+        return(%varclan_1018, %varclan_610, %varclan_611, %varclan_612);
+    case 148 :
+        return(%varclan_1019, %varclan_614, %varclan_615, %varclan_616);
+    case 149 :
+        return(%varclan_1020, %varclan_618, %varclan_619, %varclan_620);
+    case 150 :
+        return(%varclan_1021, %varclan_622, %varclan_623, %varclan_624);
+    case 151 :
+        return(%varclan_1022, %varclan_626, %varclan_627, %varclan_628);
+    case 152 :
+        return(%varclan_1023, %varclan_630, %varclan_631, %varclan_632);
+    case 153 :
+        return(%varclan_1024, %varclan_634, %varclan_635, %varclan_636);
+    case 154 :
+        return(%varclan_1025, %varclan_638, %varclan_639, %varclan_640);
+    case 155 :
+        return(%varclan_1026, %varclan_642, %varclan_643, %varclan_644);
+    case 156 :
+        return(%varclan_1027, %varclan_646, %varclan_647, %varclan_648);
+    case 157 :
+        return(%varclan_1028, %varclan_650, %varclan_651, %varclan_652);
+    case 158 :
+        return(%varclan_1029, %varclan_654, %varclan_655, %varclan_656);
+    case 159 :
+        return(%varclan_1030, %varclan_658, %varclan_659, %varclan_660);
+    case 160 :
+        return(%varclan_1031, %varclan_662, %varclan_663, %varclan_664);
+    case 161 :
+        return(%varclan_1032, %varclan_666, %varclan_667, %varclan_668);
+    case 162 :
+        return(%varclan_1033, %varclan_670, %varclan_671, %varclan_672);
+    case 163 :
+        return(%varclan_1034, %varclan_674, %varclan_675, %varclan_676);
+    case 164 :
+        return(%varclan_1035, %varclan_678, %varclan_679, %varclan_680);
+    case 165 :
+        return(%varclan_1036, %varclan_682, %varclan_683, %varclan_684);
+    case 166 :
+        return(%varclan_1037, %varclan_686, %varclan_687, %varclan_688);
+    case 167 :
+        return(%varclan_1038, %varclan_690, %varclan_691, %varclan_692);
+    case 168 :
+        return(%varclan_1039, %varclan_694, %varclan_695, %varclan_696);
+    case 169 :
+        return(%varclan_1040, %varclan_698, %varclan_699, %varclan_700);
+    case 170 :
+        return(%varclan_1041, %varclan_702, %varclan_703, %varclan_704);
+    case 171 :
+        return(%varclan_1042, %varclan_706, %varclan_707, %varclan_708);
+    case 172 :
+        return(%varclan_1043, %varclan_710, %varclan_711, %varclan_712);
+    case 173 :
+        return(%varclan_1044, %varclan_714, %varclan_715, %varclan_716);
+    case 174 :
+        return(%varclan_1045, %varclan_718, %varclan_719, %varclan_720);
+    case 175 :
+        return(%varclan_1046, %varclan_722, %varclan_723, %varclan_724);
+    case 176 :
+        return(%varclan_1047, %varclan_726, %varclan_727, %varclan_728);
+    case 177 :
+        return(%varclan_1048, %varclan_730, %varclan_731, %varclan_732);
+    case 178 :
+        return(%varclan_1049, %varclan_734, %varclan_735, %varclan_736);
+    case 179 :
+        return(%varclan_1050, %varclan_738, %varclan_739, %varclan_740);
+    case 180 :
+        return(%varclan_1051, %varclan_742, %varclan_743, %varclan_744);
+    case 181 :
+        return(%varclan_1052, %varclan_746, %varclan_747, %varclan_748);
+    case 182 :
+        return(%varclan_1053, %varclan_750, %varclan_751, %varclan_752);
+    case 183 :
+        return(%varclan_1054, %varclan_754, %varclan_755, %varclan_756);
+    case 184 :
+        return(%varclan_1055, %varclan_758, %varclan_759, %varclan_760);
+    case 185 :
+        return(%varclan_1056, %varclan_762, %varclan_763, %varclan_764);
+    case 186 :
+        return(%varclan_1057, %varclan_766, %varclan_767, %varclan_768);
+    case 187 :
+        return(%varclan_1058, %varclan_770, %varclan_771, %varclan_772);
+    case 188 :
+        return(%varclan_1059, %varclan_774, %varclan_775, %varclan_776);
+    case 189 :
+        return(%varclan_1060, %varclan_778, %varclan_779, %varclan_780);
+    case 190 :
+        return(%varclan_1061, %varclan_782, %varclan_783, %varclan_784);
+    case 191 :
+        return(%varclan_1062, %varclan_786, %varclan_787, %varclan_788);
+    case 192 :
+        return(%varclan_1063, %varclan_790, %varclan_791, %varclan_792);
+    case 193 :
+        return(%varclan_1064, %varclan_794, %varclan_795, %varclan_796);
+    case 194 :
+        return(%varclan_1065, %varclan_798, %varclan_799, %varclan_800);
+    case 195 :
+        return(%varclan_1066, %varclan_802, %varclan_803, %varclan_804);
+    case 196 :
+        return(%varclan_1067, %varclan_806, %varclan_807, %varclan_808);
+    case 197 :
+        return(%varclan_1068, %varclan_810, %varclan_811, %varclan_812);
+    case 198 :
+        return(%varclan_1069, %varclan_814, %varclan_815, %varclan_816);
+    case 199 :
+        return(%varclan_1070, %varclan_818, %varclan_819, %varclan_820);
+    case 200 :
+        return(0, -1, -1, -1);
+}
+return(0, -1, -1, -1);
+return(0, 0, 0, 0);

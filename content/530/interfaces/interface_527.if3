@@ -1,0 +1,2928 @@
+// 527:0
+[vm_museum_map_level_0]
+type=model
+x=100
+y=6
+width=338
+height=325
+layer=vm_lvl_0
+model=model_25517
+modelorigin=5,0
+modelzoom=655
+modelunknown=65036,3000,0
+
+// 527:1
+[vm_museum_map_scroll]
+type=model
+x=-18
+y=-133
+width=550
+height=537
+layer=content_layer
+model=model_25513
+modelorigin=0,-2
+modelzoom=655
+modelunknown=59,3000,0
+
+// 527:2
+[vm_lvl_0]
+type=layer
+width=512
+height=334
+layer=content_layer
+hide=yes
+
+// 527:3
+[vm_lvl_1]
+type=layer
+width=512
+height=334
+layer=content_layer
+hide=yes
+
+// 527:4
+[com_4]
+type=text
+x=10
+y=10
+width=32
+height=32
+layer=com_71
+textfont=fontmetrics_496
+text=1st Age
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:5
+[vm_lvl_2]
+type=layer
+width=512
+height=334
+layer=content_layer
+hide=yes
+
+// 527:6
+[vm_map_close]
+type=graphic
+x=478
+y=8
+width=26
+height=23
+layer=content_layer
+graphic=graphic_537
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 538)
+onmouseleave=graphic_swapper(event_com, 537)
+onop=if_close
+
+// 527:7
+[vm_level_basement_layer]
+type=layer
+width=512
+height=334
+layer=content_layer
+hide=yes
+
+// 527:8
+[vm_map_arrowheads]
+type=model
+x=292
+y=73
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_9)
+onmouseleave=comp_sethide(true, interface_527:com_9)
+
+// 527:9
+[com_9]
+type=layer
+x=264
+y=72
+width=90
+height=48
+layer=vm_lvl_0
+hide=yes
+
+// 527:10
+[com_10]
+type=text
+x=1
+y=5
+width=89
+height=32
+layer=com_9
+textfont=fontmetrics_496
+text=Arrowheads display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:11
+[vm_map_saranthium_coin]
+type=model
+x=225
+y=176
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_12)
+onmouseleave=comp_sethide(true, interface_527:com_12)
+
+// 527:12
+[com_12]
+type=layer
+x=198
+y=175
+width=92
+height=48
+layer=vm_lvl_0
+hide=yes
+
+// 527:13
+[com_13]
+type=text
+x=21
+y=5
+width=50
+height=32
+layer=com_12
+textfont=fontmetrics_496
+text=Saranthium coin display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:14
+[vm_map_senntisten_coin]
+type=model
+x=225
+y=123
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_15)
+onmouseleave=comp_sethide(true, interface_527:com_15)
+
+// 527:15
+[com_15]
+type=layer
+x=198
+y=122
+width=92
+height=48
+layer=vm_lvl_0
+hide=yes
+
+// 527:16
+[com_16]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_15
+textfont=fontmetrics_496
+text=Senntisten coin display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:17
+[vm_map_jewllery]
+type=model
+x=225
+y=23
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_18)
+onmouseleave=comp_sethide(true, interface_527:com_18)
+
+// 527:18
+[com_18]
+type=layer
+x=188
+y=22
+width=102
+height=48
+layer=vm_lvl_0
+hide=yes
+
+// 527:19
+[com_19]
+type=text
+y=10
+width=102
+height=32
+layer=com_18
+textfont=fontmetrics_496
+text=Jewellery display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:20
+[vm_map_pottery]
+type=model
+x=226
+y=74
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_21)
+onmouseleave=comp_sethide(true, interface_527:com_21)
+
+// 527:21
+[com_21]
+type=layer
+x=197
+y=73
+width=92
+height=48
+layer=vm_lvl_0
+hide=yes
+
+// 527:22
+[com_22]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_21
+textfont=fontmetrics_496
+text=Pottery display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:23
+[vm_map_saradomin_symbol_ancient]
+type=model
+x=292
+y=122
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_24)
+onmouseleave=comp_sethide(true, interface_527:com_24)
+
+// 527:24
+[com_24]
+type=layer
+x=263
+y=121
+width=92
+height=60
+layer=vm_lvl_0
+hide=yes
+
+// 527:25
+[com_25]
+type=text
+width=90
+height=60
+layer=com_24
+textfont=fontmetrics_496
+text=Ancient Saradomin symbol display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:26
+[vm_map_saradomin_symbol_old]
+type=model
+x=293
+y=177
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_27)
+onmouseleave=comp_sethide(true, interface_527:com_27)
+
+// 527:27
+[com_27]
+type=layer
+x=264
+y=174
+width=92
+height=60
+layer=vm_lvl_0
+hide=yes
+
+// 527:28
+[com_28]
+type=text
+width=90
+height=60
+layer=com_27
+textfont=fontmetrics_496
+text=Old Saradomin symbol display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:29
+[vm_map_tablet]
+type=model
+x=355
+y=121
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_30)
+onmouseleave=comp_sethide(true, interface_527:com_30)
+
+// 527:30
+[com_30]
+type=layer
+x=326
+y=120
+width=92
+height=50
+layer=vm_lvl_0
+hide=yes
+
+// 527:31
+[com_31]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_30
+textfont=fontmetrics_496
+text=Zaros tablet display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:32
+[vm_map_talisman]
+type=model
+x=354
+y=177
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_33)
+onmouseleave=comp_sethide(true, interface_527:com_33)
+
+// 527:33
+[com_33]
+type=layer
+x=326
+y=174
+width=92
+height=50
+layer=vm_lvl_0
+hide=yes
+
+// 527:34
+[com_34]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_33
+textfont=fontmetrics_496
+text=Ancient talisman display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:35
+[vm_map_vase]
+type=model
+x=291
+y=24
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_36)
+onmouseleave=comp_sethide(true, interface_527:com_36)
+
+// 527:36
+[com_36]
+type=layer
+x=263
+y=23
+width=92
+height=50
+layer=vm_lvl_0
+hide=yes
+
+// 527:37
+[com_37]
+type=text
+x=22
+y=8
+width=50
+height=32
+layer=com_36
+textfont=fontmetrics_496
+text=Vase display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:38
+[vm_map_soil_layers]
+type=model
+x=156
+y=176
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_39)
+onmouseleave=comp_sethide(true, interface_527:com_39)
+
+// 527:39
+[com_39]
+type=layer
+x=126
+y=174
+width=92
+height=50
+layer=vm_lvl_0
+hide=yes
+
+// 527:40
+[com_40]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_39
+textfont=fontmetrics_496
+text=Soil layers display
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:41
+[lvl0_level_down_1_1]
+type=text
+x=124
+y=50
+width=89
+height=32
+layer=vm_lvl_0
+textfont=fontmetrics_495
+text=Stairs to<br>Natural History<br>exhibit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Natural History exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:42
+[lvl0_level_up_1]
+type=text
+x=347
+y=40
+width=89
+height=32
+layer=vm_lvl_0
+textfont=fontmetrics_495
+text=Stairs to<br>Timeline<br>exhibit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Timeline exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:43
+[digsite_cleaning_area]
+type=text
+x=222
+y=261
+width=89
+height=32
+layer=vm_lvl_0
+textfont=fontmetrics_495
+text=Dig Site cleaning area
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:44
+[lvl0_level_up]
+type=text
+x=433
+y=301
+width=89
+height=32
+layer=vm_lvl_0
+textfont=fontmetrics_496
+text=Level up
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Timeline exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:45
+[vm_museum_map_level_1]
+type=model
+x=100
+y=6
+width=338
+height=325
+layer=vm_lvl_1
+model=model_25518
+modelorigin=5,0
+modelzoom=655
+modelunknown=0,3000,0
+onmouseleave=comp_sethide(true, interface_527:com_9)
+
+// 527:46
+[vm_map_map_of_rs]
+type=model
+x=290
+y=38
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_70)
+onmouseleave=comp_sethide(true, interface_527:com_70)
+
+// 527:47
+[vm_map_staff_of_armadyll]
+type=model
+x=221
+y=38
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_73)
+onmouseleave=comp_sethide(true, interface_527:com_73)
+
+// 527:48
+[vm_map_three_god_symbols]
+type=model
+x=187
+y=38
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_75)
+onmouseleave=comp_sethide(true, interface_527:com_75)
+
+// 527:49
+[vm_map_terracotta_statue]
+type=model
+x=153
+y=38
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_77)
+onmouseleave=comp_sethide(true, interface_527:com_77)
+
+// 527:50
+[vm_map_random]
+type=model
+x=116
+y=108
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_79)
+onmouseleave=comp_sethide(true, interface_527:com_79)
+
+// 527:51
+[vm_map_druid_stone_circle]
+type=model
+x=182
+y=108
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_81)
+onmouseleave=comp_sethide(true, interface_527:com_81)
+
+// 527:52
+[vm_map_world_map]
+type=model
+x=251
+y=107
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_83)
+onmouseleave=comp_sethide(true, interface_527:com_83)
+
+// 527:53
+[vm_map_robert_the_strong]
+type=model
+x=148
+y=108
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_85)
+onmouseleave=comp_sethide(true, interface_527:com_85)
+
+// 527:54
+[vm_map_star_chart]
+type=model
+x=217
+y=108
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_87)
+onmouseleave=comp_sethide(true, interface_527:com_87)
+
+// 527:55
+[vm_map_seven_knights_helms]
+type=model
+x=323
+y=108
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_89)
+onmouseleave=comp_sethide(true, interface_527:com_89)
+
+// 527:56
+[vm_map_shield_of_arrav]
+type=model
+x=287
+y=108
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_91)
+onmouseleave=comp_sethide(true, interface_527:com_91)
+
+// 527:57
+[vm_meeting_history1]
+type=model
+x=256
+y=38
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_71)
+onmouseleave=comp_sethide(true, interface_527:com_71)
+
+// 527:58
+[vm_map_map_of_morytania]
+type=model
+x=390
+y=182
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_93)
+onmouseleave=comp_sethide(true, interface_527:com_93)
+
+// 527:59
+[vm_map_bridge]
+type=model
+x=356
+y=182
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_95)
+onmouseleave=comp_sethide(true, interface_527:com_95)
+
+// 527:60
+[vm_map_runestone_rock]
+type=model
+x=322
+y=183
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_97)
+onmouseleave=comp_sethide(true, interface_527:com_97)
+
+// 527:61
+[vm_map_black_knight_armour]
+type=model
+x=252
+y=182
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_99)
+onmouseleave=comp_sethide(true, interface_527:com_99)
+
+// 527:62
+[vm_map_infinity_armour]
+type=model
+x=219
+y=182
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_101)
+onmouseleave=comp_sethide(true, interface_527:com_101)
+
+// 527:63
+[vm_map_observatory]
+type=model
+x=182
+y=244
+width=33
+height=41
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2830
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_103)
+onmouseleave=comp_sethide(true, interface_527:com_103)
+
+// 527:64
+[vm_map_silverlight]
+type=model
+x=215
+y=243
+width=35
+height=43
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2702
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_105)
+onmouseleave=comp_sethide(true, interface_527:com_105)
+
+// 527:65
+[vm_map_werewolf_skin]
+type=model
+x=249
+y=243
+width=35
+height=43
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2702
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_107)
+onmouseleave=comp_sethide(true, interface_527:com_107)
+
+// 527:66
+[vm_map_barbarian_weapons]
+type=model
+x=284
+y=243
+width=35
+height=43
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2702
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_109)
+onmouseleave=comp_sethide(true, interface_527:com_109)
+
+// 527:67
+[vm_map_bow_sword_runes]
+type=model
+x=318
+y=243
+width=35
+height=43
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2702
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_111)
+onmouseleave=comp_sethide(true, interface_527:com_111)
+
+// 527:68
+[vm_map_barbarian_village]
+type=model
+x=352
+y=244
+width=35
+height=43
+layer=vm_lvl_1
+model=model_25514
+modelangle=80,1807,0
+modelzoom=2702
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_113)
+onmouseleave=comp_sethide(true, interface_527:com_113)
+
+// 527:69
+[com_69]
+type=model
+x=287
+y=181
+width=35
+height=44
+layer=vm_lvl_1
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63736,3000,0
+onmouseover=comp_sethide(false, interface_527:com_114)
+onmouseleave=comp_sethide(true, interface_527:com_114)
+
+// 527:70
+[com_70]
+type=layer
+x=257
+y=33
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:71
+[com_71]
+type=layer
+x=245
+y=29
+width=52
+height=54
+layer=vm_lvl_1
+hide=yes
+
+// 527:72
+[com_72]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_70
+textfont=fontmetrics_496
+text=1st-2nd Ages
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:73
+[com_73]
+type=layer
+x=191
+y=33
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:74
+[com_74]
+type=text
+x=22
+y=5
+width=50
+height=32
+layer=com_73
+textfont=fontmetrics_496
+text=End of<br>2nd Age
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:75
+[com_75]
+type=layer
+x=152
+y=33
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:76
+[com_76]
+type=text
+x=7
+y=5
+width=83
+height=32
+layer=com_75
+textfont=fontmetrics_496
+text=3rd Age<br>4000 years long
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:77
+[com_77]
+type=layer
+x=124
+y=33
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:78
+[com_78]
+type=text
+y=5
+width=92
+height=49
+layer=com_77
+textfont=fontmetrics_496
+text=3rd Age<br>yr 3000-4000
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:79
+[com_79]
+type=layer
+x=85
+y=108
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:80
+[com_80]
+type=text
+y=5
+width=92
+height=32
+layer=com_79
+textfont=fontmetrics_496
+text=4th Age<br>2000 yrs long
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:81
+[com_81]
+type=layer
+x=159
+y=103
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:82
+[com_82]
+type=text
+y=10
+width=92
+height=32
+layer=com_81
+textfont=fontmetrics_496
+text=4th Age<br>yr 1-200
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:83
+[com_83]
+type=layer
+x=223
+y=102
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:84
+[com_84]
+type=text
+y=10
+width=92
+height=32
+layer=com_83
+textfont=fontmetrics_496
+text=4th Age<br>yr 500-900
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:85
+[com_85]
+type=layer
+x=125
+y=103
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:86
+[com_86]
+type=text
+y=10
+width=92
+height=32
+layer=com_85
+textfont=fontmetrics_496
+text=4th Age<br>yr 1-100
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:87
+[com_87]
+type=layer
+x=194
+y=103
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:88
+[com_88]
+type=text
+y=9
+width=92
+height=32
+layer=com_87
+textfont=fontmetrics_496
+text=4th Age<br>yr 31-60
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:89
+[com_89]
+type=layer
+x=291
+y=103
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:90
+[com_90]
+type=text
+y=7
+width=92
+height=46
+layer=com_89
+textfont=fontmetrics_496
+text=4th Age<br>yr 1100-1200
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:91
+[com_91]
+type=layer
+x=263
+y=103
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:92
+[com_92]
+type=text
+y=9
+width=92
+height=41
+layer=com_91
+textfont=fontmetrics_496
+text=4th Age<br>yr 700-800
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:93
+[com_93]
+type=layer
+x=357
+y=177
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:94
+[com_94]
+type=text
+y=9
+width=92
+height=32
+layer=com_93
+textfont=fontmetrics_496
+text=4th Age<br>yr 1777
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:95
+[com_95]
+type=layer
+x=323
+y=177
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:96
+[com_96]
+type=text
+y=10
+width=92
+height=32
+layer=com_95
+textfont=fontmetrics_496
+text=4th Age<br>yr 1937
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:97
+[com_97]
+type=layer
+x=289
+y=178
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:98
+[com_98]
+type=text
+y=5
+width=92
+height=32
+layer=com_97
+textfont=fontmetrics_496
+text=5th Age<br>currently 169 years old
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:99
+[com_99]
+type=layer
+x=219
+y=177
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:100
+[com_100]
+type=text
+y=10
+width=92
+height=32
+layer=com_99
+textfont=fontmetrics_496
+text=5th Age<br>yr 8
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:101
+[com_101]
+type=layer
+x=186
+y=177
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:102
+[com_102]
+type=text
+y=10
+width=92
+height=32
+layer=com_101
+textfont=fontmetrics_496
+text=5th Age<br>yr 9
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:103
+[com_103]
+type=layer
+x=149
+y=239
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:104
+[com_104]
+type=text
+y=10
+width=92
+height=32
+layer=com_103
+textfont=fontmetrics_496
+text=5th Age<br>yr 12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:105
+[com_105]
+type=layer
+x=183
+y=239
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:106
+[com_106]
+type=text
+y=9
+width=92
+height=32
+layer=com_105
+textfont=fontmetrics_496
+text=5th Age<br>yr 20
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:107
+[com_107]
+type=layer
+x=217
+y=239
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:108
+[com_108]
+type=text
+y=10
+width=92
+height=32
+layer=com_107
+textfont=fontmetrics_496
+text=5th Age<br>yr 23
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:109
+[com_109]
+type=layer
+x=252
+y=239
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:110
+[com_110]
+type=text
+y=9
+width=92
+height=32
+layer=com_109
+textfont=fontmetrics_496
+text=5th Age<br>yr 42-62
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:111
+[com_111]
+type=layer
+x=286
+y=239
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:112
+[com_112]
+type=text
+y=10
+width=92
+height=32
+layer=com_111
+textfont=fontmetrics_496
+text=5th Age<br>yr 47
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:113
+[com_113]
+type=layer
+x=320
+y=240
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:114
+[com_114]
+type=layer
+x=255
+y=177
+width=92
+height=50
+layer=vm_lvl_1
+hide=yes
+
+// 527:115
+[com_115]
+type=text
+y=10
+width=92
+height=32
+layer=com_114
+textfont=fontmetrics_496
+text=5th Age<br>yr 7
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:116
+[com_116]
+type=text
+y=10
+width=92
+height=32
+layer=com_113
+textfont=fontmetrics_496
+text=5th Age<br>yr 62
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:117
+[lvl1_level_down_1]
+type=text
+x=350
+y=40
+width=89
+height=32
+layer=vm_lvl_1
+textfont=fontmetrics_495
+text=Stairs to<br>Dig Site<br>exhibit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Dig Site exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:118
+[lvl1_level_up_1]
+type=text
+x=97
+y=197
+width=89
+height=32
+layer=vm_lvl_1
+textfont=fontmetrics_495
+text=Stairs to<br>Timeline<br>exhibit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Timeline exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:119
+[lvl1_level_up]
+type=text
+x=433
+y=302
+width=89
+height=32
+layer=vm_lvl_1
+textfont=fontmetrics_496
+text=Level up
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Timeline exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:120
+[lvl1_level_down]
+type=text
+x=10
+y=302
+width=89
+height=32
+layer=vm_lvl_1
+textfont=fontmetrics_496
+text=Level down
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Dig Site exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:121
+[vm_museum_map_level_2]
+type=model
+x=100
+y=6
+width=338
+height=325
+layer=vm_lvl_2
+model=model_25519
+modelorigin=5,0
+modelzoom=655
+modelunknown=0,3000,0
+
+// 527:122
+[vm_map_map_of_ardounge]
+type=model
+x=362
+y=48
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=79,1803,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_123)
+onmouseleave=comp_sethide(true, interface_527:com_123)
+
+// 527:123
+[com_123]
+type=layer
+x=330
+y=44
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:124
+[com_124]
+type=text
+y=7
+width=92
+height=32
+layer=com_123
+textfont=fontmetrics_496
+text=5th Age<br>yr 136
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:125
+[vm_map_zamorakian_symbol]
+type=model
+x=214
+y=170
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=79,1803,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_126)
+onmouseleave=comp_sethide(true, interface_527:com_126)
+
+// 527:126
+[com_126]
+type=layer
+x=182
+y=166
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:127
+[com_127]
+type=text
+y=10
+width=92
+height=32
+layer=com_126
+textfont=fontmetrics_496
+text=5th Age<br>yr 70
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:128
+[vm_map_excalibur]
+type=model
+x=292
+y=48
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=79,1803,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_129)
+onmouseleave=comp_sethide(true, interface_527:com_129)
+
+// 527:129
+[com_129]
+type=layer
+x=260
+y=44
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:130
+[com_130]
+type=text
+y=10
+width=92
+height=32
+layer=com_129
+textfont=fontmetrics_496
+text=5th Age<br>yr 132
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:131
+[vm_map_skeleton]
+type=model
+x=364
+y=170
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_132)
+onmouseleave=comp_sethide(true, interface_527:com_132)
+
+// 527:132
+[com_132]
+type=layer
+x=332
+y=166
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:133
+[com_133]
+type=text
+y=10
+width=92
+height=32
+layer=com_132
+textfont=fontmetrics_496
+text=5th Age<br>yr 154
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:134
+[vm_map_mage_training_guardian]
+type=model
+x=215
+y=236
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_135)
+onmouseleave=comp_sethide(true, interface_527:com_135)
+
+// 527:135
+[com_135]
+type=layer
+x=183
+y=232
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:136
+[com_136]
+type=text
+y=9
+width=92
+height=32
+layer=com_135
+textfont=fontmetrics_496
+text=5th Age<br>yr 169
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:137
+[vm_map_edgeville_map]
+type=model
+x=290
+y=236
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_138)
+onmouseleave=comp_sethide(true, interface_527:com_138)
+
+// 527:138
+[com_138]
+type=layer
+x=258
+y=232
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:139
+[com_139]
+type=text
+y=8
+width=92
+height=32
+layer=com_138
+textfont=fontmetrics_496
+text=5th Age<br>yr 169
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:140
+[vm_map_phoenix_crossbow]
+type=model
+x=362
+y=107
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_141)
+onmouseleave=comp_sethide(true, interface_527:com_141)
+
+// 527:141
+[com_141]
+type=layer
+x=330
+y=103
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:142
+[com_142]
+type=text
+y=9
+width=92
+height=32
+layer=com_141
+textfont=fontmetrics_496
+text=5th Age<br>yr 143
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:143
+[vm_map_white_knights_armour]
+type=model
+x=363
+y=236
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_144)
+onmouseleave=comp_sethide(true, interface_527:com_144)
+
+// 527:144
+[com_144]
+type=layer
+x=331
+y=232
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:145
+[com_145]
+type=text
+y=7
+width=92
+height=32
+layer=com_144
+textfont=fontmetrics_496
+text=5th Age<br>yr 162-163
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:146
+[vm_map_gnome_glider]
+type=model
+x=257
+y=152
+width=94
+height=42
+layer=vm_lvl_2
+model=model_25515
+modelorigin=3,-4
+modelangle=80,1807,0
+modelzoom=2148
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_147)
+onmouseleave=comp_sethide(true, interface_527:com_147)
+
+// 527:147
+[com_147]
+type=layer
+x=268
+y=122
+width=78
+height=94
+layer=vm_lvl_2
+hide=yes
+
+// 527:148
+[com_148]
+type=text
+y=30
+width=78
+height=32
+layer=com_147
+textfont=fontmetrics_496
+text=5th Age<br>yr 20
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:149
+[vm_map_king_painting]
+type=model
+x=6791
+y=1233
+width=1031
+height=2459
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=vm_lvl_2
+model=model_25520
+modelorigin=0,24
+modelangle=15,1915,0
+modelzoom=1636
+modelunknown=64536,3000,0
+modelobjwidth=32
+modelobjheight=50
+onmouseover=comp_sethide(false, interface_527:com_150)
+onmouseleave=comp_sethide(true, interface_527:com_150)
+
+// 527:150
+[com_150]
+type=layer
+x=183
+y=26
+width=78
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:151
+[com_151]
+type=text
+y=7
+width=78
+height=32
+layer=com_150
+textfont=fontmetrics_496
+text=5th Age<br>yr 98
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:152
+[lvl2_level_down]
+type=text
+x=10
+y=302
+width=89
+height=32
+layer=vm_lvl_2
+textfont=fontmetrics_496
+text=Level down
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Timeline exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:153
+[lvl2_level_down_1]
+type=text
+x=98
+y=209
+width=89
+height=32
+layer=vm_lvl_2
+textfont=fontmetrics_495
+text=Stairs to<br>Timeline<br>exhibit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Timeline exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:154
+[vm_map_surok_tomb]
+type=model
+x=215
+y=105
+width=35
+height=44
+layer=vm_lvl_2
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=64036,3000,0
+onmouseover=comp_sethide(false, interface_527:com_155)
+onmouseleave=comp_sethide(true, interface_527:com_155)
+
+// 527:155
+[com_155]
+type=layer
+x=187
+y=101
+width=92
+height=50
+layer=vm_lvl_2
+hide=yes
+
+// 527:156
+[com_156]
+type=text
+width=92
+height=32
+layer=com_155
+textfont=fontmetrics_496
+text=5th Age<br>yr 70
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:157
+[vm_museum_map_level_basement]
+type=model
+x=50
+y=8
+width=395
+height=316
+layer=vm_level_basement_layer
+model=model_25516
+modelorigin=0,39
+modelzoom=1039
+modelunknown=64012,3000,0
+
+// 527:158
+[vm_map_terror_bird]
+type=model
+x=185
+y=260
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_190)
+onmouseleave=comp_sethide(true, interface_527:com_190)
+
+// 527:159
+[com_159]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_190
+textfont=fontmetrics_496
+text=Terrorbird display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:160
+[vm_map_kalphite_queen]
+type=model
+x=278
+y=260
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_191)
+onmouseleave=comp_sethide(true, interface_527:com_191)
+
+// 527:161
+[com_161]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_191
+textfont=fontmetrics_496
+text=Kalphite Queen<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:162
+[vm_map_mole]
+type=model
+x=64
+y=197
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_192)
+onmouseleave=comp_sethide(true, interface_527:com_192)
+
+// 527:163
+[com_163]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_192
+textfont=fontmetrics_496
+text=Mole<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:164
+[vm_map_penguin]
+type=model
+x=119
+y=197
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_193)
+onmouseleave=comp_sethide(true, interface_527:com_193)
+
+// 527:165
+[com_165]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_193
+textfont=fontmetrics_496
+text=Penguin<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:166
+[vm_map_camel]
+type=model
+x=64
+y=90
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_194)
+onmouseleave=comp_sethide(true, interface_527:com_194)
+
+// 527:167
+[com_167]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_194
+textfont=fontmetrics_496
+text=Camel<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:168
+[vm_map_leech]
+type=model
+x=119
+y=90
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_195)
+onmouseleave=comp_sethide(true, interface_527:com_195)
+
+// 527:169
+[com_169]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_195
+textfont=fontmetrics_496
+text=Leech<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:170
+[vm_map_monkey]
+type=model
+x=341
+y=197
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_196)
+onmouseleave=comp_sethide(true, interface_527:com_196)
+
+// 527:171
+[com_171]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_196
+textfont=fontmetrics_496
+text=Monkey<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:172
+[vm_map_seaslug]
+type=model
+x=396
+y=197
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_197)
+onmouseleave=comp_sethide(true, interface_527:com_197)
+
+// 527:173
+[com_173]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_197
+textfont=fontmetrics_496
+text=Sea slug<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:174
+[vm_map_snail]
+type=model
+x=341
+y=90
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_198)
+onmouseleave=comp_sethide(true, interface_527:com_198)
+
+// 527:175
+[com_175]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_198
+textfont=fontmetrics_496
+text=Snail<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:176
+[vm_map_snake]
+type=model
+x=396
+y=90
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_199)
+onmouseleave=comp_sethide(true, interface_527:com_199)
+
+// 527:177
+[com_177]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_199
+textfont=fontmetrics_496
+text=Snake<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:178
+[vm_map_lizard]
+type=model
+x=115
+y=20
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_200)
+onmouseleave=comp_sethide(true, interface_527:com_200)
+
+// 527:179
+[com_179]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_200
+textfont=fontmetrics_496
+text=Lizard<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:180
+[vm_map_battle_tortoise]
+type=model
+x=188
+y=20
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_201)
+onmouseleave=comp_sethide(true, interface_527:com_201)
+
+// 527:181
+[com_181]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_201
+textfont=fontmetrics_496
+text=Battle tortoise<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:182
+[vm_map_dragon]
+type=model
+x=279
+y=20
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_202)
+onmouseleave=comp_sethide(true, interface_527:com_202)
+
+// 527:183
+[com_183]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_202
+textfont=fontmetrics_496
+text=Dragon<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:184
+[vm_map_battle_wyvern]
+type=model
+x=347
+y=20
+width=35
+height=44
+layer=vm_level_basement_layer
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+modelunknown=63661,3000,0
+onmouseover=comp_sethide(false, interface_527:com_203)
+onmouseleave=comp_sethide(true, interface_527:com_203)
+
+// 527:185
+[com_185]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_203
+textfont=fontmetrics_496
+text=Wyvern<br>display
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 527:186
+[lvl0_level_down_1]
+type=text
+x=10
+y=301
+width=89
+height=32
+layer=vm_lvl_0
+textfont=fontmetrics_496
+text=Level down
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Natural History exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:187
+[basement_level_up_1]
+type=text
+x=433
+y=302
+width=89
+height=32
+layer=vm_level_basement_layer
+textfont=fontmetrics_496
+text=Level up
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Dig Site exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:188
+[basement_level_up_1_1]
+type=text
+x=204
+y=144
+width=89
+height=32
+layer=vm_level_basement_layer
+textfont=fontmetrics_495
+text=Stairs to<br>Dig Site<br>exhibit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Stairs to Dig Site exhibit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 527:189
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 527:190
+[com_190]
+type=layer
+x=115
+y=240
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:191
+[com_191]
+type=layer
+x=215
+y=240
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:192
+[com_192]
+type=layer
+y=180
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:193
+[com_193]
+type=layer
+x=55
+y=180
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:194
+[com_194]
+type=layer
+y=70
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:195
+[com_195]
+type=layer
+x=55
+y=70
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:196
+[com_196]
+type=layer
+x=275
+y=180
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:197
+[com_197]
+type=layer
+x=330
+y=180
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:198
+[com_198]
+type=layer
+x=275
+y=70
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:199
+[com_199]
+type=layer
+x=340
+y=70
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:200
+[com_200]
+type=layer
+x=50
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:201
+[com_201]
+type=layer
+x=125
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:202
+[com_202]
+type=layer
+x=215
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:203
+[com_203]
+type=layer
+x=290
+width=160
+height=80
+layer=vm_level_basement_layer
+hide=yes
+
+// 527:204
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 527:205
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 527:206
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_821
+tiling=yes
+
+// 527:207
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_820
+tiling=yes
+
+// 527:208
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_822
+tiling=yes
+
+// 527:209
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_823
+tiling=yes
+
+// 527:210
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_824
+tiling=yes
+
+// 527:211
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_825
+tiling=yes
+
+// 527:212
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_827
+tiling=yes
+
+// 527:213
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_826
+tiling=yes
+
+// 527:214
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 527:215
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 527:216
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 527:217
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 527:218
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 527:219
+[com_219]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 527:220
+[com_220]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 527:221
+[com_221]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 527:222
+[com_222]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=graphic_297
+tiling=yes
+outline=2

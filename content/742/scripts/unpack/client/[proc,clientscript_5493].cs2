@@ -1,0 +1,28 @@
+// 5493
+[proc,clientscript_5493]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+while ($int0 < 5) {
+    switch_int ($int0) {
+        case 0 :
+            $int1 = oc_param(%varclient_1691, param_0);
+        case 1 :
+            if (oc_param(%varclient_1691, param_1) > $int1) {
+                $int1 = oc_param(%varclient_1691, param_1);
+            }
+        case 2 :
+            if (oc_param(%varclient_1691, param_2) > $int1) {
+                $int1 = oc_param(%varclient_1691, param_2);
+            }
+        case 3 :
+            if (oc_param(%varclient_1691, param_3) > $int1) {
+                $int1 = oc_param(%varclient_1691, param_3);
+            }
+        case 4 :
+            if (oc_param(%varclient_1691, param_4) > $int1) {
+                $int1 = oc_param(%varclient_1691, param_4);
+            }
+    }
+    $int0 = calc($int0 + 1);
+}
+return($int1);

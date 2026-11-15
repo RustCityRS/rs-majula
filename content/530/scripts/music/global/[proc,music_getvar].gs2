@@ -1,0 +1,44 @@
+// 837
+[proc,music_getvar](int $int0)(int)
+if ($int0 < 32) {
+    return(testbit(%musicmulti_1, calc($int0 & 31)));
+} else if ($int0 < 64) {
+    return(testbit(%musicmulti_2, calc($int0 & 31)));
+} else if ($int0 < 96) {
+    return(testbit(%musicmulti_3, calc($int0 & 31)));
+} else if ($int0 < 128) {
+    return(testbit(%musicmulti_4, calc($int0 & 31)));
+} else if ($int0 < 160) {
+    return(testbit(%musicmulti_5, calc($int0 & 31)));
+} else if ($int0 < 192) {
+    return(testbit(%musicmulti_6, calc($int0 & 31)));
+} else if ($int0 < 224) {
+    return(testbit(%musicmulti_7, calc($int0 & 31)));
+} else if ($int0 < 256) {
+    return(testbit(%musicmulti_8, calc($int0 & 31)));
+} else if ($int0 < 288) {
+    return(testbit(%musicmulti_9, calc($int0 & 31)));
+} else if ($int0 < 320) {
+    return(testbit(%musicmulti_10, calc($int0 & 31)));
+} else if ($int0 < 352) {
+    return(testbit(%musicmulti_11, calc($int0 & 31)));
+} else if ($int0 < 384) {
+    return(testbit(%musicmulti_12, calc($int0 & 31)));
+} else if ($int0 < 416) {
+    return(testbit(%musicmulti_13, calc($int0 & 31)));
+} else if ($int0 < 448) {
+    return(testbit(%musicmulti_14, calc($int0 & 31)));
+} else if ($int0 < 480) {
+    return(testbit(%musicmulti_15, calc($int0 & 31)));
+} else if ($int0 < 512) {
+    return(testbit(%musicmulti_16, calc($int0 & 31)));
+} else if ($int0 < 544) {
+    return(testbit(%musicmulti_17, calc($int0 & 31)));
+} else if ($int0 < 576) {
+    return(testbit(%musicmulti_18, calc($int0 & 31)));
+} else if ($int0 < 608) {
+    return(testbit(%musicmulti_19, calc($int0 & 31)));
+} else if ($int0 < 640) {
+    return(testbit(%musicmulti_20, calc($int0 & 31)));
+}
+return(null);

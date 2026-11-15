@@ -1,0 +1,20 @@
+// 6337
+[proc,clientscript_6337](component $component0)
+def_int $int1 = enum_getoutputcount(enum_5918);
+if_setoninvtransmit($component0, "clientscript_6338($component0, $int1){inv}");
+if_setonvartransmit($component0, "clientscript_6338($component0, $int1){varplayer_2644, varplayer_2645}");
+cc_deleteall($component0);
+def_int $int2 = 0;
+def_obj $obj3 = null;
+while ($int2 < $int1) {
+    cc_create($component0, ^iftype_graphic, $int2);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setgraphicshadow(0x302020);
+    cc_setonop("script1620($component0, $int2, 100, 0, 8)");
+    cc_setop(1, "Take");
+    cc_setop(10, "Examine");
+    $obj3 = enum(int, obj, enum_5918, $int2);
+    cc_setopbase("<~clientscript_4033($obj3)><oc_name($obj3)>");
+    $int2 = calc($int2 + 1);
+}
+~clientscript_6339($component0, $int1);

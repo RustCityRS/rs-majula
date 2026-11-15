@@ -1,0 +1,12 @@
+// 783
+[clientscript,quickchat_tutorial_loadcontent]
+if (%quickchat_tutorial_show ! %quickchat_tutorial_show_client) {
+    %quickchat_tutorial_show_client = %quickchat_tutorial_show;
+    if (%quickchat_tutorial_show = 1) {
+        ~clientscript_1029(enum_1484, 9);
+    } else if (%quickchat_tutorial_show = 2) {
+        ~clientscript_1032(enum_1486, 0, 7);
+    } else if (%quickchat_tutorial_show = 3) {
+        ~clientscript_1030(1485);
+    }
+}

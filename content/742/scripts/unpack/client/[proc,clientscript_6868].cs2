@@ -1,0 +1,29 @@
+// 6868
+[proc,clientscript_6868](int $int0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+if ($int1 > 0 & cc_find(interface_1360:com_0, $int2) = true) {
+    $int3 = calc(cc_gety + cc_getheight + 4);
+}
+if (cc_find(interface_1360:com_0, $int0) = true) {
+    cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 1)) = true) {
+    cc_setposition(120, $int3, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 2)) = true) {
+    cc_setposition(315, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    $int4 = calc(cc_gety + cc_getheight + 4);
+    $int5 = calc($int3 + (cc_getheight / 2 - 15 / 2));
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 3)) = true) {
+    cc_setposition(450, $int5, ^setpos_abs_left, ^setpos_abs_top);
+}
+if ($int4 > if_getheight(interface_1360:com_0)) {
+    if_setscrollsize(interface_1360:com_0, if_getwidth(interface_1360:com_0), $int4);
+    ~scrollbar_vertical(interface_1360:com_1, interface_1360:com_0, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+} else {
+    if_setscrollpos(interface_1360:com_0, 0, 0);
+}
+return($int0);

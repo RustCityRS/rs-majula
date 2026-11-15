@@ -1,0 +1,7 @@
+// 1377
+[proc,clientscript_1377]
+if (if_gethide(worldmap:com_26) = true) {
+    ~clientscript_1378(1);
+} else {
+    ~clientscript_1378(0);
+}

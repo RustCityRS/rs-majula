@@ -1,0 +1,32 @@
+// 2992
+[clientscript,ecosystem_critter_hide]
+if (%varplayerbit_8386 = 0) {
+    if_sethide(ecosystem_wardcreature:basic, true);
+    if_sethide(ecosystem_wardcreature:basic_q, false);
+    if_sethide(ecosystem_wardcreature:bigmodel, true);
+    if_sethide(ecosystem_wardcreature:name, true);
+}
+if (%varplayerbit_8388 = 0) {
+    if_sethide(ecosystem_wardcreature:amphibious, true);
+    if_sethide(ecosystem_wardcreature:amphibious_q, false);
+}
+if (%varplayerbit_8390 = 0) {
+    if_sethide(ecosystem_wardcreature:carrion, true);
+    if_sethide(ecosystem_wardcreature:carrion_q, false);
+}
+if (%varplayerbit_8392 = 0) {
+    if_sethide(ecosystem_wardcreature:draconic, true);
+    if_sethide(ecosystem_wardcreature:draconic_q, false);
+}
+if (%varplayerbit_8387 = 0) {
+    if_sethide(ecosystem_wardcreature:aquatic, true);
+    if_sethide(ecosystem_wardcreature:aquatic_q, false);
+}
+if (%varplayerbit_8395 = 0) {
+    if_sethide(ecosystem_wardcreature:igneous, true);
+    if_sethide(ecosystem_wardcreature:igneous_q, false);
+}
+if (%varplayerbit_8391 = 0) {
+    if_sethide(ecosystem_wardcreature:carnivorous, true);
+    if_sethide(ecosystem_wardcreature:carnivorous_q, false);
+}

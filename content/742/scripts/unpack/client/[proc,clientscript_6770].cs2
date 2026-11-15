@@ -1,0 +1,7 @@
+// 6770
+[proc,clientscript_6770](int $int0)(int)
+if (stat_base(firemaking) >= $int0) {
+    return(1);
+} else {
+    return(0);
+}

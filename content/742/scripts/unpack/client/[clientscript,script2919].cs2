@@ -1,0 +1,8 @@
+// 2919
+[clientscript,script2919](boolean $boolean0, int $int1)
+def_int $int2 = detailget_toolkit;
+if ($boolean0 = false) {
+    ~graphics_options_rebuild($int2, getwindowmode, ~graphics_options_reviewoptions($int2), $int1);
+} else {
+    ~graphics_options_rebuild_advanced($int2, getwindowmode, ~graphics_options_reviewoptions($int2), $int1);
+}

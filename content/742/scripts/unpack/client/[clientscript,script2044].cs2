@@ -1,0 +1,77 @@
+// 2044
+[clientscript,script2044]
+if_sethide(target:dart_bull, true);
+if_sethide(target:dart_1, true);
+if_sethide(target:dart_2, true);
+if_sethide(target:dart_3, true);
+if_sethide(target:dart_4, true);
+if_sethide(target:dart_5, true);
+if_sethide(target:dart_6, true);
+if_sethide(target:dart_7, true);
+if_sethide(target:dart_8, true);
+if_sethide(target:dart_9, true);
+if_sethide(target:dart_10, true);
+if_sethide(target:left1, true);
+if_sethide(target:left2, true);
+if_sethide(target:left3, true);
+if_sethide(target:left4, true);
+if_sethide(target:left5, true);
+if_sethide(target:left6, true);
+if_sethide(target:left7, true);
+if_sethide(target:left8, true);
+if_sethide(target:left9, true);
+if_sethide(target:left10, true);
+switch_int (%targethit) {
+    case 0 :
+        if_sethide(target:dart_bull, false);
+    case 1 :
+        if_sethide(target:dart_1, false);
+    case 2 :
+        if_sethide(target:dart_2, false);
+    case 3 :
+        if_sethide(target:dart_3, false);
+    case 4 :
+        if_sethide(target:dart_4, false);
+    case 5 :
+        if_sethide(target:dart_5, false);
+    case 6 :
+        if_sethide(target:dart_6, false);
+    case 7 :
+        if_sethide(target:dart_7, false);
+    case 8 :
+        if_sethide(target:dart_8, false);
+    case 9 :
+        if_sethide(target:dart_9, false);
+    case 10 :
+        if_sethide(target:dart_10, false);
+}
+if (%targetcount < 2) {
+    if_sethide(target:left1, false);
+}
+if (%targetcount < 3) {
+    if_sethide(target:left2, false);
+}
+if (%targetcount < 4) {
+    if_sethide(target:left3, false);
+}
+if (%targetcount < 5) {
+    if_sethide(target:left4, false);
+}
+if (%targetcount < 6) {
+    if_sethide(target:left5, false);
+}
+if (%targetcount < 7) {
+    if_sethide(target:left6, false);
+}
+if (%targetcount < 8) {
+    if_sethide(target:left7, false);
+}
+if (%targetcount < 9) {
+    if_sethide(target:left8, false);
+}
+if (%targetcount < 10) {
+    if_sethide(target:left9, false);
+}
+if (%targetcount < 11) {
+    if_sethide(target:left10, false);
+}

@@ -1,0 +1,11 @@
+// 559
+[proc,script559](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = calc($int1 - 2);
+def_int $int4 = calc($int2 - 2);
+def_int $int5 = if_getnextsubid($component0);
+~create_graphic($component0, $int5, "v2_borders_slim,13", 0, 0, $int1, 2);
+~create_graphic($component0, calc($int5 + 1), "v2_borders_slim,13", 1, $int4, calc($int1 - 1), 2);
+~create_graphic($component0, calc($int5 + 2), "v2_borders_slim,14", 0, 1, 2, calc($int2 - 3));
+~create_graphic($component0, calc($int5 + 3), "v2_borders_slim,14", $int3, 1, 2, calc($int2 - 2));

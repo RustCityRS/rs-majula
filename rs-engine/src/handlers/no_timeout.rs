@@ -1,28 +1,24 @@
 use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::no_timeout::NoTimeout;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::cam_smoothreset::CamSmoothreset;
 use rs_vm::ScriptError;
 
-/// Handles the `NoTimeout` client protocol message.
-///
-/// No-op keepalive handler. The client periodically sends this packet to
-/// indicate the connection is still alive. The server accepts the packet
-/// but takes no action; the connection timeout is managed elsewhere based
-/// on packet receipt timing.
-///
-/// # Arguments
-///
-/// * `_` - The active player (unused).
-///
-/// # Returns
-///
-/// * `Ok(())` always.
+/// Handles the `NoTimeout` keepalive. In the game the client's other traffic
+/// keeps it connected and nothing is sent back; a lobby client, sent nothing
+/// else, is answered.
 ///
 /// # Call Stack
 ///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
+/// **Called by:** `ActivePlayer::read` (via `ClientGameHandler` dispatch)
 impl ClientGameHandler for NoTimeout {
-    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
+    #[cfg_attr(before_647, allow(unused_variables))]
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(since_647)]
+        if active.lobby {
+            active.write(CamSmoothreset);
+        }
         Ok(())
     }
 }

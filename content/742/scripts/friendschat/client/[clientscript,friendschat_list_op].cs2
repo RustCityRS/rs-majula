@@ -1,0 +1,21 @@
+// 202
+[clientscript,friendschat_list_op](string $string0, string $string1, int $int0, int $int1)
+switch_int ($int0) {
+    case 5 :
+        if (friend_test($string1) = true) {
+            %varclient_1650 = true;
+            %friendtomessage = $string0;
+            ~script1558(false);
+            return;
+        } else {
+            friend_add($string0);
+        }
+    case 6 :
+        ignore_add($string0);
+    case 7 :
+        friend_del($string0);
+    case 8 :
+        ignore_del($string0);
+    case 9 :
+        ~friendschat_kick($string0);
+}

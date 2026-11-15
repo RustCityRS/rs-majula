@@ -1,0 +1,145 @@
+// 527:0
+[container]
+type=layer
+width=156
+height=32
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 527:1
+[impling_net]
+type=layer
+height=5406
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+layer=container
+
+// 527:2
+[impling_repellent]
+type=layer
+height=5372
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=container
+
+// 527:3
+[impling_repellent_name]
+type=text
+y=-23
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=impling_repellent
+textfont=p12_full
+text=Imp repellent
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 527:4
+[impling_repellent_store]
+type=graphic
+y=8
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=impling_repellent
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Impling jar
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=ii_storage_update_side(event_com, ii_imp_repellent, ii_elnock_storage_side:impling_repellent_name)
+oninvtransmit=ii_storage_update_side(event_com, ii_imp_repellent, ii_elnock_storage_side:impling_repellent_name){inv}
+
+// 527:5
+[impling_net_name]
+type=text
+y=-23
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=impling_net
+textfont=p12_full
+text=Butterfly net
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 527:6
+[impling_net_store]
+type=graphic
+y=8
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=impling_net
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Butterfly net
+op1=Store
+op10=Examine
+onload=ii_storage_update_side(event_com, hunting_butterfly_net, ii_elnock_storage_side:impling_net_name)
+oninvtransmit=ii_storage_update_side(event_com, hunting_butterfly_net, ii_elnock_storage_side:impling_net_name){inv}
+
+// 527:7
+[impling_jar]
+type=layer
+height=5406
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=container
+
+// 527:8
+[impling_jar_name]
+type=text
+y=-23
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=impling_jar
+textfont=p12_full
+text=Impling jar
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 527:9
+[impling_jar_store]
+type=graphic
+y=8
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=impling_jar
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Impling jar
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=ii_storage_update_side(event_com, ii_impling_jar, ii_elnock_storage_side:impling_jar_name)
+oninvtransmit=ii_storage_update_side(event_com, ii_impling_jar, ii_elnock_storage_side:impling_jar_name){inv}

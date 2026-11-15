@@ -5,6 +5,10 @@ use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::server::map_projanim_halfsq::{
+    MapProjAnimHalfsq, ServerProt530_104,
+};
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::obj_del::ObjDel;
@@ -13,6 +17,7 @@ use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
+use rs_ver::TypeId;
 use rs_zone::ZoneMessage;
 
 #[test]
@@ -21,7 +26,7 @@ fn zone_messages_match_client_ids_and_sizes() {
         ZoneMessage::LocAddChange(LocAddChange {
             coord: 0x35,
             shape_angle: 41,
-            id: 1276,
+            id: TypeId::new(1276),
         }),
         ZoneMessage::LocDel(LocDel {
             coord: 0x35,
@@ -30,41 +35,75 @@ fn zone_messages_match_client_ids_and_sizes() {
         ZoneMessage::LocAnim(LocAnim {
             coord: 0x35,
             shape_angle: 41,
-            seq: 733,
+            seq: TypeId::new(733),
         }),
         ZoneMessage::ObjAdd(ObjAdd {
             coord: 0x35,
-            id: 1511,
+            id: TypeId::new(1511),
             count: 3,
         }),
         ZoneMessage::ObjDel(ObjDel {
             coord: 0x35,
-            id: 1511,
+            id: TypeId::new(1511),
         }),
         ZoneMessage::ObjCount(ObjCount {
             coord: 0x35,
-            id: 995,
+            id: TypeId::new(995),
             old_count: 1,
             new_count: 7,
         }),
         ZoneMessage::ObjReveal(ObjReveal {
             coord: 0x35,
-            id: 1511,
+            id: TypeId::new(1511),
             count: 3,
             receiver: 42,
         }),
         ZoneMessage::MapAnim(MapAnim {
             coord: 0x35,
-            spotanim: 90,
+            spotanim: TypeId::new(90),
             height: 100,
             delay: 30,
+            #[cfg(since_742)]
+            trailing: 0,
         }),
         ZoneMessage::MapProjAnim(MapProjAnim {
             coord: 0x35,
             dx: -4,
             dz: 6,
             target: -43,
-            spotanim: 91,
+            spotanim: TypeId::new(91),
+            src_height: 43,
+            dst_height: 31,
+            start_delay: 51,
+            end_delay: 70,
+            peak: 16,
+            arc: 64,
+            #[cfg(since_742)]
+            trailing: 0,
+        }),
+        #[cfg(all(since_530, before_647))]
+        ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
+            coord: 0xA5,
+            dx: -4,
+            dz: 6,
+            target: -43,
+            spotanim: TypeId::new(91),
+            src_height: 43,
+            dst_height: 31,
+            start_delay: 51,
+            end_delay: 70,
+            peak: 16,
+            arc: 64,
+        }),
+        #[cfg(all(since_530, before_647))]
+        ZoneMessage::ServerProt530_104(ServerProt530_104 {
+            coord: 0xA5,
+            dx: -4,
+            dz: 6,
+            source: -6,
+            wearpos: 3,
+            target: -43,
+            spotanim: TypeId::new(91),
             src_height: 43,
             dst_height: 31,
             start_delay: 51,
@@ -84,8 +123,12 @@ fn zone_messages_match_client_ids_and_sizes() {
         (ServerProt::ObjReveal as u8, 7),
         (ServerProt::MapAnim as u8, 6),
         (ServerProt::MapProjAnim as u8, 15),
+        #[cfg(all(since_530, before_647))]
+        (121, 15),
+        #[cfg(all(since_530, before_647))]
+        (104, 17),
     ];
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     let expected = [
         (13, 4),
         (8, 2),
@@ -96,6 +139,18 @@ fn zone_messages_match_client_ids_and_sizes() {
         (7, 7),
         (6, 7),
         (14, 16),
+    ];
+    #[cfg(since_742)]
+    let expected = [
+        (6, 6),
+        (1, 2),
+        (4, 6),
+        (2, 5),
+        (9, 3),
+        (14, 7),
+        (3, 7),
+        (12, 10),
+        (5, 18),
     ];
 
     let mut buf = Packet::new(256);
@@ -113,14 +168,18 @@ fn loc_anim_payload_matches_revision() {
     let message = LocAnim {
         coord: 0x35,
         shape_angle: 41,
-        seq: 0x1234,
+        seq: TypeId::new(4660),
     };
     let mut buf = Packet::new(message.sizeof());
     message.encode(&mut buf);
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     assert_eq!(&buf.data[..buf.pos], &[0x35, 41, 0x12, 0x34]);
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    assert_eq!(&buf.data[..buf.pos], &[0x4b, 0x57, 0x34, 0x12]);
+    #[cfg(all(since_647, before_742))]
     assert_eq!(&buf.data[..buf.pos], &[0xcb, 41, 0x34, 0x12]);
+    #[cfg(since_742)]
+    assert_eq!(&buf.data[..buf.pos], &[0x12, 0x34, 0, 0, 87, 0x35]);
     assert_eq!(LocAnim::PROT as u8, ServerProt::LocAnim as u8);
 }
 
@@ -141,7 +200,16 @@ fn enclosed_loc_del_uses_zone_id_in_crash_payload() {
     };
     let mut buf = Packet::new(enclosed.sizeof());
     enclosed.encode(&mut buf);
-    assert_eq!(&buf.data[..buf.pos], &[5, 255, 6, 8, 2, 10]);
-    assert_eq!(LocDel::PROT as u8, 17);
-    assert_eq!(UpdateZonePartialEnclosed::PROT as u8, 111);
+    #[cfg(before_742)]
+    {
+        assert_eq!(&buf.data[..buf.pos], &[5, 255, 6, 8, 2, 10]);
+        assert_eq!(LocDel::PROT as u8, 17);
+        assert_eq!(UpdateZonePartialEnclosed::PROT as u8, 111);
+    }
+    #[cfg(since_742)]
+    {
+        assert_eq!(&buf.data[..buf.pos], &[1, 133, 122, 1, 138, 130]);
+        assert_eq!(LocDel::PROT as u8, 37);
+        assert_eq!(UpdateZonePartialEnclosed::PROT as u8, 162);
+    }
 }

@@ -10,13 +10,13 @@ mod core;
 pub mod counters;
 mod handlers;
 /// Headless harness for `rs-test`; see [`harness::HarnessClient`].
-#[cfg(all(feature = "harness", since_647))]
+#[cfg(all(feature = "harness", since_530))]
 pub mod harness;
 mod info;
 mod map;
 mod pathfinding;
 mod phases;
-#[cfg(since_647)]
+#[cfg(since_530)]
 mod region;
 mod save;
 mod script;

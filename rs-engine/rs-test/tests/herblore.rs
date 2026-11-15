@@ -26,6 +26,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const HERBLORE: usize = 15;
@@ -39,13 +40,13 @@ static TURN: Mutex<()> = Mutex::new(());
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn messages(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Vec<String> {
@@ -83,7 +84,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
         let unf = obj(engine, "guamvial");
         let newt = obj(engine, "eye_of_newt");
         let attack = obj(engine, "3dose1attack");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let mut client = engine.harness_login_returning("herbalist").expect("login");
@@ -104,7 +105,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
 
         // Clean: the herb is cleaned in its slot, for 2.5 xp, in silence.
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(grimy as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(grimy.int()).p2_alt1(0);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = messages(engine, &mut client, 2);
         let player = engine.harness_player(client.pid).unwrap();
@@ -121,7 +122,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
         assert!(said.is_empty(), "cleaning says nothing in 2011: {said:?}");
 
         // The clean guam into the vial of water.
-        use_on(&mut client, (0, clean), (1, water));
+        use_on(&mut client, (0, clean.g2()), (1, water.g2()));
         let said = messages(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -136,7 +137,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
             .expect("the unfinished potion's slot");
         let xp = player.stats.xp[HERBLORE];
         let counted = player.vars.get(XP_COUNTER).as_int();
-        use_on(&mut client, (2, newt), (slot, unf));
+        use_on(&mut client, (2, newt.g2()), (slot, unf.g2()));
         let said = messages(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -154,8 +155,13 @@ fn drinking_an_antifire_resists_dragonfire_for_600_ticks() {
     runner::on_loaded_engine(|engine| {
         let four = obj(engine, "4dose1antidragon");
         let three = obj(engine, "3dose1antidragon");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let resist = *engine.cache.varps.debugnames.get("dragonresist").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let resist = engine
+            .cache
+            .varps
+            .get_by_debugname("dragonresist")
+            .unwrap()
+            .id;
 
         engine.harness_reset();
         let mut client = engine.harness_login_returning("drinker").expect("login");
@@ -167,7 +173,7 @@ fn drinking_an_antifire_resists_dragonfire_for_600_ticks() {
 
         // Drink, op1 on the backpack.
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(four as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(four.int()).p2_alt1(0);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = messages(engine, &mut client, 1);
         let drunk_at = engine.clock as i32;
@@ -176,7 +182,7 @@ fn drinking_an_antifire_resists_dragonfire_for_600_ticks() {
             player.invs.get(&inv).unwrap().has_at(0, three),
             "the 3-dose is left in the slot; the game said {said:?}"
         );
-        let until = player.vars.get(resist).as_int();
+        let until = player.vars.get(resist.g2()).as_int();
         assert!(
             (595..=600).contains(&(until - drunk_at)),
             "dragonresist {until} at clock {drunk_at}"

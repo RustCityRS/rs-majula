@@ -1,0 +1,44 @@
+// 1539
+[proc,clientscript_1539](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_enum $enum5 = enum(int, enum, enum_1633, $int0);
+def_int $int6 = 0;
+if ($int1 = 0) {
+    while ($int6 <= 3) {
+        if_setcolour(enum(int, component, $enum5, $int6), ^red);
+        $int6 = calc($int6 + 1);
+    }
+    return;
+}
+$int6 = 0;
+if ($int1 = 2) {
+    while ($int6 <= 3) {
+        if_setcolour(enum(int, component, $enum5, $int6), ^green);
+        $int6 = calc($int6 + 1);
+    }
+    return;
+}
+if_setcolour(enum(int, component, $enum5, 0), ^yellow);
+if ($int2 = 2) {
+    if_setcolour(enum(int, component, $enum5, 1), ^green);
+} else if ($int2 = 1) {
+    if_setcolour(enum(int, component, $enum5, 1), ^yellow);
+}
+if ($int2 = 0) {
+    if_setcolour(enum(int, component, $enum5, 1), ^red);
+}
+if ($int3 = 2) {
+    if_setcolour(enum(int, component, $enum5, 2), ^green);
+} else if ($int3 = 1) {
+    if_setcolour(enum(int, component, $enum5, 2), ^yellow);
+}
+if ($int3 = 0) {
+    if_setcolour(enum(int, component, $enum5, 2), ^red);
+}
+if ($int4 = 2) {
+    if_setcolour(enum(int, component, $enum5, 3), ^green);
+} else if ($int4 = 1) {
+    if_setcolour(enum(int, component, $enum5, 3), ^yellow);
+}
+if ($int4 = 0) {
+    if_setcolour(enum(int, component, $enum5, 3), ^red);
+}

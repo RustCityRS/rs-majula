@@ -1,0 +1,27 @@
+// 2126
+[clientscript,macro_beekeeper_timer](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+%beekeeper_lid_y = calc((%beekeeper_lid_y + random(4) + 2) % 2048);
+%beekeeper_uppermiddle_y = calc((%beekeeper_uppermiddle_y + random(4) + 2) % 2048);
+%beekeeper_lowermiddle_y = calc((%beekeeper_lowermiddle_y + random(4) + 2) % 2048);
+%beekeeper_legs_y = calc((%beekeeper_legs_y + random(4) + 2) % 2048);
+if (%beekeeper_lid_x < 20 & (%beekeeper_lid_x < -20 | random(2) = 0)) {
+    %beekeeper_lid_x = min(calc(%beekeeper_lid_x + random(3) + 1), 25);
+} else {
+    %beekeeper_lid_x = max(calc(%beekeeper_lid_x - (random(3) + 1)), -25);
+}
+if (%beekeeper_uppermiddle_x < 20 & (%beekeeper_uppermiddle_x < -20 | random(2) = 0)) {
+    %beekeeper_uppermiddle_x = min(calc(%beekeeper_uppermiddle_x + random(3) + 1), 25);
+} else {
+    %beekeeper_uppermiddle_x = max(calc(%beekeeper_uppermiddle_x - (random(3) + 1)), -25);
+}
+if (%beekeeper_lowermiddle_x < 20 & (%beekeeper_lowermiddle_x < -20 | random(2) = 0)) {
+    %beekeeper_lowermiddle_x = min(calc(%beekeeper_lowermiddle_x + random(3) + 1), 25);
+} else {
+    %beekeeper_lowermiddle_x = max(calc(%beekeeper_lowermiddle_x - (random(3) + 1)), -25);
+}
+if (%beekeeper_legs_x < 20 & (%beekeeper_legs_x < -20 | random(2) = 0)) {
+    %beekeeper_legs_x = min(calc(%beekeeper_legs_x + random(3) + 1), 25);
+} else {
+    %beekeeper_legs_x = max(calc(%beekeeper_legs_x - (random(3) + 1)), -25);
+}
+~macro_beekeeper_update($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7);

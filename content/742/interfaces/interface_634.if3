@@ -1,0 +1,176 @@
+// 634:0
+[com_0]
+type=graphic
+version=3
+width=48
+height=55
+xmode=abs_right
+layer=com_9
+graphic=graphic_9646
+opkey11=1,0
+
+// 634:1
+[com_1]
+type=graphic
+version=3
+width=96
+height=55
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+graphic=graphic_9645
+opkey11=1,0
+
+// 634:2
+[com_2]
+type=graphic
+version=3
+width=48
+height=55
+layer=com_9
+graphic=graphic_9644
+opkey11=1,0
+
+// 634:3
+[com_3]
+type=graphic
+version=3
+y=10
+width=210
+height=35
+xmode=abs_centre
+layer=com_9
+graphic=graphic_10758
+opkey11=1,0
+onload=clientscript_338(event_com, 10758, 10759, 10760, 10761)
+
+// 634:4
+[com_4]
+type=graphic
+version=3
+width=240
+height=150
+layer=com_8
+graphic=graphic_14096
+opkey11=1,0
+onload=clientscript_338(event_com, 14096, 14100, 14104, 14108)
+
+// 634:5
+[com_5]
+type=graphic
+version=3
+width=240
+height=150
+xmode=abs_right
+layer=com_8
+graphic=graphic_14097
+opkey11=1,0
+onload=clientscript_338(event_com, 14097, 14101, 14105, 14109)
+
+// 634:6
+[com_6]
+type=graphic
+version=3
+width=240
+height=150
+ymode=abs_bottom
+layer=com_8
+graphic=graphic_14098
+opkey11=1,0
+onload=clientscript_338(event_com, 14098, 14102, 14106, 14110)
+
+// 634:7
+[com_7]
+type=graphic
+version=3
+width=240
+height=150
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+graphic=graphic_14099
+opkey11=1,0
+onload=clientscript_338(event_com, 14099, 14103, 14107, 14111)
+
+// 634:8
+[com_8]
+type=layer
+version=3
+x=16
+width=480
+height=300
+ymode=abs_centre
+opkey11=1,0
+
+// 634:9
+[com_9]
+type=layer
+version=3
+x=45
+y=145
+width=261
+height=55
+layer=com_8
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey11=1,0
+
+// 634:10
+[com_10]
+type=layer
+version=3
+x=20
+y=22
+width=16
+height=15
+xmode=abs_right
+transmitop=1
+op1=Close
+opkey11=1,0
+onop=closebutton_click
+
+// 634:11
+[com_11]
+type=graphic
+version=3
+x=-1
+y=-1
+width=16
+height=15
+xmode=abs_right
+layer=com_10
+graphic="aif_bronze_close_button_1,0"
+opkey11=1,0
+
+// 634:12
+[com_12]
+type=graphic
+version=3
+x=-1
+y=-1
+width=16
+height=15
+xmode=abs_right
+layer=com_10
+graphic="aif_bronze_close_button_1,1"
+trans=255
+opkey11=1,0
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 634:13
+[com_13]
+type=graphic
+version=3
+x=-1
+y=-1
+width=16
+height=15
+xmode=abs_right
+layer=com_10
+graphic="aif_bronze_close_button_1,2"
+trans=255
+opkey11=1,0
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)

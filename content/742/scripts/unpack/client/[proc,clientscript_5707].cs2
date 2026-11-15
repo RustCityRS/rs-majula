@@ -1,0 +1,7 @@
+// 5707
+[proc,clientscript_5707]
+if (%varclient_1753 > 0 & if_gethide(interface_1218:com_161) = true) {
+    if_sethide(interface_1218:com_161, false);
+} else {
+    if_sethide(interface_1218:com_161, true);
+}

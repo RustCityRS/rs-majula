@@ -1,0 +1,9 @@
+// 6119
+[proc,clientscript_6119](component $component0, int $int1, int $int2, int $int3)
+$int3 = calc($int3 + 1);
+if ($int3 > $int2) {
+    if_settrans($component0, $int1);
+    if_setontimer($component0, null);
+} else {
+    if_setontimer($component0, "clientscript_6119(event_com, $int1, $int2, $int3)");
+}

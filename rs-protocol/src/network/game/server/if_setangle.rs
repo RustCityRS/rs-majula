@@ -1,30 +1,61 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol_macros::server_prot;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(IfSetAngle, Buffered, Fixed)]
 pub struct IfSetAngle {
     pub com: i32,
     pub x: u16,
     pub y: u16,
     pub zoom: u16,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for IfSetAngle {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.x);
+        buf.p2_alt2(self.verify);
+        buf.p2_alt3(self.zoom);
+        buf.p2_alt3(self.y);
+        buf.p4(self.com);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com)
+            + size_of_val(&self.x)
+            + size_of_val(&self.y)
+            + size_of_val(&self.zoom)
+            + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetAngle {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt1(self.x);
-        buf.p4_alt3(self.com);
-        buf.p2_alt2(self.y);
-        buf.p2_alt2(self.zoom);
+        #[cfg(before_742)]
+        {
+            buf.p2_alt1(self.x);
+            buf.p4_alt3(self.com);
+            buf.p2_alt2(self.zoom);
+            buf.p2_alt2(self.y);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2_alt3(self.zoom);
+            buf.p4(self.com);
+            buf.p2(self.x);
+            buf.p2_alt3(self.y);
+        }
     }
 
     fn sizeof(&self) -> usize {

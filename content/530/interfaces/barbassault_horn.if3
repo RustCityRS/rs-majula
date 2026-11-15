@@ -1,0 +1,401 @@
+// 484:0
+[com_0]
+type=rectangle
+width=520
+height=335
+colour=0x000000
+fill=yes
+trans=150
+
+// 484:1
+[com_1]
+type=text
+x=10
+y=140
+width=60
+height=16
+textfont=fontmetrics_496
+text=Attacker :
+textshadow=yes
+colour=0xff981f
+
+// 484:2
+[com_2]
+type=text
+x=10
+y=163
+width=60
+height=16
+textfont=fontmetrics_496
+text=Defender :
+textshadow=yes
+colour=0xff981f
+
+// 484:3
+[com_3]
+type=text
+x=10
+y=187
+width=60
+height=16
+textfont=fontmetrics_496
+text=Collector :
+textshadow=yes
+colour=0xff981f
+
+// 484:4
+[com_4]
+type=text
+x=10
+y=210
+width=60
+height=16
+textfont=fontmetrics_496
+text=Healer :
+textshadow=yes
+colour=0xff981f
+
+// 484:5
+[barbassault_horn_att]
+type=text
+x=104
+y=141
+width=140
+height=16
+textfont=fontmetrics_495
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:6
+[barbassualt_horn_def]
+type=text
+x=104
+y=164
+width=140
+height=16
+textfont=fontmetrics_495
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:7
+[barbassault_horn_col]
+type=text
+x=104
+y=188
+width=140
+height=16
+textfont=fontmetrics_495
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:8
+[barbassault_horn_heal]
+type=text
+x=104
+y=211
+width=140
+height=16
+textfont=fontmetrics_495
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:9
+[com_9]
+type=model
+x=256
+y=26
+width=54
+height=56
+model=model_20561
+modelorigin=0,-1
+modelangle=483,0,0
+modelzoom=1084
+modelunknown=64329,2172,0
+
+// 484:10
+[com_10]
+type=model
+x=260
+y=105
+width=45
+height=56
+model=model_20566
+modelangle=512,0,0
+modelzoom=1084
+modelunknown=64331,2166,0
+
+// 484:11
+[com_11]
+type=model
+x=258
+y=178
+width=47
+height=56
+model=model_20563
+modelangle=392,2038,0
+modelzoom=956
+modelunknown=64487,1931,0
+
+// 484:12
+[com_12]
+type=model
+x=256
+y=261
+width=51
+height=50
+model=model_20569
+modelorigin=0,-1
+modelangle=450,2044,0
+modelzoom=1084
+modelunknown=64328,2177,0
+
+// 484:13
+[barbassault_horn_col_r]
+type=text
+x=313
+y=178
+width=32
+height=16
+textfont=fontmetrics_495
+text=Red
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:14
+[barbassault_horn_col_g]
+type=text
+x=313
+y=198
+width=32
+height=16
+textfont=fontmetrics_495
+text=Green
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:15
+[barbassault_horn_col_b]
+type=text
+x=313
+y=218
+width=32
+height=16
+textfont=fontmetrics_495
+text=Blue
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:16
+[barbassault_horn_att_1]
+type=text
+x=313
+y=19
+width=150
+height=16
+textfont=fontmetrics_495
+text=Controlled/Bronze/Wind
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:17
+[barbassault_horn_att_2]
+type=text
+x=313
+y=36
+width=150
+height=16
+textfont=fontmetrics_495
+text=Accurate/Iron/Water
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:18
+[barbassault_horn_att_3]
+type=text
+x=313
+y=54
+width=150
+height=16
+textfont=fontmetrics_495
+text=Aggressive/Steel/Earth
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:19
+[barbassault_horn_att_4]
+type=text
+x=313
+y=72
+width=150
+height=16
+textfont=fontmetrics_495
+text=Defensive/Mithril/Fire
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:20
+[barbassault_horn_def_tofu]
+type=text
+x=313
+y=105
+width=60
+height=16
+textfont=fontmetrics_495
+text=Tofu
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:21
+[barbassault_horn_def_worm]
+type=text
+x=313
+y=141
+width=60
+height=16
+textfont=fontmetrics_495
+text=Worms
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:22
+[barbassault_horn_def_crack]
+type=text
+x=313
+y=123
+width=60
+height=16
+textfont=fontmetrics_495
+text=Crackers
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:23
+[barbassault_horn_heal_tofu]
+type=text
+x=313
+y=262
+width=90
+height=16
+textfont=fontmetrics_495
+text=Poison tofu
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:24
+[barbassault_horn_heal_worm]
+type=text
+x=313
+y=280
+width=90
+height=16
+textfont=fontmetrics_495
+text=Poison worms
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:25
+[barbassault_horn_heal_meat]
+type=text
+x=313
+y=298
+width=90
+height=16
+textfont=fontmetrics_495
+text=Poison meat
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:26
+[com_26]
+type=text
+x=37
+y=37
+width=135
+height=32
+textfont=fontmetrics_764
+text=Horn of Glory
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 484:27
+[barbassault_horn_close]
+type=graphic
+x=478
+y=9
+width=26
+height=23
+graphic=graphic_539
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 540)
+onmouseleave=graphic_swapper(event_com, 539)
+onclick=if_close
+
+// 484:28
+[barbassault_horn_att_5]
+type=text
+x=71
+y=117
+width=52
+height=16
+textfont=fontmetrics_495
+text=Call out :
+textshadow=yes
+colour=0xff981f

@@ -1,0 +1,10 @@
+// 6856
+[proc,clientscript_6856]
+if_settrans(interface_1355:com_0, 255);
+if (detailget_toolkit ! 0 & detailget_safemode = false) {
+    if_setmodel(interface_1355:com_1, model_76808);
+    if_setontimer(interface_1355:com_0, "clientscript_6857(clientclock, interface_1355:com_0, 1)");
+} else {
+    if_setmodel(interface_1355:com_1, null);
+    if_setontimer(interface_1355:com_0, "clientscript_6857(clientclock, interface_1355:com_0, 0)");
+}

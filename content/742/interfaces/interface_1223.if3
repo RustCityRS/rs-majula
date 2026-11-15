@@ -1,0 +1,297 @@
+// 1223:0
+[com_0]
+type=text
+x=55
+y=2
+width=104
+height=12
+layer=com_6
+textfont=p11_full
+text=You completed:
+textshadow=yes
+colour=0xeaf4bc
+
+// 1223:1
+[com_1]
+type=text
+y=14
+width=55
+height=34
+widthmode=minus
+xmode=abs_right
+layer=com_6
+textfont=verdana_11pt_regular
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xabad9e
+
+// 1223:2
+[com_2]
+type=graphic
+width=50
+height=50
+layer=com_6
+
+// 1223:3
+[com_3]
+type=layer
+width=363
+height=291
+xmode=abs_centre
+ymode=abs_centre
+noclickthrough=yes
+
+// 1223:4
+[com_4]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4260(event_com)
+
+// 1223:5
+[com_5]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1223:6
+[com_6]
+type=layer
+y=48
+width=330
+height=50
+xmode=abs_centre
+layer=com_5
+
+// 1223:7
+[com_7]
+type=text
+y=99
+width=10
+height=59
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+textfont=verdana_11pt_regular
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebf4bc
+
+// 1223:8
+[com_8]
+type=text
+y=159
+width=10
+height=64
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+textfont=verdana_11pt_regular
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebf4bc
+
+// 1223:9
+[com_9]
+type=text
+y=4
+width=10
+height=43
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+textfont=verdana_13pt_regular
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebf4bc
+
+// 1223:10
+[com_10]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4261(event_com)
+
+// 1223:11
+[com_11]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+
+// 1223:12
+[com_12]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+textfont=palatino_linotype_18pt_regular
+text=Task Complete
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1223:13
+[com_13]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_3
+onload=aif_build_close_button_layer(event_com)
+
+// 1223:14
+[com_14]
+type=graphic
+width=16
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1223:15
+[com_15]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+onload=aif_build_close_button_over(event_com)
+
+// 1223:16
+[com_16]
+type=layer
+y=12
+width=65
+height=20
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+
+// 1223:17
+[com_17]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2433)
+
+// 1223:18
+[com_18]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2434)
+
+// 1223:19
+[com_19]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2435)
+
+// 1223:20
+[com_20]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2821)
+
+// 1223:21
+[com_21]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+
+// 1223:22
+[com_22]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+textfont=verdana_11pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1223:23
+[com_23]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1223:24
+[com_24]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_16
+onload=clientscript_4412(event_com, struct_2822)

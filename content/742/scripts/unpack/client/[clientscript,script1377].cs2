@@ -1,0 +1,29 @@
+// 1377
+[clientscript,script1377](component $component0, int $int1)
+def_npc $npc2 = null;
+if (%conq_unit_1_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_1_type);
+} else if (%conq_unit_2_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_2_type);
+} else if (%conq_unit_3_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_3_type);
+} else if (%conq_unit_4_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_4_type);
+} else if (%conq_unit_5_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_5_type);
+} else if (%conq_unit_6_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_6_type);
+} else if (%conq_unit_7_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_7_type);
+} else if (%conq_unit_8_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_8_type);
+} else if (%conq_unit_9_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_9_type);
+} else if (%conq_unit_10_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_10_type);
+}
+if ($npc2 ! null) {
+    if_settext($component0, nc_param($npc2, param_1140));
+} else {
+    if_settext($component0, "");
+}
