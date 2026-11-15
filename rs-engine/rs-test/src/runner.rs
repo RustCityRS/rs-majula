@@ -275,10 +275,17 @@ pub fn run_label(engine: &mut Engine, name: &str) -> TestResult {
     else {
         return fail(format!("label {name} is not in the compiled scripts"));
     };
+    let label = script.id;
     engine.enqueue_world_script(ScriptState::init(script, None, None, None), 0);
 
+    // Until the label itself is off the world queue: content queues world scripts of its
+    // own (an npc's timer that takes a `world_delay`), and those never run dry.
     let mut ticks = 0;
-    while !engine.world_queue.is_empty() {
+    while engine
+        .world_queue
+        .iter()
+        .any(|queued| queued.root_script_id == label)
+    {
         if ticks >= MAX_TICKS {
             return fail(format!("still running after {MAX_TICKS} ticks"));
         }
