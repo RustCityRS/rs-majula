@@ -1,0 +1,20 @@
+// 6323
+[proc,clientscript_6323]
+def_component $component0 = cc_getlayer;
+def_obj $obj1 = inv_getobj(inv_662, 0);
+if ($obj1 ! null) {
+    cc_setobject($obj1, inv_getnum(inv_662, 0));
+    cc_settrans(0);
+    if_setop($component0, 1, "Remove");
+    if_setop($component0, 10, "Examine");
+    if_setopbase($component0, "<~clientscript_4033($obj1)><oc_name($obj1)>");
+    if_setonop($component0, "script1620($component0, cc_getid, 150, 0, 10)");
+} else {
+    cc_setobject_nonum(treasure_chest, 1);
+    cc_settrans(100);
+    cc_setontimer(null);
+    if_clearops($component0);
+    if_setop($component0, 1, "What is this?");
+    if_setopbase($component0, "");
+    if_setonop($component0, null);
+}

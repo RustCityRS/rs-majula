@@ -30,7 +30,7 @@ pub fn pack_archive(
         let files = names.files(
             &entry.path(),
             &format!("shaders_{name}"),
-            &["arb", "glsl", "shader"],
+            &["arb", "glsl", "shader", "program"],
         )?;
         shaders.push((gid, files));
     }
@@ -75,6 +75,9 @@ pub fn pack_archive(
     )
 }
 
+/// A source parameter addressed through `a0`: the address register token follows it.
+const RELATIVE: u32 = 0x2000;
+
 const OPS: &[(u16, &str, usize)] = &[
     (0, "nop", 0),
     (1, "mov", 2),
@@ -108,6 +111,7 @@ const OPS: &[(u16, &str, usize)] = &[
     (46, "mova", 2),
     (66, "texld", 3),
     (81, "def", 5),
+    (88, "cmp", 4),
 ];
 
 fn register(token: u32, destination: bool) -> Result<String> {
@@ -355,30 +359,41 @@ pub fn unpack(data: &[u8]) -> Result<String> {
             .iter()
             .find(|(id, _, _)| *id == opcode)
             .context("Unsupported shader instruction")?;
-        let expected = u32::from(opcode)
-            | if (ver >> 8) & 255 >= 2 {
-                (*count as u32) << 24
-            } else {
-                0
-            };
+        let sized = (ver >> 8) & 255 >= 2;
+        let length = if sized {
+            ((token >> 24) & 15) as usize
+        } else {
+            *count
+        };
+        let expected = u32::from(opcode) | if sized { (length as u32) << 24 } else { 0 };
         ensure!(token == expected, "Unsupported shader instruction controls");
-        let args = words
-            .get(pos..pos + count)
-            .context("Truncated shader instruction")?;
+        let mut args = words
+            .get(pos..pos + length)
+            .context("Truncated shader instruction")?
+            .iter();
         let mut params = Vec::new();
-        for (i, &value) in args.iter().enumerate() {
+        while let Some(&value) = args.next() {
+            let i = params.len();
             params.push(if opcode == 31 && i == 0 {
                 declaration(value)?
             } else if opcode == 81 && i > 0 {
                 let value = f32::from_bits(value);
                 ensure!(value.is_finite(), "Non-finite shader constant");
                 value.to_string()
+            } else if sized && i > 0 && value & RELATIVE != 0 {
+                let address = args.next().context("Missing shader relative address")?;
+                format!(
+                    "{}[{}]",
+                    register(value & !RELATIVE, false)?,
+                    register(*address, false)?
+                )
             } else {
                 register(value, i == 0 || opcode == 31)?
             });
         }
+        ensure!(params.len() == *count, "Unsupported shader parameter count");
         out.push_str(&format!("{name} {}\n", params.join(", ")));
-        pos += count;
+        pos += length;
     }
     ensure!(words.last() == Some(&65535), "Missing shader end token");
     Ok(out)
@@ -424,23 +439,31 @@ pub fn pack(text: &str) -> Result<Vec<u8>> {
             args.len() == *count,
             "Wrong operand count for shader instruction {op}"
         );
+        let mut tokens = Vec::new();
+        for (i, value) in args.into_iter().enumerate() {
+            if *opcode == 31 && i == 0 {
+                tokens.push(encode_declaration(value)?);
+            } else if *opcode == 81 && i > 0 {
+                tokens.push(value.parse::<f32>()?.to_bits());
+            } else if let Some((base, address)) = (i > 0)
+                .then(|| value.strip_suffix(']')?.split_once('['))
+                .flatten()
+            {
+                tokens.push(encode_register(base, false)? | RELATIVE);
+                tokens.push(encode_register(address, false)?);
+            } else {
+                tokens.push(encode_register(value, i == 0 || *opcode == 31)?);
+            }
+        }
         words.push(
             u32::from(*opcode)
                 | if (ver >> 8) & 255 >= 2 {
-                    (*count as u32) << 24
+                    (tokens.len() as u32) << 24
                 } else {
                     0
                 },
         );
-        for (i, value) in args.into_iter().enumerate() {
-            words.push(if *opcode == 31 && i == 0 {
-                encode_declaration(value)?
-            } else if *opcode == 81 && i > 0 {
-                value.parse::<f32>()?.to_bits()
-            } else {
-                encode_register(value, i == 0 || *opcode == 31)?
-            });
-        }
+        words.extend(tokens);
     }
     let ver = ver.context("Missing shader version")?;
     if !constants.is_empty() {

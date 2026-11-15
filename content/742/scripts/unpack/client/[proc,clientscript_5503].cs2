@@ -1,0 +1,10 @@
+// 5503
+[proc,clientscript_5503]
+if_settext(lobbyscreen:com_4, "Email address");
+if_sethide(lobbyscreen:com_300, false);
+if_settext(lobbyscreen:com_306, op977);
+%varclient_1660 = 0;
+if_setposition(lobbyscreen:com_307, 4, if_gety(lobbyscreen:com_307), ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(lobbyscreen:com_315, true);
+if_sethide(lobbyscreen:com_301, true);
+%varclient_1661 = 1;

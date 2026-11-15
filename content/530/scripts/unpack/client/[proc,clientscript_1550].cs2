@@ -1,0 +1,9 @@
+// 1550
+[proc,clientscript_1550]
+if (%tutorial = 1000) {
+    if_setcolour(interface_274:com_5, ^green);
+} else if (%tutorial > 0) {
+    if_setcolour(interface_274:com_5, ^yellow);
+} else {
+    if_setcolour(interface_274:com_5, ^red);
+}

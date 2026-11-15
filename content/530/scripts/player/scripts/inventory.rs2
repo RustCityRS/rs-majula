@@ -1,0 +1,44 @@
+// Inventory iop1-3 use buttons 1-3, iop4 uses button 7 and iop5 uses button 8.
+// Route all five through opheld so item-specific actions override the defaults.
+// As 289's OPHELD did (clear_pending_action, then the op, protected), an op
+// closes any modal first: a player reading a clue who clicks another item
+// gets that item's op, not nothing. Examine leaves the modal open.
+[proc,handle_inv_button](int $op, int $slot)
+if ($op = 10) {
+    ~inv_examine($slot);
+    return;
+}
+if_close;
+if (p_finduid(uid) = false) { return; }
+p_opheld($op, inv, $slot);
+
+[proc,inv_examine](int $slot)
+def_obj $obj = inv_getobj(inv, $slot);
+if ($obj ! null) {
+    mes(oc_desc($obj));
+}
+
+[if_button1,inventory:inv] ~handle_inv_button(1, last_slot);
+[if_button2,inventory:inv] ~handle_inv_button(2, last_slot);
+[if_button3,inventory:inv] ~handle_inv_button(3, last_slot);
+[if_button7,inventory:inv] ~handle_inv_button(4, last_slot);
+[if_button8,inventory:inv] ~handle_inv_button(5, last_slot);
+[if_button10,inventory:inv] ~handle_inv_button(10, last_slot);
+
+// Dragging one inventory slot onto another rearranges the backpack. The client
+// sends IF_BUTTOND with both endpoints; the engine puts the source slot in
+// last_slot and the target in last_targetslot, and the move itself is a plain
+// same-inventory slot move -- exactly as 289 does it for the bank containers
+// (interface_bank/scripts/bank_deposit.rs2).
+// The target is a component index, not an inventory slot. Interface 149 lays
+// the backpack out as two banks of 28 (cs2 1613): 0-27 hold the item graphics,
+// 28-55 are the always-visible backing sprites unlocked for drag in
+// [proc,initalltabs]. The second bank draws last, so it wins the client's
+// drop-target search and the reported target is 28+slot for a full slot just
+// as much as an empty one. Take the bank offset back off to get the slot.
+[inv_buttond,inventory:inv]
+def_int $to_slot = last_targetslot;
+if ($to_slot >= 28) {
+    $to_slot = calc($to_slot - 28);
+}
+inv_movetoslot(inv, inv, last_slot, $to_slot);

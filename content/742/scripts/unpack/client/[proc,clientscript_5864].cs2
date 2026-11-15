@@ -1,0 +1,99 @@
+// 5864
+[proc,clientscript_5864]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 1;
+while ($int10 <= enum_getoutputcount(enum_681)) {
+    $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9 = ~clientscript_5865(stat_visible_xp(enum(int, stat, enum_681, $int10)), $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9);
+    $int10 = calc($int10 + 1);
+}
+def_string $string0 = tostring($int0);
+def_string $string1 = substring(tostring($int1), 0, 1);
+def_string $string2 = substring(tostring($int2), 0, 1);
+def_string $string3 = substring(tostring($int3), 0, 1);
+def_string $string4 = substring(tostring($int4), 0, 1);
+def_string $string5 = substring(tostring($int5), 0, 1);
+def_string $string6 = substring(tostring($int6), 0, 1);
+def_string $string7 = substring(tostring($int7), 0, 1);
+def_string $string8 = substring(tostring($int8), 0, 1);
+def_string $string9 = substring(tostring($int9), 0, 1);
+def_int $int11 = 10;
+if ($int9 = 0) {
+    $string9 = "";
+    $int11 = calc($int11 - 1);
+    if ($int8 = 0) {
+        $string8 = "";
+        $int11 = calc($int11 - 1);
+        if ($int7 = 0) {
+            $string7 = "";
+            $int11 = calc($int11 - 1);
+            if ($int6 = 0) {
+                $string6 = "";
+                $int11 = calc($int11 - 1);
+                if ($int5 = 0) {
+                    $string5 = "";
+                    $int11 = calc($int11 - 1);
+                    if ($int4 = 0) {
+                        $string4 = "";
+                        $int11 = calc($int11 - 1);
+                        if ($int3 = 0) {
+                            $string3 = "";
+                            $int11 = calc($int11 - 1);
+                            if ($int2 = 0) {
+                                $string2 = "";
+                                $int11 = calc($int11 - 1);
+                                if ($int1 = 0) {
+                                    $string1 = "";
+                                    $int11 = calc($int11 - 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+def_string $string10 = "";
+if ($int11 > 3) {
+    $string10 = ",";
+}
+def_string $string11 = "";
+if ($int11 > 6) {
+    $string11 = ",";
+}
+def_string $string12 = "";
+if ($int11 > 9) {
+    $string12 = ",";
+}
+def_string $string13 = "Total XP: <$string9><$string12><$string8><$string7><$string6><$string11><$string5><$string4><$string3><$string10><$string2><$string1><$string0>";
+def_int $int12 = stringwidth($string13, p12_full);
+def_int $int13 = 3;
+def_int $int14 = 30;
+def_component $component15 = stats:tips;
+cc_create($component15, ^iftype_rectangle, 0);
+cc_setsize(calc($int12 + 4), 18, ^setsize_abs, ^setsize_abs);
+cc_setposition($int13, $int14, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setfill(true);
+cc_setcolour(0x0e0e0e);
+cc_create($component15, ^iftype_rectangle, 1);
+cc_setsize(calc($int12 + 4), 18, ^setsize_abs, ^setsize_abs);
+cc_setposition($int13, $int14, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setfill(false);
+cc_setcolour(0xebece6);
+cc_create($component15, ^iftype_text, 2);
+cc_setposition(calc($int13 + 2), calc($int14 + 0), ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setsize($int12, 16, ^setsize_abs, ^setsize_abs);
+cc_settextfont(p12_full);
+cc_setcolour(0xf5b241);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextshadow(false);
+cc_settext($string13);

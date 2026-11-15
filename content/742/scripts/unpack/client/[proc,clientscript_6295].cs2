@@ -1,0 +1,16 @@
+// 6295
+[proc,clientscript_6295](int $int0, int $int1, component $component2)
+def_int $int3 = max(calc(if_getwidth(op543($component2)) / 2 - $int0), calc((if_getwidth(op543($component2)) / 2 - $int0) * -1));
+def_int $int4 = max(calc(if_getheight(op543($component2)) / 2 - $int1), calc((if_getheight(op543($component2)) / 2 - $int1) * -1));
+def_int $int5 = max(calc(if_getwidth(op543($component2)) / 2 - if_getx($component2)), calc((if_getwidth(op543($component2)) / 2 - if_getx($component2)) * -1));
+def_int $int6 = max(calc(if_getheight(op543($component2)) / 2 - if_gety($component2)), calc((if_getheight(op543($component2)) / 2 - if_gety($component2)) * -1));
+if ($int5 >= $int3 | $int6 >= $int4) {
+    if_setposition($component2, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+    return;
+}
+def_int $int7 = calc($int0 - if_getx($component2));
+def_int $int8 = calc($int1 - if_gety($component2));
+def_int $int9 = invpow(calc(pow($int7, 2) + pow($int8, 2)), 2);
+$int7 = calc($int7 * 100 / $int9 * 25 / 100);
+$int8 = calc($int8 * 100 / $int9 * 25 / 100);
+if_setposition($component2, calc(if_getx($component2) + $int7), calc(if_gety($component2) + $int8), ^setpos_abs_left, ^setpos_abs_top);

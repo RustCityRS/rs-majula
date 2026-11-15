@@ -24,9 +24,9 @@
 //! hatch for regenerating from the cache after a rename.
 use crate::archive;
 use crate::cache::loader;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
-use anyhow::{Result, ensure};
+use anyhow::{Context, Result, ensure};
 use rs_io::js5::Js5Store;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fs::{self, File};
@@ -34,7 +34,7 @@ use std::io::Write;
 use std::path::Path;
 use tracing::{info, warn};
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn placeholder_prefix(kind: &str) -> &str {
     kind
 }
@@ -70,6 +70,10 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
     let mut cache = Js5Store::open(cache_dir)?;
 
     fs::create_dir_all(pack_dir)?;
+    // String variables merge back in after the ints, wherever those now end.
+    for (kind, strings) in [("varp", "varpstr"), ("vars", "varsstr")] {
+        strip_string_vars(pack_dir, kind, strings)?;
+    }
 
     let mut report = DiscoveryReport::default();
 
@@ -167,6 +171,14 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         )?,
     );
     report.record(
+        "chatcat",
+        generate_quickchat_pack(&mut cache, pack_dir, "chatcat", 0, force)?,
+    );
+    report.record(
+        "chatphrase",
+        generate_quickchat_pack(&mut cache, pack_dir, "chatphrase", 1, force)?,
+    );
+    report.record(
         "seq",
         generate_auto_pack_stride(&mut cache, pack_dir, "seq", archive::CONFIG_SEQ, 128, force)?,
     );
@@ -184,6 +196,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
 
     // Categories derived from item/loc category fields.
     report.record("category", generate_category_pack(&mut cache, pack_dir)?);
+    report.record("map", generate_map_pack(&mut cache, pack_dir)?);
 
     // Game vars.
     report.record("varp", generate_varp_pack(&mut cache, pack_dir)?);
@@ -202,14 +215,25 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         ("mesanim", "mesanim", archive::CONFIG_GROUP_MESANIM),
         ("vars", "varworld", archive::CONFIG_GROUP_VARS),
         ("varn", "varnpc", archive::CONFIG_GROUP_VARN),
+        #[cfg(since_647)]
         ("dbtable", "dbtable", archive::CONFIG_GROUP_DBTABLE),
+        #[cfg(since_647)]
         ("dbrow", "dbrow", archive::CONFIG_GROUP_DBROW),
         ("bas", "bas", archive::CONFIG_GROUP_BAS),
+        #[cfg(since_647)]
         ("cursor", "cursor", archive::CONFIG_GROUP_CURSOR),
+        #[cfg(since_647)]
         ("hitmark", "hitmark", archive::CONFIG_GROUP_HITMARK),
+        #[cfg(since_742)]
+        ("skybox", "skybox", archive::CONFIG_GROUP_SKYBOX),
+        #[cfg(since_742)]
+        ("headbar", "headbar", archive::CONFIG_GROUP_HEADBAR),
+        #[cfg(since_647)]
         ("light", "light", archive::CONFIG_GROUP_LIGHT),
+        #[cfg(since_647)]
         ("mel", placeholder_prefix("mel"), archive::CONFIG_GROUP_MEL),
         ("msi", "msi", archive::CONFIG_GROUP_MSI),
+        #[cfg(since_647)]
         ("quest", "quest", archive::CONFIG_GROUP_QUEST),
         (
             "varc",
@@ -219,15 +243,37 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         ("area", "area", archive::CONFIG_GROUP_AREA),
         ("varobj", "varobject", archive::CONFIG_GROUP_VAROBJ),
         ("varnbit", "varnpcbit", archive::CONFIG_GROUP_VARNBIT),
+        #[cfg(since_647)]
         ("config37", "config37", 37),
+        #[cfg(since_647)]
         ("config38", "config38", 38),
+        #[cfg(since_647)]
         ("config39", "config39", 39),
+        #[cfg(since_647)]
         ("controller", "controller", archive::CONFIG_GROUP_CONTROLLER),
+        #[cfg(since_647)]
         ("varcon", "config43", archive::CONFIG_GROUP_VARCON),
+        #[cfg(since_647)]
         ("varconbit", "varconbit", archive::CONFIG_GROUP_VARCONBIT),
+        #[cfg(since_647)]
         ("config45", "config45", 45),
+        #[cfg(since_647)]
         ("varclan", "varclan", archive::CONFIG_GROUP_VARCLAN),
+        #[cfg(since_647)]
         ("itemcode", "itemcode", archive::CONFIG_GROUP_ITEMCODE),
+        #[cfg(since_742)]
+        ("config49", "config49", 49),
+        #[cfg(since_742)]
+        ("config50", "config50", 50),
+        #[cfg(since_742)]
+        ("config51", "config51", 51),
+        #[cfg(since_742)]
+        ("config53", "config53", 53),
+        #[cfg(since_742)]
+        ("gamelogevent", "gamelogevent", 70),
+        #[cfg(since_742)]
+        ("config74", "config74", 74),
+        #[cfg(since_647)]
         (
             "varclansetting",
             "varclansetting",
@@ -249,6 +295,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         );
     }
 
+    #[cfg(since_647)]
     report.record(
         "billboard",
         generate_auto_pack_named(
@@ -262,6 +309,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
             force,
         )?,
     );
+    #[cfg(since_647)]
     for (name, group) in [("particleemitter", 0), ("particleeffector", 1)] {
         report.record(
             name,
@@ -538,39 +586,63 @@ fn write_disambiguated_entity_pack(
     let ambiguous: HashSet<String> = first_id.keys().cloned().collect();
     let cache_ids: HashSet<u32> = entries.iter().map(|(id, _)| *id).collect();
 
-    let mut file = File::create(path)?;
-    let mut report = TypeReport::default();
-    for (id, name) in entries {
-        let sanitized = if name == "null" || name.is_empty() {
-            format!("{type_name}_{id}")
-        } else {
-            let s = sanitize_name(name);
-            if s.is_empty() {
+    let generated: Vec<(u32, String)> = entries
+        .iter()
+        .map(|(id, name)| {
+            let sanitized = if name == "null" || name.is_empty() {
                 format!("{type_name}_{id}")
             } else {
-                s
-            }
-        };
-        let generated_name = if ambiguous.contains(&sanitized) {
-            if *id == first_id[&sanitized] {
-                sanitized
+                let s = sanitize_name(name);
+                if s.is_empty() {
+                    format!("{type_name}_{id}")
+                } else {
+                    s
+                }
+            };
+            let name = if ambiguous.contains(&sanitized) && *id != first_id[&sanitized] {
+                format!("{sanitized}_{id}")
             } else {
-                format!("{}_{}", sanitized, id)
-            }
-        } else {
-            sanitized
-        };
-        if let Some(existing_name) = existing.get(id) {
-            if *existing_name != generated_name
-                && should_preserve(existing_name, type_name, *id, force)
-            {
-                writeln!(file, "{}={}", id, existing_name)?;
-                report.preserved += 1;
-                report.total += 1;
-                continue;
-            }
+                sanitized
+            };
+            (*id, name)
+        })
+        .collect();
+    let preserved: HashMap<u32, &String> = generated
+        .iter()
+        .filter_map(|(id, name)| {
+            existing
+                .get(id)
+                .filter(|kept| *kept != name && should_preserve(kept, type_name, *id, force))
+                .map(|kept| (*id, kept))
+        })
+        .collect();
+    let taken: HashSet<&String> = preserved
+        .values()
+        .copied()
+        .chain(
+            existing
+                .iter()
+                .filter(|(id, name)| {
+                    !cache_ids.contains(id) && should_preserve(name, type_name, **id, force)
+                })
+                .map(|(_, name)| name),
+        )
+        .collect();
+
+    let mut file = File::create(path)?;
+    let mut report = TypeReport::default();
+    for (id, generated_name) in &generated {
+        if let Some(existing_name) = preserved.get(id) {
+            writeln!(file, "{}={}", id, existing_name)?;
+            report.preserved += 1;
+            report.total += 1;
+            continue;
         }
-        writeln!(file, "{}={}", id, generated_name)?;
+        if taken.contains(generated_name) {
+            writeln!(file, "{}={}_{}", id, generated_name, id)?;
+        } else {
+            writeln!(file, "{}={}", id, generated_name)?;
+        }
         report.added += 1;
         report.total += 1;
     }
@@ -601,7 +673,7 @@ fn generate_obj_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Resu
         .iter()
         .map(|def| {
             (
-                def.id as u32,
+                def.id.raw(),
                 def.name.as_deref().unwrap_or("null").to_string(),
             )
         })
@@ -617,7 +689,7 @@ fn generate_npc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Resu
         .iter()
         .map(|def| {
             (
-                def.id as u32,
+                def.id.raw(),
                 def.name.as_deref().unwrap_or("null").to_string(),
             )
         })
@@ -633,7 +705,7 @@ fn generate_loc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Resu
         .iter()
         .map(|def| {
             (
-                def.id as u32,
+                def.id.raw(),
                 def.name.as_deref().unwrap_or("null").to_string(),
             )
         })
@@ -766,6 +838,51 @@ fn generate_auto_pack_stride(
     Ok(report)
 }
 
+/// Quickchat ids span both archives; the global ones start at `QUICKCHAT_GLOBAL_FIRST`.
+fn generate_quickchat_pack(
+    cache: &mut Js5Store,
+    pack_dir: &Path,
+    type_name: &str,
+    group_id: u32,
+    force: bool,
+) -> Result<TypeReport> {
+    let pack_path = pack_dir.join(format!("{type_name}.pack"));
+    let existing = load_existing_pack(&pack_path);
+    let mut ids = Vec::new();
+    for (archive_id, first) in [
+        (archive::QUICKCHAT, 0),
+        (
+            archive::QUICKCHAT_GLOBAL,
+            u32::from(archive::QUICKCHAT_GLOBAL_FIRST),
+        ),
+    ] {
+        if let Ok(Some(group)) = cache.read_group(archive_id, group_id) {
+            ids.extend(group.entries.iter().map(|entry| first + entry.id));
+        }
+    }
+    ids.sort_unstable();
+    let mut file = File::create(&pack_path)?;
+    let mut report = TypeReport::default();
+    for id in ids {
+        match existing.get(&id) {
+            Some(name) if should_preserve(name, type_name, id, force) => {
+                writeln!(file, "{id}={name}")?;
+                report.preserved += 1;
+            }
+            _ => {
+                writeln!(file, "{id}={type_name}_{id}")?;
+                report.added += 1;
+            }
+        }
+        report.total += 1;
+    }
+    info!(
+        "  {}.pack: {} entries ({} preserved)",
+        type_name, report.total, report.preserved
+    );
+    Ok(report)
+}
+
 fn generate_auto_pack_group(
     cache: &mut Js5Store,
     pack_dir: &Path,
@@ -797,7 +914,14 @@ fn generate_auto_pack_named(
     force: bool,
 ) -> Result<TypeReport> {
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
-    let existing = load_existing_pack(&pack_path);
+    // A placeholder numbered from another revision's offset is still a placeholder.
+    let mut existing = load_existing_pack(&pack_path);
+    existing.retain(|_, name| {
+        !name
+            .strip_prefix(section)
+            .and_then(|rest| rest.strip_prefix('_'))
+            .is_some_and(|number| number.parse::<u32>().is_ok())
+    });
     let mut file = File::create(&pack_path)?;
     let mut report = TypeReport::default();
     let mut written_ids = HashSet::new();
@@ -845,27 +969,63 @@ fn generate_auto_pack_named(
     Ok(report)
 }
 
+/// Map squares by group id, named from their hashes: ids differ between revisions.
+fn generate_map_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
+    let lookup = super::map::build_name_lookup();
+    let mut groups: Vec<_> = cache
+        .reference_table(archive::MAPS)
+        .context("Missing map table")?
+        .groups
+        .iter()
+        .map(|group| {
+            let name = lookup
+                .get(&group.name_hash)
+                .cloned()
+                .unwrap_or_else(|| format!("map_{}", group.id));
+            (group.id, name)
+        })
+        .collect();
+    groups.sort_unstable();
+    let mut file = File::create(pack_dir.join("map.pack"))?;
+    for (id, name) in &groups {
+        writeln!(file, "{id}={name}")?;
+    }
+    let report = TypeReport {
+        total: groups.len() as u32,
+        added: groups.len() as u32,
+        preserved: 0,
+    };
+    info!("  map.pack: {} entries", report.total);
+    Ok(report)
+}
+
 fn generate_category_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let mut categories = BTreeSet::new();
 
     let items = loader::load_all_objs(cache, true)?;
     for item in items.types.iter() {
-        if let Some(category) = item.category.filter(|&category| category > 0) {
-            categories.insert(category as u32);
+        if let Some(category) = item.category.filter(|category| category.raw() > 0) {
+            categories.insert(category.raw());
         }
     }
 
     let locs = loader::load_all_locs(cache)?;
     for loc in locs.types.iter() {
-        if let Some(category) = loc.category.filter(|&category| category > 0) {
-            categories.insert(category as u32);
+        if let Some(category) = loc.category.filter(|category| category.raw() > 0) {
+            categories.insert(category.raw());
         }
     }
 
-    let entries: Vec<(u32, String)> = categories
-        .iter()
-        .map(|&id| (id, format!("category_{}", id)))
-        .collect();
+    // The server's category table packs every id up to the last one.
+    let last = load_existing_pack(&pack_dir.join("category.pack"))
+        .into_keys()
+        .chain(categories.iter().copied())
+        .max();
+    let entries: Vec<(u32, String)> = last.map_or(Vec::new(), |last| {
+        (0..=last)
+            .map(|id| (id, format!("category_{id}")))
+            .collect()
+    });
     write_entity_pack(&pack_dir.join("category.pack"), &entries, "category", false)
 }
 
@@ -908,9 +1068,9 @@ fn generate_interface_packs(
 
         let fc = file_counts.get(&gid).copied().unwrap_or(0);
         for cid in 0..fc {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let auto_comp_name = format!("com{}", cid);
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let auto_comp_name = format!("com_{}", cid);
             if let Some(name) = existing_comps.get(&(gid, cid)) {
                 if *name != auto_comp_name && !force {
@@ -949,6 +1109,25 @@ fn generate_empty_pack(pack_dir: &Path, type_name: &str) -> Result<()> {
 }
 
 // ── game var pack generators ────────────────────────────────────────────
+
+fn strip_string_vars(pack_dir: &Path, kind: &str, strings: &str) -> Result<()> {
+    let path = pack_dir.join(format!("{kind}.pack"));
+    let string_names: HashSet<String> =
+        load_existing_pack(&pack_dir.join(format!("{strings}.pack")))
+            .into_values()
+            .collect();
+    if !path.exists() || string_names.is_empty() {
+        return Ok(());
+    }
+    let names = load_existing_pack(&path);
+    let mut file = File::create(&path)?;
+    for (id, name) in names {
+        if !string_names.contains(&name) {
+            writeln!(file, "{id}={name}")?;
+        }
+    }
+    Ok(())
+}
 
 fn merge_string_vars(pack_dir: &Path, kind: &str, strings: &str, first: u32) -> Result<()> {
     let path = pack_dir.join(format!("{kind}.pack"));
@@ -1121,6 +1300,48 @@ mod tests {
         assert!(should_preserve("category_22", "category", 208, false));
         assert!(!should_preserve("category_208", "category", 208, false));
         assert!(!should_preserve("drawer", "category", 22, true));
+    }
+
+    #[test]
+    fn string_vars_follow_the_ints_when_more_ints_arrive() {
+        let dir = scratch("string_vars");
+        fs::write(dir.join("vars.pack"), "0=wins\n1=duel1\n").unwrap();
+        fs::write(dir.join("varsstr.pack"), "0=duel1\n").unwrap();
+
+        strip_string_vars(&dir, "vars", "varsstr").unwrap();
+        fs::write(
+            dir.join("vars.pack"),
+            fs::read_to_string(dir.join("vars.pack")).unwrap() + "1=varworld_1\n",
+        )
+        .unwrap();
+        merge_string_vars(&dir, "vars", "varsstr", 2).unwrap();
+
+        assert_eq!(
+            fs::read_to_string(dir.join("vars.pack"))
+                .unwrap()
+                .lines()
+                .collect::<Vec<_>>(),
+            ["0=wins", "1=varworld_1", "2=duel1"]
+        );
+    }
+
+    #[test]
+    fn a_new_entity_never_takes_a_kept_name() {
+        let dir = scratch("disambiguated_pack");
+        let path = dir.join("obj.pack");
+        fs::write(&path, "317=raw_shrimp\n").unwrap();
+        let cache = [
+            (317, "Raw shrimps".to_owned()),
+            (20893, "Raw shrimp".to_owned()),
+        ];
+
+        write_disambiguated_entity_pack(&path, &cache, "obj", false).unwrap();
+
+        let written = fs::read_to_string(&path).unwrap();
+        assert_eq!(
+            written.lines().collect::<Vec<_>>(),
+            ["317=raw_shrimp", "20893=raw_shrimp_20893"]
+        );
     }
 
     #[test]

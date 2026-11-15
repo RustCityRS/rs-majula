@@ -1,0 +1,16 @@
+// 6827
+[proc,clientscript_6827](int $int0, component $component1)
+def_int $int2 = calc(clientclock - $int0);
+def_int $int3 = 0;
+if ($int2 < 100) {
+    $int3 = calc(15 + scale($int2, 100, 20));
+    if_setposition($component1, 0, $int3, ^setpos_abs_centre, ^setpos_abs_centre);
+} else if ($int2 < 200) {
+    return;
+} else if ($int2 < 300) {
+    $int3 = calc(35 - scale(calc($int2 - 200), 100, 20));
+    if_setposition($component1, 0, $int3, ^setpos_abs_centre, ^setpos_abs_centre);
+}
+if ($int2 >= 300) {
+    ~clientscript_6828;
+}

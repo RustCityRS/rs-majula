@@ -1,0 +1,7 @@
+// 53
+[clientscript,prayer_level](component $component0, component $component1, int $int2)
+if_settext($component0, "<tostring(~clientscript_5256)> / <tostring(~clientscript_5255)>");
+if_setsize($component0, stringwidth(if_gettext($component0), p12_full), if_getheight($component0), ^setsize_abs, ^setsize_abs);
+if ($int2 = 1) {
+    ~clientscript_5264($component0, $component1);
+}

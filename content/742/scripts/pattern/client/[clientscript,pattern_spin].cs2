@@ -1,0 +1,9 @@
+// 120
+[clientscript,pattern_spin](component $component0)
+def_int $int1 = random(63);
+def_int $int2 = random(127);
+op713($int1, 4, 60, $int2, $component0);
+def_int $int3 = calc(randominc(25) + 10);
+def_int $int4 = calc(randominc(25) + 20);
+def_int $int5 = calc(clientclock + 100);
+if_setontimer($component0, "clientscript_5612($component0, $int1, $int2, random(2), $int5, $int3, $int4)");

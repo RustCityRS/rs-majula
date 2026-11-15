@@ -1,0 +1,31 @@
+// 5814
+[proc,clientscript_5814](int $int0)(int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 4094;
+def_int $int3 = 0;
+while ($int1 < enum_getoutputcount(enum_5480)) {
+    $int2 = enum(int, int, enum_5480, $int1);
+    if ($int2 = $int0) {
+        $int3 = enum(int, int, enum_5481, $int1);
+        $int1 = enum_getoutputcount(enum_5480);
+    } else {
+        $int1 = calc($int1 + 1);
+    }
+}
+if ($int3 = 0) {
+    return(0, 0, 0);
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int1 = 0;
+while ($int1 < enum_getoutputcount(enum_5480)) {
+    if (enum(int, int, enum_5481, $int1) = $int3) {
+        $int2 = enum(int, int, enum_5480, $int1);
+        if (~task_get_progress($int2) = 2) {
+            $int5 = calc($int5 + 1);
+        }
+        $int4 = calc($int4 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+return($int3, $int5, $int4);

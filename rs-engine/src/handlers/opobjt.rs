@@ -15,9 +15,9 @@ use rs_vm::trigger::ServerTriggerType;
 
 impl ClientGameHandler for OpObjT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let com = self.com.into();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let com = self.com;
         #[cfg(since_647)]
         if transmitted_inv(active, com).is_some() {
@@ -36,12 +36,12 @@ impl ClientGameHandler for OpObjT {
             return Ok(());
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let slot = u16::MAX;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let slot = self.slot;
         #[cfg(since_647)]
-        if self.obj2 != u16::MAX {
+        if !self.obj2.is_null() {
             active.unset_map_flag();
             return Ok(());
         }
@@ -57,7 +57,7 @@ impl ClientGameHandler for OpObjT {
 
         let y = active.player.pathing.coord.y();
         let receiver = active.uid().username37();
-        let Some(obj) = zone_obj(self.x, y, self.z, self.obj, receiver) else {
+        let Some(obj) = zone_obj(self.x, y, self.z, self.obj.g2(), receiver) else {
             active.unset_map_flag();
             return Ok(());
         };

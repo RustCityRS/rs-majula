@@ -1,7 +1,8 @@
 use crate::core::Engine;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_pack::types::LocLayer;
-#[cfg(before_647)]
+use rs_ver::TypeId;
+#[cfg(before_530)]
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
 /// A deferred zone event scheduled for future execution at a specific game tick.
@@ -18,17 +19,17 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 pub enum PendingZoneEvent {
     ObjReveal {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         receiver37: u64,
     },
     ObjDelete {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         clock: u32,
     },
     ObjAdd {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
     },
     LocDelete {
         coord: CoordGrid,
@@ -41,9 +42,9 @@ impl Engine {
     /// Whether `coord` is multi-combat: from 647 the `multiway` area painted
     /// on its tile, before that its zone's `ZoneFlag::Multi`.
     pub fn multiway(&self, coord: CoordGrid) -> bool {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         return rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Multi as u8);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         return self.cache.multiway_area.is_some_and(|area| {
             let coord = self.area_tile(coord);
             self.cache

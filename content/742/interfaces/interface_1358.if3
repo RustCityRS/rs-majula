@@ -1,0 +1,654 @@
+// 1358:0
+[com_0]
+type=graphic
+version=3
+x=-6
+y=-7
+width=126
+height=185
+layer=com_25
+graphic=graphic_13752
+opkey11=1,0
+onmouseover=clientscript_6863(event_com)
+onmouseleave=clientscript_6862(event_com)
+onrelease=graphic_swapper(event_com, 13755)
+onhold=graphic_swapper(event_com, 13754)
+
+// 1358:1
+[com_1]
+type=graphic
+version=3
+x=-6
+y=-7
+width=126
+height=185
+layer=com_18
+graphic=graphic_13756
+opkey11=1,0
+onmouseover=clientscript_6863(event_com)
+onmouseleave=clientscript_6862(event_com)
+onrelease=graphic_swapper(event_com, 13759)
+onhold=graphic_swapper(event_com, 13758)
+
+// 1358:2
+[com_2]
+type=graphic
+version=3
+x=-6
+y=-7
+width=126
+height=185
+layer=com_16
+graphic=graphic_13760
+opkey11=1,0
+onmouseover=clientscript_6863(event_com)
+onmouseleave=clientscript_6862(event_com)
+onrelease=graphic_swapper(event_com, 13763)
+onhold=graphic_swapper(event_com, 13762)
+
+// 1358:3
+[com_3]
+type=graphic
+version=3
+x=-6
+y=-7
+width=126
+height=185
+layer=com_14
+graphic=graphic_13764
+opkey11=1,0
+onmouseover=clientscript_6863(event_com)
+onmouseleave=clientscript_6862(event_com)
+onrelease=graphic_swapper(event_com, 13767)
+onhold=graphic_swapper(event_com, 13766)
+
+// 1358:4
+[com_4]
+type=graphic
+version=3
+width=179
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+graphic=graphic_11879
+opkey11=1,0
+onmouseover=graphic_swapper(event_com, 11880)
+onmouseleave=graphic_swapper(event_com, 11879)
+onrelease=graphic_swapper(event_com, 11879)
+onhold=graphic_swapper(event_com, 11881)
+
+// 1358:5
+[com_5]
+type=graphic
+version=3
+x=1
+y=1
+width=160
+height=100
+layer=com_22
+graphic=graphic_13727
+opkey11=1,0
+
+// 1358:6
+[com_6]
+type=graphic
+version=3
+x=160
+y=1
+width=160
+height=100
+layer=com_22
+graphic=graphic_13728
+opkey11=1,0
+
+// 1358:7
+[com_7]
+type=graphic
+version=3
+x=320
+y=1
+width=160
+height=100
+layer=com_22
+graphic=graphic_13729
+opkey11=1,0
+
+// 1358:8
+[com_8]
+type=graphic
+version=3
+x=2
+y=101
+width=160
+height=100
+layer=com_22
+graphic=graphic_13730
+opkey11=1,0
+
+// 1358:9
+[com_9]
+type=graphic
+version=3
+x=162
+y=101
+width=160
+height=100
+layer=com_22
+graphic=graphic_13731
+opkey11=1,0
+
+// 1358:10
+[com_10]
+type=graphic
+version=3
+x=321
+y=101
+width=160
+height=100
+layer=com_22
+graphic=graphic_13732
+opkey11=1,0
+
+// 1358:11
+[com_11]
+type=graphic
+version=3
+x=2
+y=201
+width=160
+height=100
+layer=com_22
+graphic=graphic_13733
+opkey11=1,0
+
+// 1358:12
+[com_12]
+type=graphic
+version=3
+x=162
+y=201
+width=160
+height=100
+layer=com_22
+graphic=graphic_13734
+opkey11=1,0
+
+// 1358:13
+[com_13]
+type=graphic
+version=3
+x=322
+y=201
+width=160
+height=100
+layer=com_22
+graphic=graphic_13735
+opkey11=1,0
+
+// 1358:14
+[com_14]
+type=layer
+version=3
+x=171
+y=18
+width=112
+height=172
+xmode=abs_centre
+layer=com_23
+transmitop=1
+op1=Claim - Portable Deposit Box
+opkey11=1,0
+onop=clientscript_6864(1)
+
+// 1358:15
+[com_15]
+type=graphic
+version=3
+x=9
+y=10
+width=95
+height=50
+layer=com_14
+graphic=graphic_13739
+opkey11=1,0
+
+// 1358:16
+[com_16]
+type=layer
+version=3
+x=-57
+y=18
+width=112
+height=172
+xmode=abs_centre
+layer=com_23
+transmitop=1
+op1=Claim - Instakill Dart
+opkey11=1,0
+onop=clientscript_6864(2)
+
+// 1358:17
+[com_17]
+type=graphic
+version=3
+x=9
+y=9
+width=95
+height=50
+layer=com_16
+graphic=graphic_13737
+opkey11=1,0
+
+// 1358:18
+[com_18]
+type=layer
+version=3
+x=57
+y=18
+width=112
+height=172
+xmode=abs_centre
+layer=com_23
+transmitop=1
+op1=Claim - Emergency Healing Box
+opkey11=1,0
+onop=clientscript_6864(3)
+
+// 1358:19
+[com_19]
+type=graphic
+version=3
+x=8
+y=10
+width=95
+height=50
+layer=com_18
+graphic=graphic_13738
+opkey11=1,0
+
+// 1358:20
+[com_20]
+type=layer
+version=3
+width=512
+height=334
+xmode=abs_centre
+hide=yes
+opkey11=1,0
+onload=clientscript_6859
+
+// 1358:21
+[com_21]
+type=layer
+version=3
+width=512
+height=334
+xmode=abs_centre
+opkey11=1,0
+
+// 1358:22
+[com_22]
+type=layer
+version=3
+x=14
+y=17
+width=484
+height=305
+opkey11=1,0
+
+// 1358:23
+[com_23]
+type=layer
+version=3
+x=14
+y=12
+width=484
+height=308
+opkey11=1,0
+
+// 1358:24
+[com_24]
+type=layer
+version=3
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+opkey11=1,0
+onload=aif_build_close_button_layer(event_com)
+
+// 1358:25
+[com_25]
+type=layer
+version=3
+x=-171
+y=18
+width=112
+height=172
+xmode=abs_centre
+layer=com_23
+transmitop=1
+op1=Claim - Dodging Death
+opkey11=1,0
+onop=clientscript_6864(4)
+
+// 1358:26
+[com_26]
+type=graphic
+version=3
+x=10
+y=9
+width=95
+height=50
+layer=com_25
+graphic=graphic_13736
+opkey11=1,0
+
+// 1358:27
+[com_27]
+type=layer
+version=3
+x=44
+y=268
+width=111
+height=24
+layer=com_23
+opkey11=1,0
+
+// 1358:28
+[com_28]
+type=text
+version=3
+width=9583
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_27
+textfont=b12_full
+textflag2=yes
+text=Tokens:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+opkey11=1,0
+
+// 1358:29
+[com_29]
+type=text
+version=3
+x=63
+y=2
+width=27
+height=21
+layer=com_27
+textfont=b12_full
+textflag2=yes
+text=4
+textalignh=centre
+textalignv=centre
+textshadow=yes
+opkey11=1,0
+onload=clientscript_6858(event_com)
+onvartransmit=clientscript_6858(event_com){varplayer_2747}
+
+// 1358:30
+[com_30]
+type=layer
+version=3
+y=122
+width=179
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_23
+transmitop=1
+op1=Confirm
+opkey11=1,0
+
+// 1358:31
+[com_31]
+type=text
+version=3
+width=148
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+textfont=b12_full
+textflag2=yes
+text=Confirm Selection
+textalignh=centre
+textalignv=centre
+textshadow=yes
+opkey11=1,0
+
+// 1358:32
+[com_32]
+type=layer
+version=3
+x=35
+y=204
+width=413
+height=93
+layer=com_23
+opkey11=1,0
+
+// 1358:33
+[com_33]
+type=text
+version=3
+y=-21
+width=395
+height=62
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=p11_full
+textflag2=yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+opkey11=1,0
+
+// 1358:34
+[com_34]
+type=layer
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+opkey11=1,0
+onload=script4260(event_com)
+
+// 1358:35
+[com_35]
+type=layer
+version=3
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_20
+opkey11=1,0
+
+// 1358:36
+[com_36]
+type=layer
+version=3
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+opkey11=1,0
+onload=script4261(event_com)
+
+// 1358:37
+[com_37]
+type=layer
+version=3
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_20
+opkey11=1,0
+
+// 1358:38
+[com_38]
+type=text
+version=3
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+textfont=palatino_linotype_18pt_regular
+textflag2=yes
+text=Choose Your Fate
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+opkey11=1,0
+onload=script4262(event_com)
+
+// 1358:39
+[com_39]
+type=layer
+version=3
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_20
+opkey11=1,0
+onload=aif_build_close_button_layer(event_com)
+
+// 1358:40
+[com_40]
+type=graphic
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+transmitop=1
+op1=Close
+opkey11=1,0
+onload=aif_build_close_button_on(event_com)
+
+// 1358:41
+[com_41]
+type=graphic
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+opkey11=1,0
+onload=aif_build_close_button_over(event_com)
+
+// 1358:42
+[com_42]
+type=layer
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+opkey11=1,0
+onload=clientscript_4758(event_com)
+
+// 1358:43
+[com_43]
+type=graphic
+version=3
+x=2
+y=8
+width=509
+height=34
+layer=com_21
+hide=yes
+graphic=graphic_8392
+opkey11=1,0
+
+// 1358:44
+[com_44]
+type=layer
+version=3
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_21
+opkey11=1,0
+
+// 1358:45
+[com_45]
+type=layer
+version=3
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+opkey11=1,0
+onload=clientscript_4759(event_com)
+
+// 1358:46
+[com_46]
+type=graphic
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+transmitop=1
+op1=Close
+opkey11=1,0
+onload=aif_build_close_button_on(event_com)
+
+// 1358:47
+[com_47]
+type=graphic
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+opkey11=1,0
+onload=aif_build_close_button_over(event_com)

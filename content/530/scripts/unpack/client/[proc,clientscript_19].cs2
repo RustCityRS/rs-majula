@@ -1,0 +1,124 @@
+// 19
+[proc,clientscript_19](obj $obj0)(int)
+def_int $int1 = 0;
+if ($obj0 = airrune) {
+    if (inv_total(worn, staff_of_air) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, air_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_air_staff) > 0) {
+        return(99999999);
+    }
+    $int1 = calc(inv_total(inv, airrune) + ~inv_total_available(inv, smokerune) + ~inv_total_available(inv, mistrune) + ~inv_total_available(inv, dustrune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0) {
+        $int1 = calc($int1 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int1);
+}
+if ($obj0 = waterrune) {
+    if (inv_total(worn, staff_of_water) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, water_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_water_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mud_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_mud_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_mystic_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    $int1 = calc(inv_total(inv, waterrune) + ~inv_total_available(inv, steamrune) + ~inv_total_available(inv, mistrune) + ~inv_total_available(inv, mudrune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0) {
+        $int1 = calc($int1 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int1);
+}
+if ($obj0 = earthrune) {
+    if (inv_total(worn, staff_of_earth) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, earth_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_earth_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, lava_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_lava_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mud_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_mud_staff) > 0) {
+        return(99999999);
+    }
+    $int1 = calc(inv_total(inv, earthrune) + ~inv_total_available(inv, dustrune) + ~inv_total_available(inv, lavarune) + ~inv_total_available(inv, mudrune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0) {
+        $int1 = calc($int1 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int1);
+}
+if ($obj0 = firerune) {
+    if (inv_total(worn, staff_of_fire) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, fire_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_fire_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, lava_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_lava_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_mystic_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    $int1 = calc(inv_total(inv, firerune) + ~inv_total_available(inv, steamrune) + ~inv_total_available(inv, smokerune) + ~inv_total_available(inv, lavarune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0) {
+        $int1 = calc($int1 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int1);
+}
+if ($obj0 = pest_interface_staffs) {
+    return(calc(~inv_total_available(worn, guthix_staff) + ~inv_total_available(worn, pest_void_knight_mace)));
+}
+if ($obj0 = ibanstaff | $obj0 = slayer_staff | $obj0 = saradomin_staff | $obj0 = zamorak_staff) {
+    return(~inv_total_available(worn, $obj0));
+}
+if ($obj0 = pvpw_staff) {
+    if (~inv_total_available(worn, pvpw_staff_used) > 0) {
+        return(~inv_total_available(worn, pvpw_staff_used));
+    } else if (~inv_total_available(worn, pvpw_staff_20) > 0) {
+        return(~inv_total_available(worn, pvpw_staff_20));
+    } else if (~inv_total_available(worn, pvpw_staff_20_used) > 0) {
+        return(~inv_total_available(worn, pvpw_staff_20_used));
+    } else {
+        return(~inv_total_available(worn, $obj0));
+    }
+}
+if ((%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0) & ($obj0 = bodyrune | $obj0 = mindrune | $obj0 = cosmicrune | $obj0 = chaosrune | $obj0 = naturerune | $obj0 = deathrune | $obj0 = lawrune | $obj0 = soulrune | $obj0 = bloodrune | $obj0 = astralrune)) {
+    return(calc(~inv_total_available(inv, $obj0) + ~inv_total_available(inv, hvh_catalytic_rune)));
+}
+return(~inv_total_available(inv, $obj0));

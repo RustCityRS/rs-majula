@@ -1,0 +1,10 @@
+// 2433
+[clientscript,script2433]
+if (~script1431 = 0 | compare(%varclient_2170, null) = 0) {
+    return;
+}
+if (getwindowmode < 2) {
+    if_settext(toplevel:com_10, %varclient_2170);
+} else {
+    if_settext(toplevel_fullscreen:com_161, %varclient_2170);
+}

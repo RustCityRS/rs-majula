@@ -1,0 +1,18 @@
+// 5137
+[proc,clientscript_5137](int $int0)
+if_sethide(clansettings:com_491, true);
+if_sethide(clansettings:com_500, true);
+if_sethide(clansettings:com_508, true);
+if_sethide(clansettings:com_516, true);
+if_sethide(clansettings:com_524, true);
+if ($int0 = 1) {
+    if_sethide(clansettings:com_491, false);
+} else if ($int0 = 2) {
+    if_sethide(clansettings:com_500, false);
+} else if ($int0 = 3) {
+    if_sethide(clansettings:com_508, false);
+} else if ($int0 = 4) {
+    if_sethide(clansettings:com_516, false);
+} else if ($int0 = 5) {
+    if_sethide(clansettings:com_524, false);
+}

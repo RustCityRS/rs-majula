@@ -1,0 +1,45 @@
+// 375:0
+[com_0]
+type=graphic
+x=48
+y=100
+width=91
+height=36
+graphic=graphic_184
+tiling=yes
+
+// 375:1
+[com_1]
+type=graphic
+x=22
+y=100
+width=36
+height=36
+graphic=graphic_177
+
+// 375:2
+[com_2]
+type=graphic
+x=130
+y=100
+width=36
+height=36
+graphic=graphic_178
+
+// 375:3
+[tzhaar_unmorph_button]
+type=text
+clientcode=205
+x=24
+y=103
+width=141
+height=31
+textfont=fontmetrics_496
+text=Unmorph
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Ok
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)

@@ -1,0 +1,9 @@
+// 6684
+[proc,clientscript_6684](component $component0, int $int1, int $int2)
+if (.cc_find($component0, $int1) = true) {
+    if (stat_base(hunter) < $int2) {
+        .cc_sethide(false);
+    } else {
+        .cc_sethide(true);
+    }
+}

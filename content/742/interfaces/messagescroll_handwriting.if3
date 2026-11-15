@@ -1,0 +1,146 @@
+// 222:0
+[com_0]
+type=model
+x=8
+y=5
+width=487
+height=324
+model=model_11365
+modelorigin=-22,16
+modelangle=490,0,0
+modelzoom=569
+
+// 222:1
+[messagescroll1_hw]
+type=text
+x=69
+y=54
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:2
+[messagescroll2_hw]
+type=text
+x=70
+y=78
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:3
+[messagescroll3_hw]
+type=text
+x=70
+y=102
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:4
+[messagescroll4_hw]
+type=text
+x=70
+y=125
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:5
+[messagescroll5_hw]
+type=text
+x=70
+y=147
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:6
+[messagescroll6_hw]
+type=text
+x=70
+y=169
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:7
+[messagescroll7_hw]
+type=text
+x=70
+y=191
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:8
+[messagescroll8_hw]
+type=text
+x=70
+y=214
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:9
+[messagescroll9_hw]
+type=text
+x=70
+y=235
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:10
+[messagescroll10_hw]
+type=text
+x=70
+y=256
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:11
+[messagescroll11_hw]
+type=text
+x=70
+y=278
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 222:12
+[com_12]
+type=graphic
+x=414
+y=44
+width=26
+height=23
+graphic="close_buttons,2"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click_paper

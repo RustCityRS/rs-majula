@@ -1,0 +1,9 @@
+// 1621
+[clientscript,script1621](component $component0, int $int1, int $int2, int $int3)
+if (clientclock < $int3) {
+    return;
+}
+if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
+    cc_settrans($int2);
+    cc_setontimer(null);
+}

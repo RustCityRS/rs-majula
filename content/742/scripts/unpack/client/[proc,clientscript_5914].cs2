@@ -1,0 +1,16 @@
+// 5914
+[proc,clientscript_5914]
+def_component $component0 = interface_1253:com_48;
+if_setposition($component0, 181, 93, ^setpos_abs_centre, ^setpos_abs_centre);
+if (%varplayerbit_11768 = 2 | %varplayerbit_11768 = 4) {
+    if_setontimer($component0, "clientscript_5915(event_com, 0, -4)");
+} else {
+    if_setontimer($component0, "clientscript_5915(event_com, 0, 0)");
+}
+if_sethflip($component0, false);
+if_setgraphic($component0, ~clientscript_6267(9890));
+if_setsize($component0, 108, 120, ^setsize_abs, ^setsize_abs);
+if_sethide(interface_1253:com_38, true);
+if_sethide($component0, false);
+if_sethflip($component0, false);
+if_set2dangle($component0, 0);

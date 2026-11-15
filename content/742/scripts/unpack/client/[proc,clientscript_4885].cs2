@@ -1,0 +1,54 @@
+// 4885
+[proc,clientscript_4885](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (op718 = 1) {
+    $int2 = ~clientscript_4964($component0);
+    $int3 = ~clientscript_4971($int2);
+    if (~clientscript_4886($int3) = 0) {
+        return;
+    }
+    if (%varplayerbit_9570 = $int3 | %varplayerbit_9579 = $int3 | %varplayerbit_9588 = $int3) {
+        return;
+    }
+    switch_int ($int2) {
+        case 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48 :
+            $int1 = 0;
+        case default :
+            $int1 = 1;
+    }
+    if (%varplayerbit_9558 > 0 & ~clientscript_4828(%varplayerbit_9558) = false) {
+        switch_int (%varplayerbit_9558) {
+            case 1 :
+                %varplayerbit_9570 = $int3;
+                %varplayerbit_9564 = $int1;
+            case 2 :
+                %varplayerbit_9579 = $int3;
+                %varplayerbit_9573 = $int1;
+            case 3 :
+                %varplayerbit_9588 = $int3;
+                %varplayerbit_9582 = $int1;
+        }
+        return;
+    }
+    if (%varclan_2148 ! $int3 & %varclan_2165 ! $int3 & %varclan_2182 ! $int3) {
+        if (%varplayerbit_9559 = 0) {
+            %varplayerbit_9570 = $int3;
+            %varplayerbit_9564 = $int1;
+            %varplayerbit_9558 = 1;
+            ~clientscript_4849;
+        } else if (%varplayerbit_9560 = 0) {
+            %varplayerbit_9579 = $int3;
+            %varplayerbit_9573 = $int1;
+            %varplayerbit_9558 = 2;
+            ~clientscript_4849;
+        } else if (%varplayerbit_9561 = 0) {
+            %varplayerbit_9588 = $int3;
+            %varplayerbit_9582 = $int1;
+            %varplayerbit_9558 = 3;
+            ~clientscript_4849;
+        }
+    }
+}
+return;

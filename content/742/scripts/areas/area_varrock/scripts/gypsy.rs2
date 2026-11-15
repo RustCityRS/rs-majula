@@ -1,0 +1,231 @@
+// 289's gypsy (areas/area_varrock/scripts/gypsy.rs2), who starts Demon Slayer,
+// as 2011's: Gypsy Aris, npc 9362, in her tent in Varrock Square (647's map).
+// 2011 reworked the quest (2011 wiki, Demon Slayer): her fortune costs one
+// coin, she tells how Wally beat Delrith, and the incantation differs per
+// player. Her lines are void-634's (GypsyAris.kt) unless marked.
+//
+// Waiting: 2011 shows Wally's story as a cutscene (void-634 plays it in an
+// instance of the stone circle, the player as Wally, with camera moves and
+// "Wally the Hero"); without instances it is her and Wally's lines.
+[opnpc1,gypsy_aris_9362]
+if (%demonslayer_main = ^demon_not_started) {
+    ~chatnpc("<p,neutral>Hello, young one.");
+    ~chatnpc("<p,neutral>Cross my palm with silver and the future will be revealed to you.");
+    if (inv_total(inv, coins) < 1) {
+        ~chatplayer("<p,sad>Oh dear. I don't have any money.");
+        return;
+    }
+    if (~player_combat_level < 15) {
+        ~mesbox("Before starting this quest, be aware that your combat level is lower than the recommended level of 15.");
+    }
+    // 2011-04-20 recording (78.2s): this title, and "'young one'?".
+    switch_int (~p_choice4_header("Okay, here you go.", 1, "Who are you calling 'young one'?", 2, "No, I don't believe in that stuff.", 3, "With silver?", 4, "What would you like to say?")) {
+        case 1 : @gypsy_aris_here_you_go;
+        // 2011's words (78.2s): 289 has "young one?!", void-634 "Who are you called 'young one'?".
+        case 2 : @gypsy_aris_who_you_calling_young;
+        case 3 : @gypsy_aris_not_believer;
+        case 4 : @gypsy_aris_with_silver;
+    }
+} else if (%demonslayer_main = ^demon_complete) {
+    ~chatnpc("<p,neutral>Greetings young one.");
+    ~chatnpc("<p,happy>You're a hero now. That was a good bit of demon-slaying.");
+    switch_int (~p_choice3("How do you know I killed it?", 1, "Thanks.", 2, "Stop calling me that!", 3)) {
+        case 1 :
+            ~chatplayer("<p,confused>How do you know I killed it?");
+            ~chatnpc("<p,neutral>You forget. I'm good at knowing things.");
+        case 2 : ~chatplayer("<p,neutral>Thanks.");
+        case 3 : @gypsy_aris_stop_calling_me_that;
+    }
+} else {
+    ~chatnpc("<p,happy>Greetings. How goes thy quest?");
+    ~chatplayer("<p,neutral>I'm still working on it.");
+    ~chatnpc("<p,neutral>Well if you need any advice I'm always here, young one.");
+    switch_int (~p_choice4("What is the magical incantation?", 1, "Where can I find Silverlight?", 2, "Stop calling me that!", 3, "Well I'd better press on with it.", 4)) {
+        case 1 : @gypsy_aris_incantation_reminder;
+        case 2 : @gypsy_aris_silverlight_reminder;
+        case 3 : @gypsy_aris_stop_calling_me_that;
+        case 4 :
+            ~chatplayer("<p,neutral>Well I'd better press on with it.");
+            ~chatnpc("<p,neutral>See you anon.");
+    }
+}
+
+[label,gypsy_aris_here_you_go]
+~chatplayer("<p,neutral>Okay, here you go.");
+inv_del(inv, coins, 1);
+~chatnpc("<p,happy>Come closer and listen carefully to what the future holds, as I peer into the swirling mists of the crystal ball.");
+sound_synth(ds_crystal_ball_start, 1, 0); // void-634: demon_slayer_crystal_ball_start
+~chatnpc("<p,neutral>I can see images forming. I can see you.");
+~chatnpc("<p,confused>You are holding a very impressive-looking sword. I'm sure I recognise it...");
+~chatnpc("<p,confused>There is a big, dark shadow appearing now.");
+sound_synth(ds_crystal_ball_end, 1, 0); // void-634: demon_slayer_crystal_ball_end
+~chatnpc("<p,scared>Aaargh!");
+~chatplayer("<p,quiz>Are you all right?");
+~chatnpc("<p,scared>It's Delrith! Delrith is coming!");
+~chatplayer("<p,scared>Who's Delrith?");
+~chatnpc("<p,sad>Delrith...");
+~chatnpc("<p,neutral>Delrith is a powerful demon.");
+~chatnpc("<p,scared>Oh! I really hope he didn't see me looking at him through my crystal ball!");
+~chatnpc("<p,sad>He tried to destroy this city 150 years ago. He was stopped just in time by the great hero Wally.");
+~chatnpc("<p,sad>Using his magic sword Silverlight, Wally managed to trap the demon in the stone circle just south of this city.");
+~chatnpc("<p,shock>Ye gods! Silverlight was the sword you were holding in my vision! You are the one destined to stop the demon this time.");
+// 2011-04-20 recording (95.5s): this title.
+switch_int (~p_choice3_header("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "Wally doesn't sound like a very heroic name.", 3, "What would you like to say?")) {
+    case 1 : @gypsy_aris_city_destroyer_wally;
+    case 2 : @gypsy_aris_where_is_he;
+    case 3 : @gypsy_aris_not_very_heroic_name;
+}
+
+[label,gypsy_aris_who_you_calling_young]
+~chatplayer("<p,angry>Who are you calling 'young one'?");
+~chatnpc("<p,neutral>You have been on this world a relatively short time. At least compared to me.");
+~chatnpc("<p,neutral>So, do you want your fortune told or not?");
+switch_int (~p_choice3("Okay, here you go.", 1, "No, I don't believe in that stuff.", 2, "Ooh, how old are you then?", 3)) {
+    case 1 : @gypsy_aris_here_you_go;
+    case 2 : @gypsy_aris_not_believer;
+    case 3 :
+        ~chatnpc("<p,neutral>Count the number of legs on the stools in the Blue Moon inn, and multiply that number by seven.");
+        ~chatplayer("<p,quiz>Er, yeah, whatever.");
+}
+
+[label,gypsy_aris_not_believer]
+~chatplayer("<p,neutral>No, I don't believe in that stuff.");
+~chatnpc("<p,sad>Ok suit yourself.");
+
+[label,gypsy_aris_with_silver]
+~chatplayer("<p,quiz>With silver?");
+~chatnpc("<p,neutral>Oh, sorry, I forgot. With gold, I mean. They haven't used silver coins since before you were born! So, do you want your fortune told?");
+switch_int (~p_choice2("Okay, here you go.", 1, "No, I don't believe in that stuff.", 2)) {
+    case 1 : @gypsy_aris_here_you_go;
+    case 2 : @gypsy_aris_not_believer;
+}
+
+[proc,gypsy_aris_city_destroyer]
+~chatplayer("<p,scared>How am I meant to fight a demon who can destroy cities?");
+~chatnpc("<p,neutral>If you face Delrith while he is still weak from being summoned, and use the correct weapon, you will not find the task too arduous.");
+~chatnpc("<p,neutral>Do not fear. If you follow the path of the great hero Wally, then you are sure to defeat the demon.");
+
+[label,gypsy_aris_city_destroyer_wally]
+~gypsy_aris_city_destroyer;
+switch_int (~p_choice3("Okay, where is he? I'll kill him for you.", 1, "Wally doesn't sound like a very heroic name.", 2, "So, how did Wally kill Delrith?", 3)) {
+    case 1 : @gypsy_aris_where_is_he;
+    case 2 : @gypsy_aris_not_very_heroic_name;
+    case 3 : @gypsy_aris_how_wally_won;
+}
+
+[label,gypsy_aris_city_destroyer_other]
+~gypsy_aris_city_destroyer;
+switch_int (~p_choice5("Okay, where is he? I'll kill him for you.", 1, "Wally doesn't sound like a very heroic name.", 2, "What is the magical incantation?", 3, "Where can I find Silverlight?", 4, "Ok thanks. I'll do my best to stop the demon.", 5)) {
+    case 1 : @gypsy_aris_where_is_he;
+    case 2 : @gypsy_aris_not_very_heroic_name;
+    case 3 :
+        ~gypsy_aris_incantation;
+        @gypsy_aris_final_questions;
+    case 4 :
+        ~gypsy_aris_where_silverlight;
+        @gypsy_aris_final_questions;
+    case 5 : @gypsy_aris_ok_thanks;
+}
+
+[label,gypsy_aris_where_is_he]
+~chatplayer("<p,happy>Okay, where is he? I'll kill him for you.");
+~chatnpc("<p,laugh>Ah, the overconfidence of the young!");
+~chatnpc("<p,neutral>Delrith can't be harmed by ordinary weapons. You must face him using the same weapon that Wally used.");
+@gypsy_aris_how_to_do;
+
+[label,gypsy_aris_not_very_heroic_name]
+~chatplayer("<p,happy>Wally doesn't sound like a very heroic name.");
+~chatnpc("<p,neutral>Yes, I know. Maybe that is why history doesn't remember him. However, he was a great hero.");
+~chatnpc("<p,neutral>Who knows how much pain and suffering Delrith would have brought forth without Wally to stop him!");
+~chatnpc("<p,neutral>It looks like you are needed to perform similar heroics.");
+@gypsy_aris_how_to_do;
+
+[label,gypsy_aris_how_to_do]
+// 2011-04-20 recording (100.9s): this title.
+switch_int (~p_choice3_header("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "So, how did Wally kill Delrith?", 3, "What would you like to say?")) {
+    case 1 : @gypsy_aris_city_destroyer_wally;
+    case 2 : @gypsy_aris_where_is_he;
+    case 3 : @gypsy_aris_how_wally_won;
+}
+
+// Wally's story. It deals this player's incantation (void-634 deals it again
+// each time it is told), and then the quest is under way.
+[label,gypsy_aris_how_wally_won]
+~chatplayer("<p,quiz>So, how did Wally kill Delrith?");
+~chatnpc("<p,neutral>Wally managed to arrive at the stone circle just as Delrith was summoned by a cult of chaos druids...");
+~chatnpc_specific("Wally", wally, "<p,angry>Die, foul demon!");
+~chatnpc_specific("Wally", wally, "<p,quiz>Now, what was that incantation again?");
+~demon_slayer_deal_incantation;
+~chatnpc_specific("Wally", wally, "<p,angry><~demon_slayer_word(1)>... <~demon_slayer_word(2)>... <~demon_slayer_word(3)>... <~demon_slayer_word(4)>... <~demon_slayer_word(5)>!");
+~chatnpc_specific("Wally", wally, "<p,happy>I am the greatest demon slayer EVER!");
+~chatnpc("<p,neutral>By reciting the correct magical incantation, and thrusting Silverlight into Delrith while he was newly summoned, Wally was able to imprison Delrith in the stone table at the centre of the circle.");
+if (%demonslayer_main = ^demon_not_started) {
+    %demonslayer_main = ^demon_sir_prysin;
+    ~send_quest_progress(^questlist_demon, %demonslayer_main, ^demon_complete);
+}
+~chatnpc("<p,sad>Delrith will come forth from the stone circle again.");
+~chatnpc("<p,sad>I would imagine an evil sorcerer is already beginning the rituals to summon Delrith as we speak.");
+switch_int (~p_choice4("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "What is the magical incantation?", 3, "Where can I find Silverlight?", 4)) {
+    case 1 : @gypsy_aris_city_destroyer_other;
+    case 2 : @gypsy_aris_where_is_he;
+    case 3 :
+        ~gypsy_aris_incantation;
+        @gypsy_aris_final_questions;
+    case 4 :
+        ~gypsy_aris_where_silverlight;
+        @gypsy_aris_final_questions;
+}
+
+[label,gypsy_aris_final_questions]
+switch_int (~p_choice5("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "Wally doesn't sound like a very heroic name.", 3, "What is the magical incantation?", 4, "Ok thanks. I'll do my best to stop the demon.", 5)) {
+    case 1 : @gypsy_aris_city_destroyer_other;
+    case 2 : @gypsy_aris_where_is_he;
+    case 3 : @gypsy_aris_not_very_heroic_name;
+    case 4 :
+        ~gypsy_aris_incantation;
+        @gypsy_aris_final_questions;
+    case 5 : @gypsy_aris_ok_thanks;
+}
+
+// void-634 writes the gaps "...", ".,." and ".,."; read as "...".
+[proc,gypsy_aris_incantation]
+~chatplayer("<p,neutral>What is the magical incantation?");
+~chatnpc("<p,neutral>Oh yes, let me think a second.");
+~chatnpc("<p,neutral>Aright, I think I've got it now, it goes... <~demon_slayer_word(1)>... <~demon_slayer_word(2)>... <~demon_slayer_word(3)>... <~demon_slayer_word(4)>... <~demon_slayer_word(5)>. Have you got that?");
+~chatplayer("<p,neutral>I think so, yes.");
+
+[proc,gypsy_aris_where_silverlight]
+~chatplayer("<p,angry>Where can I find Silverlight?");
+~chatnpc("<p,neutral>Silverlight has been passed down by Wally's descendants. I believe it is currently in the care of one of the king's knights called Sir Prysin.");
+~chatnpc("<p,happy>He shouldn't be too hard to find. He lives in the royal palace in this city. Tell him Gypsy Aris sent you.");
+
+[label,gypsy_aris_ok_thanks]
+~chatplayer("<p,neutral>Ok thanks. I'll do my best to stop the demon.");
+~chatnpc("<p,happy>Good luck, and may Guthix be with you!");
+
+[label,gypsy_aris_incantation_reminder]
+~gypsy_aris_incantation;
+switch_int (~p_choice2("Ok thanks. I'll do my best to stop the demon.", 1, "Where can I find Silverlight?", 2)) {
+    case 1 : @gypsy_aris_ok_thanks;
+    case 2 : @gypsy_aris_silverlight_reminder;
+}
+
+[label,gypsy_aris_silverlight_reminder]
+~gypsy_aris_where_silverlight;
+switch_int (~p_choice2("Ok thanks. I'll do my best to stop the demon.", 1, "What is the magical incantation?", 2)) {
+    case 1 : @gypsy_aris_ok_thanks;
+    case 2 : @gypsy_aris_incantation_reminder;
+}
+
+[label,gypsy_aris_stop_calling_me_that]
+~chatplayer("<p,angry>Stop calling me that!");
+~chatnpc("<p,neutral>In the scheme of things you are very young.");
+switch_int (~p_choice2("Ok but how old are you?", 1, "Oh if it's in the scheme of things that's ok.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Ok but how old are you?");
+        ~chatnpc("<p,neutral>Count the number of legs on the stools in the Blue Moon inn, and multiply that number by seven.");
+        ~chatplayer("<p,neutral>Er, yeah, whatever.");
+    case 2 :
+        ~chatplayer("<p,happy>Oh if it's in the scheme of things that's ok.");
+        ~chatnpc("<p,happy>You show wisdom for one so young.");
+}

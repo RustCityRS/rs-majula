@@ -1,0 +1,8 @@
+// 1433
+[proc,clientscript_1433]
+if (getwindowmode >= 1) {
+    if_setonvarctransmit(toplevel_fullscreen:mainoverlay, "toplevel_fovchange{fov}");
+    if_setonvarctransmit(toplevel:main, "toplevel_fovchange{fov}");
+}
+if_setonvarctransmit(chattop:mes_layer, "meslayer_varc_update{meslayermode}");
+if_setonresize(toplevel_fullscreen:maingame, "window_resize");

@@ -1,0 +1,7 @@
+// 4253
+[proc,script4253]
+if (%varplayerbit_9030 = 1) {
+    if_settext(task_main:com_194, "Tutorial is ON");
+} else {
+    if_settext(task_main:com_194, "Tutorial is OFF");
+}

@@ -1,0 +1,51 @@
+// 6932
+[proc,clientscript_6932](component $component0)(int)
+switch_component ($component0) {
+    case interface_1367:com_18 :
+        return(%duel2_wearpreventchanged_0);
+    case interface_1367:com_19 :
+        return(%duel2_wearpreventchanged_1);
+    case interface_1367:com_20 :
+        return(%duel2_wearpreventchanged_2);
+    case interface_1367:com_21 :
+        return(%if_hide_sides);
+    case interface_1367:com_22 :
+        return(%objreq_player_price);
+    case interface_1367:com_23 :
+        return(%player_kit_arms_client);
+    case interface_1367:com_24 :
+        return(%player_kit_legs_client);
+    case interface_1367:com_25 :
+        return(%player_kit_feet_client);
+    case interface_1367:com_26 :
+        return(%stock_dormant_offers);
+    case interface_1367:com_27 :
+        return(%create_age_perm);
+    case interface_1367:com_28 :
+        return(%create_age_time_perm);
+    case interface_1367:com_34 :
+        return(%duel2_optionschanged_0);
+    case interface_1367:com_38 :
+        return(%duel2_optionschanged_1);
+    case interface_1367:com_30 :
+        return(%duel2_optionschanged_4);
+    case interface_1367:com_31 :
+        return(%duel2_optionschanged_5);
+    case interface_1367:com_32 :
+        return(%duel2_optionschanged_6);
+    case interface_1367:com_35 :
+        return(%duel2_optionschanged_7);
+    case interface_1367:com_36 :
+        return(%duel2_optionschanged_8);
+    case interface_1367:com_37 :
+        return(%duel2_optionschanged_9);
+    case interface_1367:com_39 :
+        return(%duel2_optionschanged_10);
+    case interface_1367:com_33 :
+        return(%duel2_optionschanged_12);
+    case interface_1367:com_41 :
+        return(%duel2_optionschanged_13);
+    case interface_1367:com_40 :
+        return(%duel2_optionschanged_28);
+}
+return(0);

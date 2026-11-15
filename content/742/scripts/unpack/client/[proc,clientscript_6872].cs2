@@ -1,0 +1,24 @@
+// 6872
+[proc,clientscript_6872](int $int0, int $int1)
+if (cc_find(interface_1360:com_0, $int0) = true) {
+    if ($int1 = 1) {
+        cc_setcolour(^white);
+    } else {
+        cc_setcolour(^red);
+    }
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 1)) = true) {
+    if ($int1 = 1) {
+        cc_setcolour(^white);
+    } else {
+        cc_setcolour(^red);
+    }
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 2)) = true) {
+    if ($int1 = 1) {
+        cc_setcolour(^white);
+    } else {
+        cc_setcolour(^red);
+    }
+}
+~deltooltip_action(interface_1360:com_2);

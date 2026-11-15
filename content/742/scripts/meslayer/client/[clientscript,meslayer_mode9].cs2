@@ -1,0 +1,36 @@
+// 110
+[clientscript,meslayer_mode9](string $string0)
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, $string0);
+%meslayermode = 9;
+if (compare(null, %stringdialog_init_string) = 0) {
+    %stringdialog_init_string = "";
+}
+if (compare("", %stringdialog_init_string) ! 0) {
+    ~meslayer_setupinput(%stringdialog_init_string);
+    %stringdialog_init_string = "";
+} else {
+    ~meslayer_setupinput("");
+}
+if (compare(null, %stringdialog_suggested_string) = 0) {
+    %stringdialog_suggested_string = "";
+}
+if_setonclick(chattop:mes_layer, null);
+~script2026;
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+if_setondialogabort(chattop:mes_text2, "meslayer_ondialogabort");
+if (compare(%stringdialog_suggested_string, "") ! 0) {
+    cc_create(chattop:mes_layer, ^iftype_text, 0);
+    ~meslayer_setupdynamicbutton;
+    cc_settext("Last entered: <%stringdialog_suggested_string>");
+    cc_setop(1, "Use:");
+    cc_setopbase("<col=ff9040><removetags(%stringdialog_suggested_string)></col>");
+    cc_setonop("meslayer_lastname(%meslayermode, event_op, event_com, event_comsubid, %stringdialog_suggested_string)");
+    %stringdialog_suggested_string = "";
+}
+~script1188;

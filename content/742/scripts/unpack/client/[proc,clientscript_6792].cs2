@@ -1,0 +1,17 @@
+// 6792
+[proc,clientscript_6792]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "Keep doing this for as long as you want.";
+def_int $int4 = 0;
+def_string $string1 = "";
+if_sethide(interface_1056:com_0, true);
+if (%varplayerbit_9030 = 1 & $int0 ! 0 & map_members = true) {
+    if_sethide(interface_1056:com_0, false);
+    ~aif_progressbar_set(scale($int1, $int2, 100), interface_1056:com_23, interface_1056:com_28);
+    ~aif_text_layer_build_new(interface_1056:com_28, "", p11_full, 0xebe0bc, ^black);
+    $string1 = "<tostring($int1)> of <tostring($int2)> Tasks done in this stage.";
+    if_setonmouserepeat(interface_1056:com_0, "aif_tooltip(interface_1056:com_18, event_com, -1, $string1, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+}

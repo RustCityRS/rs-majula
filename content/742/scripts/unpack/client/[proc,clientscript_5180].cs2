@@ -1,0 +1,48 @@
+// 5180
+[proc,clientscript_5180](int $int0)
+def_struct $struct1 = enum(int, struct, enum_4849, $int0);
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+if ($struct1 = null) {
+    $string1 = "Select a goal from the list above.";
+    if ($int0 > -1) {
+        return;
+    }
+} else {
+    $string0 = struct_param($struct1, param_1879);
+    $string1 = struct_param($struct1, param_1880);
+    if ($int0 ! 13) {
+        if (~clientscript_5200($int0) = 1) {
+            $string2 = "<col=00ff00>COMPLETED</col>";
+        } else {
+            $string2 = "<col=ff0000>INCOMPLETE</col>";
+        }
+    }
+    ~clientscript_5204;
+}
+def_string $string3 = "";
+$string3 = append("Goal: ", $string0);
+if (string_length($string2) > 0) {
+    $string3 = append($string3, "<br>Status: ");
+    $string3 = append($string3, $string2);
+}
+$string3 = append($string3, "<br>");
+$string3 = append($string3, $string1);
+def_int $int2 = 10;
+def_int $int3 = 16;
+def_int $int4 = calc(if_getwidth(interface_1122:com_56) - $int2 * 2);
+def_int $int5 = paraheight($string3, $int4, p12_full);
+if_settextalign(interface_1122:com_57, ^settextalign_left, ^settextalign_top, $int3);
+def_int $int6 = calc($int3 * $int5);
+if_setposition(interface_1122:com_57, $int2, $int2, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(interface_1122:com_57, $int4, $int6, ^setsize_abs, ^setsize_abs);
+if_settext(interface_1122:com_57, $string3);
+def_int $int7 = calc($int6 + $int2 + $int2);
+if ($int7 < if_getheight(interface_1122:com_56)) {
+    $int7 = if_getheight(interface_1122:com_56);
+}
+if_setscrollsize(interface_1122:com_56, if_getwidth(interface_1122:com_56), $int7);
+~scrollbar_vertical(interface_1122:com_121, interface_1122:com_56, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+%varclient_1596 = $int0;
+~clientscript_5176;

@@ -1,0 +1,56 @@
+// 5448
+[proc,clientscript_5448](int $int0)
+def_struct $struct1 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int2 = 0;
+def_string $string2 = "";
+%varclient_1681 = $int0;
+$int2 = calc((%varclient_1680 - 1) * 6 + $int0);
+if_setgraphic(interface_1168:com_28, 8430);
+if_setgraphic(interface_1168:com_27, 8430);
+if_setgraphic(interface_1168:com_26, 8430);
+if_setgraphic(interface_1168:com_25, 8430);
+if_setgraphic(interface_1168:com_24, 8430);
+if_setgraphic(interface_1168:com_23, 8430);
+if ($int0 = 1) {
+    if_setgraphic(interface_1168:com_28, 8433);
+} else if ($int0 = 2) {
+    if_setgraphic(interface_1168:com_27, 8433);
+} else if ($int0 = 3) {
+    if_setgraphic(interface_1168:com_26, 8433);
+} else if ($int0 = 4) {
+    if_setgraphic(interface_1168:com_25, 8433);
+} else if ($int0 = 5) {
+    if_setgraphic(interface_1168:com_24, 8433);
+} else if ($int0 = 6) {
+    if_setgraphic(interface_1168:com_23, 8433);
+}
+$struct1 = enum(int, struct, enum_5213, $int2);
+$string0 = struct_param($struct1, param_2095);
+$string1 = struct_param($struct1, param_2184);
+if (struct_param($struct1, param_2097) = 1) {
+    $string2 = "<col=f5b241>Arena</col>: Single-way combat.";
+} else if (struct_param($struct1, param_2097) = 2) {
+    $string2 = "<col=f5b241>Arena</col>: Multi-way combat.";
+} else if (struct_param($struct1, param_2097) = 3) {
+    $string2 = "<col=f5b241>Arena</col>: Single-way combat with small blocking pillars.";
+} else if (struct_param($struct1, param_2097) = 4) {
+    $string2 = "<col=f5b241>Arena</col>: Multi-way combat with large blocking pillars.";
+} else if (struct_param($struct1, param_2097) = 5) {
+    $string2 = "<col=f5b241>Arena</col>: Multi-way combat with podiums";
+}
+if_settext(interface_1168:com_2, $string0);
+sound_vorbis_volume(8097, 1, 0, 180);
+if (~clientscript_5451($int2) = 0) {
+    if ($int2 = 1) {
+        if_settext(interface_1168:com_101, "You must win against this monster in Endurance or Special mode before you can fight it here.");
+    } else if ($int2 = 22 | $int2 = 10 | $int2 = 6 | $int2 = 34 | $int2 = 23 | $int2 = 11 | $int2 = 39) {
+        if_settext(interface_1168:com_101, "You must win against this monster in Climber, Endurance or Special mode before you can fight it here.");
+    } else {
+        if_settext(interface_1168:com_101, "You must win against this monster in Climber or Endurance mode before you can fight it here.");
+    }
+} else {
+    if_settext(interface_1168:com_101, "<$string1><br><br><$string2>");
+}
+~clientscript_5475($string1, interface_1168:com_101, interface_1168:com_10, interface_1168:com_13);

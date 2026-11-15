@@ -1,0 +1,24 @@
+// 6410
+[proc,clientscript_6410]
+if (%varplayerbit_4782 = 0) {
+    ~clientscript_6414(interface_1308:com_19, 0);
+    ~clientscript_6414(interface_1308:com_21, 0);
+    if_settext(interface_1308:com_421, "You must complete one assignment.");
+    if_settext(interface_1308:com_447, "You must complete one assignment.");
+    return;
+} else if (%varplayerbit_4781 < 100) {
+    ~clientscript_6414(interface_1308:com_21, 0);
+    if (%slayer_count > 0) {
+        if_settext(interface_1308:com_447, "100 points");
+    } else {
+        if_settext(interface_1308:com_447, "You must have an assignment.");
+    }
+    if (%varplayerbit_4781 < 30) {
+        ~clientscript_6414(interface_1308:com_19, 0);
+    }
+    if (%slayer_count > 0) {
+        if_settext(interface_1308:com_421, "30 points.");
+    } else {
+        if_settext(interface_1308:com_421, "You must have an assignment.");
+    }
+}

@@ -1,0 +1,23 @@
+// 6672
+[proc,clientscript_6672](int $int0, obj $obj1, int $int2)
+def_string $string0 = "Discard the prize.";
+def_string $string1 = "You do not have an unclaimed prize to discard";
+if (%varplayerbit_10861 > 0) {
+    if_sethide(interface_1253:com_233, true);
+} else {
+    if_sethide(interface_1253:com_233, false);
+}
+if (%varplayerbit_10861 > 0 & %varplayer_2740 > 0) {
+    if (playermember = true | %varplayerbit_11874 = 0) {
+        $string0 = "Convert to coin. <~tostring_spacer(%varplayer_2740, ",")> coins.";
+    } else {
+        $string0 = "Discard the prize.";
+    }
+}
+if (%varclient_1790 = 7) {
+    $string0 = "The Squeal of Fortune is not available at the moment. Please try later.";
+    $string1 = "The Squeal of Fortune is not available at the moment. Please try later.";
+    if_sethide(interface_1253:com_233, false);
+}
+if_setonmouserepeat(interface_1253:com_232, "aif_tooltip(interface_1253:com_52, event_com, -1, $string0, 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+if_setonmouserepeat(interface_1253:com_233, "aif_tooltip(interface_1253:com_52, event_com, -1, $string1, 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");

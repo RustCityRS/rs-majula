@@ -1,0 +1,27 @@
+// 6449
+[proc,clientscript_6449](component $component0, component $component1, int $int2, int $int3)
+def_int $int4 = random(enum_getoutputcount(enum_5963));
+def_seq $seq5 = enum(int, seq, enum_5963, $int4);
+def_int $int6 = enum(int, int, enum_5964, $int4);
+if ($int3 = 1) {
+    $seq5 = enum(int, seq, enum_5967, $int4);
+    $int6 = enum(int, int, enum_5968, $int4);
+}
+if ($int2 >= 500) {
+    if_setontimer($component0, "clientscript_6452($component0, $component1, 0, $int6, $int3)");
+} else if ($int2 = 0) {
+    if ($int3 = 1) {
+        if (cc_find($component1, 0) = true) {
+            cc_setmodelanim(seq_12287);
+        }
+        ~clientscript_6443(0, 0, 0);
+    } else {
+        if (cc_find($component1, 0) = true) {
+            cc_setmodelanim(bas_getanim_ready(%player_kit_torso_client));
+        }
+        ~clientscript_6443(0, 0, 0);
+    }
+    if_setontimer($component0, "clientscript_6449($component0, $component1, calc($int2 + 1), $int3)");
+} else {
+    if_setontimer($component0, "clientscript_6449($component0, $component1, calc($int2 + 1), $int3)");
+}

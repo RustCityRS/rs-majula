@@ -1,0 +1,109 @@
+// 336
+[proc,clientscript_336]
+def_int $int0 = 0;
+if (%varclient_1756 = 0) {
+    if_sethide(interface_1216:com_11, true);
+    return;
+}
+if_setposition(interface_1216:com_11, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+if_setgraphic(interface_1216:com_15, enum(int, graphic, enum_745, %varclient_1756));
+if_settrans(interface_1216:com_15, 0);
+if_settrans(interface_1216:com_5, 0);
+if_settrans(interface_1216:com_6, 0);
+if_settrans(interface_1216:com_4, 0);
+if_settrans(interface_1216:com_7, 0);
+if_settrans(interface_1216:com_12, 255);
+if_settrans(interface_1216:com_14, 255);
+if_settrans(interface_1216:com_13, 255);
+if_settrans(interface_1216:com_9, 0);
+if_settrans(interface_1216:com_8, 0);
+if_sethide(interface_1216:com_2, true);
+if_sethide(interface_1216:com_17, true);
+if_sethide(interface_1216:com_1, true);
+def_int $int1 = 0;
+def_stat $stat2 = enum(int, stat, enum_681, %varclient_1756);
+if_setgraphic(interface_1216:com_8, 9233);
+if_setgraphic(interface_1216:com_4, 9240);
+if_setgraphic(interface_1216:com_5, 9239);
+if_setgraphic(interface_1216:com_6, 9241);
+if_set2dangle(interface_1216:com_9, 0);
+switch_int (map_lang) {
+    case 1 :
+        if_setsize(interface_1216:com_10, 240, 33, ^setsize_abs, ^setsize_abs);
+        if_setgraphic(interface_1216:com_7, 9242);
+    case 2 :
+        if_setsize(interface_1216:com_10, 240, 33, ^setsize_abs, ^setsize_abs);
+        if_setgraphic(interface_1216:com_7, 9243);
+    case 3 :
+        if_setsize(interface_1216:com_10, 220, 33, ^setsize_abs, ^setsize_abs);
+        if_setgraphic(interface_1216:com_7, 9244);
+    case default :
+        if_setsize(interface_1216:com_10, 150, 33, ^setsize_abs, ^setsize_abs);
+        if_setgraphic(interface_1216:com_7, 9245);
+}
+if (enum(stat, stat, enum_744, $stat2) = null) {
+    if_setgraphic(interface_1216:com_8, 9263);
+    if_setgraphic(interface_1216:com_4, 9257);
+    if_setgraphic(interface_1216:com_5, 9256);
+    if_setgraphic(interface_1216:com_6, 9258);
+    switch_int (map_lang) {
+        case 1 :
+            if_setsize(interface_1216:com_10, 240, 33, ^setsize_abs, ^setsize_abs);
+            if_setgraphic(interface_1216:com_7, 9259);
+        case 2 :
+            if_setsize(interface_1216:com_10, 240, 33, ^setsize_abs, ^setsize_abs);
+            if_setgraphic(interface_1216:com_7, 9260);
+        case 3 :
+            if_setsize(interface_1216:com_10, 220, 33, ^setsize_abs, ^setsize_abs);
+            if_setgraphic(interface_1216:com_7, 9261);
+        case default :
+            if_setsize(interface_1216:com_10, 150, 33, ^setsize_abs, ^setsize_abs);
+            if_setgraphic(interface_1216:com_7, 9262);
+    }
+}
+def_int $int3 = stat_base($stat2);
+if_sethide(interface_1216:com_12, false);
+if_sethide(interface_1216:com_13, false);
+if_sethide(interface_1216:com_14, false);
+if ($int3 < 10) {
+    if_setposition(interface_1216:com_12, 0, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    if_sethide(interface_1216:com_14, true);
+    if_sethide(interface_1216:com_13, true);
+    ~clientscript_517($int3, interface_1216:com_12);
+} else if ($int3 < 100) {
+    if_setposition(interface_1216:com_12, -10, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1216:com_14, 10, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    ~clientscript_517(calc($int3 / 10), interface_1216:com_12);
+    ~clientscript_517(calc($int3 % 10), interface_1216:com_14);
+    if_sethide(interface_1216:com_13, true);
+} else {
+    if_setposition(interface_1216:com_12, -20, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1216:com_13, 0, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1216:com_14, 20, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    ~clientscript_517(calc($int3 / 100), interface_1216:com_12);
+    ~clientscript_517(calc(($int3 - 100) / 10), interface_1216:com_13);
+    ~clientscript_517(calc($int3 % 10), interface_1216:com_14);
+}
+if ($int3 = 99 | $int3 = 120) {
+    if_sethide(interface_1216:com_2, false);
+    if_setmodel(interface_1216:com_1, model_32143);
+    $int0 = 8;
+} else {
+    if_setmodel(interface_1216:com_1, model_32167);
+}
+if (enum(stat, stat, enum_744, $stat2) = null) {
+    $int1 = 1;
+}
+if_setontimer(interface_1216:com_16, "clientscript_3336(calc(clientclock + 100), calc(clientclock + 200), calc(clientclock + 500), %varclient_1756)");
+if_sethide(interface_1216:com_11, false);
+if_sethide(interface_1213:com_2, true);
+if_sethide(interface_1213:com_4, true);
+def_int $int4 = random(150);
+def_int $int5 = random(50);
+if (calc($int3 % 10) = 0) {
+    $int0 = 4;
+}
+if ($int0 > 0) {
+    if_setontimer(interface_1216:com_8, "clientscript_337($int0, calc(clientclock + 25))");
+}
+%varclient_1756 = 0;

@@ -1,0 +1,276 @@
+// 986:0
+[fly_paper]
+type=model
+x=-3
+y=-3
+width=519
+height=342
+model=model_57736
+modelorigin=-10,16
+modelangle=528,0,0
+modelzoom=500
+
+// 986:1
+[fingerprint_culprit]
+type=model
+x=66
+y=30
+width=103
+height=164
+model=model_57722
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=1936
+
+// 986:2
+[name_culprit]
+type=text
+x=82
+y=193
+width=70
+height=20
+textfont=b12_full
+text=Culprit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:3
+[fingerprint_magnified]
+type=model
+x=301
+y=30
+width=103
+height=164
+model=model_57722
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=1936
+onvarctransmit=script863{csi_fingerprints_grrrr}
+
+// 986:4
+[magnify_glass]
+type=model
+x=240
+y=2
+width=363
+height=432
+model=model_57737
+modelorigin=-28,-54
+modelangle=1944,74,199
+modelzoom=995
+
+// 986:5
+[selected]
+type=model
+x=196
+y=205
+width=65
+height=100
+hide=yes
+model=model_25798
+modelangle=449,0,0
+modelzoom=3400
+
+// 986:6
+[finger_01]
+type=layer
+x=21
+y=215
+width=80
+height=115
+
+// 986:7
+[fingerprint_01]
+type=model
+x=13
+y=-4
+width=55
+height=87
+layer=finger_01
+model=model_57722
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=3648
+transmitop=1
+op1=Magnify
+onmouseover=text_colour_swapper(csi_fingerprint:name_01, 0xe1981f)
+onmouseleave=text_colour_swapper(csi_fingerprint:name_01, 0xbf751d)
+onvarctransmit=script3437{csi_fingerprints_raaarr}
+
+// 986:8
+[name_01]
+type=text
+y=77
+width=80
+height=40
+layer=finger_01
+textfont=b12_full
+text=Prof. Oddenstein
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:9
+[finger_02]
+type=layer
+x=104
+y=215
+width=80
+height=115
+
+// 986:10
+[fingerprint_02]
+type=model
+x=13
+y=-7
+width=55
+height=89
+layer=finger_02
+model=model_57739
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=3648
+transmitop=1
+op1=Magnify
+onmouseover=text_colour_swapper(csi_fingerprint:name_02, 0xe1981f)
+onmouseleave=text_colour_swapper(csi_fingerprint:name_02, 0xbf751d)
+onvarctransmit=script3437{csi_fingerprints_raaarr}
+
+// 986:11
+[name_02]
+type=text
+y=77
+width=80
+height=39
+layer=finger_02
+textfont=b12_full
+text=Prof. Oddenstein
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:12
+[finger_03]
+type=layer
+x=188
+y=215
+width=80
+height=115
+
+// 986:13
+[fingerprint_03]
+type=model
+x=13
+y=-7
+width=55
+height=89
+layer=finger_03
+model=model_57738
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=3648
+transmitop=1
+op1=Magnify
+onmouseover=text_colour_swapper(csi_fingerprint:name_03, 0xe1981f)
+onmouseleave=text_colour_swapper(csi_fingerprint:name_03, 0xbf751d)
+onvarctransmit=script3437{csi_fingerprints_raaarr}
+
+// 986:14
+[name_03]
+type=text
+y=76
+width=80
+height=39
+layer=finger_03
+textfont=b12_full
+text=Prof. Oddenstein
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:15
+[explain]
+type=text
+x=277
+y=241
+width=175
+height=83
+textfont=b12_full
+text=Match the culprit's fingerprint to those of the suspect.
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=10
+op10=  
+
+// 986:16
+[confirm_layer]
+type=layer
+x=169
+y=7
+width=108
+height=33
+transmitop=1
+op1=Confirm
+
+// 986:17
+[com_17]
+type=rectangle
+x=3
+y=3
+width=102
+height=27
+layer=confirm_layer
+colour=0x000000
+transmitop=10
+op10=    
+
+// 986:18
+[com_18]
+type=rectangle
+x=4
+y=4
+width=100
+height=25
+layer=confirm_layer
+colour=0x453b2c
+fill=yes
+transmitop=10
+op10=   
+
+// 986:19
+[confirm]
+type=text
+x=19
+y=9
+width=70
+height=20
+layer=confirm_layer
+textfont=b12_full
+text=Confirm Match
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 986:20
+[murder_finger_print_close_button]
+type=graphic
+x=464
+y=17
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onclick=closebutton_click

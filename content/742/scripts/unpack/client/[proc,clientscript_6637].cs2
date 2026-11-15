@@ -1,0 +1,75 @@
+// 6637
+[proc,clientscript_6637](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 35;
+def_int $int3 = 30;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 32;
+while ($int1 <= enum_getoutputcount(enum_6103)) {
+    cc_create(interface_1334:com_39, ^iftype_graphic, $int1);
+    cc_setsize($int6, $int6, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(enum(int, graphic, enum_6103, calc($int1 + 1)));
+    cc_setposition(calc($int2 + $int5 * $int6 + $int3 * $int5), calc($int2 + $int4 * $int6 + $int3 * $int4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setalpha(true);
+    cc_setdragdeadtime(5);
+    cc_setdragdeadzone(5);
+    cc_setdraggable(interface_1334:com_39, -1);
+    cc_setondragcomplete("clientscript_6638(event_com, event_comsubid, event_com2, event_comsubid2)");
+    cc_setonmouserepeat("aif_tooltip(interface_1334:com_47, event_com, event_comsubid, enum(int, string, enum_6106, calc($int1 + 1)), 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(interface_1334:com_47)");
+    $int1 = calc($int1 + 1);
+    if ($int5 = 6) {
+        $int5 = 0;
+        $int4 = calc($int4 + 1);
+    } else {
+        $int5 = calc($int5 + 1);
+    }
+}
+def_graphic $graphic7 = 12288;
+def_graphic $graphic8 = 12287;
+if_clearops(interface_1334:com_32);
+if_clearops(interface_1334:com_33);
+if_clearops(interface_1334:com_34);
+if_setgraphic(interface_1334:com_25, 12341);
+if_setgraphic(interface_1334:com_26, 12341);
+if_setgraphic(interface_1334:com_27, 12341);
+if_setgraphic(interface_1334:com_32, 12289);
+if_setgraphic(interface_1334:com_33, 12289);
+if_setgraphic(interface_1334:com_34, 12289);
+if_setonmouseover(interface_1334:com_32, null);
+if_setonmouseover(interface_1334:com_33, null);
+if_setonmouseover(interface_1334:com_34, null);
+if_setonmouseleave(interface_1334:com_32, null);
+if_setonmouseleave(interface_1334:com_33, null);
+if_setonmouseleave(interface_1334:com_34, null);
+if (%varplayerbit_11871 > 2) {
+    if_setgraphic(interface_1334:com_27, 12340);
+    if (%varplayerbit_11855 = 0) {
+        if_setgraphic(interface_1334:com_34, 12287);
+        if_setonmouseover(interface_1334:com_34, "graphic_swapper(event_com, $graphic7)");
+        if_setonmouseleave(interface_1334:com_34, "graphic_swapper(event_com, $graphic8)");
+        if_setop(interface_1334:com_34, 1, "Remove");
+    }
+}
+if (%varplayerbit_11871 > 1) {
+    if_setgraphic(interface_1334:com_26, 12340);
+    if (%varplayerbit_11854 = 0) {
+        if_setgraphic(interface_1334:com_33, 12287);
+        if_setonmouseover(interface_1334:com_33, "graphic_swapper(event_com, $graphic7)");
+        if_setonmouseleave(interface_1334:com_33, "graphic_swapper(event_com, $graphic8)");
+        if_setop(interface_1334:com_33, 1, "Remove");
+    }
+}
+if (%varplayerbit_11871 > 0) {
+    if_setgraphic(interface_1334:com_25, 12340);
+    if (%varplayerbit_11853 = 0) {
+        if_setgraphic(interface_1334:com_32, 12287);
+        if_setonmouseover(interface_1334:com_32, "graphic_swapper(event_com, $graphic7)");
+        if_setonmouseleave(interface_1334:com_32, "graphic_swapper(event_com, $graphic8)");
+        if_setop(interface_1334:com_32, 1, "Remove");
+    }
+}
+~clientscript_6641;
+~clientscript_6646(interface_1334:com_45);
+return;

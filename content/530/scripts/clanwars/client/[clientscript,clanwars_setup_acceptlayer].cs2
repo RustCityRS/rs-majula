@@ -1,0 +1,8 @@
+// 1800
+[clientscript,clanwars_setup_acceptlayer](component $component0)
+~clientscript_915($component0);
+if (%clanwars_challengeuid ! -1) {
+    ~clientscript_1801;
+} else {
+    ~clientscript_1802;
+}

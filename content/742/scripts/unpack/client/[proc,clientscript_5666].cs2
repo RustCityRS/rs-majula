@@ -1,0 +1,22 @@
+// 5666
+[proc,clientscript_5666]
+switch_int (%varplayer_2478) {
+    case default :
+        if (%varplayerbit_10444 = 0) {
+            if_setgraphic(interface_1214:com_19, "check_box_2,0");
+        } else {
+            if_setgraphic(interface_1214:com_19, "check_box_2,2");
+        }
+    case 2 :
+        if (%varplayerbit_10445 = 0) {
+            if_setgraphic(interface_1214:com_19, "check_box_2,0");
+        } else {
+            if_setgraphic(interface_1214:com_19, "check_box_2,2");
+        }
+    case 3 :
+        if (%varplayerbit_10446 = 0) {
+            if_setgraphic(interface_1214:com_19, "check_box_2,0");
+        } else {
+            if_setgraphic(interface_1214:com_19, "check_box_2,2");
+        }
+}

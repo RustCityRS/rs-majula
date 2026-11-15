@@ -1,0 +1,31 @@
+// 6382
+[proc,clientscript_6382]
+if (playermember = true & %varclient_2010 = 0 & %varplayer_2526 ! %varplayer_2527) {
+    if_sethide(toplevel_fullscreen:com_418, true);
+    if_setposition(toplevel_fullscreen:com_86, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(toplevel_fullscreen:com_86, 0, 0, ^setsize_minus, ^setsize_minus);
+} else {
+    if_sethide(toplevel_fullscreen:com_418, false);
+    if_setposition(toplevel_fullscreen:com_86, 0, 50, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(toplevel_fullscreen:com_86, 0, 50, ^setsize_minus, ^setsize_minus);
+}
+if (playermember = false | %varplayer_2526 = %varplayer_2527) {
+    if_sethide(toplevel_fullscreen:com_447, true);
+    if_sethide(toplevel_fullscreen:com_454, false);
+    if_sethide(toplevel:com_234, true);
+    if_sethide(toplevel:com_241, false);
+    if_sethide(lobbyscreen:com_533, true);
+    if_sethide(lobbyscreen:com_540, false);
+} else {
+    if_sethide(toplevel_fullscreen:com_447, false);
+    if_sethide(toplevel_fullscreen:com_454, true);
+    if_sethide(toplevel:com_234, false);
+    if_sethide(toplevel:com_241, true);
+    if_sethide(lobbyscreen:com_533, false);
+    if_sethide(lobbyscreen:com_540, true);
+}
+if_setonop(lobbyscreen:com_509, "clientscript_6342");
+if_setonop(lobbyscreen:com_517, "clientscript_6344");
+if_setonop(lobbyscreen:com_525, "clientscript_6343");
+if_setonop(lobbyscreen:com_533, "clientscript_6345");
+if_setonop(lobbyscreen:com_540, "clientscript_6346");

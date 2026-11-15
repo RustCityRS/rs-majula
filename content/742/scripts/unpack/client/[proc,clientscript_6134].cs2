@@ -1,0 +1,24 @@
+// 6134
+[proc,clientscript_6134](int $int0)
+def_int $int1 = %varclient_1891;
+%varclient_1891 = calc(%varclient_1891 + $int0);
+if (%varclient_1891 > 300) {
+    %varclient_1891 = calc(%varclient_1891 - 300);
+}
+def_int $int2 = %varclient_1891;
+def_int $int3 = calc(300 / 2);
+if ($int1 <= $int3 & %varclient_1891 >= $int3) {
+    switch_int ($int0) {
+        case 4 :
+            sound_vorbis_volume(14584, 1, 0, 50);
+        case 8 :
+            sound_vorbis_volume(14662, 1, 0, 60);
+        case 12 :
+            sound_vorbis_volume(14608, 1, 0, 70);
+    }
+}
+if ($int2 > $int3) {
+    $int2 = calc(300 - $int2);
+}
+$int2 = scale($int2, $int3, 200);
+if_settrans(interface_1270:com_36, $int2);

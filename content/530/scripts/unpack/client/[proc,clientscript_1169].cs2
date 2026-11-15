@@ -1,0 +1,55 @@
+// 1169
+[proc,clientscript_1169](component $component0, component $component1, component $component2, component $component3, graphic $graphic4, graphic $graphic5, graphic $graphic6, graphic $graphic7, int $rgb8, int $rgb9, graphic $graphic10, graphic $graphic11, graphic $graphic12, graphic $graphic13, graphic $graphic14, graphic $graphic15, graphic $graphic16)
+cc_deleteall($component0);
+cc_create($component0, 5, if_getnextsubid($component0));
+cc_setposition(0, 0, 0, 0);
+cc_setsize(if_getwidth($component0), if_getheight($component0), 0, 0);
+cc_setgraphic($graphic4);
+cc_settiling(true);
+cc_create($component0, 3, if_getnextsubid($component0));
+cc_setposition(0, 0, 0, 0);
+cc_setsize(if_getwidth($component0), if_getheight($component0), 0, 0);
+cc_setcolour(^black);
+if (fullscreen_modecount < 1) {
+    cc_create($component0, 4, if_getnextsubid($component0));
+    cc_settext("No modes available.");
+    cc_setposition(5, 0, 0, 0);
+    cc_setsize(calc(if_getwidth($component0) - 22), if_getheight($component0), 0, 0);
+    cc_settextshadow(false);
+    cc_settextfont($graphic10);
+    cc_settextalign(0, 1, 0);
+    cc_setcolour($rgb8);
+    return;
+}
+def_int $int17 = if_getnextsubid($component0);
+cc_create($component0, 5, $int17);
+cc_setposition(calc(if_getwidth($component0) - 16), 0, 0, 0);
+cc_setsize(16, if_getheight($component0), 0, 0);
+cc_setgraphic($graphic5);
+cc_settiling(false);
+cc_setonmouseover("dropdownbox_mouseoverarrow($component0, $int17, $graphic6)");
+cc_setonmouseleave("dropdownbox_mouseoutarrow($component0, $int17, $graphic5)");
+def_int $int18 = if_getnextsubid($component0);
+cc_setonclick("clientscript_1170($component1, $graphic7, $component2, $component3, $component0, $rgb8, $rgb9, $graphic10, $int18, $int17, $graphic11, $graphic12, $graphic13, $graphic14, $graphic15, $graphic16)");
+cc_create($component0, 4, $int18);
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+if (getwindowmode = 3) {
+    $int21 = max(fullscreen_lastmode, 0);
+} else if (%selectedresolution ! -1) {
+    $int21 = %selectedresolution;
+} else {
+    $int21 = max(fullscreen_lastmode, 0);
+}
+$int19, $int20 = fullscreen_getmode($int21);
+cc_settext("<tostring($int19)> x <tostring($int20)>");
+cc_setonmouseover("dropdownbox_mouseoverelement($component0, $int18, $rgb9)");
+cc_setonmouseleave("dropdownbox_mouseoutelement($component0, $int18, $rgb8)");
+cc_setonclick("clientscript_1170($component1, $graphic7, $component2, $component3, $component0, $rgb8, $rgb9, $graphic10, $int18, $int17, $graphic11, $graphic12, $graphic13, $graphic14, $graphic15, $graphic16)");
+cc_setposition(5, 0, 0, 0);
+cc_setsize(calc(if_getwidth($component0) - 22), if_getheight($component0), 0, 0);
+cc_settextshadow(false);
+cc_settextfont($graphic10);
+cc_settextalign(0, 1, 0);
+cc_setcolour($rgb8);

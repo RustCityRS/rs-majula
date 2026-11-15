@@ -1,0 +1,11 @@
+// 6654
+[proc,clientscript_6654](component $component0)
+if_setposition(interface_1321:com_2, calc(if_getx(if_getlayer($component0)) + if_getwidth($component0)), calc(if_gety(if_getlayer($component0)) - if_getheight(if_getlayer($component0)) / 2), ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(interface_1321:com_2, false);
+if_sethide(interface_1321:com_29, false);
+if (%varplayerbit_11870 = 1 | %varplayerbit_11870 = 2 | %varplayerbit_11870 = 3) {
+    if_sethide(interface_1321:com_188, false);
+} else {
+    if_sethide(interface_1321:com_188, true);
+}
+~clientscript_5219(interface_1321:com_34);

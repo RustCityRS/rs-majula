@@ -1,0 +1,31 @@
+// 2518
+[clientscript,script2518](component $component0)
+def_int $int1 = ~script2520;
+switch_component ($component0) {
+    case mob_special_units:plus_button1 :
+        if (%mob_client_cannon_qty < 5 & $int1 < 5) {
+            %mob_client_cannon_qty = calc(%mob_client_cannon_qty + 1);
+            if_settext(mob_special_units:quantity_field1, tostring(%mob_client_cannon_qty));
+        }
+    case mob_special_units:plus_button2 :
+        if (%mob_client_glider_qty < 5 & $int1 < 5) {
+            %mob_client_glider_qty = calc(%mob_client_glider_qty + 1);
+            if_settext(mob_special_units:quantity_field2, tostring(%mob_client_glider_qty));
+        }
+    case mob_special_units:plus_button3 :
+        if (%mob_client_chinchompa_qty < 5 & $int1 < 5) {
+            %mob_client_chinchompa_qty = calc(%mob_client_chinchompa_qty + 1);
+            if_settext(mob_special_units:quantity_field3, tostring(%mob_client_chinchompa_qty));
+        }
+    case mob_special_units:plus_button4 :
+        if (%mob_client_distractor_qty < 5 & $int1 < 5) {
+            %mob_client_distractor_qty = calc(%mob_client_distractor_qty + 1);
+            if_settext(mob_special_units:quantity_field4, tostring(%mob_client_distractor_qty));
+        }
+    case mob_special_units:plus_button5 :
+        if (%mob_client_barricade_qty < 5 & $int1 < 5) {
+            %mob_client_barricade_qty = calc(%mob_client_barricade_qty + 1);
+            if_settext(mob_special_units:quantity_field5, tostring(%mob_client_barricade_qty));
+        }
+}
+~script2517;

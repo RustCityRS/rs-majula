@@ -1,0 +1,9 @@
+// 217
+[proc,snapshot_update_select_button]
+if_settext(snapshot_main_v2:report_abuse_title_txt, "Reporting: <%snapshot_name>");
+if_settext(snapshot_main_v2:selected_name, %snapshot_name);
+if (compare(%snapshot_name, "") ! 0) {
+    if_sethide(snapshot_main_v2:com_81, true);
+} else {
+    if_sethide(snapshot_main_v2:com_81, false);
+}

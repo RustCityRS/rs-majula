@@ -1,0 +1,8 @@
+// 1188
+[proc,clientscript_1188]
+if (getwindowmode >= 2) {
+    if_setgraphic(chattop:chat_graphic, 1017);
+    if_setalpha(chattop:chat_graphic, true);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
+}

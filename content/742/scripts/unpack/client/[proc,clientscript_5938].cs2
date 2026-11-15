@@ -1,0 +1,9 @@
+// 5938
+[proc,clientscript_5938](int $int0)(int)
+def_obj $obj1 = null;
+def_int $int2 = 0;
+$obj1, $int2 = ~clientscript_6188($int0);
+if (oc_param($obj1, param_2400) = 1) {
+    return(1);
+}
+return(0);

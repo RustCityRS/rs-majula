@@ -28,6 +28,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const SHOP: u16 = 620;
 const SIDE: u16 = 621;
@@ -39,13 +40,13 @@ const BASE_VARC: u16 = 946;
 const SLOT_COMPONENTS: i32 = 6;
 const NONE: i32 = 0xFFFF;
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let names = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        _ => &engine.cache.invs.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        _ => engine.cache.invs.get_by_debugname(name).map(|t| t.id),
     };
-    *names.get(name).unwrap_or_else(|| panic!("{kind} {name}"))
+    id.unwrap_or_else(|| panic!("{kind} {name}"))
 }
 
 fn count(engine: &Engine, pid: u16, inv: &str, obj: &str) -> u32 {
@@ -91,7 +92,7 @@ fn customer_of(
     engine.cycle();
     engine.harness_telejump(client.pid, x + 1, 0, z);
     let inv = id(engine, "inv", "inv");
-    let objs: Vec<(u16, u32)> = items
+    let objs: Vec<(TypeId, u32)> = items
         .iter()
         .map(|(o, n)| (id(engine, "obj", o), *n))
         .collect();
@@ -148,7 +149,7 @@ fn side_button(
 ) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .p2_alt3(id(engine, "obj", obj) as i32)
+        .p2_alt3(id(engine, "obj", obj).int())
         .p2_alt1(slot);
     client.send(prot, &p.finish());
 }
@@ -204,16 +205,20 @@ fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
         );
 
         let axeshop = id(engine, "inv", "axeshop");
-        assert_eq!(axeshop, 1, "289's axeshop is 2011's inventory 1");
+        assert_eq!(
+            axeshop,
+            TypeId::new(1),
+            "289's axeshop is 2011's inventory 1"
+        );
         // VARP_SMALL: p1_alt3 value, p2 varp.
         assert!(
             of(&packets, ServerProt::VarpSmall)
                 .any(|p| u16::from_be_bytes([p[1], p[2]]) == SHOP_VARP
-                    && 128u8.wrapping_sub(p[0]) as u16 == axeshop),
+                    && 128u8.wrapping_sub(p[0]) as u16 == axeshop.g2()),
             "varp 118 names the shop's inventory"
         );
         assert!(
-            invs_sent(&packets).contains(&axeshop),
+            invs_sent(&packets).contains(&axeshop.g2()),
             "the stock goes to the client"
         );
         // VARC_SMALL: p1_alt2 value, p2_alt1 varc. Bob's base stock, slot by slot.
@@ -354,13 +359,13 @@ fn a_closed_shop_stops_going_to_the_client_and_reopens_whole() {
             "the shop restocked"
         );
         assert!(
-            !invs_sent(&packets).contains(&axeshop),
+            !invs_sent(&packets).contains(&axeshop.g2()),
             "a closed shop's restock is not sent"
         );
 
         let packets = trade(engine, &mut client, nid);
         assert!(
-            invs_sent(&packets).contains(&axeshop),
+            invs_sent(&packets).contains(&axeshop.g2()),
             "reopened, it goes whole"
         );
     });
@@ -383,7 +388,10 @@ fn kofi_keeps_289_s_karamja_general_store() {
             "Kofi's Trade opens the shop"
         );
         let store = id(engine, "inv", "generalshop7");
-        assert_eq!(store, 34);
-        assert!(invs_sent(&packets).contains(&store), "289's Karamja stock");
+        assert_eq!(store, TypeId::new(34));
+        assert!(
+            invs_sent(&packets).contains(&store.g2()),
+            "289's Karamja stock"
+        );
     });
 }

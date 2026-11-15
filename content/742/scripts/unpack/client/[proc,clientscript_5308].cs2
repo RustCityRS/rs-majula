@@ -1,0 +1,67 @@
+// 5308
+[proc,clientscript_5308]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_string $string0 = "";
+def_struct $struct2 = null;
+def_int $int3 = 0;
+def_graphic $graphic4 = 7287;
+def_graphic $graphic5 = 7706;
+def_int $int6 = 7289;
+def_int $int7 = 2;
+def_int $int8 = 54;
+cc_deleteall(interface_823:com_3);
+cc_deleteall(interface_823:com_4);
+while ($int0 < enum_getoutputcount(enum_840)) {
+    $int3 = enum(int, int, enum_840, $int0);
+    $struct2 = enum(int, struct, enum_5173, $int3);
+    if ($struct2 = null) {
+        return;
+    }
+    $string0 = "<struct_param($struct2, param_1974)><br><struct_param($struct2, param_1975)>";
+    cc_create(interface_823:com_3, ^iftype_graphic, $int0);
+    cc_setgraphic($graphic4);
+    cc_setsize($int8, $int8, ^setsize_abs, ^setsize_abs);
+    if (calc($int0 % 3) = 0) {
+        cc_setposition($int7, calc($int7 + $int1 * (54 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    } else if (calc($int0 % 3) = 1) {
+        cc_setposition(calc($int7 * 2 + $int8), calc($int7 + $int1 * (54 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setposition(calc($int7 * 3 + $int8 * 2), calc($int7 + $int1 * (54 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if ($int3 = 0) {
+        cc_setop(1, struct_param($struct2, param_1974));
+    } else {
+        cc_setontargetenter("clientscript_5309(event_comsubid)");
+        cc_setontargetleave("graphic_swapper(event_com, $graphic4)");
+        if ($int3 = 1) {
+            cc_settargetverb(struct_param($struct2, param_1974));
+        } else if ($int3 = 2) {
+            cc_settargetverb(struct_param($struct2, param_1974));
+        } else {
+            cc_settargetverb("Place <struct_param($struct2, param_1974)>");
+        }
+        cc_settargetcursors(cursor_target, null);
+    }
+    cc_setonmouseover("graphic_swapper(event_com, $graphic5)");
+    cc_setonmouserepeat("clientscript_5334(interface_823:com_3, $int0, interface_823:com_15, $string0, 20, 200)");
+    cc_setonmouseleave("deltooltip_graphic_swapper(interface_823:com_15, event_com, $graphic4)");
+    cc_create(interface_823:com_4, ^iftype_graphic, $int0);
+    cc_setgraphic(struct_param($struct2, param_1983));
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    if (calc($int0 % 3) = 0) {
+        cc_setposition(calc($int7 + 2), calc(2 + $int7 + $int1 * (54 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    } else if (calc($int0 % 3) = 1) {
+        cc_setposition(calc(2 + ($int7 * 2 + $int8)), calc(2 + $int7 + $int1 * (54 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setposition(calc(2 + ($int7 * 3 + $int8 * 2)), calc(2 + $int7 + $int1 * (54 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (calc($int0 % 3) = 2) {
+        $int1 = calc($int1 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+$int1 = calc($int1 + 1);
+if_setscrollpos(interface_823:com_9, 0, 0);
+if_setscrollsize(interface_823:com_9, 0, calc($int7 + $int1 * (54 + $int7)));
+~scrollbar_vertical(interface_823:com_10, interface_823:com_9, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");

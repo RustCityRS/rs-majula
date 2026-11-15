@@ -1,0 +1,18 @@
+// 196
+[proc,clientscript_196]
+if (compare(substring(chat_playername, 0, 1), "#") = 0) {
+    return;
+}
+if (%varplayer_2522 = 1) {
+    if_sethide(lobbyscreen:com_35, false);
+    op400(lobbyscreen:com_35);
+    if (%tutorial > 1000) {
+        if_settext(lobbyscreen:com_436, "Explore and enjoy the members' game for 14 days,<br>absolutely free! Click below to activate your trial<br>and enjoy the following members' benefits:<br><br>- Over 150 extra Quests<br>- 9 Exclusive Skills<br>- Over 40 Minigames<br>- Join the Members' Loyalty Programme<br>- Extra spins on the Squeal of Fortune<br>- Unlock over 400 extra bank spaces<br>- And much more!");
+        if_settext(lobbyscreen:com_435, "You're eligible for Free Members' Access!");
+        if_sethide(lobbyscreen:com_437, true);
+    } else {
+        if_settext(lobbyscreen:com_436, "You're eligible for a free trial of the members-only<br>features of RuneScape!<br><br>Click the button below to start your two weeks of<br>membership and explore the wider and fuller world <br>we offer.");
+        if_settext(lobbyscreen:com_435, "Your 14 days of free membership await...");
+        if_sethide(lobbyscreen:com_437, false);
+    }
+}

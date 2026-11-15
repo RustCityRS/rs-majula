@@ -1,13 +1,14 @@
-use super::decode::read_optional_id;
+use super::decode::{read_big_id, read_id, read_optional_id};
 use super::param::ParamType;
 use super::provider::CacheType;
 use crate::ParamValue;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub struct ShowVar {
-    pub varbit: Option<u16>,
-    pub varp: Option<u16>,
+    pub varbit: Option<TypeId>,
+    pub varp: Option<TypeId>,
     pub min: i32,
     pub max: i32,
 }
@@ -20,9 +21,9 @@ pub struct Polygon {
 }
 
 pub struct MelType {
-    pub id: u16,
-    pub sprite: Option<u16>,
-    pub mouseovergraphic: Option<u16>,
+    pub id: TypeId,
+    pub sprite: Option<TypeId>,
+    pub mouseovergraphic: Option<TypeId>,
     pub text: String,
     pub textcolour: i32,
     pub textmouseovercolour: Option<i32>,
@@ -34,14 +35,14 @@ pub struct MelType {
     pub polygon: Option<Polygon>,
     pub notlistable: bool,
     pub opbase: String,
-    pub worldmaparrow: Option<u16>,
-    pub category: Option<u16>,
+    pub worldmaparrow: Option<TypeId>,
+    pub category: Option<TypeId>,
     pub showvar2: Option<ShowVar>,
     pub textbackgroundoutline: i32,
     pub textbackgroundfill: Vec<i32>,
     pub polygonoutlinedash: Option<(u8, u8, u8)>,
     pub textoffset: (i16, i16),
-    pub params: Vec<(i32, ParamValue)>,
+    pub params: Vec<(TypeId, ParamValue)>,
 }
 
 fn read_show_var(buf: &mut Packet) -> ShowVar {
@@ -56,7 +57,7 @@ fn read_show_var(buf: &mut Packet) -> ShowVar {
 impl CacheType for MelType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             sprite: None,
@@ -85,8 +86,8 @@ impl CacheType for MelType {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.sprite = Some(buf.g2()),
-            2 => self.mouseovergraphic = Some(buf.g2()),
+            1 => self.sprite = Some(read_big_id(buf)),
+            2 => self.mouseovergraphic = Some(read_big_id(buf)),
             3 => self.text = buf.gjstr(STRING_TERMINATOR),
             4 => self.textcolour = buf.g3(),
             5 => self.textmouseovercolour = Some(buf.g3()),
@@ -110,8 +111,8 @@ impl CacheType for MelType {
             }
             16 => self.notlistable = true,
             17 => self.opbase = buf.gjstr(STRING_TERMINATOR),
-            18 => self.worldmaparrow = Some(buf.g2()),
-            19 => self.category = Some(buf.g2()),
+            18 => self.worldmaparrow = Some(read_big_id(buf)),
+            19 => self.category = Some(read_id(buf)),
             20 => self.showvar2 = Some(read_show_var(buf)),
             21 => self.textbackgroundoutline = buf.g4s(),
             22 => self.textbackgroundfill.push(buf.g4s()),

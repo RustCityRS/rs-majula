@@ -1,0 +1,7 @@
+// 542:0
+[layer_1]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=glo3_cutscenes(event_com)
+onvarctransmit=glo3_cutscenes(event_com){glo3_cutscene}

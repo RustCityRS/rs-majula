@@ -1,18 +1,19 @@
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type CategoryTypeProvider = TypeProvider<CategoryType>;
 
 pub struct CategoryType {
-    pub id: u16,
+    pub id: TypeId,
     debugname: Box<str>,
 }
 
 impl CacheType for CategoryType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         CategoryType {
             id,
             debugname: Box::default(),

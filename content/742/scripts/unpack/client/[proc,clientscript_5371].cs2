@@ -1,0 +1,58 @@
+// 5371
+[proc,clientscript_5371](int $int0, int $int1, int $int2)
+if ($int0 < 1) {
+    if_settext(interface_951:com_53, "-");
+}
+if ($int0 < 2) {
+    if_settext(interface_951:com_55, "-");
+}
+if ($int0 < 3) {
+    if_settext(interface_951:com_57, "-");
+}
+if ($int0 < 4) {
+    if_settext(interface_951:com_59, "-");
+}
+if ($int0 < 5) {
+    if_settext(interface_951:com_61, "-");
+}
+if ($int0 < 6) {
+    if_settext(interface_951:com_63, "-");
+}
+switch_int ($int0) {
+    case 0 :
+        if_settext(interface_951:com_25, tostring($int1));
+    case 1 :
+        if_settext(interface_951:com_53, tostring($int1));
+    case 2 :
+        if_settext(interface_951:com_55, tostring($int1));
+    case 3 :
+        if_settext(interface_951:com_57, tostring($int1));
+    case 4 :
+        if_settext(interface_951:com_59, tostring($int1));
+    case 5 :
+        if_settext(interface_951:com_61, tostring($int1));
+    case 6 :
+        if_settext(interface_951:com_63, tostring($int1));
+}
+switch_int ($int0) {
+    case 0 :
+        ~clientscript_5373(interface_951:com_53, $int2);
+    case 1 :
+        ~clientscript_5373(interface_951:com_55, $int2);
+    case 2 :
+        ~clientscript_5373(interface_951:com_57, $int2);
+    case 3 :
+        ~clientscript_5373(interface_951:com_59, $int2);
+    case 4 :
+        ~clientscript_5373(interface_951:com_61, $int2);
+    case 5 :
+        ~clientscript_5373(interface_951:com_63, $int2);
+}
+def_int $int3 = calc(63 * $int0 - 189);
+def_int $int4 = calc($int3 + 63);
+if_setontimer(interface_951:com_36, "clientscript_5372(interface_951:com_36, $int3)");
+if_setontimer(interface_951:com_34, "clientscript_5372(interface_951:com_34, $int4)");
+def_int $int5 = calc(if_getx(interface_951:com_36) + if_getwidth(interface_951:com_36) / 2 - if_getwidth(interface_951:com_14) / 2);
+if ($int5 < $int3) {
+    sound_vorbis_volume(7717, 1, 0, 180);
+}

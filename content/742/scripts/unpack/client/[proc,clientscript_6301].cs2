@@ -1,0 +1,7 @@
+// 6301
+[proc,clientscript_6301]
+def_int $int0 = 0;
+while ($int0 < 10) {
+    ~clientscript_6303($int0, "");
+    $int0 = calc($int0 + 1);
+}

@@ -1,0 +1,26 @@
+[debugproc,give](namedobj $obj, int $count)
+if ($count < 1) {
+    $count = 1
+}
+if (p_finduid(uid) = true) {
+    inv_add(inv, $obj, $count)
+} else {
+    @please_finish
+}
+
+// official name
+[debugproc,clearinv](inv $inv)
+if ($inv = null) {
+    $inv = inv;
+}
+
+if_close;
+if (p_finduid(uid) = true) {
+    if ($inv = worn) {
+        buildappearance(worn);
+    }
+    inv_clear($inv);
+    mes("Inventory wiped.");
+} else {
+    @please_finish;
+}

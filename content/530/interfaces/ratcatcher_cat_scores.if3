@@ -1,0 +1,134 @@
+// 281:0
+[ratpits_name_p1]
+type=text
+x=342
+y=24
+width=109
+height=17
+textfont=fontmetrics_497
+text=Text
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 281:1
+[ratpits_name_p2]
+type=text
+x=342
+y=74
+width=110
+height=18
+textfont=fontmetrics_497
+text=Text
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 281:2
+[ratpits_cathead_p1]
+type=model
+x=461
+y=6
+width=44
+height=45
+model=model_34053
+modelorigin=-1,4
+modelangle=10,37,0
+modelzoom=3213
+modelanim=seq_8581
+modelunknown=64243,6598,0
+
+// 281:3
+[ratpits_cathead_p2]
+type=model
+x=460
+y=65
+width=45
+height=45
+model=model_34053
+modelorigin=0,4
+modelangle=32,56,0
+modelzoom=3213
+modelanim=seq_8581
+modelunknown=64163,6604,0
+
+// 281:4
+[ratpits_scores_p1]
+type=text
+x=443
+y=43
+width=14
+height=14
+textfont=fontmetrics_495
+text=10
+textshadow=yes
+colour=0xff981f
+
+// 281:5
+[ratpits_scores_p2]
+type=text
+x=442
+y=91
+width=14
+height=14
+textfont=fontmetrics_495
+text=10
+textshadow=yes
+colour=0xff981f
+
+// 281:6
+[com_6]
+type=graphic
+x=480
+y=302
+width=25
+height=25
+graphic=graphic_219
+
+// 281:7
+[ratpits_credits_layer]
+type=layer
+x=136
+y=120
+width=268
+height=121
+hide=yes
+
+// 281:8
+[ratpits_credits_banner]
+type=model
+x=4
+y=18
+width=264
+height=76
+layer=ratpits_credits_layer
+model=model_10119
+modelorigin=-1,-8
+modelangle=512,0,0
+modelzoom=576
+modelunknown=64938,1171,0
+
+// 281:9
+[ratpits_credit_name]
+type=text
+x=72
+y=28
+width=124
+height=17
+layer=ratpits_credits_layer
+textfont=fontmetrics_497
+text=Your cat has been
+textalignh=centre
+colour=0x000000
+
+// 281:10
+[ratpits_credits_winner]
+type=text
+x=110
+y=49
+width=59
+height=17
+layer=ratpits_credits_layer
+textfont=fontmetrics_497
+text=Defeated
+colour=0x000000

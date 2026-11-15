@@ -1,0 +1,15 @@
+// 6040
+[proc,clientscript_6040](int $int0, int $int1, component $component2, component $component3)
+if (~clientscript_6035($int0, %varclient_1798, %varclient_1799, 1) = false) {
+    return;
+}
+%varclient_1796 = $int1;
+def_int $int4 = calc(enum_getoutputcount(enum_5727) - 1);
+while ($int4 >= 0) {
+    $component2 = enum(int, component, enum_5727, $int4);
+    if ($component2 ! null) {
+        op2927($component2);
+    }
+    $int4 = calc($int4 - 1);
+}
+op2927($component3);

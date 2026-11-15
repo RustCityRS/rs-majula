@@ -1,0 +1,15 @@
+// 5467
+[proc,clientscript_5467]
+%varclient_1674 = calc(%varclient_1674 + 1);
+%varclient_1675 = calc(%varclient_1675 + 1);
+if (%varclient_1674 < 17) {
+    if_setposition(interface_1159:com_22, 0, %varclient_1674, ^setpos_abs_centre, ^setpos_abs_top);
+} else {
+    if_setposition(interface_1159:com_22, 0, 17, ^setpos_abs_centre, ^setpos_abs_top);
+}
+if (%varclient_1675 < 3) {
+    if_setposition(interface_1159:com_23, 3, %varclient_1675, ^setpos_abs_right, ^setpos_abs_bottom);
+} else {
+    if_setposition(interface_1159:com_23, 3, 3, ^setpos_abs_right, ^setpos_abs_bottom);
+    if_setontimer(interface_1159:com_30, null);
+}

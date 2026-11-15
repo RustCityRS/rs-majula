@@ -1,0 +1,5 @@
+// 5209
+[proc,clientscript_5209]
+def_string $string0 = "Pin this skill plot's information to this side interface?";
+if_setonmouserepeat(interface_1117:com_136, "aif_tooltip(interface_1117:com_0, interface_1117:com_136, -1, $string0, 160, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1117:com_136, "deltooltip(interface_1117:com_0)");

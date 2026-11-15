@@ -1,0 +1,7 @@
+// 4903
+[proc,clientscript_4903]
+def_int $int0 = %varclient_1800;
+def_int $int1 = max(0, %varclient_1970);
+def_int $int2 = max(0, calc($int0 + %varplayerbit_10862 + %varplayerbit_11026));
+if_settext(interface_1139:com_6, tostring($int2));
+if_settext(interface_1139:com_14, tostring($int1));

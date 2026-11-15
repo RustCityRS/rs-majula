@@ -1,0 +1,9 @@
+// 6725
+[proc,clientscript_6725]
+if (%varplayer_2751 = 0) {
+    ~clientscript_6726;
+} else if (%varplayer_2751 = 63) {
+    ~clientscript_6727;
+} else {
+    ~clientscript_6728;
+}

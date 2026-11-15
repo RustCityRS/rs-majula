@@ -1,0 +1,11 @@
+// 6643
+[proc,clientscript_6643](int $int0, string $string0)
+if (clientclock > $int0) {
+    if_settext(interface_1334:com_43, "Select and drag the avatar buffs below to the desired slot above.");
+    if_setcolour(interface_1334:com_43, 0xc8ac7d);
+    if_setontimer(interface_1334:com_43, null);
+} else if (calc(clientclock % 20) < 10) {
+    if_setcolour(interface_1334:com_43, ^red);
+} else {
+    if_setcolour(interface_1334:com_43, 0xc8ac7d);
+}

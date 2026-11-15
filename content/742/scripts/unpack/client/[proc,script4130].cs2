@@ -1,0 +1,53 @@
+// 4130
+[proc,script4130](component $component0)
+def_int $int1 = 0;
+switch_int (%glo3_cutscene) {
+    case 1 :
+        cc_create($component0, ^iftype_rectangle, $int1);
+        cc_setfill(true);
+        cc_setcolour(0xeeeeaa);
+        cc_setsize(30, 0, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_sethide(true);
+        $int1 = calc($int1 + 1);
+        cc_create($component0, ^iftype_graphic, $int1);
+        cc_setgraphic(rand_framea_centre_gradient_alpha_horiz);
+        cc_setsize(30, 0, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_sethide(true);
+        $int1 = calc($int1 + 1);
+        cc_create($component0, ^iftype_rectangle, $int1);
+        cc_setfill(true);
+        cc_setcolour(0xeeeeaa);
+        cc_setsize(30, 0, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+        cc_sethide(true);
+        $int1 = calc($int1 + 1);
+        cc_create($component0, ^iftype_graphic, $int1);
+        cc_setgraphic(rand_framea_centre_gradient_alpha_horiz_t);
+        cc_setsize(30, 0, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+        cc_sethide(true);
+        $int1 = calc($int1 + 1);
+        ~script665(^black, 50, $component0, $int1);
+    case 2 :
+        while ($int1 < 4) {
+            if (cc_find($component0, $int1) = true) {
+                cc_sethide(false);
+            }
+            $int1 = calc($int1 + 1);
+        }
+        ~script667(50, $component0, $int1);
+    case 3 :
+        ~script665(^black, 50, $component0, 4);
+    case 4 :
+        while ($int1 < 4) {
+            if (cc_find($component0, $int1) = true) {
+                cc_sethide(true);
+            }
+            $int1 = calc($int1 + 1);
+        }
+        ~script667(50, $component0, $int1);
+    case 5 :
+        cc_deleteall($component0);
+}

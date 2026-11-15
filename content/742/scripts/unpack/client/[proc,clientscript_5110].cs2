@@ -1,0 +1,13 @@
+// 5110
+[proc,clientscript_5110](int $int0)
+if ($int0 = 1) {
+    if_sethide(interface_1116:com_561, false);
+    if_sethide(interface_1116:com_553, true);
+    if_sethide(interface_1116:com_3, false);
+    if_sethide(interface_1116:com_4, true);
+} else {
+    if_sethide(interface_1116:com_561, true);
+    if_sethide(interface_1116:com_553, false);
+    if_sethide(interface_1116:com_3, true);
+    if_sethide(interface_1116:com_4, false);
+}

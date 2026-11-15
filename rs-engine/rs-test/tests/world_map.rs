@@ -27,6 +27,7 @@ use rs_pack::cache::varp::VarPlayerScope;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const FIXED: u16 = 548;
@@ -432,7 +433,11 @@ fn each_key_option_flips_its_own_bit() {
 #[test]
 fn the_key_settings_last_the_session() {
     runner::on_loaded_engine(|engine| {
-        let varp = engine.cache.varps.get_by_id(KEY_VARP).expect("varp 463");
+        let varp = engine
+            .cache
+            .varps
+            .get_by_id(TypeId::new(KEY_VARP))
+            .expect("varp 463");
         assert!(varp.scope == VarPlayerScope::Temp, "not saved");
     });
 }
@@ -620,7 +625,11 @@ fn the_marker_arrow_leaves_quest_arrows_alone() {
 #[test]
 fn the_marker_lasts_the_session() {
     runner::on_loaded_engine(|engine| {
-        let varp = engine.cache.varps.get_by_id(MARKER).expect("varp 1159");
+        let varp = engine
+            .cache
+            .varps
+            .get_by_id(TypeId::new(MARKER))
+            .expect("varp 1159");
         assert!(varp.scope == VarPlayerScope::Temp, "not saved");
     });
 }

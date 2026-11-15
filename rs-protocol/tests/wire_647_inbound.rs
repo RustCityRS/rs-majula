@@ -20,7 +20,7 @@
 //! Each test names the client file and method it was transcribed from. When a
 //! test fails, the client is right and we are wrong: go read the cited method.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
@@ -30,6 +30,7 @@ use rs_protocol::network::game::client::move_minimapclick::{MinimapTrailer, Move
 #[path = "support/client_packet.rs"]
 mod client_packet;
 use client_packet::ClientPacket;
+use rs_ver::TypeId;
 
 /// Runs a decoder over bytes the client would have written.
 fn decode<M: ClientProtMessage>(p: &ClientPacket) -> M {
@@ -76,8 +77,8 @@ fn if_buttond_matches_client() {
     assert_eq!(m.slot, 3, "source slot");
     assert_eq!(m.slot2, 48, "target slot");
     assert_eq!(m.com2, target_com, "target component");
-    assert_eq!(m.obj, u16::MAX, "source component after the drag hook");
-    assert_eq!(m.obj2, u16::MAX, "empty backing sprite");
+    assert_eq!(m.obj, TypeId::NULL, "source component after the drag hook");
+    assert_eq!(m.obj2, TypeId::NULL, "empty backing sprite");
 }
 
 // ---------------------------------------------------------------------------
@@ -96,7 +97,7 @@ fn oploc1_matches_client() {
 
     let m: OpLoc1 = decode(&p);
     assert_eq!(m.z, 3218, "z");
-    assert_eq!(m.loc, 1530, "loc id");
+    assert_eq!(m.loc, TypeId::new(1530), "loc id");
     assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.x, 3222, "x");
 }
@@ -207,7 +208,7 @@ macro_rules! tile_op {
             let w: fn(&mut ClientPacket) = $writes;
             w(&mut p);
             let m: $ty = decode(&p);
-            assert_eq!(m.$field, 1530, stringify!($field));
+            assert_eq!(m.$field, TypeId::new(1530), stringify!($field));
             assert_eq!(m.x, 3222, "x");
             assert_eq!(m.z, 3218, "z");
             assert!(m.ctrl, "ctrl-run");
@@ -282,13 +283,13 @@ fn oploct_matches_client() {
         .p2_alt1(1530);
 
     let m: OpLocT = decode(&p);
-    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.obj, TypeId::new(FROM_OBJ as u16), "source obj");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.z, 3218, "z");
     assert_eq!(m.com, FROM_COM, "source component");
     assert_eq!(m.x, 3222, "x");
     assert!(m.ctrl, "ctrl-run");
-    assert_eq!(m.loc, 1530, "loc id");
+    assert_eq!(m.loc, TypeId::new(1530), "loc id");
 }
 
 #[test]
@@ -304,7 +305,7 @@ fn opnpct_matches_client() {
         .p1_alt2(1);
 
     let m: OpNpcT = decode(&p);
-    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.obj, TypeId::new(FROM_OBJ as u16), "source obj");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.nid, 4231, "npc id");
     assert_eq!(m.com, FROM_COM, "source component");
@@ -326,8 +327,8 @@ fn opobjt_matches_client() {
         .p2_alt2(3222);
 
     let m: OpObjT = decode(&p);
-    assert_eq!(m.obj2, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.obj, 1530, "target obj");
+    assert_eq!(m.obj2, TypeId::new(FROM_OBJ as u16), "source obj");
+    assert_eq!(m.obj, TypeId::new(1530), "target obj");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.com, FROM_COM, "source component");
     assert!(m.ctrl, "ctrl-run");
@@ -352,7 +353,7 @@ fn opplayert_matches_client() {
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.com, FROM_COM, "source component");
     assert!(m.ctrl, "ctrl-run");
-    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.obj, TypeId::new(FROM_OBJ as u16), "source obj");
 }
 
 // ---------------------------------------------------------------------------
@@ -378,7 +379,7 @@ macro_rules! button_op {
                 p.p4(com).p2_alt3(obj).p2_alt1(slot);
                 let m: $ty = decode(&p);
                 assert_eq!(m.com, com, "component");
-                assert_eq!(m.obj, obj as u16, "obj");
+                assert_eq!(m.obj, TypeId::new(obj as u16), "obj");
                 assert_eq!(m.slot, slot as u16, "slot");
             }
         }
@@ -415,9 +416,9 @@ fn if_buttont_matches_client() {
     assert_eq!(m.com2, to_com, "target component");
     assert_eq!(m.slot2, 12, "target slot");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.obj, TypeId::new(FROM_OBJ as u16), "source obj");
     assert_eq!(m.com, FROM_COM, "source component");
-    assert_eq!(m.obj2, 995, "target obj");
+    assert_eq!(m.obj2, TypeId::new(995), "target obj");
 }
 
 // ---------------------------------------------------------------------------
@@ -575,7 +576,7 @@ fn apcoordt_matches_client() {
     let m: ApCoordT = decode(&p);
     assert_eq!((m.x, m.z), (3222, 3218), "tile");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.obj, TypeId::new(FROM_OBJ as u16), "source obj");
     assert_eq!(m.com, FROM_COM, "source component");
 }
 

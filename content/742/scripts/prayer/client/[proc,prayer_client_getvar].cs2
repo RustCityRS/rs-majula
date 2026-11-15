@@ -1,0 +1,114 @@
+// 2296
+[proc,prayer_client_getvar](int $int0)(int)
+def_struct $struct1 = enum(int, struct, enum_2279, $int0);
+if (%prayer_mode = 1) {
+    $struct1 = enum(int, struct, enum_863, $int0);
+    switch_struct ($struct1) {
+        case struct_888 :
+            return(%varplayerbit_6820);
+        case struct_889 :
+            return(%varplayerbit_6821);
+        case struct_890 :
+            return(%varplayerbit_6822);
+        case struct_891 :
+            return(%varplayerbit_6823);
+        case struct_892 :
+            return(%varplayerbit_6824);
+        case struct_893 :
+            return(%varplayerbit_6825);
+        case struct_894 :
+            return(%varplayerbit_6826);
+        case struct_895 :
+            return(%varplayerbit_6827);
+        case struct_896 :
+            return(%varplayerbit_6828);
+        case struct_897 :
+            return(%varplayerbit_6829);
+        case struct_898 :
+            return(%varplayerbit_6830);
+        case struct_899 :
+            return(%varplayerbit_6831);
+        case struct_900 :
+            return(%varplayerbit_6832);
+        case struct_901 :
+            return(%varplayerbit_6833);
+        case struct_902 :
+            return(%varplayerbit_6834);
+        case struct_903 :
+            return(%varplayerbit_6835);
+        case struct_904 :
+            return(%varplayerbit_6836);
+        case struct_905 :
+            return(%varplayerbit_6837);
+        case struct_906 :
+            return(%varplayerbit_6838);
+        case struct_907 :
+            return(%varplayerbit_6839);
+        case default :
+            return(0);
+    }
+}
+switch_struct ($struct1) {
+    case struct_660 :
+        return(%varplayerbit_5942);
+    case struct_661 :
+        return(%varplayerbit_5943);
+    case struct_662 :
+        return(%prayer2);
+    case struct_663 :
+        return(%prayer3);
+    case struct_664 :
+        return(%prayer4);
+    case struct_665 :
+        return(%prayer5);
+    case struct_666 :
+        return(%prayer6);
+    case struct_667 :
+        return(%prayer7);
+    case struct_668 :
+        return(%prayer8);
+    case struct_669 :
+        return(%varplayerbit_5951);
+    case struct_670 :
+        return(%varplayerbit_5952);
+    case struct_671 :
+        return(%varplayerbit_5953);
+    case struct_672 :
+        return(%varplayerbit_5954);
+    case struct_673 :
+        return(%prayer13);
+    case struct_674 :
+        return(%prayer14);
+    case struct_675 :
+        return(%varplayerbit_5957);
+    case struct_676 :
+        return(%varplayerbit_5958);
+    case struct_677 :
+        return(%varplayerbit_5959);
+    case struct_678 :
+        return(%varplayerbit_5960);
+    case struct_679 :
+        return(%varplayerbit_5961);
+    case struct_680 :
+        return(%varplayerbit_5962);
+    case struct_681 :
+        return(%varplayerbit_5963);
+    case struct_682 :
+        return(%varplayerbit_5964);
+    case struct_683 :
+        return(%varplayerbit_5965);
+    case struct_684 :
+        return(%varplayerbit_5966);
+    case struct_685 :
+        return(%varplayerbit_5967);
+    case struct_1005 :
+        return(%varplayerbit_7768);
+    case struct_686 :
+        return(%varplayerbit_5968);
+    case struct_1006 :
+        return(%varplayerbit_7769);
+    case struct_1029 :
+        return(%varplayerbit_7381);
+    case default :
+        return(0);
+}

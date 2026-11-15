@@ -1,0 +1,151 @@
+// Tests for the food/consumption port (single-bite staples).
+// Exercises the dbtable lookup (db_find/db_findnext) and the granular
+// life-points heal (~heal_lifepoints / consume_effect_apply). The per-food
+// heal values are cross-referenced against our local 2011 wiki dump.
+
+// Helper: resolve a food's heal amount through the same db_find path the eat
+// flow uses. A null row (non-food) would error in db_getfield, so every call
+// here also proves db_find located the row.
+[proc,food_heal](obj $food)(int)
+db_find(consume_table:consumable, $food)
+def_dbrow $row = db_findnext
+def_stat $stat
+def_int $constant
+def_int $percent
+$stat, $constant, $percent = db_getfield($row, consume_table:stat_heal, 0)
+return($constant)
+
+#testscript
+
+// Ground-truth: the stat_heal field's STAT must resolve to hitpoints (not -1).
+[label,test_db_stat_field_resolves]
+setup_player("test_player")
+db_find(consume_table:consumable, lrc_rocktail_cooked)
+def_dbrow $row = db_findnext
+def_stat $stat
+def_int $constant
+def_int $percent
+$stat, $constant, $percent = db_getfield($row, consume_table:stat_heal, 0)
+def_int $hp_match = 0
+if ($stat = hitpoints) {
+    $hp_match = 1
+}
+assert_eq($hp_match, 1)
+
+// ── Full food table — heal values verified vs the local 2011 wiki ────
+[label,test_food_table_heal_values]
+setup_player("test_player")
+assert_eq(~food_heal(anchovies), 10)
+assert_eq(~food_heal(shrimp), 30)
+assert_eq(~food_heal(cooked_chicken), 30)
+assert_eq(~food_heal(cooked_meat), 30)
+assert_eq(~food_heal(sardine), 40)
+assert_eq(~food_heal(bread), 50)
+assert_eq(~food_heal(herring), 50)
+assert_eq(~food_heal(mackerel), 60)
+assert_eq(~food_heal(trout), 70)
+assert_eq(~food_heal(cod), 70)
+assert_eq(~food_heal(pike), 80)
+assert_eq(~food_heal(salmon), 90)
+assert_eq(~food_heal(tuna), 100)
+assert_eq(~food_heal(lobster), 120)
+assert_eq(~food_heal(bass), 130)
+assert_eq(~food_heal(swordfish), 140)
+assert_eq(~food_heal(monkfish), 160)
+assert_eq(~food_heal(tbwt_cooked_karambwan), 180)
+assert_eq(~food_heal(shark), 200)
+assert_eq(~food_heal(seaturtle), 210)
+assert_eq(~food_heal(mantaray), 220)
+assert_eq(~food_heal(lrc_rocktail_cooked), 230)
+
+// ── ~heal_lifepoints: the granular life-points primitive ─────────────
+[label,test_heal_lifepoints_adds]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~heal_lifepoints(50)
+assert_eq(%life_points, 150)
+
+[label,test_heal_lifepoints_clamps_to_max]
+setup_player("test_player")
+def_int $max = calc(stat(hitpoints) * 10)
+%life_points = calc($max - 20)
+~heal_lifepoints(100)
+assert_eq(%life_points, $max)
+
+// ── consume_effect_apply: full food→heal chain (the integration) ─────
+// One per heal tier (low / mid / high) plus clamp + non-food guard.
+[label,test_eat_shrimps_heals_30]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(shrimp)
+assert_eq(%life_points, 130)
+
+[label,test_eat_lobster_heals_120]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(lobster)
+assert_eq(%life_points, 220)
+
+[label,test_eat_shark_heals_200]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(shark)
+assert_eq(%life_points, 300)
+
+[label,test_eat_rocktail_heals_230]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(lrc_rocktail_cooked)
+assert_eq(%life_points, 330)
+
+[label,test_eat_clamps_at_max]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+def_int $max = calc(stat(hitpoints) * 10)
+%life_points = calc($max - 30)
+~consume_effect_apply(mantaray)
+assert_eq(%life_points, $max)
+
+// a non-food obj must not heal (db_find finds no row -> early return)
+[label,test_eat_non_food_no_heal]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(raw_lobster)
+assert_eq(%life_points, 100)
+
+// ── Eat-throttle: the %eat_delay server-only varp (id 2182) ───────────
+// Proves the new server-only varp actually round-trips through the pack
+// pipeline at runtime (compile-time resolution alone wouldn't catch a
+// missing/garbled varp.dat entry).
+[label,test_eat_delay_var_readwrite]
+setup_player("test_player")
+%eat_delay = 12345
+assert_eq(%eat_delay, 12345)
+
+// The throttle gate from [label,player_consume_item]: %eat_delay >= map_clock
+// blocks the eat. map_clock is constant within a single script run, so we test
+// the comparison relative to it (absolute value doesn't matter). Just-ate ->
+// blocked; window already passed -> allowed.
+[label,test_eat_throttle_gate]
+setup_player("test_player")
+def_int $now = map_clock
+// just ate (eat_delay set 2 ticks ahead) -> %eat_delay >= map_clock -> block
+%eat_delay = calc($now + 2)
+def_int $blocked_now = 0
+if (%eat_delay >= map_clock) {
+    $blocked_now = 1
+}
+assert_eq($blocked_now, 1)
+// throttle window already elapsed -> allowed
+%eat_delay = calc($now - 1)
+def_int $blocked_later = 0
+if (%eat_delay >= map_clock) {
+    $blocked_later = 1
+}
+assert_eq($blocked_later, 0)

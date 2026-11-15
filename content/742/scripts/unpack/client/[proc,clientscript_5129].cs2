@@ -1,0 +1,5 @@
+// 5129
+[proc,clientscript_5129]
+if (activeclansettings_find_affined = true) {
+    ~clientscript_5132;
+}

@@ -1,0 +1,9 @@
+// 5111
+[proc,clientscript_5111](int $int0, int $int1)
+%varplayer_2317 = $int0;
+if ($int1 = 1) {
+    ~clientscript_5108(1);
+} else {
+    ~clientscript_5108(0);
+}
+~clientscript_5113($int1);

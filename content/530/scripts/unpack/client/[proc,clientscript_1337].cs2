@@ -1,0 +1,19 @@
+// 1337
+[proc,clientscript_1337]
+if_setgraphic(topstat_hitpoints:com_1, 1206);
+if_setposition(topstat_hitpoints:com_2, 1, 1, 0, 0);
+if_setposition(topstat_hitpoints:com_3, 1, 1, 0, 0);
+if_setposition(topstat_hitpoints:com_4, 31, 15, 0, 0);
+if_setposition(topstat_hitpoints:com_5, 7, 7, 0, 0);
+if_setgraphic(topstat_lore:topstat_background_lore, 1206);
+if_setposition(topstat_lore:topstat_circle_lore, 1, 1, 0, 0);
+if_setposition(topstat_lore:com_3, 1, 1, 0, 0);
+if_setposition(topstat_lore:topstat_text_lore, 31, 15, 0, 0);
+if_setposition(topstat_lore:topstat_graphic_lore, 7, 7, 0, 0);
+if_setgraphic(topstat_prayer:topstat_background_prayer, 1206);
+if_setposition(topstat_prayer:topstat_circle_prayer, 1, 1, 0, 0);
+if_setposition(topstat_prayer:com_3, 1, 1, 0, 0);
+if_setposition(topstat_prayer:from_define_101, 31, 15, 0, 0);
+if_setposition(topstat_prayer:topstat_graphic_prayer, 7, 7, 0, 0);
+~clientscript_1741(topstat_run:button);
+if_setposition(topstat_run:text, 29, 15, 0, 0);

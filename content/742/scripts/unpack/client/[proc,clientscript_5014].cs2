@@ -1,0 +1,44 @@
+// 5014
+[proc,clientscript_5014]
+~clientscript_5013;
+if_sethide(interface_1259:com_174, false);
+if_sethide(interface_1259:com_175, false);
+if_sethide(interface_1259:com_176, false);
+if_sethide(interface_1259:com_178, false);
+if_sethide(interface_1259:com_177, false);
+if (~clientscript_4949(4) > 0 & ~clientscript_4959(4) > 0) {
+    if_sethide(interface_1259:com_4, false);
+}
+if (~clientscript_4949(5) > 0 & ~clientscript_4959(5) > 0) {
+    if_sethide(interface_1259:com_163, false);
+}
+if (~clientscript_4949(6) > 0 & %varclan_2580 > 2 & ~clientscript_4959(6) > 0) {
+    if_sethide(interface_1259:com_164, false);
+}
+if (~clientscript_4949(7) > 0 & %varclan_2580 > 2 & ~clientscript_4959(7) > 0) {
+    if_sethide(interface_1259:com_165, false);
+}
+if (~clientscript_4949(8) > 0 & %varclan_2580 > 4 & ~clientscript_4959(8) > 0) {
+    if_sethide(interface_1259:com_166, false);
+}
+if (~clientscript_4949(9) > 0 & %varclan_2580 > 4 & ~clientscript_4959(9) > 0) {
+    if_sethide(interface_1259:com_167, false);
+}
+if (~clientscript_4949(10) > 0 & %varclan_2580 > 4 & ~clientscript_4959(10) > 0) {
+    if_sethide(interface_1259:com_168, false);
+}
+if (~clientscript_4949(11) > 0 & %varclan_2580 > 4 & ~clientscript_4959(11) > 0) {
+    if_sethide(interface_1259:com_169, false);
+}
+if (~clientscript_4949(12) > 0 & %varclan_2580 > 6 & ~clientscript_4959(12) > 0) {
+    if_sethide(interface_1259:com_170, false);
+}
+if (~clientscript_4949(13) > 0 & %varclan_2580 > 6 & ~clientscript_4959(13) > 0) {
+    if_sethide(interface_1259:com_171, false);
+}
+if (~clientscript_4949(14) > 0 & %varclan_2580 > 6 & ~clientscript_4959(14) > 0) {
+    if_sethide(interface_1259:com_172, false);
+}
+if (~clientscript_4949(15) > 0 & %varclan_2580 > 6 & ~clientscript_4959(15) > 0) {
+    if_sethide(interface_1259:com_173, false);
+}

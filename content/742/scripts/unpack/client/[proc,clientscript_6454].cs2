@@ -1,0 +1,10 @@
+// 6454
+[proc,clientscript_6454]
+def_int $int0 = 1093;
+if (gender = 1) {
+    $int0 = 3872;
+}
+def_string $string0 = chat_playername_unfiltered;
+def_int $int1 = calc(stringwidth($string0, verdana_13pt_regular) + 40);
+if_settext(interface_1311:com_69, $string0);
+if_setsize(interface_1311:com_36, $int1, 34, ^setsize_abs, ^setsize_abs);

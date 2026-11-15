@@ -13,7 +13,7 @@ pub struct Setup {
     key: String,
     names: [String; VALUES],
     // The web client's device check; a 647 world serves no web client.
-    #[cfg_attr(since_647, allow(dead_code))]
+    #[cfg_attr(since_530, allow(dead_code))]
     pub source: String,
 }
 

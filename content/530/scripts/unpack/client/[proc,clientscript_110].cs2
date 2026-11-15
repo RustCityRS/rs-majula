@@ -1,0 +1,17 @@
+// 110
+[proc,clientscript_110](string $string0)
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, $string0);
+if_settext(chattop:mes_text2, "*");
+%meslayermode = 9;
+%varclient_654 = "";
+if_setonclick(chattop:mes_layer, null);
+~clientscript_2026;
+if_setonkey(chattop:mes_text2, "clientscript_112(event_keycode, event_keychar)");
+if_setondialogabort(chattop:mes_text2, "clientscript_138");
+~clientscript_1188;

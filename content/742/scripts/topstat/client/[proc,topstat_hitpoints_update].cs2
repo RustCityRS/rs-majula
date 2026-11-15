@@ -1,0 +1,38 @@
+// 2654
+[proc,topstat_hitpoints_update]
+def_component $component0 = topstat_hitpoints:health;
+def_component $component1 = topstat_hitpoints:cap_health;
+def_graphic $graphic2 = "topstat_icon,0";
+def_graphic $graphic3 = "topstat_fill_full,0";
+def_graphic $graphic4 = "topstat_fill_full,9";
+def_graphic $graphic5 = "topstat_fill_full,10";
+if (getwindowmode >= 2) {
+    $graphic2 = 8653;
+    $graphic3 = 8641;
+    $graphic4 = 8650;
+    $graphic5 = 8651;
+    if_setsize(topstat_hitpoints:topstat_hitpoints_layer, 67, 34, ^setsize_abs, ^setsize_abs);
+    if_setposition(topstat_hitpoints:globe, 2, 2, ^setpos_abs_right, ^setpos_abs_top);
+    if_setgraphic(topstat_hitpoints:background, 8625);
+    if_setgraphic(topstat_hitpoints:background_op, 8625);
+    if_setposition(topstat_hitpoints:text, 3, 15, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(topstat_hitpoints:text, 34, 14, ^setsize_abs, ^setsize_abs);
+} else {
+    if_setsize(topstat_hitpoints:topstat_hitpoints_layer, 57, 34, ^setsize_abs, ^setsize_abs);
+    if_setposition(topstat_hitpoints:globe, 1, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setgraphic(topstat_hitpoints:background, graphic_1206);
+    if_setgraphic(topstat_hitpoints:background_op, graphic_1206);
+    if_setposition(topstat_hitpoints:text, 31, 15, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(topstat_hitpoints:text, 24, 14, ^setsize_abs, ^setsize_abs);
+}
+if_setgraphic(topstat_hitpoints:icon, $graphic2);
+if (%poison > 0) {
+    if_setgraphic($component0, $graphic5);
+    if_setgraphic($component1, $graphic5);
+} else if (%varplayer_456 > 0) {
+    if_setgraphic($component0, $graphic4);
+    if_setgraphic($component1, $graphic4);
+} else {
+    if_setgraphic($component0, $graphic3);
+    if_setgraphic($component1, $graphic3);
+}

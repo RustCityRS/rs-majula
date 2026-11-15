@@ -1,0 +1,105 @@
+// 4804
+[proc,clientscript_4804]
+def_boolean $boolean0 = ~clientscript_4828(%varplayerbit_9558);
+if ($boolean0 = true) {
+    ~clientscript_4842(1);
+    ~clientscript_4842(2);
+    ~clientscript_4842(3);
+    switch_int (%varplayerbit_9558) {
+        case 1 :
+            ~clientscript_4846(%varplayerbit_9563);
+        case 2 :
+            ~clientscript_4846(%varplayerbit_9572);
+        case 3 :
+            ~clientscript_4846(%varplayerbit_9581);
+    }
+} else {
+    ~clientscript_4843(1);
+    ~clientscript_4843(2);
+    ~clientscript_4843(3);
+}
+~clientscript_4807;
+def_enum $enum1 = null;
+def_enum $enum2 = null;
+def_enum $enum3 = null;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = 1;
+def_int $int7 = 1;
+def_int $int8 = 0;
+switch_int (%varplayerbit_9558) {
+    case 1 :
+        $int5 = %varplayerbit_9562;
+        $int8 = %varplayerbit_9566;
+    case 2 :
+        $int5 = %varplayerbit_9571;
+        $int8 = %varplayerbit_9575;
+    case 3 :
+        $int5 = %varplayerbit_9580;
+        $int8 = %varplayerbit_9584;
+}
+if ($int5 = 0 & $int8 = 0) {
+    ~clientscript_4940;
+    return;
+} else {
+    ~clientscript_4942;
+}
+def_enum $enum9 = ~clientscript_4825(%varplayerbit_9558);
+def_enum $enum10 = ~clientscript_4822(%varplayerbit_9558);
+if ($int8 = 1) {
+    ~clientscript_4846(1);
+    if_setgraphic(interface_1258:com_236, null);
+    if_settext(interface_1258:com_237, "Reset Hotspot to its default state");
+    if_settext(interface_1258:com_393, "");
+    if_settext(interface_1258:com_394, "");
+    if_settext(interface_1258:com_395, "");
+    if_settext(interface_1258:com_321, "");
+    if_settext(interface_1258:com_322, "");
+    if_settext(interface_1258:com_323, "");
+    if_settext(interface_1258:com_243, "");
+    if_settext(interface_1258:com_244, "");
+    if_settext(interface_1258:com_245, "");
+    ~clientscript_4805(1, 1);
+    ~clientscript_4805(2, 1);
+    ~clientscript_4805(3, 1);
+    ~clientscript_4805(1, 2);
+    ~clientscript_4805(2, 2);
+    ~clientscript_4805(3, 2);
+    ~clientscript_4805(1, 3);
+    ~clientscript_4805(2, 3);
+    ~clientscript_4805(3, 3);
+} else {
+    if ($enum9 ! null) {
+        if_setgraphic(interface_1258:com_236, enum(int, graphic, $enum9, $int5));
+    }
+    if ($enum10 ! null) {
+        if_settext(interface_1258:com_237, enum(int, string, $enum10, $int5));
+    }
+    $enum1 = enum(int, enum, enum_4043, $int5);
+    if ($enum1 = null & $int8 = 0) {
+        return;
+    }
+    while ($int6 <= 3) {
+        $enum2 = enum(int, enum, $enum1, $int6);
+        if ($enum2 ! null) {
+            while ($int7 <= 3) {
+                $enum3 = enum(int, enum, $enum2, $int7);
+                if ($enum3 ! null) {
+                    ~clientscript_4806($enum3, $int6, $int7, $boolean0, $int5);
+                } else {
+                    ~clientscript_4805($int6, $int7);
+                }
+                $enum3 = null;
+                $int7 = calc($int7 + 1);
+            }
+        } else {
+            ~clientscript_4842($int6);
+        }
+        $int7 = 1;
+        $int6 = calc($int6 + 1);
+    }
+    ~clientscript_4838;
+    ~clientscript_4810;
+}
+~clientscript_4809;
+~clientscript_4814;

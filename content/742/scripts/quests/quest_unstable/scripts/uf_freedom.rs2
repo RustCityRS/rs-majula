@@ -1,0 +1,319 @@
+// Unstable Foundations' end: up the ladder from Explorer Jack's cellar into his house in Lumbridge
+// (Task 3519 "To Freedom!", varp 281 170 -> 1000), Explorer Jack (3520, varbit 6494), and "The
+// Journey Begins" (3521). As 4KO2h2xPtdM (2011-04-30) shows it:
+// - @596-600 the player by the ladder in Explorer Jack's cellar, s078 from Sir Vant;
+// - @603 "Loading - please wait", @606 Lumbridge;
+// - @609 the quest scroll: "Congratulations!" / "You have completed Unstable Foundations!" / "You
+//   gain:" / "1 Quest Point" / "Level 4 Mining", a pickaxe; in the chat "Congratulations! Quest
+//   complete!" then "You have unlocked a new music track: Harmony."; @612 "You've just advanced 2
+//   Mining levels! You have reached level 4." and TASK COMPLETE "To Freedom!", every tab open;
+// - @636-655 talking to Explorer Jack: s079-s086 (Jack, Roddeck, Sir Vant);
+// - @665-678 the door opened, the walk out, the load to the world and TASK COMPLETE "The Journey
+//   Begins" (Qh_-AMJpVd0 2011-05-10 @447-467 shows the same).
+// The house is the player's own copy, a large one of Lumbridge, until they leave by its door (the
+// user's account of 2011, and 4KO2's minimap: uf_house_build); Explorer Jack stands in it on
+// (3204, 3241) as in the static world (n50_50).
+
+// The ladder up (loc 45784 on local (6, 21)). Its click brings s078 from Sir Vant (V70, clip
+// 704), who stands four tiles east of the player; the climb follows the box's continue
+// (4KO2h2xPtdM 2011-04-30 @597-603).
+[oploc1,tutorial3_cellar_ladder_exit]
+if (%tutorial < 170) {
+    return;
+}
+~speech_line(vorbis_704);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Thank you again for your help with the dragon. You'll receive a little reward for completing the quest when you get outside.");
+clearsofttimer(uf_follow);
+anim(human_reachforladder, 0);
+p_delay(0);
+~uf_house_enter;
+
+[proc,uf_house_enter]
+~uf_house_build;
+p_delay(1);
+~uf_complete;
+softtimer(uf_house_watch, 1);
+
+// A login on the tile the copy leaves a player on, the house not yet left by its door.
+[proc,uf_house_return]
+~uf_house_build;
+~uf_task_pin;
+softtimer(uf_house_watch, 1);
+
+// Explorer Jack's house in a large copy of Lumbridge. In 4KO2h2xPtdM (2011-04-30) the minimap in
+// the house shows the castle, the streets and their icons all round it with no edge (@606-655);
+// the world's npcs and players show on it only after the load that follows the door (@666). The
+// copy here: 12 x 12 zones, (3160, 3192)-(3255, 3287), every level, no npcs but the three added;
+// two zones in, as the cellar's, so local (dx, dz) from (3160, 3192) is the region's (16 + dx,
+// 16 + dz). Its size: inference (more than the minimap and the 3D view reach from the house and
+// the street before it).
+// The house (l50_50): inside x 3202-3207, z 3239-3244; its one door in the north wall, the open
+// leaf (loc 45478) on (3204, 3244); the trapdoor on (3207, 3239).
+// Who stands in it:
+// - Explorer Jack on (3204, 3241), his tile in the world;
+// - Roddeck by the player, staying by them: Qh_-AMJpVd0 (2011-05-10) has him a tile diagonally
+//   behind the player at @434.2 and again, the player four tiles on, at @447.6. Read from the
+//   frames; what 2011's script used for it no source names;
+// - Sir Vant, until he leaves, in the doorway on (3204, 3244): Qh @434.2 (the open leaf on his
+//   tile's west edge, the player a tile south of him).
+// A player who leaves the game in the copy comes back on the tile by the trapdoor in the world's
+// house, and login.rs2 puts them in a copy again (where 2011 put such a player: no source found).
+[proc,uf_house_build]
+region_create(4, 14, 14);
+def_int $level = 0;
+def_int $a = 0;
+def_int $b = 0;
+while ($level < 4) {
+    $a = 0;
+    while ($a < 12) {
+        $b = 0;
+        while ($b < 12) {
+            region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_49_49_24_56, calc($a * 8), $level, calc($b * 8)), 0);
+            $b = calc($b + 1);
+        }
+        $a = calc($a + 1);
+    }
+    $level = calc($level + 1);
+}
+region_setexitcoord(0_50_50_7_40);
+p_telejump(~uf_house_coord(3207, 3240));
+npc_add(~uf_house_coord(3204, 3241), tutorial3_explorer_jack, 0);
+npc_setmode(none);
+npc_add(~uf_house_coord(3206, 3239), roddeck_8867, 0);
+npc_setmode(playerfollow);
+if (%tutorial3_postquest < 3) {
+    npc_add(~uf_house_coord(3204, 3244), tutorial3_knight_waitingforbattle, 0);
+    npc_setmode(none);
+} else {
+    queue(uf_house_door_shut_later, 2, 0);
+}
+
+// Whether the player stands in Explorer Jack's house copy (two zones in, 96x96).
+[proc,uf_in_house]()(boolean)
+if (%tutorial < 1000 | region_findbycoord(coord) = false) {
+    return(false);
+}
+def_coord $origin = region_getcoord(0, 16, 16);
+def_int $dx = calc(coordx(coord) - coordx($origin));
+def_int $dz = calc(coordz(coord) - coordz($origin));
+return($dx >= 0 & $dx < 96 & $dz >= 0 & $dz < 96);
+
+// Whether the player stands inside the house's walls, in the copy.
+[proc,uf_house_inside]()(boolean)
+if (~uf_in_house = false) {
+    return(false);
+}
+def_coord $origin = region_getcoord(0, 16, 16);
+def_int $x = calc(3160 + coordx(coord) - coordx($origin));
+def_int $z = calc(3192 + coordz(coord) - coordz($origin));
+return($x >= 3202 & $x <= 3207 & $z >= 3239 & $z <= 3244);
+
+// A Lumbridge tile in the house copy the player stands in.
+[proc,uf_house_coord](int $x, int $z)(coord)
+return(region_getcoord(0, calc(16 + $x - 3160), calc(16 + $z - 3192)));
+
+// The quest's end: 1 quest point, level 4 in the skill chosen (the 2011 wiki's Reward:
+// "Level 4 Mining/Woodcutting"), Harmony, every tab, and the Task panel on Explorer Jack.
+[proc,uf_complete]
+%tutorial = 1000;
+~uf_task_tab;
+~uf_task_pin;
+// On the Run waits for the tutorial's end (tasks/task_system.rs2).
+~task_on_the_run_arm;
+~initalltabs;
+def_obj $tool = bronze_pickaxe;
+def_string $reward = "Level 4 Mining";
+if (%tutorial3_tool >= 2) {
+    $tool = bronze_axe;
+    $reward = "Level 4 Woodcutting";
+}
+// The scroll's own "Congratulations! Quest complete!" is the only one, then Harmony's unlock
+// (4KO2h2xPtdM @608.5: the Task's line, Quest complete!, Harmony; ours printed Quest complete!
+// twice, in-client run 19). 2011's scroll for this quest reads "You gain:" over its rewards
+// (@608.5) where the others read "You are awarded:" (Cook's Assistant, PnoZkxqcszs 2011-05-20
+// @403; cache 786's 277:9).
+~send_quest_complete2(^questlist_unstable, $tool, 250, 1, "You have completed Unstable Foundations!", $reward);
+if_settext(questscroll_ver3:quest_awardedtext_ver3, "You gain:");
+~music_unlock_play(music_Harmony);
+// Level 4 is 276 xp; the practice leaves the player on 84 (two 42s), so 192 more. A player who
+// practised past level 2 ends a little above 276, still level 4 below 388.
+if (%tutorial3_tool >= 2) {
+    if (stat_base(woodcutting) < 4) {
+        stat_advance(woodcutting, 1920);
+    }
+} else {
+    if (stat_base(mining) < 4) {
+        stat_advance(mining, 1920);
+    }
+}
+// TASK COMPLETE! To Freedom! pops once the scroll is closed, with the level-up's line before it
+// (4KO2h2xPtdM @611); set with the scroll, it popped over it (in-client runs 19 and 20). A queued
+// script waits for the scroll, as the level-up's does.
+queue(uf_freedom_done, 0, 0);
+
+[queue,uf_freedom_done]
+%varclient_1425 = 3519;
+
+[queue,uf_journey_begins]
+%varclient_1425 = 3521;
+
+// The house's door, shut behind Sir Vant (uf_house_talk): the open leaf (45478, on (3204, 3244)'s
+// west edge) gives way to the closed door 45476 on (3204, 3245)'s south edge, for as long as the
+// copy lasts. The map's leaf is an inactive loc, which a zone does not hold, so it cannot be
+// found and deleted: the door's open form (45477, the same model) added on it and deleted in the
+// same tick takes it off the client.
+[proc,uf_house_door_shut]
+if (loc_find(~uf_house_coord(3204, 3245), door_45476) = true) {
+    return;
+}
+loc_add(~uf_house_coord(3204, 3244), door_45477, 0, wall_straight, ^uf_cellar_obj_duration);
+if (loc_find(~uf_house_coord(3204, 3244), door_45477) = true) {
+    loc_del(^uf_cellar_obj_duration);
+}
+loc_add(~uf_house_coord(3204, 3245), door_45476, 3, wall_straight, ^uf_cellar_obj_duration);
+
+// A login into the house after the talk: once the client has the copy.
+[queue,uf_house_door_shut_later]
+if (region_findbycoord(coord) = true) {
+    ~uf_house_door_shut;
+}
+
+// Leaving by the door, as Qh_-AMJpVd0 (2011-05-10) @449.9-456 and 4KO2h2xPtdM (2011-04-30)
+// @665-670 show it. On Open:
+// - the box "As you leave, Roddeck wanders off home." with no continue (s087, IwS6rBpkcyE @500;
+//   N58, clip 1653);
+// - the door opens and the player walks out north, no click, to about (3204, 3247), Roddeck a tile
+//   behind (Qh @450.6-452.8);
+// - the view from north of the arched wall, looking south at the door, there 0.7 s after the op.
+//   Its place is read from the frames, not measured, and whether 2011 cut or glided to it the
+//   frames do not tell: a cut here;
+// - "Loading - please wait." about five ticks after the op (Qh @453.0), then the world: the box
+//   and Roddeck gone, TASK COMPLETE "The Journey Begins" (4KO2 @670; Qh @456).
+// The world's doors of this type open as doors do.
+[oploc1,door_45476]
+if (~uf_in_house = false) {
+    ~open_door(500);
+    return;
+}
+clearsofttimer(uf_house_watch);
+~open_door(500);
+~speech_line(vorbis_1653);
+~mesbox_np("As you leave, Roddeck wanders off home.");
+cam_moveto(~uf_house_coord(3204, 3253), 700, 100, 100);
+cam_lookat(~uf_house_coord(3204, 3245), 100, 100, 100);
+p_walk(~uf_house_coord(3204, 3247));
+p_delay(4);
+if_close;
+~uf_house_out;
+
+// Out of the copy: the same tile in the world. Varbit 6494 at 5 is the client's own mark of it:
+// its Task list keeps the tutorial's form while the varbit is under 5 (cs2 3971), and The Journey
+// Begins (3521) asks for 5 (task_requirements_fulfilled). Nothing stays pinned: 2011's list after
+// the door is the area's, "Lumbridge/Draynor Progress" (Qh @467; uf_task_pin).
+[proc,uf_house_out]
+if (~uf_in_house = true) {
+    def_coord $origin = region_getcoord(0, 16, 16);
+    p_telejump(movecoord(0_49_49_24_56, calc(coordx(coord) - coordx($origin)), coordy(coord), calc(coordz(coord) - coordz($origin))));
+}
+cam_reset;
+%tutorial3_postquest = 5;
+~uf_task_pin;
+queue(uf_journey_begins, 0, 0);
+
+// Each tick in the copy: a player outside the house's walls other than by the door's op.
+// - Before the talk with Explorer Jack they are walked back in and he asks for a word: R80 (clip
+//   3178), "Begging your pardon, I need a quick word with you before you go.". The line is cache
+//   786's; what set it off in 2011 no recording shows. Inference: the open doorway before the
+//   talk, as the Task reads "Talk to him before you go." (struct 1724).
+// - After it, or out of the copy altogether (a teleport): the leave without its walk. No source;
+//   2011 shows only the door.
+[softtimer,uf_house_watch]
+if (%tutorial3_postquest >= 5) {
+    clearsofttimer(uf_house_watch);
+    return;
+}
+if (~uf_house_inside = true) {
+    return;
+}
+// Busy (a dialogue, a delay): try again next tick.
+if (p_finduid(uid) = false) {
+    return;
+}
+if (~uf_in_house = true & %tutorial3_postquest < 3) {
+    p_walk(~uf_house_coord(3204, 3243));
+    queue(uf_house_before_you_go, 0, 0);
+    return;
+}
+clearsofttimer(uf_house_watch);
+if (~uf_in_house = true) {
+    ~speech_line(vorbis_1653);
+    mes("As you leave, Roddeck wanders off home.");
+}
+~uf_house_out;
+
+[queue,uf_house_before_you_go]
+if (~uf_in_house = false | %tutorial3_postquest >= 3) {
+    return;
+}
+~speech_line(vorbis_3178);
+~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>Begging your pardon, I need a quick word with you before you go.");
+
+// The talk in the house (Task-build lines R81, R78, R5; V90, V42; R14; R79 for both of Jack's
+// boxes, clips 3180, 3173, 1282, 688, 687, 1253, 3177). It starts from whoever is talked to:
+// - Explorer Jack: s079 on (4KO2h2xPtdM 2011-04-30 @636-655);
+// - Sir Vant: s082 on (Qh_-AMJpVd0 2011-05-10 @432-446; uf_vant_exit);
+// - Roddeck: s081 alone, the box then shut (Qh @428-431; uf_exit.rs2).
+[opnpc1,tutorial3_explorer_jack]
+if (%tutorial3_postquest >= 3 | ~uf_in_house = false) {
+    return;
+}
+~speech_line(vorbis_3180);
+~chatnpc("<p,neutral>Good grief! Where did you three come from?");
+~speech_line(vorbis_3173);
+~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>I'll explain later, Jack.");
+~uf_house_roddeck;
+~uf_house_talk;
+
+// s081.
+[proc,uf_house_roddeck]
+~speech_line(vorbis_1282);
+~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>At last, we're out! Now, Sir Vant has accomplished his mission - to rescue me from my pet dragon - so I suppose he'll be off.");
+
+// s082-s086. Between s084 and s085, as Qh_-AMJpVd0 @436.0-438.4 shows it: the box shuts, Sir Vant
+// runs out of the door, north to about (3204, 3246) in his first tick and then west, out of sight
+// 2.4 s on; two ticks after he sets off the door is shut and Explorer Jack's box opens by itself.
+// How far west he ran before 2011 removed him no recording shows: gone here six ticks on.
+[proc,uf_house_talk]
+~speech_line(vorbis_688);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Well, my mission is accomplished now: Roddeck's dragon is no longer a threat.");
+~speech_line(vorbis_687);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you.");
+~speech_line(vorbis_1253);
+~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Goodbye, Sir Vant, and thank you again!");
+if_close;
+if (npc_find(coord, tutorial3_knight_waitingforbattle, 12, 0) = true) {
+    npc_run(1);
+    npc_walk(~uf_house_coord(3204, 3246));
+    npc_queue(10, 0, 6);
+}
+p_delay(0);
+if (npc_find(coord, tutorial3_knight_waitingforbattle, 12, 0) = true) {
+    npc_walk(~uf_house_coord(3190, 3247));
+}
+p_delay(0);
+~uf_house_door_shut;
+// With Sir Vant gone the talk is over, whether Explorer Jack's lines are read or walked away from.
+queue(uf_house_talk_done, 0, 0);
+~speech_line(vorbis_3177);
+~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>Once you're out and about, you can use the Task System to suggest aims and endeavours to go for. Every one you do will get you a reward.");
+~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.");
+
+[queue,uf_house_talk_done]
+%tutorial3_postquest = 3;
+%varclient_1425 = 3520;
+~uf_task_tab;
+~uf_task_pin;
+
+// Sir Vant, off to Falador.
+[ai_queue10,tutorial3_knight_waitingforbattle]
+npc_del;

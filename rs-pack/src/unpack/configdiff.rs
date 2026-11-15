@@ -28,12 +28,12 @@ struct TypeDiff {
     name: &'static str,
     compared: usize,
     identical: usize,
-    byte_only: Vec<(u16, String)>,
+    byte_only: Vec<(u32, String)>,
     diffs: Vec<EntityDiff>,
 }
 
 struct EntityDiff {
-    id: u16,
+    id: u32,
     name: String,
     lines: Vec<DiffLine>,
 }
@@ -94,9 +94,9 @@ impl ConfigDiffReport {
                 .get(name)
                 .map(|pack| pack.id_to_debugname.clone())
                 .unwrap_or_default();
-            let cache_b: HashMap<u16, &Vec<u8>> =
+            let cache_b: HashMap<u32, &Vec<u8>> =
                 cache_bytes.iter().map(|(i, b)| (*i, b)).collect();
-            let content_b: HashMap<u16, &Vec<u8>> =
+            let content_b: HashMap<u32, &Vec<u8>> =
                 content_bytes.iter().map(|(i, b)| (*i, b)).collect();
             let count = cache_bytes.len().max(content_bytes.len());
 
@@ -110,7 +110,7 @@ impl ConfigDiffReport {
                 diffs: Vec::new(),
             };
 
-            for id in 0..count as u16 {
+            for id in 0..count as u32 {
                 let c = cache_b.get(&id).copied().unwrap_or(&empty);
                 let p = content_b.get(&id).copied().unwrap_or(&empty);
                 if c == p {
@@ -126,7 +126,7 @@ impl ConfigDiffReport {
                     .iter()
                     .any(|l| matches!(l, DiffLine::Add(_) | DiffLine::Remove(_)));
                 let entity = names
-                    .get(&id)
+                    .get(&(id as u16))
                     .cloned()
                     .unwrap_or_else(|| format!("{name}_{id}"));
                 if !changed {
@@ -242,7 +242,7 @@ impl ConfigDiffReport {
     }
 }
 
-fn into_map(entries: Vec<(u16, Vec<(String, String)>)>) -> HashMap<u16, Vec<(String, String)>> {
+fn into_map(entries: Vec<(u32, Vec<(String, String)>)>) -> HashMap<u32, Vec<(String, String)>> {
     entries.into_iter().collect()
 }
 

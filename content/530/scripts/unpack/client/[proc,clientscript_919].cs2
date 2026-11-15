@@ -1,0 +1,8 @@
+// 919
+[proc,clientscript_919](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_setonmouserepeat($component0, "clientscript_918(event_com, $component1, 0, $component2, $component3, $component4, $component5)");
+if_settrans($component2, 0);
+if_settrans($component3, 0);
+if_settrans($component4, 0);
+if_settrans($component5, 0);
+~deltooltip_action($component1);

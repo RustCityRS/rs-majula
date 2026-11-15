@@ -1,0 +1,16 @@
+// 574
+[clientscript,objdialog_onkey](int $key0, char $char1)
+if ($key0 = 84) {
+    %objdialog_timer = 0;
+    if_setontimer(objdialog:searchtext, null);
+    ~objdialog_refreshsearch;
+    return;
+}
+def_string $string0 = ~clientscript_74(%varclient_654, 0, $key0, $char1);
+if (compare(%varclient_654, $string0) = 0) {
+    return;
+}
+%varclient_654 = $string0;
+if_settext(objdialog:searchtext, "<escape(%varclient_654)>*");
+%objdialog_timer = 50;
+if_setontimer(objdialog:searchtext, "objdialog_delay_timer");

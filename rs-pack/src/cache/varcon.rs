@@ -3,12 +3,13 @@ use super::provider::{CacheType, TypeProvider};
 use crate::types::VarPlayerScope;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type VarConTypeProvider = TypeProvider<VarConType>;
 
 /// A controller var: its type, and whether it's kept past its controller.
 pub struct VarConType {
-    pub id: u16,
+    pub id: TypeId,
     pub var_type: ScriptVarType,
     pub scope: VarPlayerScope,
     debugname: Box<str>,
@@ -17,7 +18,7 @@ pub struct VarConType {
 impl CacheType for VarConType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         VarConType {
             id,
             var_type: ScriptVarType::Int,

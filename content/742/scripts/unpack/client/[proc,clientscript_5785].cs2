@@ -1,0 +1,24 @@
+// 5785
+[proc,clientscript_5785](int $int0)
+def_int $int1 = 98;
+def_struct $struct2 = ~clientscript_5795($int0);
+if ($struct2 = null) {
+    return;
+}
+~clientscript_5796($int0, 0, interface_1224:com_8, interface_1224:com_7, interface_1224:com_3, null, null, null);
+def_string $string0 = struct_param($struct2, param_2225);
+def_int $int3 = calc(15 * paraheight($string0, 144, verdana_11pt_regular));
+if_settext(interface_1224:com_2, $string0);
+if_setsize(interface_1224:com_4, if_getwidth(interface_1224:com_4), min($int3, $int1), ^setsize_abs, ^setsize_abs);
+if ($int3 < $int1) {
+    if_sethide(interface_1224:com_6, true);
+    if_setsize(interface_1224:com_5, 3, 0, ^setsize_minus, ^setsize_minus);
+} else {
+    $int3 = calc($int3 + 5);
+    if_setscrollsize(interface_1224:com_5, 0, max($int3, if_getheight(interface_1224:com_5)));
+    if_setscrollpos(interface_1224:com_5, 0, 0);
+    if_setsize(interface_1224:com_5, calc(if_getwidth(interface_1224:com_6) + 4), 0, ^setsize_minus, ^setsize_minus);
+    if_sethide(interface_1224:com_6, false);
+    ~scrollbar_vertical(interface_1224:com_6, interface_1224:com_5, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}
+if_setsize(interface_1224:com_0, if_getwidth(interface_1224:com_0), min(261, calc($int3 + 155)), ^setsize_abs, ^setsize_abs);

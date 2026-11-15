@@ -1,0 +1,7 @@
+// 1612
+[proc,clientscript_1612](component $component0, int $int1, int $int2)
+if_setgraphic($component0, 1439);
+if_setonmouseleave($component0, "deltooltip(interface_771:com_400)");
+if_setonmouseover($component0, null);
+basecolour($int1, $int2);
+%playerdesign2_client_haircol = $int2;

@@ -1,0 +1,9 @@
+// 1133
+[proc,clientscript_1133](int $int0, component $component1)
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = 0) {
+    detail_removeroofs_option_override(0);
+    detail_removeroofs_option(0);
+} else if ($int2 = 1) {
+    detail_removeroofs_option(1);
+}

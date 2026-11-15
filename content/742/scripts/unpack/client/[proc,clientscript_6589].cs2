@@ -1,0 +1,24 @@
+// 6589
+[proc,clientscript_6589](component $component0, int $int1, int $int2)
+def_int $int3 = if_gettrans($component0);
+def_int $int4 = 6;
+def_int $int5 = 2;
+if ($int2 = 0) {
+    $int3 = calc($int3 - $int4);
+    $int3 = max(0, $int3);
+    if ($int3 <= 0) {
+        $int2 = 1;
+    }
+} else {
+    $int3 = calc($int3 + $int5);
+    $int3 = min(255, $int3);
+    if_settrans($component0, $int3);
+    if ($int3 >= 255) {
+        if (cc_find(interface_1253:com_49, $int1) = true) {
+            cc_delete;
+        } else {
+        }
+        return;
+    }
+}
+if_setontimer($component0, "clientscript_6589(event_com, event_comsubid, $int2)");

@@ -1,0 +1,22 @@
+// 4008
+[proc,clientscript_4008](boolean $boolean0, int $int1)
+~clientscript_5211($boolean0);
+if_sethide(toplevel_fullscreen:com_92, $boolean0);
+if_sethide(toplevel:com_23, $boolean0);
+if_sethide(toplevel_fullscreen:com_85, $boolean0);
+if_sethide(toplevel_fullscreen:com_84, $boolean0);
+if ($boolean0 = true) {
+    detail_customcursors(0);
+    %chat_view = -1;
+} else {
+    detail_customcursors(%option_cursor);
+    %chat_view = 0;
+}
+if ($boolean0 = true & $int1 = 1) {
+    if_sethide(toplevel:com_29, false);
+    if_sethide(toplevel_fullscreen:com_44, false);
+} else {
+    if_sethide(toplevel:com_29, true);
+    if_sethide(toplevel_fullscreen:com_44, true);
+}
+~subchanged;

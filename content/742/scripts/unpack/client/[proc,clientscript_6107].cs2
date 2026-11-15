@@ -1,0 +1,23 @@
+// 6107
+[proc,clientscript_6107]
+if_sethide(interface_1265:com_172, false);
+if_settext(interface_1265:com_39, "Select an item");
+if_setobject(interface_1265:com_41, null, -1);
+if_settext(interface_1265:com_205, "N/A");
+def_int $int0 = parawidth(if_gettext(interface_1265:com_205), if_getwidth(interface_1265:com_79), verdana_11pt_regular);
+if_setsize(interface_1265:com_17, $int0, 15, ^setsize_abs, ^setsize_abs);
+if_settext(interface_1265:com_40, "");
+if_settext(interface_1265:com_43, "");
+if_settext(interface_1265:com_44, "");
+if_settext(interface_1265:com_19, "Transaction:");
+if_settext(interface_1265:com_78, "Price:");
+if_setgraphic(interface_1265:com_18, null);
+if_sethide(interface_1266:com_3, true);
+if_sethide(interface_1265:com_82, false);
+if_sethide(interface_1265:com_202, false);
+if_setcolour(interface_1265:com_204, 0x827f79);
+if_settext(interface_1265:com_204, "N/A");
+if_sethide(interface_1265:com_63, true);
+if_setgraphic(interface_1265:com_42, null);
+if_setonmouserepeat(interface_1265:com_42, null);
+~clientscript_6094;
