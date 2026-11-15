@@ -15,6 +15,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -60,7 +61,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -70,7 +71,7 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 /// %life_points: varbit 7198, bits 1-15 of varp 1240.
@@ -183,7 +184,7 @@ fn op_loc1(
     let loc = id(engine, "loc", loc);
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -199,7 +200,7 @@ fn op_loc2(
 ) -> Conversation {
     let loc = id(engine, "loc", loc);
     let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
+    p.p2_alt1(loc.int())
         .p1_alt2(0)
         .p2_alt2(z as i32)
         .p2_alt3(x as i32);
@@ -217,13 +218,13 @@ fn use_on_loc(
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
     let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj) as i32)
+    p.p2_alt2(id(engine, "obj", obj).int())
         .p2_alt2(slot)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
         .p2_alt2(x as i32)
         .p1_alt1(0)
-        .p2_alt1(id(engine, "loc", loc) as i32);
+        .p2_alt1(id(engine, "loc", loc).int());
     client.send(ClientProt::OpLocT, &p.finish());
     converse(engine, client, &[], 12)
 }
@@ -287,7 +288,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> String {
     plain
 }
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let map = match kind {
         "obj" => &engine.cache.objs.debugnames,
         "npc" => &engine.cache.npcs.debugnames,
@@ -600,7 +601,7 @@ fn the_mansions_lock_stairs_and_chest() {
         let before = life_points(engine, &client);
         let mut p = ClientPacket::new();
         p.p2_alt1(STAIRS.1 as i32)
-            .p2_alt1(id(engine, "loc", "totemtrapstairs") as i32)
+            .p2_alt1(id(engine, "loc", "totemtrapstairs").int())
             .p1(0)
             .p2_alt2(STAIRS.0 as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
@@ -642,7 +643,7 @@ fn the_mansions_lock_stairs_and_chest() {
 
         let mut p = ClientPacket::new();
         p.p2_alt1(STAIRS.1 as i32)
-            .p2_alt1(id(engine, "loc", "totemtrapstairs") as i32)
+            .p2_alt1(id(engine, "loc", "totemtrapstairs").int())
             .p1(0)
             .p2_alt2(STAIRS.0 as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
