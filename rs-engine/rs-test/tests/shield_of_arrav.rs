@@ -175,7 +175,7 @@ fn from_about(
         // A short look first, for the refusal: it reads the first box's packets away, so a
         // tile that reaches the npc is stood on afresh and the op sent again for the talk.
         let mut refused = false;
-        for _ in 0..3 {
+        for _ in 0..5 {
             engine.cycle();
             let packets = client.packets();
             refused |= HarnessClient::game_messages(&packets)
@@ -183,13 +183,23 @@ fn from_about(
                 .any(|(_, m)| m == "I can't reach that!");
         }
         if refused {
-            last.messages = vec!["I can't reach that!".to_owned()];
+            last.messages.push(format!(
+                "I can't reach that! (from {tx},{tz}; {name} by {sx},{sz})"
+            ));
             continue;
         }
         tele(engine, client, tx, 0, tz);
         let (nid, ..) = npc_near(engine, name, x, z);
         send(client, nid);
-        last = converse(engine, client, choices, 300);
+        let t = converse(engine, client, choices, 300);
+        // The refusal can come after the short look (the player walks some of the way first).
+        if t.texts.is_empty() && t.messages.iter().any(|m| m == "I can't reach that!") {
+            last.messages.push(format!(
+                "I can't reach that! (late, from {tx},{tz}; {name} by {sx},{sz})"
+            ));
+            continue;
+        }
+        last = t;
         break;
     }
     last
