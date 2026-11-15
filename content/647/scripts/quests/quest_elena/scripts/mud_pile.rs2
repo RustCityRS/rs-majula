@@ -1,0 +1,6 @@
+// 289's quests/quest_elena/scripts/mud_pile.rs2, line for line.
+[oploc1,plaguemudpile]
+anim(human_reachforladder, 0);
+p_delay(0);
+mes("You climb up the mud pile.");
+p_telejump(^quest_elena_garden_coord);

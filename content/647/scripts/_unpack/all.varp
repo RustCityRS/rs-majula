@@ -2728,6 +2728,11 @@ protect=no
 
 // 667
 [elenaquest_extra_bits]
+// Cache 786's Plague City varbits (plaguecity_dug_mud_pile, plaguecity_pipe,
+// plaguecity_can_see_edmond_up_top, plaguecity_elena_at_home) are on this varp, and its multilocs
+// and multinpcs read them in the client: it is sent, and kept.
+transmit=yes
+scope=perm
 
 // 668
 [ernestdoors]
