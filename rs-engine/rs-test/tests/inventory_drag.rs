@@ -15,6 +15,7 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 /// `inventory:inv`.
 const BACKPACK: i32 = 149 << 16;
@@ -22,11 +23,16 @@ const BACKPACK: i32 = 149 << 16;
 #[test]
 fn a_drag_moves_and_swaps_backpack_slots() {
     runner::on_loaded_engine(|engine| {
-        let logs = *engine.cache.objs.debugnames.get("logs").unwrap();
-        let sword = *engine.cache.objs.debugnames.get("bronze_sword").unwrap();
+        let logs = engine.cache.objs.get_by_debugname("logs").unwrap().id;
+        let sword = engine
+            .cache
+            .objs
+            .get_by_debugname("bronze_sword")
+            .unwrap()
+            .id;
 
         // Into an empty slot: the obj moves and its slot empties.
-        let slots = drag(engine, &[(0, logs)], 0, 5, true);
+        let slots = drag(engine, &[(0, logs.g2())], 0, 5, true);
         assert_eq!(
             (slots[0], slots[5]),
             (None, Some(logs)),
@@ -35,7 +41,7 @@ fn a_drag_moves_and_swaps_backpack_slots() {
 
         // Onto an occupied slot: the two change places.
         for backing in [true, false] {
-            let slots = drag(engine, &[(0, logs), (3, sword)], 0, 3, backing);
+            let slots = drag(engine, &[(0, logs.g2()), (3, sword.g2())], 0, 3, backing);
             assert_eq!(
                 (slots[0], slots[3]),
                 (Some(sword), Some(logs)),
@@ -53,11 +59,11 @@ fn drag(
     from: u16,
     to: u16,
     backing: bool,
-) -> Vec<Option<u16>> {
+) -> Vec<Option<TypeId>> {
     engine.harness_reset();
     let mut client = engine.harness_login_returning("dragger").expect("login");
     engine.cycle();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -65,7 +71,7 @@ fn drag(
         .get_mut(&inv)
         .unwrap();
     for &(slot, obj) in held {
-        backpack.set(slot, obj, 1);
+        backpack.set(slot, TypeId::new(obj), 1);
     }
     let source_obj = held.iter().find(|(s, _)| *s == from).unwrap().1;
     // inventory_drag swaps the component objects before IF_BUTTOND reads them.
@@ -86,7 +92,7 @@ fn drag(
 
     assert_eq!(
         engine.harness_player(client.pid).unwrap().last_item,
-        Some(source_obj)
+        Some(TypeId::new(source_obj))
     );
 
     let backpack = engine

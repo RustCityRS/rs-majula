@@ -1,0 +1,17 @@
+// 5562
+[proc,clientscript_5562](int $int0)
+def_int $int1 = calc(clientclock - $int0 - 50);
+if ($int1 > 0) {
+    $int1 = 0;
+}
+if_setposition(toplevel_fullscreen:com_255, $int1, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(toplevel:com_205, $int1, 0, ^setpos_abs_right, ^setpos_abs_top);
+if (clientclock < calc($int0 + 150)) {
+    return;
+}
+if_sethide(toplevel_fullscreen:com_254, true);
+if_sethide(toplevel:com_204, true);
+if_setposition(toplevel_fullscreen:com_255, -50, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(toplevel:com_205, -50, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setontimer(toplevel_fullscreen:com_254, null);
+if_setontimer(toplevel:com_204, null);

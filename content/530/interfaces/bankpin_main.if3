@@ -1,0 +1,613 @@
+// 13:0
+[com_0]
+type=graphic
+x=12
+y=20
+width=488
+height=304
+graphic=graphic_297
+
+// 13:1
+[com_1]
+type=graphic
+x=33
+y=103
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_11)
+onmouseleave=comp_sethide(false, bankpin_main:com_11)
+
+// 13:2
+[com_2]
+type=graphic
+x=127
+y=103
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_12)
+onmouseleave=comp_sethide(false, bankpin_main:com_12)
+
+// 13:3
+[com_3]
+type=graphic
+x=221
+y=103
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_13)
+onmouseleave=comp_sethide(false, bankpin_main:com_13)
+
+// 13:4
+[com_4]
+type=graphic
+x=305
+y=103
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_14)
+onmouseleave=comp_sethide(false, bankpin_main:com_14)
+
+// 13:5
+[com_5]
+type=graphic
+x=33
+y=175
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_15)
+onmouseleave=comp_sethide(false, bankpin_main:com_15)
+
+// 13:6
+[com_6]
+type=graphic
+x=127
+y=175
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_16)
+onmouseleave=comp_sethide(false, bankpin_main:com_16)
+
+// 13:7
+[com_7]
+type=graphic
+x=221
+y=175
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_17)
+onmouseleave=comp_sethide(false, bankpin_main:com_17)
+
+// 13:8
+[com_8]
+type=graphic
+x=33
+y=247
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_18)
+onmouseleave=comp_sethide(false, bankpin_main:com_18)
+
+// 13:9
+[com_9]
+type=graphic
+x=127
+y=247
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_19)
+onmouseleave=comp_sethide(false, bankpin_main:com_19)
+
+// 13:10
+[com_10]
+type=graphic
+x=221
+y=247
+width=64
+height=64
+graphic=graphic_446
+transmitop=1
+op1=Enter digit
+onmouseover=comp_sethide(true, bankpin_main:com_20)
+onmouseleave=comp_sethide(false, bankpin_main:com_20)
+
+// 13:11
+[com_11]
+type=text
+x=37
+y=149
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:12
+[com_12]
+type=text
+x=131
+y=149
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:13
+[com_13]
+type=text
+x=225
+y=149
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:14
+[com_14]
+type=text
+x=309
+y=149
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:15
+[com_15]
+type=text
+x=37
+y=221
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:16
+[com_16]
+type=text
+x=131
+y=221
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:17
+[com_17]
+type=text
+x=225
+y=221
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:18
+[com_18]
+type=text
+x=37
+y=293
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){varplayer_562}
+
+// 13:19
+[com_19]
+type=text
+x=131
+y=293
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){bankpin_2}
+
+// 13:20
+[com_20]
+type=text
+x=225
+y=293
+width=9
+height=14
+textfont=fontmetrics_496
+text=0
+colour=0xff7f00
+onload=clientscript_700(event_com)
+onvartransmit=clientscript_700(event_com){bankpin_2}
+
+// 13:21
+[com_21]
+type=text
+x=424
+y=30
+width=16
+height=16
+textfont=fontmetrics_496
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+onload=clientscript_697(event_com, 1)
+onvartransmit=clientscript_697(event_com, 1){bankpin_2}
+
+// 13:22
+[com_22]
+type=text
+x=440
+y=30
+width=16
+height=16
+textfont=fontmetrics_496
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+onload=clientscript_697(event_com, 2)
+onvartransmit=clientscript_697(event_com, 2){bankpin_2}
+
+// 13:23
+[com_23]
+type=text
+x=456
+y=30
+width=16
+height=16
+textfont=fontmetrics_496
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+onload=clientscript_697(event_com, 3)
+onvartransmit=clientscript_697(event_com, 3){bankpin_2}
+
+// 13:24
+[com_24]
+type=text
+x=472
+y=30
+width=16
+height=16
+textfont=fontmetrics_496
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+onload=clientscript_697(event_com, 4)
+onvartransmit=clientscript_697(event_com, 4){bankpin_2}
+
+// 13:25
+[enter_box]
+type=layer
+x=328
+y=248
+width=146
+height=48
+
+// 13:26
+[com_26]
+type=graphic
+width=104
+height=104
+layer=enter_box
+graphic=graphic_444
+
+// 13:27
+[com_27]
+type=graphic
+x=104
+y=-1
+width=104
+height=104
+layer=enter_box
+graphic=graphic_444
+
+// 13:28
+[com_28]
+type=text
+x=18
+y=57
+width=476
+height=14
+textfont=fontmetrics_496
+text=Please enter your FOUR DIGIT PIN using the buttons below.
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 13:29
+[com_29]
+type=text
+x=327
+y=274
+width=148
+height=17
+textfont=fontmetrics_496
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+onload=clientscript_699(event_com)
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+onvartransmit=clientscript_699(event_com){bankpin_2}
+
+// 13:30
+[com_30]
+type=text
+x=327
+y=252
+width=148
+height=17
+textfont=fontmetrics_496
+text=Exit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Exit
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+onop=bankpin_cancel
+
+// 13:31
+[com_31]
+type=text
+x=20
+y=29
+width=402
+height=17
+textfont=fontmetrics_496
+text=YOUR PIN WILL BE DELETED IN X DAYS
+textshadow=yes
+colour=0xaa0000
+
+// 13:32
+[com_32]
+type=text
+x=18
+y=80
+width=476
+height=14
+textfont=fontmetrics_496
+textalignh=centre
+textshadow=yes
+onvartransmit=clientscript_698(event_com){bankpin_2}
+
+// 13:33
+[com_33]
+type=graphic
+x=11
+y=19
+width=32
+height=32
+graphic=graphic_824
+
+// 13:34
+[com_34]
+type=graphic
+x=11
+y=295
+width=32
+height=32
+graphic=graphic_826
+
+// 13:35
+[com_35]
+type=graphic
+x=471
+y=19
+width=32
+height=32
+graphic=graphic_825
+
+// 13:36
+[com_36]
+type=graphic
+x=471
+y=295
+width=32
+height=32
+graphic=graphic_827
+
+// 13:37
+[com_37]
+type=graphic
+x=483
+y=51
+width=32
+height=246
+graphic=graphic_823
+tiling=yes
+
+// 13:38
+[com_38]
+type=graphic
+x=-2
+y=51
+width=32
+height=244
+graphic=graphic_821
+tiling=yes
+
+// 13:39
+[com_39]
+type=graphic
+x=43
+y=6
+width=428
+height=32
+graphic=graphic_820
+tiling=yes
+
+// 13:40
+[com_40]
+type=graphic
+x=18
+y=35
+width=478
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 13:41
+[com_41]
+type=graphic
+x=11
+y=37
+width=32
+height=32
+graphic=graphic_829
+tiling=yes
+
+// 13:42
+[com_42]
+type=graphic
+x=471
+y=37
+width=32
+height=32
+graphic=graphic_830
+tiling=yes
+
+// 13:43
+[com_43]
+type=graphic
+x=43
+y=307
+width=428
+height=32
+graphic=graphic_822
+tiling=yes
+
+// 13:44
+[com_44]
+type=graphic
+x=322
+y=242
+width=32
+height=32
+graphic=graphic_846
+tiling=yes
+
+// 13:45
+[com_45]
+type=graphic
+x=450
+y=242
+width=32
+height=32
+graphic=graphic_847
+tiling=yes
+
+// 13:46
+[com_46]
+type=graphic
+x=450
+y=271
+width=32
+height=32
+graphic=graphic_849
+tiling=yes
+
+// 13:47
+[com_47]
+type=graphic
+x=354
+y=228
+width=96
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 13:48
+[com_48]
+type=graphic
+x=354
+y=283
+width=96
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 13:49
+[com_49]
+type=graphic
+x=322
+y=271
+width=32
+height=32
+graphic=graphic_848
+tiling=yes
+
+// 13:50
+[com_50]
+type=model
+x=380
+y=83
+width=102
+height=99
+model=model_11205
+modelorigin=-2,38
+modelangle=113,229,0
+modelzoom=786
+modelunknown=0,3000,0
+
+// 13:51
+[com_51]
+type=model
+x=317
+y=164
+width=75
+height=74
+model=model_2775
+modelorigin=17,31
+modelangle=113,44,0
+modelzoom=402
+modelunknown=0,3000,0

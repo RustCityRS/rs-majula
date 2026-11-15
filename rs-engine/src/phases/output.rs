@@ -47,7 +47,7 @@ impl Engine {
                 for &pid in &pids[start..] {
                     if self.process_output(pid) {
                         taken = self.player_list.players[pid as usize].take();
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         if let Some(active) = &mut taken {
                             self.replay_keyframe(active);
                         }

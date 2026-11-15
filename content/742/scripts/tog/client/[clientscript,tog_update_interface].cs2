@@ -1,0 +1,49 @@
+// 1443
+[clientscript,tog_update_interface]
+if_settext(tog_water_bowl:count, tostring(%tog_tears_collected));
+if (%tog_tears_collected = 0) {
+    if_setmodel(tog_water_bowl:drip, null);
+} else if (%tog_tears_collected = 1) {
+    if_setmodel(tog_water_bowl:drip, model_6545);
+} else if (%tog_tears_collected < 4) {
+    if_setmodel(tog_water_bowl:drip, model_6547);
+} else if (%tog_tears_collected < 7) {
+    if_setmodel(tog_water_bowl:drip, model_6548);
+} else if (%tog_tears_collected < 11) {
+    if_setmodel(tog_water_bowl:drip, model_6549);
+} else if (%tog_tears_collected < 16) {
+    if_setmodel(tog_water_bowl:drip, model_6550);
+} else if (%tog_tears_collected < 22) {
+    if_setmodel(tog_water_bowl:drip, model_6551);
+} else if (%tog_tears_collected < 29) {
+    if_setmodel(tog_water_bowl:drip, model_6552);
+} else if (%tog_tears_collected < 37) {
+    if_setmodel(tog_water_bowl:drip, model_6553);
+} else if (%tog_tears_collected < 46) {
+    if_setmodel(tog_water_bowl:drip, model_6554);
+} else {
+    if_setmodel(tog_water_bowl:drip, model_6546);
+}
+if (%tog_time_left_tenths = 0) {
+    if_setmodel(tog_water_bowl:time_bar, null);
+} else if (%tog_time_left_tenths = 1) {
+    if_setmodel(tog_water_bowl:time_bar, model_6557);
+} else if (%tog_time_left_tenths = 2) {
+    if_setmodel(tog_water_bowl:time_bar, model_6559);
+} else if (%tog_time_left_tenths = 3) {
+    if_setmodel(tog_water_bowl:time_bar, model_6560);
+} else if (%tog_time_left_tenths = 4) {
+    if_setmodel(tog_water_bowl:time_bar, model_6561);
+} else if (%tog_time_left_tenths = 5) {
+    if_setmodel(tog_water_bowl:time_bar, model_6562);
+} else if (%tog_time_left_tenths = 6) {
+    if_setmodel(tog_water_bowl:time_bar, model_6563);
+} else if (%tog_time_left_tenths = 7) {
+    if_setmodel(tog_water_bowl:time_bar, model_6564);
+} else if (%tog_time_left_tenths = 8) {
+    if_setmodel(tog_water_bowl:time_bar, model_6565);
+} else if (%tog_time_left_tenths = 9) {
+    if_setmodel(tog_water_bowl:time_bar, model_6566);
+} else {
+    if_setmodel(tog_water_bowl:time_bar, model_6558);
+}

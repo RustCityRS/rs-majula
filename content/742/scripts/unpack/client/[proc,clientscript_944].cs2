@@ -1,0 +1,8 @@
+// 944
+[proc,clientscript_944](component $component0)
+def_int $int1 = 0;
+if (%varplayer_2521 > 0) {
+    $int1 = calc(%varplayer_2521 / 200 * 10);
+}
+if_settext($component0, tostring(%varplayer_2521));
+~aif_progressbar_set($int1, interface_1238:com_37, interface_1238:com_42);

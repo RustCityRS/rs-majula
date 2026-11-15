@@ -1,0 +1,16 @@
+// 1773
+[proc,script1773]
+if (%clanwars_rulevarc_itemloss = false) {
+    if_setcolour(clanwars_setup:itemloss_background, ^black);
+    if_setcolour(clanwars_setup:itemloss_title, 0xff981f);
+    if_sethide(clanwars_setup:itemloss_indicator, true);
+    if_setcolour(clanwars_setup:itemloss_text, 0xff981f);
+    if_settext(clanwars_setup:itemloss_text, "...you keep<br>your items.");
+} else {
+    if_setcolour(clanwars_setup:itemloss_background, ^red);
+    if_setcolour(clanwars_setup:itemloss_title, ^yellow);
+    if_sethide(clanwars_setup:itemloss_indicator, false);
+    if_setcolour(clanwars_setup:itemloss_text, ^yellow);
+    if_settext(clanwars_setup:itemloss_text, "...you DROP ALL your items.");
+}
+~clanwars_updateside;

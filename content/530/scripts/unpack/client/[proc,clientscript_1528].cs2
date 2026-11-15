@@ -1,0 +1,21 @@
+// 1528
+[proc,clientscript_1528]
+if_sethide(interface_765:box1, true);
+if_sethide(interface_765:box2, true);
+if_sethide(interface_765:box3, true);
+if_sethide(interface_765:box4, true);
+if_sethide(interface_765:box6, true);
+if_sethide(interface_765:box9, true);
+if_sethide(interface_765:box10, true);
+if_sethide(interface_765:com_9, true);
+if_sethide(interface_765:com_2, true);
+if (%varclient_195 <= 0) {
+    %varclient_195 = 1;
+}
+if (compare(if_gettext(interface_765:com_9), "More.") = 0) {
+    %varclient_195 = calc(%varclient_195 + 1);
+}
+if (compare(if_gettext(interface_765:com_9), "Back.") = 0) {
+    ~clientscript_1526;
+}
+~clientscript_1529;

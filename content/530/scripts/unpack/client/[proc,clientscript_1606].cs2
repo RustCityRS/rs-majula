@@ -1,0 +1,11 @@
+// 1606
+[proc,clientscript_1606]
+if (%varplayerbit_5010 = 0) {
+    return;
+}
+if_sethide(interface_771:com_29, true);
+if (gender = 1) {
+    ~clientscript_1716;
+} else {
+    ~clientscript_1713;
+}

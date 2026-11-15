@@ -1,0 +1,45 @@
+// 5804
+[proc,clientscript_5804]
+sound_vorbis_volume(5262, 1, 0, 100);
+if_sethide(task_main:com_158, false);
+if (%varplayerbit_9030 = 1) {
+    if_sethide(task_main:com_185, false);
+} else {
+    if_sethide(task_main:com_185, true);
+}
+~script4253;
+if (%varplayerbit_8579 = 1) {
+    if_sethide(task_main:com_167, false);
+    if_sethide(task_main:com_168, true);
+} else {
+    if_sethide(task_main:com_167, true);
+    if_sethide(task_main:com_168, false);
+}
+if (%varplayerbit_8580 = 1) {
+    if_sethide(task_main:com_171, false);
+    if_sethide(task_main:com_172, true);
+} else {
+    if_sethide(task_main:com_171, true);
+    if_sethide(task_main:com_172, false);
+}
+if (%task_toggle_popup = 1) {
+    if_sethide(task_main:com_175, false);
+    if_sethide(task_main:com_176, true);
+} else {
+    if_sethide(task_main:com_175, true);
+    if_sethide(task_main:com_176, false);
+}
+if (%varplayerbit_10617 = 1) {
+    if_sethide(task_main:com_179, false);
+    if_sethide(task_main:com_180, true);
+} else {
+    if_sethide(task_main:com_179, true);
+    if_sethide(task_main:com_180, false);
+}
+if (%varplayerbit_10618 = 1) {
+    if_sethide(task_main:com_183, false);
+    if_sethide(task_main:com_184, true);
+} else {
+    if_sethide(task_main:com_183, true);
+    if_sethide(task_main:com_184, false);
+}

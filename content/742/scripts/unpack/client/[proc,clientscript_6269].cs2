@@ -1,0 +1,21 @@
+// 6269
+[proc,clientscript_6269](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 255;
+def_int $int4 = 4;
+def_int $int5 = if_gettrans($component0);
+if ($int1 = 255) {
+    $int5 = calc($int5 + $int4);
+    if ($int5 >= $int3) {
+        $int5 = $int3;
+        $int1 = 0;
+    }
+} else {
+    $int5 = calc($int5 - $int4);
+    if ($int5 <= $int2) {
+        $int5 = $int2;
+        $int1 = 255;
+    }
+}
+if_settrans($component0, $int5);
+if_setontimer($component0, "clientscript_6269(event_com, $int1)");

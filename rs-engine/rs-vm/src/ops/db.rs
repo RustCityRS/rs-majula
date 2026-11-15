@@ -5,6 +5,7 @@ use crate::util::pop_dbrow;
 use crate::{ScriptError, handlers, none};
 use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::cache::dbtable::{DbIndexKey, DbTableValue};
+use rs_ver::TypeId;
 use runec::opcodes::*;
 use rustc_hash::FxHashSet;
 use std::mem;
@@ -49,7 +50,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             match s.db_row_query.get(next as usize) {
                 Some(&id) => {
                     s.db_row = Some(next);
-                    s.push_int(id as i32);
+                    s.push_int(id.int());
                 }
                 None => s.push_int(-1),
             }
@@ -60,13 +61,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let index = s.pop_int();
             let packed = s.pop_int();
             let dbrow = pop_dbrow::<E>(s)?;
-            let table = ((packed >> 12) & 0xFFFF) as u16;
+            let table = TypeId::new(((packed >> 12) & 0xFFFF) as u16);
             let column = ((packed >> 4) & 0x7F) as usize;
             let tuple = (packed & 0xF) - 1;
             let dbtable = engine::<E>()
                 .dbtables()
                 .get_by_id(table)
-                .ok_or(ScriptError::DbTableNotFound(table as i32))?;
+                .ok_or(ScriptError::DbTableNotFound(table.int()))?;
             let Some(types) = &dbtable.types else {
                 return Err(ScriptError::Runtime(format!("Dbtable {table} does not have any types!")));
             };
@@ -116,12 +117,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, DB_GETFIELDCOUNT => |s| {
             let packed = s.pop_int();
             let dbrow = pop_dbrow::<E>(s)?;
-            let table = ((packed >> 12) & 0xFFFF) as u16;
+            let table = TypeId::new(((packed >> 12) & 0xFFFF) as u16);
             let column = ((packed >> 4) & 0x7F) as u8;
             let dbtable = engine::<E>()
                 .dbtables()
                 .get_by_id(table)
-                .ok_or(ScriptError::DbTableNotFound(table as i32))?;
+                .ok_or(ScriptError::DbTableNotFound(table.int()))?;
             if dbrow.table != table {
                 s.push_int(0); return Ok(());
             }
@@ -146,7 +147,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 7505
         none!(m, DB_GETROWTABLE => |s| {
             let dbrow = pop_dbrow::<E>(s)?;
-            s.push_int(dbrow.table as i32);
+            s.push_int(dbrow.table.int());
         });
 
         // 7506
@@ -163,8 +164,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let dbrow = engine::<E>()
                 .dbrows()
                 .get_by_id(id)
-                .ok_or(ScriptError::DbRowNotFound(id as i32))?;
-            s.push_int(dbrow.id as i32);
+                .ok_or(ScriptError::DbRowNotFound(id.int()))?;
+            s.push_int(dbrow.id.int());
         });
 
         // 7507
@@ -201,11 +202,11 @@ fn db_find<E: ScriptEngine + 'static>(
     with_count: bool,
 ) -> crate::Result<()> {
     let (query, packed) = decode_query(s);
-    let table = ((packed >> 12) & 0xFFFF) as u16;
+    let table = TypeId::new(((packed >> 12) & 0xFFFF) as u16);
     engine
         .dbtables()
         .get_by_id(table)
-        .ok_or(ScriptError::DbTableNotFound(table as i32))?;
+        .ok_or(ScriptError::DbTableNotFound(table.int()))?;
     s.db_table = Some(table);
     s.db_row = None;
     s.db_row_query = engine.dbindex().find(&query, packed).to_vec();
@@ -249,7 +250,7 @@ fn db_listall<E: ScriptEngine + 'static>(
     with_count: bool,
 ) -> crate::Result<()> {
     let table = s.pop_int();
-    let table_id = table as u16;
+    let table_id = TypeId::from_int(table);
     engine
         .dbtables()
         .get_by_id(table_id)
@@ -278,7 +279,7 @@ fn db_find_refine<E: ScriptEngine + 'static>(
 ) -> crate::Result<()> {
     let (query, packed) = decode_query(s);
     let found = engine.dbindex().find(&query, packed);
-    let found_set: FxHashSet<u16> = found.iter().copied().collect();
+    let found_set: FxHashSet<TypeId> = found.iter().copied().collect();
     let prev = mem::take(&mut s.db_row_query);
     s.db_row = None;
     s.db_row_query = prev

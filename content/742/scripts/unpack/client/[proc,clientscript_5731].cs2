@@ -1,0 +1,81 @@
+// 5731
+[proc,clientscript_5731](int $int0, stat $stat1)(boolean)
+switch_int ($int0) {
+    case 347 :
+        if (~comlevel < 10) {
+            return(false);
+        }
+    case 907 :
+        if (~comlevel < 15) {
+            return(false);
+        }
+    case 850 :
+        if (~comlevel < 20) {
+            return(false);
+        }
+    case 510 :
+        if (~comlevel < 30) {
+            return(false);
+        }
+    case 519 :
+        if (~comlevel < 35) {
+            return(false);
+        }
+    case 851 :
+        if (~comlevel < 50) {
+            return(false);
+        }
+    case 513 :
+        if (~comlevel < 50) {
+            return(false);
+        }
+    case 476 :
+        if (~comlevel < 60) {
+            return(false);
+        }
+    case 670 :
+        if (stat_base(herblore) < 4) {
+            return(false);
+        }
+    case 619 :
+        if (stat_base($stat1) < 40) {
+            return(false);
+        }
+    case 847 :
+        if (stat_base(prayer) < 40 | stat_base(construction) < 45) {
+            return(false);
+        }
+    case 515 :
+        if (stat_base(agility) < 35) {
+            return(false);
+        }
+    case 775 :
+        if (stat_base(crafting) < 15 | stat_base(firemaking) < 15 | stat_base(construction) < 15) {
+            return(false);
+        }
+    case 461 :
+        if (stat_base(agility) < 51) {
+            return(false);
+        }
+    case 660 :
+        if (stat_base(fishing) < 48) {
+            return(false);
+        }
+    case 449 :
+        if (stat_base(agility) < 15) {
+            return(false);
+        }
+    case 642 :
+        if (%zombiequeen < 15) {
+            return(false);
+        }
+    case 1008 :
+        if (%lumbcat_quest < 60) {
+            return(false);
+        }
+    case 776 :
+        if (%poh_house_location = 0) {
+            return(false);
+        }
+}
+return(true);

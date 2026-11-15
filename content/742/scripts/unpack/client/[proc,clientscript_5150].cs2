@@ -1,0 +1,6 @@
+// 5150
+[proc,clientscript_5150](component $component0)
+def_string $string0 = "It would be advisable to retrieve items you have dropped and do not wish to lose.";
+if (if_find($component0) = true) {
+    cc_setonmouserepeat("aif_tooltip(interface_800:com_1, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+}

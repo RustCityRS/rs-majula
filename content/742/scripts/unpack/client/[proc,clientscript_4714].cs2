@@ -1,0 +1,10 @@
+// 4714
+[proc,clientscript_4714](component $component0, component $component1, component $component2, component $component3, int $int4)
+if (cc_find($component0, $int4) = true) {
+    cc_setvflip(false);
+}
+if_sethide($component1, true);
+if_sethide($component2, true);
+if ($component3 ! null) {
+    if_sethide($component3, true);
+}

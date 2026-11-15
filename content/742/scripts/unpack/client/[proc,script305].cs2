@@ -1,0 +1,8 @@
+// 305
+[proc,script305](int $int0)
+if ($int0 = 1) {
+    if_setcolour(worldmap:zoom_level, 0xff981f);
+} else {
+    if_setcolour(worldmap:zoom_level, ^red);
+}
+if_setontimer(worldmap:zoom_level, "script306(clientclock, event_com)");

@@ -1,0 +1,26 @@
+// 6057
+[proc,clientscript_6057](component $component0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+$int3 = calc($int3 + 1);
+if (cc_find($component0, $int1) = true) {
+    $int4 = cc_getx;
+    if ($int2 = 0 & $int4 < -20) {
+        $int4 = min(calc($int4 + 25), -20);
+        if ($int4 = -20) {
+            $int2 = -1;
+            $int3 = 0;
+        }
+    }
+    if ($int2 = 1) {
+        if (calc($int4 - 10) < -219) {
+            cc_delete;
+            return;
+        } else {
+            $int4 = calc($int4 - 10);
+        }
+    } else if ($int3 >= 100) {
+        $int2 = 1;
+    }
+    cc_setposition($int4, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setontimer("clientscript_6057($component0, $int1, $int2, $int3)");
+}

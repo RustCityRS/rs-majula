@@ -43,11 +43,11 @@ pub mod number;
 pub mod obj;
 pub mod oc;
 pub mod player;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod region;
 pub mod server;
 pub mod string;
 pub mod r#struct;
 /// `#testscript` commands, registered only by the headless runner.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod test;

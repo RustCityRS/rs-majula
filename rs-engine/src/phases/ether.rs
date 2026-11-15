@@ -61,10 +61,24 @@ impl Engine {
                         if !active.friends.contains(&friend37) {
                             active.friends.push(friend37);
                         }
+                        #[cfg(before_530)]
                         active.write(UpdateFriendList {
                             user37: friend37,
                             node,
                         });
+                        // The 530 client names the friend's world itself: world N
+                        // is node N + 9, and world 0 is offline.
+                        #[cfg(all(since_530, before_647))]
+                        {
+                            let world = u16::from(node).saturating_sub(9);
+                            active.write(UpdateFriendList {
+                                user37: friend37,
+                                world,
+                                rank: 0,
+                                world_name: &format!("World {world}"),
+                                world_flag: 1,
+                            });
+                        }
                     }
                 }
                 // TODO(647): port with the social milestone — rev-647

@@ -15,6 +15,7 @@ use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 use std::mem;
 
@@ -51,7 +52,7 @@ pub struct Zone {
     pub objs: Vec<Obj>,
     receivers: FxHashMap<u64, u64>,
     dropped_for: FxHashMap<u64, u64>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     vars: FxHashMap<u64, i32>,
     #[cfg(since_647)]
     merges: Vec<(u64, LocMerge)>,
@@ -96,7 +97,7 @@ impl Zone {
             objs: Vec::new(),
             receivers: FxHashMap::default(),
             dropped_for: FxHashMap::default(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             vars: FxHashMap::default(),
             #[cfg(since_647)]
             merges: Vec::new(),
@@ -660,7 +661,7 @@ impl Zone {
     ///
     /// **Called by:** `Engine` methods for loc lookup, zone phase processing,
     /// op handlers (`oploc`).
-    pub fn get_loc(&self, x: u16, z: u16, id: u16) -> Option<usize> {
+    pub fn get_loc(&self, x: u16, z: u16, id: TypeId) -> Option<usize> {
         self.locs
             .iter()
             .position(|loc| loc.is_at(x, z) && loc.id() == id && loc.visible())
@@ -751,7 +752,7 @@ impl Zone {
     /// **Called by:** `Engine` methods when scripts trigger a loc animation.
     ///
     /// **Calls:** [`queue_event`](Self::queue_event).
-    pub fn anim_loc(&mut self, idx: usize, seq: u16) {
+    pub fn anim_loc(&mut self, idx: usize, seq: TypeId) {
         let loc = &self.locs[idx];
         self.queue_event(
             Some(loc.lid()),
@@ -858,7 +859,7 @@ impl Zone {
     ///
     /// **Calls:** [`queue_event`](Self::queue_event).
     #[cfg(since_647)]
-    pub fn prefetch_loc(&mut self, id: u16, shape: u8) {
+    pub fn prefetch_loc(&mut self, id: TypeId, shape: u8) {
         let queued = self.events.iter().any(
             |e| matches!(&e.message, ZoneMessage::LocPrefetch(m) if m.id == id && m.shape == shape),
         );
@@ -981,7 +982,13 @@ impl Zone {
     ///
     /// **Called by:** `Engine` methods when checking for existing receiver-specific
     /// objs before merging or stacking.
-    pub fn get_obj_of_receiver(&self, x: u16, z: u16, id: u16, receiver37: u64) -> Option<usize> {
+    pub fn get_obj_of_receiver(
+        &self,
+        x: u16,
+        z: u16,
+        id: TypeId,
+        receiver37: u64,
+    ) -> Option<usize> {
         let receivers = &self.receivers;
         self.objs.iter().position(|obj| {
             obj.is_valid() && obj.is_at(x, z) && obj.id() == id && owns(receivers, obj, receiver37)
@@ -1011,7 +1018,7 @@ impl Zone {
     /// `Some(index)` if a matching obj is found, `None` otherwise.
     ///
     /// **Called by:** op handlers (`opobj`), `OBJ_FIND`.
-    pub fn get_obj(&self, x: u16, z: u16, id: u16, receiver37: Option<u64>) -> Option<usize> {
+    pub fn get_obj(&self, x: u16, z: u16, id: TypeId, receiver37: Option<u64>) -> Option<usize> {
         let receivers = &self.receivers;
         self.objs.iter().position(|obj| {
             obj.is_valid()
@@ -1026,7 +1033,7 @@ impl Zone {
     ///
     /// The tile and id are checked too, so a reference into another zone finds
     /// nothing.
-    pub fn obj_index(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> Option<usize> {
+    pub fn obj_index(&self, x: u16, z: u16, id: TypeId, serial: ObjSerial) -> Option<usize> {
         self.objs.iter().position(|obj| {
             obj.serial() == serial && obj.is_at(x, z) && obj.id() == id && obj.is_active()
         })
@@ -1042,7 +1049,7 @@ impl Zone {
         &self,
         x: u16,
         z: u16,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         receiver37: Option<u64>,
     ) -> Option<usize> {
@@ -1057,7 +1064,7 @@ impl Zone {
     /// player for their own private drop, the player it was revealed from for
     /// one everyone can now see, or `None` for one nobody dropped (a map spawn,
     /// or one a script put down for everyone).
-    pub fn obj_dropped_for(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> Option<u64> {
+    pub fn obj_dropped_for(&self, x: u16, z: u16, id: TypeId, serial: ObjSerial) -> Option<u64> {
         let obj = &self.objs[self.obj_index(x, z, id, serial)?];
         let oid = obj.oid();
         if obj.has_receiver() {
@@ -1069,8 +1076,8 @@ impl Zone {
 
     /// The varobjs of the obj with this [`serial`](Obj::serial): 0 for one
     /// with none set, or that isn't there.
-    #[cfg(since_647)]
-    pub fn obj_var(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> i32 {
+    #[cfg(since_530)]
+    pub fn obj_var(&self, x: u16, z: u16, id: TypeId, serial: ObjSerial) -> i32 {
         self.obj_index(x, z, id, serial)
             .and_then(|idx| self.vars.get(&self.objs[idx].oid()).copied())
             .unwrap_or(0)
@@ -1078,8 +1085,8 @@ impl Zone {
 
     /// Sets the varobjs of the dropped obj with this [`serial`](Obj::serial).
     /// A map spawn keeps none, so it is refused, as is an obj that isn't there.
-    #[cfg(since_647)]
-    pub fn set_obj_var(&mut self, x: u16, z: u16, id: u16, serial: ObjSerial, var: i32) -> bool {
+    #[cfg(since_530)]
+    pub fn set_obj_var(&mut self, x: u16, z: u16, id: TypeId, serial: ObjSerial, var: i32) -> bool {
         let Some(idx) = self.obj_index(x, z, id, serial) else {
             return false;
         };
@@ -1123,7 +1130,7 @@ impl Zone {
     ///
     /// **Calls:** [`clear_queued_events`](Self::clear_queued_events),
     /// [`queue_event`](Self::queue_event).
-    pub fn reveal_obj(&mut self, x: u16, z: u16, id: u16, receiver37: u64, receiver_pid: u16) {
+    pub fn reveal_obj(&mut self, x: u16, z: u16, id: TypeId, receiver37: u64, receiver_pid: u16) {
         let idx = {
             let receivers = &self.receivers;
             self.objs.iter().position(|obj| {
@@ -1173,7 +1180,7 @@ impl Zone {
     /// **Called by:** Zone phase `ObjDelete` processing when a despawn timer fires.
     ///
     /// **Calls:** [`remove_obj_at`](Self::remove_obj_at).
-    pub fn remove_obj_by_clock(&mut self, x: u16, z: u16, id: u16, expected_clock: u32) {
+    pub fn remove_obj_by_clock(&mut self, x: u16, z: u16, id: TypeId, expected_clock: u32) {
         let Some(idx) = self.objs.iter().position(|obj| {
             obj.is_at(x, z) && obj.id() == id && obj.last_clock() == expected_clock
         }) else {
@@ -1216,7 +1223,7 @@ impl Zone {
         &mut self,
         x: u16,
         z: u16,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         respawn_at: Option<u32>,
     ) -> Option<(Obj, Option<u64>)> {
@@ -1271,7 +1278,7 @@ impl Zone {
         self.clear_queued_events(oid);
         self.receivers.remove(&oid);
         self.dropped_for.remove(&oid);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.vars.remove(&oid);
         if self.objs[idx].lifetime() == EntityLifeTime::Despawn {
             self.objs.remove(idx);
@@ -1308,7 +1315,7 @@ impl Zone {
     /// **Called by:** Zone phase `ObjAdd` processing when a respawn timer expires.
     ///
     /// **Calls:** [`queue_event`](Self::queue_event).
-    pub fn respawn_obj(&mut self, x: u16, z: u16, id: u16) {
+    pub fn respawn_obj(&mut self, x: u16, z: u16, id: TypeId) {
         let Some(idx) = self.objs.iter().position(|obj| {
             obj.is_at(x, z)
                 && obj.id() == id
@@ -1449,11 +1456,11 @@ mod tests {
         CoordGrid::new(x, 0, z)
     }
 
-    fn despawn_obj(x: u16, z: u16, id: u16, count: u32) -> Obj {
+    fn despawn_obj(x: u16, z: u16, id: TypeId, count: u32) -> Obj {
         Obj::new(coord(x, z), EntityLifeTime::Despawn, id, count)
     }
 
-    fn respawn_obj(x: u16, z: u16, id: u16, count: u32) -> Obj {
+    fn respawn_obj(x: u16, z: u16, id: TypeId, count: u32) -> Obj {
         Obj::new(coord(x, z), EntityLifeTime::Respawn, id, count)
     }
 
@@ -1465,7 +1472,7 @@ mod tests {
         z.receivers.insert(oid, receiver37);
     }
 
-    fn respawn_loc(x: u16, z: u16, id: u16) -> Loc {
+    fn respawn_loc(x: u16, z: u16, id: TypeId) -> Loc {
         Loc::new(
             coord(x, z),
             EntityLifeTime::Respawn,
@@ -1479,7 +1486,7 @@ mod tests {
         )
     }
 
-    fn despawn_loc(x: u16, z: u16, id: u16) -> Loc {
+    fn despawn_loc(x: u16, z: u16, id: TypeId) -> Loc {
         Loc::new(
             coord(x, z),
             EntityLifeTime::Despawn,
@@ -1506,24 +1513,24 @@ mod tests {
     #[test]
     fn add_despawn_obj_pushes_to_vec() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         z.add_obj(obj, None);
         assert_eq!(z.objs.len(), 1);
-        assert_eq!(z.objs[0].id(), 100);
+        assert_eq!(z.objs[0].id(), TypeId::new(100));
     }
 
     #[test]
     fn add_respawn_obj_does_not_push_to_vec() {
         let mut z = zone();
-        z.add_obj(respawn_obj(3222, 3222, 100, 5), None);
+        z.add_obj(respawn_obj(3222, 3222, TypeId::new(100), 5), None);
         assert_eq!(z.objs.len(), 0);
     }
 
     #[test]
     fn add_obj_without_receiver_queues_enclosed_event() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, None);
         assert_eq!(count_enclosed(&z), 1);
@@ -1533,7 +1540,7 @@ mod tests {
     #[test]
     fn add_obj_with_receiver_queues_follows_event() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, Some(12345));
         assert_eq!(count_follows(&z), 1);
@@ -1545,7 +1552,7 @@ mod tests {
     #[test]
     fn visible_objs_despawn_before_expiry() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
         assert_eq!(z.visible_objs(0, 100).count(), 1);
@@ -1554,7 +1561,7 @@ mod tests {
     #[test]
     fn visible_objs_despawn_at_expiry_hidden() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
         assert_eq!(z.visible_objs(0, 200).count(), 0);
@@ -1563,7 +1570,7 @@ mod tests {
     #[test]
     fn visible_objs_despawn_after_expiry_hidden() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
         assert_eq!(z.visible_objs(0, 250).count(), 0);
@@ -1572,14 +1579,14 @@ mod tests {
     #[test]
     fn visible_objs_respawn_no_clock_visible() {
         let mut z = zone();
-        z.objs.push(respawn_obj(3222, 3222, 100, 1));
+        z.objs.push(respawn_obj(3222, 3222, TypeId::new(100), 1));
         assert_eq!(z.visible_objs(0, 0).count(), 1);
     }
 
     #[test]
     fn visible_objs_respawn_hidden_until_clock() {
         let mut z = zone();
-        let mut obj = respawn_obj(3222, 3222, 100, 1);
+        let mut obj = respawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(50);
         z.objs.push(obj);
         assert_eq!(z.visible_objs(0, 49).count(), 0);
@@ -1590,7 +1597,7 @@ mod tests {
     #[test]
     fn visible_objs_receiver_filtering() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
         assert_eq!(z.visible_objs(111, 50).count(), 1);
@@ -1600,7 +1607,7 @@ mod tests {
     #[test]
     fn visible_objs_no_receiver_visible_to_all() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
         assert_eq!(z.visible_objs(111, 50).count(), 1);
@@ -1612,53 +1619,56 @@ mod tests {
     #[test]
     fn reveal_obj_clears_receiver() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         assert!(!z.objs[0].has_receiver());
     }
 
     #[test]
     fn revealed_obj_stays_on_record_as_its_droppers() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
         assert_eq!(
-            z.obj_dropped_for(3222, 3222, 100, ObjSerial::FIRST),
+            z.obj_dropped_for(3222, 3222, TypeId::new(100), ObjSerial::FIRST),
             Some(111)
         );
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         assert_eq!(
-            z.obj_dropped_for(3222, 3222, 100, ObjSerial::FIRST),
+            z.obj_dropped_for(3222, 3222, TypeId::new(100), ObjSerial::FIRST),
             Some(111)
         );
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert!(z.dropped_for.is_empty(), "forgotten once it's gone");
         // Nobody dropped a public spawn.
-        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
-        assert_eq!(z.obj_dropped_for(3222, 3222, 100, serial), None);
+        let serial = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), None);
+        assert_eq!(
+            z.obj_dropped_for(3222, 3222, TypeId::new(100), serial),
+            None
+        );
     }
 
     #[test]
     fn reveal_obj_makes_visible_to_all() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
         assert_eq!(z.visible_objs(222, 50).count(), 0);
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         assert_eq!(z.visible_objs(222, 50).count(), 1);
     }
 
     #[test]
     fn reveal_obj_queues_enclosed_event() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         assert!(
             z.enclosed_events()
                 .any(|e| matches!(&e.message, ZoneMessage::ObjReveal(_)))
@@ -1668,7 +1678,7 @@ mod tests {
     #[test]
     fn reveal_obj_nonexistent_is_noop() {
         let mut z = zone();
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         assert_eq!(count_enclosed(&z), 0);
     }
 
@@ -1677,30 +1687,30 @@ mod tests {
     #[test]
     fn remove_obj_by_clock_matching() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
-        z.remove_obj_by_clock(3222, 3222, 100, 200);
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 200);
         assert_eq!(z.objs.len(), 0);
     }
 
     #[test]
     fn remove_obj_by_clock_stale_is_noop() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(300);
         z.objs.push(obj);
-        z.remove_obj_by_clock(3222, 3222, 100, 200);
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 200);
         assert_eq!(z.objs.len(), 1);
     }
 
     #[test]
     fn remove_obj_by_clock_queues_del_event() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
-        z.remove_obj_by_clock(3222, 3222, 100, 200);
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 200);
         assert!(
             z.enclosed_events()
                 .any(|e| matches!(&e.message, ZoneMessage::ObjDel(_)))
@@ -1712,18 +1722,18 @@ mod tests {
     #[test]
     fn remove_obj_despawn_removes_from_vec() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 0);
     }
 
     #[test]
     fn remove_obj_respawn_stays_in_vec() {
         let mut z = zone();
-        z.objs.push(respawn_obj(3222, 3222, 100, 1));
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        z.objs.push(respawn_obj(3222, 3222, TypeId::new(100), 1));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50));
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.objs[0].last_clock(), 50);
     }
@@ -1731,8 +1741,8 @@ mod tests {
     #[test]
     fn remove_obj_respawn_hidden_until_respawn() {
         let mut z = zone();
-        z.objs.push(respawn_obj(3222, 3222, 100, 1));
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        z.objs.push(respawn_obj(3222, 3222, TypeId::new(100), 1));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50));
         assert_eq!(z.visible_objs(0, 49).count(), 0);
         assert_eq!(z.visible_objs(0, 50).count(), 1);
     }
@@ -1740,32 +1750,38 @@ mod tests {
     #[test]
     fn remove_obj_with_receiver_matches_receiver() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 0);
     }
 
     #[test]
     fn remove_obj_wrong_serial_is_noop() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.remove_obj(3222, 3222, 100, ObjSerial::from_packed(1), None);
+        z.remove_obj(
+            3222,
+            3222,
+            TypeId::new(100),
+            ObjSerial::from_packed(1),
+            None,
+        );
         assert_eq!(z.objs.len(), 1);
     }
 
     #[test]
     fn remove_obj_revealed_then_delete_uses_enclosed() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         z.reset();
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert!(
             z.enclosed_events()
                 .any(|e| matches!(&e.message, ZoneMessage::ObjDel(_)))
@@ -1776,10 +1792,10 @@ mod tests {
     #[test]
     fn remove_obj_unrevealed_delete_uses_follows() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert!(
             z.follows_events()
                 .any(|e| matches!(&e.message, ZoneMessage::ObjDel(_)))
@@ -1789,26 +1805,26 @@ mod tests {
     #[test]
     fn remove_obj_skips_already_hidden_respawn() {
         let mut z = zone();
-        let obj = respawn_obj(3222, 3222, 100, 1);
+        let obj = respawn_obj(3222, 3222, TypeId::new(100), 1);
         z.objs.push(obj);
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50));
         z.reset();
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(100));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(100));
         assert_eq!(count_enclosed(&z), 0);
     }
 
     #[test]
     fn remove_obj_returns_what_it_removed() {
         let mut z = zone();
-        z.objs.push(respawn_obj(3222, 3222, 100, 7));
+        z.objs.push(respawn_obj(3222, 3222, TypeId::new(100), 7));
         assert_eq!(
-            z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50))
+            z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50))
                 .map(|(o, _)| o.count()),
             Some(7)
         );
         // Taken and not back yet: a second take gets nothing.
         assert!(
-            z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50))
+            z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50))
                 .is_none()
         );
     }
@@ -1816,27 +1832,30 @@ mod tests {
     #[test]
     fn get_obj_skips_hidden_respawn() {
         let mut z = zone();
-        z.add_static_obj(respawn_obj(3222, 3222, 100, 1));
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
-        assert!(z.get_obj(3222, 3222, 100, None).is_none());
+        z.add_static_obj(respawn_obj(3222, 3222, TypeId::new(100), 1));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50));
+        assert!(z.get_obj(3222, 3222, TypeId::new(100), None).is_none());
 
         // A drop of the same id on that tile is found past the hidden spawn.
-        let mut drop = despawn_obj(3222, 3222, 100, 3);
+        let mut drop = despawn_obj(3222, 3222, TypeId::new(100), 3);
         drop.set_last_clock(200);
         z.add_obj(drop, None);
-        let idx = z.get_obj(3222, 3222, 100, None).unwrap();
+        let idx = z.get_obj(3222, 3222, TypeId::new(100), None).unwrap();
         assert_eq!(z.objs[idx].count(), 3);
 
-        z.respawn_obj(3222, 3222, 100);
-        assert_eq!(z.objs[z.get_obj(3222, 3222, 100, None).unwrap()].count(), 1);
+        z.respawn_obj(3222, 3222, TypeId::new(100));
+        assert_eq!(
+            z.objs[z.get_obj(3222, 3222, TypeId::new(100), None).unwrap()].count(),
+            1
+        );
     }
 
     #[test]
     fn get_obj_skips_empty_stack() {
         let mut z = zone();
-        z.add_obj(despawn_obj(3222, 3222, 100, 0), None);
-        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 4), Some(111));
-        let idx = z.get_obj(3222, 3222, 100, Some(111)).unwrap();
+        z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 0), None);
+        let serial = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 4), Some(111));
+        let idx = z.get_obj(3222, 3222, TypeId::new(100), Some(111)).unwrap();
         assert_eq!(z.objs[idx].serial(), serial);
     }
 
@@ -1845,31 +1864,33 @@ mod tests {
     #[test]
     fn serials_are_unique_and_never_handed_out_twice() {
         let mut z = zone();
-        z.add_static_obj(respawn_obj(3222, 3222, 100, 1));
-        let a = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
-        z.remove_obj(3222, 3222, 100, a, None);
-        let b = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        z.add_static_obj(respawn_obj(3222, 3222, TypeId::new(100), 1));
+        let a = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), None);
+        z.remove_obj(3222, 3222, TypeId::new(100), a, None);
+        let b = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), None);
         assert_eq!(
             (a, b),
             (ObjSerial::from_packed(1), ObjSerial::from_packed(2))
         );
         // The old reference doesn't find the drop that took its place.
-        assert!(z.obj_index(3222, 3222, 100, a).is_none());
-        assert!(z.obj_index(3222, 3222, 100, b).is_some());
+        assert!(z.obj_index(3222, 3222, TypeId::new(100), a).is_none());
+        assert!(z.obj_index(3222, 3222, TypeId::new(100), b).is_some());
     }
 
     #[test]
     fn serial_survives_respawn() {
         let mut z = zone();
-        z.add_static_obj(respawn_obj(3222, 3222, 100, 1));
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        z.add_static_obj(respawn_obj(3222, 3222, TypeId::new(100), 1));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50));
         assert!(
-            z.obj_index(3222, 3222, 100, ObjSerial::FIRST).is_none(),
+            z.obj_index(3222, 3222, TypeId::new(100), ObjSerial::FIRST)
+                .is_none(),
             "taken"
         );
-        z.respawn_obj(3222, 3222, 100);
+        z.respawn_obj(3222, 3222, TypeId::new(100));
         assert!(
-            z.obj_index(3222, 3222, 100, ObjSerial::FIRST).is_some(),
+            z.obj_index(3222, 3222, TypeId::new(100), ObjSerial::FIRST)
+                .is_some(),
             "back"
         );
     }
@@ -1877,23 +1898,32 @@ mod tests {
     #[test]
     fn serial_survives_restack_and_reveal() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         let serial = z.add_obj(obj, Some(111));
         z.objs[0].set_count(9);
-        z.reveal_obj(3222, 3222, 100, 111, 1);
-        let idx = z.valid_obj(3222, 3222, 100, serial, Some(222)).unwrap();
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
+        let idx = z
+            .valid_obj(3222, 3222, TypeId::new(100), serial, Some(222))
+            .unwrap();
         assert_eq!(z.objs[idx].count(), 9);
     }
 
     #[test]
     fn valid_obj_hides_others_private_objs() {
         let mut z = zone();
-        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 1), Some(111));
-        assert!(z.valid_obj(3222, 3222, 100, serial, Some(111)).is_some());
-        assert!(z.valid_obj(3222, 3222, 100, serial, Some(222)).is_none());
+        let serial = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), Some(111));
         assert!(
-            z.valid_obj(3222, 3222, 100, serial, None).is_some(),
+            z.valid_obj(3222, 3222, TypeId::new(100), serial, Some(111))
+                .is_some()
+        );
+        assert!(
+            z.valid_obj(3222, 3222, TypeId::new(100), serial, Some(222))
+                .is_none()
+        );
+        assert!(
+            z.valid_obj(3222, 3222, TypeId::new(100), serial, None)
+                .is_some(),
             "no player: no receiver check"
         );
     }
@@ -1901,10 +1931,13 @@ mod tests {
     #[test]
     fn valid_obj_rejects_empty_stack() {
         let mut z = zone();
-        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 0), None);
-        assert!(z.valid_obj(3222, 3222, 100, serial, None).is_none());
+        let serial = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 0), None);
         assert!(
-            z.obj_index(3222, 3222, 100, serial).is_some(),
+            z.valid_obj(3222, 3222, TypeId::new(100), serial, None)
+                .is_none()
+        );
+        assert!(
+            z.obj_index(3222, 3222, TypeId::new(100), serial).is_some(),
             "still removable"
         );
     }
@@ -1912,13 +1945,19 @@ mod tests {
     #[test]
     fn valid_obj_keeps_drop_until_removed() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         let serial = z.add_obj(obj, None);
         // Due to despawn this tick, but the zone phase hasn't run yet.
-        assert!(z.valid_obj(3222, 3222, 100, serial, None).is_some());
-        z.remove_obj_by_clock(3222, 3222, 100, 200);
-        assert!(z.valid_obj(3222, 3222, 100, serial, None).is_none());
+        assert!(
+            z.valid_obj(3222, 3222, TypeId::new(100), serial, None)
+                .is_some()
+        );
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 200);
+        assert!(
+            z.valid_obj(3222, 3222, TypeId::new(100), serial, None)
+                .is_none()
+        );
     }
 
     #[test]
@@ -1927,20 +1966,20 @@ mod tests {
 
         // Drop X on one tile, then a two-item stack A, B on another -- in order.
         for (x, zz, id) in [(3216, 3216, 10), (3220, 3220, 20), (3220, 3220, 30)] {
-            let mut obj = despawn_obj(x, zz, id, 1);
+            let mut obj = despawn_obj(x, zz, TypeId::new(id), 1);
             obj.set_last_clock(200);
             z.add_obj(obj, None);
         }
         assert_eq!(
             z.visible_objs(0, 100).map(|o| o.id()).collect::<Vec<_>>(),
-            vec![10, 20, 30],
+            [10, 20, 30].map(TypeId::new),
         );
 
         // Pick up X (oldest, index 0). The A,B stack must stay A-then-B.
-        z.remove_obj(3216, 3216, 10, ObjSerial::FIRST, None);
+        z.remove_obj(3216, 3216, TypeId::new(10), ObjSerial::FIRST, None);
         assert_eq!(
             z.visible_objs(0, 100).map(|o| o.id()).collect::<Vec<_>>(),
-            vec![20, 30],
+            [20, 30].map(TypeId::new),
             "removing an obj reordered the remaining stack",
         );
     }
@@ -1950,10 +1989,10 @@ mod tests {
     #[test]
     fn respawn_obj_clears_clock_and_queues_add() {
         let mut z = zone();
-        let mut obj = respawn_obj(3222, 3222, 100, 5);
+        let mut obj = respawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(50);
         z.objs.push(obj);
-        z.respawn_obj(3222, 3222, 100);
+        z.respawn_obj(3222, 3222, TypeId::new(100));
         assert_eq!(z.objs[0].last_clock(), u32::MAX);
         assert!(
             z.enclosed_events()
@@ -1964,18 +2003,18 @@ mod tests {
     #[test]
     fn respawn_obj_not_hidden_is_noop() {
         let mut z = zone();
-        z.objs.push(respawn_obj(3222, 3222, 100, 5));
-        z.respawn_obj(3222, 3222, 100);
+        z.objs.push(respawn_obj(3222, 3222, TypeId::new(100), 5));
+        z.respawn_obj(3222, 3222, TypeId::new(100));
         assert_eq!(count_enclosed(&z), 0);
     }
 
     #[test]
     fn respawn_obj_despawn_is_noop() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(50);
         z.objs.push(obj);
-        z.respawn_obj(3222, 3222, 100);
+        z.respawn_obj(3222, 3222, TypeId::new(100));
         assert_eq!(count_enclosed(&z), 0);
     }
 
@@ -1984,12 +2023,12 @@ mod tests {
     #[test]
     fn merge_obj_stale_delete_ignored() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(100);
         z.objs.push(obj);
         z.objs[0].set_count(10);
         z.objs[0].set_last_clock(200);
-        z.remove_obj_by_clock(3222, 3222, 100, 100);
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 100);
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.objs[0].count(), 10);
     }
@@ -1997,10 +2036,10 @@ mod tests {
     #[test]
     fn merge_obj_new_delete_works() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 10);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 10);
         obj.set_last_clock(200);
         z.objs.push(obj);
-        z.remove_obj_by_clock(3222, 3222, 100, 200);
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 200);
         assert_eq!(z.objs.len(), 0);
     }
 
@@ -2009,7 +2048,7 @@ mod tests {
     #[test]
     fn obj_full_lifecycle_add_reveal_delete() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 5);
         obj.set_last_clock(200);
         z.add_obj(obj, Some(111));
         assert_eq!(z.objs.len(), 1);
@@ -2017,26 +2056,26 @@ mod tests {
         assert_eq!(z.visible_objs(222, 10).count(), 0);
 
         z.reset();
-        z.reveal_obj(3222, 3222, 100, 111, 1);
+        z.reveal_obj(3222, 3222, TypeId::new(100), 111, 1);
         assert_eq!(z.visible_objs(222, 60).count(), 1);
 
         z.reset();
-        z.remove_obj_by_clock(3222, 3222, 100, 200);
+        z.remove_obj_by_clock(3222, 3222, TypeId::new(100), 200);
         assert_eq!(z.objs.len(), 0);
     }
 
     #[test]
     fn obj_respawn_full_lifecycle() {
         let mut z = zone();
-        z.objs.push(respawn_obj(3222, 3222, 100, 5));
+        z.objs.push(respawn_obj(3222, 3222, TypeId::new(100), 5));
         assert_eq!(z.visible_objs(0, 0).count(), 1);
 
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, Some(50));
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.visible_objs(0, 49).count(), 0);
 
         z.reset();
-        z.respawn_obj(3222, 3222, 100);
+        z.respawn_obj(3222, 3222, TypeId::new(100));
         assert_eq!(z.visible_objs(0, 50).count(), 1);
         assert_eq!(z.objs[0].last_clock(), u32::MAX);
     }
@@ -2046,21 +2085,21 @@ mod tests {
     #[test]
     fn add_despawn_loc_pushes_to_vec() {
         let mut z = zone();
-        z.add_loc(despawn_loc(3222, 3222, 100));
+        z.add_loc(despawn_loc(3222, 3222, TypeId::new(100)));
         assert_eq!(z.locs.len(), 1);
     }
 
     #[test]
     fn add_respawn_loc_does_not_push() {
         let mut z = zone();
-        z.add_loc(respawn_loc(3222, 3222, 100));
+        z.add_loc(respawn_loc(3222, 3222, TypeId::new(100)));
         assert_eq!(z.locs.len(), 0);
     }
 
     #[test]
     fn add_loc_queues_enclosed_event() {
         let mut z = zone();
-        z.add_loc(despawn_loc(3222, 3222, 100));
+        z.add_loc(despawn_loc(3222, 3222, TypeId::new(100)));
         assert!(
             z.enclosed_events()
                 .any(|e| matches!(&e.message, ZoneMessage::LocAddChange(_)))
@@ -2070,9 +2109,9 @@ mod tests {
     #[test]
     fn add_loc_reverts_and_clears_clock() {
         let mut z = zone();
-        let mut loc = despawn_loc(3222, 3222, 100);
+        let mut loc = despawn_loc(3222, 3222, TypeId::new(100));
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2090,22 +2129,22 @@ mod tests {
 
     #[test]
     fn loc_active_normal_respawn() {
-        let loc = respawn_loc(3222, 3222, 100);
+        let loc = respawn_loc(3222, 3222, TypeId::new(100));
         assert!(loc.visible());
     }
 
     #[test]
     fn loc_active_despawn_always() {
-        let mut loc = despawn_loc(3222, 3222, 100);
+        let mut loc = despawn_loc(3222, 3222, TypeId::new(100));
         loc.set_last_clock(999);
         assert!(loc.visible());
     }
 
     #[test]
     fn loc_active_changed_respawn() {
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2119,16 +2158,16 @@ mod tests {
 
     #[test]
     fn loc_clock_alone_does_not_hide() {
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.set_last_clock(999);
         assert!(loc.visible());
     }
 
     #[test]
     fn loc_hidden_keeps_its_type() {
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2138,18 +2177,18 @@ mod tests {
         );
         loc.set_visible(false);
         assert!(!loc.visible());
-        assert_eq!(loc.id(), 200);
+        assert_eq!(loc.id(), TypeId::new(200));
         loc.set_visible(true);
         assert!(loc.visible());
     }
 
     #[test]
     fn loc_serial_and_flag_leave_other_bits_alone() {
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.set_last_clock(1234);
         loc.set_serial(LocSerial::from_packed((1 << LocSerial::BITS) - 1));
         loc.set_visible(false);
-        assert_eq!(loc.id(), 100);
+        assert_eq!(loc.id(), TypeId::new(100));
         assert_eq!(loc.last_clock(), 1234);
         assert_eq!(loc.layer(), LocLayer::Ground);
         assert_eq!(
@@ -2166,9 +2205,9 @@ mod tests {
     #[test]
     fn change_loc_updates_type() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2178,15 +2217,15 @@ mod tests {
         );
         z.change_loc(0);
         assert!(z.locs[0].is_changed());
-        assert_eq!(z.locs[0].id(), 200);
+        assert_eq!(z.locs[0].id(), TypeId::new(200));
     }
 
     #[test]
     fn change_loc_queues_add_change_event() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2204,7 +2243,7 @@ mod tests {
     #[test]
     fn change_loc_clears_last_clock() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.locs[0].set_last_clock(999);
         z.change_loc(0);
         assert_eq!(z.locs[0].last_clock(), u32::MAX);
@@ -2212,10 +2251,10 @@ mod tests {
 
     #[test]
     fn change_to_different_shape_updates_shape() {
-        let mut loc = despawn_loc(3222, 3222, 100); // centrepiece_straight
+        let mut loc = despawn_loc(3222, 3222, TypeId::new(100)); // centrepiece_straight
         assert_eq!(loc.shape(), LocShape::CentrepieceStraight);
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::WallDiagonal,
             LocAngle::North,
             true,
@@ -2224,15 +2263,15 @@ mod tests {
             1,
         );
         assert_eq!(loc.shape(), LocShape::WallDiagonal);
-        assert_eq!(loc.id(), 200);
+        assert_eq!(loc.id(), TypeId::new(200));
     }
 
     #[test]
     fn change_to_different_shape_keeps_base_layer() {
-        let mut loc = despawn_loc(3222, 3222, 100);
+        let mut loc = despawn_loc(3222, 3222, TypeId::new(100));
         let base_layer = loc.layer();
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::WallDiagonal,
             LocAngle::North,
             true,
@@ -2245,9 +2284,9 @@ mod tests {
 
     #[test]
     fn revert_restores_base_shape() {
-        let mut loc = respawn_loc(3222, 3222, 100); // centrepiece_straight
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100)); // centrepiece_straight
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::WallDiagonal,
             LocAngle::North,
             true,
@@ -2263,10 +2302,14 @@ mod tests {
 
     #[test]
     fn loc_id_supports_full_u16() {
+        #[cfg(before_742)]
+        let max = TypeId::new(u16::MAX);
+        #[cfg(since_742)]
+        let max = TypeId::from_int((1 << 17) - 1);
         let mut loc = Loc::new(
             coord(3222, 3222),
             EntityLifeTime::Despawn,
-            u16::MAX,
+            max,
             LocShape::CentrepieceStraight,
             LocAngle::North,
             false,
@@ -2274,10 +2317,10 @@ mod tests {
             2,
             4,
         );
-        assert_eq!(loc.id(), u16::MAX);
+        assert_eq!(loc.id(), max);
         assert_eq!((loc.width(), loc.length()), (2, 4));
         loc.change(
-            60000,
+            TypeId::new(60000),
             LocShape::WallDiagonal,
             LocAngle::East,
             true,
@@ -2285,12 +2328,12 @@ mod tests {
             5,
             3,
         );
-        assert_eq!(loc.id(), 60000);
+        assert_eq!(loc.id(), TypeId::new(60000));
         assert_eq!(loc.shape(), LocShape::WallDiagonal);
         assert_eq!(loc.angle(), LocAngle::East);
         assert_eq!((loc.width(), loc.length()), (5, 3));
         loc.revert();
-        assert_eq!(loc.id(), u16::MAX);
+        assert_eq!(loc.id(), max);
         assert_eq!(loc.shape(), LocShape::CentrepieceStraight);
         assert_eq!((loc.width(), loc.length()), (2, 4));
     }
@@ -2298,9 +2341,9 @@ mod tests {
     #[test]
     fn change_loc_event_carries_new_shape() {
         let mut z = zone();
-        z.locs.push(despawn_loc(3222, 3222, 100)); // centrepiece_straight
+        z.locs.push(despawn_loc(3222, 3222, TypeId::new(100))); // centrepiece_straight
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::WallDiagonal,
             LocAngle::North,
             true,
@@ -2324,7 +2367,7 @@ mod tests {
     #[test]
     fn remove_despawn_loc_removes_from_vec() {
         let mut z = zone();
-        z.locs.push(despawn_loc(3222, 3222, 100));
+        z.locs.push(despawn_loc(3222, 3222, TypeId::new(100)));
         z.remove_loc(0);
         assert_eq!(z.locs.len(), 0);
     }
@@ -2332,7 +2375,7 @@ mod tests {
     #[test]
     fn remove_respawn_loc_stays_in_vec() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.remove_loc(0);
         assert_eq!(z.locs.len(), 1);
     }
@@ -2340,9 +2383,9 @@ mod tests {
     #[test]
     fn remove_respawn_loc_keeps_changed_type() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2353,13 +2396,13 @@ mod tests {
         z.remove_loc(0);
         assert!(!z.locs[0].visible());
         assert!(z.locs[0].is_changed());
-        assert_eq!(z.locs[0].id(), 200);
+        assert_eq!(z.locs[0].id(), TypeId::new(200));
     }
 
     #[test]
     fn remove_loc_queues_del_event() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.remove_loc(0);
         assert!(
             z.enclosed_events()
@@ -2370,9 +2413,9 @@ mod tests {
     #[test]
     fn remove_loc_cancels_previous_events() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2397,18 +2440,18 @@ mod tests {
 
         // Add three dynamic locs on distinct tiles, in order.
         for (x, zz, id) in [(3216, 3216, 10), (3220, 3220, 20), (3221, 3221, 30)] {
-            z.locs.push(despawn_loc(x, zz, id));
+            z.locs.push(despawn_loc(x, zz, TypeId::new(id)));
         }
         assert_eq!(
             z.locs.iter().map(|l| l.id()).collect::<Vec<_>>(),
-            vec![10, 20, 30],
+            [10, 20, 30].map(TypeId::new),
         );
 
         // Remove the oldest (index 0). The remaining locs must keep their order.
         z.remove_loc(0);
         assert_eq!(
             z.locs.iter().map(|l| l.id()).collect::<Vec<_>>(),
-            vec![20, 30],
+            [20, 30].map(TypeId::new),
             "removing a loc reordered the remaining locs",
         );
     }
@@ -2418,32 +2461,32 @@ mod tests {
     #[test]
     fn get_loc_finds_active() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
-        assert!(z.get_loc(3222, 3222, 100).is_some());
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
+        assert!(z.get_loc(3222, 3222, TypeId::new(100)).is_some());
     }
 
     #[test]
     fn get_loc_skips_inactive() {
         let mut z = zone();
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.set_visible(false);
         z.locs.push(loc);
-        assert!(z.get_loc(3222, 3222, 100).is_none());
+        assert!(z.get_loc(3222, 3222, TypeId::new(100)).is_none());
     }
 
     #[test]
     fn get_loc_by_layer_finds_active() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         assert!(z.get_loc_by_layer(3222, 3222, LocLayer::Ground).is_some());
     }
 
     #[test]
     fn get_loc_by_layer_finds_changed() {
         let mut z = zone();
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2461,9 +2504,9 @@ mod tests {
     #[test]
     fn respawn_loc_reverts_and_clears_clock() {
         let mut z = zone();
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2484,7 +2527,7 @@ mod tests {
     #[test]
     fn respawn_loc_queues_add_change_event() {
         let mut z = zone();
-        let mut loc = respawn_loc(3222, 3222, 100);
+        let mut loc = respawn_loc(3222, 3222, TypeId::new(100));
         loc.set_visible(false);
         loc.set_last_clock(50);
         z.locs.push(loc);
@@ -2500,12 +2543,12 @@ mod tests {
     #[test]
     fn loc_change_and_revert_lifecycle() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
-        assert_eq!(z.locs[0].id(), 100);
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
+        assert_eq!(z.locs[0].id(), TypeId::new(100));
         assert!(z.locs[0].visible());
 
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2515,7 +2558,7 @@ mod tests {
         );
         z.locs[0].set_last_clock(50);
         z.change_loc(0);
-        assert_eq!(z.locs[0].id(), 200);
+        assert_eq!(z.locs[0].id(), TypeId::new(200));
         assert!(z.locs[0].visible());
         assert!(z.locs[0].is_changed());
 
@@ -2523,7 +2566,7 @@ mod tests {
         z.locs[0].revert();
         z.locs[0].set_last_clock(u32::MAX);
         z.change_loc(0);
-        assert_eq!(z.locs[0].id(), 100);
+        assert_eq!(z.locs[0].id(), TypeId::new(100));
         assert!(z.locs[0].visible());
         assert!(!z.locs[0].is_changed());
     }
@@ -2531,7 +2574,7 @@ mod tests {
     #[test]
     fn loc_remove_and_respawn_lifecycle() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
         assert!(z.locs[0].visible());
 
         z.remove_loc(0);
@@ -2541,16 +2584,16 @@ mod tests {
         z.reset();
         z.respawn_loc(0);
         assert!(z.locs[0].visible());
-        assert_eq!(z.locs[0].id(), 100);
+        assert_eq!(z.locs[0].id(), TypeId::new(100));
     }
 
     #[test]
     fn loc_changed_then_removed_then_respawned() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
 
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2560,7 +2603,7 @@ mod tests {
         );
         z.locs[0].set_last_clock(50);
         z.change_loc(0);
-        assert_eq!(z.locs[0].id(), 200);
+        assert_eq!(z.locs[0].id(), TypeId::new(200));
         assert!(z.locs[0].visible());
 
         z.reset();
@@ -2568,13 +2611,13 @@ mod tests {
         z.locs[0].set_last_clock(100);
         assert!(!z.locs[0].visible());
         assert!(z.locs[0].is_changed());
-        assert_eq!(z.locs[0].id(), 200);
+        assert_eq!(z.locs[0].id(), TypeId::new(200));
 
         z.reset();
         z.respawn_loc(0);
         assert!(z.locs[0].visible());
         assert!(!z.locs[0].is_changed());
-        assert_eq!(z.locs[0].id(), 100);
+        assert_eq!(z.locs[0].id(), TypeId::new(100));
     }
 
     // ---- loc: serials ----
@@ -2582,9 +2625,9 @@ mod tests {
     #[test]
     fn locs_get_distinct_serials() {
         let mut z = zone();
-        z.add_static_loc(respawn_loc(3222, 3222, 100));
-        z.add_static_loc(respawn_loc(3223, 3222, 100));
-        z.add_loc(despawn_loc(3224, 3222, 100));
+        z.add_static_loc(respawn_loc(3222, 3222, TypeId::new(100)));
+        z.add_static_loc(respawn_loc(3223, 3222, TypeId::new(100)));
+        z.add_loc(despawn_loc(3224, 3222, TypeId::new(100)));
         assert_ne!(z.locs[0].serial(), z.locs[1].serial());
         assert_ne!(z.locs[1].serial(), z.locs[2].serial());
         assert_ne!(z.locs[0].serial(), z.locs[2].serial());
@@ -2593,10 +2636,10 @@ mod tests {
     #[test]
     fn map_loc_keeps_serial_through_change_remove_respawn() {
         let mut z = zone();
-        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        z.add_static_loc(respawn_loc(3222, 3222, TypeId::new(100)));
         let serial = z.locs[0].serial();
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2614,7 +2657,7 @@ mod tests {
     #[test]
     fn loc_index_finds_removed_map_loc() {
         let mut z = zone();
-        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        z.add_static_loc(respawn_loc(3222, 3222, TypeId::new(100)));
         let serial = z.locs[0].serial();
         z.remove_loc(0);
         assert!(z.get_loc_by_layer(3222, 3222, LocLayer::Ground).is_none());
@@ -2624,10 +2667,10 @@ mod tests {
     #[test]
     fn loc_index_misses_a_replaced_added_loc() {
         let mut z = zone();
-        z.add_loc(despawn_loc(3222, 3222, 100));
+        z.add_loc(despawn_loc(3222, 3222, TypeId::new(100)));
         let first = z.locs[0].serial();
         z.remove_loc(0);
-        z.add_loc(despawn_loc(3222, 3222, 100));
+        z.add_loc(despawn_loc(3222, 3222, TypeId::new(100)));
         let second = z.locs[0].serial();
         assert_ne!(first, second);
         assert_eq!(z.loc_index(3222, 3222, LocLayer::Ground, first), None);
@@ -2637,7 +2680,7 @@ mod tests {
     #[test]
     fn loc_index_checks_tile_and_layer() {
         let mut z = zone();
-        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        z.add_static_loc(respawn_loc(3222, 3222, TypeId::new(100)));
         let serial = z.locs[0].serial();
         assert_eq!(z.loc_index(3223, 3222, LocLayer::Ground, serial), None);
         assert_eq!(z.loc_index(3222, 3222, LocLayer::Wall, serial), None);
@@ -2646,11 +2689,11 @@ mod tests {
     #[test]
     fn change_loc_brings_back_a_removed_map_loc() {
         let mut z = zone();
-        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        z.add_static_loc(respawn_loc(3222, 3222, TypeId::new(100)));
         z.remove_loc(0);
         assert!(!z.locs[0].visible());
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2660,13 +2703,13 @@ mod tests {
         );
         z.change_loc(0);
         assert!(z.locs[0].visible());
-        assert_eq!(z.locs[0].id(), 200);
+        assert_eq!(z.locs[0].id(), TypeId::new(200));
     }
 
     #[test]
     fn despawn_loc_add_then_expire() {
         let mut z = zone();
-        let mut loc = despawn_loc(3222, 3222, 100);
+        let mut loc = despawn_loc(3222, 3222, TypeId::new(100));
         loc.set_last_clock(50);
         z.add_loc(loc);
         assert_eq!(z.locs.len(), 1);
@@ -2682,7 +2725,7 @@ mod tests {
     #[test]
     fn reset_clears_events_and_shared() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, None);
         z.compute_shared();
@@ -2697,7 +2740,7 @@ mod tests {
     #[test]
     fn clear_queued_events_cancels_matching() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, None);
         assert_eq!(count_enclosed(&z), 1);
@@ -2711,18 +2754,18 @@ mod tests {
     #[test]
     fn obj_entity_key_differs_for_identical_objs() {
         let mut z = zone();
-        z.add_obj(despawn_obj(3222, 3222, 100, 1), Some(111));
-        z.add_obj(despawn_obj(3222, 3222, 100, 1), Some(222));
+        z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), Some(111));
+        z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), Some(222));
         assert_ne!(z.objs[0].oid(), z.objs[1].oid());
     }
 
     #[test]
     fn obj_entity_key_not_reused_on_the_same_tile() {
         let mut z = zone();
-        let first = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        let first = z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), None);
         let oid = z.objs[0].oid();
-        z.remove_obj(3222, 3222, 100, first, None);
-        z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        z.remove_obj(3222, 3222, TypeId::new(100), first, None);
+        z.add_obj(despawn_obj(3222, 3222, TypeId::new(100), 1), None);
         assert_ne!(z.objs[0].oid(), oid);
     }
 
@@ -2731,19 +2774,19 @@ mod tests {
         // Obj id 2 used to make the same key as the layer 2 (ground) loc on its
         // tile, so removing one cancelled the other's queued events.
         let mut z = zone();
-        z.add_obj(despawn_obj(3222, 3222, 2, 1), None);
-        let loc = despawn_loc(3222, 3222, 1);
+        z.add_obj(despawn_obj(3222, 3222, TypeId::new(2), 1), None);
+        let loc = despawn_loc(3222, 3222, TypeId::new(1));
         assert_eq!(loc.layer(), LocLayer::Ground);
         assert_ne!(z.objs[0].oid(), loc.lid());
     }
 
     #[test]
     fn loc_entity_key_differs_by_layer() {
-        let l1 = respawn_loc(3222, 3222, 100);
+        let l1 = respawn_loc(3222, 3222, TypeId::new(100));
         let l2 = Loc::new(
             coord(3222, 3222),
             EntityLifeTime::Respawn,
-            100,
+            TypeId::new(100),
             LocShape::WallDecorStraightNoOffset,
             LocAngle::North,
             true,
@@ -2759,27 +2802,27 @@ mod tests {
     #[test]
     fn multiple_objs_same_coord_different_type() {
         let mut z = zone();
-        let mut o1 = despawn_obj(3222, 3222, 100, 1);
+        let mut o1 = despawn_obj(3222, 3222, TypeId::new(100), 1);
         o1.set_last_clock(200);
-        let mut o2 = despawn_obj(3222, 3222, 200, 1);
+        let mut o2 = despawn_obj(3222, 3222, TypeId::new(200), 1);
         o2.set_last_clock(200);
         z.objs.push(o1);
         z.objs.push(o2);
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 1);
-        assert_eq!(z.objs[0].id(), 200);
+        assert_eq!(z.objs[0].id(), TypeId::new(200));
     }
 
     #[test]
     fn multiple_objs_same_type_different_receiver() {
         let mut z = zone();
-        let mut o1 = despawn_obj(3222, 3222, 100, 1);
+        let mut o1 = despawn_obj(3222, 3222, TypeId::new(100), 1);
         o1.set_last_clock(200);
-        let mut o2 = despawn_obj(3222, 3222, 100, 1);
+        let mut o2 = despawn_obj(3222, 3222, TypeId::new(100), 1);
         o2.set_last_clock(200);
         push_private_obj(&mut z, o1, 111);
         push_private_obj(&mut z, o2, 222);
-        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
+        z.remove_obj(3222, 3222, TypeId::new(100), ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.receivers.get(&z.objs[0].oid()), Some(&222));
     }
@@ -2789,7 +2832,7 @@ mod tests {
     #[test]
     fn visible_follows_events_filters_by_receiver() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, Some(111));
         assert_eq!(z.visible_follows_events(111).count(), 1);
@@ -2801,10 +2844,10 @@ mod tests {
     #[test]
     fn compute_shared_only_enclosed() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, None);
-        let mut obj2 = despawn_obj(3222, 3222, 200, 1);
+        let mut obj2 = despawn_obj(3222, 3222, TypeId::new(200), 1);
         obj2.set_last_clock(200);
         z.add_obj(obj2, Some(111));
         z.compute_shared();
@@ -2814,7 +2857,7 @@ mod tests {
     #[test]
     fn compute_shared_empty_when_no_enclosed() {
         let mut z = zone();
-        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        let mut obj = despawn_obj(3222, 3222, TypeId::new(100), 1);
         obj.set_last_clock(200);
         z.add_obj(obj, Some(111));
         z.compute_shared();
@@ -2822,7 +2865,7 @@ mod tests {
     }
 
     #[cfg(since_647)]
-    fn recolour(id: u16) -> LocMerge {
+    fn recolour(id: TypeId) -> LocMerge {
         LocMerge {
             coord: 0,
             id,
@@ -2835,7 +2878,7 @@ mod tests {
 
     /// The queued merges, as their loc type and whether each resets.
     #[cfg(since_647)]
-    fn queued_merges(zone: &Zone) -> Vec<(u16, bool)> {
+    fn queued_merges(zone: &Zone) -> Vec<(TypeId, bool)> {
         zone.enclosed_events()
             .filter_map(|e| match &e.message {
                 ZoneMessage::LocMerge(m) => Some((m.id, m.recol.is_none())),
@@ -2851,15 +2894,15 @@ mod tests {
     #[test]
     fn merge_loc_is_kept_until_the_loc_changes() {
         let mut z = zone();
-        z.locs.push(respawn_loc(3222, 3222, 100));
-        z.merge_loc(0, recolour(100));
-        z.merge_loc(0, recolour(100));
-        assert_eq!(queued_merges(&z), [(100, false)]);
+        z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
+        z.merge_loc(0, recolour(TypeId::new(100)));
+        z.merge_loc(0, recolour(TypeId::new(100)));
+        assert_eq!(queued_merges(&z), [(TypeId::new(100), false)]);
         assert_eq!(z.loc_merges().count(), 1);
 
         z.reset();
         z.locs[0].change(
-            200,
+            TypeId::new(200),
             LocShape::CentrepieceStraight,
             LocAngle::North,
             true,
@@ -2868,13 +2911,13 @@ mod tests {
             1,
         );
         z.change_loc(0);
-        assert_eq!(queued_merges(&z), [(100, true)]);
+        assert_eq!(queued_merges(&z), [(TypeId::new(100), true)]);
         assert_eq!(z.loc_merges().count(), 0);
 
         z.reset();
         let reset = LocMerge {
             recol: None,
-            ..recolour(200)
+            ..recolour(TypeId::new(200))
         };
         z.merge_loc(0, reset);
         assert!(queued_merges(&z).is_empty(), "nothing to reset");

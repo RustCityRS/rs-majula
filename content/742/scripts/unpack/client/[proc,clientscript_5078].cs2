@@ -1,0 +1,140 @@
+// 5078
+[proc,clientscript_5078](component $component0)
+~clientscript_4762(interface_1114:com_24, struct_1788);
+cc_deleteall(interface_1114:com_5);
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(enum_3921);
+def_enum $enum3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $intarray0(calc($int2 + 1));
+def_int $int7 = 1;
+while ($int1 < $int2) {
+    $enum3 = enum(int, enum, enum_3921, $int1);
+    if ($enum3 ! null) {
+        $int4, $int5 = 0, enum_getoutputcount($enum3);
+        while ($int4 < $int5) {
+            $int6 = max($int6, stringwidth(enum(int, string, $enum3, $int4), p11_full));
+            $int4 = calc($int4 + 1);
+        }
+        $intarray0($int7) = calc($intarray0(calc($int7 - 1)) + $int5);
+        $int7 = calc($int7 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int8 = calc($int6 + 28);
+$int1 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+while ($int1 < $int2) {
+    $enum3 = enum(int, enum, enum_3921, $int1);
+    if ($enum3 ! null) {
+        cc_create(interface_1114:com_5, ^iftype_rectangle, if_getnextsubid(interface_1114:com_5));
+        cc_setsize(0, 33, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setfill(true);
+        if (calc($int1 % 2) = 0) {
+            cc_setcolour(0x211f1c);
+        } else {
+            cc_setcolour(0x181715);
+        }
+        cc_create(interface_1114:com_5, ^iftype_text, if_getnextsubid(interface_1114:com_5));
+        cc_setsize(calc($int8 + 15), 33, ^setsize_minus, ^setsize_abs);
+        cc_setposition(5, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(p11_full);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setcolour(0xe9e2b4);
+        cc_settextshadow(true);
+        cc_settext(enum(int, string, $enum3, -1));
+        cc_create(interface_1114:com_5, ^iftype_rectangle, if_getnextsubid(interface_1114:com_5));
+        cc_setsize($int8, 21, ^setsize_abs, ^setsize_abs);
+        cc_setposition(6, calc($int9 + 6), ^setpos_abs_right, ^setpos_abs_top);
+        cc_settrans(255);
+        .cc_create(interface_1114:com_5, ^iftype_graphic, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize(calc(cc_getwidth - 40), cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(26, cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+        if (%varclient_1095 = true) {
+            .cc_setgraphic("aif_drop_down_button_1,1");
+        } else {
+            .cc_setgraphic("aif_drop_down_button_1,10");
+        }
+        .cc_create(interface_1114:com_5, ^iftype_graphic, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize(calc(cc_getwidth - 40), cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(26, cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+        if (%varclient_1095 = true) {
+            .cc_setgraphic("aif_drop_down_button_1,4");
+            .cc_settrans(255);
+        } else {
+            .cc_sethide(true);
+        }
+        .cc_create(interface_1114:com_5, ^iftype_graphic, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize(20, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        if (%varclient_1095 = true) {
+            .cc_setgraphic("aif_drop_down_button_1,0");
+        } else {
+            .cc_setgraphic("aif_drop_down_button_1,9");
+        }
+        .cc_create(interface_1114:com_5, ^iftype_graphic, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize(20, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        if (%varclient_1095 = true) {
+            .cc_setgraphic("aif_drop_down_button_1,3");
+            .cc_settrans(255);
+        } else {
+            .cc_sethide(true);
+        }
+        .cc_create(interface_1114:com_5, ^iftype_graphic, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize(20, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(6, cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+        if (%varclient_1095 = true) {
+            .cc_setgraphic("aif_drop_down_button_1,2");
+        } else {
+            .cc_setgraphic("aif_drop_down_button_1,11");
+        }
+        .cc_create(interface_1114:com_5, ^iftype_graphic, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize(20, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(6, cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+        if (%varclient_1095 = true) {
+            .cc_setgraphic("aif_drop_down_button_1,5");
+            .cc_settrans(255);
+        } else {
+            .cc_sethide(true);
+        }
+        .cc_create(interface_1114:com_5, ^iftype_text, if_getnextsubid(interface_1114:com_5));
+        .cc_setsize($int6, 21, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(30, cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+        .cc_settextfont(p11_full);
+        .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        .cc_setcolour(0xefb063);
+        .cc_settextshadow(false);
+        .cc_settext("");
+        $int9 = calc($int9 + 33);
+        if (%varclient_1095 = true) {
+            cc_setonmouseover("clientscript_5086(event_com, $int1, 0)");
+            cc_setonmouseleave("clientscript_5086(event_com, $int1, 1)");
+            cc_setonrelease("clientscript_5086(event_com, $int1, 255)");
+            if ($enum3 = enum_3922) {
+                cc_setonclick("clientscript_5081(event_com, $int1, $enum3, $intarray0($int1), min(calc($intarray0(calc($int1 + 1)) - $intarray0($int1)), %varplayerbit_9544), $int10, $int8)");
+            } else {
+                cc_setonclick("clientscript_5081(event_com, $int1, $enum3, $intarray0($int1), calc($intarray0(calc($int1 + 1)) - $intarray0($int1)), $int10, $int8)");
+            }
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int9 > if_getheight(interface_1114:com_5)) {
+    if_setscrollsize(interface_1114:com_5, 0, $int9);
+    if_setscrollpos(interface_1114:com_5, 0, if_getscrolly(interface_1114:com_5));
+} else {
+    if_setscrollsize(interface_1114:com_5, 0, 0);
+    if_setscrollpos(interface_1114:com_5, 0, 0);
+}
+~scrollbar_vertical(interface_1114:com_6, interface_1114:com_5, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+~clientscript_5080(interface_1114:com_5);
+if_setonclick(interface_1114:com_22, "clientscript_5084(interface_1114:com_5)");
+if_setonvarctransmit($component0, "clientscript_5078(event_com){varclient_1095}");
+if_setonvartransmit($component0, "clientscript_5078(event_com){varplayer_1734}");
+if_setonvartransmit(interface_1114:com_5, "clientscript_5079(event_com){varplayer_1736}");
+if_setonvarcstrtransmit(interface_1114:com_5, "clientscript_5079(event_com){varclient_2151}");

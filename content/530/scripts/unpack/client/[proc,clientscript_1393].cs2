@@ -1,0 +1,12 @@
+// 1393
+[proc,clientscript_1393]
+def_int $int0 = 14;
+def_int $int1 = 11;
+$int1 = ~clientscript_1537($int0, $int1);
+$int1 = calc($int1 + 10);
+$int1 = ~clientscript_1538($int0, $int1);
+$int1 = calc($int1 + 22);
+$int0 = 14;
+if_setposition(interface_259:com_31, $int0, $int1, 0, 0);
+if_setscrollsize(interface_259:com_7, 167, calc(95 + $int1));
+~clientscript_31(interface_259:scrollbar, interface_259:com_7, 792, 789, 790, 791, 773, 788);

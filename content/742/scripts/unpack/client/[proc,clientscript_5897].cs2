@@ -1,0 +1,36 @@
+// 5897
+[proc,clientscript_5897](int $int0, int $int1)
+def_int $int2 = 0;
+if ($int0 < 15 & $int1 >= 15) {
+    $int2 = 1;
+} else if ($int0 < 50 & $int1 >= 50) {
+    $int2 = 1;
+} else if ($int0 < 79 & $int1 >= 79) {
+    $int2 = 1;
+} else if ($int0 < 114 & $int1 >= 114) {
+    $int2 = 1;
+} else if ($int0 < 130 & $int1 >= 130) {
+    $int2 = 1;
+} else if ($int0 < 166 & $int1 >= 166) {
+    $int2 = 1;
+} else if ($int0 < 188 & $int1 >= 188) {
+    $int2 = 1;
+} else if ($int0 < 222 & $int1 >= 222) {
+    $int2 = 1;
+} else if ($int0 < 239 & $int1 >= 239) {
+    $int2 = 1;
+} else if ($int0 < 272 & $int1 >= 272) {
+    $int2 = 1;
+} else if ($int0 < 303 & $int1 >= 303) {
+    $int2 = 1;
+} else if ($int0 < 322 & $int1 >= 322) {
+    $int2 = 1;
+} else if ($int0 > 322 & $int1 >= 0) {
+    $int2 = 1;
+} else {
+    return;
+}
+if ($int2 = 1 & ~scale_round(op2613(interface_1253:com_89), 65535, 360) = 359) {
+    if_setontimer(interface_1253:com_89, "clientscript_5895(1, 0)");
+    ~clientscript_5896(1, 0);
+}

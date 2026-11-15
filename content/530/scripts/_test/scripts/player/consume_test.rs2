@@ -1,0 +1,136 @@
+// Tests for the food/consumption port (single-bite staples).
+// Exercises the dbtable lookup (db_find/db_findnext) and the hitpoints heal
+// (consume_effect_apply). The per-food heal values are the local 2011 wiki
+// dump's, in hitpoints.
+
+// Helper: resolve a food's heal amount through the same db_find path the eat
+// flow uses. A null row (non-food) would error in db_getfield, so every call
+// here also proves db_find located the row.
+[proc,food_heal](obj $food)(int)
+db_find(consume_table:consumable, $food)
+def_dbrow $row = db_findnext
+def_stat $stat
+def_int $constant
+def_int $percent
+$stat, $constant, $percent = db_getfield($row, consume_table:stat_heal, 0)
+return($constant)
+
+#testscript
+
+// Ground-truth: the stat_heal field's STAT must resolve to hitpoints (not -1).
+[label,test_db_stat_field_resolves]
+setup_player("test_player")
+~test_skip_design
+db_find(consume_table:consumable, mantaray)
+def_dbrow $row = db_findnext
+def_stat $stat
+def_int $constant
+def_int $percent
+$stat, $constant, $percent = db_getfield($row, consume_table:stat_heal, 0)
+def_int $hp_match = 0
+if ($stat = hitpoints) {
+    $hp_match = 1
+}
+assert_eq($hp_match, 1)
+
+// Full food table, heal values verified vs the local 2011 wiki
+[label,test_food_table_heal_values]
+setup_player("test_player")
+~test_skip_design
+assert_eq(~food_heal(anchovies), 1)
+assert_eq(~food_heal(shrimp), 3)
+assert_eq(~food_heal(cooked_chicken), 3)
+assert_eq(~food_heal(cooked_meat), 3)
+assert_eq(~food_heal(sardine), 4)
+assert_eq(~food_heal(bread), 5)
+assert_eq(~food_heal(herring), 5)
+assert_eq(~food_heal(mackerel), 6)
+assert_eq(~food_heal(trout), 7)
+assert_eq(~food_heal(cod), 7)
+assert_eq(~food_heal(pike), 8)
+assert_eq(~food_heal(salmon), 9)
+assert_eq(~food_heal(tuna), 10)
+assert_eq(~food_heal(lobster), 12)
+assert_eq(~food_heal(bass), 13)
+assert_eq(~food_heal(swordfish), 14)
+assert_eq(~food_heal(monkfish), 16)
+assert_eq(~food_heal(tbwt_cooked_karambwan), 18)
+assert_eq(~food_heal(shark), 20)
+assert_eq(~food_heal(seaturtle), 21)
+assert_eq(~food_heal(mantaray), 22)
+
+// consume_effect_apply: the full food to heal chain, one per heal tier
+// (low / mid / high) plus clamp + non-food guard. 99 hitpoints, 10 left.
+[label,test_eat_shrimps_heals_3]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(shrimp)
+assert_eq(stat(hitpoints), 13)
+
+[label,test_eat_lobster_heals_12]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(lobster)
+assert_eq(stat(hitpoints), 22)
+
+[label,test_eat_shark_heals_20]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(shark)
+assert_eq(stat(hitpoints), 30)
+
+[label,test_eat_clamps_at_max]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 3, 0)
+~consume_effect_apply(mantaray)
+assert_eq(stat(hitpoints), stat_base(hitpoints))
+
+// a non-food obj must not heal (db_find finds no row -> early return)
+[label,test_eat_non_food_no_heal]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(raw_lobster)
+assert_eq(stat(hitpoints), 10)
+
+// ── Eat-throttle: the %eat_delay server-only varp (id 40) ─────────────
+// Proves the new server-only varp actually round-trips through the pack
+// pipeline at runtime (compile-time resolution alone wouldn't catch a
+// missing/garbled varp.dat entry).
+[label,test_eat_delay_var_readwrite]
+setup_player("test_player")
+~test_skip_design
+%eat_delay = 12345
+assert_eq(%eat_delay, 12345)
+
+// The throttle gate from [label,player_consume_item]: %eat_delay >= map_clock
+// blocks the eat. map_clock is constant within a single script run, so we test
+// the comparison relative to it (absolute value doesn't matter). Just-ate ->
+// blocked; window already passed -> allowed.
+[label,test_eat_throttle_gate]
+setup_player("test_player")
+~test_skip_design
+def_int $now = map_clock
+// just ate (eat_delay set 2 ticks ahead) -> %eat_delay >= map_clock -> block
+%eat_delay = calc($now + 2)
+def_int $blocked_now = 0
+if (%eat_delay >= map_clock) {
+    $blocked_now = 1
+}
+assert_eq($blocked_now, 1)
+// throttle window already elapsed -> allowed
+%eat_delay = calc($now - 1)
+def_int $blocked_later = 0
+if (%eat_delay >= map_clock) {
+    $blocked_later = 1
+}
+assert_eq($blocked_later, 0)

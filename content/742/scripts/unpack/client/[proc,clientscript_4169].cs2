@@ -1,0 +1,31 @@
+// 4169
+[proc,clientscript_4169](int $int0)
+if ($int0 = 2) {
+    if_settext(interface_632:com_60, "Unhallowed hood");
+    if_setobject(interface_632:com_59, unhallowed_hood, -1);
+    if_settext(interface_632:com_83, "Unhallowed torso");
+    if_setobject(interface_632:com_82, unhallowed_torso, -1);
+    if_settext(interface_632:com_96, "Unhallowed skirt");
+    if_setobject(interface_632:com_95, unhallowed_robe_skirt, -1);
+    if_settext(interface_632:com_109, "Unhallowed boots");
+    if_setobject(interface_632:com_108, unhallowed_boots, -1);
+    if_settext(interface_632:com_122, "Unhallowed gloves");
+    if_setobject(interface_632:com_121, unhallowed_gloves, -1);
+    if_settext(interface_632:com_135, "Unhallowed cape");
+    if_setobject(interface_632:com_134, unhallowed_cloak, -1);
+} else {
+    if_settext(interface_632:com_60, "Hallowed hood");
+    if_setobject(interface_632:com_59, hallowed_hood, -1);
+    if_settext(interface_632:com_83, "Hallowed torso");
+    if_setobject(interface_632:com_82, hallowed_torso, -1);
+    if_settext(interface_632:com_96, "Hallowed skirt");
+    if_setobject(interface_632:com_95, hallowed_robe_skirt, -1);
+    if_settext(interface_632:com_109, "Hallowed boots");
+    if_setobject(interface_632:com_108, hallowed_boots, -1);
+    if_settext(interface_632:com_122, "Hallowed gloves");
+    if_setobject(interface_632:com_121, hallowed_gloves, -1);
+    if_settext(interface_632:com_135, "Hallowed cape");
+    if_setobject(interface_632:com_134, hallowed_cloak, -1);
+}
+if_setobject(interface_632:com_147, ectoplasmator, -1);
+if_setobject(interface_632:com_163, ectoplasm, -1);

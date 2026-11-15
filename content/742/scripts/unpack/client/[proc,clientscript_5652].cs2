@@ -1,0 +1,6 @@
+// 5652
+[proc,clientscript_5652]
+def_int $int0 = max(max(if_getwidth(interface_1215:com_4), if_getwidth(interface_1215:com_6)), if_getwidth(interface_1215:com_8));
+$int0 = calc($int0 + 43 + max(max(stringwidth(if_gettext(interface_1215:com_10), op1028(interface_1215:com_10)), stringwidth(if_gettext(interface_1215:com_11), op1028(interface_1215:com_11))), stringwidth(if_gettext(interface_1215:com_12), op1028(interface_1215:com_12))));
+def_int $int1 = calc(%varplayerbit_10444 * 25 + %varplayerbit_10445 * 25 + %varplayerbit_10446 * 25);
+if_setsize(interface_1215:com_1, max($int0, 1), max($int1, 1), ^setsize_abs, ^setsize_abs);

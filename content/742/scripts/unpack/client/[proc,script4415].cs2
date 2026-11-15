@@ -1,0 +1,22 @@
+// 4415
+[proc,script4415]
+if_settext(clan_info:title_text, activeclansettings_getclanname);
+if_settext(clan_info:timezone_text, "Game time:<br><~clan_offset_tostring(%clan_time_offset_varclan)>");
+if_settext(clan_info:leader_text, activeclansettings_getaffineddisplayname(activeclansettings_getcurrentowner_slot));
+if (%clan_homeworld_varclan > 0) {
+    if_settext(clan_info:homeworld_text, tostring(%clan_homeworld_varclan));
+}
+if_settext(clan_info:clansize_text, tostring(activeclansettings_getaffinedcount));
+if (%clan_is_recruiting_varclan = 0) {
+    if_settext(clan_info:recruiting_text, "This clan is not recruiting.");
+} else if (%clan_is_recruiting_varclan = 1) {
+    if_settext(clan_info:recruiting_text, "This clan is recruiting.");
+}
+~script4332(clan_info:logo1_gfx, clan_info:logo2_gfx);
+~script4334(clan_info:colour1, clan_info:colour2);
+~script4336(clan_info:motto_text);
+~script4343(clan_info:keyword_text);
+~script4329(clan_info:qfc_text);
+~script4328(clan_info:flag);
+~script4420;
+if_sethide(clan_info:clan_data_waiting, true);

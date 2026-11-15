@@ -1,0 +1,32 @@
+// From 289's ungadulu.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,legends_spell_usage](int $spell)
+def_dbrow $spell_data = ~get_spell_data($spell);
+def_int $duration = ~pvm_spell_cast($spell_data);
+p_delay(1);
+if (~player_npc_hit_roll(^magic_style) = true) {
+    if (~inzone_coord_pair_table(legends_fire_wall_correct, coord) = false) { // seems to be random??
+        ~mesbox("The spell fizzles and has no effect as it passes through the flames.");
+        return;
+    }
+    spotanim_npc(db_getfield($spell_data, magic_spell_table:spotanim_target, 0), $duration);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, 0);
+    if(%legendsquest >= ^legends_defeated_nezikchened_fire) {
+        ~chatnpc("<p,happy>Ha ha ha! There's no need to use that on me anymore... I'm cured now, remember?");
+        return;
+    }
+    if(gettimer(ungadulu_curse) > 0) {
+        ~chatnpc("<p,shock>Thank you, Bwana! You have released me from the|demon's grasp, but only for a short while! You must|seek out the Book of Binding - it's hidden in these caves somewhere!.");
+        ~chatnpc("<p,shock>There are many trials you must pass... but please,|you're my only hope of escape!");
+        ~mesbox("The shaman's eyes roll back and he returns to his quiet, unassuming self.");
+        cleartimer(ungadulu_curse);
+        return;
+    }
+}
+~pvm_spell_fail($spell_data, $duration);
+npc_say("What...what's happening...");
+npc_anim(human_stunned, 0);
+p_delay(1);
+~npc_retaliate(0);
+mes("The shaman somehow resists the power of the spell.");
+mes("Perhaps you should try again?");

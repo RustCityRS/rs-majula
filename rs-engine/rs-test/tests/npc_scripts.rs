@@ -10,6 +10,7 @@
 
 use rs_pack::ParamValue;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
 use std::collections::HashMap;
 use std::fs;
@@ -40,9 +41,9 @@ fn npc_script(engine: &rs_engine::Engine, trigger: ServerTriggerType, npc: u16) 
     let category = engine
         .cache
         .npcs
-        .get_by_id(npc)
+        .get_by_id(TypeId::new(npc))
         .and_then(|t| t.category)
-        .map(i32::from);
+        .map(TypeId::int);
     engine
         .script_by_key(trigger, Some(i32::from(npc)), category)
         .map(|s| s.id)
@@ -53,9 +54,9 @@ fn param(engine: &rs_engine::Engine, npc: u16, name: &str) -> Option<i32> {
     let params = engine
         .cache
         .npcs
-        .get_by_id(npc)
+        .get_by_id(TypeId::new(npc))
         .and_then(|n| n.params.as_deref())?;
-    match params.get(&pack_id("param", name)) {
+    match params.get(&TypeId::from_int(pack_id("param", name))) {
         Some(ParamValue::Int(v)) => Some(*v),
         _ => None,
     }
@@ -101,9 +102,13 @@ fn every_2011_barbarian_is_289_s_barbarian_with_its_weapon() {
             (3263, 200, 428),
         ];
         for (npc, life_points, anim) in rows {
-            let t = engine.cache.npcs.get_by_id(npc).expect("a barbarian");
+            let t = engine
+                .cache
+                .npcs
+                .get_by_id(TypeId::new(npc))
+                .expect("a barbarian");
             assert_eq!(
-                t.category.map(i32::from),
+                t.category.map(TypeId::int),
                 Some(barbarian),
                 "{npc}'s category"
             );

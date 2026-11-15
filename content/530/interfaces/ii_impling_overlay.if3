@@ -1,0 +1,312 @@
+// 169:0
+[container]
+type=layer
+x=3
+y=4
+width=103
+height=314
+xmode=abs_right
+
+// 169:1
+[com_1]
+type=rectangle
+width=103
+height=314
+layer=container
+colour=0x53533d
+fill=yes
+trans=180
+
+// 169:2
+[com_2]
+type=graphic
+y=5
+width=50
+height=50
+layer=container
+graphic=graphic_868
+
+// 169:3
+[com_3]
+type=graphic
+y=56
+width=50
+height=50
+layer=container
+graphic=graphic_873
+
+// 169:4
+[com_4]
+type=graphic
+y=107
+width=50
+height=50
+layer=container
+graphic=graphic_867
+
+// 169:5
+[com_5]
+type=graphic
+y=158
+width=50
+height=50
+layer=container
+graphic=graphic_876
+
+// 169:6
+[com_6]
+type=graphic
+y=209
+width=50
+height=50
+layer=container
+graphic=graphic_875
+
+// 169:7
+[com_7]
+type=graphic
+x=49
+y=209
+width=50
+height=50
+layer=container
+graphic=graphic_878
+
+// 169:8
+[com_8]
+type=graphic
+x=49
+y=5
+width=50
+height=50
+layer=container
+graphic=graphic_871
+
+// 169:9
+[com_9]
+type=graphic
+x=49
+y=56
+width=50
+height=50
+layer=container
+graphic=graphic_870
+
+// 169:10
+[com_10]
+type=graphic
+x=49
+y=107
+width=50
+height=50
+layer=container
+graphic=graphic_874
+
+// 169:11
+[com_11]
+type=graphic
+x=49
+y=158
+width=50
+height=50
+layer=container
+graphic=graphic_877
+
+// 169:12
+[com_12]
+type=graphic
+x=49
+y=260
+width=50
+height=50
+layer=container
+graphic=graphic_869
+
+// 169:13
+[com_13]
+type=text
+y=5
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_1)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_1){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Baby implings", 25, 512)
+
+// 169:14
+[com_14]
+type=text
+y=56
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_2)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_2){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Young implings", 25, 512)
+
+// 169:15
+[com_15]
+type=text
+y=107
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_3)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_3){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Gourmet implings", 25, 512)
+
+// 169:16
+[com_16]
+type=text
+y=158
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_4)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_4){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Earth implings", 25, 512)
+
+// 169:17
+[com_17]
+type=text
+y=209
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_5)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_5){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Essence implings", 25, 512)
+
+// 169:18
+[com_18]
+type=text
+x=49
+y=209
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_11)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_11){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Pirate implings", 25, 512)
+
+// 169:19
+[com_19]
+type=text
+x=49
+y=5
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_6)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_6){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Eclectic implings", 25, 512)
+
+// 169:20
+[com_20]
+type=text
+x=49
+y=56
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_7)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_7){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Nature implings", 25, 512)
+
+// 169:21
+[com_21]
+type=text
+x=49
+y=107
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_8)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_8){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Magpie implings", 25, 512)
+
+// 169:22
+[com_22]
+type=text
+x=49
+y=158
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_9)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_9){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Ninja implings", 25, 512)
+
+// 169:23
+[com_23]
+type=text
+x=49
+y=260
+width=50
+height=50
+layer=container
+textfont=fontmetrics_495
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+onload=clientscript_1091(event_com, ii_captured_impling_10)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=clientscript_1091(event_com, ii_captured_impling_10){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Dragon implings", 25, 512)
+
+// 169:24
+[tooltip]
+type=layer
+width=32
+height=32
+layer=container

@@ -1,0 +1,8 @@
+// 6331
+[proc,clientscript_6331]
+def_string $string0 = "Bury";
+if (%varplayerbit_11443 = 1) {
+    $string0 = "Abort";
+}
+if_settext(interface_1304:com_24, $string0);
+if_setop(interface_1304:com_22, 1, $string0);

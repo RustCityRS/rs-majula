@@ -1,0 +1,8 @@
+// 5532
+[proc,clientscript_5532](component $component0, graphic $graphic1, int $int2)
+def_int $int3 = if_getscrollx(interface_1179:com_10);
+if_setscrollpos(interface_1179:com_10, calc(if_getscrollx(interface_1179:com_10) + $int2), 0);
+if ($int3 ! if_getscrollx(interface_1179:com_10)) {
+    if_setgraphic($component0, $graphic1);
+}
+~clientscript_5533;

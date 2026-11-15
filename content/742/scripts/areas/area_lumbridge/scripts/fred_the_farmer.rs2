@@ -1,0 +1,267 @@
+// Fred the Farmer at 2011. Sheep Shearer was reworked on 15 December 2009 and
+// made a miniquest on 24 June 2010 (2011 wiki, Sheep Shearer, 2011-05-06):
+// Fred offers work, not a quest, and wants twenty balls of black wool from his
+// black sheep. %sheep counts as 289's does, 1 when started and one more for
+// each ball handed in, and is done at 21 (cache 786 quest 173, "Sheep
+// Shearer": varp 179 from 1 to 21).
+//
+// The lines and their order are void-634's (FredTheFarmer.kt): the wiki quotes
+// none of them. The faces are void-634's expressions (Idle is neutral,
+// Disheartened sad, Amazed shock). 289's lines, which the rework replaced, are
+// in quest_sheep.rs2's comments.
+//
+// Not ported: void-634's second reward of 1,940 coins. 2011 paid it only to
+// players who had finished the white-wool quest before the rework, for 60
+// coins (2011 wiki, Sheep Shearer: "the only people who can do this are people
+// who sheared white sheep, not black ones"), and no 647 player can have.
+
+[opnpc1,fred_the_farmer]
+if (%sheep = ^sheep_not_started) {
+    ~chatnpc("<p,angry>What are you doing on my land? You're not the one who keeps leaving all my gates open and letting out all my sheep are you?");
+    @fred_job_not_started;
+}
+if (%sheep < ^sheep_complete) {
+    @fred_started_job;
+}
+@fred_fully_completed;
+
+[label,fred_job_not_started]
+// 2011-02-09 recording (YouTube IyyPb7PxYYE, 35.0s): this menu's title is "Choose an option"
+// (his later menus say "Select an Option").
+def_int $option = ~p_choice3_header("I'm looking for something to kill.", 1, "I'm lost.", 2, "I'm looking for work.", 3, "Choose an option");
+if ($option = 1) {
+    @fred_something_to_kill;
+}
+if ($option = 2) {
+    @fred_im_lost;
+}
+~chatplayer("<p,neutral>I'm looking for work.");
+~chatnpc("<p,happy>Oh? Well, I could do with a bit of help, since you're offering.");
+~chatnpc("<p,neutral>I need to collect some black wool from my sheep and I'd be much obliged if you could shear them for me. While you're at it, spin the wool into balls for me too.");
+~chatplayer("<p,quiz>Does it have to be black wool?");
+~chatnpc("<p,neutral>Has to be. I'm doing business with some guy after black clothing - something to do with black looking 'cool'.");
+$option = ~p_choice2("It takes all sorts, I suppose.", 1, "Black clothing cool? I'm not sure that's true.", 2);
+if ($option = 1) {
+    ~chatplayer("<p,neutral>It takes all sorts, I suppose.");
+    ~chatnpc("<p,neutral>Indeed. So if you bring me twenty balls of black wool, I'm sure I could sort out some sort of payment.");
+} else {
+    ~chatplayer("<p,neutral>Black clothing cool? I'm not sure that's true.");
+    ~chatnpc("<p,neutral>That's what I thought, but I'm certainly not going to turn down the business. So if you bring me twenty balls of black wool, I'm sure I could sort out some sort of payment.");
+}
+~chatplayer("<p,quiz>So is this a quest?");
+~chatnpc("<p,bored>No, it isn't. It's work. You do what I say, then you get paid.");
+$option = ~p_choice2("That doesn't sound very exciting.", 1, "I'll take the job.", 2);
+if ($option = 1) {
+    ~chatplayer("<p,bored>That doesn't sound very exciting.");
+    ~chatnpc("<p,angry>Well, what do you expect if you ask a farmer?");
+    return;
+}
+~chatplayer("<p,happy>I'll take the job.");
+%sheep = ^sheep_started;
+~chatnpc("<p,neutral>Good. Hopefully, you'll be safe from 'The Thing'! Do you actually know how to shear a sheep?");
+$option = ~p_choice3("Of course!", 1, "Actually, no, I don't.", 2, "What do you mean, 'The Thing'?", 3);
+if ($option = 3) {
+    ~chatplayer("<p,quiz>What do you mean, 'The Thing'?");
+    ~chatnpc("<p,shifty>Well now, no one has ever seen 'The Thing'. That's why we call it 'The Thing, cos we don't know what it is.");
+    ~chatnpc("<p,scared>Some say it's a black hearted shapeshifter, hungering for the souls of hard working decent folk like me. Others say it's just a sheep.");
+    ~chatnpc("<p,angry>Well I don't have all day to stand around and gossip. Did you say you knew how to shear sheep?");
+    $option = ~p_choice2("Of course!", 1, "Actually, no, I don't.", 2);
+}
+if ($option = 1) {
+    ~chatplayer("<p,happy>Of course!");
+    ~chatnpc("<p,neutral>And you know how to spin wool into balls?");
+    $option = ~p_choice2("I'm something of an expert, actually.", 1, "I don't know how to spin wool, sorry.", 2);
+    if ($option = 1) {
+        @fred_wool_expert;
+    }
+    @fred_cannot_spin;
+}
+~chatplayer("<p,neutral>Actually, no, I don't.");
+~fred_how_to_shear;
+~chatnpc("<p,quiz>Do you know how to spin wool?");
+$option = ~p_choice2("I don't know how to spin wool, sorry.", 1, "I'm something of an expert, actually.", 2);
+if ($option = 1) {
+    @fred_cannot_spin;
+}
+@fred_wool_expert;
+
+[label,fred_something_to_kill]
+~chatplayer("<p,neutral>I'm looking for something to kill.");
+~chatnpc("<p,angry>What, on my land? Leave my livestock alone!");
+
+[label,fred_im_lost]
+~chatplayer("<p,sad>I'm lost.");
+~chatnpc("<p,quiz>How can you be lost? Just follow the road east and south. You'll end up in Lumbridge fairly quickly.");
+
+[label,fred_wool_expert]
+~chatplayer("<p,happy>I'm something of an expert, actually.");
+~chatnpc("<p,neutral>Well, you can stop grinning and get to work then.");
+~chatnpc("<p,angry>I'm not paying you by the hour!");
+
+[label,fred_cannot_spin]
+~chatplayer("<p,neutral>I don't know how to spin wool, sorry.");
+~fred_how_to_spin;
+~chatplayer("<p,happy>Thank you!");
+
+// How to shear, with shears in the pack or without. The two icons are
+// void-634's (icon.items.toml): 5094 the general store's, 7670 the spinning
+// wheel's.
+[proc,fred_how_to_shear]
+if (inv_total(inv, shears) > 0) {
+    ~chatnpc("<p,happy>Well, you're halfway there already! You have a set of shears in your inventory. Just use those on a Sheep to shear it.");
+    ~chatplayer("<p,neutral>That's all I have to do?");
+    ~chatnpc("<p,neutral>Well, once you've collected some wool you'll need to spin it into balls.");
+    return;
+}
+~chatnpc("<p,neutral>Well, first things first, you need some shears. There's a pair in my house on the table.");
+~chatnpc("<p,neutral>Or you could buy your own pair from Lumbridge General Store or from the Grand Exchange in Varrock.");
+~chatnpc("<p,neutral>To get to the store, turn right when leaving the farm then follow the path. The store will be just down the road on your right.");
+~objbox(general_store_icon_dummy, "General stores are marked on the map by this symbol.", 250, 0, 0);
+~chatnpc("<p,neutral>Once you have some shears, use them on the sheep in my field.");
+~chatplayer("<p,happy>Sounds easy.");
+~chatnpc("<p,laugh>That's what they all say! Some of the sheep don't like it and will run away from you. Persistence is the key.");
+~chatnpc("<p,scared>And watch out for rams! They will attack you if you try to shear them. You can tell them apart from the rest of the sheep by their curly horns.");
+~chatnpc("<p,neutral>Once you've collected some wool you can spin it into balls.");
+
+[proc,fred_how_to_spin]
+~chatnpc("<p,neutral>Don't worry it's quite simple!");
+~chatnpc("<p,neutral>The nearest Spinning Wheel can be found on the first floor of Lumbridge Castle.");
+~chatnpc("<p,neutral>To get to Lumbridge Castle just follow the road east.");
+~objbox(crafting_icon_dummy, "This icon denotes a Spinning Wheel on the world map.", 250, 0, 0);
+
+[label,fred_started_job]
+def_int $balls = inv_total(inv, black_ball_of_wool);
+def_string $first = "How many more balls of wool do you need?";
+if ($balls > 0) {
+    $first = "I have some balls of black wool for you.";
+}
+// 2011-02-09 recording (402.9s): this menu's title is "Choose an option" too.
+def_int $option;
+if (%the_thing_interacted = ^true) {
+    $option = ~p_choice3_header($first, 1, "Can you remind me how to get balls of wool?", 2, "Fred! Fred! I've seen 'The Thing!'", 3, "Choose an option");
+} else {
+    $option = ~p_choice2_header($first, 1, "Can you remind me how to get balls of wool?", 2, "Choose an option");
+}
+if ($option = 3) {
+    @fred_seen_the_thing;
+}
+if ($option = 2) {
+    ~chatplayer("<p,neutral>Can you remind me how to get balls of wool?");
+    ~chatnpc("<p,neutral>Sure. You need to shear sheep and then spin the wool on a spinning wheel. Anything else?");
+    $option = ~p_choice3("Can you tell me how to shear sheep?", 1, "Can you tell me how to spin wool?", 2, "That's all, thanks.", 3);
+    if ($option = 1) {
+        @fred_remind_shearing;
+    }
+    if ($option = 2) {
+        @fred_remind_spinning;
+    }
+    ~chatplayer("<p,happy>That's all, thanks.");
+    return;
+}
+if ($balls > 0) {
+    ~chatplayer("<p,happy>I have some balls of black wool for you.");
+    ~chatnpc("<p,neutral>Give 'em here then.");
+    @fred_give_wool;
+}
+~chatplayer("<p,neutral>How many more balls of wool do you need?");
+~chatnpc("<p,neutral>You need to collect <tostring(sub(^sheep_complete, %sheep))> more balls of wool");
+if (inv_total(inv, black_wool) > 0) {
+    ~chatplayer("<p,neutral>I've got some wool. I've not managed to make it into a ball, though.");
+    ~chatnpc("<p,neutral>Well, go find a spinning wheel then. You can find one on the first floor of Lumbridge Castle; just turn right and follow the path when leaving my house and you'll find Lumbridge.");
+    return;
+}
+~chatplayer("<p,sad>I haven't got any at the moment.");
+~chatnpc("<p,happy>Ah well at least you haven't been eaten.");
+
+[label,fred_remind_shearing]
+~chatplayer("<p,neutral>Can you tell me how to shear sheep?");
+~fred_how_to_shear;
+~chatnpc("<p,neutral>Anything else?");
+def_int $option = ~p_choice2("Can you tell me how to spin wool?", 1, "That's all, thanks.", 2);
+if ($option = 1) {
+    @fred_remind_spinning;
+}
+~chatplayer("<p,happy>That's all, thanks.");
+
+[label,fred_remind_spinning]
+~chatplayer("<p,neutral>Can you tell me how to spin wool?");
+~fred_how_to_spin;
+def_int $option = ~p_choice2("Can you tell me how to shear sheep?", 1, "That's all, thanks.", 2);
+if ($option = 1) {
+    @fred_remind_shearing;
+}
+~chatplayer("<p,happy>That's all, thanks.");
+
+// Fred takes as many balls as he still needs, all at once (void-634's
+// giveBlackWool). The last one stays in the pack until he pays
+// ([queue,sheep_complete]), as 289's does, so a player who walks off before
+// being paid hands it in next time.
+[label,fred_give_wool]
+def_int $needed = sub(^sheep_complete, %sheep);
+def_int $give = min(inv_total(inv, black_ball_of_wool), $needed);
+if ($give < $needed) {
+    inv_del(inv, black_ball_of_wool, $give);
+    %sheep = add(%sheep, $give);
+    ~chatplayer("<p,neutral>That's all I've got so far.");
+    ~chatnpc("<p,neutral>I need <tostring(sub(^sheep_complete, %sheep))> more before I can pay you.");
+    ~chatplayer("<p,neutral>Okay, I'll work on it.");
+    return;
+}
+if ($needed > 1) {
+    inv_del(inv, black_ball_of_wool, sub($needed, 1));
+}
+%sheep = ^sheep_last_wool;
+~chatplayer("<p,happy>That's the last of them.");
+// 2011-02-09 recording (409s): "on the Grand Exchange" (void-634 has "to").
+~chatnpc("<p,happy>A pleasure doing business with you. You can shear my sheep whenever you want. You could even sell the wool on the Grand Exchange.");
+~chatnpc("<p,angry>But that's the white ones only, mind you!");
+~chatnpc("<p,sad>Anyway, I guess I'd better pay you.");
+queue(sheep_complete, 0, 0);
+
+[label,fred_fully_completed]
+~chatnpc("<p,angry>What are you doing on my land? You're not the one who keeps leaving all my gates open and letting out all my sheep are you?");
+def_int $option;
+if (%the_thing_interacted = ^true) {
+    $option = ~p_choice3("I'm looking for something to kill.", 1, "I'm lost.", 2, "Fred! Fred! I've seen 'The Thing!'", 3);
+} else {
+    $option = ~p_choice2("I'm looking for something to kill.", 1, "I'm lost.", 2);
+}
+if ($option = 1) {
+    @fred_something_to_kill;
+}
+if ($option = 2) {
+    @fred_im_lost;
+}
+@fred_seen_the_thing;
+
+// After shearing The Thing (shear_sheep.rs2). The 2011 wiki's Fred the Farmer
+// (2011-05-18) tells this one: he goes on about grabbing chickens and running
+// to the hills, and asks if the player has been "in the sun".
+[label,fred_seen_the_thing]
+~chatplayer("<p,shock>Fred! Fred! I've seen 'The Thing!'");
+~chatnpc("<p,scared>You...you actually saw it?");
+~chatnpc("<p,scared>Run for the hills! <displayname>, grab as many chickens as you can! We have to...");
+~chatplayer("<p,shock>Fred!");
+~chatnpc("<p,scared>..flee! Oh, woe is me! The shape-shifter is coming! We're all...");
+~chatplayer("<p,angry>FRED!");
+~chatnpc("<p,confused>..doomed. What?");
+~chatplayer("<p,neutral>It's not a shape-shifter or any other kind of monster.");
+~chatnpc("<p,quiz>Well, what is it, boy?");
+~chatplayer("<p,confused>Well, it's just two penguins...disguised as a sheep.");
+~chatnpc("<p,confused>...");
+~chatnpc("<p,shock>Have you been out in the sun too long?");
+
+// Using wool on Fred while the job is on (void-634's itemOnNPCOperate).
+[opnpcu,fred_the_farmer]
+if (%sheep < ^sheep_started | %sheep >= ^sheep_complete) {
+    ~displaymessage(^dm_default);
+    return;
+}
+switch_obj (last_useitem) {
+    case black_ball_of_wool : @fred_give_wool;
+    case black_wool :
+        ~chatplayer("<p,neutral>I've got some wool. I've not managed to make it into a ball, though.");
+        ~chatnpc("<p,neutral>Well, go find a spinning wheel then. You can find one on the first floor of Lumbridge Castle; just turn right and follow the path when leaving my house and you'll find Lumbridge.");
+    case wool : ~chatnpc("<p,neutral>That wool is white, I'm dealing with a guy looking to do business with black wool only.");
+    case default : ~displaymessage(^dm_default);
+}

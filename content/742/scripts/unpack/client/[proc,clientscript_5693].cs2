@@ -1,0 +1,16 @@
+// 5693
+[proc,clientscript_5693](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "Members only";
+if (cc_find(interface_1218:com_72, $int0) = true) {
+    if_setposition(interface_1218:com_81, cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int1 = 1) {
+        $string0 = "Level up to unlock this item!";
+    }
+    $int2 = calc(stringwidth($string0, verdana_11pt_regular) + 10);
+    $int3 = calc(paraheight($string0, $int2, verdana_11pt_regular) * 15 + 10);
+    if_setsize(interface_1218:com_81, $int2, $int3, ^setsize_abs, ^setsize_abs);
+    if_settext(interface_1218:com_195, $string0);
+    if_sethide(interface_1218:com_81, false);
+}

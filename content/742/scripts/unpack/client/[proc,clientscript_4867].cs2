@@ -1,0 +1,24 @@
+// 4867
+[proc,clientscript_4867](int $int0)(component)
+switch_int ($int0) {
+    case 1 :
+        return(interface_1260:com_60);
+    case 2 :
+        return(interface_1260:com_148);
+    case 3 :
+        return(interface_1260:com_164);
+    case 4 :
+        return(interface_1260:com_180);
+    case 5 :
+        return(interface_1260:com_196);
+    case 6 :
+        return(interface_1260:com_244);
+    case 7 :
+        return(interface_1260:com_260);
+    case 8 :
+        return(interface_1260:com_228);
+    case 9 :
+        return(interface_1260:com_210);
+    case 10 :
+        return(interface_1260:com_276);
+}

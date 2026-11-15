@@ -1,0 +1,5519 @@
+// 771:0
+[background_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+noclickthrough=yes
+
+// 771:1
+[com_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=background_layer
+colour=0x000000
+fill=yes
+
+// 771:2
+[bg]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=layer_1
+graphic=graphic_297
+tiling=yes
+opbase= 
+
+// 771:3
+[border_mid]
+type=graphic
+x=212
+y=66
+width=275
+height=32
+layer=layer_1
+graphic=graphic_851
+tiling=yes
+
+// 771:4
+[border_t_right]
+type=graphic
+x=477
+y=66
+width=32
+height=32
+layer=layer_1
+graphic=graphic_854
+
+// 771:5
+[border_r]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=layer_1
+graphic=graphic_823
+tiling=yes
+
+// 771:6
+[border_l]
+type=graphic
+y=52
+width=32
+height=242
+layer=layer_1
+graphic=graphic_821
+tiling=yes
+
+// 771:7
+[border_top]
+type=graphic
+x=44
+y=20
+width=424
+height=32
+layer=layer_1
+graphic=graphic_1124
+tiling=yes
+
+// 771:8
+[border_lower]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=layer_1
+graphic=graphic_822
+tiling=yes
+opbase= 
+
+// 771:9
+[com_9]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=layer_1
+graphic=graphic_1123
+
+// 771:10
+[com_10]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=layer_1
+graphic=graphic_826
+
+// 771:11
+[com_11]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=layer_1
+graphic=graphic_827
+
+// 771:12
+[com_12]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=layer_1
+graphic=graphic_1125
+
+// 771:13
+[title]
+type=text
+x=202
+y=24
+width=90
+height=15
+layer=layer_1
+textfont=fontmetrics_496
+text=Mouse
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:14
+[com_14]
+type=graphic
+x=20
+y=34
+width=48
+height=48
+layer=layer_1
+graphic=graphic_1420
+transmitop=1
+op1=Select mouse options
+onmouseover=graphic_swapper(event_com, 1418)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_403, event_com, 1421)
+onop=clientscript_1563
+onmouserepeat=addtooltip(event_com, interface_771:com_403, "Mouse options", 25, 120)
+
+// 771:15
+[com_15]
+type=graphic
+x=27
+y=47
+width=32
+height=36
+layer=layer_1
+graphic=graphic_907
+
+// 771:16
+[com_16]
+type=graphic
+x=68
+y=34
+width=48
+height=48
+layer=layer_1
+graphic=graphic_1421
+transmitop=1
+op1=Select gender options
+onmouseover=graphic_swapper(event_com, 1418)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_403, event_com, 1421)
+onop=clientscript_1565
+onmouserepeat=addtooltip(event_com, interface_771:com_403, "Gender options", 25, 120)
+
+// 771:17
+[com_17]
+type=graphic
+x=74
+y=47
+width=35
+height=35
+layer=layer_1
+graphic=graphic_1444
+
+// 771:18
+[com_18]
+type=graphic
+x=116
+y=34
+width=48
+height=48
+layer=layer_1
+graphic=graphic_1421
+transmitop=1
+op1=Select head options
+onmouseover=graphic_swapper(event_com, 1418)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_403, event_com, 1421)
+onop=clientscript_1567
+onmouserepeat=addtooltip(event_com, interface_771:com_403, "Head options", 25, 120)
+
+// 771:19
+[com_19]
+type=graphic
+x=122
+y=47
+width=35
+height=35
+layer=layer_1
+graphic=graphic_1445
+
+// 771:20
+[com_20]
+type=graphic
+x=164
+y=34
+width=48
+height=48
+layer=layer_1
+graphic=graphic_1421
+transmitop=1
+op1=Select body options
+onmouseover=graphic_swapper(event_com, 1418)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_403, event_com, 1421)
+onop=clientscript_1569
+onmouserepeat=addtooltip(event_com, interface_771:com_403, "Body options", 25, 120)
+
+// 771:21
+[com_21]
+type=graphic
+x=170
+y=47
+width=35
+height=35
+layer=layer_1
+graphic=graphic_1446
+
+// 771:22
+[com_22]
+type=layer
+x=19
+y=81
+width=480
+height=245
+layer=layer_1
+hide=yes
+onload=clientscript_1551
+
+// 771:23
+[com_23]
+type=layer
+x=19
+y=81
+width=480
+height=245
+layer=layer_1
+hide=yes
+
+// 771:24
+[head_layer]
+type=layer
+x=19
+y=81
+width=480
+height=245
+layer=layer_1
+hide=yes
+
+// 771:25
+[body_layer]
+type=layer
+x=19
+y=81
+width=480
+height=245
+layer=layer_1
+hide=yes
+
+// 771:26
+[confirm_layer]
+type=layer
+x=57
+y=109
+width=400
+height=200
+layer=layer_1
+hide=yes
+onop=clientscript_1610
+
+// 771:27
+[com_27]
+type=text
+x=213
+y=47
+width=272
+height=32
+layer=layer_1
+textfont=fontmetrics_494
+text=All options selected here can be changed in various locations at a later date.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:28
+[com_28]
+type=layer
+x=2
+y=6
+width=507
+height=328
+layer=layer_1
+hide=yes
+onop=clientscript_1610
+
+// 771:29
+[com_29]
+type=layer
+x=2
+y=6
+width=507
+height=328
+layer=layer_1
+hide=yes
+onop=clientscript_1610
+
+// 771:30
+[tooltip_bounding_box_1]
+type=layer
+x=2
+y=3
+width=500
+height=320
+layer=layer_1
+
+// 771:31
+[tooltip_bounding_box]
+type=layer
+x=292
+y=112
+width=200
+height=180
+layer=layer_1
+
+// 771:32
+[com_32]
+type=layer
+x=19
+y=81
+width=270
+height=245
+layer=layer_1
+
+// 771:33
+[com_33]
+type=layer
+x=19
+y=81
+width=270
+height=245
+layer=layer_1
+
+// 771:34
+[tooltip_bounding_box_2]
+type=layer
+width=239
+height=180
+layer=layer_1
+
+// 771:35
+[layer_1]
+type=layer
+width=513
+height=340
+xmode=abs_centre
+ymode=abs_centre
+layer=background_layer
+
+// 771:36
+[com_36]
+type=graphic
+x=1
+y=174
+width=472
+height=32
+layer=com_22
+graphic=graphic_1074
+
+// 771:37
+[com_37]
+type=layer
+x=79
+y=35
+width=86
+height=70
+layer=com_22
+transmitop=1
+op1=Select 2-button mouse
+onload=clientscript_1557(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled_deltooltip(interface_771:com_399, event_com)
+onmouserepeat=addtooltip(event_com, interface_771:com_399, "Select 2-button mouse", 25, 120)
+onclick=clientscript_1572
+
+// 771:38
+[com_38]
+type=text
+x=84
+y=87
+width=74
+height=10
+layer=com_22
+textfont=fontmetrics_494
+text=2 Button
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 771:39
+[com_39]
+type=graphic
+x=104
+y=51
+width=36
+height=32
+layer=com_22
+graphic=graphic_1414
+
+// 771:40
+[com_40]
+type=layer
+x=312
+y=35
+width=86
+height=70
+layer=com_22
+transmitop=1
+op1=Select 1-button mouse
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled_deltooltip(interface_771:com_399, event_com)
+onmouserepeat=addtooltip(event_com, interface_771:com_399, "Select 1-button mouse", 25, 120)
+onclick=clientscript_1573
+
+// 771:41
+[com_41]
+type=graphic
+x=337
+y=51
+width=36
+height=32
+layer=com_22
+graphic=graphic_1413
+
+// 771:42
+[com_42]
+type=text
+x=319
+y=87
+width=74
+height=11
+layer=com_22
+textfont=fontmetrics_494
+text=1 Button
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 771:43
+[com_43]
+type=text
+x=31
+y=3
+width=415
+height=16
+layer=com_22
+textfont=fontmetrics_494
+text=Please select your style of mouse.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x329900
+
+// 771:44
+[com_44]
+type=text
+x=14
+y=114
+width=215
+height=54
+layer=com_22
+textfont=fontmetrics_494
+text=Select this option if your mouse has at least 2 buttons.
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+opbase= 
+
+// 771:45
+[com_45]
+type=text
+x=249
+y=114
+width=215
+height=54
+layer=com_22
+textfont=fontmetrics_494
+text=Select this option if your mouse has only 1 button.
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:46
+[com_46]
+type=layer
+x=319
+y=208
+width=100
+height=25
+layer=com_22
+transmitop=1
+op1=Select next
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1574
+
+// 771:47
+[com_47]
+type=text
+x=319
+y=208
+width=100
+height=25
+layer=com_22
+textfont=fontmetrics_496
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:48
+[com_48]
+type=graphic
+x=1
+y=174
+width=472
+height=32
+layer=com_23
+graphic=graphic_1074
+
+// 771:49
+[com_49]
+type=layer
+x=79
+y=35
+width=86
+height=70
+layer=com_23
+transmitop=1
+op1=Select male gender
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled_deltooltip(interface_771:com_399, event_com)
+onop=clientscript_1575
+onmouserepeat=addtooltip(event_com, interface_771:com_399, "Select male gender", 25, 120)
+
+// 771:50
+[com_50]
+type=graphic
+x=100
+y=39
+width=46
+height=46
+layer=com_23
+graphic=graphic_1447
+
+// 771:51
+[com_51]
+type=text
+x=79
+y=87
+width=86
+height=15
+layer=com_23
+textfont=fontmetrics_307
+text=Male
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 771:52
+[com_52]
+type=layer
+x=312
+y=35
+width=86
+height=70
+layer=com_23
+transmitop=1
+op1=Select female gender
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled_deltooltip(interface_771:com_399, event_com)
+onop=clientscript_1576
+onmouserepeat=addtooltip(event_com, interface_771:com_399, "Select female gender", 25, 120)
+
+// 771:53
+[com_53]
+type=graphic
+x=332
+y=39
+width=46
+height=46
+layer=com_23
+graphic=graphic_1448
+
+// 771:54
+[com_54]
+type=text
+x=312
+y=87
+width=86
+height=15
+layer=com_23
+textfont=fontmetrics_307
+text=Female
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 771:55
+[com_55]
+type=text
+x=39
+y=3
+width=400
+height=15
+layer=com_23
+textfont=fontmetrics_494
+text=Please select your character gender.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x329900
+
+// 771:56
+[com_56]
+type=layer
+x=28
+y=208
+width=100
+height=25
+layer=com_23
+transmitop=1
+op1=Go back
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1577
+
+// 771:57
+[com_57]
+type=text
+x=28
+y=208
+width=100
+height=25
+layer=com_23
+textfont=fontmetrics_496
+text=Back
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:58
+[com_58]
+type=layer
+x=319
+y=208
+width=100
+height=25
+layer=com_23
+transmitop=1
+op1=Select next
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1578
+
+// 771:59
+[com_59]
+type=text
+x=319
+y=208
+width=100
+height=25
+layer=com_23
+textfont=fontmetrics_496
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:60
+[com_60]
+type=text
+x=316
+y=3
+width=90
+height=15
+layer=head_layer
+textfont=fontmetrics_496
+text=Colour
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:61
+[com_61]
+type=graphic
+x=362
+y=26
+width=79
+height=20
+layer=head_layer
+graphic=graphic_953
+transmitop=1
+op1=Select skin colour
+onop=clientscript_1580
+
+// 771:62
+[com_62]
+type=graphic
+x=285
+y=26
+width=79
+height=20
+layer=head_layer
+graphic=graphic_952
+transmitop=1
+op1=Select hair colour
+onop=clientscript_1579
+
+// 771:63
+[com_63]
+type=text
+x=286
+y=30
+width=66
+height=15
+layer=head_layer
+textfont=fontmetrics_496
+text=Hair
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:64
+[com_64]
+type=text
+x=362
+y=30
+width=71
+height=15
+layer=head_layer
+textfont=fontmetrics_496
+text=Skin
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:65
+[com_65]
+type=graphic
+x=297
+y=34
+width=136
+height=32
+layer=head_layer
+graphic=graphic_851
+tiling=yes
+
+// 771:66
+[com_66]
+type=graphic
+x=295
+y=175
+width=136
+height=32
+layer=head_layer
+graphic=graphic_851
+tiling=yes
+
+// 771:67
+[com_67]
+type=graphic
+x=271
+y=63
+width=32
+height=114
+layer=head_layer
+graphic=graphic_852
+tiling=yes
+
+// 771:68
+[com_68]
+type=graphic
+x=426
+y=58
+width=32
+height=114
+layer=head_layer
+graphic=graphic_852
+tiling=yes
+
+// 771:69
+[com_69]
+type=graphic
+x=285
+y=47
+width=32
+height=32
+layer=head_layer
+graphic=graphic_856
+tiling=yes
+
+// 771:70
+[com_70]
+type=graphic
+x=411
+y=47
+width=32
+height=32
+layer=head_layer
+graphic=graphic_857
+tiling=yes
+
+// 771:71
+[com_71]
+type=graphic
+x=285
+y=159
+width=32
+height=32
+layer=head_layer
+graphic=graphic_858
+tiling=yes
+
+// 771:72
+[com_72]
+type=graphic
+x=411
+y=159
+width=32
+height=32
+layer=head_layer
+graphic=graphic_859
+tiling=yes
+
+// 771:73
+[com_73]
+type=layer
+x=24
+y=11
+width=196
+height=116
+layer=head_layer
+
+// 771:74
+[chatbg_grad_1]
+type=rectangle
+width=196
+height=116
+layer=com_73
+colour=0x1d1b1a
+fill=yes
+trans=200
+
+// 771:75
+[chatbg_grad_2]
+type=rectangle
+x=4
+y=3
+width=188
+height=109
+layer=com_73
+colour=0x1d1b1a
+fill=yes
+trans=230
+
+// 771:76
+[chatbg_grad_3]
+type=rectangle
+x=9
+y=7
+width=179
+height=102
+layer=com_73
+colour=0x1d1b1a
+fill=yes
+trans=230
+
+// 771:77
+[chatbg_grad_4]
+type=rectangle
+x=14
+y=12
+width=169
+height=92
+layer=com_73
+colour=0x1d1b1a
+fill=yes
+trans=230
+
+// 771:78
+[com_78]
+type=layer
+x=24
+y=11
+width=196
+height=115
+layer=head_layer
+
+// 771:79
+[chathead]
+type=model
+x=48
+y=-6
+width=110
+height=125
+layer=com_78
+model=null
+modelorigin=10,5
+modelangle=66,1882,0
+modelzoom=2000
+modelanim=seq_569
+modelunknown=0,3000,0
+
+// 771:80
+[com_80]
+type=graphic
+x=22
+y=114
+width=199
+height=32
+layer=head_layer
+graphic=graphic_851
+tiling=yes
+
+// 771:81
+[com_81]
+type=graphic
+x=18
+y=5
+width=32
+height=32
+layer=head_layer
+graphic=graphic_846
+tiling=yes
+
+// 771:82
+[com_82]
+type=graphic
+x=194
+y=5
+width=32
+height=32
+layer=head_layer
+graphic=graphic_847
+tiling=yes
+
+// 771:83
+[com_83]
+type=graphic
+x=18
+y=126
+width=32
+height=32
+layer=head_layer
+graphic=graphic_848
+tiling=yes
+
+// 771:84
+[com_84]
+type=graphic
+x=194
+y=126
+width=32
+height=32
+layer=head_layer
+graphic=graphic_849
+tiling=yes
+
+// 771:85
+[com_85]
+type=graphic
+x=37
+y=-9
+width=163
+height=32
+layer=head_layer
+graphic=graphic_828
+tiling=yes
+
+// 771:86
+[com_86]
+type=graphic
+x=37
+y=138
+width=160
+height=32
+layer=head_layer
+graphic=graphic_828
+tiling=yes
+
+// 771:87
+[com_87]
+type=graphic
+x=4
+y=22
+width=32
+height=107
+layer=head_layer
+graphic=graphic_841
+tiling=yes
+
+// 771:88
+[com_88]
+type=graphic
+x=206
+y=23
+width=32
+height=113
+layer=head_layer
+graphic=graphic_841
+tiling=yes
+
+// 771:89
+[com_89]
+type=text
+x=23
+y=133
+width=197
+height=15
+layer=head_layer
+textfont=fontmetrics_496
+text=Your name here
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onload=clientscript_1556
+
+// 771:90
+[com_90]
+type=text
+x=62
+y=166
+width=121
+height=15
+layer=head_layer
+textfont=fontmetrics_494
+text=Hair
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:91
+[com_91]
+type=layer
+x=60
+y=163
+width=121
+height=20
+layer=head_layer
+onload=clientscript_100(event_com)
+
+// 771:92
+[com_92]
+type=graphic
+x=29
+y=158
+width=30
+height=30
+layer=head_layer
+graphic=graphic_1450
+transmitop=1
+op1=Select previous hair style
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_402, event_com, 1450)
+onop=clientscript_1583
+onmouserepeat=addtooltip(event_com, interface_771:com_402, "Select previous hair style", 25, 200)
+
+// 771:93
+[com_93]
+type=graphic
+x=182
+y=158
+width=30
+height=30
+layer=head_layer
+graphic=graphic_1452
+transmitop=1
+op1=Select next hair style
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_402, event_com, 1452)
+onop=clientscript_1584
+onmouserepeat=addtooltip(event_com, interface_771:com_402, "Select next hair style", 25, 200)
+
+// 771:94
+[com_94]
+type=layer
+x=-19
+y=-81
+width=480
+height=345
+layer=head_layer
+
+// 771:95
+[com_95]
+type=layer
+x=79
+y=266
+width=121
+height=20
+layer=com_94
+onload=clientscript_100(event_com)
+
+// 771:96
+[com_96]
+type=text
+x=81
+y=271
+width=121
+height=15
+layer=com_94
+textfont=fontmetrics_494
+text=Facial Hair
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:97
+[com_97]
+type=graphic
+x=48
+y=261
+width=30
+height=30
+layer=com_94
+graphic=graphic_1450
+transmitop=1
+op1=Select previous facial hair style
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_402, event_com, 1450)
+onop=clientscript_1585
+onmouserepeat=addtooltip(event_com, interface_771:com_402, "Select previous facial hair style", 25, 200)
+
+// 771:98
+[com_98]
+type=graphic
+x=201
+y=261
+width=30
+height=30
+layer=com_94
+graphic=graphic_1452
+transmitop=1
+op1=Select next facial hair style
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_402, event_com, 1452)
+onop=clientscript_1586
+onmouserepeat=addtooltip(event_com, interface_771:com_402, "Select next facial hair style", 25, 200)
+
+// 771:99
+[com_99]
+type=layer
+x=266
+y=30
+width=200
+height=200
+layer=head_layer
+
+// 771:100
+[button_1]
+type=graphic
+x=24
+y=22
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1613
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Burgundy", 25, 120)
+
+// 771:101
+[button_2]
+type=graphic
+x=54
+y=22
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=fade2_out_slow
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Red", 25, 120)
+
+// 771:102
+[button_3]
+type=graphic
+x=84
+y=22
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1615
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Vermillion", 25, 120)
+
+// 771:103
+[button_4]
+type=graphic
+x=114
+y=22
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=fade2_in_slow
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pink", 25, 120)
+
+// 771:104
+[button_5]
+type=graphic
+x=144
+y=22
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1617
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Orange", 25, 120)
+
+// 771:105
+[button_6]
+type=graphic
+x=24
+y=49
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=fade2_out
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Yellow", 25, 120)
+
+// 771:106
+[com_106]
+type=graphic
+x=54
+y=49
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1619
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Peach", 25, 120)
+
+// 771:107
+[com_107]
+type=graphic
+x=84
+y=49
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=fade2_in
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Brown", 25, 120)
+
+// 771:108
+[com_108]
+type=graphic
+x=114
+y=49
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1621
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark brown", 25, 120)
+
+// 771:109
+[com_109]
+type=graphic
+x=144
+y=49
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1622
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light brown", 25, 120)
+
+// 771:110
+[com_110]
+type=graphic
+x=24
+y=76
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1623
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Mint green", 25, 120)
+
+// 771:111
+[com_111]
+type=graphic
+x=54
+y=76
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1624
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Green", 25, 120)
+
+// 771:112
+[com_112]
+type=graphic
+x=84
+y=76
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1625
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark green", 25, 120)
+
+// 771:113
+[com_113]
+type=graphic
+x=114
+y=76
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1626
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark blue", 25, 120)
+
+// 771:114
+[com_114]
+type=graphic
+x=144
+y=76
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1627
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Turquoise", 25, 120)
+
+// 771:115
+[com_115]
+type=graphic
+x=24
+y=103
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1628
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Cyan", 25, 120)
+
+// 771:116
+[com_116]
+type=graphic
+x=54
+y=103
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1629
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Purple", 25, 120)
+
+// 771:117
+[com_117]
+type=graphic
+x=84
+y=103
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1630
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Violet", 25, 120)
+
+// 771:118
+[com_118]
+type=graphic
+x=114
+y=103
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1631
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Indigo", 25, 120)
+
+// 771:119
+[com_119]
+type=graphic
+x=144
+y=103
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1632
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark grey", 25, 120)
+
+// 771:120
+[com_120]
+type=graphic
+x=24
+y=130
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1633
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Military grey", 25, 120)
+
+// 771:121
+[com_121]
+type=graphic
+x=54
+y=130
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1634
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "White", 25, 120)
+
+// 771:122
+[com_122]
+type=graphic
+x=84
+y=130
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1635
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light grey", 25, 120)
+
+// 771:123
+[com_123]
+type=graphic
+x=114
+y=130
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1636
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Taupe", 25, 120)
+
+// 771:124
+[com_124]
+type=graphic
+x=144
+y=130
+width=28
+height=25
+layer=com_99
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1637
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Black", 25, 120)
+
+// 771:125
+[com_125]
+type=rectangle
+x=30
+y=28
+width=16
+height=13
+layer=com_99
+colour=0x300000
+fill=yes
+
+// 771:126
+[com_126]
+type=rectangle
+x=60
+y=28
+width=16
+height=13
+layer=com_99
+colour=0xb03838
+fill=yes
+
+// 771:127
+[com_127]
+type=rectangle
+x=90
+y=28
+width=16
+height=13
+layer=com_99
+colour=0x9f2800
+fill=yes
+
+// 771:128
+[com_128]
+type=rectangle
+x=120
+y=28
+width=16
+height=13
+layer=com_99
+colour=0xc88080
+fill=yes
+
+// 771:129
+[com_129]
+type=rectangle
+x=150
+y=28
+width=16
+height=13
+layer=com_99
+colour=0xcb823e
+fill=yes
+
+// 771:130
+[com_130]
+type=rectangle
+x=30
+y=55
+width=16
+height=13
+layer=com_99
+colour=0xcdad53
+fill=yes
+
+// 771:131
+[com_131]
+type=rectangle
+x=60
+y=55
+width=16
+height=13
+layer=com_99
+colour=0xc06840
+fill=yes
+
+// 771:132
+[com_132]
+type=rectangle
+x=90
+y=55
+width=16
+height=13
+layer=com_99
+colour=0x50321e
+fill=yes
+
+// 771:133
+[com_133]
+type=rectangle
+x=120
+y=55
+width=16
+height=13
+layer=com_99
+colour=0x302008
+fill=yes
+
+// 771:134
+[com_134]
+type=rectangle
+x=150
+y=55
+width=16
+height=13
+layer=com_99
+colour=0x885f29
+fill=yes
+
+// 771:135
+[com_135]
+type=rectangle
+x=30
+y=82
+width=16
+height=13
+layer=com_99
+colour=0x60b060
+fill=yes
+
+// 771:136
+[com_136]
+type=rectangle
+x=60
+y=82
+width=16
+height=13
+layer=com_99
+colour=0x008300
+fill=yes
+
+// 771:137
+[com_137]
+type=rectangle
+x=90
+y=82
+width=16
+height=13
+layer=com_99
+colour=0x183028
+fill=yes
+
+// 771:138
+[com_138]
+type=rectangle
+x=120
+y=82
+width=16
+height=13
+layer=com_99
+colour=0x181890
+fill=yes
+
+// 771:139
+[com_139]
+type=rectangle
+x=150
+y=82
+width=16
+height=13
+layer=com_99
+colour=0x008383
+fill=yes
+
+// 771:140
+[com_140]
+type=rectangle
+x=30
+y=109
+width=16
+height=13
+layer=com_99
+colour=0x68a8f8
+fill=yes
+
+// 771:141
+[com_141]
+type=rectangle
+x=60
+y=109
+width=16
+height=13
+layer=com_99
+colour=0xbe00c0
+fill=yes
+
+// 771:142
+[com_142]
+type=rectangle
+x=90
+y=109
+width=16
+height=13
+layer=com_99
+colour=0x9860b0
+fill=yes
+
+// 771:143
+[com_143]
+type=rectangle
+x=120
+y=109
+width=16
+height=13
+layer=com_99
+colour=0x581890
+fill=yes
+
+// 771:144
+[com_144]
+type=rectangle
+x=150
+y=109
+width=16
+height=13
+layer=com_99
+colour=0x2f2a2a
+fill=yes
+
+// 771:145
+[com_145]
+type=rectangle
+x=30
+y=136
+width=16
+height=13
+layer=com_99
+colour=0x76756c
+fill=yes
+
+// 771:146
+[com_146]
+type=rectangle
+x=60
+y=136
+width=16
+height=13
+layer=com_99
+colour=0xd6d1d1
+fill=yes
+
+// 771:147
+[com_147]
+type=rectangle
+x=90
+y=136
+width=16
+height=13
+layer=com_99
+colour=0x989878
+fill=yes
+
+// 771:148
+[com_148]
+type=rectangle
+x=120
+y=136
+width=16
+height=13
+layer=com_99
+colour=0x484038
+fill=yes
+
+// 771:149
+[com_149]
+type=rectangle
+x=150
+y=136
+width=16
+height=13
+layer=com_99
+colour=0x101010
+fill=yes
+
+// 771:150
+[com_150]
+type=layer
+x=266
+y=30
+width=200
+height=200
+layer=head_layer
+hide=yes
+
+// 771:151
+[com_151]
+type=graphic
+x=54
+y=22
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1638
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pale", 25, 120)
+
+// 771:152
+[com_152]
+type=graphic
+x=84
+y=22
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1639
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Fair", 25, 120)
+
+// 771:153
+[com_153]
+type=graphic
+x=114
+y=22
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1640
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Tanned", 25, 120)
+
+// 771:154
+[com_154]
+type=graphic
+x=144
+y=22
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1641
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Olive", 25, 120)
+
+// 771:155
+[com_155]
+type=graphic
+x=24
+y=49
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1642
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light brown", 25, 120)
+
+// 771:156
+[com_156]
+type=graphic
+x=54
+y=49
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1643
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Brown", 25, 120)
+
+// 771:157
+[com_157]
+type=graphic
+x=84
+y=49
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1644
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark brown", 25, 120)
+
+// 771:158
+[com_158]
+type=graphic
+x=24
+y=22
+width=28
+height=25
+layer=com_150
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1645
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Very pale", 25, 120)
+
+// 771:159
+[com_159]
+type=rectangle
+x=60
+y=28
+width=16
+height=13
+layer=com_150
+colour=0xbb8f6a
+fill=yes
+
+// 771:160
+[com_160]
+type=rectangle
+x=90
+y=28
+width=16
+height=13
+layer=com_150
+colour=0xa47f5d
+fill=yes
+
+// 771:161
+[com_161]
+type=rectangle
+x=120
+y=28
+width=16
+height=13
+layer=com_150
+colour=0x9e7a49
+fill=yes
+
+// 771:162
+[com_162]
+type=rectangle
+x=150
+y=28
+width=16
+height=13
+layer=com_150
+colour=0x8e6e42
+fill=yes
+
+// 771:163
+[com_163]
+type=rectangle
+x=30
+y=55
+width=16
+height=13
+layer=com_150
+colour=0x79582a
+fill=yes
+
+// 771:164
+[com_164]
+type=rectangle
+x=60
+y=55
+width=16
+height=13
+layer=com_150
+colour=0x644e24
+fill=yes
+
+// 771:165
+[com_165]
+type=rectangle
+x=90
+y=55
+width=16
+height=13
+layer=com_150
+colour=0x4c3d09
+fill=yes
+
+// 771:166
+[com_166]
+type=rectangle
+x=30
+y=28
+width=16
+height=13
+layer=com_150
+colour=0xd5a985
+fill=yes
+
+// 771:167
+[com_167]
+type=layer
+x=319
+y=208
+width=100
+height=25
+layer=head_layer
+transmitop=1
+op1=Select next
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1582
+
+// 771:168
+[com_168]
+type=text
+x=319
+y=208
+width=100
+height=25
+layer=head_layer
+textfont=fontmetrics_496
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:169
+[com_169]
+type=layer
+x=174
+y=208
+width=100
+height=25
+layer=head_layer
+transmitop=1,10
+op1=Select random
+op10= 
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 771:170
+[com_170]
+type=text
+x=174
+y=208
+width=100
+height=25
+layer=head_layer
+textfont=fontmetrics_496
+text=Randomise
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10= 
+
+// 771:171
+[com_171]
+type=layer
+x=28
+y=208
+width=100
+height=25
+layer=head_layer
+transmitop=1
+op1=Go back
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1581
+
+// 771:172
+[com_172]
+type=text
+x=28
+y=208
+width=100
+height=25
+layer=head_layer
+textfont=fontmetrics_496
+text=Back
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+opbase=   
+
+// 771:173
+[com_173]
+type=text
+x=325
+y=3
+width=90
+height=15
+layer=body_layer
+textfont=fontmetrics_496
+text=Colour
+textalignh=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:174
+[com_174]
+type=graphic
+x=400
+y=26
+width=64
+height=20
+layer=body_layer
+graphic=graphic_953
+transmitop=1
+op1=Select feet colour
+onop=clientscript_1593
+
+// 771:175
+[title_3]
+type=text
+x=406
+y=29
+width=59
+height=15
+layer=body_layer
+textfont=fontmetrics_496
+text=Feet
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:176
+[com_176]
+type=graphic
+x=342
+y=26
+width=64
+height=20
+layer=body_layer
+graphic=graphic_953
+transmitop=1
+op1=Select leg colour
+onop=clientscript_1592
+
+// 771:177
+[title_2]
+type=text
+x=349
+y=29
+width=65
+height=15
+layer=body_layer
+textfont=fontmetrics_496
+text=Legs
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:178
+[com_178]
+type=graphic
+x=283
+y=26
+width=64
+height=20
+layer=body_layer
+graphic=graphic_952
+transmitop=1
+op1=Select torso colour
+onop=clientscript_1591
+
+// 771:179
+[title_1]
+type=text
+x=291
+y=29
+width=65
+height=15
+layer=body_layer
+textfont=fontmetrics_496
+text=Torso
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:180
+[com_180]
+type=graphic
+x=295
+y=33
+width=146
+height=32
+layer=body_layer
+graphic=graphic_851
+tiling=yes
+opbase= 
+
+// 771:181
+[com_181]
+type=graphic
+x=293
+y=174
+width=151
+height=32
+layer=body_layer
+graphic=graphic_851
+tiling=yes
+
+// 771:182
+[com_182]
+type=graphic
+x=269
+y=62
+width=32
+height=106
+layer=body_layer
+graphic=graphic_852
+tiling=yes
+opbase=  
+
+// 771:183
+[com_183]
+type=graphic
+x=450
+y=57
+width=32
+height=110
+layer=body_layer
+graphic=graphic_852
+tiling=yes
+
+// 771:184
+[com_184]
+type=graphic
+x=283
+y=46
+width=32
+height=32
+layer=body_layer
+graphic=graphic_856
+tiling=yes
+
+// 771:185
+[com_185]
+type=graphic
+x=435
+y=46
+width=32
+height=32
+layer=body_layer
+graphic=graphic_857
+tiling=yes
+
+// 771:186
+[com_186]
+type=graphic
+x=283
+y=158
+width=32
+height=32
+layer=body_layer
+graphic=graphic_858
+tiling=yes
+
+// 771:187
+[com_187]
+type=graphic
+x=435
+y=158
+width=32
+height=32
+layer=body_layer
+graphic=graphic_859
+tiling=yes
+
+// 771:188
+[com_188]
+type=layer
+x=278
+y=29
+width=200
+height=200
+layer=body_layer
+
+// 771:189
+[com_189]
+type=graphic
+x=8
+y=22
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1646
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Burgundy", 25, 120)
+
+// 771:190
+[com_190]
+type=graphic
+x=38
+y=22
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1647
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Red", 25, 120)
+
+// 771:191
+[com_191]
+type=graphic
+x=68
+y=22
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1648
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark red", 25, 120)
+
+// 771:192
+[com_192]
+type=graphic
+x=98
+y=22
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1649
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pink", 25, 120)
+
+// 771:193
+[com_193]
+type=graphic
+x=128
+y=22
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1650
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark pink", 25, 120)
+
+// 771:194
+[com_194]
+type=graphic
+x=157
+y=22
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1651
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Orange", 25, 120)
+
+// 771:195
+[com_195]
+type=graphic
+x=8
+y=49
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1652
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Burnt orange", 25, 120)
+
+// 771:196
+[com_196]
+type=graphic
+x=38
+y=49
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1653
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Peach", 25, 120)
+
+// 771:197
+[com_197]
+type=graphic
+x=68
+y=49
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1654
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light khaki", 25, 120)
+
+// 771:198
+[com_198]
+type=graphic
+x=98
+y=49
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1655
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Khaki", 25, 120)
+
+// 771:199
+[com_199]
+type=graphic
+x=128
+y=49
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1656
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Gold", 25, 120)
+
+// 771:200
+[com_200]
+type=graphic
+x=157
+y=49
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1657
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Moss green", 25, 120)
+
+// 771:201
+[com_201]
+type=graphic
+x=8
+y=76
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1658
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Mint green", 25, 120)
+
+// 771:202
+[com_202]
+type=graphic
+x=38
+y=76
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1659
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Sea green", 25, 120)
+
+// 771:203
+[com_203]
+type=graphic
+x=68
+y=76
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1660
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Forest green", 25, 120)
+
+// 771:204
+[com_204]
+type=graphic
+x=98
+y=76
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1661
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark green", 25, 120)
+
+// 771:205
+[com_205]
+type=graphic
+x=128
+y=76
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1662
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Royal blue", 25, 120)
+
+// 771:206
+[com_206]
+type=graphic
+x=157
+y=76
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1663
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark blue", 25, 120)
+
+// 771:207
+[com_207]
+type=graphic
+x=8
+y=103
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1664
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light blue", 25, 120)
+
+// 771:208
+[com_208]
+type=graphic
+x=38
+y=103
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1665
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pale blue", 25, 120)
+
+// 771:209
+[com_209]
+type=graphic
+x=68
+y=103
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1666
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Mauve", 25, 120)
+
+// 771:210
+[com_210]
+type=graphic
+x=98
+y=103
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1667
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Violet", 25, 120)
+
+// 771:211
+[com_211]
+type=graphic
+x=128
+y=103
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1668
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Indigo", 25, 120)
+
+// 771:212
+[com_212]
+type=graphic
+x=157
+y=103
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1669
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Navy blue", 25, 120)
+
+// 771:213
+[com_213]
+type=graphic
+x=8
+y=130
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+opbase=m+mmm+m+
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1670
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Beige", 25, 120)
+
+// 771:214
+[com_214]
+type=graphic
+x=38
+y=130
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1671
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light grey", 25, 120)
+
+// 771:215
+[com_215]
+type=graphic
+x=68
+y=130
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1672
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Taupe", 25, 120)
+
+// 771:216
+[com_216]
+type=graphic
+x=98
+y=130
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1673
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark grey", 25, 120)
+
+// 771:217
+[com_217]
+type=graphic
+x=128
+y=130
+width=28
+height=25
+layer=com_188
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1674
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Black", 25, 120)
+
+// 771:218
+[com_218]
+type=rectangle
+x=14
+y=28
+width=16
+height=13
+layer=com_188
+colour=0x300000
+fill=yes
+
+// 771:219
+[com_219]
+type=rectangle
+x=44
+y=28
+width=16
+height=13
+layer=com_188
+colour=0xb03838
+fill=yes
+
+// 771:220
+[com_220]
+type=rectangle
+x=74
+y=28
+width=16
+height=13
+layer=com_188
+colour=0x752f3b
+fill=yes
+
+// 771:221
+[com_221]
+type=rectangle
+x=104
+y=28
+width=16
+height=13
+layer=com_188
+colour=0xc88080
+fill=yes
+
+// 771:222
+[com_222]
+type=rectangle
+x=134
+y=28
+width=16
+height=13
+layer=com_188
+colour=0xa17067
+fill=yes
+
+// 771:223
+[com_223]
+type=rectangle
+x=163
+y=28
+width=16
+height=13
+layer=com_188
+colour=0x9d642f
+fill=yes
+
+// 771:224
+[com_224]
+type=rectangle
+x=14
+y=55
+width=16
+height=13
+layer=com_188
+colour=0x8b3b2a
+fill=yes
+opbase=mmmm
+
+// 771:225
+[com_225]
+type=rectangle
+x=44
+y=55
+width=16
+height=13
+layer=com_188
+colour=0xc06840
+fill=yes
+
+// 771:226
+[com_226]
+type=rectangle
+x=74
+y=55
+width=16
+height=13
+layer=com_188
+colour=0xaa9045
+fill=yes
+
+// 771:227
+[com_227]
+type=rectangle
+x=104
+y=55
+width=16
+height=13
+layer=com_188
+colour=0x7b6e32
+fill=yes
+
+// 771:228
+[com_228]
+type=rectangle
+x=134
+y=55
+width=16
+height=13
+layer=com_188
+colour=0xa3970d
+fill=yes
+
+// 771:229
+[com_229]
+type=rectangle
+x=163
+y=55
+width=16
+height=13
+layer=com_188
+colour=0x829472
+fill=yes
+
+// 771:230
+[com_230]
+type=rectangle
+x=14
+y=82
+width=16
+height=13
+layer=com_188
+colour=0x60b060
+fill=yes
+
+// 771:231
+[com_231]
+type=rectangle
+x=44
+y=82
+width=16
+height=13
+layer=com_188
+colour=0x2d723e
+fill=yes
+
+// 771:232
+[com_232]
+type=rectangle
+x=74
+y=82
+width=16
+height=13
+layer=com_188
+colour=0x1c6135
+fill=yes
+
+// 771:233
+[com_233]
+type=rectangle
+x=104
+y=82
+width=16
+height=13
+layer=com_188
+colour=0x183028
+fill=yes
+
+// 771:234
+[com_234]
+type=rectangle
+x=134
+y=82
+width=16
+height=13
+layer=com_188
+colour=0x181890
+fill=yes
+
+// 771:235
+[com_235]
+type=rectangle
+x=163
+y=82
+width=16
+height=13
+layer=com_188
+colour=0x2d5272
+fill=yes
+
+// 771:236
+[com_236]
+type=rectangle
+x=14
+y=109
+width=16
+height=13
+layer=com_188
+colour=0x6088b0
+fill=yes
+
+// 771:237
+[com_237]
+type=rectangle
+x=44
+y=109
+width=16
+height=13
+layer=com_188
+colour=0x728c94
+fill=yes
+
+// 771:238
+[com_238]
+type=rectangle
+x=74
+y=109
+width=16
+height=13
+layer=com_188
+colour=0x83537b
+fill=yes
+
+// 771:239
+[com_239]
+type=rectangle
+x=104
+y=109
+width=16
+height=13
+layer=com_188
+colour=0x9860b0
+fill=yes
+
+// 771:240
+[com_240]
+type=rectangle
+x=134
+y=109
+width=16
+height=13
+layer=com_188
+colour=0x581890
+fill=yes
+
+// 771:241
+[com_241]
+type=rectangle
+x=163
+y=109
+width=16
+height=13
+layer=com_188
+colour=0x3b3b4e
+fill=yes
+
+// 771:242
+[com_242]
+type=rectangle
+x=14
+y=136
+width=16
+height=13
+layer=com_188
+colour=0xada481
+fill=yes
+
+// 771:243
+[com_243]
+type=rectangle
+x=44
+y=136
+width=16
+height=13
+layer=com_188
+colour=0x989878
+fill=yes
+
+// 771:244
+[com_244]
+type=rectangle
+x=74
+y=136
+width=16
+height=13
+layer=com_188
+colour=0x484038
+fill=yes
+
+// 771:245
+[com_245]
+type=rectangle
+x=104
+y=136
+width=16
+height=13
+layer=com_188
+colour=0x262323
+fill=yes
+
+// 771:246
+[com_246]
+type=rectangle
+x=134
+y=136
+width=16
+height=13
+layer=com_188
+colour=0x101010
+fill=yes
+
+// 771:247
+[com_247]
+type=layer
+x=278
+y=29
+width=200
+height=200
+layer=body_layer
+hide=yes
+
+// 771:248
+[com_248]
+type=graphic
+x=98
+y=76
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1675
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark green", 25, 120)
+
+// 771:249
+[com_249]
+type=graphic
+x=8
+y=22
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1676
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Burgundy", 25, 120)
+
+// 771:250
+[com_250]
+type=graphic
+x=38
+y=22
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1677
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Red", 25, 120)
+
+// 771:251
+[com_251]
+type=graphic
+x=68
+y=22
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1678
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark red", 25, 120)
+
+// 771:252
+[com_252]
+type=graphic
+x=98
+y=22
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1679
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pink", 25, 120)
+
+// 771:253
+[com_253]
+type=graphic
+x=128
+y=22
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1680
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark pink", 25, 120)
+
+// 771:254
+[com_254]
+type=graphic
+x=157
+y=22
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1681
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Orange", 25, 120)
+
+// 771:255
+[com_255]
+type=graphic
+x=8
+y=49
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1682
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Burnt orange", 25, 120)
+
+// 771:256
+[com_256]
+type=graphic
+x=38
+y=49
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1683
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Peach", 25, 120)
+
+// 771:257
+[com_257]
+type=graphic
+x=68
+y=49
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1684
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light khaki", 25, 120)
+
+// 771:258
+[com_258]
+type=graphic
+x=98
+y=49
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1685
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Khaki", 25, 120)
+
+// 771:259
+[com_259]
+type=graphic
+x=128
+y=49
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1686
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Gold", 25, 120)
+
+// 771:260
+[com_260]
+type=graphic
+x=157
+y=49
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1687
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Moss green", 25, 120)
+
+// 771:261
+[com_261]
+type=graphic
+x=8
+y=76
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1688
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Mint green", 25, 120)
+
+// 771:262
+[com_262]
+type=graphic
+x=38
+y=76
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1689
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Sea green", 25, 120)
+
+// 771:263
+[com_263]
+type=graphic
+x=68
+y=76
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1690
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Forest green", 25, 120)
+
+// 771:264
+[com_264]
+type=graphic
+x=128
+y=76
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1691
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Royal blue", 25, 120)
+
+// 771:265
+[com_265]
+type=graphic
+x=157
+y=76
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1692
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark blue", 25, 120)
+
+// 771:266
+[com_266]
+type=graphic
+x=8
+y=103
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1693
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light blue", 25, 120)
+
+// 771:267
+[com_267]
+type=graphic
+x=38
+y=103
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1694
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pale blue", 25, 120)
+
+// 771:268
+[com_268]
+type=graphic
+x=68
+y=103
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1695
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Mauve", 25, 120)
+
+// 771:269
+[com_269]
+type=graphic
+x=98
+y=103
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1696
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Violet", 25, 120)
+
+// 771:270
+[com_270]
+type=graphic
+x=128
+y=103
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1697
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Indigo", 25, 120)
+
+// 771:271
+[com_271]
+type=graphic
+x=157
+y=103
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1698
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Navy blue", 25, 120)
+
+// 771:272
+[com_272]
+type=graphic
+x=8
+y=130
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+opbase=m+mmm+m+
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1699
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Beige", 25, 120)
+
+// 771:273
+[com_273]
+type=graphic
+x=38
+y=130
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1700
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light grey", 25, 120)
+
+// 771:274
+[com_274]
+type=graphic
+x=68
+y=130
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1701
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Taupe", 25, 120)
+
+// 771:275
+[com_275]
+type=graphic
+x=98
+y=130
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1702
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark grey", 25, 120)
+
+// 771:276
+[com_276]
+type=graphic
+x=128
+y=130
+width=28
+height=25
+layer=com_247
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1703
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Black", 25, 120)
+
+// 771:277
+[com_277]
+type=rectangle
+x=104
+y=82
+width=16
+height=13
+layer=com_247
+colour=0x183028
+fill=yes
+
+// 771:278
+[com_278]
+type=rectangle
+x=14
+y=28
+width=16
+height=13
+layer=com_247
+colour=0x300000
+fill=yes
+
+// 771:279
+[com_279]
+type=rectangle
+x=44
+y=28
+width=16
+height=13
+layer=com_247
+colour=0xb03838
+fill=yes
+
+// 771:280
+[com_280]
+type=rectangle
+x=74
+y=28
+width=16
+height=13
+layer=com_247
+colour=0x752f3b
+fill=yes
+
+// 771:281
+[com_281]
+type=rectangle
+x=104
+y=28
+width=16
+height=13
+layer=com_247
+colour=0xc88080
+fill=yes
+
+// 771:282
+[com_282]
+type=rectangle
+x=134
+y=28
+width=16
+height=13
+layer=com_247
+colour=0xa17067
+fill=yes
+
+// 771:283
+[com_283]
+type=rectangle
+x=163
+y=28
+width=16
+height=13
+layer=com_247
+colour=0x9d642f
+fill=yes
+
+// 771:284
+[com_284]
+type=rectangle
+x=14
+y=55
+width=16
+height=13
+layer=com_247
+colour=0x8b3b2a
+fill=yes
+opbase=mmmm
+
+// 771:285
+[com_285]
+type=rectangle
+x=44
+y=55
+width=16
+height=13
+layer=com_247
+colour=0xc06840
+fill=yes
+
+// 771:286
+[com_286]
+type=rectangle
+x=74
+y=55
+width=16
+height=13
+layer=com_247
+colour=0xaa9045
+fill=yes
+
+// 771:287
+[com_287]
+type=rectangle
+x=104
+y=55
+width=16
+height=13
+layer=com_247
+colour=0x7b6e32
+fill=yes
+
+// 771:288
+[com_288]
+type=rectangle
+x=134
+y=55
+width=16
+height=13
+layer=com_247
+colour=0xa3970d
+fill=yes
+
+// 771:289
+[com_289]
+type=rectangle
+x=163
+y=55
+width=16
+height=13
+layer=com_247
+colour=0x829472
+fill=yes
+
+// 771:290
+[com_290]
+type=rectangle
+x=14
+y=82
+width=16
+height=13
+layer=com_247
+colour=0x60b060
+fill=yes
+
+// 771:291
+[com_291]
+type=rectangle
+x=44
+y=82
+width=16
+height=13
+layer=com_247
+colour=0x2d723e
+fill=yes
+
+// 771:292
+[com_292]
+type=rectangle
+x=74
+y=82
+width=16
+height=13
+layer=com_247
+colour=0x1c6135
+fill=yes
+
+// 771:293
+[com_293]
+type=rectangle
+x=134
+y=82
+width=16
+height=13
+layer=com_247
+colour=0x181890
+fill=yes
+
+// 771:294
+[com_294]
+type=rectangle
+x=163
+y=82
+width=16
+height=13
+layer=com_247
+colour=0x2d5272
+fill=yes
+
+// 771:295
+[com_295]
+type=rectangle
+x=14
+y=109
+width=16
+height=13
+layer=com_247
+colour=0x6088b0
+fill=yes
+
+// 771:296
+[com_296]
+type=rectangle
+x=44
+y=109
+width=16
+height=13
+layer=com_247
+colour=0x728c94
+fill=yes
+
+// 771:297
+[com_297]
+type=rectangle
+x=74
+y=109
+width=16
+height=13
+layer=com_247
+colour=0x83537b
+fill=yes
+
+// 771:298
+[com_298]
+type=rectangle
+x=104
+y=109
+width=16
+height=13
+layer=com_247
+colour=0x9860b0
+fill=yes
+
+// 771:299
+[com_299]
+type=rectangle
+x=134
+y=109
+width=16
+height=13
+layer=com_247
+colour=0x581890
+fill=yes
+
+// 771:300
+[com_300]
+type=rectangle
+x=163
+y=109
+width=16
+height=13
+layer=com_247
+colour=0x3b3b4e
+fill=yes
+
+// 771:301
+[com_301]
+type=rectangle
+x=14
+y=136
+width=16
+height=13
+layer=com_247
+colour=0xada481
+fill=yes
+
+// 771:302
+[com_302]
+type=rectangle
+x=44
+y=136
+width=16
+height=13
+layer=com_247
+colour=0x989878
+fill=yes
+
+// 771:303
+[com_303]
+type=rectangle
+x=74
+y=136
+width=16
+height=13
+layer=com_247
+colour=0x484038
+fill=yes
+
+// 771:304
+[com_304]
+type=rectangle
+x=104
+y=136
+width=16
+height=13
+layer=com_247
+colour=0x262323
+fill=yes
+
+// 771:305
+[com_305]
+type=rectangle
+x=134
+y=136
+width=16
+height=13
+layer=com_247
+colour=0x101010
+fill=yes
+
+// 771:306
+[com_306]
+type=layer
+x=278
+y=29
+width=200
+height=200
+layer=body_layer
+hide=yes
+
+// 771:307
+[com_307]
+type=graphic
+x=8
+y=22
+width=28
+height=25
+layer=com_306
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1704
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Brown", 25, 120)
+
+// 771:308
+[com_308]
+type=graphic
+x=38
+y=22
+width=28
+height=25
+layer=com_306
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1705
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Dark green", 25, 120)
+
+// 771:309
+[com_309]
+type=graphic
+x=68
+y=22
+width=28
+height=25
+layer=com_306
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1706
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Pale grey", 25, 120)
+
+// 771:310
+[com_310]
+type=graphic
+x=98
+y=22
+width=28
+height=25
+layer=com_306
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1707
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Black", 25, 120)
+
+// 771:311
+[com_311]
+type=graphic
+x=128
+y=22
+width=28
+height=25
+layer=com_306
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1708
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Light brown", 25, 120)
+
+// 771:312
+[com_312]
+type=graphic
+x=157
+y=22
+width=28
+height=25
+layer=com_306
+graphic=graphic_1437
+transmitop=1
+op1=Select colour
+onmouseover=graphic_swapper(event_com, 1438)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_400, event_com, 1437)
+onop=clientscript_1709
+onmouserepeat=addtooltip(event_com, interface_771:com_400, "Grey", 25, 120)
+
+// 771:313
+[com_313]
+type=rectangle
+x=14
+y=28
+width=16
+height=13
+layer=com_306
+colour=0x584028
+fill=yes
+
+// 771:314
+[com_314]
+type=rectangle
+x=44
+y=28
+width=16
+height=13
+layer=com_306
+colour=0x404000
+fill=yes
+
+// 771:315
+[com_315]
+type=rectangle
+x=74
+y=28
+width=16
+height=13
+layer=com_306
+colour=0x686048
+fill=yes
+
+// 771:316
+[com_316]
+type=rectangle
+x=104
+y=28
+width=16
+height=13
+layer=com_306
+colour=0x302828
+fill=yes
+
+// 771:317
+[com_317]
+type=rectangle
+x=134
+y=28
+width=16
+height=13
+layer=com_306
+colour=0x684820
+fill=yes
+
+// 771:318
+[com_318]
+type=rectangle
+x=163
+y=28
+width=16
+height=13
+layer=com_306
+colour=0x585850
+fill=yes
+
+// 771:319
+[com_319]
+type=layer
+x=319
+y=208
+width=100
+height=25
+layer=body_layer
+transmitop=1
+op1=Select next
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1595
+
+// 771:320
+[com_320]
+type=text
+x=319
+y=208
+width=100
+height=25
+layer=body_layer
+textfont=fontmetrics_496
+text=Confirm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:321
+[com_321]
+type=layer
+x=174
+y=208
+width=100
+height=25
+layer=body_layer
+transmitop=1,10
+op1=Select random
+op10= 
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 771:322
+[layer_2]
+type=text
+x=174
+y=208
+width=100
+height=25
+layer=body_layer
+textfont=fontmetrics_496
+text=Randomise
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10= 
+
+// 771:323
+[com_323]
+type=layer
+x=28
+y=208
+width=100
+height=25
+layer=body_layer
+transmitop=1
+op1=Go back
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1594
+
+// 771:324
+[com_324]
+type=text
+x=28
+y=208
+width=100
+height=25
+layer=body_layer
+textfont=fontmetrics_496
+text=Back
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:325
+[com_325]
+type=layer
+x=158
+y=2
+width=120
+height=202
+layer=body_layer
+
+// 771:326
+[com_326]
+type=layer
+x=1
+y=-1
+width=121
+height=237
+layer=com_325
+
+// 771:327
+[com_327]
+type=rectangle
+x=2
+y=7
+width=112
+height=191
+layer=com_326
+colour=0x1b1a18
+fill=yes
+trans=200
+
+// 771:328
+[com_328]
+type=rectangle
+x=4
+y=10
+width=108
+height=184
+layer=com_326
+colour=0x1b1a18
+fill=yes
+trans=230
+
+// 771:329
+[com_329]
+type=rectangle
+x=8
+y=13
+width=100
+height=180
+layer=com_326
+colour=0x1b1a18
+fill=yes
+trans=230
+
+// 771:330
+[com_330]
+type=rectangle
+x=12
+y=17
+width=92
+height=171
+layer=com_326
+colour=0x1b1a18
+fill=yes
+trans=230
+
+// 771:331
+[com_331]
+type=graphic
+x=3
+y=-9
+width=110
+height=32
+layer=com_325
+graphic=graphic_851
+tiling=yes
+opbase= 
+
+// 771:332
+[com_332]
+type=graphic
+x=1
+y=184
+width=105
+height=32
+layer=com_325
+graphic=graphic_851
+tiling=yes
+opbase= 
+
+// 771:333
+[com_333]
+type=graphic
+x=-14
+y=36
+width=32
+height=132
+layer=com_325
+graphic=graphic_852
+tiling=yes
+opbase= 
+
+// 771:334
+[com_334]
+type=graphic
+x=101
+y=13
+width=32
+height=156
+layer=com_325
+graphic=graphic_852
+tiling=yes
+opbase= 
+
+// 771:335
+[com_335]
+type=graphic
+y=4
+width=32
+height=32
+layer=com_325
+graphic=graphic_856
+tiling=yes
+opbase= 
+
+// 771:336
+[com_336]
+type=graphic
+x=86
+y=4
+width=32
+height=32
+layer=com_325
+graphic=graphic_857
+tiling=yes
+opbase= 
+
+// 771:337
+[com_337]
+type=graphic
+y=168
+width=32
+height=32
+layer=com_325
+graphic=graphic_858
+tiling=yes
+opbase= 
+
+// 771:338
+[com_338]
+type=graphic
+x=86
+y=168
+width=32
+height=32
+layer=com_325
+graphic=graphic_859
+tiling=yes
+opbase= 
+
+// 771:339
+[com_339]
+type=model
+clientcode=328
+x=28
+y=11
+width=65
+height=179
+layer=com_325
+model=null
+modelorigin=0,89
+modelzoom=610
+modelunknown=0,3000,0
+
+// 771:340
+[com_340]
+type=text
+x=35
+y=27
+width=85
+height=15
+layer=body_layer
+textfont=fontmetrics_494
+text=Torso
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:341
+[com_341]
+type=graphic
+x=3
+y=19
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1450
+transmitop=1
+op1=Select previous torso
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1450)
+onop=clientscript_1597
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select previous torso", 25, 120)
+
+// 771:342
+[com_342]
+type=graphic
+x=121
+y=19
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1452
+transmitop=1
+op1=Select next torso
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1452)
+onop=clientscript_1596
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select next torso", 25, 120)
+
+// 771:343
+[com_343]
+type=layer
+x=34
+y=24
+width=86
+height=20
+layer=body_layer
+onload=clientscript_100(event_com)
+
+// 771:344
+[com_344]
+type=text
+x=35
+y=66
+width=85
+height=15
+layer=body_layer
+textfont=fontmetrics_494
+text=Arms
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:345
+[com_345]
+type=graphic
+x=3
+y=58
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1450
+transmitop=1
+op1=Select previous arms
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1450)
+onop=clientscript_1599
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select previous arms", 25, 120)
+
+// 771:346
+[com_346]
+type=graphic
+x=121
+y=58
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1452
+transmitop=1
+op1=Select next arms
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1452)
+onop=clientscript_1598
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select next arms", 25, 120)
+
+// 771:347
+[com_347]
+type=layer
+x=34
+y=63
+width=86
+height=20
+layer=body_layer
+onload=clientscript_100(event_com)
+
+// 771:348
+[com_348]
+type=text
+x=35
+y=104
+width=85
+height=15
+layer=body_layer
+textfont=fontmetrics_494
+text=Wrists
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:349
+[com_349]
+type=graphic
+x=3
+y=96
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1450
+transmitop=1
+op1=Select previous wrists
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1450)
+onop=clientscript_1601
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select previous wrists", 25, 120)
+
+// 771:350
+[com_350]
+type=graphic
+x=121
+y=96
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1452
+transmitop=1
+op1=Select next wrists
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1452)
+onop=clientscript_1600
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select next wrists", 25, 120)
+
+// 771:351
+[com_351]
+type=layer
+x=34
+y=101
+width=86
+height=20
+layer=body_layer
+onload=clientscript_100(event_com)
+
+// 771:352
+[com_352]
+type=text
+x=35
+y=141
+width=85
+height=15
+layer=body_layer
+textfont=fontmetrics_494
+text=Legs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:353
+[com_353]
+type=graphic
+x=3
+y=134
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1450
+transmitop=1
+op1=Select previous legs
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1450)
+onop=clientscript_1603
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select previous legs", 25, 120)
+
+// 771:354
+[com_354]
+type=graphic
+x=121
+y=134
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1452
+transmitop=1
+op1=Select next legs
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1452)
+onop=clientscript_1602
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select next legs", 25, 120)
+
+// 771:355
+[com_355]
+type=layer
+x=34
+y=139
+width=86
+height=20
+layer=body_layer
+onload=clientscript_100(event_com)
+
+// 771:356
+[com_356]
+type=text
+x=35
+y=181
+width=85
+height=15
+layer=body_layer
+textfont=fontmetrics_494
+text=Feet
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9b00
+
+// 771:357
+[com_357]
+type=graphic
+x=3
+y=172
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1450
+transmitop=1
+op1=Select previous feet
+onmouseover=graphic_swapper(event_com, 1449)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1450)
+onop=clientscript_1605
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select previous feet", 25, 120)
+
+// 771:358
+[com_358]
+type=graphic
+x=121
+y=172
+width=30
+height=30
+layer=body_layer
+graphic=graphic_1452
+transmitop=1
+op1=Select next feet
+onmouseover=graphic_swapper(event_com, 1451)
+onmouseleave=deltooltip_graphic_swapper(interface_771:com_401, event_com, 1452)
+onop=clientscript_1604
+onmouserepeat=addtooltip(event_com, interface_771:com_401, "Select next feet", 25, 120)
+
+// 771:359
+[com_359]
+type=layer
+x=34
+y=178
+width=86
+height=20
+layer=body_layer
+onload=clientscript_100(event_com)
+
+// 771:360
+[confirm_no]
+type=layer
+x=220
+y=71
+width=100
+height=25
+layer=confirm_layer
+transmitop=1
+op1=Go back
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1610
+
+// 771:361
+[com_361]
+type=text
+x=220
+y=71
+width=100
+height=25
+layer=confirm_layer
+textfont=fontmetrics_307
+text=No
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:362
+[confirm_yes]
+type=layer
+x=59
+y=71
+width=100
+height=25
+layer=confirm_layer
+transmitop=1
+op1=Confirm changes
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+onop=clientscript_1595
+
+// 771:363
+[com_363]
+type=text
+x=59
+y=71
+width=100
+height=25
+layer=confirm_layer
+textfont=fontmetrics_307
+text=Yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:364
+[com_364]
+type=text
+x=47
+y=30
+width=287
+height=32
+layer=confirm_layer
+textfont=fontmetrics_495
+text=Do you want to accept these character settings?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 771:365
+[com_365]
+type=rectangle
+width=505
+height=323
+layer=com_28
+colour=0x000000
+fill=yes
+trans=133
+
+// 771:366
+[background]
+type=graphic
+x=117
+y=100
+width=263
+height=165
+layer=com_28
+graphic=graphic_297
+tiling=yes
+opbase= 
+
+// 771:367
+[com_367]
+type=graphic
+x=98
+y=124
+width=32
+height=132
+layer=com_28
+graphic=graphic_821
+tiling=yes
+
+// 771:368
+[com_368]
+type=graphic
+x=367
+y=124
+width=23
+height=132
+layer=com_28
+graphic=graphic_823
+tiling=yes
+
+// 771:369
+[top_border]
+type=graphic
+x=142
+y=80
+width=231
+height=26
+layer=com_28
+graphic=graphic_820
+tiling=yes
+opbase= 
+
+// 771:370
+[com_370]
+type=graphic
+x=137
+y=252
+width=233
+height=24
+layer=com_28
+graphic=graphic_822
+tiling=yes
+opbase= 
+
+// 771:371
+[top_left_corner]
+type=graphic
+x=111
+y=93
+width=32
+height=32
+layer=com_28
+graphic=graphic_824
+
+// 771:372
+[top_right_corner]
+type=graphic
+x=355
+y=93
+width=32
+height=32
+layer=com_28
+graphic=graphic_825
+
+// 771:373
+[bottom_left_corner]
+type=graphic
+x=111
+y=240
+width=32
+height=32
+layer=com_28
+graphic=graphic_826
+
+// 771:374
+[bottom_right_corner]
+type=graphic
+x=355
+y=240
+width=32
+height=32
+layer=com_28
+graphic=graphic_827
+
+// 771:375
+[com_375]
+type=text
+x=196
+y=105
+width=108
+height=21
+layer=com_28
+textfont=fontmetrics_496
+text=Randomise Settings?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 771:376
+[com_376]
+type=text
+x=138
+y=99
+width=224
+height=87
+layer=com_28
+textfont=fontmetrics_495
+text=Are you sure you want to randomise your character head settings?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+
+// 771:377
+[com_377]
+type=text
+x=90
+y=163
+width=315
+height=27
+layer=com_28
+textfont=fontmetrics_495
+text=Yes - I want a random selection
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+transmitop=1
+op1=Confirm changes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^red)
+
+// 771:378
+[com_378]
+type=text
+x=92
+y=187
+width=315
+height=28
+layer=com_28
+textfont=fontmetrics_495
+text=No - I'm happy with my character settings
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+transmitop=1
+op1=Go back
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^red)
+onop=clientscript_1589
+
+// 771:379
+[com_379]
+type=layer
+x=130
+y=225
+width=270
+height=20
+layer=com_28
+
+// 771:380
+[com_380]
+type=text
+x=-28
+y=1
+width=315
+height=15
+layer=com_379
+textfont=fontmetrics_495
+text=Don't ask me this again
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 771:381
+[com_381]
+type=graphic
+x=37
+y=-1
+width=19
+height=19
+layer=com_379
+graphic=graphic_941
+transmitop=1
+op1=Off/On
+
+// 771:382
+[com_382]
+type=rectangle
+width=505
+height=323
+layer=com_29
+colour=0x000000
+fill=yes
+trans=133
+
+// 771:383
+[background_1]
+type=graphic
+x=117
+y=100
+width=263
+height=165
+layer=com_29
+graphic=graphic_297
+tiling=yes
+opbase= 
+
+// 771:384
+[com_384]
+type=graphic
+x=98
+y=124
+width=32
+height=132
+layer=com_29
+graphic=graphic_821
+tiling=yes
+
+// 771:385
+[com_385]
+type=graphic
+x=367
+y=124
+width=23
+height=132
+layer=com_29
+graphic=graphic_823
+tiling=yes
+
+// 771:386
+[com_386]
+type=graphic
+x=142
+y=80
+width=231
+height=26
+layer=com_29
+graphic=graphic_820
+tiling=yes
+opbase= 
+
+// 771:387
+[com_387]
+type=graphic
+x=137
+y=252
+width=233
+height=24
+layer=com_29
+graphic=graphic_822
+tiling=yes
+opbase= 
+
+// 771:388
+[com_388]
+type=graphic
+x=111
+y=93
+width=32
+height=32
+layer=com_29
+graphic=graphic_824
+
+// 771:389
+[com_389]
+type=graphic
+x=355
+y=93
+width=32
+height=32
+layer=com_29
+graphic=graphic_825
+
+// 771:390
+[com_390]
+type=graphic
+x=111
+y=240
+width=32
+height=32
+layer=com_29
+graphic=graphic_826
+
+// 771:391
+[com_391]
+type=graphic
+x=355
+y=240
+width=32
+height=32
+layer=com_29
+graphic=graphic_827
+
+// 771:392
+[com_392]
+type=text
+x=196
+y=105
+width=108
+height=21
+layer=com_28
+textfont=fontmetrics_496
+text=Randomise Settings?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 771:393
+[com_393]
+type=text
+x=138
+y=99
+width=224
+height=87
+layer=com_29
+textfont=fontmetrics_495
+text=Are you sure you want to randomise your character body settings?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+
+// 771:394
+[com_394]
+type=text
+x=90
+y=163
+width=315
+height=27
+layer=com_29
+textfont=fontmetrics_495
+text=Yes - I want a random selection
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+transmitop=1
+op1=Confirm changes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^red)
+
+// 771:395
+[com_395]
+type=text
+x=92
+y=187
+width=315
+height=28
+layer=com_29
+textfont=fontmetrics_495
+text=No - I'm happy with my character settings
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+transmitop=1
+op1=Go back
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^red)
+onop=clientscript_1608
+
+// 771:396
+[com_396]
+type=layer
+x=130
+y=225
+width=270
+height=20
+layer=com_29
+
+// 771:397
+[com_397]
+type=text
+x=-28
+y=1
+width=315
+height=15
+layer=com_396
+textfont=fontmetrics_495
+text=Don't ask me this again
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 771:398
+[com_398]
+type=graphic
+x=37
+y=-1
+width=19
+height=19
+layer=com_396
+graphic=graphic_941
+transmitop=1
+op1=Off/On toggle
+
+// 771:399
+[com_399]
+type=layer
+x=14
+y=19
+width=480
+height=280
+layer=tooltip_bounding_box_1
+
+// 771:400
+[com_400]
+type=layer
+x=14
+y=19
+width=167
+height=147
+layer=tooltip_bounding_box
+
+// 771:401
+[com_401]
+type=layer
+width=480
+height=245
+layer=com_32
+
+// 771:402
+[com_402]
+type=layer
+width=270
+height=245
+layer=com_33
+
+// 771:403
+[com_403]
+type=layer
+x=14
+y=19
+width=167
+height=147
+layer=tooltip_bounding_box_2
+
+// 771:404
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 771:405
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 771:406
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 771:407
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_821
+tiling=yes
+
+// 771:408
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_820
+tiling=yes
+
+// 771:409
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_822
+tiling=yes
+
+// 771:410
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_823
+tiling=yes
+
+// 771:411
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_824
+tiling=yes
+
+// 771:412
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_825
+tiling=yes
+
+// 771:413
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_827
+tiling=yes
+
+// 771:414
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_826
+tiling=yes
+
+// 771:415
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 771:416
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 771:417
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 771:418
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 771:419
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 771:420
+[com_420]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 771:421
+[com_421]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 771:422
+[com_422]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 771:423
+[com_423]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 771:424
+[com_424]
+type=layer
+y=168
+width=512
+height=334
+onload=clientscript_1611
+
+// 771:425
+[com_425]
+type=layer
+y=168
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 771:426
+[com_426]
+type=layer
+y=168
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 771:427
+[com_427]
+type=layer
+y=168
+width=512
+height=334
+transmitop=10
+op10=  
+
+// 771:428
+[com_428]
+type=layer
+y=168
+width=512
+height=334
+transmitop=10
+op10=   
+
+// 771:429
+[com_429]
+type=layer
+y=168
+width=512
+height=334
+transmitop=10
+op10=    

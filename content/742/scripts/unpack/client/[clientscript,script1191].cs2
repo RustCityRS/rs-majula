@@ -1,0 +1,5 @@
+// 1191
+[clientscript,script1191](component $component0, graphic $graphic1)
+if (map_lang ! 0) {
+    if_settextfont($component0, $graphic1);
+}

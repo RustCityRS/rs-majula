@@ -101,7 +101,7 @@ fn every_revision_defines_each_config_once() {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn unpack_rejects_existing_configs_before_writing() {
     let files = tree(

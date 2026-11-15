@@ -1,0 +1,19 @@
+// 6166
+[proc,clientscript_6166]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(enum_5838);
+if_sethide(interface_1273:com_14, false);
+while ($int0 < enum_getoutputcount(enum_5838)) {
+    cc_create(interface_1273:com_14, ^iftype_graphic, $int0);
+    $int0 = calc($int0 + 1);
+}
+$int1 = ~clientscript_6173($int1, interface_1273:com_14);
+$int0 = 0;
+while ($int0 < calc(enum_getoutputcount(enum_5838) / 2)) {
+    if (cc_find(interface_1273:com_14, $int0) = true) {
+        op377;
+        $int1 = ~clientscript_6172($int0, $int1);
+    }
+    $int0 = calc($int0 + 1);
+}
+if_setontimer(interface_1273:com_14, "clientscript_6167(0, $int1)");

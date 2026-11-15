@@ -1,0 +1,264 @@
+// 1235:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 1235:1
+[com_1]
+type=layer
+width=250
+height=30
+xmode=abs_centre
+
+// 1235:2
+[com_2]
+type=layer
+x=2457
+width=45
+height=45
+xmode=proportion_left
+ymode=abs_centre
+pausebutton=yes
+transmitop=1
+opbase=Air runes
+op1=Select
+opcursor0=cursor_use
+onmouseover=clientscript_5727(event_com)
+onmouseleave=clientscript_5728(event_com)
+
+// 1235:3
+[com_3]
+type=graphic
+width=45
+height=45
+layer=com_2
+graphic=graphic_7936
+onmouseleave=deltooltip(interface_1235:com_19)
+onmouserepeat=clientscript_5332(interface_1235:com_2, interface_1235:com_19, "Air Runes", 20, 200)
+
+// 1235:4
+[com_4]
+type=graphic
+x=9
+y=10
+width=25
+height=25
+layer=com_2
+graphic=graphic_8027
+
+// 1235:5
+[com_5]
+type=layer
+x=5734
+width=45
+height=45
+xmode=proportion_left
+ymode=abs_centre
+pausebutton=yes
+transmitop=1
+opbase=Water runes
+op1=Select
+opcursor0=cursor_use
+onmouseover=clientscript_5727(event_com)
+onmouseleave=clientscript_5728(event_com)
+
+// 1235:6
+[com_6]
+type=graphic
+width=45
+height=45
+layer=com_5
+graphic=graphic_7936
+onmouseleave=deltooltip(interface_1235:com_19)
+onmouserepeat=clientscript_5332(interface_1235:com_5, interface_1235:com_19, "Water Runes", 20, 200)
+
+// 1235:7
+[com_7]
+type=graphic
+x=9
+y=10
+width=25
+height=25
+layer=com_5
+graphic=graphic_8026
+
+// 1235:8
+[com_8]
+type=layer
+x=9011
+width=45
+height=45
+xmode=proportion_left
+ymode=abs_centre
+pausebutton=yes
+transmitop=1
+opbase=Earth runes
+op1=Select
+opcursor0=cursor_use
+onmouseover=clientscript_5727(event_com)
+onmouseleave=clientscript_5728(event_com)
+
+// 1235:9
+[com_9]
+type=graphic
+width=45
+height=45
+layer=com_8
+graphic=graphic_7936
+onmouseleave=deltooltip(interface_1235:com_19)
+onmouserepeat=clientscript_5332(interface_1235:com_8, interface_1235:com_19, "Earth Runes", 20, 200)
+
+// 1235:10
+[com_10]
+type=graphic
+x=9
+y=10
+width=25
+height=25
+layer=com_8
+graphic=graphic_8028
+
+// 1235:11
+[com_11]
+type=layer
+x=12288
+width=45
+height=45
+xmode=proportion_left
+ymode=abs_centre
+pausebutton=yes
+transmitop=1
+opbase=Fire runes
+op1=Select
+opcursor0=cursor_use
+onmouseover=clientscript_5727(event_com)
+onmouseleave=clientscript_5728(event_com)
+
+// 1235:12
+[com_12]
+type=graphic
+width=45
+height=45
+layer=com_11
+graphic=graphic_7936
+onmouseleave=deltooltip(interface_1235:com_19)
+onmouserepeat=clientscript_5332(interface_1235:com_11, interface_1235:com_19, "Fire Runes", 20, 200)
+
+// 1235:13
+[com_13]
+type=graphic
+x=9
+y=10
+width=25
+height=25
+layer=com_11
+graphic=graphic_8025
+
+// 1235:14
+[com_14]
+type=graphic
+width=16391
+height=30
+widthmode=proportion
+xmode=abs_centre
+layer=com_0
+graphic=graphic_9039
+tiling=yes
+
+// 1235:15
+[com_15]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+layer=com_0
+graphic=graphic_9042
+
+// 1235:16
+[com_16]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_9045
+
+// 1235:17
+[com_17]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+layer=com_0
+graphic=graphic_9043
+
+// 1235:18
+[com_18]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_9044
+
+// 1235:19
+[com_19]
+type=layer
+width=506
+height=129
+
+// 1235:20
+[com_20]
+type=graphic
+width=80
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+graphic=graphic_9041
+hflip=yes
+
+// 1235:21
+[com_21]
+type=graphic
+width=42
+height=35
+layer=com_1
+graphic=graphic_9040
+
+// 1235:22
+[com_22]
+type=graphic
+width=42
+height=35
+xmode=abs_right
+layer=com_1
+graphic=graphic_9040
+hflip=yes
+
+// 1235:23
+[com_23]
+type=text
+width=23223
+height=9291
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+textfont=verdana_13pt_regular
+text=Select Rune Type
+textalignh=centre
+textalignv=centre
+colour=0xe6be78

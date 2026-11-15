@@ -1,0 +1,5 @@
+// 1960
+[proc,clientscript_1960]
+if (%emote_tg08 = 1) {
+    if_sethide(emotes:emote_thanksgiving, false);
+}

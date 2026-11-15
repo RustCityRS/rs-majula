@@ -1,0 +1,41 @@
+// 2337
+[proc,clientscript_2337](int $int0)(vorbis, int, int, int)
+if (%varclient_1928 = 0) {
+    switch_int ($int0) {
+        case 5705 :
+            return(~clientscript_5925(enum_5705), 1, 0, 70);
+        case 5706 :
+            return(~clientscript_5925(enum_5706), 1, 0, 70);
+        case 5707 :
+            return(~clientscript_5925(enum_5707), 1, 0, 70);
+        case 5708 :
+            return(~clientscript_5925(enum_5708), 1, 0, 70);
+        case 5710 :
+            return(~clientscript_5925(enum_5710), 1, 0, 70);
+        case 5709 :
+            return(~clientscript_5925(enum_5709), 1, 0, 70);
+        case 5712 :
+            return(~clientscript_5925(enum_5712), 1, 0, 70);
+        case 5713 :
+            return(~clientscript_5925(enum_5713), 1, 5, 70);
+    }
+} else if (%varclient_1928 = 1) {
+    switch_int ($int0) {
+        case 5705 :
+            return(~clientscript_5925(enum_6666), 1, 0, 70);
+        case 5706 :
+            return(~clientscript_5925(enum_6666), 1, 0, 70);
+        case 5707 :
+            return(~clientscript_5925(enum_6666), 1, 0, 70);
+        case 5708 :
+            return(~clientscript_5925(enum_6666), 1, 0, 70);
+        case 5710 :
+            return(~clientscript_5925(enum_6666), 1, 0, 70);
+        case 5709 :
+            return(~clientscript_5925(enum_6666), 1, 0, 70);
+        case 5712 :
+            return(~clientscript_5925(enum_6668), 1, 0, 175);
+        case 5713 :
+            return(~clientscript_5925(enum_6667), 1, 5, 150);
+    }
+}

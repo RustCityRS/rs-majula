@@ -12,6 +12,7 @@ use rs_info::FocusKind;
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::hunt::{HuntType, check_hunt_condition};
 use rs_pack::types::*;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptNpc};
 use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;
@@ -448,8 +449,8 @@ impl Engine {
 
         let uid = active.npc.uid;
         let type_id = uid.id();
-        let category = active.npc.category.map(|c| c as i32);
-        let trigger = (ServerTriggerType::AiTimer, Some(type_id as i32), category);
+        let category = active.npc.category.map(|c| c.int());
+        let trigger = (ServerTriggerType::AiTimer, Some(type_id.int()), category);
         if engine()
             .script_by_key(trigger.0, trigger.1, trigger.2)
             .is_some()
@@ -509,7 +510,7 @@ impl Engine {
                 let category = npcs
                     .get_by_id(type_id)
                     .and_then(|t| t.category)
-                    .map(|c| c as i32);
+                    .map(|c| c.int());
 
                 let last_int = request.last_int();
                 if let Some(script) = engine().queued_script(&request, type_id, category) {
@@ -741,16 +742,16 @@ impl Engine {
 
                     if !is_current_target && !engine.multiway(player_coord) {
                         if let Some(varp_id) = hunt.check_notcombat {
-                            if player.player.vars.len() > varp_id as usize {
-                                let last_combat = player.player.vars.get(varp_id).as_int();
+                            if player.player.vars.len() > varp_id.index() {
+                                let last_combat = player.player.vars.get(varp_id.g2()).as_int();
                                 if last_combat + 8 > clock {
                                     continue;
                                 }
                             }
                         }
                         if let Some(varn_id) = hunt.check_notcombat_self {
-                            if active.npc.vars.len() > varn_id as usize {
-                                let npc_last_combat = active.npc.vars.get(varn_id).as_int();
+                            if active.npc.vars.len() > varn_id.index() {
+                                let npc_last_combat = active.npc.vars.get(varn_id.g2()).as_int();
                                 if npc_last_combat + 8 > clock {
                                     continue;
                                 }
@@ -761,8 +762,8 @@ impl Engine {
                     if !hunt.extracheck_vars.is_empty() {
                         let mut pass = true;
                         for check_var in &hunt.extracheck_vars {
-                            if player.player.vars.len() > check_var.varp as usize {
-                                let val = player.player.vars.get(check_var.varp).as_int();
+                            if player.player.vars.len() > check_var.varp.index() {
+                                let val = player.player.vars.get(check_var.varp.g2()).as_int();
                                 if !check_hunt_condition(val, &check_var.condition, check_var.value)
                                 {
                                     pass = false;
@@ -802,9 +803,7 @@ impl Engine {
                                             .and_then(|p| {
                                                 objs.get_by_id(item.obj)
                                                     .and_then(|o| o.params.as_ref())
-                                                    .and_then(|ps| {
-                                                        ps.get(&(param_check.param as i32))
-                                                    })
+                                                    .and_then(|ps| ps.get(&param_check.param))
                                                     .map(|v| match v {
                                                         ParamValue::Int(i) => *i,
                                                         _ => p.default_int,
@@ -874,8 +873,8 @@ impl Engine {
         coord: CoordGrid,
         distance: i32,
         vis: HuntCheckVis,
-        check_npc: Option<u16>,
-        check_category: Option<u16>,
+        check_npc: Option<TypeId>,
+        check_category: Option<TypeId>,
     ) -> Option<InteractionTarget> {
         let center_zx = CoordGrid::zone(coord.x()) as i32;
         let center_zz = CoordGrid::zone(coord.z()) as i32;
@@ -960,13 +959,13 @@ impl Engine {
         coord: CoordGrid,
         distance: i32,
         vis: HuntCheckVis,
-        check_obj: Option<u16>,
-        check_category: Option<u16>,
+        check_obj: Option<TypeId>,
+        check_category: Option<TypeId>,
     ) -> Option<InteractionTarget> {
         let center_zx = CoordGrid::zone(coord.x()) as i32;
         let center_zz = CoordGrid::zone(coord.z()) as i32;
         let radius = 1 + (distance >> 3);
-        let mut chosen: Option<(CoordGrid, u16, ObjSerial)> = None;
+        let mut chosen: Option<(CoordGrid, TypeId, ObjSerial)> = None;
         let mut count: u32 = 0;
 
         let engine = engine();
@@ -1046,8 +1045,8 @@ impl Engine {
         coord: CoordGrid,
         distance: i32,
         vis: HuntCheckVis,
-        check_loc: Option<u16>,
-        check_category: Option<u16>,
+        check_loc: Option<TypeId>,
+        check_category: Option<TypeId>,
     ) -> Option<InteractionTarget> {
         let center_zx = CoordGrid::zone(coord.x()) as i32;
         let center_zz = CoordGrid::zone(coord.z()) as i32;
@@ -1177,9 +1176,9 @@ impl Engine {
                     .npcs()
                     .get_by_id(type_id)
                     .and_then(|t| t.category)
-                    .map(|c| c as i32);
+                    .map(|c| c.int());
                 if let Err(e) = engine_mut().run_script_by_trigger(
-                    (trigger, Some(type_id as i32), category),
+                    (trigger, Some(type_id.int()), category),
                     Some(ScriptSubject::Npc(uid)),
                     None,
                     None,
@@ -1716,9 +1715,9 @@ impl Engine {
 
                 if let Some(trigger) = trigger {
                     let type_id = active.npc.uid.id();
-                    let category = active.npc.category.map(|c| c as i32);
+                    let category = active.npc.category.map(|c| c.int());
                     if let Err(e) = engine_mut().run_script_by_trigger(
-                        (trigger, Some(type_id as i32), category),
+                        (trigger, Some(type_id.int()), category),
                         Some(ScriptSubject::Npc(uid)),
                         target_subject,
                         None,
@@ -1744,9 +1743,9 @@ impl Engine {
                 let trigger = Self::npc_mode_to_trigger(target_op);
 
                 if let Some(trigger) = trigger {
-                    let category = active.npc.category.map(|c| c as i32);
+                    let category = active.npc.category.map(|c| c.int());
                     if let Err(e) = engine_mut().run_script_by_trigger(
-                        (trigger, Some(type_id as i32), category),
+                        (trigger, Some(type_id.int()), category),
                         Some(ScriptSubject::Npc(uid)),
                         target_subject,
                         None,

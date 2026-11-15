@@ -1,0 +1,5 @@
+// 4836
+[proc,clientscript_4836](component $component0, component $component1, component $component2)
+if_setgraphic($component0, "aif_browngrad_topbot,1");
+if_setgraphic($component1, "aif_browngrad_fill,1");
+if_setgraphic($component2, "aif_browngrad_topbot,6");

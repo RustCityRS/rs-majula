@@ -1,0 +1,6 @@
+// 5762
+[proc,clientscript_5762]
+if (%if_switchside_varc = 1) {
+    %if_switchside_varc = -1;
+    ~if_switchside(%if_switchside_varc);
+}

@@ -1,0 +1,8 @@
+// 258
+[proc,clientscript_258](component $component0)
+if (if_find($component0) = true) {
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(16, 15, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("aif_bronze_close_button_1,0");
+    cc_setop(1, "Close");
+}

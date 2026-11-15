@@ -1,0 +1,14 @@
+// 5663
+[proc,clientscript_5663](component $component0, int $int1, int $int2)
+if ($int2 < 150) {
+    $int2 = calc($int2 + 1);
+    if_setontimer($component0, "clientscript_5663($component0, $int1, $int2)");
+    return;
+}
+if_setposition($component0, 0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+$int1 = calc($int1 - 1);
+if ($int1 <= 0) {
+    if_setontimer($component0, null);
+} else {
+    if_setontimer($component0, "clientscript_5663($component0, $int1, $int2)");
+}

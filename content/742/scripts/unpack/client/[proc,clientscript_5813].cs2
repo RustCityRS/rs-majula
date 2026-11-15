@@ -1,0 +1,18 @@
+// 5813
+[proc,clientscript_5813](int $int0)(int, int)
+def_int $int1 = enum(int, int, enum_3482, $int0);
+def_int $int2 = enum(int, int, enum_5478, $int0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_struct $struct5 = null;
+while ($int1 ! $int2) {
+    $struct5 = ~clientscript_6798($int1);
+    if (struct_param($struct5, param_1267) = $int0 & struct_param($struct5, param_1322) = 0) {
+        $int4 = calc($int4 + 1);
+        if (~task_get_progress($int1) = 2) {
+            $int3 = calc($int3 + 1);
+        }
+    }
+    $int1 = struct_param($struct5, param_1269);
+}
+return($int3, $int4);

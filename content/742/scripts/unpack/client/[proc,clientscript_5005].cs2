@@ -1,0 +1,53 @@
+// 5005
+[proc,clientscript_5005]
+def_int $int0 = %varplayerbit_9550;
+def_int $int1 = $int0;
+def_int $int2 = 1;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 100;
+if (op718 = 1) {
+    $int3 = %varclan_2580;
+    $int4 = 0;
+    while ($int4 = 0 & $int6 > 0) {
+        $int6 = calc($int6 - 1);
+        switch_int ($int0) {
+            case 17 :
+                $int1 = 18;
+                $int4 = 1;
+            case 18 :
+                $int1 = 19;
+                $int4 = 1;
+            case 19 :
+                $int1 = 1;
+                $int4 = 1;
+            case 1 :
+                $int1 = 2;
+            case 2 :
+                $int1 = 3;
+            case 3 :
+                $int1 = 4;
+            case 4 :
+                $int1 = 7;
+            case 7 :
+                $int1 = 5;
+            case 5 :
+                $int1 = 6;
+            case 6 :
+                $int1 = 17;
+                $int4 = 1;
+        }
+        if ($int4 = 0 & ~clientscript_4979($int1) <= %varclan_2580) {
+            $int4 = 1;
+        }
+        $int0 = $int1;
+    }
+    if ($int6 <= 0) {
+        return;
+    }
+    if ($int4 = 1) {
+        %varplayerbit_9550 = $int1;
+        ~clientscript_4988(%varplayerbit_9550);
+    }
+}

@@ -1,0 +1,8 @@
+// 1890
+[proc,clientscript_1890](component $component0)
+if (getwindowmode ! 3) {
+    setdefaultwindowmode(getwindowmode);
+}
+detail_antialiasing_default(detailget_antialiasing);
+if_setontimer(loginscreen:windowmode_confirm, null);
+~clientscript_1174($component0);

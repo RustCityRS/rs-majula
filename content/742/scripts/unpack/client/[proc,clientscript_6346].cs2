@@ -1,0 +1,7 @@
+// 6346
+[proc,clientscript_6346]
+if (%varclient_1795 < 1) {
+    op14("billing_core", "purchasepopup.ws?externalName=rs", "packagegroupredirect.ws?value=rs", 1);
+    %varclient_1795 = clientclock;
+    if_setontimer(lobbyscreen:com_236, "clientscript_6032");
+}

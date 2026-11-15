@@ -1,0 +1,87 @@
+// 1255:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 1255:1
+[com_1]
+type=graphic
+y=11
+width=111
+height=111
+xmode=abs_centre
+ymode=abs_centre
+graphic="loading_wheel_1,0"
+ontimer=clientscript_5955
+
+// 1255:2
+[com_2]
+type=layer
+width=275
+height=156
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+
+// 1255:3
+[com_3]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+onload=script4260(event_com)
+
+// 1255:4
+[com_4]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_2
+
+// 1255:5
+[com_5]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+onload=script4261(event_com)
+
+// 1255:6
+[com_6]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+
+// 1255:7
+[com_7]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+textfont=palatino_linotype_18pt_regular
+text=Logging out
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)

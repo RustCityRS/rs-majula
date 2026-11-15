@@ -7,6 +7,7 @@
 
 use rs_pack::cache::varp::VarPlayerScope;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 #[test]
 fn the_make_x_amount_is_saved_and_varp_1363_is_not() {
@@ -26,7 +27,11 @@ fn the_make_x_amount_is_saved_and_varp_1363_is_not() {
             !saved.protect,
             "skill_creation_saved takes the buttons' writes"
         );
-        let shared = engine.cache.varps.get_by_id(1363).expect("varp 1363");
+        let shared = engine
+            .cache
+            .varps
+            .get_by_id(TypeId::new(1363))
+            .expect("varp 1363");
         assert_ne!(shared.scope, VarPlayerScope::Perm, "varp 1363 is not saved");
     });
 }

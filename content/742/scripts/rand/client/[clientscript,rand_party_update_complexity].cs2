@@ -1,0 +1,3 @@
+// 3333
+[clientscript,rand_party_update_complexity]
+if_settext(rand_party_side:party_complexity, tostring(%rand_party_complexity));

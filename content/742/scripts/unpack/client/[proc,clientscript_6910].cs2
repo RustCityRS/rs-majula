@@ -1,0 +1,6 @@
+// 6910
+[proc,clientscript_6910](component $component0, component $component1, component $component2, component $component3)
+~clientscript_6912($component1, $component2);
+if_setonvarctransmit($component0, "clientscript_6911($component1, $component2){varclient_545}");
+~clientscript_6914($component3);
+if_setonvarcstrtransmit($component0, "clientscript_6913($component3){varclient_2399}");

@@ -1,0 +1,8 @@
+// 786
+[proc,clientscript_786]
+if (map_members = true) {
+    if_setscrollsize(interface_637:com_44, 0, 221);
+    ~clientscript_31(interface_637:com_87, interface_637:com_44, 792, 789, 790, 791, 773, 788);
+} else {
+    if_sethide(interface_637:com_43, true);
+}

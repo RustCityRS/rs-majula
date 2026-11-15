@@ -1,0 +1,9 @@
+// 5611
+[proc,clientscript_5611](int $int0, component $component1)
+$int0 = min(100, $int0);
+$int0 = max(0, $int0);
+if ($component1 = null) {
+    return;
+}
+def_int $int2 = calc($int0 * 16384 / 100);
+if_setsize($component1, $int2, if_getheight($component1), ^setsize_rel, ^setsize_abs);

@@ -1,0 +1,87 @@
+// 5572
+[proc,clientscript_5572](int $int0)
+def_int $int1 = 1;
+def_string $string0 = "0";
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_int $int5 = 1;
+switch_int ($int0) {
+    case 0 :
+        $int1 = %varclient_1735;
+        $string0 = %varclient_2219;
+        $component2 = interface_1180:com_7;
+        $component3 = interface_1180:com_95;
+        $component4 = interface_1180:com_86;
+    case 1 :
+        $int1 = %varclient_1736;
+        $string0 = %varclient_2220;
+        $component2 = interface_1180:com_8;
+        $component3 = interface_1180:com_106;
+        $component4 = interface_1180:com_97;
+        $int5 = -1;
+    case 2 :
+        $int1 = %varclient_1737;
+        $string0 = %varclient_2221;
+        $component2 = interface_1180:com_12;
+        $component3 = interface_1180:com_117;
+        $component4 = interface_1180:com_108;
+    case 3 :
+        $int1 = %varclient_1738;
+        $string0 = %varclient_2222;
+        $component2 = interface_1180:com_13;
+        $component3 = interface_1180:com_128;
+        $component4 = interface_1180:com_119;
+        $int5 = -1;
+    case 4 :
+        $int1 = %varclient_1739;
+        $string0 = %varclient_2329;
+        $component2 = interface_1180:com_14;
+        $component3 = interface_1180:com_139;
+        $component4 = interface_1180:com_130;
+    case 5 :
+        $int1 = %varclient_1740;
+        $string0 = %varclient_2330;
+        $component2 = interface_1180:com_15;
+        $component3 = interface_1180:com_150;
+        $component4 = interface_1180:com_141;
+        $int5 = -1;
+    case 6 :
+        $int1 = %varclient_1741;
+        $string0 = %varclient_2331;
+        $component2 = interface_1180:com_16;
+        $component3 = interface_1180:com_161;
+        $component4 = interface_1180:com_152;
+    case 7 :
+        $int1 = %varclient_1742;
+        $string0 = %varclient_2377;
+        $component2 = interface_1180:com_17;
+        $component3 = interface_1180:com_172;
+        $component4 = interface_1180:com_163;
+        $int5 = -1;
+    case 8 :
+        $int1 = %varclient_1743;
+        $string0 = %varclient_2378;
+        $component2 = interface_1180:com_18;
+        $component3 = interface_1180:com_183;
+        $component4 = interface_1180:com_174;
+    case 9 :
+        $int1 = %varclient_1744;
+        $string0 = %varclient_2379;
+        $component2 = interface_1180:com_19;
+        $component3 = interface_1180:com_194;
+        $component4 = interface_1180:com_185;
+        $int5 = -1;
+}
+if ($int1 ! 0 | compare($string0, "0") = 0) {
+    return;
+}
+if (compare($string0, "") = 0) {
+    if_sethide($component2, true);
+} else {
+    if_sethide($component2, false);
+    if_settext($component3, $string0);
+    if_settrans($component4, 0);
+    if_setposition($component2, calc($int5 * 150), -30, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setontimer($component2, "clientscript_5573($int0)");
+}

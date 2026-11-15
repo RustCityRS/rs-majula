@@ -1,0 +1,28 @@
+// 6797
+[proc,clientscript_6797]
+def_int $int0 = 0;
+def_int $int1 = struct_param(~clientscript_6798(%varplayerbit_8576), param_2235);
+if ($int1 = 0) {
+    return;
+}
+switch_int (%varplayerbit_8576) {
+    case 3036 :
+        $int0 = %varplayerbit_11987;
+    case 3037 :
+        $int0 = %varplayerbit_11991;
+    case 3038 :
+        $int0 = %varplayerbit_11995;
+    case 3039 :
+        $int0 = %varplayerbit_11999;
+    case 3040 :
+        $int0 = %varplayerbit_12003;
+    case 3041 :
+        $int0 = %varplayerbit_12007;
+    case default :
+        return;
+}
+if_sethide(interface_1056:com_0, false);
+~aif_progressbar_set(scale($int0, $int1, 100), interface_1056:com_23, interface_1056:com_28);
+~aif_text_layer_build_new(interface_1056:com_28, "<tostring($int0)> / <tostring($int1)>", p11_full, 0xebe0bc, ^black);
+def_string $string0 = "Challenge progress: <tostring($int0)> / <tostring($int1)>";
+if_setonmouserepeat(interface_1056:com_0, "aif_tooltip(interface_1056:com_18, event_com, -1, $string0, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");

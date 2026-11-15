@@ -1,0 +1,22 @@
+// 6380
+[proc,clientscript_6380](int $int0)(component, int, int)
+switch_int ($int0) {
+    case 0 :
+        return(%varclient_1947, %varclient_1948, calc(%varplayerbit_11447 - 1));
+    case 1 :
+        return(%varclient_1949, %varclient_1950, calc(%varplayerbit_11448 - 1));
+    case 2 :
+        return(%varclient_1951, %varclient_1952, calc(%varplayerbit_11449 - 1));
+    case 3 :
+        return(%varclient_1953, %varclient_1954, calc(%varplayerbit_11450 - 1));
+    case 4 :
+        return(%varclient_1955, %varclient_1956, calc(%varplayerbit_11451 - 1));
+    case 5 :
+        return(%varclient_1957, %varclient_1958, calc(%varplayerbit_11452 - 1));
+    case 6 :
+        return(%varclient_1959, %varclient_1960, calc(%varplayerbit_11453 - 1));
+    case 7 :
+        return(%varclient_1961, %varclient_1962, calc(%varplayerbit_11454 - 1));
+    case default :
+        return(null, -1, -1);
+}

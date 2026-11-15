@@ -1,0 +1,30 @@
+// 6101
+[proc,clientscript_6101](int $int0, int $int1, int $int2, component $component3, int $int4)
+if ($int2 = 0) {
+    ~deltooltip_action(interface_1265:com_89);
+}
+if (cc_find($component3, $int4) = true) {
+    if ($int0 = 0) {
+        if ($int1 = 1) {
+            if ($int2 = 1) {
+                cc_setgraphic(10451);
+            } else {
+                cc_setgraphic(10451);
+            }
+        } else if ($int2 = 1) {
+            cc_setgraphic(10449);
+        } else {
+            cc_setgraphic(10448);
+        }
+    } else if ($int1 = 1) {
+        if ($int2 = 1) {
+            cc_setgraphic(10456);
+        } else {
+            cc_setgraphic(10456);
+        }
+    } else if ($int2 = 1) {
+        cc_setgraphic(10454);
+    } else {
+        cc_setgraphic(10453);
+    }
+}

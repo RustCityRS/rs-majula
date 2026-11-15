@@ -1,0 +1,32 @@
+// 2986
+[clientscript,ecosystem_requirements_load]
+if (%varplayerbit_8386 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:basic_text, ecosystem_creatures:basic_model, ecosystem_creatures:basic_undiscovered, ecosystem_creatures:basic_level);
+}
+if (%varplayerbit_8393 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:shadow_text, ecosystem_creatures:shadow_model, ecosystem_creatures:shadow_undiscovered, ecosystem_creatures:shadow_level);
+}
+if (%varplayerbit_8394 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:diseased_text, ecosystem_creatures:diseased_model, ecosystem_creatures:diseased_undiscovered, ecosystem_creatures:diseased_level);
+}
+if (%varplayerbit_8395 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:igneous_text, ecosystem_creatures:igneous_model, ecosystem_creatures:igneous_undiscovered, ecosystem_creatures:igneous_level);
+}
+if (%varplayerbit_8391 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:com_14, ecosystem_creatures:com_13, ecosystem_creatures:com_35, ecosystem_creatures:carnivorous_level);
+}
+if (%varplayerbit_8387 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:aquatic_text, ecosystem_creatures:aquatic_model, ecosystem_creatures:aquatic_undiscovered, ecosystem_creatures:aquatic_level);
+}
+if (%varplayerbit_8388 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:amphibious_text, ecosystem_creatures:amphibious_model, ecosystem_creatures:amphibious_undiscovered, ecosystem_creatures:amphibious_level);
+}
+if (%varplayerbit_8390 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:carrion_text, ecosystem_creatures:carrion_model, ecosystem_creatures:carrion_undiscovered, ecosystem_creatures:carrion_level);
+}
+if (%varplayerbit_8389 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:camouflaged_text, ecosystem_creatures:camouflaged_model, ecosystem_creatures:camouflaged_undiscovered, ecosystem_creatures:camouflaged_level);
+}
+if (%varplayerbit_8392 = 1) {
+    ~ecosystem_show_critter(ecosystem_creatures:draconic_text, ecosystem_creatures:draconic_model, ecosystem_creatures:draconic_undiscovered, ecosystem_creatures:draconic_level);
+}

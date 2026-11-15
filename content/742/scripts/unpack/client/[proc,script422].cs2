@@ -1,0 +1,13 @@
+// 422
+[proc,script422](int $int0, int $int1)(int, int)
+def_int $int2 = 5;
+def_int $int3 = 5;
+if ($int0 <= $int2 | $int1 <= $int3) {
+    return($int2, $int3);
+}
+if ($int0 > $int1) {
+    $int2 = calc($int2 * ($int0 / $int1));
+} else if ($int1 > $int0) {
+    $int3 = calc($int3 * ($int1 / $int0));
+}
+return($int2, $int3);

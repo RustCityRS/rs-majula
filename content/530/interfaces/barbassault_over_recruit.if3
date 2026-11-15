@@ -1,0 +1,227 @@
+// 489:0
+[com_0]
+type=text
+x=344
+y=-2
+width=166
+height=27
+textfont=fontmetrics_764
+text=# Players in room:
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 489:1
+[com_1]
+type=text
+x=374
+y=19
+width=80
+height=16
+textfont=fontmetrics_764
+text=Attackers:
+textshadow=yes
+colour=0xff981f
+
+// 489:2
+[com_2]
+type=text
+x=374
+y=38
+width=80
+height=14
+textfont=fontmetrics_764
+text=Defenders:
+textshadow=yes
+colour=0xff981f
+
+// 489:3
+[com_3]
+type=text
+x=374
+y=57
+width=80
+height=14
+textfont=fontmetrics_764
+text=Collectors:
+textshadow=yes
+colour=0xff981f
+
+// 489:4
+[com_4]
+type=text
+x=374
+y=77
+width=80
+height=14
+textfont=fontmetrics_764
+text=Healers:
+textshadow=yes
+colour=0xff981f
+
+// 489:5
+[com_5]
+type=text
+x=374
+y=96
+width=80
+height=14
+textfont=fontmetrics_764
+text=Any:
+textshadow=yes
+colour=0xff981f
+
+// 489:6
+[barbassault_over_rec_att]
+type=text
+x=489
+y=19
+width=8
+height=14
+textfont=fontmetrics_764
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 489:7
+[barbassault_over_rec_def]
+type=text
+x=489
+y=38
+width=8
+height=14
+textfont=fontmetrics_764
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 489:8
+[barbassault_over_rec_col]
+type=text
+x=489
+y=57
+width=8
+height=14
+textfont=fontmetrics_764
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 489:9
+[barbassault_over_rec_heal]
+type=text
+x=489
+y=77
+width=8
+height=14
+textfont=fontmetrics_764
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 489:10
+[barbassault_over_rec_any]
+type=text
+x=489
+y=96
+width=8
+height=14
+textfont=fontmetrics_764
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 489:11
+[barbassault_att_arrow]
+type=graphic
+x=1
+y=3
+width=17
+height=13
+layer=barbassault_att_arrow_layer
+graphic=graphic_772
+
+// 489:12
+[barbassault_def_arrow]
+type=graphic
+x=1
+y=4
+width=17
+height=13
+layer=barbassault_def_arrow_layer
+graphic=graphic_772
+
+// 489:13
+[barbassault_col_arrow]
+type=graphic
+x=1
+y=4
+width=17
+height=13
+layer=barbassault_col_arrow_layer
+graphic=graphic_772
+
+// 489:14
+[barbassault_heal_arrow]
+type=graphic
+x=1
+y=4
+width=17
+height=13
+layer=barbassault_heal_arrow_layer
+graphic=graphic_772
+
+// 489:15
+[barbassault_any_arrow]
+type=graphic
+x=1
+y=5
+width=17
+height=13
+layer=barbassault_any_arrow_layer
+graphic=graphic_772
+
+// 489:16
+[barbassault_att_arrow_layer]
+type=layer
+x=352
+y=27
+width=20
+height=20
+hide=yes
+
+// 489:17
+[barbassault_def_arrow_layer]
+type=layer
+x=352
+y=46
+width=20
+height=20
+hide=yes
+
+// 489:18
+[barbassault_col_arrow_layer]
+type=layer
+x=352
+y=65
+width=20
+height=20
+hide=yes
+
+// 489:19
+[barbassault_heal_arrow_layer]
+type=layer
+x=352
+y=84
+width=20
+height=20
+hide=yes
+
+// 489:20
+[barbassault_any_arrow_layer]
+type=layer
+x=352
+y=103
+width=20
+height=20
+hide=yes

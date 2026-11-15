@@ -1,0 +1,541 @@
+// 109:0
+[com_0]
+type=rectangle
+x=80
+y=70
+width=366
+height=215
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:1
+[com_1]
+type=graphic
+x=76
+y=56
+width=362
+height=220
+graphic=graphic_297
+tiling=yes
+
+// 109:2
+[com_2]
+type=graphic
+x=74
+y=86
+width=7
+height=161
+graphic=graphic_955
+tiling=yes
+
+// 109:3
+[com_3]
+type=graphic
+x=74
+y=54
+width=32
+height=32
+graphic=graphic_958
+
+// 109:4
+[com_4]
+type=graphic
+x=408
+y=86
+width=32
+height=161
+graphic=graphic_957
+tiling=yes
+
+// 109:5
+[com_5]
+type=graphic
+x=106
+y=54
+width=302
+height=7
+graphic=graphic_954
+tiling=yes
+
+// 109:6
+[com_6]
+type=graphic
+x=106
+y=247
+width=302
+height=32
+graphic=graphic_956
+tiling=yes
+
+// 109:7
+[com_7]
+type=graphic
+x=74
+y=247
+width=32
+height=32
+graphic=graphic_960
+
+// 109:8
+[com_8]
+type=graphic
+x=408
+y=54
+width=32
+height=32
+graphic=graphic_959
+
+// 109:9
+[com_9]
+type=graphic
+x=408
+y=247
+width=32
+height=32
+graphic=graphic_961
+
+// 109:10
+[com_10]
+type=graphic
+x=85
+y=82
+width=344
+height=6
+graphic=graphic_962
+tiling=yes
+
+// 109:11
+[com_11]
+type=graphic
+x=74
+y=70
+width=32
+height=32
+graphic=graphic_963
+
+// 109:12
+[com_12]
+type=graphic
+x=408
+y=70
+width=32
+height=32
+graphic=graphic_964
+
+// 109:13
+[closebutton]
+type=graphic
+x=415
+y=63
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+onclick=if_close
+
+// 109:14
+[com_14]
+type=graphic
+x=85
+y=59
+width=25
+height=25
+graphic=graphic_1164
+
+// 109:15
+[title]
+type=text
+x=81
+y=63
+width=352
+height=16
+textfont=fontmetrics_496
+text=Grand Exchange - Collection Box
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=stockcollect_onload
+oninvtransmit=clan_vote_restore{stockmarket_collect0, stockmarket_collect1, stockmarket_collect2, stockmarket_collect3, stockmarket_collect4, stockmarket_collect5}
+
+// 109:16
+[com_16]
+type=rectangle
+x=93
+y=100
+width=106
+height=80
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:17
+[offerbutton0]
+type=layer
+x=88
+y=95
+width=106
+height=80
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:18
+[offersummary0]
+type=layer
+x=88
+y=95
+width=106
+height=80
+
+// 109:19
+[offertooltip0]
+type=layer
+x=88
+y=95
+width=106
+height=80
+
+// 109:20
+[tooltip0]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip0
+
+// 109:21
+[shadow_1]
+type=rectangle
+x=209
+y=100
+width=106
+height=80
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:22
+[offerbutton1]
+type=layer
+x=204
+y=95
+width=106
+height=80
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:23
+[offersummary1]
+type=layer
+x=204
+y=95
+width=106
+height=80
+
+// 109:24
+[offertooltip1]
+type=layer
+x=204
+y=95
+width=106
+height=80
+
+// 109:25
+[tooltip1]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip1
+
+// 109:26
+[shadow_2]
+type=rectangle
+x=325
+y=100
+width=106
+height=80
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:27
+[offerbutton2]
+type=layer
+x=320
+y=95
+width=106
+height=80
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:28
+[offersummary2]
+type=layer
+x=320
+y=95
+width=106
+height=80
+
+// 109:29
+[offertooltip2]
+type=layer
+x=320
+y=95
+width=106
+height=80
+
+// 109:30
+[tooltip2]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip2
+
+// 109:31
+[offerbutton2_hide]
+type=layer
+x=320
+y=95
+width=106
+height=80
+
+// 109:32
+[com_32]
+type=rectangle
+width=120
+height=80
+layer=offerbutton2_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:33
+[com_33]
+type=graphic
+width=120
+height=80
+layer=offerbutton2_hide
+graphic=graphic_1167
+tiling=yes
+
+// 109:34
+[shadow_3]
+type=rectangle
+x=93
+y=190
+width=106
+height=80
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:35
+[offerbutton3]
+type=layer
+x=88
+y=185
+width=106
+height=80
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:36
+[offersummary3]
+type=layer
+x=88
+y=185
+width=106
+height=80
+
+// 109:37
+[offertooltip3]
+type=layer
+x=88
+y=185
+width=106
+height=80
+
+// 109:38
+[tooltip3]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip3
+
+// 109:39
+[offerbutton3_hide]
+type=layer
+x=88
+y=185
+width=106
+height=80
+
+// 109:40
+[com_40]
+type=rectangle
+width=140
+height=110
+layer=offerbutton3_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:41
+[com_41]
+type=graphic
+width=140
+height=110
+layer=offerbutton3_hide
+graphic=graphic_1167
+tiling=yes
+
+// 109:42
+[shadow_4]
+type=rectangle
+x=209
+y=190
+width=106
+height=80
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:43
+[offerbutton4]
+type=layer
+x=204
+y=185
+width=106
+height=80
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:44
+[offersummary4]
+type=layer
+x=204
+y=185
+width=106
+height=80
+
+// 109:45
+[offertooltip4]
+type=layer
+x=204
+y=185
+width=106
+height=80
+
+// 109:46
+[tooltip4]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip4
+
+// 109:47
+[offerbutton4_hide]
+type=layer
+x=204
+y=185
+width=106
+height=80
+
+// 109:48
+[com_48]
+type=rectangle
+width=140
+height=110
+layer=offerbutton4_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:49
+[com_49]
+type=graphic
+width=140
+height=110
+layer=offerbutton4_hide
+graphic=graphic_1167
+tiling=yes
+
+// 109:50
+[com_50]
+type=rectangle
+x=325
+y=190
+width=106
+height=80
+colour=0x000000
+fill=yes
+trans=200
+
+// 109:51
+[offerbutton5]
+type=layer
+x=320
+y=185
+width=106
+height=80
+onload=stockmarket_chooseoption_corner(event_com)
+
+// 109:52
+[offersummary5]
+type=layer
+x=320
+y=185
+width=106
+height=80
+
+// 109:53
+[offertooltip5]
+type=layer
+x=320
+y=185
+width=106
+height=80
+
+// 109:54
+[tooltip5]
+type=layer
+x=24
+y=24
+width=10
+height=10
+layer=offertooltip5
+
+// 109:55
+[offerbutton5_hide]
+type=layer
+x=320
+y=185
+width=106
+height=80
+
+// 109:56
+[com_56]
+type=rectangle
+width=140
+height=110
+layer=offerbutton5_hide
+colour=0x808080
+fill=yes
+trans=160
+
+// 109:57
+[com_57]
+type=graphic
+width=140
+height=110
+layer=offerbutton5_hide
+graphic=graphic_1167
+tiling=yes

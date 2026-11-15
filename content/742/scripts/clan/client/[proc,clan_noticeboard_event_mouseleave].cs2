@@ -1,0 +1,10 @@
+// 4624
+[proc,clan_noticeboard_event_mouseleave](component $component0, int $int1)
+if (if_getgraphic($component0) = "aif_notetabs,4") {
+    return;
+}
+if ($int1 = %clan_event_current_varp) {
+    if_setgraphic($component0, "aif_notetabs,3");
+} else {
+    if_setgraphic($component0, "aif_notetabs,0");
+}

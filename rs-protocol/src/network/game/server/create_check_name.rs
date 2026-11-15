@@ -20,7 +20,10 @@ impl ServerProtMessage for CreateCheckName {
     // Client reads `g1b_alt1` (= `-byte & 0xFF`), not a plain byte
     // (`MapAreaConfig.java`, CREATE_CHECK_NAME).
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
         buf.p1_alt2(self.response);
+        #[cfg(since_742)]
+        buf.p1_alt3(self.response);
     }
 
     fn sizeof(&self) -> usize {

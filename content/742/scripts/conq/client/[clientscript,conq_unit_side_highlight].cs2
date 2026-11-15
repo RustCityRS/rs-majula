@@ -1,0 +1,7 @@
+// 501
+[clientscript,conq_unit_side_highlight](int $int0)
+if ($int0 = 1) {
+    if_sethide(conq_side_unit_details:current_unit_image_highlight, false);
+} else {
+    if_sethide(conq_side_unit_details:current_unit_image_highlight, true);
+}

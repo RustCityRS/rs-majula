@@ -1,0 +1,11 @@
+// 1828
+[clientscript,clanwars_setup_ranged](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_noranged = false) {
+    %clanwars_rulevarc_noranged = true;
+} else {
+    %clanwars_rulevarc_noranged = false;
+}
+~clanwars_resynch_ranged;

@@ -1,0 +1,18 @@
+// 6198
+[proc,clientscript_6198](int $int0, int $int1, component $component2, component $component3)
+if ($component2 = lobbyscreen:com_361) {
+    %varclient_1920 = 1;
+    %varclient_1921 = op294($int0, $int1, $component2);
+    ~clientscript_6199($component2, $component3, %varclient_2385);
+} else if ($component2 = lobbyscreen:com_368) {
+    %varclient_1920 = 2;
+    %varclient_1922 = op294($int0, $int1, $component2);
+    ~clientscript_6199($component2, $component3, %varclient_2386);
+}
+if_setonkey(chatdefault:input, null);
+if (%varclient_1920 = 1) {
+    if_setonkey(lobbyscreen:com_368, null);
+} else if (%varclient_1920 = 2) {
+    if_setonkey(lobbyscreen:com_361, null);
+}
+if_setonkey($component2, "clientscript_6196(event_keycode, event_keychar, event_com, 0)");

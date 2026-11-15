@@ -1,0 +1,10 @@
+// 694
+[proc,clientscript_694](string $string0, string $string1, string $string2)
+if_setonmouserepeat(trademain:com_41, "addtooltip(event_com, trademain:tooltip_layer, $string0, 25, 180)");
+if_setonmouserepeat(trademain:pointer, "addtooltip(event_com, trademain:tooltip_layer, $string0, 25, 180)");
+if_setonmouserepeat(trademain:com_74, "addtooltip(event_com, trademain:tooltip_layer, $string0, 25, 180)");
+if_setonmouserepeat(trademain:com_40, "addtooltip(event_com, trademain:tooltip_layer, $string1, 25, 180)");
+if_setonmouserepeat(trademain:com_75, "addtooltip(event_com, trademain:tooltip_layer, $string1, 25, 180)");
+if_setonmouserepeat(trademain:com_42, "addtooltip(event_com, trademain:tooltip_layer, $string2, 25, 180)");
+if_setonmouserepeat(trademain:com_76, "addtooltip(event_com, trademain:tooltip_layer, $string2, 25, 180)");
+%tooltip_built = 0;

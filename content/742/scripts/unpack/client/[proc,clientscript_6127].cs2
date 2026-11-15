@@ -1,0 +1,23 @@
+// 6127
+[proc,clientscript_6127](int $int0)
+def_string $string0 = "- Place probes in the mind of your victim to invade their consciousness and steal their memories.<br>- Place each in a perfect position to obtain a clear memory.<br>- Use the flashing hint circle to find the ideal positions. A faster flash is better.<br>- You may also make use of audio hints to help find the ideal positions.<br>- You have three probes to place.<br>- Click the screen to add a probe in place.<br>- You will exit the mind of your victim when you have placed all three probes.";
+def_int $int1 = 10;
+def_int $int2 = 16;
+def_int $int3 = calc(if_getwidth(interface_1270:com_76) - $int1 * 2);
+def_int $int4 = paraheight($string0, $int3, p12_full);
+if_settextalign(interface_1270:com_77, ^settextalign_left, ^settextalign_top, $int2);
+def_int $int5 = calc($int2 * $int4);
+if_setposition(interface_1270:com_77, $int1, $int1, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(interface_1270:com_77, $int3, $int5, ^setsize_abs, ^setsize_abs);
+if_settext(interface_1270:com_77, $string0);
+def_int $int6 = calc($int5 + $int1 + $int1);
+if ($int6 < if_getheight(interface_1270:com_76)) {
+    $int6 = if_getheight(interface_1270:com_76);
+}
+if_setscrollsize(interface_1270:com_76, if_getwidth(interface_1270:com_76), $int6);
+~scrollbar_vertical(interface_1270:com_75, interface_1270:com_76, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if ($int0 = 1) {
+    if_sethide(interface_1270:com_71, false);
+} else {
+    if_sethide(interface_1270:com_71, true);
+}

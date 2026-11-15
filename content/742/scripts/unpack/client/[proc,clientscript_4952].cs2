@@ -1,0 +1,37 @@
+// 4952
+[proc,clientscript_4952](int $int0)(int)
+if (op718 = 1) {
+    switch_int ($int0) {
+        case 1 :
+            return(%varclan_2633);
+        case 2 :
+            return(%varclan_2631);
+        case 3 :
+            return(%varclan_2632);
+        case 4 :
+            return(%varclan_2617);
+        case 5 :
+            return(%varclan_2618);
+        case 6 :
+            return(%varclan_2620);
+        case 7 :
+            return(%varclan_2621);
+        case 8 :
+            return(%varclan_2622);
+        case 9 :
+            return(%varclan_2623);
+        case 10 :
+            return(%varclan_2624);
+        case 11 :
+            return(%varclan_2625);
+        case 12 :
+            return(%varclan_2626);
+        case 13 :
+            return(%varclan_2627);
+        case 14 :
+            return(%varclan_2629);
+        case 15 :
+            return(%varclan_2630);
+    }
+}
+return(0);

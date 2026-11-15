@@ -1,0 +1,33 @@
+// 773
+[proc,lore_updateicon](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, obj $obj5, int $int6, obj $obj7, int $int8, obj $obj9, int $int10, obj $obj11, int $int12)
+if (if_gethide($component1) = false) {
+    if ($obj5 ! null & ~magic_runecount($obj5, $component0) < $int6) {
+        if_setgraphic($component0, $graphic3);
+        return;
+    }
+    if ($obj7 ! null & ~magic_runecount($obj7, $component0) < $int8) {
+        if_setgraphic($component0, $graphic3);
+        return;
+    }
+    if ($obj9 ! null & ~magic_runecount($obj9, $component0) < $int10) {
+        if_setgraphic($component0, $graphic3);
+        return;
+    }
+    if ($obj11 ! null & ~magic_runecount($obj11, $component0) < $int12) {
+        if_setgraphic($component0, $graphic3);
+        return;
+    }
+    if (stat_base(summoning) < $int4) {
+        if (%assist_engaged = 1) {
+            if (%assist_stat_magic < $int4 | enum(component, int, enum_1061, $component0) = 0) {
+                if_setgraphic($component0, $graphic3);
+                return;
+            }
+        } else {
+            if_setgraphic($component0, $graphic3);
+            return;
+        }
+    } else {
+        if_setgraphic($component0, $graphic2);
+    }
+}

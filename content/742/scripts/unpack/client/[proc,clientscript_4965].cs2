@@ -1,0 +1,8 @@
+// 4965
+[proc,clientscript_4965](int $int0)(int)
+def_int $int1 = -1;
+if (op718 = 1) {
+    $int1 = ~clientscript_4948($int0);
+    return(~clientscript_4959($int0));
+}
+return(0);

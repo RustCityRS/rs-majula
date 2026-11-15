@@ -1,0 +1,460 @@
+// 1364
+[proc,clientscript_1364]
+def_int $int0 = 0;
+if (if_hassubmodal(interface_549:com_2, interface_378) = false) {
+    if (map_members = false) {
+        if_sethide(interface_22:com_5, true);
+    } else {
+        if_sethide(interface_17:com_4, true);
+    }
+} else if (map_members = false) {
+    if_sethide(interface_22:com_5, false);
+} else {
+    if_sethide(interface_17:com_4, false);
+}
+if (getwindowmode >= 2) {
+    if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false)) {
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_setgraphic(chattop:chat_graphic, 1017);
+        if_sethide(chattop:chat_graphic, false);
+        if_sethide(chattop:chat_border, false);
+        if_setalpha(chattop:chat_graphic, false);
+    } else if (if_hassub(chattop:chatmodallarge) = true) {
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, false);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatmodal) = true) {
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, false);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatoverlaylarge) = true) {
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, false);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatoverlay) = true) {
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, false);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, 1204);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, 1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatdefault) = true) {
+        if (%chat_view = -1) {
+            if_sethide(toplevel_fullscreen:chattop, true);
+        } else {
+            if_sethide(toplevel_fullscreen:chattop, false);
+        }
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, false);
+        if_sethide(chattop:chat_graphic, false);
+        if (if_gethide(chatdefault:quickchat) = false) {
+            if_setgraphic(chattop:chat_graphic, 1017);
+            if_setalpha(chattop:chat_graphic, false);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_sethide(chattop:chat_border, true);
+            if_setgraphic(chattop:chat_graphic, 1247);
+            if_setalpha(chattop:chat_graphic, true);
+            if_sethide(chatdefault:divider_line, true);
+            if_sethide(chatdefault:divider_graphic, false);
+            if_sethide(chatdefault:divider_graphic_top, false);
+            ~clientscript_1301(chatdefault:scrollbar, chatdefault:scrollarea);
+            while ($int0 < 100) {
+                if_settextshadow(enum(int, component, enum_579, $int0), true);
+                if_setcolour(enum(int, component, enum_579, $int0), ^white);
+                $int0 = calc($int0 + 1);
+            }
+            if_settextshadow(chatdefault:input, true);
+            if_setcolour(chatdefault:input, ^white);
+            if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=7fa9ff><escape(%varclient_633)>*");
+            ~clientscript_84;
+        }
+    }
+    ~clientscript_722;
+    if (if_hassub(toplevel_fullscreen:sidemodal) = true) {
+        if_sethide(toplevel_fullscreen:stones_on, true);
+        if_sethide(toplevel_fullscreen:icons, true);
+        if_sethide(toplevel_fullscreen:side_hide, true);
+        if_sethide(toplevel_fullscreen:logoutbutton, true);
+        if_sethide(toplevel_fullscreen:sidemodal, false);
+        if_sethide(toplevel_fullscreen:side_border, false);
+    } else {
+        if_sethide(toplevel_fullscreen:stones_on, false);
+        if_sethide(toplevel_fullscreen:icons, false);
+        if_sethide(toplevel_fullscreen:side_hide, false);
+        if_sethide(toplevel_fullscreen:logoutbutton, false);
+        if_sethide(toplevel_fullscreen:sidemodal, true);
+        if (if_gethide(toplevel_fullscreen:side0) = false | if_gethide(toplevel_fullscreen:side1) = false | if_gethide(toplevel_fullscreen:side2) = false | if_gethide(toplevel_fullscreen:side3) = false | if_gethide(toplevel_fullscreen:side4) = false | if_gethide(toplevel_fullscreen:side5) = false | if_gethide(toplevel_fullscreen:side6) = false | if_gethide(toplevel_fullscreen:side7) = false | if_gethide(toplevel_fullscreen:side8) = false | if_gethide(toplevel_fullscreen:side9) = false | if_gethide(toplevel_fullscreen:side10) = false | if_gethide(toplevel_fullscreen:side11) = false | if_gethide(toplevel_fullscreen:side12) = false | if_gethide(toplevel_fullscreen:side13) = false | if_gethide(toplevel_fullscreen:side99) = false) {
+            if_sethide(toplevel_fullscreen:side_border, false);
+        } else {
+            if_sethide(toplevel_fullscreen:side_border, true);
+        }
+    }
+    if (if_hassub(toplevel_fullscreen:side0) = true) {
+        if_sethide(toplevel_fullscreen:icon0, false);
+        if_sethide(toplevel_fullscreen:stone0, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon0, true);
+        if_sethide(toplevel_fullscreen:stone0, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side1) = true) {
+        if_sethide(toplevel_fullscreen:icon1, false);
+        if_sethide(toplevel_fullscreen:stone1, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon1, true);
+        if_sethide(toplevel_fullscreen:stone1, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side2) = true) {
+        if_sethide(toplevel_fullscreen:icon2, false);
+        if_sethide(toplevel_fullscreen:stone2, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon2, true);
+        if_sethide(toplevel_fullscreen:stone2, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side3) = true) {
+        if_sethide(toplevel_fullscreen:icon3, false);
+        if_sethide(toplevel_fullscreen:stone3, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon3, true);
+        if_sethide(toplevel_fullscreen:stone3, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side4) = true) {
+        if_sethide(toplevel_fullscreen:icon4, false);
+        if_sethide(toplevel_fullscreen:stone4, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon4, true);
+        if_sethide(toplevel_fullscreen:stone4, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side5) = true) {
+        if_sethide(toplevel_fullscreen:icon5, false);
+        if_sethide(toplevel_fullscreen:stone5, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon5, true);
+        if_sethide(toplevel_fullscreen:stone5, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side6) = true) {
+        if_sethide(toplevel_fullscreen:icon6, false);
+        if_sethide(toplevel_fullscreen:stone6, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon6, true);
+        if_sethide(toplevel_fullscreen:stone6, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side7) = true) {
+        if_sethide(toplevel_fullscreen:icon7, false);
+        if_sethide(toplevel_fullscreen:stone7, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon7, true);
+        if_sethide(toplevel_fullscreen:stone7, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side8) = true) {
+        if_sethide(toplevel_fullscreen:icon8, false);
+        if_sethide(toplevel_fullscreen:stone8, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon8, true);
+        if_sethide(toplevel_fullscreen:stone8, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side9) = true) {
+        if_sethide(toplevel_fullscreen:icon9, false);
+        if_sethide(toplevel_fullscreen:stone9, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon9, true);
+        if_sethide(toplevel_fullscreen:stone9, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side10) = true) {
+        if_sethide(toplevel_fullscreen:icon10, false);
+        if_sethide(toplevel_fullscreen:stone10, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon10, true);
+        if_sethide(toplevel_fullscreen:stone10, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side11) = true) {
+        if_sethide(toplevel_fullscreen:icon11, false);
+        if_sethide(toplevel_fullscreen:stone11, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon11, true);
+        if_sethide(toplevel_fullscreen:stone11, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side12) = true) {
+        if_sethide(toplevel_fullscreen:icon12, false);
+        if_sethide(toplevel_fullscreen:stone12, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon12, true);
+        if_sethide(toplevel_fullscreen:stone12, true);
+    }
+    if (if_hassub(toplevel_fullscreen:side13) = true) {
+        if_sethide(toplevel_fullscreen:icon13, false);
+        if_sethide(toplevel_fullscreen:stone13, false);
+    } else {
+        if_sethide(toplevel_fullscreen:icon13, true);
+        if_sethide(toplevel_fullscreen:stone13, true);
+    }
+    if_sethide(toplevel_fullscreen:com_7, false);
+    ~clientscript_1313;
+    if_setposition(statusicons:statusicons, 0, 0, 0, 0);
+    if_setsize(statusicons:statusicons, 115, 35, 0, 0);
+    if_setposition(statusicons:multiway_icon, 80, 0, 0, 0);
+    if_setposition(statusicons:assist_engaged, 40, 0, 0, 0);
+    if_setposition(statusicons:pvpw_safe, 0, 0, 0, 0);
+    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, 0, 0);
+    if_setposition(statusicons:pvpw_countdown, 0, 0, 0, 0);
+    if_setposition(statusicons:com_6, 0, 0, 0, 0);
+    if_setsize(statusicons:multiway_icon, 35, 35, 0, 0);
+    if_setsize(statusicons:assist_engaged, 35, 35, 0, 0);
+    if_setsize(statusicons:pvpw_safe, 35, 35, 0, 0);
+    if_setsize(statusicons:pvpw_safe_countdown, 35, 35, 0, 0);
+    if_setsize(statusicons:pvpw_countdown, 35, 35, 0, 0);
+    if_setsize(statusicons:com_6, 35, 35, 0, 0);
+    if_setgraphic(statusicons:multiway_icon, 1563);
+    if_setgraphic(statusicons:assist_engaged, 1562);
+    if_setgraphic(statusicons:pvpw_safe, 1579);
+    if_setgraphic(statusicons:pvpw_safe_countdown, 1580);
+    if_setgraphic(statusicons:com_6, 1581);
+} else {
+    if (%chat_view = -1) {
+        %chat_view = 0;
+        ~chat_alert_reset(0);
+        ~clientscript_178;
+        ~clientscript_84;
+        ~rebuildpmbox;
+    }
+    if_setgraphic(chattop:chat_graphic, 1017);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
+    if_setalpha(chattop:chat_graphic, false);
+    if (if_hassub(chattop:chatmodallarge) = true) {
+        if_sethide(chattop:chatmodallarge, false);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+    } else if (if_hassub(chattop:chatmodal) = true) {
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, false);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+    } else if (if_hassub(chattop:chatoverlaylarge) = true) {
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, false);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+    } else if (if_hassub(chattop:chatoverlay) = true) {
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, false);
+        if_sethide(chattop:chatdefault, true);
+    } else if (if_hassub(chattop:chatdefault) = true) {
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, false);
+        if_sethide(chatdefault:divider_line, false);
+        if_sethide(chatdefault:divider_graphic, true);
+        if_sethide(chatdefault:divider_graphic_top, true);
+        ~clientscript_1301(chatdefault:scrollbar, chatdefault:scrollarea);
+        while ($int0 < 100) {
+            if_settextshadow(enum(int, component, enum_579, $int0), false);
+            if_setcolour(enum(int, component, enum_579, $int0), ^black);
+            $int0 = calc($int0 + 1);
+        }
+        if_settextshadow(chatdefault:input, false);
+        if_setcolour(chatdefault:input, ^black);
+        if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=0000ff><escape(%varclient_633)>*");
+        ~clientscript_84;
+    }
+    if (if_hassub(toplevel:sidemodal) = true) {
+        if_sethide(toplevel:backbase2_hide, true);
+        if_sethide(toplevel:backhmid1_hide, true);
+        if_sethide(toplevel:side_hide, true);
+        if_sethide(toplevel:logoutbutton, true);
+    } else {
+        if_sethide(toplevel:backbase2_hide, false);
+        if_sethide(toplevel:backhmid1_hide, false);
+        if_sethide(toplevel:side_hide, false);
+        if_sethide(toplevel:logoutbutton, false);
+    }
+    if (if_hassub(toplevel:side0) = true) {
+        if_sethide(toplevel:icon0, false);
+        if_sethide(toplevel:stone0, false);
+    } else {
+        if_sethide(toplevel:icon0, true);
+        if_sethide(toplevel:stone0, true);
+    }
+    if (if_hassub(toplevel:side1) = true) {
+        if_sethide(toplevel:icon1, false);
+        if_sethide(toplevel:stone1, false);
+    } else {
+        if_sethide(toplevel:icon1, true);
+        if_sethide(toplevel:stone1, true);
+    }
+    if (if_hassub(toplevel:side2) = true) {
+        if_sethide(toplevel:icon2, false);
+        if_sethide(toplevel:stone2, false);
+    } else {
+        if_sethide(toplevel:icon2, true);
+        if_sethide(toplevel:stone2, true);
+    }
+    if (if_hassub(toplevel:side3) = true) {
+        if_sethide(toplevel:icon3, false);
+        if_sethide(toplevel:stone3, false);
+    } else {
+        if_sethide(toplevel:icon3, true);
+        if_sethide(toplevel:stone3, true);
+    }
+    if (if_hassub(toplevel:side4) = true) {
+        if_sethide(toplevel:icon4, false);
+        if_sethide(toplevel:stone4, false);
+    } else {
+        if_sethide(toplevel:icon4, true);
+        if_sethide(toplevel:stone4, true);
+    }
+    if (if_hassub(toplevel:side5) = true) {
+        if_sethide(toplevel:icon5, false);
+        if_sethide(toplevel:stone5, false);
+    } else {
+        if_sethide(toplevel:icon5, true);
+        if_sethide(toplevel:stone5, true);
+    }
+    if (if_hassub(toplevel:side6) = true) {
+        if_sethide(toplevel:icon6, false);
+        if_sethide(toplevel:stone6, false);
+    } else {
+        if_sethide(toplevel:icon6, true);
+        if_sethide(toplevel:stone6, true);
+    }
+    if (if_hassub(toplevel:side7) = true) {
+        if_sethide(toplevel:icon7, false);
+        if_sethide(toplevel:stone7, false);
+    } else {
+        if_sethide(toplevel:icon7, true);
+        if_sethide(toplevel:stone7, true);
+    }
+    if (if_hassub(toplevel:side8) = true) {
+        if_sethide(toplevel:icon8, false);
+        if_sethide(toplevel:stone8, false);
+    } else {
+        if_sethide(toplevel:icon8, true);
+        if_sethide(toplevel:stone8, true);
+    }
+    if (if_hassub(toplevel:side9) = true) {
+        if_sethide(toplevel:icon9, false);
+        if_sethide(toplevel:stone9, false);
+    } else {
+        if_sethide(toplevel:icon9, true);
+        if_sethide(toplevel:stone9, true);
+    }
+    if (if_hassub(toplevel:side10) = true) {
+        if_sethide(toplevel:icon10, false);
+        if_sethide(toplevel:stone10, false);
+    } else {
+        if_sethide(toplevel:icon10, true);
+        if_sethide(toplevel:stone10, true);
+    }
+    if (if_hassub(toplevel:side11) = true) {
+        if_sethide(toplevel:icon11, false);
+        if_sethide(toplevel:stone11, false);
+    } else {
+        if_sethide(toplevel:icon11, true);
+        if_sethide(toplevel:stone11, true);
+    }
+    if (if_hassub(toplevel:side12) = true) {
+        if_sethide(toplevel:icon12, false);
+        if_sethide(toplevel:stone12, false);
+    } else {
+        if_sethide(toplevel:icon12, true);
+        if_sethide(toplevel:stone12, true);
+    }
+    if (if_hassub(toplevel:side13) = true) {
+        if_sethide(toplevel:icon13, false);
+        if_sethide(toplevel:stone13, false);
+    } else {
+        if_sethide(toplevel:icon13, true);
+        if_sethide(toplevel:stone13, true);
+    }
+    ~clientscript_1337;
+    if_setposition(statusicons:statusicons, 0, 0, 0, 0);
+    if_setsize(statusicons:statusicons, 82, 25, 0, 0);
+    if_setposition(statusicons:multiway_icon, 57, 0, 0, 0);
+    if_setposition(statusicons:assist_engaged, 28, 0, 0, 0);
+    if_setposition(statusicons:pvpw_safe, 0, 0, 0, 0);
+    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, 0, 0);
+    if_setposition(statusicons:pvpw_countdown, 0, 0, 0, 0);
+    if_setposition(statusicons:com_6, 0, 0, 0, 0);
+    if_setsize(statusicons:multiway_icon, 25, 25, 0, 0);
+    if_setsize(statusicons:assist_engaged, 25, 25, 0, 0);
+    if_setsize(statusicons:pvpw_safe, 25, 25, 0, 0);
+    if_setsize(statusicons:pvpw_safe_countdown, 25, 25, 0, 0);
+    if_setsize(statusicons:pvpw_countdown, 25, 25, 0, 0);
+    if_setsize(statusicons:com_6, 25, 25, 0, 0);
+    if_setgraphic(statusicons:multiway_icon, 442);
+    if_setgraphic(statusicons:assist_engaged, 1073);
+    if_setgraphic(statusicons:pvpw_safe, 1576);
+    if_setgraphic(statusicons:pvpw_safe_countdown, 1578);
+    if_setgraphic(statusicons:com_6, 1577);
+    if (if_hassuboverlay(toplevel:mainmodal, interface_759) = true) {
+        if_sethide(toplevel:minimap_disable, false);
+        if_sethide(toplevel:filterbuttons_disable, false);
+        if_sethide(toplevel:chat_disable, false);
+        if_sethide(toplevel:side_disable, false);
+        if_sethide(toplevel:com_37, false);
+        if_sethide(toplevel:com_19, false);
+    } else {
+        if_sethide(toplevel:minimap_disable, true);
+        if_sethide(toplevel:filterbuttons_disable, true);
+        if_sethide(toplevel:chat_disable, true);
+        if_sethide(toplevel:side_disable, true);
+        if_sethide(toplevel:com_37, true);
+        if_sethide(toplevel:com_19, true);
+    }
+}

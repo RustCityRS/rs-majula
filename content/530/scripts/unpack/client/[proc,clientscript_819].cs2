@@ -1,0 +1,18 @@
+// 819
+[proc,clientscript_819]
+def_seq $seq0 = null;
+if_setnpchead(lore_cats_side:lore_chathead, %lore_npc_head);
+def_string $string0 = oc_name(%follower_obj);
+if (%cat_namevar_set = 1) {
+    if_settext(lore_cats_side:lore_name, ~clientscript_821);
+} else {
+    if_settext(lore_cats_side:lore_name, $string0);
+}
+if (%lore_interface_boolean > 50) {
+    %lore_interface_boolean = calc(%lore_interface_boolean - 50);
+    $seq0 = enum(int, seq, enum_1275, %lore_interface_boolean);
+    if_setmodelanim(lore_cats_side:lore_chathead, $seq0);
+} else {
+    $seq0 = enum(int, seq, enum_1276, %lore_interface_boolean);
+    if_setmodelanim(lore_cats_side:lore_chathead, $seq0);
+}

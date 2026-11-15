@@ -44,14 +44,14 @@ impl ServerProtMessage for RebuildNormal {
     }
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 #[server_prot(RebuildNormal, Immediate, Fixed)]
 pub struct RebuildNormal {
     pub zone_x: u16,
     pub zone_z: u16,
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 impl ServerProtMessage for RebuildNormal {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.zone_x);
@@ -60,6 +60,43 @@ impl ServerProtMessage for RebuildNormal {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.zone_x) + size_of_val(&self.zone_z)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+const LOCAL_ORIGIN: u16 = 6 << 3;
+
+#[cfg(all(since_530, before_647))]
+#[server_prot(RebuildNormal, Immediate, VarShort)]
+pub struct RebuildNormal {
+    pub player_x: u16,
+    pub player_z: u16,
+    pub player_plane: u8,
+    pub xtea_keys: Vec<[i32; 4]>,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for RebuildNormal {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt2(LOCAL_ORIGIN + (self.player_x & 7));
+        for keys in &self.xtea_keys {
+            for &key in keys {
+                buf.p4_alt3(key);
+            }
+        }
+        buf.p1_alt3(self.player_plane);
+        buf.p2(self.player_x >> 3);
+        buf.p2_alt2(self.player_z >> 3);
+        buf.p2_alt2(LOCAL_ORIGIN + (self.player_z & 7));
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.player_x)
+            + (self.xtea_keys.len() << 4)
+            + size_of_val(&self.player_plane)
+            + size_of_val(&self.player_x)
+            + size_of_val(&self.player_z)
+            + size_of_val(&self.player_z)
     }
 }
 
@@ -88,10 +125,20 @@ impl ServerProtMessage for RebuildNormal {
             );
             buf.pdata(&init.data, 0, init.pos);
         }
-        buf.p2_alt1(self.player_x >> 3);
-        buf.p1_alt2(self.login as u8);
-        buf.p1_alt2(0);
-        buf.p2_alt3(self.player_z >> 3);
+        #[cfg(before_742)]
+        {
+            buf.p2_alt1(self.player_x >> 3);
+            buf.p1_alt2(self.login as u8);
+            buf.p1_alt2(0);
+            buf.p2_alt3(self.player_z >> 3);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt1(0);
+            buf.p2(self.player_z >> 3);
+            buf.p2(self.player_x >> 3);
+            buf.p1(self.login as u8);
+        }
         for keys in &self.xtea_keys {
             for &k in keys {
                 buf.p4(k);

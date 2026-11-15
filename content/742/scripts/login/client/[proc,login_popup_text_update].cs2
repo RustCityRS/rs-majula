@@ -1,0 +1,7 @@
+// 3233
+[proc,login_popup_text_update](string $string0)
+def_component $component0 = login:popup_text;
+if (op437 = 1) {
+    $component0 = south_progress9:popup_text;
+}
+if_settext($component0, $string0);

@@ -1,0 +1,13 @@
+// From 289's quest_zanaris.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,cut_dramenstaff]
+if(stat(crafting) < 31) {
+    mes("You need at least level 31 Crafting to make this into a staff.");
+    return;
+}
+mes("You carve the branch into a staff.");
+if(%zanaris = ^zanaris_tree_chopped) {
+    %zanaris = ^zanaris_staff_made;
+}
+inv_del(inv, dramen_branch, 1);
+inv_add(inv, dramen_staff, 1);
+

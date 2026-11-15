@@ -1,0 +1,16 @@
+// 5367
+[proc,clientscript_5367](int $int0, int $int1)
+if (cc_find(interface_951:com_24, $int0) = true) {
+    switch_int ($int1) {
+        case 0 :
+            cc_sethide(true);
+            cc_setontimer(null);
+        case 1 :
+            cc_sethide(false);
+            cc_setontimer("clientscript_5368(event_comsubid)");
+        case 2 :
+            cc_sethide(false);
+            cc_setontimer(null);
+            cc_settrans(0);
+    }
+}

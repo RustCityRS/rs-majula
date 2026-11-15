@@ -1,0 +1,53 @@
+// 5313
+[proc,clientscript_5313](component $component0, component $component1, component $component2, component $component3, component $component4)
+def_int $int5 = 0;
+def_int $int6 = 15;
+def_int $int7 = enum_getoutputcount(enum_5177);
+def_int $int8 = enum_getoutputcount(enum_5176);
+def_graphic $graphic9 = null;
+cc_deleteall($component1);
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_deleteall($component2);
+while ($int5 < min($int7, $int8)) {
+    cc_create($component1, ^iftype_rectangle, $int5);
+    cc_setsize(if_getwidth($component0), $int6, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, calc($int5 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+    if (calc($int5 % 2) = 0) {
+        cc_setcolour(0x222222);
+    } else {
+        cc_setcolour(0x111111);
+    }
+    cc_setfill(true);
+    cc_setop(1, "Sort");
+    cc_create($component3, ^iftype_graphic, $int5);
+    cc_setgraphic(7712);
+    cc_setop(1, "Play");
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(138, calc(1 + $int5 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+    $graphic9 = 7713;
+    cc_setonmouseover("clientscript_5336(event_com, event_comsubid, $graphic9)");
+    $graphic9 = 7712;
+    cc_setonmouseleave("clientscript_5336(event_com, event_comsubid, $graphic9)");
+    cc_create($component4, ^iftype_graphic, $int5);
+    cc_setgraphic(7715);
+    cc_setop(1, "Bookmark");
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(151, calc($int5 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+    $graphic9 = 7716;
+    cc_setonmouseover("clientscript_5336(event_com, event_comsubid, $graphic9)");
+    $graphic9 = 7715;
+    cc_setonmouseleave("clientscript_5336(event_com, event_comsubid, $graphic9)");
+    cc_create($component2, ^iftype_text, $int5);
+    cc_settext(enum(int, string, enum_5177, $int5));
+    cc_settextfont(p11_full);
+    cc_setposition(2, calc($int5 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(if_getwidth($component0) - 24), 15, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(0xdddddd);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextshadow(false);
+    $int5 = calc($int5 + 1);
+}
+if_setscrollpos($component0, 0, 0);
+if_setscrollsize($component0, 0, calc(2 + $int5 * $int6));
+~scrollbar_vertical(interface_319:com_8, $component0, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");

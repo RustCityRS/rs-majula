@@ -1,0 +1,55 @@
+// 5664
+[proc,clientscript_5664](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        return(%xpdisplay_attack);
+    case 2 :
+        return(%xpdisplay_strength);
+    case 5 :
+        return(%xpdisplay_defence);
+    case 6 :
+        return(%xpdisplay_constitution);
+    case 3 :
+        return(%xpdisplay_ranged);
+    case 4 :
+        return(%xpdisplay_magic);
+    case 7 :
+        return(%xpdisplay_prayer);
+    case 12 :
+        return(%xpdisplay_runecrafting);
+    case 11 :
+        return(%xpdisplay_crafting);
+    case 13 :
+        return(%xpdisplay_mining);
+    case 14 :
+        return(%xpdisplay_smithing);
+    case 15 :
+        return(%xpdisplay_fishing);
+    case 16 :
+        return(%xpdisplay_cooking);
+    case 17 :
+        return(%xpdisplay_firemaking);
+    case 18 :
+        return(%xpdisplay_woodcutting);
+    case 8 :
+        return(%xpdisplay_agility);
+    case 9 :
+        return(%xpdisplay_herblore);
+    case 10 :
+        return(%xpdisplay_thieving);
+    case 19 :
+        return(%xpdisplay_fletching);
+    case 20 :
+        return(%xpdisplay_slayer);
+    case 21 :
+        return(%xpdisplay_farming);
+    case 22 :
+        return(%xpdisplay_construction);
+    case 23 :
+        return(%xpdisplay_hunter);
+    case 24 :
+        return(%xpdisplay_summoning);
+    case 25 :
+        return(%xpdisplay_dungeoneering);
+}
+return(0);

@@ -1,0 +1,10 @@
+// 2161
+[proc,clientscript_2161](int $int0)
+if_sethide(lobbyscreen:com_35, true);
+if_sethide(lobbyscreen:com_38_, true);
+if ($int0 = 1) {
+    if_sethide(lobbyscreen:com_36_, false);
+    op400(lobbyscreen:com_36_);
+    %varclient_1773 = 0;
+    if_setontimer(lobbyscreen:com_466, "clientscript_2829");
+}

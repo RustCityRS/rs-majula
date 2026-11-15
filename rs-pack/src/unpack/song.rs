@@ -1,23 +1,23 @@
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use super::model::load_existing_pack;
 #[cfg(since_244)]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::midi::decode_jagex_midi;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::versionlist::VersionList;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let out_dir = output_dir.join("songs");
     fs::create_dir_all(&out_dir)?;
@@ -61,7 +61,7 @@ pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn key_to_filename(key: &str) -> String {
     if key.len() < 12
         && let Some(stem) = key.strip_suffix("_mid")
@@ -71,7 +71,7 @@ fn key_to_filename(key: &str) -> String {
     format!("{key}.mid")
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 pub fn unpack_midi(
     cache: &mut Js5Store,
     version_list: &VersionList,
@@ -120,7 +120,7 @@ pub fn unpack_midi(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn unpack_songs(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
     let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let mut count = 0;
@@ -134,9 +134,9 @@ pub fn unpack_songs(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -
             .groups
             .clone();
         for info in groups {
-            let data = store
-                .read_group_raw_decompressed(aid, info.id)?
-                .context("Missing MIDI group")?;
+            let Some(data) = store.read_group_raw_decompressed(aid, info.id)? else {
+                continue;
+            };
             let midi = decode_jagex_midi(&data)?;
             anyhow::ensure!(
                 crate::pack::other::song::encode_jagex_midi(&midi)? == data,

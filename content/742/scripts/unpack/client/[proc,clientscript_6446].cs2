@@ -1,0 +1,17 @@
+// 6446
+[proc,clientscript_6446](component $component0, int $int1, int $int2, int $int3, int $int4, model $model5, seq $seq6)
+$int4 = calc($int4 + 110);
+$int1 = calc($int1 + $int2);
+if (cc_find(interface_1311:com_55, 0) = true) {
+    $int3 = cc_getmodelangle_y;
+    $int1 = cc_getmodelzoom;
+    $int4 = cc_getmodelyof;
+}
+cc_create($component0, ^iftype_model, if_getnextsubid($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setmodel($model5);
+cc_setmodelangle(0, $int4, 10, $int3, 10, $int1);
+cc_setmodelanim($seq6);
+cc_setonhold("clientscript_6447(event_com, event_comsubid, event_mousex, 0)");
+cc_setonscrollwheel("clientscript_6448(event_com, event_comsubid, event_mousey, 0, $int2)");

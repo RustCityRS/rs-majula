@@ -1,0 +1,13 @@
+// 6144
+[proc,clientscript_6144](int $int0)
+def_int $int1 = 1;
+def_int $int2 = 14;
+def_component $component3 = null;
+if_sethide(interface_1270:com_35, true);
+while ($int1 <= $int2) {
+    $component3 = ~clientscript_6139($int1);
+    if (cc_find($component3, 0) = true) {
+        if_setontimer($component3, "clientscript_6145(event_com, cc_getx, cc_gety, calc(0 - random(50)), $int0)");
+    }
+    $int1 = calc($int1 + 1);
+}

@@ -1,0 +1,20 @@
+// 1301
+[proc,clientscript_1301](component $component0, component $component1)
+def_int $int2 = 0;
+if (getwindowmode >= 2) {
+    ~clientscript_31($component0, $component1, 883, 802, 881, 882, 641, 642);
+    while ($int2 < if_getnextsubid($component0)) {
+        if (cc_find($component0, $int2) = true) {
+            cc_setalpha(true);
+        }
+        $int2 = calc($int2 + 1);
+    }
+} else {
+    ~clientscript_31($component0, $component1, 792, 789, 790, 791, 773, 788);
+    while ($int2 < if_getnextsubid($component0)) {
+        if (cc_find($component0, $int2) = true) {
+            cc_setalpha(false);
+        }
+        $int2 = calc($int2 + 1);
+    }
+}

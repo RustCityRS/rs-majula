@@ -1,0 +1,16 @@
+// 1213
+[proc,clientscript_1213](int $int0, component $component1)
+if (op6121 = 0 | getwindowmode < 1) {
+    return;
+}
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = detailget_antialiasing) {
+    return;
+}
+detail_antialiasing($int2);
+if ($int2 = 0) {
+    detail_antialiasing_default(0);
+    return;
+}
+if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_138)");
+~clientscript_1174(loginscreen:windowmode_confirm);

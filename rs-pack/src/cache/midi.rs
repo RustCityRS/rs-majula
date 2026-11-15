@@ -1,23 +1,23 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::incremental::{Hash, remember};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Result, bail};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rayon::prelude::*;
 use rs_io::Packet;
 use rs_io::bz2::bz2_decompress;
 use rs_io::crc::getcrc;
 use std::collections::HashMap;
 use std::sync::Arc;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::{fs, path::Path};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::info;
 
 pub struct MidiType {
@@ -211,7 +211,7 @@ pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
                 // client's MIDI (rebuilt from Jagex's columns, `Linkable_Sub25`)
                 // writes a meta event's next data bytes under it. A standard
                 // file never leans on it, a meta event cancelling running status.
-                if status < 0xF0 || (cfg!(since_647) && status == 0xFF) {
+                if status < 0xF0 || (cfg!(since_530) && status == 0xFF) {
                     running_status = status;
                 }
             }
@@ -322,10 +322,10 @@ pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
     Some((total_us / 1000) as u32)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub const MIDI_JINGLE_BASE: usize = 10000;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn load_midi_ids(pack_dir: &Path) -> HashMap<Box<str>, u16> {
     let mut ids = HashMap::new();
     for stem in ["songs", "jingles"] {
@@ -345,7 +345,7 @@ pub(crate) fn load_midi_ids(pack_dir: &Path) -> HashMap<Box<str>, u16> {
     ids
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn load_midi_tick_lengths(cache: &PackedCache) -> Box<[Option<u16>]> {
     let mut lengths: Vec<Option<u16>> = Vec::new();
     for (archive, base) in [(archive::SONGS, 0), (archive::JINGLES, MIDI_JINGLE_BASE)] {
@@ -388,7 +388,7 @@ pub(crate) fn load_midi_tick_lengths(cache: &PackedCache) -> Box<[Option<u16>]> 
     lengths.into_boxed_slice()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
     if data.len() < 3 {
         bail!("MIDI data too short: {} bytes", data.len());

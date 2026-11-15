@@ -1,0 +1,15 @@
+// 4347
+[clientscript,script4347]
+def_enum $enum0 = null;
+if (%varplayer_2136 > 0) {
+    $enum0 = enum(int, enum, enum_3703, %varplayer_2136);
+    if ($enum0 ! null) {
+        if_sethide(clan_keywords:com_219, true);
+        if_setscrollpos(clan_keywords:com_224, 0, 0);
+        ~aif_dropdownbox_setup($enum0, 1, "Select a keyword", enum_getoutputcount($enum0), 7, clan_keywords:com_213, clan_keywords:com_223, clan_keywords:com_225, clan_keywords:com_224, clan_keywords:com_230);
+    }
+} else {
+    if_sethide(clan_keywords:com_219, false);
+    ~script4501(clan_keywords:com_213, "Select a keyword");
+    ~script4501(clan_keywords:com_199, "Select a category");
+}

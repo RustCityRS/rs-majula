@@ -1,0 +1,20 @@
+// 6388
+[proc,clientscript_6388](int $int0, int $int1, int $int2, obj $obj3, component $component4, component $component5)
+def_string $string0 = "";
+def_graphic $graphic6 = null;
+cc_create($component4, ^iftype_graphic, $int2);
+cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+cc_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(11756);
+cc_create($component5, ^iftype_graphic, $int2);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc(2 + $int0), calc(2 + $int1), ^setpos_abs_left, ^setpos_abs_top);
+if ($obj3 ! null) {
+    $string0 = "<col=ff981f><oc_name($obj3)>";
+    cc_setobject($obj3, 1);
+    cc_setopbase($string0);
+    $graphic6 = 11755;
+    cc_setonmouseover("cc_graphic_swapper($component4, $int2, $graphic6)");
+    $graphic6 = 11756;
+    cc_setonmouseleave("cc_graphic_swapper($component4, $int2, $graphic6)");
+}

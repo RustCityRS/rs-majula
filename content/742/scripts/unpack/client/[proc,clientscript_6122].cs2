@@ -1,0 +1,32 @@
+// 6122
+[proc,clientscript_6122]
+if (compare("", if_gettext(interface_621:com_3)) = 0) {
+    if_settext(interface_621:com_3, tostring(%varplayerbit_11074));
+} else if (compare(tostring(%varplayerbit_11074), if_gettext(interface_621:com_3)) ! 0) {
+    if_settext(interface_621:com_2, if_gettext(interface_621:com_3));
+    if_setposition(interface_621:com_2, 58, -4, ^setpos_abs_left, ^setpos_abs_top);
+    if_setontimer(interface_621:com_2, "clientscript_6123(event_com, 14, 5)");
+    if_setposition(interface_621:com_3, 58, -22, ^setpos_abs_left, ^setpos_abs_top);
+    if_setontimer(interface_621:com_3, "clientscript_6123(event_com, -4, 5)");
+    if_settext(interface_621:com_3, tostring(%varplayerbit_11074));
+}
+if (compare("", if_gettext(interface_621:com_5)) = 0) {
+    if_settext(interface_621:com_5, tostring(%varplayerbit_11075));
+}
+if (compare(tostring(%varplayerbit_11075), if_gettext(interface_621:com_5)) ! 0) {
+    if_settext(interface_621:com_4, if_gettext(interface_621:com_5));
+    if_setposition(interface_621:com_4, 394, -4, ^setpos_abs_left, ^setpos_abs_top);
+    if_setontimer(interface_621:com_4, "clientscript_6123(event_com, 14, 5)");
+    if_setposition(interface_621:com_5, 394, -22, ^setpos_abs_left, ^setpos_abs_top);
+    if_setontimer(interface_621:com_5, "clientscript_6123(event_com, -4, 5)");
+    if_settext(interface_621:com_5, tostring(%varplayerbit_11075));
+}
+def_int $int0 = calc(%varplayerbit_11074 - %varplayerbit_11075);
+$int0 = max(min($int0, 20), calc(0 - 20));
+def_int $int1 = 16;
+def_int $int2 = 10;
+def_int $int3 = calc(if_getwidth(interface_621:com_16) - ($int1 + $int2) * 2);
+def_int $int4 = calc($int3 / (20 * 2));
+if_setsize(interface_621:com_19, calc($int2 + $int4 * (20 + $int0)), if_getheight(interface_621:com_19), ^setsize_abs, ^setsize_abs);
+if_setsize(interface_621:com_20, calc($int2 + $int4 * (20 - $int0)), if_getheight(interface_621:com_20), ^setsize_abs, ^setsize_abs);
+if_setposition(interface_621:com_25, calc($int1 + $int2 + $int4 * (20 + $int0) - 16), if_gety(interface_621:com_25), ^setpos_abs_left, ^setpos_abs_top);

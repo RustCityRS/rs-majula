@@ -1,0 +1,34 @@
+// 263:0
+[com_0]
+type=model
+x=1
+y=3
+width=17319
+height=18451
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+model=model_40883
+modelorigin=0,1
+modelangle=519,0,0
+modelzoom=480
+modelanim=pinball_interface
+modelunknown=64154,3000,1
+modelobjwidth=541
+modelobjheight=376
+
+// 263:1
+[com_1]
+type=text
+y=495
+width=100
+height=20
+xmode=abs_centre
+ymode=proportion_top
+textfont=fontmetrics_496
+text=Score: 0
+textalignh=centre
+textshadow=yes
+colour=0xffff00
+onvartransmit=clientscript_87(event_com){macro_pinball_var}

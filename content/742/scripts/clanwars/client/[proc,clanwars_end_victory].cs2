@@ -1,0 +1,15 @@
+// 1817
+[proc,clanwars_end_victory](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_settext($component0, "Victory!");
+if_setposition($component0, 75, 89, ^setpos_abs_left, ^setpos_abs_top);
+if_settext($component1, "Your clan is victorious.");
+if_setposition($component1, 79, 130, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component2, 79, 180, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component2, 175, 125, ^setsize_abs, ^setsize_abs);
+if_setposition($component3, 52, 118, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide($component0, false);
+if_sethide($component1, false);
+if_sethide($component2, false);
+if_sethide($component3, false);
+if_sethide($component4, false);
+if_sethide($component5, true);

@@ -1,0 +1,7 @@
+// 1332
+[proc,clientscript_1332]
+if (getwindowmode >= 2) {
+    ~clientscript_1331(toplevel_fullscreen:worldmap_button);
+} else {
+    ~clientscript_1331(toplevel:worldmap_icon);
+}

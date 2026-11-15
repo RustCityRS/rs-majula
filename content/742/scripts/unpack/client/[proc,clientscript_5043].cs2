@@ -1,0 +1,4 @@
+// 5043
+[proc,clientscript_5043](component $component0, component $component1, int $int2)
+%varclient_1396 = max(min(calc(3 + scale(calc($int2 + if_getwidth($component1) / 2), if_getwidth(if_getlayer($component1)), calc(21 - 3 + 1))), 21), 3);
+~clientscript_5044($component0, 0, 0);

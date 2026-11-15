@@ -1,0 +1,120 @@
+// Multi-bite food port tests (pies / cakes / pizzas).
+// Asserts (a) the next_obj_stage stage chains (the obj param set in all.obj) and
+// (b) the per-bite heal (hitpoints, cross-checked vs the local wiki),
+// plus integration heals through consume_effect_apply.
+// Reuses ~food_heal (db path) from consume_test.rs2 — compiled globally.
+
+#testscript
+
+// ── Pies: X_pie -> half_X_pie -> pie_dish (terminal) ─────────────────
+[label,test_multibite_apple_pie]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(apple_pie, next_obj_stage), half_an_apple_pie)
+assert_eq(oc_param(half_an_apple_pie, next_obj_stage), piedish)
+assert_eq(~food_heal(apple_pie), 7)
+assert_eq(~food_heal(half_an_apple_pie), 7)
+
+[label,test_multibite_redberry_pie]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(redberry_pie, next_obj_stage), half_a_redberry_pie)
+assert_eq(oc_param(half_a_redberry_pie, next_obj_stage), piedish)
+assert_eq(~food_heal(redberry_pie), 5)
+assert_eq(~food_heal(half_a_redberry_pie), 5)
+
+[label,test_multibite_meat_pie]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(meat_pie, next_obj_stage), half_a_meat_pie)
+assert_eq(oc_param(half_a_meat_pie, next_obj_stage), piedish)
+assert_eq(~food_heal(meat_pie), 6)
+assert_eq(~food_heal(half_a_meat_pie), 6)
+
+// ── Cakes: cake -> 2_3 -> slice (terminal, next=null) ────────────────
+[label,test_multibite_cake]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(cake, next_obj_stage), partial_cake)
+assert_eq(oc_param(partial_cake, next_obj_stage), cake_slice)
+def_int $term = 0
+if (oc_param(cake_slice, next_obj_stage) = null) {
+    $term = 1
+}
+assert_eq($term, 1)
+assert_eq(~food_heal(cake), 4)
+assert_eq(~food_heal(partial_cake), 4)
+assert_eq(~food_heal(cake_slice), 4)
+
+[label,test_multibite_chocolate_cake]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(chocolate_cake, next_obj_stage), partial_chocolate_cake)
+assert_eq(oc_param(partial_chocolate_cake, next_obj_stage), chocolate_slice)
+def_int $term = 0
+if (oc_param(chocolate_slice, next_obj_stage) = null) {
+    $term = 1
+}
+assert_eq($term, 1)
+assert_eq(~food_heal(chocolate_cake), 5)
+assert_eq(~food_heal(partial_chocolate_cake), 5)
+assert_eq(~food_heal(chocolate_slice), 5)
+
+// ── Pizzas: X_pizza -> 1_2_X_pizza (terminal, next=null) ─────────────
+[label,test_multibite_plain_pizza]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(plain_pizza, next_obj_stage), half_plain_pizza)
+def_int $term = 0
+if (oc_param(half_plain_pizza, next_obj_stage) = null) {
+    $term = 1
+}
+assert_eq($term, 1)
+assert_eq(~food_heal(plain_pizza), 7)
+assert_eq(~food_heal(half_plain_pizza), 7)
+
+[label,test_multibite_meat_pizza]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(meat_pizza, next_obj_stage), half_meat_pizza)
+assert_eq(~food_heal(meat_pizza), 8)
+assert_eq(~food_heal(half_meat_pizza), 8)
+
+[label,test_multibite_anchovy_pizza]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(anchovie_pizza, next_obj_stage), half_anchovie_pizza)
+assert_eq(~food_heal(anchovie_pizza), 9)
+assert_eq(~food_heal(half_anchovie_pizza), 9)
+
+[label,test_multibite_pineapple_pizza]
+setup_player("test_player")
+~test_skip_design
+assert_eq(oc_param(pineapple_pizza, next_obj_stage), half_pineapple_pizza)
+assert_eq(~food_heal(pineapple_pizza), 11)
+assert_eq(~food_heal(half_pineapple_pizza), 11)
+
+// Integration: a stage heals its hitpoints (99 hitpoints, 10 left)
+[label,test_eat_apple_pie_heals_7]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(apple_pie)
+assert_eq(stat(hitpoints), 17)
+
+[label,test_eat_cake_heals_4]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(cake)
+assert_eq(stat(hitpoints), 14)
+
+[label,test_eat_pineapple_pizza_heals_11]
+setup_player("test_player")
+~test_skip_design
+stat_advance(hitpoints, 130344310)
+stat_sub(hitpoints, 89, 0)
+~consume_effect_apply(pineapple_pizza)
+assert_eq(stat(hitpoints), 21)

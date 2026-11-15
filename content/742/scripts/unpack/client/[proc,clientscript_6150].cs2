@@ -1,0 +1,95 @@
+// 6150
+[proc,clientscript_6150](int $int0, int $int1, coord $coord2)(coord, coord, coord, coord)
+while ($int0 < 0) {
+    $int0 = calc($int0 + 8);
+}
+while ($int0 > 7) {
+    $int0 = calc($int0 - 8);
+}
+def_coord $coord3 = null;
+def_coord $coord4 = null;
+def_coord $coord5 = null;
+def_coord $coord6 = null;
+switch_int ($int0) {
+    case 0 :
+        $coord3 = movecoord($coord2, 0, 0, 3);
+        $coord5 = movecoord($coord2, 0, 0, -3);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, 1, 0, 0);
+            $coord6 = movecoord($coord5, -1, 0, 0);
+        } else {
+            $coord4 = movecoord($coord3, -1, 0, 0);
+            $coord6 = movecoord($coord5, 1, 0, 0);
+        }
+    case 1 :
+        $coord3 = movecoord($coord2, 2, 0, 2);
+        $coord5 = movecoord($coord2, -2, 0, -2);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, 1, 0, -1);
+            $coord6 = movecoord($coord5, -1, 0, 1);
+        } else {
+            $coord4 = movecoord($coord3, -1, 0, 1);
+            $coord6 = movecoord($coord5, 1, 0, -1);
+        }
+    case 2 :
+        $coord3 = movecoord($coord2, 3, 0, 0);
+        $coord5 = movecoord($coord2, -3, 0, 0);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, 0, 0, -1);
+            $coord6 = movecoord($coord5, 0, 0, 1);
+        } else {
+            $coord4 = movecoord($coord3, 0, 0, 1);
+            $coord6 = movecoord($coord5, 0, 0, -1);
+        }
+    case 3 :
+        $coord3 = movecoord($coord2, 2, 0, -2);
+        $coord5 = movecoord($coord2, -2, 0, 2);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, -1, 0, -1);
+            $coord6 = movecoord($coord5, 1, 0, 1);
+        } else {
+            $coord4 = movecoord($coord3, 1, 0, 1);
+            $coord6 = movecoord($coord5, -1, 0, -1);
+        }
+    case 4 :
+        $coord3 = movecoord($coord2, 0, 0, -3);
+        $coord5 = movecoord($coord2, 0, 0, 3);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, -1, 0, 0);
+            $coord6 = movecoord($coord5, 1, 0, 0);
+        } else {
+            $coord4 = movecoord($coord3, 1, 0, 0);
+            $coord6 = movecoord($coord5, -1, 0, 0);
+        }
+    case 5 :
+        $coord3 = movecoord($coord2, -2, 0, -2);
+        $coord5 = movecoord($coord2, 2, 0, 2);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, -1, 0, 1);
+            $coord6 = movecoord($coord5, 1, 0, -1);
+        } else {
+            $coord4 = movecoord($coord3, 1, 0, -1);
+            $coord6 = movecoord($coord5, -1, 0, 1);
+        }
+    case 6 :
+        $coord3 = movecoord($coord2, -3, 0, 0);
+        $coord5 = movecoord($coord2, 3, 0, 0);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, 0, 0, 1);
+            $coord6 = movecoord($coord5, 0, 0, -1);
+        } else {
+            $coord4 = movecoord($coord3, 0, 0, -1);
+            $coord6 = movecoord($coord5, 0, 0, 1);
+        }
+    case 7 :
+        $coord3 = movecoord($coord2, -2, 0, 2);
+        $coord5 = movecoord($coord2, 2, 0, -2);
+        if ($int1 > 0) {
+            $coord4 = movecoord($coord3, 1, 0, 1);
+            $coord6 = movecoord($coord5, -1, 0, -1);
+        } else {
+            $coord4 = movecoord($coord3, -1, 0, -1);
+            $coord6 = movecoord($coord5, 1, 0, 1);
+        }
+}
+return($coord3, $coord4, $coord5, $coord6);

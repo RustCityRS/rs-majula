@@ -1,0 +1,16 @@
+// 6354
+[proc,clientscript_6354](int $int0)(boolean)
+if ($int0 = -1) {
+    return(false);
+}
+def_int $int1 = 48889942;
+if (getwindowmode < 2) {
+    $int1 = 35913728;
+}
+while ($int0 ! -1) {
+    if ($int0 = $int1) {
+        return(true);
+    }
+    $int0 = op543($int0);
+}
+return(false);

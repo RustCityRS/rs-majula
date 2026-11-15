@@ -1,0 +1,26 @@
+// 1379
+[clientscript,script1379]
+switch_int (%zemo_vision) {
+    case 1 :
+        if_setmodelanim(interface_796:com_10, seq_10439);
+    case 2 :
+        if_sethide(interface_796:com_11, true);
+        if_sethide(interface_796:com_7, false);
+    case 3 :
+        if_setmodelanim(interface_796:com_6, seq_10439);
+    case 4 :
+        if_sethide(interface_796:com_7, true);
+        if_sethide(interface_796:com_9, false);
+    case 5 :
+        if_setmodelanim(interface_796:com_8, seq_10443);
+    case 6 :
+        if_sethide(interface_796:com_9, true);
+        if_sethide(interface_796:wise_old_man_layer, false);
+    case 7 :
+        if_setmodelanim(interface_796:wise_old_man, seq_10437);
+    case 8 :
+        if_sethide(interface_796:wise_old_man_layer, true);
+        if_sethide(interface_796:white_backdrop, true);
+        if_sethide(interface_796:com_30, false);
+        if_sethide(interface_796:backdrop_layer, false);
+}

@@ -1,0 +1,7 @@
+// 6205
+[proc,clientscript_6205]
+%varclient_2385 = "";
+%varclient_2386 = "";
+if_sethide(lobbyscreen:com_382, true);
+if_sethide(lobbyscreen:com_338, false);
+~clientscript_5940;

@@ -12,7 +12,7 @@ pub struct LocDel {
     pub shape_angle: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for LocDel {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
@@ -24,11 +24,31 @@ impl ServerProtMessage for LocDel {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for LocDel {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt2(self.shape_angle);
+        buf.p1(self.coord);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord) + size_of_val(&self.shape_angle)
+    }
+}
+
 #[cfg(since_647)]
 impl ServerProtMessage for LocDel {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1(self.shape_angle);
-        buf.p1_alt3(self.coord);
+        #[cfg(before_742)]
+        {
+            buf.p1(self.shape_angle);
+            buf.p1_alt3(self.coord);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt2(self.coord);
+            buf.p1_alt1(self.shape_angle);
+        }
     }
 
     fn sizeof(&self) -> usize {

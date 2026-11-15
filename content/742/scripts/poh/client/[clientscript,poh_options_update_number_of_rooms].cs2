@@ -1,0 +1,3 @@
+// 2681
+[clientscript,poh_options_update_number_of_rooms]
+if_settext(poh_house_options:number_of_rooms, "Number of rooms: <tostring(%poh_options_number_of_rooms)>");

@@ -1,0 +1,37 @@
+// 549:0
+[container]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+onload=subchanged_init(event_com)
+
+// 549:1
+[com_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=container
+colour=0x000000
+fill=yes
+
+// 549:2
+[com_2]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+layer=container
+
+// 549:3
+[com_3]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+layer=container

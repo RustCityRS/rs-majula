@@ -1,0 +1,467 @@
+// 1320:0
+[com_0]
+type=model
+x=237
+y=75
+width=83
+height=87
+layer=com_10
+model=model_71702
+modelorigin=-1,0
+modelangle=318,176,0
+modelzoom=494
+
+// 1320:1
+[com_1]
+type=model
+x=111
+y=80
+width=107
+height=81
+layer=com_10
+model=model_71700
+modelorigin=-15,10
+modelangle=290,711,199
+modelzoom=210
+
+// 1320:2
+[com_2]
+type=model
+x=322
+y=66
+width=108
+height=100
+layer=com_10
+model=model_71706
+modelorigin=4,49
+modelangle=68,5,0
+modelzoom=243
+
+// 1320:3
+[com_3]
+type=text
+x=7
+y=1
+width=464
+height=246
+layer=com_10
+textfont=p12_full
+text=The aim of this game is to collect as many resource points as possible in five minutes. <br>You can gather resources from mining resources to the north,  woodcutting resources to the east or farming resources to the west. Different coloured resources are worth different numbers of resource points. They also require different skill levels.<br><br>Blue - Level 1<br>Gold - Level 20<br>Black - Level 40<br>Green - Level 60<br>Red - Level 80<br><br>Higher level resources are worth more points, but they take longer to respawn or regrow. Collect a variety of different resource types for a bonus to your score and experience reward.<br><br>Once you have harvested a resource, you must take it to the deposit point at the centre of the island. Only deposited resources count towards your final score.
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:4
+[com_4]
+type=layer
+x=2
+y=1
+width=507
+height=331
+layer=com_39
+
+// 1320:5
+[com_5]
+type=layer
+x=17
+y=37
+width=512
+height=334
+layer=com_39
+hide=yes
+
+// 1320:6
+[com_6]
+type=layer
+x=12
+y=38
+width=512
+height=334
+layer=com_39
+hide=yes
+
+// 1320:7
+[com_7]
+type=layer
+x=15
+y=36
+width=512
+height=334
+layer=com_39
+hide=yes
+
+// 1320:8
+[com_8]
+type=layer
+x=17
+y=37
+width=512
+height=334
+layer=com_39
+hide=yes
+
+// 1320:9
+[com_9]
+type=layer
+x=17
+y=37
+width=512
+height=334
+layer=com_39
+hide=yes
+
+// 1320:10
+[com_10]
+type=layer
+x=17
+y=37
+width=478
+height=251
+layer=com_39
+hide=yes
+
+// 1320:11
+[com_11]
+type=layer
+y=289
+width=125
+height=26
+xmode=abs_centre
+layer=com_39
+transmitop=1
+op1=Continue
+onop=closebutton_click
+
+// 1320:12
+[com_12]
+type=text
+x=6
+y=4
+width=473
+height=246
+layer=com_5
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:13
+[com_13]
+type=graphic
+x=14
+y=16
+width=136
+height=66
+layer=com_9
+graphic=graphic_11654
+
+// 1320:14
+[com_14]
+type=text
+x=162
+y=11
+width=297
+height=82
+layer=com_9
+textfont=p12_full
+text=Complete the game in the shortest number of turns possible by playing the right ability cards at the right time. 
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:15
+[com_15]
+type=graphic
+x=2
+y=97
+width=160
+height=88
+layer=com_9
+graphic=graphic_11630
+
+// 1320:16
+[com_16]
+type=graphic
+x=14
+y=109
+width=136
+height=66
+layer=com_9
+graphic=graphic_11663
+
+// 1320:17
+[com_17]
+type=text
+x=166
+y=102
+width=293
+height=84
+layer=com_9
+textfont=p12_full
+text=The coloured background relates to the racer that the ability affects. You will always be represented by a black border. To see the individual effects of an ability, hover your cursor over the picture. To exit the race early, use the cross at the top of the screen.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:18
+[com_18]
+type=text
+x=2
+y=171
+width=457
+height=93
+layer=com_9
+textfont=p12_full
+text=You must play one ability per turn. There are 90 abilities available - some of which are duplicates - and, if you run out of abilities, then your game will end. Be wary of the 'struggling' condition, which cannot be removed. If a runner gets three levels of the struggling condition, they will be removed from the race. 
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:19
+[com_19]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+onload=script4260(event_com)
+
+// 1320:20
+[com_20]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_4
+
+// 1320:21
+[com_21]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+onload=script4261(event_com)
+
+// 1320:22
+[com_22]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_4
+
+// 1320:23
+[com_23]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+textfont=palatino_linotype_18pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1320:24
+[com_24]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_4
+onload=aif_build_close_button_layer(event_com)
+
+// 1320:25
+[com_25]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1320:26
+[com_26]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+onload=aif_build_close_button_over(event_com)
+
+// 1320:27
+[com_27]
+type=text
+x=172
+y=5
+width=305
+height=243
+layer=com_8
+textfont=p12_full
+text=It's a frantic race for cheese! Click any piece of cheese to start rolling it down the path, then cross the starting line to begin running at full speed. Run along and grab what is rightfully yours!<br><br> Click as fast as possible on either side of your character to move in that direction, dodging any of the obstacles on the course. Try not to trip up in your quest to catch the rolling cheese!
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:28
+[com_28]
+type=model
+x=25
+y=34
+width=128
+height=129
+layer=com_8
+model=model_72036
+modelorigin=18,54
+modelangle=369,1382,1826
+modelzoom=243
+
+// 1320:29
+[com_29]
+type=model
+y=141
+width=158
+height=68
+layer=com_8
+model=model_40410
+modelorigin=1,15
+modelangle=68,1871,22
+modelzoom=160
+
+// 1320:30
+[com_30]
+type=model
+x=90
+y=182
+width=87
+height=55
+layer=com_8
+model=model_2365
+modelorigin=0,17
+modelangle=79,1285,0
+modelzoom=260
+
+// 1320:31
+[com_31]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_11
+onload=clientscript_5724(event_com, struct_2834)
+
+// 1320:32
+[com_32]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_11
+onload=clientscript_5724(event_com, struct_2835)
+
+// 1320:33
+[com_33]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_11
+onload=clientscript_5724(event_com, struct_2836)
+
+// 1320:34
+[com_34]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_11
+onload=script4213(event_com)
+
+// 1320:35
+[com_35]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_11
+
+// 1320:36
+[com_36]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+textfont=verdana_11pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 1320:37
+[com_37]
+type=text
+x=6
+y=4
+width=473
+height=246
+layer=com_7
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:38
+[com_38]
+type=text
+x=6
+y=4
+width=475
+height=244
+layer=com_6
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1320:39
+[com_39]
+type=layer
+width=512
+height=334

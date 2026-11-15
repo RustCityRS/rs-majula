@@ -1,0 +1,413 @@
+// 126:0
+[com_0]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+graphic=window_texture_1
+tiling=yes
+
+// 126:1
+[com_1]
+type=layer
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 126:2
+[com_2]
+type=layer
+height=122
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 126:3
+[com_3]
+type=text
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+textfont=p11_full
+text=Tools
+textalignv=centre
+textshadow=yes
+
+// 126:4
+[com_4]
+type=layer
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+onload=clientscript_5254(event_com)
+
+// 126:5
+[com_5]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+graphic=window_texture_2
+tiling=yes
+
+// 126:6
+[com_6]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_4
+
+// 126:7
+[rake_store]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,10
+op1=Store
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_6, rake, 1)
+
+// 126:8
+[com_8]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_4
+
+// 126:9
+[dibber_store]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,10
+op1=Store
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_8, dibber, 1)
+
+// 126:10
+[com_10]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_4
+
+// 126:11
+[spade_store]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,10
+op1=Store
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_10, spade, 1)
+
+// 126:12
+[com_12]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+
+// 126:13
+[secateurs_store]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,10
+op1=Store
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_12, gardening_trowel, 1)
+
+// 126:14
+[com_14]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+
+// 126:15
+[wateringcan_store]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,10
+op1=Store
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_14, secateurs, 1)
+
+// 126:16
+[com_16]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+
+// 126:17
+[trowel_store]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+outline=1
+graphicshadow=3153952
+transmitop=1,10
+op1=Store
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_16, watering_can_dummy, 1)
+
+// 126:18
+[com_18]
+type=layer
+y=130
+height=122
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 126:19
+[com_19]
+type=text
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_18
+textfont=p11_full
+text=Supplies
+textalignv=centre
+textshadow=yes
+
+// 126:20
+[com_20]
+type=layer
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_18
+onload=clientscript_5254(event_com)
+
+// 126:21
+[com_21]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+graphic=window_texture_2
+tiling=yes
+
+// 126:22
+[com_22]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_20
+
+// 126:23
+[com_23]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_22, bucket_empty, 1)
+
+// 126:24
+[com_24]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_20
+
+// 126:25
+[com_25]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_24, bucket_compost, 1)
+
+// 126:26
+[com_26]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_20
+
+// 126:27
+[com_27]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_26, bucket_supercompost, 1)
+
+// 126:28
+[com_28]
+type=graphic
+x=-27
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+
+// 126:29
+[com_29]
+type=graphic
+x=-25
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_28, plant_cure, 1)
+
+// 126:30
+[com_30]
+type=graphic
+x=27
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+
+// 126:31
+[com_31]
+type=graphic
+x=29
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+outline=1
+graphicshadow=3153952
+transmitop=1,3,4,10
+op1=Store-1
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=clientscript_5483(event_com, farming_tools_side:com_30, scarecrow_complete, 1)

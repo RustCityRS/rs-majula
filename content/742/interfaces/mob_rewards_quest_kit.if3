@@ -1,0 +1,218 @@
+// 842:0
+[com_0]
+type=graphic
+x=71
+y=24
+width=362
+height=206
+layer=background
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 842:1
+[com_1]
+type=graphic
+x=57
+y=52
+width=32
+height=152
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 842:2
+[com_2]
+type=graphic
+x=70
+y=19
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 842:3
+[com_3]
+type=graphic
+x=420
+y=50
+width=32
+height=152
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 842:4
+[com_4]
+type=graphic
+x=101
+y=6
+width=307
+height=34
+layer=background
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 842:5
+[com_5]
+type=graphic
+x=102
+y=214
+width=306
+height=32
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 842:6
+[com_6]
+type=graphic
+x=70
+y=202
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 842:7
+[com_7]
+type=graphic
+x=408
+y=19
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 842:8
+[com_8]
+type=graphic
+x=408
+y=202
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 842:9
+[com_9]
+type=graphic
+x=81
+y=34
+width=349
+height=32
+layer=background
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 842:10
+[com_10]
+type=graphic
+x=70
+y=36
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 842:11
+[com_11]
+type=graphic
+x=408
+y=36
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 842:12
+[closebutton]
+type=graphic
+x=413
+y=29
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 842:13
+[quest_kit_title]
+type=text
+x=147
+y=28
+width=234
+height=13
+layer=background
+textfont=b12_full
+text=Quest Kit
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=mob_quest_kit_update
+
+// 842:14
+[divider]
+type=model
+x=51
+y=-11
+layer=background
+model=null
+modelangle=1874,559,0
+modelzoom=400
+
+// 842:15
+[divider_1]
+type=model
+x=51
+y=-24
+layer=background
+model=null
+modelangle=1874,559,0
+modelzoom=400
+
+// 842:16
+[background]
+type=layer
+y=46
+width=512
+height=334
+
+// 842:17
+[content]
+type=layer
+x=96
+y=105
+width=313
+height=135
+onvarctransmit=mob_quest_kit_cross{mob_client_queskit_item1}
+
+// 842:18
+[com_18]
+type=text
+x=138
+y=245
+width=228
+height=23
+textfont=p11_full
+text=If you complete a game of Mobilising Armies, your quest kit will replenish.
+textalignh=centre
+textshadow=yes
+colour=0xff9933

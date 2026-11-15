@@ -1,0 +1,22 @@
+// 620:0
+[com_0]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+colour=0xffffff
+fill=yes
+trans=254
+transmitop=1
+op1=Skip
+
+// 620:1
+[com_1]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+noclickthrough=yes

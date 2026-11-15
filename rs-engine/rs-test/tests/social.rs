@@ -55,7 +55,13 @@ const BORROW_ITEM: u16 = 108;
 const NO_PHRASE: u16 = 1500;
 
 fn obj(engine: &Engine, name: &str) -> i32 {
-    engine.cache.objs.get_by_debugname(name).expect(name).id as i32
+    engine
+        .cache
+        .objs
+        .get_by_debugname(name)
+        .expect(name)
+        .id
+        .int()
 }
 
 /// What a `MESSAGE_QUICKCHAT_PUBLIC` (CS2 op 5059: `p1(chat) p2(phrase)`,
