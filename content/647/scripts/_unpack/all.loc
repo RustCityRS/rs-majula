@@ -31731,6 +31731,8 @@ model=8,model_1746
 name=Sewer valve
 occlude=yes
 desc=This looks like it can be turned.
+// 289's category, which the valves' script finds them by.
+category=hazeelcult_valve
 
 // 2845
 [sewervalve2]
@@ -31741,6 +31743,8 @@ model=8,model_1746
 name=Sewer valve
 occlude=yes
 desc=This looks like it can be turned.
+// 289's category, which the valves' script finds them by.
+category=hazeelcult_valve
 
 // 2846
 [sewervalve3]
@@ -31751,6 +31755,8 @@ model=8,model_1746
 name=Sewer valve
 occlude=yes
 desc=This looks like it can be turned.
+// 289's category, which the valves' script finds them by.
+category=hazeelcult_valve
 
 // 2847
 [sewervalve4]
@@ -31761,6 +31767,8 @@ model=8,model_1746
 name=Sewer valve
 occlude=yes
 desc=This looks like it can be turned.
+// 289's category, which the valves' script finds them by.
+category=hazeelcult_valve
 
 // 2848
 [sewervalve5]
@@ -31771,6 +31779,8 @@ model=8,model_1746
 name=Sewer valve
 occlude=yes
 desc=This looks like it can be turned.
+// 289's category, which the valves' script finds them by.
+category=hazeelcult_valve
 
 // 2849
 [hazeelsewerraft]
@@ -31802,6 +31812,8 @@ name=Wardrobe
 cursor1=1,cursor_open
 occlude=yes
 desc=It's closed.
+// 289's other form, which the cupboards' script swaps it by.
+param=cupboard_other,hazeelcbopen
 
 // 2851
 [hazeelcbopen]
@@ -31824,6 +31836,8 @@ name=Wardrobe
 cursor1=1,cursor_search
 occlude=yes
 desc=It's open.
+// 289's other form, which the cupboards' script swaps it by.
+param=cupboard_other,hazeelcbshut
 
 // 2852
 [hazeelcultcave]
