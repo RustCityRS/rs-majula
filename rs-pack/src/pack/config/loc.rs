@@ -702,16 +702,16 @@ pub fn pack_locs(
 
             // handle 77 (multivar / multiloc morph)
             #[cfg(since_289)]
-            if let Some(varbit_name) = multivar {
-                let varbit_id = registry
-                    .varbit
-                    .get_by_debugname(varbit_name)
+            if let Some(varpbit_name) = multivar {
+                let varpbit_id = registry
+                    .varpbit
+                    .get_by_debugname(varpbit_name)
                     .unwrap_or_else(|| {
-                        panic!("{debugname}: unknown multivar varpbit '{varbit_name}'")
+                        panic!("{debugname}: unknown multivar varpbit '{varpbit_name}'")
                     });
                 let count = multiloc.iter().map(|(i, _)| *i).max().unwrap_or(0);
                 client.p1(77);
-                client.p2(varbit_id);
+                client.p2(varpbit_id);
                 client.p1(count as u8);
                 for i in 0..=count {
                     let id = match multiloc.iter().find(|(idx, _)| *idx == i).map(|&(_, n)| n) {
@@ -1109,7 +1109,7 @@ mod tests {
         registry.loc.max = 1;
         for (pack, id, name) in [
             (&mut registry.loc, 0, "subject"),
-            (&mut registry.varbit, 3, "phase_bits"),
+            (&mut registry.varpbit, 3, "phase_bits"),
             (&mut registry.varp, 7, "phase"),
         ] {
             pack.id_to_debugname.insert(id, name.into());
@@ -1122,7 +1122,7 @@ mod tests {
         for (bytes, var) in [
             (
                 vec![77, 0, 3, 255, 255, 2, 0, 9, 255, 255, 255, 255, 0],
-                Some(MultiVar::Varbit(TypeId::new(3))),
+                Some(MultiVar::VarpBit(TypeId::new(3))),
             ),
             (
                 vec![77, 255, 255, 0, 7, 0, 0, 9, 0],
@@ -1130,7 +1130,7 @@ mod tests {
             ),
             (
                 vec![92, 0, 3, 0, 7, 0, 11, 2, 0, 9, 255, 255, 255, 255, 0],
-                Some(MultiVar::Varbit(TypeId::new(3))),
+                Some(MultiVar::VarpBit(TypeId::new(3))),
             ),
             (vec![92, 255, 255, 255, 255, 255, 255, 0, 255, 255, 0], None),
         ] {

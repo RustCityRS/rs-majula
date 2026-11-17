@@ -1751,7 +1751,7 @@ mod client_decode_tests {
             let lo = (self.byte() - 128) & 0xFF;
             lo | (self.g1() << 8)
         }
-        fn g4s_alt3(&mut self) -> i32 {
+        fn g4_alt3(&mut self) -> i32 {
             let (a, b, c, d) = (self.g1(), self.g1(), self.g1(), self.g1());
             c | (b << 24) | (a << 16) | (d << 8)
         }
@@ -1768,7 +1768,7 @@ mod client_decode_tests {
             (hi << 16) | self.g2()
         }
         #[cfg(since_742)]
-        fn gsmart2or4null(&mut self) -> i32 {
+        fn gsmart2or4s(&mut self) -> i32 {
             if self.b[self.pos] < 128 {
                 let value = self.g2();
                 if value == 32767 { -1 } else { value }
@@ -1994,7 +1994,7 @@ mod client_decode_tests {
             "0x4 face coord, fine"
         );
         assert_eq!(r.g2_alt3(), 74, "0x20 spotanim id");
-        assert_eq!(r.g4s_alt3(), 92 << 16 | 5, "0x20 spotanim height and delay");
+        assert_eq!(r.g4_alt3(), 92 << 16 | 5, "0x20 spotanim height and delay");
         assert_eq!(r.g1_alt1() >> 3 & 0xF, 15, "0x20 no attachment");
         assert_eq!(r.g2_alt1(), 0x8000 + 12, "0x10 face entity");
         assert_eq!(r.gjstr(), "Moo", "0x40 say");
@@ -2058,7 +2058,7 @@ mod client_decode_tests {
         assert_eq!(r.g2_alt3(), 42, "0x10 face entity");
         assert_eq!(r.g2_alt2(), 90, "0x40 spotanim id");
         assert_eq!(
-            r.g4s_alt3(),
+            r.g4_alt3(),
             100 << 16 | 30,
             "0x40 spotanim height and delay"
         );
@@ -2313,18 +2313,18 @@ mod client_decode_tests {
     fn player_blocks_read_back_through_the_742_client() {
         let mut renderer = PlayerRenderer::new();
         let mut info = EntityMasks::new();
-        info.masks = PlayerInfoProt::MoveType as u16
+        info.masks = PlayerInfoProt::MoveSpeed as u16
             | PlayerInfoProt::Damage as u16
             | PlayerInfoProt::Damage2 as u16
             | PlayerInfoProt::Anim as u16
-            | PlayerInfoProt::TempMoveType as u16
+            | PlayerInfoProt::TempMoveSpeed as u16
             | PlayerInfoProt::Say as u16
             | PlayerInfoProt::FaceEntity as u16
             | PlayerInfoProt::FaceCoord as u16
             | PlayerInfoProt::SpotAnim as u16
             | PlayerInfoProt::ExactMove as u16;
-        info.move_type = Some(2);
-        info.temp_move_type = Some(3);
+        info.move_speed = Some(2);
+        info.temp_move_speed = Some(3);
         two_hits(&mut info);
         info.anim_id = Some(TypeId::new(879));
         info.anim_delay = Some(4);
@@ -2360,7 +2360,7 @@ mod client_decode_tests {
             0x80 | 0x4 | 0x40 | 0x8000 | 0x400 | 0x2 | 0x10 | 0x1 | 0x200,
             "mask bits"
         );
-        assert_eq!(r.g1_alt1(), 2, "0x80 move type");
+        assert_eq!(r.g1_alt1(), 2, "0x80 move speed");
         let count = r.g1_alt1();
         assert_eq!(
             r.hits_742(count, Reader::g1_alt3),
@@ -2374,10 +2374,10 @@ mod client_decode_tests {
             "0x4 the health bar at the last hit's health"
         );
         for channel in 0..4 {
-            assert_eq!(r.gsmart2or4null(), 879, "0x40 anim channel {channel}");
+            assert_eq!(r.gsmart2or4s(), 879, "0x40 anim channel {channel}");
         }
         assert_eq!(r.g1(), 4, "0x40 anim delay");
-        assert_eq!(r.g1_alt3(), 3, "0x8000 temp move type");
+        assert_eq!(r.g1_alt3(), 3, "0x8000 temp move speed");
         assert_eq!(r.gjstr(), "Hi", "0x400 say");
         assert_eq!(r.g2_alt1(), 11079, "0x2 face coord: atan2(-4, -2)");
         assert_eq!(r.g2(), 42, "0x10 face entity");
@@ -2456,7 +2456,7 @@ mod client_decode_tests {
         };
         assert_eq!(r.g1(), 0x1 | 0x4);
         assert_eq!((r.byte(), r.byte(), r.byte()), (-1, -1, 0));
-        assert_eq!((r.g2(), r.gsmart2or4null(), r.g1()), (65535, 4231, 0));
+        assert_eq!((r.g2(), r.gsmart2or4s(), r.g1()), (65535, 4231, 0));
         for colour in [1, 2, 3, 4, 5, 0, 0, 0, 0, 0] {
             assert_eq!(r.g1(), colour);
         }
@@ -2628,11 +2628,11 @@ mod client_decode_tests {
             "mask bits"
         );
         assert_eq!(r.g2_alt3(), 74, "0x40 spotanim id");
-        assert_eq!(r.g4s_alt3(), 92 << 16 | 5, "0x40 spotanim height and delay");
+        assert_eq!(r.g4_alt3(), 92 << 16 | 5, "0x40 spotanim height and delay");
         assert_eq!(r.g1_alt1() >> 3 & 0xF, 15, "0x40 no attachment");
         assert_eq!(r.gjstr(), "Moo", "0x10 say");
         for channel in 0..4 {
-            assert_eq!(r.gsmart2or4null(), 5577, "0x1 anim channel {channel}");
+            assert_eq!(r.gsmart2or4s(), 5577, "0x1 anim channel {channel}");
         }
         assert_eq!(r.g1(), 3, "0x1 anim delay");
         let count = r.g1_alt3();
@@ -2652,7 +2652,7 @@ mod client_decode_tests {
             (3222 * 2 + 1, 3218 * 2 + 1),
             "0x2 face coord, fine"
         );
-        assert_eq!(r.gsmart2or4null(), 4231, "0x80 change type");
+        assert_eq!(r.gsmart2or4s(), 4231, "0x80 change type");
         assert_eq!(r.g2(), 0x8000 + 12, "0x20 face entity");
         assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
     }

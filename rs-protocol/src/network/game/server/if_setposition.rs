@@ -55,12 +55,12 @@ impl ServerProtMessage for IfSetPosition {
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetPosition {
-    // Client reads `g4s_alt3 component_hash` then two `ig2b_alt1` coords
+    // Client reads `g4_alt3 component_hash` then two `ig2b_alt1` coords
     // (`MapAreaConfig.java`, IF_SETPOSITION). `p4_alt1`/`p2`/`p2` wrote the right
     // byte count in the wrong order. The client passes the reads to
     // `method1172(third, hash, second)`, which stores the second as
     // `anInt5264` and the third as `anInt5267`; state change 11 applies them
-    // as x and y (`VarbitType`: `x = anInt5264`, `y = anInt5267`, both modes
+    // as x and y (`VarpBitType`: `x = anInt5264`, `y = anInt5267`, both modes
     // 0, so the position is set outright, not offset).
     fn encode(&self, buf: &mut Packet) {
         #[cfg(before_742)]

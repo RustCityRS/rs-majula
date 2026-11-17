@@ -4216,6 +4216,6 @@ fog_color=10985904
 fog_depth=250
 
 ==== LIGHTS ====
-0 7227 964 200: radius=2 colors=5,5,5,5,5 hsl=31628 type=47
-24 5410 409 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=159 ref=light_0
-24 5435 68 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=223 ref=light_0
+0 7227 964 200: radius=2 radiusgrid=5,5,5,5,5 hsl=31628 type=47
+24 5410 409 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=159 lighttype=light_0
+24 5435 68 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=223 lighttype=light_0

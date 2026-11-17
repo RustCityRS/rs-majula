@@ -20,7 +20,7 @@ pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyho
     let mut count = 0;
     let mut order_lines = Vec::new();
 
-    while buf.remaining() >= 2 {
+    while buf.get_space() >= 2 {
         let id = buf.g2();
         if id == 0xFFFF {
             break;
@@ -57,7 +57,7 @@ pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyho
 
 fn parse_jagfx(buf: &mut Packet) {
     for _ in 0..10 {
-        if buf.remaining() <= 0 {
+        if buf.get_space() <= 0 {
             return;
         }
         let check = buf.g1();
@@ -75,21 +75,21 @@ fn parse_tone(buf: &mut Packet) {
     parse_envelope(buf); // frequencyBase
     parse_envelope(buf); // amplitudeBase
 
-    if buf.remaining() > 0 && buf.data[buf.pos] != 0 {
+    if buf.get_space() > 0 && buf.data[buf.pos] != 0 {
         parse_envelope(buf); // frequencyModRate
         parse_envelope(buf); // frequencyModRange
     } else {
         buf.pos += 1;
     }
 
-    if buf.remaining() > 0 && buf.data[buf.pos] != 0 {
+    if buf.get_space() > 0 && buf.data[buf.pos] != 0 {
         parse_envelope(buf); // amplitudeModRate
         parse_envelope(buf); // amplitudeModRange
     } else {
         buf.pos += 1;
     }
 
-    if buf.remaining() > 0 && buf.data[buf.pos] != 0 {
+    if buf.get_space() > 0 && buf.data[buf.pos] != 0 {
         parse_envelope(buf); // release
         parse_envelope(buf); // attack
     } else {
@@ -128,15 +128,15 @@ fn parse_filter(buf: &mut Packet) {
 
     for &count in &counts {
         for _ in 0..count {
-            buf.g2();
-            buf.g2();
+            let _pitch = buf.g2();
+            let _gain = buf.g2();
         }
     }
     for (channel, &count) in counts.iter().enumerate() {
         for i in 0..count {
             if migrated & (1 << (channel * 4) << i) != 0 {
-                buf.g2();
-                buf.g2();
+                let _pitch = buf.g2();
+                let _gain = buf.g2();
             }
         }
     }

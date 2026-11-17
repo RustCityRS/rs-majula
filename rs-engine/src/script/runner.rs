@@ -11,6 +11,8 @@ use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ScriptError, vm};
+#[cfg(since_647)]
+use std::panic::{AssertUnwindSafe, catch_unwind, resume_unwind};
 use std::sync::Arc;
 use tracing::error;
 
@@ -268,6 +270,26 @@ impl Engine {
         };
         self.run_script_inner(subject, target, protect, force, args, script)
             .unwrap_or_else(|value| value)
+    }
+
+    /// Runs lobbyscript's script for `trigger`. The lobby's set stands in for
+    /// the game's while it runs, so its procs resolve among themselves.
+    #[cfg(since_647)]
+    pub fn run_lobby_trigger(
+        &mut self,
+        trigger: (ServerTriggerType, Option<i32>, Option<i32>),
+        subject: Option<ScriptSubject>,
+    ) -> Result<(), ScriptError> {
+        let Some(lobby) = self.scripts.lobby.take() else {
+            return Err(ScriptError::TriggerNotFound(trigger.0));
+        };
+        let game = std::mem::replace(&mut self.scripts, *lobby);
+        let result = catch_unwind(AssertUnwindSafe(|| {
+            self.run_script_by_trigger(trigger, subject, None, Some(true), None, None)
+        }));
+        let lobby = std::mem::replace(&mut self.scripts, game);
+        self.scripts.lobby = Some(Box::new(lobby));
+        result.unwrap_or_else(|panic| resume_unwind(panic))
     }
 
     /// Looks up a script by its string name and executes it against a subject entity.

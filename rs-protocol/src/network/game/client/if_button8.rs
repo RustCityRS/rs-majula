@@ -36,7 +36,7 @@ impl ClientProtMessage for IfButton8 {
         #[cfg(before_742)]
         let (com, obj, slot) = (buf.g4s(), buf.g2_alt3(), buf.g2_alt1());
         #[cfg(since_742)]
-        let (obj, slot, com) = (buf.g2(), buf.g2_alt3(), buf.g4s_alt2());
+        let (obj, slot, com) = (buf.g2(), buf.g2_alt3(), buf.g4_alt2());
         IfButton8 {
             com,
             slot,

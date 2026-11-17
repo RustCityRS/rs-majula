@@ -59,9 +59,9 @@ if (getwindowmode < 2) {
 // [proc,subchanged] hides 747:8 whenever it reads 0. void rev-634 defaults the
 // var to true and re-sends it on every `interfaceOpened("summoning_orb")`, so
 // seed it here, before the mount, and only on a members world.
-def_int $summoning = ^false;
+def_int $animallore = ^false;
 if (map_members = ^true) {
-    $summoning = ^true;
+    $animallore = ^true;
     %lore_lore_available = ^true;
 }
 
@@ -69,7 +69,7 @@ if (getwindowmode < 2) {
     if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints)
     if_opensub(topstat_prayer, toplevel:topstat_prayer)
     if_opensub(topstat_run, toplevel:topstat_run)
-    if ($summoning = ^true) {
+    if ($animallore = ^true) {
         if_opensub(topstat_lore, toplevel:topstat_lore)
     }
     if_opensub(filterbuttons, toplevel:filterbuttons)
@@ -83,7 +83,7 @@ if (getwindowmode < 2) {
     if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints)
     if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer)
     if_opensub(topstat_run, toplevel_fullscreen:topstat_run)
-    if ($summoning = ^true) {
+    if ($animallore = ^true) {
         if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore)
     }
     if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons)

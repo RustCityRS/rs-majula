@@ -784,7 +784,7 @@ const GANGPLANK_OFF: (u16, u16, u16) = (2594, 3047, 3206);
 const DECK_LADDER: (u16, u16, u16) = (2590, 3049, 3208);
 const HOLD_LADDER: (u16, u16, u16) = (272, 3049, 3208);
 /// loc_25036, the multiloc cache 786 places at l47_50 level 0 (39,7): the hole until
-/// dragon_hull_repaired (varbit 1837, bit 10 of varp 177) is 1.
+/// dragon_hull_repaired (varpbit 1837, bit 10 of varp 177) is 1.
 const HOLE: (u16, u16, u16) = (25036, 3047, 3207);
 
 fn at(engine: &Engine, client: &HarnessClient) -> (u16, u8, u16) {

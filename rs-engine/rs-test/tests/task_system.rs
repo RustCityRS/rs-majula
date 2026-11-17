@@ -1,5 +1,5 @@
 //! 2011's Task System, phase 1 (`tasks/scripts`): at login the tab shows the Lumbridge/Draynor set
-//! with its first open tasks in the slots (varbits 8575, 8587..), and finishing a quest that is a
+//! with its first open tasks in the slots (varpbits 8575, 8587..), and finishing a quest that is a
 //! task completes it with 2011's messages ("You have completed the Task 'Cook's Assistant'!"; the
 //! 2011-05-23 recording A-JAsglDtjE's chat, where a player with 16 done also gets "You have now
 //! completed 17 Tasks in total."). A first Task prints no total: 4KO2h2xPtdM (2011-04-30) @610 has
@@ -42,13 +42,13 @@ fn bits(v: i32, start: u32, end: u32) -> i32 {
     ((v as u32 >> start) & ((1u32 << (end - start + 1)) - 1)) as i32
 }
 
-/// task_area (varbit 8575: varp 1960 bits 0-6).
+/// task_area (varpbit 8575: varp 1960 bits 0-6).
 #[cfg(before_742)]
 fn area(engine: &Engine, client: &HarnessClient) -> i32 {
     bits(varp(engine, client, 1960), 0, 6)
 }
 
-/// task_slot_1..6 (varbits 8587-8592: varps 1963, 1964 and 1965, bits 0-11 and 12-24 of each).
+/// task_slot_1..6 (varpbits 8587-8592: varps 1963, 1964 and 1965, bits 0-11 and 12-24 of each).
 fn slots(engine: &Engine, client: &HarnessClient) -> Vec<i32> {
     [1963, 1964, 1965]
         .into_iter()
@@ -66,7 +66,7 @@ fn progress(engine: &Engine, client: &HarnessClient) -> (i32, i32) {
     (varcs.get(1423).as_int(), varcs.get(1424).as_int())
 }
 
-/// task_progress_overall (varbit 8601: varp 1958 bits 0-11).
+/// task_progress_overall (varpbit 8601: varp 1958 bits 0-11).
 fn overall(engine: &Engine, client: &HarnessClient) -> i32 {
     bits(varp(engine, client, 1958), 0, 11)
 }
@@ -84,7 +84,7 @@ fn login(engine: &mut Engine, name: &str) -> HarnessClient {
     client
 }
 
-// 742's task slots are not 647's varbits 8587-8592 (on 742 those are 1-bit flags in
+// 742's task slots are not 647's varpbits 8587-8592 (on 742 those are 1-bit flags in
 // varp 2742), so its tab is not ported.
 #[cfg(before_742)]
 #[test]
@@ -232,7 +232,7 @@ fn five_plantation_bananas_complete_five_a_day() {
             .filter(|m| *m == "You pick a banana.")
             .count();
         assert_eq!(picked, 5, "five bananas: {per_tree:?}");
-        assert_eq!(bits(varp(engine, &client, 1000), 0, 2), 5, "varbit 3566");
+        assert_eq!(bits(varp(engine, &client, 1000), 0, 2), 5, "varpbit 3566");
         assert!(
             messages
                 .iter()

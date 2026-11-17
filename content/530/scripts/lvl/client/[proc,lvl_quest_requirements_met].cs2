@@ -378,7 +378,7 @@ switch_int ($int0) {
             return(1);
         }
     case 94 :
-        if (stat_base(construction) >= 40 & stat_base(farming) >= 26 & stat_base(prayer) >= 35 & stat_base(summoning) >= 19) {
+        if (stat_base(construction) >= 40 & stat_base(farming) >= 26 & stat_base(prayer) >= 35 & stat_base(animallore) >= 19) {
             return(1);
         }
     case 95 :
@@ -386,7 +386,7 @@ switch_int ($int0) {
             return(1);
         }
     case 96 :
-        if (stat_base(firemaking) >= 47 & stat_base(hunter) >= 35 & stat_base(mining) >= 45 & stat_base(prayer) >= 55 & stat_base(summoning) >= 23 & stat_base(woodcutting) >= 37) {
+        if (stat_base(firemaking) >= 47 & stat_base(hunter) >= 35 & stat_base(mining) >= 45 & stat_base(prayer) >= 55 & stat_base(animallore) >= 23 & stat_base(woodcutting) >= 37) {
             return(1);
         }
     case 97 :
@@ -394,7 +394,7 @@ switch_int ($int0) {
             return(1);
         }
     case 98 :
-        if (stat_base(defence) >= 65 & stat_base(magic) >= 75 & stat_base(herblore) >= 65 & stat_base(thieving) >= 60 & stat_base(hunter) >= 55 & stat_base(farming) >= 65 & stat_base(summoning) >= 23 & ~clientscript_395 = 1) {
+        if (stat_base(defence) >= 65 & stat_base(magic) >= 75 & stat_base(herblore) >= 65 & stat_base(thieving) >= 60 & stat_base(hunter) >= 55 & stat_base(farming) >= 65 & stat_base(animallore) >= 23 & ~clientscript_395 = 1) {
             return(1);
         }
     case 99 :

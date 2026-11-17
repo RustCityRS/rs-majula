@@ -12128,10 +12128,10 @@ fog_color=2500910
 fog_depth=400
 
 ==== LIGHTS ====
-0 2235 2653 146: radius=1 colors=3,3,3 hsl=127 type=1
-0 3123 2892 146: radius=1 colors=3,3,3 hsl=127 type=1
-0 3003 1894 146: radius=1 colors=3,3,3 hsl=127 type=1
-0 2534 1612 146: radius=1 colors=3,3,3 hsl=127 type=1
+0 2235 2653 146: radius=1 radiusgrid=3,3,3 hsl=127 type=1
+0 3123 2892 146: radius=1 radiusgrid=3,3,3 hsl=127 type=1
+0 3003 1894 146: radius=1 radiusgrid=3,3,3 hsl=127 type=1
+0 2534 1612 146: radius=1 radiusgrid=3,3,3 hsl=127 type=1
 
 ==== CAMERA ====
 0: clear

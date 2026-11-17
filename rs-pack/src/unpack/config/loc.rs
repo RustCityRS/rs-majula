@@ -72,8 +72,8 @@ pub fn emit_loc_props(
             ));
         }
         #[cfg(all(since_289, before_530))]
-        if let Some(var) = def.transform_varbit.non_null() {
-            p.push((77, "multivar".into(), super::varbit_ref(var, registry)));
+        if let Some(var) = def.transform_varpbit.non_null() {
+            p.push((77, "multivar".into(), super::varpbit_ref(var, registry)));
             if let Some(locs) = &def.multiloc {
                 for (i, &loc) in locs.iter().enumerate() {
                     if !loc.is_null() {
@@ -328,14 +328,14 @@ pub fn emit_loc_props(
             (if has_default { 92 } else { 77 }, "multiloc"),
             "loc",
             has_default,
-            (def.transform_varbit, def.transform_varp),
+            (def.transform_varpbit, def.transform_varp),
             multiloc,
             registry,
         ));
     }
 
     #[cfg(since_530)]
-    if let Some(ambient_sfx_id) = def.ambient_sfx_id {
+    if let Some(background_sound) = def.background_sound {
         #[cfg(all(since_530, before_647))]
         let kind = "synth";
         #[cfg(since_647)]
@@ -349,14 +349,14 @@ pub fn emit_loc_props(
             "bgsound".into(),
             format!(
                 "{},{}",
-                registry.reference(kind, ambient_sfx_id),
-                def.ambient_sfx_range
+                registry.reference(kind, background_sound),
+                def.background_sound_range
             ),
         ));
     }
 
     #[cfg(since_530)]
-    if let Some(ids) = &def.sfx_random_ids {
+    if let Some(ids) = &def.random_sounds {
         #[cfg(all(since_530, before_647))]
         let kind = "synth";
         #[cfg(since_647)]
@@ -366,9 +366,9 @@ pub fn emit_loc_props(
             "synth"
         };
         let mut values = vec![
-            def.sfx_random_pri.to_string(),
-            def.sfx_random_sec.to_string(),
-            def.ambient_sfx_range.to_string(),
+            def.random_sound_min.to_string(),
+            def.random_sound_max.to_string(),
+            def.background_sound_range.to_string(),
         ];
         values.extend(ids.iter().map(|&id| registry.reference(kind, id)));
         p.push((79, "randomsound".into(), values.join(",")));
@@ -394,7 +394,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_530)]
-    if !def.blocks_npcs {
+    if !def.use_random_anim_frame {
         p.push((89, "randomanimframe".into(), "no".into()));
     }
 
@@ -504,7 +504,7 @@ pub fn emit_loc_props(
         p.push((
             104,
             "bgsoundvolume".into(),
-            def.interaction_side_flags.to_string(),
+            def.background_sound_volume.to_string(),
         ));
     }
 
@@ -582,7 +582,11 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if opcode == 167 {
-        p.push((167, "raiseobjectgrounddecor".into(), def.op167.to_string()));
+        p.push((
+            167,
+            "raiseobjectgrounddecor".into(),
+            def.raise_object_ground_decor.to_string(),
+        ));
     }
 
     #[cfg(since_647)]
@@ -600,7 +604,10 @@ pub fn emit_loc_props(
         p.push((
             173,
             "bgsoundrate".into(),
-            format!("{},{}", def.op173.0, def.op173.1),
+            format!(
+                "{},{}",
+                def.background_sound_rate.0, def.background_sound_rate.1
+            ),
         ));
     }
 
@@ -611,7 +618,11 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if opcode == 178 {
-        p.push((178, "bgsounddropoffrange".into(), def.op178.to_string()));
+        p.push((
+            178,
+            "bgsounddropoffrange".into(),
+            def.background_sound_dropoff_range.to_string(),
+        ));
     }
 
     #[cfg(since_742)]

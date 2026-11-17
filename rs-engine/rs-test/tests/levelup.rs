@@ -2,7 +2,7 @@
 //!
 //! A level-up says 289's message and plays 289's jingle (2011's by its notes),
 //! and opens 2011's one level-up box (interface 740) with void-634's two lines
-//! and the stat's icon (varbit 4757, `level_up_icon`); the stat's icon then
+//! and the stat's icon (varpbit 4757, `level_up_icon`); the stat's icon then
 //! flashes in the stats tab (its bit of varp 1179, `skill_stat_flash`, which
 //! clientscript 970 reads per component).
 //!

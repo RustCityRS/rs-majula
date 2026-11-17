@@ -8167,20 +8167,20 @@ fog_depth=1958
 env_map=texture_682,texture_683,texture_684,texture_685,texture_686,texture_687
 
 ==== LIGHTS ====
-8 5563 3148 176: radius=4 colors=9,9,9,9,9,9,9,9,9 hsl=38 type=31 ref=light_13
-8 4940 2764 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-0 5324 2764 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-0 2764 5708 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-0 5324 4556 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-0 3771 3054 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-0 1774 4037 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-0 1774 4933 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-8 3909 5778 248: radius=2 colors=5,5,5,5,5 hsl=36792 type=31 ref=light_26
-24 4923 3259 467: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
-24 2235 4411 467: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
-24 3899 5307 467: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
-24 4795 4539 467: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
-24 3515 3515 467: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
+8 5563 3148 176: radius=4 radiusgrid=9,9,9,9,9,9,9,9,9 hsl=38 type=31 lighttype=light_13
+8 4940 2764 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+0 5324 2764 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+0 2764 5708 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+0 5324 4556 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+0 3771 3054 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+0 1774 4037 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+0 1774 4933 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+8 3909 5778 248: radius=2 radiusgrid=5,5,5,5,5 hsl=36792 type=31 lighttype=light_26
+24 4923 3259 467: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
+24 2235 4411 467: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
+24 3899 5307 467: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
+24 4795 4539 467: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
+24 3515 3515 467: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=36757 type=1
 
 ==== ENVPARAMS ====
 32 8 32

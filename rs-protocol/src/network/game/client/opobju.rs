@@ -47,7 +47,7 @@ impl ClientProtMessage for OpObjU {
         let use_obj = TypeId::from_g2(buf.g2_alt1());
         let obj = TypeId::from_g2(buf.g2_alt1());
         let z = buf.g2_alt3();
-        let com = buf.g4s_alt3();
+        let com = buf.g4_alt3();
         OpObjU {
             x,
             z,

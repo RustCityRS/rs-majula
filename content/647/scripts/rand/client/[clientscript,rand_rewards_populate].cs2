@@ -24,7 +24,7 @@ while ($int0 < enum_getoutputcount($enum6)) {
     $int5 = $int4;
     $int4 = calc($int4 + 1);
     cc_setgraphic("km_shoptile,1");
-    if (stat_base(dungeoneering) < struct_param(enum(int, struct, $enum6, $int0), param_1071)) {
+    if (stat_base(rand) < struct_param(enum(int, struct, $enum6, $int0), param_1071)) {
         cc_setcolour(^red);
     }
     cc_setsize(52, 55, ^setsize_abs, ^setsize_abs);

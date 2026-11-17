@@ -484,7 +484,7 @@ textalignv=bottom
 colour=0xffffcc
 onmouseleave=deltooltip(lore_stats_side:build_layer)
 onvartransmit=clientscript_756{lore_spell_points}
-onstattransmit=clientscript_756{summoning}
+onstattransmit=clientscript_756{animallore}
 onmouserepeat=clientscript_777(event_com, lore_stats_side:build_layer, 43384900, 1)
 
 // 662:42
@@ -514,7 +514,7 @@ textalignv=centre
 textshadow=yes
 colour=0xc4b074
 onmouseleave=deltooltip(lore_stats_side:build_layer)
-onstattransmit=lore_points_update{summoning}
+onstattransmit=lore_points_update{animallore}
 onmouserepeat=clientscript_779(event_com, lore_stats_side:build_layer, 43384900, 1, "Summoning points remaining")
 
 // 662:44

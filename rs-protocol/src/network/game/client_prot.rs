@@ -48,6 +48,8 @@ pub use crate::network::game::client::client_detailoptions_status::ClientDetailo
 pub use crate::network::game::client::close_modal::CloseModal;
 #[cfg(since_647)]
 pub use crate::network::game::client::create_check_name::CreateCheckName;
+#[cfg(since_530)]
+pub use crate::network::game::client::detect_modified_client::DetectModifiedClient;
 #[cfg(since_254)]
 pub use crate::network::game::client::event_applet_focus::EventAppletFocus;
 #[cfg(any(rev = "225", since_254))]
@@ -114,8 +116,6 @@ pub use crate::network::game::client::inv_button5::InvButton5;
 pub use crate::network::game::client::inv_buttond::InvButtonD;
 #[cfg(since_254)]
 pub use crate::network::game::client::map_build_complete::MapBuildComplete;
-#[cfg(since_530)]
-pub use crate::network::game::client::map_build_loading::MapBuildLoading;
 pub use crate::network::game::client::message_private::MessagePrivate;
 pub use crate::network::game::client::message_public::MessagePublic;
 #[cfg(since_530)]
@@ -793,7 +793,7 @@ client_prot! {
     IfButton10 = 9,
     IfButton = 10,
     GameloginContinue = 17,
-    MapBuildLoading = 20,
+    DetectModifiedClient = 20,
     EventCameraPosition = 21,
     EventAppletFocus = 22,
     ResumePCountDialog = 23,
@@ -904,7 +904,7 @@ client_prot! {
     SetChatfiltersettings = 10,
     OpPlayer6 = 11,
     ResumePHslDialog = 12,
-    MapBuildLoading = 13,
+    DetectModifiedClient = 13,
     ClientCheat = 14,
     OpPlayerT = 15,
     IfButton1 = 16,
@@ -994,7 +994,7 @@ client_prot! {
     ResumePHslDialog = 5,
     OpNpcT = 6,
     IfButtonD = 7,
-    MapBuildLoading = 8,
+    DetectModifiedClient = 8,
     ClanchannelKickUser = 9,
     Unknown10 = 10,
     UrlRequest = 11,

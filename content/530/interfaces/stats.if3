@@ -1439,7 +1439,7 @@ textfont=fontmetrics_494
 textalignh=centre
 textshadow=yes
 colour=0xffff00
-onstattransmit=stats_stat(event_com, summoning){summoning}
+onstattransmit=stats_stat(event_com, animallore){animallore}
 
 // 320:124
 [com_124]
@@ -1453,7 +1453,7 @@ textfont=fontmetrics_494
 textalignh=centre
 textshadow=yes
 colour=0xffff00
-onstattransmit=stats_statbase(event_com, summoning){summoning}
+onstattransmit=stats_statbase(event_com, animallore){animallore}
 
 // 320:125
 [attack_button]
@@ -1837,7 +1837,7 @@ textshadow=yes
 colour=0x000000
 transmitop=1
 op1=View
-onmouseover=stats_mouseover(event_com, summoning, stats:tips)
+onmouseover=stats_mouseover(event_com, animallore, stats:tips)
 onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:149

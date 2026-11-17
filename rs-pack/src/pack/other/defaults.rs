@@ -142,9 +142,9 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
         }
     }
     ensure!(
-        buf.remaining() == 0,
+        buf.get_space() == 0,
         "Defaults {group} has {} bytes left over",
-        buf.remaining()
+        buf.get_space()
     );
     Ok(out)
 }
@@ -225,7 +225,7 @@ fn unpack_value(buf: &mut Packet, kind: Kind, names: &AssetNames) -> Result<Stri
             #[cfg(before_742)]
             let model = buf.g2() as i64;
             #[cfg(since_742)]
-            let model = buf.gsmart2or4null() as i64;
+            let model = buf.gsmart2or4s() as i64;
             names.reference("model", model)
         }
         #[cfg(since_742)]

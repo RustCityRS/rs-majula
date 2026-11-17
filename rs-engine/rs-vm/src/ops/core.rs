@@ -23,7 +23,7 @@ const MAX_ARRAY_SIZE: i32 = 5000;
 ///
 /// Key opcodes include:
 /// - **Constants:** `PUSH_CONSTANT_INT`, `PUSH_CONSTANT_STRING`
-/// - **Player variables:** `PUSH_VARP`, `POP_VARP`, `PUSH_VARBIT`, `POP_VARBIT`
+/// - **Player variables:** `PUSH_VARP`, `POP_VARP`, `PUSH_VARPBIT`, `POP_VARPBIT`
 /// - **NPC variables:** `PUSH_VARN`, `POP_VARN`
 /// - **Shared variables:** `PUSH_VARS`, `POP_VARS`
 /// - **Client variables (647):** `PUSH_VARC_INT`, `POP_VARC_INT`, `PUSH_VARC_STRING`,
@@ -201,44 +201,44 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 25
         #[cfg(since_254)]
-        none!(m, PUSH_VARBIT => |s| {
+        none!(m, PUSH_VARPBIT => |s| {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
-                .varbits()
+            let varpbit = engine::<E>()
+                .varpbits()
                 .get_by_id(TypeId::new(id))
-                .ok_or(ScriptError::VarbitNotFound(id as i32))?;
-            let base = get_active_player::<E>(s, secondary)?.get_var(varbit.basevar).as_int();
-            s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
+                .ok_or(ScriptError::VarpBitNotFound(id as i32))?;
+            let base = get_active_player::<E>(s, secondary)?.get_var(varpbit.basevar).as_int();
+            s.push_int(getbit_range(base, varpbit.start_bit as i32, varpbit.end_bit as i32));
         });
 
         // 27
         #[cfg(since_254)]
-        none!(m, POP_VARBIT => |s| {
+        none!(m, POP_VARPBIT => |s| {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
-                .varbits()
+            let varpbit = engine::<E>()
+                .varpbits()
                 .get_by_id(TypeId::new(id))
-                .ok_or(ScriptError::VarbitNotFound(id as i32))?;
+                .ok_or(ScriptError::VarpBitNotFound(id as i32))?;
             let basevar = engine::<E>()
                 .varps()
-                .get_by_id(TypeId::new(varbit.basevar))
-                .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
+                .get_by_id(TypeId::new(varpbit.basevar))
+                .ok_or(ScriptError::VarpNotFound(varpbit.basevar as i32))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && basevar.protect {
-                return Err(ScriptError::Runtime(format!("Varbit: {} requires protected access!", varbit.debugname())))
+                return Err(ScriptError::Runtime(format!("VarpBit: {} requires protected access!", varpbit.debugname())))
             }
-            let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+            let (start, end) = (varpbit.start_bit as i32, varpbit.end_bit as i32);
             let mut value = s.pop_int();
             if !fits_bit_range(value, start, end) {
                 value = 0;
             }
             let player = get_active_player_mut::<E>(s, secondary)?;
-            let current = player.get_var(varbit.basevar).as_int();
+            let current = player.get_var(varpbit.basevar).as_int();
             let new_value = setbit_range_toint(current, value, start, end);
-            player.set_var(varbit.basevar, VarValue::from_int(basevar.var_type, new_value), basevar.transmit);
+            player.set_var(varpbit.basevar, VarValue::from_int(basevar.var_type, new_value), basevar.transmit);
         });
 
         // 31
@@ -453,14 +453,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
+            let varpbit = engine::<E>()
                 .varconbits()
                 .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
             let base = engine::<E>()
-                .controller_var(active_controller(s, secondary)?, varbit.basevar)?
+                .controller_var(active_controller(s, secondary)?, varpbit.basevar)?
                 .as_int();
-            s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
+            s.push_int(getbit_range(base, varpbit.start_bit as i32, varpbit.end_bit as i32));
         });
 
         #[cfg(since_647)]
@@ -468,21 +468,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
+            let varpbit = engine::<E>()
                 .varconbits()
                 .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
             let varcon = engine::<E>()
                 .varcons()
-                .get_by_id(TypeId::new(varbit.basevar))
-                .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {}", varbit.basevar)))?;
+                .get_by_id(TypeId::new(varpbit.basevar))
+                .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {}", varpbit.basevar)))?;
             let uid = active_controller(s, secondary)?;
-            let base = engine::<E>().controller_var(uid, varbit.basevar)?.as_int();
-            let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+            let base = engine::<E>().controller_var(uid, varpbit.basevar)?.as_int();
+            let (start, end) = (varpbit.start_bit as i32, varpbit.end_bit as i32);
             let value = s.pop_int();
             let value = if fits_bit_range(value, start, end) { value } else { 0 };
             let value = VarValue::from_int(varcon.var_type, setbit_range_toint(base, value, start, end));
-            engine_mut::<E>().set_controller_var(uid, varbit.basevar, value)?;
+            engine_mut::<E>().set_controller_var(uid, varpbit.basevar, value)?;
         });
 
         // 112

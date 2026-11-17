@@ -1,7 +1,7 @@
 // 6774
 [proc,clientscript_6774](int $int0)(int)
 def_int $int1 = struct_param(enum(int, struct, enum_5517, $int0), param_2236);
-if (stat_base(summoning) < $int1) {
+if (stat_base(animallore) < $int1) {
     return(0);
 }
 switch_int ($int0) {

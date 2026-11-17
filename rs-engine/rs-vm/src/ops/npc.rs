@@ -425,8 +425,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 (true, Ok(player)) => {
                     use crate::engine::ScriptPlayer as _;
                     let value = match npc_type.multivar {
-                        Some(MultiVar::Varbit(id)) => engine::<E>()
-                            .varbits()
+                        Some(MultiVar::VarpBit(id)) => engine::<E>()
+                            .varpbits()
                             .get_by_id(id)
                             .map(|v| {
                                 let base = player.get_var(v.basevar).as_int();

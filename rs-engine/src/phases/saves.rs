@@ -18,7 +18,7 @@ use tracing::{info, warn};
 #[cfg(since_254)]
 const PROFILE_TRANSFER_DELAY: Duration = Duration::from_secs(45);
 
-/// The [`LoginResponse::ProfileTransfer`] countdown in whole seconds, or
+/// The [`LoginResponse::HopBlocked`] countdown in whole seconds, or
 /// `None` if the login may go ahead. Jagex moderators and up are exempt.
 #[cfg(since_254)]
 fn profile_transfer_wait(staff_mod_level: u8, left_other_world: Option<Duration>) -> Option<u8> {
@@ -43,19 +43,19 @@ impl Engine {
     /// * `AuthResponse` -- completes authentication for the pending login
     ///   it names. On success, records the player's staff level and attempts
     ///   completion. A wrong password or unknown name rejects with
-    ///   [`LoginResponse::InvalidCredentials`] and counts toward the IP's
+    ///   [`LoginResponse::BadCredentials`] and counts toward the IP's
     ///   [`LoginResponse::TooManyAttempts`] lockout, which the database also
     ///   enforces across all worlds; a ban rejects with
-    ///   [`LoginResponse::AccountDisabled`]. From 254, a login within
+    ///   [`LoginResponse::Banned`]. From 254, a login within
     ///   `PROFILE_TRANSFER_DELAY` of leaving another world rejects with
-    ///   `LoginResponse::ProfileTransfer` and the seconds left, which the
+    ///   `LoginResponse::HopBlocked` and the seconds left, which the
     ///   client counts down before retrying on its own. During a lockdown
     ///   (see [`crate::controls`]) an account too new is rejected with
-    ///   [`LoginResponse::CouldNotComplete`], as is a login the world had no
+    ///   [`LoginResponse::BadSave`], as is a login the world had no
     ///   room to check while flooded with them.
     /// * `LoadResponse` -- the session claim's outcome: attaches the loaded
     ///   profile and attempts completion, or rejects with
-    ///   [`LoginResponse::AlreadyLoggedIn`] when another world owns the
+    ///   [`LoginResponse::Duplicate`] when another world owns the
     ///   session.
     /// * `SaveAck` -- on success, deletes the local backup save file. On
     ///   failure, keeps the local file as a fallback. For a logout save,
@@ -119,7 +119,7 @@ impl Engine {
                             } => {
                                 let staff = StaffModLevel::from_u8(staff_mod_level);
                                 if !self.controls.admits(staff, account_age) {
-                                    self.reject_pending_login(idx, LoginResponse::CouldNotComplete);
+                                    self.reject_pending_login(idx, LoginResponse::BadSave);
                                     continue;
                                 }
                                 #[cfg(since_254)]
@@ -129,7 +129,7 @@ impl Engine {
                                 {
                                     self.reject_pending_login_with(
                                         idx,
-                                        vec![LoginResponse::ProfileTransfer as u8, secs],
+                                        vec![LoginResponse::HopBlocked as u8, secs],
                                     );
                                     continue;
                                 }
@@ -145,19 +145,19 @@ impl Engine {
                             AuthResult::InvalidCredentials => {
                                 let ip = self.pending_logins[idx].request.remote_addr.ip();
                                 self.record_login_failure(ip);
-                                self.reject_pending_login(idx, LoginResponse::InvalidCredentials);
+                                self.reject_pending_login(idx, LoginResponse::BadCredentials);
                             }
                             AuthResult::Banned => {
-                                self.reject_pending_login(idx, LoginResponse::AccountDisabled);
+                                self.reject_pending_login(idx, LoginResponse::Banned);
                             }
                             AuthResult::TooManyAttempts => {
                                 self.reject_pending_login(idx, LoginResponse::TooManyAttempts);
                             }
                             AuthResult::MultiLogging => {
-                                self.reject_pending_login(idx, LoginResponse::TooManyConnections);
+                                self.reject_pending_login(idx, LoginResponse::IpLimit);
                             }
                             AuthResult::Busy => {
-                                self.reject_pending_login(idx, LoginResponse::CouldNotComplete);
+                                self.reject_pending_login(idx, LoginResponse::BadSave);
                             }
                         }
                     }
@@ -174,10 +174,10 @@ impl Engine {
                             self.try_complete_login(idx);
                         }
                         (Some(idx), LoadResult::Busy) => {
-                            self.reject_pending_login(idx, LoginResponse::AlreadyLoggedIn);
+                            self.reject_pending_login(idx, LoginResponse::Duplicate);
                         }
                         (Some(idx), LoadResult::Unregistered) => {
-                            self.reject_pending_login(idx, LoginResponse::CouldNotComplete);
+                            self.reject_pending_login(idx, LoginResponse::BadSave);
                         }
                         // The login died before its claim came back. Its
                         // rejection already queued a release behind the

@@ -1,6 +1,6 @@
 // 6773
 [proc,clientscript_6773](int $int0)(int)
-if (stat_base(dungeoneering) < struct_param(enum(int, struct, enum_5519, $int0), param_2236)) {
+if (stat_base(rand) < struct_param(enum(int, struct, enum_5519, $int0), param_2236)) {
     return(0);
 }
 return(1);

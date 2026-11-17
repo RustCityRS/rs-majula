@@ -17,7 +17,7 @@ if (if_gethide($component0) = false & cc_find($component0, 0) = true) {
         cc_setgraphic($graphic2);
         return;
     }
-    if (stat_base(summoning) < $int3) {
+    if (stat_base(animallore) < $int3) {
         cc_setgraphic($graphic2);
     } else {
         cc_setgraphic($graphic1);

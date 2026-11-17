@@ -68,7 +68,7 @@ impl Engine {
         active.player.reorient(pathing_face);
         #[cfg(since_647)]
         {
-            active.player.sync_move_types();
+            active.player.sync_move_speeds();
             if active.player.info.vis != Visibility::Hard {
                 self.player_renderer
                     .track_region(pid, BuildArea::pack_mapsquare(active.player.pathing.coord));

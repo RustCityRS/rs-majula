@@ -8,8 +8,8 @@ pub mod face_entity;
 #[cfg(all(since_530, before_647))]
 pub mod model_anims;
 #[cfg(since_647)]
-pub mod move_type;
+pub mod move_speed;
 pub mod say;
 pub mod spotanim;
 #[cfg(since_647)]
-pub mod temp_move_type;
+pub mod temp_move_speed;

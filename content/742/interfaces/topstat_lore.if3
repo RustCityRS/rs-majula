@@ -37,7 +37,7 @@ colour=0xffffffff
 type=layer
 width=57
 height=34
-onstattransmit=script815{summoning}
+onstattransmit=script815{animallore}
 
 // 747:4
 [build_layer]
@@ -80,8 +80,8 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xca9800
-onload=topstat_set_text_skill(event_com, summoning)
-onstattransmit=topstat_set_text_skill(event_com, summoning){summoning}
+onload=topstat_set_text_skill(event_com, animallore)
+onstattransmit=topstat_set_text_skill(event_com, animallore){animallore}
 
 // 747:8
 [select_leftclick_layer]

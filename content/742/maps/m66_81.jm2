@@ -5070,14 +5070,14 @@ sun_angle=0,-100,-20
 fog_color=0
 
 ==== LIGHTS ====
-0 2722 3972 275: radius=2 colors=260,260,260,260,260 hsl=5002 type=63 ref=light_9
-0 2722 3327 275: radius=2 colors=260,260,260,260,260 hsl=5002 type=95 ref=light_9
-0 3588 3114 275: radius=2 colors=0,5,5,5,5 hsl=5002 type=159 ref=light_9
-0 2942 3114 275: radius=2 colors=0,5,5,5,5 hsl=5002 type=223 ref=light_9
-0 4220 3114 275: radius=2 colors=0,5,5,5,5 hsl=5002 type=255 ref=light_9
-0 4860 3114 275: radius=2 colors=0,5,5,5,5 hsl=5002 type=223 ref=light_9
-0 5083 3327 275: radius=2 colors=4,4,4,4,4 hsl=5002 type=127 ref=light_9
-0 5083 3966 275: radius=2 colors=4,4,4,4,4 hsl=5002 type=31 ref=light_9
+0 2722 3972 275: radius=2 radiusgrid=260,260,260,260,260 hsl=5002 type=63 lighttype=light_9
+0 2722 3327 275: radius=2 radiusgrid=260,260,260,260,260 hsl=5002 type=95 lighttype=light_9
+0 3588 3114 275: radius=2 radiusgrid=0,5,5,5,5 hsl=5002 type=159 lighttype=light_9
+0 2942 3114 275: radius=2 radiusgrid=0,5,5,5,5 hsl=5002 type=223 lighttype=light_9
+0 4220 3114 275: radius=2 radiusgrid=0,5,5,5,5 hsl=5002 type=255 lighttype=light_9
+0 4860 3114 275: radius=2 radiusgrid=0,5,5,5,5 hsl=5002 type=223 lighttype=light_9
+0 5083 3327 275: radius=2 radiusgrid=4,4,4,4,4 hsl=5002 type=127 lighttype=light_9
+0 5083 3966 275: radius=2 radiusgrid=4,4,4,4,4 hsl=5002 type=31 lighttype=light_9
 
 ==== ENVPARAMS ====
 32 8 32

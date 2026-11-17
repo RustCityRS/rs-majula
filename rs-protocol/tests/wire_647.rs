@@ -142,7 +142,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-2]<<16 | b[-1]<<24 | b[-3]<<8 | b[-4]` (little-endian-ish)
-    fn g4s_alt1(&mut self) -> i32 {
+    fn g4_alt1(&mut self) -> i32 {
         self.pos += 4;
         ((self.b(self.pos - 2) & 0xFF) << 16)
             + ((self.b(self.pos - 1) & 0xFF) << 24)
@@ -151,7 +151,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-2] | b[-3]<<24 | b[-4]<<16 | b[-1]<<8`
-    fn g4s_alt3(&mut self) -> i32 {
+    fn g4_alt3(&mut self) -> i32 {
         self.pos += 4;
         (self.b(self.pos - 2) & 0xFF)
             + ((self.b(self.pos - 3) & 0xFF) << 24)
@@ -160,7 +160,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-4]<<8 | b[-2]<<24 | b[-1]<<16 | b[-3]`
-    fn g4s_alt2(&mut self) -> i32 {
+    fn g4_alt2(&mut self) -> i32 {
         self.pos += 4;
         ((self.b(self.pos - 4) & 0xFF) << 8)
             + ((self.b(self.pos - 2) & 0xFF) << 24)
@@ -246,7 +246,7 @@ fn varc_str_large_matches_client() {
     assert_eq!(msg.sizeof(), bytes.len());
 }
 
-/// Client: `g2 varp`, `g4s_alt2 value`.
+/// Client: `g2 varp`, `g4_alt2 value`.
 #[test]
 fn varp_large_matches_client() {
     use rs_protocol::network::game::server::varp_large::VarpLarge;
@@ -256,7 +256,7 @@ fn varp_large_matches_client() {
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2(), 1240);
-    assert_eq!(p.g4s_alt2(), 0x0123_4567);
+    assert_eq!(p.g4_alt2(), 0x0123_4567);
     p.done(bytes.len());
 }
 
@@ -344,7 +344,7 @@ fn obj_count_matches_client() {
 // Interface prots
 // ---------------------------------------------------------------------------
 
-/// Client IF_OPENSUB: `g2_alt3 sub`, `g4s_alt3 parent_hash`, `g1_alt1 walkable`.
+/// Client IF_OPENSUB: `g2_alt3 sub`, `g4_alt3 parent_hash`, `g1_alt1 walkable`.
 #[test]
 fn if_opensub_matches_client() {
     use rs_protocol::network::game::server::if_opensub::IfOpensub;
@@ -357,7 +357,7 @@ fn if_opensub_matches_client() {
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2_alt3(), 747, "sub interface id");
-    assert_eq!(p.g4s_alt3(), parent_hash, "parent component hash");
+    assert_eq!(p.g4_alt3(), parent_hash, "parent component hash");
     assert_eq!(p.g1_alt1(), 1, "walkable");
     p.done(bytes.len());
 }
@@ -391,7 +391,7 @@ fn if_opentop_mode_matches_client() {
     p.done(bytes.len());
 }
 
-/// Client IF_SETCOLOUR: `g4s_alt2 hash`, `g2_alt3 colour`.
+/// Client IF_SETCOLOUR: `g4_alt2 hash`, `g2_alt3 colour`.
 ///
 /// Regression: previously `p4_alt1` + `p2` -- right byte count, wrong order.
 #[test]
@@ -403,7 +403,7 @@ fn if_setcolour_matches_client() {
         colour: 0x7ABC,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt2(), hash, "component hash");
+    assert_eq!(p.g4_alt2(), hash, "component hash");
     assert_eq!(p.g2_alt3(), 0x7ABC, "colour");
     p.done(bytes.len());
 }
@@ -499,7 +499,7 @@ fn vorbis_speech_stop_matches_client() {
 }
 
 /// Client IF_SETGRAPHIC (`MapAreaConfig.java`): `ig4 hash` (little-endian, this reader's
-/// `g4s_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
+/// `g4_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
 #[test]
 fn if_setgraphic_matches_client() {
     use rs_protocol::network::game::server::if_setgraphic::IfSetGraphic;
@@ -509,12 +509,12 @@ fn if_setgraphic_matches_client() {
         graphic: TypeId::new(2379),
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt1(), hash, "component hash");
+    assert_eq!(p.g4_alt1(), hash, "component hash");
     assert_eq!(p.g2_alt2(), 2379, "graphic");
     p.done(bytes.len());
 }
 
-/// Client IF_SETPOSITION: `g4s_alt3 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
+/// Client IF_SETPOSITION: `g4_alt3 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
 ///
 /// Regression: previously `p4_alt1` + `p2` + `p2`.
 #[test]
@@ -527,7 +527,7 @@ fn if_setposition_matches_client() {
         y: 250,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt3(), hash, "component hash");
+    assert_eq!(p.g4_alt3(), hash, "component hash");
     assert_eq!(p.g2_alt3(), 120, "x");
     assert_eq!(p.g2_alt3(), 250, "y");
     p.done(bytes.len());
@@ -551,17 +551,17 @@ fn create_check_name_matches_client() {
 // Misc
 // ---------------------------------------------------------------------------
 
-/// Client UPDATE_STAT: `g4s_alt2 xp`, `g1 skill`, `g1_alt2 level`.
+/// Client UPDATE_STAT: `g4_alt2 xp`, `g1 skill`, `g1_alt2 level`.
 #[test]
 fn update_stat_matches_client() {
     use rs_protocol::network::game::server::update_stat::UpdateStat;
     let bytes = encode(&UpdateStat {
-        stat: 23, // summoning
+        stat: 23, // animallore
         lvl: 42,
         exp: 123_456,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt2(), 123_456, "xp");
+    assert_eq!(p.g4_alt2(), 123_456, "xp");
     assert_eq!(p.g1(), 23, "skill id");
     assert_eq!(p.g1_alt2(), 42, "level");
     p.done(bytes.len());
@@ -822,7 +822,7 @@ fn loc_merge_matches_client() {
 // Camera, and the targeted spotanim. `MapAreaConfig`'s branches for each.
 // ---------------------------------------------------------------------------
 
-/// `AClass13.method622(const_speed, z, x, var_speed, height)` is fed
+/// `AClass13.method622(rate, z, x, rate2, height)` is fed
 /// `g1_alt2 x; g2_alt3 height << 2; g1_alt3 z; g1_alt2 const; g1_alt3 var`.
 #[test]
 fn cam_lookat_matches_client() {
@@ -831,8 +831,8 @@ fn cam_lookat_matches_client() {
         local_x: 40,
         local_z: 61,
         height: 300,
-        const_speed: 5,
-        var_speed: 100,
+        rate: 5,
+        rate2: 100,
     });
     let mut c = ClientPacket::new(&bytes);
     assert_eq!(c.g1_alt2(), 40, "x");
@@ -852,8 +852,8 @@ fn cam_moveto_matches_client() {
         local_x: 40,
         local_z: 61,
         height: 300,
-        const_speed: 5,
-        var_speed: 100,
+        rate: 5,
+        rate2: 100,
     });
     let mut c = ClientPacket::new(&bytes);
     assert_eq!(c.g1_alt1(), 40, "x");
@@ -864,17 +864,17 @@ fn cam_moveto_matches_client() {
     c.done(6);
 }
 
-/// `g1_alt2 jitter; g1 amplitude; g2_alt3 cycle; g1 type; g1_alt1
-/// frequency`, stored per axis and read back by `Class237`'s
-/// `random(-jitter..=jitter) + sin(frequency / 100 * cycle) * amplitude`.
+/// `g1_alt2 ran; g1 amp; g2_alt3 cycle; g1 axis; g1_alt1
+/// rate`, stored per axis and read back by `Class237`'s
+/// `random(-ran..=ran) + sin(rate / 100 * cycle) * amp`.
 #[test]
 fn cam_shake_matches_client() {
     use rs_protocol::network::game::server::cam_shake::CamShake;
     let bytes = encode(&CamShake {
-        direction: 4,
-        jitter: 3,
-        amplitude: 25,
-        frequency: 60,
+        axis: 4,
+        ran: 3,
+        amp: 25,
+        rate: 60,
         cycle: 0,
     });
     let mut c = ClientPacket::new(&bytes);
@@ -990,7 +990,7 @@ fn trade_request_is_2011s_type_100() {
 
 /// Client (`MapAreaConfig`, UPDATE_INV_FULL): `g2 inv`, `g1 flags` (bit 0:
 /// the other player's copy of the inv, which trade's other offer shows),
-/// `g2 size`, then per slot `g1 count` (255: `g4s_alt1`) and `g2_alt2 obj + 1`.
+/// `g2 size`, then per slot `g1 count` (255: `g4_alt1`) and `g2_alt2 obj + 1`.
 #[test]
 fn update_inv_full_matches_client() {
     use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
@@ -1020,7 +1020,7 @@ fn update_inv_full_matches_client() {
         for _ in 0..3 {
             let mut count = p.g1();
             if count == 255 {
-                count = p.g4s_alt1();
+                count = p.g4_alt1();
             }
             slots.push((p.g2_alt2() - 1, count));
         }

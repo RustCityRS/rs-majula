@@ -27,7 +27,7 @@ use crate::cache::loader;
 #[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
 use anyhow::{Context, Result, ensure};
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::Write;
@@ -67,7 +67,7 @@ impl DiscoveryReport {
 /// existing pack files are preserved.
 pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Result<DiscoveryReport> {
     info!("Opening cache at {:?}", cache_dir);
-    let mut cache = Js5Store::open(cache_dir)?;
+    let mut cache = Js5LocalCache::open(cache_dir)?;
 
     fs::create_dir_all(pack_dir)?;
     // String variables merge back in after the ints, wherever those now end.
@@ -200,7 +200,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
 
     // Game vars.
     report.record("varp", generate_varp_pack(&mut cache, pack_dir)?);
-    report.record("varpbit", generate_varbit_pack(&mut cache, pack_dir)?);
+    report.record("varpbit", generate_varpbit_pack(&mut cache, pack_dir)?);
 
     // Hardcoded enums.
     report.record("stat", generate_stat_pack(pack_dir)?);
@@ -666,7 +666,11 @@ fn write_disambiguated_entity_pack(
 
 // ── entity pack generators ──────────────────────────────────────────────
 
-fn generate_obj_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+fn generate_obj_pack(
+    cache: &mut Js5LocalCache,
+    pack_dir: &Path,
+    force: bool,
+) -> Result<TypeReport> {
     let items = loader::load_all_objs(cache, true)?;
     let mut entries: Vec<(u32, String)> = items
         .types
@@ -682,7 +686,11 @@ fn generate_obj_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Resu
     write_disambiguated_entity_pack(&pack_dir.join("obj.pack"), &entries, "obj", force)
 }
 
-fn generate_npc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+fn generate_npc_pack(
+    cache: &mut Js5LocalCache,
+    pack_dir: &Path,
+    force: bool,
+) -> Result<TypeReport> {
     let npcs = loader::load_all_npcs(cache)?;
     let mut entries: Vec<(u32, String)> = npcs
         .types
@@ -698,7 +706,11 @@ fn generate_npc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Resu
     write_disambiguated_entity_pack(&pack_dir.join("npc.pack"), &entries, "npc", force)
 }
 
-fn generate_loc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+fn generate_loc_pack(
+    cache: &mut Js5LocalCache,
+    pack_dir: &Path,
+    force: bool,
+) -> Result<TypeReport> {
     let locs = loader::load_all_locs(cache)?;
     let mut entries: Vec<(u32, String)> = locs
         .types
@@ -716,7 +728,7 @@ fn generate_loc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Resu
 
 /// Generate a pack file with one entry per group (for archives where each group = one entity).
 fn generate_auto_pack_per_group(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     pack_dir: &Path,
     type_name: &str,
     archive_id: u8,
@@ -725,7 +737,7 @@ fn generate_auto_pack_per_group(
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
     let existing = load_existing_pack(&pack_path);
     let mut file = File::create(&pack_path)?;
-    let group_count = cache.group_count(archive_id).unwrap_or(0);
+    let group_count = cache.group_id_limit(archive_id).unwrap_or(0);
     let mut report = TypeReport::default();
 
     for gid in 0..group_count {
@@ -775,7 +787,7 @@ fn generate_auto_pack_per_group(
 }
 
 fn generate_auto_pack_stride(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     pack_dir: &Path,
     type_name: &str,
     archive_id: u8,
@@ -785,7 +797,7 @@ fn generate_auto_pack_stride(
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
     let existing = load_existing_pack(&pack_path);
     let mut file = File::create(&pack_path)?;
-    let group_count = cache.group_count(archive_id).unwrap_or(0);
+    let group_count = cache.group_id_limit(archive_id).unwrap_or(0);
     let mut report = TypeReport::default();
 
     for gid in 0..group_count {
@@ -840,7 +852,7 @@ fn generate_auto_pack_stride(
 
 /// Quickchat ids span both archives; the global ones start at `QUICKCHAT_GLOBAL_FIRST`.
 fn generate_quickchat_pack(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     pack_dir: &Path,
     type_name: &str,
     group_id: u32,
@@ -884,7 +896,7 @@ fn generate_quickchat_pack(
 }
 
 fn generate_auto_pack_group(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     pack_dir: &Path,
     type_name: &str,
     archive_id: u8,
@@ -904,7 +916,7 @@ fn generate_auto_pack_group(
 }
 
 fn generate_auto_pack_named(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     pack_dir: &Path,
     type_name: &str,
     section: &str,
@@ -970,10 +982,10 @@ fn generate_auto_pack_named(
 }
 
 /// Map squares by group id, named from their hashes: ids differ between revisions.
-fn generate_map_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
+fn generate_map_pack(cache: &mut Js5LocalCache, pack_dir: &Path) -> Result<TypeReport> {
     let lookup = super::map::build_name_lookup();
     let mut groups: Vec<_> = cache
-        .reference_table(archive::MAPS)
+        .index(archive::MAPS)
         .context("Missing map table")?
         .groups
         .iter()
@@ -999,7 +1011,7 @@ fn generate_map_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport
     Ok(report)
 }
 
-fn generate_category_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
+fn generate_category_pack(cache: &mut Js5LocalCache, pack_dir: &Path) -> Result<TypeReport> {
     let mut categories = BTreeSet::new();
 
     let items = loader::load_all_objs(cache, true)?;
@@ -1031,7 +1043,7 @@ fn generate_category_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeR
 
 /// Generate interface.pack from the interface archive.
 fn generate_interface_packs(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     pack_dir: &Path,
     force: bool,
 ) -> Result<(TypeReport, TypeReport)> {
@@ -1039,10 +1051,10 @@ fn generate_interface_packs(
     let existing_iface = load_existing_pack(&iface_path);
     let existing_comps = load_existing_components(&iface_path);
 
-    let group_count = cache.group_count(archive::INTERFACES).unwrap_or(0);
+    let group_count = cache.group_id_limit(archive::INTERFACES).unwrap_or(0);
 
     let file_counts: HashMap<u32, u32> = cache
-        .reference_table(archive::INTERFACES)
+        .index(archive::INTERFACES)
         .map(|rt| rt.groups.iter().map(|g| (g.id, g.file_count)).collect())
         .unwrap_or_default();
 
@@ -1147,7 +1159,7 @@ fn merge_string_vars(pack_dir: &Path, kind: &str, strings: &str, first: u32) -> 
     Ok(())
 }
 
-fn generate_varp_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
+fn generate_varp_pack(cache: &mut Js5LocalCache, pack_dir: &Path) -> Result<TypeReport> {
     let varps = loader::load_all_varps(cache)?;
     let path = pack_dir.join("varp.pack");
     let prefix = placeholder_prefix("varp");
@@ -1160,11 +1172,11 @@ fn generate_varp_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeRepor
     write_entity_pack(&path, &entries, prefix, false)
 }
 
-fn generate_varbit_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
-    let varbits = loader::load_all_varbits(cache)?;
+fn generate_varpbit_pack(cache: &mut Js5LocalCache, pack_dir: &Path) -> Result<TypeReport> {
+    let varpbits = loader::load_all_varpbits(cache)?;
     let path = pack_dir.join("varpbit.pack");
     let prefix = placeholder_prefix("varpbit");
-    let entries: Vec<(u32, String)> = (0..varbits.count() as u32)
+    let entries: Vec<(u32, String)> = (0..varpbits.count() as u32)
         .map(|id| (id, format!("{prefix}_{id}")))
         .collect();
     write_entity_pack(&path, &entries, prefix, false)
@@ -1214,8 +1226,8 @@ fn generate_stat_pack(pack_dir: &Path) -> Result<TypeReport> {
         (20, "runecraft"),
         (21, "hunter"),
         (22, "construction"),
-        (23, "summoning"),
-        (24, "dungeoneering"),
+        (23, "animallore"),
+        (24, "rand"),
     ];
     write_hardcoded(pack_dir, "stat", stats)
 }

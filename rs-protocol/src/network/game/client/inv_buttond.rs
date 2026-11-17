@@ -58,7 +58,7 @@ impl ClientProtMessage for InvButtonD {
 impl ClientProtMessage for InvButtonD {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let slot = buf.g2();
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         let slot2 = buf.g2_alt2();
         let mode = buf.g1_alt3();
         InvButtonD {

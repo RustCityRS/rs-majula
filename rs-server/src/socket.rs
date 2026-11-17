@@ -49,14 +49,14 @@ use tracing::{debug, warn};
 #[derive(TryFromPrimitive)]
 pub enum HandshakeType {
     #[cfg(since_244)]
-    New = 14,
+    InitGameConnection = 14,
     #[cfg(since_244)]
-    Js5 = 15,
-    Login = 16,
+    InitJs5RemoteConnection = 15,
+    GameLogin = 16,
     #[cfg(before_742)]
     Reconnect = 18,
     #[cfg(since_647)]
-    Lobby = 19,
+    LobbyLogin = 19,
     #[cfg(all(since_530, before_647))]
     CreateAccount = 36,
     #[cfg(all(since_647, before_742))]
@@ -155,17 +155,12 @@ const PROCEED: u8 = 0;
 
 /// A login turned away for its address's limit.
 #[cfg(all(since_244, before_530))]
-const LIMIT_REACHED: [u8; 9] = key_exchange_reply(LoginResponse::TooManyConnections as u8);
+const LIMIT_REACHED: [u8; 9] = key_exchange_reply(LoginResponse::IpLimit as u8);
 
 #[cfg(rev = "225")]
 pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     client.write(&make_seed().data).await?;
-    let permit = acquire_permit(
-        &mut client,
-        false,
-        &[LoginResponse::TooManyConnections as u8],
-    )
-    .await?;
+    let permit = acquire_permit(&mut client, false, &[LoginResponse::IpLimit as u8]).await?;
     let bytes = timeout(HANDSHAKE_TIMEOUT, client.read_exact(1)).await??;
     let result = process_login(client, HandshakeType::try_from(bytes[0])?).await;
     drop(permit);
@@ -182,17 +177,22 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
         let kind = HandshakeType::try_from(bytes[0])?;
         if permit.is_none() {
             let refusal: &[u8] = match kind {
-                HandshakeType::Js5 => &[],
+                HandshakeType::InitJs5RemoteConnection => &[],
                 #[cfg(before_530)]
-                HandshakeType::New => &LIMIT_REACHED,
-                _ => &[LoginResponse::TooManyConnections as u8],
+                HandshakeType::InitGameConnection => &LIMIT_REACHED,
+                _ => &[LoginResponse::IpLimit as u8],
             };
             permit = Some(
-                acquire_permit(&mut client, matches!(kind, HandshakeType::Js5), refusal).await?,
+                acquire_permit(
+                    &mut client,
+                    matches!(kind, HandshakeType::InitJs5RemoteConnection),
+                    refusal,
+                )
+                .await?,
             );
         }
         match kind {
-            HandshakeType::New => {
+            HandshakeType::InitGameConnection => {
                 key_exchanges += 1;
                 if key_exchanges > 3 {
                     bail!("{}: repeated session-key exchanges", client.addr);
@@ -210,7 +210,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                 #[cfg(since_647)]
                 client.write(&[0]).await?;
             }
-            HandshakeType::Js5 => {
+            HandshakeType::InitJs5RemoteConnection => {
                 if key_exchanges > 0 {
                     bail!(
                         "{}: cache request after a session-key exchange",
@@ -236,7 +236,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                     };
                     if !current {
                         client
-                            .write(&[LoginResponse::RuneScapeUpdated as u8])
+                            .write(&[LoginResponse::OutOfDateClientVersion as u8])
                             .await?;
                         bail!("{}: js5 wrong revision", client.addr);
                     }
@@ -309,10 +309,10 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
         #[cfg(before_530)]
         client.server_io.cache.read(|cache| cache.crc_buffer32),
         #[cfg(since_647)]
-        matches!(kind, HandshakeType::Lobby),
+        matches!(kind, HandshakeType::LobbyLogin),
     );
     #[cfg(since_647)]
-    let login = login.map_err(|_| LoginResponse::InvalidCredentials);
+    let login = login.map_err(|_| LoginResponse::BadCredentials);
     let login = match login {
         Ok(login) => login,
         Err(response) => {
@@ -322,15 +322,13 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
     };
     #[cfg(before_647)]
     if !is_typeable_password(&login.password) {
-        client
-            .write(&[LoginResponse::InvalidCredentials as u8])
-            .await?;
+        client.write(&[LoginResponse::BadCredentials as u8]).await?;
         bail!("{}: invalid password", client.addr);
     }
 
     let isaac = IsaacPair::from_client_seeds(&login.seed);
     #[cfg(since_647)]
-    let lobby = matches!(kind, HandshakeType::Lobby);
+    let lobby = matches!(kind, HandshakeType::LobbyLogin);
     #[cfg(since_647)]
     let world = world_id(&client).or_else(|e| if lobby { Err(e) } else { Ok(0) })?;
 
@@ -473,9 +471,7 @@ async fn world_select(client: &mut Socket) -> anyhow::Result<()> {
         }
     };
     if !is_typeable_password(&request.password) {
-        client
-            .write(&[LoginResponse::InvalidCredentials as u8])
-            .await?;
+        client.write(&[LoginResponse::BadCredentials as u8]).await?;
         bail!("{}: invalid password", client.addr);
     }
     client.write(&world_select_reply(world_id(client)?)).await

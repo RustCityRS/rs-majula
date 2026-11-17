@@ -28,8 +28,6 @@ use rs_pack::cache::script::Script;
 use rs_pack::cache::seq::SeqTypeProvider;
 use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
-#[cfg(since_254)]
-use rs_pack::cache::varbit::VarbitTypeProvider;
 #[cfg(since_530)]
 use rs_pack::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
@@ -38,6 +36,8 @@ use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_530)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
+#[cfg(since_254)]
+use rs_pack::cache::varpbit::VarpBitTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
@@ -87,9 +87,9 @@ pub trait ScriptEngine {
     /// Returns the cache's client variable types.
     #[cfg(since_530)]
     fn varcs(&self) -> &VarClientTypeProvider;
-    /// Returns the cache's varbit types, bit ranges of varps.
+    /// Returns the cache's varpbit types, bit ranges of varps.
     #[cfg(since_254)]
-    fn varbits(&self) -> &VarbitTypeProvider;
+    fn varpbits(&self) -> &VarpBitTypeProvider;
     /// Returns the cache's varobj types, the vars an obj can carry.
     #[cfg(since_530)]
     fn varobjs(&self) -> &VarObjTypeProvider;
@@ -98,7 +98,7 @@ pub trait ScriptEngine {
     fn varcons(&self) -> &VarConTypeProvider;
     /// Returns the cache's varconbit types, bit ranges of varcons.
     #[cfg(since_647)]
-    fn varconbits(&self) -> &VarbitTypeProvider;
+    fn varconbits(&self) -> &VarpBitTypeProvider;
     /// Returns the cache's dbrow types.
     fn dbrows(&self) -> &DbRowTypeProvider;
     /// Returns the cache's dbtable types.
@@ -969,9 +969,6 @@ pub trait ScriptPlayer {
     /// # Returns
     /// `0` for regular players, higher values for increasing staff privileges.
     fn staffmodlevel(&self) -> u8;
-
-    /// Whether the player is in the lobby rather than the game world.
-    fn map_lobby(&self) -> bool;
 
     /// Checks whether the player currently has access rights for privileged
     /// operations.
@@ -2025,8 +2022,8 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `x`, `z` - The absolute tile to look at.
     /// * `height` - The height above the tile of the point looked at.
-    /// * `rate` - The camera's constant speed (the 647 packet's `const_speed`).
-    /// * `rate2` - Its variable speed (`var_speed`).
+    /// * `rate` - The camera's constant speed.
+    /// * `rate2` - Its variable speed.
     ///
     /// # Returns
     /// Always `Ok(())`; the camera queue takes every update.
@@ -2040,8 +2037,8 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `x`, `z` - The absolute tile to move to.
     /// * `height` - The camera's height above the tile.
-    /// * `rate` - The camera's constant speed (the 647 packet's `const_speed`).
-    /// * `rate2` - Its variable speed (`var_speed`).
+    /// * `rate` - The camera's constant speed.
+    /// * `rate2` - Its variable speed.
     ///
     /// # Returns
     /// Always `Ok(())`; the camera queue takes every update.
@@ -2054,11 +2051,11 @@ pub trait ScriptPlayer {
     /// the starting cycle, sent as 0.
     ///
     /// # Arguments
-    /// * `direction` - Which of the camera's position or angle values shakes.
-    /// * `jitter` - The size of the random part of the shake.
-    /// * `amplitude` - The size of the wobble.
-    /// * `frequency` - How fast it wobbles.
-    fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8);
+    /// * `axis` - Which of the camera's position or angle values shakes.
+    /// * `ran` - The size of the random part of the shake.
+    /// * `amp` - The size of the wobble.
+    /// * `rate` - How fast it wobbles.
+    fn cam_shake(&mut self, axis: u8, ran: u8, amp: u8, rate: u8);
 
     /// Returns an immutable reference to a player inventory.
     ///

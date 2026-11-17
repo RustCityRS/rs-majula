@@ -172,11 +172,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2010
         active_player_mut!(m, CAM_SHAKE => |s, player| {
-            let frequency = s.pop_int_as::<u8>()?;
-            let amplitude = s.pop_int_as::<u8>()?;
-            let jitter = s.pop_int_as::<u8>()?;
-            let direction = s.pop_int_as::<u8>()?;
-            player.cam_shake(direction, jitter, amplitude, frequency);
+            let rate = s.pop_int_as::<u8>()?;
+            let amp = s.pop_int_as::<u8>()?;
+            let ran = s.pop_int_as::<u8>()?;
+            let axis = s.pop_int_as::<u8>()?;
+            player.cam_shake(axis, ran, amp, rate);
         });
 
         // 2011
@@ -1526,11 +1526,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 test::record_call(SPOTANIM_PL, "spotanim_pl", &arg);
             }
             player.spotanim(spotanim.id, height, delay);
-        });
-
-        // 1029
-        active_player!(m, MAP_LOBBY => |s, player| {
-            s.push_int(player.map_lobby() as i32);
         });
 
         // 2106

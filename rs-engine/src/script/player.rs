@@ -163,14 +163,6 @@ impl ScriptPlayer for ActivePlayer {
         self.player.staff_mod_level as u8
     }
 
-    fn map_lobby(&self) -> bool {
-        #[cfg(since_647)]
-        let lobby = self.lobby;
-        #[cfg(before_647)]
-        let lobby = false;
-        lobby
-    }
-
     /// Checks whether the player has access rights for privileged operations.
     ///
     /// # Call Stack
@@ -1885,8 +1877,8 @@ impl ScriptPlayer for ActivePlayer {
             .add(CamKind::MoveTo, x, z, height, rate, rate2)
     }
 
-    fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8) {
-        self.cam_shake(direction, jitter, amplitude, frequency)
+    fn cam_shake(&mut self, axis: u8, ran: u8, amp: u8, rate: u8) {
+        self.cam_shake(axis, ran, amp, rate)
     }
 
     /// Returns an immutable reference to a player inventory.
@@ -2043,12 +2035,12 @@ impl ScriptPlayer for ActivePlayer {
     /// Starts the player walking toward the given tile using pathfinding.
     ///
     /// Computes a path from the player's current position to the destination
-    /// using `rsmod::find_path` with normal collision and queues the waypoints.
+    /// using `rsmod::find_route` with normal collision and queues the waypoints.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `rsmod::find_path`, `Pathing::queue_waypoints`
+    /// **Calls:** `rsmod::find_route`, `Pathing::queue_waypoints`
     fn walk(&mut self, coord: CoordGrid) {
         self.request_path(PathRequest {
             y: self.player.pathing.coord.y(),
@@ -2151,12 +2143,12 @@ impl ScriptPlayer for ActivePlayer {
     /// Checks whether the player is within operable distance of a location.
     ///
     /// Returns `false` immediately if the player is on a different level.
-    /// Otherwise delegates to `rsmod::reached` for collision-aware reachability.
+    /// Otherwise delegates to `rsmod::has_arrived` for collision-aware reachability.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `rsmod::reached`
+    /// **Calls:** `rsmod::has_arrived`
     fn in_operable_distance_loc(
         &self,
         coord: CoordGrid,
@@ -2169,7 +2161,7 @@ impl ScriptPlayer for ActivePlayer {
         if coord.y() != self.player.pathing.coord.y() {
             return false;
         }
-        rsmod::reached(
+        rsmod::has_arrived(
             self.player.pathing.coord.y(),
             self.player.pathing.coord.x(),
             self.player.pathing.coord.z(),

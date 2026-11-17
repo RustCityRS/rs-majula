@@ -8,9 +8,10 @@ use crate::pack::other::{wma, worldmap_source};
 use anyhow::{Context, Result, ensure};
 #[cfg(since_647)]
 use rs_io::js5::Entry;
+use rs_io::js5::Js5LocalCache;
 #[cfg(all(since_530, before_647))]
 use rs_io::js5::encode_group_entries;
-use rs_io::js5::{Js5Store, java_string_hash};
+use rs_io::stringtools::hash32;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fmt::Write;
 use std::fs;
@@ -19,7 +20,7 @@ use std::path::Path;
 /// Writes every archive's versions and file ids, and gives the archive count
 /// and the groups its table lists without data.
 pub fn unpack_metadata(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     pack_dir: &Path,
     content_dir: &Path,
 ) -> Result<(u32, Vec<String>)> {
@@ -30,16 +31,16 @@ pub fn unpack_metadata(
     let mut count = 0;
     let mut absent_groups = Vec::new();
     for &aid in archive::ARCHIVE_IDS {
-        let Some(table) = store.reference_table(aid).cloned() else {
+        let Some(table) = store.index(aid).cloned() else {
             ensure!(
-                store.group_count(aid).unwrap_or(0) == 0,
+                store.group_id_limit(aid).unwrap_or(0) == 0,
                 "Missing archive {aid} reference table"
             );
             continue;
         };
         count += 1;
         let stem = archive::versions_filename(aid).context("Unknown archive metadata filename")?;
-        let mut versions = format!("# table_version={}\n", table.version);
+        let mut versions = format!("# table_version={}\n", table.index_version);
         let mut files = String::new();
         for group in &table.groups {
             let absent = matches!(store.read_raw_group_bytes(aid, group.id), Ok(None));
@@ -137,7 +138,7 @@ fn match_names(pack_dir: &Path, kind: &str, hashes: &BTreeMap<u32, i32>) -> Resu
     }
     let mut by_hash = HashMap::new();
     for (&id, &name) in &names {
-        by_hash.insert(java_string_hash(&name.to_lowercase()), (id, name));
+        by_hash.insert(hash32(&name.to_lowercase()), (id, name));
         if let Some(&hash) = previous.get(&id) {
             by_hash.entry(hash).or_insert((id, name));
         }
@@ -171,7 +172,7 @@ fn match_names(pack_dir: &Path, kind: &str, hashes: &BTreeMap<u32, i32>) -> Resu
 }
 
 pub fn unpack_archive(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     aid: u8,
     pack_dir: &Path,
     content_dir: &Path,
@@ -190,7 +191,7 @@ pub fn unpack_archive(
         return unpack_world_map_layers(store, &dir, &names);
     }
     let groups = store
-        .reference_table(aid)
+        .index(aid)
         .context("Missing asset reference table")?
         .groups
         .clone();
@@ -262,7 +263,11 @@ pub fn unpack_archive(
 }
 
 /// Writes a file for each material, once they read back to the archive's bytes.
-pub fn unpack_materials(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
+pub fn unpack_materials(
+    store: &mut Js5LocalCache,
+    pack_dir: &Path,
+    content_dir: &Path,
+) -> Result<u32> {
     let names = AssetNames::load(pack_dir)?;
     let aid = archive::MATERIALS;
     let format = archive::archive_format(aid).context("Unknown asset archive")?;
@@ -286,7 +291,7 @@ pub fn unpack_materials(store: &mut Js5Store, pack_dir: &Path, content_dir: &Pat
 /// Names each map's id in `wma.pack` by the group its details name, which is its position,
 /// and names the archive groups that hash to a map's own name or its elements group.
 #[cfg(since_647)]
-fn write_map_names(store: &mut Js5Store, pack_dir: &Path) -> Result<()> {
+fn write_map_names(store: &mut Js5LocalCache, pack_dir: &Path) -> Result<()> {
     let names = AssetNames::load(pack_dir)?;
     let kind = archive_name(archive::WORLDMAP);
     let details = names.id(kind, wma::DETAILS)?;
@@ -299,7 +304,7 @@ fn write_map_names(store: &mut Js5Store, pack_dir: &Path) -> Result<()> {
         let map = wma::decode_details(entry.data());
         writeln!(text, "{}={}", entry.id, map.group)?;
         for name in [map.group.to_lowercase(), wma::elements_group(&map.group)] {
-            candidates.insert(java_string_hash(&name), name);
+            candidates.insert(hash32(&name), name);
         }
     }
     let path = pack_dir.join(format!("{}.pack", wma::KIND));
@@ -314,7 +319,7 @@ fn write_map_names(store: &mut Js5Store, pack_dir: &Path) -> Result<()> {
         .filter_map(|line| line.split_once('=')?.0.parse().ok())
         .collect();
     let table = store
-        .reference_table(archive::WORLDMAP)
+        .index(archive::WORLDMAP)
         .context("Missing world map table")?;
     let mut added = false;
     for info in &table.groups {
@@ -337,7 +342,7 @@ fn write_map_names(store: &mut Js5Store, pack_dir: &Path) -> Result<()> {
 /// Writes the `.wma` config and gives the groups it holds, once it reads back to their bytes.
 #[cfg(since_647)]
 fn unpack_world_maps(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     content_dir: &Path,
     names: &AssetNames,
 ) -> Result<Vec<u32>> {
@@ -442,14 +447,18 @@ pub fn write_worldmap_squares(path: &Path, file: u32, text: &str) -> Result<Stri
 
 /// Writes each world map group, with its layers' squares, once it packs back to the group's bytes.
 #[cfg(all(since_530, before_647))]
-fn unpack_world_map_layers(store: &mut Js5Store, dir: &Path, names: &AssetNames) -> Result<u32> {
+fn unpack_world_map_layers(
+    store: &mut Js5LocalCache,
+    dir: &Path,
+    names: &AssetNames,
+) -> Result<u32> {
     let aid = archive::WORLDMAP;
     let groups = store
-        .reference_table(aid)
+        .index(aid)
         .context("Missing asset reference table")?
         .groups
         .clone();
-    let details = java_string_hash(DETAILS);
+    let details = hash32(DETAILS);
     let mut formats = HashMap::from([(details, DETAILS)]);
     if let Some(info) = groups.iter().find(|info| info.name_hash == details) {
         let group = store
@@ -459,8 +468,8 @@ fn unpack_world_map_layers(store: &mut Js5Store, dir: &Path, names: &AssetNames)
             let map = worldmap_layers::unpack_details(entry.data(), names)?
                 .0
                 .to_lowercase();
-            formats.insert(java_string_hash(&map), "map");
-            formats.insert(java_string_hash(&format!("{map}_labels")), "label");
+            formats.insert(hash32(&map), "map");
+            formats.insert(hash32(&format!("{map}_labels")), "label");
         }
     }
     for info in &groups {
@@ -487,7 +496,7 @@ fn unpack_world_map_layers(store: &mut Js5Store, dir: &Path, names: &AssetNames)
                         .and_then(|file| file.name_hash);
                     let layer = LAYERS
                         .into_iter()
-                        .find(|&layer| Some(java_string_hash(layer)) == hash)
+                        .find(|&layer| Some(hash32(layer)) == hash)
                         .with_context(|| {
                             format!("Unknown world map layer {}/{}", info.id, entry.id)
                         })?;

@@ -12,7 +12,7 @@ use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::cp1252::encode_string;
+use rs_io::stringtools::utf8_to_cp1252;
 use rs_pack::cache::category::CategoryType;
 use rs_pack::cache::r#enum::EnumType;
 use rs_pack::cache::idk::IdkType;
@@ -566,25 +566,25 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     Ok(())
 }
 
-/// Sets a player variable: a varbit when the name is one, otherwise a varp. For a
-/// protected varp (or a varbit of one), first closes any open modal and clears
+/// Sets a player variable: a varpbit when the name is one, otherwise a varp. For a
+/// protected varp (or a varpbit of one), first closes any open modal and clears
 /// interaction, aborting with a message if the player is busy.
 ///
-/// Usage: `::setvar <varp|varbit> <value>` (e.g. `::setvar testvar 5`).
+/// Usage: `::setvar <varp|varpbit> <value>` (e.g. `::setvar testvar 5`).
 fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let name = args.next();
     #[cfg(since_254)]
-    if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
+    if let Some(varpbit) = name.and_then(|n| engine().varpbits().get_by_debugname(n)) {
         let varp = engine()
             .varps()
-            .get_by_id(TypeId::new(varbit.basevar))
-            .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
+            .get_by_id(TypeId::new(varpbit.basevar))
+            .ok_or(ScriptError::VarpNotFound(varpbit.basevar as i32))?;
         if varp.protect && !take_protected_access(active) {
             return Ok(());
         }
         let value = args.next().unwrap_or("0").parse::<i32>().unwrap_or(0);
-        active.message_game(&format!("Set {}: to {:?}", varbit.debugname(), value));
-        active.set_varbit(varbit, value);
+        active.message_game(&format!("Set {}: to {:?}", varpbit.debugname(), value));
+        active.set_varpbit(varpbit, value);
         return Ok(());
     }
     parse_varp(name, |v| {
@@ -627,16 +627,16 @@ fn build_var_value(v: &VarPlayerType, args: &mut Split<char>) -> VarValue {
     }
 }
 
-/// Reports a player variable back to the player as a game message: a varbit when
+/// Reports a player variable back to the player as a game message: a varpbit when
 /// the name is one, otherwise a varp.
 ///
-/// Usage: `::getvar <varp|varbit>` (e.g. `::getvar testvar`).
+/// Usage: `::getvar <varp|varpbit>` (e.g. `::getvar testvar`).
 fn cheat_getvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let name = args.next();
     #[cfg(since_254)]
-    if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
-        let value = active.varbit(varbit);
-        active.message_game(&format!("Get {}: {:?}", varbit.debugname(), value));
+    if let Some(varpbit) = name.and_then(|n| engine().varpbits().get_by_debugname(n)) {
+        let value = active.varpbit(varpbit);
+        active.message_game(&format!("Get {}: {:?}", varpbit.debugname(), value));
         return Ok(());
     }
     parse_varp(name, |v| {
@@ -877,7 +877,7 @@ pub(crate) fn bot_tick(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     };
     #[cfg(since_530)]
     let chat = {
-        let text = encode_string(&name);
+        let text = utf8_to_cp1252(&name);
         let mut bytes = vec![0; text.len() << 2];
         let len = engine().cache.huffman.encode(&text, &mut bytes);
         bytes.truncate(len);

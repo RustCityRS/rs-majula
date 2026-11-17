@@ -287,7 +287,7 @@ fn read_loc_id_offset(buf: &mut Packet) -> i32 {
 
 #[cfg(since_530)]
 fn read_loc_id_offset(buf: &mut Packet) -> i32 {
-    buf.gextended1or2()
+    buf.gsmartsextend()
 }
 
 impl GameMap {

@@ -9426,22 +9426,22 @@ fog_depth=1595
 env_map=texture_682,texture_683,texture_684,texture_685,texture_686,texture_687
 
 ==== LIGHTS ====
-16 7108 1621 126: radius=1 colors=3,3,3 hsl=9149 type=31 ref=light_20
-16 6724 1484 100: radius=1 colors=3,3,3 hsl=9149 type=31 ref=light_20
-16 6843 1220 100: radius=1 colors=3,3,3 hsl=9149 type=31 ref=light_20
-16 6715 1092 100: radius=1 colors=3,3,3 hsl=9149 type=31 ref=light_20
-16 7193 1280 100: radius=2 colors=5,5,5,5,5 hsl=9149 type=31 ref=light_20
-16 7031 896 147: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
-16 4778 4147 177: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 ref=light_20
-16 5290 3669 100: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
-16 6186 3669 100: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
-16 6681 3345 100: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
-16 4778 4949 100: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
-16 4778 6101 182: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 ref=light_20
-16 4831 5491 100: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
-16 6476 6340 165: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 ref=light_20
-16 5546 7253 204: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 ref=light_21
-16 5418 7893 100: radius=3 colors=7,7,7,7,7,7,7 hsl=9149 type=31 ref=light_20
+16 7108 1621 126: radius=1 radiusgrid=3,3,3 hsl=9149 type=31 lighttype=light_20
+16 6724 1484 100: radius=1 radiusgrid=3,3,3 hsl=9149 type=31 lighttype=light_20
+16 6843 1220 100: radius=1 radiusgrid=3,3,3 hsl=9149 type=31 lighttype=light_20
+16 6715 1092 100: radius=1 radiusgrid=3,3,3 hsl=9149 type=31 lighttype=light_20
+16 7193 1280 100: radius=2 radiusgrid=5,5,5,5,5 hsl=9149 type=31 lighttype=light_20
+16 7031 896 147: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
+16 4778 4147 177: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 lighttype=light_20
+16 5290 3669 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
+16 6186 3669 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
+16 6681 3345 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
+16 4778 4949 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
+16 4778 6101 182: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 lighttype=light_20
+16 4831 5491 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
+16 6476 6340 165: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 lighttype=light_20
+16 5546 7253 204: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=9149 type=31 lighttype=light_21
+16 5418 7893 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=9149 type=31 lighttype=light_20
 
 ==== ENVPARAMS ====
 73 29 16

@@ -5,7 +5,7 @@
 //! rework): hopper 36881 on the top floor, beside the controls, which keep
 //! 289's 2718, and flour bin 36880 on the ground floor. Every 2011 flour
 //! bin but one is a multiloc on varp 695, 289's `%flour` (22493 at 3786,2825
-//! turns on varbit 3405), so the client draws it full or empty and 289's loc
+//! turns on varpbit 3405), so the client draws it full or empty and 289's loc
 //! changes go.
 
 #![cfg(since_530)]

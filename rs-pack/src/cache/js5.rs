@@ -1,17 +1,17 @@
 use rs_io::js5::Result;
-use rs_io::js5::compression::{decompress, decompress_xtea};
-use rs_io::js5::reference::ReferenceTable;
+use rs_io::js5::compression::{decompress, decompress_tiny_key};
+use rs_io::js5::index::Js5Index;
 use std::collections::{HashMap, HashSet};
 
 #[derive(Default)]
 pub struct PackedCache {
     pub groups: HashMap<(u8, u32), Vec<u8>>,
-    pub tables: HashMap<u8, ReferenceTable>,
+    pub tables: HashMap<u8, Js5Index>,
     pub absent: HashSet<(u8, u32)>,
 }
 
 impl PackedCache {
-    pub fn reference_table(&self, archive: u8) -> Option<&ReferenceTable> {
+    pub fn index(&self, archive: u8) -> Option<&Js5Index> {
         self.tables.get(&archive)
     }
 
@@ -22,7 +22,7 @@ impl PackedCache {
             .transpose()
     }
 
-    pub fn read_group_xtea(
+    pub fn read_group_tiny_key(
         &self,
         archive: u8,
         group: u32,
@@ -34,7 +34,7 @@ impl PackedCache {
                 if *keys == [0; 4] {
                     decompress(data).map(|data| data.into_owned())
                 } else {
-                    decompress_xtea(data, keys)
+                    decompress_tiny_key(data, keys)
                 }
             })
             .transpose()

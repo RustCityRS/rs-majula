@@ -90,8 +90,8 @@ pub fn pack_quests(
                     }
 
                     // 4
-                    "masterquestvarbit" if first => {
-                        write_progress(client, &registry.varbit, "varpbit", 4, rows(props, key));
+                    "masterquestvarpbit" if first => {
+                        write_progress(client, &registry.varpbit, "varpbit", 4, rows(props, key));
                     }
 
                     // 5
@@ -198,17 +198,17 @@ pub fn pack_quests(
                     }
 
                     // 19
-                    "varbitreq" if first => {
+                    "varpbitreq" if first => {
                         let rows = rows(props, key);
-                        write_var_requirements(client, &registry.varbit, "varpbit", 19, rows);
+                        write_var_requirements(client, &registry.varpbit, "varpbit", 19, rows);
                     }
 
                     // 249
                     "param" if first => parse_params(registry, param_types, client, props, name),
 
                     // later rows of a repeated key
-                    "masterquestvarp" | "masterquestvarbit" | "questreq" | "statreq"
-                    | "varpreq" | "varbitreq" | "param" => {}
+                    "masterquestvarp" | "masterquestvarpbit" | "questreq" | "statreq"
+                    | "varpreq" | "varpbitreq" | "param" => {}
 
                     // not found
                     _ => panic!("Unrecognized quest config key: {key}"),

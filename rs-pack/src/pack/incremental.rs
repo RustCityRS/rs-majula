@@ -7,7 +7,7 @@ use anyhow::{Context, Result, ensure};
 use rayon::prelude::*;
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::js5::reference::FileInfo;
+use rs_io::js5::index::FileInfo;
 use rustc_hash::FxHashMap;
 use siphasher::sip128::{Hasher128, SipHasher13};
 use std::cell::RefCell;
@@ -255,6 +255,26 @@ pub fn files_under(dirs: &[PathBuf]) -> Vec<PathBuf> {
         collect(dir, &mut files);
     }
     files.sort();
+    files
+}
+
+/// The lobby's command table, which no game build reads.
+pub const LOBBY_COMMANDS: &str = "ls2_command.pack";
+
+/// The files under `dirs` that game builds read: all but lobbyscript.
+pub fn game_files_under(dirs: &[PathBuf]) -> Vec<PathBuf> {
+    let mut files = files_under(dirs);
+    files.retain(|path| path.extension().is_none_or(|ext| ext != "ls2"));
+    files
+}
+
+/// The files under `dirs` that the lobby build reads: lobbyscript and configs.
+pub fn lobby_files_under(dirs: &[PathBuf]) -> Vec<PathBuf> {
+    let mut files = files_under(dirs);
+    files.retain(|path| {
+        path.extension()
+            .is_none_or(|ext| !matches!(ext.to_str(), Some("rs2" | "cs2" | "gs2")))
+    });
     files
 }
 

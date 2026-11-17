@@ -20,7 +20,7 @@
 //! Thieving pays through `~givexp`, so 2011's xp counter (varp 1801, in tenths
 //! of the xp) counts each award.
 //!
-//! The PR's 289 marks a robbed stall on the cache's `marketthief` varbits
+//! The PR's 289 marks a robbed stall on the cache's `marketthief` varpbits
 //! (786's 158-170 on varp 174, bits 1-13, as 289's), lets Miscellania's and
 //! Etceteria's stalls be robbed, and calls the guards that carry its
 //! `market_guard` param.

@@ -22,7 +22,7 @@ impl InfoMessage for NpcInfoChangeType {
 #[cfg(since_742)]
 impl InfoMessage for NpcInfoChangeType {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
-        buf.psmart2or4null(self.ntype.int());
+        buf.psmartint2(self.ntype.int());
     }
 
     fn sizeof(&self) -> usize {

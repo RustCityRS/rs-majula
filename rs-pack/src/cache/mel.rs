@@ -7,7 +7,7 @@ use rs_ver::STRING_TERMINATOR;
 use rs_ver::TypeId;
 
 pub struct ShowVar {
-    pub varbit: Option<TypeId>,
+    pub varpbit: Option<TypeId>,
     pub varp: Option<TypeId>,
     pub min: i32,
     pub max: i32,
@@ -20,7 +20,7 @@ pub struct Polygon {
     pub outline: Vec<i8>,
 }
 
-pub struct MelType {
+pub struct MapElementType {
     pub id: TypeId,
     pub sprite: Option<TypeId>,
     pub mouseovergraphic: Option<TypeId>,
@@ -47,14 +47,14 @@ pub struct MelType {
 
 fn read_show_var(buf: &mut Packet) -> ShowVar {
     ShowVar {
-        varbit: read_optional_id(buf),
+        varpbit: read_optional_id(buf),
         varp: read_optional_id(buf),
         min: buf.g4s(),
         max: buf.g4s(),
     }
 }
 
-impl CacheType for MelType {
+impl CacheType for MapElementType {
     type Context = ();
 
     fn new(id: TypeId) -> Self {

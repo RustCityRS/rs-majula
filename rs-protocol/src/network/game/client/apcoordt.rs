@@ -26,7 +26,7 @@ pub struct ApCoordT {
 #[cfg(all(since_530, before_647))]
 impl ClientProtMessage for ApCoordT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s_alt3();
+        let com = buf.g4_alt3();
         let x = buf.g2_alt2();
         let slot = buf.g2_alt3();
         let z = buf.g2_alt2();
@@ -69,7 +69,7 @@ impl ClientProtMessage for ApCoordT {
         let obj = TypeId::from_g2(buf.g2());
         let slot = buf.g2();
         let x = buf.g2_alt3();
-        let com = buf.g4s_alt3();
+        let com = buf.g4_alt3();
         let z = buf.g2_alt3();
         ApCoordT {
             x,

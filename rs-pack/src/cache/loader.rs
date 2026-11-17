@@ -5,8 +5,8 @@ use super::obj::{ObjContext, ObjTypeRaw};
 use super::param::ParamTypeRaw;
 use super::provider::{CacheType, TypeProvider};
 use super::r#struct::StructTypeRaw;
-use super::varbit::VarbitType;
 use super::varp::VarPlayerTypeRaw;
+use super::varpbit::VarpBitType;
 use crate::archive;
 use crate::cache::js5::PackedCache;
 use crate::cache::map::XteaKeyStore;
@@ -18,19 +18,19 @@ use rayon::prelude::*;
 use rs_crypto::huffman::Huffman;
 use rs_io::Packet;
 use rs_io::js5::{
-    Js5Store,
+    Js5LocalCache,
     compression::{CompressionType, compress},
-    java_string_hash,
 };
+use rs_io::stringtools::hash32;
 use rs_ver::TypeId;
 use std::{collections::HashMap, sync::Arc};
 use tracing::{debug, info, warn};
 
-pub fn load_all_npcs(cache: &mut Js5Store) -> Result<TypeProvider<NpcTypeRaw>> {
+pub fn load_all_npcs(cache: &mut Js5LocalCache) -> Result<TypeProvider<NpcTypeRaw>> {
     load_strided_archive(cache, archive::CONFIG_NPC, 128, ())
 }
 
-pub fn load_all_objs(cache: &mut Js5Store, members: bool) -> Result<TypeProvider<ObjTypeRaw>> {
+pub fn load_all_objs(cache: &mut Js5LocalCache, members: bool) -> Result<TypeProvider<ObjTypeRaw>> {
     let autodisable_params = if members {
         Box::new([]) as Box<[bool]>
     } else {
@@ -51,34 +51,34 @@ pub fn load_all_objs(cache: &mut Js5Store, members: bool) -> Result<TypeProvider
     )
 }
 
-pub fn load_all_locs(cache: &mut Js5Store) -> Result<TypeProvider<LocTypeRaw>> {
+pub fn load_all_locs(cache: &mut Js5LocalCache) -> Result<TypeProvider<LocTypeRaw>> {
     load_strided_archive(cache, archive::CONFIG_LOC, 256, ())
 }
 
-pub fn load_all_enums(cache: &mut Js5Store) -> Result<TypeProvider<EnumTypeRaw>> {
+pub fn load_all_enums(cache: &mut Js5LocalCache) -> Result<TypeProvider<EnumTypeRaw>> {
     load_strided_archive(cache, archive::CONFIG_ENUM, 256, ())
 }
 
-pub fn load_all_varbits(cache: &mut Js5Store) -> Result<TypeProvider<VarbitType>> {
-    load_strided_archive(cache, archive::CONFIG_VARBIT, 1024, ())
+pub fn load_all_varpbits(cache: &mut Js5LocalCache) -> Result<TypeProvider<VarpBitType>> {
+    load_strided_archive(cache, archive::CONFIG_VARPBIT, 1024, ())
 }
 
-pub fn load_all_structs(cache: &mut Js5Store) -> Result<TypeProvider<StructTypeRaw>> {
+pub fn load_all_structs(cache: &mut Js5LocalCache) -> Result<TypeProvider<StructTypeRaw>> {
     load_config_group(cache, archive::CONFIG_GROUP_STRUCT, ())
 }
 
-pub fn load_all_varps(cache: &mut Js5Store) -> Result<TypeProvider<VarPlayerTypeRaw>> {
+pub fn load_all_varps(cache: &mut Js5LocalCache) -> Result<TypeProvider<VarPlayerTypeRaw>> {
     load_config_group(cache, archive::CONFIG_GROUP_VARP, ())
 }
 
 fn load_strided_archive<T: CacheType>(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     archive_id: u8,
     stride: u32,
     ctx: T::Context,
 ) -> Result<TypeProvider<T>> {
     let group_count = cache
-        .group_count(archive_id)
+        .group_id_limit(archive_id)
         .ok_or_else(|| anyhow!("archive {} not found", archive_id))?;
 
     let mut types = if group_count == 0 {
@@ -123,7 +123,7 @@ fn load_strided_archive<T: CacheType>(
 }
 
 fn load_config_group<T: CacheType>(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     group_id: u32,
     ctx: T::Context,
 ) -> Result<TypeProvider<T>> {
@@ -169,7 +169,7 @@ pub(crate) fn load_mapsquares(
     cache: &PackedCache,
     xtea: &XteaKeyStore,
 ) -> Result<(MapSquares, MapSquareCrcs)> {
-    let ref_table = match cache.reference_table(archive::MAPS) {
+    let ref_table = match cache.index(archive::MAPS) {
         Some(rt) => rt,
         None => {
             warn!("No reference table for archive 5 (MAPS)");
@@ -196,7 +196,7 @@ pub(crate) fn load_mapsquares(
             }
             let compressed = incremental::memo(inputs.key(), || {
                 let data = if kind == 'l' {
-                    cache.read_group_xtea(archive::MAPS, group.id, &keys)
+                    cache.read_group_tiny_key(archive::MAPS, group.id, &keys)
                 } else {
                     cache.read_group_raw_decompressed(archive::MAPS, group.id)
                 }?
@@ -243,9 +243,9 @@ pub(crate) fn merge_server_layer(
 }
 
 pub(crate) fn load_huffman(cache: &PackedCache) -> Result<Huffman> {
-    let target_hash = java_string_hash("huffman");
+    let target_hash = hash32("huffman");
     let ref_table = cache
-        .reference_table(archive::BINARY)
+        .index(archive::BINARY)
         .ok_or_else(|| anyhow!("No reference table for archive 10 (BINARY)"))?;
 
     for group in &ref_table.groups {
@@ -274,7 +274,7 @@ fn build_map_name_lookup() -> HashMap<i32, (char, u8, u8)> {
         for mz in 0..=255u8 {
             for &(prefix, kind) in prefixes {
                 let name = format!("{prefix}{mx}_{mz}");
-                let hash = java_string_hash(&name);
+                let hash = hash32(&name);
                 map.insert(hash, (kind, mx, mz));
             }
         }

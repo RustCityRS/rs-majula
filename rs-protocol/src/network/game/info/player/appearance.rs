@@ -78,10 +78,10 @@ const PRAYER_PROTECT_MAGIC: u8 = 2;
 #[cfg(since_647)]
 const VISIBLE: u8 = 0;
 
-/// Without a skill level: no summoning on top of the combat level, and no
+/// Without a skill level: no animallore on top of the combat level, and no
 /// PvP level range.
 #[cfg(since_530)]
-const NO_SUMMONING_LEVEL: u8 = 0;
+const NO_ANIMALLORE_LEVEL: u8 = 0;
 #[cfg(since_530)]
 const NO_PVP_RANGE: u8 = u8::MAX;
 
@@ -188,7 +188,7 @@ impl Appearance<'_> {
         if self.skill_level != 0 {
             buf.p2(self.skill_level);
         } else {
-            buf.p1(NO_SUMMONING_LEVEL);
+            buf.p1(NO_ANIMALLORE_LEVEL);
             buf.p1(NO_PVP_RANGE);
         }
         buf.p1(NO_SOUNDS);
@@ -221,7 +221,7 @@ impl Appearance<'_> {
         if self.skill_level != 0 {
             buf.p2(self.skill_level);
         } else {
-            buf.p1(NO_SUMMONING_LEVEL);
+            buf.p1(NO_ANIMALLORE_LEVEL);
             buf.p1(NO_PVP_RANGE);
         }
         buf.p1(NO_SOUNDS);
@@ -274,7 +274,7 @@ impl Look {
                 #[cfg(before_742)]
                 buf.p2(*npc);
                 #[cfg(since_742)]
-                buf.psmart2or4null(*npc as i32);
+                buf.psmartint2(*npc as i32);
                 #[cfg(since_530)]
                 buf.p1(NO_TEAM);
             }

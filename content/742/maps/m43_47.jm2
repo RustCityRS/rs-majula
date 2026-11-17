@@ -7782,15 +7782,15 @@ fog_color=14077337
 fog_depth=200
 
 ==== LIGHTS ====
-0 3412 6168 185: radius=1 colors=258,258,258 hsl=8847 type=134
-0 4929 5730 185: radius=1 colors=0,3,3 hsl=8847 type=134
-0 6207 6114 185: radius=1 colors=0,3,3 hsl=8847 type=166
-0 4799 5193 15: radius=1 colors=3,3,3 hsl=7100 type=97
-0 4930 5188 15: radius=1 colors=3,3,3 hsl=7100 type=97
-0 4796 5206 90: radius=2 colors=5,5,5,5,5 hsl=913 type=166
-0 4932 5188 90: radius=2 colors=5,5,5,5,5 hsl=911 type=6
-1 7141 7488 185: radius=1 colors=258,258,258 hsl=8847 type=102
-1 4801 3815 185: radius=1 colors=513,3,3 hsl=8847 type=134
+0 3412 6168 185: radius=1 radiusgrid=258,258,258 hsl=8847 type=134
+0 4929 5730 185: radius=1 radiusgrid=0,3,3 hsl=8847 type=134
+0 6207 6114 185: radius=1 radiusgrid=0,3,3 hsl=8847 type=166
+0 4799 5193 15: radius=1 radiusgrid=3,3,3 hsl=7100 type=97
+0 4930 5188 15: radius=1 radiusgrid=3,3,3 hsl=7100 type=97
+0 4796 5206 90: radius=2 radiusgrid=5,5,5,5,5 hsl=913 type=166
+0 4932 5188 90: radius=2 radiusgrid=5,5,5,5,5 hsl=911 type=6
+1 7141 7488 185: radius=1 radiusgrid=258,258,258 hsl=8847 type=102
+1 4801 3815 185: radius=1 radiusgrid=513,3,3 hsl=8847 type=134
 
 ==== ENVPARAMS ====
 32 8 32

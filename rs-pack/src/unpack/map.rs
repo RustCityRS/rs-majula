@@ -1,6 +1,6 @@
 #[cfg(since_244)]
 use crate::archive;
-use crate::cache::map::parse_landscape_binary;
+use crate::cache::map::parse_locations_binary;
 #[cfg(before_530)]
 use crate::cache::map::parse_terrain_binary;
 #[cfg(since_530)]
@@ -9,7 +9,7 @@ use crate::cache::map::{
     parse_terrain_binary_levels,
 };
 #[cfg(since_530)]
-use crate::pack::other::map::{is_landscape, is_npc_spawns};
+use crate::pack::other::map::{is_locations, is_npc_spawns};
 #[cfg(all(since_244, before_530))]
 use crate::versionlist::VersionList;
 #[cfg(since_530)]
@@ -17,11 +17,11 @@ use anyhow::{Context, Result};
 #[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 #[cfg(since_530)]
-use rs_io::js5::compression::{decompress, decompress_xtea};
+use rs_io::js5::compression::{decompress, decompress_tiny_key};
 #[cfg(since_530)]
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use std::collections::HashMap;
 #[cfg(rev = "225")]
@@ -138,7 +138,7 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
 
 #[cfg(all(since_244, before_530))]
 pub fn unpack_maps(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     version_list: &VersionList,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
@@ -221,7 +221,7 @@ fn decode_terrain(data: &[u8], lines: &mut Vec<String>) {
 
 #[cfg(before_530)]
 fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
-    for loc in parse_landscape_binary(data) {
+    for loc in parse_locations_binary(data) {
         let mut line = format!(
             "{} {} {}: {} {}",
             loc.level, loc.x, loc.z, loc.loc_id, loc.shape
@@ -235,7 +235,7 @@ fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
 
 #[cfg(since_530)]
 pub fn unpack_maps(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     cache_dir: &Path,
     content_dir: &Path,
     pack_dir: &Path,
@@ -261,7 +261,7 @@ pub fn unpack_maps(
         fs::copy(path, content_dir.join("keys.json"))?;
     }
     let groups = store
-        .reference_table(archive::MAPS)
+        .index(archive::MAPS)
         .context("Missing map table")?
         .groups
         .clone();
@@ -275,9 +275,9 @@ pub fn unpack_maps(
         let Some(raw) = store.read_raw_group_bytes(archive::MAPS, info.id)? else {
             continue;
         };
-        let landscape = is_landscape(&name);
-        let data = if landscape {
-            match decompress_xtea(&raw, &keys.get(&info.name_hash).copied().unwrap_or([0; 4])) {
+        let locations = is_locations(&name);
+        let data = if locations {
+            match decompress_tiny_key(&raw, &keys.get(&info.name_hash).copied().unwrap_or([0; 4])) {
                 Ok(data) => data,
                 Err(_) => {
                     fs::create_dir_all(dir.join("encrypted"))?;
@@ -288,11 +288,11 @@ pub fn unpack_maps(
         } else {
             decompress(&raw)?.into_owned()
         };
-        let (text, packed) = if landscape {
-            let locs = parse_landscape_binary(&data);
+        let (text, packed) = if locations {
+            let locs = parse_locations_binary(&data);
             (
-                emit_landscape_text(&locs),
-                map::encode_landscape_binary(&locs),
+                emit_locations_text(&locs),
+                map::encode_locations_binary(&locs),
             )
         } else if is_npc_spawns(&name) {
             let spawns = parse_npc_spawn_binary(&data);
@@ -322,7 +322,7 @@ pub fn build_name_lookup() -> HashMap<i32, String> {
         for mx in 0..=255u32 {
             for mz in 0..=255u32 {
                 let name = format!("{}{}_{}", prefix, mx, mz);
-                lookup.entry(java_string_hash(&name)).or_insert(name);
+                lookup.entry(hash32(&name)).or_insert(name);
             }
         }
     }
@@ -435,20 +435,20 @@ pub fn emit_terrain_text(terrain: &TerrainData) -> String {
     if !terrain.lights.is_empty() {
         out.push_str("\n==== LIGHTS ====\n");
         for light in &terrain.lights {
-            let colors_str: Vec<String> = light.colors.iter().map(|c| c.to_string()).collect();
+            let colors_str: Vec<String> = light.radius_grid.iter().map(|c| c.to_string()).collect();
             out.push_str(&format!(
-                "{} {} {} {}: radius={} colors={} hsl={} type={}",
+                "{} {} {} {}: radius={} radiusgrid={} hsl={} type={}",
                 light.flags_raw,
                 light.x,
                 light.y,
                 light.z,
                 light.radius,
                 colors_str.join(","),
-                light.hsl,
+                light.colour,
                 light.type_packed
             ));
-            if let Some(r) = light.light_type_ref {
-                out.push_str(&format!(" ref={}", r));
+            if let Some(r) = light.light_type {
+                out.push_str(&format!(" lighttype={}", r));
             }
             out.push('\n');
         }
@@ -466,7 +466,7 @@ pub fn emit_terrain_text(terrain: &TerrainData) -> String {
         out.push_str("\n==== SKYBOX ====\n");
         out.push_str(&format!(
             "{} {} {} {} {}\n",
-            sky.param0, sky.param1, sky.param2, sky.param3, sky.param4
+            sky.skybox, sky.param1, sky.param2, sky.param3, sky.param4
         ));
     }
 
@@ -488,7 +488,7 @@ pub fn emit_terrain_text(terrain: &TerrainData) -> String {
 }
 
 #[cfg(since_530)]
-pub fn emit_landscape_text(locs: &[LocEntry]) -> String {
+pub fn emit_locations_text(locs: &[LocEntry]) -> String {
     let mut out = String::new();
 
     for loc in locs {
@@ -578,17 +578,17 @@ mod tests {
     }
 
     #[test]
-    fn landscape_text_roundtrip() {
+    fn locations_text_roundtrip() {
         let text = "0 10 20: 100 5 2\n0 10 21: 100 10 0\n1 5 5: 200 0 0\n";
-        let locs = parse_landscape_text(text);
-        let binary = encode_landscape_binary(&locs);
-        let parsed = parse_landscape_binary(&binary);
-        let re_emitted = emit_landscape_text(&parsed);
+        let locs = parse_locations_text(text);
+        let binary = encode_locations_binary(&locs);
+        let parsed = parse_locations_binary(&binary);
+        let re_emitted = emit_locations_text(&parsed);
         assert_eq!(text, re_emitted);
     }
 
     #[test]
-    fn landscape_binary_roundtrip() {
+    fn locations_binary_roundtrip() {
         let locs = vec![
             LocEntry {
                 loc_id: 5,
@@ -616,8 +616,8 @@ mod tests {
             },
         ];
 
-        let binary = encode_landscape_binary(&locs);
-        let parsed = parse_landscape_binary(&binary);
+        let binary = encode_locations_binary(&locs);
+        let parsed = parse_locations_binary(&binary);
 
         assert_eq!(parsed.len(), 3);
         assert_eq!(parsed[0].loc_id, 5);
@@ -639,7 +639,7 @@ mod tests {
             write_smart(&mut out, val);
             let mut buf = Packet::from(out.as_slice());
             assert_eq!(buf.gsmart1or2(), val, "smart roundtrip failed for {}", val);
-            assert_eq!(buf.remaining(), 0);
+            assert_eq!(buf.get_space(), 0);
         }
     }
 
@@ -650,12 +650,12 @@ mod tests {
             write_lsmart(&mut out, val);
             let mut buf = Packet::from(out.as_slice());
             assert_eq!(
-                buf.gextended1or2(),
+                buf.gsmartsextend(),
                 val,
                 "lsmart roundtrip failed for {}",
                 val
             );
-            assert_eq!(buf.remaining(), 0);
+            assert_eq!(buf.get_space(), 0);
         }
     }
 

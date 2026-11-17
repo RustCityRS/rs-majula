@@ -10827,18 +10827,18 @@ fog_color=65792
 fog_depth=1000
 
 ==== LIGHTS ====
-0 1847 2372 162: radius=3 colors=0,517,517,517,517,772,262 hsl=4497 type=31 ref=light_9
-0 2103 3396 162: radius=3 colors=7,7,7,7,7,7,4 hsl=4497 type=31 ref=light_9
-0 1463 4548 162: radius=3 colors=772,772,517,517,262,262,517 hsl=4497 type=31 ref=light_9
-0 2500 5577 162: radius=3 colors=7,7,7,7,7,1027,1537 hsl=4497 type=31 ref=light_9
-0 4041 4924 162: radius=3 colors=3,3,5,5,7,7,7 hsl=4497 type=31 ref=light_9
-0 3388 3639 162: radius=3 colors=2,3,7,7,7,7,7 hsl=4497 type=31 ref=light_9
-0 5047 5700 162: radius=3 colors=6,6,5,5,5,514,0 hsl=4497 type=31 ref=light_9
-0 3895 2884 162: radius=3 colors=7,6,6,5,5,5,4 hsl=4497 type=31 ref=light_9
-0 4681 2876 162: radius=3 colors=7,7,7,7,260,256,0 hsl=4497 type=31 ref=light_9
-0 4676 3401 162: radius=3 colors=0,1027,262,7,7,7,7 hsl=4497 type=31 ref=light_9
-0 6596 4297 162: radius=3 colors=6,6,5,5,5,4,5 hsl=4497 type=31 ref=light_9
-0 5705 5564 162: radius=3 colors=517,772,517,262,262,262,517 hsl=4497 type=31 ref=light_9
+0 1847 2372 162: radius=3 radiusgrid=0,517,517,517,517,772,262 hsl=4497 type=31 lighttype=light_9
+0 2103 3396 162: radius=3 radiusgrid=7,7,7,7,7,7,4 hsl=4497 type=31 lighttype=light_9
+0 1463 4548 162: radius=3 radiusgrid=772,772,517,517,262,262,517 hsl=4497 type=31 lighttype=light_9
+0 2500 5577 162: radius=3 radiusgrid=7,7,7,7,7,1027,1537 hsl=4497 type=31 lighttype=light_9
+0 4041 4924 162: radius=3 radiusgrid=3,3,5,5,7,7,7 hsl=4497 type=31 lighttype=light_9
+0 3388 3639 162: radius=3 radiusgrid=2,3,7,7,7,7,7 hsl=4497 type=31 lighttype=light_9
+0 5047 5700 162: radius=3 radiusgrid=6,6,5,5,5,514,0 hsl=4497 type=31 lighttype=light_9
+0 3895 2884 162: radius=3 radiusgrid=7,6,6,5,5,5,4 hsl=4497 type=31 lighttype=light_9
+0 4681 2876 162: radius=3 radiusgrid=7,7,7,7,260,256,0 hsl=4497 type=31 lighttype=light_9
+0 4676 3401 162: radius=3 radiusgrid=0,1027,262,7,7,7,7 hsl=4497 type=31 lighttype=light_9
+0 6596 4297 162: radius=3 radiusgrid=6,6,5,5,5,4,5 hsl=4497 type=31 lighttype=light_9
+0 5705 5564 162: radius=3 radiusgrid=517,772,517,262,262,262,517 hsl=4497 type=31 lighttype=light_9
 
 ==== ENVPARAMS ====
 32 8 32

@@ -7102,10 +7102,10 @@ fog_color=328449
 fog_depth=900
 
 ==== LIGHTS ====
-0 2884 4189 200: radius=1 colors=3,3,0 hsl=5020 type=166
-0 3174 3780 200: radius=1 colors=2,2,2 hsl=5020 type=166
-0 3182 3404 200: radius=1 colors=2,2,2 hsl=5020 type=102
-0 2628 3251 200: radius=1 colors=0,3,3 hsl=5020 type=70
+0 2884 4189 200: radius=1 radiusgrid=3,3,0 hsl=5020 type=166
+0 3174 3780 200: radius=1 radiusgrid=2,2,2 hsl=5020 type=166
+0 3182 3404 200: radius=1 radiusgrid=2,2,2 hsl=5020 type=102
+0 2628 3251 200: radius=1 radiusgrid=0,3,3 hsl=5020 type=70
 
 ==== ENVPARAMS ====
 32 8 32

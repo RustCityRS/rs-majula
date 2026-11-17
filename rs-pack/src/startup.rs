@@ -27,13 +27,13 @@ use crate::cache::script::ScriptProvider;
 use crate::cache::seq::SeqTypeRaw;
 use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
-use crate::cache::varbit::VarbitType;
 use crate::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
 use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
 use crate::cache::varp::VarPlayerTypeRaw;
+use crate::cache::varpbit::VarpBitType;
 use crate::cache::vars::VarsType;
 use crate::cache::wordenc::WordEncProvider;
 use crate::pack::incremental::{Stage, files_under};
@@ -200,7 +200,7 @@ fn load_cache(
     let seqs = load_config::<SeqTypeRaw, _>(assets, "seq", ())?;
     let enums = load_config::<EnumTypeRaw, _>(assets, "enum", ())?;
     let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
-    let varbits = load_config::<VarbitType, _>(assets, "varpbit", ())?;
+    let varpbits = load_config::<VarpBitType, _>(assets, "varpbit", ())?;
     let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
     #[cfg(all(since_530, before_647))]
     let varcs = VarClientTypeProvider::from_indexed_bytes(
@@ -228,7 +228,7 @@ fn load_cache(
     #[cfg(since_647)]
     let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
     #[cfg(since_647)]
-    let varconbits = load_config::<VarbitType, _>(assets, "varconbit", ())?;
+    let varconbits = load_config::<VarpBitType, _>(assets, "varconbit", ())?;
     #[cfg(since_647)]
     let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
     let phrases = client_config(assets, "quickchatphrase")?;
@@ -251,7 +251,7 @@ fn load_cache(
         invs,
         varps,
         varcs,
-        varbits,
+        varpbits,
         dbrows,
         dbtables,
         db_index,

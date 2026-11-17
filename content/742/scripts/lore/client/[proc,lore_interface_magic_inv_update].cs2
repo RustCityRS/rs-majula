@@ -35,7 +35,7 @@ while ($int7 <= calc($int4 - $int3)) {
         cc_setgraphic("km_shoptile,1");
         $obj13 = enum(int, obj, enum_1277, $int8);
         $obj14 = enum(int, obj, enum_1188, $int8);
-        if (~lore_magic_pouch_checker($obj14, $obj13) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj13)) {
+        if (~lore_magic_pouch_checker($obj14, $obj13) = 1 & stat_base(animallore) >= enum(obj, int, enum_1185, $obj13)) {
             cc_sethide(false);
         } else {
             cc_sethide(true);
@@ -45,7 +45,7 @@ while ($int7 <= calc($int4 - $int3)) {
         cc_setposition(calc($int5 + 6), calc($int6 + 4), ^setpos_abs_left, ^setpos_abs_top);
         if ($obj14 = lore_pouch_spell_grey) {
             ~lore_interface_inv_draw_slot($obj14, $obj14, $component0, $int16, $string0, $string1, $string2, $string3, $string4, "");
-        } else if (~lore_magic_pouch_checker($obj14, $obj13) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj13)) {
+        } else if (~lore_magic_pouch_checker($obj14, $obj13) = 1 & stat_base(animallore) >= enum(obj, int, enum_1185, $obj13)) {
             ~lore_interface_inv_draw_slot($obj14, $obj14, $component0, $int16, $string0, $string1, $string2, $string3, $string4, "");
         } else {
             ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int8), $obj14, $component0, $int16, $string0, $string1, $string2, $string3, $string4, "");

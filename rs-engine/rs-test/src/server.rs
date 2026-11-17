@@ -25,7 +25,7 @@ fn read<T>(packets: &[(u16, Vec<u8>)], prot: ServerProt, f: impl Fn(&mut Packet)
 pub fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, String)> {
     read(packets, ServerProt::IfSetText, |b| {
         #[cfg(all(since_530, before_647))]
-        let com = b.g4s_alt3();
+        let com = b.g4_alt3();
         #[cfg(since_647)]
         let com = b.g4s();
         (com, b.gjstr(STRING_TERMINATOR))
@@ -36,11 +36,11 @@ pub fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, String)> {
 pub fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
     read(packets, ServerProt::IfSetHide, |b| {
         #[cfg(all(since_530, before_647))]
-        let (hidden, _, com) = (b.g1_alt2(), b.g2(), b.g4s_alt1());
+        let (hidden, _, com) = (b.g1_alt2(), b.g2(), b.g4_alt1());
         #[cfg(all(since_647, before_742))]
-        let (com, hidden) = (b.g4s_alt3(), b.g1_alt2());
+        let (com, hidden) = (b.g4_alt3(), b.g1_alt2());
         #[cfg(since_742)]
-        let (hidden, com) = (b.g1_alt1(), b.g4s_alt2());
+        let (hidden, com) = (b.g1_alt1(), b.g4_alt2());
         (com, hidden != 0)
     })
 }
@@ -50,9 +50,9 @@ pub fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
     read(packets, ServerProt::IfSetEvents, |b| {
         #[cfg(all(since_530, before_647))]
         let (_, to, com, from, events) =
-            (b.g2_alt1(), b.g2_alt1(), b.g4s(), b.g2_alt2(), b.g4s_alt2());
+            (b.g2_alt1(), b.g2_alt1(), b.g4s(), b.g2_alt2(), b.g4_alt2());
         #[cfg(all(since_647, before_742))]
-        let (from, events, com, to) = (b.g2_alt2(), b.g4s_alt3(), b.g4s_alt3(), b.g2_alt3());
+        let (from, events, com, to) = (b.g2_alt2(), b.g4_alt3(), b.g4_alt3(), b.g2_alt3());
         #[cfg(since_742)]
         let (from, to, com, events) = (b.g2_alt3(), b.g2_alt1(), b.g4s(), b.g4s());
         (com, from, to, events)
@@ -63,11 +63,11 @@ pub fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
 pub fn objects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
     read(packets, ServerProt::IfSetObject, |b| {
         #[cfg(all(since_530, before_647))]
-        let (_, com, obj) = (b.g4s(), b.g4s_alt3(), b.g2_alt3());
+        let (_, com, obj) = (b.g4s(), b.g4_alt3(), b.g2_alt3());
         #[cfg(all(since_647, before_742))]
-        let (com, _, obj) = (b.g4s_alt1(), b.g4s_alt3(), b.g2());
+        let (com, _, obj) = (b.g4_alt1(), b.g4_alt3(), b.g2());
         #[cfg(since_742)]
-        let (_, obj, com) = (b.g4s(), b.g2_alt1(), b.g4s_alt3());
+        let (_, obj, com) = (b.g4s(), b.g2_alt1(), b.g4_alt3());
         (com, obj as i32)
     })
 }
@@ -76,11 +76,11 @@ pub fn objects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
 pub fn models(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
     read(packets, ServerProt::IfSetModel, |b| {
         #[cfg(all(since_530, before_647))]
-        let (com, _, model) = (b.g4s_alt1(), b.g2_alt3(), b.g2_alt2() as i32);
+        let (com, _, model) = (b.g4_alt1(), b.g2_alt3(), b.g2_alt2() as i32);
         #[cfg(all(since_647, before_742))]
         let (model, com) = (b.g2_alt3() as i32, b.g4s());
         #[cfg(since_742)]
-        let (model, com) = (b.g4s_alt1(), b.g4s_alt1());
+        let (model, com) = (b.g4_alt1(), b.g4_alt1());
         (com, model)
     })
 }
@@ -89,11 +89,11 @@ pub fn models(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
 pub fn anims(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
     read(packets, ServerProt::IfSetAnim, |b| {
         #[cfg(all(since_530, before_647))]
-        let (com, seq) = (b.g4s_alt3(), b.g2_alt1() as i32);
+        let (com, seq) = (b.g4_alt3(), b.g2_alt1() as i32);
         #[cfg(all(since_647, before_742))]
-        let (com, seq) = (b.g4s_alt1(), b.g2_alt1() as i32);
+        let (com, seq) = (b.g4_alt1(), b.g2_alt1() as i32);
         #[cfg(since_742)]
-        let (com, seq) = (b.g4s_alt1(), b.g4s());
+        let (com, seq) = (b.g4_alt1(), b.g4s());
         (com, seq)
     })
 }
@@ -103,9 +103,9 @@ pub fn anims(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
 pub fn graphics(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
     read(packets, ServerProt::IfSetGraphic, |b| {
         #[cfg(before_742)]
-        let (com, graphic) = (b.g4s_alt1(), b.g2_alt2() as i32);
+        let (com, graphic) = (b.g4_alt1(), b.g2_alt2() as i32);
         #[cfg(since_742)]
-        let (graphic, com) = (b.g4s_alt2(), b.g4s());
+        let (graphic, com) = (b.g4_alt2(), b.g4s());
         (com, graphic)
     })
 }
@@ -114,9 +114,9 @@ pub fn graphics(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i32)> {
 pub fn positions(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i16, i16)> {
     read(packets, ServerProt::IfSetPosition, |b| {
         #[cfg(all(since_530, before_647))]
-        let (_, com, x, y) = (b.g2_alt2(), b.g4s_alt1(), b.g2(), b.g2_alt2());
+        let (_, com, x, y) = (b.g2_alt2(), b.g4_alt1(), b.g2(), b.g2_alt2());
         #[cfg(all(since_647, before_742))]
-        let (com, x, y) = (b.g4s_alt3(), b.g2_alt3(), b.g2_alt3());
+        let (com, x, y) = (b.g4_alt3(), b.g2_alt3(), b.g2_alt3());
         #[cfg(since_742)]
         let (com, y, x) = (b.g4s(), b.g2_alt3(), b.g2_alt1());
         (com, x as i16, y as i16)
@@ -131,7 +131,7 @@ pub fn tops(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u8)> {
         #[cfg(all(since_647, before_742))]
         let (top, mode) = (b.g2_alt1(), b.g1_alt1());
         #[cfg(since_742)]
-        let (mode, _, top) = (b.g1(), b.g4s_alt1(), b.g2_alt1());
+        let (mode, _, top) = (b.g1(), b.g4_alt1(), b.g2_alt1());
         (top, mode)
     })
 }
@@ -140,11 +140,11 @@ pub fn tops(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u8)> {
 pub fn subs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
     read(packets, ServerProt::IfOpensub, |b| {
         #[cfg(all(since_530, before_647))]
-        let (_, com, _, sub) = (b.g1(), b.g4s_alt3(), b.g2_alt2(), b.g2());
+        let (_, com, _, sub) = (b.g1(), b.g4_alt3(), b.g2_alt2(), b.g2());
         #[cfg(all(since_647, before_742))]
-        let (sub, com) = (b.g2_alt3(), b.g4s_alt3());
+        let (sub, com) = (b.g2_alt3(), b.g4_alt3());
         #[cfg(since_742)]
-        let (_, _, com, _, sub) = (b.g4s(), b.g4s_alt3(), b.g4s_alt2(), b.g1_alt3(), b.g2());
+        let (_, _, com, _, sub) = (b.g4s(), b.g4_alt3(), b.g4_alt2(), b.g1_alt3(), b.g2());
         (sub, com)
     })
 }
@@ -155,9 +155,9 @@ pub fn closes(packets: &[(u16, Vec<u8>)]) -> Vec<i32> {
         #[cfg(all(since_530, before_647))]
         let (_, com) = (b.g2(), b.g4s());
         #[cfg(all(since_647, before_742))]
-        let (com, _) = (b.g4s_alt3(), ());
+        let (com, _) = (b.g4_alt3(), ());
         #[cfg(since_742)]
-        let (com, _) = (b.g4s_alt2(), ());
+        let (com, _) = (b.g4_alt2(), ());
         com
     })
 }
@@ -210,7 +210,7 @@ pub fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
                     #[cfg(all(since_530, before_647))]
                     let (_, val, id) = (b.g2_alt3(), b.g4s(), b.g2_alt2());
                     #[cfg(all(since_647, before_742))]
-                    let (val, id) = (b.g4s_alt1(), b.g2_alt3());
+                    let (val, id) = (b.g4_alt1(), b.g2_alt3());
                     #[cfg(since_742)]
                     let (val, id) = (b.g4s(), b.g2_alt2());
                     Some((id, val))
@@ -243,9 +243,9 @@ pub fn varps(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
                     #[cfg(all(since_530, before_647))]
                     let (val, id) = (b.g4s(), b.g2_alt2());
                     #[cfg(all(since_647, before_742))]
-                    let (id, val) = (b.g2(), b.g4s_alt2());
+                    let (id, val) = (b.g2(), b.g4_alt2());
                     #[cfg(since_742)]
-                    let (val, id) = (b.g4s_alt1(), b.g2_alt2());
+                    let (val, id) = (b.g4_alt1(), b.g2_alt2());
                     Some((id, val))
                 }
                 _ => None,
@@ -296,7 +296,7 @@ pub fn invs(packets: &[(u16, Vec<u8>)]) -> Vec<Inv> {
                 #[cfg(all(since_647, before_742))]
                 let (count, obj) = {
                     let count = match b.g1() {
-                        255 => b.g4s_alt1(),
+                        255 => b.g4_alt1(),
                         n => n as i32,
                     };
                     let hi = b.g1() as u16;

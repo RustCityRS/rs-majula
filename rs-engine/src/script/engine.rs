@@ -33,8 +33,6 @@ use rs_pack::cache::script::Script;
 use rs_pack::cache::seq::SeqTypeProvider;
 use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
-#[cfg(since_254)]
-use rs_pack::cache::varbit::VarbitTypeProvider;
 #[cfg(since_530)]
 use rs_pack::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
@@ -43,6 +41,8 @@ use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_530)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
+#[cfg(since_254)]
+use rs_pack::cache::varpbit::VarpBitTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
@@ -129,8 +129,8 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_254)]
-    fn varbits(&self) -> &VarbitTypeProvider {
-        &self.cache.varbits
+    fn varpbits(&self) -> &VarpBitTypeProvider {
+        &self.cache.varpbits
     }
 
     #[cfg(since_530)]
@@ -144,7 +144,7 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn varconbits(&self) -> &VarbitTypeProvider {
+    fn varconbits(&self) -> &VarpBitTypeProvider {
         &self.cache.varconbits
     }
 

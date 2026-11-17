@@ -468,7 +468,7 @@ textalignv=bottom
 colour=0xffffcc
 onmouseleave=deltooltip(lore_stats_side:build_layer)
 onvartransmit=script756{lore_spell_points}
-onstattransmit=script756{summoning}
+onstattransmit=script756{animallore}
 onmouserepeat=script777(event_com, lore_stats_side:build_layer, 43384905, 1)
 
 // 662:41
@@ -485,7 +485,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xc4b074
-onstattransmit=lore_points_update{summoning}
+onstattransmit=lore_points_update{animallore}
 
 // 662:42
 [time_icon]

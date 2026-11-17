@@ -114,11 +114,11 @@ impl From<NpcTypeRaw> for NpcType {
             turnspeed: raw.turnspeed,
             #[cfg(since_530)]
             multivar: raw
-                .transform_varbit
-                .map(MultiVar::Varbit)
+                .transform_varpbit
+                .map(MultiVar::VarpBit)
                 .or_else(|| raw.transform_varp.map(MultiVar::Varp)),
             #[cfg(since_530)]
-            multinpc: raw.transforms,
+            multinpc: raw.multinpc,
             params: raw.params,
             debugname: raw.debugname,
         }
@@ -192,15 +192,15 @@ pub struct NpcTypeRaw {
     #[cfg(since_289)]
     pub turnspeed: u16,
     #[cfg(since_530)]
-    pub transform_varbit: Option<TypeId>,
+    pub transform_varpbit: Option<TypeId>,
     #[cfg(since_530)]
     pub transform_varp: Option<TypeId>,
     #[cfg(since_530)]
-    pub transforms: Option<Box<[TypeId]>>,
+    pub multinpc: Option<Box<[TypeId]>>,
     #[cfg(since_530)]
     pub clickable: bool,
     #[cfg(since_530)]
-    pub slowwalk: bool,
+    pub walk_smoothing: bool,
     #[cfg(since_530)]
     pub animateidle: bool,
     #[cfg(since_530)]
@@ -221,25 +221,25 @@ pub struct NpcTypeRaw {
     #[cfg(since_530)]
     pub hitbar_sprite: Option<TypeId>,
     #[cfg(since_530)]
-    pub height: Option<u16>,
+    pub overlay_height: Option<u16>,
     #[cfg(since_530)]
     pub respawn_direction: i8,
     #[cfg(all(since_530, before_647))]
     pub unknown_126: Option<u16>,
     #[cfg(since_530)]
-    pub render_emote: Option<TypeId>,
+    pub bas: Option<TypeId>,
     #[cfg(since_530)]
-    pub op128: u8,
+    pub move_speed: u8,
     #[cfg(since_530)]
-    pub idle_sound: Option<TypeId>,
+    pub background_sound_ready: Option<TypeId>,
     #[cfg(since_530)]
-    pub crawl_sound: Option<TypeId>,
+    pub background_sound_crawl: Option<TypeId>,
     #[cfg(since_530)]
-    pub walk_sound: Option<TypeId>,
+    pub background_sound_walk: Option<TypeId>,
     #[cfg(since_530)]
-    pub run_sound: Option<TypeId>,
+    pub background_sound_run: Option<TypeId>,
     #[cfg(since_530)]
-    pub sound_distance: u8,
+    pub background_sound_range: u8,
     #[cfg(all(since_530, before_742))]
     pub primary_cursor_op: Option<u8>,
     #[cfg(all(since_530, before_742))]
@@ -251,17 +251,17 @@ pub struct NpcTypeRaw {
     #[cfg(since_530)]
     pub attack_cursor: Option<TypeId>,
     #[cfg(since_647)]
-    pub army_icon: Option<TypeId>,
+    pub icon: Option<TypeId>,
     #[cfg(since_647)]
     pub sprite_id: Option<TypeId>,
     #[cfg(since_647)]
-    pub ambient_sound_volume: u8,
+    pub background_sound_volume: u8,
     #[cfg(since_647)]
-    pub visible_priority: bool,
+    pub familiar: bool,
     #[cfg(since_647)]
-    pub mapfunction: Option<TypeId>,
+    pub map_element: Option<TypeId>,
     #[cfg(since_647)]
-    pub invisible_priority: bool,
+    pub always_on_bottom: bool,
     #[cfg(since_647)]
     pub members_op: [Option<Box<str>>; 5],
     #[cfg(since_647)]
@@ -273,21 +273,21 @@ pub struct NpcTypeRaw {
     #[cfg(since_647)]
     pub opacity: i8,
     #[cfg(since_647)]
-    pub main_option_index: Option<i8>,
+    pub reprioritise_attack_op: Option<i8>,
     #[cfg(since_647)]
-    pub campaigns: Option<Box<[i16]>>,
+    pub quests: Option<Box<[i16]>>,
     #[cfg(since_647)]
     pub vorbis: bool,
     #[cfg(since_647)]
-    pub slayer_type: Option<u8>,
+    pub rough_bounding: Option<u8>,
     #[cfg(since_647)]
-    pub sound_rate_min: i32,
+    pub background_sound_rate_min: i32,
     #[cfg(since_647)]
-    pub sound_rate_max: i32,
+    pub background_sound_rate_max: i32,
     #[cfg(since_647)]
     pub pick_size_shift: u8,
     #[cfg(since_647)]
-    pub sound_range_min: u8,
+    pub background_sound_dropoff_range: u8,
     #[cfg(since_742)]
     pub antimacro: bool,
     #[cfg(since_742)]
@@ -366,15 +366,15 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_289)]
             turnspeed: if cfg!(since_530) { 32 } else { 0 },
             #[cfg(since_530)]
-            transform_varbit: None,
+            transform_varpbit: None,
             #[cfg(since_530)]
             transform_varp: None,
             #[cfg(since_530)]
-            transforms: None,
+            multinpc: None,
             #[cfg(since_530)]
             clickable: true,
             #[cfg(since_530)]
-            slowwalk: true,
+            walk_smoothing: true,
             #[cfg(since_530)]
             animateidle: true,
             #[cfg(since_530)]
@@ -394,25 +394,25 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_530)]
             hitbar_sprite: None,
             #[cfg(since_530)]
-            height: None,
+            overlay_height: None,
             #[cfg(since_530)]
             respawn_direction: 4,
             #[cfg(all(since_530, before_647))]
             unknown_126: None,
             #[cfg(since_530)]
-            render_emote: None,
+            bas: None,
             #[cfg(since_530)]
-            op128: 0,
+            move_speed: 0,
             #[cfg(since_530)]
-            idle_sound: None,
+            background_sound_ready: None,
             #[cfg(since_530)]
-            crawl_sound: None,
+            background_sound_crawl: None,
             #[cfg(since_530)]
-            walk_sound: None,
+            background_sound_walk: None,
             #[cfg(since_530)]
-            run_sound: None,
+            background_sound_run: None,
             #[cfg(since_530)]
-            sound_distance: 0,
+            background_sound_range: 0,
             #[cfg(all(since_530, before_742))]
             primary_cursor_op: None,
             #[cfg(all(since_530, before_742))]
@@ -424,17 +424,17 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_530)]
             attack_cursor: None,
             #[cfg(since_647)]
-            army_icon: None,
+            icon: None,
             #[cfg(since_647)]
             sprite_id: None,
             #[cfg(since_647)]
-            ambient_sound_volume: 255,
+            background_sound_volume: 255,
             #[cfg(since_647)]
-            visible_priority: false,
+            familiar: false,
             #[cfg(since_647)]
-            mapfunction: None,
+            map_element: None,
             #[cfg(since_647)]
-            invisible_priority: false,
+            always_on_bottom: false,
             #[cfg(since_647)]
             members_op: [const { None }; 5],
             #[cfg(since_647)]
@@ -446,21 +446,21 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_647)]
             opacity: 0,
             #[cfg(since_647)]
-            main_option_index: None,
+            reprioritise_attack_op: None,
             #[cfg(since_647)]
-            campaigns: None,
+            quests: None,
             #[cfg(since_647)]
             vorbis: false,
             #[cfg(since_647)]
-            slayer_type: None,
+            rough_bounding: None,
             #[cfg(since_647)]
-            sound_rate_min: 256,
+            background_sound_rate_min: 256,
             #[cfg(since_647)]
-            sound_rate_max: 256,
+            background_sound_rate_max: 256,
             #[cfg(since_647)]
             pick_size_shift: 0,
             #[cfg(since_647)]
-            sound_range_min: 0,
+            background_sound_dropoff_range: 0,
             #[cfg(since_742)]
             antimacro: true,
             #[cfg(since_742)]
@@ -551,7 +551,7 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_530)]
             107 => self.clickable = false,
             #[cfg(since_530)]
-            109 => self.slowwalk = false,
+            109 => self.walk_smoothing = false,
             #[cfg(since_530)]
             111 => self.animateidle = false,
             #[cfg(since_530)]
@@ -579,22 +579,22 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_530)]
             122 => self.hitbar_sprite = Some(read_id(buf)),
             #[cfg(since_530)]
-            123 => self.height = Some(buf.g2()),
+            123 => self.overlay_height = Some(buf.g2()),
             #[cfg(since_530)]
             125 => self.respawn_direction = buf.g1s(),
             #[cfg(all(since_530, before_647))]
             126 => self.unknown_126 = Some(buf.g2()),
             #[cfg(since_530)]
-            127 => self.render_emote = Some(read_id(buf)),
+            127 => self.bas = Some(read_id(buf)),
             #[cfg(since_530)]
-            128 => self.op128 = buf.g1(),
+            128 => self.move_speed = buf.g1(),
             #[cfg(since_530)]
             134 => {
-                self.idle_sound = read_optional_id(buf);
-                self.crawl_sound = read_optional_id(buf);
-                self.walk_sound = read_optional_id(buf);
-                self.run_sound = read_optional_id(buf);
-                self.sound_distance = buf.g1();
+                self.background_sound_ready = read_optional_id(buf);
+                self.background_sound_crawl = read_optional_id(buf);
+                self.background_sound_walk = read_optional_id(buf);
+                self.background_sound_run = read_optional_id(buf);
+                self.background_sound_range = buf.g1();
             }
             #[cfg(all(since_530, before_742))]
             135 => {
@@ -609,17 +609,17 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_530)]
             137 => self.attack_cursor = Some(read_id(buf)),
             #[cfg(since_647)]
-            138 => self.army_icon = Some(read_big_id(buf)),
+            138 => self.icon = Some(read_big_id(buf)),
             #[cfg(since_647)]
             139 => self.sprite_id = Some(read_id(buf)),
             #[cfg(since_647)]
-            140 => self.ambient_sound_volume = buf.g1(),
+            140 => self.background_sound_volume = buf.g1(),
             #[cfg(since_647)]
-            141 => self.visible_priority = true,
+            141 => self.familiar = true,
             #[cfg(since_647)]
-            142 => self.mapfunction = Some(read_id(buf)),
+            142 => self.map_element = Some(read_id(buf)),
             #[cfg(since_647)]
-            143 => self.invisible_priority = true,
+            143 => self.always_on_bottom = true,
             #[cfg(since_647)]
             150..=154 => {
                 let slot = (code - 150) as usize;
@@ -633,24 +633,24 @@ impl CacheType for NpcTypeRaw {
                 self.opacity = buf.g1s();
             }
             #[cfg(since_647)]
-            158 => self.main_option_index = Some(1),
+            158 => self.reprioritise_attack_op = Some(1),
             #[cfg(since_647)]
-            159 => self.main_option_index = Some(0),
+            159 => self.reprioritise_attack_op = Some(0),
             #[cfg(since_647)]
-            160 => self.campaigns = Some(read_array(buf, Packet::g2s)),
+            160 => self.quests = Some(read_array(buf, Packet::g2s)),
             #[cfg(since_647)]
             162 => self.vorbis = true,
             #[cfg(since_647)]
-            163 => self.slayer_type = Some(buf.g1()),
+            163 => self.rough_bounding = Some(buf.g1()),
             #[cfg(since_647)]
             164 => {
-                self.sound_rate_min = buf.g2() as i32;
-                self.sound_rate_max = buf.g2() as i32;
+                self.background_sound_rate_min = buf.g2() as i32;
+                self.background_sound_rate_max = buf.g2() as i32;
             }
             #[cfg(since_647)]
             165 => self.pick_size_shift = buf.g1(),
             #[cfg(since_647)]
-            168 => self.sound_range_min = buf.g1(),
+            168 => self.background_sound_dropoff_range = buf.g1(),
             #[cfg(since_742)]
             169 => self.antimacro = false,
             #[cfg(since_742)]
@@ -682,13 +682,13 @@ impl NpcTypeRaw {
 
     #[cfg(since_530)]
     fn decode_multinpc(&mut self, buf: &mut Packet, has_default: bool) {
-        self.transform_varbit = read_optional_id(buf);
+        self.transform_varpbit = read_optional_id(buf);
         self.transform_varp = read_optional_id(buf);
         let default = if has_default {
             read_id(buf)
         } else {
             TypeId::NULL
         };
-        self.transforms = Some(read_transforms(buf, default, read_id));
+        self.multinpc = Some(read_transforms(buf, default, read_id));
     }
 }

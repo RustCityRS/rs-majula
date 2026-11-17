@@ -15,12 +15,12 @@ use crate::cache::param::ParamTypeProvider;
 use crate::cache::seq::SeqTypeProvider;
 use crate::cache::spotanim::SpotAnimTypeProvider;
 use crate::cache::r#struct::StructTypeProvider;
-#[cfg(since_254)]
-use crate::cache::varbit::VarbitTypeProvider;
 #[cfg(since_530)]
 use crate::cache::varc::VarClientTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
+#[cfg(since_254)]
+use crate::cache::varpbit::VarpBitTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
 #[cfg(all(since_244, before_530))]
 use crate::types::OndemandBlobs;
@@ -117,8 +117,6 @@ pub mod spotanim;
 pub mod r#struct;
 #[cfg(since_530)]
 pub mod texture;
-#[cfg(since_254)]
-pub mod varbit;
 #[cfg(since_530)]
 pub mod varc;
 #[cfg(since_647)]
@@ -127,6 +125,8 @@ pub mod varn;
 #[cfg(since_530)]
 pub mod varobj;
 pub mod varp;
+#[cfg(since_254)]
+pub mod varpbit;
 pub mod vars;
 pub mod wordenc;
 
@@ -153,7 +153,7 @@ pub struct CacheStore {
     #[cfg(since_530)]
     pub varcs: VarClientTypeProvider,
     #[cfg(since_254)]
-    pub varbits: VarbitTypeProvider,
+    pub varpbits: VarpBitTypeProvider,
     pub dbrows: DbRowTypeProvider,
     pub dbtables: DbTableTypeProvider,
     pub db_index: DbTableIndex,
@@ -202,7 +202,7 @@ pub struct CacheStore {
     #[cfg(since_647)]
     pub varcons: VarConTypeProvider,
     #[cfg(since_647)]
-    pub varconbits: VarbitTypeProvider,
+    pub varconbits: VarpBitTypeProvider,
     #[cfg(since_647)]
     pub controllers: ControllerTypeProvider,
     #[cfg(since_530)]

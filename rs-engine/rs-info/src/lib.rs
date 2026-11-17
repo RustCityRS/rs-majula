@@ -117,7 +117,7 @@ pub struct EntityMasksCold {
     pub chat_bytes: Option<Box<[u8]>>,
     pub chat_colour: Option<u8>,
     pub chat_effects: Option<u8>,
-    pub chat_ignored: Option<u8>,
+    pub chat_crown: Option<u8>,
     pub spotanim: Option<TypeId>,
     pub spotanim_height: Option<u16>,
     pub spotanim_delay: Option<u16>,
@@ -132,9 +132,9 @@ pub struct EntityMasksCold {
     #[cfg(all(since_530, before_647))]
     pub model_anims: Option<Box<[ModelAnim]>>,
     #[cfg(since_647)]
-    pub move_type: Option<u8>,
+    pub move_speed: Option<u8>,
     #[cfg(since_647)]
-    pub temp_move_type: Option<u8>,
+    pub temp_move_speed: Option<u8>,
 }
 
 impl Deref for EntityMasks {
@@ -204,7 +204,7 @@ impl EntityMasks {
                 chat_bytes: None,
                 chat_colour: None,
                 chat_effects: None,
-                chat_ignored: None,
+                chat_crown: None,
                 spotanim: None,
                 spotanim_height: None,
                 spotanim_delay: None,
@@ -219,9 +219,9 @@ impl EntityMasks {
                 #[cfg(all(since_530, before_647))]
                 model_anims: None,
                 #[cfg(since_647)]
-                move_type: None,
+                move_speed: None,
                 #[cfg(since_647)]
-                temp_move_type: None,
+                temp_move_speed: None,
             }),
         }
     }
@@ -322,7 +322,7 @@ impl EntityMasks {
     /// **Cleared (temporary):** `masks`, `face_x`, `face_z`, `anim_id`,
     /// `anim_delay`, `say`, `damage_taken`, `damage_type`,
     /// `damage_current`, `damage_base`, `chat_bytes`, `chat_colour`,
-    /// `chat_effects`, `chat_ignored`, `spotanim`, `spotanim_height`,
+    /// `chat_effects`, `chat_crown`, `spotanim`, `spotanim_height`,
     /// `spotanim_delay`, `exactmove_start_x`, `exactmove_start_z`,
     /// `exactmove_end_x`, `exactmove_end_z`, `exactmove_begin`,
     /// `exactmove_finish`, `exactmove_dir`, `changetype`, and on 530
@@ -373,7 +373,7 @@ impl EntityMasks {
         self.chat_bytes = None;
         self.chat_colour = None;
         self.chat_effects = None;
-        self.chat_ignored = None;
+        self.chat_crown = None;
         self.spotanim = None;
         self.spotanim_height = None;
         self.spotanim_delay = None;
@@ -391,8 +391,8 @@ impl EntityMasks {
         }
         #[cfg(since_647)]
         {
-            self.move_type = None;
-            self.temp_move_type = None;
+            self.move_speed = None;
+            self.temp_move_speed = None;
         }
     }
 
@@ -434,7 +434,7 @@ impl EntityMasks {
             && self.chat_bytes.is_none()
             && self.chat_colour.is_none()
             && self.chat_effects.is_none()
-            && self.chat_ignored.is_none()
+            && self.chat_crown.is_none()
             && self.spotanim.is_none()
             && self.spotanim_height.is_none()
             && self.spotanim_delay.is_none()
@@ -604,7 +604,7 @@ mod tests {
         assert!(masks.chat_bytes.is_none());
         assert!(masks.chat_colour.is_none());
         assert!(masks.chat_effects.is_none());
-        assert!(masks.chat_ignored.is_none());
+        assert!(masks.chat_crown.is_none());
         assert!(masks.spotanim.is_none());
         assert!(masks.spotanim_height.is_none());
         assert!(masks.spotanim_delay.is_none());
@@ -635,7 +635,7 @@ mod tests {
         masks.chat_bytes = Some(vec![1, 2, 3].into_boxed_slice());
         masks.chat_colour = Some(5);
         masks.chat_effects = Some(2);
-        masks.chat_ignored = Some(0);
+        masks.chat_crown = Some(0);
         masks.spotanim = Some(TypeId::new(300));
         masks.spotanim_height = Some(200);
         masks.spotanim_delay = Some(10);
@@ -663,7 +663,7 @@ mod tests {
         assert!(masks.chat_bytes.is_none());
         assert!(masks.chat_colour.is_none());
         assert!(masks.chat_effects.is_none());
-        assert!(masks.chat_ignored.is_none());
+        assert!(masks.chat_crown.is_none());
         assert!(masks.spotanim.is_none());
         assert!(masks.spotanim_height.is_none());
         assert!(masks.spotanim_delay.is_none());
@@ -810,7 +810,7 @@ mod tests {
         masks.chat_bytes = Some(vec![0x48, 0x65, 0x6C].into_boxed_slice());
         masks.chat_colour = Some(1);
         masks.chat_effects = Some(2);
-        masks.chat_ignored = Some(0);
+        masks.chat_crown = Some(0);
         assert!(masks.chat_bytes.is_some());
         assert_eq!(masks.chat_colour, Some(1));
         masks.reset();

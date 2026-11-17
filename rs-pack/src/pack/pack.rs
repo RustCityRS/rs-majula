@@ -4,7 +4,7 @@ use crate::archive;
 #[cfg(since_530)]
 use crate::cache::js5::PackedCache;
 use crate::pack::config::*;
-use crate::pack::incremental::{Key, Stage, dir_key};
+use crate::pack::incremental::{Key, LOBBY_COMMANDS, Stage, dir_key};
 #[cfg(before_530)]
 use crate::pack::interface;
 #[cfg(since_530)]
@@ -33,7 +33,7 @@ use tracing::debug;
 /// The registries config packing resolves names through: all but the script
 /// ids, which no config names.
 fn registry_key(pack_dir: &Path) -> Key {
-    dir_key(pack_dir, &["clientscript.pack"])
+    dir_key(pack_dir, &["clientscript.pack", LOBBY_COMMANDS])
 }
 
 /// The registry a kind reads whole: it packs an entry for every id in it.
@@ -222,7 +222,7 @@ fn pack_cached_assets(
                     #[cfg(before_530)]
                     "interface" => interface::pack_interfaces(files.dir(), registry, verify)?,
                     #[cfg(since_254)]
-                    "varpbit" => varbit::pack_varbits(fc, registry, constants)?,
+                    "varpbit" => varpbit::pack_varpbits(fc, registry, constants)?,
                     #[cfg(all(since_274, before_530))]
                     "mes" => mes::pack_mes(fc, constants)?,
                     #[cfg(since_530)]

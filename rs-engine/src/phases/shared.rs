@@ -222,7 +222,7 @@ impl Engine {
     /// Checks whether a pathing entity is within operable (adjacent /
     /// melee) distance of an interaction target.
     ///
-    /// Uses `rsmod::reached` to test collision-map reachability. For Obj
+    /// Uses `rsmod::has_arrived` to test collision-map reachability. For Obj
     /// targets, checks both shape -2 (default reach) and shape -1
     /// (diagonal reach). For Loc targets, incorporates the loc's
     /// dimensions, shape, angle, and `forceapproach` flag. For entity
@@ -248,8 +248,20 @@ impl Engine {
                 if coord.y() != y {
                     return false;
                 }
-                rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -2, 0)
-                    || rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -1, 0)
+                rsmod::has_arrived(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -2, 0)
+                    || rsmod::has_arrived(
+                        y,
+                        src_x,
+                        src_z,
+                        coord.x(),
+                        coord.z(),
+                        1,
+                        1,
+                        size,
+                        0,
+                        -1,
+                        0,
+                    )
             }
             InteractionTarget::Loc {
                 coord,
@@ -268,7 +280,7 @@ impl Engine {
                     .get_by_id(*id)
                     .map(|lt| lt.forceapproach as u8)
                     .unwrap_or(0);
-                rsmod::reached(
+                rsmod::has_arrived(
                     y,
                     src_x,
                     src_z,
@@ -288,7 +300,7 @@ impl Engine {
                         return false;
                     }
                     let target_size = target_npc.npc.pathing.size;
-                    rsmod::reached(
+                    rsmod::has_arrived(
                         y,
                         src_x,
                         src_z,
@@ -310,7 +322,7 @@ impl Engine {
                     if player.player.pathing.coord.y() != y {
                         return false;
                     }
-                    rsmod::reached(
+                    rsmod::has_arrived(
                         y,
                         src_x,
                         src_z,
@@ -329,7 +341,19 @@ impl Engine {
             }
             InteractionTarget::Coord { coord } => {
                 coord.y() == y
-                    && rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -1, 0)
+                    && rsmod::has_arrived(
+                        y,
+                        src_x,
+                        src_z,
+                        coord.x(),
+                        coord.z(),
+                        1,
+                        1,
+                        size,
+                        0,
+                        -1,
+                        0,
+                    )
             }
         }
     }
@@ -523,7 +547,7 @@ impl Engine {
     ///   straight-line step. Used when the entity's strategy is `Naive`
     ///   or the client pathfinder reports a coordinate overlap with the
     ///   target.
-    /// * **Full BFS:** Uses `rsmod::find_path` for a collision-aware route,
+    /// * **Full BFS:** Uses `rsmod::find_route` for a collision-aware route,
     ///   incorporating the target's dimensions, shape, angle, and
     ///   forceapproach configuration for Loc targets.
     ///
@@ -539,7 +563,7 @@ impl Engine {
         client_pathfinder: bool,
     ) {
         if let Some(request) = Self::entity_path_request(pathing, target, client_pathfinder) {
-            pathing.queue_waypoints(request.find_path());
+            pathing.queue_waypoints(request.find_route());
         }
     }
 

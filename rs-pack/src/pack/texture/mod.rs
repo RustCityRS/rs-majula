@@ -23,7 +23,7 @@ use anyhow::Result;
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::reference::FileInfo;
+use rs_io::js5::index::FileInfo;
 use std::collections::HashMap;
 use std::fs;
 #[cfg(before_530)]

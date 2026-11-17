@@ -150,9 +150,9 @@ impl Engine {
                             self.try_complete_login(idx);
                         } else {
                             let response = if ip_limited {
-                                LoginResponse::TooManyConnections
+                                LoginResponse::IpLimit
                             } else {
-                                LoginResponse::AlreadyLoggedIn
+                                LoginResponse::Duplicate
                             };
                             self.reject_pending_login(idx, response);
                         }
@@ -169,7 +169,7 @@ impl Engine {
                     while i > 0 {
                         i -= 1;
                         if self.pending_logins[i].clock < clock {
-                            self.reject_pending_login(i, LoginResponse::CouldNotComplete);
+                            self.reject_pending_login(i, LoginResponse::BadSave);
                         }
                     }
 

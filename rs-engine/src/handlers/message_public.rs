@@ -7,7 +7,7 @@ use rs_entity::player::CHAT_MODE_CLAN;
 #[cfg(since_530)]
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::cp1252::{decode_string, encode_string};
+use rs_io::stringtools::{cp1252_to_utf8, utf8_to_cp1252};
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 #[cfg(before_530)]
@@ -50,7 +50,7 @@ const MAX_CHAT_LEN: usize = 100;
 /// # Side Effects
 ///
 /// * Sets the player's `info.chat_bytes`, `info.chat_colour`, `info.chat_effects`,
-///   and `info.chat_ignored` fields.
+///   and `info.chat_crown` fields.
 /// * Adds `PlayerInfoProt::Chat` to the player's info update mask.
 /// * Logs the unfiltered message to the database (`ActivePlayer::log_chat`).
 ///
@@ -82,7 +82,7 @@ impl ClientGameHandler for MessagePublic {
         active.player.info.chat_bytes = Some(pack(&message).into_boxed_slice());
         active.player.info.chat_colour = Some(self.colour);
         active.player.info.chat_effects = Some(self.effect);
-        active.player.info.chat_ignored = Some(active.staffmodlevel().min(2));
+        active.player.info.chat_crown = Some(active.staffmodlevel().min(2));
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);
@@ -125,14 +125,14 @@ pub(crate) fn decode_chat(mut bytes: Vec<u8>, chars: usize) -> Result<String, Sc
     if consumed > len {
         return Err(ScriptError::Client("Truncated chat message".to_string()));
     }
-    Ok(decode_string(&decoded))
+    Ok(cp1252_to_utf8(&decoded))
 }
 
 /// `text` as a 647 chat message carries it: through the word filter with its
 /// first letter capitalised, then a smart character count and huffman.
 #[cfg(since_530)]
 pub(crate) fn filtered_chat(text: &str) -> Vec<u8> {
-    let mut decoded = encode_string(&engine().wordenc().filter(text));
+    let mut decoded = utf8_to_cp1252(&engine().wordenc().filter(text));
     if let Some(first) = decoded.first_mut() {
         first.make_ascii_uppercase();
     }
@@ -172,7 +172,7 @@ impl ClientGameHandler for MessagePublic {
         active.player.info.chat_bytes = Some(filtered_chat(&text).into_boxed_slice());
         active.player.info.chat_colour = Some(self.colour);
         active.player.info.chat_effects = Some(self.effect);
-        active.player.info.chat_ignored = Some(active.staffmodlevel().min(2));
+        active.player.info.chat_crown = Some(active.staffmodlevel().min(2));
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);

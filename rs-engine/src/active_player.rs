@@ -30,7 +30,7 @@ use rs_pack::cache::inv::InvScope;
 #[cfg(since_530)]
 use rs_pack::cache::map::XteaKeyStore;
 #[cfg(since_254)]
-use rs_pack::cache::varbit::VarbitType;
+use rs_pack::cache::varpbit::VarpBitType;
 use rs_pack::cache::{ScriptVarType, VarValue};
 #[cfg(since_289)]
 use rs_pack::types::MultiVar;
@@ -186,8 +186,8 @@ use rs_protocol::network::game::client_prot::WindowStatus;
 use rs_protocol::network::game::client_prot::WorldLatency;
 #[cfg(since_530)]
 use rs_protocol::network::game::client_prot::{
-    ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClientDetailoptionsStatus, FaceSquare,
-    FriendSetRank, MapBuildLoading, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6,
+    ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClientDetailoptionsStatus, DetectModifiedClient,
+    FaceSquare, FriendSetRank, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6,
     OpPlayer7, OpPlayer8, ReflectionCheckReply, ResumePNameDialog, ResumePObjDialog,
     SoundSongPreloaded, TransmitvarVerifyId, UrlRequest,
 };
@@ -738,13 +738,13 @@ impl ActivePlayer {
             // the cipher stays in wire order relative to immediate packets.
             #[cfg(since_647)]
             if data[start] >= 128 {
-                let i0 = handle.isaac_encode.next_int();
-                let i1 = handle.isaac_encode.next_int();
+                let i0 = handle.isaac_encode.take_next_value();
+                let i1 = handle.isaac_encode.take_next_value();
                 data[start] = (data[start] as u32 + i0) as u8;
                 data[start + 1] = (data[start + 1] as u32 + i1) as u8;
                 continue;
             }
-            data[start] = (data[start] as u32 + handle.isaac_encode.next_int()) as u8;
+            data[start] = (data[start] as u32 + handle.isaac_encode.take_next_value()) as u8;
         }
         if end > 0 {
             handle.gather(&data[..end]);
@@ -786,16 +786,18 @@ impl ActivePlayer {
         let buf = &mut handle.write_queue;
         buf.pos = 0;
         #[cfg(before_647)]
-        buf.p1((M::PROT as u32 + handle.isaac_encode.next_int()) as u8);
+        buf.p1((M::PROT as u32 + handle.isaac_encode.take_next_value()) as u8);
         // 1-or-2-byte SMART opcode, ISAAC applied per byte.
         #[cfg(since_647)]
         {
             let opcode = M::PROT as u16;
             if opcode < 128 {
-                buf.p1((opcode as u32 + handle.isaac_encode.next_int()) as u8);
+                buf.p1((opcode as u32 + handle.isaac_encode.take_next_value()) as u8);
             } else {
-                buf.p1((((opcode >> 8) + 128) as u32 + handle.isaac_encode.next_int()) as u8);
-                buf.p1(((opcode & 0xFF) as u32 + handle.isaac_encode.next_int()) as u8);
+                buf.p1(
+                    (((opcode >> 8) + 128) as u32 + handle.isaac_encode.take_next_value()) as u8,
+                );
+                buf.p1(((opcode & 0xFF) as u32 + handle.isaac_encode.take_next_value()) as u8);
             }
         }
         buf.pos += frame;
@@ -991,8 +993,8 @@ impl ActivePlayer {
             local_x: x,
             local_z: z,
             height,
-            const_speed: rate,
-            var_speed: rate2,
+            rate,
+            rate2,
             #[cfg(all(since_530, before_647))]
             verify: self.next_verify(),
         });
@@ -1012,29 +1014,29 @@ impl ActivePlayer {
             local_x: x,
             local_z: z,
             height,
-            const_speed: rate,
-            var_speed: rate2,
+            rate,
+            rate2,
             #[cfg(all(since_530, before_647))]
             verify: self.next_verify(),
         });
     }
 
-    pub fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8) {
+    pub fn cam_shake(&mut self, axis: u8, ran: u8, amp: u8, rate: u8) {
         #[cfg(before_530)]
         self.write(CamShake {
-            direction,
-            jitter,
-            amplitude,
-            frequency,
+            axis,
+            ran,
+            amp,
+            rate,
         });
         // 647 adds the wobble's starting phase; a shake starts at the start,
         // as the pre-647 client began every shake at cycle 0.
         #[cfg(since_530)]
         self.write(CamShake {
-            direction,
-            jitter,
-            amplitude,
-            frequency,
+            axis,
+            ran,
+            amp,
+            rate,
             cycle: 0,
             #[cfg(all(since_530, before_647))]
             verify: self.next_verify(),
@@ -2201,10 +2203,10 @@ impl ActivePlayer {
     #[cfg(since_289)]
     fn multivar(&self, var: Option<MultiVar>) -> i32 {
         let value = match var {
-            Some(MultiVar::Varbit(var)) => engine()
-                .varbits()
+            Some(MultiVar::VarpBit(var)) => engine()
+                .varpbits()
                 .get_by_id(var)
-                .map(|var| self.varbit(var)),
+                .map(|var| self.varpbit(var)),
             Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var.g2()).as_int()),
             None => None,
         };
@@ -2218,7 +2220,7 @@ impl ActivePlayer {
 
     /// The npc type `id` shows as to this player: a 647 npc can be a
     /// multi-npc that the client draws as another by a variable, with that
-    /// one's name and options (2011's Osman, npc 5282, is Osman by varbit
+    /// one's name and options (2011's Osman, npc 5282, is Osman by varpbit
     /// 3280). `None` when it shows as nothing.
     #[cfg(since_530)]
     pub fn shown_npc(&self, id: TypeId) -> Option<TypeId> {
@@ -2766,7 +2768,7 @@ impl ActivePlayer {
     /// buffer.
     pub(crate) fn write_varshort_unchecked(&mut self, prot: u8, parts: [&[u8]; 2]) {
         let handle = &mut self.handle;
-        let opcode = (prot as u32 + handle.isaac_encode.next_int()) as u8;
+        let opcode = (prot as u32 + handle.isaac_encode.take_next_value()) as u8;
         let rest = handle.gather_varshort(opcode, parts);
         let engine = engine();
         self.watch.server(engine.clock, prot, rest);
@@ -3781,7 +3783,7 @@ impl ActivePlayer {
 
     /// Paints a 647 hitsplat without touching a stat.
     ///
-    /// 2011's hitpoints are life points, and content owns them (varbit 7198,
+    /// 2011's hitpoints are life points, and content owns them (varpbit 7198,
     /// ten to a hitpoint: 2011 wiki, Constitution), so content takes the hit
     /// off, works out the health bar's fill, and hands the engine only what to
     /// draw.
@@ -4081,32 +4083,32 @@ impl ActivePlayer {
         true
     }
 
-    /// Reads a varbit: its bit range out of the base varp.
+    /// Reads a varpbit: its bit range out of the base varp.
     #[cfg(since_254)]
-    pub fn varbit(&self, varbit: &VarbitType) -> i32 {
-        let base = self.player.vars.get(varbit.basevar).as_int();
-        getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32)
+    pub fn varpbit(&self, varpbit: &VarpBitType) -> i32 {
+        let base = self.player.vars.get(varpbit.basevar).as_int();
+        getbit_range(base, varpbit.start_bit as i32, varpbit.end_bit as i32)
     }
 
-    /// Writes a varbit into its bit range of the base varp, leaving the other
+    /// Writes a varpbit into its bit range of the base varp, leaving the other
     /// bits alone. A value outside the range stores 0, like the reference
     /// engine's `setVarBit`. The base varp's `transmit` flag decides whether
     /// the client is sent the change.
     #[cfg(since_254)]
-    pub fn set_varbit(&mut self, varbit: &VarbitType, value: i32) {
-        let Some(varp) = engine().varps().get_by_id(TypeId::new(varbit.basevar)) else {
+    pub fn set_varpbit(&mut self, varpbit: &VarpBitType, value: i32) {
+        let Some(varp) = engine().varps().get_by_id(TypeId::new(varpbit.basevar)) else {
             return;
         };
-        let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+        let (start, end) = (varpbit.start_bit as i32, varpbit.end_bit as i32);
         let value = if fits_bit_range(value, start, end) {
             value
         } else {
             0
         };
-        let current = self.player.vars.get(varbit.basevar).as_int();
+        let current = self.player.vars.get(varpbit.basevar).as_int();
         let new_value = setbit_range_toint(current, value, start, end);
         self.set_varp(
-            varbit.basevar,
+            varpbit.basevar,
             VarValue::from_int(varp.var_type, new_value),
             varp.transmit,
         );
@@ -4264,7 +4266,7 @@ impl EnginePlayer for ActivePlayer {
             Some(opcode) => opcode,
             None => {
                 let byte = handle.read_queue.pop_front()?;
-                let opcode = byte.wrapping_sub(handle.isaac_decode.next_int() as u8);
+                let opcode = byte.wrapping_sub(handle.isaac_decode.take_next_value() as u8);
                 handle.opcode = Some(opcode);
                 opcode
             }
@@ -4524,7 +4526,7 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(all(since_647, before_742))]
                 ClientProt::WorldLatency => WorldLatency::decode(&mut buf, len).handle(self),
                 #[cfg(since_530)]
-                ClientProt::MapBuildLoading => MapBuildLoading::decode(&mut buf, len).handle(self),
+                ClientProt::DetectModifiedClient => DetectModifiedClient::decode(&mut buf, len).handle(self),
                 #[cfg(since_530)]
                 ClientProt::TransmitvarVerifyId => TransmitvarVerifyId::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
@@ -4643,7 +4645,7 @@ impl EnginePlayer for ActivePlayer {
         // buildappearance_default) — without it the first GPI add carries no
         // appearance block and the client renders the player null (black
         // screen / renderer NPE on any player-model interface component).
-        // The stored move type goes out from `Player::sync_move_types` on the
+        // The stored move speed goes out from `Player::sync_move_speeds` on the
         // first info phase, as it does whenever it changes.
         #[cfg(since_530)]
         {
@@ -4710,7 +4712,7 @@ impl EnginePlayer for ActivePlayer {
         self.sync_varps();
         #[cfg(since_647)]
         {
-            self.player.client_move_type = None;
+            self.player.client_move_speed = None;
         }
         self.player.build_area.clear(true);
         self.rebuild_normal(true);

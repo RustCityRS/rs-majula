@@ -1,6 +1,6 @@
 use super::config_entry;
 use super::param::get_param_value_for_type;
-use super::varbit::bit_range;
+use super::varpbit::bit_range;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::PackRegistry;
 use crate::pack::packed_data::PackedData;
@@ -32,7 +32,7 @@ pub fn pack_controllers(
         };
 
         let mut vars = Vec::new();
-        let mut varbits = Vec::new();
+        let mut varpbits = Vec::new();
         for (key, value) in props {
             match key.as_str() {
                 "varcon" => {
@@ -70,7 +70,7 @@ pub fn pack_controllers(
                         "[{debugname}]: varconbit {name} has no bit range"
                     );
                     let value = value.trim().parse::<i32>()?;
-                    varbits.push((id, value));
+                    varpbits.push((id, value));
                 }
 
                 // not found
@@ -97,11 +97,11 @@ pub fn pack_controllers(
             }
         }
 
-        if !varbits.is_empty() {
+        if !varpbits.is_empty() {
             server.p1(2);
-            server.p1(u8::try_from(varbits.len()).expect("Too many controller varconbits"));
-            for (varbit, value) in varbits {
-                server.p2(varbit as u16);
+            server.p1(u8::try_from(varpbits.len()).expect("Too many controller varconbits"));
+            for (varpbit, value) in varpbits {
+                server.p2(varpbit as u16);
                 server.p4(value);
             }
         }

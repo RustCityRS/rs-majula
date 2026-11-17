@@ -31,7 +31,7 @@ textshadow=yes
 colour=0xed9d3b
 onload=combat_side_comlevel(event_com)
 oninvtransmit=combat_side_comlevel(event_com){worn}
-onstattransmit=combat_side_comlevel(event_com){hitpoints, summoning, defence, attack, strength, ranged, magic, prayer}
+onstattransmit=combat_side_comlevel(event_com){hitpoints, animallore, defence, attack, strength, ranged, magic, prayer}
 onvarctransmit=combat_side_comlevel(event_com){comlevel_potential_varc}
 
 // 884:2

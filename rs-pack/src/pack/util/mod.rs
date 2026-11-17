@@ -453,14 +453,14 @@ pub fn pack_multi(
     registry: &PackRegistry,
     name: &str,
 ) -> Result<()> {
-    let mut varbit = u16::MAX;
+    let mut varpbit = u16::MAX;
     let mut varp = u16::MAX;
     let mut default = None;
     let mut targets = BTreeMap::new();
     for (key, value) in props {
         if key == "multivar" {
             let bit = registry
-                .varbit
+                .varpbit
                 .get_by_debugname(value)
                 .or_else(|| placeholder_number("varpbit", value));
             let var = registry
@@ -468,7 +468,7 @@ pub fn pack_multi(
                 .get_by_debugname(value)
                 .or_else(|| placeholder_number("varp", value));
             match (bit, var) {
-                (Some(id), None) => varbit = u16::try_from(id)?,
+                (Some(id), None) => varpbit = u16::try_from(id)?,
                 (None, Some(id)) => varp = u16::try_from(id)?,
                 (Some(_), Some(_)) => bail!("{name}: ambiguous multivar '{value}'"),
                 (None, None) => bail!("{name}: unknown multivar '{value}'"),
@@ -495,7 +495,7 @@ pub fn pack_multi(
         }
     }
     packed.p1(if default.is_some() { codes.1 } else { codes.0 });
-    packed.p2(varbit);
+    packed.p2(varpbit);
     packed.p2(varp);
     if let Some(default) = default {
         write(packed, default);

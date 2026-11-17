@@ -7,19 +7,19 @@ use rs_io::Packet;
 use rs_io::crc::getcrc;
 #[cfg(since_530)]
 use rs_io::js5::compression::Container;
-#[cfg(since_647)]
-use rs_io::js5::java_string_hash;
 #[cfg(since_530)]
-use rs_io::js5::reference::ReferenceTable;
+use rs_io::js5::index::Js5Index;
 #[cfg(since_647)]
-use rs_io::js5::reference::encode_master_index;
+use rs_io::js5::index::encode_master_index;
+#[cfg(since_647)]
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use rs_ver::archive::REFERENCE_TABLES;
 #[cfg(since_647)]
 use rs_ver::archive::{
     BILLBOARDS, BINARY, CLIENTSCRIPT, CONFIG, CONFIG_ENUM, CONFIG_LOC, CONFIG_NPC, CONFIG_OBJ,
-    CONFIG_SEQ, CONFIG_SPOTANIM, CONFIG_VARBIT, DEFAULTS, DLLS, FONTMETRICS, INTERFACES, MATERIALS,
-    PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, SHADERS, WORLDMAP,
+    CONFIG_SEQ, CONFIG_SPOTANIM, CONFIG_VARPBIT, DEFAULTS, DLLS, FONTMETRICS, INTERFACES,
+    MATERIALS, PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, SHADERS, WORLDMAP,
 };
 #[cfg(since_530)]
 use std::collections::{HashMap, HashSet};
@@ -133,7 +133,7 @@ const PREFETCHES: [Prefetch; PREFETCH_COUNT] = [
     Archive(CONFIG_OBJ),
     Archive(CONFIG_SEQ),
     Archive(CONFIG_SPOTANIM),
-    Archive(CONFIG_VARBIT),
+    Archive(CONFIG_VARPBIT),
     Archive(QUICKCHAT),
     Archive(QUICKCHAT_GLOBAL),
     Archive(PARTICLES),
@@ -159,7 +159,7 @@ pub struct Js5Cache {
 impl Js5Cache {
     pub fn new(
         mut groups: HashMap<(u8, u32), Vec<u8>>,
-        tables: &HashMap<u8, ReferenceTable>,
+        tables: &HashMap<u8, Js5Index>,
         #[cfg_attr(all(since_530, before_647), allow(unused_variables))] private_key: &RsaKey,
     ) -> anyhow::Result<Self> {
         let archive_count = groups
@@ -182,7 +182,7 @@ impl Js5Cache {
             let version = tables
                 .get(&(archive as u8))
                 .filter(|table| table.format >= 6)
-                .map_or(0, |table| table.version);
+                .map_or(0, |table| table.index_version);
             (groups[&(REFERENCE_TABLES, archive)].as_ref(), version)
         }));
         #[cfg(since_647)]
@@ -222,7 +222,7 @@ impl Js5Cache {
                     len(REFERENCE_TABLES, archive as u32) + archive_bytes[archive as usize]
                 }
                 Group(archive, name) => {
-                    let hash = java_string_hash(name);
+                    let hash = hash32(name);
                     tables
                         .get(&archive)
                         .and_then(|table| table.groups.iter().find(|group| group.name_hash == hash))
@@ -280,7 +280,7 @@ mod tests {
     #[cfg(since_530)]
     use rs_io::js5::compression::{CompressionType, compress};
     #[cfg(since_530)]
-    use rs_io::js5::reference::GroupInfo;
+    use rs_io::js5::index::GroupInfo;
     #[cfg(since_647)]
     use rs_ver::archive::{CONFIG_GROUP_FLU, CONFIG_GROUP_HUNT};
     #[cfg(since_530)]
@@ -308,12 +308,12 @@ mod tests {
             file_count: 1,
             files: Vec::new(),
         };
-        let table = |archive_id, format, version, groups| ReferenceTable {
+        let table = |archive_id, format, index_version, groups| Js5Index {
             archive_id,
             format,
-            version,
+            index_version,
             named: false,
-            whirlpooled: false,
+            has_group_whirlpools: false,
             groups,
         };
         let cache = Js5Cache::new(
@@ -409,15 +409,15 @@ mod tests {
         let huffman = compress(&[3; 20], CompressionType::None).unwrap();
         let mut versioned = huffman.clone();
         versioned.extend_from_slice(&[0, 7]);
-        let binary = ReferenceTable {
+        let binary = Js5Index {
             archive_id: BINARY,
             format: 5,
-            version: 0,
+            index_version: 0,
             named: true,
-            whirlpooled: false,
+            has_group_whirlpools: false,
             groups: vec![GroupInfo {
                 id: 4,
-                name_hash: java_string_hash("huffman"),
+                name_hash: hash32("huffman"),
                 crc: 0,
                 whirlpool: None,
                 version: 7,

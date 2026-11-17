@@ -10,30 +10,30 @@ pub mod markup;
 #[derive(Debug)]
 #[repr(u8)]
 pub enum LoginResponse {
-    SuccessNormal = 2,
-    InvalidCredentials = 3,
-    AccountDisabled = 4,
-    AlreadyLoggedIn = 5,
-    RuneScapeUpdated = 6,
-    WorldFull = 7,
+    LoginOk = 2,
+    BadCredentials = 3,
+    Banned = 4,
+    Duplicate = 5,
+    OutOfDateClientVersion = 6,
+    ServerFull = 7,
     LoginServerOffline = 8,
-    TooManyConnections = 9,
+    IpLimit = 9,
     BadSession = 10,
     Rejected = 11,
-    MembersOnly = 12,
-    CouldNotComplete = 13,
-    ServerUpdating = 14,
-    Reconnect = 15,
+    NeedMembers = 12,
+    BadSave = 13,
+    UpdateInProgress = 14,
+    ReconnectOk = 15,
     TooManyAttempts = 16,
-    MembersArea = 17,
+    MoveToFree = 17,
     #[cfg(before_254)]
     SuccessModerator = 18,
     #[cfg(all(since_244, before_254))]
     SuccessJagexModerator = 19,
     #[cfg(since_244)]
-    InvalidLoginServer = 20,
+    LoginMismatch = 20,
     #[cfg(since_254)]
-    ProfileTransfer = 21,
+    HopBlocked = 21,
     #[cfg(since_647)]
     MovingTooFast = 22,
     #[cfg(since_530)]

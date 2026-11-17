@@ -31,7 +31,7 @@ while ($int5 < 78) {
     $obj11 = enum(int, obj, enum_1188, $int6);
     if ($obj11 = lore_pouch_spell_grey) {
         ~lore_interface_inv_draw_slot($obj11, $obj11, $component0, $int5, $string0, $string1, $string2, $string3, $string4, "");
-    } else if (~lore_magic_pouch_checker($obj11, $obj10) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj10)) {
+    } else if (~lore_magic_pouch_checker($obj11, $obj10) = 1 & stat_base(animallore) >= enum(obj, int, enum_1185, $obj10)) {
         ~lore_interface_inv_draw_slot($obj11, $obj11, $component0, $int5, $string0, $string1, $string2, $string3, $string4, "");
     } else {
         ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int6), $obj11, $component0, $int5, $string0, $string1, $string2, $string3, $string4, "");
@@ -58,7 +58,7 @@ while ($int7 < 78) {
     cc_settext(enum(obj, string, enum_1187, $obj11));
     cc_settextfont(496);
     cc_setsize(90, 50, 0, 0);
-    if (~lore_magic_pouch_checker($obj11, $obj10) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj10)) {
+    if (~lore_magic_pouch_checker($obj11, $obj10) = 1 & stat_base(animallore) >= enum(obj, int, enum_1185, $obj10)) {
         cc_setcolour(0xffff64);
     } else {
         cc_setcolour(0x111111);

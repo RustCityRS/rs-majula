@@ -6,12 +6,12 @@ use crate::pack::util::{parse_number, parse_ref};
 use anyhow::{Result, bail, ensure};
 use std::collections::HashMap;
 
-pub fn pack_varbits(
+pub fn pack_varpbits(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
-    let pack = &registry.varbit;
+    let pack = &registry.varpbit;
 
     let configs = parse_config_sections_cached(file_cache, "varpbit", constants)?;
 

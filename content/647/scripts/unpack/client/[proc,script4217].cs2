@@ -94,11 +94,11 @@ $int0 = calc($int0 + stat_visible_xp(hunter));
 if ($int0 > 1000000000) {
     $int1, $int0 = calc($int1 + 1), calc($int0 - 1000000000);
 }
-$int0 = calc($int0 + stat_visible_xp(summoning));
+$int0 = calc($int0 + stat_visible_xp(animallore));
 if ($int0 > 1000000000) {
     $int1, $int0 = calc($int1 + 1), calc($int0 - 1000000000);
 }
-$int0 = calc($int0 + stat_visible_xp(dungeoneering));
+$int0 = calc($int0 + stat_visible_xp(rand));
 if ($int0 > 1000000000) {
     $int1, $int0 = calc($int1 + 1), calc($int0 - 1000000000);
 }

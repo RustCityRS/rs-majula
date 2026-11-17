@@ -90,7 +90,7 @@ fn texts(packets: &[(u16, Vec<u8>)], iface: u16) -> Vec<(u16, String)> {
 }
 
 /// Each IF_SETPOSITION: `p4_alt3(com) p2_alt3(x) p2_alt3(y)` (the client
-/// takes the second as x and the third as y: VarbitType, state change 11).
+/// takes the second as x and the third as y: VarpBitType, state change 11).
 fn positions(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i16, i16)> {
     server::positions(packets)
 }

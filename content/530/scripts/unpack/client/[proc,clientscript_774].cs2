@@ -6,5 +6,5 @@ if (if_gettargetmask($component0) ! 0) {
     if_setontargetleave($component0, "magic_leavetargetmode($component0)");
 }
 if_setoninvtransmit($component0, "clientscript_718($component0, $component1, $component2, $graphic3, $graphic4, $int5, $string0, $string1, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13){inv}");
-if_setonstattransmit($component0, "clientscript_718($component0, $component1, $component2, $graphic3, $graphic4, $int5, $string0, $string1, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13){summoning}");
+if_setonstattransmit($component0, "clientscript_718($component0, $component1, $component2, $graphic3, $graphic4, $int5, $string0, $string1, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13){animallore}");
 if_setonvartransmit($component0, "clientscript_718($component0, $component1, $component2, $graphic3, $graphic4, $int5, $string0, $string1, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13){lore_npc_stats, follower_obj}");

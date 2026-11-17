@@ -38,7 +38,7 @@ impl ClientProtMessage for OpHeld5 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let obj = TypeId::from_g2(buf.g2_alt2());
         let slot = buf.g2_alt2();
-        let com = buf.g4s_alt3();
+        let com = buf.g4_alt3();
         OpHeld5 { obj, slot, com }
     }
 }

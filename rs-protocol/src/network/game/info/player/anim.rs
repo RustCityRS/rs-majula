@@ -40,7 +40,7 @@ impl InfoMessage for PlayerInfoAnim {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
         let seq = self.seq.int();
         for _ in 0..4 {
-            buf.psmart2or4null(seq);
+            buf.psmartint2(seq);
         }
         buf.p1(self.delay);
     }

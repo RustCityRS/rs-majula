@@ -40,6 +40,8 @@ pub mod client_detailoptions_status;
 pub mod close_modal;
 #[cfg(since_647)]
 pub mod create_check_name;
+#[cfg(since_530)]
+pub mod detect_modified_client;
 #[cfg(since_254)]
 pub mod event_applet_focus;
 #[cfg(any(rev = "225", since_254))]
@@ -97,8 +99,6 @@ pub mod inv_button5;
 pub mod inv_buttond;
 #[cfg(since_254)]
 pub mod map_build_complete;
-#[cfg(since_530)]
-pub mod map_build_loading;
 pub mod message_private;
 pub mod message_public;
 #[cfg(since_530)]

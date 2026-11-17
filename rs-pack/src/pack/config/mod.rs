@@ -19,7 +19,7 @@ use anyhow::{Context, Result};
 #[cfg(since_530)]
 use rayon::prelude::*;
 #[cfg(since_530)]
-use rs_io::js5::{encode_group_entries, reference::FileInfo};
+use rs_io::js5::{encode_group_entries, index::FileInfo};
 #[cfg(since_530)]
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 #[cfg(since_530)]
@@ -77,8 +77,6 @@ pub mod seq;
 pub mod skybox;
 pub mod spotanim;
 pub mod r#struct;
-#[cfg(since_254)]
-pub mod varbit;
 #[cfg(since_530)]
 pub mod varc;
 #[cfg(since_647)]
@@ -90,6 +88,8 @@ pub mod varconbit;
 #[cfg(since_530)]
 pub mod varobj;
 pub mod varp;
+#[cfg(since_254)]
+pub mod varpbit;
 pub mod vars;
 
 #[cfg(since_530)]
@@ -191,7 +191,7 @@ pub fn pack_archives(
         (archive::CONFIG_OBJ, "obj", 256),
         (archive::CONFIG_SEQ, "seq", 128),
         (archive::CONFIG_SPOTANIM, "spotanim", 256),
-        (archive::CONFIG_VARBIT, "varpbit", 1024),
+        (archive::CONFIG_VARPBIT, "varpbit", 1024),
     ] {
         let entries = read_config_entries(config, name)?;
         if entries.is_empty() {

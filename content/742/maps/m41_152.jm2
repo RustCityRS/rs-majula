@@ -4933,11 +4933,11 @@ fog_color=1774861
 fog_depth=1016
 
 ==== LIGHTS ====
-0 2363 5051 200: radius=1 colors=3,3,0 hsl=7705 type=7
-0 1979 5068 200: radius=1 colors=258,258,0 hsl=7705 type=7
-0 3891 4164 200: radius=1 colors=0,2,2 hsl=7705 type=7
-0 2372 4164 200: radius=1 colors=0,3,3 hsl=7705 type=7
-0 1988 4189 200: radius=1 colors=0,258,258 hsl=7705 type=7
+0 2363 5051 200: radius=1 radiusgrid=3,3,0 hsl=7705 type=7
+0 1979 5068 200: radius=1 radiusgrid=258,258,0 hsl=7705 type=7
+0 3891 4164 200: radius=1 radiusgrid=0,2,2 hsl=7705 type=7
+0 2372 4164 200: radius=1 radiusgrid=0,3,3 hsl=7705 type=7
+0 1988 4189 200: radius=1 radiusgrid=0,258,258 hsl=7705 type=7
 
 ==== ENVPARAMS ====
 32 8 32

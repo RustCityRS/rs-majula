@@ -43,16 +43,16 @@ impl ReflectionCheckReply {
         let mut buf = Packet::from(self.bytes.clone());
         let mut results = Vec::with_capacity(checks);
         for _ in 0..checks {
-            if buf.remaining() < 1 {
+            if buf.get_space() < 1 {
                 return None;
             }
             results.push(match buf.g1s() {
-                0 if buf.remaining() >= 4 => ReflectionResult::Value(buf.g4s()),
+                0 if buf.get_space() >= 4 => ReflectionResult::Value(buf.g4s()),
                 code @ (-6..=-1 | -21..=-10) => ReflectionResult::Error(code),
                 _ => return None,
             });
         }
-        (buf.remaining() == 0).then_some(results)
+        (buf.get_space() == 0).then_some(results)
     }
 }
 

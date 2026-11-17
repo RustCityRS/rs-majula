@@ -55,7 +55,7 @@ impl ClientProtMessage for OpLocT {
         let z = buf.g2_alt3();
         let x = buf.g2_alt2();
         let slot = buf.g2_alt3();
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         let loc = TypeId::from_g2(buf.g2_alt2());
         OpLocT {
             loc,
@@ -86,7 +86,7 @@ impl ClientProtMessage for OpLocT {
         let obj = TypeId::from_g2(buf.g2_alt2());
         let slot = buf.g2_alt2();
         let z = buf.g2();
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         let x = buf.g2_alt2();
         let ctrl = buf.g1_alt1() != 0;
         let loc = TypeId::from_g2(buf.g2_alt1());
@@ -120,7 +120,7 @@ impl ClientProtEncode for OpLocT {
 #[cfg(since_742)]
 impl ClientProtMessage for OpLocT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         let ctrl = buf.g1() != 0;
         let x = buf.g2_alt2();
         let z = buf.g2_alt2();

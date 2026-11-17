@@ -129,7 +129,7 @@ impl ClientGameHandler for MoveOpClick {
 ///
 /// **Called by:** `MoveGameClick::handle`, `MoveMinimapClick::handle`, `MoveOpClick::handle`
 /// **Calls:** `ActivePlayer::clear_pending_action`, `ActivePlayer::process_walktrigger`,
-/// `rsmod::find_path` (server-side)
+/// `rsmod::find_route` (server-side)
 fn handle(
     path: Vec<u32>,
     ctrl: bool,

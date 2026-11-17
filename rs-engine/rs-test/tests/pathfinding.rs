@@ -21,7 +21,7 @@ fn route(engine: &Engine, pid: u16) -> Vec<u32> {
 }
 
 fn expected(x: u16, z: u16) -> Vec<u32> {
-    rsmod::find_path(
+    rsmod::find_route(
         0,
         3222,
         3218,
