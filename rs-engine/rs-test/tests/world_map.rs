@@ -55,7 +55,7 @@ fn key_list() -> i32 {
     com("worldmap:com_49")
 }
 
-/// The key's order (varbit 5367, bits 0-1) and options (6174-6177, bits 2-5).
+/// The key's order (varpbit 5367, bits 0-1) and options (6174-6177, bits 2-5).
 const KEY_VARP: u16 = 463;
 /// worldmap:arrow_waypoint, the marker on the map ("Clear marker", op10).
 fn waypoint() -> i32 {
@@ -364,7 +364,7 @@ fn opening_allows_the_key_options() {
 }
 
 /// "Re-sort key" steps Traditional (0), Alphabetical (1), Categorised (2) and
-/// back (clientscripts 692 worldmap_keysort_button, 1839), in varbit 5367.
+/// back (clientscripts 692 worldmap_keysort_button, 1839), in varpbit 5367.
 #[test]
 fn resort_steps_traditional_alphabetical_categorised() {
     runner::on_loaded_engine(|engine| {
@@ -380,7 +380,7 @@ fn resort_steps_traditional_alphabetical_categorised() {
 }
 
 /// script285 lays each option line out as two clickable children: "You are
-/// here" 0 and 1 (varbit 6174, bit 2), intra-map links 3 and 4 (6175, bit 3),
+/// here" 0 and 1 (varpbit 6174, bit 2), intra-map links 3 and 4 (6175, bit 3),
 /// map labels 11 and 12 (6176, bit 4), icon tooltips 14 and 16 (6177, bit 5).
 /// The client relabels the line; the server flips the bit.
 #[test]

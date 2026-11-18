@@ -10262,20 +10262,20 @@ fog_depth=1374
 env_map=texture_682,texture_683,texture_684,texture_685,texture_686,texture_687
 
 ==== LIGHTS ====
-24 3771 6843 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=95 ref=light_9
-24 4411 6843 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=255 ref=light_9
-24 4027 5307 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=31 ref=light_9
-24 5051 5051 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=191 ref=light_9
-24 5691 6075 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=95 ref=light_9
-24 6715 5307 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=31 ref=light_9
-24 6459 4539 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=31 ref=light_9
-24 5819 4539 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=255 ref=light_9
-24 5051 3899 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=63 ref=light_9
-24 6203 3131 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=127 ref=light_9
-24 4155 3643 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=159 ref=light_9
-24 4155 3003 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=191 ref=light_9
-24 4667 2491 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=223 ref=light_9
-24 5691 1851 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=127 ref=light_9
+24 3771 6843 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=95 lighttype=light_9
+24 4411 6843 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=255 lighttype=light_9
+24 4027 5307 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=31 lighttype=light_9
+24 5051 5051 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=191 lighttype=light_9
+24 5691 6075 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=95 lighttype=light_9
+24 6715 5307 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=31 lighttype=light_9
+24 6459 4539 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=31 lighttype=light_9
+24 5819 4539 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=255 lighttype=light_9
+24 5051 3899 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=63 lighttype=light_9
+24 6203 3131 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=127 lighttype=light_9
+24 4155 3643 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=159 lighttype=light_9
+24 4155 3003 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=191 lighttype=light_9
+24 4667 2491 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=223 lighttype=light_9
+24 5691 1851 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=127 lighttype=light_9
 
 ==== ENVPARAMS ====
 32 8 32

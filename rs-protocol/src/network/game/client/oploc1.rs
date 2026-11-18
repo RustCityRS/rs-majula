@@ -82,7 +82,7 @@ impl ClientProtMessage for OpLoc1 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let x = buf.g2();
         let z = buf.g2_alt1();
-        let loc = TypeId::from_int(buf.g4s_alt3());
+        let loc = TypeId::from_int(buf.g4_alt3());
         let ctrl = buf.g1_alt3() != 0;
         OpLoc1 { loc, x, z, ctrl }
     }

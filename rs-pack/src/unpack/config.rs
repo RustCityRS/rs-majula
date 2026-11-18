@@ -33,7 +33,7 @@ use crate::cache::inv::InvTypeRaw;
 use crate::cache::light::LightType;
 use crate::cache::loc::LocTypeRaw;
 #[cfg(since_647)]
-use crate::cache::mel::MelType;
+use crate::cache::mel::MapElementType;
 #[cfg(since_530)]
 use crate::cache::msi::MsiType;
 use crate::cache::npc::NpcTypeRaw;
@@ -72,7 +72,7 @@ use rs_io::Packet;
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use rs_ver::TypeId;
 #[cfg(since_530)]
 use runec::symbol::identifier_form;
@@ -135,13 +135,13 @@ pub mod skybox;
 pub mod spotanim;
 #[cfg(since_530)]
 pub mod r#struct;
-#[cfg(since_254)]
-pub mod varbit;
 #[cfg(since_530)]
 mod varc;
 #[cfg(since_647)]
 mod varclansetting;
 pub mod varp;
+#[cfg(since_254)]
+pub mod varpbit;
 
 #[cfg(before_530)]
 type ConfigEntries = Vec<(u32, Vec<(String, String)>)>;
@@ -193,7 +193,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
             props
         }),
         #[cfg(since_254)]
-        ("varpbit", varbit::decode_varbit),
+        ("varpbit", varpbit::decode_varpbit),
         #[cfg(since_530)]
         ("param", |buf, id, hsl, packs| {
             decode_record::<ParamTypeRaw>(buf, id, hsl, packs, param::emit_param_props)
@@ -314,7 +314,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         }),
         #[cfg(since_647)]
         ("mel", |buf, id, hsl, packs| {
-            decode_record::<MelType>(buf, id, hsl, packs, mel::emit_mel_props)
+            decode_record::<MapElementType>(buf, id, hsl, packs, mel::emit_mel_props)
         }),
         #[cfg(since_530)]
         ("msi", |buf, id, hsl, packs| {
@@ -684,16 +684,16 @@ fn multi_lines(
     (code, key): (u8, &str),
     kind: &str,
     has_default: bool,
-    (varbit, varp): (TypeId, TypeId),
+    (varpbit, varp): (TypeId, TypeId),
     ids: &[TypeId],
     packs: &UnpackedPacks,
 ) -> Vec<(u8, String, String)> {
     let mut lines = Vec::new();
-    if !varbit.is_null() {
+    if !varpbit.is_null() {
         lines.push((
             code,
             "multivar".to_owned(),
-            packs.reference("varpbit", varbit),
+            packs.reference("varpbit", varpbit),
         ));
     }
     if !varp.is_null() {
@@ -970,7 +970,7 @@ fn loc_ref(id: TypeId, packs: &UnpackedPacks) -> String {
 
 #[cfg(since_289)]
 #[cfg(before_530)]
-fn varbit_ref(id: TypeId, packs: &UnpackedPacks) -> String {
+fn varpbit_ref(id: TypeId, packs: &UnpackedPacks) -> String {
     entry_name("varpbit", id.raw(), packs)
 }
 
@@ -1020,7 +1020,7 @@ pub fn decode_record<T: CacheType>(
     def.rewind();
     buf.pos = start;
     let mut props = Vec::new();
-    while buf.remaining() > 0 {
+    while buf.get_space() > 0 {
         let code = buf.g1();
         if code == 0 {
             break;
@@ -1042,11 +1042,11 @@ fn decode_entry(
 ) -> Vec<(String, String)> {
     let mut buf = Packet::from(data);
     let props = decoder(&mut buf, id, reverse_hsl, packs);
-    if buf.remaining() > 0 {
+    if buf.get_space() > 0 {
         packs.leftovers.push(RecordLeftover {
             config_type: name,
             id,
-            bytes: buf.remaining() as usize,
+            bytes: buf.get_space() as usize,
         });
     }
     #[cfg(before_530)]
@@ -1110,7 +1110,7 @@ pub(super) fn unpack_config(
     pack_dir: &Path,
     results: &mut Vec<StepResult>,
 ) -> anyhow::Result<()> {
-    let mut store = Js5Store::open(cache_dir)?;
+    let mut store = Js5LocalCache::open(cache_dir)?;
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(pack_dir);
     packs.transmit_varps = varp::transmit_varps(&mut store)?;
@@ -1136,7 +1136,7 @@ pub(super) fn unpack_config(
                 "obj" => (archive::CONFIG_OBJ, 256),
                 "seq" => (archive::CONFIG_SEQ, 128),
                 "spotanim" => (archive::CONFIG_SPOTANIM, 256),
-                "varpbit" => (archive::CONFIG_VARBIT, 1024),
+                "varpbit" => (archive::CONFIG_VARPBIT, 1024),
                 #[cfg(since_647)]
                 "billboard" => (archive::BILLBOARDS, 256),
                 "particleemitter" | "particleeffector" => (archive::PARTICLES, 0),
@@ -1157,7 +1157,7 @@ pub(super) fn unpack_config(
                 };
                 group..group + 1
             } else {
-                0..store.group_count(archive_id).unwrap_or(0)
+                0..store.group_id_limit(archive_id).unwrap_or(0)
             };
             let mut seen = HashSet::new();
             let merged = match name {
@@ -1376,7 +1376,7 @@ mod tests {
 
     #[cfg(all(since_254, before_530))]
     #[test]
-    fn varbit_zero_values_and_legacy_debugname_are_preserved() {
+    fn varpbit_zero_values_and_legacy_debugname_are_preserved() {
         let props = unpack(
             "varpbit",
             vec![1, 0, 0, 0, 0, 10, b'x', STRING_TERMINATOR, 0],

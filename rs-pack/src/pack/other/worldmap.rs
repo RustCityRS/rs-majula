@@ -77,13 +77,14 @@ impl WorldmapBuilder {
         } else {
             0
         };
-        let bridged = |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.unwrap_or(0) & 0x2 != 0;
+        let link_below =
+            |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.unwrap_or(0) & 0x2 != 0;
 
         self.underlay.extend_from_slice(&[mx, mz]);
         self.overlay.extend_from_slice(&[mx, mz]);
         for x in 0..64 {
             for z in 0..64 {
-                let tile = &tiles[tile_index(level as usize + bridged(x, z) as usize, x, z)];
+                let tile = &tiles[tile_index(level as usize + link_below(x, z) as usize, x, z)];
                 self.underlay.push(tile.underlay_id.unwrap_or(0));
                 if let Some(overlay) = tile.overlay_id {
                     self.overlay.push(overlay);
@@ -101,7 +102,7 @@ impl WorldmapBuilder {
         for id in ids {
             for loc in &map.locs[&id] {
                 let (x, z) = (loc.x as usize, loc.z as usize);
-                if loc.y.checked_sub(bridged(x, z) as u8) == Some(level) {
+                if loc.y.checked_sub(link_below(x, z) as u8) == Some(level) {
                     locs.push(SquareLoc {
                         id,
                         x: loc.x,

@@ -9,11 +9,11 @@ use crate::types::{IfButtonType, IfComponentType};
 use anyhow::{Context, Result};
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::js5::split_group_entries;
+use rs_io::js5::unpack_group_data;
 use rs_ver::STRING_TERMINATOR;
 use rs_ver::TypeId;
 #[cfg(since_530)]
-use runec::clientscript::HookValue;
+use runec::clientscript::HookArg;
 #[cfg(since_530)]
 use std::array::from_fn;
 use std::collections::HashMap;
@@ -35,7 +35,7 @@ pub struct IfType {
     pub margin_y: u8,
     pub slot_offsets: Option<Box<[(i16, i16)]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
-    pub action_target: u16,
+    pub target_mask: u16,
     pub x: i16,
     pub y: i16,
     pub scrolls: bool,
@@ -106,7 +106,7 @@ impl From<IfTypeRaw> for IfType {
                     .map(|s| (!s.is_empty()).then(|| s.into_boxed_str()))
                     .collect()
             }),
-            action_target: raw.action_target,
+            target_mask: raw.target_mask,
             x: 0,
             y: 0,
             scrolls: false,
@@ -148,14 +148,14 @@ pub struct IfTypeRaw {
     pub y_mode: i8,
     pub over_layer: Option<u16>,
     #[cfg(since_530)]
-    pub parent_id: Option<u16>,
+    pub layer: Option<u16>,
     #[cfg(since_530)]
     pub flags: u8,
     pub comparators: Vec<(u8, i16)>,
     pub scripts: Vec<Vec<u16>>,
     #[cfg(since_530)]
     pub scroll_width: u16,
-    pub scroll: u16,
+    pub scroll_height: u16,
     pub hide: bool,
     pub children: Vec<(u16, i16, i16)>,
     #[cfg(since_530)]
@@ -181,7 +181,7 @@ pub struct IfTypeRaw {
     pub text: String,
     pub active_text: String,
     #[cfg(since_530)]
-    pub text_style: u8,
+    pub line_spacing: u8,
     #[cfg(since_530)]
     pub text_halign: u8,
     #[cfg(since_530)]
@@ -222,7 +222,7 @@ pub struct IfTypeRaw {
     #[cfg(since_530)]
     pub model_origin_y: i16,
     #[cfg(since_647)]
-    pub sprite_y_offset: i16,
+    pub model_origin_z: i16,
     pub xan: u16,
     pub yan: u16,
     #[cfg(since_530)]
@@ -244,7 +244,7 @@ pub struct IfTypeRaw {
     pub line_rtl: bool,
     pub action_verb: String,
     pub action: String,
-    pub action_target: u16,
+    pub target_mask: u16,
     pub option: String,
     #[cfg(since_530)]
     pub active_properties: u32,
@@ -265,29 +265,29 @@ pub struct IfTypeRaw {
     #[cfg(since_530)]
     pub drag_deadtime: u8,
     #[cfg(since_530)]
-    pub drag_renderbehavior: u8,
+    pub drag_render_behaviour: u8,
     #[cfg(since_530)]
     pub target_verb: String,
     #[cfg(since_530)]
     pub target_object_id: Option<TypeId>,
     #[cfg(since_530)]
-    pub target_enter_cursor: Option<TypeId>,
+    pub valid_target_cursor: Option<TypeId>,
     #[cfg(since_530)]
-    pub target_leave_cursor: Option<TypeId>,
+    pub invalid_target_cursor: Option<TypeId>,
     #[cfg(since_742)]
     pub click_mask: bool,
     #[cfg(since_742)]
-    pub text_flag2: bool,
+    pub font_mono: bool,
     #[cfg(since_742)]
     pub text_max_lines: u8,
     #[cfg(since_742)]
-    pub cursor: Option<TypeId>,
+    pub mouse_over_cursor: Option<TypeId>,
     #[cfg(since_742)]
     pub int_params: Vec<(u32, i32)>,
     #[cfg(since_742)]
     pub string_params: Vec<(u32, String)>,
     #[cfg(since_530)]
-    pub hooks: [Option<Vec<HookValue>>; HOOK_NAMES.len()],
+    pub hooks: [Option<Vec<HookArg>>; HOOK_NAMES.len()],
     #[cfg(since_530)]
     pub transmit_lists: [Option<Vec<i32>>; 5],
 }
@@ -355,7 +355,7 @@ impl IfTypeRaw {
             com.height_mode = buf.g1s();
             com.x_mode = buf.g1s();
             com.y_mode = buf.g1s();
-            com.parent_id = Some(buf.g2()).filter(|&id| id != u16::MAX);
+            com.layer = Some(buf.g2()).filter(|&id| id != u16::MAX);
             com.flags = buf.g1();
             #[cfg(since_742)]
             if com.format_version() >= 0 {
@@ -369,7 +369,7 @@ impl IfTypeRaw {
                 {
                     com.scroll_width = buf.g2();
                 }
-                com.scroll = buf.g2();
+                com.scroll_height = buf.g2();
                 #[cfg(before_530)]
                 {
                     com.hide = buf.g1() != 0;
@@ -405,7 +405,7 @@ impl IfTypeRaw {
                     .collect();
                 com.iop = (0..5).map(|_| buf.gjstr(STRING_TERMINATOR)).collect();
             }
-            IfComponentType::Rect => {
+            IfComponentType::Rectangle => {
                 #[cfg(since_530)]
                 {
                     com.colour = buf.g4s();
@@ -429,7 +429,7 @@ impl IfTypeRaw {
                 }
                 #[cfg(since_742)]
                 if com.format_version() >= 2 {
-                    com.text_flag2 = buf.g1() == 1;
+                    com.font_mono = buf.g1() == 1;
                 }
                 com.text = buf.gjstr(STRING_TERMINATOR);
                 #[cfg(before_530)]
@@ -438,7 +438,7 @@ impl IfTypeRaw {
                 }
                 #[cfg(since_530)]
                 {
-                    com.text_style = buf.g1();
+                    com.line_spacing = buf.g1();
                     com.text_halign = buf.g1();
                     com.text_valign = buf.g1();
                     com.shadowed = buf.g1() == 1;
@@ -453,7 +453,7 @@ impl IfTypeRaw {
                     com.text_max_lines = buf.g1();
                 }
             }
-            IfComponentType::Graphic => {
+            IfComponentType::Sprite => {
                 #[cfg(before_530)]
                 {
                     com.graphic = buf.gjstr(STRING_TERMINATOR);
@@ -517,7 +517,7 @@ impl IfTypeRaw {
                         com.model_origin_x = buf.g2s();
                         com.model_origin_y = buf.g2s();
                         if offset {
-                            com.sprite_y_offset = buf.g2s();
+                            com.model_origin_z = buf.g2s();
                         }
                         com.xan = buf.g2();
                         com.yan = buf.g2();
@@ -566,7 +566,10 @@ impl IfTypeRaw {
         }
         #[cfg(before_530)]
         {
-            if matches!(com.com_type, IfComponentType::Rect | IfComponentType::Text) {
+            if matches!(
+                com.com_type,
+                IfComponentType::Rectangle | IfComponentType::Text
+            ) {
                 com.colour = buf.g4s();
                 com.active_colour = buf.g4s();
                 com.over_colour = buf.g4s();
@@ -578,7 +581,7 @@ impl IfTypeRaw {
             if com.button_type == IfButtonType::Target || com.com_type == IfComponentType::Inv {
                 com.action_verb = buf.gjstr(STRING_TERMINATOR);
                 com.action = buf.gjstr(STRING_TERMINATOR);
-                com.action_target = buf.g2();
+                com.target_mask = buf.g2();
             }
             if matches!(
                 com.button_type,
@@ -621,16 +624,16 @@ impl IfTypeRaw {
             }
             com.drag_deadzone = buf.g1();
             com.drag_deadtime = buf.g1();
-            com.drag_renderbehavior = buf.g1();
+            com.drag_render_behaviour = buf.g1();
             com.target_verb = buf.gjstr(STRING_TERMINATOR);
             if (com.active_properties >> 11) & 0x7f != 0 {
                 com.target_object_id = read_optional_id(buf);
-                com.target_enter_cursor = read_optional_id(buf);
-                com.target_leave_cursor = read_optional_id(buf);
+                com.valid_target_cursor = read_optional_id(buf);
+                com.invalid_target_cursor = read_optional_id(buf);
             }
             #[cfg(since_742)]
             if com.format_version() >= 0 {
-                com.cursor = read_optional_id(buf);
+                com.mouse_over_cursor = read_optional_id(buf);
                 com.int_params = (0..buf.g1())
                     .map(|_| (buf.g3() as u32, buf.g4s()))
                     .collect();
@@ -660,7 +663,7 @@ impl IfTypeRaw {
         self.width = buf.g2();
         self.height = buf.g2();
         self.trans = buf.g1();
-        self.parent_id = Some(buf.g2()).filter(|&id| id != u16::MAX);
+        self.layer = Some(buf.g2()).filter(|&id| id != u16::MAX);
         self.over_layer = Some(buf.g2()).filter(|&id| id != u16::MAX);
         self.comparators = (0..buf.g1()).map(|_| (buf.g1(), buf.g2s())).collect();
         self.scripts = (0..buf.g1())
@@ -668,7 +671,7 @@ impl IfTypeRaw {
             .collect();
         match self.com_type {
             IfComponentType::Layer => {
-                self.scroll = buf.g2();
+                self.scroll_height = buf.g2();
                 self.flags = buf.g1();
             }
             IfComponentType::Unknown1 => self.unknown_1 = (buf.g2(), buf.g1()),
@@ -684,7 +687,7 @@ impl IfTypeRaw {
                     .collect();
                 self.iop = (0..5).map(|_| buf.gjstr(STRING_TERMINATOR)).collect();
             }
-            IfComponentType::Rect => self.fill = buf.g1() == 1,
+            IfComponentType::Rectangle => self.fill = buf.g1() == 1,
             _ => {}
         }
         if matches!(
@@ -693,7 +696,7 @@ impl IfTypeRaw {
         ) {
             self.text_halign = buf.g1();
             self.text_valign = buf.g1();
-            self.text_style = buf.g1();
+            self.line_spacing = buf.g1();
             self.font = read_big_id(buf);
             self.shadowed = buf.g1() == 1;
         }
@@ -703,17 +706,20 @@ impl IfTypeRaw {
         }
         if matches!(
             self.com_type,
-            IfComponentType::Unknown1 | IfComponentType::Rect | IfComponentType::Text
+            IfComponentType::Unknown1 | IfComponentType::Rectangle | IfComponentType::Text
         ) {
             self.colour = buf.g4s();
         }
-        if matches!(self.com_type, IfComponentType::Rect | IfComponentType::Text) {
+        if matches!(
+            self.com_type,
+            IfComponentType::Rectangle | IfComponentType::Text
+        ) {
             self.active_colour = buf.g4s();
             self.over_colour = buf.g4s();
             self.active_over_colour = buf.g4s();
         }
         match self.com_type {
-            IfComponentType::Graphic => {
+            IfComponentType::Sprite => {
                 self.graphic = TypeId::from_int(buf.g4s()).non_null();
                 self.active_graphic = TypeId::from_int(buf.g4s()).non_null();
             }
@@ -742,7 +748,7 @@ impl IfTypeRaw {
         if self.button_type == IfButtonType::Target || self.com_type == IfComponentType::Inv {
             self.action_verb = buf.gjstr(STRING_TERMINATOR);
             self.action = buf.gjstr(STRING_TERMINATOR);
-            self.action_target = buf.g2();
+            self.target_mask = buf.g2();
         }
         if matches!(
             self.button_type,
@@ -921,7 +927,7 @@ pub fn mode_value(modes: &[&str], name: &str) -> Option<u8> {
 }
 
 #[cfg(since_530)]
-fn parse_hook(buf: &mut Packet) -> Option<Vec<HookValue>> {
+fn parse_hook(buf: &mut Packet) -> Option<Vec<HookArg>> {
     let count = buf.g1();
     if count == 0 {
         return None;
@@ -930,9 +936,9 @@ fn parse_hook(buf: &mut Packet) -> Option<Vec<HookValue>> {
     for _ in 0..count {
         let is_str = buf.g1();
         if is_str == 0 {
-            args.push(HookValue::Int(buf.g4s()));
+            args.push(HookArg::Int(buf.g4s()));
         } else {
-            args.push(HookValue::String(buf.gjstr(STRING_TERMINATOR)));
+            args.push(HookArg::String(buf.gjstr(STRING_TERMINATOR)));
         }
     }
     Some(args)
@@ -970,7 +976,7 @@ impl IfTypeProvider {
         let mut placed: Vec<(u16, u16, i16, i16)> = Vec::new();
         let mut scrolling = HashSet::new();
 
-        while buf.remaining() > 0 {
+        while buf.get_space() > 0 {
             let mut id = buf.g2();
             if id == 0xFFFF {
                 root_layer = buf.g2() as i32;
@@ -985,7 +991,7 @@ impl IfTypeProvider {
                 names.insert(name.clone(), id as i32);
             }
 
-            if com.com_type == IfComponentType::Layer && com.scroll > com.height {
+            if com.com_type == IfComponentType::Layer && com.scroll_height > com.height {
                 scrolling.insert(id);
             }
             for &(child, x, y) in &com.children {
@@ -1021,14 +1027,14 @@ impl IfTypeProvider {
     #[cfg(since_530)]
     pub fn from_cache(cache: &PackedCache) -> Result<Self> {
         let table = cache
-            .reference_table(archive::INTERFACES)
+            .index(archive::INTERFACES)
             .context("Missing interfaces archive")?;
         let mut types = HashMap::new();
         for group in &table.groups {
             let data = cache
                 .read_group_raw_decompressed(archive::INTERFACES, group.id)?
                 .with_context(|| format!("Missing interface {}", group.id))?;
-            for entry in split_group_entries(data, &group.files) {
+            for entry in unpack_group_data(data, &group.files) {
                 let mut buf = Packet::from(entry.data().to_vec());
                 let raw = IfTypeRaw::decode(&mut buf, entry.id as u16, group.id as i32);
                 let com = ((group.id as i32) << 16) | entry.id as i32;

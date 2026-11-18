@@ -30,7 +30,7 @@ impl ActivePlayer {
     pub(crate) fn request_path(&mut self, request: PathRequest) {
         if engine().input_paths.current.map(|uid| uid.packed()) != Some(self.player.uid.packed()) {
             self.pending_path = None;
-            self.player.pathing.queue_waypoints(request.find_path());
+            self.player.pathing.queue_waypoints(request.find_route());
             return;
         }
         engine_mut().input_paths.stats.requests += 1;
@@ -61,7 +61,7 @@ impl ActivePlayer {
         let paths = &mut engine_mut().input_paths;
         if paths.pool.is_none() {
             paths.stats.searches += 1;
-            pathing.queue_waypoints(request.find_path());
+            pathing.queue_waypoints(request.find_route());
         } else {
             paths.jobs.push(PathJob::new(request));
             paths.players.push((self.player.uid, pending.revision));

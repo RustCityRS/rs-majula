@@ -15931,14 +15931,14 @@ fog_depth=1105
 env_map=texture_2187,texture_2188,texture_2189,texture_2184,texture_2186,texture_2185
 
 ==== LIGHTS ====
-0 6263 4224 179: radius=1 colors=3,3,3 hsl=900 type=1
-1 7022 7202 194: radius=1 colors=258,258,258 hsl=7442 type=31 ref=light_25
-0 6451 3089 218: radius=1 colors=3,3,3 hsl=5395 type=31 ref=light_25
-0 6707 3097 218: radius=1 colors=3,3,3 hsl=5395 type=31 ref=light_25
-1 4676 7253 194: radius=1 colors=3,3,3 hsl=7442 type=31 ref=light_25
-1 2662 7099 194: radius=1 colors=3,3,3 hsl=7442 type=31 ref=light_25
-1 2662 6860 194: radius=1 colors=3,3,3 hsl=7442 type=31 ref=light_25
-0 1254 6886 255: radius=1 colors=3,3,3 hsl=5406 type=31 ref=light_25
+0 6263 4224 179: radius=1 radiusgrid=3,3,3 hsl=900 type=1
+1 7022 7202 194: radius=1 radiusgrid=258,258,258 hsl=7442 type=31 lighttype=light_25
+0 6451 3089 218: radius=1 radiusgrid=3,3,3 hsl=5395 type=31 lighttype=light_25
+0 6707 3097 218: radius=1 radiusgrid=3,3,3 hsl=5395 type=31 lighttype=light_25
+1 4676 7253 194: radius=1 radiusgrid=3,3,3 hsl=7442 type=31 lighttype=light_25
+1 2662 7099 194: radius=1 radiusgrid=3,3,3 hsl=7442 type=31 lighttype=light_25
+1 2662 6860 194: radius=1 radiusgrid=3,3,3 hsl=7442 type=31 lighttype=light_25
+0 1254 6886 255: radius=1 radiusgrid=3,3,3 hsl=5406 type=31 lighttype=light_25
 
 ==== ENVPARAMS ====
 32 8 32

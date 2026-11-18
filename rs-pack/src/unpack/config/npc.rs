@@ -202,17 +202,17 @@ pub fn emit_npc_props(
         p.push((103, "turnspeed".into(), def.turnspeed.to_string()));
     }
     #[cfg(since_530)]
-    if let Some(transforms) = &def.transforms {
-        let has_default = (opcode == 118) || transforms.last().is_some_and(|id| !id.is_null());
+    if let Some(multinpc) = &def.multinpc {
+        let has_default = (opcode == 118) || multinpc.last().is_some_and(|id| !id.is_null());
         p.extend(super::multi_lines(
             (if has_default { 118 } else { 106 }, "multinpc"),
             "npc",
             has_default,
             (
-                def.transform_varbit.unwrap_or(TypeId::NULL),
+                def.transform_varpbit.unwrap_or(TypeId::NULL),
                 def.transform_varp.unwrap_or(TypeId::NULL),
             ),
-            transforms,
+            multinpc,
             registry,
         ));
     }
@@ -221,7 +221,7 @@ pub fn emit_npc_props(
         p.push((107, "active".into(), "no".into()));
     }
     #[cfg(since_530)]
-    if !def.slowwalk {
+    if !def.walk_smoothing {
         p.push((109, "walksmoothing".into(), "no".into()));
     }
     #[cfg(since_530)]
@@ -269,8 +269,8 @@ pub fn emit_npc_props(
         p.push((122, "unknown122".into(), hitbar_sprite.to_string()));
     }
     #[cfg(since_530)]
-    if let Some(height) = def.height {
-        p.push((123, "overlayheight".into(), height.to_string()));
+    if let Some(overlay_height) = def.overlay_height {
+        p.push((123, "overlayheight".into(), overlay_height.to_string()));
     }
     #[cfg(since_530)]
     if opcode == 125 {
@@ -281,12 +281,12 @@ pub fn emit_npc_props(
         p.push((126, "unknown126".into(), value.to_string()));
     }
     #[cfg(since_530)]
-    if let Some(render_emote) = def.render_emote {
-        p.push((127, "bas".into(), registry.reference("bas", render_emote)));
+    if let Some(bas) = def.bas {
+        p.push((127, "bas".into(), registry.reference("bas", bas)));
     }
     #[cfg(since_530)]
     if opcode == 128 {
-        let mode = match def.op128 {
+        let mode = match def.move_speed {
             0 => "crawl".to_owned(),
             1 => "walk".to_owned(),
             2 => "run".to_owned(),
@@ -301,16 +301,16 @@ pub fn emit_npc_props(
         #[cfg(since_647)]
         let kind = if def.vorbis { "vorbis" } else { "synth" };
         let sounds = [
-            def.idle_sound,
-            def.crawl_sound,
-            def.walk_sound,
-            def.run_sound,
+            def.background_sound_ready,
+            def.background_sound_crawl,
+            def.background_sound_walk,
+            def.background_sound_run,
         ]
         .map(|sound| registry.reference(kind, sound.unwrap_or(TypeId::NULL)));
         p.push((
             134,
             "bgsound".into(),
-            format!("{},{}", sounds.join(","), def.sound_distance),
+            format!("{},{}", sounds.join(","), def.background_sound_range),
         ));
     }
     #[cfg(all(since_530, before_742))]
@@ -334,11 +334,11 @@ pub fn emit_npc_props(
         p.push((137, "cursorattack".into(), registry.cursor(attack_cursor)));
     }
     #[cfg(since_647)]
-    if let Some(army_icon) = def.army_icon {
+    if let Some(icon) = def.icon {
         p.push((
             138,
             "covermarker".into(),
-            registry.reference("sprites", army_icon),
+            registry.reference("sprites", icon),
         ));
     }
     #[cfg(since_647)]
@@ -350,23 +350,23 @@ pub fn emit_npc_props(
         p.push((
             140,
             "bgsoundvolume".into(),
-            def.ambient_sound_volume.to_string(),
+            def.background_sound_volume.to_string(),
         ));
     }
     #[cfg(since_647)]
-    if def.visible_priority {
+    if def.familiar {
         p.push((141, "familiar".into(), "yes".into()));
     }
     #[cfg(since_647)]
-    if let Some(mapfunction) = def.mapfunction {
+    if let Some(map_element) = def.map_element {
         p.push((
             142,
             "mapelement".into(),
-            registry.reference("mel", mapfunction),
+            registry.reference("mel", map_element),
         ));
     }
     #[cfg(since_647)]
-    if def.invisible_priority {
+    if def.always_on_bottom {
         p.push((143, "alwaysonbottom".into(), "yes".into()));
     }
     #[cfg(since_647)]
@@ -391,7 +391,7 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    if let Some(index) = def.main_option_index {
+    if let Some(index) = def.reprioritise_attack_op {
         let (op, value) = if index == 1 {
             (158, "yes")
         } else {
@@ -400,23 +400,26 @@ pub fn emit_npc_props(
         p.push((op, "reprioritiseattackop".into(), value.into()));
     }
     #[cfg(since_647)]
-    if let Some(campaigns) = &def.campaigns {
-        let quests: Vec<_> = campaigns
+    if let Some(quests) = &def.quests {
+        let quests: Vec<_> = quests
             .iter()
             .map(|&quest| registry.reference("quest", TypeId::from_g2(quest as u16)))
             .collect();
         p.push((160, "quest".into(), quests.join(",")));
     }
     #[cfg(since_647)]
-    if let Some(slayer_type) = def.slayer_type {
-        p.push((163, "roughbounding".into(), slayer_type.to_string()));
+    if let Some(rough_bounding) = def.rough_bounding {
+        p.push((163, "roughbounding".into(), rough_bounding.to_string()));
     }
     #[cfg(since_647)]
     if opcode == 164 {
         p.push((
             164,
             "bgsoundrate".into(),
-            format!("{},{}", def.sound_rate_min, def.sound_rate_max),
+            format!(
+                "{},{}",
+                def.background_sound_rate_min, def.background_sound_rate_max
+            ),
         ));
     }
     #[cfg(since_647)]
@@ -428,7 +431,7 @@ pub fn emit_npc_props(
         p.push((
             168,
             "bgsounddropoffrange".into(),
-            def.sound_range_min.to_string(),
+            def.background_sound_dropoff_range.to_string(),
         ));
     }
     #[cfg(since_742)]

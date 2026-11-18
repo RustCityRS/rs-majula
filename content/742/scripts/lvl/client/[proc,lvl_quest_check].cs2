@@ -1147,7 +1147,7 @@ switch_int ($int1) {
         if ($stat0 = prayer & stat_base($stat0) = 35) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 19) {
+        if ($stat0 = animallore & stat_base($stat0) = 19) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%sum1_quest = 80) {
@@ -1173,7 +1173,7 @@ switch_int ($int1) {
         if ($stat0 = prayer & stat_base($stat0) = 55) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 23) {
+        if ($stat0 = animallore & stat_base($stat0) = 23) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 37) {
@@ -1217,7 +1217,7 @@ switch_int ($int1) {
         if ($stat0 = farming & stat_base($stat0) = 65) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 23) {
+        if ($stat0 = animallore & stat_base($stat0) = 23) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (~script395 = 1 & ($stat0 = strength | $stat0 = attack)) {
@@ -1317,7 +1317,7 @@ switch_int ($int1) {
             $int4 = 0;
         }
     case 105 :
-        if ($stat0 = summoning & stat_base($stat0) = 41) {
+        if ($stat0 = animallore & stat_base($stat0) = 41) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 64) {
@@ -1456,7 +1456,7 @@ switch_int ($int1) {
         if ($stat0 = magic & stat_base($stat0) = 59) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 37) {
+        if ($stat0 = animallore & stat_base($stat0) = 37) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 36) {
@@ -1514,7 +1514,7 @@ switch_int ($int1) {
         if ($stat0 = mining & stat_base($stat0) = 47) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 48) {
+        if ($stat0 = animallore & stat_base($stat0) = 48) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 54) {
@@ -1548,7 +1548,7 @@ switch_int ($int1) {
         if ($stat0 = strength & stat_base($stat0) = 78) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 55) {
+        if ($stat0 = animallore & stat_base($stat0) = 55) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = defence & stat_base($stat0) = 10) {
@@ -1609,13 +1609,13 @@ switch_int ($int1) {
         if ($stat0 = construction & stat_base($stat0) = 62) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = dungeoneering & stat_base($stat0) = 50) {
+        if ($stat0 = rand & stat_base($stat0) = 50) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 61) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 65) {
+        if ($stat0 = animallore & stat_base($stat0) = 65) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 74) {
@@ -1653,10 +1653,10 @@ switch_int ($int1) {
         if ($stat0 = herblore & stat_base($stat0) = 47) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 45) {
+        if ($stat0 = animallore & stat_base($stat0) = 45) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = dungeoneering & stat_base($stat0) = 35) {
+        if ($stat0 = rand & stat_base($stat0) = 35) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%varplayerbit_9491 = 250) {

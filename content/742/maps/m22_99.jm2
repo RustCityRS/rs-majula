@@ -12300,16 +12300,16 @@ fog_depth=1200
 env_map=texture_2179,texture_2183,texture_2181,texture_2178,texture_2180,texture_2182
 
 ==== LIGHTS ====
-25 4292 4019 250: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=31664 type=31 ref=light_6
-25 7108 4044 200: radius=3 colors=7,7,7,7,7,7,7 hsl=31628 type=95 ref=light_6
-25 6212 6860 200: radius=3 colors=7,7,7,7,7,7,7 hsl=31628 type=255 ref=light_6
-25 3140 2764 300: radius=3 colors=7,7,7,7,7,7,7 hsl=31664 type=255 ref=light_6
-25 5444 2764 300: radius=3 colors=7,7,7,7,7,7,7 hsl=31664 type=191 ref=light_6
-25 2244 6852 200: radius=3 colors=7,7,7,7,7,7,7 hsl=31628 type=31 ref=light_6
-25 1339 4044 200: radius=3 colors=7,7,7,7,7,7,7 hsl=31628 type=95 ref=light_6
-25 4292 2764 300: radius=3 colors=7,7,7,7,7,7,7 hsl=31664 type=223 ref=light_6
-25 2235 1365 200: radius=3 colors=7,7,7,7,7,7,7 hsl=31628 type=223 ref=light_6
-25 6203 1356 200: radius=3 colors=7,7,7,7,7,7,7 hsl=31628 type=95 ref=light_6
+25 4292 4019 250: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=31664 type=31 lighttype=light_6
+25 7108 4044 200: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31628 type=95 lighttype=light_6
+25 6212 6860 200: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31628 type=255 lighttype=light_6
+25 3140 2764 300: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31664 type=255 lighttype=light_6
+25 5444 2764 300: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31664 type=191 lighttype=light_6
+25 2244 6852 200: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31628 type=31 lighttype=light_6
+25 1339 4044 200: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31628 type=95 lighttype=light_6
+25 4292 2764 300: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31664 type=223 lighttype=light_6
+25 2235 1365 200: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31628 type=223 lighttype=light_6
+25 6203 1356 200: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=31628 type=95 lighttype=light_6
 
 ==== ENVPARAMS ====
 54 41 18

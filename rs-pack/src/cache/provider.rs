@@ -9,7 +9,7 @@ pub trait CacheType: Sized {
 
     fn new(id: TypeId) -> Self;
     fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
+        while buf.get_space() > 0 {
             let code = buf.g1();
             if code == 0 {
                 break;

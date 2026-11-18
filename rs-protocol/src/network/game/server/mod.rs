@@ -203,10 +203,6 @@ pub mod update_zone_partial_follows;
 #[cfg(since_530)]
 pub mod url_open;
 #[cfg(since_530)]
-pub mod varbit_large;
-#[cfg(since_530)]
-pub mod varbit_small;
-#[cfg(since_530)]
 pub mod varc_large;
 #[cfg(since_530)]
 pub mod varc_small;
@@ -218,6 +214,10 @@ pub mod varp_large;
 pub mod varp_small;
 #[cfg(before_647)]
 pub mod varp_sync;
+#[cfg(since_530)]
+pub mod varpbit_large;
+#[cfg(since_530)]
+pub mod varpbit_small;
 #[cfg(since_647)]
 pub mod vorbis_sound;
 #[cfg(since_647)]

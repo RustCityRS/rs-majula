@@ -10,7 +10,7 @@ if (%varplayerbit_10443 = 1) {
 def_int $int2 = 0;
 if ($boolean0 = false) {
     ~clientscript_5659;
-    if (stat_base(attack) > 0 & stat_base(strength) > 0 & stat_base(defence) > 0 & stat_base(ranged) > 0 & stat_base(magic) > 0 & stat_base(hitpoints) > 0 & stat_base(prayer) > 0 & stat_base(runecraft) > 0 & stat_base(crafting) > 0 & stat_base(mining) > 0 & stat_base(smithing) > 0 & stat_base(fishing) > 0 & stat_base(cooking) > 0 & stat_base(firemaking) > 0 & stat_base(woodcutting) > 0 & stat_base(agility) > 0 & stat_base(herblore) > 0 & stat_base(thieving) > 0 & stat_base(fletching) > 0 & stat_base(slayer) > 0 & stat_base(farming) > 0 & stat_base(construction) > 0 & stat_base(hunter) > 0 & stat_base(summoning) > 0 & stat_base(dungeoneering) > 0) {
+    if (stat_base(attack) > 0 & stat_base(strength) > 0 & stat_base(defence) > 0 & stat_base(ranged) > 0 & stat_base(magic) > 0 & stat_base(hitpoints) > 0 & stat_base(prayer) > 0 & stat_base(runecraft) > 0 & stat_base(crafting) > 0 & stat_base(mining) > 0 & stat_base(smithing) > 0 & stat_base(fishing) > 0 & stat_base(cooking) > 0 & stat_base(firemaking) > 0 & stat_base(woodcutting) > 0 & stat_base(agility) > 0 & stat_base(herblore) > 0 & stat_base(thieving) > 0 & stat_base(fletching) > 0 & stat_base(slayer) > 0 & stat_base(farming) > 0 & stat_base(construction) > 0 & stat_base(hunter) > 0 & stat_base(animallore) > 0 & stat_base(rand) > 0) {
         if_setonstattransmit(interface_1213:com_3, "clientscript_5661(true)");
     }
     return;
@@ -108,11 +108,11 @@ def_int $int26 = calc(stat_visible_xp(hunter) - %xpdisplay_hunter);
 if ($int26 ! 0) {
     $int3 = calc($int3 + 1);
 }
-def_int $int27 = calc(stat_visible_xp(summoning) - %xpdisplay_summoning);
+def_int $int27 = calc(stat_visible_xp(animallore) - %xpdisplay_summoning);
 if ($int27 ! 0) {
     $int3 = calc($int3 + 1);
 }
-def_int $int28 = calc(stat_visible_xp(dungeoneering) - %xpdisplay_dungeoneering);
+def_int $int28 = calc(stat_visible_xp(rand) - %xpdisplay_dungeoneering);
 if ($int28 ! 0) {
     $int3 = calc($int3 + 1);
 }
@@ -453,7 +453,7 @@ while ($int36 < $int3) {
     }
     $stat34 = enum(int, stat, enum_681, $int33);
     if ($stat34 ! null) {
-        if ($stat34 = dungeoneering & stat_base($stat34) < 120) {
+        if ($stat34 = rand & stat_base($stat34) < 120) {
             $int46 = 1;
         } else if (stat_base($stat34) < 99) {
             $int46 = 1;

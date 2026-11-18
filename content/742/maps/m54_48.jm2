@@ -4537,9 +4537,9 @@ fog_depth=853
 env_map=texture_682,texture_683,texture_684,texture_685,texture_686,texture_687
 
 ==== LIGHTS ====
-0 5060 2380 210: radius=1 colors=3,3,3 hsl=8857 type=7
-0 4804 2628 210: radius=1 colors=3,3,3 hsl=8857 type=39
-0 4795 2107 215: radius=1 colors=3,3,3 hsl=8857 type=71
+0 5060 2380 210: radius=1 radiusgrid=3,3,3 hsl=8857 type=7
+0 4804 2628 210: radius=1 radiusgrid=3,3,3 hsl=8857 type=39
+0 4795 2107 215: radius=1 radiusgrid=3,3,3 hsl=8857 type=71
 
 ==== ENVPARAMS ====
 38 6 21

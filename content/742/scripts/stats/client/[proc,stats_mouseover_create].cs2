@@ -3,7 +3,7 @@
 def_string $string0 = "";
 def_string $string1 = "";
 def_int $int3 = 2;
-if (stat_base($stat1) < 99 | $stat1 = dungeoneering & stat_base($stat1) < 120) {
+if (stat_base($stat1) < 99 | $stat1 = rand & stat_base($stat1) < 120) {
     $string0 = ~tostring_spacer(enum(int, int, enum_716, calc(stat_base($stat1) + 1)), ",");
     $string1 = ~tostring_spacer(calc(enum(int, int, enum_716, calc(stat_base($stat1) + 1)) - stat_visible_xp($stat1)), ",");
     $int3 = 4;
@@ -41,7 +41,7 @@ def_int $int13 = calc($int11 + 10 + $int12);
 def_int $int14 = 0;
 def_int $int15 = 0;
 $int10 = max($int10, $int13);
-if (stat_base($stat1) < 99 | $stat1 = dungeoneering & stat_base($stat1) < 120) {
+if (stat_base($stat1) < 99 | $stat1 = rand & stat_base($stat1) < 120) {
     $int11 = parawidth("Next level:", 190, p12_full);
     $int12 = parawidth($string0, 190, p12_full);
     $int13 = calc($int11 + 3 + $int12);
@@ -49,7 +49,7 @@ if (stat_base($stat1) < 99 | $stat1 = dungeoneering & stat_base($stat1) < 120) {
     $int13 = 0;
 }
 $int10 = max($int10, $int13);
-if (stat_base($stat1) < 99 | $stat1 = dungeoneering & stat_base($stat1) < 120) {
+if (stat_base($stat1) < 99 | $stat1 = rand & stat_base($stat1) < 120) {
     $int11 = parawidth("Remainder:", 190, p12_full);
     $int12 = parawidth($string1, 190, p12_full);
     $int13 = calc($int11 + 3 + $int12);
@@ -172,7 +172,7 @@ $int16 = calc($int16 + 1);
 $int17 = calc($int17 + 14);
 def_int $int25 = 0;
 def_int $int26 = 0;
-if (stat_base($stat1) < 99 | $stat1 = dungeoneering & stat_base($stat1) < 120) {
+if (stat_base($stat1) < 99 | $stat1 = rand & stat_base($stat1) < 120) {
     cc_create($component2, ^iftype_text, $int16);
     cc_setposition(calc($int11 + 2), calc($int12 + $int17), ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize($int10, 16, ^setsize_abs, ^setsize_abs);

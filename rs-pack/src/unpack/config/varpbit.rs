@@ -3,14 +3,14 @@ use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
 use std::collections::HashMap;
 
-pub(super) fn decode_varbit(
+pub(super) fn decode_varpbit(
     buf: &mut Packet,
     _: u32,
     _: &HashMap<u16, u16>,
     _packs: &mut UnpackedPacks,
 ) -> Vec<(String, String)> {
     let mut props = Vec::new();
-    while buf.remaining() > 0 {
+    while buf.get_space() > 0 {
         let code = buf.g1();
         if code == 0 {
             break;

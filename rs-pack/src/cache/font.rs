@@ -5,7 +5,7 @@ use crate::cache::js5::PackedCache;
 use crate::types::Font;
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use std::collections::HashMap;
 #[cfg(since_530)]
@@ -297,7 +297,7 @@ impl FontTypeProvider {
             .collect();
         let mut id_index: HashMap<u16, usize> = HashMap::new();
 
-        let Some(ref_table) = cache.reference_table(archive::FONTMETRICS) else {
+        let Some(ref_table) = cache.index(archive::FONTMETRICS) else {
             warn!("No reference table for archive 13 (FONTMETRICS)");
             return FontTypeProvider::from_slots(fonts);
         };
@@ -306,7 +306,7 @@ impl FontTypeProvider {
         // well-known faces resolves to the same FontType the engine uses.
         let mut slot_of_group: HashMap<u32, usize> = HashMap::new();
         for (name, slot) in slot_names {
-            let hash = java_string_hash(name);
+            let hash = hash32(name);
             if let Some(group) = ref_table.groups.iter().find(|g| g.name_hash == hash) {
                 slot_of_group.insert(group.id, slot as usize);
             }

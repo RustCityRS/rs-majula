@@ -29,7 +29,7 @@ pub struct IfButtonT {
 impl ClientProtMessage for IfButtonT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let slot = buf.g2();
-        let com2 = buf.g4s_alt2();
+        let com2 = buf.g4_alt2();
         let com = buf.g4s();
         let slot2 = buf.g2_alt3();
         IfButtonT {
@@ -49,7 +49,7 @@ impl ClientProtMessage for IfButtonT {
         let slot2 = buf.g2_alt1();
         let slot = buf.g2_alt1();
         let obj = TypeId::from_g2(buf.g2_alt2());
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         let obj2 = TypeId::from_g2(buf.g2());
         IfButtonT {
             com,
@@ -63,9 +63,9 @@ impl ClientProtMessage for IfButtonT {
 
     #[cfg(since_742)]
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         let slot2 = buf.g2_alt1();
-        let com2 = buf.g4s_alt1();
+        let com2 = buf.g4_alt1();
         let obj2 = TypeId::from_g2(buf.g2_alt3());
         let slot = buf.g2_alt3();
         let obj = TypeId::from_g2(buf.g2());

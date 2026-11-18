@@ -1,6 +1,6 @@
 // 1636
 [proc,clientscript_1636](stat $stat0)(boolean)
-if ($stat0 = dungeoneering & stat_base($stat0) >= 120 | $stat0 = attack & ~comlevel >= 138 | $stat0 ! dungeoneering & $stat0 ! attack & stat_base($stat0) >= 99) {
+if ($stat0 = rand & stat_base($stat0) >= 120 | $stat0 = attack & ~comlevel >= 138 | $stat0 ! rand & $stat0 ! attack & stat_base($stat0) >= 99) {
     return(true);
 }
 return(false);

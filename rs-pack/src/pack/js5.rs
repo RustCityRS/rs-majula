@@ -1,6 +1,8 @@
 use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
-use crate::pack::incremental::{self, Hash, Key, Stage, dir_key, files_under};
+use crate::pack::incremental::{
+    self, Hash, Key, LOBBY_COMMANDS, Stage, dir_key, files_under, game_files_under,
+};
 use crate::pack::names::{AssetNames, archive_name};
 #[cfg(since_647)]
 use crate::pack::other::wma;
@@ -15,9 +17,9 @@ use anyhow::{Context, ensure};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
-use rs_io::js5::java_string_hash;
-use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable, encode_reference_table};
+use rs_io::js5::index::{FileInfo, GroupInfo, Js5Index, encode_index};
 use rs_io::js5::{compute_group_crc, detect_file_count, encode_group_entries};
+use rs_io::stringtools::hash32;
 use runec::clientscript;
 use runec::sources::roots;
 use std::collections::{HashMap, HashSet, hash_map::Entry};
@@ -57,7 +59,7 @@ pub fn load_name_hashes(pack_dir: &Path, archive_id: u8, group_ids: &[u32]) -> H
             for &gid in group_ids {
                 if let Entry::Vacant(e) = result.entry(gid) {
                     if let Some(name) = pf.get_by_id(gid) {
-                        e.insert(java_string_hash(name));
+                        e.insert(hash32(name));
                     }
                 }
             }
@@ -137,7 +139,9 @@ impl PreparedGroup {
         let format = archive::archive_format(aid).unwrap();
         let version = group_version(versions, aid, &id);
         let (raw, crc) = prepare_group(aid, id, data, version as u16, format.allow_uncompressed)?;
-        let whirlpool = format.whirlpooled.then(|| whirlpool(&raw[..raw.len() - 2]));
+        let whirlpool = format
+            .has_group_whirlpools
+            .then(|| whirlpool(&raw[..raw.len() - 2]));
         Ok(Self {
             id,
             raw,
@@ -196,15 +200,15 @@ pub fn insert_archive(
     group_infos.sort_by_key(|g| g.id);
 
     let table_ver = versions.get(&aid).map(|v| v.table_version).unwrap_or(0);
-    let table = ReferenceTable {
+    let table = Js5Index {
         archive_id: aid,
         format: format.format,
-        version: table_ver,
+        index_version: table_ver,
         named: format.named,
-        whirlpooled: format.whirlpooled,
+        has_group_whirlpools: format.has_group_whirlpools,
         groups: group_infos,
     };
-    let encoded = encode_reference_table(&table);
+    let encoded = encode_index(&table);
     let key = Hash::new("table").int(u64::from(aid)).bytes(&encoded).key();
     let raw = incremental::memo(key, || {
         Ok(compress_best(
@@ -376,10 +380,13 @@ pub fn pack_asset_archives(
                     vec![
                         versions_dep(versions, aid),
                         ("verify".to_owned(), Key::from(verify)),
-                        ("pack".to_owned(), dir_key(private.path(), &[])),
+                        (
+                            "pack".to_owned(),
+                            dir_key(private.path(), &[LOBBY_COMMANDS]),
+                        ),
                     ],
                 );
-                let sources = files_under(&roots(&dir));
+                let sources = game_files_under(&roots(&dir));
                 let mut prepared = stage.unit_groups(&(), 0, &sources, |_| {
                     let compiled = clientscript::compile_directory(&dir, private.path())?;
                     if verify {
@@ -391,7 +398,10 @@ pub fn pack_asset_archives(
                         .collect()
                 })?;
                 private.pin(pack_dir, "clientscript.pack", verify)?;
-                stage.finish(vec![("pack".to_owned(), dir_key(private.path(), &[]))]);
+                stage.finish(vec![(
+                    "pack".to_owned(),
+                    dir_key(private.path(), &[LOBBY_COMMANDS]),
+                )]);
                 let ids: Vec<_> = prepared.iter().map(|group| group.id).collect();
                 let hashes = load_name_hashes(pack_dir, aid, &ids);
                 for group in &mut prepared {

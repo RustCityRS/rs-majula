@@ -12,11 +12,11 @@ use rs_io::crc;
 #[cfg(before_530)]
 use rs_io::jag::JagCompression;
 #[cfg(all(since_244, before_530))]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 #[cfg(since_530)]
 use rs_io::js5::compression::{CompressionType, Container, decompress};
 #[cfg(since_530)]
-use rs_io::js5::reference::{GroupInfo, encode_reference_table};
+use rs_io::js5::index::{GroupInfo, encode_index};
 #[cfg(since_530)]
 use std::collections::HashMap;
 #[cfg(any(rev = "225", since_530))]
@@ -127,7 +127,7 @@ pub(crate) struct JagSource {
     #[cfg(rev = "225")]
     dir: PathBuf,
     #[cfg(since_244)]
-    cache: Js5Store,
+    cache: Js5LocalCache,
 }
 
 #[cfg(before_530)]
@@ -137,7 +137,7 @@ impl JagSource {
             #[cfg(rev = "225")]
             dir: expected_dir.to_path_buf(),
             #[cfg(since_244)]
-            cache: Js5Store::open(expected_dir)?,
+            cache: Js5LocalCache::open(expected_dir)?,
         })
     }
 
@@ -160,7 +160,7 @@ impl JagSource {
     }
 
     #[cfg(since_244)]
-    pub(crate) fn cache(&mut self) -> &mut Js5Store {
+    pub(crate) fn cache(&mut self) -> &mut Js5LocalCache {
         &mut self.cache
     }
 }
@@ -261,7 +261,7 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(0x7d462536_u32 as i32), // [19] config_obj
     Some(0xe84148ba_u32 as i32), // [20] config_seq
     Some(0x4e48b2b9_u32 as i32), // [21] config_spot
-    Some(0xb1fa9938_u32 as i32), // [22] config_varbit
+    Some(0xb1fa9938_u32 as i32), // [22] config_varpbit
     Some(0x1ccb93db_u32 as i32), // [23] worldmap
     Some(0x778bda72_u32 as i32), // [24] quickchat
     Some(0x53cce6cc_u32 as i32), // [25] quickchat_global
@@ -293,7 +293,7 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(0xb1a2e4b3_u32 as i32), // [19] config_obj
     Some(0x77875c75_u32 as i32), // [20] config_seq
     Some(0xa9bd75c4_u32 as i32), // [21] config_spot
-    Some(0x7119beac_u32 as i32), // [22] config_varbit
+    Some(0x7119beac_u32 as i32), // [22] config_varpbit
     Some(0x2bf6b94c_u32 as i32), // [23] worldmap
     Some(0xeee10630_u32 as i32), // [24] quickchat
     Some(0xf9537a6b_u32 as i32), // [25] quickchat_global
@@ -333,7 +333,7 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(0xeefcd4bf_u32 as i32), // [19] config_obj
     Some(0x368548ca_u32 as i32), // [20] config_seq
     Some(0x481c8032_u32 as i32), // [21] config_spot
-    Some(0xe25b5923_u32 as i32), // [22] config_varbit
+    Some(0xe25b5923_u32 as i32), // [22] config_varpbit
     Some(0x078c3c61_u32 as i32), // [23] worldmap
     Some(0x3bf8447e_u32 as i32), // [24] quickchat
     Some(0xae3be86d_u32 as i32), // [25] quickchat_global
@@ -359,7 +359,7 @@ pub const QUICKCHAT_GLOBAL_FIRST: u16 = 0x8000;
 /// `data/pack/client/config/`) to their group IDs within archive 2 (CONFIG).
 ///
 /// Config types in archives 16-22 (loc, npc, obj, seq, enum, spotanim,
-/// varbit) are NOT listed here — they have their own archives with strided
+/// varpbit) are NOT listed here — they have their own archives with strided
 /// grouping.
 #[cfg(since_530)]
 pub const CONFIG_GROUPS: &[(&str, u32)] = &[
@@ -488,7 +488,7 @@ pub struct ArchiveFormat {
     pub id: u8,
     pub format: u8,
     pub named: bool,
-    pub whirlpooled: bool,
+    pub has_group_whirlpools: bool,
     pub allow_uncompressed: bool,
     pub allow_bzip2: bool,
     pub content_dir: &'static str,
@@ -514,7 +514,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: ANIMS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "animations",
@@ -523,7 +523,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: BASES,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "skeletons",
@@ -532,7 +532,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "config",
@@ -541,7 +541,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: INTERFACES,
         format: REF_FORMAT,
         named: cfg!(before_742),
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "interfaces",
@@ -550,7 +550,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: SYNTH,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: false,
         content_dir: "synth",
@@ -559,7 +559,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: MAPS,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "maps",
@@ -568,7 +568,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: SONGS,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "songs",
@@ -577,7 +577,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: MODELS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "models",
@@ -586,7 +586,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: SPRITES,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "sprites",
@@ -595,7 +595,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: TEXTURES,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: cfg!(since_742),
         content_dir: "textures",
@@ -604,7 +604,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: BINARY,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "binary",
@@ -613,7 +613,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: JINGLES,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "jingles",
@@ -622,7 +622,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CLIENTSCRIPT,
         format: REF_FORMAT,
         named: cfg!(since_647),
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "scripts",
@@ -631,7 +631,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: FONTMETRICS,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "fontmetrics",
@@ -640,7 +640,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: VORBIS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "vorbis",
@@ -649,7 +649,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: INSTRUMENTS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: cfg!(since_742),
         content_dir: "instruments",
@@ -658,7 +658,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG_LOC,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "config",
@@ -667,7 +667,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG_ENUM,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "config",
@@ -676,7 +676,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG_NPC,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "config",
@@ -685,7 +685,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG_OBJ,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "config",
@@ -694,7 +694,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG_SEQ,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "config",
@@ -703,16 +703,16 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CONFIG_SPOTANIM,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "config",
     },
     ArchiveFormat {
-        id: CONFIG_VARBIT,
+        id: CONFIG_VARPBIT,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "config",
@@ -721,7 +721,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: WORLDMAP,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "worldmap",
@@ -730,7 +730,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: QUICKCHAT,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "quickchat",
@@ -739,7 +739,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: QUICKCHAT_GLOBAL,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "quickchat_global",
@@ -748,7 +748,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: MATERIALS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "materials",
@@ -761,7 +761,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
             REF_FORMAT_LEGACY
         },
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "particles",
@@ -771,7 +771,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: DEFAULTS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "defaults",
@@ -781,7 +781,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: BILLBOARDS,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "billboards",
@@ -791,7 +791,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: DLLS,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: true,
+        has_group_whirlpools: true,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "dlls",
@@ -801,7 +801,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: SHADERS,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: cfg!(since_742),
         content_dir: "shaders",
@@ -811,7 +811,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: LOADING_SPRITES,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "loading_sprites",
@@ -821,7 +821,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: LOADING_SCREENS,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: false,
         content_dir: "loading_backgrounds",
@@ -831,7 +831,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: LOADING_SPRITES_RAW,
         format: REF_FORMAT,
         named: true,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "loading_sprites_raw",
@@ -841,7 +841,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: CUTSCENES,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "cutscenes",
@@ -855,7 +855,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
             REF_FORMAT_LEGACY
         },
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "worldmap_locs",
@@ -865,7 +865,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         id: TEXTURES_HDR,
         format: REF_FORMAT,
         named: false,
-        whirlpooled: false,
+        has_group_whirlpools: false,
         allow_uncompressed: true,
         allow_bzip2: true,
         content_dir: "textures_hdr",
@@ -929,7 +929,7 @@ pub fn versions_filename(id: u8) -> Option<&'static str> {
         CONFIG_OBJ => Some("config_obj"),
         CONFIG_SEQ => Some("config_seq"),
         CONFIG_SPOTANIM => Some("config_spotanim"),
-        CONFIG_VARBIT => Some("config_varbit"),
+        CONFIG_VARPBIT => Some("config_varpbit"),
         _ => archive_format(id).map(|format| format.content_dir),
     }
 }
@@ -1100,7 +1100,7 @@ pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
             let table = store.tables.get(&aid)
                 .with_context(|| format!("CRC gate: archive {aid}: missing reference table"))?;
             ensure!(
-                encode_reference_table(table) == decompress(raw)?.as_ref(),
+                encode_index(table) == decompress(raw)?.as_ref(),
                 "CRC gate: archive {aid}: reference metadata differs from its container"
             );
             table.groups.par_iter().try_for_each(|group| -> Result<()> {
@@ -1162,7 +1162,7 @@ pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
 #[cfg(all(test, since_530))]
 mod tests {
     use super::{group_version_line, parse_group_version};
-    use rs_io::js5::reference::{FileInfo, GroupInfo};
+    use rs_io::js5::index::{FileInfo, GroupInfo};
 
     #[test]
     fn absent_group_lines_keep_their_crc_and_name_hash() {

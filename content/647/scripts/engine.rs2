@@ -9,7 +9,6 @@
 [command,map_clock]()(int)
 // info: Returns true if the world is configured as a members world
 [command,map_members]()(int)
-[command,map_lobby]()(boolean)
 // info: Get the number of players in a given area
 [command,map_playercount](coord $coord1, coord $coord2)(int)
 // info: Search (hunt) for players in a given area

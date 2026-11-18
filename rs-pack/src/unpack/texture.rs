@@ -12,7 +12,7 @@ use anyhow::{Context, Result};
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::fs;
 use std::path::Path;
 #[cfg(before_530)]
@@ -182,7 +182,7 @@ pub(crate) fn known_hashes() -> Vec<i32> {
 
 #[cfg(since_530)]
 pub fn unpack_texture_text(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     content_dir: &Path,
     pack_dir: &Path,
 ) -> Result<u32> {
@@ -190,7 +190,7 @@ pub fn unpack_texture_text(
     fs::create_dir_all(&dir)?;
     let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let groups = store
-        .reference_table(TEXTURE_ARCHIVE)
+        .index(TEXTURE_ARCHIVE)
         .context("Missing texture table")?
         .groups
         .clone();

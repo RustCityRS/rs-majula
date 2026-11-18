@@ -4,7 +4,7 @@ use crate::archive;
 use anyhow::{Context, Result};
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use serde_json::Value;
 #[cfg(since_530)]
@@ -26,7 +26,7 @@ pub struct TerrainData {
     #[cfg(since_530)]
     pub environment: Option<EnvironmentData>,
     #[cfg(since_530)]
-    pub lights: Vec<LightData>,
+    pub lights: Vec<StaticPointLight>,
     #[cfg(since_530)]
     pub env_params: Option<EnvParams>,
     #[cfg(since_530)]
@@ -60,16 +60,16 @@ pub struct EnvironmentData {
 
 #[cfg(since_530)]
 #[derive(Debug, Clone)]
-pub struct LightData {
+pub struct StaticPointLight {
     pub flags_raw: u8,
     pub x: u16,
     pub y: u16,
     pub z: u16,
     pub radius: u8,
-    pub colors: Vec<u16>,
-    pub hsl: u16,
+    pub radius_grid: Vec<u16>,
+    pub colour: u16,
     pub type_packed: u8,
-    pub light_type_ref: Option<u16>,
+    pub light_type: Option<u16>,
 }
 
 #[cfg(since_530)]
@@ -81,7 +81,7 @@ pub struct EnvParams {
 #[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct SkyboxData {
-    pub param0: u16,
+    pub skybox: u16,
     pub param1: i16,
     pub param2: i16,
     pub param3: i16,
@@ -158,7 +158,7 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
     for _ in 0..tile_count {
         let mut tile = TerrainTile::default();
 
-        while buf.remaining() > 0 {
+        while buf.get_space() > 0 {
             let opcode = buf.g1();
 
             if opcode == 0 {
@@ -190,7 +190,7 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
         let mut skybox = None;
         let mut camera = None;
 
-        while buf.remaining() > 0 {
+        while buf.get_space() > 0 {
             let opcode = buf.g1();
             env_opcode_order.push(opcode);
 
@@ -211,7 +211,7 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
                 }
                 128 => {
                     skybox = Some(SkyboxData {
-                        param0: buf.g2(),
+                        skybox: buf.g2(),
                         param1: buf.g2s(),
                         param2: buf.g2s(),
                         param3: buf.g2s(),
@@ -332,46 +332,46 @@ fn parse_environment(buf: &mut Packet<&[u8]>) -> EnvironmentData {
 }
 
 #[cfg(since_530)]
-fn parse_light(buf: &mut Packet<&[u8]>) -> LightData {
+fn parse_light(buf: &mut Packet<&[u8]>) -> StaticPointLight {
     let flags_raw = buf.g1();
     let x = buf.g2();
     let y = buf.g2();
     let z = buf.g2();
     let radius = buf.g1();
     let color_count = ((radius as usize) << 1) + 1;
-    let mut colors = Vec::with_capacity(color_count);
+    let mut radius_grid = Vec::with_capacity(color_count);
     for _ in 0..color_count {
-        colors.push(buf.g2());
+        radius_grid.push(buf.g2());
     }
-    let hsl = buf.g2();
+    let colour = buf.g2();
     let type_packed = buf.g1();
-    let light_type = type_packed & 0x1F;
-    let light_type_ref = if light_type == 31 {
+    let flicker_type = type_packed & 0x1F;
+    let light_type = if flicker_type == 31 {
         Some(buf.g2())
     } else {
         None
     };
-    LightData {
+    StaticPointLight {
         flags_raw,
         x,
         y,
         z,
         radius,
-        colors,
-        hsl,
+        radius_grid,
+        colour,
         type_packed,
-        light_type_ref,
+        light_type,
     }
 }
 
-pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
+pub fn parse_locations_binary(data: &[u8]) -> Vec<LocEntry> {
     let mut locs = Vec::new();
     let mut buf = Packet::from(data);
     let mut loc_id: i32 = -1;
 
-    while buf.remaining() > 0 {
+    while buf.get_space() > 0 {
         #[cfg(since_530)]
-        let delta = buf.gextended1or2();
+        let delta = buf.gsmartsextend();
         #[cfg(before_530)]
         let delta = buf.gsmart1or2();
         if delta == 0 {
@@ -380,7 +380,7 @@ pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
         loc_id += delta;
 
         let mut tile_pos: i32 = 0;
-        while buf.remaining() > 0 {
+        while buf.get_space() > 0 {
             let offset = buf.gsmart1or2();
             if offset == 0 {
                 break;
@@ -406,7 +406,7 @@ pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
 pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
     let mut spawns = Vec::new();
     let mut buf = Packet::from(data);
-    while buf.remaining() >= 4 {
+    while buf.get_space() >= 4 {
         let pos_key = buf.g2();
         let npc_id = buf.g2();
         let level = (pos_key >> 14) as u8;
@@ -426,7 +426,7 @@ pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
 pub fn parse_obj_spawn_binary(data: &[u8]) -> Vec<ObjSpawn> {
     let mut spawns = Vec::new();
     let mut buf = Packet::from(data);
-    while buf.remaining() >= 6 {
+    while buf.get_space() >= 6 {
         let pos_key = buf.g2();
         let obj_id = buf.g2();
         let count = buf.g2();
@@ -480,7 +480,7 @@ impl XteaKeyStore {
     /// Computes the name hash of "l{mx}_{mz}" and looks it up.
     pub fn get(&self, mx: u32, mz: u32) -> [i32; 4] {
         let name = format!("l{}_{}", mx, mz);
-        let hash = java_string_hash(&name);
+        let hash = hash32(&name);
         self.keys.get(&hash).copied().unwrap_or([0; 4])
     }
 
@@ -488,15 +488,15 @@ impl XteaKeyStore {
     /// area centered on `(player_x, player_z)`, in the order the rev-647
     /// client expects (outer loop `mx_lo..=mx_hi`, inner `mz_lo..=mz_hi`).
     pub fn snapshot_build_area(&self, player_x: u16, player_z: u16) -> Vec<[i32; 4]> {
-        let chunk_x = (player_x >> 3) as u32;
-        let chunk_z = (player_z >> 3) as u32;
+        let zone_x = (player_x >> 3) as u32;
+        let zone_z = (player_z >> 3) as u32;
         let build_size: u32 = 104;
-        let half_chunks = build_size >> 4; // 6
+        let half_zones = build_size >> 4; // 6
 
-        let mx_lo = (chunk_x.wrapping_sub(half_chunks)) >> 3;
-        let mx_hi = (chunk_x + half_chunks) >> 3;
-        let mz_lo = (chunk_z.wrapping_sub(half_chunks)) >> 3;
-        let mz_hi = (chunk_z + half_chunks) >> 3;
+        let mx_lo = (zone_x.wrapping_sub(half_zones)) >> 3;
+        let mx_hi = (zone_x + half_zones) >> 3;
+        let mz_lo = (zone_z.wrapping_sub(half_zones)) >> 3;
+        let mz_hi = (zone_z + half_zones) >> 3;
 
         let mut keys = Vec::with_capacity(((mx_hi - mx_lo + 1) * (mz_hi - mz_lo + 1)) as usize);
         for mx in mx_lo..=mx_hi {

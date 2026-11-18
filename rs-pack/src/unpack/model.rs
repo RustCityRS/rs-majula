@@ -5,11 +5,11 @@ use crate::PACK_DIR;
 use crate::archive;
 use crate::archive::JagArchive;
 #[cfg(rev = "225")]
-use crate::types::BoneType;
+use crate::types::AnimTransform;
 use rs_io::Packet;
 use rs_io::jag::JagFile;
 #[cfg(since_244)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::collections::HashMap;
 #[cfg(since_244)]
 use std::collections::HashSet;
@@ -224,15 +224,15 @@ fn extract_bases(
 
     for _ in 0..count {
         let id = h.g2();
-        let type_length = h.g1() as usize;
+        let transform_count = h.g1() as usize;
 
         let name = format!("base_{id}");
         order_lines.push(id.to_string());
 
-        let t_bytes = take(&mut t, type_length);
+        let t_bytes = take(&mut t, transform_count);
 
-        let mut labels: Vec<Vec<u8>> = Vec::with_capacity(type_length);
-        for _ in 0..type_length {
+        let mut labels: Vec<Vec<u8>> = Vec::with_capacity(transform_count);
+        for _ in 0..transform_count {
             let group_count = l.g1() as usize;
             let mut group = Vec::with_capacity(group_count);
             for _ in 0..group_count {
@@ -245,7 +245,7 @@ fn extract_bases(
         writeln!(text, "[{name}]").unwrap();
 
         for (i, (bone_type, group)) in t_bytes.iter().zip(labels.iter()).enumerate() {
-            let type_name = BoneType::try_from(*bone_type)
+            let type_name = AnimTransform::try_from(*bone_type)
                 .expect("unknown bone type")
                 .config_str();
             let vals: Vec<String> = group.iter().map(|b| b.to_string()).collect();
@@ -302,7 +302,7 @@ fn extract_frames(
         let id = h.g2();
         let delay = d.g1();
         let base_id = h.g2();
-        let group_count = h.g1() as usize;
+        let transform_count = h.g1() as usize;
 
         let name = format!("anim_{id}");
         order_lines.push(id.to_string());
@@ -312,7 +312,7 @@ fn extract_frames(
         writeln!(text, "delay={delay}").unwrap();
         writeln!(text, "base=base_{base_id}").unwrap();
 
-        for i in 0..group_count {
+        for i in 0..transform_count {
             let flags = t1.g1();
             if flags == 0 {
                 writeln!(text, "bone{i}=none").unwrap();
@@ -408,7 +408,7 @@ fn extract_ob2(
     let mut pack_lines = Vec::new();
 
     for _ in 0..model_count {
-        if oh.remaining() < 12 {
+        if oh.get_space() < 12 {
             break;
         }
         let id = oh.g2();
@@ -543,7 +543,7 @@ fn compute_vertex_delta_len(vertex_count: usize, p1: &[u8], axis: u8) -> usize {
 
 #[cfg(since_244)]
 pub fn unpack_models(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     output_dir: &Path,
     pack_dir: &Path,
     model_categories: &HashMap<u16, ModelCategory>,
@@ -552,7 +552,7 @@ pub fn unpack_models(
     fs::create_dir_all(&models_dir)?;
 
     let existing_names = load_existing_pack(Path::new(PACK_DIR), "model");
-    let count = cache.group_count(archive::MODELS).unwrap_or(0) as usize;
+    let count = cache.group_id_limit(archive::MODELS).unwrap_or(0) as usize;
 
     let mut pack_lines = Vec::with_capacity(count);
     let mut written = 0;
@@ -641,9 +641,9 @@ pub fn ob2_textures(data: &[u8]) -> Vec<u16> {
 }
 
 #[cfg(since_244)]
-pub fn build_model_textures(cache: &mut Js5Store) -> HashMap<u16, HashSet<u16>> {
+pub fn build_model_textures(cache: &mut Js5LocalCache) -> HashMap<u16, HashSet<u16>> {
     let mut map = HashMap::new();
-    for id in 0..cache.group_count(archive::MODELS).unwrap_or(0) as usize {
+    for id in 0..cache.group_id_limit(archive::MODELS).unwrap_or(0) as usize {
         let Some(data) = cache
             .read_group_raw_decompressed(archive::MODELS, id as u32)
             .ok()
@@ -662,14 +662,14 @@ pub fn build_model_textures(cache: &mut Js5Store) -> HashMap<u16, HashSet<u16>> 
 
 #[cfg(since_244)]
 pub fn unpack_anims(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     output_dir: &Path,
     pack_dir: &Path,
 ) -> anyhow::Result<()> {
     let anim_dir = output_dir.join("models").join("anim");
     fs::create_dir_all(&anim_dir)?;
 
-    let count = cache.group_count(archive::ANIMS).unwrap_or(0) as usize;
+    let count = cache.group_id_limit(archive::ANIMS).unwrap_or(0) as usize;
 
     // Seed with the frames config already named (those referenced by seqs), then
     // add every frame declared in an anim set head.
@@ -726,7 +726,7 @@ fn anim_set_frame_ids(set: &[u8]) -> Vec<u16> {
             break;
         }
         let frame_id = head.g2();
-        let _label_count = head.g1();
+        let _transform_count = head.g1();
         ids.push(frame_id);
     }
     ids

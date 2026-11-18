@@ -24,7 +24,7 @@ fn book() -> i32 {
     com("prayer:prayer_buttons")
 }
 
-/// 2011's active prayers, a bit each in 289's order (varbits 5942-5956).
+/// 2011's active prayers, a bit each in 289's order (varpbits 5942-5956).
 #[cfg(since_647)]
 const ACTIVE: u16 = 1395;
 /// Book slots (enum 2279) and their bits.

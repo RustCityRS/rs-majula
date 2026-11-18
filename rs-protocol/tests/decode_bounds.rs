@@ -187,7 +187,7 @@ fn decode_stays_in_bounds() {
         IfButton10,
         IfButtonD,
         IfButtonT,
-        MapBuildLoading,
+        DetectModifiedClient,
         MessageQuickchatPrivate,
         MessageQuickchatPublic,
         OpLoc6,

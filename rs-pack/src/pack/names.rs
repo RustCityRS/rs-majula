@@ -6,7 +6,7 @@ use crate::pack::util::placeholder_prefix;
 use crate::pack::util::walk;
 use anyhow::{Context, Result, bail, ensure};
 #[cfg(since_530)]
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use runec::lexer::Lexer;
 use runec::symbol::identifier_form;
@@ -419,7 +419,7 @@ fn name_problems(content_dir: &Path, pack_dir: &Path) -> Result<(usize, Vec<Stri
                 continue;
             }
             checked += 1;
-            if java_string_hash(&name) != hash
+            if hash32(&name) != hash
                 && trigger_hash(&names, &name) != Some(hash)
                 && !is_placeholder(kind, &name, id)
             {
@@ -542,9 +542,9 @@ mod tests {
             pack.join("clientscript.hashes"),
             format!(
                 "0={}\n1=7\n2=9\n3={}\n4={}\n",
-                java_string_hash("[clientscript,good]"),
+                hash32("[clientscript,good]"),
                 10 | 2 << 10,
-                java_string_hash("bare")
+                hash32("bare")
             ),
         )
         .unwrap();
@@ -555,18 +555,18 @@ mod tests {
         .unwrap();
         fs::write(
             pack.join("interface.hashes"),
-            format!("0={}\n", java_string_hash("cove lid")),
+            format!("0={}\n", hash32("cove lid")),
         )
         .unwrap();
         fs::write(
             dir.join("versions/interfaces.fileids"),
             format!(
                 "0=0:{},1:77,2:{},3:{},4:{},5:{}\n",
-                java_string_hash("a history"),
-                java_string_hash("meter1-"),
-                java_string_hash("meter1_"),
-                java_string_hash("2"),
-                java_string_hash("logout")
+                hash32("a history"),
+                hash32("meter1-"),
+                hash32("meter1_"),
+                hash32("2"),
+                hash32("logout")
             ),
         )
         .unwrap();

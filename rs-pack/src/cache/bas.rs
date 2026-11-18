@@ -9,7 +9,7 @@ pub struct BasType {
     pub readyanim: Option<TypeId>,
     pub walkanim: Option<TypeId>,
     pub anims: Vec<(u8, TypeId)>,
-    pub rotate: (u8, u8),
+    pub hill_rotate: (u8, u8),
     pub transform: Vec<(u8, [i16; 6])>,
     #[cfg(since_647)]
     pub op28: Vec<Option<u8>>,
@@ -24,11 +24,11 @@ pub struct BasType {
     pub walkspeed: Option<u8>,
     pub overlayheight: Option<u16>,
     #[cfg(since_647)]
-    pub readyanim_random: Vec<(TypeId, u8)>,
+    pub random_ready_anims: Vec<(TypeId, u8)>,
     #[cfg(since_647)]
     pub noshadow: bool,
     #[cfg(since_647)]
-    pub op54: (u8, u8),
+    pub hill_rotate_limit: (u8, u8),
     #[cfg(since_647)]
     pub op55: Vec<(u8, u16)>,
     #[cfg(since_647)]
@@ -44,7 +44,7 @@ impl CacheType for BasType {
             readyanim: None,
             walkanim: None,
             anims: Vec::new(),
-            rotate: (0, 0),
+            hill_rotate: (0, 0),
             transform: Vec::new(),
             #[cfg(since_647)]
             op28: Vec::new(),
@@ -59,11 +59,11 @@ impl CacheType for BasType {
             walkspeed: None,
             overlayheight: None,
             #[cfg(since_647)]
-            readyanim_random: Vec::new(),
+            random_ready_anims: Vec::new(),
             #[cfg(since_647)]
             noshadow: false,
             #[cfg(since_647)]
-            op54: (0, 0),
+            hill_rotate_limit: (0, 0),
             #[cfg(since_647)]
             op55: Vec::new(),
             #[cfg(since_647)]
@@ -79,7 +79,7 @@ impl CacheType for BasType {
             }
             2..=9 | 38..=42 => self.anims.push((code, read_big_id(buf))),
             43 | 44 => self.anims.push((code, read_id(buf))),
-            26 => self.rotate = (buf.g1(), buf.g1()),
+            26 => self.hill_rotate = (buf.g1(), buf.g1()),
             27 => {
                 let slot = buf.g1();
                 self.transform.push((slot, from_fn(|_| buf.g2s())));
@@ -107,14 +107,14 @@ impl CacheType for BasType {
             46..=51 => self.anims.push((code, read_big_id(buf))),
             #[cfg(since_647)]
             52 => {
-                self.readyanim_random = (0..buf.g1())
+                self.random_ready_anims = (0..buf.g1())
                     .map(|_| (read_big_id(buf), buf.g1()))
                     .collect();
             }
             #[cfg(since_647)]
             53 => self.noshadow = true,
             #[cfg(since_647)]
-            54 => self.op54 = (buf.g1(), buf.g1()),
+            54 => self.hill_rotate_limit = (buf.g1(), buf.g1()),
             #[cfg(since_647)]
             55 => self.op55.push((buf.g1(), buf.g2())),
             #[cfg(since_647)]

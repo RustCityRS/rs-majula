@@ -12,7 +12,7 @@ fn parameter(registry: &PackRegistry, kind: &str, value: &str) -> u16 {
         "enum" => &registry.r#enum,
         "stat" => &registry.stat,
         "varp" => &registry.varp,
-        "varpbit" => &registry.varbit,
+        "varpbit" => &registry.varpbit,
         "vars" => &registry.vars,
         _ => unreachable!(),
     };

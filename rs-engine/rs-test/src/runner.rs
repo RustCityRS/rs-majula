@@ -111,7 +111,7 @@ pub fn on_loaded_engine<R: Send + 'static>(f: impl FnOnce(&mut Engine) -> R + Se
     // any engine loads, initializes both.
     static PATHFINDER: std::sync::Once = std::sync::Once::new();
     PATHFINDER.call_once(|| {
-        rsmod::find_path(
+        rsmod::find_route(
             0,
             0,
             0,

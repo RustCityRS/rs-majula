@@ -565,7 +565,7 @@ fn transforms_preserve_missing_ids_and_default_targets() {
     let loc: LocTypeRaw = decode(&data);
     assert_eq!(loc.width, 3);
     assert_eq!(
-        (loc.transform_varbit, loc.transform_varp),
+        (loc.transform_varpbit, loc.transform_varp),
         (TypeId::new(5), TypeId::NULL)
     );
     #[cfg(before_530)]
@@ -582,11 +582,11 @@ fn transforms_preserve_missing_ids_and_default_targets() {
         let npc: NpcTypeRaw =
             decode(&[118, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 12, 3, 0]);
         assert_eq!(
-            (npc.transform_varbit, npc.transform_varp),
+            (npc.transform_varpbit, npc.transform_varp),
             (Some(TypeId::new(5)), None)
         );
         assert_eq!(
-            npc.transforms.unwrap().as_ref(),
+            npc.multinpc.unwrap().as_ref(),
             [TypeId::new(65534), TypeId::NULL, TypeId::new(99)]
         );
         assert_eq!(npc.size, 3);

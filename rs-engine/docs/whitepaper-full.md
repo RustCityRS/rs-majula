@@ -5678,7 +5678,7 @@ conditionally adds `int_operand()` to `pc`. The unconditional `BRANCH` simply do
 | `PUSH/POP_STRING_LOCAL` (35,36)                         | str ↔ local          | Local string read/write                                                                       |
 | `JOIN_STRING` (37)                                      | n strs → str         | Concatenate top `operand` strings                                                             |
 | `POP_INT_DISCARD/POP_STRING_DISCARD` (38,39)            | x →                  | Drop one stack entry                                                                          |
-| `PUSH_VARS/POP_VARS` (11,12), `PUSH/POP_VARBIT` (25,27) | —                    | No-op stubs                                                                                   |
+| `PUSH_VARS/POP_VARS` (11,12), `PUSH/POP_VARPBIT` (25,27) | —                    | No-op stubs                                                                                   |
 | `DEFINE_ARRAY`/`PUSH_ARRAY_INT`/`POP_ARRAY_INT` (44–46) | —                    | Error stub ("Not implemented")                                                                |
 
 `POP_VARP` (`core.rs:54-71`) is the most instructive: it looks up the varp definition in `cache().varps`, enforces

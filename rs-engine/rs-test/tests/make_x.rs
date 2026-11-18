@@ -1,7 +1,7 @@
 //! 2011's make-X amount is kept across logouts, as void-634 keeps it
 //! (`skill_creation_amount`, persist = true): in the server-only, saved
 //! `skill_creation_saved`. Varp 1363, which holds the client's copy beside
-//! character creation's varbits, is not saved.
+//! character creation's varpbits, is not saved.
 
 #![cfg(since_530)]
 

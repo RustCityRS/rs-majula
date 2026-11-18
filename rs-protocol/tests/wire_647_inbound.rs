@@ -580,7 +580,7 @@ fn apcoordt_matches_client() {
     assert_eq!(m.com, FROM_COM, "source component");
 }
 
-/// `VarbitType`: `p2(flag << 15 | time) p4_alt2(x | y << 16)`.
+/// `VarpBitType`: `p2(flag << 15 | time) p4_alt2(x | y << 16)`.
 #[test]
 fn event_mouse_click_matches_client() {
     use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;

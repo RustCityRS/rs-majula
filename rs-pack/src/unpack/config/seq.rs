@@ -209,12 +209,12 @@ pub fn emit_seq_props(
         }
     }
     #[cfg(since_530)]
-    if let Some(synths) = &def.synths {
+    if let Some(sounds) = &def.sounds {
         #[cfg(all(since_530, before_647))]
         let kind = "synth";
         #[cfg(since_647)]
         let kind = if def.sound_vorbis { "vorbis" } else { "synth" };
-        for (i, slot) in synths.iter().enumerate() {
+        for (i, slot) in sounds.iter().enumerate() {
             match slot {
                 Some(sound) => {
                     let mut values = vec![
@@ -225,7 +225,7 @@ pub fn emit_seq_props(
                     values.extend(sound.tail.iter().map(u16::to_string));
                     p.push((13, format!("sound{i}"), values.join(",")));
                 }
-                None if i + 1 == synths.len() => {
+                None if i + 1 == sounds.len() => {
                     p.push((13, format!("sound{i}"), "null".into()));
                 }
                 None => {}
@@ -245,11 +245,11 @@ pub fn emit_seq_props(
         p.push((16, "unknown16".into(), "yes".into()));
     }
     #[cfg(since_647)]
-    if let Some((idx, val)) = def.op19.last() {
+    if let Some((idx, val)) = def.sound_volumes.last() {
         p.push((19, "soundvolume".into(), format!("{idx},{val}")));
     }
     #[cfg(since_647)]
-    if let Some((idx, a, b)) = def.op20.last() {
+    if let Some((idx, a, b)) = def.sound_random_rates.last() {
         p.push((20, "soundrandomrate".into(), format!("{idx},{a},{b}")));
     }
     #[cfg(since_742)]

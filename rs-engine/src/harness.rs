@@ -185,7 +185,7 @@ impl HarnessClient {
     /// If `prot`'s frame is Fixed and `payload` is not that size.
     pub fn send(&mut self, prot: ClientProt, payload: &[u8]) {
         let mut bytes = Vec::with_capacity(payload.len() + 3);
-        bytes.push((prot as u8).wrapping_add(self.isaac.next_int() as u8));
+        bytes.push((prot as u8).wrapping_add(self.isaac.take_next_value() as u8));
         match prot.info().frame {
             ClientProtFrame::Fixed(size) => {
                 assert_eq!(payload.len(), size as usize, "{prot:?} is Fixed({size})")
@@ -217,7 +217,7 @@ impl HarnessClient {
         while let Ok(chunk) = self.bytes_rx.try_recv() {
             let mut pos = 0;
             while pos < chunk.len() {
-                let b0 = chunk[pos].wrapping_sub(self.out_isaac.next_int() as u8);
+                let b0 = chunk[pos].wrapping_sub(self.out_isaac.take_next_value() as u8);
                 pos += 1;
                 #[cfg(all(since_530, before_647))]
                 let opcode = b0 as u16;
@@ -225,7 +225,7 @@ impl HarnessClient {
                 let opcode = if b0 < 128 {
                     b0 as u16
                 } else {
-                    let b1 = chunk[pos].wrapping_sub(self.out_isaac.next_int() as u8);
+                    let b1 = chunk[pos].wrapping_sub(self.out_isaac.take_next_value() as u8);
                     pos += 1;
                     (((b0 - 128) as u16) << 8) | b1 as u16
                 };

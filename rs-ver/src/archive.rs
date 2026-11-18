@@ -47,7 +47,7 @@ pub const CONFIG_SEQ: u8 = 20;
 #[cfg(since_530)]
 pub const CONFIG_SPOTANIM: u8 = 21;
 #[cfg(since_530)]
-pub const CONFIG_VARBIT: u8 = 22;
+pub const CONFIG_VARPBIT: u8 = 22;
 #[cfg(since_530)]
 pub const WORLDMAP: u8 = 23;
 #[cfg(since_530)]

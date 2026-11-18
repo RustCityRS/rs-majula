@@ -95,12 +95,12 @@ if (%xpdisplay_hunter < stat_visible_xp(hunter)) {
     $int2 = calc(stat_visible_xp(hunter) - %xpdisplay_hunter);
     $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
 }
-if (%xpdisplay_summoning < stat_visible_xp(summoning)) {
-    $int2 = calc(stat_visible_xp(summoning) - %xpdisplay_summoning);
+if (%xpdisplay_summoning < stat_visible_xp(animallore)) {
+    $int2 = calc(stat_visible_xp(animallore) - %xpdisplay_summoning);
     $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
 }
-if (%xpdisplay_dungeoneering < stat_visible_xp(dungeoneering)) {
-    $int2 = calc(stat_visible_xp(dungeoneering) - %xpdisplay_dungeoneering);
+if (%xpdisplay_dungeoneering < stat_visible_xp(rand)) {
+    $int2 = calc(stat_visible_xp(rand) - %xpdisplay_dungeoneering);
     $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
 }
 if ($int0 = 0) {

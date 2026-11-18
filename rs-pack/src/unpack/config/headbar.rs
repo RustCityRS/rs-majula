@@ -13,8 +13,8 @@ pub fn emit_headbar_props(
     let graphic = |id: Option<TypeId>| id.map(|id| packs.reference("sprites", id));
     let prop = match opcode {
         1 => def.unknown1.map(|v| ("unknown1", v.to_string())),
-        2 => def.showpriority.map(|v| ("showpriority", v.to_string())),
-        3 => def.hidepriority.map(|v| ("hidepriority", v.to_string())),
+        2 => def.display_order.map(|v| ("showpriority", v.to_string())),
+        3 => def.priority.map(|v| ("hidepriority", v.to_string())),
         4 => Some(("fadeout", "no".to_owned())),
         5 => def.sticktime.map(|v| ("sticktime", v.to_string())),
         6 => def.unknown6.map(|v| ("unknown6", v.to_string())),

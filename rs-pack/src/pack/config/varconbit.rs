@@ -1,4 +1,4 @@
-use super::varbit::bit_range;
+use super::varpbit::bit_range;
 use super::{config_entry, is_string_var};
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackId, PackRegistry};

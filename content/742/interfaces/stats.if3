@@ -1708,7 +1708,7 @@ textshadow=yes
 colour=0xff8c00
 transmitop=10
 op10=      
-onstattransmit=stats_stat(event_com, summoning){summoning}
+onstattransmit=stats_stat(event_com, animallore){animallore}
 
 // 320:113
 [com_147]
@@ -1726,7 +1726,7 @@ textshadow=yes
 colour=0xff8c00
 transmitop=10
 op10=      
-onstattransmit=stats_statbase(event_com, summoning){summoning}
+onstattransmit=stats_statbase(event_com, animallore){animallore}
 
 // 320:114
 [com_150]
@@ -1744,7 +1744,7 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=      
-onmouseover=stats_mouseover(event_com, summoning, stats:tips)
+onmouseover=stats_mouseover(event_com, animallore, stats:tips)
 onmouseleave=stats_mouseoff(stats:tips)
 onop=clientscript_5682(24)
 
@@ -1802,7 +1802,7 @@ textshadow=yes
 colour=0xff8c00
 transmitop=10
 op10=    
-onstattransmit=stats_stat(event_com, dungeoneering){dungeoneering}
+onstattransmit=stats_stat(event_com, rand){rand}
 
 // 320:119
 [statbase_dungeoneering]
@@ -1820,7 +1820,7 @@ textshadow=yes
 colour=0xff8c00
 transmitop=10
 op10=    
-onstattransmit=stats_statbase(event_com, dungeoneering){dungeoneering}
+onstattransmit=stats_statbase(event_com, rand){rand}
 
 // 320:120
 [dungeoneering_button]
@@ -1838,7 +1838,7 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, dungeoneering, stats:tips)
+onmouseover=stats_mouseover(event_com, rand, stats:tips)
 onmouseleave=stats_mouseoff(stats:tips)
 onop=clientscript_5682(25)
 

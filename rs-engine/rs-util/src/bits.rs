@@ -158,7 +158,7 @@ pub const fn setbit_range_toint(num: i32, value: i32, start: i32, end: i32) -> i
 
 /// Bits `start..=end` of `num`, shifted down to bit 0.
 ///
-/// Implements the GETBIT_RANGE VM opcode, and reads varbits and varobjs.
+/// Implements the GETBIT_RANGE VM opcode, and reads varpbits and varobjs.
 #[inline(always)]
 pub const fn getbit_range(num: i32, start: i32, end: i32) -> i32 {
     let r = 31i32.wrapping_sub(end);
@@ -166,7 +166,7 @@ pub const fn getbit_range(num: i32, start: i32, end: i32) -> i32 {
 }
 
 /// Whether bits `start..=end` hold `value`: it is neither negative nor wider
-/// than them. A varbit or varobj stores only such values.
+/// than them. A varpbit or varobj stores only such values.
 #[inline(always)]
 pub const fn fits_bit_range(value: i32, start: i32, end: i32) -> bool {
     value >= 0 && value as u32 <= make_mask(end - start + 1) as u32

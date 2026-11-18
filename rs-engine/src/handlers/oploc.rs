@@ -164,7 +164,7 @@ fn handle(
         return Ok(());
     };
 
-    // From 289 a loc can turn into another by a varbit, or into nothing to
+    // From 289 a loc can turn into another by a varpbit, or into nothing to
     // click.
     let Some(shown) = active.shown_loc(loc_id) else {
         active.unset_map_flag();

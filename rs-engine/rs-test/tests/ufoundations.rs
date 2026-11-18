@@ -51,8 +51,8 @@ const POPUP_TASK: u16 = 1425;
 /// The side tab the yellow arrow flashes, + 1 (cs2 117).
 const FLASH_SIDE: u16 = 3756;
 
-fn varbit(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
-    let bit = engine.cache.varbits.get_by_id(TypeId::new(id)).unwrap();
+fn varpbit(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
+    let bit = engine.cache.varpbits.get_by_id(TypeId::new(id)).unwrap();
     let value = engine
         .harness_player(client.pid)
         .unwrap()
@@ -545,12 +545,12 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert!(!is_open(engine, &client, INVENTORY), "no inventory tab yet");
         assert!(is_open(engine, &client, CONTROLS), "the Controls overlay");
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3522,
             "Rotate Your Camera"
         );
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             2,
             "the arrow at the task tab"
         );
@@ -581,11 +581,11 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             .as_int();
         assert_eq!(popup, 3522, "TASK COMPLETE! Rotate Your Camera");
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3500,
             "Talk to Sir Vant"
         );
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "no arrow after");
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 0, "no arrow after");
 
         // Talk to Sir Vant: "Hello!" and his warning, each with its voiced take (s001, s002).
         let vant = engine
@@ -868,7 +868,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(face(engine), None, "the lock ends with the talk's script");
         assert_eq!(progress(engine, &client), 10, "Assist Sir Vant");
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3501,
             "Assist Sir Vant pinned"
         );
@@ -1261,7 +1261,7 @@ fn the_squires_gear_and_the_goblin() {
         assert_eq!(progress(engine, &client), 20, "Equip Yourself");
         assert!(is_open(engine, &client, INVENTORY), "the inventory tab");
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             5,
             "the arrow at the inventory tab"
         );
@@ -1296,7 +1296,7 @@ fn the_squires_gear_and_the_goblin() {
         assert!(is_open(engine, &client, COMBAT_SIDE), "the combat tab");
         assert!(is_open(engine, &client, 387), "the worn equipment tab");
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             6,
             "the arrow at worn equipment"
         );
@@ -1494,11 +1494,11 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
         #[cfg(before_742)]
         {
             assert!(is_open(engine, &client, 190), "the quest list tab");
-            assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
+            assert_eq!(varpbit(engine, &client, FLASH_SIDE), 4);
         }
         // 742 has no quest tab: the arrow is at the Noticeboard's stone.
         #[cfg(since_742)]
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 2);
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 2);
 
         // The journal (quest list row 147), the world map (then its close) and the compass
         // ("Face North").
@@ -1512,8 +1512,8 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
         #[cfg(since_742)]
         button(&mut client, "toplevel:stone1", NONE);
         cycles(engine, &mut client, 2);
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
-        assert_eq!(varbit(engine, &client, 4895), 3, "tutorial_version");
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
+        assert_eq!(varpbit(engine, &client, 4895), 3, "tutorial_version");
         // The arrow moves to the quest's row: the client draws it at 55 on an Unstable
         // Foundations account (clientscript 1661; 4KO2h2xPtdM @119.0-120.0).
         #[cfg(before_742)]
@@ -1533,7 +1533,7 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
         };
         assert_eq!(progress(engine, &client), 60, "Check your World Map");
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             19,
             "the arrow at the globe"
         );
@@ -1644,9 +1644,9 @@ fn loc_id(engine: &Engine, name: &str) -> TypeId {
     engine.cache.locs.get_by_debugname(name).unwrap().id
 }
 
-fn varbit_named(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
-    let id = engine.cache.varbits.get_by_debugname(name).unwrap().id;
-    varbit(engine, client, id.g2())
+fn varpbit_named(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
+    let id = engine.cache.varpbits.get_by_debugname(name).unwrap().id;
+    varpbit(engine, client, id.g2())
 }
 
 /// Op 1 (the held item's first op) on a backpack slot.
@@ -1740,7 +1740,7 @@ fn the_dragon_is_put_to_sleep() {
         // The meat shows in the bowl once it is put there, three ticks into the player's
         // animation (4KO2h2xPtdM @197.45-199.0; in the bowl @200.2 to @223.65).
         let early = cycles(engine, &mut client, 2);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_meatplacement"), 0);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_meatplacement"), 0);
         assert!(
             slot_of(engine, &client, meat.g2()).is_some(),
             "still in the hand"
@@ -1748,7 +1748,7 @@ fn the_dragon_is_put_to_sleep() {
         let mut first = early;
         first.extend(cycles(engine, &mut client, 4));
         assert_eq!(
-            varbit_named(engine, &client, "tutorial3_meatplacement"),
+            varpbit_named(engine, &client, "tutorial3_meatplacement"),
             1,
             "the meat in the bowl"
         );
@@ -1874,7 +1874,7 @@ fn the_dragon_is_put_to_sleep() {
         // The dragon eats it: from @227.9, the first frame the bowl shows again past the dragon,
         // it is the bowl with the bone that the cellar starts with.
         assert_eq!(
-            varbit_named(engine, &client, "tutorial3_meatplacement"),
+            varpbit_named(engine, &client, "tutorial3_meatplacement"),
             0,
             "the meat eaten, the bone bowl again"
         );
@@ -2057,8 +2057,8 @@ fn the_pillars_burn_and_the_roof_comes_down() {
                 converse(engine, &mut client, &[], 60).said("You attach the fuse to the pillar.")
             );
         }
-        assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 2);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_leftpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 2);
         assert_eq!(progress(engine, &client), 110);
 
         // The tinderbox to Sir Vant, then the far pillar.
@@ -2127,8 +2127,8 @@ fn the_pillars_burn_and_the_roof_comes_down() {
                     Some((27, 38)),
                     "Sir Vant north-east of the player: {vant:?}"
                 );
-                assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 5);
-                assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 5);
+                assert_eq!(varpbit_named(engine, &client, "tutorial3_leftpillar"), 5);
+                assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 5);
             }
             texts.extend(lines);
             packets.extend(sent);
@@ -2312,7 +2312,7 @@ fn the_way_out_to_lumbridge() {
         walk_near(engine, &mut client);
         cycles(engine, &mut client, 3);
         assert_eq!(
-            varbit_named(engine, &client, "varplayerbit_8522"),
+            varpbit_named(engine, &client, "varplayerbit_8522"),
             0,
             "not in the tutorial"
         );
@@ -2362,10 +2362,10 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 135);
         // The Task panel's overview: Discover an Exit, Breaking Through, four empty
         // (4KO2h2xPtdM @532).
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 4091, "the overview");
-        assert_eq!(varbit(engine, &client, 8587), 3514);
-        assert_eq!(varbit(engine, &client, 8588), 3516);
-        assert_eq!(varbit(engine, &client, 8589), 4091);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 4091, "the overview");
+        assert_eq!(varpbit(engine, &client, 8587), 3514);
+        assert_eq!(varpbit(engine, &client, 8588), 3516);
+        assert_eq!(varpbit(engine, &client, 8589), 4091);
 
         // The blockage at level 1.
         engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
@@ -2381,12 +2381,12 @@ fn the_way_out_to_lumbridge() {
             converse(engine, &mut client, &[], 60)
                 .said("You'll need a Mining level of 2 to clear the rocks.")
         );
-        // Its continue: the practice rocks live (varbit 6495 = 1) and the stats stone with its
+        // Its continue: the practice rocks live (varpbit 6495 = 1) and the stats stone with its
         // arrow, with no word from Roddeck (4KO2h2xPtdM @549.0).
         assert_eq!(progress(engine, &client), 140);
-        assert_eq!(varbit(engine, &client, 6495), 1, "the practice rocks");
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 3, "the stats stone");
-        assert_eq!(varbit(engine, &client, 8589), 3518, "Skill in Mining");
+        assert_eq!(varpbit(engine, &client, 6495), 1, "the practice rocks");
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 3, "the stats stone");
+        assert_eq!(varpbit(engine, &client, 8589), 3518, "Skill in Mining");
         engine.harness_telejump(client.pid, origin.0 + 31, 0, origin.1 + 32);
         cycles(engine, &mut client, 3);
         talk_to(&mut client, npc_nid(engine, "roddeck_8867"));
@@ -2395,7 +2395,7 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 145);
 
         // Two practice rocks to level 2: the practice rock on (17, 38) (the map's (17, 14), the block
-        // moved north by the collapse), live at varbit 6495 = 1.
+        // moved north by the collapse), live at varpbit 6495 = 1.
         engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
         cycles(engine, &mut client, 3);
         let (px, pz) = at(17, 38);
@@ -2438,7 +2438,7 @@ fn the_way_out_to_lumbridge() {
                 .any(|t| t == "You swing your pick at the rock."),
             "{boxes:?}"
         );
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3516);
         // The Task System's How To Train and Level (425) once the boxes are closed, its line alone
         // (a first Task), and no Skill in Mining (3518) popup (4KO2h2xPtdM @569-577).
         let lines: Vec<String> = HarnessClient::game_messages(&practice)
@@ -2450,7 +2450,7 @@ fn the_way_out_to_lumbridge() {
             "{lines:?}"
         );
         assert!(!lines.iter().any(|m| m.contains("in total")), "{lines:?}");
-        assert_eq!(varbit_named(engine, &client, "task_tut4_how_to_2"), 1);
+        assert_eq!(varpbit_named(engine, &client, "task_tut4_how_to_2"), 1);
         assert_eq!(
             engine
                 .harness_player(client.pid)
@@ -2487,7 +2487,7 @@ fn the_way_out_to_lumbridge() {
         let hole = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 170, "To Freedom!");
         assert!(slot_of(engine, &client, pickaxe.g2()).is_none());
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3519);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3519);
         assert!(
             rs_test::talk::settexts(&hole)
                 .iter()
@@ -2643,7 +2643,7 @@ fn the_way_out_to_lumbridge() {
         // Pinned till Jack is talked to: Introducing...Explorer Jack (@607-640), then the Task
         // after it.
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3520,
             "Introducing...Explorer Jack"
         );
@@ -2655,7 +2655,7 @@ fn the_way_out_to_lumbridge() {
             jack.texts
         );
         assert!(jack.said("Look at the Rewards tab for a Task to learn more."));
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 3);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 3);
         // On the Run (363) on the first walk with run on after the tutorial (Qh_-AMJpVd0
         // 2011-05-10 @432.5, in this house).
         run_orb(&mut client);
@@ -2670,9 +2670,9 @@ fn the_way_out_to_lumbridge() {
             "{:?}",
             HarnessClient::game_messages(&ran)
         );
-        assert_eq!(varbit_named(engine, &client, "varplayerbit_8522"), 1);
+        assert_eq!(varpbit_named(engine, &client, "varplayerbit_8522"), 1);
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3521,
             "The Journey Begins"
         );
@@ -2726,8 +2726,8 @@ fn explorer_jacks_house_and_the_door_out() {
     runner::on_loaded_engine(|engine| {
         let (mut client, (dx, dz)) = house_login(engine, "uf_house");
         let at = |x: u16, z: u16| ((i32::from(x) + dx) as u16, (i32::from(z) + dz) as u16);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3520);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3520);
         assert!(
             is_open(engine, &client, 182),
             "the logout panel in its slot"
@@ -2749,7 +2749,7 @@ fn explorer_jacks_house_and_the_door_out() {
         let roddeck = converse(engine, &mut client, &[], 20);
         assert!(roddeck.said("At last, we're out!"), "{:?}", roddeck.texts);
         assert!(!roddeck.said("my mission is accomplished"));
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 0);
 
         // Sir Vant: the talk from his own line on.
         talk_to(
@@ -2762,8 +2762,8 @@ fn explorer_jacks_house_and_the_door_out() {
         assert!(vant.said("Well, my mission is accomplished now"));
         assert!(vant.said("I'd better head back to Falador."));
         assert!(vant.said("Look at the Rewards tab for a Task to learn more."));
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 3);
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3521);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 3);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3521);
         cycles(engine, &mut client, 8);
         assert!(
             !npc_near(engine, &client, "tutorial3_knight_waitingforbattle", 30),
@@ -2801,9 +2801,13 @@ fn explorer_jacks_house_and_the_door_out() {
         let here = engine.harness_player(client.pid).unwrap().pathing.coord;
         assert_eq!((here.x(), here.z()), (3204, 3247), "outside the real door");
         assert!(engine.regions.source(here).is_none(), "out of the copy");
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 5);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 5);
         assert!(popup_at(&out, 3521).is_some(), "The Journey Begins");
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 4091, "nothing pinned");
+        assert_eq!(
+            varpbit(engine, &client, PINNED_TASK),
+            4091,
+            "nothing pinned"
+        );
         assert!(!is_open(engine, &client, 214) && !is_open(engine, &client, 215));
     });
 }
@@ -2834,11 +2838,11 @@ fn explorer_jack_wants_a_word_first() {
             (3202..=3207).contains(&source.x()) && (3239..=3244).contains(&source.z()),
             "back inside: {source:?}"
         );
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 0);
     });
 }
 
-/// A finished player logging in anywhere else is past the house (varbit 6494 was not saved
+/// A finished player logging in anywhere else is past the house (varpbit 6494 was not saved
 /// before), and the mid-tutorial state on varp 1261 is saved now: the tool the way out is
 /// worked with (6495), the pillars (6496, 6497), the house's step (6494).
 #[test]
@@ -2850,7 +2854,7 @@ fn the_tutorials_state_outlives_a_logout() {
             .harness_login_returning("uf_long_done")
             .expect("login");
         cycles(engine, &mut client, 3);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 5);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 5);
         let here = engine.harness_player(client.pid).unwrap().pathing.coord;
         assert!(engine.regions.source(here).is_none());
         assert!(
@@ -2863,8 +2867,8 @@ fn the_tutorials_state_outlives_a_logout() {
             "tutorial3_leftpillar",
             "tutorial3_rightpillar",
         ] {
-            let bit = engine.cache.varbits.get_by_debugname(name).unwrap().id;
-            let base = engine.cache.varbits.get_by_id(bit).unwrap().basevar;
+            let bit = engine.cache.varpbits.get_by_debugname(name).unwrap().id;
+            let base = engine.cache.varpbits.get_by_id(bit).unwrap().basevar;
             assert_eq!(
                 engine
                     .cache
@@ -3042,9 +3046,9 @@ fn the_way_out_is_walkable_from_roddeck() {
     });
 }
 
-fn set_varbit(engine: &mut Engine, client: &HarnessClient, name: &str, value: u32) {
-    let id = engine.cache.varbits.get_by_debugname(name).unwrap().id;
-    let bit = engine.cache.varbits.get_by_id(id).unwrap();
+fn set_varpbit(engine: &mut Engine, client: &HarnessClient, name: &str, value: u32) {
+    let id = engine.cache.varpbits.get_by_debugname(name).unwrap().id;
+    let bit = engine.cache.varpbits.get_by_id(id).unwrap();
     let (basevar, start) = (bit.basevar, u32::from(bit.start_bit));
     let width = u32::from(bit.end_bit - bit.start_bit) + 1;
     let mask = (((1u64 << width) - 1) as u32) << start;
@@ -3097,7 +3101,7 @@ fn through_the_hole_sir_vant_and_roddeck_wait_in_the_kitchen() {
 fn the_roots_way_out_brings_them_through_too() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_stage(engine, "uf_roots", 150);
-        set_varbit(engine, &client, "tutorial3_tool", 2);
+        set_varpbit(engine, &client, "tutorial3_tool", 2);
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -3215,7 +3219,7 @@ fn walking_off_the_plans_last_line_still_opens_the_quest_list() {
         #[cfg(before_742)]
         {
             assert!(is_open(engine, &client, 190), "the quest list tab");
-            assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
+            assert_eq!(varpbit(engine, &client, FLASH_SIDE), 4);
         }
 
         let meat = obj_id(engine, "tutorial3_meat");
@@ -3271,7 +3275,7 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
         walk_near(engine, &mut client);
         let after = cycles(engine, &mut client, 4);
         assert_eq!(progress(engine, &client), 150, "the box gone by a walk");
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3516);
         assert!(
             rs_test::talk::settexts(&after)
                 .iter()
@@ -3369,8 +3373,8 @@ fn walking_off_a_cutscenes_line_still_ends_the_cutscene() {
 fn walking_off_its_burning_still_brings_the_roof_down() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_stage(engine, "uf_walk_fire", 115);
-        set_varbit(engine, &client, "tutorial3_leftpillar", 3);
-        set_varbit(engine, &client, "tutorial3_rightpillar", 3);
+        set_varpbit(engine, &client, "tutorial3_leftpillar", 3);
+        set_varpbit(engine, &client, "tutorial3_rightpillar", 3);
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -3381,8 +3385,8 @@ fn walking_off_its_burning_still_brings_the_roof_down() {
             .harness_player_mut(client.pid)
             .unwrap()
             .staff_mod_level = StaffModLevel::Normal;
-        assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 2);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_leftpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 2);
 
         let origin = player_origin(engine, &client);
         let tinderbox = obj_id(engine, "tinderbox");
@@ -3398,12 +3402,12 @@ fn walking_off_its_burning_still_brings_the_roof_down() {
             origin.1 + 39,
         );
         until_box(engine, &mut client, "It's burning! Run!", 30);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 3);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 3);
         walk_near(engine, &mut client);
         until_box(engine, &mut client, "Ah, here you are, Roddeck.", 120);
         assert_eq!(progress(engine, &client), 125);
         assert_eq!(shot(engine, &client), 204);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 5);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 5);
         walk_near(engine, &mut client);
         let mut ask = until_box(engine, &mut client, "squire's kit back", 8);
         assert_eq!(shot(engine, &client), 0, "the camera released");

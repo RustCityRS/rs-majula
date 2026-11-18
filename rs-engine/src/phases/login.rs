@@ -8,7 +8,7 @@ use std::net::IpAddr;
 use tracing::warn;
 
 /// Number of ticks a pending login may remain unresolved before being
-/// discarded with a [`LoginResponse::CouldNotComplete`] error.
+/// discarded with a [`LoginResponse::BadSave`] error.
 const LOGIN_TIMEOUT_TICKS: u32 = 10;
 
 /// Maximum playing sessions (distinct accounts) allowed per IP across all
@@ -46,14 +46,14 @@ impl Engine {
     ///    ([`LoginResponse::TooManyAttempts`]).
     /// 3. Rejects if the player is already logged in on this world, is still
     ///    being logged out of it (their final save hasn't landed), or already
-    ///    has a login in flight ([`LoginResponse::AlreadyLoggedIn`]).
+    ///    has a login in flight ([`LoginResponse::Duplicate`]).
     /// 4. Sends an ether cross-world login-check and a database
     ///    authentication request, then parks the request in
     ///    `pending_logins`.
     ///
     /// After processing new requests, any pending login that has exceeded
     /// [`LOGIN_TIMEOUT_TICKS`] is removed and the client is notified with
-    /// [`LoginResponse::CouldNotComplete`].
+    /// [`LoginResponse::BadSave`].
     ///
     /// # Side Effects
     ///
@@ -104,9 +104,7 @@ impl Engine {
                         .iter()
                         .any(|p| p.user37 == user37 && !p.lobby()));
             if busy {
-                request
-                    .handle
-                    .send(vec![LoginResponse::AlreadyLoggedIn as u8]);
+                request.handle.send(vec![LoginResponse::Duplicate as u8]);
                 continue;
             }
 
@@ -159,7 +157,7 @@ impl Engine {
                     "Login timed out for '{}'",
                     self.pending_logins[i].request.username
                 );
-                self.reject_pending_login(i, LoginResponse::CouldNotComplete);
+                self.reject_pending_login(i, LoginResponse::BadSave);
             }
         }
 

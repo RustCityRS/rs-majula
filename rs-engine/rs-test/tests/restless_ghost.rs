@@ -307,7 +307,7 @@ fn the_rocks_give_the_skull_and_raise_a_warlock() {
         assert_eq!(total(engine, &client, "inv", "ghostskull"), 1);
         assert_eq!(stage(engine, &client), 4);
         assert!(npc_near(engine, WARLOCK).is_some(), "the warlock");
-        // rocks_restless_ghost (varbit 2130): bit 2 of varp 728.
+        // rocks_restless_ghost (varpbit 2130): bit 2 of varp 728.
         let v = engine
             .harness_player(client.pid)
             .unwrap()

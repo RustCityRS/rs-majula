@@ -1,6 +1,6 @@
 #![cfg(since_647)]
 
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use rs_pack::archive;
 use rs_pack::pack::names::AssetNames;
 use runec::clientscript::{self, Source, decode::Script, decompile as source, format::Format};
@@ -51,12 +51,8 @@ fn sources_without_metadata_match_every_reference_clientscript() {
             assert!(compiled.insert(id as u32, bytes).is_none());
         }
     }
-    let mut store = Js5Store::open(expected).unwrap();
-    let groups = store
-        .reference_table(archive::CLIENTSCRIPT)
-        .unwrap()
-        .groups
-        .clone();
+    let mut store = Js5LocalCache::open(expected).unwrap();
+    let groups = store.index(archive::CLIENTSCRIPT).unwrap().groups.clone();
     assert!(!groups.is_empty());
     assert_eq!(compiled.len(), groups.len());
     for group in groups {

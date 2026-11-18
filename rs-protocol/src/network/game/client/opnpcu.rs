@@ -38,7 +38,7 @@ impl ClientProtMessage for OpNpcU {
 #[cfg(since_530)]
 impl ClientProtMessage for OpNpcU {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s_alt3();
+        let com = buf.g4_alt3();
         let slot = buf.g2_alt1();
         let nid = buf.g2_alt1();
         let obj = TypeId::from_g2(buf.g2_alt3());

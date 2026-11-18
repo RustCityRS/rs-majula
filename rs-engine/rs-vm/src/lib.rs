@@ -202,8 +202,8 @@ pub enum ScriptError {
     #[error("Vars not found: {0}")]
     VarsNotFound(i32),
 
-    #[error("Varbit not found: {0}")]
-    VarbitNotFound(i32),
+    #[error("VarpBit not found: {0}")]
+    VarpBitNotFound(i32),
 
     #[cfg(since_647)]
     #[error("Varconbit not found: {0}")]

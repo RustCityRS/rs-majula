@@ -17,7 +17,7 @@ if (if_gethide($component1) = false) {
         if_setgraphic($component0, $graphic3);
         return;
     }
-    if (stat_base(summoning) < $int4) {
+    if (stat_base(animallore) < $int4) {
         if (%assist_engaged = 1) {
             if (%assist_stat_magic < $int4 | enum(component, int, enum_1061, $component0) = 0) {
                 if_setgraphic($component0, $graphic3);

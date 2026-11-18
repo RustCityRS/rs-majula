@@ -3,7 +3,7 @@ use crate::LoginResponse;
 use crate::network::game::server::player_info::player_info_init;
 use rs_crypto::rsa::RsaKey;
 #[cfg(since_647)]
-use rs_crypto::xtea::Xtea;
+use rs_crypto::tinykey::TinyKey;
 use rs_io::Packet;
 #[cfg(before_530)]
 use rs_io::crc::getcrc;
@@ -72,14 +72,14 @@ impl LoginBlock {
             revision = buf.g2();
         }
         if revision.to_string() != env!("REV").split('.').next().unwrap() {
-            return Err(LoginResponse::RuneScapeUpdated);
+            return Err(LoginResponse::OutOfDateClientVersion);
         }
         require(&buf, 1 + 9 * 4)?;
         let low_memory = buf.g1() & 0x1 != 0;
         let crc = getcrc(&buf.data, buf.pos, buf.pos + 9 * 4);
         buf.pos += 9 * 4;
         if crc != expected_crc {
-            return Err(LoginResponse::RuneScapeUpdated);
+            return Err(LoginResponse::OutOfDateClientVersion);
         }
         let (mut buf, seed) = decrypt_rsa(&mut buf, rsa)?;
         require(&buf, 4)?;
@@ -87,7 +87,7 @@ impl LoginBlock {
         let username = read_string(&mut buf, MAX_USERNAME_LEN)?;
         let password = read_string(&mut buf, 20)?;
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         Ok(Self {
             username,
@@ -102,7 +102,7 @@ impl LoginBlock {
     pub fn decode(mut buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
         require(&buf, 4)?;
         if buf.g4s() != 530 {
-            return Err(LoginResponse::RuneScapeUpdated);
+            return Err(LoginResponse::OutOfDateClientVersion);
         }
         require(&buf, 3 + 6 + 24)?;
         buf.pos += 3;
@@ -142,13 +142,13 @@ impl LoginBlock {
     ) -> Result<Self, LoginResponse> {
         require(&buf, 4)?;
         if buf.g4s().to_string() != env!("REV") {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         #[cfg(since_742)]
         let reconnect = {
             require(&buf, 4 + usize::from(!lobby))?;
             if buf.g4s() != 1 {
-                return Err(LoginResponse::InvalidCredentials);
+                return Err(LoginResponse::BadCredentials);
             }
             !lobby && buf.g1() == 1
         };
@@ -162,12 +162,12 @@ impl LoginBlock {
         {
             require(&buf, 1)?;
             if buf.g1() != 1 {
-                return Err(LoginResponse::InvalidCredentials);
+                return Err(LoginResponse::BadCredentials);
             }
         }
         let username = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         let mut settings = ClientSettings::default();
         if !lobby {
@@ -214,9 +214,9 @@ fn read_string(buf: &mut Packet, max: usize) -> Result<String, LoginResponse> {
     let len = buf.data[buf.pos..]
         .iter()
         .position(|&b| b == STRING_TERMINATOR)
-        .ok_or(LoginResponse::InvalidCredentials)?;
+        .ok_or(LoginResponse::BadCredentials)?;
     if len > max {
-        return Err(LoginResponse::InvalidCredentials);
+        return Err(LoginResponse::BadCredentials);
     }
     Ok(buf.gjstr(STRING_TERMINATOR))
 }
@@ -226,7 +226,7 @@ fn read_username37(buf: &mut Packet) -> Result<String, LoginResponse> {
     require(buf, 8)?;
     let username37 = buf.g8s() as u64;
     if !is_valid_userhash(username37) {
-        return Err(LoginResponse::InvalidCredentials);
+        return Err(LoginResponse::BadCredentials);
     }
     Ok(to_raw_username(username37))
 }
@@ -275,7 +275,7 @@ fn decrypt_rsa_block(
     decrypted.rsadecrypt(RsaFrame::Short, rsa);
     require(&decrypted, min)?;
     if decrypted.g1() != 10 {
-        return Err(LoginResponse::RuneScapeUpdated);
+        return Err(LoginResponse::OutOfDateClientVersion);
     }
     Ok(decrypted)
 }
@@ -285,7 +285,7 @@ fn decrypt_xtea(buf: Packet, seed: [i32; 4]) -> Result<Packet, LoginResponse> {
     let mut data = buf.data;
     data.drain(..buf.pos);
     let len = data.len() & !7;
-    Xtea::decrypt(&mut data[..len], &seed.map(|key| key as u32))
+    TinyKey::decrypt(&mut data[..len], &seed.map(|key| key as u32))
         .map_err(|_| LoginResponse::Rejected)?;
     Ok(Packet::from(data))
 }
@@ -294,7 +294,7 @@ fn decrypt_xtea(buf: Packet, seed: [i32; 4]) -> Result<Packet, LoginResponse> {
 fn decode_account(mut buf: Packet, rsa: &'static RsaKey) -> Result<Packet, LoginResponse> {
     require(&buf, 2)?;
     if buf.g2() != 647 {
-        return Err(LoginResponse::RuneScapeUpdated);
+        return Err(LoginResponse::OutOfDateClientVersion);
     }
     let (_, seed) = decrypt_rsa(&mut buf, rsa)?;
     decrypt_xtea(buf, seed)
@@ -308,7 +308,7 @@ fn decode_account(
     let mut buf = decrypt_rsa_block(&mut buf, rsa, 1 + 2 + 2)?;
     buf.pos += 2;
     if buf.g2() != 530 {
-        return Err(LoginResponse::RuneScapeUpdated);
+        return Err(LoginResponse::OutOfDateClientVersion);
     }
     let username = read_username37(&mut buf)?;
     require(&buf, 4)?;
@@ -382,7 +382,7 @@ impl CreateAccountRequest {
         require(&buf, 2 + 7)?;
         let age = buf.g1();
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         Ok(Self {
             username,
@@ -565,7 +565,7 @@ impl CheckNameRequest {
         let name = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
         require(&buf, 1 + 7)?;
         if name.is_empty() || name.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         Ok(Self { name })
     }
@@ -574,7 +574,7 @@ impl CheckNameRequest {
 #[cfg(all(since_530, before_647))]
 pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
     let mut buf = Packet::new(12);
-    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(staffmodlevel);
     buf.p1(0);
     buf.p1(0);
@@ -599,7 +599,7 @@ pub fn game_login_reply(
     #[cfg(since_742)]
     let len = 13 + Packet::sizejstr(display_name);
     let mut buf = Packet::new(2 + len);
-    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(len as u8);
     buf.p1(staffmodlevel);
     buf.p1(0);
@@ -626,7 +626,7 @@ pub fn lobby_login_reply(display_name: &str, world: u16) -> Vec<u8> {
     #[cfg(since_742)]
     let len = 68 + Packet::sizejstr(display_name);
     let mut buf = Packet::new(2 + len);
-    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(len as u8);
     #[cfg(before_742)]
     {
@@ -689,7 +689,7 @@ pub fn lobby_login_reply(display_name: &str, world: u16) -> Vec<u8> {
 pub fn reconnect_reply(pid: u16, x: u16, z: u16, level: u8, regions: &[u32]) -> Vec<u8> {
     let init = player_info_init(pid, x, z, level, regions);
     let mut buf = Packet::new(1 + 2 + init.pos);
-    buf.p1(LoginResponse::Reconnect as u8);
+    buf.p1(LoginResponse::ReconnectOk as u8);
     buf.p2(init.pos as u16);
     buf.pdata(&init.data, 0, init.pos);
     buf.data
@@ -844,7 +844,7 @@ Az5KOlJPE6c=
             body.p4(crc - 17);
         }
         let len = body.pos & !7;
-        Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
+        TinyKey::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
         let mut buf = Packet::new(9 + rsa.pos + body.pos);
         buf.p4(env!("REV").parse().unwrap());
         #[cfg(since_742)]
@@ -876,7 +876,7 @@ Az5KOlJPE6c=
             assert_eq!(login.uid, (uid == 123456).then_some(uid));
             assert!(matches!(
                 LoginBlock::decode(login_payload(uid), &KEY, crc ^ 1),
-                Err(LoginResponse::RuneScapeUpdated)
+                Err(LoginResponse::OutOfDateClientVersion)
             ));
         }
     }
@@ -922,11 +922,11 @@ Az5KOlJPE6c=
         assert_eq!(login.settings.detail, 2);
         assert!(matches!(
             LoginBlock::decode(login_payload(529, to_userhash("Player") as i64), &KEY),
-            Err(LoginResponse::RuneScapeUpdated)
+            Err(LoginResponse::OutOfDateClientVersion)
         ));
         assert!(matches!(
             LoginBlock::decode(login_payload(530, 0), &KEY),
-            Err(LoginResponse::InvalidCredentials)
+            Err(LoginResponse::BadCredentials)
         ));
     }
 
@@ -942,7 +942,7 @@ Az5KOlJPE6c=
         assert_eq!(select.password, "Password£");
         assert!(matches!(
             WorldSelectRequest::decode(account_block(529, &[]), &KEY),
-            Err(LoginResponse::RuneScapeUpdated)
+            Err(LoginResponse::OutOfDateClientVersion)
         ));
 
         let tail = [0, 5, 24, 11, 0, 0, 0, 97, 0x07, 0xC4, 0, 77, 0, 0, 0, 96];
@@ -1076,7 +1076,7 @@ Az5KOlJPE6c=
             }
             body.pos += 7;
             let len = body.pos & !7;
-            Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
+            TinyKey::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
             let mut payload = Packet::new(2 + rsa.pos + body.pos);
             payload.p2(647);
             payload.pdata(&rsa.data, 0, rsa.pos);

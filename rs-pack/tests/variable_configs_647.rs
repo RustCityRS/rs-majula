@@ -5,12 +5,12 @@ use rs_pack::cache::ScriptVarType;
 use rs_pack::cache::controller::ControllerType;
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::ScriptProvider;
-use rs_pack::cache::varbit::VarbitType;
 use rs_pack::cache::varp::VarPlayerTypeRaw;
+use rs_pack::cache::varpbit::VarpBitType;
 use rs_pack::pack::config::controller::pack_controllers;
-use rs_pack::pack::config::varbit::pack_varbits;
 use rs_pack::pack::config::varconbit::pack_varconbits;
 use rs_pack::pack::config::varp::pack_varps;
+use rs_pack::pack::config::varpbit::pack_varpbits;
 use rs_pack::pack::config::vars::{pack_string_vars, pack_vars};
 use rs_pack::pack::pack::FileCache;
 use rs_pack::pack::pack_registry::PackRegistry;
@@ -88,20 +88,20 @@ fn shared_variable_files_route_strings_and_controller_bits() {
         assert_eq!(entries(strings.client.as_ref().unwrap()), [vec![0]]);
     }
 
-    let player_bits = pack_varbits(&files, &registry, &constants).unwrap();
+    let player_bits = pack_varpbits(&files, &registry, &constants).unwrap();
     assert_eq!(
         entries(player_bits.client.as_ref().unwrap()),
         [vec![1, 0, 0, 4, 7, 0]]
     );
     let bits = pack_varconbits(&files, &registry, &constants).unwrap();
     assert_eq!(&entries(&bits)[0][..5], &[1, 0, 0, 4, 7]);
-    let mut bit = VarbitType::new(TypeId::new(0));
+    let mut bit = VarpBitType::new(TypeId::new(0));
     bit.decode(&mut Packet::from(entries(&bits)[0].clone()));
     assert_eq!((bit.basevar, bit.start_bit, bit.end_bit), (0, 4, 7));
     let controllers = pack_controllers(&files, &registry, &constants).unwrap();
     let mut controller = ControllerType::new(TypeId::new(0));
     controller.decode(&mut Packet::from(entries(&controllers)[0].clone()));
-    assert_eq!(controller.varbits.as_ref(), &[(0, 3)]);
+    assert_eq!(controller.varpbits.as_ref(), &[(0, 3)]);
 
     fs::write(
         scripts.join("bits.rs2"),

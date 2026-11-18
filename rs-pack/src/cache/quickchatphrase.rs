@@ -27,7 +27,7 @@ pub const DYNAMIC_COMMANDS: &[QuickChatDynamicCommand] = &[
     QuickChatDynamicCommand::new(6, "enum_string", 0, 4, &["enum", "varp"]),
     QuickChatDynamicCommand::new(7, "enum_string_clan", 0, 1, &["enum"]),
     QuickChatDynamicCommand::new(8, "tostring_varp", 0, 4, &["varp"]),
-    QuickChatDynamicCommand::new(9, "tostring_varbit", 0, 4, &["varpbit"]),
+    QuickChatDynamicCommand::new(9, "tostring_varpbit", 0, 4, &["varpbit"]),
     QuickChatDynamicCommand::new(10, "objtradedialog", 2, 2, &[]),
     QuickChatDynamicCommand::new(11, "enum_string_statbase", 0, 1, &["enum", "stat"]),
     QuickChatDynamicCommand::new(12, "acc_getcount_world", 0, 1, &[]),
@@ -73,7 +73,7 @@ pub struct QuickChatCommand {
 pub struct QuickChatPhraseType {
     pub id: TypeId,
     pub text: Option<Box<str>>,
-    pub responses: Box<[u16]>,
+    pub autoresponses: Box<[u16]>,
     pub commands: Box<[QuickChatCommand]>,
 }
 
@@ -84,7 +84,7 @@ impl CacheType for QuickChatPhraseType {
         Self {
             id,
             text: None,
-            responses: Box::default(),
+            autoresponses: Box::default(),
             commands: Box::default(),
         }
     }
@@ -92,7 +92,7 @@ impl CacheType for QuickChatPhraseType {
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
             1 => self.text = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-            2 => self.responses = read_array(buf, Packet::g2),
+            2 => self.autoresponses = read_array(buf, Packet::g2),
             3 => {
                 self.commands = read_array(buf, |buf| {
                     let id = buf.g2();

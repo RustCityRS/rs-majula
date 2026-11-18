@@ -31,7 +31,7 @@ use rs_io::Packet;
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 #[cfg(since_530)]
 use rs_ver::TypeId;
 #[cfg(since_530)]
@@ -87,9 +87,9 @@ impl Ctx<'_> {
     }
 
     #[cfg(since_254)]
-    fn varbit(&self, id: u16) -> &str {
+    fn varpbit(&self, id: u16) -> &str {
         self.registry
-            .varbit
+            .varpbit
             .get_by_id(id)
             .unwrap_or_else(|| panic!("No varpbit name for id {id} referenced by interface"))
     }
@@ -116,7 +116,7 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, IfTypeRaw>) {
     let mut comps: HashMap<u16, IfTypeRaw> = HashMap::new();
     let mut layer: i32 = -1;
 
-    while buf.remaining() > 0 {
+    while buf.get_space() > 0 {
         let mut id = buf.g2();
         if id == 0xFFFF {
             layer = buf.g2() as i32;
@@ -265,7 +265,7 @@ fn export_scripts(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
                     format!("testbit,{},{}", ctx.varp(varp), bit)
                 }
                 #[cfg(since_254)]
-                14 => format!("push_varbit,{}", ctx.varbit(next_op(ops, &mut idx))),
+                14 => format!("push_varbit,{}", ctx.varpbit(next_op(ops, &mut idx))),
                 #[cfg(since_254)]
                 15 => "subtract".to_string(),
                 #[cfg(since_254)]
@@ -351,10 +351,10 @@ fn export_component(
         if !com.action_verb.is_empty() {
             lines.push(format!("actionverb={}", com.action_verb));
         }
-        if com.action_target != 0 {
+        if com.target_mask != 0 {
             lines.push(format!(
                 "actiontarget={}",
-                action_target_names(com.action_target)
+                action_target_names(com.target_mask)
             ));
         }
         if !com.action.is_empty() {
@@ -381,8 +381,8 @@ fn export_component(
 fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     match com.com_type {
         IfComponentType::Layer => {
-            if com.scroll != 0 {
-                lines.push(format!("scroll={}", com.scroll));
+            if com.scroll_height != 0 {
+                lines.push(format!("scroll={}", com.scroll_height));
             }
             if com.hide {
                 lines.push("hide=yes".to_string());
@@ -416,7 +416,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
             export_options(lines, com);
         }
-        IfComponentType::Rect => {
+        IfComponentType::Rectangle => {
             if com.fill {
                 lines.push("fill=yes".to_string());
             }
@@ -443,7 +443,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
             export_colours(lines, com);
         }
-        IfComponentType::Graphic => {
+        IfComponentType::Sprite => {
             if !com.graphic.is_empty() {
                 lines.push(format!("graphic={}", com.graphic));
             }
@@ -638,8 +638,8 @@ pub fn unpack_interface(
         if overlay_roots.contains(&root_name) {
             header.push("type=overlay".to_string());
         }
-        if com.scroll != 0 {
-            header.push(format!("scroll={}", com.scroll));
+        if com.scroll_height != 0 {
+            header.push(format!("scroll={}", com.scroll_height));
         }
         if com.hide {
             header.push("hide=yes".to_string());
@@ -685,9 +685,9 @@ pub struct Interface {
 }
 
 #[cfg(since_530)]
-pub fn decode_interfaces(store: &mut Js5Store) -> Result<Vec<Interface>> {
+pub fn decode_interfaces(store: &mut Js5LocalCache) -> Result<Vec<Interface>> {
     let groups = store
-        .reference_table(INTERFACE_ARCHIVE)
+        .index(INTERFACE_ARCHIVE)
         .context("Missing interface table")?
         .groups
         .clone();
@@ -819,9 +819,9 @@ fn emit_component(
     writeln!(out, "// {group}:{position}\n[{name}]")?;
     let type_name = match comp.com_type {
         IfComponentType::Layer => "layer",
-        IfComponentType::Rect => "rectangle",
+        IfComponentType::Rectangle => "rectangle",
         IfComponentType::Text => "text",
-        IfComponentType::Graphic => "graphic",
+        IfComponentType::Sprite => "graphic",
         IfComponentType::Model => "model",
         IfComponentType::Line => "line",
         #[cfg(all(since_530, before_647))]
@@ -878,7 +878,7 @@ fn emit_component(
     if comp.y_mode != 0 {
         writeln!(out, "ymode={}", mode_name(&Y_MODES, comp.y_mode as u8))?;
     }
-    if let Some(parent) = comp.parent_id {
+    if let Some(parent) = comp.layer {
         writeln!(
             out,
             "layer={}",
@@ -902,7 +902,7 @@ fn emit_component(
     }
     match comp.com_type {
         IfComponentType::Layer => emit_layer(out, comp)?,
-        IfComponentType::Rect => {
+        IfComponentType::Rectangle => {
             writeln!(out, "colour={}", format_colour(comp.colour))?;
             if comp.fill {
                 writeln!(out, "fill=yes")?;
@@ -912,7 +912,7 @@ fn emit_component(
             }
         }
         IfComponentType::Text => emit_text(out, comp, names)?,
-        IfComponentType::Graphic => emit_graphic(out, comp, names)?,
+        IfComponentType::Sprite => emit_graphic(out, comp, names)?,
         IfComponentType::Model => emit_model(out, comp, names)?,
         IfComponentType::Line => {
             if comp.line_width != 1 {
@@ -932,8 +932,8 @@ fn emit_component(
     }
     for (key, kind, value) in [
         ("targetobj", "obj", comp.target_object_id),
-        ("targetcursor2", "cursor", comp.target_enter_cursor),
-        ("targetcursor3", "cursor", comp.target_leave_cursor),
+        ("validtargetcursor", "cursor", comp.valid_target_cursor),
+        ("invalidtargetcursor", "cursor", comp.invalid_target_cursor),
     ] {
         if let Some(value) = value {
             writeln!(out, "{key}={}", names.reference(kind, value.int().into()))?;
@@ -941,10 +941,10 @@ fn emit_component(
     }
     #[cfg(since_742)]
     {
-        if let Some(cursor) = comp.cursor {
+        if let Some(cursor) = comp.mouse_over_cursor {
             writeln!(
                 out,
-                "cursor={}",
+                "mouseovercursor={}",
                 names.reference("cursor", cursor.int().into())
             )?;
         }
@@ -971,8 +971,8 @@ fn emit_layer(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
     if comp.scroll_width != 0 {
         writeln!(out, "scrollwidth={}", comp.scroll_width)?;
     }
-    if comp.scroll != 0 {
-        writeln!(out, "scrollheight={}", comp.scroll)?;
+    if comp.scroll_height != 0 {
+        writeln!(out, "scrollheight={}", comp.scroll_height)?;
     }
     if comp.no_click_through {
         writeln!(out, "noclickthrough=yes")?;
@@ -988,14 +988,14 @@ fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<(
         names.reference("fontmetrics", comp.font.int().into())
     )?;
     #[cfg(since_742)]
-    if comp.text_flag2 {
-        writeln!(out, "textflag2=yes")?;
+    if comp.font_mono {
+        writeln!(out, "fontmono=yes")?;
     }
     if !comp.text.is_empty() {
         writeln!(out, "text={}", comp.text)?;
     }
-    if comp.text_style != 0 {
-        writeln!(out, "textlineheight={}", comp.text_style)?;
+    if comp.line_spacing != 0 {
+        writeln!(out, "textlineheight={}", comp.line_spacing)?;
     }
     if comp.text_halign != 0 {
         writeln!(
@@ -1110,7 +1110,7 @@ fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<
     }
     #[cfg(since_647)]
     if comp.model_flags & 2 != 0 {
-        writeln!(out, "modeloffset={}", comp.sprite_y_offset)?;
+        writeln!(out, "modeloffset={}", comp.model_origin_z)?;
     }
     if !comp.anim.is_null() {
         writeln!(
@@ -1204,8 +1204,8 @@ fn emit_ops(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()
     if comp.drag_deadtime != 0 {
         writeln!(out, "dragdeadtime={}", comp.drag_deadtime)?;
     }
-    if comp.drag_renderbehavior != 0 {
-        writeln!(out, "dragrenderbehaviour={}", comp.drag_renderbehavior)?;
+    if comp.drag_render_behaviour != 0 {
+        writeln!(out, "dragrenderbehaviour={}", comp.drag_render_behaviour)?;
     }
     ensure!(
         comp.op_cursor_count as usize == comp.op_cursors.len(),
@@ -1317,7 +1317,7 @@ fn emit_if1(out: &mut String, comp: &IfTypeRaw, group: u32, names: &AssetNames) 
             }
             emit_iops(out, comp)?;
         }
-        IfComponentType::Rect => {
+        IfComponentType::Rectangle => {
             writeln!(out, "colour={}", format_colour(comp.colour))?;
             if comp.fill {
                 writeln!(out, "fill=yes")?;
@@ -1329,7 +1329,7 @@ fn emit_if1(out: &mut String, comp: &IfTypeRaw, group: u32, names: &AssetNames) 
                 writeln!(out, "activetext={}", comp.active_text)?;
             }
         }
-        IfComponentType::Graphic => {
+        IfComponentType::Sprite => {
             emit_graphic_ref(out, "graphic", comp.graphic, names)?;
             emit_graphic_ref(out, "activegraphic", comp.active_graphic, names)?;
         }
@@ -1363,7 +1363,10 @@ fn emit_if1(out: &mut String, comp: &IfTypeRaw, group: u32, names: &AssetNames) 
         }
         _ => {}
     }
-    if matches!(comp.com_type, IfComponentType::Rect | IfComponentType::Text) {
+    if matches!(
+        comp.com_type,
+        IfComponentType::Rectangle | IfComponentType::Text
+    ) {
         for (key, colour) in [
             ("activecolour", comp.active_colour),
             ("overcolour", comp.over_colour),
@@ -1380,16 +1383,16 @@ fn emit_if1(out: &mut String, comp: &IfTypeRaw, group: u32, names: &AssetNames) 
     if !comp.action.is_empty() {
         writeln!(out, "action={}", comp.action)?;
     }
-    if comp.action_target != 0 {
+    if comp.target_mask != 0 {
         ensure!(
-            comp.action_target >> TARGET_MASK.len() == 0,
+            comp.target_mask >> TARGET_MASK.len() == 0,
             "Unknown action targets {}",
-            comp.action_target
+            comp.target_mask
         );
         let targets: Vec<_> = TARGET_MASK
             .iter()
             .enumerate()
-            .filter(|(bit, _)| (comp.action_target >> bit) & 1 != 0)
+            .filter(|(bit, _)| (comp.target_mask >> bit) & 1 != 0)
             .map(|(_, target)| *target)
             .collect();
         writeln!(out, "actiontarget={}", targets.join(","))?;

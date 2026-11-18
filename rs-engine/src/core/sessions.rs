@@ -350,7 +350,7 @@ impl Engine {
         #[cfg(since_254)]
         let level = active.staffmodlevel().min(2);
         #[cfg(all(since_254, before_530))]
-        let reply = vec![LoginResponse::SuccessNormal as u8, level, 1];
+        let reply = vec![LoginResponse::LoginOk as u8, level, 1];
         // The 530 client reads the first game packet, REBUILD_NORMAL, as part
         // of the reply: `on_login` sends it before anything else.
         #[cfg(all(since_530, before_647))]
@@ -373,7 +373,7 @@ impl Engine {
         #[cfg(before_254)]
         let reply = {
             let response = match active.player.staff_mod_level {
-                StaffModLevel::Normal => LoginResponse::SuccessNormal,
+                StaffModLevel::Normal => LoginResponse::LoginOk,
                 StaffModLevel::PlayerModerator => LoginResponse::SuccessModerator,
                 #[cfg(rev = "225")]
                 StaffModLevel::JagexModerator | StaffModLevel::Maintainer => {
@@ -474,15 +474,15 @@ impl Engine {
     }
 
     /// Starts a lobby session in slot `pid`: the lobby's login reply, the
-    /// player in a slot outside the world, then the `Login` trigger, where
-    /// `map_lobby` is true. No profile is loaded or claimed and ether is not
+    /// player in a slot outside the world, then lobbyscript's `[login,_]`.
+    /// No profile is loaded or claimed and ether is not
     /// told, so the game login that follows finds the account free.
     ///
     /// # Call Stack
     ///
     /// **Called by:** `try_complete_login`.
     /// **Calls:** [`PlayerList::add_lobby`](crate::core::PlayerList::add_lobby),
-    /// `run_script_by_trigger`.
+    /// `run_lobby_trigger`.
     #[cfg(since_647)]
     pub(crate) fn accept_lobby(
         &mut self,
@@ -511,13 +511,9 @@ impl Engine {
         info!("Player '{}' entered the lobby (pid={pid})", uid.username());
         self.player_list.add_lobby(pid, active);
 
-        let result = self.run_script_by_trigger(
+        let result = self.run_lobby_trigger(
             (ServerTriggerType::Login, None, None),
             Some(ScriptSubject::Player(uid)),
-            None,
-            Some(true),
-            None,
-            None,
         );
         if result.is_err() {
             error!("{:?}", result);
@@ -534,7 +530,7 @@ impl Engine {
     /// in-flight gameplay state; nothing is saved or reloaded, so there is
     /// no rollback and no save/load race.
     ///
-    /// 1. Sends [`LoginResponse::Reconnect`] (15) on the new connection --
+    /// 1. Sends [`LoginResponse::ReconnectOk`] (15) on the new connection --
     ///    the client resumes its session instead of resetting.
     /// 2. Swaps the new [`ClientHandle`] onto the player. Dropping the old
     ///    handle closes the old socket task's channels, which terminates the
@@ -585,14 +581,12 @@ impl Engine {
             // find_pid_by_user37 returned this pid in the same phase, so the
             // slot cannot be empty; guard anyway rather than panic.
             error!("adopt_session: pid {pid} vanished before adoption");
-            request
-                .handle
-                .send(vec![LoginResponse::CouldNotComplete as u8]);
+            request.handle.send(vec![LoginResponse::BadSave as u8]);
             return;
         };
 
         #[cfg(before_647)]
-        let reply = vec![LoginResponse::Reconnect as u8];
+        let reply = vec![LoginResponse::ReconnectOk as u8];
         #[cfg(since_647)]
         let reply = {
             let last = active.player.pathing.last_coord;
@@ -796,17 +790,17 @@ impl Engine {
         if self.is_shutdown_soon()
             || (self.maintenance_mode && staff_mod_level == StaffModLevel::Normal)
         {
-            self.reject_pending_login(idx, LoginResponse::ServerUpdating);
+            self.reject_pending_login(idx, LoginResponse::UpdateInProgress);
             return;
         }
 
         if self.player_list.count() >= 2000 {
-            self.reject_pending_login(idx, LoginResponse::WorldFull);
+            self.reject_pending_login(idx, LoginResponse::ServerFull);
             return;
         }
 
         let Some(pid) = self.player_list.next_pid() else {
-            self.reject_pending_login(idx, LoginResponse::WorldFull);
+            self.reject_pending_login(idx, LoginResponse::ServerFull);
             return;
         };
 
@@ -842,7 +836,7 @@ impl Engine {
             && let Some(Some(profile)) = &self.pending_logins[idx].profile
             && !rsmod::is_zone_flagged(profile.x, profile.z, profile.y, ZoneFlag::Free as u8)
         {
-            self.reject_pending_login(idx, LoginResponse::MembersArea);
+            self.reject_pending_login(idx, LoginResponse::MoveToFree);
             return;
         }
 

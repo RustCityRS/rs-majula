@@ -116,7 +116,7 @@ fn if1_events(interface: &IfType) -> u32 {
         interface.button_type,
         IfButtonType::Normal | IfButtonType::Toggle | IfButtonType::Select
     );
-    let targets = (interface.action_target & 0x3F) as i32;
+    let targets = (interface.target_mask & 0x3F) as i32;
     let pause = u32::from(interface.button_type == IfButtonType::Pause);
     IfEvents::new(0, targets, 0, false, targetable).0 | pause
 }
@@ -245,7 +245,7 @@ pub fn use_component_ok(active: &ActivePlayer, com: ComId, slot: u16, target: u1
 /// visible to the player; `false` otherwise (a bad or lagging client).
 #[cfg(before_530)]
 pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16, target: u16) -> bool {
-    component(active, com).is_ok_and(|interface| interface.action_target & target != 0)
+    component(active, com).is_ok_and(|interface| interface.target_mask & target != 0)
 }
 
 #[cfg(since_530)]

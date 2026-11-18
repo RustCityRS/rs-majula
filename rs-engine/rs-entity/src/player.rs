@@ -78,7 +78,7 @@ pub const CHAT_MODE_PUBLIC: u8 = 0;
 pub const CHAT_MODE_CLAN: u8 = 1;
 
 /// The movement speed mode of an entity, determining how many tiles it moves per tick.
-/// The values are 647's move types, as the MoveType and TempMoveType blocks carry
+/// The values are 647's move speeds, as the MoveSpeed and TempMoveSpeed blocks carry
 /// them (`Class244.method1590`).
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -125,7 +125,7 @@ pub struct Player {
     pub move_speed: MoveSpeed,
     pub temp_move_speed: Option<MoveSpeed>,
     #[cfg(since_647)]
-    pub client_move_type: Option<MoveSpeed>,
+    pub client_move_speed: Option<MoveSpeed>,
     #[cfg(since_530)]
     pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
@@ -296,7 +296,7 @@ impl Player {
             move_speed: MoveSpeed::Walk,
             temp_move_speed: None,
             #[cfg(since_647)]
-            client_move_type: None,
+            client_move_speed: None,
             #[cfg(since_530)]
             region_entry: None,
             move_request: false,
@@ -1148,12 +1148,12 @@ impl Player {
         self.chat_filters & 0x3
     }
 
-    /// Rev-647: settles this tick's MoveType and TempMoveType blocks.
+    /// Rev-647: settles this tick's MoveSpeed and TempMoveSpeed blocks.
     ///
-    /// The client stores one move type per player (MoveType, 0x8) and plays
+    /// The client stores one move speed per player (MoveSpeed, 0x8) and plays
     /// each step at it, unless the same update carries a one-tick override
-    /// (TempMoveType, 0x800). `Class244.method1590` reads both masks before it
-    /// applies the step, so the override wins and a MoveType sent this tick
+    /// (TempMoveSpeed, 0x800). `Class244.method1590` reads both masks before it
+    /// applies the step, so the override wins and a MoveSpeed sent this tick
     /// already counts.
     ///
     /// So the stored type has to follow `move_speed` however it changes -- the
@@ -1166,18 +1166,18 @@ impl Player {
     /// teleport is a walk, which a forced move carries to its end tile.
     ///
     /// # Side Effects
-    /// * May set `info.move_type`/`info.temp_move_type` and their mask bits.
-    /// * Updates `client_move_type`.
+    /// * May set `info.move_speed`/`info.temp_move_speed` and their mask bits.
+    /// * Updates `client_move_speed`.
     ///
     /// # Call Stack
     /// **Called by:** `Engine::compute_player_info`, once every source of
     /// movement and run changes has had its turn for the tick.
     #[cfg(since_647)]
-    pub fn sync_move_types(&mut self) {
-        if self.client_move_type != Some(self.move_speed) {
-            self.client_move_type = Some(self.move_speed);
-            self.info.move_type = Some(self.move_speed as u8);
-            self.info.masks |= PlayerInfoProt::MoveType as u16;
+    pub fn sync_move_speeds(&mut self) {
+        if self.client_move_speed != Some(self.move_speed) {
+            self.client_move_speed = Some(self.move_speed);
+            self.info.move_speed = Some(self.move_speed as u8);
+            self.info.masks |= PlayerInfoProt::MoveSpeed as u16;
         }
         let step = if self.pathing.tele {
             if self.pathing.jump {
@@ -1193,8 +1193,8 @@ impl Player {
             return;
         };
         if step != self.move_speed {
-            self.info.temp_move_type = Some(step as u8);
-            self.info.masks |= PlayerInfoProt::TempMoveType as u16;
+            self.info.temp_move_speed = Some(step as u8);
+            self.info.masks |= PlayerInfoProt::TempMoveSpeed as u16;
         }
     }
 }
@@ -1324,7 +1324,7 @@ mod move_speed_tests {
 }
 
 #[cfg(all(test, since_647))]
-mod move_type_tests {
+mod move_speed_block_tests {
     use super::*;
     use std::iter;
 
@@ -1337,21 +1337,21 @@ mod move_type_tests {
     /// One tick: clear last tick's blocks, take the given step, settle.
     fn tick(p: &mut Player, walk_dir: i8, run_dir: i8, tele: bool) {
         p.info.masks = 0;
-        p.info.move_type = None;
-        p.info.temp_move_type = None;
+        p.info.move_speed = None;
+        p.info.temp_move_speed = None;
         p.pathing.walk_dir = walk_dir;
         p.pathing.run_dir = run_dir;
         p.pathing.tele = tele;
-        p.sync_move_types();
+        p.sync_move_speeds();
     }
 
     fn stored(p: &Player) -> Option<u8> {
-        (p.info.masks & (PlayerInfoProt::MoveType as u16) != 0).then(|| p.info.move_type.unwrap())
+        (p.info.masks & (PlayerInfoProt::MoveSpeed as u16) != 0).then(|| p.info.move_speed.unwrap())
     }
 
     fn temp(p: &Player) -> Option<u8> {
-        (p.info.masks & (PlayerInfoProt::TempMoveType as u16) != 0)
-            .then(|| p.info.temp_move_type.unwrap())
+        (p.info.masks & (PlayerInfoProt::TempMoveSpeed as u16) != 0)
+            .then(|| p.info.temp_move_speed.unwrap())
     }
 
     #[test]
@@ -1459,10 +1459,10 @@ mod move_type_tests {
             p.pathing.jump = false;
             p.pathing.coord = CoordGrid::new(3222, 0, 3225);
             p.info.masks = PlayerInfoProt::ExactMove as u16;
-            p.info.temp_move_type = None;
+            p.info.temp_move_speed = None;
             p.pathing.tele = true;
             p.validate_distance_walked();
-            p.sync_move_types();
+            p.sync_move_speeds();
             let want = (speed == MoveSpeed::Run).then_some(MoveSpeed::Walk as u8);
             assert_eq!(temp(&p), want, "{speed:?}: a step, not 127");
         }

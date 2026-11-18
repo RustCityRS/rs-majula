@@ -60,10 +60,10 @@ fn sizeof_matches_encode_for_every_server_packet() {
     check(
         seen,
         cam_shake::CamShake {
-            direction: 2,
-            jitter: 4,
-            amplitude: 8,
-            frequency: 16,
+            axis: 2,
+            ran: 4,
+            amp: 8,
+            rate: 16,
         },
     );
 

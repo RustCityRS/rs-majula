@@ -107,8 +107,6 @@ use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFull
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
 use rs_protocol::network::game::server::url_open::UrlOpen;
-use rs_protocol::network::game::server::varbit_large::VarbitLarge;
-use rs_protocol::network::game::server::varbit_small::VarbitSmall;
 use rs_protocol::network::game::server::varc_large::VarcLarge;
 use rs_protocol::network::game::server::varc_small::VarcSmall;
 use rs_protocol::network::game::server::varc_str_large::VarcStrLarge;
@@ -116,6 +114,8 @@ use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
 use rs_protocol::network::game::server::varp_large::VarpLarge;
 use rs_protocol::network::game::server::varp_small::VarpSmall;
 use rs_protocol::network::game::server::varp_sync::VarpSync;
+use rs_protocol::network::game::server::varpbit_large::VarpBitLarge;
+use rs_protocol::network::game::server::varpbit_small::VarpBitSmall;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
 use rs_protocol::network::game::zone_prot::ZoneProt;
@@ -429,11 +429,14 @@ fn vars_match_the_530_readers() {
         }),
         [1, 2, 3, 4, 1, 0xA3]
     );
-    assert_eq!(VarbitSmall::PROT.id(), 37);
-    assert_eq!(encode(&VarbitSmall { id: 0x0123, val: 5 }), [0x85, 0x23, 1]);
-    assert_eq!(VarbitLarge::PROT.id(), 84);
+    assert_eq!(VarpBitSmall::PROT.id(), 37);
     assert_eq!(
-        encode(&VarbitLarge {
+        encode(&VarpBitSmall { id: 0x0123, val: 5 }),
+        [0x85, 0x23, 1]
+    );
+    assert_eq!(VarpBitLarge::PROT.id(), 84);
+    assert_eq!(
+        encode(&VarpBitLarge {
             id: 0x0123,
             val: COM
         }),
@@ -473,10 +476,10 @@ fn vars_match_the_530_readers() {
 #[test]
 fn camera_packets_lead_with_the_verify_id() {
     let shake = CamShake {
-        direction: 1,
-        jitter: 2,
-        amplitude: 3,
-        frequency: 4,
+        axis: 1,
+        ran: 2,
+        amp: 3,
+        rate: 4,
         cycle: 0x0506,
         verify: VERIFY,
     };
@@ -486,8 +489,8 @@ fn camera_packets_lead_with_the_verify_id() {
         local_x: 10,
         local_z: 20,
         height: 400,
-        const_speed: 5,
-        var_speed: 100,
+        rate: 5,
+        rate2: 100,
         verify: VERIFY,
     };
     assert_eq!(CamLookat::PROT.id(), 125);
@@ -496,8 +499,8 @@ fn camera_packets_lead_with_the_verify_id() {
         local_x: 10,
         local_z: 20,
         height: 400,
-        const_speed: 5,
-        var_speed: 100,
+        rate: 5,
+        rate2: 100,
         verify: VERIFY,
     };
     assert_eq!(CamMoveto::PROT.id(), 154);
@@ -1221,7 +1224,7 @@ fn player_blocks_match_the_530_readers() {
     let chat = PlayerInfoChat {
         colour: 0x83,
         effects: 1,
-        ignored: 2,
+        crown: 2,
         bytes: &[2, 0x48, 0x69],
     };
     assert_eq!(block(&chat), [1, 0x83, 2, 3, 0x69, 0x48, 2]);

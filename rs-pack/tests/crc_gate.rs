@@ -5,7 +5,7 @@
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
 use rs_io::js5::compute_group_crc;
-use rs_io::js5::reference::encode_reference_table;
+use rs_io::js5::index::encode_index;
 use rs_pack::archive::{self, ARCHIVE_IDS, EXPECTED_CRCS};
 use rs_pack::cache::js5::PackedCache;
 use serde_json::Value;
@@ -38,7 +38,7 @@ const NAMES: [&str; 36] = [
     "config_obj",
     "config_seq",
     "config_spot",
-    "config_varbit",
+    "config_varpbit",
     "worldmap",
     "quickchat",
     "quickchat_global",
@@ -205,7 +205,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
             let group: u32 = serde_json::from_value(entry["group"].clone()).unwrap();
             let key: [i32; 4] = serde_json::from_value(entry["key"].clone()).unwrap();
             (!matches!(
-                store.read_group_xtea(archive as u8, group, &key),
+                store.read_group_tiny_key(archive as u8, group, &key),
                 Ok(Some(ref d)) if !d.is_empty()
             ))
             .then_some((archive, group))
@@ -251,7 +251,7 @@ fn rejects_corrupt_cache(store: &mut PackedCache) {
             .unwrap();
         let old_crc = table.groups[index].crc;
         table.groups[index].crc = crc;
-        let encoded = compress_best(&encode_reference_table(table), true, true, None).unwrap();
+        let encoded = compress_best(&encode_index(table), true, true, None).unwrap();
         let reference = store
             .groups
             .insert((archive::REFERENCE_TABLES, aid as u32), encoded)

@@ -28,8 +28,8 @@ val=20,slayer
 val=21,farming
 val=22,hunter
 val=23,construction
-val=24,summoning
-val=25,dungeoneering
+val=24,animallore
+val=25,rand
 
 // 2011 f2p skill set: dungeoneering was free-to-play from launch (wiki
 // Dungeoneering, 2011-05-22).
@@ -52,7 +52,7 @@ val=12,fishing
 val=13,cooking
 val=14,firemaking
 val=15,woodcutting
-val=16,dungeoneering
+val=16,rand
 
 [stat_names]
 inputtype=stat
@@ -81,8 +81,8 @@ val=slayer,Slayer
 val=farming,Farming
 val=hunter,Hunter
 val=construction,Construction
-val=summoning,Summoning
-val=dungeoneering,Dungeoneering
+val=animallore,Summoning
+val=rand,Dungeoneering
 
 [stat_members]
 inputtype=stat
@@ -111,5 +111,5 @@ val=slayer,^true
 val=farming,^true
 val=hunter,^true
 val=construction,^true
-val=summoning,^true
-val=dungeoneering,^false
+val=animallore,^true
+val=rand,^false

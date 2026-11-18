@@ -4104,9 +4104,9 @@ fog_color=2695969
 fog_depth=903
 
 ==== LIGHTS ====
-24 1715 5589 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=31 ref=light_0
-24 1979 4667 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=63 ref=light_0
-24 1979 4155 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=191 ref=light_0
-24 59 5179 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=191 ref=light_0
-24 315 4155 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=31 ref=light_0
-24 1979 3643 244: radius=2 colors=5,5,5,5,5 hsl=4782 type=95 ref=light_0
+24 1715 5589 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=31 lighttype=light_0
+24 1979 4667 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=63 lighttype=light_0
+24 1979 4155 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=191 lighttype=light_0
+24 59 5179 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=191 lighttype=light_0
+24 315 4155 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=31 lighttype=light_0
+24 1979 3643 244: radius=2 radiusgrid=5,5,5,5,5 hsl=4782 type=95 lighttype=light_0

@@ -453,7 +453,7 @@ autoresponse=chatphrase_85
 
 // 85
 [chatphrase_85]
-phrase=My Summoning level is <stat_base(summoning)>.
+phrase=My Summoning level is <stat_base(animallore)>.
 autoresponse=chatphrase_612
 autoresponse=chatphrase_613
 autoresponse=chatphrase_614
@@ -1862,7 +1862,7 @@ phrase=I'm around the edge.
 
 // 361
 [chatphrase_361]
-phrase=I've got charges: <tostring_varbit(varplayerbit_4562)>.
+phrase=I've got charges: <tostring_varpbit(varplayerbit_4562)>.
 
 // 362
 [chatphrase_362]
@@ -3074,7 +3074,7 @@ phrase=My levels are: Attack:<stat_base(attack)>  Strength:<stat_base(strength)>
 
 // 609
 [chatphrase_609]
-phrase=My levels are: Defence:<stat_base(defence)>  Prayer:<stat_base(prayer)>  Hitpoints:<stat_base(hitpoints)>  Summoning:<stat_base(summoning)>
+phrase=My levels are: Defence:<stat_base(defence)>  Prayer:<stat_base(prayer)>  Hitpoints:<stat_base(hitpoints)>  Summoning:<stat_base(animallore)>
 
 // 610
 [chatphrase_610]
@@ -3082,7 +3082,7 @@ phrase=What is your combat level?
 
 // 611
 [chatphrase_611]
-phrase=I have <tostring_varbit(varplayerbit_5505)> Stealing Creation Points.
+phrase=I have <tostring_varpbit(varplayerbit_5505)> Stealing Creation Points.
 
 // 612
 [chatphrase_612]
@@ -3154,7 +3154,7 @@ phrase=I need <enum_string_statbase(enum_2140,thieving)> experience to get my ne
 
 // 629
 [chatphrase_629]
-phrase=I need <enum_string_statbase(enum_2140,summoning)> experience to get my next Summoning level.
+phrase=I need <enum_string_statbase(enum_2140,animallore)> experience to get my next Summoning level.
 
 // 630
 [chatphrase_630]
@@ -4101,7 +4101,7 @@ phrase=I found a penguin at: <listdialog(enum_1504)>.
 
 // 821
 [chatphrase_821]
-phrase=I have found <tostring_varbit(peng_spy_week_peng)> penguins this week.
+phrase=I have found <tostring_varpbit(peng_spy_week_peng)> penguins this week.
 
 // 822
 [chatphrase_822]

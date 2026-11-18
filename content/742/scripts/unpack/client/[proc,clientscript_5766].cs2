@@ -63,7 +63,7 @@ if (stat_base(farming) > $int0) {
 if (stat_base(construction) > $int0) {
     return(1);
 }
-if (stat_base(dungeoneering) > $int0) {
+if (stat_base(rand) > $int0) {
     return(1);
 }
 return(0);

@@ -9,8 +9,8 @@ use crate::cache::js5::PackedCache;
 use crate::cache::map::TerrainTile;
 #[cfg(since_530)]
 use crate::cache::map::{
-    CameraData, CameraPlane, EnvParams, EnvironmentData, LightData, LocEntry, NpcSpawn, ObjSpawn,
-    SkyboxData, TerrainData, load_xtea_keys,
+    CameraData, CameraPlane, EnvParams, EnvironmentData, LocEntry, NpcSpawn, ObjSpawn, SkyboxData,
+    StaticPointLight, TerrainData, load_xtea_keys,
 };
 #[cfg(since_530)]
 use crate::pack::incremental::{self, Hash, Stage};
@@ -41,13 +41,13 @@ use rs_io::bz2::bz2_compress_with_size;
 #[cfg(before_530)]
 use rs_io::crc;
 #[cfg(since_530)]
-use rs_io::js5::compression::{CompressionType, Container, compress_xtea};
+use rs_io::js5::compression::{CompressionType, Container, compress_tiny_key};
 #[cfg(since_530)]
 use rs_io::js5::compute_group_crc;
 #[cfg(since_530)]
-use rs_io::js5::java_string_hash;
+use rs_io::js5::index::FileInfo;
 #[cfg(since_530)]
-use rs_io::js5::reference::FileInfo;
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use rs_ver::TypeId;
 #[cfg(since_530)]
@@ -758,12 +758,12 @@ pub fn pack_archive(
         |gid, name, names| -> Result<PreparedGroup> {
             let ver = group_version(versions, aid, &gid);
             let version = ver as u16;
-            let name_hash = java_string_hash(name);
+            let name_hash = hash32(name);
 
-            let is_landscape = is_landscape(name);
+            let is_locations = is_locations(name);
             let is_npc = is_npc_spawns(name);
 
-            let (raw, crc) = if is_landscape {
+            let (raw, crc) = if is_locations {
                 let text_path = sources.get(name);
                 let encrypted_path = encrypted(name);
 
@@ -774,8 +774,8 @@ pub fn pack_archive(
                         names,
                         false,
                     )?;
-                    let locs = parse_landscape_text(&text);
-                    let binary = encode_landscape_binary(&locs);
+                    let locs = parse_locations_text(&text);
+                    let binary = encode_locations_binary(&locs);
                     let key = xtea_keys.get(&name_hash).copied().unwrap_or([0; 4]);
                     let mut inputs = Hash::new("landscape");
                     inputs.int(u64::from(version));
@@ -783,7 +783,7 @@ pub fn pack_archive(
                         inputs.int(u64::from(part as u32));
                     }
                     let container = incremental::memo(inputs.bytes(&binary).key(), || {
-                        Ok(compress_xtea(
+                        Ok(compress_tiny_key(
                             &binary,
                             CompressionType::Gzip,
                             version,
@@ -921,7 +921,7 @@ pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
 }
 
 #[cfg(since_530)]
-pub fn is_landscape(name: &str) -> bool {
+pub fn is_locations(name: &str) -> bool {
     name.starts_with("l") || name.starts_with("ul")
 }
 
@@ -967,7 +967,7 @@ pub fn encode_terrain_binary(terrain: &TerrainData) -> Vec<u8> {
             128 => {
                 if let Some(sky) = &terrain.skybox {
                     out.push(128);
-                    write_u16(&mut out, sky.param0);
+                    write_u16(&mut out, sky.skybox);
                     write_i16(&mut out, sky.param1);
                     write_i16(&mut out, sky.param2);
                     write_i16(&mut out, sky.param3);
@@ -1057,18 +1057,18 @@ fn encode_environment(env: &EnvironmentData, out: &mut Vec<u8>) {
 }
 
 #[cfg(since_530)]
-fn encode_light(light: &LightData, out: &mut Vec<u8>) {
+fn encode_light(light: &StaticPointLight, out: &mut Vec<u8>) {
     out.push(light.flags_raw);
     write_u16(out, light.x);
     write_u16(out, light.y);
     write_u16(out, light.z);
     out.push(light.radius);
-    for &c in &light.colors {
+    for &c in &light.radius_grid {
         write_u16(out, c);
     }
-    write_u16(out, light.hsl);
+    write_u16(out, light.colour);
     out.push(light.type_packed);
-    if let Some(r) = light.light_type_ref {
+    if let Some(r) = light.light_type {
         write_u16(out, r);
     }
 }
@@ -1093,7 +1093,7 @@ fn write_u32(out: &mut Vec<u8>, v: u32) {
 }
 
 #[cfg(since_530)]
-pub fn encode_landscape_binary(locs: &[LocEntry]) -> Vec<u8> {
+pub fn encode_locations_binary(locs: &[LocEntry]) -> Vec<u8> {
     let mut sorted: Vec<&LocEntry> = locs.iter().collect();
     sorted.sort_by_key(|l| (l.loc_id, l.packed_pos()));
 
@@ -1218,7 +1218,7 @@ pub fn parse_terrain_text(text: &str) -> TerrainData {
     let mut tiles = vec![TerrainTile::default(); tile_count];
     let mut env_opcode_order: Vec<u8> = Vec::new();
     let mut environment: Option<EnvironmentData> = None;
-    let mut lights: Vec<LightData> = Vec::new();
+    let mut lights: Vec<StaticPointLight> = Vec::new();
     let mut env_params: Option<EnvParams> = None;
     let mut skybox: Option<SkyboxData> = None;
     let mut camera: Option<CameraData> = None;
@@ -1348,33 +1348,33 @@ pub fn parse_terrain_text(text: &str) -> TerrainData {
                 let y: u16 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
                 let z: u16 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
                 let mut radius = 0u8;
-                let mut colors = Vec::new();
-                let mut hsl = 0u16;
+                let mut radius_grid = Vec::new();
+                let mut colour = 0u16;
                 let mut type_packed = 0u8;
-                let mut light_type_ref = None;
+                let mut light_type = None;
                 for token in rest.split_whitespace() {
                     if let Some(v) = token.strip_prefix("radius=") {
                         radius = v.parse().unwrap_or(0);
-                    } else if let Some(v) = token.strip_prefix("colors=") {
-                        colors = v.split(',').filter_map(|s| s.parse().ok()).collect();
+                    } else if let Some(v) = token.strip_prefix("radiusgrid=") {
+                        radius_grid = v.split(',').filter_map(|s| s.parse().ok()).collect();
                     } else if let Some(v) = token.strip_prefix("hsl=") {
-                        hsl = v.parse().unwrap_or(0);
+                        colour = v.parse().unwrap_or(0);
                     } else if let Some(v) = token.strip_prefix("type=") {
                         type_packed = v.parse().unwrap_or(0);
-                    } else if let Some(v) = token.strip_prefix("ref=") {
-                        light_type_ref = v.parse().ok();
+                    } else if let Some(v) = token.strip_prefix("lighttype=") {
+                        light_type = v.parse().ok();
                     }
                 }
-                lights.push(LightData {
+                lights.push(StaticPointLight {
                     flags_raw,
                     x,
                     y,
                     z,
                     radius,
-                    colors,
-                    hsl,
+                    radius_grid,
+                    colour,
                     type_packed,
-                    light_type_ref,
+                    light_type,
                 });
             }
             "envparams" => {
@@ -1392,7 +1392,7 @@ pub fn parse_terrain_text(text: &str) -> TerrainData {
                 let v: Vec<&str> = line.split_whitespace().collect();
                 if v.len() == 5 {
                     skybox = Some(SkyboxData {
-                        param0: v[0].parse().unwrap_or(0),
+                        skybox: v[0].parse().unwrap_or(0),
                         param1: v[1].parse().unwrap_or(0),
                         param2: v[2].parse().unwrap_or(0),
                         param3: v[3].parse().unwrap_or(0),
@@ -1438,7 +1438,7 @@ pub fn parse_terrain_text(text: &str) -> TerrainData {
 }
 
 #[cfg(since_530)]
-pub fn parse_landscape_text(text: &str) -> Vec<LocEntry> {
+pub fn parse_locations_text(text: &str) -> Vec<LocEntry> {
     let mut locs = Vec::new();
 
     for line in text.lines() {

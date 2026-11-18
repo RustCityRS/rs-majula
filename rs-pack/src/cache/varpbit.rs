@@ -3,9 +3,9 @@ use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
 use rs_ver::TypeId;
 
-pub type VarbitTypeProvider = TypeProvider<VarbitType>;
+pub type VarpBitTypeProvider = TypeProvider<VarpBitType>;
 
-pub struct VarbitType {
+pub struct VarpBitType {
     pub id: TypeId,
     pub basevar: u16,
     pub start_bit: u8,
@@ -13,11 +13,11 @@ pub struct VarbitType {
     debugname: Box<str>,
 }
 
-impl CacheType for VarbitType {
+impl CacheType for VarpBitType {
     type Context = ();
 
     fn new(id: TypeId) -> Self {
-        VarbitType {
+        VarpBitType {
             id,
             basevar: 0,
             start_bit: 0,

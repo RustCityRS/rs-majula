@@ -51,7 +51,7 @@ pub struct OpObjT {
 #[cfg(all(since_530, before_647))]
 impl ClientProtMessage for OpObjT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         let z = buf.g2();
         let obj = TypeId::from_g2(buf.g2_alt3());
         let x = buf.g2_alt3();
@@ -86,7 +86,7 @@ impl ClientProtMessage for OpObjT {
         let obj2 = TypeId::from_g2(buf.g2_alt1());
         let obj = TypeId::from_g2(buf.g2_alt1());
         let slot = buf.g2();
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         let ctrl = buf.g1_alt1() != 0;
         let z = buf.g2_alt2();
         let x = buf.g2_alt2();
@@ -127,7 +127,7 @@ impl ClientProtMessage for OpObjT {
         let x = buf.g2_alt3();
         let obj2 = TypeId::from_g2(buf.g2_alt1());
         let ctrl = buf.g1_alt3() != 0;
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         OpObjT {
             obj,
             x,

@@ -10,14 +10,14 @@ use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
 #[cfg(since_530)]
-#[server_prot(VarbitLarge, Immediate, Fixed)]
-pub struct VarbitLarge {
+#[server_prot(VarpBitLarge, Immediate, Fixed)]
+pub struct VarpBitLarge {
     pub id: u16,
     pub val: i32,
 }
 
 #[cfg(all(since_530, before_647))]
-impl ServerProtMessage for VarbitLarge {
+impl ServerProtMessage for VarpBitLarge {
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt1(self.val);
         buf.p2_alt3(self.id);
@@ -29,7 +29,7 @@ impl ServerProtMessage for VarbitLarge {
 }
 
 #[cfg(since_647)]
-impl ServerProtMessage for VarbitLarge {
+impl ServerProtMessage for VarpBitLarge {
     #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p2_alt1(self.id);

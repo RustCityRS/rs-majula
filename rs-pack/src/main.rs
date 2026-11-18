@@ -1,7 +1,7 @@
 use anyhow::Result;
 use clap::{ArgAction, Parser, Subcommand};
 use rs_io::jag::JagFile;
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 #[cfg(before_530)]
 use rs_pack::pyxel;
 use rs_pack::unpack;
@@ -173,7 +173,7 @@ fn main() -> Result<()> {
             let cache = cache.then_some(Path::new(rs_pack::PACK_CACHE_DIR));
             let result = rs_pack::pack_all(&source, &pack, cache, verify, members)?;
             tracing::info!(
-                "JS5 cache packed in memory: {} npcs, {} objs, {} locs, {} seqs, {} enums, {} structs, {} invs, {} varbits",
+                "JS5 cache packed in memory: {} npcs, {} objs, {} locs, {} seqs, {} enums, {} structs, {} invs, {} varpbits",
                 result.store.npcs.count(),
                 result.store.objs.count(),
                 result.store.locs.count(),
@@ -181,7 +181,7 @@ fn main() -> Result<()> {
                 result.store.enums.count(),
                 result.store.structs.count(),
                 result.store.invs.count(),
-                result.store.varbits.count(),
+                result.store.varpbits.count(),
             );
         }
         #[cfg(before_530)]
@@ -197,7 +197,7 @@ fn main() -> Result<()> {
             unpack::unpack_all(&expected, &output, &pack)?;
         }
         Commands::Namehash { jag, names } => {
-            let hash = if jag { JagFile::hash } else { java_string_hash };
+            let hash = if jag { JagFile::hash } else { hash32 };
             let print = |name: &str| println!("{}	{name}", hash(name));
             if names.is_empty() {
                 for line in stdin().lock().lines() {

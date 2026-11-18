@@ -5,7 +5,7 @@
 //! compiler gives it an id past the registry's end -- and the first script to
 //! touch it reads past the player's or world's var array and stops the engine.
 //! Agility's course-progress varps did exactly that. This fails on any `%name`
-//! in a script that no varp, varbit, var, varn, varc or varcon (controller var)
+//! in a script that no varp, varpbit, var, varn, varc or varcon (controller var)
 //! registry holds.
 //!
 //! ```text

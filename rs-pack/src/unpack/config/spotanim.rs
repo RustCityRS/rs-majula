@@ -74,7 +74,7 @@ pub fn emit_spotanim_props(
     }
     #[cfg(since_647)]
     {
-        if def.allowloop {
+        if def.obey_extra_seq_settings {
             p.push((10, "allowloop".into(), "yes".into()));
         }
         let param = def.hillskew_param.unwrap_or(-1);

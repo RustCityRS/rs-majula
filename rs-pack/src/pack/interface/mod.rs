@@ -14,7 +14,7 @@ use crate::cache::js5::PackedCache;
 #[cfg(before_530)]
 use crate::config_crc;
 #[cfg(since_530)]
-use crate::pack::incremental::{Stage, dir_key, files_under, stats_key};
+use crate::pack::incremental::{LOBBY_COMMANDS, Stage, dir_key, game_files_under, stats_key};
 #[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
 #[cfg(since_530)]
@@ -39,7 +39,7 @@ use rs_io::js5::encode_group_entries;
 #[cfg(since_530)]
 use rs_ver::TypeId;
 #[cfg(since_530)]
-use runec::clientscript::{self, HookValue, component_hook};
+use runec::clientscript::{self, HookArg, component_hook};
 #[cfg(since_530)]
 use runec::sources::roots;
 #[cfg(since_530)]
@@ -487,8 +487,10 @@ pub fn pack_interfaces(
                         }
                         #[cfg(since_254)]
                         "push_varbit" => {
-                            let varbit_link =
-                                registry.varbit.get_by_debugname(arg(1)).unwrap_or_else(|| {
+                            let varpbit_link = registry
+                                .varpbit
+                                .get_by_debugname(arg(1))
+                                .unwrap_or_else(|| {
                                     panic!(
                                         "Error packing interfaces
 {} references unknown varpbit '{}'",
@@ -496,8 +498,8 @@ pub fn pack_interfaces(
                                         arg(1)
                                     )
                                 });
-                            client.p2(varbit_link);
-                            server.p2(varbit_link);
+                            client.p2(varpbit_link);
+                            server.p2(varpbit_link);
                         }
                         #[cfg(since_254)]
                         "push_constant" => {
@@ -602,7 +604,7 @@ pub fn pack_interfaces(
             }
         }
 
-        if com_type == IfComponentType::Rect {
+        if com_type == IfComponentType::Rectangle {
             client.p1(get_bool(src.get("fill")) as u8);
             server.p1(get_bool(src.get("fill")) as u8);
         }
@@ -621,7 +623,7 @@ pub fn pack_interfaces(
             server.pjstr(get_string(src.get("activetext")));
         }
 
-        if com_type == IfComponentType::Rect || com_type == IfComponentType::Text {
+        if com_type == IfComponentType::Rectangle || com_type == IfComponentType::Text {
             parse_hex(get_colour(src.get("colour")), |v| {
                 client.p4(v);
                 server.p4(v);
@@ -641,7 +643,7 @@ pub fn pack_interfaces(
             });
         }
 
-        if com_type == IfComponentType::Graphic {
+        if com_type == IfComponentType::Sprite {
             client.pjstr(get_string(src.get("graphic")));
             client.pjstr(get_string(src.get("activegraphic")));
 
@@ -827,9 +829,9 @@ pub fn pack_archive(
             versions_dep(versions, aid),
             (
                 "clientscripts".to_owned(),
-                stats_key(&files_under(&roots(&scripts))),
+                stats_key(&game_files_under(&roots(&scripts))),
             ),
-            ("pack".to_owned(), dir_key(pack_dir, &[])),
+            ("pack".to_owned(), dir_key(pack_dir, &[LOBBY_COMMANDS])),
         ],
     );
     let registry = OnceLock::new();
@@ -913,7 +915,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     out.p1(comp.x_mode as u8);
     out.p1(comp.y_mode as u8);
 
-    out.p2(comp.parent_id.unwrap_or(u16::MAX));
+    out.p2(comp.layer.unwrap_or(u16::MAX));
     let var2 = comp.format_version();
     #[cfg(before_742)]
     out.p1(comp.flags);
@@ -926,13 +928,13 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
 
     if comp.com_type == IfComponentType::Layer {
         out.p2(comp.scroll_width);
-        out.p2(comp.scroll);
+        out.p2(comp.scroll_height);
         if var2 < 0 {
             out.p1(comp.no_click_through as u8);
         }
     }
 
-    if comp.com_type == IfComponentType::Graphic {
+    if comp.com_type == IfComponentType::Sprite {
         out.p4(comp.graphic.map_or(-1, TypeId::int));
         out.p2(comp.angle_2d);
         let sf = comp.tiling as u8 | ((comp.alpha as u8) << 1);
@@ -981,7 +983,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
             } else if a_bool_19 {
                 out.p2(comp.model_origin_x as u16);
                 out.p2(comp.model_origin_y as u16);
-                out.p2(comp.sprite_y_offset as u16);
+                out.p2(comp.model_origin_z as u16);
                 out.p2(comp.xan);
                 out.p2(comp.yan);
                 out.p2(comp.model_zan);
@@ -1004,10 +1006,10 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         put_big_id(&mut out, comp.font);
         #[cfg(since_742)]
         if var2 >= 2 {
-            out.p1(comp.text_flag2 as u8);
+            out.p1(comp.font_mono as u8);
         }
         out.pjstr(&comp.text);
-        out.p1(comp.text_style);
+        out.p1(comp.line_spacing);
         out.p1(comp.text_halign);
         out.p1(comp.text_valign);
         out.p1(comp.shadowed as u8);
@@ -1020,7 +1022,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         }
     }
 
-    if comp.com_type == IfComponentType::Rect {
+    if comp.com_type == IfComponentType::Rectangle {
         out.p4(comp.colour);
         out.p1(comp.fill as u8);
         out.p1(comp.trans);
@@ -1068,19 +1070,19 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     out.pjstr(&comp.pause_text);
     out.p1(comp.drag_deadzone);
     out.p1(comp.drag_deadtime);
-    out.p1(comp.drag_renderbehavior);
+    out.p1(comp.drag_render_behaviour);
     out.pjstr(&comp.target_verb);
 
     let target_mask = (comp.active_properties >> 11) & 0x7F;
     if target_mask != 0 {
         out.p2(comp.target_object_id.map_or(u16::MAX, TypeId::g2));
-        out.p2(comp.target_enter_cursor.map_or(u16::MAX, TypeId::g2));
-        out.p2(comp.target_leave_cursor.map_or(u16::MAX, TypeId::g2));
+        out.p2(comp.valid_target_cursor.map_or(u16::MAX, TypeId::g2));
+        out.p2(comp.invalid_target_cursor.map_or(u16::MAX, TypeId::g2));
     }
 
     #[cfg(since_742)]
     if var2 >= 0 {
-        out.p2(comp.cursor.map_or(u16::MAX, TypeId::g2));
+        out.p2(comp.mouse_over_cursor.map_or(u16::MAX, TypeId::g2));
         out.p1(comp.int_params.len() as u8);
         for &(key, value) in &comp.int_params {
             out.p3(key as i32);
@@ -1123,7 +1125,7 @@ fn encode_if1(comp: &IfTypeRaw) -> Vec<u8> {
     out.p2(comp.width);
     out.p2(comp.height);
     out.p1(comp.trans);
-    out.p2(comp.parent_id.unwrap_or(u16::MAX));
+    out.p2(comp.layer.unwrap_or(u16::MAX));
     out.p2(comp.over_layer.unwrap_or(u16::MAX));
     out.p1(comp.comparators.len() as u8);
     for &(comparator, value) in &comp.comparators {
@@ -1139,7 +1141,7 @@ fn encode_if1(comp: &IfTypeRaw) -> Vec<u8> {
     }
     match comp.com_type {
         IfComponentType::Layer => {
-            out.p2(comp.scroll);
+            out.p2(comp.scroll_height);
             out.p1(comp.flags);
         }
         IfComponentType::Unknown1 => {
@@ -1166,7 +1168,7 @@ fn encode_if1(comp: &IfTypeRaw) -> Vec<u8> {
             }
             encode_iops(&mut out, comp);
         }
-        IfComponentType::Rect => out.p1(comp.fill as u8),
+        IfComponentType::Rectangle => out.p1(comp.fill as u8),
         _ => {}
     }
     if matches!(
@@ -1175,7 +1177,7 @@ fn encode_if1(comp: &IfTypeRaw) -> Vec<u8> {
     ) {
         out.p1(comp.text_halign);
         out.p1(comp.text_valign);
-        out.p1(comp.text_style);
+        out.p1(comp.line_spacing);
         out.p2(comp.font.g2());
         out.p1(comp.shadowed as u8);
     }
@@ -1185,17 +1187,20 @@ fn encode_if1(comp: &IfTypeRaw) -> Vec<u8> {
     }
     if matches!(
         comp.com_type,
-        IfComponentType::Unknown1 | IfComponentType::Rect | IfComponentType::Text
+        IfComponentType::Unknown1 | IfComponentType::Rectangle | IfComponentType::Text
     ) {
         out.p4(comp.colour);
     }
-    if matches!(comp.com_type, IfComponentType::Rect | IfComponentType::Text) {
+    if matches!(
+        comp.com_type,
+        IfComponentType::Rectangle | IfComponentType::Text
+    ) {
         out.p4(comp.active_colour);
         out.p4(comp.over_colour);
         out.p4(comp.active_over_colour);
     }
     match comp.com_type {
-        IfComponentType::Graphic => {
+        IfComponentType::Sprite => {
             out.p4(comp.graphic.map_or(-1, TypeId::int));
             out.p4(comp.active_graphic.map_or(-1, TypeId::int));
         }
@@ -1224,7 +1229,7 @@ fn encode_if1(comp: &IfTypeRaw) -> Vec<u8> {
     if comp.button_type == IfButtonType::Target || comp.com_type == IfComponentType::Inv {
         out.pjstr(&comp.action_verb);
         out.pjstr(&comp.action);
-        out.p2(comp.action_target);
+        out.p2(comp.target_mask);
     }
     if matches!(
         comp.button_type,
@@ -1243,18 +1248,18 @@ fn encode_iops(out: &mut PackedData, comp: &IfTypeRaw) {
 }
 
 #[cfg(since_530)]
-fn encode_hook(out: &mut PackedData, hook: &Option<Vec<HookValue>>) {
+fn encode_hook(out: &mut PackedData, hook: &Option<Vec<HookArg>>) {
     match hook {
         None => out.p1(0),
         Some(args) => {
             out.p1(args.len() as u8);
             for arg in args {
                 match arg {
-                    HookValue::Int(v) => {
+                    HookArg::Int(v) => {
                         out.p1(0);
                         out.p4(*v);
                     }
-                    HookValue::String(s) => {
+                    HookArg::String(s) => {
                         out.p1(1);
                         out.pjstr(s);
                     }
@@ -1373,7 +1378,7 @@ fn parse_property(
         "type" => {
             comp.com_type = match value {
                 "layer" => IfComponentType::Layer,
-                "rectangle" => IfComponentType::Rect,
+                "rectangle" => IfComponentType::Rectangle,
                 "text" => {
                     comp.colour = DEFAULT_COLOUR;
                     IfComponentType::Text
@@ -1383,7 +1388,7 @@ fn parse_property(
                     {
                         comp.colour = DEFAULT_COLOUR;
                     }
-                    IfComponentType::Graphic
+                    IfComponentType::Sprite
                 }
                 "model" => {
                     comp.zoom = 100;
@@ -1417,10 +1422,10 @@ fn parse_property(
         "heightmode" => comp.height_mode = mode(&SIZE_MODES)? as i8,
         "xmode" => comp.x_mode = mode(&X_MODES)? as i8,
         "ymode" => comp.y_mode = mode(&Y_MODES)? as i8,
-        "layer" => comp.parent_id = Some(names.component_id(group, value)? as u16),
+        "layer" => comp.layer = Some(names.component_id(group, value)? as u16),
         "hide" => comp.flags |= 1,
         "scrollwidth" => comp.scroll_width = value.parse()?,
-        "scrollheight" => comp.scroll = value.parse()?,
+        "scrollheight" => comp.scroll_height = value.parse()?,
         "noclickthrough" => comp.no_click_through = true,
         "graphic" => {
             comp.graphic = TypeId::from_int(reference("sprites")?).non_null();
@@ -1436,12 +1441,12 @@ fn parse_property(
         #[cfg(since_742)]
         "clickmask" => comp.click_mask = true,
         #[cfg(since_742)]
-        "textflag2" => comp.text_flag2 = true,
+        "fontmono" => comp.font_mono = true,
         #[cfg(since_742)]
         "maxlines" => comp.text_max_lines = value.parse()?,
         #[cfg(since_742)]
-        "cursor" => {
-            comp.cursor = TypeId::from_int(reference("cursor")?).non_null();
+        "mouseovercursor" => {
+            comp.mouse_over_cursor = TypeId::from_int(reference("cursor")?).non_null();
         }
         #[cfg(since_742)]
         "param" => {
@@ -1471,7 +1476,7 @@ fn parse_property(
         "modelzoom" => comp.zoom = value.parse()?,
         #[cfg(since_647)]
         "modeloffset" => {
-            comp.sprite_y_offset = value.parse()?;
+            comp.model_origin_z = value.parse()?;
             comp.model_flags |= 2;
         }
         "modelanim" => comp.anim = TypeId::from_int(reference("seq")?),
@@ -1491,7 +1496,7 @@ fn parse_property(
         "modelobjheight" => comp.dynamic_height = value.parse()?,
         "textfont" => comp.font = TypeId::from_int(reference("fontmetrics")?),
         "text" => comp.text = value.to_owned(),
-        "textlineheight" => comp.text_style = value.parse()?,
+        "textlineheight" => comp.line_spacing = value.parse()?,
         "textalignh" => comp.text_halign = mode(&TEXT_ALIGN_H)?,
         "textalignv" => comp.text_valign = mode(&TEXT_ALIGN_V)?,
         "textshadow" => comp.shadowed = true,
@@ -1520,16 +1525,16 @@ fn parse_property(
         "pausetext" => comp.pause_text = value.to_owned(),
         "dragdeadzone" => comp.drag_deadzone = value.parse()?,
         "dragdeadtime" => comp.drag_deadtime = value.parse()?,
-        "dragrenderbehaviour" => comp.drag_renderbehavior = value.parse()?,
+        "dragrenderbehaviour" => comp.drag_render_behaviour = value.parse()?,
         "targetverb" => comp.target_verb = value.to_owned(),
         "targetobj" => {
             comp.target_object_id = TypeId::from_int(reference("obj")?).non_null();
         }
-        "targetcursor2" => {
-            comp.target_enter_cursor = TypeId::from_int(reference("cursor")?).non_null();
+        "validtargetcursor" => {
+            comp.valid_target_cursor = TypeId::from_int(reference("cursor")?).non_null();
         }
-        "targetcursor3" => {
-            comp.target_leave_cursor = TypeId::from_int(reference("cursor")?).non_null();
+        "invalidtargetcursor" => {
+            comp.invalid_target_cursor = TypeId::from_int(reference("cursor")?).non_null();
         }
         _ => {
             #[cfg(all(since_530, before_647))]
@@ -1640,7 +1645,7 @@ fn parse_if1_property(
                     .iter()
                     .position(|name| *name == target)
                     .with_context(|| format!("Unknown target: {target}"))?;
-                comp.action_target |= 1 << bit;
+                comp.target_mask |= 1 << bit;
             }
         }
         "option" => comp.option = value.to_owned(),

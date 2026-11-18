@@ -357,25 +357,25 @@ fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> u32 {
         .as_int() as u32
 }
 
-/// A tab's item count: varbits 4885-4892, ten bits each, three to a varp from
+/// A tab's item count: varpbits 4885-4892, ten bits each, three to a varp from
 /// 1246.
 fn tab_size(engine: &Engine, client: &HarnessClient, tab: u16) -> u32 {
     let varp_id = 1246 + (tab - 1) / 3;
     (varp(engine, client, varp_id) >> (((tab - 1) % 3) * 10)) & 0x3FF
 }
 
-/// The tab on view (varbit 4893: varp 1248 bits 27-30), 1 for all.
+/// The tab on view (varpbit 4893: varp 1248 bits 27-30), 1 for all.
 fn open_tab(engine: &Engine, client: &HarnessClient) -> u32 {
     (varp(engine, client, 1248) >> 27) & 0xF
 }
 
-/// "Show bank" on the stats screen (varbit 4894: varp 1248 bit 31).
+/// "Show bank" on the stats screen (varpbit 4894: varp 1248 bit 31).
 #[cfg(since_647)]
 fn from_bank(engine: &Engine, client: &HarnessClient) -> u32 {
     varp(engine, client, 1248) >> 31
 }
 
-/// The bank hidden by its client (varbit 8348: varp 638 bit 19).
+/// The bank hidden by its client (varpbit 8348: varp 638 bit 19).
 #[cfg(since_647)]
 fn bank_hidden(engine: &Engine, client: &HarnessClient) -> u32 {
     (varp(engine, client, 638) >> 19) & 1

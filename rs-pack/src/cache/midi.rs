@@ -117,7 +117,7 @@ fn unwrap_riff_midi(data: &[u8]) -> Option<&[u8]> {
     let mut offset = 12;
     while offset + 8 <= data.len() {
         let id = read_chunk_id(data, offset);
-        let size = Packet::from(&data[offset + 4..]).g4s_alt1() as u32 as usize;
+        let size = Packet::from(&data[offset + 4..]).g4_alt1() as u32 as usize;
         offset += 8;
 
         if offset + size > data.len() {
@@ -349,7 +349,7 @@ pub(crate) fn load_midi_ids(pack_dir: &Path) -> HashMap<Box<str>, u16> {
 pub(crate) fn load_midi_tick_lengths(cache: &PackedCache) -> Box<[Option<u16>]> {
     let mut lengths: Vec<Option<u16>> = Vec::new();
     for (archive, base) in [(archive::SONGS, 0), (archive::JINGLES, MIDI_JINGLE_BASE)] {
-        let Some(table) = cache.reference_table(archive) else {
+        let Some(table) = cache.index(archive) else {
             continue;
         };
         let groups: Vec<_> = table
@@ -520,9 +520,9 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
     section_pos += controller_7;
     let pan_off = section_pos;
     section_pos += controller_10;
-    let note_vel_off = section_pos;
-    section_pos += note_on_count + note_off_count + poly_pressure_count;
     let note_pitch_off = section_pos;
+    section_pos += note_on_count + note_off_count + poly_pressure_count;
+    let note_vel_off = section_pos;
     section_pos += note_on_count;
     let other_cc_off = section_pos;
     section_pos += controller_other;
@@ -565,8 +565,8 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
     let mut c_mod_wheel = mod_wheel_off;
     let mut c_volume = volume_off;
     let mut c_pan = pan_off;
-    let mut c_note_vel = note_vel_off;
     let mut c_note_pitch = note_pitch_off;
+    let mut c_note_vel = note_vel_off;
     let mut c_other_cc = other_cc_off;
     let mut c_note_off_vel = note_off_vel_off;
     let mut c_mod_wheel_fine = mod_wheel_fine_off;
@@ -600,7 +600,7 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
 
         loop {
             let delta = deltas.gmidivarlen() as i32;
-            out.pvarint(delta.max(0) as u32);
+            out.pmidivarlen(delta.max(0) as u32);
 
             let opcode = data[c_opcode] as i32;
             c_opcode += 1;
@@ -639,11 +639,11 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
                         if is_new_status {
                             out.p1((channel_xor + 144) as u8);
                         }
-                        pitch_delta = pitch_delta.wrapping_add(data[c_note_vel] as i8 as i32);
-                        c_note_vel += 1;
-                        note_on_vel_delta =
-                            note_on_vel_delta.wrapping_add(data[c_note_pitch] as i8 as i32);
+                        pitch_delta = pitch_delta.wrapping_add(data[c_note_pitch] as i8 as i32);
                         c_note_pitch += 1;
+                        note_on_vel_delta =
+                            note_on_vel_delta.wrapping_add(data[c_note_vel] as i8 as i32);
+                        c_note_vel += 1;
                         out.p1((pitch_delta & 0x7F) as u8);
                         out.p1((note_on_vel_delta & 0x7F) as u8);
                     }
@@ -651,8 +651,8 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
                         if is_new_status {
                             out.p1((channel_xor + 128) as u8);
                         }
-                        pitch_delta = pitch_delta.wrapping_add(data[c_note_vel] as i8 as i32);
-                        c_note_vel += 1;
+                        pitch_delta = pitch_delta.wrapping_add(data[c_note_pitch] as i8 as i32);
+                        c_note_pitch += 1;
                         note_off_vel_delta =
                             note_off_vel_delta.wrapping_add(data[c_note_off_vel] as i8 as i32);
                         c_note_off_vel += 1;
@@ -765,8 +765,8 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
                         if is_new_status {
                             out.p1((channel_xor + 160) as u8);
                         }
-                        pitch_delta = pitch_delta.wrapping_add(data[c_note_vel] as i8 as i32);
-                        c_note_vel += 1;
+                        pitch_delta = pitch_delta.wrapping_add(data[c_note_pitch] as i8 as i32);
+                        c_note_pitch += 1;
                         poly_press_delta =
                             poly_press_delta.wrapping_add(data[c_poly_pressure] as i8 as i32);
                         c_poly_pressure += 1;

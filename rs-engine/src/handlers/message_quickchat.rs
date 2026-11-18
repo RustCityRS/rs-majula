@@ -69,7 +69,7 @@ impl ClientGameHandler for MessageQuickchatPublic {
         active.player.info.chat_bytes = Some(bytes.data.into_boxed_slice());
         active.player.info.chat_colour = Some(PHRASE_COLOUR);
         active.player.info.chat_effects = Some(0);
-        active.player.info.chat_ignored = Some(active.staffmodlevel().min(2));
+        active.player.info.chat_crown = Some(active.staffmodlevel().min(2));
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);
@@ -191,13 +191,13 @@ fn phrase(active: &ActivePlayer, id: u16, sent: &[u8]) -> Result<(Vec<u8>, Strin
             }
             "enum_string" => active.get_var(params[1]).as_int(),
             "tostring_varp" => active.get_var(params[0]).as_int(),
-            "tostring_varbit" => {
-                let varbit = engine
-                    .varbits()
+            "tostring_varpbit" => {
+                let varpbit = engine
+                    .varpbits()
                     .get_by_id(TypeId::new(params[0]))
-                    .ok_or(ScriptError::VarbitNotFound(params[0] as i32))?;
-                let base = active.get_var(varbit.basevar).as_int();
-                getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32)
+                    .ok_or(ScriptError::VarpBitNotFound(params[0] as i32))?;
+                let base = active.get_var(varpbit.basevar).as_int();
+                getbit_range(base, varpbit.start_bit as i32, varpbit.end_bit as i32)
             }
             "enum_string_statbase" => active.stat_base(params[1] as usize) as i32,
             "tostring_shared" => engine.get_var(params[0]).as_int(),

@@ -39,7 +39,7 @@ while ($int7 < 78) {
     $int15 = enum(obj, int, enum_1185, oc_uncert($obj12));
     if ($obj13 = lore_pouch_spell_grey) {
         ~script1670($obj13, $obj13, $component0, $int16, $string0, $string1, $string2, $string3, $string4, $string5);
-    } else if (inv_total(inv, oc_uncert($obj13)) > 0 & inv_total(inv, oc_uncert($obj13)) >= oc_param(oc_uncert($obj13), param_599) & stat_base(summoning) >= enum(int, int, enum_1472, $int15)) {
+    } else if (inv_total(inv, oc_uncert($obj13)) > 0 & inv_total(inv, oc_uncert($obj13)) >= oc_param(oc_uncert($obj13), param_599) & stat_base(animallore) >= enum(int, int, enum_1472, $int15)) {
         ~script1670($obj13, $obj13, $component0, $int16, $string0, $string1, $string2, $string3, $string4, $string5);
     } else {
         ~script1670(enum(int, obj, enum_1184, $int8), $obj13, $component0, $int16, $string0, $string1, $string2, $string3, $string4, $string5);

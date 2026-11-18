@@ -6,12 +6,12 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 #[client_prot(Fixed(4), ClientEvent)]
-pub struct MapBuildLoading {
+pub struct DetectModifiedClient {
     pub id: i32,
 }
 
-impl ClientProtMessage for MapBuildLoading {
+impl ClientProtMessage for DetectModifiedClient {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        MapBuildLoading { id: buf.g4s() }
+        DetectModifiedClient { id: buf.g4s() }
     }
 }

@@ -46,7 +46,7 @@ impl ClientProtMessage for OpLocU {
         let obj = TypeId::from_g2(buf.g2());
         let z = buf.g2_alt1();
         let slot = buf.g2();
-        let com = buf.g4s_alt3();
+        let com = buf.g4_alt3();
         let loc = TypeId::from_g2(buf.g2_alt2());
         OpLocU {
             x,

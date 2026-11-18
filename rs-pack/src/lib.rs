@@ -47,12 +47,12 @@ use crate::cache::seq_frame::anim_frame_delays;
 use crate::cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
 #[cfg(before_530)]
 use crate::cache::r#struct::{StructType, StructTypeRaw};
-#[cfg(all(since_254, before_530))]
-use crate::cache::varbit::VarbitType;
 #[cfg(before_530)]
 use crate::cache::varn::VarnType;
 #[cfg(before_530)]
 use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
+#[cfg(all(since_254, before_530))]
+use crate::cache::varpbit::VarpBitType;
 #[cfg(before_530)]
 use crate::cache::vars::VarsType;
 #[cfg(before_530)]
@@ -207,7 +207,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 535204494;
     pub const SPOTANIM: i32 = -555849646;
     pub const INTERFACE: i32 = 1728499832;
-    pub const VARBIT: i32 = -1387031023;
+    pub const VARPBIT: i32 = -1387031023;
 }
 
 #[cfg(rev = "274")]
@@ -221,7 +221,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 128627047;
     pub const SPOTANIM: i32 = -1587698939;
     pub const INTERFACE: i32 = 2041671134;
-    pub const VARBIT: i32 = -234977015;
+    pub const VARPBIT: i32 = -234977015;
     pub const MESANIM: i32 = 1747166838;
     pub const MES: i32 = 1145177955;
     pub const PARAM: i32 = 254004952;
@@ -239,7 +239,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 1565507783;
     pub const SPOTANIM: i32 = 1145838588;
     pub const INTERFACE: i32 = 1940627269;
-    pub const VARBIT: i32 = -1746090972;
+    pub const VARPBIT: i32 = -1746090972;
     pub const MESANIM: i32 = 1747166838;
     pub const MES: i32 = 1145177955;
     pub const PARAM: i32 = -918994068;
@@ -257,7 +257,7 @@ pub(crate) mod config_crc {
     pub const IDK: i32 = 1761448388;
     pub const VARP: i32 = -1455560908;
     pub const VARPSTR: i32 = 1481820782;
-    pub const VARBIT: i32 = 1696381996;
+    pub const VARPBIT: i32 = 1696381996;
     pub const PARAM: i32 = -1326052345;
     pub const ENUM: i32 = 993097790;
     pub const INV: i32 = 807130584;
@@ -288,7 +288,7 @@ pub(crate) mod config_crc {
     pub const IDK: i32 = 50920008;
     pub const VARP: i32 = 1704792051;
     pub const VARPSTR: i32 = -1751999962;
-    pub const VARBIT: i32 = 763651066;
+    pub const VARPBIT: i32 = 763651066;
     pub const PARAM: i32 = 1671102909;
     pub const ENUM: i32 = -2002672615;
     pub const INV: i32 = -331361170;
@@ -329,7 +329,7 @@ pub(crate) mod config_crc {
     pub const IDK: i32 = -1771042825;
     pub const VARP: i32 = -1008474832;
     pub const VARPSTR: i32 = 856957251;
-    pub const VARBIT: i32 = 715464995;
+    pub const VARPBIT: i32 = 715464995;
     pub const PARAM: i32 = 1642273378;
     pub const ENUM: i32 = 1232165464;
     pub const INV: i32 = 86456445;
@@ -369,7 +369,7 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("idk", config_crc::IDK),
     ("varp", config_crc::VARP),
     #[cfg(since_254)]
-    ("varpbit", config_crc::VARBIT),
+    ("varpbit", config_crc::VARPBIT),
     #[cfg(since_274)]
     ("mesanim", config_crc::MESANIM),
     #[cfg(all(since_274, before_530))]
@@ -487,7 +487,17 @@ fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
 /// the compiler's, as it reports them.
 pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvider> {
     let (dat, idx) = compile_runescript(source, pack)?;
-    Ok(ScriptProvider::from_bytes(&dat, &idx))
+    let scripts = ScriptProvider::from_bytes(&dat, &idx);
+    #[cfg(since_647)]
+    let scripts = {
+        let (dat, idx) = crate::pack::script::compile_lobby(source, pack)?;
+        let lobby = ScriptProvider::from_bytes(&dat, &idx);
+        ScriptProvider {
+            lobby: Some(Box::new(lobby)),
+            ..scripts
+        }
+    };
+    Ok(scripts)
 }
 
 /// Packs `source` for the server. With a `cache` directory, what an earlier
@@ -726,7 +736,7 @@ pub fn pack_all(
     let invs = build_type_provider_into::<InvTypeRaw, InvType>(&assets, "inv", ());
     let varps = build_type_provider_into::<VarPlayerTypeRaw, VarPlayerType>(&assets, "varp", ());
     #[cfg(since_254)]
-    let varbits = build_type_provider::<VarbitType>(&assets, "varpbit", ());
+    let varpbits = build_type_provider::<VarpBitType>(&assets, "varpbit", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
     let dbtables = build_type_provider::<DbTableType>(&assets, "dbtable", ());
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
@@ -858,7 +868,7 @@ pub fn pack_all(
         invs,
         varps,
         #[cfg(since_254)]
-        varbits,
+        varpbits,
         dbrows,
         dbtables,
         db_index,
