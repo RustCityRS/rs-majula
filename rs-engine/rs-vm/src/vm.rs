@@ -1,31 +1,89 @@
 use crate::engine::{ScriptEngine, ScriptFault, ScriptPlayer, engine_mut};
 use crate::register::OpsRegistry;
+use crate::session::{EngineHost, ScriptHost};
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::get_active_player_mut;
+use crate::{Result, ScriptError};
+use std::marker::PhantomData;
 #[cfg(debug_assertions)]
 use std::time::Instant;
 use tracing::{error, warn};
 
 const MAX_INSTRUCTIONS: i32 = 500_000;
 
-/// Runs the main VM execution loop, processing opcodes until the script
-/// halts, suspends, or encounters an error.
+/// Runs the VM's fetch and dispatch loop on `host` until the script halts,
+/// suspends, or fails.
 ///
 /// The loop increments the program counter, fetches the next opcode from
 /// the script's bytecode, looks up the handler in the [`OpsRegistry`], and
-/// invokes it. Execution terminates when:
+/// invokes it, until a handler sets `state.execution` to a value other
+/// than [`ExecutionState::Running`] (e.g. `Finished`, `Suspended`,
+/// `PauseButton`, `CountDialog`, `NpcSuspended`, `WorldSuspended`).
 ///
-/// * The handler sets `state.execution` to a value other than
-///   [`ExecutionState::Running`] (e.g. `Finished`, `Suspended`,
-///   `PauseButton`, `CountDialog`, `NpcSuspended`, `WorldSuspended`).
-/// * The instruction count exceeds `MAX_INSTRUCTIONS` (500,000), which
-///   sets `Aborted`.
-/// * The program counter falls outside the valid opcode range, which sets
-///   `Aborted`.
-/// * An opcode has no registered handler, which sets `Aborted`.
-/// * A handler returns an `Err`, which sets `Aborted`.
+/// # Arguments
+/// * `state` - The mutable script state containing the program counter,
+///   stacks, active entities, and execution status.
+/// * `ops` - The opcode handler registry mapping opcode numbers to their
+///   handler functions.
+/// * `host` - The script resources and the player bound to this execution.
 ///
-/// In debug builds, scripts that take longer than 100 microseconds trigger
+/// # Returns
+/// `Ok(())` once a handler stops the loop, or the [`ScriptError`] when the
+/// instruction count reaches `MAX_INSTRUCTIONS` (500,000), the program
+/// counter leaves the script, an opcode has no registered handler, or a
+/// handler fails.
+///
+/// # Call Stack
+/// **Called by:** [`execute`], `LobbyPlayer::run_trigger` (rs-lobby/src/script.rs).
+/// **Calls:** `OpsRegistry::get`, individual opcode handler functions.
+pub fn run(state: &mut ScriptState, ops: &OpsRegistry, host: &mut dyn ScriptHost) -> Result<()> {
+    dispatch(state, ops, host).map_err(|(_, e)| e)
+}
+
+/// [`run`]'s loop. A failure carries the opcode that raised it, or `None`
+/// when it came before an opcode was fetched.
+fn dispatch(
+    state: &mut ScriptState,
+    ops: &OpsRegistry,
+    host: &mut dyn ScriptHost,
+) -> std::result::Result<(), (Option<u16>, ScriptError)> {
+    state.execution = ExecutionState::Running;
+    while state.execution == ExecutionState::Running {
+        if state.opcount >= MAX_INSTRUCTIONS {
+            return Err((
+                None,
+                ScriptError::Runtime(format!("hit the instruction limit ({MAX_INSTRUCTIONS})")),
+            ));
+        }
+        state.pc += 1;
+        state.opcount += 1;
+        let opcode = state
+            .script
+            .opcodes
+            .get(state.pc as usize)
+            .copied()
+            .ok_or_else(|| {
+                (
+                    None,
+                    ScriptError::Runtime(format!("invalid program counter: {}", state.pc)),
+                )
+            })?;
+        let handler = ops
+            .get(opcode)
+            .ok_or((Some(opcode), ScriptError::UnknownOpcode(opcode)))?;
+        handler(state, host).map_err(|e| (Some(opcode), e))?;
+    }
+    Ok(())
+}
+
+/// Runs a world script on the game engine through [`run`], which holds the
+/// fetch and dispatch loop.
+///
+/// When [`run`] fails, the error is logged with the script, program counter
+/// and failing opcode, handed to [`report_error`], and the script is
+/// `Aborted`.
+///
+/// In debug builds, scripts that take longer than 1000 microseconds trigger
 /// a warning log and an in-game message to active players via [`report`].
 ///
 /// # Arguments
@@ -35,7 +93,7 @@ const MAX_INSTRUCTIONS: i32 = 500_000;
 ///   handler functions.
 ///
 /// # Returns
-/// The final [`ExecutionState`] after the loop exits.
+/// The final [`ExecutionState`] after the script stops.
 ///
 /// # Side Effects
 /// * Mutates `state.pc`, `state.opcount`, `state.execution`, and any other
@@ -44,9 +102,9 @@ const MAX_INSTRUCTIONS: i32 = 500_000;
 /// * In debug builds, may call [`report`] to display CPU-time warnings.
 ///
 /// # Call Stack
-/// **Called by:** `rs_engine::engine` (the game engine's script execution
-/// entry point).
-/// **Calls:** `OpsRegistry::get`, individual opcode handler functions,
+/// **Called by:** `Engine::runescript_vm_execute` (rs-engine/src/script/runner.rs),
+/// the game engine's script execution entry point.
+/// **Calls:** the loop behind [`run`] with an `EngineHost`,
 /// [`report_error`], [`report`] (debug only).
 pub fn execute<E: ScriptEngine + 'static>(
     state: &mut ScriptState,
@@ -54,51 +112,17 @@ pub fn execute<E: ScriptEngine + 'static>(
 ) -> ExecutionState {
     #[cfg(debug_assertions)]
     let start = Instant::now();
-    state.execution = ExecutionState::Running;
-    while state.execution == ExecutionState::Running {
-        if state.opcount >= MAX_INSTRUCTIONS {
-            let err = format!("hit the instruction limit ({MAX_INSTRUCTIONS})");
-            report_error::<E>(state, &err);
-            state.execution = ExecutionState::Aborted;
-            break;
+    if let Err((opcode, e)) = dispatch(state, ops, &mut EngineHost::<E>(PhantomData)) {
+        let name = &state.script.info.name;
+        match opcode {
+            Some(opcode) => error!(
+                "Script {name} error at pc={} opcode={opcode}: {e}",
+                state.pc
+            ),
+            None => error!("Script {name} error at pc={}: {e}", state.pc),
         }
-
-        state.pc += 1;
-        state.opcount += 1;
-
-        if state.pc < 0 || state.pc >= state.script.opcodes.len() as i32 {
-            let err = format!(
-                "invalid program counter: {}, max expected: {}",
-                state.pc,
-                state.script.opcodes.len()
-            );
-            report_error::<E>(state, &err);
-            state.execution = ExecutionState::Aborted;
-            break;
-        }
-
-        let opcode = unsafe { *state.script.opcodes.get_unchecked(state.pc as usize) };
-
-        let Some(handler) = ops.get(opcode) else {
-            let err = format!(
-                "Script {} unhandled opcode {opcode} at pc={}",
-                state.script.info.name, state.pc
-            );
-            error!(err);
-            report_error::<E>(state, &err);
-            state.execution = ExecutionState::Aborted;
-            break;
-        };
-
-        if let Err(e) = handler(state) {
-            error!(
-                "Script {} error at pc={} opcode={opcode}: {e}",
-                state.script.info.name, state.pc
-            );
-            report_error::<E>(state, &e.to_string());
-            state.execution = ExecutionState::Aborted;
-            break;
-        }
+        report_error::<E>(state, &e.to_string());
+        state.execution = ExecutionState::Aborted;
     }
 
     #[cfg(debug_assertions)]

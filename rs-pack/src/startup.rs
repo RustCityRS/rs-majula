@@ -32,19 +32,40 @@ use crate::cache::varc::VarClientTypeProvider;
 use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
+#[cfg(since_647)]
+use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::varp::VarPlayerTypeRaw;
 use crate::cache::varpbit::VarpBitType;
+#[cfg(since_647)]
+use crate::cache::varpbit::VarpBitTypeProvider;
 use crate::cache::vars::VarsType;
 use crate::cache::wordenc::WordEncProvider;
+#[cfg(since_647)]
+use crate::pack::config::{
+    r#enum::pack_enums,
+    varc::{pack_varc_strings, pack_varcs},
+    varp::pack_varps,
+    varpbit::pack_varpbits,
+};
+#[cfg(since_647)]
+use crate::pack::incremental::LOBBY_COMMANDS;
 use crate::pack::incremental::{Stage, files_under};
-use crate::pack::names;
+#[cfg(since_647)]
+use crate::pack::interface::pack_archive;
+use crate::pack::names::{self, AssetNames};
 use crate::pack::other::map;
-use crate::pack::pack;
+use crate::pack::pack::{self, ConfigFiles};
+#[cfg(since_647)]
+use crate::pack::pack::{FileCache, load_constants_from_cache};
 use crate::pack::pack_registry::PackedFile;
+#[cfg(since_647)]
+use crate::pack::pack_registry::{PackFile, PackRegistry};
 use crate::pack::packed_data::PackedData;
 use crate::types::ParamValue;
 use crate::zone_csv::load_csv_zones;
 use crate::{archive, compile_scripts, unwrap_thread};
+#[cfg(since_647)]
+use crate::{compile_lobby_scripts, finish_cache, open_cache};
 use anyhow::{Context, Result};
 use rs_ver::TypeId;
 use runec::symbol::identifier_form;
@@ -105,6 +126,75 @@ impl InterfaceLayout {
     }
 }
 
+#[cfg(since_647)]
+pub struct LobbyAssets {
+    pub commands: PackFile,
+    pub seq_count: usize,
+    pub scripts: ScriptProvider,
+    pub varps: VarPlayerTypeProvider,
+    pub varpbits: VarpBitTypeProvider,
+    pub varcs: VarClientTypeProvider,
+    pub interfaces: IfTypeProvider,
+    pub layout: InterfaceLayout,
+    pub toplevel: u16,
+}
+
+#[cfg(since_647)]
+impl LobbyAssets {
+    pub fn load(
+        content: &Path,
+        pack_dir: &Path,
+        cache: Option<&Path>,
+        verify: bool,
+    ) -> Result<Self> {
+        let session = open_cache(cache.map(|root| root.join("lobby")).as_deref());
+        let scripts = content.join("scripts");
+        pack::check_configs(&ConfigFiles::new(&scripts), pack_dir, verify)?;
+        let files =
+            FileCache::for_extensions(&scripts, &["constant", "varp", "varpbit", "varc", "enum"]);
+        let constants = load_constants_from_cache(&files);
+        let registry = PackRegistry::load(pack_dir)?;
+        let varps = pack_varps(&files, &registry, &constants)?.server;
+        let varpbits = pack_varpbits(&files, &registry, &constants)?.server;
+        let varcs = pack_varcs(&files, &registry.varc, &constants)?.client;
+        let varcstrs = pack_varc_strings(&files, &registry.varcstr, &constants)?.client;
+        let names = AssetNames::load(pack_dir)?;
+        let mut packed = PackedCache::default();
+        let versions = archive::load_versions_dir(&content.join("versions"))?;
+        pack_archive(&mut packed, content, pack_dir, &versions, &names)?;
+        let mut layout = load_interface_layout(pack_dir);
+        layout.switch_side = names.id("varc", SWITCH_SIDE)? as u16;
+        let enums = pack_enums(&files, &registry, &constants)?.server;
+        let enums = TypeProvider::from_indexed_bytes::<EnumTypeRaw>(&enums.dat, &enums.idx, ())?;
+        load_dialogue_slots(pack_dir, &enums, &mut layout);
+        load_wide_screen_ifaces(pack_dir, &enums, &mut layout);
+        let assets = Self {
+            commands: PackFile::parse(&fs::read_to_string(pack_dir.join(LOBBY_COMMANDS))?),
+            seq_count: registry.seq.max as usize,
+            scripts: compile_lobby_scripts(content, pack_dir)?,
+            varps: TypeProvider::from_indexed_bytes::<VarPlayerTypeRaw>(
+                &varps.dat,
+                &varps.idx,
+                (),
+            )?,
+            varpbits: TypeProvider::from_indexed_bytes::<VarpBitType>(
+                &varpbits.dat,
+                &varpbits.idx,
+                (),
+            )?,
+            varcs: VarClientTypeProvider::from_indexed_bytes(
+                varcs.as_ref().context("Missing varc client config")?,
+                varcstrs.as_ref().context("Missing varcstr client config")?,
+            )?,
+            interfaces: IfTypeProvider::from_cache(&packed)?,
+            layout,
+            toplevel: names.id("interface", "lobbyscreen")? as u16,
+        };
+        finish_cache(session);
+        Ok(assets)
+    }
+}
+
 pub fn pack_all(
     content_dir: &Path,
     pack_dir: &Path,
@@ -113,9 +203,9 @@ pub fn pack_all(
 ) -> Result<PackResult> {
     let start = Instant::now();
     // Validate config names before packing or compiling against the registries.
-    let config_files = pack::ConfigFiles::new(&content_dir.join("scripts"));
+    let config_files = ConfigFiles::new(&content_dir.join("scripts"));
     pack::check_configs(&config_files, pack_dir, verify)?;
-    let asset_names = names::AssetNames::load(pack_dir)?;
+    let asset_names = AssetNames::load(pack_dir)?;
     let (packed, scripts) = thread::scope(|scope| {
         let scripts = scope.spawn(|| compile_scripts(content_dir, pack_dir));
         let packed = pack::pack_cache(content_dir, pack_dir, verify, &config_files, &asset_names);

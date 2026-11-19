@@ -61,7 +61,7 @@ impl Db {
     pub async fn live_worlds(&self, max_age_secs: i32) -> Result<Vec<WorldStatus>, Error> {
         sqlx::query_as(
             "SELECT node_id, players, maintenance FROM world_status
-             WHERE updated_at > now() - make_interval(secs => $1)",
+             WHERE node_id >= 0 AND updated_at > now() - make_interval(secs => $1)",
         )
         .bind(max_age_secs)
         .fetch_all(&self.pool)

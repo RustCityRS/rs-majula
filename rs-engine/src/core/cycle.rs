@@ -121,8 +121,6 @@ impl Engine {
             let saves = phase!("saves", engine.saves());
             let zones = phase!("zones", engine.zones());
             let info = phase!("info", engine.infos());
-            #[cfg(since_647)]
-            let _ = phase!("lobby", engine.lobbies());
             let out = phase!("out", engine.outputs());
             engine.gather_output = false;
             let cleanup = phase!("cleanup", engine.cleanups());

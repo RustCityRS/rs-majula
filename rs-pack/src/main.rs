@@ -4,6 +4,8 @@ use rs_io::jag::JagFile;
 use rs_io::stringtools::hash32;
 #[cfg(before_530)]
 use rs_pack::pyxel;
+#[cfg(since_647)]
+use rs_pack::startup::LobbyAssets;
 use rs_pack::unpack;
 use std::io::{BufRead, stdin};
 use std::path::{Path, PathBuf};
@@ -183,6 +185,11 @@ fn main() -> Result<()> {
                 result.store.invs.count(),
                 result.store.varpbits.count(),
             );
+            #[cfg(since_647)]
+            {
+                let lobby = LobbyAssets::load(&source, &pack, cache, verify)?;
+                tracing::info!("Lobby packed in memory: {} scripts", lobby.scripts.count());
+            }
         }
         #[cfg(before_530)]
         Commands::ToPyxel { source } => pyxel::content_to_pyxel(&source)?,

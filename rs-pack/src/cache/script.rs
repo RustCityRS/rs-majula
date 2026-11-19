@@ -9,7 +9,6 @@ pub struct ScriptProvider {
     pub names: FxHashMap<Box<str>, i32>,
     pub scripts: Box<[Option<Arc<Script>>]>,
     pub lookups: FxHashMap<i32, i32>,
-    pub lobby: Option<Box<ScriptProvider>>,
 }
 
 impl ScriptProvider {
@@ -60,7 +59,6 @@ impl ScriptProvider {
             names,
             scripts: Box::from(scripts),
             lookups,
-            lobby: None,
         }
     }
 

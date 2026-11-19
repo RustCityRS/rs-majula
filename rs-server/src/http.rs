@@ -2,7 +2,7 @@
 use crate::REVISION;
 use crate::device;
 use crate::socket::handshake;
-use crate::{ConnectionGuard, ServerIO, SharedCache, Socket};
+use crate::{ConnectionGuard, ServerIO, Socket};
 use rs_db::LoginDevice;
 #[cfg(before_530)]
 use rs_io::crc::getcrc;
@@ -284,7 +284,7 @@ async fn handle_connection(
             query,
             &nodeid,
             members,
-            server_state.cache,
+            &server_state,
             jaggrab_only,
             site_origin,
         )
@@ -330,7 +330,39 @@ async fn handle_connection(
 /// The rev-647 desktop client bootstraps from `/jav_config.ws` and fetches the
 /// cache over JS5 — the jag-era cache/CRC endpoints don't exist in that era.
 #[cfg(since_647)]
-const JAV_CONFIG: &[u8] = include_bytes!(concat!("../../public/", env!("REV"), "/jav_config.ws"));
+const JAV_CONFIG: &str = include_str!(concat!("../../public/", env!("REV"), "/jav_config.ws"));
+
+#[cfg(since_647)]
+pub fn client_config(world: &str, id: u16, lobby: &str, lobby_id: u16) -> String {
+    let mut config = String::new();
+    for line in JAV_CONFIG.lines() {
+        let (prefix, value) = match line.split_once('=') {
+            Some(("codebase", _)) if world.contains(':') => {
+                ("codebase=", format!("http://[{world}]"))
+            }
+            Some(("codebase", _)) => ("codebase=", format!("http://{world}")),
+            _ if line.starts_with("param=worldid=") => ("param=worldid=", id.to_string()),
+            _ if line.starts_with("param=18=") => ("param=18=", id.to_string()),
+            _ if line.starts_with("param=lobbyid=") => ("param=lobbyid=", lobby_id.to_string()),
+            _ if line.starts_with("param=8=") => ("param=8=", lobby_id.to_string()),
+            _ if line.starts_with("param=lobbyaddress=") => {
+                ("param=lobbyaddress=", lobby.to_owned())
+            }
+            _ if line.starts_with("param=10=") => ("param=10=", lobby.to_owned()),
+            _ if line.starts_with("param=gameaddress=") => ("param=gameaddress=", world.to_owned()),
+            _ => {
+                config.push_str(line);
+                config.push('\n');
+                continue;
+            }
+        };
+        config.push_str(prefix);
+        config.push_str(&value);
+        config.push('\n');
+    }
+    config
+}
+
 /// Peeks at the request until its head ends or fills `buf`: the bytes read.
 /// A peek before more arrives returns the same bytes at once, so it waits.
 async fn peek_head(stream: &TcpStream, buf: &mut [u8]) -> io::Result<usize> {
@@ -459,28 +491,34 @@ async fn route(
     query: &str,
     nodeid: &str,
     members: bool,
-    cache: SharedCache,
+    state: &ServerIO,
     jaggrab_only: bool,
     site_origin: Option<&'static str>,
 ) -> (&'static str, String, Body) {
     // A 647 world serves only its client config and jar here, a 530 world nothing.
     #[cfg(since_530)]
-    let _ = (query, nodeid, members, cache, jaggrab_only, site_origin);
+    let _ = (query, nodeid, members, state, jaggrab_only, site_origin);
+    #[cfg(before_530)]
+    let cache = state.cache;
     // Test hook: refusing cache downloads over HTTP makes a stock desktop
     // client toggle its archive loader onto the JAGGRAB fallback.
     #[cfg(before_530)]
     if jaggrab_only && matches_cache(path) {
         return not_found();
     }
+    #[cfg(since_647)]
+    let Some(config) = &state.jav_config else {
+        return not_found();
+    };
     match path {
         #[cfg(since_647)]
         "/jav_config.ws" => (
             "200 OK",
             format!(
                 "Content-Type: text/plain; charset=ISO-8859-1\r\nContent-Length: {}\r\n",
-                JAV_CONFIG.len()
+                config.len()
             ),
-            Body::Owned(JAV_CONFIG.to_vec()),
+            Body::Owned(config.as_bytes().to_vec()),
         ),
         #[cfg(since_647)]
         "/client.jar" => match fs::read(concat!("public/", env!("REV"), "/client.jar")).await {

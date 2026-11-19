@@ -2749,7 +2749,7 @@ function playerPage(ctx) {
         const act = (action) => () => moderateDialog(p.name, action, load);
         support.update(p);
         replace(head, pageHead(h('span', {}, p.name, ' ', playerBadges({staff_level: p.staff_level})),
-            p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
+            p.online_lobby != null ? `In lobby on node ${p.online_lobby}` : p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
             p.online_node != null && mayWatch(p.staff_level) && button('Watch live', {
                 icon: 'radio',
                 on: {click: () => watchLive(p.name)}
@@ -2768,7 +2768,9 @@ function playerPage(ctx) {
             pinButton(p.name)));
         changePrefs({op: 'viewed', name: p.name}).catch(() => {
         });
-        const seen = p.online_node != null
+        const seen = p.online_lobby != null
+            ? fact('activity', 'Status', 'In lobby', `Lobby node ${p.online_lobby}`)
+            : p.online_node != null
             ? fact('activity', 'Status', 'Online', `${p.online_world ? `World ${p.online_world}` : `Node ${p.online_node}`}${p.online_since_ms ? ` since ${ago(p.online_since_ms)}` : ''}`)
             : fact('clock', 'Last seen', p.last_seen_ms ? ago(p.last_seen_ms) : 'Never', p.last_seen_ms ? `${p.last_world ? `World ${p.last_world}` : 'Logged out'} · ${fullTime(p.last_seen_ms)}` : 'No logout on record');
         replace(facts,
@@ -3615,12 +3617,13 @@ function rollbackDialog(name, point, online, onDone) {
 
 // What a player's session state means, and whether freeing it can help.
 function sessionSummary(s) {
-    if (!s.owner) return {tone: 'ok', text: 'No world holds their session: they can log in on any world.', free: false};
+    if (!s.owner) return {tone: 'ok', text: 'No lobby or world holds their session.', free: false};
     const o = s.owner;
-    const at = worldLabel(o.node, o.world);
+    const at = o.lobby ? `lobby node ${o.node}` : worldLabel(o.node, o.world);
     const since = o.since_ms ? ` since ${ago(o.since_ms)}` : '';
     if (!o.reachable || !s.hold) {
         const silent = o.heartbeat_age_ms == null || o.heartbeat_age_ms > o.takeover_after_ms;
+        if (o.lobby && !silent) return {tone: 'ok', text: `In ${at}${since}.`, free: false};
         return silent
             ? {
                 tone: 'warn',
@@ -6144,14 +6147,17 @@ function casePage(ctx) {
         const muted = record.muted_until_ms != null;
         const banned = record.banned_until_ms != null;
         const online = record.online_node != null;
+        const inLobby = record.online_lobby != null;
         replace(playerBox,
             h('div', {class: 'list-title'}, h('b', {}, playerLink(record.name)), ' ', playerBadges({staff_level: record.staff_level}),
-                online ? h('span', {class: 'badge ok'}, `Online · ${worldOf(record.online_node)}`) : h('span', {class: 'badge'}, 'Offline'),
+                online ? h('span', {class: 'badge ok'}, `Online · ${worldOf(record.online_node)}`)
+                    : inLobby ? h('span', {class: 'badge ok'}, `In lobby · Node ${record.online_lobby}`)
+                    : h('span', {class: 'badge'}, 'Offline'),
                 muted && h('span', {class: 'badge warn'}, `Muted · ${until(record.muted_until_ms)}`),
                 banned && h('span', {class: 'badge danger'}, `Banned · ${until(record.banned_until_ms)}`)),
             h('dl', {class: 'facts'},
                 h('dt', {}, 'Registered'), h('dd', {}, dateOnly(record.registered_ms)),
-                h('dt', {}, 'Last seen'), h('dd', {}, online ? 'Now' : record.last_seen_ms ? ago(record.last_seen_ms) : 'Never')),
+                h('dt', {}, 'Last seen'), h('dd', {}, online || inLobby ? 'Now' : record.last_seen_ms ? ago(record.last_seen_ms) : 'Never')),
             h('div', {class: 'chips'},
                 online && button('Kick', {small: true, icon: 'kick', on: {click: act('kick')}}),
                 !(muted && isTrial()) && button(muted ? 'Unmute' : 'Mute', {

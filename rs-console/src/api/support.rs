@@ -118,8 +118,8 @@ pub struct NameQuery {
 
 #[derive(Serialize)]
 pub struct SessionView {
-    /// The world whose claim on their session keeps them from logging in
-    /// anywhere else.
+    /// The world or lobby whose claim on their session keeps them from
+    /// logging in anywhere else.
     owner: Option<OwnerView>,
     /// How the owning world holds it, when the console could ask it.
     hold: Option<SessionHold>,
@@ -128,6 +128,7 @@ pub struct SessionView {
 #[derive(Serialize)]
 pub struct OwnerView {
     node: u8,
+    lobby: bool,
     world: Option<u16>,
     since_ms: Option<i64>,
     heartbeat_age_ms: Option<i64>,
@@ -166,16 +167,20 @@ pub async fn session(
     let hold = state
         .owner
         .as_ref()
-        .filter(|o| Some(o.node) == owner_node)
+        .filter(|o| !o.lobby && Some(o.node) == owner_node)
         .map(|_| state.here.clone());
     Ok(Json(Some(SessionView {
         owner: state.owner.map(|o| OwnerView {
             node: o.node,
-            world: app.worlds.get(o.node).map(|w| w.id),
+            lobby: o.lobby,
+            world: (!o.lobby)
+                .then(|| app.worlds.get(o.node))
+                .flatten()
+                .map(|w| w.id),
             since_ms: o.since_ms,
             heartbeat_age_ms: o.heartbeat_age_ms,
             takeover_after_ms: o.takeover_after_ms,
-            reachable: reachable(o.node),
+            reachable: !o.lobby && reachable(o.node),
         }),
         hold,
     })))

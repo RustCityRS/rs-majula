@@ -204,7 +204,6 @@ use rs_protocol::network::game::client_prot::{
 #[cfg(since_530)]
 use rs_protocol::network::game::client_prot::{OpLoc6, OpNpc6, OpObj6};
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
-use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info::player::appearance::{Appearance, Look, WEAR_SLOTS, Wear};
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
@@ -383,6 +382,8 @@ use std::fmt;
 use std::fmt::Write as _;
 use std::mem;
 use std::net::IpAddr;
+#[cfg(since_530)]
+use std::net::Ipv4Addr;
 use std::str;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
@@ -411,6 +412,8 @@ pub struct ActivePlayer {
     pub remote_ip: Option<IpAddr>,
     pub muted_until: Option<Instant>,
     pub unread_messages: u16,
+    #[cfg(since_530)]
+    pub last_login_ip: Option<Ipv4Addr>,
     pub last_report: Option<u32>,
     pub last_social: Option<u32>,
     pub friends: Vec<i64>,
@@ -423,9 +426,7 @@ pub struct ActivePlayer {
     #[cfg(since_530)]
     pub(crate) last_link: Option<u32>,
     #[cfg(since_647)]
-    pub lobby: bool,
-    #[cfg(since_647)]
-    pub world: u16,
+    pub client_session: i64,
     #[cfg(all(since_530, before_647))]
     verify: Cell<u16>,
 }
@@ -539,6 +540,8 @@ impl ActivePlayer {
             remote_ip: None,
             muted_until: None,
             unread_messages: 0,
+            #[cfg(since_530)]
+            last_login_ip: None,
             last_report: None,
             last_social: None,
             friends: Vec::new(),
@@ -551,9 +554,7 @@ impl ActivePlayer {
             #[cfg(since_530)]
             last_link: None,
             #[cfg(since_647)]
-            lobby: false,
-            #[cfg(since_647)]
-            world: 0,
+            client_session: 0,
             #[cfg(all(since_530, before_647))]
             verify: Cell::new(0),
         }
@@ -586,7 +587,7 @@ impl ActivePlayer {
         M: ServerProtMessage,
     {
         if let Some(capture) = &mut self.capture {
-            if let Some(buf) = Self::plaintext(message) {
+            if let Some(buf) = ClientHandle::plaintext(message) {
                 capture.push(buf.data);
             }
             return;
@@ -616,94 +617,12 @@ impl ActivePlayer {
         M: ServerProtMessage,
     {
         let start = self.buffered.pos;
-        if !Self::encode_into(&mut self.buffered, message) {
+        if !ClientHandle::encode_into(&mut self.buffered, message) {
             return;
         }
         self.buffered_starts.push(start as u32);
         let rest = &self.buffered.data[start + 1..self.buffered.pos];
         self.watch.remember(M::PROT as u8, M::FRAME as usize, rest);
-    }
-
-    /// [`plaintext`](Self::plaintext) written at the end of `out`, which
-    /// grows to fit. Whether it fit in a packet.
-    fn encode_into<M>(out: &mut Packet, message: M) -> bool
-    where
-        M: ServerProtMessage,
-    {
-        let frame = M::FRAME as usize;
-        #[cfg(before_647)]
-        let opcode_bytes = 1;
-        #[cfg(since_647)]
-        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
-        let len = opcode_bytes + frame + message.sizeof();
-        if len > MAX_PACKET_SIZE {
-            return false;
-        }
-        if out.data.len() < out.pos + len {
-            out.data.resize(out.pos + len, 0);
-        }
-        #[cfg(before_647)]
-        out.p1(M::PROT as u8);
-        #[cfg(since_647)]
-        {
-            let opcode = M::PROT as u16;
-            if opcode < 128 {
-                out.p1(opcode as u8);
-            } else {
-                out.p1((opcode >> 8) as u8 + 128);
-                out.p1(opcode as u8);
-            }
-        }
-        out.pos += frame;
-        let start = out.pos;
-        message.encode(out);
-        match M::FRAME {
-            PacketFrame::Fixed => {}
-            PacketFrame::VarByte => out.psize1((out.pos - start) as u8),
-            PacketFrame::VarShort => out.psize2((out.pos - start) as u16),
-        }
-        true
-    }
-
-    /// A message as a packet: opcode (unciphered), frame and body. `None`
-    /// past [`MAX_PACKET_SIZE`].
-    fn plaintext<M>(message: M) -> Option<Packet>
-    where
-        M: ServerProtMessage,
-    {
-        let frame = M::FRAME as usize;
-        #[cfg(before_647)]
-        let opcode_bytes = 1;
-        // Rev-647 opcodes are 1-or-2-byte SMART values on the wire.
-        #[cfg(since_647)]
-        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
-        let len = opcode_bytes + frame + message.sizeof();
-        if len > MAX_PACKET_SIZE {
-            return None;
-        }
-        let mut buf = Packet::new(len);
-        #[cfg(before_647)]
-        buf.p1(M::PROT as u8);
-        #[cfg(since_647)]
-        {
-            let opcode = M::PROT as u16;
-            if opcode < 128 {
-                buf.p1(opcode as u8);
-            } else {
-                buf.p1((opcode >> 8) as u8 + 128);
-                buf.p1(opcode as u8);
-            }
-        }
-        buf.pos += frame;
-        let start = buf.pos;
-        message.encode(&mut buf);
-        match M::FRAME {
-            PacketFrame::Fixed => {}
-            PacketFrame::VarByte => buf.psize1((buf.pos - start) as u8),
-            PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
-        }
-        buf.data.truncate(buf.pos);
-        Some(buf)
     }
 
     /// Flushes all queued buffered packets to the network outbox, with the
@@ -740,11 +659,11 @@ impl ActivePlayer {
             if data[start] >= 128 {
                 let i0 = handle.isaac_encode.take_next_value();
                 let i1 = handle.isaac_encode.take_next_value();
-                data[start] = (data[start] as u32 + i0) as u8;
-                data[start + 1] = (data[start + 1] as u32 + i1) as u8;
+                data[start] = data[start].wrapping_add(i0 as u8);
+                data[start + 1] = data[start + 1].wrapping_add(i1 as u8);
                 continue;
             }
-            data[start] = (data[start] as u32 + handle.isaac_encode.take_next_value()) as u8;
+            data[start] = data[start].wrapping_add(handle.isaac_encode.take_next_value() as u8);
         }
         if end > 0 {
             handle.gather(&data[..end]);
@@ -786,18 +705,17 @@ impl ActivePlayer {
         let buf = &mut handle.write_queue;
         buf.pos = 0;
         #[cfg(before_647)]
-        buf.p1((M::PROT as u32 + handle.isaac_encode.take_next_value()) as u8);
+        buf.p1((M::PROT as u8).wrapping_add(handle.isaac_encode.take_next_value() as u8));
         // 1-or-2-byte SMART opcode, ISAAC applied per byte.
         #[cfg(since_647)]
         {
             let opcode = M::PROT as u16;
             if opcode < 128 {
-                buf.p1((opcode as u32 + handle.isaac_encode.take_next_value()) as u8);
+                buf.p1((opcode as u8).wrapping_add(handle.isaac_encode.take_next_value() as u8));
             } else {
-                buf.p1(
-                    (((opcode >> 8) + 128) as u32 + handle.isaac_encode.take_next_value()) as u8,
-                );
-                buf.p1(((opcode & 0xFF) as u32 + handle.isaac_encode.take_next_value()) as u8);
+                buf.p1((((opcode >> 8) + 128) as u8)
+                    .wrapping_add(handle.isaac_encode.take_next_value() as u8));
+                buf.p1((opcode as u8).wrapping_add(handle.isaac_encode.take_next_value() as u8));
             }
         }
         buf.pos += frame;
@@ -1586,39 +1504,35 @@ impl ActivePlayer {
         }
     }
 
-    /// Sends the last-login info to the client (welcome screen).
-    ///
-    /// Reports the number of whole days between the player's previous login
-    /// (`last_login_date`, from the saved profile) and this login (`last_date`,
-    /// set during the join phase). A `last_login_date` of `0` (first login / no
-    /// saved date) reports 0 days. This call does not mutate either timestamp.
-    ///
-    /// The source IP is hardcoded to loopback (`127.0.0.1` = `2130706433`) and
-    /// the recovery code to `201`, which shows the standard welcome screen.
-    /// The message count is the player's unread Message Centre messages as of
-    /// this login.
+    /// Sends LAST_LOGIN_INFO. Before 530 it reports the whole days between
+    /// the previous login (`last_login_date`, from the saved profile) and this
+    /// one (`last_date`), with the loopback address, recovery code 201 (the
+    /// standard welcome screen) and the unread Message Centre messages. From
+    /// 530 it carries the address of the account's last world login, which the
+    /// client looks up, and is not sent when there is none.
     pub fn last_login_info(&mut self) {
-        let previous = if self.player.last_login_date == 0 {
-            self.player.last_date
-        } else {
-            self.player.last_login_date
-        };
-        let days_since_login = ((self.player.last_date - previous) / (60 * 60 * 24)) as u16;
         #[cfg(before_530)]
-        self.write(LastLoginInfo {
-            ip: 2130706433,
-            login: days_since_login,
-            recovery: 201,
-            messages: self.unread_messages,
-            #[cfg(since_244)]
-            warn_members_in_non_members: !engine().members && self.member(),
-        });
-        // Rev-647 only reports the day count; the welcome-screen extras
-        // (ip/recovery/messages) are gone from the packet.
+        {
+            let previous = if self.player.last_login_date == 0 {
+                self.player.last_date
+            } else {
+                self.player.last_login_date
+            };
+            self.write(LastLoginInfo {
+                ip: 2130706433,
+                login: ((self.player.last_date - previous) / (60 * 60 * 24)) as u16,
+                recovery: 201,
+                messages: self.unread_messages,
+                #[cfg(since_244)]
+                warn_members_in_non_members: !engine().members && self.member(),
+            });
+        }
         #[cfg(since_530)]
-        self.write(LastLoginInfo {
-            login: days_since_login as i32,
-        });
+        if let Some(ip) = self.last_login_ip {
+            self.write(LastLoginInfo {
+                login: u32::from(ip) as i32,
+            });
+        }
     }
 
     /// Sets the animation playing on an interface component.
@@ -2768,7 +2682,7 @@ impl ActivePlayer {
     /// buffer.
     pub(crate) fn write_varshort_unchecked(&mut self, prot: u8, parts: [&[u8]; 2]) {
         let handle = &mut self.handle;
-        let opcode = (prot as u32 + handle.isaac_encode.take_next_value()) as u8;
+        let opcode = prot.wrapping_add(handle.isaac_encode.take_next_value() as u8);
         let rest = handle.gather_varshort(opcode, parts);
         let engine = engine();
         self.watch.server(engine.clock, prot, rest);
@@ -4179,15 +4093,13 @@ pub trait EnginePlayer {
 /// either.)
 const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an active"];
 
-/// How many bytes the read queue holds before the next message waits a tick.
-const READ_QUEUE_LIMIT: usize = MAX_PACKET_SIZE;
-
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets
     /// in a loop until per-category rate limits are reached or no whole
     /// packet is left.
     ///
-    /// Messages that would exceed the [`READ_QUEUE_LIMIT`] are held as
+    /// A message that would take the read queue past [`MAX_PACKET_SIZE`]
+    /// is split: the part that fits is queued and the rest is held as
     /// pending for the next tick.
     ///
     /// # Returns
@@ -4199,26 +4111,7 @@ impl EnginePlayer for ActivePlayer {
     /// * Resets rate-limit counters to 0.
     /// * Processes client messages via [`read`](Self::read).
     fn decode(&mut self) -> bool {
-        let handle = &mut self.handle;
-        let mut received = false;
-        let mut next = handle.pending_msg.take();
-        loop {
-            let msg = match next.take() {
-                Some(m) => m,
-                None => match handle.inbox.try_recv() {
-                    Ok(m) => {
-                        received = true;
-                        m
-                    }
-                    Err(_) => break,
-                },
-            };
-            if handle.read_queue.len() + msg.1.len() > READ_QUEUE_LIMIT {
-                handle.pending_msg = Some(msg);
-                break;
-            }
-            handle.queue(msg.0, msg.1);
-        }
+        let received = self.handle.pull_input();
 
         self.client_limit = 0;
         self.user_limit = 0;
@@ -4261,50 +4154,16 @@ impl EnginePlayer for ActivePlayer {
     /// # Call Stack
     /// **Called by:** [`decode`](Self::decode)
     fn read(&mut self) -> Option<()> {
-        let handle = &mut self.handle;
-        let opcode = match handle.opcode {
-            Some(opcode) => opcode,
-            None => {
-                let byte = handle.read_queue.pop_front()?;
-                let opcode = byte.wrapping_sub(handle.isaac_decode.take_next_value() as u8);
-                handle.opcode = Some(opcode);
-                opcode
+        let (prot, mut buf) = match self.handle.next_packet() {
+            Ok(packet) => packet?,
+            Err(e) => {
+                warn!("{e}");
+                self.disconnect();
+                return None;
             }
         };
-
-        let Ok(prot) = ClientProt::try_from(opcode) else {
-            warn!("Unknown opcode {opcode}, closing the connection");
-            self.disconnect();
-            return None;
-        };
+        let opcode = prot as u8;
         let info = prot.info();
-
-        let queue = &self.handle.read_queue;
-        let (head, len) = match info.frame {
-            ClientProtFrame::VarByte { .. } => (1, *queue.front()? as usize),
-            ClientProtFrame::VarShort { .. } => {
-                let hi = *queue.front()? as usize;
-                let lo = *queue.get(1)? as usize;
-                (2, (hi << 8) | lo)
-            }
-            ClientProtFrame::Fixed(len) => (0, len as usize),
-        };
-
-        if head + len > READ_QUEUE_LIMIT {
-            warn!("{prot:?} of {len} bytes, closing the connection");
-            self.disconnect();
-            return None;
-        }
-        if queue.len() < head + len {
-            return None;
-        }
-
-        let handle = &mut self.handle;
-        handle.opcode = None;
-        handle.read_queue.drain(..head);
-        let mut buf = Packet::from(take(&mut handle.read_buf));
-        buf.data.clear();
-        buf.data.extend(handle.read_queue.drain(..len));
         let malformed = !prot.validate(&buf.data);
 
         if let Some(at) = self.handle.arrived() {
@@ -4331,19 +4190,10 @@ impl EnginePlayer for ActivePlayer {
             engine_mut().flush_input_paths();
         }
 
-        // The lobby answers only its own requests; the rest need the world.
-        #[cfg(since_647)]
-        let ignored =
-            self.lobby && !matches!(prot, ClientProt::NoTimeout | ClientProt::WorldlistFetch);
-        #[cfg(before_647)]
-        let ignored = false;
-
         #[rustfmt::skip]
         let success = if malformed {
             debug!("Malformed {prot:?}: {} byte(s)", buf.len());
             self.watch.anticheat.malformed();
-            false
-        } else if ignored {
             false
         } else {
             let len = buf.len();

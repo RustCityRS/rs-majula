@@ -443,6 +443,8 @@ pub struct PlayerRecord {
     pub staff_level: u8,
     pub registered_ms: i64,
     pub online_node: Option<u8>,
+    #[serde(default)]
+    pub online_lobby: Option<u8>,
     pub online_since_ms: Option<i64>,
     pub last_node: Option<u8>,
     pub last_seen_ms: Option<i64>,
@@ -1071,6 +1073,8 @@ pub struct SessionState {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SessionClaim {
     pub node: u8,
+    #[serde(default)]
+    pub lobby: bool,
     pub since_ms: Option<i64>,
     pub heartbeat_age_ms: Option<i64>,
     pub takeover_after_ms: i64,

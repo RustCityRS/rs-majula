@@ -503,7 +503,7 @@ impl ScriptState {
     ///
     /// **Called by:** [`goto_frame`](Self::goto_frame).
     #[inline(always)]
-    fn new_program(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
+    fn new_program(&mut self, script: &Arc<Script>) -> Result<(), ScriptError> {
         self.int_locals.clear();
         self.string_locals.clear();
         self.int_base = 0;
@@ -601,7 +601,10 @@ impl ScriptState {
     ///
     /// **Called by:** The `GoSub` / `GoSubWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
-    pub(crate) fn gosub_frame(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
+    pub fn gosub_frame(&mut self, script: &Arc<Script>) -> Result<(), ScriptError> {
+        if self.gosub_frame_stack.len() >= 50 {
+            return Err(ScriptError::StackOverflow);
+        }
         let old_script = mem::replace(&mut self.script, Arc::clone(script));
         self.goto_frame_stack.push(GoToFrame {
             script: Arc::clone(&old_script),
@@ -647,13 +650,21 @@ impl ScriptState {
     ///
     /// **Called by:** The `GoTo` / `GoToWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
-    pub(crate) fn goto_frame(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
+    pub fn goto_frame(&mut self, script: &Arc<Script>) -> Result<(), ScriptError> {
         self.goto_frame_stack.push(GoToFrame {
             script: Arc::clone(&self.script),
             pc: self.pc,
         });
         self.gosub_frame_stack.clear();
         self.new_program(script)
+    }
+
+    /// The current program counter.
+    ///
+    /// **Called by:** script error logs outside the VM, such as the lobby's
+    /// trigger runner.
+    pub fn pc(&self) -> i32 {
+        self.pc
     }
 
     /// Reads the integer operand at the current program counter position.
@@ -1002,6 +1013,12 @@ impl ScriptState {
         debug_assert!(self.ssp >= 0, "string stack underflow on drop");
     }
 
+    /// Borrows a consumed string until the next stack mutation, retaining its allocation.
+    pub(crate) fn pop_string_ref(&mut self) -> &str {
+        self.drop_strings(1);
+        &self.string_stack[self.ssp as usize]
+    }
+
     /// Pops a string from the string stack, taking ownership of the value.
     ///
     /// Decrements `ssp` and uses `std::mem::take` to move the `String` out
@@ -1066,7 +1083,7 @@ impl ScriptState {
     /// **Called by:** Player opcode handlers (`ops::player`) for queue and
     /// timer operations that forward arguments to future script invocations.
     #[inline(always)]
-    pub(crate) fn pop_script_args(&mut self) -> Vec<ScriptArgument> {
+    pub fn pop_script_args(&mut self) -> Vec<ScriptArgument> {
         // Count chars, not bytes. type chars such as dbrows `Ð` are two bytes,
         // and a byte count would shift every later argument one slot along.
         let types = self.pop_string();

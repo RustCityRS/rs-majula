@@ -1,11 +1,13 @@
 use rs_util::net::limit_address;
 use std::io::{self, Error, ErrorKind};
 use std::net::IpAddr;
+#[cfg(since_647)]
+use std::str::from_utf8;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
 use tokio::sync::oneshot;
-use tokio::time::{Duration, sleep};
+use tokio::time::{Duration, Instant, sleep, timeout_at};
 use tracing::{info, warn};
 
 /// Opcodes for messages sent from this game world to the ether sidecar.
@@ -25,6 +27,8 @@ pub enum EtherOutboundOp {
     LoginCheck = 11,
     RefreshAll = 12,
     LoginAbort = 13,
+    #[cfg(since_647)]
+    LobbyTransfer = 14,
 }
 
 /// The most names an ignore list holds, as in the client and ether.
@@ -49,6 +53,8 @@ pub enum EtherInboundOp {
     FriendListComplete = 131,
     LoginCheckResponse = 132,
     WorldReady = 133,
+    #[cfg(since_647)]
+    LobbyTransfer = 134,
 }
 
 /// Strongly-typed outbound messages to the ether sidecar.
@@ -57,8 +63,17 @@ pub enum EtherInboundOp {
 /// payload fields.
 #[derive(Debug)]
 pub enum EtherOutbound {
+    #[cfg(since_647)]
+    LobbyTransfer {
+        user37: u64,
+        client_session: i64,
+        ip: IpAddr,
+        world: u8,
+        revision: u16,
+    },
     WorldRegister {
         node_id: u8,
+        lobby: bool,
     },
     PlayerLogin {
         user37: u64,
@@ -124,6 +139,14 @@ pub enum EtherOutbound {
 /// emitted locally when the connection is re-established.
 #[derive(Debug)]
 pub enum EtherInbound {
+    #[cfg(since_647)]
+    LobbyTransfer {
+        user37: u64,
+        client_session: i64,
+        ip: IpAddr,
+        world: u8,
+        revision: u16,
+    },
     UpdateFriendList {
         target37: u64,
         friend37: u64,
@@ -147,6 +170,7 @@ pub enum EtherInbound {
         user37: u64,
         allowed: bool,
         ip_limited: bool,
+        in_lobby: bool,
     },
     WorldReady,
     EtherReconnected,
@@ -171,9 +195,12 @@ impl EtherOutbound {
     /// * `buf` - The output buffer to append encoded bytes to.
     pub fn encode(&self, buf: &mut Vec<u8>) {
         match self {
-            Self::WorldRegister { node_id } => {
+            Self::WorldRegister { node_id, lobby } => {
                 buf.push(EtherOutboundOp::WorldRegister as u8);
                 buf.push(*node_id);
+                if *lobby {
+                    buf.push(1);
+                }
             }
             Self::PlayerLogin {
                 user37,
@@ -264,6 +291,21 @@ impl EtherOutbound {
                 buf.extend_from_slice(&user37.to_be_bytes());
                 put_ip(buf, *ip);
             }
+            #[cfg(since_647)]
+            Self::LobbyTransfer {
+                user37,
+                client_session,
+                ip,
+                world,
+                revision,
+            } => {
+                buf.push(EtherOutboundOp::LobbyTransfer as u8);
+                buf.extend_from_slice(&user37.to_be_bytes());
+                buf.extend_from_slice(&client_session.to_be_bytes());
+                buf.push(*world);
+                buf.extend_from_slice(&revision.to_be_bytes());
+                buf.extend_from_slice(ip.to_canonical().to_string().as_bytes());
+            }
             Self::RefreshAll => {
                 buf.push(EtherOutboundOp::RefreshAll as u8);
             }
@@ -353,10 +395,22 @@ impl EtherInbound {
                 let user37 = u64::from_be_bytes(payload[0..8].try_into().ok()?);
                 let allowed = payload[8] != 0;
                 let ip_limited = payload[9] == 2;
+                let in_lobby = payload[9] == 3;
                 Some(Self::LoginCheckResponse {
                     user37,
                     allowed,
                     ip_limited,
+                    in_lobby,
+                })
+            }
+            #[cfg(since_647)]
+            op if op == EtherInboundOp::LobbyTransfer as u8 && payload.len() > 19 => {
+                Some(Self::LobbyTransfer {
+                    user37: u64::from_be_bytes(payload[..8].try_into().ok()?),
+                    client_session: i64::from_be_bytes(payload[8..16].try_into().ok()?),
+                    world: payload[16],
+                    revision: u16::from_be_bytes(payload[17..19].try_into().ok()?),
+                    ip: from_utf8(&payload[19..]).ok()?.parse().ok()?,
                 })
             }
             op if op == EtherInboundOp::WorldReady as u8 => Some(Self::WorldReady),
@@ -382,6 +436,7 @@ impl EtherInbound {
 /// # Arguments
 /// * `port` - The TCP port of the ether sidecar.
 /// * `node_id` - This world's unique node identifier.
+/// * `lobby` - Whether this node registers as a lobby rather than a world.
 /// * `outbound_rx` - Channel receiver for messages to send to the sidecar.
 /// * `inbound_tx` - Channel sender for messages received from the sidecar.
 /// * `ready_tx` - One-shot sender signalled when the first handshake completes.
@@ -391,6 +446,7 @@ impl EtherInbound {
 pub async fn ether_client_task(
     port: u16,
     node_id: u8,
+    lobby: bool,
     mut outbound_rx: UnboundedReceiver<EtherOutbound>,
     inbound_tx: UnboundedSender<EtherInbound>,
     ready_tx: oneshot::Sender<()>,
@@ -409,6 +465,7 @@ pub async fn ether_client_task(
                 match run_connection(
                     stream,
                     node_id,
+                    lobby,
                     &mut outbound_rx,
                     &inbound_tx,
                     &mut ready_tx,
@@ -437,13 +494,16 @@ pub async fn ether_client_task(
 /// Runs a single ether connection lifecycle: handshake then bidirectional
 /// message relay until the connection drops.
 ///
-/// Sends a `WorldRegister` frame, waits for a `WorldReady` response
-/// during the handshake phase, then enters a `tokio::select!` loop that
-/// forwards outbound messages to the sidecar and decodes inbound frames.
+/// Sends a `WorldRegister` frame, waits up to 10 seconds for a `WorldReady`
+/// response during the handshake phase (a sidecar that never acknowledges
+/// the registration fails the connection, so the caller retries), then
+/// enters a `tokio::select!` loop that forwards outbound messages to the
+/// sidecar and decodes inbound frames.
 ///
 /// # Arguments
 /// * `stream` - The connected TCP stream to the sidecar.
 /// * `node_id` - This world's unique node identifier.
+/// * `lobby` - Whether this node registers as a lobby rather than a world.
 /// * `outbound_rx` - Channel receiver for messages to send.
 /// * `inbound_tx` - Channel sender for received messages.
 /// * `ready_tx` - One-shot sender consumed on first successful handshake.
@@ -459,6 +519,7 @@ pub async fn ether_client_task(
 async fn run_connection(
     mut stream: TcpStream,
     node_id: u8,
+    lobby: bool,
     outbound_rx: &mut UnboundedReceiver<EtherOutbound>,
     inbound_tx: &UnboundedSender<EtherInbound>,
     ready_tx: &mut Option<oneshot::Sender<()>>,
@@ -467,15 +528,17 @@ async fn run_connection(
 
     let mut frame_buf = Vec::with_capacity(256);
     frame_buf.clear();
-    EtherOutbound::WorldRegister { node_id }.encode(&mut frame_buf);
+    EtherOutbound::WorldRegister { node_id, lobby }.encode(&mut frame_buf);
     write_frame(&mut stream, &frame_buf).await?;
 
     let mut read_buf = vec![0u8; 4096];
     let mut pending = Vec::new();
 
-    // Wait for WorldReady before signaling the engine and entering the main loop.
+    let deadline = Instant::now() + Duration::from_secs(10);
     loop {
-        let n = stream.read(&mut read_buf).await?;
+        let n = timeout_at(deadline, stream.read(&mut read_buf))
+            .await
+            .map_err(|_| Error::new(ErrorKind::TimedOut, "Ether registration timed out"))??;
         if n == 0 {
             return Err(Error::new(
                 ErrorKind::ConnectionReset,

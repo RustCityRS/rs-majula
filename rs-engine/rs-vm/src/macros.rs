@@ -66,8 +66,45 @@ macro_rules! handlers {
 
 #[macro_export]
 macro_rules! none {
+    ($m:ident, $op:ident => |$s:ident, $host:ident| $body:block) => {
+        $m.insert($op, |$s, $host| {
+            $body;
+            Ok(())
+        });
+    };
     ($m:ident, $op:ident => |$s:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
+            $body;
+            Ok(())
+        });
+    };
+}
+
+#[macro_export]
+macro_rules! active_interface {
+    ($m:ident, $op:ident => |$s:ident, $player:ident| $body:block) => {
+        $m.insert($op, |$s, host| {
+            let $player = $crate::session::active_interface(host, $s)?;
+            $body;
+            Ok(())
+        });
+    };
+    ($m:ident, $op:ident => |$s:ident, $player:ident, $host_value:ident| $body:block) => {
+        $m.insert($op, |$s, host| {
+            let $host_value = host.$host_value();
+            let $player = $crate::session::active_interface(host, $s)?;
+            $body;
+            Ok(())
+        });
+    };
+}
+
+#[macro_export]
+macro_rules! active_vars {
+    ($m:ident, $op:ident => |$s:ident, $id:ident, $vars:ident| $body:block) => {
+        $m.insert($op, |$s, host| {
+            #[allow(unused_mut)]
+            let ($id, mut $vars) = $crate::session::active_vars(host, $s)?;
             $body;
             Ok(())
         });
@@ -77,7 +114,7 @@ macro_rules! none {
 #[macro_export]
 macro_rules! active_player {
     ($m:ident, $op:ident => |$s:ident, $player:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_player($s)?;
             let $player = $crate::util::get_active_player::<E>($s, $s.int_operand() != 0)?;
             $body;
@@ -89,7 +126,7 @@ macro_rules! active_player {
 #[macro_export]
 macro_rules! active_player_mut {
     ($m:ident, $op:ident => |$s:ident, $player:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_player($s)?;
             let $player = $crate::util::get_active_player_mut::<E>($s, $s.int_operand() != 0)?;
             $body;
@@ -101,7 +138,7 @@ macro_rules! active_player_mut {
 #[macro_export]
 macro_rules! active_npc {
     ($m:ident, $op:ident => |$s:ident, $npc:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_npc($s)?;
             let $npc = $crate::util::get_active_npc::<E>($s, $s.int_operand() != 0)?;
             $body;
@@ -113,7 +150,7 @@ macro_rules! active_npc {
 #[macro_export]
 macro_rules! active_npc_mut {
     ($m:ident, $op:ident => |$s:ident, $npc:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_npc($s)?;
             let $npc = $crate::util::get_active_npc_mut::<E>($s, $s.int_operand() != 0)?;
             $body;
@@ -125,7 +162,7 @@ macro_rules! active_npc_mut {
 #[macro_export]
 macro_rules! active_loc {
     ($m:ident, $op:ident => |$s:ident, $loc:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_loc($s)?;
             let $loc = $crate::macros::active_loc_ref($s)?;
             $body;
@@ -137,7 +174,7 @@ macro_rules! active_loc {
 #[macro_export]
 macro_rules! active_loc_mut {
     ($m:ident, $op:ident => |$s:ident, $loc:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_loc($s)?;
             let $loc = $crate::macros::active_loc_ref($s)?;
             $body;
@@ -149,7 +186,7 @@ macro_rules! active_loc_mut {
 #[macro_export]
 macro_rules! active_obj {
     ($m:ident, $op:ident => |$s:ident, $obj:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_obj($s)?;
             let $obj = $crate::macros::active_obj_ref($s)?;
             $body;
@@ -161,7 +198,7 @@ macro_rules! active_obj {
 #[macro_export]
 macro_rules! active_obj_mut {
     ($m:ident, $op:ident => |$s:ident, $obj:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_active_obj($s)?;
             let $obj = $crate::macros::active_obj_ref($s)?;
             $body;
@@ -173,7 +210,7 @@ macro_rules! active_obj_mut {
 #[macro_export]
 macro_rules! protected_active_player {
     ($m:ident, $op:ident => |$s:ident, $player:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_protected_active_player($s)?;
             let $player = $crate::util::get_active_player::<E>($s, $s.int_operand() != 0)?;
             $body;
@@ -185,7 +222,7 @@ macro_rules! protected_active_player {
 #[macro_export]
 macro_rules! protected_active_player_mut {
     ($m:ident, $op:ident => |$s:ident, $player:ident| $body:block) => {
-        $m.insert($op, |$s| {
+        $m.insert($op, |$s, _| {
             $crate::util::require_protected_active_player($s)?;
             let $player = $crate::util::get_active_player_mut::<E>($s, $s.int_operand() != 0)?;
             $body;

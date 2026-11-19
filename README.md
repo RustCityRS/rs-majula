@@ -47,6 +47,7 @@ against unmodified cache content.
 | [`rs-pack/`](rs-pack/README.md)     | The content and cache compiler. The server also runs it at startup.                                                                 |
 | `rs-protocol/`                      | The wire codec, with no game logic in it.                                                                                           |
 | `rs-server/`                        | The game server: startup, sockets, the web client's HTTP server and the terminal dashboard.                                         |
+| `rs-lobby/`                         | The 647 and 742 lobby engine, session lifecycle and LS2 runtime.                                                                    |
 | `rs-db/`                            | The database layer and its migrations.                                                                                              |
 | `rs-web/`                           | The website.                                                                                                                        |
 | `rs-console/`                       | The staff console, plus `api/`, the admin API it shares with the worlds and the website.                                            |
@@ -143,20 +144,56 @@ java -Xmx512m -jar public/530/launcher.jar 1 live english game0
 ```
 
 The first argument is the world. The client connects to port `40000 + world` on localhost, so
-world 1 (node 10) is port 40001. For high detail, run `public/530/hd/launcher.jar` the same way
-and choose High detail on the title screen. It ships the 2009 OpenGL natives for Windows, Linux,
-Solaris and macOS (Intel and PowerPC, on Apple's Java 6 or 5); without them it plays in standard
-detail. Windows x64 needs the Visual C++ 2005 runtime (`MSVCR80.dll`), Linux `libXxf86vm`.
+world 1 (node 10) is port 40001. Its world list holds this world alone: `RS_WORLD_LOCATION` and
+`RS_WORLD_COUNTRY` (225 United States, 77 United Kingdom, 38 Canada) set its location and flag,
+and `RS_WORLD_ACTIVITY` fills its activity column. For high detail, run
+`public/530/hd/launcher.jar` the same way and choose High detail on the title screen. It ships
+the 2009 OpenGL natives for Windows, Linux, Solaris and macOS (Intel and PowerPC, on Apple's
+Java 6 or 5); without them it plays in standard detail. Windows x64 needs the Visual C++ 2005
+runtime (`MSVCR80.dll`), Linux `libXxf86vm`.
+
+**Lobbies for revisions 647 and 742.** Start the world and lobby in separate terminals with the
+same revision, content, login key, password pepper, cluster cookie and PostgreSQL database.
+
+```bash
+REV=742 cargo world1
+REV=742 cargo lobby
+```
+
+The world serves the client and JS5 cache. The lobby runs LS2 on a 50 ms tick. By default its
+client ID is 1001 (TCP 41001). With node 10 its WebSocket listener is on 8380 and its local
+Ether sidecar is on 5310. Configure the public endpoints with `RS_WORLD_ADDRESS` on each world
+and `RS_LOBBY_ADDRESS` and `RS_LOBBY_ID` on the worlds advertising a lobby. Set the same
+`RS_LOBBY_ID` on that lobby. A world's public TCP port is 40000 plus its client world ID.
+Each world sets its own row in the lobby's world list. `RS_WORLD_LOCATION` names its location (default RuneScape).
+`RS_WORLD_COUNTRY` picks the flag by the client's country number (default
+225, the United States; 77 is the United Kingdom, 38 Canada, 2 the European Union).
+`RS_WORLD_ACTIVITY` gives it an activity, shown in place of the location.
+Give every lobby a distinct numeric `--node-id` across the cluster. A world and a lobby may
+share a numeric ID. Point `RS_CLUSTER_HOSTS` at the participating `world<N>@host` and
+`lobby<N>@host` nodes. In production, run `rs-server migrate` and deploy the
+matching Ether release before starting these services. Start the lobby process with
+`rs-server --node-id 10 lobby` and the world process with `rs-server --node-id 10 --no-tui`.
+Forward WebSocket connections through the same trusted real-IP proxy configuration as the worlds.
+
+Release builds require a lobby visit for a fresh world login. Debug builds also accept direct
+world login. `--direct-world-login true|false` or `RS_DIRECT_WORLD_LOGIN` overrides the default.
+A lobby accepts up to 8,192 players. `--lobby-capacity` or `RS_LOBBY_CAPACITY` can lower that
+limit. Each process shares its transport cap across TCP and WebSocket logins. The account limit applies
+across all worlds and lobbies together (one per IP in release, two in debug, with IPv6 grouped
+by /64). Lobby visits last up to one hour. A client silent for 60 seconds is disconnected.
+The world has 15 seconds to claim a departing client's visit using the same account, address,
+revision and client session. Each visit can be claimed once. A client that returns to a lobby
+within those 15 seconds with the same address, revision and client session takes the visit back.
 
 **With the original Java client (647).**
 
 ```bash
 java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
-  -cp public/647/client.jar client 1 1 1 live english game0
+  -cp public/647/client.jar client 1 1001 1 live english game0
 ```
 
-The three `1`s are the world. The client connects to port `40000 + world` on localhost, so
-world 1 (node 10) is port 40001.
+This connects to world 1 at port 40001 and lobby 1001 at port 41001 on localhost.
 
 **With the original Java client (742).** The client is an applet, so start it from the world's
 `jav_config.ws`:
@@ -166,7 +203,7 @@ java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
   deploy/client/AppletLoader.java http://127.0.0.1:8080/jav_config.ws
 ```
 
-For world 2 (node 11), use port 8081 and add `18=2 8=2` after the URL (the world and lobby ids).
+For world 2 (node 11), use port 8081. Each world supplies its configured world and lobby endpoints.
 
 ----
 
@@ -622,12 +659,12 @@ The defaults match `docker-compose.yml`, so locally the server connects with no 
 
 **The ether cluster**
 
-| Flag                     | Default                      | What it does                                                                                                                      |
-|--------------------------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `--ether-port <PORT>`    | `5000 + node_id` (`5010`)    | The ether sidecar's port.                                                                                                         |
-| `--node-host <HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | The host part of this world's ether node name (`world<id>@<host>`). Other worlds must be able to reach it.                        |
-| `--cluster <LIST>`       | empty (`RS_CLUSTER_HOSTS`)   | The ether nodes, comma-separated (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10` to `world20` on `--node-host`. |
-| `--ether-release <PATH>` | unset (`RS_ETHER_RELEASE`)   | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.                                  |
+| Flag                     | Default                      | What it does                                                                                                                                                                                                                       |
+|--------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--ether-port <PORT>`    | `5000 + node_id` (`5010`)    | The ether sidecar's port.                                                                                                                                                                                                          |
+| `--node-host <HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | The host part of this process's ether node name (`world<id>@<host>` or `lobby<id>@<host>`). The other nodes must be able to reach it.                                                                                              |
+| `--cluster <LIST>`       | empty (`RS_CLUSTER_HOSTS`)   | The ether nodes, comma-separated (e.g. `world10@10.0.0.5,world11@10.0.0.6,lobby10@10.0.0.5`). Empty means `world10` to `world20` and `lobby10` to `lobby20` on `--node-host`. Each node retries the missing ones every 10 seconds. |
+| `--ether-release <PATH>` | unset (`RS_ETHER_RELEASE`)   | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.                                                                                                                                   |
 
 ----
 
@@ -759,7 +796,7 @@ node, and the nodes join into one cluster for cross-world social features.
     GRANT SELECT, INSERT, UPDATE (read_at) ON staff_messages TO rs_web;
     -- the account page (/account)
     GRANT SELECT, DELETE ON players TO rs_web;
-    GRANT SELECT ON login_logs, player_saves, save_history, hiscores, chat_logs, session_logs, wealth_events, snapshots TO rs_web;
+    GRANT SELECT ON account_details, login_logs, player_saves, save_history, hiscores, chat_logs, session_logs, wealth_events, snapshots TO rs_web;
     GRANT SELECT (id, player_id, node_id, started_at, ended_at, duration_ms) ON replays TO rs_web;
     GRANT SELECT (node_id) ON moderation_logs TO rs_web;
     GRANT SELECT, DELETE ON friends, ignores TO rs_web;

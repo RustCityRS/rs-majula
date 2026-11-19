@@ -1,29 +1,49 @@
 use crate::tui::log_layer::{self, LogBuffer, TuiLogLayer};
+#[cfg(since_647)]
+use anyhow::Error;
 use anyhow::{Context, Result, anyhow, bail};
-use clap::{ArgAction, Parser, Subcommand, ValueEnum};
+use clap::{ArgAction, Parser, Subcommand, ValueEnum, value_parser};
 use futures_util::SinkExt;
 use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
+#[cfg(debug_assertions)]
+use notify::{RecursiveMode, Watcher, recommended_watcher};
+#[cfg(since_647)]
+use rand::random;
 use rs_crypto::rsa::{RsaKey, load_rsa_key};
-use rs_db::{Db, LoginDevice};
-use rs_engine::LoginRequest;
-use rs_engine::TickStats;
+use rs_db::{Db, DbConfig, LoginDevice, require_secret};
+#[cfg(since_647)]
+use rs_db::{Passwords, WorldEndpoint};
+#[cfg(since_647)]
+use rs_engine::prepare_schema;
 use rs_engine::watch::QUEUE;
-use rs_engine::{CycleResult, Engine};
-use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
+use rs_engine::{
+    CycleResult, DbClientConfig, DbRequest, DbResponse, Engine, EtherInbound, EtherOutbound,
+    LoginRequest, TickStats, db_client_task, ether_client_task, init_collision, replay_task,
+    with_engine,
+};
+#[cfg(before_647)]
+use rs_lobby as _;
+#[cfg(since_647)]
+use rs_lobby::{LobbyConfig, LobbyEngine};
 use rs_pack::cache::CacheStore;
 #[cfg(since_530)]
 use rs_pack::cache::map::XteaKeyStore;
 use rs_pack::cache::script::ScriptProvider;
+#[cfg(since_647)]
+use rs_pack::startup::LobbyAssets;
 #[cfg(since_530)]
 use rs_pack::startup::{InterfaceLayout, PackResult};
+use rs_pack::{CONTENT_DIR, PACK_CACHE_DIR, PACK_DIR, pack_all};
 #[cfg(since_530)]
 use rs_protocol::js5::Js5Cache;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::world_list::WorldEntry;
 use rs_util::net::limit_address;
 use rs_util::os::{disable_huge_pages, raise_open_files, raise_thread_priority, shutdown_signal};
 use std::collections::HashMap;
 use std::fs::{self, OpenOptions};
-use std::io::{self, BufReader, IsTerminal};
+use std::io::{self, BufRead, BufReader, IsTerminal};
 use std::mem::{replace, take};
 use std::net::{IpAddr, SocketAddr};
 use std::path::{self, Path, PathBuf};
@@ -41,7 +61,8 @@ use tokio::signal::ctrl_c;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot, watch};
 use tokio::task::{JoinHandle, spawn_blocking, yield_now};
-use tokio::time::{self, Duration, Instant as TokioInstant, Interval};
+use tokio::time::{self, Duration, Instant as TokioInstant, Interval, sleep};
+use tokio::{select, spawn};
 use tokio_tungstenite::WebSocketStream;
 use tokio_tungstenite::tungstenite::Message;
 use tracing::{Level, debug, error, info, warn};
@@ -237,25 +258,29 @@ struct Secrets {
 }
 
 impl Secrets {
-    fn resolve(args: &Args) -> Result<Self> {
+    fn resolve(args: &Args, lobby: bool) -> Result<Self> {
         Ok(Self {
             db_pass: db_pass(args)?,
-            pepper: rs_db::require_secret(args.pepper.clone(), "RS_PEPPER", "localhost")
+            pepper: require_secret(args.pepper.clone(), "RS_PEPPER", "localhost")
                 .map_err(|e| anyhow!(e))?,
-            cookie: rs_db::require_secret(args.cookie.clone(), "RS_COOKIE", "rs_secret")
+            cookie: require_secret(args.cookie.clone(), "RS_COOKIE", "rs_secret")
                 .map_err(|e| anyhow!(e))?,
-            admin: rs_db::require_secret(args.admin_secret.clone(), "RS_ADMIN_SECRET", "rs_admin")
-                .map_err(|e| anyhow!(e))?,
+            admin: if lobby {
+                String::new()
+            } else {
+                require_secret(args.admin_secret.clone(), "RS_ADMIN_SECRET", "rs_admin")
+                    .map_err(|e| anyhow!(e))?
+            },
         })
     }
 }
 
 fn db_pass(args: &Args) -> Result<String> {
-    rs_db::require_secret(args.db_pass.clone(), "RS_DB_PASS", "password").map_err(|e| anyhow!(e))
+    require_secret(args.db_pass.clone(), "RS_DB_PASS", "password").map_err(|e| anyhow!(e))
 }
 
-fn db_config(args: &Args, pass: String) -> rs_db::DbConfig {
-    rs_db::DbConfig {
+fn db_config(args: &Args, pass: String) -> DbConfig {
+    DbConfig {
         host: args.db_host.clone(),
         port: args.db_port,
         name: args.db_name.clone(),
@@ -272,7 +297,7 @@ struct EtherEnv {
     node_host: String,
     cluster: String,
     auto_migrate: bool,
-    db: rs_db::DbConfig,
+    db: DbConfig,
 }
 
 #[cfg(windows)]
@@ -281,7 +306,7 @@ const RELEASE_SCRIPT: &str = "rs_ether.bat";
 const RELEASE_SCRIPT: &str = "rs_ether";
 
 impl EtherEnv {
-    fn new(args: &Args, db: rs_db::DbConfig) -> Result<Self> {
+    fn new(args: &Args, db: DbConfig) -> Result<Self> {
         let release = match &args.ether_release {
             Some(root) => {
                 let root = path::absolute(root)?;
@@ -350,8 +375,16 @@ impl EtherEnv {
                 self.with_env(cmd)
             }
         };
-        cmd.env("RS_NODE_ID", node_id.to_string())
-            .env("RS_ETHER_PORT", ether_port.to_string());
+        cmd.env(
+            "RS_LOBBY",
+            if node_name.starts_with("lobby") {
+                "true"
+            } else {
+                "false"
+            },
+        )
+        .env("RS_NODE_ID", node_id.to_string())
+        .env("RS_ETHER_PORT", ether_port.to_string());
         cmd
     }
 
@@ -417,10 +450,10 @@ struct Args {
     client_pathfinder: bool,
     #[arg(long, action = ArgAction::Set)]
     staff_isolation: Option<bool>,
-    #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u8).range(1..=64),
+    #[arg(long, default_value_t = 1, value_parser = value_parser!(u8).range(1..=64),
         help = "Search threads per world; 1 runs on the engine thread")]
     pathfinder_threads: u8,
-    #[arg(long, value_parser = clap::value_parser!(u16).range(0..600),
+    #[arg(long, value_parser = value_parser!(u16).range(0..600),
         help = "Align ticks to this millisecond offset within the 600 ms cycle")]
     tick_offset_ms: Option<u16>,
     #[arg(long, default_value = "false")]
@@ -435,6 +468,37 @@ struct Args {
     real_ip_header: Option<String>,
     #[arg(long, env = "RS_SITE_ORIGIN")]
     site_origin: Option<String>,
+    #[cfg(since_647)]
+    #[arg(long, env = "RS_WORLD_ADDRESS", default_value = "127.0.0.1", value_parser = public_host,
+        help = "Public host of the world serving the client and cache")]
+    world_address: String,
+    #[cfg(since_530)]
+    #[arg(long, env = "RS_WORLD_LOCATION", default_value = "RuneScape", value_parser = world_list_text,
+        help = "Location of this world in the world list")]
+    world_location: String,
+    #[cfg(since_530)]
+    #[arg(long, env = "RS_WORLD_COUNTRY", default_value_t = 225, value_parser = value_parser!(u16).range(0..=32767),
+        help = "Client country number for this world's flag in the world list, such as 225 United States, 77 United Kingdom or 38 Canada")]
+    world_country: u16,
+    #[cfg(since_530)]
+    #[arg(long, env = "RS_WORLD_ACTIVITY", value_parser = world_list_text,
+        help = "Activity of this world in the world list")]
+    world_activity: Option<String>,
+    #[cfg(since_647)]
+    #[arg(long, env = "RS_LOBBY_ADDRESS", default_value = "127.0.0.1", value_parser = public_host,
+        help = "Public host where the client connects to the lobby")]
+    lobby_address: String,
+    #[cfg(since_647)]
+    #[arg(long, env = "RS_LOBBY_ID", default_value_t = 1001, value_parser = value_parser!(u16).range(1..=15535),
+        help = "Client lobby number. The lobby listens on 40000 plus this number")]
+    lobby_id: u16,
+    #[cfg(since_647)]
+    #[arg(long, env = "RS_DIRECT_WORLD_LOGIN", default_value_t = cfg!(debug_assertions), action = ArgAction::Set,
+        help = "Permit a fresh world login without a lobby visit")]
+    direct_world_login: bool,
+    #[cfg(since_647)]
+    #[arg(long, env = "RS_LOBBY_CAPACITY", default_value_t = MAX_GAME_CONNECTIONS as u16, value_parser = value_parser!(u16).range(1..=8192))]
+    lobby_capacity: u16,
     #[arg(long, default_value = "10")]
     node_id: u8,
     #[arg(long)]
@@ -449,8 +513,8 @@ struct Args {
     admin_secret: Option<String>,
     #[arg(long, value_enum, default_value_t = LogFormat::Text)]
     log_format: LogFormat,
-    #[arg(long, default_value = "rs-server.log")]
-    log_file: PathBuf,
+    #[arg(long)]
+    log_file: Option<PathBuf>,
     #[arg(long)]
     no_log_file: bool,
     #[arg(long)]
@@ -518,6 +582,9 @@ where
 #[derive(Subcommand, Debug)]
 enum Cmd {
     Migrate,
+    /// Run a standalone lobby with its own Ether node.
+    #[cfg(since_647)]
+    Lobby,
 }
 
 /// Held for writing while a debug reload replaces the cache in place, and
@@ -527,8 +594,10 @@ static CACHE_SWAP: RwLock<()> = RwLock::new(());
 /// The cache the network tasks serve from. A debug reload replaces it in
 /// place, so nothing borrowed from it may outlive a [`read`](Self::read).
 #[derive(Clone, Copy)]
+#[cfg(before_530)]
 pub struct SharedCache(&'static CacheStore);
 
+#[cfg(before_530)]
 impl SharedCache {
     pub fn read<R>(self, f: impl FnOnce(&CacheStore) -> R) -> R {
         let _swap = CACHE_SWAP.read().unwrap_or_else(PoisonError::into_inner);
@@ -536,19 +605,29 @@ impl SharedCache {
     }
 }
 
+#[cfg(since_530)]
 #[derive(Clone)]
-pub struct ServerIO {
-    cache: SharedCache,
+struct Js5Service {
     /// JS5 cache delivery: archive-255 reference tables, the master index and
     /// group containers are served from memory.
-    #[cfg(since_530)]
     js5: Js5Cache,
-    #[cfg(since_530)]
     js5_latest: Arc<RwLock<Js5Cache>>,
+}
+
+#[derive(Clone)]
+pub struct ServerIO {
+    #[cfg(before_530)]
+    cache: SharedCache,
+    #[cfg(since_530)]
+    content: Option<Js5Service>,
+    #[cfg(since_647)]
+    jav_config: Option<Arc<str>>,
     rsa: &'static RsaKey,
     new_player_tx: UnboundedSender<LoginRequest>,
     #[cfg(all(since_530, before_647))]
     tick_stats: Receiver<TickStats>,
+    #[cfg(all(since_530, before_647))]
+    world: &'static WorldEntry,
 }
 
 #[tokio::main]
@@ -580,7 +659,11 @@ async fn main() -> Result<()> {
             .init();
         return migrate(&args).await;
     }
-    let secrets = Secrets::resolve(&args)?;
+    #[cfg(since_647)]
+    let lobby = matches!(args.command, Some(Cmd::Lobby));
+    #[cfg(before_647)]
+    let lobby = false;
+    let secrets = Secrets::resolve(&args, lobby)?;
 
     // File appender - `--log-file`, overwritten each run (no rotation; log
     // volume per session is bounded). Held in `_log_guard` for the lifetime
@@ -588,12 +671,19 @@ async fn main() -> Result<()> {
     let (file_layer, _log_guard) = if args.no_log_file {
         (None, None)
     } else {
+        let path = args.log_file.as_deref().unwrap_or_else(|| {
+            Path::new(if lobby {
+                "rs-lobby.log"
+            } else {
+                "rs-server.log"
+            })
+        });
         let log_file = OpenOptions::new()
             .create(true)
             .write(true)
             .truncate(true)
-            .open(&args.log_file)
-            .with_context(|| format!("opening {}", args.log_file.display()))?;
+            .open(path)
+            .with_context(|| format!("opening {}", path.display()))?;
         let (file_writer, guard) = tracing_appender::non_blocking(log_file);
         let layer = fmt_layer(args.log_format, file_writer, false, true).with_filter(make_filter());
         (Some(layer), Some(guard))
@@ -605,7 +695,7 @@ async fn main() -> Result<()> {
     // stdout is e.g. piped, redirected, or running under IntelliJ's Run
     // tool window (which doesn't interpret cursor/raw-mode escapes).
     let tty = io::stdout().is_terminal();
-    let use_tui = !args.no_tui && tty;
+    let use_tui = !lobby && !args.no_tui && tty;
 
     if !use_tui {
         let stdout_layer =
@@ -613,6 +703,10 @@ async fn main() -> Result<()> {
         registry.with(stdout_layer).init();
         let _ = Level::INFO;
 
+        #[cfg(since_647)]
+        if lobby {
+            return serve_lobby(args, secrets).await;
+        }
         if !args.no_tui && !tty {
             info!(
                 "stdout is not a TTY - falling back to headless mode (use a real terminal for the TUI dashboard)"
@@ -623,7 +717,7 @@ async fn main() -> Result<()> {
         let (stats_tx, _stats_rx) = channel(TickStats::default());
         let (_trigger_tx, trigger_rx) = unbounded_channel::<()>();
         let (shutdown_tx, shutdown_rx) = unbounded_channel::<()>();
-        tokio::spawn(async move {
+        spawn(async move {
             let signal = shutdown_signal().await;
             info!("{signal} -- saving every player and shutting down ({signal} again to force)");
             let _ = shutdown_tx.send(());
@@ -649,6 +743,146 @@ async fn main() -> Result<()> {
     }
 }
 
+#[cfg(since_530)]
+fn world_list_text(text: &str) -> Result<String, String> {
+    if (2..=40).contains(&text.chars().count()) && !text.chars().any(char::is_control) {
+        Ok(text.to_owned())
+    } else {
+        Err("expected 2 to 40 characters and no control characters".into())
+    }
+}
+
+#[cfg(since_647)]
+fn public_host(host: &str) -> Result<String, String> {
+    if host.parse::<IpAddr>().is_ok()
+        || (host.len() <= 253
+            && host.split('.').all(|label| {
+                !label.is_empty()
+                    && label.len() <= 63
+                    && label
+                        .bytes()
+                        .all(|b| b.is_ascii_alphanumeric() || b == b'-')
+                    && !label.starts_with('-')
+                    && !label.ends_with('-')
+            }))
+    {
+        Ok(host.to_owned())
+    } else {
+        Err("expected a public IP address or DNS name".into())
+    }
+}
+
+#[cfg(since_647)]
+async fn serve_lobby(args: Args, secrets: Secrets) -> Result<()> {
+    let tcp = 40000 + args.lobby_id;
+    if args.tcp_port.is_some_and(|p| p != tcp) {
+        bail!(
+            "the client connects to lobby {} at TCP port {tcp}",
+            args.lobby_id
+        );
+    }
+    let http = args.http_port.unwrap_or(8370 + u16::from(args.node_id));
+    let db = Db::connect(&db_config(&args, secrets.db_pass.clone()), 4).await?;
+    prepare_schema(&db, args.auto_migrate)
+        .await
+        .map_err(Error::msg)?;
+    let rsa = Box::leak(Box::new(load_rsa_key(&args.private_key)?));
+    device::init(&fs::read(&args.private_key)?);
+    let assets = LobbyAssets::load(
+        Path::new(CONTENT_DIR),
+        Path::new(PACK_DIR),
+        args.pack_cache.then_some(Path::new(PACK_CACHE_DIR)),
+        args.verify,
+    )?;
+    let (ether, outbound) = unbounded_channel();
+    let (inbound, ether_rx) = unbounded_channel();
+    let (new_player_tx, rx) = unbounded_channel();
+    let mut engine = LobbyEngine::start(
+        LobbyConfig {
+            id: args.node_id,
+            instance: random(),
+            revision: REVISION.parse()?,
+            capacity: usize::from(args.lobby_capacity),
+            auto_register: args.auto_register,
+            block_multilog: args.block_multilog,
+            passwords: Arc::new(Passwords::new(&secrets.pepper)),
+        },
+        db,
+        assets,
+        ether,
+        ether_rx,
+        rx,
+    )
+    .await?;
+    if let Err(err) = start_ether(&args, &secrets, true, outbound, inbound) {
+        engine.shutdown().await?;
+        return Err(err);
+    }
+    let state = ServerIO {
+        rsa,
+        content: None,
+        jav_config: None,
+        new_player_tx,
+    };
+    let guards = ConnectionGuards::new();
+    info!(
+        "Lobby {} (revision {}) listening on {}:{tcp}, WebSocket port {http}, capacity {}",
+        args.lobby_id, REVISION, args.host, args.lobby_capacity
+    );
+    let result = select! {
+        result = engine.run() => result,
+        result = socket::serve(args.host.clone(), tcp, state.clone(), guards.game.clone(), guards.js5.clone()) => result,
+        () = http::serve(args.host, http, args.node_id.to_string(), args.members, state,
+            guards.game, guards.js5, guards.http, false, args.real_ip_header.map(|v| &*Box::leak(v.into_boxed_str())),
+            args.site_origin.map(|v| &*Box::leak(v.into_boxed_str()))) => Err(anyhow!("lobby HTTP listener stopped")),
+        _ = shutdown_signal() => Ok(()),
+    };
+    engine.shutdown().await?;
+    result
+}
+
+fn start_ether(
+    args: &Args,
+    secrets: &Secrets,
+    lobby: bool,
+    outbound_rx: UnboundedReceiver<EtherOutbound>,
+    inbound_tx: UnboundedSender<EtherInbound>,
+) -> Result<oneshot::Receiver<()>> {
+    let ether_port = args
+        .ether_port
+        .unwrap_or((if lobby { 5300 } else { 5000 }) + u16::from(args.node_id));
+    let node_id = args.node_id;
+
+    let role = if lobby { "lobby" } else { "world" };
+    let node_name = format!("{role}{}@{}", node_id, args.node_host);
+    let ether = EtherEnv::new(args, db_config(args, secrets.db_pass.clone()))?;
+    let cookie = secrets.cookie.clone();
+    spawn(async move {
+        if ether.release.is_none() {
+            if !cfg!(debug_assertions) {
+                warn!("Running ether from source with mix; use --ether-release in production");
+            }
+            let prepare = ether.clone();
+            if let Err(e) = spawn_blocking(move || prepare_ether_sidecar(&prepare)).await {
+                error!("Ether preparation failed: {e}");
+                return;
+            }
+        }
+        supervise_ether_sidecar(ether, node_id, ether_port, node_name, cookie).await;
+    });
+
+    let (ready_tx, ready_rx) = oneshot::channel();
+    spawn(ether_client_task(
+        ether_port,
+        node_id,
+        lobby,
+        outbound_rx,
+        inbound_tx,
+        ready_tx,
+    ));
+    Ok(ready_rx)
+}
+
 /// Run the TUI dashboard. The server bootstraps immediately as a sibling
 /// task; the TUI just renders state. Hot-reload (`c`) is debug-only - the
 /// key is hidden and the channel ignored in release builds.
@@ -665,7 +899,7 @@ async fn run_with_tui(args: Args, secrets: Secrets, log_buf: LogBuffer) -> Resul
 
     // Bootstrap right away in the background - the TUI shows "loading" until
     // the first tick lands, then "RUNNING".
-    let mut bootstrap_task = tokio::spawn(async move {
+    let mut bootstrap_task = spawn(async move {
         if let Err(e) = bootstrap(args, secrets, stats_tx, trigger_rx, shutdown_rx, guards).await {
             error!("server bootstrap failed: {e:#}");
         }
@@ -680,7 +914,7 @@ async fn run_with_tui(args: Args, secrets: Secrets, log_buf: LogBuffer) -> Resul
     if ENGINE_RUNNING.load(Ordering::Acquire) {
         let _ = shutdown_tx.send(());
         println!("Saving every player and shutting down... (Ctrl+C to force)");
-        tokio::select! {
+        select! {
             _ = ctrl_c() => {
                 println!("Forced exit -- players since their last save are not saved");
             }
@@ -716,6 +950,8 @@ async fn bootstrap(
     if !(40001..=55535).contains(&tcp) {
         bail!("the standalone client needs --tcp-port between 40001 and 55535");
     }
+    #[cfg(since_530)]
+    let world = tcp - 40000;
     // Clients from 530 fetch the cache over JS5, not JAGGRAB.
     #[cfg(before_530)]
     let jaggrab = args.jaggrab_port.unwrap_or(tcp + 1);
@@ -735,30 +971,28 @@ async fn bootstrap(
 
     let purge_delay = purge_freed_at_once();
     // Before the pack churns the heap: see init_collision.
-    rs_engine::init_collision();
+    init_collision();
     info!("Compiling content assets & building cache...");
-    let pack_cache = args
-        .pack_cache
-        .then_some(Path::new(rs_pack::PACK_CACHE_DIR));
+    let pack_cache = args.pack_cache.then_some(Path::new(PACK_CACHE_DIR));
     #[cfg(since_530)]
     let PackResult {
         store,
         scripts,
         layout,
         cache: js5_cache,
-    } = rs_pack::pack_all(
-        Path::new(rs_pack::CONTENT_DIR),
-        Path::new(rs_pack::PACK_DIR),
+    } = pack_all(
+        Path::new(CONTENT_DIR),
+        Path::new(PACK_DIR),
         pack_cache,
         args.verify,
         args.members,
     )?;
     #[cfg(since_530)]
-    XteaKeyStore::load(&Path::new(rs_pack::CONTENT_DIR).join("keys.json"))?.install_global();
+    XteaKeyStore::load(&Path::new(CONTENT_DIR).join("keys.json"))?.install_global();
     #[cfg(before_530)]
-    let (store, scripts) = rs_pack::pack_all(
-        Path::new(rs_pack::CONTENT_DIR),
-        Path::new(rs_pack::PACK_DIR),
+    let (store, scripts) = pack_all(
+        Path::new(CONTENT_DIR),
+        Path::new(PACK_DIR),
         pack_cache,
         args.verify,
         args.members,
@@ -792,46 +1026,30 @@ async fn bootstrap(
     #[cfg(since_530)]
     let js5_latest = Arc::new(RwLock::new(js5.clone()));
 
-    let (ether_tx, ether_rx) = {
-        let (outbound_tx, outbound_rx) = unbounded_channel::<EtherOutbound>();
-        let (inbound_tx, inbound_rx) = unbounded_channel::<EtherInbound>();
-        let ether_port = args.ether_port.unwrap_or(5000 + args.node_id as u16);
-        let node_id = args.node_id;
-
-        let node_name = format!("world{}@{}", node_id, args.node_host);
-        let ether = EtherEnv::new(&args, db_config(&args, secrets.db_pass.clone()))?;
-        if ether.release.is_none() {
-            if !cfg!(debug_assertions) {
-                warn!("Running ether from source with mix; use --ether-release in production");
-            }
-            prepare_ether_sidecar(&ether);
-        }
-
-        tokio::spawn(supervise_ether_sidecar(
-            ether,
-            node_id,
-            ether_port,
-            node_name,
-            secrets.cookie,
-        ));
-
-        let (ready_tx, ready_rx) = oneshot::channel();
-        tokio::spawn(ether_client_task(
-            ether_port,
-            node_id,
-            outbound_rx,
-            inbound_tx,
-            ready_tx,
-        ));
-        let _ = ready_rx.await;
-        (Some(outbound_tx), inbound_rx)
-    };
+    let (ether_tx, outbound) = unbounded_channel();
+    let (inbound, ether_rx) = unbounded_channel();
+    start_ether(&args, &secrets, false, outbound, inbound)?
+        .await
+        .context("Ether stopped before registration")?;
+    let ether_tx = Some(ether_tx);
 
     let db_settings = db_config(&args, secrets.db_pass);
     let (db_tx, db_rx) = {
-        let (req_tx, req_rx) = unbounded_channel::<rs_engine::DbRequest>();
-        let (resp_tx, resp_rx) = unbounded_channel::<rs_engine::DbResponse>();
-        let config = rs_engine::DbClientConfig {
+        let (req_tx, req_rx) = unbounded_channel::<DbRequest>();
+        let (resp_tx, resp_rx) = unbounded_channel::<DbResponse>();
+        let config = DbClientConfig {
+            #[cfg(since_647)]
+            endpoint: Some(WorldEndpoint {
+                id: world,
+                revision: REVISION.parse()?,
+                address: args.world_address.clone(),
+                members: args.members,
+                location: args.world_location.clone(),
+                country: args.world_country,
+                activity: args.world_activity.clone(),
+            }),
+            #[cfg(since_647)]
+            direct_login: args.direct_world_login,
             db: db_settings.clone(),
             node_id: args.node_id,
             pepper: secrets.pepper.clone(),
@@ -847,14 +1065,14 @@ async fn bootstrap(
                 "allowed"
             }
         );
-        tokio::spawn(rs_engine::db_client_task(config, req_rx, resp_tx));
+        spawn(db_client_task(config, req_rx, resp_tx));
         (Some(req_tx), resp_rx)
     };
 
     // Session recordings, for the staff console's replays.
     let (replay_tx, replay_task) = if args.replay_days > 0 {
         let (tx, rx) = mpsc::channel(QUEUE);
-        let task = tokio::spawn(rs_engine::replay_task(
+        let task = spawn(replay_task(
             db_settings.clone(),
             args.node_id,
             REVISION,
@@ -938,7 +1156,7 @@ async fn bootstrap(
 
     let admin_port = args.admin_port.unwrap_or(8270 + args.node_id as u16);
     if admin_port != 0 {
-        tokio::spawn(admin::serve(
+        spawn(admin::serve(
             args.admin_host.clone(),
             admin_port,
             secrets.admin,
@@ -953,7 +1171,7 @@ async fn bootstrap(
     }
 
     #[cfg(debug_assertions)]
-    tokio::spawn(reload_coordinator(
+    spawn(reload_coordinator(
         args.verify,
         args.members,
         args.pack_cache,
@@ -976,18 +1194,36 @@ async fn bootstrap(
     };
     #[cfg(since_530)]
     let server_state = ServerIO {
-        cache: SharedCache(cache),
-        js5,
-        js5_latest,
+        content: Some(Js5Service { js5, js5_latest }),
+        #[cfg(since_647)]
+        jav_config: Some(
+            http::client_config(
+                &args.world_address,
+                world,
+                &args.lobby_address,
+                args.lobby_id,
+            )
+            .into(),
+        ),
         rsa,
         new_player_tx,
         #[cfg(all(since_530, before_647))]
         tick_stats: world_list_stats,
+        #[cfg(all(since_530, before_647))]
+        world: Box::leak(Box::new(WorldEntry {
+            id: world,
+            address: String::new(),
+            members: args.members,
+            players: 0,
+            location: args.world_location.clone(),
+            country: args.world_country,
+            activity: args.world_activity.clone(),
+        })),
     };
 
     let metrics_port = args.metrics_port.unwrap_or(8170 + args.node_id as u16);
     if metrics_port != 0 {
-        tokio::spawn(metrics::serve(
+        spawn(metrics::serve(
             args.metrics_host.clone(),
             metrics_port,
             args.members,
@@ -1020,14 +1256,14 @@ async fn bootstrap(
     #[cfg(all(since_530, before_647))]
     info!(
         "Standalone client: java -cp client.jar client {} live english game0",
-        tcp - 40000
+        world
     );
     #[cfg(since_647)]
     info!(
         "Client config available at: http://localhost:{}/jav_config.ws",
         http
     );
-    tokio::spawn(http::serve(
+    spawn(http::serve(
         host.to_string(),
         http,
         args.node_id.to_string(),
@@ -1048,7 +1284,7 @@ async fn bootstrap(
     #[cfg(before_530)]
     {
         info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
-        tokio::spawn(jaggrab::serve(
+        spawn(jaggrab::serve(
             host.to_string(),
             jaggrab,
             server_state.cache,
@@ -1115,10 +1351,6 @@ async fn supervise_ether_sidecar(
     node_name: String,
     cookie: String,
 ) {
-    use std::process::Stdio;
-    use tokio::time::sleep;
-    use tracing::warn;
-
     let mut backoff = Duration::from_secs(1);
     let max_backoff = Duration::from_secs(30);
 
@@ -1137,7 +1369,6 @@ async fn supervise_ether_sidecar(
 
                 if let Some(stdout) = child.stdout.take() {
                     thread::spawn(move || {
-                        use std::io::BufRead;
                         let reader = BufReader::new(stdout);
                         for line in reader.lines().map_while(Result::ok) {
                             debug!(target: "ether", "{}", line);
@@ -1147,7 +1378,6 @@ async fn supervise_ether_sidecar(
 
                 if let Some(stderr) = child.stderr.take() {
                     thread::spawn(move || {
-                        use std::io::BufRead;
                         let reader = BufReader::new(stderr);
                         for line in reader.lines().map_while(Result::ok) {
                             if line.contains("erroneous line, SKIPPED") {
@@ -1240,8 +1470,6 @@ async fn reload_coordinator(
     result_tx: UnboundedSender<Reload>,
     mut reload_world_rx: UnboundedReceiver<()>,
 ) {
-    use notify::{RecursiveMode, Watcher};
-
     let (watch_tx, mut watch_rx) = unbounded_channel::<()>();
 
     // File watcher on a dedicated thread (notify uses blocking I/O).
@@ -1249,7 +1477,7 @@ async fn reload_coordinator(
         let debounce_tx = watch_tx;
         let (notify_tx, notify_rx) = std_mpsc::channel();
 
-        let mut watcher = match notify::recommended_watcher(notify_tx) {
+        let mut watcher = match recommended_watcher(notify_tx) {
             Ok(w) => w,
             Err(e) => {
                 warn!("File watcher failed to start: {e}");
@@ -1257,7 +1485,7 @@ async fn reload_coordinator(
             }
         };
 
-        let content = Path::new(rs_pack::CONTENT_DIR);
+        let content = Path::new(CONTENT_DIR);
         if let Ok(entries) = fs::read_dir(content) {
             for entry in entries.flatten() {
                 let path = entry.path();
@@ -1280,7 +1508,7 @@ async fn reload_coordinator(
     });
 
     loop {
-        tokio::select! {
+        select! {
             Some(_) = trigger_rx.recv() => {}
             Some(_) = watch_rx.recv() => {}
             Some(_) = reload_world_rx.recv() => {}
@@ -1291,10 +1519,10 @@ async fn reload_coordinator(
         let start = Instant::now();
 
         let result = spawn_blocking(move || {
-            rs_pack::pack_all(
-                Path::new(rs_pack::CONTENT_DIR),
-                Path::new(rs_pack::PACK_DIR),
-                pack_cache.then_some(Path::new(rs_pack::PACK_CACHE_DIR)),
+            pack_all(
+                Path::new(CONTENT_DIR),
+                Path::new(PACK_DIR),
+                pack_cache.then_some(Path::new(PACK_CACHE_DIR)),
                 verify,
                 members,
             )
@@ -1349,13 +1577,13 @@ fn begin_shutdown(engine: &mut Engine) {
     }
     info!("Shutdown requested -- logging every player out with a save");
     let ptr = &raw mut *engine;
-    rs_engine::with_engine(engine, || unsafe { &mut *ptr }.reboot_timer(0));
+    with_engine(engine, || unsafe { &mut *ptr }.reboot_timer(0));
 }
 
 /// Runs an admin API request on the engine, between ticks.
 fn run_admin_job(engine: &mut Engine, job: admin::EngineJob) {
     let ptr = &raw mut *engine;
-    rs_engine::with_engine(engine, || job(unsafe { &mut *ptr }));
+    with_engine(engine, || job(unsafe { &mut *ptr }));
 }
 
 /// Lets the recording task store what it was sent, for a few seconds at
@@ -1380,7 +1608,7 @@ fn apply_reload(engine: &mut Engine, reload: Reload) {
     let (store, scripts, layout) = reload;
     let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
     let ptr = &raw mut *engine;
-    rs_engine::with_engine(engine, || {
+    with_engine(engine, || {
         unsafe { &mut *ptr }.reload_assets(
             store,
             scripts,
@@ -1449,7 +1677,7 @@ async fn engine_tick(
             }
         } else {
             // A tick that's due goes first, ahead of any admin jobs queued.
-            tokio::select! {
+            select! {
                 biased;
                 _ = interval.tick() => {}
                 Some(()) = shutdown_rx.recv() => {

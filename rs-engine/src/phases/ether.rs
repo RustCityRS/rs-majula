@@ -26,6 +26,14 @@ impl Engine {
     ///   to the recipient player.
     /// * `LoginCheckResponse` -- completes or rejects a pending login
     ///   based on whether the ether allows it (not logged in elsewhere).
+    ///   From 647, a refusal because the player is in a lobby instead asks
+    ///   that lobby to hand the player over (`EtherOutbound::LobbyTransfer`)
+    ///   once this world has a slot for them, and marks the login to retry
+    ///   its check (see `Engine::logins`). Any other refusal rejects with
+    ///   [`LoginResponse::IpLimit`] when the address is at its limit, else
+    ///   [`LoginResponse::Duplicate`].
+    /// * `EtherDisconnected` -- disables logins and rejects every pending
+    ///   login with [`LoginResponse::LoginServerOffline`].
     /// * `EtherReconnected` -- handles reconnection to the ether service
     ///   by failing all in-flight logins and re-syncing all active
     ///   players.
@@ -34,12 +42,15 @@ impl Engine {
     ///
     /// * Writes network packets to player output buffers.
     /// * Completes or rejects entries in `self.pending_logins`.
+    /// * From 647, sends `LobbyTransfer` to the ether for a login whose
+    ///   player is in a lobby.
     /// * On reconnect, sends `PlayerResync` and `RefreshAll` to the ether.
     ///
     /// # Call Stack
     ///
     /// **Called by:** `Engine::cycle`
-    /// **Calls:** `try_complete_login`, `EtherOutbound::PlayerResync`,
+    /// **Calls:** `try_complete_login`, `login_slot`, `reject_pending_login`,
+    ///   `EtherOutbound::LobbyTransfer`, `EtherOutbound::PlayerResync`,
     ///   `EtherOutbound::RefreshAll`
     pub(crate) fn ether(&mut self) {
         for _ in 0..MAX_PLAYERS {
@@ -132,12 +143,17 @@ impl Engine {
                     #[cfg(before_254)]
                     let _ = target37;
                 }
+                #[cfg(since_647)]
+                EtherInbound::LobbyTransfer { .. } => {}
                 EtherInbound::WorldReady => {}
                 EtherInbound::LoginCheckResponse {
                     user37,
                     allowed,
                     ip_limited,
+                    in_lobby,
                 } => {
+                    #[cfg(before_647)]
+                    let _ = in_lobby;
                     if let Some(idx) = self
                         .pending_logins
                         .iter()
@@ -146,9 +162,38 @@ impl Engine {
                         let online_here = self.find_pid_by_user37(user37).is_some();
                         let reconnect = self.pending_logins[idx].request.reconnect;
                         if (allowed && !online_here) || (reconnect && online_here && !ip_limited) {
+                            #[cfg(since_647)]
+                            {
+                                self.pending_logins[idx].retry_ether = false;
+                            }
                             self.pending_logins[idx].ether_allowed = true;
                             self.try_complete_login(idx);
                         } else {
+                            #[cfg(since_647)]
+                            if in_lobby
+                                && !online_here
+                                && !reconnect
+                                && self.pending_logins[idx].auth.is_some()
+                            {
+                                if let Err(code) =
+                                    self.login_slot(self.pending_logins[idx].auth.unwrap())
+                                {
+                                    self.reject_pending_login(idx, code);
+                                    continue;
+                                }
+                                let pending = &mut self.pending_logins[idx];
+                                if let Some(tx) = &self.ether_tx {
+                                    let _ = tx.send(EtherOutbound::LobbyTransfer {
+                                        user37,
+                                        client_session: pending.request.client_session,
+                                        ip: pending.request.remote_addr.ip(),
+                                        world: self.node_id,
+                                        revision: env!("REV").parse().unwrap(),
+                                    });
+                                }
+                                pending.retry_ether = true;
+                                continue;
+                            }
                             let response = if ip_limited {
                                 LoginResponse::IpLimit
                             } else {
@@ -160,6 +205,12 @@ impl Engine {
                 }
                 EtherInbound::EtherDisconnected => {
                     self.ether_ready = false;
+                    while !self.pending_logins.is_empty() {
+                        self.reject_pending_login(
+                            self.pending_logins.len() - 1,
+                            LoginResponse::LoginServerOffline,
+                        );
+                    }
                     warn!("Ether disconnected - logins disabled");
                 }
                 EtherInbound::EtherReconnected => {

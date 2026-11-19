@@ -10,18 +10,342 @@ use rs_entity::{InteractionTarget, MoveSpeed, ObjSerial};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::VarValue;
+#[cfg(since_530)]
+use rs_pack::types::IfEvents;
 use rs_pack::types::{LocAngle, LocShape, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_ver::TypeId;
-use rs_vm::engine::{ScriptEngine, ScriptPlayer};
+use rs_vm::engine::{ScriptEngine, ScriptPlayer, ScriptVars};
+use rs_vm::session::ScriptInterface;
 use rs_vm::state::*;
 use rs_vm::trigger::ServerTriggerType;
-use rs_vm::{ComId, ScriptError};
+use rs_vm::{ComId, Result, ScriptError};
 use rsmod::PathRequest;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+
+impl ScriptVars for ActivePlayer {
+    fn stored_varp(&self, id: u16) -> Option<&VarValue> {
+        Some(self.player.vars.get(id))
+    }
+
+    /// Writes a player variable (varp) and optionally transmits the change to the client.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `POP_VARP` and `POP_VARPBIT` in `ops::vars` via `PlayerVars`
+    /// **Calls:** `ActivePlayer::set_varp`
+    fn set_var(&mut self, id: u16, value: VarValue, transmit: bool) {
+        self.set_varp(id, value, transmit);
+    }
+
+    #[cfg(since_530)]
+    fn sendvarc(&mut self, id: u16, value: i32) {
+        self.varc_transmit(id, value);
+    }
+
+    #[cfg(since_530)]
+    fn sendvarc_str(&mut self, id: u16, value: &str) {
+        self.varc_str_transmit(id, value);
+    }
+
+    #[cfg(since_530)]
+    fn varc(&self, id: u16) -> i32 {
+        let index = engine().varcs().index(id, false);
+        self.player.varcs[index].as_int()
+    }
+
+    #[cfg(since_530)]
+    fn varc_str(&self, id: u16) -> &str {
+        let index = engine().varcs().index(id, true);
+        match &self.player.varcs[index] {
+            VarValue::String(value) => value,
+            _ => unreachable!(),
+        }
+    }
+}
+
+impl ScriptInterface for ActivePlayer {
+    /// Configures which interface buttons are valid resume targets for a paused script dialog.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** sets `self.player.resume_buttons`
+    #[cfg(any(before_254, since_530))]
+    fn if_setresumebuttons(&mut self, buttons: Option<Vec<i32>>) {
+        self.player.resume_buttons = buttons;
+    }
+
+    /// Appends a single interface button to the set of valid resume targets for
+    /// a paused script dialog, lazily allocating the set on first use.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** pushes onto `self.player.resume_buttons`
+    #[cfg(since_254)]
+    fn if_addresumebutton(&mut self, button: i32) {
+        self.player
+            .resume_buttons
+            .get_or_insert_with(Vec::new)
+            .push(button);
+    }
+
+    #[cfg(since_530)]
+    fn if_opentop(&mut self, com: u16, mode: u8) {
+        self.if_open_top(com, mode);
+    }
+
+    #[cfg(since_530)]
+    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32) {
+        let kind = self.player.sub_kind(parent_hash);
+        self.if_open_sub(sub_id, parent_hash, kind);
+    }
+
+    #[cfg(since_530)]
+    fn if_closesub(&mut self, component_hash: i32) {
+        self.if_close_sub(component_hash);
+    }
+
+    #[cfg(since_530)]
+    fn if_movesub(&mut self, from: i32, to: i32) {
+        self.if_move_sub(from, to);
+    }
+
+    #[cfg(since_530)]
+    fn if_setevents(&mut self, com: i32, slot1: i32, slot2: i32, settings: IfEvents) {
+        self.if_set_events(com, slot1 as u16, slot2 as u16, settings.0 as i32);
+    }
+
+    #[cfg(since_530)]
+    fn runclientscript(&mut self, script_id: i32) {
+        self.run_client_script(script_id);
+    }
+
+    #[cfg(since_530)]
+    fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
+        self.run_client_script_with_params(script_id, args);
+    }
+
+    /// Closes any open modal interface.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::close_modal`
+    fn if_close(&mut self, clear: bool) -> Result<()> {
+        self.close_modal(clear)
+    }
+
+    /// Closes any open modal interface unless `com` is the only one open.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::close_modal`
+    fn if_close_others(&mut self, com: u16) -> Result<()> {
+        let open = [
+            self.player.modal_main,
+            self.player.modal_chat,
+            self.player.modal_side,
+        ];
+        if open.into_iter().flatten().all(|modal| modal == com) {
+            return Ok(());
+        }
+        self.close_modal(true)
+    }
+
+    /// Opens a chatbox interface (e.g. a dialog).
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::open_chat_modal`
+    fn if_openchat(&mut self, id: u16) {
+        self.open_chat_modal(id);
+    }
+
+    /// Opens a main-area interface alongside a side-panel interface.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::open_main_side_modal`
+    fn if_openmain_side(&mut self, com: u16, side: u16) {
+        self.open_main_side_modal(com, side);
+    }
+
+    /// Opens a full-screen main-area interface.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::open_main_modal`
+    fn if_openmain(&mut self, com: u16) {
+        self.open_main_modal(com);
+    }
+
+    /// Opens a side-panel interface.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::open_side_modal`
+    fn if_openside(&mut self, com: u16) {
+        self.open_side_modal(com);
+    }
+
+    /// Sets the animation displayed on an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setanim`
+    fn if_setanim(&mut self, com: i32, seq: TypeId) {
+        self.if_setanim(com, seq);
+    }
+
+    /// Sets the color of an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setcolour`
+    fn if_setcolour(&mut self, com: i32, colour: u16) {
+        self.if_setcolour(com, colour);
+    }
+
+    /// Shows or hides an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_sethide`
+    fn if_sethide(&mut self, com: i32, hide: bool) {
+        self.if_sethide(com, hide);
+    }
+
+    /// Sets the model displayed on an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setmodel`
+    fn if_setmodel(&mut self, com: i32, model: TypeId) {
+        self.if_setmodel(com, model);
+    }
+
+    /// Sets the graphic (a sprite) displayed on an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setgraphic`
+    #[cfg(since_647)]
+    fn if_setgraphic(&mut self, com: i32, graphic: TypeId) {
+        self.if_setgraphic(com, graphic);
+    }
+
+    /// Sets an NPC chathead model on an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setnpchead`
+    fn if_setnpchead(&mut self, com: i32, npc: TypeId) {
+        self.if_setnpchead(com, npc);
+    }
+
+    /// Displays an object model on an interface component at the given zoom level.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setobject`
+    fn if_setobject(&mut self, com: i32, obj: TypeId, scale: i32) {
+        self.if_setobject(com, obj, scale);
+    }
+
+    /// Sets the player's own chathead model on an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setplayerhead`
+    fn if_setplayerhead(&mut self, com: i32) {
+        self.if_setplayerhead(com);
+    }
+
+    /// Sets the position of an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setposition`
+    fn if_setposition(&mut self, com: i32, x: u16, y: u16) {
+        self.if_setposition(com, x, y);
+    }
+
+    /// Sets the scrollbar position on an interface component.
+    #[cfg(since_245_2)]
+    fn if_setscrollpos(&mut self, com: i32, y: u16) {
+        self.if_setscrollpos(com, y);
+    }
+
+    /// Opens a modal overlay interface component.
+    #[cfg(since_244)]
+    fn if_openoverlay(&mut self, com: u16) {
+        self.if_openoverlay(com);
+    }
+
+    /// Recolors an interface component model.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_setrecol`
+    #[cfg(before_244)]
+    fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
+        self.if_setrecol(com, src, dst);
+    }
+
+    /// Assigns an interface component to a tab slot.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::set_tab`
+    fn if_settab(&mut self, interface: u16, tab: u8) {
+        self.set_tab(interface, tab);
+    }
+
+    /// Switches the client's currently selected (active) tab.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_settabactive`
+    fn if_settabactive(&mut self, tab: u8) {
+        self.if_settabactive(tab);
+    }
+
+    /// Sets the text content of an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptInterface`
+    /// **Calls:** `ActivePlayer::if_settext`
+    fn if_settext(&mut self, com: i32, text: &str) {
+        if text.contains("\\n") && text.contains('@') {
+            self.if_settext(com, &preserve_settext_colors(text));
+        } else {
+            self.if_settext(com, text);
+        }
+    }
+}
 
 impl ScriptPlayer for ActivePlayer {
     #[cfg(since_254)]
@@ -221,16 +545,6 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `VarSet::get`
     fn get_var(&self, id: u16) -> VarValue {
         self.player.vars.get(id).clone()
-    }
-
-    /// Writes a player variable (varp) and optionally transmits the change to the client.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::set_varp`
-    fn set_var(&mut self, id: u16, value: VarValue, transmit: bool) {
-        self.set_varp(id, value, transmit);
     }
 
     /// Consumes and returns the pending AFK event flag.
@@ -664,7 +978,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::close_tutorial`
-    fn tut_close(&mut self) -> rs_vm::Result<()> {
+    fn tut_close(&mut self) -> Result<()> {
         self.close_tutorial()
     }
 
@@ -717,32 +1031,6 @@ impl ScriptPlayer for ActivePlayer {
         self.player.info.runanim = Some(id);
     }
 
-    /// Configures which interface buttons are valid resume targets for a paused script dialog.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** sets `self.player.resume_buttons`
-    #[cfg(before_254)]
-    fn if_setresumebuttons(&mut self, buttons: Option<Vec<i32>>) {
-        self.player.resume_buttons = buttons;
-    }
-
-    /// Appends a single interface button to the set of valid resume targets for
-    /// a paused script dialog, lazily allocating the set on first use.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** pushes onto `self.player.resume_buttons`
-    #[cfg(since_254)]
-    fn if_addresumebutton(&mut self, button: i32) {
-        self.player
-            .resume_buttons
-            .get_or_insert_with(Vec::new)
-            .push(button);
-    }
-
     /// Initiates a player logout.
     ///
     /// # Call Stack
@@ -790,67 +1078,6 @@ impl ScriptPlayer for ActivePlayer {
     #[cfg(since_530)]
     fn window_mode(&self) -> u8 {
         self.player.window_mode
-    }
-
-    #[cfg(since_530)]
-    fn if_opentop(&mut self, com: u16, mode: u8) {
-        self.if_open_top(com, mode);
-    }
-
-    #[cfg(since_530)]
-    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32) {
-        let kind = self.player.sub_kind(parent_hash);
-        self.if_open_sub(sub_id, parent_hash, kind);
-    }
-
-    #[cfg(since_530)]
-    fn if_closesub(&mut self, component_hash: i32) {
-        self.if_close_sub(component_hash);
-    }
-
-    #[cfg(since_530)]
-    fn if_movesub(&mut self, from: i32, to: i32) {
-        self.if_move_sub(from, to);
-    }
-
-    #[cfg(since_530)]
-    fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
-        self.if_set_events(com, slot1, slot2, settings);
-    }
-
-    #[cfg(since_530)]
-    fn sendvarc(&mut self, id: u16, value: i32) {
-        self.varc_transmit(id, value);
-    }
-
-    #[cfg(since_530)]
-    fn sendvarc_str(&mut self, id: u16, value: &str) {
-        self.varc_str_transmit(id, value);
-    }
-
-    #[cfg(since_530)]
-    fn varc(&self, id: u16) -> i32 {
-        let index = engine().varcs().index(id, false);
-        self.player.varcs[index].as_int()
-    }
-
-    #[cfg(since_530)]
-    fn varc_str(&self, id: u16) -> &str {
-        let index = engine().varcs().index(id, true);
-        match &self.player.varcs[index] {
-            VarValue::String(value) => value,
-            _ => unreachable!(),
-        }
-    }
-
-    #[cfg(since_530)]
-    fn runclientscript(&mut self, script_id: i32) {
-        self.run_client_script(script_id);
-    }
-
-    #[cfg(since_530)]
-    fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
-        self.run_client_script_with_params(script_id, args);
     }
 
     /// Applies the character-design preview varcs (`playerdesign3_*`) to the player's
@@ -987,7 +1214,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** writes `self.player.colours[slot] = colour;`
-    fn setidkcolour(&mut self, slot: u8, colour: u8) -> rs_vm::Result<()> {
+    fn setidkcolour(&mut self, slot: u8, colour: u8) -> Result<()> {
         if slot as usize >= self.player.colours.len() {
             return Err(ScriptError::Runtime(format!("Invalid idk slot: {}", slot)));
         }
@@ -1240,177 +1467,6 @@ impl ScriptPlayer for ActivePlayer {
         self.player.headicons = headicons;
     }
 
-    /// Closes any open modal interface.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::close_modal`
-    fn if_close(&mut self, clear: bool) -> rs_vm::Result<()> {
-        self.close_modal(clear)
-    }
-
-    /// Closes any open modal interface unless `com` is the only one open.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::close_modal`
-    fn if_close_others(&mut self, com: u16) -> rs_vm::Result<()> {
-        let open = [
-            self.player.modal_main,
-            self.player.modal_chat,
-            self.player.modal_side,
-        ];
-        if open.into_iter().flatten().all(|modal| modal == com) {
-            return Ok(());
-        }
-        self.close_modal(true)
-    }
-
-    /// Opens a chatbox interface (e.g. a dialog).
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::open_chat_modal`
-    fn if_openchat(&mut self, id: u16) {
-        self.open_chat_modal(id);
-    }
-
-    /// Opens a main-area interface alongside a side-panel interface.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::open_main_side_modal`
-    fn if_openmain_side(&mut self, com: u16, side: u16) {
-        self.open_main_side_modal(com, side);
-    }
-
-    /// Opens a full-screen main-area interface.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::open_main_modal`
-    fn if_openmain(&mut self, com: u16) {
-        self.open_main_modal(com);
-    }
-
-    /// Opens a side-panel interface.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::open_side_modal`
-    fn if_openside(&mut self, com: u16) {
-        self.open_side_modal(com);
-    }
-
-    /// Sets the animation displayed on an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setanim`
-    fn if_setanim(&mut self, com: i32, seq: TypeId) {
-        self.if_setanim(com, seq);
-    }
-
-    /// Sets the color of an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setcolour`
-    fn if_setcolour(&mut self, com: i32, colour: u16) {
-        self.if_setcolour(com, colour);
-    }
-
-    /// Shows or hides an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_sethide`
-    fn if_sethide(&mut self, com: i32, hide: bool) {
-        self.if_sethide(com, hide);
-    }
-
-    /// Sets the model displayed on an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setmodel`
-    fn if_setmodel(&mut self, com: i32, model: TypeId) {
-        self.if_setmodel(com, model);
-    }
-
-    /// Sets the graphic (a sprite) displayed on an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setgraphic`
-    #[cfg(since_647)]
-    fn if_setgraphic(&mut self, com: i32, graphic: TypeId) {
-        self.if_setgraphic(com, graphic);
-    }
-
-    /// Sets an NPC chathead model on an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setnpchead`
-    fn if_setnpchead(&mut self, com: i32, npc: TypeId) {
-        self.if_setnpchead(com, npc);
-    }
-
-    /// Displays an object model on an interface component at the given zoom level.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setobject`
-    fn if_setobject(&mut self, com: i32, obj: TypeId, scale: i32) {
-        self.if_setobject(com, obj, scale);
-    }
-
-    /// Sets the player's own chathead model on an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setplayerhead`
-    fn if_setplayerhead(&mut self, com: i32) {
-        self.if_setplayerhead(com);
-    }
-
-    /// Sets the position of an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setposition`
-    fn if_setposition(&mut self, com: i32, x: u16, y: u16) {
-        self.if_setposition(com, x, y);
-    }
-
-    /// Sets the scrollbar position on an interface component.
-    #[cfg(since_245_2)]
-    fn if_setscrollpos(&mut self, com: i32, y: u16) {
-        self.if_setscrollpos(com, y);
-    }
-
-    /// Opens a modal overlay interface component.
-    #[cfg(since_244)]
-    fn if_openoverlay(&mut self, com: u16) {
-        self.if_openoverlay(com);
-    }
-
     /// Sets (or clears) a right-click option on this player's menu.
     #[cfg(since_254)]
     fn set_player_op(&mut self, op: u8, value: &str, primary: u8) {
@@ -1433,51 +1489,6 @@ impl ScriptPlayer for ActivePlayer {
     #[cfg(since_254)]
     fn transmogrify(&mut self, npc: Option<u16>) {
         self.transmogrify(npc);
-    }
-
-    /// Recolors an interface component model.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_setrecol`
-    #[cfg(before_244)]
-    fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
-        self.if_setrecol(com, src, dst);
-    }
-
-    /// Assigns an interface component to a tab slot.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::set_tab`
-    fn if_settab(&mut self, tab: u16, com: u8) {
-        self.set_tab(tab, com);
-    }
-
-    /// Switches the client's currently selected (active) tab.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_settabactive`
-    fn if_settabactive(&mut self, tab: u8) {
-        self.if_settabactive(tab);
-    }
-
-    /// Sets the text content of an interface component.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::if_settext`
-    fn if_settext(&mut self, com: i32, text: &str) {
-        if text.contains("\\n") && text.contains('@') {
-            self.if_settext(com, &preserve_settext_colors(text));
-        } else {
-            self.if_settext(com, text);
-        }
     }
 
     /// Plays a MIDI jingle (short musical effect) for the player.
@@ -1596,7 +1607,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::clear_pending_action`
-    fn clearpendingaction(&mut self) -> rs_vm::Result<()> {
+    fn clearpendingaction(&mut self) -> Result<()> {
         self.clear_pending_action()
     }
 
@@ -1678,7 +1689,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::stop_action`
-    fn stopaction(&mut self) -> rs_vm::Result<()> {
+    fn stopaction(&mut self) -> Result<()> {
         self.stop_action()
     }
 
@@ -1765,7 +1776,7 @@ impl ScriptPlayer for ActivePlayer {
         priority: QueuePriority,
         delay: u16,
         args: Option<Vec<ScriptArgument>>,
-    ) -> rs_vm::Result<()> {
+    ) -> Result<()> {
         self.player
             .state
             .queues
@@ -1780,7 +1791,7 @@ impl ScriptPlayer for ActivePlayer {
         delay: u16,
         args: Option<Vec<ScriptArgument>>,
         source: Option<u16>,
-    ) -> rs_vm::Result<()> {
+    ) -> Result<()> {
         self.player
             .state
             .queues
@@ -1851,27 +1862,13 @@ impl ScriptPlayer for ActivePlayer {
         }
     }
 
-    fn cam_lookat(
-        &mut self,
-        x: u16,
-        z: u16,
-        height: u16,
-        rate: u8,
-        rate2: u8,
-    ) -> rs_vm::Result<()> {
+    fn cam_lookat(&mut self, x: u16, z: u16, height: u16, rate: u8, rate2: u8) -> Result<()> {
         self.player
             .cam_queue
             .add(CamKind::LookAt, x, z, height, rate, rate2)
     }
 
-    fn cam_moveto(
-        &mut self,
-        x: u16,
-        z: u16,
-        height: u16,
-        rate: u8,
-        rate2: u8,
-    ) -> rs_vm::Result<()> {
+    fn cam_moveto(&mut self, x: u16, z: u16, height: u16, rate: u8, rate2: u8) -> Result<()> {
         self.player
             .cam_queue
             .add(CamKind::MoveTo, x, z, height, rate, rate2)

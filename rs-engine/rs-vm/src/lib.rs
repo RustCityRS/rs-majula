@@ -12,6 +12,7 @@ pub mod pointer;
 #[cfg(since_530)]
 pub mod region_uid;
 pub mod register;
+pub mod session;
 pub mod state;
 pub mod subject;
 pub mod trigger;

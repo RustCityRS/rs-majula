@@ -1,3 +1,4 @@
+use crate::MAX_PLAYING_PER_IP;
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest};
 use crate::clients::client_ether::{EtherOutbound, max_friends_cap};
@@ -9,20 +10,26 @@ use crate::core::Engine;
 use crate::region::place_returning;
 use crate::save::*;
 use crate::watch::schedule::{self, End, Played, Schedule};
-use crate::watch::{Target, Watch};
-use rs_db::LoginDevice;
+use crate::watch::{Target, Watch, automated};
+#[cfg(since_647)]
+use rs_db::LobbyVisit;
+use rs_db::{LoginAdmission, LoginDevice, PlayedSession};
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
 #[cfg(since_530)]
 use rs_protocol::login::game_login_reply;
 #[cfg(since_647)]
-use rs_protocol::login::{lobby_login_reply, reconnect_reply};
+use rs_protocol::login::{PLAYER_MOD_LEVEL, reconnect_reply};
+#[cfg(since_647)]
+use rs_protocol::network::game::server::jcoins_update::JcoinsUpdate;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::base37::to_raw_username;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
+#[cfg(since_530)]
+use std::net::Ipv4Addr;
 use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
@@ -44,12 +51,8 @@ pub struct LoginRequest {
     pub device: LoginDevice,
     #[cfg(since_530)]
     pub display_mode: u8,
-    /// A login to the lobby rather than the game world.
     #[cfg(since_647)]
-    pub lobby: bool,
-    /// The world number the client connected to, for its world list.
-    #[cfg(since_647)]
-    pub world: u16,
+    pub client_session: i64,
 }
 
 /// Tracks the state of a login that is waiting for asynchronous validation.
@@ -70,23 +73,31 @@ pub struct PendingLogin {
     pub request: LoginRequest,
     pub clock: u32,
     pub ether_allowed: bool,
+    #[cfg(since_647)]
+    pub retry_ether: bool,
     pub auth: Option<StaffModLevel>,
     pub muted_until: Option<Instant>,
     pub unread_messages: u16,
+    pub member: bool,
+    #[cfg(since_647)]
+    pub jcoins: i32,
+    #[cfg(since_530)]
+    pub last_login_ip: Option<Ipv4Addr>,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
-    pub played: Vec<rs_db::PlayedSession>,
+    pub played: Vec<PlayedSession>,
 }
 
-impl PendingLogin {
-    /// Whether this is a login to the lobby.
-    pub(crate) fn lobby(&self) -> bool {
-        #[cfg(since_647)]
-        let lobby = self.request.lobby;
-        #[cfg(before_647)]
-        let lobby = false;
-        lobby
-    }
+/// What the database said about an account at its login.
+pub struct LoginAccount {
+    pub staff_mod_level: StaffModLevel,
+    pub muted_until: Option<Instant>,
+    pub unread_messages: u16,
+    pub member: bool,
+    #[cfg(since_647)]
+    pub jcoins: i32,
+    #[cfg(since_530)]
+    pub last_login_ip: Option<Ipv4Addr>,
 }
 
 /// A departed player's final save, held until the database stores it.
@@ -248,11 +259,11 @@ impl Engine {
     /// the world let go of them, as a lost connection keeps the player in
     /// the world a while (and the client reconnects itself meanwhile). A
     /// `reconnect` login is that: the client's own, not the player's.
-    fn schedule(&self, played: &[rs_db::PlayedSession], reconnect: bool) -> Schedule {
+    fn schedule(&self, played: &[PlayedSession], reconnect: bool) -> Schedule {
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .map_or(0, |d| d.as_millis() as i64);
-        let end = |p: &rs_db::PlayedSession| p.started_ms + i64::from(p.duration_ms);
+        let end = |p: &PlayedSession| p.started_ms + i64::from(p.duration_ms);
         let return_ms = played.last().filter(|_| !reconnect).and_then(|last| {
             let reason = End::from_name(last.end_reason.as_deref()?)?;
             schedule::return_ms(end(last), reason, now, self.date_origin_ms)
@@ -298,6 +309,8 @@ impl Engine {
     /// - Sends `PlayerLogin`, `ChatModeUpdate` and `RequestLists` to ether.
     /// - Executes the `Login` trigger script.
     /// - Tells isolated staff that they start visible.
+    /// - Makes an account a member on its first login to a members world.
+    /// - From 647, sends the account's JCoins and its last login's address.
     ///
     /// # Call Stack
     ///
@@ -307,11 +320,9 @@ impl Engine {
         &mut self,
         request: LoginRequest,
         profile: Option<PlayerProfile>,
-        staff_mod_level: StaffModLevel,
-        muted_until: Option<Instant>,
-        unread_messages: u16,
+        account: LoginAccount,
         pid: u16,
-        played: &[rs_db::PlayedSession],
+        played: &[PlayedSession],
     ) {
         let mut active = ActivePlayer::new(
             request.handle,
@@ -327,9 +338,22 @@ impl Engine {
         if active.player.stats.xp.iter().all(|&s| s == 0) {
             apply_new_player_defaults(&mut active.player);
         }
-        active.player.staff_mod_level = staff_mod_level;
-        active.muted_until = muted_until;
-        active.unread_messages = unread_messages;
+        active.player.staff_mod_level = account.staff_mod_level;
+        active.muted_until = account.muted_until;
+        active.unread_messages = account.unread_messages;
+        active.player.is_member = account.member || self.members;
+        #[cfg(since_530)]
+        {
+            active.last_login_ip = account.last_login_ip;
+        }
+        if self.members
+            && !account.member
+            && let Some(db) = &self.db_tx
+        {
+            let _ = db.send(DbRequest::GrantMembership {
+                user37: active.player.uid.username37(),
+            });
+        }
 
         active.player.last_date = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -342,7 +366,7 @@ impl Engine {
         active.remote_ip = Some(remote_ip);
         #[cfg(since_647)]
         {
-            active.world = request.world;
+            active.client_session = request.client_session;
         }
 
         let uid = active.player.uid;
@@ -356,16 +380,25 @@ impl Engine {
         #[cfg(all(since_530, before_647))]
         let reply = {
             active.player.window_mode = request.display_mode;
-            game_login_reply(level, pid)
+            game_login_reply(level, pid, active.player.is_member, self.members)
         };
         #[cfg(since_647)]
         let reply = {
             active.player.window_mode = request.display_mode;
             active.player.pathing.last_coord = active.player.pathing.coord;
             active.player.build_area.init_nsn_state(pid);
+            let player_mod_level =
+                if active.player.staff_mod_level == StaffModLevel::PlayerModerator {
+                    PLAYER_MOD_LEVEL
+                } else {
+                    0
+                };
             game_login_reply(
                 level,
+                player_mod_level,
                 pid,
+                active.player.is_member,
+                self.members,
                 #[cfg(since_742)]
                 &active.player.shown_name(),
             )
@@ -393,7 +426,7 @@ impl Engine {
                 self.replay_tx.as_ref(),
             ));
             active.watch.anticheat.touch = request.device.touch;
-            active.watch.anticheat.automated = crate::watch::automated(&request.device);
+            active.watch.anticheat.automated = automated(&request.device);
             active.watch.anticheat.device = Arc::new(request.device.clone());
             active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
             active.watch.login(self.clock, &reply);
@@ -421,6 +454,13 @@ impl Engine {
 
         let login_info = if let Some(active) = self.get_player_mut(pid) {
             active.on_login();
+            #[cfg(since_647)]
+            {
+                active.write(JcoinsUpdate {
+                    balance: account.jcoins,
+                });
+                active.last_login_info();
+            }
             Some((
                 active.uid().username37(),
                 active.player.is_member,
@@ -470,53 +510,6 @@ impl Engine {
             && active.player.staff_mod_level.is_isolated()
         {
             active.message_game("You're visible to other players. Use ::setvis 2 to hide.");
-        }
-    }
-
-    /// Starts a lobby session in slot `pid`: the lobby's login reply, the
-    /// player in a slot outside the world, then lobbyscript's `[login,_]`.
-    /// No profile is loaded or claimed and ether is not
-    /// told, so the game login that follows finds the account free.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `try_complete_login`.
-    /// **Calls:** [`PlayerList::add_lobby`](crate::core::PlayerList::add_lobby),
-    /// `run_lobby_trigger`.
-    #[cfg(since_647)]
-    pub(crate) fn accept_lobby(
-        &mut self,
-        request: LoginRequest,
-        staff_mod_level: StaffModLevel,
-        pid: u16,
-    ) {
-        let mut active = ActivePlayer::new(
-            request.handle,
-            pid,
-            request.username,
-            request.low_memory,
-            false,
-        );
-        active.player.staff_mod_level = staff_mod_level;
-        active.player.last_response = self.clock;
-        active.player.last_active = self.clock;
-        active.remote_ip = Some(request.remote_addr.ip());
-        active.lobby = true;
-        active.world = request.world;
-        let uid = active.player.uid;
-        active.handle.send(lobby_login_reply(
-            &active.player.shown_name(),
-            request.world,
-        ));
-        info!("Player '{}' entered the lobby (pid={pid})", uid.username());
-        self.player_list.add_lobby(pid, active);
-
-        let result = self.run_lobby_trigger(
-            (ServerTriggerType::Login, None, None),
-            Some(ScriptSubject::Player(uid)),
-        );
-        if result.is_err() {
-            error!("{:?}", result);
         }
     }
 
@@ -610,7 +603,7 @@ impl Engine {
         active.remote_ip = Some(request.remote_addr.ip());
         // Taps from before the reconnect still look like jumps.
         active.watch.anticheat.touch |= request.device.touch;
-        active.watch.anticheat.automated |= crate::watch::automated(&request.device);
+        active.watch.anticheat.automated |= automated(&request.device);
 
         active.watch.anticheat.resumed();
         active.player.logout_requested = false;
@@ -699,8 +692,9 @@ impl Engine {
     ///
     /// # Call Stack
     ///
-    /// **Called by:** login timeout sweep, auth-failure handler,
-    /// db-disconnect drain, ether-reconnect sweep, `try_complete_login`.
+    /// **Called by:** login timeout sweep, auth-failure handler, ether
+    /// login-check refusals, db-disconnect and ether-disconnect drains,
+    /// ether-reconnect sweep, `try_complete_login`.
     pub(crate) fn reject_pending_login(&mut self, idx: usize, response: LoginResponse) {
         self.reject_pending_login_with(idx, vec![response as u8]);
     }
@@ -738,17 +732,38 @@ impl Engine {
         }
     }
 
+    pub(crate) fn login_slot(&self, staff: StaffModLevel) -> Result<u16, LoginResponse> {
+        if self.is_shutdown_soon() || (self.maintenance_mode && staff == StaffModLevel::Normal) {
+            return Err(LoginResponse::UpdateInProgress);
+        }
+        if self.player_list.count() >= 2000 {
+            return Err(LoginResponse::ServerFull);
+        }
+        self.player_list.next_pid().ok_or(LoginResponse::ServerFull)
+    }
+
     /// Attempts to complete a pending login if all async prerequisites are met.
     ///
-    /// A login requires both `ether_allowed` and `auth` to be set. A reconnect
-    /// whose player is still in this world goes to [`Engine::adopt_session`].
-    /// Any other login is rejected with `ServerUpdating` while a shutdown is
-    /// due within 50 ticks (or, in maintenance mode, for a normal player), and
-    /// with `WorldFull` when the world holds 2000 or more players or has no
-    /// free pid. Then the player's session is claimed and their profile loaded
-    /// with one `DbRequest::Load` (sent once). Once the profile is in, a free
-    /// world rejects a profile standing in a members area with `MembersArea`;
-    /// otherwise the pending login is removed from the list and forwarded to
+    /// First rejects the login with `LoginServerOffline` when the database or
+    /// the ether is down or this world's lease has run out. Otherwise a login
+    /// requires both `ether_allowed` and `auth` to be set. A reconnect whose
+    /// player is still in this world goes to [`Engine::adopt_session`]; from
+    /// 647 only when it carries that player's client session, and is
+    /// otherwise rejected with `BadSession`, as is a 647 reconnect whose
+    /// player is not in this world. Any other login is rejected with
+    /// `UpdateInProgress` while a shutdown is due within 50 ticks (or, in
+    /// maintenance mode, for a normal player), and with `ServerFull` when the
+    /// world holds 2000 or more players or has no free pid (see
+    /// `Engine::login_slot`). Then the player's session is claimed and their
+    /// profile loaded with one `DbRequest::Load` (sent once), whose
+    /// [`LoginAdmission`] limits the address to [`MAX_PLAYING_PER_IP`] live
+    /// sessions. Before 647 the claim may go in directly; from 647 it
+    /// presents the client's visit (its client session and this revision),
+    /// which must match a lobby's pending handoff to this world on client
+    /// session, address and revision. Once the profile is in, a free world
+    /// rejects a profile
+    /// standing in a members area with `MoveToFree`; otherwise the pending
+    /// login is removed from the list and forwarded to
     /// [`Engine::accept_login`] with the next free pid.
     ///
     /// # Arguments
@@ -758,8 +773,9 @@ impl Engine {
     /// # Side Effects
     ///
     /// - May send a `DbRequest::Load` to claim and fetch the player profile.
-    /// - May reject the login through `reject_pending_login`.
-    /// - On rev 647, moves a profile saved in region space to its saved exit
+    /// - May reject the login through `reject_pending_login`, which releases
+    ///   the attempt's ether login locks and database claim.
+    /// - From 530, moves a profile saved in region space to its saved exit
     ///   (or home when no player can stand there), and one in an unallocated
     ///   zone to its home.
     /// - On completion, calls `accept_login` (or `adopt_session`) and removes
@@ -772,6 +788,10 @@ impl Engine {
     /// **Calls:** `adopt_session`, `reject_pending_login`, `accept_login`.
     pub(crate) fn try_complete_login(&mut self, idx: usize) {
         let pending = &self.pending_logins[idx];
+        if !self.db_ready || !self.ether_ready || self.lease_expired() {
+            self.reject_pending_login(idx, LoginResponse::LoginServerOffline);
+            return;
+        }
         if !pending.ether_allowed {
             return;
         }
@@ -782,40 +802,50 @@ impl Engine {
         if pending.request.reconnect
             && let Some(pid) = self.find_pid_by_user37(pending.user37)
         {
+            #[cfg(since_647)]
+            if self
+                .get_player(pid)
+                .is_none_or(|p| p.client_session != pending.request.client_session)
+            {
+                self.reject_pending_login(idx, LoginResponse::BadSession);
+                return;
+            }
             let pending = self.pending_logins.swap_remove(idx);
             self.adopt_session(pid, pending.request);
             return;
         }
-
-        if self.is_shutdown_soon()
-            || (self.maintenance_mode && staff_mod_level == StaffModLevel::Normal)
-        {
-            self.reject_pending_login(idx, LoginResponse::UpdateInProgress);
-            return;
-        }
-
-        if self.player_list.count() >= 2000 {
-            self.reject_pending_login(idx, LoginResponse::ServerFull);
-            return;
-        }
-
-        let Some(pid) = self.player_list.next_pid() else {
-            self.reject_pending_login(idx, LoginResponse::ServerFull);
-            return;
-        };
-
         #[cfg(since_647)]
-        if pending.request.lobby {
-            let pending = self.pending_logins.swap_remove(idx);
-            self.accept_lobby(pending.request, staff_mod_level, pid);
+        if pending.request.reconnect {
+            self.reject_pending_login(idx, LoginResponse::BadSession);
             return;
         }
+
+        let pid = match self.login_slot(staff_mod_level) {
+            Ok(pid) => pid,
+            Err(response) => {
+                self.reject_pending_login(idx, response);
+                return;
+            }
+        };
 
         if pending.profile.is_none() {
             if !pending.claim_sent
                 && let Some(tx) = &self.db_tx
             {
                 let _ = tx.send(DbRequest::Load {
+                    admission: Some(LoginAdmission {
+                        ip: pending.request.remote_addr.ip(),
+                        max_per_ip: MAX_PLAYING_PER_IP,
+                        allow_direct: cfg!(before_647),
+                        lobby_instance: None,
+                        #[cfg(since_647)]
+                        visit: Some(LobbyVisit {
+                            client_session: pending.request.client_session,
+                            revision: env!("REV").parse().unwrap(),
+                        }),
+                        #[cfg(before_647)]
+                        visit: None,
+                    }),
                     login: pending.id,
                     user37: pending.user37,
                 });
@@ -852,9 +882,16 @@ impl Engine {
         self.accept_login(
             pending.request,
             profile,
-            staff_mod_level,
-            pending.muted_until,
-            pending.unread_messages,
+            LoginAccount {
+                staff_mod_level,
+                muted_until: pending.muted_until,
+                unread_messages: pending.unread_messages,
+                member: pending.member,
+                #[cfg(since_647)]
+                jcoins: pending.jcoins,
+                #[cfg(since_530)]
+                last_login_ip: pending.last_login_ip,
+            },
             pid,
             &pending.played,
         );

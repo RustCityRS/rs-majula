@@ -4,10 +4,16 @@ use crate::clients::client_db::SetDisplayNameResult;
 use crate::clients::client_db::{AuthResult, DbResponse, LoadResult, ModOutcome, SaveOutcome};
 use crate::core::Engine;
 use crate::save::delete_save_file;
+#[cfg(since_647)]
+use crate::world_list;
 use rs_db::ModAction;
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
 use rs_util::base37::{to_raw_username, to_screen_name};
+#[cfg(since_647)]
+use rs_vm::state::ExecutionState;
+#[cfg(since_647)]
+use rs_vm::subject::ScriptSubject;
 use rustc_hash::FxHashMap;
 use std::time::Duration;
 use tracing::{info, warn};
@@ -41,7 +47,8 @@ impl Engine {
     /// * `DbDisconnected` -- marks the database as unavailable, rejects
     ///   all pending logins with [`LoginResponse::LoginServerOffline`].
     /// * `AuthResponse` -- completes authentication for the pending login
-    ///   it names. On success, records the player's staff level and attempts
+    ///   it names. On success, records the player's staff level, from 647
+    ///   sends the ether login check (`Engine::check_login`), and attempts
     ///   completion. A wrong password or unknown name rejects with
     ///   [`LoginResponse::BadCredentials`] and counts toward the IP's
     ///   [`LoginResponse::TooManyAttempts`] lockout, which the database also
@@ -56,7 +63,9 @@ impl Engine {
     /// * `LoadResponse` -- the session claim's outcome: attaches the loaded
     ///   profile and attempts completion, or rejects with
     ///   [`LoginResponse::Duplicate`] when another world owns the
-    ///   session.
+    ///   session, and with the claim's own refusal
+    ///   ([`LoginResponse::BadSession`] for a visit that matches no lobby
+    ///   handoff, [`LoginResponse::IpLimit`] for an address at its limit).
     /// * `SaveAck` -- on success, deletes the local backup save file. On
     ///   failure, keeps the local file as a fallback. For a logout save,
     ///   ends the ether session -- unless the database failed, in which case
@@ -85,6 +94,8 @@ impl Engine {
     pub(crate) fn saves(&mut self) {
         while let Ok(msg) = self.db_rx.try_recv() {
             match msg {
+                #[cfg(since_647)]
+                DbResponse::Worlds(worlds) => self.world_list = world_list(worlds),
                 DbResponse::DbReady => {
                     self.db_ready = true;
                     info!("DB ready - logins enabled");
@@ -116,6 +127,10 @@ impl Engine {
                                 account_age,
                                 unread_messages,
                                 played,
+                                member,
+                                jcoins,
+                                last_login_ip,
+                                ..
                             } => {
                                 let staff = StaffModLevel::from_u8(staff_mod_level);
                                 if !self.controls.admits(staff, account_age) {
@@ -123,9 +138,8 @@ impl Engine {
                                     continue;
                                 }
                                 #[cfg(since_254)]
-                                if !self.pending_logins[idx].lobby()
-                                    && let Some(secs) =
-                                        profile_transfer_wait(staff_mod_level, left_other_world)
+                                if let Some(secs) =
+                                    profile_transfer_wait(staff_mod_level, left_other_world)
                                 {
                                     self.reject_pending_login_with(
                                         idx,
@@ -140,6 +154,21 @@ impl Engine {
                                 self.pending_logins[idx].muted_until =
                                     muted_for.map(ActivePlayer::mute_deadline);
                                 self.pending_logins[idx].unread_messages = unread_messages;
+                                self.pending_logins[idx].member = member;
+                                #[cfg(since_647)]
+                                {
+                                    self.pending_logins[idx].jcoins = jcoins;
+                                }
+                                #[cfg(before_647)]
+                                let _ = jcoins;
+                                #[cfg(since_530)]
+                                {
+                                    self.pending_logins[idx].last_login_ip = last_login_ip;
+                                }
+                                #[cfg(before_530)]
+                                let _ = last_login_ip;
+                                #[cfg(since_647)]
+                                self.check_login(idx);
                                 self.try_complete_login(idx);
                             }
                             AuthResult::InvalidCredentials => {
@@ -173,6 +202,9 @@ impl Engine {
                             self.pending_logins[idx].profile = Some(profile.map(|p| *p));
                             self.try_complete_login(idx);
                         }
+                        (Some(idx), LoadResult::Refused(reason)) => {
+                            self.reject_pending_login(idx, reason)
+                        }
                         (Some(idx), LoadResult::Busy) => {
                             self.reject_pending_login(idx, LoginResponse::Duplicate);
                         }
@@ -182,7 +214,14 @@ impl Engine {
                         // The login died before its claim came back. Its
                         // rejection already queued a release behind the
                         // claim; this one is a backstop.
-                        (None, LoadResult::Loaded(_)) => self.release_claim(user37),
+                        (None, LoadResult::Loaded(_))
+                            if !self
+                                .pending_logins
+                                .iter()
+                                .any(|p| p.user37 == user37 && p.claim_sent) =>
+                        {
+                            self.release_claim(user37)
+                        }
                         (None, _) => {}
                     }
                 }
@@ -290,10 +329,6 @@ impl Engine {
         name: String,
         result: SetDisplayNameResult,
     ) {
-        use rs_util::base37::to_screen_name;
-        use rs_vm::state::ExecutionState;
-        use rs_vm::subject::ScriptSubject;
-
         let Some(pid) = self.find_pid_by_user37(user37) else {
             return;
         };

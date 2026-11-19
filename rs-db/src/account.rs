@@ -44,7 +44,8 @@ pub enum AccountDeleted {
 
 /// Everything kept about a player, as JSON, for [`Db::export_account`]
 /// (worlds by the number players know, world N being node N + 9): the
-/// account (no password or reset code), the save and earlier ones, the
+/// account (no password or reset code) and its details, the save and
+/// earlier ones, the
 /// hiscores, logins, chat, game events, item events, recordings (when and
 /// where, not the anti-cheat checks' verdicts), the reports they made, the
 /// sanctions given them, their appeals and recovery requests, and the
@@ -54,6 +55,7 @@ const EXPORT: &str = "
 SELECT jsonb_build_object(
   'exported_at', now(),
   'account', to_jsonb(p) - ARRAY['id', 'name_hash', 'password_hash', 'reset_code_hash', 'reset_code_until'],
+  'details', (SELECT to_jsonb(d) - 'player_id' FROM account_details d WHERE d.player_id = p.id),
   'save', (SELECT to_jsonb(s) - 'player_id' FROM player_saves s WHERE s.player_id = p.id),
   'earlier_saves', (SELECT coalesce(jsonb_agg((to_jsonb(h) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', h.node_id - 9) ORDER BY h.saved_at), '[]')
                     FROM save_history h WHERE h.player_id = p.id),

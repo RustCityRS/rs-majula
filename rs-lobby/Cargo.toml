@@ -1,0 +1,29 @@
+[package]
+name = "rs-lobby"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+rs-engine = { workspace = true }
+rs-db = { workspace = true }
+rs-pack = { workspace = true }
+rs-protocol = { workspace = true }
+rs-vm = { workspace = true }
+rs-util = { workspace = true }
+rs-ver = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+
+[dev-dependencies]
+rs-runec = { workspace = true }
+rs-crypto = { workspace = true }
+
+[build-dependencies]
+rs-ver = { workspace = true }
+
+[lints]
+workspace = true

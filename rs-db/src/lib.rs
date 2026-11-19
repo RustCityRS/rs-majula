@@ -6,6 +6,7 @@ mod hiscores;
 mod history;
 mod investigate;
 mod links;
+mod lobby;
 mod logs;
 mod messages;
 mod moderation;
@@ -40,6 +41,7 @@ pub use links::{
     BannedLink, CROWDED_ADDRESS, CROWDED_BROWSER, CROWDED_FINGERPRINT, ChainLink, EvasionRecord,
     StaffAccount, link_rank,
 };
+pub use lobby::{AccountDetails, LobbyWorld, WorldEndpoint, lobby_id, lobby_node};
 pub use logs::{ChatLog, LogBatch, ScriptErrorLog, SessionLog, WealthEvent, log_type, transfer};
 pub use messages::{PlayerMessage, StaffMessageRecord};
 pub use moderation::ModAction;
@@ -62,7 +64,9 @@ pub use replay::{
 };
 pub use save::{PlayerSave, SaveResult};
 pub use script_error::{ScriptErrorGroup, ScriptErrorRecord};
-pub use session::{Claim, LoginAttempt, LoginDevice, Reconciled, SessionOwner, refusal};
+pub use session::{
+    Claim, LobbyVisit, LoginAdmission, LoginAttempt, LoginDevice, Reconciled, SessionOwner, refusal,
+};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
 pub use staff::{

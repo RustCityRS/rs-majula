@@ -14,7 +14,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{profile_from_save, to_save};
 use crate::clients::client_game::create_io;
-use crate::core::{Engine, LoginRequest, engine_mut};
+use crate::core::{Engine, LoginAccount, LoginRequest, engine_mut};
 use crate::handlers::client_cheat::spawn_bots;
 #[cfg(since_647)]
 use crate::phases::controller::Controllers;
@@ -107,7 +107,7 @@ use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
 use rs_vm::state::{LocRef, ScriptState};
 use rs_vm::subject::ScriptSubject;
-use rs_vm::trigger::ServerTriggerType;
+use rs_vm::trigger::ServerTriggerType as Trigger;
 use rs_vm::{RegionUid, ScriptError};
 use runec::opcodes::{SETUP_PLAYER, TEST_OP};
 use std::cell::RefCell;
@@ -834,9 +834,7 @@ impl Engine {
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
             #[cfg(since_647)]
-            lobby: false,
-            #[cfg(since_647)]
-            world: 1,
+            client_session: 0,
         };
         let engine = self as *mut Engine;
         // `ActivePlayer::new` and the `[login]` trigger read the global
@@ -845,9 +843,15 @@ impl Engine {
             unsafe { &mut *engine }.accept_login(
                 request,
                 profile,
-                StaffModLevel::Normal,
-                None,
-                0,
+                LoginAccount {
+                    staff_mod_level: StaffModLevel::Normal,
+                    muted_until: None,
+                    unread_messages: 0,
+                    member: true,
+                    #[cfg(since_647)]
+                    jcoins: 0,
+                    last_login_ip: None,
+                },
                 pid,
                 &[],
             )
@@ -1105,13 +1109,36 @@ enum Subject {
     Other,
 }
 
-fn subject_of(trigger: ServerTriggerType) -> Subject {
-    use ServerTriggerType::*;
+fn subject_of(trigger: Trigger) -> Subject {
     match trigger {
-        ApLoc1 | ApLoc2 | ApLoc3 | ApLoc4 | ApLoc5 | ApLocU | ApLocT | OpLoc1 | OpLoc2 | OpLoc3
-        | OpLoc4 | OpLoc5 | OpLocU | OpLocT => Subject::Loc,
-        ApNpc1 | ApNpc2 | ApNpc3 | ApNpc4 | ApNpc5 | ApNpcU | ApNpcT | OpNpc1 | OpNpc2 | OpNpc3
-        | OpNpc4 | OpNpc5 | OpNpcU | OpNpcT => Subject::Npc,
+        Trigger::ApLoc1
+        | Trigger::ApLoc2
+        | Trigger::ApLoc3
+        | Trigger::ApLoc4
+        | Trigger::ApLoc5
+        | Trigger::ApLocU
+        | Trigger::ApLocT
+        | Trigger::OpLoc1
+        | Trigger::OpLoc2
+        | Trigger::OpLoc3
+        | Trigger::OpLoc4
+        | Trigger::OpLoc5
+        | Trigger::OpLocU
+        | Trigger::OpLocT => Subject::Loc,
+        Trigger::ApNpc1
+        | Trigger::ApNpc2
+        | Trigger::ApNpc3
+        | Trigger::ApNpc4
+        | Trigger::ApNpc5
+        | Trigger::ApNpcU
+        | Trigger::ApNpcT
+        | Trigger::OpNpc1
+        | Trigger::OpNpc2
+        | Trigger::OpNpc3
+        | Trigger::OpNpc4
+        | Trigger::OpNpc5
+        | Trigger::OpNpcU
+        | Trigger::OpNpcT => Subject::Npc,
         _ => Subject::Other,
     }
 }
@@ -1127,8 +1154,8 @@ fn subject_of(trigger: ServerTriggerType) -> Subject {
 ///   of a type, with the active player as subject.
 pub fn ops() -> OpsRegistry {
     let mut ops = test::build();
-    ops.insert(SETUP_PLAYER, setup_player);
-    ops.insert(TEST_OP, test_op);
+    ops.insert(SETUP_PLAYER, |s, _| setup_player(s));
+    ops.insert(TEST_OP, |s, _| test_op(s));
     ops
 }
 
@@ -1157,7 +1184,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
     let coord = s.pop_int() as u32;
     let subject_id = s.pop_int();
     let trigger_byte = s.pop_int();
-    let trigger = ServerTriggerType::try_from(trigger_byte as u8)
+    let trigger = Trigger::try_from(trigger_byte as u8)
         .map_err(|_| ScriptError::Runtime(format!("test_op: bad trigger {trigger_byte}")))?;
     let player = s
         .active_player

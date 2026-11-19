@@ -11,6 +11,8 @@ pub use cycle::{CycleResult, TickStats};
 pub use npcs::{NpcEvent, NpcEventKind, NpcList};
 pub use objs::ObjDelayedRequest;
 pub use players::{OtherPlayers, PlayerList};
+#[cfg(all(feature = "harness", since_530))]
+pub use sessions::LoginAccount;
 pub use sessions::{LoginFailures, LoginRequest, LogoutSave, PendingLogin};
 pub use zones::PendingZoneEvent;
 
@@ -28,6 +30,8 @@ use crate::region::Regions;
 use crate::script::errors::ScriptErrors;
 use crate::script::register_ops;
 use crate::watch::ReplayRequest;
+#[cfg(since_647)]
+use crate::world_list;
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_datastruct::LinkList;
 use rs_db::LogBatch;
@@ -38,6 +42,8 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
 #[cfg(since_530)]
 use rs_pack::startup::InterfaceLayout;
+#[cfg(since_647)]
+use rs_protocol::world_list::WorldList;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 use rs_ver::TypeId;
@@ -49,7 +55,9 @@ use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::BTreeMap;
+use std::mem::replace;
 use std::net::IpAddr;
+use std::ptr;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::{mpsc, watch};
 use tracing::info;
@@ -168,9 +176,11 @@ pub struct Engine {
     pub ether_rx: UnboundedReceiver<EtherInbound>,
     pub db_tx: Option<UnboundedSender<DbRequest>>,
     pub db_rx: UnboundedReceiver<DbResponse>,
-    pub replay_tx: Option<tokio::sync::mpsc::Sender<ReplayRequest>>,
+    pub replay_tx: Option<mpsc::Sender<ReplayRequest>>,
     pub db_ready: bool,
     pub ether_ready: bool,
+    #[cfg(since_647)]
+    pub world_list: WorldList,
     pub pending_logins: Vec<PendingLogin>,
     pub next_login_id: u32,
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
@@ -359,6 +369,8 @@ impl Engine {
             replay_tx: None,
             db_ready: false,
             ether_ready: false,
+            #[cfg(since_647)]
+            world_list: world_list(Vec::new()),
             pending_logins: Vec::new(),
             next_login_id: 0,
             login_failures: FxHashMap::default(),
@@ -435,8 +447,8 @@ impl Engine {
             active.player.varcs = varcs;
         }
         unsafe {
-            std::ptr::drop_in_place(self.cache_ptr);
-            std::ptr::write(self.cache_ptr, *new_store);
+            ptr::drop_in_place(self.cache_ptr);
+            ptr::write(self.cache_ptr, *new_store);
         }
         self.scripts = new_scripts;
         #[cfg(since_530)]
@@ -457,7 +469,7 @@ impl Engine {
     /// they started with. Returns how many scripts are loaded, and the old
     /// scripts, to free off the engine thread.
     pub fn reload_scripts(&mut self, new_scripts: ScriptProvider) -> (usize, ScriptProvider) {
-        let old = std::mem::replace(&mut self.scripts, new_scripts);
+        let old = replace(&mut self.scripts, new_scripts);
         self.controls.refresh(&self.scripts);
         let count = self.scripts.count();
         info!("Script reload applied - {} scripts loaded", count);

@@ -1,3 +1,5 @@
+use crate::Result;
+use crate::session::ScriptHost;
 use crate::state::ScriptState;
 
 /// One past the highest opcode a handler can take.
@@ -8,21 +10,22 @@ const LAST: u16 = 50101;
 
 /// A script opcode handler function pointer.
 ///
-/// Each handler receives a mutable reference to the current [`ScriptState`] and
-/// executes the logic for a single VM opcode. Returns `Ok(())` on success or a
+/// Each handler executes one opcode against the current [`ScriptState`] and
+/// its [`ScriptHost`]. Returns `Ok(())` on success or a
 /// [`ScriptError`](crate::ScriptError) on failure.
-pub type Handler = fn(&mut ScriptState) -> crate::Result<()>;
+pub type Handler = fn(&mut ScriptState, &mut dyn ScriptHost) -> Result<()>;
 
 /// A fixed-size lookup table mapping script opcodes to their [`Handler`] functions.
 ///
 /// Internally stores a boxed array of `Option<Handler>` with `LAST` slots (one per
 /// possible opcode), plus a count of how many slots are populated. Created during
-/// engine initialization by `register_ops` and consumed by `vm::execute` to dispatch
-/// opcodes at runtime.
+/// engine initialization by `register_ops`, or by the lobby's `LobbyVm::new`, and
+/// consumed by `vm::run` to dispatch opcodes at runtime.
 ///
 /// # Call Stack
-/// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/script/mod.rs)
-/// **Used by:** `vm::execute` (rs-vm/src/vm.rs)
+/// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/script/mod.rs),
+/// `LobbyVm::new` (rs-lobby/src/script.rs)
+/// **Used by:** `vm::run` (rs-vm/src/vm.rs)
 pub struct OpsRegistry {
     table: Box<[Option<Handler>]>,
     count: usize,
@@ -99,9 +102,10 @@ impl OpsRegistry {
     /// unknown opcode, never a read past the table.
     ///
     /// # Call Stack
-    /// **Called by:** `vm::execute` during opcode dispatch
+    /// **Called by:** `vm::run` during opcode dispatch, `LobbyVm::new`
+    /// (rs-lobby/src/script.rs) when it picks the lobby's handlers
     #[inline(always)]
-    pub(crate) fn get(&self, opcode: u16) -> Option<Handler> {
+    pub fn get(&self, opcode: u16) -> Option<Handler> {
         self.table.get(opcode as usize).copied().flatten()
     }
 
@@ -146,7 +150,7 @@ mod tests {
     #[test]
     fn insert_and_len() {
         let mut ops = OpsRegistry::new();
-        ops.insert(0, |_s| Ok(()));
+        ops.insert(0, |_s, _| Ok(()));
         assert_eq!(ops.len(), 1);
         assert!(!ops.is_empty());
     }
@@ -154,24 +158,24 @@ mod tests {
     #[test]
     fn insert_same_opcode_doesnt_double_count() {
         let mut ops = OpsRegistry::new();
-        ops.insert(100, |_s| Ok(()));
-        ops.insert(100, |_s| Ok(()));
+        ops.insert(100, |_s, _| Ok(()));
+        ops.insert(100, |_s, _| Ok(()));
         assert_eq!(ops.len(), 1);
     }
 
     #[test]
     fn insert_different_opcodes() {
         let mut ops = OpsRegistry::new();
-        ops.insert(0, |_s| Ok(()));
-        ops.insert(1, |_s| Ok(()));
-        ops.insert(2, |_s| Ok(()));
+        ops.insert(0, |_s, _| Ok(()));
+        ops.insert(1, |_s, _| Ok(()));
+        ops.insert(2, |_s, _| Ok(()));
         assert_eq!(ops.len(), 3);
     }
 
     #[test]
     fn get_existing_returns_some() {
         let mut ops = OpsRegistry::new();
-        ops.insert(42, |_s| Ok(()));
+        ops.insert(42, |_s, _| Ok(()));
         assert!(ops.get(42).is_some());
     }
 
@@ -191,12 +195,12 @@ mod tests {
     #[test]
     fn extend_merges() {
         let mut a = OpsRegistry::new();
-        a.insert(0, |_s| Ok(()));
-        a.insert(1, |_s| Ok(()));
+        a.insert(0, |_s, _| Ok(()));
+        a.insert(1, |_s, _| Ok(()));
 
         let mut b = OpsRegistry::new();
-        b.insert(2, |_s| Ok(()));
-        b.insert(3, |_s| Ok(()));
+        b.insert(2, |_s, _| Ok(()));
+        b.insert(3, |_s, _| Ok(()));
 
         a.extend(b);
         assert_eq!(a.len(), 4);
@@ -209,11 +213,11 @@ mod tests {
     #[test]
     fn extend_overlapping_counts_correctly() {
         let mut a = OpsRegistry::new();
-        a.insert(0, |_s| Ok(()));
+        a.insert(0, |_s, _| Ok(()));
 
         let mut b = OpsRegistry::new();
-        b.insert(0, |_s| Ok(())); // same opcode
-        b.insert(1, |_s| Ok(()));
+        b.insert(0, |_s, _| Ok(())); // same opcode
+        b.insert(1, |_s, _| Ok(()));
 
         a.extend(b);
         assert_eq!(a.len(), 2); // 0 was already counted
@@ -222,7 +226,7 @@ mod tests {
     #[test]
     fn extend_empty_into_existing() {
         let mut a = OpsRegistry::new();
-        a.insert(0, |_s| Ok(()));
+        a.insert(0, |_s, _| Ok(()));
         let b = OpsRegistry::new();
         a.extend(b);
         assert_eq!(a.len(), 1);
@@ -232,7 +236,7 @@ mod tests {
     fn extend_into_empty() {
         let mut a = OpsRegistry::new();
         let mut b = OpsRegistry::new();
-        b.insert(0, |_s| Ok(()));
+        b.insert(0, |_s, _| Ok(()));
         a.extend(b);
         assert_eq!(a.len(), 1);
     }

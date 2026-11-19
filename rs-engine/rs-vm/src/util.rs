@@ -471,7 +471,7 @@ pub(crate) fn require_active_player(state: &ScriptState) -> Result<()> {
 /// access, even over an open modal.
 ///
 /// # Call Stack
-/// **Called by:** the `IF_OPEN*` ops in `ops::player`.
+/// **Called by:** the `IF_OPEN*` ops in `ops::interface`.
 pub(crate) fn overlay_button(state: &ScriptState) -> bool {
     state.trigger.is_some_and(|trigger| trigger.is_button())
         && !state.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[0])

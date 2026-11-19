@@ -11,6 +11,10 @@ pub struct Credentials {
     pub left_other_world_ms: Option<i64>,
     pub age_ms: i64,
     pub unread_messages: i64,
+    pub last_login_ms: Option<i64>,
+    pub last_login_ipv4: Option<i64>,
+    pub member: bool,
+    pub jcoins: i32,
 }
 
 /// A player's current mute and ban, from [`Db::sanctions`].
@@ -33,30 +37,55 @@ pub struct NewPlayer<'a> {
 
 impl Db {
     /// Looks up a player's credentials by base37 name, for a login to world
-    /// `node_id`. `None` if no such player.
+    /// `node_id`, with their membership, JCoins and last admitted login
+    /// before this one. A world login skips lobby logins: its lobby visit
+    /// came just before it. `None` if no such player.
     pub async fn find_credentials(
         &self,
         name_hash: u64,
         node_id: i16,
     ) -> Result<Option<Credentials>, Error> {
         sqlx::query_as(
-            "select * from (SELECT password_hash, staff_mod_level,
-                    coalesce(banned_until > now(), false) AS banned,
-                    CASE WHEN muted_until > now()
-                         THEN (extract(epoch FROM muted_until - now()) * 1000)::bigint
+            "select * from (SELECT players.password_hash, players.staff_mod_level,
+                    coalesce(players.banned_until > now(), false) AS banned,
+                    CASE WHEN players.muted_until > now()
+                         THEN (extract(epoch FROM players.muted_until - now()) * 1000)::bigint
                     END AS muted_ms,
-                    CASE WHEN last_logout_node <> $2
-                         THEN (extract(epoch FROM now() - last_logout_at) * 1000)::bigint
+                    CASE WHEN players.last_logout_node <> $2
+                         THEN (extract(epoch FROM now() - players.last_logout_at) * 1000)::bigint
                     END AS left_other_world_ms,
-                    (extract(epoch FROM now() - created_at) * 1000)::bigint AS age_ms,
+                    (extract(epoch FROM now() - players.created_at) * 1000)::bigint AS age_ms,
                     (SELECT count(*) FROM staff_messages m
-                     WHERE m.player_id = players.id AND m.read_at IS NULL) AS unread_messages
-             FROM players WHERE name_hash = $1) p",
+                     WHERE m.player_id = players.id AND m.read_at IS NULL) AS unread_messages,
+                    (extract(epoch FROM prev.created_at) * 1000)::bigint AS last_login_ms,
+                    CASE WHEN family(prev.ip) = 4 THEN prev.ip - '0.0.0.0'::inet END AS last_login_ipv4,
+                    coalesce(d.subscribed OR d.members_until > now(), false) AS member,
+                    coalesce(d.jcoins, 0) AS jcoins
+             FROM players
+             LEFT JOIN account_details d ON d.player_id = players.id
+             LEFT JOIN LATERAL (SELECT l.created_at, l.ip FROM login_logs l
+                                WHERE l.player_id = players.id AND l.refused IS NULL
+                                  AND (l.node_id >= 0 OR $2 < 0)
+                                ORDER BY l.created_at DESC LIMIT 1) prev ON true
+             WHERE players.name_hash = $1) p",
         )
         .bind(name_hash as i64)
         .bind(node_id)
         .fetch_optional(&self.pool)
         .await
+    }
+
+    /// Makes an account a subscribed member, on its first login to a members
+    /// world.
+    pub async fn grant_membership(&self, name_hash: u64) -> Result<(), Error> {
+        sqlx::query(
+            "UPDATE account_details SET subscribed = true
+             WHERE player_id = (SELECT id FROM players WHERE name_hash = $1) AND NOT subscribed",
+        )
+        .bind(name_hash as i64)
+        .execute(&self.pool)
+        .await?;
+        Ok(())
     }
 
     /// Registers a player. Returns `false` if the name is already taken.

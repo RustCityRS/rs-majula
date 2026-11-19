@@ -34,7 +34,9 @@ use rs_admin_api::{
 use rs_admin_api::{ClaimCheck, RecoveryCheck, RecoveryEvidence, Verdict};
 use rs_admin_api::{ScriptErrorGroup, ScriptErrorLookup, ScriptErrorRecord, ScriptErrorsLookup};
 use rs_db::transfer as db_transfer;
-use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor, code_from_bits, validate_name};
+use rs_db::{
+    Db, DbConfig, ModAction, Passwords, TimelineCursor, code_from_bits, lobby_id, validate_name,
+};
 use rs_engine::ModOutcome as EngineModOutcome;
 use rs_engine::console::{self, Change};
 use rs_engine::controls::{self, Controls};
@@ -803,6 +805,7 @@ fn player_record(p: rs_db::PlayerRecord) -> PlayerRecord {
         staff_level: p.staff_mod_level.clamp(0, 255) as u8,
         registered_ms: p.registered_ms,
         online_node: node(p.online_node),
+        online_lobby: p.online_node.and_then(lobby_id),
         online_since_ms: p.online_since_ms,
         last_node: node(p.last_logout_node),
         last_seen_ms: p.last_logout_ms,
@@ -2129,7 +2132,7 @@ async fn finish_offline(
                 "{name} has never logged in, so there's no save to change yet."
             ));
         }
-        Ok(Ok(LoadResult::Busy)) => {
+        Ok(Ok(LoadResult::Busy | LoadResult::Refused(_))) => {
             return Outcome::refused(format!("{name} is logged in on another world; try again."));
         }
         Ok(Ok(LoadResult::Unregistered)) => {
@@ -2294,7 +2297,8 @@ async fn session_lookup(
     Ok(Json(Some(SessionState {
         owner: owner.and_then(|o| {
             Some(SessionClaim {
-                node: u8::try_from(o.node).ok()?,
+                node: lobby_id(o.node).or_else(|| u8::try_from(o.node).ok())?,
+                lobby: o.node < 0,
                 since_ms: o.since_ms,
                 heartbeat_age_ms: o.heartbeat_age_ms,
                 takeover_after_ms: i64::from(TAKEOVER_AFTER_SECS) * 1000,
@@ -2333,13 +2337,23 @@ async fn unstick(
             .await
             .map_err(db_failed)?
         {
-            Some(node) => Outcome::ok(format!(
-                "Released {name}'s session from node {node}, which has stopped; they can log in now."
-            )),
-            None => Outcome::refused(format!(
-                "Node {} is still running (its heartbeat is recent), so it may have {name}. Ask that world, or wait until it's been silent for {TAKEOVER_AFTER_SECS} seconds.",
-                owner.node
-            )),
+            Some(node) => Outcome::ok(match lobby_id(node) {
+                Some(lobby) => format!(
+                    "Released {name}'s session from lobby node {lobby}, which has stopped; they can log in now."
+                ),
+                None => format!(
+                    "Released {name}'s session from node {node}, which has stopped; they can log in now."
+                ),
+            }),
+            None => Outcome::refused(match lobby_id(owner.node) {
+                Some(lobby) => format!(
+                    "Lobby node {lobby} is still running (its heartbeat is recent), so {name} may be in it. They should leave the lobby, or wait for it to stop."
+                ),
+                None => format!(
+                    "Node {} is still running (its heartbeat is recent), so it may have {name}. Ask that world, or wait until it's been silent for {TAKEOVER_AFTER_SECS} seconds.",
+                    owner.node
+                ),
+            }),
         },
     };
     if outcome.ok {
@@ -3036,7 +3050,10 @@ async fn reload_scripts(
 mod tests {
     use super::*;
     use axum::http::Request;
+    use flate2::read::GzDecoder;
     use rs_db::CODE_ALPHABET;
+    use std::io::Read;
+    use tower::ServiceExt;
 
     #[test]
     fn compiler_reports_are_cut_short() {
@@ -3105,9 +3122,6 @@ mod tests {
 
     #[tokio::test]
     async fn replay_files_go_gzipped_in_pieces() {
-        use flate2::read::GzDecoder;
-        use std::io::Read;
-        use tower::ServiceExt;
         let start = b"RSRP header".to_vec();
         let frames: Vec<u8> = (0..SEND_PIECE * 3 + 7).map(|i| (i % 251) as u8).collect();
         let whole = [start.clone(), frames.clone()].concat();

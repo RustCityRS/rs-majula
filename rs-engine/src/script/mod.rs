@@ -11,7 +11,7 @@ use rs_vm::register::OpsRegistry;
 /// Builds and returns the complete [`OpsRegistry`] for the script VM.
 ///
 /// Collects opcode handler functions from the operation modules (core, db, debug,
-/// enum, inv, lc, loc, nc, npc, number, obj, oc, player, server, string, struct,
+/// enum, interface, inv, lc, loc, nc, npc, number, obj, oc, player, server, string, struct, vars,
 /// region from rev 530 and controller from rev 647) and registers them in a single
 /// registry that the VM uses at runtime to dispatch script opcodes.
 ///
@@ -29,6 +29,7 @@ pub fn register_ops() -> OpsRegistry {
     ops.extend(ops::db::build::<Engine>());
     ops.extend(ops::debug::build());
     ops.extend(ops::r#enum::build::<Engine>());
+    ops.extend(ops::interface::build());
     ops.extend(ops::inv::build::<Engine>());
     ops.extend(ops::lc::build::<Engine>());
     ops.extend(ops::loc::build::<Engine>());
@@ -41,9 +42,30 @@ pub fn register_ops() -> OpsRegistry {
     ops.extend(ops::server::build::<Engine>());
     ops.extend(ops::string::build::<Engine>());
     ops.extend(ops::r#struct::build::<Engine>());
+    ops.extend(ops::vars::build());
     #[cfg(since_530)]
     ops.extend(ops::region::build::<Engine>());
     #[cfg(since_647)]
     ops.extend(ops::controller::build::<Engine>());
     ops
+}
+
+#[cfg(all(test, since_647))]
+mod tests {
+    use super::register_ops;
+    use runec::opcodes::{CONSOLE, IF_SETCOLOUR, IF_SETRESUMEBUTTONS, P_LOGOUT, POP_VARPBIT};
+
+    #[test]
+    fn world_registers_shared_opcode_families() {
+        let ops = register_ops();
+        for opcode in [
+            CONSOLE,
+            IF_SETCOLOUR,
+            IF_SETRESUMEBUTTONS,
+            POP_VARPBIT,
+            P_LOGOUT,
+        ] {
+            assert!(ops.contains(opcode), "missing opcode {opcode}");
+        }
+    }
 }
