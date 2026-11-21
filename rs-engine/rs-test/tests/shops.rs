@@ -192,7 +192,7 @@ fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
         // 2011's overlay over the tabs is permanent (type 1): the client's
         // close button leaves it to the server, whose close brings the tabs
         // back. The shop itself is a modal (type 0).
-        let kinds: Vec<(u16, u8)> = player.open_subs.values().copied().collect();
+        let kinds: Vec<(u16, u8)> = player.subs.open.values().copied().collect();
         assert!(
             kinds.contains(&(SIDE, 1)),
             "the panel opens as type 1: {kinds:?}"

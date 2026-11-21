@@ -1,8 +1,10 @@
-use crate::active_player::ActivePlayer;
+use crate::active_player::mute_deadline;
 #[cfg(since_647)]
 use crate::clients::client_db::SetDisplayNameResult;
 use crate::clients::client_db::{AuthResult, DbResponse, LoadResult, ModOutcome, SaveOutcome};
 use crate::core::Engine;
+#[cfg(since_647)]
+use crate::core::engine;
 use crate::save::delete_save_file;
 #[cfg(since_647)]
 use crate::world_list;
@@ -151,8 +153,7 @@ impl Engine {
                                 let _ = left_other_world;
                                 self.pending_logins[idx].auth = Some(staff);
                                 self.pending_logins[idx].played = played;
-                                self.pending_logins[idx].muted_until =
-                                    muted_for.map(ActivePlayer::mute_deadline);
+                                self.pending_logins[idx].muted_until = muted_for.map(mute_deadline);
                                 self.pending_logins[idx].unread_messages = unread_messages;
                                 self.pending_logins[idx].member = member;
                                 #[cfg(since_647)]
@@ -171,22 +172,14 @@ impl Engine {
                                 self.check_login(idx);
                                 self.try_complete_login(idx);
                             }
-                            AuthResult::InvalidCredentials => {
-                                let ip = self.pending_logins[idx].request.remote_addr.ip();
-                                self.record_login_failure(ip);
-                                self.reject_pending_login(idx, LoginResponse::BadCredentials);
-                            }
-                            AuthResult::Banned => {
-                                self.reject_pending_login(idx, LoginResponse::Banned);
-                            }
-                            AuthResult::TooManyAttempts => {
-                                self.reject_pending_login(idx, LoginResponse::TooManyAttempts);
-                            }
-                            AuthResult::MultiLogging => {
-                                self.reject_pending_login(idx, LoginResponse::IpLimit);
-                            }
-                            AuthResult::Busy => {
-                                self.reject_pending_login(idx, LoginResponse::BadSave);
+                            refused => {
+                                if let AuthResult::InvalidCredentials = refused {
+                                    let ip = self.pending_logins[idx].request.remote_addr.ip();
+                                    self.record_login_failure(ip);
+                                }
+                                if let Some(reply) = refused.refusal() {
+                                    self.reject_pending_login(idx, reply);
+                                }
                             }
                         }
                     }
@@ -198,8 +191,15 @@ impl Engine {
                 } => {
                     let idx = self.pending_logins.iter().position(|p| p.id == login);
                     match (idx, result) {
-                        (Some(idx), LoadResult::Loaded(profile)) => {
+                        (
+                            Some(idx),
+                            LoadResult::Loaded {
+                                profile,
+                                chat_filters,
+                            },
+                        ) => {
                             self.pending_logins[idx].profile = Some(profile.map(|p| *p));
+                            self.pending_logins[idx].chat_filters = Some(chat_filters);
                             self.try_complete_login(idx);
                         }
                         (Some(idx), LoadResult::Refused(reason)) => {
@@ -214,7 +214,7 @@ impl Engine {
                         // The login died before its claim came back. Its
                         // rejection already queued a release behind the
                         // claim; this one is a backstop.
-                        (None, LoadResult::Loaded(_))
+                        (None, LoadResult::Loaded { .. })
                             if !self
                                 .pending_logins
                                 .iter()
@@ -268,7 +268,7 @@ impl Engine {
                     if let Some(pid) = self.find_pid_by_user37(user37)
                         && let Some(active) = self.get_player_mut(pid)
                     {
-                        active.muted_until = Some(ActivePlayer::mute_deadline(remaining));
+                        active.muted_until = Some(mute_deadline(remaining));
                     }
                 }
                 DbResponse::Sanctions { players } => {
@@ -281,7 +281,7 @@ impl Engine {
                             && let Some(&(muted_for, banned)) =
                                 players.get(&active.player.uid.username37())
                         {
-                            active.muted_until = muted_for.map(ActivePlayer::mute_deadline);
+                            active.muted_until = muted_for.map(mute_deadline);
                             if banned && !active.player.logout_sent {
                                 active.logout();
                             }
@@ -341,6 +341,7 @@ impl Engine {
                         screen_name, pid, name37
                     );
                     active.player.display_name = Some(screen_name);
+                    engine().send_ether(active.ether_profile());
                     1
                 }
                 SetDisplayNameResult::NameTaken { suggestions } => {
@@ -415,9 +416,8 @@ impl Engine {
         {
             match action {
                 ModAction::Mute { hours } => {
-                    target.muted_until = Some(ActivePlayer::mute_deadline(Duration::from_secs(
-                        hours as u64 * 3600,
-                    )));
+                    target.muted_until =
+                        Some(mute_deadline(Duration::from_secs(hours as u64 * 3600)));
                 }
                 ModAction::Unmute => target.muted_until = None,
                 ModAction::Ban { .. } | ModAction::Kick if !target.player.logout_sent => {

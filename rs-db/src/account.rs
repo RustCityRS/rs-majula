@@ -63,6 +63,7 @@ SELECT jsonb_build_object(
                FROM hiscores s WHERE s.player_id = p.id),
   'friends', to_jsonb($2::text[]),
   'ignores', to_jsonb($3::text[]),
+  'friends_chat', $4::jsonb,
   'logins', (SELECT coalesce(jsonb_agg((to_jsonb(l) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', l.node_id - 9) ORDER BY l.created_at), '[]')
              FROM login_logs l WHERE l.player_id = p.id),
   'chat', (SELECT coalesce(jsonb_agg((to_jsonb(c) - ARRAY['id', 'player_id', 'to_name_hash', 'node_id'])
@@ -163,12 +164,37 @@ impl Db {
         let ignores = self
             .social_names("ignores", "ignore_hashes", name_hash)
             .await?;
+        let friends_chat = self.friends_chat(name_hash).await?;
         sqlx::query_scalar(EXPORT)
             .bind(name_hash as i64)
             .bind(friends)
             .bind(ignores)
+            .bind(friends_chat)
             .fetch_optional(&self.pool)
             .await
+    }
+
+    /// The player's friends chat settings and the ranks they gave, as JSON,
+    /// where the social server keeps them in this database.
+    async fn friends_chat(&self, name_hash: u64) -> Result<Option<String>, Error> {
+        if !self.has_table("friendchat_settings").await?
+            || !self.has_table("friendchat_ranks").await?
+        {
+            return Ok(None);
+        }
+        sqlx::query_scalar(
+            "SELECT jsonb_build_object(
+                 'settings', (SELECT to_jsonb(s) - 'owner_hash' FROM friendchat_settings s
+                              WHERE s.owner_hash = $1),
+                 'ranks', (SELECT coalesce(jsonb_agg(jsonb_build_object('friend', p.display_name, 'rank', r.rank)
+                                                     ORDER BY r.rank DESC), '[]')
+                           FROM friendchat_ranks r LEFT JOIN players p ON p.name_hash = r.friend_hash
+                           WHERE r.owner_hash = $1))::text",
+        )
+        .bind(name_hash as i64)
+        .fetch_one(&self.pool)
+        .await
+        .map(Some)
     }
 
     /// Deletes the player's account and everything kept with it (every
@@ -198,7 +224,12 @@ impl Db {
             });
         }
         // The social server's lists, where it keeps them in this database.
-        for table in ["friends", "ignores"] {
+        for table in [
+            "friends",
+            "ignores",
+            "friendchat_settings",
+            "friendchat_ranks",
+        ] {
             if self.has_table(table).await? {
                 sqlx::query(AssertSqlSafe(format!(
                     "DELETE FROM {table} WHERE owner_hash = $1"

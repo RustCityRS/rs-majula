@@ -93,14 +93,16 @@ impl Db {
         before: Option<i32>,
         limit: i64,
     ) -> Result<Vec<NewsAdminPost>, Error> {
-        sqlx::query_as(
+        sqlx::query_as(concat!(
             "SELECT id, category_id, title, content, markdown,
-                    (extract(epoch FROM created_at) * 1000)::bigint AS created_ms
+                    ",
+            ms!("created_at"),
+            " AS created_ms
              FROM news_posts
              WHERE $1::int IS NULL OR id < $1
              ORDER BY id DESC
-             LIMIT $2",
-        )
+             LIMIT $2"
+        ))
         .bind(before)
         .bind(limit)
         .fetch_all(&self.pool)
@@ -116,12 +118,14 @@ impl Db {
         content: &str,
         markdown: &str,
     ) -> Result<Option<NewsAdminPost>, Error> {
-        sqlx::query_as(
+        sqlx::query_as(concat!(
             "INSERT INTO news_posts (category_id, title, content, markdown)
              SELECT $1, $2, $3, $4 WHERE EXISTS (SELECT 1 FROM news_categories WHERE id = $1)
              RETURNING id, category_id, title, content, markdown,
-                       (extract(epoch FROM created_at) * 1000)::bigint AS created_ms",
-        )
+                       ",
+            ms!("created_at"),
+            " AS created_ms"
+        ))
         .bind(category_id)
         .bind(title)
         .bind(content)
@@ -140,12 +144,14 @@ impl Db {
         content: &str,
         markdown: &str,
     ) -> Result<Option<NewsAdminPost>, Error> {
-        sqlx::query_as(
+        sqlx::query_as(concat!(
             "UPDATE news_posts SET category_id = $2, title = $3, content = $4, markdown = $5
              WHERE id = $1 AND EXISTS (SELECT 1 FROM news_categories WHERE id = $2)
              RETURNING id, category_id, title, content, markdown,
-                       (extract(epoch FROM created_at) * 1000)::bigint AS created_ms",
-        )
+                       ",
+            ms!("created_at"),
+            " AS created_ms"
+        ))
         .bind(id)
         .bind(category_id)
         .bind(title)

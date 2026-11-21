@@ -23,8 +23,7 @@ impl ServerProtMessage for UrlOpen<'_> {
 
     #[cfg(since_742)]
     fn encode(&self, buf: &mut Packet) {
-        buf.p1(0);
-        buf.pjstr(self.url, STRING_TERMINATOR);
+        buf.pjstr2(self.url, STRING_TERMINATOR);
     }
 
     #[cfg(before_742)]
@@ -34,6 +33,6 @@ impl ServerProtMessage for UrlOpen<'_> {
 
     #[cfg(since_742)]
     fn sizeof(&self) -> usize {
-        1 + self.url.len() + 1
+        Packet::sizejstr2(self.url)
     }
 }

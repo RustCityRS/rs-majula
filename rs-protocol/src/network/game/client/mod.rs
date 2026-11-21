@@ -6,6 +6,8 @@ pub use crate::network::game::client_prot_category::ClientProtCategory;
 pub use crate::network::game::client_prot_message::ClientProtEncode;
 pub use crate::network::game::client_prot_message::ClientProtMessage;
 
+#[cfg(since_742)]
+pub mod affinedclansettings_addbanned_fromchannel;
 pub mod anticheat_cyclelogic1;
 pub mod anticheat_cyclelogic2;
 pub mod anticheat_cyclelogic3;

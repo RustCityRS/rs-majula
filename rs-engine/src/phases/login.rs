@@ -152,6 +152,7 @@ impl Engine {
                     last_login_ip: None,
                     claim_sent: false,
                     profile: None,
+                    chat_filters: None,
                     played: Vec::new(),
                 });
             } else {

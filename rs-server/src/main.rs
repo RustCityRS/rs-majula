@@ -16,11 +16,13 @@ use rs_db::{Db, DbConfig, LoginDevice, require_secret};
 use rs_db::{Passwords, WorldEndpoint};
 #[cfg(since_647)]
 use rs_engine::prepare_schema;
+#[cfg(since_647)]
+use rs_engine::social::lobby_world;
 use rs_engine::watch::QUEUE;
 use rs_engine::{
     CycleResult, DbClientConfig, DbRequest, DbResponse, Engine, EtherInbound, EtherOutbound,
-    LoginRequest, TickStats, db_client_task, ether_client_task, init_collision, replay_task,
-    with_engine,
+    EtherRegistration, LoginRequest, TickStats, db_client_task, ether_client_task, init_collision,
+    replay_task, with_engine,
 };
 #[cfg(before_647)]
 use rs_lobby as _;
@@ -358,7 +360,14 @@ impl EtherEnv {
     }
 
     /// The command that runs this world's ether node until it's killed.
-    fn run(&self, node_id: u8, ether_port: u16, node_name: &str, cookie: &str) -> Command {
+    fn run(
+        &self,
+        node_id: u8,
+        lobby: bool,
+        ether_port: u16,
+        node_name: &str,
+        cookie: &str,
+    ) -> Command {
         let mut cmd = match &self.release {
             Some(root) => {
                 let mut cmd = self.release(root, &["start"]);
@@ -375,16 +384,9 @@ impl EtherEnv {
                 self.with_env(cmd)
             }
         };
-        cmd.env(
-            "RS_LOBBY",
-            if node_name.starts_with("lobby") {
-                "true"
-            } else {
-                "false"
-            },
-        )
-        .env("RS_NODE_ID", node_id.to_string())
-        .env("RS_ETHER_PORT", ether_port.to_string());
+        cmd.env("RS_LOBBY", lobby.to_string())
+            .env("RS_NODE_ID", node_id.to_string())
+            .env("RS_ETHER_PORT", ether_port.to_string());
         cmd
     }
 
@@ -814,7 +816,13 @@ async fn serve_lobby(args: Args, secrets: Secrets) -> Result<()> {
         rx,
     )
     .await?;
-    if let Err(err) = start_ether(&args, &secrets, true, outbound, inbound) {
+    let registration = EtherRegistration {
+        node_id: args.node_id,
+        lobby: true,
+        world: lobby_world(args.lobby_id),
+        members: false,
+    };
+    if let Err(err) = start_ether(&args, &secrets, registration, outbound, inbound) {
         engine.shutdown().await?;
         return Err(err);
     }
@@ -844,14 +852,14 @@ async fn serve_lobby(args: Args, secrets: Secrets) -> Result<()> {
 fn start_ether(
     args: &Args,
     secrets: &Secrets,
-    lobby: bool,
+    registration: EtherRegistration,
     outbound_rx: UnboundedReceiver<EtherOutbound>,
     inbound_tx: UnboundedSender<EtherInbound>,
 ) -> Result<oneshot::Receiver<()>> {
+    let EtherRegistration { node_id, lobby, .. } = registration;
     let ether_port = args
         .ether_port
-        .unwrap_or((if lobby { 5300 } else { 5000 }) + u16::from(args.node_id));
-    let node_id = args.node_id;
+        .unwrap_or((if lobby { 5300 } else { 5000 }) + u16::from(node_id));
 
     let role = if lobby { "lobby" } else { "world" };
     let node_name = format!("{role}{}@{}", node_id, args.node_host);
@@ -868,14 +876,13 @@ fn start_ether(
                 return;
             }
         }
-        supervise_ether_sidecar(ether, node_id, ether_port, node_name, cookie).await;
+        supervise_ether_sidecar(ether, node_id, lobby, ether_port, node_name, cookie).await;
     });
 
     let (ready_tx, ready_rx) = oneshot::channel();
     spawn(ether_client_task(
         ether_port,
-        node_id,
-        lobby,
+        registration,
         outbound_rx,
         inbound_tx,
         ready_tx,
@@ -1028,7 +1035,15 @@ async fn bootstrap(
 
     let (ether_tx, outbound) = unbounded_channel();
     let (inbound, ether_rx) = unbounded_channel();
-    start_ether(&args, &secrets, false, outbound, inbound)?
+    let registration = EtherRegistration {
+        node_id: args.node_id,
+        lobby: false,
+        #[cfg(since_647)]
+        world,
+        #[cfg(since_647)]
+        members: args.members,
+    };
+    start_ether(&args, &secrets, registration, outbound, inbound)?
         .await
         .context("Ether stopped before registration")?;
     let ether_tx = Some(ether_tx);
@@ -1347,6 +1362,7 @@ async fn migrate(args: &Args) -> Result<()> {
 async fn supervise_ether_sidecar(
     ether: EtherEnv,
     node_id: u8,
+    lobby: bool,
     ether_port: u16,
     node_name: String,
     cookie: String,
@@ -1356,7 +1372,7 @@ async fn supervise_ether_sidecar(
 
     loop {
         let result = ether
-            .run(node_id, ether_port, &node_name, &cookie)
+            .run(node_id, lobby, ether_port, &node_name, &cookie)
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn();

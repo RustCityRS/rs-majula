@@ -1,5 +1,9 @@
-use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
+#[cfg(since_647)]
+use crate::clients::client_ether::EtherOutbound;
+use crate::clients::client_ether::{EtherInbound, EtherSession, finish_resync};
 use crate::core::Engine;
+#[cfg(since_647)]
+use crate::social;
 use rs_entity::build::MAX_PLAYERS;
 use rs_protocol::LoginResponse;
 #[cfg(before_647)]
@@ -58,6 +62,15 @@ impl Engine {
                 Ok(msg) => msg,
                 Err(_) => break,
             };
+            #[cfg(since_647)]
+            if let Some(target37) = msg.named_target() {
+                if let Some(pid) = self.find_pid_by_user37(target37)
+                    && let Some(active) = self.get_player_mut(pid)
+                {
+                    social::deliver(active, msg);
+                }
+                continue;
+            }
             match msg {
                 #[cfg(before_647)]
                 EtherInbound::UpdateFriendList {
@@ -92,8 +105,6 @@ impl Engine {
                         }
                     }
                 }
-                // TODO(647): port with the social milestone — rev-647
-                // UPDATE_FRIENDLIST is a name-based full-list packet.
                 #[cfg(since_647)]
                 EtherInbound::UpdateFriendList { .. } => {}
                 #[cfg(before_647)]
@@ -106,8 +117,6 @@ impl Engine {
                         active.ignores = signed;
                     }
                 }
-                // TODO(647): port with the social milestone — rev-647 uses
-                // the name-based UPDATE_IGNORELIST_FULL packet.
                 #[cfg(since_647)]
                 EtherInbound::UpdateIgnoreList { .. } => {}
                 #[cfg(before_647)]
@@ -129,18 +138,19 @@ impl Engine {
                         });
                     }
                 }
-                // TODO(647): port with the chat/social milestone — rev-647
-                // MESSAGE_PRIVATE is name-addressed with a huffman body.
                 #[cfg(since_647)]
                 EtherInbound::MessagePrivate { .. } => {}
+                // From 647 a named session's friends list itself tells the
+                // client it has loaded; FRIENDLIST_LOADED would set it back to
+                // connecting.
                 EtherInbound::FriendListComplete { target37 } => {
-                    #[cfg(since_254)]
+                    #[cfg(all(since_254, before_647))]
                     if let Some(pid) = self.find_pid_by_user37(target37)
                         && let Some(active) = self.get_player_mut(pid)
                     {
                         active.friendlist_loaded(2);
                     }
-                    #[cfg(before_254)]
+                    #[cfg(any(before_254, since_647))]
                     let _ = target37;
                 }
                 #[cfg(since_647)]
@@ -213,7 +223,7 @@ impl Engine {
                     }
                     warn!("Ether disconnected - logins disabled");
                 }
-                EtherInbound::EtherReconnected => {
+                EtherInbound::EtherReconnected(replay) => {
                     self.ether_ready = true;
                     let clock = self.clock;
                     let mut i = self.pending_logins.len();
@@ -226,19 +236,28 @@ impl Engine {
 
                     if let Some(tx) = &self.ether_tx {
                         for &pid in self.player_list.processing.iter() {
-                            if let Some(active) = self.player_list.players[pid as usize].as_mut() {
-                                let _ = tx.send(EtherOutbound::PlayerResync {
+                            if let Some(active) = self.player_list.players[pid as usize].as_ref() {
+                                EtherSession {
                                     user37: active.uid().username37(),
                                     pid,
+                                    member: active.player.is_member,
                                     private_mode: active.player.private_chat(),
-                                    max_friends: max_friends_cap(active.player.is_member),
                                     ip: active.remote_ip,
-                                });
+                                    #[cfg(since_647)]
+                                    profile: active.ether_profile(),
+                                }
+                                .resync(
+                                    tx,
+                                    #[cfg(since_647)]
+                                    active.social.friendchat.as_ref(),
+                                );
                             }
                         }
-                        let _ = tx.send(EtherOutbound::RefreshAll);
+                        finish_resync(tx, replay);
                     }
                 }
+                #[cfg(since_647)]
+                _ => {}
             }
         }
     }

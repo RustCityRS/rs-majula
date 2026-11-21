@@ -53,6 +53,8 @@ use crate::pack::incremental::{Stage, files_under};
 #[cfg(since_647)]
 use crate::pack::interface::pack_archive;
 use crate::pack::names::{self, AssetNames};
+#[cfg(since_647)]
+use crate::pack::other::asset;
 use crate::pack::other::map;
 use crate::pack::pack::{self, ConfigFiles};
 #[cfg(since_647)]
@@ -67,6 +69,8 @@ use crate::{archive, compile_scripts, unwrap_thread};
 #[cfg(since_647)]
 use crate::{compile_lobby_scripts, finish_cache, open_cache};
 use anyhow::{Context, Result};
+#[cfg(since_647)]
+use rs_crypto::huffman::Huffman;
 use rs_ver::TypeId;
 use runec::symbol::identifier_form;
 use std::borrow::Cow;
@@ -107,6 +111,34 @@ pub struct InterfaceLayout {
 }
 
 impl InterfaceLayout {
+    /// The hash of the component `slots` gives toplevel `top`, if it has one.
+    fn slot(slots: &HashMap<u16, u16>, top: u16) -> Option<i32> {
+        slots
+            .get(&top)
+            .map(|&com| (i32::from(top) << 16) | i32::from(com))
+    }
+
+    /// Where on toplevel `top` main interface `iface` mounts: the main screen,
+    /// or the full-size slot for one `wide_screen_enum` lists.
+    pub fn main_slot(&self, top: u16, iface: u16) -> Option<i32> {
+        let slots = if self.wide_screen_ifaces.contains(&iface) {
+            &self.wide_screen
+        } else {
+            &self.main_screen
+        };
+        Self::slot(slots, top)
+    }
+
+    /// Where on toplevel `top` a side panel mounts, over the tabs.
+    pub fn side_slot(&self, top: u16) -> Option<i32> {
+        Self::slot(&self.overlay_tab, top)
+    }
+
+    /// Where on toplevel `top` an overlay mounts, over the game view.
+    pub fn overlay_slot(&self, top: u16) -> Option<i32> {
+        Self::slot(&self.overlay, top)
+    }
+
     /// Chatbox child component hash an interface mounts on when opened as a
     /// chat dialogue: its `dialogue_slots` override, else the default slot.
     pub fn dialogue_slot(&self, iface: u16) -> i32 {
@@ -137,6 +169,8 @@ pub struct LobbyAssets {
     pub interfaces: IfTypeProvider,
     pub layout: InterfaceLayout,
     pub toplevel: u16,
+    pub huffman: Huffman,
+    pub wordenc: WordEncProvider,
 }
 
 #[cfg(since_647)]
@@ -149,9 +183,11 @@ impl LobbyAssets {
     ) -> Result<Self> {
         let session = open_cache(cache.map(|root| root.join("lobby")).as_deref());
         let scripts = content.join("scripts");
-        pack::check_configs(&ConfigFiles::new(&scripts), pack_dir, verify)?;
-        let files =
-            FileCache::for_extensions(&scripts, &["constant", "varp", "varpbit", "varc", "enum"]);
+        let config_files = ConfigFiles::new(&scripts);
+        pack::check_configs(&config_files, pack_dir, verify)?;
+        let files = FileCache::from_files(
+            config_files.with_ext(&["constant", "varp", "varpbit", "varc", "enum"]),
+        );
         let constants = load_constants_from_cache(&files);
         let registry = PackRegistry::load(pack_dir)?;
         let varps = pack_varps(&files, &registry, &constants)?.server;
@@ -162,12 +198,9 @@ impl LobbyAssets {
         let mut packed = PackedCache::default();
         let versions = archive::load_versions_dir(&content.join("versions"))?;
         pack_archive(&mut packed, content, pack_dir, &versions, &names)?;
-        let mut layout = load_interface_layout(pack_dir);
-        layout.switch_side = names.id("varc", SWITCH_SIDE)? as u16;
         let enums = pack_enums(&files, &registry, &constants)?.server;
         let enums = TypeProvider::from_indexed_bytes::<EnumTypeRaw>(&enums.dat, &enums.idx, ())?;
-        load_dialogue_slots(pack_dir, &enums, &mut layout);
-        load_wide_screen_ifaces(pack_dir, &enums, &mut layout);
+        let layout = interface_layout(pack_dir, &enums, &names)?;
         let assets = Self {
             commands: PackFile::parse(&fs::read_to_string(pack_dir.join(LOBBY_COMMANDS))?),
             seq_count: registry.seq.max as usize,
@@ -189,6 +222,17 @@ impl LobbyAssets {
             interfaces: IfTypeProvider::from_cache(&packed)?,
             layout,
             toplevel: names.id("interface", "lobbyscreen")? as u16,
+            huffman: Huffman::new(
+                &asset::pack_file(
+                    archive::BINARY,
+                    0,
+                    &content.join("binary").join("huffman.huffman"),
+                    &names,
+                )?
+                .remove(0)
+                .1,
+            ),
+            wordenc: WordEncProvider::empty(),
         };
         finish_cache(session);
         Ok(assets)
@@ -245,11 +289,8 @@ pub fn pack_all(
         area_map,
         members,
     )?;
-    let mut layout = load_interface_layout(pack_dir);
-    load_dialogue_slots(pack_dir, &store.enums, &mut layout);
-    load_wide_screen_ifaces(pack_dir, &store.enums, &mut layout);
+    let mut layout = interface_layout(pack_dir, &store.enums, &asset_names)?;
     layout.count_dialog = asset_names.id("clientscript", COUNT_DIALOG)? as i32;
-    layout.switch_side = asset_names.id("varc", SWITCH_SIDE)? as u16;
     for (varc, name) in layout.design.iter_mut().zip(DESIGN) {
         *varc = asset_names.id("varc", name)? as u16;
     }
@@ -553,6 +594,21 @@ fn load_dialogue_slots(
         "  dialogue slots: {} override(s) from {ENUM_NAME}",
         layout.dialogue_slots.len()
     );
+}
+
+/// The interface layout the world and the lobby share: the toplevel slots and
+/// component names from interface.pack, the dialogue slots and wide-screen
+/// interfaces from their enums, and the varc that switches the side panel.
+fn interface_layout(
+    pack_dir: &Path,
+    enums: &TypeProvider<EnumType>,
+    names: &AssetNames,
+) -> Result<InterfaceLayout> {
+    let mut layout = load_interface_layout(pack_dir);
+    load_dialogue_slots(pack_dir, enums, &mut layout);
+    load_wide_screen_ifaces(pack_dir, enums, &mut layout);
+    layout.switch_side = names.id("varc", SWITCH_SIDE)? as u16;
+    Ok(layout)
 }
 
 /// Populate `layout.wide_screen_ifaces` from the content `wide_screen_enum`:

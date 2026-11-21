@@ -2,17 +2,19 @@ use crate::player::{Disconnect, LobbyPlayer};
 use crate::script::{LobbySession, LobbyVm};
 use anyhow::{Result, anyhow, bail, ensure};
 use rs_db::{
-    AccountDetails, Claim, Db, Error as DbError, LobbyVisit, LobbyWorld, LoginAdmission, Passwords,
-    Sanctions, lobby_node,
+    AccountDetails, Claim, Db, Error as DbError, LobbyVisit, LobbyWorld, LogBatch, LoginAdmission,
+    Passwords, Sanctions, lobby_node, millis,
 };
+use rs_engine::social::{self, SocialClient, checked_chat_filters};
 use rs_engine::{
-    AuthResult, DB_FENCE, EtherInbound, EtherOutbound, LoginRequest, MAX_AUTH_RUNNING,
-    MAX_AUTH_WAITING, MAX_PLAYING_PER_IP, TAKEOVER_AFTER_SECS, authenticate, max_friends_cap,
-    world_list,
+    AuthResult, DB_FENCE, EtherInbound, EtherOutbound, EtherSession, LoginRequest,
+    MAX_AUTH_RUNNING, MAX_AUTH_WAITING, MAX_PLAYING_PER_IP, TAKEOVER_AFTER_SECS, authenticate,
+    finish_resync, mute_deadline, world_list,
 };
 use rs_pack::startup::LobbyAssets;
 use rs_protocol::LoginResponse;
-use rs_protocol::login::{LobbyAccount, PLAYER_MOD_LEVEL, lobby_login_reply};
+use rs_protocol::login::{LobbyAccount, lobby_login_reply};
+use rs_protocol::network::game::server::friendlist_loaded::FriendlistLoaded;
 use rs_protocol::network::game::server::logout_full::LogoutFull;
 use rs_protocol::world_list::WorldList;
 use rs_util::base37::to_userhash;
@@ -64,6 +66,7 @@ struct Pending {
     last_login_day: u16,
     last_login_ip: Ipv4Addr,
     play_age: i32,
+    muted_for: Option<Duration>,
     account: Option<AccountDetails>,
     stage: Stage,
 }
@@ -90,14 +93,16 @@ enum Reply {
     Left(u64),
     StatusUnavailable(DbError),
     Status(Instant, Vec<LobbyWorld>, Vec<Sanctions>),
+    Logged,
 }
 
 #[derive(Debug)]
 enum Job {
     Auth(u64, u64),
     Claim(u64, u64),
-    Release(u64, Option<Visit>),
+    Release(u64, Option<Visit>, Option<[i16; 3]>),
     Status,
+    Logs,
 }
 
 pub struct LobbyEngine {
@@ -123,6 +128,7 @@ pub struct LobbyEngine {
     worlds: WorldList,
     preferred: Option<(u16, String)>,
     account_vars: AccountVars,
+    logs: LogBatch,
 }
 
 impl LobbyEngine {
@@ -178,6 +184,7 @@ impl LobbyEngine {
             worlds: world_list(Vec::new()),
             preferred: None,
             account_vars,
+            logs: LogBatch::default(),
         };
         engine.set_worlds(worlds);
         Ok(engine)
@@ -251,13 +258,15 @@ impl LobbyEngine {
             }
             if now >= self.next_status && !self.status_running {
                 self.refresh();
+                self.store_logs();
                 self.next_status = now + STATUS_INTERVAL;
             }
             let mut left = Vec::new();
             for (&name, player) in &mut self.players {
                 let result = catch_unwind(AssertUnwindSafe(|| {
-                    player.tick(now, &self.assets, &self.vm, &self.worlds)
+                    player.tick(now, &self.assets, &self.vm, &self.worlds, &self.ether)
                 }));
+                self.logs.chat.append(&mut player.chat_logs);
                 match result {
                     Ok(Some(reason)) => left.push((name, matches!(reason, Disconnect::Closed))),
                     Ok(None) => {}
@@ -369,6 +378,7 @@ impl LobbyEngine {
                 last_login_day: 0,
                 last_login_ip: Ipv4Addr::UNSPECIFIED,
                 play_age: 0,
+                muted_for: None,
                 account: None,
                 stage: Stage::Authenticating,
             },
@@ -397,6 +407,7 @@ impl LobbyEngine {
                 match result {
                     AuthResult::Accepted {
                         staff_mod_level,
+                        muted_for,
                         account_age,
                         unread_messages,
                         last_login,
@@ -406,6 +417,7 @@ impl LobbyEngine {
                         ..
                     } if self.ready && p.started.elapsed() < LOGIN_TIMEOUT && account.is_some() => {
                         p.staff = staff_mod_level;
+                        p.muted_for = muted_for;
                         p.unread = unread_messages;
                         p.member = member;
                         p.jcoins = jcoins;
@@ -432,15 +444,12 @@ impl LobbyEngine {
                             ip: Some(p.request.remote_addr.ip()),
                         });
                     }
-                    AuthResult::InvalidCredentials => {
-                        self.reject(name, LoginResponse::BadCredentials)
-                    }
-                    AuthResult::Banned => self.reject(name, LoginResponse::Banned),
-                    AuthResult::MultiLogging => self.reject(name, LoginResponse::IpLimit),
-                    AuthResult::TooManyAttempts => {
-                        self.reject(name, LoginResponse::TooManyAttempts)
-                    }
-                    _ => self.reject(name, LoginResponse::LoginServerOffline),
+                    refused => self.reject(
+                        name,
+                        refused
+                            .refusal()
+                            .unwrap_or(LoginResponse::LoginServerOffline),
+                    ),
                 }
             }
             Reply::Claim(name, id, claim) => {
@@ -448,7 +457,7 @@ impl LobbyEngine {
                     bail!("lobby claim completed without its login");
                 };
                 match claim {
-                    Some(Claim::Claimed { .. }) => {
+                    Some(Claim::Claimed { chat_filters, .. }) => {
                         if p.cancelled
                             || !self.ready
                             || self.lease.elapsed() >= DB_FENCE
@@ -474,6 +483,11 @@ impl LobbyEngine {
                                 self.assets.toplevel,
                             );
                             player.member = p.member;
+                            player.chat_filters =
+                                checked_chat_filters(chat_filters.map(|f| f as u8));
+                            player.display = account.display_name.clone();
+                            player.staff = p.staff;
+                            player.muted_until = p.muted_for.map(mute_deadline);
                             self.show_account(&mut player, account);
                             let started = catch_unwind(AssertUnwindSafe(|| {
                                 player.run_trigger(
@@ -496,14 +510,12 @@ impl LobbyEngine {
                                 return Ok(());
                             }
                             player.handle.finish_lobby_login(reply, true);
-                            let member = player.member;
+                            let [public, private, trade] = player.chat_filters;
+                            player.send_chat_filters(public, private, trade);
+                            player.handle.write(FriendlistLoaded);
+                            let session = session(&player);
                             self.players.insert(name, player);
-                            let _ = self.ether.send(EtherOutbound::PlayerLogin {
-                                user37: name,
-                                pid: 0,
-                                max_friends: max_friends_cap(member),
-                                ip: Some(ip),
-                            });
+                            session.login(&self.ether);
                         }
                     }
                     Some(Claim::Busy { .. }) => self.reject(name, LoginResponse::Duplicate),
@@ -515,6 +527,7 @@ impl LobbyEngine {
                     }
                 }
             }
+            Reply::Logged => {}
             Reply::Left(name) => {
                 self.leaving.remove(&name);
                 let _ = self
@@ -529,6 +542,11 @@ impl LobbyEngine {
                 self.lease = at;
                 self.status_running = false;
                 self.set_worlds(worlds);
+                for s in &sanctions {
+                    if let Some(p) = self.players.get_mut(&s.name_hash) {
+                        p.muted_until = s.muted_ms.map(millis).map(mute_deadline);
+                    }
+                }
                 for s in sanctions.into_iter().filter(|s| s.banned) {
                     if let Some(p) = self.players.get_mut(&s.name_hash) {
                         p.handle.write(LogoutFull);
@@ -541,9 +559,15 @@ impl LobbyEngine {
     }
 
     fn on_ether(&mut self, msg: EtherInbound) {
+        if let Some(target37) = msg.named_target() {
+            if let Some(player) = self.players.get_mut(&target37) {
+                social::deliver(player, msg);
+            }
+            return;
+        }
         match msg {
-            EtherInbound::EtherDisconnected | EtherInbound::EtherReconnected => {
-                self.ready = matches!(msg, EtherInbound::EtherReconnected);
+            EtherInbound::EtherDisconnected | EtherInbound::EtherReconnected(_) => {
+                self.ready = matches!(msg, EtherInbound::EtherReconnected(_));
                 let names: Vec<_> = self.pending.keys().copied().collect();
                 for name in names {
                     if self.pending[&name].stage == Stage::Claiming {
@@ -552,17 +576,11 @@ impl LobbyEngine {
                         self.reject(name, LoginResponse::LoginServerOffline);
                     }
                 }
-                if self.ready {
-                    for (&user37, p) in &self.players {
-                        let _ = self.ether.send(EtherOutbound::PlayerResync {
-                            user37,
-                            pid: 0,
-                            private_mode: 0,
-                            max_friends: max_friends_cap(p.member),
-                            ip: Some(p.ip),
-                        });
+                if let EtherInbound::EtherReconnected(replay) = msg {
+                    for p in self.players.values() {
+                        session(p).resync(&self.ether, p.social.friendchat.as_ref());
                     }
-                    let _ = self.ether.send(EtherOutbound::RefreshAll);
+                    finish_resync(&self.ether, replay);
                 }
             }
             EtherInbound::LoginCheckResponse {
@@ -645,23 +663,33 @@ impl LobbyEngine {
             p.ip,
             world,
         ));
-        self.release(name, visit);
+        self.leaving.insert(name);
+        self.spawn_release(name, visit, Some(p.chat_filters.map(i16::from)), false);
     }
 
     fn release(&mut self, name: u64, visit: Option<Visit>) {
         self.leaving.insert(name);
-        self.spawn_release(name, visit, false);
+        self.spawn_release(name, visit, None, false);
     }
 
-    fn spawn_release(&mut self, name: u64, visit: Option<Visit>, delay: bool) {
+    fn spawn_release(
+        &mut self,
+        name: u64,
+        visit: Option<Visit>,
+        chat_filters: Option<[i16; 3]>,
+        delay: bool,
+    ) {
         let db = self.db.clone();
         let node = self.node();
         let instance = self.config.instance;
-        self.spawn(Job::Release(name, visit), async move {
+        self.spawn(Job::Release(name, visit, chat_filters), async move {
             if delay {
                 sleep(RELEASE_RETRY).await;
             }
-            while let Err(err) = db.leave_lobby(name, node, instance, visit).await {
+            while let Err(err) = db
+                .leave_lobby(name, node, instance, visit, chat_filters)
+                .await
+            {
                 warn!("Lobby release failed for {name}: {err}");
                 sleep(RELEASE_RETRY).await;
             }
@@ -674,12 +702,30 @@ impl LobbyEngine {
         self.running.insert(id, job);
     }
 
+    fn store_logs(&mut self) {
+        if self.logs.is_empty() {
+            return;
+        }
+        let logs = std::mem::take(&mut self.logs);
+        let db = self.db.clone();
+        let node = self.node();
+        self.spawn(Job::Logs, async move {
+            if let Err(err) = db.record_logs(node, &logs).await {
+                warn!("Lobby dropped {} chat logs: {err}", logs.chat.len());
+            }
+            Ok(Reply::Logged)
+        });
+    }
+
     fn failed(&mut self, job: Job) -> Result<()> {
         match job {
             Job::Auth(name, id) => self.complete(Reply::Auth(name, id, AuthResult::Busy, None))?,
             Job::Claim(name, id) => self.complete(Reply::Claim(name, id, None))?,
-            Job::Release(name, visit) => self.spawn_release(name, visit, true),
+            Job::Release(name, visit, chat_filters) => {
+                self.spawn_release(name, visit, chat_filters, true)
+            }
             Job::Status => self.status_running = false,
+            Job::Logs => {}
         }
         Ok(())
     }
@@ -711,14 +757,32 @@ impl LobbyEngine {
     }
 
     pub async fn shutdown(&mut self) -> Result<()> {
-        for (_, mut p) in self.players.drain() {
+        let mut leaving = Vec::with_capacity(self.players.len());
+        for (name, mut p) in self.players.drain() {
             let _ = catch_unwind(AssertUnwindSafe(|| {
                 p.trigger(&self.assets, &self.vm, ServerTriggerType::Logout, None)
             }));
             p.handle.write(LogoutFull);
+            leaving.push((name, p.chat_filters.map(i16::from)));
+            self.logs.chat.append(&mut p.chat_logs);
         }
         self.pending.clear();
         self.jobs.shutdown().await;
+        if !self.logs.is_empty()
+            && let Err(err) = self.db.record_logs(self.node(), &self.logs).await
+        {
+            warn!("Lobby dropped {} chat logs: {err}", self.logs.chat.len());
+        }
+        let (node, instance) = (self.node(), self.config.instance);
+        for (name, chat_filters) in leaving {
+            if let Err(err) = self
+                .db
+                .leave_lobby(name, node, instance, None, Some(chat_filters))
+                .await
+            {
+                warn!("Lobby couldn't keep the chat filters of {name}: {err}");
+            }
+        }
         self.db
             .stop_lobby(self.node(), self.config.instance)
             .await?;
@@ -729,6 +793,19 @@ impl LobbyEngine {
 
 /// The runeday `days` after 1970 falls on, never 0: the lobby reads 0 as
 /// no day at all.
+/// A lobby player's ether session: pid 0, as no world holds them, and no
+/// combat level.
+fn session(player: &LobbyPlayer) -> EtherSession {
+    EtherSession {
+        user37: player.user37,
+        pid: 0,
+        member: player.member,
+        private_mode: player.chat_filters[1],
+        ip: Some(player.ip),
+        profile: social::profile(player, 0),
+    }
+}
+
 fn runeday(days: Option<i64>) -> u16 {
     days.map_or(0, |days| {
         (days - i64::from(RUNEDAY_EPOCH_DAYS)).clamp(1, u16::MAX.into()) as u16
@@ -752,8 +829,7 @@ fn reply_account<'a>(
     let members_until = account.members_until_ms.unwrap_or(0);
     LobbyAccount {
         display_name: &account.display_name,
-        staff_mod_level: p.staff.min(2),
-        player_mod_level: if p.staff == 1 { PLAYER_MOD_LEVEL } else { 0 },
+        staff: p.staff,
         underage: account.underage,
         chat_consent: account.chat_consent,
         advert_consent: account.advert_consent,

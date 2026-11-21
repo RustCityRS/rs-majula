@@ -130,6 +130,10 @@ pub enum Evidence {
     Chat {
         id: i64,
         from: String,
+        /// Its channel (see `ChatRecord::channel`); none on evidence kept
+        /// before chat logs had channels.
+        #[serde(default)]
+        channel: Option<u8>,
         to: Option<String>,
         node: u8,
         message: String,
@@ -1086,6 +1090,7 @@ mod tests {
         Evidence::Chat {
             id,
             from: "Bob".into(),
+            channel: Some(0),
             to: None,
             node: 10,
             message: "buy gold".into(),

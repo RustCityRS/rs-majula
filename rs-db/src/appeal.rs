@@ -2,13 +2,6 @@ use crate::{Db, Error};
 use sqlx::AssertSqlSafe;
 use std::net::IpAddr;
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// What the appeal form needs to check who's appealing, and what against.
 #[derive(Debug, sqlx::FromRow)]
 pub struct AppealLogin {

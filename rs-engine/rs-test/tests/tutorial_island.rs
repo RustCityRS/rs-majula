@@ -273,7 +273,8 @@ fn instructions_open(engine: &Engine, pid: u16) -> bool {
     engine
         .harness_player(pid)
         .unwrap()
-        .open_subs
+        .subs
+        .open
         .get(&chat_foreground())
         .is_some_and(|&(sub, _)| sub == TUTORIAL_TEXT)
 }
@@ -312,7 +313,7 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
         assert!(
             instructions_open(engine, client.pid),
             "372 on chatbox:com7; subs {:?}",
-            engine.harness_player(client.pid).unwrap().open_subs
+            engine.harness_player(client.pid).unwrap().subs.open
         );
 
         // The guide: a dev world first asks to skip (289's map_live check);

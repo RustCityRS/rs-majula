@@ -94,11 +94,10 @@ impl LobbyPlayer {
         trigger: ServerTriggerType,
         component: Option<i32>,
     ) -> Result<bool> {
-        let base = trigger as i32;
-        let script = component
-            .and_then(|com| assets.scripts.get_by_lookup((com << 10) | (2 << 8) | base))
-            .or_else(|| assets.scripts.get_by_lookup(base));
-        let Some(script) = script else {
+        let Some(script) = assets
+            .scripts
+            .get_by_trigger(trigger as i32, component, None)
+        else {
             return Ok(false);
         };
         let mut state = ScriptState::init(Arc::clone(script), None, None, None);

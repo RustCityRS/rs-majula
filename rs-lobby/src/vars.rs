@@ -15,11 +15,8 @@ impl ScriptVars for LobbySession<'_> {
     fn set_var(&mut self, id: u16, value: VarValue, transmit: bool) {
         if transmit {
             let val = value.as_int();
-            if let Ok(small) = i8::try_from(val) {
-                self.player.handle.write(VarpSmall {
-                    id,
-                    val: small as u8,
-                });
+            if VarpSmall::fits(val) {
+                self.player.handle.write(VarpSmall { id, val: val as u8 });
             } else {
                 self.player.handle.write(VarpLarge { id, val });
             }
@@ -38,11 +35,8 @@ impl ScriptVars for LobbySession<'_> {
 
     fn sendvarc(&mut self, id: u16, val: i32) {
         self.player.varcs.insert(id, val);
-        if let Ok(small) = i8::try_from(val) {
-            self.player.handle.write(VarcSmall {
-                id,
-                val: small as u8,
-            });
+        if VarcSmall::fits(val) {
+            self.player.handle.write(VarcSmall { id, val: val as u8 });
         } else {
             self.player.handle.write(VarcLarge { id, val });
         }
@@ -53,10 +47,10 @@ impl ScriptVars for LobbySession<'_> {
     }
 
     fn sendvarc_str(&mut self, id: u16, val: &str) {
-        if VarcStrSmall::sizeof_str(val) > 255 {
-            self.player.handle.write(VarcStrLarge { id, val });
-        } else {
+        if VarcStrSmall::fits(val) {
             self.player.handle.write(VarcStrSmall { id, val });
+        } else {
+            self.player.handle.write(VarcStrLarge { id, val });
         }
         val.clone_into(self.player.strings.entry(id).or_default());
     }

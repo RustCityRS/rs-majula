@@ -1,11 +1,21 @@
 use crate::{Db, Error};
 use sqlx::PgConnection;
 
-/// A public or private chat message to log.
+/// Where a chat line was said (`chat_logs.channel`).
+pub mod chat_channel {
+    pub const PUBLIC: i16 = 0;
+    pub const PRIVATE: i16 = 1;
+    pub const FRIENDS_CHAT: i16 = 2;
+    pub const CLAN: i16 = 3;
+}
+
+/// A chat message to log.
 #[derive(Debug)]
 pub struct ChatLog {
     pub name_hash: u64,
-    /// The recipient of a private message, `None` for public chat.
+    pub channel: i16,
+    /// The recipient of a private message, or the owner of the friends chat
+    /// it was said in; `None` for public chat.
     pub to_name_hash: Option<u64>,
     pub x: i16,
     pub z: i16,
@@ -249,13 +259,15 @@ impl Db {
         name_hash: u64,
         days: i32,
     ) -> Result<Vec<(i64, i64)>, Error> {
-        sqlx::query_as(
-            "SELECT (extract(epoch FROM date_trunc('hour', l.created_at AT TIME ZONE 'UTC')) * 1000)::bigint,
+        sqlx::query_as(concat!(
+            "SELECT ",
+            ms!("date_trunc('hour', l.created_at AT TIME ZONE 'UTC')"),
+            ",
                     count(*)
              FROM session_logs l JOIN players p ON p.id = l.player_id
              WHERE p.name_hash = $1 AND l.created_at > now() - make_interval(days => $2)
-             GROUP BY 1 ORDER BY 1",
-        )
+             GROUP BY 1 ORDER BY 1"
+        ))
         .bind(name_hash as i64)
         .bind(days)
         .fetch_all(&self.pool)
@@ -273,12 +285,13 @@ async fn insert_chat(conn: &mut PgConnection, node_id: i16, logs: &[ChatLog]) ->
     let zs: Vec<i16> = logs.iter().map(|l| l.z).collect();
     let ys: Vec<i16> = logs.iter().map(|l| l.y).collect();
     let messages: Vec<&str> = logs.iter().map(|l| l.message.as_str()).collect();
+    let channels: Vec<i16> = logs.iter().map(|l| l.channel).collect();
     sqlx::query(
-        "INSERT INTO chat_logs (player_id, to_name_hash, node_id, x, z, y, message)
-         SELECT p.id, c.to_name_hash, $1, c.x, c.z, c.y, c.message
+        "INSERT INTO chat_logs (player_id, to_name_hash, node_id, x, z, y, message, channel)
+         SELECT p.id, c.to_name_hash, $1, c.x, c.z, c.y, c.message, c.channel
          FROM unnest($2::bigint[], $3::bigint[], $4::smallint[], $5::smallint[],
-                     $6::smallint[], $7::text[])
-              WITH ORDINALITY AS c (name_hash, to_name_hash, x, z, y, message, ord)
+                     $6::smallint[], $7::text[], $8::smallint[])
+              WITH ORDINALITY AS c (name_hash, to_name_hash, x, z, y, message, channel, ord)
          JOIN players p ON p.name_hash = c.name_hash
          ORDER BY c.ord",
     )
@@ -289,6 +302,7 @@ async fn insert_chat(conn: &mut PgConnection, node_id: i16, logs: &[ChatLog]) ->
     .bind(&zs)
     .bind(&ys)
     .bind(&messages)
+    .bind(&channels)
     .execute(conn)
     .await?;
     Ok(())

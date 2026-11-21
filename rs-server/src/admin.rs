@@ -11,7 +11,6 @@ use futures_util::stream;
 use rand::random;
 use rs_admin_api::ModAction as ApiModAction;
 use rs_admin_api::transfer as api_transfer;
-use rs_admin_api::utc_time;
 use rs_admin_api::{
     AccountActivity, AccountsLookup, ActivityHour, ActivityLookup, AnticheatLeader,
     AnticheatLookup, BannedLink, Broadcast, CancelReboot, ChainLink, ChatLookup, ChatRecord,
@@ -33,6 +32,7 @@ use rs_admin_api::{
 };
 use rs_admin_api::{ClaimCheck, RecoveryCheck, RecoveryEvidence, Verdict};
 use rs_admin_api::{ScriptErrorGroup, ScriptErrorLookup, ScriptErrorRecord, ScriptErrorsLookup};
+use rs_admin_api::{chat_channel_name, utc_time};
 use rs_db::transfer as db_transfer;
 use rs_db::{
     Db, DbConfig, ModAction, Passwords, TimelineCursor, code_from_bits, lobby_id, validate_name,
@@ -892,6 +892,7 @@ async fn chat_lookup(
             .map(|c| ChatRecord {
                 id: c.id,
                 from: c.sender,
+                channel: c.channel as u8,
                 to: c
                     .to_name_hash
                     .map(|h| to_screen_name(&to_raw_username(h as u64))),
@@ -965,24 +966,30 @@ async fn timeline_lookup(
         .map_err(db_failed)?;
     Ok(Json(
         rows.into_iter()
-            .map(|r| TimelineEntry {
-                kind: r.kind,
-                id: r.id.to_string(),
-                at_ms: r.at_ms,
-                node: node(r.node_id),
-                x: r.x.map(|x| x as u16),
-                z: r.z.map(|z| z as u16),
-                level: r.y.map(|y| y as u8),
-                event_type: r.event_type,
-                text: r.text,
-                other: r.other.or_else(|| {
-                    r.other_hash
-                        .map(|h| to_screen_name(&to_raw_username(h as u64)))
-                }),
-                count: r.count,
-                value: r.value,
-                hours: r.hours,
-                detail: r.detail,
+            .map(|r| {
+                let detail = match (r.kind.as_str(), r.event_type) {
+                    ("chat", Some(channel)) => Some(chat_channel_name(channel as u8).to_owned()),
+                    _ => r.detail,
+                };
+                TimelineEntry {
+                    kind: r.kind,
+                    id: r.id.to_string(),
+                    at_ms: r.at_ms,
+                    node: node(r.node_id),
+                    x: r.x.map(|x| x as u16),
+                    z: r.z.map(|z| z as u16),
+                    level: r.y.map(|y| y as u8),
+                    event_type: r.event_type,
+                    text: r.text,
+                    other: r.other.or_else(|| {
+                        r.other_hash
+                            .map(|h| to_screen_name(&to_raw_username(h as u64)))
+                    }),
+                    count: r.count,
+                    value: r.value,
+                    hours: r.hours,
+                    detail,
+                }
             })
             .collect(),
     ))
@@ -2126,8 +2133,11 @@ async fn finish_offline(
     };
 
     let profile = match timeout(ENGINE_TIMEOUT, loading).await {
-        Ok(Ok(LoadResult::Loaded(Some(profile)))) => profile,
-        Ok(Ok(LoadResult::Loaded(None))) => {
+        Ok(Ok(LoadResult::Loaded {
+            profile: Some(profile),
+            ..
+        })) => profile,
+        Ok(Ok(LoadResult::Loaded { profile: None, .. })) => {
             return Outcome::refused(format!(
                 "{name} has never logged in, so there's no save to change yet."
             ));

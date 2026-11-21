@@ -1,7 +1,7 @@
 use crate::device::DeviceCheck;
 use crate::links::{CROWDED_BROWSER, uncrowded};
 use crate::save::PlayerSave;
-use crate::{Db, Error};
+use crate::{ADDRESS_LOCK, Db, Error, xact_lock};
 use rs_util::net::limit_address;
 use sqlx::{FromRow, query, query_as, query_scalar};
 use std::net::IpAddr;
@@ -12,6 +12,7 @@ pub enum Claim {
     Claimed {
         save: Option<Box<PlayerSave>>,
         took_over: Option<i16>,
+        chat_filters: [i16; 3],
     },
     Busy {
         node: i16,
@@ -141,10 +142,12 @@ impl Db {
     ) -> Result<Claim, Error> {
         let mut tx = self.pool.begin().await?;
         if let Some(instance) = admission.and_then(|a| a.lobby_instance) {
-            let current: Option<i64> = query_scalar(
+            let current: Option<i64> = query_scalar(concat!(
                 "SELECT lobby_instance FROM world_status WHERE node_id = $1 AND lobby_instance = $2
-                 AND updated_at > now() - make_interval(secs => $3) FOR SHARE",
-            )
+                 AND ",
+                live!("updated_at", "$3"),
+                " FOR SHARE"
+            ))
             .bind(node_id)
             .bind(instance)
             .bind(takeover_after_secs)
@@ -156,10 +159,7 @@ impl Db {
         }
         let ip = admission.map(|a| limit_address(a.ip).to_string());
         if let Some(ip) = &ip {
-            query("SELECT pg_advisory_xact_lock(14567, hashtext($1))")
-                .bind(ip)
-                .execute(&mut *tx)
-                .await?;
+            xact_lock(&mut tx, ADDRESS_LOCK, ip).await?;
         }
         let row: Option<StoredSession> = query_as(
             "SELECT id, online_node AS owner, coalesce(lobby_until > now(), false) AS handoff,
@@ -179,10 +179,12 @@ impl Db {
         };
         let took_over = owner.filter(|&owner| owner != node_id);
         if let Some(node) = took_over {
-            let live: bool = query_scalar(
+            let live: bool = query_scalar(concat!(
                 "SELECT EXISTS(SELECT 1 FROM world_status WHERE node_id = $1
-                AND updated_at >= now() - make_interval(secs => $2))",
-            )
+                AND ",
+                live!("updated_at", "$2"),
+                ")"
+            ))
             .bind(node)
             .bind(takeover_after_secs)
             .fetch_one(&mut *tx)
@@ -201,11 +203,12 @@ impl Db {
             return Ok(Claim::BadSession);
         }
         if let Some(admission) = admission {
-            let count: i64 = query_scalar(
+            let count: i64 = query_scalar(concat!(
                 "SELECT count(*) FROM players p JOIN world_status w ON w.node_id = p.online_node
                  WHERE p.online_ip = $1::inet AND p.id <> $2
-                   AND w.updated_at >= now() - make_interval(secs => $3)",
-            )
+                   AND ",
+                live!("w.updated_at", "$3")
+            ))
             .bind(&ip)
             .bind(id)
             .bind(takeover_after_secs)
@@ -256,15 +259,29 @@ impl Db {
         let save = if node_id < 0 {
             None
         } else {
-            query_as::<_, PlayerSave>("SELECT * FROM player_saves WHERE player_id = $1")
+            query_as::<_, PlayerSave>(concat!(select_live_save!(), " WHERE s.player_id = $1"))
                 .bind(id)
                 .fetch_optional(&mut *tx)
                 .await?
+        };
+        let chat_filters = match &save {
+            Some(save) => [save.public_chat, save.private_chat, save.trade_chat],
+            None => {
+                let (public, private, trade): (i16, i16, i16) = query_as(
+                    "SELECT public_chat, private_chat, trade_chat FROM account_details
+                     WHERE player_id = $1",
+                )
+                .bind(id)
+                .fetch_one(&mut *tx)
+                .await?;
+                [public, private, trade]
+            }
         };
         tx.commit().await?;
         Ok(Claim::Claimed {
             save: save.map(Box::new),
             took_over,
+            chat_filters,
         })
     }
 
@@ -284,14 +301,18 @@ impl Db {
 
     /// The world that owns the player's session, if one does.
     pub async fn session_owner(&self, name_hash: u64) -> Result<Option<SessionOwner>, Error> {
-        query_as(
+        query_as(concat!(
             "SELECT p.online_node AS node,
-                    (extract(epoch FROM p.online_since) * 1000)::bigint AS since_ms,
-                    (extract(epoch FROM now() - w.updated_at) * 1000)::bigint AS heartbeat_age_ms
+                    ",
+            ms!("p.online_since"),
+            " AS since_ms,
+                    ",
+            ms!("now() - w.updated_at"),
+            " AS heartbeat_age_ms
              FROM players p
              LEFT JOIN world_status w ON w.node_id = p.online_node
-             WHERE p.name_hash = $1 AND p.online_node IS NOT NULL",
-        )
+             WHERE p.name_hash = $1 AND p.online_node IS NOT NULL"
+        ))
         .bind(name_hash as i64)
         .fetch_optional(&self.pool)
         .await
@@ -306,7 +327,7 @@ impl Db {
         name_hash: u64,
         takeover_after_secs: i32,
     ) -> Result<Option<i16>, Error> {
-        query_scalar(
+        query_scalar(concat!(
             "WITH old AS (
                  SELECT id, online_node FROM players WHERE name_hash = $1 FOR UPDATE
              )
@@ -316,9 +337,11 @@ impl Db {
                AND NOT EXISTS (
                    SELECT 1 FROM world_status w
                    WHERE w.node_id = old.online_node
-                     AND w.updated_at >= now() - make_interval(secs => $2))
-             RETURNING old.online_node",
-        )
+                     AND ",
+            live!("w.updated_at", "$2"),
+            ")
+             RETURNING old.online_node"
+        ))
         .bind(name_hash as i64)
         .bind(takeover_after_secs)
         .fetch_optional(&self.pool)

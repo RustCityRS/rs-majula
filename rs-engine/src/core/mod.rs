@@ -211,6 +211,13 @@ pub fn init_collision() {
 }
 
 impl Engine {
+    /// Sends `message` to the ether sidecar, if this world has one.
+    pub(crate) fn send_ether(&self, message: EtherOutbound) {
+        if let Some(tx) = &self.ether_tx {
+            let _ = tx.send(message);
+        }
+    }
+
     /// A receiver for the [`TickStats`] each cycle publishes, for the rs-test harness.
     #[cfg(all(feature = "harness", since_530))]
     pub fn harness_tick_stats(&self) -> watch::Receiver<TickStats> {

@@ -2596,9 +2596,33 @@ function chatItem(c) {
             class: 'chat-world',
             title: `${c.x}, ${c.z}${c.level ? `, floor ${c.level}` : ''}`
         }, c.world ? `W${c.world}` : `N${c.node}`),
-        h('span', {class: 'chat-who'}, playerLink(c.from),
-            c.to && [h('span', {class: 'muted'}, ' to '), playerLink(c.to)]),
-        h('span', {class: `chat-text ${c.to ? 'private' : ''}`}, c.message));
+        h('span', {class: 'chat-who'}, playerLink(c.from), chatWhere(c, playerLink)),
+        h('span', {class: `chat-text ${chatChannel(c) === 1 ? 'private' : ''}`}, c.message));
+}
+
+// A chat line's channel: 0 public, 1 private (`to` is the recipient), 2 friends
+// chat (`to` is the channel's owner), 3 clan chat. Evidence kept before chat
+// logs had channels has none, and a recipient makes it a private message.
+function chatChannel(c) {
+    return c.channel ?? (c.to ? 1 : 0);
+}
+
+// Where a chat line went: a private message's recipient, the friends chat it
+// was said in (named by its owner), or the clan chat. `first` words it to
+// start a line.
+function chatWhere(c, link, first = false) {
+    const muted = (text) => h('span', {class: 'muted'}, text);
+    const lead = (text) => muted(first ? text[1].toUpperCase() + text.slice(2) : text);
+    switch (chatChannel(c)) {
+        case 1:
+            return [lead(' to '), link(c.to)];
+        case 2:
+            return [lead(' in '), link(c.to), muted("'s friends chat")];
+        case 3:
+            return lead(' in clan chat');
+        default:
+            return null;
+    }
 }
 
 // A list that loads a page at a time, newest first, with "Load older".
@@ -5558,8 +5582,8 @@ function evidenceItem(e, onRemove) {
             e.last_ms);
     }
     return row('chat', '',
-        [h('b', {}, playerLink(e.from)), e.to && [h('span', {class: 'muted'}, ' to '), h('b', {}, playerLink(e.to))]],
-        [h('span', {class: `chat-text ${e.to ? 'private' : ''}`}, e.message), h('br'), `${worldOf(e.node)} · ${fullTime(e.at_ms)}`],
+        [h('b', {}, playerLink(e.from)), chatWhere(e, (name) => h('b', {}, playerLink(name)))],
+        [h('span', {class: `chat-text ${chatChannel(e) === 1 ? 'private' : ''}`}, e.message), h('br'), `${worldOf(e.node)} · ${fullTime(e.at_ms)}`],
         e.at_ms);
 }
 
@@ -5684,7 +5708,7 @@ function evidenceDialog(c, onAdded) {
                     })),
                 `No recorded sessions of ${who}.`, (r) => r.started_ms],
             chat: [(before) => api('GET', `/lookup/chat?${query({name: who, before})}`),
-                (m) => pick('chat', [h('b', {}, m.from), m.to && [' to ', h('b', {}, m.to)], ': ', h('span', {class: `chat-text ${m.to ? 'private' : ''}`}, m.message)],
+                (m) => pick('chat', [h('b', {}, m.from), chatWhere(m, (name) => h('b', {}, name)), ': ', h('span', {class: `chat-text ${chatChannel(m) === 1 ? 'private' : ''}`}, m.message)],
                     `${worldOf(m.node)} · ${fullTime(m.at_ms)}`, add({type: 'chat', id: m.id})),
                 `No chat from ${who}.`, (m) => m.id],
         };
@@ -10090,11 +10114,13 @@ function timelineItem(e, name) {
                 }, icon('plus'), 'Restore'));
             break;
         }
-        case 'chat':
+        case 'chat': {
             iconName = 'chat';
-            title = e.other ? [h('span', {class: 'muted'}, 'To '), playerLink(e.other), ': ', e.text] : e.text;
-            sub = [e.other ? 'Private' : 'Public'];
+            const where = chatWhere({channel: e.event_type, to: e.other}, playerLink, true);
+            title = where ? [where, ': ', e.text] : e.text;
+            sub = e.detail ? [e.detail[0].toUpperCase() + e.detail.slice(1)] : [];
             break;
+        }
         case 'moderation': {
             const [verb, iconFor, toneFor] = MOD_VERBS[e.text] || [e.text, 'shield', ''];
             iconName = iconFor;

@@ -1,5 +1,6 @@
 use rs_io::Packet;
 use rs_io::crc::getcrc;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 const VERSION: u8 = 1;
@@ -72,7 +73,7 @@ impl WorldList {
         buf.psmart1or2(locations.len() as i32);
         for &(country, name) in &locations {
             buf.psmart1or2(country.into());
-            pjstr2(&mut buf, name);
+            buf.pjstr2(name, STRING_TERMINATOR);
         }
         buf.psmart1or2(first.into());
         buf.psmart1or2(last.into());
@@ -81,8 +82,11 @@ impl WorldList {
             buf.psmart1or2((w.id - first).into());
             buf.p1(location);
             buf.p4(if w.members { MEMBERS } else { 0 });
-            pjstr2(&mut buf, w.activity.as_deref().unwrap_or(NO_ACTIVITY));
-            pjstr2(&mut buf, &w.address);
+            buf.pjstr2(
+                w.activity.as_deref().unwrap_or(NO_ACTIVITY),
+                STRING_TERMINATOR,
+            );
+            buf.pjstr2(&w.address, STRING_TERMINATOR);
         }
         let checksum = match getcrc(&buf.data, 2, buf.pos) {
             0 => 1,
@@ -127,11 +131,6 @@ impl WorldList {
         buf.pdata(list, 0, list.len());
         buf.data
     }
-}
-
-fn pjstr2(buf: &mut Packet, s: &str) {
-    buf.p1(0);
-    buf.pjstr(s, 0);
 }
 
 #[cfg(test)]

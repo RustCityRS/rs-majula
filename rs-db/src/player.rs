@@ -1,5 +1,14 @@
-use crate::{Db, Error};
+use crate::{Db, Error, NAME_LOCK, xact_lock};
+use rs_util::base37::to_userhash;
+use sqlx::PgConnection;
 use std::net::IpAddr;
+use std::time::Duration;
+
+/// A millisecond count from the database, such as a mute's, as a
+/// [`Duration`], clamping negatives to zero.
+pub fn millis(ms: i64) -> Duration {
+    Duration::from_millis(ms.max(0) as u64)
+}
 
 /// What the game login needs to authenticate a player.
 #[derive(Debug, sqlx::FromRow)]
@@ -35,6 +44,27 @@ pub struct NewPlayer<'a> {
     pub registration_ip: Option<IpAddr>,
 }
 
+/// Whether player `o` holds `$name` (lowercase compared) as their display name,
+/// or as a previous display name still held (`display_name_hold_start`).
+macro_rules! holds_name {
+    ($name:literal) => {
+        concat!(
+            "(lower(o.display_name) = lower(",
+            $name,
+            ") OR (lower(o.previous_display_name) = lower(",
+            $name,
+            ") AND o.display_name_changed_at > display_name_hold_start()))"
+        )
+    };
+}
+
+/// Holds `name`, whatever its case, against every other registration and
+/// display name claim until the transaction on `conn` ends, so a check that it
+/// is free stays true until the write commits.
+async fn lock_name(conn: &mut PgConnection, name: &str) -> Result<(), Error> {
+    xact_lock(conn, NAME_LOCK, &name.to_lowercase()).await
+}
+
 impl Db {
     /// Looks up a player's credentials by base37 name, for a login to world
     /// `node_id`, with their membership, JCoins and last admitted login
@@ -46,18 +76,18 @@ impl Db {
         node_id: i16,
     ) -> Result<Option<Credentials>, Error> {
         sqlx::query_as(
-            "select * from (SELECT players.password_hash, players.staff_mod_level,
+            concat!("select * from (SELECT players.password_hash, players.staff_mod_level,
                     coalesce(players.banned_until > now(), false) AS banned,
                     CASE WHEN players.muted_until > now()
-                         THEN (extract(epoch FROM players.muted_until - now()) * 1000)::bigint
+                         THEN ", ms!("players.muted_until - now()"), "
                     END AS muted_ms,
                     CASE WHEN players.last_logout_node <> $2
-                         THEN (extract(epoch FROM now() - players.last_logout_at) * 1000)::bigint
+                         THEN ", ms!("now() - players.last_logout_at"), "
                     END AS left_other_world_ms,
-                    (extract(epoch FROM now() - players.created_at) * 1000)::bigint AS age_ms,
+                    ", ms!("now() - players.created_at"), " AS age_ms,
                     (SELECT count(*) FROM staff_messages m
                      WHERE m.player_id = players.id AND m.read_at IS NULL) AS unread_messages,
-                    (extract(epoch FROM prev.created_at) * 1000)::bigint AS last_login_ms,
+                    ", ms!("prev.created_at"), " AS last_login_ms,
                     CASE WHEN family(prev.ip) = 4 THEN prev.ip - '0.0.0.0'::inet END AS last_login_ipv4,
                     coalesce(d.subscribed OR d.members_until > now(), false) AS member,
                     coalesce(d.jcoins, 0) AS jcoins
@@ -67,7 +97,7 @@ impl Db {
                                 WHERE l.player_id = players.id AND l.refused IS NULL
                                   AND (l.node_id >= 0 OR $2 < 0)
                                 ORDER BY l.created_at DESC LIMIT 1) prev ON true
-             WHERE players.name_hash = $1) p",
+             WHERE players.name_hash = $1) p"),
         )
         .bind(name_hash as i64)
         .bind(node_id)
@@ -88,21 +118,30 @@ impl Db {
         Ok(())
     }
 
-    /// Registers a player. Returns `false` if the name is already taken.
+    /// Registers a player. Returns `false` if the name is already taken, as a
+    /// name or as another player's display name or held previous display name,
+    /// or if the display name is another player's name.
     pub async fn create_player(&self, player: &NewPlayer<'_>) -> Result<bool, Error> {
-        let result = sqlx::query(
+        let mut tx = self.pool.begin().await?;
+        lock_name(&mut tx, player.display_name).await?;
+        let result = sqlx::query(concat!(
             "INSERT INTO players
                  (name_hash, display_name, password_hash, staff_mod_level, registration_ip)
-             VALUES ($1, $2, $3, $4, $5::inet)
-             ON CONFLICT (name_hash) DO NOTHING",
-        )
+             SELECT $1, $2, $3, $4, $5::inet
+             WHERE NOT EXISTS (SELECT 1 FROM players o WHERE o.name_hash = $6 OR ",
+            holds_name!("$2"),
+            ")
+             ON CONFLICT (name_hash) DO NOTHING"
+        ))
         .bind(player.name_hash as i64)
         .bind(player.display_name)
         .bind(player.password_hash)
         .bind(player.staff_mod_level)
         .bind(player.registration_ip.map(|ip| ip.to_string()))
-        .execute(&self.pool)
+        .bind(to_userhash(player.display_name) as i64)
+        .execute(&mut *tx)
         .await?;
+        tx.commit().await?;
         Ok(result.rows_affected() == 1)
     }
 
@@ -116,12 +155,13 @@ impl Db {
         hours: i32,
         by_level: i16,
     ) -> Result<Option<i64>, Error> {
-        sqlx::query_scalar(
+        sqlx::query_scalar(concat!(
             "UPDATE players
              SET muted_until = greatest(muted_until, now() + make_interval(hours => $2))
              WHERE name_hash = $1 AND staff_mod_level < $3
-             RETURNING (extract(epoch FROM muted_until - now()) * 1000)::bigint",
-        )
+             RETURNING ",
+            ms!("muted_until - now()")
+        ))
         .bind(name_hash as i64)
         .bind(hours)
         .bind(by_level)
@@ -147,14 +187,16 @@ impl Db {
     /// The current mute and ban of each of `names` that is registered.
     pub async fn sanctions(&self, names: &[u64]) -> Result<Vec<Sanctions>, Error> {
         let names: Vec<i64> = names.iter().map(|&h| h as i64).collect();
-        let rows: Vec<(i64, Option<i64>, bool)> = sqlx::query_as(
+        let rows: Vec<(i64, Option<i64>, bool)> = sqlx::query_as(concat!(
             "SELECT name_hash,
                     CASE WHEN muted_until > now()
-                         THEN (extract(epoch FROM muted_until - now()) * 1000)::bigint
+                         THEN ",
+            ms!("muted_until - now()"),
+            "
                     END,
                     coalesce(banned_until > now(), false)
-             FROM players WHERE name_hash = ANY($1)",
-        )
+             FROM players WHERE name_hash = ANY($1)"
+        ))
         .bind(&names)
         .fetch_all(&self.pool)
         .await?;
@@ -168,11 +210,18 @@ impl Db {
             .collect())
     }
 
-    pub async fn name_taken(&self, name_hash: u64) -> Result<bool, Error> {
-        sqlx::query_scalar("SELECT EXISTS (SELECT 1 FROM players WHERE name_hash = $1)")
-            .bind(name_hash as i64)
-            .fetch_one(&self.pool)
-            .await
+    /// Whether `name` is registered, or is another player's display name or
+    /// held previous display name.
+    pub async fn name_taken(&self, name: &crate::PlayerName) -> Result<bool, Error> {
+        sqlx::query_scalar(concat!(
+            "SELECT EXISTS (SELECT 1 FROM players o WHERE o.name_hash = $1 OR ",
+            holds_name!("$2"),
+            ")"
+        ))
+        .bind(name.hash as i64)
+        .bind(&name.display)
+        .fetch_one(&self.pool)
+        .await
     }
 
     /// How many players were registered from `ip` in the last `hours`. An
@@ -202,10 +251,12 @@ impl Db {
         name_hash: u64,
         name: &crate::PlayerName,
     ) -> Result<bool, Error> {
-        let taken: bool = sqlx::query_scalar(
-            "SELECT EXISTS (SELECT 1 FROM players
-             WHERE name_hash <> $1 AND (name_hash = $2 OR lower(display_name) = lower($3)))",
-        )
+        let taken: bool = sqlx::query_scalar(concat!(
+            "SELECT EXISTS (SELECT 1 FROM players o
+             WHERE o.name_hash <> $1 AND (o.name_hash = $2 OR ",
+            holds_name!("$3"),
+            "))"
+        ))
         .bind(name_hash as i64)
         .bind(name.hash as i64)
         .bind(&name.display)
@@ -222,18 +273,27 @@ impl Db {
         name_hash: u64,
         name: &crate::PlayerName,
     ) -> Result<bool, Error> {
-        let result = sqlx::query(
-            "UPDATE players SET display_name = $3
+        let mut tx = self.pool.begin().await?;
+        lock_name(&mut tx, &name.display).await?;
+        let result = sqlx::query(concat!(
+            "UPDATE players SET
+                 previous_display_name = CASE WHEN lower(display_name) = lower($3)
+                     THEN previous_display_name ELSE display_name END,
+                 display_name_changed_at = CASE WHEN lower(display_name) = lower($3)
+                     THEN display_name_changed_at ELSE now() END,
+                 display_name = $3
              WHERE name_hash = $1 AND NOT EXISTS (
                  SELECT 1 FROM players o
-                 WHERE o.name_hash <> $1
-                   AND (o.name_hash = $2 OR lower(o.display_name) = lower($3)))",
-        )
+                 WHERE o.name_hash <> $1 AND (o.name_hash = $2 OR ",
+            holds_name!("$3"),
+            "))"
+        ))
         .bind(name_hash as i64)
         .bind(name.hash as i64)
         .bind(&name.display)
-        .execute(&self.pool)
+        .execute(&mut *tx)
         .await?;
+        tx.commit().await?;
         Ok(result.rows_affected() == 1)
     }
 

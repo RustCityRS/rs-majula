@@ -3,13 +3,6 @@ use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 use std::slice;
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// A session a world started recording.
 #[derive(Debug)]
 pub struct NewReplay {

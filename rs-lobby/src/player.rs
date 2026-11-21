@@ -1,23 +1,33 @@
 use crate::script::LobbyVm;
-use rs_engine::ClientHandle;
+use rs_db::ChatLog;
+use rs_engine::social::{
+    self, CHAT_MODE_GUEST_CLAN, CHAT_TEXT, ChatTarget, MAX_PRIVATE_CHARS, Social, SocialClient,
+    SocialRequest, chat_filters_valid, name_key,
+};
+use rs_engine::{ClientHandle, EtherOutbound, MAX_CHAT_CHARS, SubTable, chat_bytes, chat_text};
 use rs_pack::cache::VarValue;
 use rs_pack::startup::LobbyAssets;
 use rs_pack::types::IfEvents;
 use rs_protocol::network::game::client::ClientProtMessage;
 use rs_protocol::network::game::client_prot::*;
+use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::cam_smoothreset::CamSmoothreset;
 use rs_protocol::network::game::server::if_closesub::IfClosesub;
 use rs_protocol::network::game::server::if_opensub::IfOpensub;
 use rs_protocol::network::game::server::logout_full::LogoutFull;
+use rs_protocol::network::game::server::message_game::MessageGame;
 use rs_protocol::world_list::WorldList;
 use rs_vm::trigger::ServerTriggerType;
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::time::{Duration, Instant};
+use tokio::sync::mpsc::UnboundedSender;
 use tracing::warn;
 
 const SESSION_LIMIT: Duration = Duration::from_secs(3600);
 const NO_RESPONSE: Duration = Duration::from_secs(60);
+/// One chat message a game tick, as on a world.
+const CHAT_GAP: Duration = Duration::from_millis(600);
 
 pub(crate) struct LobbyPlayer {
     pub handle: ClientHandle,
@@ -25,11 +35,19 @@ pub(crate) struct LobbyPlayer {
     pub ip: IpAddr,
     pub client_session: i64,
     pub member: bool,
+    pub chat_filters: [u8; 3],
+    pub display: String,
+    pub staff: u8,
+    pub muted_until: Option<Instant>,
+    pub social: Social,
+    pub chat_logs: Vec<ChatLog>,
+    chat_mode: u8,
+    last_chat: Option<Instant>,
     pub entered: Instant,
     last_response: Instant,
     pub top: u16,
-    pub subs: HashMap<i32, (u16, u8)>,
-    pub events: HashMap<(i32, u16), IfEvents>,
+    pub subs: SubTable,
+    modals: Vec<i32>,
     pub varps: HashMap<u16, VarValue>,
     pub varcs: HashMap<u16, i32>,
     pub strings: HashMap<u16, String>,
@@ -57,11 +75,19 @@ impl LobbyPlayer {
             ip,
             client_session,
             member: false,
+            chat_filters: [0; 3],
+            display: String::new(),
+            staff: 0,
+            muted_until: None,
+            social: Social::default(),
+            chat_logs: Vec::new(),
+            chat_mode: 0,
+            last_chat: None,
             entered,
             last_response: entered,
             top,
-            subs: HashMap::new(),
-            events: HashMap::new(),
+            subs: SubTable::default(),
+            modals: Vec::new(),
             varps: HashMap::new(),
             varcs: HashMap::new(),
             strings: HashMap::new(),
@@ -71,8 +97,7 @@ impl LobbyPlayer {
     }
 
     pub fn open_sub(&mut self, com: i32, interface: u16, kind: u8) {
-        self.close_children(com);
-        self.subs.insert(com, (interface, kind));
+        self.subs.opened(com, interface, kind);
         self.handle.write(IfOpensub {
             interface,
             com,
@@ -82,50 +107,48 @@ impl LobbyPlayer {
         });
     }
 
-    pub(crate) fn close_children(&mut self, com: i32) {
-        let Some((id, _)) = self.subs.remove(&com) else {
-            return;
-        };
-        self.events
-            .retain(|&(c, _), _| (c as u32 >> 16) != u32::from(id));
-        let children: Vec<_> = self
-            .subs
-            .keys()
-            .copied()
-            .filter(|&c| c as u32 >> 16 == u32::from(id))
-            .collect();
-        for child in children {
-            self.close_children(child);
+    /// Opens a main, chat or side modal on `com`, which
+    /// [`close_modals`](Self::close_modals) closes.
+    pub fn open_modal(&mut self, com: i32, interface: u16, kind: u8) {
+        if !self.modals.contains(&com) {
+            self.modals.push(com);
         }
+        self.open_sub(com, interface, kind);
     }
 
     pub fn close_sub(&mut self, com: i32) {
-        self.close_children(com);
+        self.subs.closed(com);
         self.handle.write(IfClosesub { com });
     }
 
-    pub fn close_modals(&mut self) {
-        let modals: Vec<_> = self
-            .subs
+    /// The interfaces open as modals.
+    pub fn open_modals(&self) -> impl Iterator<Item = u16> + '_ {
+        self.modals
             .iter()
-            .filter(|(_, (_, kind))| *kind == 0)
-            .map(|(&c, _)| c)
-            .collect();
-        for com in modals {
-            self.close_sub(com);
+            .filter_map(|com| self.subs.open.get(com).map(|&(id, _)| id))
+    }
+
+    /// Closes the main, chat and side modals, as a world's `if_close` does,
+    /// and returns the interfaces closed.
+    pub fn close_modals(&mut self) -> Vec<u16> {
+        let mut closed = Vec::new();
+        for com in std::mem::take(&mut self.modals) {
+            if let Some(&(id, _)) = self.subs.open.get(&com) {
+                closed.push(id);
+                self.close_sub(com);
+            }
         }
+        closed
     }
 
     fn component_events(&self, assets: &LobbyAssets, com: i32, slot: u16) -> Option<IfEvents> {
-        let group = (com as u32 >> 16) as u16;
-        if group != self.top && !self.subs.values().any(|&(id, _)| id == group) {
+        if !self.subs.is_open(self.top, (com as u32 >> 16) as u16) {
             return None;
         }
         let component = assets.interfaces.get_by_id(com)?;
-        self.events
-            .get(&(com, slot))
-            .copied()
-            .or_else(|| (slot == u16::MAX).then_some(IfEvents(component.active_properties)))
+        self.subs
+            .events(com, slot, component.active_properties)
+            .map(IfEvents)
     }
 
     pub fn tick(
@@ -134,6 +157,7 @@ impl LobbyPlayer {
         assets: &LobbyAssets,
         vm: &LobbyVm,
         worlds: &WorldList,
+        ether: &UnboundedSender<EtherOutbound>,
     ) -> Option<Disconnect> {
         if session_expired(self.entered, self.last_response, now) || self.handle.backlogged() {
             self.handle.write(LogoutFull);
@@ -172,8 +196,17 @@ impl LobbyPlayer {
                     }
                 }};
             }
+            macro_rules! request {
+                ($request:ident) => {{
+                    if let Some(message) = $request::decode(&mut buf, len).ether(self) {
+                        let _ = ether.send(message);
+                    }
+                }};
+            }
             match prot {
-                ClientProt::NoTimeout => self.handle.write(CamSmoothreset),
+                ClientProt::NoTimeout => {
+                    self.handle.write(CamSmoothreset);
+                }
                 ClientProt::WorldlistFetch if !sent_worlds => {
                     sent_worlds = true;
                     let checksum = WorldlistFetch::decode(&mut buf, len).checksum;
@@ -203,15 +236,38 @@ impl LobbyPlayer {
                         self.trigger(assets, vm, ServerTriggerType::InvButtonD, Some(b.com));
                     }
                 }
+                ClientProt::FriendListAdd => request!(FriendListAdd),
+                ClientProt::FriendListDel => request!(FriendListDel),
+                ClientProt::IgnoreListAdd => request!(IgnoreListAdd),
+                ClientProt::IgnoreListDel => request!(IgnoreListDel),
+                ClientProt::FriendSetRank => request!(FriendSetRank),
+                ClientProt::ClanJoinchatLeavechat => request!(ClanJoinchatLeavechat),
+                ClientProt::ClanKickUser => request!(ClanKickUser),
+                ClientProt::ClanchannelKickUser => request!(ClanchannelKickUser),
+                #[cfg(since_742)]
+                ClientProt::AffinedClansettingsAddBannedFromChannel => {
+                    request!(AffinedClansettingsAddBannedFromChannel)
+                }
+                ClientProt::ChatSetMode => {
+                    let mode = ChatSetMode::decode(&mut buf, len).mode;
+                    if mode <= CHAT_MODE_GUEST_CLAN {
+                        self.chat_mode = mode;
+                    }
+                }
+                ClientProt::SetChatfiltersettings => {
+                    let f = SetChatfiltersettings::decode(&mut buf, len);
+                    self.set_chat_filters(f.public, f.private, f.trade, ether);
+                }
+                ClientProt::MessagePrivate => {
+                    let pm = MessagePrivate::decode(&mut buf, len);
+                    self.private_chat(now, assets, pm, ether);
+                }
+                ClientProt::MessagePublic => {
+                    let chat = MessagePublic::decode(&mut buf, len);
+                    self.channel_chat(now, assets, chat, ether);
+                }
                 ClientProt::CloseModal => {
-                    let modals: Vec<_> = self
-                        .subs
-                        .values()
-                        .filter(|(_, kind)| *kind == 0)
-                        .map(|&(id, _)| id)
-                        .collect();
-                    self.close_modals();
-                    for id in modals {
+                    for id in self.close_modals() {
                         self.trigger(assets, vm, ServerTriggerType::IfClose, Some(id.into()));
                     }
                 }
@@ -221,6 +277,135 @@ impl LobbyPlayer {
         }
         self.handle.flush();
         None
+    }
+}
+
+impl LobbyPlayer {
+    /// Whether the player said something under a game tick ago.
+    fn chat_limited(&self, now: Instant) -> bool {
+        self.last_chat
+            .is_some_and(|last| now.duration_since(last) < CHAT_GAP)
+    }
+
+    fn muted(&self, now: Instant) -> bool {
+        self.muted_until.is_some_and(|until| until > now)
+    }
+
+    /// A private message, as a world sends one: within a game tick of other
+    /// chat, from a muted player, or to a name the client would never send,
+    /// it is dropped.
+    fn private_chat(
+        &mut self,
+        now: Instant,
+        assets: &LobbyAssets,
+        pm: MessagePrivate,
+        ether: &UnboundedSender<EtherOutbound>,
+    ) {
+        let chars = pm.chars as usize;
+        if self.chat_limited(now) || !(1..=MAX_PRIVATE_CHARS).contains(&chars) || self.muted(now) {
+            return;
+        }
+        let Some(name) = name_key(&pm.name) else {
+            return;
+        };
+        let Some(text) = chat_text(&assets.huffman, pm.bytes, chars) else {
+            return;
+        };
+        let payload = chat_bytes(&assets.huffman, &assets.wordenc, &text);
+        self.last_chat = Some(now);
+        let message = social::say(self, ChatTarget::Friend(name), CHAT_TEXT, payload, text);
+        let _ = ether.send(message);
+    }
+
+    /// Typed chat in the lobby goes to the friends chat or a clan chat; the
+    /// lobby has no public chat.
+    fn channel_chat(
+        &mut self,
+        now: Instant,
+        assets: &LobbyAssets,
+        chat: MessagePublic,
+        ether: &UnboundedSender<EtherOutbound>,
+    ) {
+        let chars = chat.chars as usize;
+        if self.chat_limited(now)
+            || chat.colour > 11
+            || chat.effect > 5
+            || !(1..=MAX_CHAT_CHARS).contains(&chars)
+        {
+            return;
+        }
+        let Some(target) = social::channel_target(self, self.chat_mode) else {
+            return;
+        };
+        if self.muted(now) {
+            return;
+        }
+        let Some(text) = chat_text(&assets.huffman, chat.bytes, chars) else {
+            return;
+        };
+        let payload = chat_bytes(&assets.huffman, &assets.wordenc, &text);
+        self.last_chat = Some(now);
+        let message = social::say(self, target, CHAT_TEXT, payload, text);
+        let _ = ether.send(message);
+    }
+
+    /// The public, private and trade filters, as a world sets them: a value
+    /// out of range drops the change. The account keeps them when the player
+    /// leaves the lobby.
+    pub fn set_chat_filters(
+        &mut self,
+        public: u8,
+        private: u8,
+        trade: u8,
+        ether: &UnboundedSender<EtherOutbound>,
+    ) {
+        if !chat_filters_valid(public, private, trade) {
+            return;
+        }
+        self.chat_filters = [public, private, trade];
+        self.send_chat_filters(public, private, trade);
+        let _ = ether.send(EtherOutbound::ChatModeUpdate {
+            user37: self.user37,
+            private_mode: private,
+        });
+    }
+}
+
+impl SocialClient for LobbyPlayer {
+    fn write<M: ServerProtMessage>(&mut self, message: M) {
+        self.handle.write(message);
+    }
+
+    fn social(&mut self) -> &mut Social {
+        &mut self.social
+    }
+
+    fn social_message(&mut self, kind: i32, text: &str) {
+        self.handle.write(MessageGame { kind, text });
+    }
+
+    fn log_chat(&mut self, channel: i16, to37: Option<u64>, text: String) {
+        self.chat_logs.push(ChatLog {
+            name_hash: self.user37,
+            channel,
+            to_name_hash: to37,
+            x: 0,
+            z: 0,
+            y: 0,
+            message: text,
+        });
+    }
+
+    fn user37(&self) -> u64 {
+        self.user37
+    }
+
+    fn tier(&self) -> u8 {
+        self.staff.min(2)
+    }
+
+    fn shown_name(&self) -> String {
+        self.display.clone()
     }
 }
 

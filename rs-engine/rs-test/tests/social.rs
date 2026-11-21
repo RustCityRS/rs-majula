@@ -17,8 +17,9 @@ mod client_packet;
 
 use client_packet::ClientPacket;
 use rs_engine::harness::HarnessClient;
-use rs_engine::{Engine, EtherOutbound};
-use rs_entity::player::{CHAT_MODE_CLAN, CHAT_MODE_PUBLIC};
+use rs_engine::social::{ChannelMember, FriendChannel, NamedFriend, NamedIgnore};
+use rs_engine::{Engine, EtherInbound, EtherOutbound};
+use rs_entity::player::{CHAT_MODE_CLAN, CHAT_MODE_FRIENDS_CHAT, CHAT_MODE_PUBLIC};
 use rs_pack::types::PlayerStat;
 use rs_protocol::network::game::client::chat_setmode::ChatSetMode;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
@@ -33,7 +34,7 @@ use rs_util::base37::to_userhash;
 use rs_ver::TypeId;
 use std::iter;
 use std::time::{Duration, Instant};
-use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
+use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 
 #[test]
 fn social_packets_reach_their_647_handlers() {
@@ -44,7 +45,9 @@ fn social_packets_reach_their_647_handlers() {
         friends_and_ignores_go_by_name(engine);
         quick_chat_fills_in_what_the_server_knows(engine);
         quick_chat_takes_what_the_dialogs_offer(engine);
-        private_chat_echoes_to_the_sender(engine);
+        private_chat_goes_through_ether(engine);
+        lists_come_named_from_ether(engine);
+        friends_chat_follows_ether(engine);
     });
 }
 
@@ -203,18 +206,22 @@ fn quick_chat_takes_what_the_dialogs_offer(engine: &mut Engine) {
         .collect();
     assert_eq!(
         clan_lines,
-        [(11, "You must be in a clan chat to talk.".to_string())]
+        [(
+            11,
+            "You are not currently in a friends chat channel.".to_string()
+        )]
     );
 }
 
 /// `MESSAGE_PRIVATE` (CS2 op 5009: `pjstr(name)`, smart char count, huffman)
 /// and `MESSAGE_QUICKCHAT_PRIVATE` (op 5060: `pjstr(name) p2(phrase)`, then
-/// the values) name a friend, who gets nothing yet: ether relays no 647
-/// chat. The sender gets the filtered message back; a muted sender only its
-/// quick chat. One for a name not on the friends list is dropped.
-fn private_chat_echoes_to_the_sender(engine: &mut Engine) {
-    let (mut client, mut ether) = session(engine, "social_private");
+/// the values) go to ether by the name as the client compares names; a muted
+/// sender only sends its quick chat. The echo waits for ether's verdict: the
+/// filtered text once delivered, else why it wasn't.
+fn private_chat_goes_through_ether(engine: &mut Engine) {
+    let (mut client, mut ether, inbound) = session_with_inbound(engine, "social_private");
     let pid = client.pid;
+    let me = to_userhash("social_private");
     engine.harness_player_mut(pid).unwrap().stats.base_levels[PlayerStat::Attack as usize] = 63;
     let huffman = |engine: &Engine, text: &[u8]| {
         let mut bytes = vec![0u8; text.len() * 2 + 1];
@@ -236,59 +243,309 @@ fn private_chat_echoes_to_the_sender(engine: &mut Engine) {
         id: TypeId::new(ATTACK_LEVEL),
         bytes: vec![0],
     };
-    let mut name = ClientPacket::new();
-    name.pjstr("Mod Ash");
-    let echoes = |client: &mut HarnessClient, engine: &mut Engine| {
-        engine.harness_inputs();
-        engine.cycle();
-        client
-            .packets()
-            .into_iter()
-            .filter(|(op, _)| {
-                [
-                    ServerProt::MessagePrivateEcho as u16,
-                    ServerProt::MessageQuickchatPrivateEcho as u16,
-                ]
-                .contains(op)
-            })
-            .collect::<Vec<_>>()
-    };
+    drain(&mut ether);
     client.packets();
 
     client.send_msg(&typed(engine));
-    client.send_msg(&phrase);
-    assert!(echoes(&mut client, engine).is_empty(), "not a friend");
-
-    engine
-        .get_player_mut(pid)
-        .unwrap()
-        .friends
-        .push(to_userhash("Mod Ash") as i64);
-    client.send_msg(&typed(engine));
-    let mut body = name.finish();
-    body.extend(huffman(engine, b"Hello"));
+    engine.harness_inputs();
+    let sent = drain(&mut ether);
+    let (seq, payload) = match &sent[..] {
+        [
+            EtherOutbound::PmSend {
+                sender37,
+                seq,
+                tier: 0,
+                kind: 0,
+                name,
+                payload,
+            },
+        ] if *sender37 == me && name == "mod_ash" => (*seq, payload.clone()),
+        other => panic!("one private message for ether: {other:?}"),
+    };
     assert_eq!(
-        echoes(&mut client, engine),
-        [(ServerProt::MessagePrivateEcho as u16, body)],
-        "the name, then the text capitalised"
+        payload,
+        huffman(engine, b"Hello"),
+        "the filtered text, capitalised"
+    );
+    engine.cycle();
+    assert!(
+        !client
+            .packets()
+            .iter()
+            .any(|(op, _)| *op == ServerProt::MessagePrivateEcho as u16),
+        "no echo before ether delivers it"
+    );
+
+    let result = |seq, code, kind, payload: Vec<u8>| EtherInbound::PmResult {
+        sender37: me,
+        seq,
+        target37: to_userhash("Mod Ash"),
+        code,
+        kind,
+        target: "Mod Ash".into(),
+        payload,
+    };
+    inbound.send(result(seq, 0, 0, payload.clone())).unwrap();
+    engine.cycle();
+    let mut name = ClientPacket::new();
+    name.pjstr("Mod Ash");
+    let mut echo = name.finish();
+    echo.extend(payload);
+    let packets = client.packets();
+    assert!(
+        packets.contains(&(ServerProt::MessagePrivateEcho as u16, echo)),
+        "the echo once delivered"
+    );
+
+    inbound
+        .send(result(seq.wrapping_add(1), 1, 0, vec![1, 2]))
+        .unwrap();
+    engine.cycle();
+    assert!(
+        HarnessClient::game_messages(&client.packets()).contains(&(
+            30,
+            "That player is offline, or has privacy mode enabled.".to_string()
+        )),
+        "why it wasn't delivered"
     );
 
     engine.get_player_mut(pid).unwrap().muted_until =
         Some(Instant::now() + Duration::from_secs(60));
     client.send_msg(&typed(engine));
+    engine.harness_inputs();
+    engine.cycle();
     client.send_msg(&phrase);
-    let mut body = name.finish();
-    body.extend([0, ATTACK_LEVEL as u8, 63]);
+    engine.harness_inputs();
+    let sent = drain(&mut ether);
+    assert!(
+        matches!(&sent[..], [EtherOutbound::PmSend { kind: 1, name, payload, .. }]
+            if name == "mod_ash" && payload == &[0, ATTACK_LEVEL as u8, 63]),
+        "only the phrase, with the level: {sent:?}"
+    );
+}
+
+/// Ether's named lists become the client's: the friends list loads even when
+/// empty, worlds read "RuneScape N" and lobbies "Lobby N", and temporary
+/// ignores keep their flag.
+fn lists_come_named_from_ether(engine: &mut Engine) {
+    let (mut client, _ether, inbound) = session_with_inbound(engine, "social_named");
+    let me = to_userhash("social_named");
+    client.packets();
+
+    inbound
+        .send(EtherInbound::Friends {
+            target37: me,
+            friends: vec![],
+        })
+        .unwrap();
+    inbound
+        .send(EtherInbound::Friends {
+            target37: me,
+            friends: vec![
+                NamedFriend {
+                    renamed: false,
+                    name: "Mod Ash".into(),
+                    prev: String::new(),
+                    world: 1100,
+                    members: false,
+                    rank: 2,
+                },
+                NamedFriend {
+                    renamed: false,
+                    name: "Zezima".into(),
+                    prev: "Old".into(),
+                    world: 0,
+                    members: false,
+                    rank: 0,
+                },
+            ],
+        })
+        .unwrap();
+    inbound
+        .send(EtherInbound::Ignores {
+            target37: me,
+            full: true,
+            ignores: vec![
+                NamedIgnore {
+                    flags: 0,
+                    name: "Spammer".into(),
+                    prev: String::new(),
+                },
+                NamedIgnore {
+                    flags: 2,
+                    name: "Rude".into(),
+                    prev: String::new(),
+                },
+            ],
+        })
+        .unwrap();
+    engine.cycle();
+    let packets = client.packets();
+    let friends: Vec<_> = packets
+        .iter()
+        .filter(|(op, _)| *op == ServerProt::UpdateFriendlist as u16)
+        .map(|(_, body)| body.clone())
+        .collect();
+    assert_eq!(friends.len(), 2, "the empty list too");
+    assert!(friends[0].is_empty());
+    let mut entry = ClientPacket::new();
+    entry.p1(0);
+    entry.pjstr("Mod Ash");
+    entry.pjstr("");
+    entry.p2(1100);
+    entry.p1(2);
+    #[cfg(since_742)]
+    entry.p1(0);
+    entry.pjstr("Lobby 1");
+    entry.p1(1);
+    #[cfg(since_742)]
+    entry.p4(0);
+    let entry = entry.finish();
+    assert_eq!(friends[1][..entry.len()], entry[..], "a lobby friend");
+
+    #[cfg(before_742)]
+    {
+        let full: Vec<_> = packets
+            .iter()
+            .filter(|(op, _)| *op == ServerProt::UpdateIgnorelistFull as u16)
+            .collect();
+        let partial: Vec<_> = packets
+            .iter()
+            .filter(|(op, _)| *op == ServerProt::UpdateIgnorelistPartial as u16)
+            .collect();
+        assert_eq!(full.len(), 1);
+        assert_eq!(full[0].1[0], 1, "the permanent ignore");
+        assert_eq!(partial.len(), 1);
+        assert_eq!(partial[0].1[0], 2, "then the temporary one, flagged");
+    }
+    #[cfg(since_742)]
+    {
+        let lists: Vec<_> = packets
+            .iter()
+            .filter(|(op, _)| *op == ServerProt::UpdateIgnoreList as u16)
+            .collect();
+        assert_eq!(lists.len(), 1);
+        assert_eq!(lists[0].1[0], 0);
+    }
+}
+
+/// A friends chat as ether keeps it: the channel arrives whole, members join
+/// and leave one at a time (never before the channel, which the client can't
+/// take), typed chat in friends chat mode goes to ether, and its quick chat
+/// counts the channel's members.
+fn friends_chat_follows_ether(engine: &mut Engine) {
+    let (mut client, mut ether, inbound) = session_with_inbound(engine, "social_fc");
+    let me = to_userhash("social_fc");
+    let member = |name: &str, world, rank| ChannelMember {
+        name: name.into(),
+        world,
+        rank,
+        combat: 100,
+    };
+    client.packets();
+
+    inbound
+        .send(EtherInbound::FriendchatUser {
+            target37: me,
+            member: member("Zezima", 1, 0),
+        })
+        .unwrap();
+    engine.cycle();
+    assert!(
+        !client
+            .packets()
+            .iter()
+            .any(|(op, _)| *op == ServerProt::UpdateFriendchatChannelSingleuser as u16),
+        "no member before the channel"
+    );
+
+    inbound
+        .send(EtherInbound::FriendchatChannel {
+            target37: me,
+            channel: Some(FriendChannel {
+                owner37: to_userhash("Mod Ash"),
+                owner: "Mod Ash".into(),
+                channel37: to_userhash("Spoons") as i64,
+                min_kick: 7,
+                members: vec![member("Social Fc", 1, 0)],
+            }),
+        })
+        .unwrap();
+    inbound
+        .send(EtherInbound::FriendchatUser {
+            target37: me,
+            member: member("Zezima", 1100, 3),
+        })
+        .unwrap();
+    inbound
+        .send(EtherInbound::FriendchatUser {
+            target37: me,
+            member: member("Zezima", 1100, -128),
+        })
+        .unwrap();
+    engine.cycle();
+    let ops: Vec<u16> = client.packets().into_iter().map(|(op, _)| op).collect();
+    let fc: Vec<u16> = ops
+        .into_iter()
+        .filter(|op| {
+            [
+                ServerProt::UpdateFriendchatChannelFull as u16,
+                ServerProt::UpdateFriendchatChannelSingleuser as u16,
+            ]
+            .contains(op)
+        })
+        .collect();
     assert_eq!(
-        echoes(&mut client, engine),
-        [(ServerProt::MessageQuickchatPrivateEcho as u16, body)],
-        "only the phrase, with the level"
+        fc,
+        [
+            ServerProt::UpdateFriendchatChannelFull as u16,
+            ServerProt::UpdateFriendchatChannelSingleuser as u16,
+            ServerProt::UpdateFriendchatChannelSingleuser as u16
+        ],
+        "the channel, the join, the leave"
+    );
+
+    drain(&mut ether);
+    client.send_msg(&ChatSetMode {
+        mode: CHAT_MODE_FRIENDS_CHAT,
+    });
+    let text = b"Hello";
+    let mut huffman = vec![0u8; text.len() * 2 + 1];
+    let len = engine.cache.huffman.encode(text, &mut huffman);
+    client.send_msg(&MessagePublic {
+        colour: 0,
+        effect: 0,
+        chars: text.len() as u16,
+        bytes: huffman[..len].to_vec(),
+    });
+    engine.harness_inputs();
+    let sent = drain(&mut ether);
+    assert!(
+        matches!(&sent[..], [EtherOutbound::FriendchatSay { user37, kind: 0, .. }] if *user37 == me),
+        "friends chat mode talks to ether: {sent:?}"
     );
     assert!(
-        !drain(&mut ether)
-            .iter()
-            .any(|m| matches!(m, EtherOutbound::PrivateMessage { .. })),
-        "nothing for ether"
+        engine
+            .harness_player(client.pid)
+            .unwrap()
+            .info
+            .chat_bytes
+            .is_none(),
+        "and not in public chat"
+    );
+    engine.cycle();
+
+    // chatphrase_1093: "There are <acc_getcount_world> amount of people in my friends chat."
+    client.send(
+        ClientProt::MessageQuickchatPublic,
+        &[1, (1093 >> 8) as u8, 1093u16 as u8],
+    );
+    engine.harness_inputs();
+    let sent = drain(&mut ether);
+    assert!(
+        matches!(&sent[..], [EtherOutbound::FriendchatSay { kind: 1, payload, .. }]
+            if payload == &[(1093 >> 8) as u8, 1093u16 as u8, 1]),
+        "the member count: {sent:?}"
     );
 }
 
@@ -300,6 +557,21 @@ fn session(engine: &mut Engine, name: &str) -> (HarnessClient, UnboundedReceiver
     engine.ether_tx = Some(tx);
     let client = engine.harness_login_returning(name).expect("login");
     (client, rx)
+}
+
+/// [`session`], with a way to send the engine ether frames.
+fn session_with_inbound(
+    engine: &mut Engine,
+    name: &str,
+) -> (
+    HarnessClient,
+    UnboundedReceiver<EtherOutbound>,
+    UnboundedSender<EtherInbound>,
+) {
+    let (client, rx) = session(engine, name);
+    let (tx, inbound) = unbounded_channel();
+    engine.ether_rx = inbound;
+    (client, rx, tx)
 }
 
 fn drain(rx: &mut UnboundedReceiver<EtherOutbound>) -> Vec<EtherOutbound> {
@@ -353,8 +625,10 @@ fn a_filter_out_of_range_drops_the_packet(engine: &mut Engine) {
     assert_eq!(player.chat_filters, 0, "filters unchanged");
 }
 
-/// `CHAT_SETMODE` (CS2 op 5006) picks where typed chat goes. In clan mode a
-/// message does not reach public chat: there is no clan chat to be in.
+/// `CHAT_SETMODE` (CS2 op 5006) picks where typed chat goes. In friends chat
+/// mode a message does not reach public chat, and with no channel the player
+/// is told so; in clan mode with no clan it goes nowhere. A mode past the
+/// guest clan chat is ignored.
 fn chat_mode_routes_typed_chat(engine: &mut Engine) {
     let (mut client, _ether) = session(engine, "social_mode");
     let say = |engine: &Engine| {
@@ -370,17 +644,37 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
         }
     };
 
+    client.packets();
     client.send_msg(&ChatSetMode {
-        mode: CHAT_MODE_CLAN,
+        mode: CHAT_MODE_FRIENDS_CHAT,
     });
     client.send_msg(&say(engine));
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
-    assert_eq!(player.chat_mode, CHAT_MODE_CLAN, "mode set");
+    assert_eq!(player.chat_mode, CHAT_MODE_FRIENDS_CHAT, "mode set");
     assert!(
         player.info.chat_bytes.is_none(),
-        "clan-mode chat stays off public chat"
+        "friends chat stays off public chat"
     );
+    engine.cycle();
+    assert!(HarnessClient::game_messages(&client.packets()).contains(&(
+        11,
+        "You are not currently in a friends chat channel.".to_string()
+    )));
+
+    client.send_msg(&ChatSetMode {
+        mode: CHAT_MODE_CLAN,
+    });
+    client.send_msg(&say(engine));
+    client.send_msg(&ChatSetMode { mode: 4 });
+    engine.harness_inputs();
+    let player = engine.harness_player(client.pid).unwrap();
+    assert_eq!(player.chat_mode, CHAT_MODE_CLAN, "mode 4 ignored");
+    assert!(
+        player.info.chat_bytes.is_none(),
+        "clan chat stays off public chat"
+    );
+    engine.cycle();
 
     client.send_msg(&ChatSetMode {
         mode: CHAT_MODE_PUBLIC,
@@ -425,12 +719,12 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
 }
 
 /// `FRIENDLIST_ADD` / `_DEL` and `IGNORELIST_ADD` / `_DEL` carry the name as
-/// typed (`pjstr`). Ether is keyed by the base-37 hash of the display name.
+/// typed (`pjstr`). Ether finds the account by its display name, so they go
+/// by the name as the client compares names; a temporary ignore says so.
 fn friends_and_ignores_go_by_name(engine: &mut Engine) {
     let (mut client, mut ether) = session(engine, "social_lists");
     drain(&mut ether);
     let owner = to_userhash("social_lists");
-    let other = to_userhash("Mod Ash");
 
     for prot in [
         ClientProt::FriendListAdd,
@@ -439,13 +733,16 @@ fn friends_and_ignores_go_by_name(engine: &mut Engine) {
         ClientProt::IgnoreListDel,
     ] {
         let mut p = ClientPacket::new();
-        p.pjstr("Mod Ash");
+        p.pjstr(" Mod Ash");
         if prot == ClientProt::IgnoreListAdd {
             // `Statics1.method3487` follows the name with a flag byte.
-            p.p1(0);
+            p.p1(1);
         }
         client.send(prot, &p.finish());
     }
+    let mut nameless = ClientPacket::new();
+    nameless.pjstr("__");
+    client.send(ClientProt::FriendListAdd, &nameless.finish());
     engine.harness_inputs();
 
     let sent = drain(&mut ether);
@@ -453,28 +750,31 @@ fn friends_and_ignores_go_by_name(engine: &mut Engine) {
     let got: Vec<&str> = sent
         .iter()
         .filter_map(|m| match m {
-            EtherOutbound::FriendAdd { owner37, friend37 }
-                if (*owner37, *friend37) == (owner, other) =>
+            EtherOutbound::FriendAddName { owner37, name }
+                if *owner37 == owner && name == "mod_ash" =>
             {
                 Some("FriendAdd")
             }
-            EtherOutbound::FriendDel { owner37, friend37 }
-                if (*owner37, *friend37) == (owner, other) =>
+            EtherOutbound::FriendDelName { owner37, name }
+                if *owner37 == owner && name == "mod_ash" =>
             {
                 Some("FriendDel")
             }
-            EtherOutbound::IgnoreAdd { owner37, ignore37 }
-                if (*owner37, *ignore37) == (owner, other) =>
-            {
-                Some("IgnoreAdd")
-            }
-            EtherOutbound::IgnoreDel { owner37, ignore37 }
-                if (*owner37, *ignore37) == (owner, other) =>
+            EtherOutbound::IgnoreAddName {
+                owner37,
+                name,
+                temporary: true,
+            } if *owner37 == owner && name == "mod_ash" => Some("IgnoreAdd"),
+            EtherOutbound::IgnoreDelName { owner37, name }
+                if *owner37 == owner && name == "mod_ash" =>
             {
                 Some("IgnoreDel")
             }
             _ => None,
         })
         .collect();
-    assert_eq!(got, expect, "each edit names the right account: {sent:?}");
+    assert_eq!(
+        got, expect,
+        "each edit names the account, and no name sends nothing: {sent:?}"
+    );
 }

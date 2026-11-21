@@ -851,6 +851,7 @@ impl Engine {
                     #[cfg(since_647)]
                     jcoins: 0,
                     last_login_ip: None,
+                    chat_filters: None,
                 },
                 pid,
                 &[],

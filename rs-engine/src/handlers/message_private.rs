@@ -2,19 +2,21 @@ use crate::active_player::ActivePlayer;
 #[cfg(before_647)]
 use crate::clients::client_ether::EtherOutbound;
 use crate::core::engine;
-#[cfg(before_647)]
-use crate::counters::AutoBan;
 use crate::counters::{self, CHAT_PRIVATE, COUNTERS};
 use crate::handlers::ClientGameHandler;
+#[cfg(all(since_530, before_647))]
+use crate::handlers::message_public::MAX_CHAT_CHARS;
 #[cfg(since_530)]
-use crate::handlers::message_public::{MAX_CHAT_CHARS, decode_chat, filtered_chat};
-use rs_protocol::network::game::client::message_private::MessagePrivate;
-#[cfg(since_530)]
-use rs_protocol::network::game::server::message_private_echo::MessagePrivateEcho;
+use crate::handlers::message_public::{decode_chat, filtered_chat};
 #[cfg(before_647)]
-use rs_util::base37::is_valid_userhash;
+use crate::handlers::social::forged_name;
 #[cfg(since_647)]
-use rs_util::base37::to_userhash;
+use crate::social::{self, CHAT_TEXT, ChatTarget, MAX_PRIVATE_CHARS, name_key};
+#[cfg(before_647)]
+use rs_db::chat_channel;
+use rs_protocol::network::game::client::message_private::MessagePrivate;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::server::message_private_echo::MessagePrivateEcho;
 #[cfg(before_530)]
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
@@ -66,10 +68,7 @@ impl ClientGameHandler for MessagePrivate {
             return Ok(());
         }
 
-        // The client only sends names from the friend list: a bad one means a
-        // modified client.
-        if !is_valid_userhash(self.user37 as u64) {
-            active.auto_ban(AutoBan::PrivateName);
+        if forged_name(active, self.user37) {
             return Ok(());
         }
 
@@ -93,7 +92,7 @@ impl ClientGameHandler for MessagePrivate {
 
         active.last_social = Some(engine.clock);
         counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
-        active.log_chat(Some(self.user37 as u64), text);
+        active.log_chat(chat_channel::PRIVATE, Some(self.user37 as u64), text);
         Ok(())
     }
 }
@@ -118,8 +117,7 @@ impl ClientGameHandler for MessagePrivate {
             counters::add(&COUNTERS.chat_muted[CHAT_PRIVATE], 1);
             return Ok(());
         }
-        if !is_valid_userhash(self.user37 as u64) {
-            active.auto_ban(AutoBan::PrivateName);
+        if forged_name(active, self.user37) {
             return Ok(());
         }
         if !active.friends.contains(&self.user37) {
@@ -132,17 +130,15 @@ impl ClientGameHandler for MessagePrivate {
             user37: self.user37,
             bytes: &bytes,
         });
-        if let Some(tx) = &engine.ether_tx {
-            let _ = tx.send(EtherOutbound::PrivateMessage {
-                sender37: active.uid().username37(),
-                target37: self.user37 as u64,
-                level: active.staffmodlevel(),
-                bytes,
-            });
-        }
+        engine.send_ether(EtherOutbound::PrivateMessage {
+            sender37: active.uid().username37(),
+            target37: self.user37 as u64,
+            level: active.staffmodlevel(),
+            bytes,
+        });
         active.last_social = Some(engine.clock);
         counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
-        active.log_chat(Some(self.user37 as u64), text);
+        active.log_chat(chat_channel::PRIVATE, Some(self.user37 as u64), text);
         Ok(())
     }
 }
@@ -150,35 +146,32 @@ impl ClientGameHandler for MessagePrivate {
 /// Handles the `MessagePrivate` client protocol message.
 ///
 /// Rev 647 names the friend and sends the text huffman-compressed, at most 80
-/// characters, one message per tick shared with public chat. A muted player's
-/// message is dropped, as is one for a name not on the friends list. The
-/// sender gets the filtered text back as `MESSAGE_PRIVATE_ECHO`; 647's ether
-/// relay is not built yet, so the message goes no further.
+/// characters (255 from 742, which takes private messages in the chat box),
+/// one message per tick shared with public chat. A muted player's message is
+/// dropped. Ether delivers it to the friend; the sender gets the filtered text
+/// back as `MESSAGE_PRIVATE_ECHO` once it is delivered, else why it wasn't.
 #[cfg(since_647)]
 impl ClientGameHandler for MessagePrivate {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let clock = engine().clock;
         let chars = self.chars as usize;
-        if active.last_social == Some(clock) || !(1..=MAX_CHAT_CHARS).contains(&chars) {
+        if active.last_social == Some(clock) || !(1..=MAX_PRIVATE_CHARS).contains(&chars) {
             return Ok(());
         }
         if active.is_muted() {
             counters::add(&COUNTERS.chat_muted[CHAT_PRIVATE], 1);
             return Ok(());
         }
-        let target37 = to_userhash(&self.name);
-        if !active.friends.contains(&(target37 as i64)) {
+        let Some(name) = name_key(&self.name) else {
             return Ok(());
-        }
+        };
 
         let text = decode_chat(self.bytes, chars)?;
-        active.write(MessagePrivateEcho {
-            recipient: self.name,
-            message_data: filtered_chat(&text),
-        });
+        let payload = filtered_chat(&text);
         active.last_social = Some(clock);
         counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
-        active.log_chat(Some(target37), text);
+        let message = social::say(active, ChatTarget::Friend(name), CHAT_TEXT, payload, text);
+        engine().send_ether(message);
         Ok(())
     }
 }

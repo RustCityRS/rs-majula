@@ -1633,6 +1633,8 @@ mod client_decode_tests {
             last_social: None,
             friends: Vec::new(),
             ignores: Vec::new(),
+            #[cfg(since_647)]
+            social: Default::default(),
             watch: Box::default(),
             capture: None,
             pending_path: None,

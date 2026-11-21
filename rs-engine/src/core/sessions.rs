@@ -1,7 +1,7 @@
 use crate::MAX_PLAYING_PER_IP;
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest};
-use crate::clients::client_ether::{EtherOutbound, max_friends_cap};
+use crate::clients::client_ether::{EtherOutbound, EtherSession, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
 #[cfg(since_530)]
 use crate::console::home_for;
@@ -15,11 +15,12 @@ use crate::watch::{Target, Watch, automated};
 use rs_db::LobbyVisit;
 use rs_db::{LoginAdmission, LoginDevice, PlayedSession};
 use rs_entity::StaffModLevel;
+use rs_entity::player::checked_chat_filters;
 use rs_protocol::LoginResponse;
 #[cfg(since_530)]
 use rs_protocol::login::game_login_reply;
 #[cfg(since_647)]
-use rs_protocol::login::{PLAYER_MOD_LEVEL, reconnect_reply};
+use rs_protocol::login::reconnect_reply;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::jcoins_update::JcoinsUpdate;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
@@ -85,6 +86,7 @@ pub struct PendingLogin {
     pub last_login_ip: Option<Ipv4Addr>,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
+    pub chat_filters: Option<[u8; 3]>,
     pub played: Vec<PlayedSession>,
 }
 
@@ -98,6 +100,7 @@ pub struct LoginAccount {
     pub jcoins: i32,
     #[cfg(since_530)]
     pub last_login_ip: Option<Ipv4Addr>,
+    pub chat_filters: Option<[u8; 3]>,
 }
 
 /// A departed player's final save, held until the database stores it.
@@ -338,6 +341,10 @@ impl Engine {
         if active.player.stats.xp.iter().all(|&s| s == 0) {
             apply_new_player_defaults(&mut active.player);
         }
+        if let Some(filters) = account.chat_filters {
+            let [public, private, trade] = checked_chat_filters(filters);
+            active.player.set_chat_filters(public, private, trade);
+        }
         active.player.staff_mod_level = account.staff_mod_level;
         active.muted_until = account.muted_until;
         active.unread_messages = account.unread_messages;
@@ -371,7 +378,7 @@ impl Engine {
 
         let uid = active.player.uid;
 
-        #[cfg(since_254)]
+        #[cfg(all(since_254, before_647))]
         let level = active.staffmodlevel().min(2);
         #[cfg(all(since_254, before_530))]
         let reply = vec![LoginResponse::LoginOk as u8, level, 1];
@@ -387,15 +394,8 @@ impl Engine {
             active.player.window_mode = request.display_mode;
             active.player.pathing.last_coord = active.player.pathing.coord;
             active.player.build_area.init_nsn_state(pid);
-            let player_mod_level =
-                if active.player.staff_mod_level == StaffModLevel::PlayerModerator {
-                    PLAYER_MOD_LEVEL
-                } else {
-                    0
-                };
             game_login_reply(
-                level,
-                player_mod_level,
+                active.staffmodlevel(),
                 pid,
                 active.player.is_member,
                 self.members,
@@ -452,7 +452,7 @@ impl Engine {
         };
         self.add_player(pid, active, key);
 
-        let login_info = if let Some(active) = self.get_player_mut(pid) {
+        let session = if let Some(active) = self.get_player_mut(pid) {
             active.on_login();
             #[cfg(since_647)]
             {
@@ -461,11 +461,15 @@ impl Engine {
                 });
                 active.last_login_info();
             }
-            Some((
-                active.uid().username37(),
-                active.player.is_member,
-                active.player.private_chat(),
-            ))
+            Some(EtherSession {
+                user37: active.uid().username37(),
+                pid,
+                member: active.player.is_member,
+                private_mode: active.player.private_chat(),
+                ip: Some(remote_ip),
+                #[cfg(since_647)]
+                profile: active.ether_profile(),
+            })
         } else {
             None
         };
@@ -477,20 +481,8 @@ impl Engine {
             }
         }
 
-        if let (Some((user37, is_member, private_mode)), Some(tx)) = (login_info, &self.ether_tx) {
-            let _ = tx.send(EtherOutbound::PlayerLogin {
-                user37,
-                pid,
-                max_friends: max_friends_cap(is_member),
-                ip: Some(remote_ip),
-            });
-            // Ether starts a session with private chat on; the saved mode has
-            // to reach it before the lists announce the player as online.
-            let _ = tx.send(EtherOutbound::ChatModeUpdate {
-                user37,
-                private_mode,
-            });
-            let _ = tx.send(EtherOutbound::RequestLists { user37 });
+        if let (Some(session), Some(tx)) = (session, &self.ether_tx) {
+            session.login(tx);
         }
 
         let result = self.run_script_by_trigger(
@@ -638,6 +630,8 @@ impl Engine {
         if let Err(e) = active.on_reconnect() {
             error!("error during reconnect for player {pid}: {e}");
         }
+        #[cfg(since_647)]
+        crate::social::resend_channels(active);
 
         let user37 = active.uid().username37();
         let private_mode = active.player.private_chat();
@@ -891,6 +885,7 @@ impl Engine {
                 jcoins: pending.jcoins,
                 #[cfg(since_530)]
                 last_login_ip: pending.last_login_ip,
+                chat_filters: pending.chat_filters,
             },
             pid,
             &pending.played,

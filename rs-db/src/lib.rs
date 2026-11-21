@@ -1,3 +1,46 @@
+/// A timestamp column as Unix milliseconds.
+macro_rules! ms {
+    ($column:literal) => {
+        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
+    };
+}
+
+/// A save point's columns, in `save_history` and read from a live save
+/// (where `account_details` has the chat filters and `player_saves` the rest).
+macro_rules! columns {
+    () => {
+        "x, z, y, body, colors, gender, runenergy, playtime, stats, levels, \
+         afk_zones, last_afk_zone, public_chat, private_chat, trade_chat, \
+         last_date, varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts, \
+         inv_vars, exit_x, exit_z, exit_y"
+    };
+}
+
+/// A live save: `player_saves s` joined to its account's `account_details d`.
+macro_rules! live_save {
+    () => {
+        " FROM player_saves s JOIN account_details d ON d.player_id = s.player_id"
+    };
+}
+
+/// A live save as [`PlayerSave`] reads it.
+macro_rules! select_live_save {
+    () => {
+        concat!(
+            "SELECT s.*, d.public_chat, d.private_chat, d.trade_chat",
+            live_save!()
+        )
+    };
+}
+
+/// Whether heartbeat column `column` is under `secs` seconds old: its world
+/// or lobby is live.
+macro_rules! live {
+    ($column:literal, $secs:literal) => {
+        concat!($column, " >= now() - make_interval(secs => ", $secs, ")")
+    };
+}
+
 mod account;
 mod appeal;
 mod device;
@@ -42,7 +85,9 @@ pub use links::{
     StaffAccount, link_rank,
 };
 pub use lobby::{AccountDetails, LobbyWorld, WorldEndpoint, lobby_id, lobby_node};
-pub use logs::{ChatLog, LogBatch, ScriptErrorLog, SessionLog, WealthEvent, log_type, transfer};
+pub use logs::{
+    ChatLog, LogBatch, ScriptErrorLog, SessionLog, WealthEvent, chat_channel, log_type, transfer,
+};
 pub use messages::{PlayerMessage, StaffMessageRecord};
 pub use moderation::ModAction;
 pub use multilog::{MultilogRecord, TransferRecord, Turns};
@@ -52,7 +97,7 @@ pub use password::{
     MAX_PASSWORD_CHARS, MIN_PASSWORD_CHARS, PasswordError, Passwords, check_new_password,
     is_password_char, is_typeable_password,
 };
-pub use player::{Credentials, NewPlayer, Sanctions};
+pub use player::{Credentials, NewPlayer, Sanctions, millis};
 pub use recovery::{CODE_ALPHABET, RESET_LOCKED, ResetCode, code_from_bits};
 pub use recovery_request::{
     NewRecovery, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RecoveryAnswers, RecoveryDecided,
@@ -76,9 +121,28 @@ pub use staff::{
 };
 pub use world::WorldStatus;
 
+use sqlx::PgConnection;
 use sqlx::migrate::{MigrateError, Migrator};
 use sqlx::postgres::{PgConnectOptions, PgPool, PgPoolOptions};
 use std::time::Duration;
+
+/// The classes of the advisory locks [`xact_lock`] takes: per display name
+/// while one is given out, per address while a login claims its session, and
+/// per address while it files a recovery request.
+pub(crate) const NAME_LOCK: i32 = 0x4E41_4D45;
+pub(crate) const ADDRESS_LOCK: i32 = 14567;
+pub(crate) const RECOVERY_LOCK: i32 = 0x5245_4356;
+
+/// Holds `key` in lock class `class` against every other holder until the
+/// transaction on `conn` ends.
+pub(crate) async fn xact_lock(conn: &mut PgConnection, class: i32, key: &str) -> Result<(), Error> {
+    sqlx::query("SELECT pg_advisory_xact_lock($1, hashtext($2))")
+        .bind(class)
+        .bind(key)
+        .execute(conn)
+        .await?;
+    Ok(())
+}
 
 /// The embedded schema migrations. Public so other crates' `#[sqlx::test]`s
 /// can build their throwaway databases from it.

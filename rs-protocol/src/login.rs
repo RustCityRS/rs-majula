@@ -327,14 +327,20 @@ pub fn game_login_reply(staffmodlevel: u8, pid: u16, member: bool, map_members: 
 /// The player moderator rank the clients give staff level 1: 5 and 6 add
 /// the mute option to reports.
 #[cfg(since_647)]
-pub const PLAYER_MOD_LEVEL: u8 = 5;
+const PLAYER_MOD_LEVEL: u8 = 5;
 
-/// The game login reply. `member` is the player's own membership and
-/// `map_members` the world's.
+/// The crown and the player moderator rank a login reply gives staff level
+/// `staff`.
+#[cfg(since_647)]
+fn mod_levels(staff: u8) -> [u8; 2] {
+    [staff.min(2), if staff == 1 { PLAYER_MOD_LEVEL } else { 0 }]
+}
+
+/// The game login reply for a player of staff level `staff`. `member` is the
+/// player's own membership and `map_members` the world's.
 #[cfg(since_647)]
 pub fn game_login_reply(
-    staffmodlevel: u8,
-    player_mod_level: u8,
+    staff: u8,
     pid: u16,
     member: bool,
     map_members: bool,
@@ -347,8 +353,7 @@ pub fn game_login_reply(
     let mut buf = Packet::new(2 + len);
     buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(len as u8);
-    buf.p1(staffmodlevel);
-    buf.p1(player_mod_level);
+    buf.pdata(&mod_levels(staff), 0, 2);
     buf.p1(0);
     buf.p1(0);
     buf.p1(1);
@@ -371,8 +376,7 @@ pub fn game_login_reply(
 #[cfg(since_647)]
 pub struct LobbyAccount<'a> {
     pub display_name: &'a str,
-    pub staff_mod_level: u8,
-    pub player_mod_level: u8,
+    pub staff: u8,
     pub underage: bool,
     pub chat_consent: bool,
     pub advert_consent: bool,
@@ -428,8 +432,7 @@ pub fn lobby_login_reply(account: &LobbyAccount) -> Vec<u8> {
     let mut buf = Packet::new(2 + len);
     buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(len as u8);
-    buf.p1(account.staff_mod_level);
-    buf.p1(account.player_mod_level);
+    buf.pdata(&mod_levels(account.staff), 0, 2);
     buf.p1(account.underage.into());
     #[cfg(since_742)]
     {
@@ -456,19 +459,13 @@ pub fn lobby_login_reply(account: &LobbyAccount) -> Vec<u8> {
     buf.p2(account.card_expiry_day);
     buf.p2(account.grace_expiry_day);
     buf.p1(account.dob_requested.into());
-    pjstr2(&mut buf, account.display_name);
+    buf.pjstr2(account.display_name, STRING_TERMINATOR);
     buf.p1(MEMBERS_STATS);
     buf.p4(account.play_age);
     buf.p1(NAME_CHECKED);
     buf.p2(world);
-    pjstr2(&mut buf, address);
+    buf.pjstr2(address, STRING_TERMINATOR);
     buf.data
-}
-
-#[cfg(since_647)]
-fn pjstr2(buf: &mut Packet, s: &str) {
-    buf.p1(0);
-    buf.pjstr(s, 0);
 }
 
 /// A reconnecting 647 client resumes its session from its `PLAYER_INFO`
@@ -757,26 +754,35 @@ Az5KOlJPE6c=
     #[cfg(all(since_647, before_742))]
     #[test]
     fn game_login_reply_matches_the_client_fields() {
-        for level in 0..=2 {
+        for level in [0, 2] {
             assert_eq!(
-                game_login_reply(level, PLAYER_MOD_LEVEL, 0x123, true, false),
-                [2, 13, level, 5, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 0]
+                game_login_reply(level, 0x123, true, false),
+                [2, 13, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 0]
             );
         }
+        assert_eq!(
+            game_login_reply(1, 0x123, true, false)[2..4],
+            [1, PLAYER_MOD_LEVEL]
+        );
+        assert_eq!(game_login_reply(3, 0x123, true, false)[2..4], [2, 0]);
     }
 
     #[cfg(since_742)]
     #[test]
     fn game_login_reply_ends_with_the_display_name() {
-        for level in 0..=2 {
+        for level in [0, 2] {
             assert_eq!(
-                game_login_reply(level, PLAYER_MOD_LEVEL, 0x123, true, false, "Zezima"),
+                game_login_reply(level, 0x123, true, false, "Zezima"),
                 [
-                    2, 20, level, 5, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 0, b'Z', b'e', b'z', b'i',
+                    2, 20, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 0, b'Z', b'e', b'z', b'i',
                     b'm', b'a', 0
                 ]
             );
         }
+        assert_eq!(
+            game_login_reply(1, 0x123, true, false, "Zezima")[2..4],
+            [1, PLAYER_MOD_LEVEL]
+        );
     }
 
     #[cfg(since_647)]
@@ -784,8 +790,7 @@ Az5KOlJPE6c=
     fn lobby_reply_fields_land_where_the_client_reads_them() {
         let reply = lobby_login_reply(&LobbyAccount {
             display_name: "Zezima",
-            staff_mod_level: 2,
-            player_mod_level: 5,
+            staff: 1,
             underage: true,
             chat_consent: true,
             advert_consent: false,
@@ -815,7 +820,7 @@ Az5KOlJPE6c=
         assert_eq!(buf.g1(), LoginResponse::LoginOk as u8);
         let len = buf.g1() as usize;
         let body = buf.pos;
-        assert_eq!((buf.g1(), buf.g1(), buf.g1()), (2, 5, 1));
+        assert_eq!((buf.g1(), buf.g1(), buf.g1()), (1, PLAYER_MOD_LEVEL, 1));
         #[cfg(since_742)]
         assert_eq!((buf.g3() - 16_777_216, buf.g1()), (-4440, 1));
         assert_eq!((buf.g1(), buf.g1(), buf.g8s()), (1, 0, 1_400_000_000_000));

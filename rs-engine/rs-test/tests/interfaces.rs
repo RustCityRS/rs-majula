@@ -1,7 +1,7 @@
 //! Rev-647 interfaces: what is on screen, how modals mount, and what a click
 //! on something not on screen does.
 //!
-//! The server keeps the client's sub-interface table (`Player::open_subs`),
+//! The server keeps the client's sub-interface table (`Player::subs`),
 //! updated by every IF_OPENSUB, IF_CLOSESUB and IF_MOVESUB it sends. Before
 //! it did, 647 had no idea what was open: buttons on closed interfaces ran
 //! their scripts, main and side modals were never sent at all, and a window
@@ -103,12 +103,12 @@ fn main_and_side_modals_mount_on_their_slots(engine: &mut Engine) {
     engine.cycle();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(
-        player.open_subs.get(&com("toplevel:mainmodal")),
+        player.subs.open.get(&com("toplevel:mainmodal")),
         Some(&(BANK, 0)),
         "the bank on 548:18, as a modal"
     );
     assert_eq!(
-        player.open_subs.get(&com("toplevel:sidemodal")),
+        player.subs.open.get(&com("toplevel:sidemodal")),
         Some(&(BANK_SIDE, 1)),
         "its inventory over the side panels, 548:198, permanent as void-634's overlay_tab"
     );
@@ -144,7 +144,8 @@ fn a_window_switch_carries_everything_across(engine: &mut Engine) {
     }
     assert_eq!(
         player
-            .open_subs
+            .subs
+            .open
             .get(&com("toplevel_fullscreen:mainmodal"))
             .map(|s| s.0),
         Some(BANK),
@@ -152,7 +153,8 @@ fn a_window_switch_carries_everything_across(engine: &mut Engine) {
     );
     assert_eq!(
         player
-            .open_subs
+            .subs
+            .open
             .get(&com("toplevel_fullscreen:sidemodal"))
             .map(|s| s.0),
         Some(BANK_SIDE),

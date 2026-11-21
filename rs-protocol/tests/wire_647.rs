@@ -178,6 +178,26 @@ impl<'a> ClientPacket<'a> {
         String::from_utf8_lossy(&self.buf[start..self.pos - 1]).into_owned()
     }
 
+    /// Big-endian 64: two `g4`.
+    fn g8(&mut self) -> i64 {
+        let hi = self.g4s() as i64 & 0xFFFF_FFFF;
+        let lo = self.g4s() as i64 & 0xFFFF_FFFF;
+        (hi << 32) + lo
+    }
+
+    /// `fastgjstr`: a leading 0 is null (consumed), else `gjstr`.
+    fn fastgjstr(&mut self) -> Option<String> {
+        if self.buf[self.pos] == 0 {
+            self.pos += 1;
+            return None;
+        }
+        Some(self.gjstr())
+    }
+
+    fn remaining(&self) -> usize {
+        self.buf.len() - self.pos
+    }
+
     fn done(&self, expected_len: usize) {
         assert_eq!(
             self.pos, expected_len,
@@ -1397,5 +1417,394 @@ fn url_open_matches_client() {
         url.as_bytes(),
         "the URL, with no length or terminator"
     );
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+// ---------------------------------------------------------------------------
+// Social
+// ---------------------------------------------------------------------------
+
+/// Client (CHAT_FILTER_SETTINGS, 9): `g1_alt2` (128 - b) trade, `g1_alt1` (-b) public.
+#[test]
+fn chat_filter_settings_sends_trade_first() {
+    use rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings;
+    let message = ChatFilterSettings {
+        trade: 2,
+        public: 1,
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1_alt3(), 2, "trade");
+    assert_eq!(p.g1_alt2(), 1, "public");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (UPDATE_FRIENDLIST, 2): per entry `g1 renamed, gjstr name, gjstr prev, g2 world,
+/// g1 rank`, then `gjstr worldName, g1 platform` only when online.
+#[test]
+fn update_friendlist_matches_client() {
+    use rs_protocol::network::game::server::update_friendlist::{FriendEntry, UpdateFriendlist};
+    let message = UpdateFriendlist {
+        friends: vec![
+            FriendEntry {
+                renamed: false,
+                name: "Mod Ash".to_string(),
+                previous_name: String::new(),
+                world: 12,
+                rank: 3,
+                world_name: "RuneScape 12".to_string(),
+                platform: 1,
+            },
+            FriendEntry {
+                renamed: true,
+                name: "Zezima".to_string(),
+                previous_name: "Old Name".to_string(),
+                world: 0,
+                rank: 0,
+                world_name: "RuneScape 9".to_string(),
+                platform: 1,
+            },
+        ],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.gjstr(), "Mod Ash");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.g2(), 12);
+    assert_eq!(p.g1(), 3);
+    assert_eq!(p.gjstr(), "RuneScape 12");
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.gjstr(), "Old Name");
+    assert_eq!(p.g2(), 0, "offline: no world name or platform follows");
+    assert_eq!(p.g1(), 0);
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+    let empty = UpdateFriendlist { friends: vec![] };
+    assert!(
+        encode(&empty).is_empty(),
+        "an empty list still loads the tab"
+    );
+}
+
+/// Client (UPDATE_IGNORELIST_FULL, 113): `g1 count`, then four strings per entry.
+#[test]
+fn update_ignorelist_full_matches_client() {
+    use rs_protocol::network::game::server::update_ignorelist_full::{
+        IgnoreEntry, UpdateIgnorelistFull,
+    };
+    let message = UpdateIgnorelistFull {
+        entries: vec![IgnoreEntry {
+            name: "Spammer".to_string(),
+            display_name: String::new(),
+            prev_name: String::new(),
+            prev_display_name: String::new(),
+        }],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Spammer");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.gjstr(), "");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (UPDATE_IGNORELIST_PARTIAL, 30): `g1 flags` (1 rename, 2 temporary), four strings.
+#[test]
+fn update_ignorelist_partial_matches_client() {
+    use rs_protocol::network::game::server::update_ignorelist_full::IgnoreEntry;
+    use rs_protocol::network::game::server::update_ignorelist_partial::{
+        IGNORE_TEMPORARY, UpdateIgnorelistPartial,
+    };
+    let message = UpdateIgnorelistPartial {
+        flags: IGNORE_TEMPORARY,
+        entry: IgnoreEntry {
+            name: "Spammer".to_string(),
+            display_name: String::new(),
+            prev_name: "Was".to_string(),
+            prev_display_name: String::new(),
+        },
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    let flags = p.g1();
+    assert_eq!(flags & 1, 0, "an add, not a rename");
+    assert_eq!(flags & 2, 2, "temporary");
+    assert_eq!(p.gjstr(), "Spammer");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.gjstr(), "Was");
+    assert_eq!(p.gjstr(), "");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (UPDATE_FRIENDCHAT_CHANNEL_FULL, 53): empty = left; else `gjstr owner, g1 flag
+/// [gjstr discarded], g8 channel, g1b min kick, g1 count`, then per member `gjstr name,
+/// g1 flag [gjstr unfiltered], g2 world (always), g1b rank, gjstr world name`.
+#[test]
+fn update_friendchat_channel_full_matches_client() {
+    use rs_protocol::network::game::server::update_friendchat_channel_full::{
+        FriendchatChannel, FriendchatMember, UpdateFriendchatChannelFull,
+    };
+    let message = UpdateFriendchatChannelFull {
+        channel: Some(FriendchatChannel {
+            owner: "Mod Ash".to_string(),
+            channel37: 12345678,
+            min_kick: 7,
+            members: vec![
+                FriendchatMember {
+                    name: "Mod Ash".to_string(),
+                    display_name: None,
+                    world: 1100,
+                    rank: 7,
+                    world_name: "Lobby 1".to_string(),
+                },
+                FriendchatMember {
+                    name: "Zezima".to_string(),
+                    display_name: Some("Zezima".to_string()),
+                    world: 3,
+                    rank: -1,
+                    world_name: "RuneScape 3".to_string(),
+                },
+            ],
+        }),
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.gjstr(), "Mod Ash");
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.g8(), 12345678);
+    assert_eq!(p.g1s(), 7);
+    assert_eq!(p.g1(), 2);
+    assert_eq!(p.gjstr(), "Mod Ash");
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.g2(), 1100, "world without an unfiltered name");
+    assert_eq!(p.g1s(), 7);
+    assert_eq!(p.gjstr(), "Lobby 1");
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g2(), 3);
+    assert_eq!(p.g1s(), -1);
+    assert_eq!(p.gjstr(), "RuneScape 3");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let left = UpdateFriendchatChannelFull { channel: None };
+    assert!(
+        encode(&left).is_empty(),
+        "a size-0 frame leaves the channel"
+    );
+    assert_eq!(left.sizeof(), 0);
+}
+
+/// Client (UPDATE_FRIENDCHAT_CHANNEL_SINGLEUSER, 71): `gjstr name, g1 flag [gjstr], g2 world,
+/// g1b rank`, then `gjstr world name` unless the rank is -128 (removed).
+#[test]
+fn update_friendchat_channel_singleuser_matches_client() {
+    use rs_protocol::network::game::server::update_friendchat_channel_full::FriendchatMember;
+    use rs_protocol::network::game::server::update_friendchat_channel_singleuser::{
+        FRIENDCHAT_REMOVED, UpdateFriendchatChannelSingleuser,
+    };
+    for rank in [4, FRIENDCHAT_REMOVED] {
+        let message = UpdateFriendchatChannelSingleuser {
+            member: FriendchatMember {
+                name: "Zezima".to_string(),
+                display_name: None,
+                world: 3,
+                rank,
+                world_name: "RuneScape 3".to_string(),
+            },
+        };
+        let bytes = encode(&message);
+        let mut p = ClientPacket::new(&bytes);
+        assert_eq!(p.gjstr(), "Zezima");
+        assert_eq!(p.g1(), 0);
+        assert_eq!(p.g2(), 3);
+        assert_eq!(p.g1s(), rank as i32);
+        if rank != FRIENDCHAT_REMOVED {
+            assert_eq!(p.gjstr(), "RuneScape 3");
+        }
+        p.done(bytes.len());
+        assert_eq!(message.sizeof(), bytes.len());
+    }
+}
+
+/// Client (MESSAGE_FRIENDCHAT, 21): `g1 flag, gjstr name [gjstr], g8 channel, g2 uid hi,
+/// g3 uid lo, g1 tier`, then the Huffman text.
+#[test]
+fn message_friendchat_matches_client() {
+    use rs_protocol::network::game::server::message_friendchat::MessageFriendchat;
+    let message = MessageFriendchat {
+        sender: "Zezima".to_string(),
+        display_name: None,
+        channel37: 987654321,
+        msg_uid_hi: 0x0A01,
+        msg_uid_lo: 0x123456,
+        tier: 2,
+        message_data: vec![3, 0xAB, 0xCD],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g8(), 987654321);
+    assert_eq!(p.g2(), 0x0A01);
+    assert_eq!(p.g3(), 0x123456);
+    assert_eq!(p.g1(), 2);
+    assert_eq!(p.remaining(), 3);
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (CLANCHANNEL_FULL, 87, `ClanChannel.decode`): `g1 affined`; size 1 = none; else
+/// `g1 flags, g8 hash, g8 updateNum, gjstr name, g1, g1b kick, g1b talk, g2 count`, then per
+/// user (display names always read on 647) `gjstr name, g1b rank, g2 world`.
+#[test]
+fn clanchannel_full_matches_client() {
+    use rs_protocol::network::game::server::clanchannel_full::{
+        ClanChannelData, ClanChannelUser, ClanchannelFull,
+    };
+    let message = ClanchannelFull {
+        affined: true,
+        channel: Some(ClanChannelData {
+            clan_hash: 77,
+            update_num: 5,
+            name: "Clan".to_string(),
+            rank_kick: 100,
+            rank_talk: 0,
+            users: vec![ClanChannelUser {
+                display_name: "Zezima".to_string(),
+                rank: -1,
+                world: 1101,
+            }],
+        }),
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.g1() & 1, 0, "no user hashes");
+    assert_eq!(p.g8(), 77);
+    assert_eq!(p.g8(), 5);
+    assert_eq!(p.gjstr(), "Clan");
+    p.g1();
+    assert_eq!(p.g1s(), 100);
+    assert_eq!(p.g1s(), 0);
+    assert_eq!(p.g2(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g1s(), -1);
+    assert_eq!(p.g2(), 1101);
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let none = ClanchannelFull {
+        affined: false,
+        channel: None,
+    };
+    assert_eq!(encode(&none), vec![0]);
+    assert_eq!(none.sizeof(), 1);
+}
+
+/// Client (CLANCHANNEL_DELTA, 90, `Class304` and `AClass38_Sub1..4`): `g1 affined, g8 hash,
+/// g8 updateNum`, then ops until 0. Op 4 reads talk before kick.
+#[test]
+fn clanchannel_delta_matches_client() {
+    use rs_protocol::network::game::server::clanchannel_delta::{
+        ClanChannelDeltaOp, ClanchannelDelta,
+    };
+    let message = ClanchannelDelta {
+        affined: false,
+        clan_hash: 77,
+        update_num: 5,
+        ops: vec![
+            ClanChannelDeltaOp::AddUser {
+                display_name: "Zezima".to_string(),
+                world: 3,
+                rank: -1,
+            },
+            ClanChannelDeltaOp::UpdateUserDetails {
+                slot: 0,
+                rank: 2,
+                world: 4,
+                display_name: "Zezima".to_string(),
+            },
+            ClanChannelDeltaOp::DeleteUser { slot: 1 },
+            ClanChannelDeltaOp::UpdateClanChannelBaseSettings {
+                name: Some("Clan".to_string()),
+                rank_talk: 1,
+                rank_kick: 100,
+            },
+            ClanChannelDeltaOp::UpdateClanChannelBaseSettings {
+                name: None,
+                rank_talk: 0,
+                rank_kick: 0,
+            },
+        ],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.g8(), 77);
+    assert_eq!(p.g8(), 5);
+
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.g1(), 255, "no member hash");
+    assert_eq!(p.fastgjstr().as_deref(), Some("Zezima"));
+    assert_eq!(p.g2(), 3);
+    assert_eq!(p.g1s(), -1);
+    p.g8();
+
+    assert_eq!(p.g1(), 2);
+    assert_eq!(p.g2(), 0);
+    assert_eq!(p.g1s(), 2);
+    assert_eq!(p.g2(), 4);
+    p.g8();
+    assert_eq!(p.gjstr(), "Zezima");
+
+    assert_eq!(p.g1(), 3);
+    assert_eq!(p.g2(), 1);
+    p.g1();
+    assert_eq!(p.g1(), 255, "no member hash");
+
+    assert_eq!(p.g1(), 4);
+    assert_eq!(p.fastgjstr().as_deref(), Some("Clan"));
+    p.g1();
+    assert_eq!(p.g1s(), 1, "talk first");
+    assert_eq!(p.g1s(), 100, "kick second");
+
+    assert_eq!(p.g1(), 4);
+    assert_eq!(p.fastgjstr(), None, "a null name carries no ranks");
+
+    assert_eq!(p.g1(), 0, "end of ops");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (MESSAGE_CLANCHANNEL, 22): `g1 affined, gjstr name, g2 uid hi, g3 uid lo, g1 tier`,
+/// then the Huffman text.
+#[test]
+fn message_clanchannel_matches_client() {
+    use rs_protocol::network::game::server::message_clanchannel::MessageClanchannel;
+    let message = MessageClanchannel {
+        affined: true,
+        sender: "Zezima".to_string(),
+        msg_uid_hi: 1,
+        msg_uid_lo: 2,
+        tier: 0,
+        message_data: vec![1, 9],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g2(), 1);
+    assert_eq!(p.g3(), 2);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.remaining(), 2);
     assert_eq!(message.sizeof(), bytes.len());
 }

@@ -440,20 +440,7 @@ impl FileCache {
         Self::from_files(source_files(source_dir))
     }
 
-    #[cfg(since_647)]
-    pub(crate) fn for_extensions(source_dir: &Path, exts: &[&str]) -> Self {
-        let files = source_files(source_dir)
-            .into_iter()
-            .filter(|p| {
-                p.extension()
-                    .and_then(|ext| ext.to_str())
-                    .is_some_and(|ext| exts.contains(&ext))
-            })
-            .collect();
-        Self::from_files(files)
-    }
-
-    fn from_files(files: Vec<PathBuf>) -> Self {
+    pub(crate) fn from_files(files: Vec<PathBuf>) -> Self {
         let mut by_ext: HashMap<String, Vec<PathBuf>> = HashMap::new();
         let mut contents = HashMap::new();
 

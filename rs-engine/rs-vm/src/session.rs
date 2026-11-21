@@ -2,7 +2,7 @@ use crate::engine::{ScriptEngine, ScriptVars, engine};
 #[cfg(since_530)]
 use crate::state::ScriptArgument;
 use crate::state::ScriptState;
-use crate::util::get_active_player_mut;
+use crate::util::{get_active_player_mut, require_active_player};
 use crate::{Result, ScriptError};
 use rs_pack::cache::script::Script;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
@@ -37,12 +37,8 @@ pub(crate) fn active_interface<'a>(
     host: &'a mut dyn ScriptHost,
     state: &ScriptState,
 ) -> Result<&'a mut dyn ScriptInterface> {
-    let slot = state.int_operand();
-    let pointer = ScriptState::ACTIVE_PLAYER
-        .get(slot as usize)
-        .ok_or(ScriptError::NoSubject)?;
-    state.pointers.check(*pointer)?;
-    host.interface(state, slot != 0)
+    require_active_player(state)?;
+    host.interface(state, state.int_operand() != 0)
 }
 
 pub(crate) fn active_vars<'a>(

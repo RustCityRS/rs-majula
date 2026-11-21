@@ -79,6 +79,34 @@ impl ScriptProvider {
         self.lookups.get(&key).and_then(|&id| self.get_by_id(id))
     }
 
+    /// The lookup key of trigger `trigger`'s script for type `t`. It widens
+    /// through i64 before truncating, as the compiler does: from 647 an
+    /// interface trigger keys by the 32-bit component hash.
+    pub fn type_key(trigger: i32, t: i32) -> i32 {
+        (((t as i64) << 10) | (0x2 << 8) | trigger as i64) as i32
+    }
+
+    /// The lookup key of trigger `trigger`'s script for category `c`.
+    pub fn category_key(trigger: i32, c: i32) -> i32 {
+        trigger | (0x1 << 8) | (c << 10)
+    }
+
+    /// Trigger `trigger`'s script for type `t`, else for category `c` (-1 for
+    /// none), else its default.
+    pub fn get_by_trigger(
+        &self,
+        trigger: i32,
+        t: Option<i32>,
+        c: Option<i32>,
+    ) -> Option<&Arc<Script>> {
+        t.and_then(|t| self.get_by_lookup(Self::type_key(trigger, t)))
+            .or_else(|| {
+                c.filter(|&c| c != -1)
+                    .and_then(|c| self.get_by_lookup(Self::category_key(trigger, c)))
+            })
+            .or_else(|| self.get_by_lookup(trigger))
+    }
+
     pub fn get_by_name(&self, name: &str) -> Option<&Arc<Script>> {
         self.names.get(name).and_then(|&id| self.get_by_id(id))
     }

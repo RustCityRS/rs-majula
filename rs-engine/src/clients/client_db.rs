@@ -8,7 +8,7 @@ use crate::watch::schedule::{MAX_PLAYED, WEEK_MS};
 use rs_db::{
     Claim, Db, DbConfig, Error as DbError, LogBatch, LoginAdmission, LoginDevice, ModAction,
     NewPlayer, NewSnapshot, Passwords, PlayedSession, PlayerSave, SaveResult, check_new_password,
-    refusal,
+    millis, refusal,
 };
 #[cfg(since_647)]
 use rs_db::{LobbyWorld, WorldEndpoint, validate_name};
@@ -233,6 +233,20 @@ pub enum AuthResult {
     Busy,
 }
 
+impl AuthResult {
+    /// The reply a refused login gets, or `None` for an accepted one.
+    pub fn refusal(&self) -> Option<LoginResponse> {
+        Some(match self {
+            Self::Accepted { .. } => return None,
+            Self::InvalidCredentials => LoginResponse::BadCredentials,
+            Self::Banned => LoginResponse::Banned,
+            Self::TooManyAttempts => LoginResponse::TooManyAttempts,
+            Self::MultiLogging => LoginResponse::IpLimit,
+            Self::Busy => LoginResponse::BadSave,
+        })
+    }
+}
+
 /// Where a [`DbRequest::Save`] ended up.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SaveOutcome {
@@ -244,7 +258,10 @@ pub enum SaveOutcome {
 
 /// The outcome of a [`DbRequest::Load`].
 pub enum LoadResult {
-    Loaded(Option<Box<PlayerProfile>>),
+    Loaded {
+        profile: Option<Box<PlayerProfile>>,
+        chat_filters: [u8; 3],
+    },
     Refused(LoginResponse),
     Busy,
     Unregistered,
@@ -1211,18 +1228,22 @@ async fn claim(
     admission: Option<LoginAdmission>,
 ) -> Result<LoadResult, DbError> {
     let username = to_raw_username(user37);
-    let save = match db
+    let (save, chat_filters) = match db
         .claim_login(user37, node_id.into(), TAKEOVER_AFTER_SECS, admission)
         .await?
     {
-        Claim::Claimed { save, took_over } => {
+        Claim::Claimed {
+            save,
+            took_over,
+            chat_filters,
+        } => {
             if let Some(dead) = took_over {
                 warn!(
                     "Took over the session of '{}' from unresponsive world {}",
                     username, dead
                 );
             }
-            save
+            (save, chat_filters.map(|f| f as u8))
         }
         Claim::Busy { node } => {
             info!("Session of '{}' is owned by world {}", username, node);
@@ -1245,7 +1266,11 @@ async fn claim(
                 {
                     delete_save_file(&username);
                     warn!("Loaded '{}' from an unsynced local save", username);
-                    return Ok(LoadResult::Loaded(Some(Box::new(local))));
+                    let chat_filters = [local.public_chat, local.private_chat, local.trade_chat];
+                    return Ok(LoadResult::Loaded {
+                        profile: Some(Box::new(local)),
+                        chat_filters,
+                    });
                 }
             }
             Err(e) => {
@@ -1254,9 +1279,10 @@ async fn claim(
             }
         }
     }
-    Ok(LoadResult::Loaded(
-        save.map(|save| Box::new(profile_from_save(*save))),
-    ))
+    Ok(LoadResult::Loaded {
+        profile: save.map(|save| Box::new(profile_from_save(*save))),
+        chat_filters,
+    })
 }
 
 /// Authenticates a login against the `players` table.
@@ -1448,11 +1474,6 @@ async fn hash_password(passwords: &Arc<Passwords>, password: &str) -> Option<Str
         .await
         .ok()
         .flatten()
-}
-
-/// A database millisecond count as a [`Duration`], clamping negatives to zero.
-fn millis(ms: i64) -> Duration {
-    Duration::from_millis(ms.max(0) as u64)
 }
 
 /// Flattens a [`PlayerProfile`] into its `player_saves` row. Inventory items
@@ -1658,9 +1679,15 @@ async fn free_name_suggestions(db: &Db, own_user37: u64, count: usize) -> Vec<St
 #[cfg(since_647)]
 async fn with_display_name(db: &Db, user37: u64, result: LoadResult) -> LoadResult {
     match result {
-        LoadResult::Loaded(Some(mut profile)) => {
+        LoadResult::Loaded {
+            profile: Some(mut profile),
+            chat_filters,
+        } => {
             profile.display_name = db.display_name(user37).await.ok().flatten();
-            LoadResult::Loaded(Some(profile))
+            LoadResult::Loaded {
+                profile: Some(profile),
+                chat_filters,
+            }
         }
         other => other,
     }
@@ -1969,7 +1996,7 @@ mod tests {
 
     fn loaded_x(result: LoadResult) -> Option<u16> {
         match result {
-            LoadResult::Loaded(profile) => Some(profile.map_or(0, |p| p.x)),
+            LoadResult::Loaded { profile, .. } => Some(profile.map_or(0, |p| p.x)),
             _ => None,
         }
     }

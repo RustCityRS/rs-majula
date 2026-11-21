@@ -1,17 +1,21 @@
 use super::{LobbySession, LobbyVm};
 use crate::player::LobbyPlayer;
-use rs_crypto::isaac::IsaacPair;
-use rs_engine::{ClientIO, create_io};
+use rs_crypto::huffman::Huffman;
+use rs_crypto::isaac::{Isaac, IsaacPair};
+use rs_engine::{ClientIO, EtherOutbound, create_io};
 use rs_pack::cache::r#if::IfTypeProvider;
 use rs_pack::cache::provider::{CacheType, TypeProvider};
 use rs_pack::cache::script::ScriptProvider;
 use rs_pack::cache::varc::VarClientTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeRaw;
 use rs_pack::cache::varpbit::VarpBitType;
+use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::pack::pack_registry::PackFile;
 use rs_pack::pack::packed_data::PackedData;
 use rs_pack::startup::LobbyAssets;
 use rs_pack::types::{IfEvents, ScriptVarType};
+use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::server::if_setcolour::IfSetColour;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
@@ -27,6 +31,8 @@ use runec::types::Type;
 use runec::writer::encode_bundle;
 use std::net::Ipv4Addr;
 use std::sync::Arc;
+use std::time::Instant;
+use tokio::sync::mpsc::{Sender, unbounded_channel};
 
 fn assets(source: &str) -> LobbyAssets {
     let mut symbols = SymbolRegistry::new();
@@ -98,7 +104,26 @@ fn assets(source: &str) -> LobbyAssets {
         },
         layout: Default::default(),
         toplevel: 0,
+        huffman: huffman(),
+        wordenc: WordEncProvider::empty(),
     }
+}
+
+/// The content's huffman table, from its `code_lengths` line.
+fn huffman() -> Huffman {
+    let text = include_str!(concat!(
+        "../../../content/",
+        env!("REV"),
+        "/binary/huffman.huffman"
+    ));
+    let lengths: Vec<u8> = text
+        .lines()
+        .find_map(|line| line.strip_prefix("code_lengths="))
+        .unwrap()
+        .split(',')
+        .map(|n| n.trim().parse().unwrap())
+        .collect();
+    Huffman::new(&lengths)
 }
 
 fn connection() -> ClientIO {
@@ -133,9 +158,9 @@ fn lobby_variables_and_signed_event_slots_survive_shared_dispatch() {
     assert_eq!(player.varps[&0].as_int(), 16);
     assert_eq!(player.strings[&1], "ready");
     let settings = IfEvents::new(3, 4, 2, true, false);
-    assert_eq!(player.events[&(17, u16::MAX)], settings);
-    assert_eq!(player.events[&(17, 0)], settings);
-    assert_eq!(player.events.len(), 2);
+    assert_eq!(player.subs.events[&(17, u16::MAX)], settings.0);
+    assert_eq!(player.subs.events[&(17, 0)], settings.0);
+    assert_eq!(player.subs.events.len(), 2);
 }
 
 #[test]
@@ -210,4 +235,93 @@ fn lobby_rejects_world_opcodes_and_secondary_player_variables() {
             _ => assert!(matches!(err, ScriptError::NoSubject)),
         }
     }
+}
+
+/// Frames as the client sends them: the opcode masked with ISAAC, then a
+/// length byte or two for a variable frame.
+fn send(inbox: &Sender<(Instant, Vec<u8>)>, isaac: &mut Isaac, prot: ClientProt, payload: &[u8]) {
+    let mut frame = vec![(prot as u8).wrapping_add(isaac.take_next_value() as u8)];
+    match prot.info().frame {
+        ClientProtFrame::Fixed(_) => {}
+        ClientProtFrame::VarByte { .. } => frame.push(payload.len() as u8),
+        ClientProtFrame::VarShort { .. } => {
+            frame.extend_from_slice(&(payload.len() as u16).to_be_bytes())
+        }
+    }
+    frame.extend_from_slice(payload);
+    inbox.try_send((Instant::now(), frame)).unwrap();
+}
+
+/// The lobby takes friend, ignore, filter and private message requests to
+/// ether by the name as the client compares names, keeps the filters to save,
+/// and has no public chat: typed chat outside a channel goes nowhere.
+#[test]
+fn lobby_social_requests_go_to_ether() {
+    let assets = assets("[login,_]");
+    let vm = LobbyVm::new(&assets);
+    let ClientIO {
+        handle,
+        packet_tx: conn,
+        bytes_rx: _sent,
+        disconnect_tx: _open,
+        ..
+    } = connection();
+    let mut isaac = Isaac::new(&[0; 4]);
+    let mut player = LobbyPlayer::new(handle, 42, Ipv4Addr::LOCALHOST.into(), 1, 0);
+    player.display = "Bob".to_string();
+    let named = |name: &str, extra: &[u8]| {
+        let mut bytes = name.as_bytes().to_vec();
+        bytes.push(0);
+        bytes.extend_from_slice(extra);
+        bytes
+    };
+    let mut text = vec![0u8; 16];
+    let len = assets.huffman.encode(b"hello", &mut text);
+    send(
+        &conn,
+        &mut isaac,
+        ClientProt::FriendListAdd,
+        &named(" Mod Ash", &[]),
+    );
+    send(
+        &conn,
+        &mut isaac,
+        ClientProt::IgnoreListAdd,
+        &named("Spam", &[1]),
+    );
+    send(
+        &conn,
+        &mut isaac,
+        ClientProt::SetChatfiltersettings,
+        &[1, 1, 2],
+    );
+    send(&conn, &mut isaac, ClientProt::ChatSetMode, &[0]);
+    let mut chat = vec![0, 0, 5];
+    chat.extend_from_slice(&text[..len]);
+    send(&conn, &mut isaac, ClientProt::MessagePublic, &chat);
+    let mut unnamed = named("__", &[5]);
+    unnamed.extend_from_slice(&text[..len]);
+    send(&conn, &mut isaac, ClientProt::MessagePrivate, &unnamed);
+    let mut pm = named("Mod Ash", &[5]);
+    pm.extend_from_slice(&text[..len]);
+    send(&conn, &mut isaac, ClientProt::MessagePrivate, &pm);
+
+    let (tx, mut rx) = unbounded_channel();
+    let worlds = rs_engine::world_list(Vec::new());
+    assert!(
+        player
+            .tick(Instant::now(), &assets, &vm, &worlds, &tx)
+            .is_none()
+    );
+    let sent: Vec<_> = std::iter::from_fn(|| rx.try_recv().ok()).collect();
+    assert!(
+        matches!(&sent[..], [
+            EtherOutbound::FriendAddName { owner37: 42, name: friend },
+            EtherOutbound::IgnoreAddName { owner37: 42, name: ignore, temporary: true },
+            EtherOutbound::ChatModeUpdate { user37: 42, private_mode: 1 },
+            EtherOutbound::PmSend { sender37: 42, kind: 0, name: target, .. },
+        ] if friend == "mod_ash" && ignore == "spam" && target == "mod_ash"),
+        "{sent:?}"
+    );
+    assert_eq!(player.chat_filters, [1, 1, 2]);
 }

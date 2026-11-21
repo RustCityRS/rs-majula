@@ -1,9 +1,7 @@
 use crate::hiscores::update_hiscores;
 use crate::history::{keep_logout_point, keep_session_point, keep_staff_point};
 use crate::{Db, Error};
-use sqlx::postgres::PgArguments;
-use sqlx::query::Query;
-use sqlx::{PgConnection, Postgres};
+use sqlx::PgConnection;
 
 #[derive(Clone, Debug, Default, PartialEq, sqlx::FromRow)]
 pub struct PlayerSave {
@@ -47,11 +45,10 @@ impl Db {
     /// Loads a player's save by base37 name. `None` if the player doesn't
     /// exist or has never been saved.
     pub async fn load_save(&self, name_hash: u64) -> Result<Option<PlayerSave>, Error> {
-        sqlx::query_as(
-            "SELECT s.* FROM player_saves s
-             JOIN players p ON p.id = s.player_id
-             WHERE p.name_hash = $1",
-        )
+        sqlx::query_as(concat!(
+            select_live_save!(),
+            " JOIN players p ON p.id = s.player_id WHERE p.name_hash = $1"
+        ))
         .bind(name_hash as i64)
         .fetch_optional(&self.pool)
         .await
@@ -72,7 +69,7 @@ impl Db {
             Ok(id) => id,
             Err(refused) => return Ok(refused),
         };
-        upsert_save(id, save).execute(&mut *tx).await?;
+        upsert_save(&mut tx, id, save).await?;
         keep_session_point(&mut tx, id, node_id).await?;
         tx.commit().await?;
         Ok(SaveResult::Stored)
@@ -94,7 +91,7 @@ impl Db {
             Ok(id) => id,
             Err(refused) => return Ok(refused),
         };
-        upsert_save(id, save).execute(&mut *tx).await?;
+        upsert_save(&mut tx, id, save).await?;
         keep_logout_point(&mut tx, id, node_id).await?;
         update_hiscores(&mut tx, id, &save.stats).await?;
         sqlx::query(
@@ -127,7 +124,7 @@ impl Db {
             Err(refused) => return Ok(refused),
         };
         keep_staff_point(&mut tx, id, node_id, note).await?;
-        upsert_save(id, save).execute(&mut *tx).await?;
+        upsert_save(&mut tx, id, save).await?;
         update_hiscores(&mut tx, id, &save.stats).await?;
         sqlx::query("UPDATE players SET online_node = NULL, online_since = NULL WHERE id = $1")
             .bind(id)
@@ -154,7 +151,7 @@ impl Db {
         let Some(id) = id else {
             return Ok(false);
         };
-        upsert_save(id, save).execute(&mut *tx).await?;
+        upsert_save(&mut tx, id, save).await?;
         update_hiscores(&mut tx, id, &save.stats).await?;
         tx.commit().await?;
         Ok(true)
@@ -180,20 +177,49 @@ pub(crate) async fn lock_session(
     })
 }
 
-fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArguments> {
+/// Sets the account `player_id`'s public, private and trade chat filters.
+pub(crate) async fn set_chat_filters(
+    conn: &mut PgConnection,
+    player_id: i64,
+    [public, private, trade]: [i16; 3],
+) -> Result<(), Error> {
+    sqlx::query(
+        "UPDATE account_details SET public_chat = $2, private_chat = $3, trade_chat = $4
+         WHERE player_id = $1",
+    )
+    .bind(player_id)
+    .bind(public)
+    .bind(private)
+    .bind(trade)
+    .execute(conn)
+    .await?;
+    Ok(())
+}
+
+/// Writes `save` for `player_id`: the game state to `player_saves`, the chat
+/// filters to the account.
+async fn upsert_save(
+    conn: &mut PgConnection,
+    player_id: i64,
+    save: &PlayerSave,
+) -> Result<(), Error> {
+    set_chat_filters(
+        conn,
+        player_id,
+        [save.public_chat, save.private_chat, save.trade_chat],
+    )
+    .await?;
     sqlx::query(
         "INSERT INTO player_saves (
                  player_id, x, z, y, body, colors, gender, runenergy, playtime,
-                 stats, levels, afk_zones, last_afk_zone,
-                 public_chat, private_chat, trade_chat, last_date,
+                 stats, levels, afk_zones, last_afk_zone, last_date,
                  varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts,
                  inv_vars, exit_x, exit_z, exit_y
              )
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,
-                     $10, $11, $12, $13,
-                     $14, $15, $16, $17,
-                     $18, $19, $20, $21, $22, $23,
-                     $24, $25, $26, $27)
+                     $10, $11, $12, $13, $14,
+                     $15, $16, $17, $18, $19, $20,
+                     $21, $22, $23, $24)
              ON CONFLICT (player_id) DO UPDATE SET
                  x = EXCLUDED.x, z = EXCLUDED.z, y = EXCLUDED.y,
                  body = EXCLUDED.body, colors = EXCLUDED.colors,
@@ -201,9 +227,6 @@ fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArgum
                  playtime = EXCLUDED.playtime, stats = EXCLUDED.stats,
                  levels = EXCLUDED.levels, afk_zones = EXCLUDED.afk_zones,
                  last_afk_zone = EXCLUDED.last_afk_zone,
-                 public_chat = EXCLUDED.public_chat,
-                 private_chat = EXCLUDED.private_chat,
-                 trade_chat = EXCLUDED.trade_chat,
                  last_date = EXCLUDED.last_date,
                  varp_ids = EXCLUDED.varp_ids, varp_values = EXCLUDED.varp_values,
                  inv_types = EXCLUDED.inv_types, inv_slots = EXCLUDED.inv_slots,
@@ -226,9 +249,6 @@ fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArgum
     .bind(&save.levels)
     .bind(&save.afk_zones)
     .bind(save.last_afk_zone)
-    .bind(save.public_chat)
-    .bind(save.private_chat)
-    .bind(save.trade_chat)
     .bind(save.last_date)
     .bind(&save.varp_ids)
     .bind(&save.varp_values)
@@ -240,4 +260,7 @@ fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArgum
     .bind(save.exit_x)
     .bind(save.exit_z)
     .bind(save.exit_y)
+    .execute(conn)
+    .await?;
+    Ok(())
 }

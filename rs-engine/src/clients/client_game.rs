@@ -113,6 +113,18 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
     }
 }
 
+/// Ciphers the opcode that starts `frame` with the next ISAAC values: one
+/// byte, or from 647 two when the first is 128 or more.
+pub(crate) fn cipher_opcode(isaac: &mut Isaac, frame: &mut [u8]) {
+    #[cfg(before_647)]
+    let len = 1;
+    #[cfg(since_647)]
+    let len = if frame[0] < 128 { 1 } else { 2 };
+    for byte in &mut frame[..len] {
+        *byte = byte.wrapping_add(isaac.take_next_value() as u8);
+    }
+}
+
 impl ClientHandle {
     pub(crate) fn encode_into<M>(out: &mut Packet, message: M) -> bool
     where
@@ -135,15 +147,7 @@ impl ClientHandle {
         #[cfg(before_647)]
         out.p1(M::PROT as u8);
         #[cfg(since_647)]
-        {
-            let opcode = M::PROT as u16;
-            if opcode < 128 {
-                out.p1(opcode as u8);
-            } else {
-                out.p1((opcode >> 8) as u8 + 128);
-                out.p1(opcode as u8);
-            }
-        }
+        out.psmart1or2(M::PROT as i32);
         out.pos += frame;
         let start = out.pos;
         message.encode(out);
@@ -164,17 +168,16 @@ impl ClientHandle {
         Some(buf)
     }
 
-    #[cfg(since_647)]
-    pub fn write<M: ServerProtMessage>(&mut self, message: M) {
+    /// Encodes `message` into the write queue with its opcode ciphered and
+    /// gathers it. `false` if it is too big to send.
+    pub fn write<M: ServerProtMessage>(&mut self, message: M) -> bool {
         self.write_queue.pos = 0;
         if !Self::encode_into(&mut self.write_queue, message) {
-            return;
+            return false;
         }
-        let count = if M::PROT as u16 >= 128 { 2 } else { 1 };
-        for byte in &mut self.write_queue.data[..count] {
-            *byte = byte.wrapping_add(self.isaac_encode.take_next_value() as u8);
-        }
+        cipher_opcode(&mut self.isaac_encode, &mut self.write_queue.data);
         self.gather_written(self.write_queue.pos);
+        true
     }
 
     /// Places the handshake reply before the frames prepared by the login script.

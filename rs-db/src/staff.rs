@@ -2,13 +2,6 @@ use crate::links::{CROWDED_ADDRESS, CROWDED_BROWSER, CROWDED_FINGERPRINT, uncrow
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// The columns of a [`PlayerRecord`], from `players`.
 macro_rules! player_record {
     () => {
@@ -116,6 +109,7 @@ pub struct SanctionRecord {
 pub struct ChatRecord {
     pub id: i64,
     pub sender: String,
+    pub channel: i16,
     pub to_name_hash: Option<i64>,
     pub node_id: i16,
     pub x: i16,
@@ -307,7 +301,7 @@ fn timeline_select(kind: &str) -> Option<&'static str> {
         "chat" => concat!(
             "SELECT 'chat'::text, id, ",
             ms!("created_at"),
-            ", node_id, x, z, y, NULL::smallint, message, NULL::text, to_name_hash, ",
+            ", node_id, x, z, y, channel, message, NULL::text, to_name_hash, ",
             "NULL::bigint, NULL::bigint, NULL::int, NULL::text FROM chat_logs ",
             "WHERE player_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
         ),
@@ -649,7 +643,7 @@ impl Db {
         limit: i64,
     ) -> Result<Vec<ChatRecord>, Error> {
         let mut query = QueryBuilder::<Postgres>::new(concat!(
-            "SELECT c.id, p.display_name AS sender, c.to_name_hash, c.node_id, c.x, c.z, c.y, ",
+            "SELECT c.id, p.display_name AS sender, c.channel, c.to_name_hash, c.node_id, c.x, c.z, c.y, ",
             "c.message, ",
             ms!("c.created_at"),
             " AS at_ms FROM chat_logs c JOIN players p ON p.id = c.player_id WHERE true"
