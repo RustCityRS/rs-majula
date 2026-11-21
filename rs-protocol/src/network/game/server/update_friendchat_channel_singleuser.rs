@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use crate::network::game::server::update_friendchat_channel_full::FriendchatMember;
 #[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
 #[cfg(since_530)]
@@ -8,6 +10,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_530)]
 use rs_protocol_macros::server_prot;
+#[cfg(all(since_530, before_647))]
 use rs_ver::STRING_TERMINATOR;
 
 #[cfg(all(since_530, before_647))]
@@ -44,46 +47,22 @@ impl ServerProtMessage for UpdateFriendchatChannelSingleuser<'_> {
 }
 
 #[cfg(since_647)]
+pub const FRIENDCHAT_REMOVED: i8 = -128;
+
+#[cfg(since_647)]
 #[server_prot(UpdateFriendchatChannelSingleuser, Buffered, VarByte)]
 pub struct UpdateFriendchatChannelSingleuser {
-    pub name: String,
-    pub display_name: Option<String>,
-    pub world: u16,
-    pub rank: i8,
-    pub title: Option<String>,
+    pub member: FriendchatMember,
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateFriendchatChannelSingleuser {
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(&self.name, STRING_TERMINATOR);
-        if let Some(ref display) = self.display_name {
-            buf.p1(1);
-            buf.pjstr(display, STRING_TERMINATOR);
-        } else {
-            buf.p1(0);
-        }
-        buf.p2(self.world);
-        buf.p1(self.rank as u8);
-        if self.rank != -128 {
-            buf.pjstr(self.title.as_deref().unwrap_or(""), STRING_TERMINATOR);
-        }
+        self.member
+            .encode(buf, self.member.rank != FRIENDCHAT_REMOVED);
     }
 
     fn sizeof(&self) -> usize {
-        let name = Packet::sizejstr(&self.name)
-            + 1
-            + self
-                .display_name
-                .as_ref()
-                .map_or(0, |d| Packet::sizejstr(d));
-        let tail = size_of_val(&self.world)
-            + size_of_val(&self.rank)
-            + if self.rank != -128 {
-                self.title.as_ref().map_or(1, |t| Packet::sizejstr(t))
-            } else {
-                0
-            };
-        name + tail
+        self.member.sizeof(self.member.rank != FRIENDCHAT_REMOVED)
     }
 }

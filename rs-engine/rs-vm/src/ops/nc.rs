@@ -1,5 +1,6 @@
 use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::{pop_npc, pop_param};
 use crate::{handlers, none};
 use rs_pack::ParamValue;
@@ -20,7 +21,7 @@ use runec::opcodes::*;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::nc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4000
         none!(m, NC_CATEGORY => |s| {

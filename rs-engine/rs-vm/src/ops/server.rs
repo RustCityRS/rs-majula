@@ -2,6 +2,7 @@
 use crate::ScriptError;
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ExecutionState;
 #[cfg(since_274)]
 use crate::util::midi_tick_length;
@@ -33,7 +34,7 @@ use runec::opcodes::*;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::server::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 1000
         none!(m, COORDX => |s| {

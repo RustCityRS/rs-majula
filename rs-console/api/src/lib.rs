@@ -443,6 +443,8 @@ pub struct PlayerRecord {
     pub staff_level: u8,
     pub registered_ms: i64,
     pub online_node: Option<u8>,
+    #[serde(default)]
+    pub online_lobby: Option<u8>,
     pub online_since_ms: Option<i64>,
     pub last_node: Option<u8>,
     pub last_seen_ms: Option<i64>,
@@ -816,10 +818,22 @@ pub struct ChatLookup {
     pub limit: u32,
 }
 
+/// The name of chat channel `channel` (see [`ChatRecord::channel`]).
+pub fn chat_channel_name(channel: u8) -> &'static str {
+    match channel {
+        1 => "private",
+        2 => "friends chat",
+        3 => "clan chat",
+        _ => "public",
+    }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ChatRecord {
     pub id: i64,
     pub from: String,
+    #[serde(default)]
+    pub channel: u8,
     pub to: Option<String>,
     pub node: u8,
     pub x: u16,
@@ -1071,6 +1085,8 @@ pub struct SessionState {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SessionClaim {
     pub node: u8,
+    #[serde(default)]
+    pub lobby: bool,
     pub since_ms: Option<i64>,
     pub heartbeat_age_ms: Option<i64>,
     pub takeover_after_ms: i64,

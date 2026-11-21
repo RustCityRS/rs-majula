@@ -52,7 +52,7 @@ impl ServerProtMessage for MessageQuickchatFriendchat<'_> {
 pub struct MessageQuickchatFriendchat {
     pub sender: String,
     pub display_name: Option<String>,
-    pub channel_owner: i64,
+    pub channel37: i64,
     pub msg_uid_hi: u16,
     pub msg_uid_lo: i32,
     pub tier: u8,
@@ -71,7 +71,7 @@ impl ServerProtMessage for MessageQuickchatFriendchat {
             buf.p1(0);
             buf.pjstr(&self.sender, STRING_TERMINATOR);
         }
-        buf.p8(self.channel_owner);
+        buf.p8(self.channel37);
         buf.p2(self.msg_uid_hi);
         buf.p3(self.msg_uid_lo);
         buf.p1(self.tier);
@@ -82,7 +82,7 @@ impl ServerProtMessage for MessageQuickchatFriendchat {
     fn sizeof(&self) -> usize {
         1 + Packet::sizejstr(&self.sender)
             + self.display_name.as_ref().map_or(0, |d| Packet::sizejstr(d))
-            + size_of_val(&self.channel_owner)
+            + size_of_val(&self.channel37)
             + size_of_val(&self.msg_uid_hi)
             + 3 // msg_uid_lo
             + size_of_val(&self.tier)

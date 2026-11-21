@@ -3,6 +3,7 @@ use crate::iterators::{self, PlayerIteratorState};
 #[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::{ExecutionState, QueuePriority, ScriptArgument, ScriptState, TimerPriority};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
@@ -10,9 +11,6 @@ use crate::*;
 #[cfg(since_530)]
 use rs_pack::cache::MIDI_JINGLE_BASE;
 use rs_pack::types::HuntCheckVis;
-#[cfg(since_530)]
-use rs_pack::types::IfEvents;
-use rs_util::colour::rgb24_to_15;
 use rs_ver::TypeId;
 use runec::opcodes::*;
 
@@ -75,9 +73,6 @@ fn enqueue(
 ///   `STAT_HEAL`, `STAT_BOOST`, `STAT_ADVANCE`, `STAT_RANDOM`
 /// - **Animations:** `ANIM`, `READYANIM`, `RUNANIM`, `TURNANIM`, `WALKANIM`,
 ///   `WALKANIM_B`, `WALKANIM_L`, `WALKANIM_R`, `SPOTANIM_PL`
-/// - **Interfaces:** `IF_CLOSE`, `IF_OPENCHAT`, `IF_OPENMAIN`, `IF_OPENMAIN_SIDE`,
-///   `IF_SETANIM`, `IF_SETCOLOUR`, `IF_SETHIDE`, `IF_SETNPCHEAD`, `IF_SETOBJECT`,
-///   `IF_SETPLAYERHEAD`, `IF_SETPOSITION`, `IF_SETRESUMEBUTTONS`, `IF_SETTAB`, `IF_SETTEXT`
 /// - **Movement:** `FACESQUARE`, `P_WALK`, `P_TELEJUMP`, `P_TELEPORT`, `P_EXACTMOVE`,
 ///   `P_RUN`, `P_TEMPRUN`, `P_ARRIVEDELAY`, `WALKTRIGGER`, `GETWALKTRIGGER`
 /// - **Projectiles (647):** `P_PROJANIM_HALFSQ`
@@ -99,7 +94,7 @@ fn enqueue(
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::player::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `active_player!` /
 /// `active_player_mut!` / `protected_active_player_mut!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 2000
         active_player_mut!(m, AFK_EVENT => |s, player| {
@@ -454,164 +449,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
         });
 
-        // 2033
-        active_player_mut!(m, IF_CLOSE => |_s, player| {
-            player.if_close(true)?;
-        });
-
-        // A side-tab button opening a modal over another closes that one
-        // properly first: dropping a trade or duel screen without its
-        // [if_close] leaves the partner able to complete it.
-
-        // 2034
-        active_player_mut!(m, IF_OPENCHAT => |s, player| {
-            let com = s.pop_int_as::<u16>()?;
-            if overlay_button(s) {
-                player.if_close_others(com)?;
-            }
-            player.if_openchat(com);
-        });
-
-        // 2035
-        active_player_mut!(m, IF_OPENMAIN_SIDE => |s, player| {
-            let side = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
-            if overlay_button(s) {
-                player.if_close_others(com)?;
-            }
-            player.if_openmain_side(com, side);
-        });
-
-        // 2036
-        active_player_mut!(m, IF_OPENMAIN => |s, player| {
-            let com = s.pop_int_as::<u16>()?;
-            if overlay_button(s) {
-                player.if_close_others(com)?;
-            }
-            player.if_openmain(com);
-        });
-
-        // 2037
-        active_player_mut!(m, IF_OPENSIDE => |s, player| {
-            let com = s.pop_int_as::<u16>()?;
-            if overlay_button(s) {
-                player.if_close_others(com)?;
-            }
-            player.if_openside(com);
-        });
-
-        // 2038
-        active_player_mut!(m, IF_SETANIM => |s, player| {
-            let seq = s.pop_int();
-            let com = pop_com(s)?;
-            if seq == -1 {
-                return Ok(());
-            }
-            let seq = engine::<E>()
-                .seqs()
-                .get_by_id(TypeId::from_int(seq))
-                .ok_or(ScriptError::SeqNotFound(seq))?;
-            player.if_setanim(com, seq.id);
-        });
-
-        // 2039
-        active_player_mut!(m, IF_SETCOLOUR => |s, player| {
-            let colour = s.pop_int();
-            let com = pop_com(s)?;
-            player.if_setcolour(com, rgb24_to_15(colour));
-        });
-
-        // 2040
-        active_player_mut!(m, IF_SETHIDE => |s, player| {
-            let hide = s.pop_int();
-            let com = pop_com(s)?;
-            player.if_sethide(com, hide == 1);
-        });
-
-        // 2041
-        active_player_mut!(m, IF_SETMODEL => |s, player| {
-            let model = s.pop_int_as::<TypeId>()?;
-            let com = pop_com(s)?;
-            player.if_setmodel(com, model);
-        });
-
-        // 2168: 647's IF_SETGRAPHIC, a sprite on a component.
-        #[cfg(since_647)]
-        active_player_mut!(m, IF_SETGRAPHIC => |s, player| {
-            let graphic = s.pop_int_as::<TypeId>()?;
-            let com = s.pop_int();
-            player.if_setgraphic(com, graphic);
-        });
-
-        // 2042
-        active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
-            let npc = s.pop_int_as::<TypeId>()?;
-            let com = pop_com(s)?;
-            player.if_setnpchead(com, npc);
-        });
-
-        // 2043
-        active_player_mut!(m, IF_SETOBJECT => |s, player| {
-            let scale = s.pop_int();
-            let obj = s.pop_int_as::<TypeId>()?;
-            let com = pop_com(s)?;
-            player.if_setobject(com, obj, scale);
-        });
-
-        // 2044
-        active_player_mut!(m, IF_SETPLAYERHEAD => |s, player| {
-            let com = pop_com(s)?;
-            player.if_setplayerhead(com);
-        });
-
-        // 2045
-        active_player_mut!(m, IF_SETPOSITION => |s, player| {
-            let y = s.pop_int();
-            let x = s.pop_int();
-            let com = pop_com(s)?;
-            player.if_setposition(com, x as u16, y as u16);
-        });
-
-        // 2046
-        #[cfg(before_244)]
-        active_player_mut!(m, IF_SETRECOL => |s, player| {
-            let dst = s.pop_int_as::<u16>()?;
-            let src = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
-            player.if_setrecol(com, src, dst);
-        });
-
-        // 2047
-        #[cfg(before_254)]
-        active_player_mut!(m, IF_SETRESUMEBUTTONS => |s, player| {
-            let button5 = s.pop_int();
-            let button4 = s.pop_int();
-            let button3 = s.pop_int();
-            let button2 = s.pop_int();
-            let button1 = s.pop_int();
-            player.if_setresumebuttons(Some(vec![button1, button2, button3, button4, button5]));
-        });
-
-        // 2048
-        active_player_mut!(m, IF_SETTAB => |s, player| {
-            let tab = s.pop_int_as::<u8>()?;
-            // com can be null for example: tutorial island purposes.
-            let com = s.pop_int();
-            player.if_settab(com as u16, tab);
-        });
-
-        // 2049
-        active_player_mut!(m, IF_SETTABACTIVE => |s, player| {
-            player.if_settabactive(s.pop_int_as::<u8>()?);
-        });
-
-        // 2050
-        active_player_mut!(m, IF_SETTEXT => |s, player| {
-            let com = pop_com(s)?;
-            player.if_settext(com, s.peek_string(0));
-            s.drop_strings(1);
-        });
-
         // 2051
         active_player!(m, LAST_COM => |s, player| {
             s.push_int(player.last_com());
@@ -772,77 +609,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_530)]
         active_player!(m, GETWINDOWMODE => |s, player| {
             s.push_int(player.window_mode() as i32);
-        });
-
-        // 2165
-        #[cfg(since_530)]
-        active_player_mut!(m, IF_OPENTOP => |s, player| {
-            let com = s.pop_int_as::<u16>()?;
-            player.if_opentop(com, 0);
-        });
-
-        // 2166: if_opentop with IF_OPENTOP's mode byte.
-        #[cfg(since_530)]
-        active_player_mut!(m, IF_OPENTOP_MODE => |s, player| {
-            let mode = s.pop_int_as::<u8>()?;
-            let com = s.pop_int_as::<u16>()?;
-            player.if_opentop(com, mode);
-        });
-
-        // 2164
-        #[cfg(since_530)]
-        active_player_mut!(m, IF_OPENSUB => |s, player| {
-            let parent_hash = s.pop_int();
-            let sub_id = s.pop_int_as::<u16>()?;
-            player.if_opensub(sub_id, parent_hash);
-        });
-
-        // 2161
-        #[cfg(since_530)]
-        active_player_mut!(m, IF_CLOSESUB => |s, player| {
-            let component_hash = s.pop_int();
-            player.if_closesub(component_hash);
-        });
-
-        // 2162
-        #[cfg(since_530)]
-        active_player_mut!(m, IF_MOVESUB => |s, player| {
-            let to = s.pop_int();
-            let from = s.pop_int();
-            player.if_movesub(from, to);
-        });
-
-        // 2167
-        #[cfg(since_530)]
-        active_player_mut!(m, IF_SETEVENTS => |s, player| {
-            let can_target = s.pop_int() != 0;
-            let allow_drag = s.pop_int() != 0;
-            let depth = s.pop_int();
-            let useon_flags = s.pop_int();
-            let ops = s.pop_int();
-            let slot2 = s.pop_int();
-            let slot1 = s.pop_int();
-            let com = s.pop_int();
-
-            let settings = IfEvents::new(ops, useon_flags, depth, allow_drag, can_target);
-            player.if_setevents(com, slot1 as u16, slot2 as u16, settings.0 as i32);
-        });
-
-        // 2186
-        #[cfg(since_530)]
-        active_player_mut!(m, RUNCLIENTSCRIPT => |s, player| {
-            let script_id = s.pop_int();
-            player.runclientscript(script_id);
-        });
-
-        // 2187
-        // runclientscript*(id)(args...): vararg CS2 invocation with typed
-        // params (int/string), encoded on the wire in reverse stack order.
-        #[cfg(since_530)]
-        active_player_mut!(m, RUNCLIENTSCRIPTVARARG => |s, player| {
-            let args = s.pop_script_args();
-            let script_id = s.pop_int();
-            player.runclientscript_with_params(script_id, args);
         });
 
         // 2063
@@ -1801,21 +1567,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.turnanim(TypeId::from_int(s.pop_int()));
         });
 
-        // 2144
-        #[cfg(since_245_2)]
-        active_player_mut!(m, IF_SETSCROLLPOS => |s, player| {
-            let y = s.pop_int_as::<u16>()?;
-            let com = pop_com(s)?;
-            player.if_setscrollpos(com, y);
-        });
-
-        // 2145
-        #[cfg(since_244)]
-        active_player_mut!(m, IF_OPENOVERLAY => |s, player| {
-            // com can be null to close it: wilderness_exit
-            player.if_openoverlay(s.pop_int() as u16);
-        });
-
         // 2146
         // TODO: this is duplicated with `HUNTALL`
         none!(m, PLAYER_FINDALLZONE => |s| {
@@ -1859,12 +1610,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let index = s.pop_int_as::<u8>()?;
             player.set_player_op(index, s.peek_string(0), primary);
             s.drop_strings(1);
-        });
-
-        // 2149
-        #[cfg(since_254)]
-        active_player_mut!(m, IF_ADDRESUMEBUTTON => |s, player| {
-            player.if_addresumebutton(s.pop_int());
         });
 
         // 2150

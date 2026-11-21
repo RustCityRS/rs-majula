@@ -1,4 +1,5 @@
 use crate::active_npc::ActiveNpc;
+use crate::active_player::ActivePlayer;
 #[cfg(since_647)]
 use crate::clients::client_db::DbRequest;
 use crate::core::{Engine, ObjDelayedRequest};
@@ -68,7 +69,7 @@ use rs_vm::RegionUid;
 use rs_vm::ScriptError;
 #[cfg(since_530)]
 use rs_vm::engine::ProjAnimHalfsq;
-use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer};
+use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc};
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -81,6 +82,8 @@ use std::sync::Arc;
 use tracing::warn;
 
 impl ScriptEngine for Engine {
+    type Player = ActivePlayer;
+
     /// Returns the current game clock tick.
     ///
     /// # Call Stack
@@ -349,11 +352,11 @@ impl ScriptEngine for Engine {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    fn get_player(&self, pid: u16) -> Option<&impl ScriptPlayer> {
+    fn get_player(&self, pid: u16) -> Option<&ActivePlayer> {
         self.player_list.get(pid)
     }
 
-    fn get_player_mut(&mut self, pid: u16) -> Option<&mut impl ScriptPlayer> {
+    fn get_player_mut(&mut self, pid: u16) -> Option<&mut ActivePlayer> {
         self.player_list.get_mut(pid)
     }
 

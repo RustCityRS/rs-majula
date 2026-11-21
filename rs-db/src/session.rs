@@ -1,8 +1,9 @@
 use crate::device::DeviceCheck;
 use crate::links::{CROWDED_BROWSER, uncrowded};
 use crate::save::PlayerSave;
-use crate::{Db, Error};
+use crate::{ADDRESS_LOCK, Db, Error, xact_lock};
 use rs_util::net::limit_address;
+use sqlx::{FromRow, query, query_as, query_scalar};
 use std::net::IpAddr;
 
 /// The outcome of [`Db::claim_session`].
@@ -11,19 +12,44 @@ pub enum Claim {
     Claimed {
         save: Option<Box<PlayerSave>>,
         took_over: Option<i16>,
+        chat_filters: [i16; 3],
     },
     Busy {
         node: i16,
     },
     Unregistered,
+    IpLimit,
+    BadSession,
+}
+
+#[derive(Copy, Clone, Debug)]
+pub struct LoginAdmission {
+    pub ip: IpAddr,
+    pub max_per_ip: u8,
+    pub allow_direct: bool,
+    pub visit: Option<LobbyVisit>,
+    pub lobby_instance: Option<i64>,
+}
+
+#[derive(Copy, Clone, Debug)]
+pub struct LobbyVisit {
+    pub client_session: i64,
+    pub revision: i32,
+}
+
+#[derive(FromRow)]
+struct StoredSession {
+    id: i64,
+    owner: Option<i16>,
+    handoff: bool,
+    target: Option<i16>,
 }
 
 /// Who owns a player's session, from [`Db::session_owner`].
-#[derive(Debug, PartialEq, sqlx::FromRow)]
+#[derive(Debug, PartialEq, FromRow)]
 pub struct SessionOwner {
     pub node: i16,
     pub since_ms: Option<i64>,
-    /// How long ago the owning world's heartbeat was, `None` if it has none.
     pub heartbeat_age_ms: Option<i64>,
 }
 
@@ -31,26 +57,16 @@ pub struct SessionOwner {
 /// `0019_login_devices.sql`). The desktop client says nothing.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct LoginDevice {
-    /// The web client, rather than the desktop one.
     pub web: bool,
     pub user_agent: Option<String>,
-    /// The browser's platform hint (`Sec-CH-UA-Platform`), e.g. `Windows`.
     pub platform: Option<String>,
-    /// The browser's first language, e.g. `en-US`.
     pub language: Option<String>,
-    /// Whether the browser said it's a phone or tablet.
     pub touch: bool,
-    /// The hash of what the client page measured about the device (see
-    /// `0042_multilogging.sql`), if it sent one.
     pub fingerprint: Option<i64>,
-    /// What else the page measured: its rendering engine,
-    /// `navigator.platform` and graphics card.
     pub engine: Option<String>,
     pub js_platform: Option<String>,
     pub gpu: Option<String>,
-    /// How the page's check came back; `None` from a client without one.
     pub check: Option<DeviceCheck>,
-    /// The page's `navigator.userAgent` isn't the one the browser sent.
     pub agent_differs: bool,
 }
 
@@ -90,33 +106,134 @@ impl Db {
         node_id: i16,
         takeover_after_secs: i32,
     ) -> Result<Claim, Error> {
+        self.claim_login(name_hash, node_id, takeover_after_secs, None)
+            .await
+    }
+
+    /// Claims a player's session for `node_id`, a world or (negative) a
+    /// lobby, as [`Db::claim_session`] does, once the login's `admission`
+    /// lets it in: a lobby's `lobby_instance` must still hold its live
+    /// heartbeat, and the address (an IPv6 one with its /64) may hold at
+    /// most `max_per_ip` other live sessions.
+    ///
+    /// A world login presents the visit of a pending lobby handoff that names
+    /// it or no world, and may go without one only when `allow_direct` and no
+    /// handoff is pending. A lobby login needs its visit only while a handoff
+    /// to a world is pending, and then takes the player back from that world.
+    /// A visit matches on its client session, address and revision. The claim
+    /// clears the handoff.
+    pub async fn claim_login(
+        &self,
+        name_hash: u64,
+        node_id: i16,
+        takeover_after_secs: i32,
+        admission: Option<LoginAdmission>,
+    ) -> Result<Claim, Error> {
         let mut tx = self.pool.begin().await?;
-        let row: Option<(i64, Option<i16>, bool)> = sqlx::query_as(
-            "SELECT p.id, p.online_node,
-                    coalesce(w.updated_at < now() - make_interval(secs => $2), true)
-             FROM players p
-             LEFT JOIN world_status w ON w.node_id = p.online_node
-             WHERE p.name_hash = $1
-             FOR UPDATE OF p",
+        if let Some(instance) = admission.and_then(|a| a.lobby_instance) {
+            let current: Option<i64> = query_scalar(concat!(
+                "SELECT lobby_instance FROM world_status WHERE node_id = $1 AND lobby_instance = $2
+                 AND ",
+                live!("updated_at", "$3"),
+                " FOR SHARE"
+            ))
+            .bind(node_id)
+            .bind(instance)
+            .bind(takeover_after_secs)
+            .fetch_optional(&mut *tx)
+            .await?;
+            if current.is_none() {
+                return Ok(Claim::BadSession);
+            }
+        }
+        let ip = admission.map(|a| limit_address(a.ip).to_string());
+        if let Some(ip) = &ip {
+            xact_lock(&mut tx, ADDRESS_LOCK, ip).await?;
+        }
+        let row: Option<StoredSession> = query_as(
+            "SELECT id, online_node AS owner, coalesce(lobby_until > now(), false) AS handoff,
+                    lobby_target AS target FROM players WHERE name_hash = $1 FOR UPDATE",
         )
         .bind(name_hash as i64)
-        .bind(takeover_after_secs)
         .fetch_optional(&mut *tx)
         .await?;
-        let Some((id, owner, owner_dead)) = row else {
+        let Some(StoredSession {
+            id,
+            owner,
+            handoff,
+            target,
+        }) = row
+        else {
             return Ok(Claim::Unregistered);
         };
         let took_over = owner.filter(|&owner| owner != node_id);
-        if let Some(node) = took_over
-            && !owner_dead
-        {
-            return Ok(Claim::Busy { node });
+        if let Some(node) = took_over {
+            let live: bool = query_scalar(concat!(
+                "SELECT EXISTS(SELECT 1 FROM world_status WHERE node_id = $1
+                AND ",
+                live!("updated_at", "$2"),
+                ")"
+            ))
+            .bind(node)
+            .bind(takeover_after_secs)
+            .fetch_one(&mut *tx)
+            .await?;
+            if live {
+                return Ok(Claim::Busy { node });
+            }
+        }
+
+        let needs_visit = if node_id < 0 {
+            handoff && target.is_some()
+        } else {
+            handoff || admission.is_some_and(|a| !a.allow_direct)
+        };
+        if needs_visit && admission.and_then(|a| a.visit).is_none() {
+            return Ok(Claim::BadSession);
+        }
+        if let Some(admission) = admission {
+            let count: i64 = query_scalar(concat!(
+                "SELECT count(*) FROM players p JOIN world_status w ON w.node_id = p.online_node
+                 WHERE p.online_ip = $1::inet AND p.id <> $2
+                   AND ",
+                live!("w.updated_at", "$3")
+            ))
+            .bind(&ip)
+            .bind(id)
+            .bind(takeover_after_secs)
+            .fetch_one(&mut *tx)
+            .await?;
+            if count >= i64::from(admission.max_per_ip) {
+                return Ok(Claim::IpLimit);
+            }
+            if let Some(visit) = admission.visit
+                && needs_visit
+            {
+                let valid: bool = query_scalar(
+                    "SELECT coalesce(lobby_session = $2 AND lobby_ip = $3::inet
+                       AND lobby_revision = $4 AND lobby_until > now()
+                       AND ($5 < 0 OR lobby_target IS NULL OR lobby_target = $5), false)
+                     FROM players WHERE id = $1",
+                )
+                .bind(id)
+                .bind(visit.client_session)
+                .bind(admission.ip.to_canonical().to_string())
+                .bind(visit.revision)
+                .bind(node_id)
+                .fetch_one(&mut *tx)
+                .await?;
+                if !valid {
+                    return Ok(Claim::BadSession);
+                }
+            }
         }
 
         // The session is the login this world just let in: the newest the
         // account made here, moments ago.
-        sqlx::query(
-            "UPDATE players SET online_node = $2, online_since = now(),
+        query(
+            "UPDATE players SET online_node = $2, online_since = now(), online_ip = $3::inet,
+                    lobby_until = NULL, lobby_session = NULL, lobby_ip = NULL,
+                    lobby_revision = NULL, lobby_target = NULL,
                     online_login = (SELECT l.id FROM login_logs l
                                     WHERE l.player_id = $1 AND l.node_id = $2 AND l.refused IS NULL
                                       AND l.created_at > now() - interval '5 minutes'
@@ -125,24 +242,42 @@ impl Db {
         )
         .bind(id)
         .bind(node_id)
+        .bind(&ip)
         .execute(&mut *tx)
         .await?;
-        let save: Option<PlayerSave> =
-            sqlx::query_as("SELECT * FROM player_saves WHERE player_id = $1")
+        let save = if node_id < 0 {
+            None
+        } else {
+            query_as::<_, PlayerSave>(concat!(select_live_save!(), " WHERE s.player_id = $1"))
                 .bind(id)
                 .fetch_optional(&mut *tx)
+                .await?
+        };
+        let chat_filters = match &save {
+            Some(save) => [save.public_chat, save.private_chat, save.trade_chat],
+            None => {
+                let (public, private, trade): (i16, i16, i16) = query_as(
+                    "SELECT public_chat, private_chat, trade_chat FROM account_details
+                     WHERE player_id = $1",
+                )
+                .bind(id)
+                .fetch_one(&mut *tx)
                 .await?;
+                [public, private, trade]
+            }
+        };
         tx.commit().await?;
         Ok(Claim::Claimed {
             save: save.map(Box::new),
             took_over,
+            chat_filters,
         })
     }
 
     /// Releases world `node_id`'s claim on a player without a logout (a login
     /// that claimed but never entered the world). Returns whether it held one.
     pub async fn release_session(&self, name_hash: u64, node_id: i16) -> Result<bool, Error> {
-        let result = sqlx::query(
+        let result = query(
             "UPDATE players SET online_node = NULL, online_since = NULL
              WHERE name_hash = $1 AND online_node = $2",
         )
@@ -155,14 +290,18 @@ impl Db {
 
     /// The world that owns the player's session, if one does.
     pub async fn session_owner(&self, name_hash: u64) -> Result<Option<SessionOwner>, Error> {
-        sqlx::query_as(
+        query_as(concat!(
             "SELECT p.online_node AS node,
-                    (extract(epoch FROM p.online_since) * 1000)::bigint AS since_ms,
-                    (extract(epoch FROM now() - w.updated_at) * 1000)::bigint AS heartbeat_age_ms
+                    ",
+            ms!("p.online_since"),
+            " AS since_ms,
+                    ",
+            ms!("now() - w.updated_at"),
+            " AS heartbeat_age_ms
              FROM players p
              LEFT JOIN world_status w ON w.node_id = p.online_node
-             WHERE p.name_hash = $1 AND p.online_node IS NOT NULL",
-        )
+             WHERE p.name_hash = $1 AND p.online_node IS NOT NULL"
+        ))
         .bind(name_hash as i64)
         .fetch_optional(&self.pool)
         .await
@@ -177,7 +316,7 @@ impl Db {
         name_hash: u64,
         takeover_after_secs: i32,
     ) -> Result<Option<i16>, Error> {
-        sqlx::query_scalar(
+        query_scalar(concat!(
             "WITH old AS (
                  SELECT id, online_node FROM players WHERE name_hash = $1 FOR UPDATE
              )
@@ -187,9 +326,11 @@ impl Db {
                AND NOT EXISTS (
                    SELECT 1 FROM world_status w
                    WHERE w.node_id = old.online_node
-                     AND w.updated_at >= now() - make_interval(secs => $2))
-             RETURNING old.online_node",
-        )
+                     AND ",
+            live!("w.updated_at", "$2"),
+            ")
+             RETURNING old.online_node"
+        ))
         .bind(name_hash as i64)
         .bind(takeover_after_secs)
         .fetch_optional(&self.pool)
@@ -202,7 +343,7 @@ impl Db {
     /// and when it shuts down cleanly.
     pub async fn release_node_sessions(&self, node_id: i16, except: &[u64]) -> Result<u64, Error> {
         let except: Vec<i64> = except.iter().map(|&h| h as i64).collect();
-        let result = sqlx::query(
+        let result = query(
             "UPDATE players SET online_node = NULL, online_since = NULL,
                                 last_logout_node = $1, last_logout_at = now()
              WHERE online_node = $1 AND name_hash <> ALL($2)",
@@ -231,7 +372,7 @@ impl Db {
             .collect();
 
         let mut tx = self.pool.begin().await?;
-        let released: Vec<i64> = sqlx::query_scalar(
+        let released: Vec<i64> = query_scalar(
             "UPDATE players SET online_node = NULL, online_since = NULL
              WHERE online_node = $1 AND name_hash <> ALL($2)
              RETURNING name_hash",
@@ -240,7 +381,7 @@ impl Db {
         .bind(&keep)
         .fetch_all(&mut *tx)
         .await?;
-        let lost: Vec<i64> = sqlx::query_scalar(
+        let lost: Vec<i64> = query_scalar(
             "SELECT name_hash FROM players
              WHERE name_hash = ANY($2) AND online_node IS DISTINCT FROM $1",
         )
@@ -259,7 +400,7 @@ impl Db {
     /// Counts a wrong-password login from `ip`. Failures are kept by
     /// [`limit_address`], so an IPv6 address counts with its /64.
     pub async fn record_login_failure(&self, ip: IpAddr) -> Result<(), Error> {
-        sqlx::query("INSERT INTO login_failures (ip) VALUES ($1::inet)")
+        query("INSERT INTO login_failures (ip) VALUES ($1::inet)")
             .bind(limit_address(ip).to_string())
             .execute(&self.pool)
             .await?;
@@ -278,12 +419,11 @@ impl Db {
         max: i64,
     ) -> Result<Option<LoginAttempt>, Error> {
         let ip = limit_address(ip);
-        let row: String = sqlx::query_scalar(
-            "INSERT INTO login_failures (ip) VALUES ($1::inet) RETURNING ctid::text",
-        )
-        .bind(ip.to_string())
-        .fetch_one(&self.pool)
-        .await?;
+        let row: String =
+            query_scalar("INSERT INTO login_failures (ip) VALUES ($1::inet) RETURNING ctid::text")
+                .bind(ip.to_string())
+                .fetch_one(&self.pool)
+                .await?;
         let attempt = LoginAttempt { ip, row };
         // Its own statement, so it sees every attempt counted before this one.
         if self.recent_login_failures(ip, secs).await? > max {
@@ -296,7 +436,7 @@ impl Db {
 
     /// Takes back an attempt [`Db::claim_login_attempt`] counted.
     pub async fn forgive_login_attempt(&self, attempt: LoginAttempt) -> Result<(), Error> {
-        sqlx::query("DELETE FROM login_failures WHERE ctid = $1::tid AND ip = $2::inet")
+        query("DELETE FROM login_failures WHERE ctid = $1::tid AND ip = $2::inet")
             .bind(attempt.row)
             .bind(attempt.ip.to_string())
             .execute(&self.pool)
@@ -306,7 +446,7 @@ impl Db {
 
     /// Wrong-password logins from `ip` in the last `secs`, across all worlds.
     pub async fn recent_login_failures(&self, ip: IpAddr, secs: i32) -> Result<i64, Error> {
-        sqlx::query_scalar(
+        query_scalar(
             "SELECT count(*) FROM login_failures
              WHERE ip = $1::inet AND at > now() - make_interval(secs => $2)",
         )
@@ -328,7 +468,7 @@ impl Db {
         device: &LoginDevice,
         refused: Option<&str>,
     ) -> Result<(), Error> {
-        sqlx::query(
+        query(
             "INSERT INTO login_logs (player_id, node_id, ip, uid, web, user_agent, platform, language, touch,
                                      fingerprint, refused, engine, js_platform, gpu, tamper)
              SELECT id, $2, $3::inet, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
@@ -363,7 +503,7 @@ impl Db {
         name_hash: u64,
         uid: i32,
     ) -> Result<Option<String>, Error> {
-        sqlx::query_scalar(concat!(
+        query_scalar(concat!(
             "SELECT p.display_name FROM login_logs l JOIN players p ON p.online_login = l.id ",
             "WHERE l.uid = $2 AND p.online_node IS NOT NULL AND p.name_hash <> $1 AND ",
             uncrowded!("uid", "$2", "$3"),
@@ -378,7 +518,7 @@ impl Db {
 
     /// Forgets failures older than `secs`.
     pub async fn prune_login_failures(&self, secs: i32) -> Result<(), Error> {
-        sqlx::query("DELETE FROM login_failures WHERE at < now() - make_interval(secs => $1)")
+        query("DELETE FROM login_failures WHERE at < now() - make_interval(secs => $1)")
             .bind(secs)
             .execute(&self.pool)
             .await?;

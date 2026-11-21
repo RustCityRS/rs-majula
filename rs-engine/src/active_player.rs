@@ -1,5 +1,7 @@
 use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
-use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
+#[cfg(since_647)]
+use crate::clients::client_ether::EtherOutbound;
+use crate::clients::client_game::{ClientHandle, MAX_UNSENT, cipher_opcode};
 use crate::core::{Engine, OtherPlayers, engine, engine_mut};
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::handlers::ClientGameHandler;
@@ -10,6 +12,8 @@ use crate::phases::logout::TIMEOUT_NO_RESPONSE;
 use crate::phases::shared::EntityId;
 #[cfg(since_530)]
 use crate::region::{REGION_X, template_square};
+#[cfg(since_647)]
+use crate::social::{self, Social, SocialClient};
 #[cfg(before_274)]
 use crate::watch::TRACKING_TICKS;
 use crate::watch::menu::InvOp;
@@ -25,7 +29,7 @@ use rs_info::FocusKind;
 #[cfg(since_647)]
 use rs_info::PlayerRenderer;
 use rs_inv::Inventory;
-use rs_io::{Packet, PacketFrame};
+use rs_io::Packet;
 use rs_pack::cache::inv::InvScope;
 #[cfg(since_530)]
 use rs_pack::cache::map::XteaKeyStore;
@@ -39,6 +43,8 @@ use rs_protocol::network::game::MAX_PACKET_SIZE;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::{ClientProtMessage, unpack_coord};
+#[cfg(since_742)]
+use rs_protocol::network::game::client_prot::AffinedClansettingsAddBannedFromChannel;
 #[cfg(before_530)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic1;
 #[cfg(before_530)]
@@ -204,7 +210,6 @@ use rs_protocol::network::game::client_prot::{
 #[cfg(since_530)]
 use rs_protocol::network::game::client_prot::{OpLoc6, OpNpc6, OpObj6};
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
-use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info::player::appearance::{Appearance, Look, WEAR_SLOTS, Wear};
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
@@ -218,9 +223,8 @@ use rs_protocol::network::game::server::cam_move_to::CamMoveTo;
 use rs_protocol::network::game::server::cam_moveto::CamMoveto;
 use rs_protocol::network::game::server::cam_reset::CamReset;
 use rs_protocol::network::game::server::cam_shake::CamShake;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::chat_filter_settings_privatechat::ChatFilterSettingsPrivatechat;
 #[cfg(rev = "225")]
 use rs_protocol::network::game::server::data_land::DataLand;
 #[cfg(rev = "225")]
@@ -377,12 +381,12 @@ use std::borrow::Cow;
 #[cfg(all(since_530, before_647))]
 use std::cell::Cell;
 use std::cell::RefCell;
-#[cfg(since_530)]
-use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Write as _;
 use std::mem;
 use std::net::IpAddr;
+#[cfg(since_530)]
+use std::net::Ipv4Addr;
 use std::str;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
@@ -411,10 +415,14 @@ pub struct ActivePlayer {
     pub remote_ip: Option<IpAddr>,
     pub muted_until: Option<Instant>,
     pub unread_messages: u16,
+    #[cfg(since_530)]
+    pub last_login_ip: Option<Ipv4Addr>,
     pub last_report: Option<u32>,
     pub last_social: Option<u32>,
     pub friends: Vec<i64>,
     pub ignores: Vec<i64>,
+    #[cfg(since_647)]
+    pub social: Social,
     pub watch: Box<Watch>,
     pub(crate) capture: Option<Vec<Vec<u8>>>,
     pub(crate) pending_path: Option<PendingPath>,
@@ -423,9 +431,7 @@ pub struct ActivePlayer {
     #[cfg(since_530)]
     pub(crate) last_link: Option<u32>,
     #[cfg(since_647)]
-    pub lobby: bool,
-    #[cfg(since_647)]
-    pub world: u16,
+    pub client_session: i64,
     #[cfg(all(since_530, before_647))]
     verify: Cell<u16>,
 }
@@ -491,6 +497,24 @@ const BODY_WEARPOS: [usize; 7] = [
 #[cfg(since_530)]
 const DEFAULT_BAS: u16 = 1426;
 
+/// `runclientscript` arguments as RUN_CLIENT_SCRIPT carries them.
+#[cfg(since_530)]
+pub fn script_params(args: Vec<ScriptArgument>) -> Vec<ScriptParam> {
+    args.into_iter()
+        .map(|arg| match arg {
+            ScriptArgument::Int(value) => ScriptParam::Int(value),
+            ScriptArgument::String(value) => ScriptParam::Str(value),
+        })
+        .collect()
+}
+
+/// When a mute lasting `d` from now ends. Capped at 100 years, so a mute set
+/// far out by hand can't overflow the clock.
+pub fn mute_deadline(d: Duration) -> Instant {
+    const CENTURY: Duration = Duration::from_secs(100 * 365 * 24 * 3600);
+    Instant::now() + d.min(CENTURY)
+}
+
 impl ActivePlayer {
     /// Creates a new `ActivePlayer` with default spawn coordinates,
     /// initialized varp set, and the given client handle.
@@ -539,10 +563,14 @@ impl ActivePlayer {
             remote_ip: None,
             muted_until: None,
             unread_messages: 0,
+            #[cfg(since_530)]
+            last_login_ip: None,
             last_report: None,
             last_social: None,
             friends: Vec::new(),
             ignores: Vec::new(),
+            #[cfg(since_647)]
+            social: Social::default(),
             watch: Box::default(),
             capture: None,
             pending_path: None,
@@ -551,9 +579,7 @@ impl ActivePlayer {
             #[cfg(since_530)]
             last_link: None,
             #[cfg(since_647)]
-            lobby: false,
-            #[cfg(since_647)]
-            world: 0,
+            client_session: 0,
             #[cfg(all(since_530, before_647))]
             verify: Cell::new(0),
         }
@@ -586,7 +612,7 @@ impl ActivePlayer {
         M: ServerProtMessage,
     {
         if let Some(capture) = &mut self.capture {
-            if let Some(buf) = Self::plaintext(message) {
+            if let Some(buf) = ClientHandle::plaintext(message) {
                 capture.push(buf.data);
             }
             return;
@@ -616,7 +642,7 @@ impl ActivePlayer {
         M: ServerProtMessage,
     {
         let start = self.buffered.pos;
-        if !Self::encode_into(&mut self.buffered, message) {
+        if !ClientHandle::encode_into(&mut self.buffered, message) {
             return;
         }
         self.buffered_starts.push(start as u32);
@@ -624,92 +650,11 @@ impl ActivePlayer {
         self.watch.remember(M::PROT as u8, M::FRAME as usize, rest);
     }
 
-    /// [`plaintext`](Self::plaintext) written at the end of `out`, which
-    /// grows to fit. Whether it fit in a packet.
-    fn encode_into<M>(out: &mut Packet, message: M) -> bool
-    where
-        M: ServerProtMessage,
-    {
-        let frame = M::FRAME as usize;
-        #[cfg(before_647)]
-        let opcode_bytes = 1;
-        #[cfg(since_647)]
-        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
-        let len = opcode_bytes + frame + message.sizeof();
-        if len > MAX_PACKET_SIZE {
-            return false;
-        }
-        if out.data.len() < out.pos + len {
-            out.data.resize(out.pos + len, 0);
-        }
-        #[cfg(before_647)]
-        out.p1(M::PROT as u8);
-        #[cfg(since_647)]
-        {
-            let opcode = M::PROT as u16;
-            if opcode < 128 {
-                out.p1(opcode as u8);
-            } else {
-                out.p1((opcode >> 8) as u8 + 128);
-                out.p1(opcode as u8);
-            }
-        }
-        out.pos += frame;
-        let start = out.pos;
-        message.encode(out);
-        match M::FRAME {
-            PacketFrame::Fixed => {}
-            PacketFrame::VarByte => out.psize1((out.pos - start) as u8),
-            PacketFrame::VarShort => out.psize2((out.pos - start) as u16),
-        }
-        true
-    }
-
-    /// A message as a packet: opcode (unciphered), frame and body. `None`
-    /// past [`MAX_PACKET_SIZE`].
-    fn plaintext<M>(message: M) -> Option<Packet>
-    where
-        M: ServerProtMessage,
-    {
-        let frame = M::FRAME as usize;
-        #[cfg(before_647)]
-        let opcode_bytes = 1;
-        // Rev-647 opcodes are 1-or-2-byte SMART values on the wire.
-        #[cfg(since_647)]
-        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
-        let len = opcode_bytes + frame + message.sizeof();
-        if len > MAX_PACKET_SIZE {
-            return None;
-        }
-        let mut buf = Packet::new(len);
-        #[cfg(before_647)]
-        buf.p1(M::PROT as u8);
-        #[cfg(since_647)]
-        {
-            let opcode = M::PROT as u16;
-            if opcode < 128 {
-                buf.p1(opcode as u8);
-            } else {
-                buf.p1((opcode >> 8) as u8 + 128);
-                buf.p1(opcode as u8);
-            }
-        }
-        buf.pos += frame;
-        let start = buf.pos;
-        message.encode(&mut buf);
-        match M::FRAME {
-            PacketFrame::Fixed => {}
-            PacketFrame::VarByte => buf.psize1((buf.pos - start) as u8),
-            PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
-        }
-        buf.data.truncate(buf.pos);
-        Some(buf)
-    }
-
     /// Flushes all queued buffered packets to the network outbox, with the
     /// rest of the tick's output, as one write.
     ///
-    /// Each packet's opcode byte is ISAAC-encrypted before sending.
+    /// Each packet's opcode is ISAAC-encrypted here rather than when queued,
+    /// so the cipher stays in wire order with immediate packets.
     ///
     /// # Side Effects
     /// * Drains `self.buffered` and sends the tick's output to the socket task.
@@ -732,19 +677,7 @@ impl ActivePlayer {
                 self.watch
                     .server(clock, data[start], &data[start + 1..next]);
             }
-            // Rev-647 opcodes were queued as plaintext SMART: a first byte
-            // >= 128 marks a 2-byte opcode, which consumes two ISAAC values.
-            // ISAAC is applied here (at flush) rather than at queue time so
-            // the cipher stays in wire order relative to immediate packets.
-            #[cfg(since_647)]
-            if data[start] >= 128 {
-                let i0 = handle.isaac_encode.take_next_value();
-                let i1 = handle.isaac_encode.take_next_value();
-                data[start] = (data[start] as u32 + i0) as u8;
-                data[start + 1] = (data[start + 1] as u32 + i1) as u8;
-                continue;
-            }
-            data[start] = (data[start] as u32 + handle.isaac_encode.take_next_value()) as u8;
+            cipher_opcode(&mut handle.isaac_encode, &mut data[start..next]);
         }
         if end > 0 {
             handle.gather(&data[..end]);
@@ -774,46 +707,12 @@ impl ActivePlayer {
         M: ServerProtMessage,
     {
         let handle = &mut self.handle;
-        let frame = M::FRAME as usize;
-        #[cfg(before_647)]
-        let opcode_bytes = 1;
-        #[cfg(since_647)]
-        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
-        let len = opcode_bytes + frame + message.sizeof();
-        if len > MAX_PACKET_SIZE {
+        if !handle.write(message) {
             return;
         }
-        let buf = &mut handle.write_queue;
-        buf.pos = 0;
-        #[cfg(before_647)]
-        buf.p1((M::PROT as u32 + handle.isaac_encode.take_next_value()) as u8);
-        // 1-or-2-byte SMART opcode, ISAAC applied per byte.
-        #[cfg(since_647)]
-        {
-            let opcode = M::PROT as u16;
-            if opcode < 128 {
-                buf.p1((opcode as u32 + handle.isaac_encode.take_next_value()) as u8);
-            } else {
-                buf.p1(
-                    (((opcode >> 8) + 128) as u32 + handle.isaac_encode.take_next_value()) as u8,
-                );
-                buf.p1(((opcode & 0xFF) as u32 + handle.isaac_encode.take_next_value()) as u8);
-            }
-        }
-        buf.pos += frame;
-        let start = buf.pos;
-        message.encode(buf);
-        match M::FRAME {
-            PacketFrame::Fixed => {}
-            PacketFrame::VarByte => buf.psize1((buf.pos - start) as u8),
-            PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
-        }
-        self.watch
-            .server(engine().clock, M::PROT as u8, &buf.data[1..buf.pos]);
-        self.watch
-            .remember(M::PROT as u8, frame, &buf.data[1..buf.pos]);
-        let pos = buf.pos;
-        handle.gather_written(pos);
+        let rest = &handle.write_queue.data[1..handle.write_queue.pos];
+        self.watch.server(engine().clock, M::PROT as u8, rest);
+        self.watch.remember(M::PROT as u8, M::FRAME as usize, rest);
         if !engine().gather_output {
             handle.flush();
         }
@@ -1239,10 +1138,7 @@ impl ActivePlayer {
             trade,
         });
         #[cfg(since_647)]
-        {
-            self.write(ChatFilterSettings { public, trade });
-            self.write(ChatFilterSettingsPrivatechat { private });
-        }
+        self.send_chat_filters(public, private, trade);
     }
 
     /// Sends a chunk of land (ground texture) map data to the client.
@@ -1508,20 +1404,13 @@ impl ActivePlayer {
         self.write(IfOpenMain { com });
         #[cfg(since_530)]
         {
-            let layout = &engine().layout;
-            let slots = if layout.wide_screen_ifaces.contains(&com) {
-                &layout.wide_screen
-            } else {
-                &layout.main_screen
-            };
-            let parent = self.toplevel_slot(slots);
-            if parent == 0 {
+            let Some(parent) = engine().layout.main_slot(self.player.toplevel, com) else {
                 warn!(
                     "if_open_main({com}): toplevel {} has no main screen",
                     self.player.toplevel
                 );
                 return;
-            }
+            };
             self.player.modal_main_parent = parent;
             self.if_open_sub(com, parent, 0);
         }
@@ -1573,52 +1462,47 @@ impl ActivePlayer {
         self.write(IfOpenSide { com });
         #[cfg(since_530)]
         {
-            let parent = self.toplevel_slot(&engine().layout.overlay_tab);
-            if parent == 0 {
+            let Some(parent) = engine().layout.side_slot(self.player.toplevel) else {
                 warn!(
                     "if_open_side({com}): toplevel {} has no side slot",
                     self.player.toplevel
                 );
                 return;
-            }
+            };
             self.player.modal_side_parent = parent;
             self.if_open_sub(com, parent, 1);
         }
     }
 
-    /// Sends the last-login info to the client (welcome screen).
-    ///
-    /// Reports the number of whole days between the player's previous login
-    /// (`last_login_date`, from the saved profile) and this login (`last_date`,
-    /// set during the join phase). A `last_login_date` of `0` (first login / no
-    /// saved date) reports 0 days. This call does not mutate either timestamp.
-    ///
-    /// The source IP is hardcoded to loopback (`127.0.0.1` = `2130706433`) and
-    /// the recovery code to `201`, which shows the standard welcome screen.
-    /// The message count is the player's unread Message Centre messages as of
-    /// this login.
+    /// Sends LAST_LOGIN_INFO. Before 530 it reports the whole days between
+    /// the previous login (`last_login_date`, from the saved profile) and this
+    /// one (`last_date`), with the loopback address, recovery code 201 (the
+    /// standard welcome screen) and the unread Message Centre messages. From
+    /// 530 it carries the address of the account's last world login, which the
+    /// client looks up, and is not sent when there is none.
     pub fn last_login_info(&mut self) {
-        let previous = if self.player.last_login_date == 0 {
-            self.player.last_date
-        } else {
-            self.player.last_login_date
-        };
-        let days_since_login = ((self.player.last_date - previous) / (60 * 60 * 24)) as u16;
         #[cfg(before_530)]
-        self.write(LastLoginInfo {
-            ip: 2130706433,
-            login: days_since_login,
-            recovery: 201,
-            messages: self.unread_messages,
-            #[cfg(since_244)]
-            warn_members_in_non_members: !engine().members && self.member(),
-        });
-        // Rev-647 only reports the day count; the welcome-screen extras
-        // (ip/recovery/messages) are gone from the packet.
+        {
+            let previous = if self.player.last_login_date == 0 {
+                self.player.last_date
+            } else {
+                self.player.last_login_date
+            };
+            self.write(LastLoginInfo {
+                ip: 2130706433,
+                login: ((self.player.last_date - previous) / (60 * 60 * 24)) as u16,
+                recovery: 201,
+                messages: self.unread_messages,
+                #[cfg(since_244)]
+                warn_members_in_non_members: !engine().members && self.member(),
+            });
+        }
         #[cfg(since_530)]
-        self.write(LastLoginInfo {
-            login: days_since_login as i32,
-        });
+        if let Some(ip) = self.last_login_ip {
+            self.write(LastLoginInfo {
+                login: u32::from(ip) as i32,
+            });
+        }
     }
 
     /// Sets the animation playing on an interface component.
@@ -1781,14 +1665,13 @@ impl ActivePlayer {
         self.write(IfOpenOverlay { com });
         #[cfg(since_530)]
         {
-            let parent = self.toplevel_slot(&engine().layout.overlay);
-            if parent == 0 {
+            let Some(parent) = engine().layout.overlay_slot(self.player.toplevel) else {
                 warn!(
                     "if_openoverlay({com}): toplevel {} has no overlay slot",
                     self.player.toplevel
                 );
                 return;
-            }
+            };
             if com == u16::MAX {
                 self.if_close_sub(parent);
             } else {
@@ -1805,15 +1688,16 @@ impl ActivePlayer {
     }
 
     /// Tells the client the loading state of its friend list (`1` connecting,
-    /// `2` loaded/online).
+    /// `2` loaded/online). Rev 647's FRIENDLIST_LOADED has no payload and only
+    /// says connecting; its list is loaded by the first UPDATE_FRIENDLIST, even
+    /// an empty one, which ether sends.
     #[cfg(since_254)]
     pub fn friendlist_loaded(&mut self, status: u8) {
         #[cfg(before_647)]
         self.write(FriendListLoaded { status });
-        // Rev-647 FRIENDLIST_LOADED carries no payload and only signals the
-        // loaded state; the "connecting" (1) state has no 647 equivalent.
         #[cfg(since_647)]
-        if status == 2 {
+        {
+            let _ = status;
             self.write(FriendlistLoaded);
         }
     }
@@ -1904,13 +1788,6 @@ impl ActivePlayer {
             (End::Kick, ms)
         };
         self.watch.anticheat.ended(end, at);
-    }
-
-    /// When a mute lasting `d` from now ends. Capped at 100 years, so a mute
-    /// set far out by hand can't overflow the clock.
-    pub fn mute_deadline(d: Duration) -> Instant {
-        const CENTURY: Duration = Duration::from_secs(100 * 365 * 24 * 3600);
-        Instant::now() + d.min(CENTURY)
     }
 
     /// Whether the player is muted, and so may not public or private chat.
@@ -2385,11 +2262,14 @@ impl ActivePlayer {
         ))
     }
 
-    /// Logs chat the player sent (unfiltered), to `to37` if private.
-    pub fn log_chat(&self, to37: Option<u64>, message: String) {
+    /// Logs chat the player sent (unfiltered) on `channel`
+    /// (`rs_db::chat_channel`), to `to37` if private or in that owner's
+    /// friends chat.
+    pub fn log_chat(&self, channel: i16, to37: Option<u64>, message: String) {
         if let Some((logs, x, z, y)) = self.log_batch() {
             logs.chat.push(ChatLog {
                 name_hash: self.player.uid.username37(),
+                channel,
                 to_name_hash: to37,
                 x,
                 z,
@@ -2551,7 +2431,7 @@ impl ActivePlayer {
     /// orbs, chatbox) are never mistaken for modals.
     #[cfg(since_530)]
     pub fn if_open_sub(&mut self, interface: u16, com: i32, walkable: u8) {
-        self.player.sub_opened(com, interface, walkable);
+        self.player.subs.opened(com, interface, walkable);
         self.write(IfOpensub {
             interface,
             com,
@@ -2567,7 +2447,7 @@ impl ActivePlayer {
     /// component hash.
     #[cfg(since_530)]
     pub fn if_close_sub(&mut self, com: i32) {
-        self.player.sub_closed(com);
+        self.player.subs.closed(com);
         self.write(IfClosesub {
             com,
             #[cfg(all(since_530, before_647))]
@@ -2579,7 +2459,7 @@ impl ActivePlayer {
     /// window-mode switch carries the gameframe from one toplevel to the other.
     #[cfg(since_530)]
     pub fn if_move_sub(&mut self, com: i32, com2: i32) {
-        self.player.sub_moved(com, com2);
+        self.player.subs.moved(com, com2);
         self.write(IfMovesub {
             com,
             com2,
@@ -2588,26 +2468,12 @@ impl ActivePlayer {
         });
     }
 
-    /// Rev-647: the hash of a gameframe slot on the current toplevel, or 0 if
-    /// the toplevel has no such slot.
-    #[cfg(since_530)]
-    fn toplevel_slot(&self, slots: &HashMap<u16, u16>) -> i32 {
-        let top = self.player.toplevel;
-        slots
-            .get(&top)
-            .map_or(0, |&com| ((top as i32) << 16) | com as i32)
-    }
-
     /// Rev-647: sets the client-side event mask for a component slot range.
     #[cfg(since_530)]
     pub fn if_set_events(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
         let from = if slot1 == u16::MAX { -1 } else { slot1 as i32 };
         let to = if slot2 == u16::MAX { -1 } else { slot2 as i32 };
-        for slot in from..=to {
-            self.player
-                .if_events
-                .insert((com, slot as u16), settings as u32);
-        }
+        self.player.subs.set_events(com, from, to, settings as u32);
         self.write(IfSetEvents {
             com,
             slot1,
@@ -2627,11 +2493,7 @@ impl ActivePlayer {
         let varcs = engine().varcs();
         let varc = varcs.get_by_id(TypeId::new(id), false).unwrap();
         self.player.varcs[varcs.index(id, false)] = VarValue::from_int(varc.var_type, val);
-        #[cfg(all(since_530, before_647))]
-        let small = (0..=255).contains(&val);
-        #[cfg(since_647)]
-        let small = (-128..=127).contains(&val);
-        if small {
+        if VarcSmall::fits(val) {
             self.write(VarcSmall {
                 id,
                 val: val as u8,
@@ -2653,18 +2515,15 @@ impl ActivePlayer {
     pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
         let index = engine().varcs().index(id, true);
         self.player.varcs[index] = VarValue::String(val.into());
-        // CLIENT_SETVARCSTR_SMALL's frame size is one byte: a longer string (Unstable
-        // Foundations' run hint) wrapped it, the client read the stream out of step and dropped
-        // the connection ("Connection lost", in-client runs ufrest10 and ufrest13).
-        if VarcStrSmall::sizeof_str(val) > u8::MAX as usize {
-            self.write(VarcStrLarge {
+        if VarcStrSmall::fits(val) {
+            self.write(VarcStrSmall {
                 id,
                 val,
                 #[cfg(all(since_530, before_647))]
                 verify: self.next_verify(),
             });
         } else {
-            self.write(VarcStrSmall {
+            self.write(VarcStrLarge {
                 id,
                 val,
                 #[cfg(all(since_530, before_647))]
@@ -2688,16 +2547,9 @@ impl ActivePlayer {
     /// parameters.
     #[cfg(since_530)]
     pub fn run_client_script_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
-        let params = args
-            .into_iter()
-            .map(|a| match a {
-                ScriptArgument::Int(v) => ScriptParam::Int(v),
-                ScriptArgument::String(s) => ScriptParam::Str(s),
-            })
-            .collect();
         self.write(RunClientScript {
             script_id,
-            params,
+            params: script_params(args),
             #[cfg(all(since_530, before_647))]
             verify: self.next_verify(),
         });
@@ -2768,7 +2620,7 @@ impl ActivePlayer {
     /// buffer.
     pub(crate) fn write_varshort_unchecked(&mut self, prot: u8, parts: [&[u8]; 2]) {
         let handle = &mut self.handle;
-        let opcode = (prot as u32 + handle.isaac_encode.take_next_value()) as u8;
+        let opcode = prot.wrapping_add(handle.isaac_encode.take_next_value() as u8);
         let rest = handle.gather_varshort(opcode, parts);
         let engine = engine();
         self.watch.server(engine.clock, prot, rest);
@@ -3211,7 +3063,7 @@ impl ActivePlayer {
     /// choosing the small (1-byte) or large (4-byte) encoding based on the
     /// value range.
     pub fn varp_transmit(&mut self, id: u16, val: i32) {
-        if (-128..=127).contains(&val) {
+        if VarpSmall::fits(val) {
             self.varp_small(id, val as u8);
         } else {
             self.varp_large(id, val);
@@ -3659,15 +3511,21 @@ impl ActivePlayer {
     ///
     /// # Returns
     /// `Ok(())` on success, or a [`ScriptError`] if the close trigger fails.
-    pub fn close_tutorial(&mut self) -> Result<(), ScriptError> {
-        if let Some(modal_tutorial) = self.player.modal_tutorial {
+    ///
+    /// # Safety Note
+    ///
+    /// Takes `*mut` to avoid noalias on the parameter: its scripts reach this
+    /// player through `engine_mut()`.
+    pub fn close_tutorial(active: *mut Self) -> Result<(), ScriptError> {
+        let active = unsafe { &mut *active };
+        if let Some(modal_tutorial) = active.player.modal_tutorial {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (
                     ServerTriggerType::IfClose,
                     Some(modal_tutorial as i32),
                     None,
                 ),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -3676,10 +3534,10 @@ impl ActivePlayer {
             {
                 return Err(e);
             }
-            self.player.modal_tutorial = None;
+            active.player.modal_tutorial = None;
             // -1 (u16::MAX on the wire) tells the client to close the tutorial.
             #[cfg(before_530)]
-            self.write(TutOpen { com: u16::MAX });
+            active.write(TutOpen { com: u16::MAX });
             // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         }
         Ok(())
@@ -3709,7 +3567,15 @@ impl ActivePlayer {
             if let Some(appearance) = self.player.info.appearance {
                 self.buildappearance(appearance);
             }
+            #[cfg(since_647)]
+            engine().send_ether(self.ether_profile());
         }
+    }
+
+    /// What friends see of the player, for ether.
+    #[cfg(since_647)]
+    pub fn ether_profile(&self) -> EtherOutbound {
+        social::profile(self, self.player.combat_level)
     }
 
     /// Sets the appearance "skill level" (RuneScript `SET_SKILL_LEVEL`) and
@@ -3847,30 +3713,36 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Clears `player.walktrigger` and runs the associated script.
     /// * Logs an error if the script execution fails.
-    pub fn process_walktrigger(&mut self) {
-        let Some(trigger) = self.player.walktrigger else {
+    ///
+    /// # Safety Note
+    ///
+    /// Takes `*mut` to avoid noalias on the parameter: its scripts reach this
+    /// player through `engine_mut()`.
+    pub fn process_walktrigger(active: *mut Self) {
+        let active = unsafe { &mut *active };
+        let Some(trigger) = active.player.walktrigger else {
             return;
         };
-        if self.player.state.protect || self.player.state.delayed {
+        if active.player.state.protect || active.player.state.delayed {
             return;
         }
-        self.player.walktrigger = None;
+        active.player.walktrigger = None;
         if let Some(script) = engine().get_script(trigger).cloned() {
             let state = ScriptState::init(
                 script,
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 None,
             );
             if let Err(e) = engine_mut().run_script_by_state(
                 state,
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 Some(true),
                 None,
             ) {
                 error!(
                     "error running walktrigger script for player {}: {e}",
-                    self.player.uid.pid()
+                    active.player.uid.pid()
                 );
             }
         }
@@ -4158,7 +4030,12 @@ pub trait EnginePlayer {
 
     /// Closes any open modal interface, optionally clearing the weak script
     /// queue, and fires `IfClose` triggers.
-    fn close_modal(&mut self, clear_weak_queue: bool) -> Result<(), ScriptError>;
+    ///
+    /// # Safety Note
+    ///
+    /// Takes `*mut` to avoid noalias on the parameter: its scripts reach this
+    /// player through `engine_mut()`.
+    fn close_modal(active: *mut Self, clear_weak_queue: bool) -> Result<(), ScriptError>;
 
     /// Clears the player's current interaction and closes any modal.
     fn clear_pending_action(&mut self) -> Result<(), ScriptError>;
@@ -4179,15 +4056,13 @@ pub trait EnginePlayer {
 /// either.)
 const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an active"];
 
-/// How many bytes the read queue holds before the next message waits a tick.
-const READ_QUEUE_LIMIT: usize = MAX_PACKET_SIZE;
-
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets
     /// in a loop until per-category rate limits are reached or no whole
     /// packet is left.
     ///
-    /// Messages that would exceed the [`READ_QUEUE_LIMIT`] are held as
+    /// A message that would take the read queue past [`MAX_PACKET_SIZE`]
+    /// is split: the part that fits is queued and the rest is held as
     /// pending for the next tick.
     ///
     /// # Returns
@@ -4199,26 +4074,7 @@ impl EnginePlayer for ActivePlayer {
     /// * Resets rate-limit counters to 0.
     /// * Processes client messages via [`read`](Self::read).
     fn decode(&mut self) -> bool {
-        let handle = &mut self.handle;
-        let mut received = false;
-        let mut next = handle.pending_msg.take();
-        loop {
-            let msg = match next.take() {
-                Some(m) => m,
-                None => match handle.inbox.try_recv() {
-                    Ok(m) => {
-                        received = true;
-                        m
-                    }
-                    Err(_) => break,
-                },
-            };
-            if handle.read_queue.len() + msg.1.len() > READ_QUEUE_LIMIT {
-                handle.pending_msg = Some(msg);
-                break;
-            }
-            handle.queue(msg.0, msg.1);
-        }
+        let received = self.handle.pull_input();
 
         self.client_limit = 0;
         self.user_limit = 0;
@@ -4261,50 +4117,16 @@ impl EnginePlayer for ActivePlayer {
     /// # Call Stack
     /// **Called by:** [`decode`](Self::decode)
     fn read(&mut self) -> Option<()> {
-        let handle = &mut self.handle;
-        let opcode = match handle.opcode {
-            Some(opcode) => opcode,
-            None => {
-                let byte = handle.read_queue.pop_front()?;
-                let opcode = byte.wrapping_sub(handle.isaac_decode.take_next_value() as u8);
-                handle.opcode = Some(opcode);
-                opcode
+        let (prot, mut buf) = match self.handle.next_packet() {
+            Ok(packet) => packet?,
+            Err(e) => {
+                warn!("{e}");
+                self.disconnect();
+                return None;
             }
         };
-
-        let Ok(prot) = ClientProt::try_from(opcode) else {
-            warn!("Unknown opcode {opcode}, closing the connection");
-            self.disconnect();
-            return None;
-        };
+        let opcode = prot as u8;
         let info = prot.info();
-
-        let queue = &self.handle.read_queue;
-        let (head, len) = match info.frame {
-            ClientProtFrame::VarByte { .. } => (1, *queue.front()? as usize),
-            ClientProtFrame::VarShort { .. } => {
-                let hi = *queue.front()? as usize;
-                let lo = *queue.get(1)? as usize;
-                (2, (hi << 8) | lo)
-            }
-            ClientProtFrame::Fixed(len) => (0, len as usize),
-        };
-
-        if head + len > READ_QUEUE_LIMIT {
-            warn!("{prot:?} of {len} bytes, closing the connection");
-            self.disconnect();
-            return None;
-        }
-        if queue.len() < head + len {
-            return None;
-        }
-
-        let handle = &mut self.handle;
-        handle.opcode = None;
-        handle.read_queue.drain(..head);
-        let mut buf = Packet::from(take(&mut handle.read_buf));
-        buf.data.clear();
-        buf.data.extend(handle.read_queue.drain(..len));
         let malformed = !prot.validate(&buf.data);
 
         if let Some(at) = self.handle.arrived() {
@@ -4331,19 +4153,10 @@ impl EnginePlayer for ActivePlayer {
             engine_mut().flush_input_paths();
         }
 
-        // The lobby answers only its own requests; the rest need the world.
-        #[cfg(since_647)]
-        let ignored =
-            self.lobby && !matches!(prot, ClientProt::NoTimeout | ClientProt::WorldlistFetch);
-        #[cfg(before_647)]
-        let ignored = false;
-
         #[rustfmt::skip]
         let success = if malformed {
             debug!("Malformed {prot:?}: {} byte(s)", buf.len());
             self.watch.anticheat.malformed();
-            false
-        } else if ignored {
             false
         } else {
             let len = buf.len();
@@ -4580,8 +4393,12 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(since_647)]
                 ClientProt::CreateCheckName => CreateCheckName::decode(&mut buf, len).handle(self),
                 #[cfg(since_742)]
+                ClientProt::AffinedClansettingsAddBannedFromChannel => {
+                    AffinedClansettingsAddBannedFromChannel::decode(&mut buf, len).handle(self)
+                }
+                #[cfg(since_742)]
                 ClientProt::SimpleToolkitChange | ClientProt::CutsceneFinished | ClientProt::Unknown10
-                | ClientProt::CreateAccount | ClientProt::AffinedClansettingsAddBannedFromChannel
+                | ClientProt::CreateAccount
                 | ClientProt::AddNewEmailAddress | ClientProt::SoundSongEnd | ClientProt::EventNativeMouseClick
                 | ClientProt::DirectxFailure | ClientProt::AutoSetupResult | ClientProt::SendPingReply
                 | ClientProt::CreateLogProgress | ClientProt::PingStatistics | ClientProt::BugReport
@@ -4716,7 +4533,7 @@ impl EnginePlayer for ActivePlayer {
         }
         self.player.build_area.clear(true);
         self.rebuild_normal(true);
-        self.close_modal(true)?;
+        Self::close_modal(self, true)?;
         self.sync_tabs();
         self.player.inv_first_seen.clear();
         #[cfg(since_530)]
@@ -4933,26 +4750,27 @@ impl EnginePlayer for ActivePlayer {
     /// * Clears suspended scripts and interface listeners.
     /// * Sends `update_inv_stop_transmit` for cleared inventory bindings.
     /// * Sets `refresh_modal_close = true`.
-    fn close_modal(&mut self, clear_weak_queue: bool) -> Result<(), ScriptError> {
+    fn close_modal(active: *mut Self, clear_weak_queue: bool) -> Result<(), ScriptError> {
+        let active = unsafe { &mut *active };
         if clear_weak_queue {
-            self.player.state.queues.weak.clear();
+            active.player.state.queues.weak.clear();
         }
 
-        if !self.player.state.delayed {
-            self.player.state.protect = false;
+        if !active.player.state.delayed {
+            active.player.state.protect = false;
         }
 
-        if self.player.modal_state == MODAL_NONE {
+        if active.player.modal_state == MODAL_NONE {
             return Ok(());
         }
 
-        self.player.modal_state = MODAL_NONE;
-        self.player.clear_suspended_script();
+        active.player.modal_state = MODAL_NONE;
+        active.player.clear_suspended_script();
 
-        if let Some(modal_main) = self.player.modal_main {
+        if let Some(modal_main) = active.player.modal_main {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_main as i32), None),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -4961,18 +4779,18 @@ impl EnginePlayer for ActivePlayer {
             {
                 return Err(e);
             }
-            let modal = self.player.modal_main;
-            let cleared = self.player.clear_interface_listeners(modal, root_layer);
+            let modal = active.player.modal_main;
+            let cleared = active.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
-                self.clear_inv_transmits(com);
+                active.clear_inv_transmits(com);
             }
-            self.player.modal_main = None;
+            active.player.modal_main = None;
         }
 
-        if let Some(modal_chat) = self.player.modal_chat {
+        if let Some(modal_chat) = active.player.modal_chat {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_chat as i32), None),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -4981,18 +4799,18 @@ impl EnginePlayer for ActivePlayer {
             {
                 return Err(e);
             }
-            let modal = self.player.modal_chat;
-            let cleared = self.player.clear_interface_listeners(modal, root_layer);
+            let modal = active.player.modal_chat;
+            let cleared = active.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
-                self.clear_inv_transmits(com);
+                active.clear_inv_transmits(com);
             }
-            self.player.modal_chat = None;
+            active.player.modal_chat = None;
         }
 
-        if let Some(modal_side) = self.player.modal_side {
+        if let Some(modal_side) = active.player.modal_side {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_side as i32), None),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -5001,15 +4819,15 @@ impl EnginePlayer for ActivePlayer {
             {
                 return Err(e);
             }
-            let modal = self.player.modal_side;
-            let cleared = self.player.clear_interface_listeners(modal, root_layer);
+            let modal = active.player.modal_side;
+            let cleared = active.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
-                self.clear_inv_transmits(com);
+                active.clear_inv_transmits(com);
             }
-            self.player.modal_side = None;
+            active.player.modal_side = None;
         }
 
-        self.player.refresh_modal_close = true;
+        active.player.refresh_modal_close = true;
         Ok(())
     }
 
@@ -5023,7 +4841,7 @@ impl EnginePlayer for ActivePlayer {
     /// **Calls:** [`close_modal`](Self::close_modal)
     fn clear_pending_action(&mut self) -> Result<(), ScriptError> {
         self.player.clear_interaction();
-        self.close_modal(true)?;
+        Self::close_modal(self, true)?;
         Ok(())
     }
 
@@ -5131,5 +4949,36 @@ impl fmt::Write for TriggerName {
         dst.copy_from_slice(s.as_bytes());
         self.len = end;
         Ok(())
+    }
+}
+
+#[cfg(since_647)]
+impl SocialClient for ActivePlayer {
+    fn write<M: ServerProtMessage>(&mut self, message: M) {
+        ActivePlayer::write(self, message);
+    }
+
+    fn social(&mut self) -> &mut Social {
+        &mut self.social
+    }
+
+    fn social_message(&mut self, kind: i32, text: &str) {
+        self.message_game_typed(kind, text);
+    }
+
+    fn log_chat(&mut self, channel: i16, to37: Option<u64>, text: String) {
+        ActivePlayer::log_chat(self, channel, to37, text);
+    }
+
+    fn user37(&self) -> u64 {
+        self.uid().username37()
+    }
+
+    fn tier(&self) -> u8 {
+        self.staffmodlevel().min(2)
+    }
+
+    fn shown_name(&self) -> String {
+        self.player.shown_name()
     }
 }

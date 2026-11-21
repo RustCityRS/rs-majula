@@ -1,18 +1,15 @@
-use crate::active_player::EnginePlayer;
+use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::controls::DISABLED_MESSAGE;
 use crate::core::Engine;
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
-use rs_pack::cache::script::Script;
+use rs_pack::cache::script::{Script, ScriptProvider};
 use rs_ver::TypeId;
 use rs_vm::engine::with_engine;
 use rs_vm::pointer::ScriptPointer;
-use rs_vm::register::OpsRegistry;
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ScriptError, vm};
-#[cfg(since_647)]
-use std::panic::{AssertUnwindSafe, catch_unwind, resume_unwind};
 use std::sync::Arc;
 use tracing::error;
 
@@ -60,29 +57,7 @@ impl Engine {
         t: Option<i32>,
         c: Option<i32>,
     ) -> Option<Arc<Script>> {
-        let base = trigger as i32;
-
-        if let Some(t) = t {
-            // Widen through i64 before truncating: rev-647 interface triggers
-            // key by the 32-bit component hash, and the compiler computes the
-            // same wrapped key. For sub-2^21 subjects (all 2004-era ids) this
-            // is bit-identical to the old u16 shift.
-            let key = (((t as i64) << 10) | (0x2 << 8) | base as i64) as i32;
-            if let Some(script) = self.scripts.get_by_lookup(key) {
-                return Some(Arc::clone(script));
-            }
-        }
-
-        if let Some(c) = c
-            && c != -1
-        {
-            let key = base | (0x1 << 8) | (c << 10);
-            if let Some(script) = self.scripts.get_by_lookup(key) {
-                return Some(Arc::clone(script));
-            }
-        }
-
-        self.scripts.get_by_lookup(base).cloned()
+        self.scripts.get_by_trigger(trigger as i32, t, c).cloned()
     }
 
     /// Whether `trigger` has a script for type `t` itself, or (with no `t`)
@@ -93,8 +68,8 @@ impl Engine {
     pub fn has_script_for(&self, trigger: ServerTriggerType, t: Option<i32>, c: i32) -> bool {
         let base = trigger as i32;
         let key = match t {
-            Some(t) => base | (0x2 << 8) | (t << 10),
-            None if c != -1 => base | (0x1 << 8) | (c << 10),
+            Some(t) => ScriptProvider::type_key(base, t),
+            None if c != -1 => ScriptProvider::category_key(base, c),
             None => return false,
         };
         self.scripts.get_by_lookup(key).is_some()
@@ -122,8 +97,7 @@ impl Engine {
     /// **Calls:** `vm::execute`.
     pub fn runescript_vm_execute(&mut self, state: &mut ScriptState) -> ExecutionState {
         self.flush_input_paths();
-        let ops = &self.ops as *const OpsRegistry;
-        with_engine(self, move || vm::execute::<Engine>(state, unsafe { &*ops }))
+        with_engine(self, |engine| vm::execute::<Engine>(state, &engine.ops))
     }
 
     /// Executes a pre-built [`ScriptState`] against the appropriate subject entity.
@@ -270,26 +244,6 @@ impl Engine {
         };
         self.run_script_inner(subject, target, protect, force, args, script)
             .unwrap_or_else(|value| value)
-    }
-
-    /// Runs lobbyscript's script for `trigger`. The lobby's set stands in for
-    /// the game's while it runs, so its procs resolve among themselves.
-    #[cfg(since_647)]
-    pub fn run_lobby_trigger(
-        &mut self,
-        trigger: (ServerTriggerType, Option<i32>, Option<i32>),
-        subject: Option<ScriptSubject>,
-    ) -> Result<(), ScriptError> {
-        let Some(lobby) = self.scripts.lobby.take() else {
-            return Err(ScriptError::TriggerNotFound(trigger.0));
-        };
-        let game = std::mem::replace(&mut self.scripts, *lobby);
-        let result = catch_unwind(AssertUnwindSafe(|| {
-            self.run_script_by_trigger(trigger, subject, None, Some(true), None, None)
-        }));
-        let lobby = std::mem::replace(&mut self.scripts, game);
-        self.scripts.lobby = Some(Box::new(lobby));
-        result.unwrap_or_else(|panic| resume_unwind(panic))
     }
 
     /// Looks up a script by its string name and executes it against a subject entity.
@@ -531,7 +485,7 @@ impl Engine {
                             active.player.resume_buttons = None;
                         }
                         if active.player.modal_state & MODAL_MAIN == MODAL_NONE {
-                            if let Err(e) = active.close_modal(false) {
+                            if let Err(e) = ActivePlayer::close_modal(active, false) {
                                 error!(
                                     "error closing modal after script finish for player {pid}: {e}"
                                 );

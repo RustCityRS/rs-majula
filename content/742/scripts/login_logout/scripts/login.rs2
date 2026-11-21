@@ -1,5 +1,8 @@
 [login,_]
 mes("Welcome to RuneScape.")
+// The client opens no tab, friend prompt or join prompt until this is set (clientscripts
+// side_if_open, meslayer_mode2-16, friend_op); every account has a display name.
+%has_displayname_client = true;
 // register the timers that replenish stats (ported from rev-225);
 // hp is separate so rapid heal/restore can retune it independently
 settimer(stat_regen, 100);

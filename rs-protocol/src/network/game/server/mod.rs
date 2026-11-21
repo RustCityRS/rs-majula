@@ -182,11 +182,14 @@ pub mod update_friendchat_channel_full;
 #[cfg(since_530)]
 pub mod update_friendchat_channel_singleuser;
 pub mod update_friendlist;
-#[cfg(before_647)]
+#[cfg(any(before_647, since_742))]
 pub mod update_ignorelist;
 #[cfg(since_647)]
 #[cfg(before_742)]
 pub mod update_ignorelist_full;
+#[cfg(since_647)]
+#[cfg(before_742)]
+pub mod update_ignorelist_partial;
 pub mod update_inv_full;
 pub mod update_inv_partial;
 #[cfg(before_647)]

@@ -4,7 +4,7 @@
 if_setonvartransmit(lobbyscreen:com_0, "clientscript_2354{varplayer_2411}");
 if_setonvartransmit(lobbyscreen:com_236, "clientscript_5950{varplayer_2536}");
 if (%varplayerbit_11162 < 1 & userdetail_quickchat = false) {
-    if_setonvartransmit(lobbyscreen:com_235, "clientscript_5937{varplayer_2610}");
+    if_setonvartransmit(lobbyscreen:com_235, "clientscript_5937{email_validation}");
 }
 if_settrans(lobbyscreen:com_336, 0);
 if ($int1 = 0) {

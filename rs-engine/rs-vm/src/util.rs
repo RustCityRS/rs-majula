@@ -180,7 +180,7 @@ fn active_player_gone(uid: PlayerUid) -> ScriptError {
 pub(crate) fn get_active_player_mut<E: ScriptEngine + 'static>(
     state: &ScriptState,
     secondary: bool,
-) -> Result<&'static mut (impl ScriptPlayer + use<E>)> {
+) -> Result<&'static mut E::Player> {
     let uid = active_player_uid(state, secondary)?;
     engine_mut::<E>()
         .get_player_mut(uid.pid())
@@ -213,7 +213,7 @@ pub(crate) fn get_active_player_mut<E: ScriptEngine + 'static>(
 pub(crate) fn get_active_player<E: ScriptEngine + 'static>(
     state: &ScriptState,
     secondary: bool,
-) -> Result<&'static (impl ScriptPlayer + use<E>)> {
+) -> Result<&'static E::Player> {
     let uid = active_player_uid(state, secondary)?;
     engine::<E>()
         .get_player(uid.pid())
@@ -471,7 +471,7 @@ pub(crate) fn require_active_player(state: &ScriptState) -> Result<()> {
 /// access, even over an open modal.
 ///
 /// # Call Stack
-/// **Called by:** the `IF_OPEN*` ops in `ops::player`.
+/// **Called by:** the `IF_OPEN*` ops in `ops::interface`.
 pub(crate) fn overlay_button(state: &ScriptState) -> bool {
     state.trigger.is_some_and(|trigger| trigger.is_button())
         && !state.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[0])

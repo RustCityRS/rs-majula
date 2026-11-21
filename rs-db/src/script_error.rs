@@ -1,12 +1,5 @@
 use crate::{Db, Error};
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// A script error as staff see it: every row of it, summed.
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct ScriptErrorGroup {

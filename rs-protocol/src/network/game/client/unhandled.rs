@@ -47,16 +47,6 @@ impl ClientProtMessage for CreateAccount {
     }
 }
 
-#[client_prot(VarByte { min: 0 }, ClientEvent)]
-pub struct AffinedClansettingsAddBannedFromChannel;
-
-impl ClientProtMessage for AffinedClansettingsAddBannedFromChannel {
-    fn decode(buf: &mut Packet, len: usize) -> Self {
-        buf.pos = len;
-        AffinedClansettingsAddBannedFromChannel
-    }
-}
-
 #[client_prot(VarShort { min: 0 }, ClientEvent)]
 pub struct AddNewEmailAddress;
 

@@ -21,7 +21,9 @@ fn compiler_covers_entity_handlers() {
                 continue;
             };
             let pointers = match handler.strip_suffix("_mut").unwrap_or(handler) {
-                "active_player" => [PointerType::ActivePlayer, PointerType::ActivePlayer2],
+                "active_player" | "active_interface" => {
+                    [PointerType::ActivePlayer, PointerType::ActivePlayer2]
+                }
                 "protected_active_player" => {
                     [PointerType::PActivePlayer, PointerType::PActivePlayer2]
                 }

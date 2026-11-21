@@ -1,4 +1,5 @@
 use crate::register::OpsRegistry;
+use crate::session::HostKind;
 use crate::{ScriptError, handlers, none};
 use runec::opcodes::*;
 use std::time::Instant;
@@ -19,7 +20,7 @@ use tracing::info;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::debug::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build() -> OpsRegistry {
+pub fn build<K: HostKind>() -> OpsRegistry<K> {
     handlers! { |m|
         // 10000
         none!(m, CONSOLE => |s| {

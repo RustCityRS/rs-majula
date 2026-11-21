@@ -176,6 +176,7 @@ async fn resolve(app: &App, staff: &Staff, item: &EvidenceRef) -> Result<Evidenc
             Evidence::Chat {
                 id: c.id,
                 from: c.from,
+                channel: Some(c.channel),
                 to: c.to,
                 node: c.node,
                 message: c.message,

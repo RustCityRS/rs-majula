@@ -1,4 +1,7 @@
 [login,_]
+// The lobby's friend, ignore and join prompts wait for this (clientscripts meslayer_mode2-16,
+// friend_op); every account has a display name.
+%has_displayname_client = true;
 // The website bar over the game off before the game opens (see open_game_frame).
 %varclient_2010 = 0;
 %varplayer_2526 = 1;

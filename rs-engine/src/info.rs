@@ -1627,10 +1627,14 @@ mod client_decode_tests {
             remote_ip: None,
             muted_until: None,
             unread_messages: 0,
+            #[cfg(since_530)]
+            last_login_ip: None,
             last_report: None,
             last_social: None,
             friends: Vec::new(),
             ignores: Vec::new(),
+            #[cfg(since_647)]
+            social: Default::default(),
             watch: Box::default(),
             capture: None,
             pending_path: None,
@@ -1639,9 +1643,7 @@ mod client_decode_tests {
             #[cfg(since_647)]
             last_link: None,
             #[cfg(since_647)]
-            lobby: false,
-            #[cfg(since_647)]
-            world: 0,
+            client_session: 0,
         }
     }
 

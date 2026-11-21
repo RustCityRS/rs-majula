@@ -23,6 +23,7 @@ use anyhow::{Context, Result, bail};
 #[cfg(since_530)]
 use rayon::join;
 use rayon::prelude::*;
+use runec::sources::roots;
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -439,7 +440,7 @@ impl FileCache {
         Self::from_files(source_files(source_dir))
     }
 
-    fn from_files(files: Vec<PathBuf>) -> Self {
+    pub(crate) fn from_files(files: Vec<PathBuf>) -> Self {
         let mut by_ext: HashMap<String, Vec<PathBuf>> = HashMap::new();
         let mut contents = HashMap::new();
 
@@ -507,7 +508,7 @@ impl ConfigFiles {
 /// Every file under a config source directory's roots, in order.
 fn source_files(source_dir: &Path) -> Vec<PathBuf> {
     let mut files = Vec::new();
-    for root in runec::sources::roots(source_dir) {
+    for root in roots(source_dir) {
         collect_all_recursive(&root, &mut files);
     }
     files.sort();
@@ -516,7 +517,7 @@ fn source_files(source_dir: &Path) -> Vec<PathBuf> {
 
 pub fn collect_config_files(dir: &Path, ext: &str) -> Vec<PathBuf> {
     let mut files = Vec::new();
-    for root in runec::sources::roots(dir) {
+    for root in roots(dir) {
         collect_all_recursive(&root, &mut files);
     }
     files.sort();

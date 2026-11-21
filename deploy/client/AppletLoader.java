@@ -8,23 +8,29 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.SocketAddress;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Runs a client from a world's jav_config.ws, as a browser would: the config's params, the jar served beside
  * it, and the config's codebase (which the client takes its server host from). A client that is not itself an
  * applet (742's) is handed a host applet through supplyApplet, as Jagex's loader did. Arguments after the URL
- * override params, e.g. {@code 18=2 8=2} for 742's world and lobby ids on node 11.
+ * override params, e.g. {@code 18=2 8=1001} for 742 world 2 and lobby 1001.
  *
  * <pre>java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m deploy/client/AppletLoader.java http://127.0.0.1:8080/jav_config.ws</pre>
  */
@@ -39,8 +45,29 @@ public final class AppletLoader implements AppletStub, AppletContext {
         if (!System.getProperty("java.version", "").startsWith("1.")) {
             System.setProperty("java.version", "1.7.0_80");
         }
+        mutableProxyLists();
         String url = args.length > 0 ? args[0] : "http://127.0.0.1:8080/jav_config.ws";
         new AppletLoader().run(URI.create(url).toURL(), Arrays.copyOfRange(args, Math.min(1, args.length), args.length));
+    }
+
+    /**
+     * After a refused connection, 742's client retries through the default ProxySelector and calls addAll on
+     * the list it returns. From Java 9 that list is immutable, so the retry crashes the client instead of
+     * showing the connection error.
+     */
+    private static void mutableProxyLists() {
+        ProxySelector system = ProxySelector.getDefault();
+        ProxySelector.setDefault(new ProxySelector() {
+            @Override
+            public List<Proxy> select(URI uri) {
+                return new ArrayList<>(system.select(uri));
+            }
+
+            @Override
+            public void connectFailed(URI uri, SocketAddress address, IOException e) {
+                system.connectFailed(uri, address, e);
+            }
+        });
     }
 
     private static void call(Object target, String name, Class<?> type, Object arg) {

@@ -1,6 +1,7 @@
 use crate::engine::{ScriptEngine, ScriptPlayer, engine, engine_mut};
 use crate::macros::active_obj_ref;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ObjRef;
 use crate::util::*;
 use crate::{ScriptError, active_obj, handlers, iterators, none};
@@ -28,7 +29,7 @@ use runec::opcodes::*;
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::obj::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` /
 /// `active_obj!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 3500
         // https://x.com/JagexAsh/status/1679942100249464833

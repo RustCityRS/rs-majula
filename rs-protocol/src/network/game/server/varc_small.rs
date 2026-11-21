@@ -18,6 +18,19 @@ pub struct VarcSmall {
     pub verify: u16,
 }
 
+#[cfg(since_530)]
+impl VarcSmall {
+    /// Whether `val` fits this packet's byte, which 530 reads unsigned and 647
+    /// signed; a larger one goes as VARC_LARGE.
+    pub fn fits(val: i32) -> bool {
+        #[cfg(before_647)]
+        let fits = u8::try_from(val).is_ok();
+        #[cfg(since_647)]
+        let fits = i8::try_from(val).is_ok();
+        fits
+    }
+}
+
 #[cfg(all(since_530, before_647))]
 impl ServerProtMessage for VarcSmall {
     fn encode(&self, buf: &mut Packet) {

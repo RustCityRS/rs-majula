@@ -75,16 +75,10 @@ pub fn component_protected(active: &ActivePlayer, com: ComId) -> bool {
             {
                 return true;
             }
-            let Some(parent) = active
-                .player
-                .open_subs
-                .iter()
-                .find(|(_, (sub, _))| *sub == iface)
-                .map(|(&parent, _)| (parent as u32 >> 16) as u16)
-            else {
+            let Some((parent, _)) = active.player.subs.holder(iface) else {
                 break;
             };
-            iface = parent;
+            iface = (parent as u32 >> 16) as u16;
         }
         false
     }
@@ -97,13 +91,7 @@ pub fn component_events(active: &ActivePlayer, com: ComId, slot: u16) -> Option<
     let events = interface.active_properties | if1_events(interface);
     #[cfg(since_647)]
     let events = interface.active_properties;
-    active
-        .player
-        .if_events
-        .get(&(com, slot))
-        .copied()
-        .or_else(|| (slot == u16::MAX).then_some(events))
-        .map(IfEvents)
+    active.player.subs.events(com, slot, events).map(IfEvents)
 }
 
 /// The events the 530 client gives an if1 component from its own fields

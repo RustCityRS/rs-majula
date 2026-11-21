@@ -119,7 +119,7 @@ async fn check_name(app: &App, input: &str) -> Result<Result<PlayerName, String>
     if is_reserved(&name.display) || is_filtered(app, &name.display) {
         return Ok(Err("That username is not available.".to_string()));
     }
-    if app.db.name_taken(name.hash).await? {
+    if app.db.name_taken(&name).await? {
         return Ok(Err(taken(&name.display)));
     }
     Ok(Ok(name))

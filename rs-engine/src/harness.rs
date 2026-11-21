@@ -14,7 +14,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{profile_from_save, to_save};
 use crate::clients::client_game::create_io;
-use crate::core::{Engine, LoginRequest, engine_mut};
+use crate::core::{Engine, LoginAccount, LoginRequest, engine_mut};
 use crate::handlers::client_cheat::spawn_bots;
 #[cfg(since_647)]
 use crate::phases::controller::Controllers;
@@ -105,9 +105,10 @@ use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
+use rs_vm::session::EngineHost;
 use rs_vm::state::{LocRef, ScriptState};
 use rs_vm::subject::ScriptSubject;
-use rs_vm::trigger::ServerTriggerType;
+use rs_vm::trigger::ServerTriggerType as Trigger;
 use rs_vm::{RegionUid, ScriptError};
 use runec::opcodes::{SETUP_PLAYER, TEST_OP};
 use std::cell::RefCell;
@@ -834,20 +835,24 @@ impl Engine {
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
             #[cfg(since_647)]
-            lobby: false,
-            #[cfg(since_647)]
-            world: 1,
+            client_session: 0,
         };
-        let engine = self as *mut Engine;
         // `ActivePlayer::new` and the `[login]` trigger read the global
         // engine and cache, which a direct call from a test has not installed.
-        with_engine(self, || {
-            unsafe { &mut *engine }.accept_login(
+        with_engine(self, |engine| {
+            engine.accept_login(
                 request,
                 profile,
-                StaffModLevel::Normal,
-                None,
-                0,
+                LoginAccount {
+                    staff_mod_level: StaffModLevel::Normal,
+                    muted_until: None,
+                    unread_messages: 0,
+                    member: true,
+                    #[cfg(since_647)]
+                    jcoins: 0,
+                    last_login_ip: None,
+                    chat_filters: None,
+                },
                 pid,
                 &[],
             )
@@ -879,20 +884,17 @@ impl Engine {
     /// and dispatched, and nothing else happens. A test reads what a handler
     /// set before the player phase acts on it.
     pub fn harness_inputs(&mut self) {
-        let engine = self as *mut Engine;
-        with_engine(self, || unsafe { &mut *engine }.inputs());
+        with_engine(self, |engine| engine.inputs());
     }
 
     pub fn harness_local_bots(&mut self, coord: CoordGrid, count: u16) -> u16 {
-        with_engine(self, || spawn_bots(coord, count, 15))
+        with_engine(self, |_| spawn_bots(coord, count, 15))
     }
 
     /// Moves a player as `p_telejump` does: placed, not walked, and the
     /// client's scene rebuilt around the new tile on the next tick.
     pub fn harness_telejump(&mut self, pid: u16, x: u16, y: u8, z: u16) {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            let engine = unsafe { &mut *engine };
+        with_engine(self, |engine| {
             if let Some(active) = engine.get_player_mut(pid) {
                 active.tele_jump(CoordGrid::new(x, y, z));
             }
@@ -902,9 +904,8 @@ impl Engine {
     /// Awards experience as `stat_advance` does (in the engine's tenths): a
     /// level gained queues the stat's `[advancestat]` script.
     pub fn harness_add_xp(&mut self, pid: u16, stat: usize, xp: i32) {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
+        with_engine(self, |engine| {
+            if let Some(active) = engine.get_player_mut(pid) {
                 active.add_xp(stat, xp);
             }
         });
@@ -924,7 +925,7 @@ impl Engine {
     /// Closes the player's modals as `if_close` does.
     pub fn harness_close_modal(&mut self, pid: u16) {
         self.with_harness_player(pid, |active| {
-            let _ = active.close_modal(true);
+            let _ = ActivePlayer::close_modal(active, true);
         });
     }
 
@@ -934,9 +935,8 @@ impl Engine {
     }
 
     fn with_harness_player(&mut self, pid: u16, f: impl FnOnce(&mut ActivePlayer)) {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
+        with_engine(self, |engine| {
+            if let Some(active) = engine.get_player_mut(pid) {
                 f(active);
             }
         });
@@ -945,10 +945,9 @@ impl Engine {
     /// Drops an obj on the ground for everyone, as a map spawn would be.
     pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: TypeId, count: u32) {
         let coord = CoordGrid::new(x, y, z);
-        let engine = self as *mut Engine;
-        with_engine(self, || {
+        with_engine(self, |engine| {
             let obj = Obj::new(coord, EntityLifeTime::Despawn, id, count);
-            unsafe { &mut *engine }.add_obj(coord, obj, None, 200);
+            engine.add_obj(coord, obj, None, 200);
         });
     }
 
@@ -1105,13 +1104,36 @@ enum Subject {
     Other,
 }
 
-fn subject_of(trigger: ServerTriggerType) -> Subject {
-    use ServerTriggerType::*;
+fn subject_of(trigger: Trigger) -> Subject {
     match trigger {
-        ApLoc1 | ApLoc2 | ApLoc3 | ApLoc4 | ApLoc5 | ApLocU | ApLocT | OpLoc1 | OpLoc2 | OpLoc3
-        | OpLoc4 | OpLoc5 | OpLocU | OpLocT => Subject::Loc,
-        ApNpc1 | ApNpc2 | ApNpc3 | ApNpc4 | ApNpc5 | ApNpcU | ApNpcT | OpNpc1 | OpNpc2 | OpNpc3
-        | OpNpc4 | OpNpc5 | OpNpcU | OpNpcT => Subject::Npc,
+        Trigger::ApLoc1
+        | Trigger::ApLoc2
+        | Trigger::ApLoc3
+        | Trigger::ApLoc4
+        | Trigger::ApLoc5
+        | Trigger::ApLocU
+        | Trigger::ApLocT
+        | Trigger::OpLoc1
+        | Trigger::OpLoc2
+        | Trigger::OpLoc3
+        | Trigger::OpLoc4
+        | Trigger::OpLoc5
+        | Trigger::OpLocU
+        | Trigger::OpLocT => Subject::Loc,
+        Trigger::ApNpc1
+        | Trigger::ApNpc2
+        | Trigger::ApNpc3
+        | Trigger::ApNpc4
+        | Trigger::ApNpc5
+        | Trigger::ApNpcU
+        | Trigger::ApNpcT
+        | Trigger::OpNpc1
+        | Trigger::OpNpc2
+        | Trigger::OpNpc3
+        | Trigger::OpNpc4
+        | Trigger::OpNpc5
+        | Trigger::OpNpcU
+        | Trigger::OpNpcT => Subject::Npc,
         _ => Subject::Other,
     }
 }
@@ -1125,10 +1147,10 @@ fn subject_of(trigger: ServerTriggerType) -> Subject {
 ///   active player.
 /// - `TEST_OP` -- fires a trigger against a loc at a coord, or the first npc
 ///   of a type, with the active player as subject.
-pub fn ops() -> OpsRegistry {
+pub fn ops() -> OpsRegistry<EngineHost<Engine>> {
     let mut ops = test::build();
-    ops.insert(SETUP_PLAYER, setup_player);
-    ops.insert(TEST_OP, test_op);
+    ops.insert(SETUP_PLAYER, |s, _| setup_player(s));
+    ops.insert(TEST_OP, |s, _| test_op(s));
     ops
 }
 
@@ -1157,7 +1179,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
     let coord = s.pop_int() as u32;
     let subject_id = s.pop_int();
     let trigger_byte = s.pop_int();
-    let trigger = ServerTriggerType::try_from(trigger_byte as u8)
+    let trigger = Trigger::try_from(trigger_byte as u8)
         .map_err(|_| ScriptError::Runtime(format!("test_op: bad trigger {trigger_byte}")))?;
     let player = s
         .active_player

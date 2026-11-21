@@ -486,7 +486,7 @@ mod tests {
         let series: Vec<&str> = out.lines().filter(|l| !l.starts_with('#')).collect();
         assert_eq!(
             series.len(),
-            2 + 2 + 3 + 12 + 1 + 5 + 6 + 6 + 3 + 1 + 1 + 1 + 3 + 1
+            4 + 4 + 3 + 12 + 1 + 5 + 6 + 6 + 3 + 1 + 1 + 1 + 3 + 1
         );
         assert!(series.contains(&"rs_db_replay_chunks_dropped_total 0"));
         assert!(series.contains(&"rs_wealth_coins_total{type=\"shop_sell\"} 120"));

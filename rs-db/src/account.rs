@@ -44,7 +44,8 @@ pub enum AccountDeleted {
 
 /// Everything kept about a player, as JSON, for [`Db::export_account`]
 /// (worlds by the number players know, world N being node N + 9): the
-/// account (no password or reset code), the save and earlier ones, the
+/// account (no password or reset code) and its details, the save and
+/// earlier ones, the
 /// hiscores, logins, chat, game events, item events, recordings (when and
 /// where, not the anti-cheat checks' verdicts), the reports they made, the
 /// sanctions given them, their appeals and recovery requests, and the
@@ -54,6 +55,7 @@ const EXPORT: &str = "
 SELECT jsonb_build_object(
   'exported_at', now(),
   'account', to_jsonb(p) - ARRAY['id', 'name_hash', 'password_hash', 'reset_code_hash', 'reset_code_until'],
+  'details', (SELECT to_jsonb(d) - 'player_id' FROM account_details d WHERE d.player_id = p.id),
   'save', (SELECT to_jsonb(s) - 'player_id' FROM player_saves s WHERE s.player_id = p.id),
   'earlier_saves', (SELECT coalesce(jsonb_agg((to_jsonb(h) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', h.node_id - 9) ORDER BY h.saved_at), '[]')
                     FROM save_history h WHERE h.player_id = p.id),
@@ -61,6 +63,7 @@ SELECT jsonb_build_object(
                FROM hiscores s WHERE s.player_id = p.id),
   'friends', to_jsonb($2::text[]),
   'ignores', to_jsonb($3::text[]),
+  'friends_chat', $4::jsonb,
   'logins', (SELECT coalesce(jsonb_agg((to_jsonb(l) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', l.node_id - 9) ORDER BY l.created_at), '[]')
              FROM login_logs l WHERE l.player_id = p.id),
   'chat', (SELECT coalesce(jsonb_agg((to_jsonb(c) - ARRAY['id', 'player_id', 'to_name_hash', 'node_id'])
@@ -161,12 +164,37 @@ impl Db {
         let ignores = self
             .social_names("ignores", "ignore_hashes", name_hash)
             .await?;
+        let friends_chat = self.friends_chat(name_hash).await?;
         sqlx::query_scalar(EXPORT)
             .bind(name_hash as i64)
             .bind(friends)
             .bind(ignores)
+            .bind(friends_chat)
             .fetch_optional(&self.pool)
             .await
+    }
+
+    /// The player's friends chat settings and the ranks they gave, as JSON,
+    /// where the social server keeps them in this database.
+    async fn friends_chat(&self, name_hash: u64) -> Result<Option<String>, Error> {
+        if !self.has_table("friendchat_settings").await?
+            || !self.has_table("friendchat_ranks").await?
+        {
+            return Ok(None);
+        }
+        sqlx::query_scalar(
+            "SELECT jsonb_build_object(
+                 'settings', (SELECT to_jsonb(s) - 'owner_hash' FROM friendchat_settings s
+                              WHERE s.owner_hash = $1),
+                 'ranks', (SELECT coalesce(jsonb_agg(jsonb_build_object('friend', p.display_name, 'rank', r.rank)
+                                                     ORDER BY r.rank DESC), '[]')
+                           FROM friendchat_ranks r LEFT JOIN players p ON p.name_hash = r.friend_hash
+                           WHERE r.owner_hash = $1))::text",
+        )
+        .bind(name_hash as i64)
+        .fetch_one(&self.pool)
+        .await
+        .map(Some)
     }
 
     /// Deletes the player's account and everything kept with it (every
@@ -196,7 +224,12 @@ impl Db {
             });
         }
         // The social server's lists, where it keeps them in this database.
-        for table in ["friends", "ignores"] {
+        for table in [
+            "friends",
+            "ignores",
+            "friendchat_settings",
+            "friendchat_ranks",
+        ] {
             if self.has_table(table).await? {
                 sqlx::query(AssertSqlSafe(format!(
                     "DELETE FROM {table} WHERE owner_hash = $1"

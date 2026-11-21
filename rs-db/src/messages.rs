@@ -1,13 +1,6 @@
 use crate::{Db, Error};
 use sqlx::AssertSqlSafe;
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// A timestamp column as the website shows it: `20th October 2026, 18:04`
 /// (UTC).
 macro_rules! shown {

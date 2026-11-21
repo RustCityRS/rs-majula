@@ -59,10 +59,11 @@ impl Db {
     /// The worlds that reported within the last `max_age_secs`, judged by the
     /// database's clock so the worlds' own clocks don't matter.
     pub async fn live_worlds(&self, max_age_secs: i32) -> Result<Vec<WorldStatus>, Error> {
-        sqlx::query_as(
+        sqlx::query_as(concat!(
             "SELECT node_id, players, maintenance FROM world_status
-             WHERE updated_at > now() - make_interval(secs => $1)",
-        )
+             WHERE node_id >= 0 AND ",
+            live!("updated_at", "$1")
+        ))
         .bind(max_age_secs)
         .fetch_all(&self.pool)
         .await

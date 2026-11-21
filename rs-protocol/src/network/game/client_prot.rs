@@ -1,4 +1,6 @@
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_742)]
+pub use crate::network::game::client::affinedclansettings_addbanned_fromchannel::AffinedClansettingsAddBannedFromChannel;
 #[cfg(before_530)]
 pub use crate::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
 #[cfg(before_530)]

@@ -74,7 +74,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             let player = engine.harness_player_mut(client.pid).unwrap();
             match case {
                 5 => {
-                    player.if_events.insert((BACKPACK, 0), 0);
+                    player.subs.events.insert((BACKPACK, 0), 0);
                 }
                 6 => {
                     player.clear_inv_transmits(BACKPACK);
@@ -143,7 +143,8 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                 engine
                     .harness_player_mut(client.pid)
                     .unwrap()
-                    .if_events
+                    .subs
+                    .events
                     .insert((BACKPACK, 0), 0);
             }
             if matches!(case, 3 | 6) {
@@ -205,9 +206,9 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             let (mut client, _, logs, sword) = fresh(engine);
             let player = engine.harness_player_mut(client.pid).unwrap();
             if case == 1 {
-                *player.if_events.get_mut(&(BACKPACK, 0)).unwrap() &= !(0x20 << 11);
+                *player.subs.events.get_mut(&(BACKPACK, 0)).unwrap() &= !(0x20 << 11);
             } else if case == 2 {
-                *player.if_events.get_mut(&(BACKPACK, 1)).unwrap() &= !(1 << 22);
+                *player.subs.events.get_mut(&(BACKPACK, 1)).unwrap() &= !(1 << 22);
             }
             let (com, slot, obj, slot2, obj2) = match case {
                 0 => (BACKPACK, 0, logs, 0, logs),
@@ -263,14 +264,15 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         let parent = *engine
             .harness_player(client.pid)
             .unwrap()
-            .open_subs
+            .subs
+            .open
             .iter()
             .find(|(_, (sub, _))| *sub == INVENTORY)
             .unwrap()
             .0;
         let player = engine.harness_player_mut(client.pid).unwrap();
-        player.sub_closed(parent);
-        player.sub_opened(parent, INVENTORY, 1);
+        player.subs.closed(parent);
+        player.subs.opened(parent, INVENTORY, 1);
         client.if_button(8, BACKPACK, 0, logs);
         engine.harness_inputs();
         assert_eq!(

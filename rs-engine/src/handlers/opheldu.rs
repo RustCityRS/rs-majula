@@ -6,6 +6,7 @@ use crate::handlers::op_common::{
     action_target, held_component_ok, require_held, use_component_ok,
 };
 use crate::watch::{Target, Using};
+use rs_pack::cache::script::ScriptProvider;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::opheldu::OpHeldU;
 use rs_ver::TypeId;
@@ -103,11 +104,11 @@ pub(super) fn handle(
 }
 
 fn obj_key(id: TypeId) -> i32 {
-    ServerTriggerType::OpHeldU as i32 | (0x2 << 8) | (id.int() << 10)
+    ScriptProvider::type_key(ServerTriggerType::OpHeldU as i32, id.int())
 }
 
 fn category_key(category: TypeId) -> i32 {
-    ServerTriggerType::OpHeldU as i32 | (0x1 << 8) | (category.int() << 10)
+    ScriptProvider::category_key(ServerTriggerType::OpHeldU as i32, category.int())
 }
 
 /// Looks up the `[opheldu]` script for `obj` (the target) and `obj2` (the

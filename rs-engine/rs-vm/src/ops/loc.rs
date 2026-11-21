@@ -8,6 +8,7 @@ use crate::iterators::LocIteratorState;
 #[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 #[cfg(since_647)]
 use crate::state::{LocRef, ScriptState};
 #[cfg(since_647)]
@@ -39,7 +40,7 @@ use runec::opcodes::*;
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::loc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` /
 /// `active_loc!` / `active_player_mut!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 3000
         none!(m, LOC_ADD => |s| {

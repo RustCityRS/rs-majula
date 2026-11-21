@@ -13,6 +13,7 @@
 //! [`register_ops`]: https://docs.rs/rs-engine
 
 use crate::register::OpsRegistry;
+use crate::session::HostKind;
 use crate::state::ExecutionState;
 use crate::{handlers, none};
 use runec::opcodes::*;
@@ -176,7 +177,7 @@ fn called_listing(name: &str, calls: &[String]) -> String {
 /// - `TEST_TICK` -- suspends the world script for exactly N ticks.
 /// - `WAIT_FOR` -- suspends until an instrumented command is called, or fails
 ///   once its timeout runs out.
-pub fn build() -> OpsRegistry {
+pub fn build<K: HostKind>() -> OpsRegistry<K> {
     handlers! { |m|
         // 50000
         none!(m, ASSERT_EQ => |s| {

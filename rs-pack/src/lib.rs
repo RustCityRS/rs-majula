@@ -77,6 +77,8 @@ use crate::pack::pack::{ConfigFiles, check_configs, pack_config_files};
 #[cfg(before_530)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::script::compile as compile_runescript;
+#[cfg(since_647)]
+use crate::pack::script::compile_lobby;
 #[cfg(before_530)]
 use crate::pack::sound::pack_sounds;
 #[cfg(before_530)]
@@ -89,6 +91,7 @@ use crate::pack::wordenc::pack_wordenc;
 use crate::types::OndemandBlobs;
 #[cfg(all(since_244, before_530))]
 use crate::unpack::model::load_existing_pack;
+use anyhow::Result;
 #[cfg(since_530)]
 use rayon::ThreadPoolBuilder;
 #[cfg(before_530)]
@@ -485,19 +488,15 @@ fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
 /// Compiles the RuneScript sources under `source` alone, for swapping into
 /// a running world: the cache it already serves stays as it is. Errors are
 /// the compiler's, as it reports them.
-pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvider> {
+pub fn compile_scripts(source: &Path, pack: &Path) -> Result<ScriptProvider> {
     let (dat, idx) = compile_runescript(source, pack)?;
-    let scripts = ScriptProvider::from_bytes(&dat, &idx);
-    #[cfg(since_647)]
-    let scripts = {
-        let (dat, idx) = crate::pack::script::compile_lobby(source, pack)?;
-        let lobby = ScriptProvider::from_bytes(&dat, &idx);
-        ScriptProvider {
-            lobby: Some(Box::new(lobby)),
-            ..scripts
-        }
-    };
-    Ok(scripts)
+    Ok(ScriptProvider::from_bytes(&dat, &idx))
+}
+
+#[cfg(since_647)]
+pub fn compile_lobby_scripts(source: &Path, pack: &Path) -> Result<ScriptProvider> {
+    let (dat, idx) = compile_lobby(source, pack)?;
+    Ok(ScriptProvider::from_bytes(&dat, &idx))
 }
 
 /// Packs `source` for the server. With a `cache` directory, what an earlier
@@ -509,7 +508,7 @@ pub fn pack_all(
     cache: Option<&Path>,
     verify: bool,
     members: bool,
-) -> anyhow::Result<startup::PackResult> {
+) -> Result<startup::PackResult> {
     let session = open_cache(cache);
     let result = ThreadPoolBuilder::new()
         .build()?
@@ -527,7 +526,7 @@ pub fn pack_all(
     cache: Option<&Path>,
     verify: bool,
     members: bool,
-) -> anyhow::Result<(Box<CacheStore>, ScriptProvider)> {
+) -> Result<(Box<CacheStore>, ScriptProvider)> {
     let session = open_cache(cache);
     debug!("Packing assets...");
     debug!("  source: {}", source.display());

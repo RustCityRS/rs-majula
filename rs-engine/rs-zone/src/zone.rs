@@ -58,7 +58,7 @@ pub struct Zone {
     merges: Vec<(u64, LocMerge)>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
-    next_serial: ObjSerial,
+    next_obj_serial: ObjSerial,
     next_loc_serial: LocSerial,
 }
 
@@ -103,7 +103,7 @@ impl Zone {
             merges: Vec::new(),
             events: Vec::new(),
             shared: Vec::new(),
-            next_serial: ObjSerial::FIRST,
+            next_obj_serial: ObjSerial::FIRST,
             next_loc_serial: LocSerial::FIRST,
         }
     }
@@ -235,8 +235,8 @@ impl Zone {
 
     /// Hands out the next obj [`ObjSerial`].
     fn next_obj_serial(&mut self) -> ObjSerial {
-        let serial = self.next_serial;
-        self.next_serial = serial.next();
+        let serial = self.next_obj_serial;
+        self.next_obj_serial = serial.next();
         serial
     }
 

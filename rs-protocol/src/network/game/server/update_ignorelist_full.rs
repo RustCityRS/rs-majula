@@ -19,6 +19,23 @@ pub struct IgnoreEntry {
 }
 
 #[cfg(since_647)]
+impl IgnoreEntry {
+    pub fn encode(&self, buf: &mut Packet) {
+        buf.pjstr(&self.name, STRING_TERMINATOR);
+        buf.pjstr(&self.display_name, STRING_TERMINATOR);
+        buf.pjstr(&self.prev_name, STRING_TERMINATOR);
+        buf.pjstr(&self.prev_display_name, STRING_TERMINATOR);
+    }
+
+    pub fn sizeof(&self) -> usize {
+        Packet::sizejstr(&self.name)
+            + Packet::sizejstr(&self.display_name)
+            + Packet::sizejstr(&self.prev_name)
+            + Packet::sizejstr(&self.prev_display_name)
+    }
+}
+
+#[cfg(since_647)]
 #[server_prot(UpdateIgnorelistFull, Buffered, VarShort)]
 pub struct UpdateIgnorelistFull {
     pub entries: Vec<IgnoreEntry>,
@@ -29,23 +46,11 @@ impl ServerProtMessage for UpdateIgnorelistFull {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.entries.len() as u8);
         for entry in &self.entries {
-            buf.pjstr(&entry.name, STRING_TERMINATOR);
-            buf.pjstr(&entry.display_name, STRING_TERMINATOR);
-            buf.pjstr(&entry.prev_name, STRING_TERMINATOR);
-            buf.pjstr(&entry.prev_display_name, STRING_TERMINATOR);
+            entry.encode(buf);
         }
     }
 
     fn sizeof(&self) -> usize {
-        1 + self
-            .entries
-            .iter()
-            .map(|e| {
-                Packet::sizejstr(&e.name)
-                    + Packet::sizejstr(&e.display_name)
-                    + Packet::sizejstr(&e.prev_name)
-                    + Packet::sizejstr(&e.prev_display_name)
-            })
-            .sum::<usize>()
+        1 + self.entries.iter().map(IgnoreEntry::sizeof).sum::<usize>()
     }
 }

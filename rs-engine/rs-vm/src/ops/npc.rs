@@ -7,6 +7,7 @@ use crate::ops::player::{carried_source, queue_source};
 #[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::{ExecutionState, ScriptArgument};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
@@ -46,7 +47,7 @@ use runec::opcodes::*;
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::npc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `active_npc!` /
 /// `active_npc_mut!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 2500
         none!(m, NPC_ADD => |s| {

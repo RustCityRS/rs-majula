@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "rs-engine",
+    "rs-lobby",
     "rs-engine/rs-cam",
     "rs-engine/rs-datastruct",
     "rs-engine/rs-inv",
@@ -110,6 +111,7 @@ rs-protocol-macros = { path = "rs-protocol/macros" }
 rs-cam = { path = "rs-engine/rs-cam" }
 rs-datastruct = { path = "rs-engine/rs-datastruct" }
 rs-engine = { path = "rs-engine" }
+rs-lobby = { path = "rs-lobby" }
 rs-grid = { path = "rs-engine/rs-grid" }
 rs-vm = { path = "rs-engine/rs-vm" }
 rs-inv = { path = "rs-engine/rs-inv" }

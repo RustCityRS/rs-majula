@@ -8,7 +8,9 @@ use std::net::IpAddr;
 use tracing::warn;
 
 /// Number of ticks a pending login may remain unresolved before being
-/// discarded with a [`LoginResponse::BadSave`] error.
+/// discarded: with [`LoginResponse::Duplicate`] when, from 647, it is still
+/// waiting for a lobby to hand the player over, else with
+/// [`LoginResponse::BadSave`].
 const LOGIN_TIMEOUT_TICKS: u32 = 10;
 
 /// Maximum playing sessions (distinct accounts) allowed per IP across all
@@ -17,17 +19,17 @@ const LOGIN_TIMEOUT_TICKS: u32 = 10;
 /// concurrent TCP/WS connections (and is sized at twice this so a reconnect's
 /// old and new socket can briefly coexist per playing session).
 #[cfg(debug_assertions)]
-const MAX_PLAYING_PER_IP: u8 = 2;
+pub const MAX_PLAYING_PER_IP: u8 = 2;
 #[cfg(not(debug_assertions))]
-const MAX_PLAYING_PER_IP: u8 = 1;
+pub const MAX_PLAYING_PER_IP: u8 = 1;
 
 /// Wrong-password attempts an IP may make before further logins are refused
 /// with [`LoginResponse::TooManyAttempts`]. Enforced twice: per world here,
 /// and across all worlds by the database.
-pub(crate) const MAX_LOGIN_FAILURES: u8 = 5;
+pub const MAX_LOGIN_FAILURES: u8 = 5;
 
 /// The failure window: 1 minute, as the client's message promises.
-pub(crate) const LOGIN_FAILURE_WINDOW_SECS: i32 = 60;
+pub const LOGIN_FAILURE_WINDOW_SECS: i32 = 60;
 
 /// [`LOGIN_FAILURE_WINDOW_SECS`] in 600ms ticks. This world forgets an IP's
 /// failures once its most recent one is this old.
@@ -39,33 +41,42 @@ impl Engine {
     /// Drains the `new_player_rx` channel for incoming login requests and,
     /// for each request:
     ///
-    /// 1. Rejects immediately if the database is not ready or this world's
-    ///    lease has run out ([`LoginResponse::LoginServerOffline`]).
+    /// 1. Rejects immediately if the database or the ether is not ready or
+    ///    this world's lease has run out ([`LoginResponse::LoginServerOffline`]).
     /// 2. Rejects if the IP has made [`MAX_LOGIN_FAILURES`] wrong-password
     ///    attempts within the failure window
     ///    ([`LoginResponse::TooManyAttempts`]).
-    /// 3. Rejects if the player is already logged in on this world, is still
-    ///    being logged out of it (their final save hasn't landed), or already
-    ///    has a login in flight ([`LoginResponse::Duplicate`]).
-    /// 4. Sends an ether cross-world login-check and a database
-    ///    authentication request, then parks the request in
-    ///    `pending_logins`.
+    /// 3. From 647, rejects a reconnect whose player is not on this world
+    ///    ([`LoginResponse::BadSession`]). Rejects if the player is already
+    ///    logged in on this world, is still being logged out of it (their
+    ///    final save hasn't landed), or already has a login in flight
+    ///    ([`LoginResponse::Duplicate`]).
+    /// 4. Sends a database authentication request, then parks the request
+    ///    in `pending_logins`. Before 647 the ether cross-world login check
+    ///    goes out here too; from 647 it goes out once authentication is
+    ///    accepted (see `Engine::saves`).
     ///
     /// After processing new requests, any pending login that has exceeded
     /// [`LOGIN_TIMEOUT_TICKS`] is removed and the client is notified with
-    /// [`LoginResponse::BadSave`].
+    /// [`LoginResponse::Duplicate`] if, from 647, it is waiting for a lobby
+    /// to hand the player over, else with [`LoginResponse::BadSave`]. From
+    /// 647, a login that waits for a lobby resends its ether login check
+    /// every tick until the ether allows it.
     ///
     /// # Side Effects
     ///
-    /// * Sends [`EtherOutbound::LoginCheck`] and [`DbRequest::Authenticate`]
-    ///   messages for each valid login attempt.
+    /// * Sends [`DbRequest::Authenticate`] for each valid login attempt, and
+    ///   before 647 [`EtherOutbound::LoginCheck`] as well.
+    /// * From 647, resends [`EtherOutbound::LoginCheck`] for each pending
+    ///   login that waits for a lobby.
     /// * Appends to `self.pending_logins`.
     /// * Removes timed-out entries from `self.pending_logins`.
     ///
     /// # Call Stack
     ///
     /// **Called by:** `Engine::cycle`
-    /// **Calls:** `EtherOutbound::LoginCheck`, `DbRequest::Authenticate`
+    /// **Calls:** `EtherOutbound::LoginCheck`, `DbRequest::Authenticate`,
+    ///   `check_login`, `reject_pending_login`
     pub(crate) fn logins(&mut self) {
         while let Ok(mut request) = self.new_player_rx.try_recv() {
             let user37 = to_userhash(&request.username);
@@ -85,34 +96,29 @@ impl Engine {
                 continue;
             }
 
-            // The lobby holds no session and loads nothing: a player logging
-            // out of the game goes back to it while still being saved.
+            let online_here = self.find_pid_by_user37(user37).is_some();
             #[cfg(since_647)]
-            let lobby = request.lobby;
-            #[cfg(before_647)]
-            let lobby = false;
-
-            // A login still in flight would race this one for the session,
-            // and a logout still saving would be loaded before its final
-            // save lands.
-            let busy = !lobby
-                && ((self.find_pid_by_user37(user37).is_some() && !request.reconnect)
-                    || self.logout_saves.contains_key(&user37)
-                    || self.offline_edits.contains(&user37)
-                    || self
-                        .pending_logins
-                        .iter()
-                        .any(|p| p.user37 == user37 && !p.lobby()));
+            if request.reconnect && !online_here {
+                request.handle.send(vec![LoginResponse::BadSession as u8]);
+                continue;
+            }
+            let busy = (online_here && !request.reconnect)
+                || self.logout_saves.contains_key(&user37)
+                || self.offline_edits.contains(&user37)
+                || self.pending_logins.iter().any(|p| p.user37 == user37);
             if busy {
                 request.handle.send(vec![LoginResponse::Duplicate as u8]);
                 continue;
             }
 
-            if let Some(tx) = &self.ether_tx {
+            if let Some(ether) = &self.ether_tx {
+                #[cfg(since_647)]
+                let _ = ether;
                 let id = self.next_login_id;
                 self.next_login_id = id.wrapping_add(1);
-                if !lobby {
-                    let _ = tx.send(EtherOutbound::LoginCheck {
+                #[cfg(before_647)]
+                {
+                    let _ = ether.send(EtherOutbound::LoginCheck {
                         user37,
                         max_per_ip: MAX_PLAYING_PER_IP,
                         ip: Some(ip),
@@ -133,12 +139,20 @@ impl Engine {
                     user37,
                     request,
                     clock: self.clock,
-                    ether_allowed: lobby,
+                    ether_allowed: false,
+                    #[cfg(since_647)]
+                    retry_ether: false,
                     auth: None,
                     muted_until: None,
                     unread_messages: 0,
+                    member: false,
+                    #[cfg(since_647)]
+                    jcoins: 0,
+                    #[cfg(since_530)]
+                    last_login_ip: None,
                     claim_sent: false,
                     profile: None,
+                    chat_filters: None,
                     played: Vec::new(),
                 });
             } else {
@@ -157,13 +171,39 @@ impl Engine {
                     "Login timed out for '{}'",
                     self.pending_logins[i].request.username
                 );
-                self.reject_pending_login(i, LoginResponse::BadSave);
+                #[cfg(since_647)]
+                let in_lobby = self.pending_logins[i].retry_ether;
+                #[cfg(before_647)]
+                let in_lobby = false;
+                let response = if in_lobby {
+                    LoginResponse::Duplicate
+                } else {
+                    LoginResponse::BadSave
+                };
+                self.reject_pending_login(i, response);
+                continue;
+            }
+            #[cfg(since_647)]
+            if self.pending_logins[i].retry_ether {
+                self.check_login(i);
             }
         }
 
         if clock.is_multiple_of(LOGIN_FAILURE_WINDOW_TICKS) {
             self.login_failures
                 .retain(|_, f| clock - f.last < LOGIN_FAILURE_WINDOW_TICKS);
+        }
+    }
+
+    #[cfg(since_647)]
+    pub(crate) fn check_login(&self, idx: usize) {
+        let pending = &self.pending_logins[idx];
+        if let Some(tx) = &self.ether_tx {
+            let _ = tx.send(EtherOutbound::LoginCheck {
+                user37: pending.user37,
+                max_per_ip: MAX_PLAYING_PER_IP,
+                ip: Some(pending.request.remote_addr.ip()),
+            });
         }
     }
 

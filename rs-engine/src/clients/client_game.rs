@@ -1,6 +1,9 @@
 use rs_crypto::isaac::{Isaac, IsaacPair};
-use rs_io::Packet;
+use rs_io::{Packet, PacketFrame};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
+use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
+use rs_protocol::network::game::server::ServerProtMessage;
 use std::collections::VecDeque;
 use std::mem;
 use std::sync::Arc;
@@ -110,7 +113,84 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
     }
 }
 
+/// Ciphers the opcode that starts `frame` with the next ISAAC values: one
+/// byte, or from 647 two when the first is 128 or more.
+pub(crate) fn cipher_opcode(isaac: &mut Isaac, frame: &mut [u8]) {
+    #[cfg(before_647)]
+    let len = 1;
+    #[cfg(since_647)]
+    let len = if frame[0] < 128 { 1 } else { 2 };
+    for byte in &mut frame[..len] {
+        *byte = byte.wrapping_add(isaac.take_next_value() as u8);
+    }
+}
+
 impl ClientHandle {
+    pub(crate) fn encode_into<M>(out: &mut Packet, message: M) -> bool
+    where
+        M: ServerProtMessage,
+    {
+        let frame = M::FRAME as usize;
+        #[cfg(before_647)]
+        let opcode_bytes = 1;
+        #[cfg(since_647)]
+        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
+        let len = opcode_bytes + frame + message.sizeof();
+        if len > MAX_PACKET_SIZE
+            || (matches!(M::FRAME, PacketFrame::VarByte) && message.sizeof() > u8::MAX as usize)
+        {
+            return false;
+        }
+        if out.data.len() < out.pos + len {
+            out.data.resize(out.pos + len, 0);
+        }
+        #[cfg(before_647)]
+        out.p1(M::PROT as u8);
+        #[cfg(since_647)]
+        out.psmart1or2(M::PROT as i32);
+        out.pos += frame;
+        let start = out.pos;
+        message.encode(out);
+        match M::FRAME {
+            PacketFrame::Fixed => {}
+            PacketFrame::VarByte => out.psize1((out.pos - start) as u8),
+            PacketFrame::VarShort => out.psize2((out.pos - start) as u16),
+        }
+        true
+    }
+
+    pub fn plaintext<M: ServerProtMessage>(message: M) -> Option<Packet> {
+        let mut buf = Packet::new(0);
+        if !Self::encode_into(&mut buf, message) {
+            return None;
+        }
+        buf.data.truncate(buf.pos);
+        Some(buf)
+    }
+
+    /// Encodes `message` into the write queue with its opcode ciphered and
+    /// gathers it. `false` if it is too big to send.
+    pub fn write<M: ServerProtMessage>(&mut self, message: M) -> bool {
+        self.write_queue.pos = 0;
+        if !Self::encode_into(&mut self.write_queue, message) {
+            return false;
+        }
+        cipher_opcode(&mut self.isaac_encode, &mut self.write_queue.data);
+        self.gather_written(self.write_queue.pos);
+        true
+    }
+
+    /// Places the handshake reply before the frames prepared by the login script.
+    #[cfg(since_647)]
+    pub fn finish_lobby_login(&mut self, reply: Vec<u8>, accepted: bool) {
+        self.push(reply);
+        if accepted {
+            self.flush();
+        } else {
+            self.gathered.clear();
+        }
+    }
+
     /// Hands `bytes` to the socket task to write, after anything gathered.
     pub fn send(&mut self, bytes: Vec<u8>) {
         self.flush();
@@ -182,6 +262,70 @@ impl ClientHandle {
     /// Whether the socket task is over [`MAX_UNSENT`] bytes behind.
     pub fn backlogged(&self) -> bool {
         !self.outbox.is_closed() && self.unsent.load(Ordering::Relaxed) > MAX_UNSENT
+    }
+
+    pub fn pull_input(&mut self) -> bool {
+        let mut received = false;
+        let mut next = self.pending_msg.take();
+        loop {
+            let (at, mut bytes) = match next.take() {
+                Some(m) => m,
+                None => match self.inbox.try_recv() {
+                    Ok(m) => {
+                        received = true;
+                        m
+                    }
+                    Err(_) => break,
+                },
+            };
+            let available = MAX_PACKET_SIZE - self.read_queue.len();
+            if bytes.len() > available {
+                if available == 0 {
+                    self.pending_msg = Some((at, bytes));
+                } else {
+                    let rest = bytes.split_off(available);
+                    self.queue(at, bytes);
+                    self.pending_msg = Some((at, rest));
+                }
+                break;
+            }
+            self.queue(at, bytes);
+        }
+
+        received
+    }
+
+    pub fn next_packet(&mut self) -> Result<Option<(ClientProt, Packet)>, String> {
+        if self.opcode.is_none() {
+            let Some(byte) = self.read_queue.pop_front() else {
+                return Ok(None);
+            };
+            self.opcode = Some(byte.wrapping_sub(self.isaac_decode.take_next_value() as u8));
+        }
+        let opcode = self.opcode.unwrap();
+        let prot = ClientProt::try_from(opcode)
+            .map_err(|_| format!("Unknown opcode {opcode}, closing the connection"))?;
+        let queue = &self.read_queue;
+        let (head, len) = match prot.info().frame {
+            ClientProtFrame::VarByte { .. } if !queue.is_empty() => (1, queue[0] as usize),
+            ClientProtFrame::VarShort { .. } if queue.len() >= 2 => {
+                (2, u16::from_be_bytes([queue[0], queue[1]]) as usize)
+            }
+            ClientProtFrame::Fixed(len) => (0, len as usize),
+            _ => return Ok(None),
+        };
+        if head + len > MAX_PACKET_SIZE {
+            return Err(format!("{prot:?} of {len} bytes, closing the connection"));
+        }
+        if queue.len() < head + len {
+            return Ok(None);
+        }
+        self.opcode = None;
+        self.read_queue.drain(..head);
+        let mut buf = Packet::from(mem::take(&mut self.read_buf));
+        buf.data.clear();
+        buf.data.extend(self.read_queue.drain(..len));
+        Ok(Some((prot, buf)))
     }
 
     /// Puts a read from the socket in the read queue.

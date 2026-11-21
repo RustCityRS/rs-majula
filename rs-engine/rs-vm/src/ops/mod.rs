@@ -11,6 +11,7 @@
 /// * [`db`] -- database row/table queries (`DB_FIND`, `DB_GETFIELD`, etc.)
 /// * [`debug`] -- development helpers (`CONSOLE`, `ERROR`, `GETTIMESPENT`)
 /// * [`r#enum`] -- enum lookup opcodes (`ENUM`, `ENUM_GETOUTPUTCOUNT`)
+/// * [`interface`] -- interface updates and clientscript calls
 /// * [`inv`] -- inventory management (add, delete, move, transmit, totals)
 /// * [`lc`] -- Loc config lookups (category, name, params, size, etc.)
 /// * [`loc`] -- location/scenery opcodes (add, delete, change, find, animate)
@@ -19,10 +20,11 @@
 /// * [`number`] -- arithmetic, bitwise, trigonometric, and RNG opcodes
 /// * [`obj`] -- ground-item opcodes (add, delete, take, queries)
 /// * [`oc`] -- object/item config lookups (cost, wearpos, stackable, params, etc.)
-/// * [`player`] -- player interaction (stats, UI, movement, queues, hunting, combat)
+/// * [`player`] -- player interaction (stats, movement, queues, hunting, combat)
 /// * [`server`] -- world/map utilities (coord helpers, pathfinding, zone queries, projectiles)
 /// * [`string`] -- string manipulation (append, compare, split, substring, etc.)
 /// * [`r#struct`] -- struct/param lookups (`STRUCT_PARAM`)
+/// * [`vars`] -- player variables, varpbits and client variables
 ///
 /// # Call Stack
 ///
@@ -34,6 +36,7 @@ pub mod core;
 pub mod db;
 pub mod debug;
 pub mod r#enum;
+pub mod interface;
 pub mod inv;
 pub mod lc;
 pub mod loc;
@@ -51,3 +54,4 @@ pub mod r#struct;
 /// `#testscript` commands, registered only by the headless runner.
 #[cfg(since_530)]
 pub mod test;
+pub mod vars;

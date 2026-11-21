@@ -6,6 +6,8 @@ pub mod js5;
 /// 289's `@xxx@` text codes as 2011's tags.
 #[cfg(since_530)]
 pub mod markup;
+#[cfg(since_530)]
+pub mod world_list;
 
 #[derive(Debug)]
 #[repr(u8)]
@@ -50,49 +52,4 @@ pub enum LoginResponse {
     /// "You cannot ... at this time" response.
     #[cfg(since_647)]
     Idk38 = 38,
-}
-
-/// Check-email service (service byte 28) response codes — rev 647.
-#[cfg(since_647)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[repr(u8)]
-pub enum CheckEmailResponse {
-    UnexpectedServerResponse = 0,
-    Success = 2,
-    ErrorContactingServer = 3,
-    InvalidEmailAddress = 21,
-    EmailAddressIsAlreadyInUse = 20,
-}
-
-/// Create-account service response codes: 530's services 36, 147 and 186,
-/// and 647's 22.
-#[cfg(since_530)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[repr(u8)]
-pub enum CreateAccountResponse {
-    UnexpectedServerResponse = 0,
-    Success = 2,
-    ServerOffline = 3,
-    ServerFull = 7,
-    IpLimit = 9,
-    DateOfBirthInvalid = 10,
-    DateOfBirthFuture = 11,
-    DateOfBirthThisYear = 12,
-    DateOfBirthLastYear = 13,
-    CountryInvalid = 14,
-    NameUnavailable = 20,
-    NameSuggestions = 21,
-    NameInvalid = 22,
-    PasswordInvalidLength = 30,
-    PasswordInvalidChars = 31,
-    PasswordGuessable = 32,
-    PasswordGuessable1 = 33,
-    PasswordSimilarToName = 34,
-    PasswordSimilarToName1 = 35,
-    PasswordSimilarToName2 = 36,
-    ClientOutOfDate = 37,
-    CannotCreateAtThisTime = 38,
-    EmailInvalid = 41,
-    EmailInvalid1 = 42,
-    EmailInvalid2 = 43,
 }

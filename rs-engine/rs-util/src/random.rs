@@ -187,7 +187,7 @@ impl JavaRandom {
         loop {
             bits = self.next(31);
             val = bits % n;
-            if bits - val + (n - 1) >= 0 {
+            if (bits - val).wrapping_add(n - 1) >= 0 {
                 break;
             }
         }

@@ -1,5 +1,6 @@
 use crate::engine::{ScriptEngine, ScriptPlayer, engine};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::pop_font;
 use crate::{ScriptError, active_player, handlers, none};
 use itoa::Buffer;
@@ -24,7 +25,7 @@ use runec::opcodes::*;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::string::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4500
         none!(m, APPEND_NUM => |s| {
@@ -77,9 +78,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4506
         none!(m, COMPARE => |s| {
-            let b_ptr = s.peek_string(0) as *const str;
-            let a_ptr = s.peek_string(1) as *const str;
-            let result = unsafe { (&*a_ptr).cmp(&*b_ptr) as i32 };
+            let result = s.peek_string(1).cmp(s.peek_string(0)) as i32;
             s.drop_strings(2);
             s.push_int(result);
         });
