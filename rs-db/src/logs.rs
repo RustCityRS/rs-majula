@@ -14,8 +14,6 @@ pub mod chat_channel {
 pub struct ChatLog {
     pub name_hash: u64,
     pub channel: i16,
-    /// The recipient of a private message, or the owner of the friends chat
-    /// it was said in; `None` for public chat.
     pub to_name_hash: Option<u64>,
     pub x: i16,
     pub z: i16,
@@ -73,7 +71,6 @@ pub struct WealthEvent {
     pub item: String,
     pub count: i32,
     pub value: i32,
-    /// Who a handover went to.
     pub counterpart: Option<u64>,
 }
 
@@ -82,25 +79,19 @@ pub struct WealthEvent {
 /// first one was.
 #[derive(Debug, Clone)]
 pub struct ScriptErrorLog {
-    /// When the first and last of them were (Unix ms).
     pub first_ms: i64,
     pub last_ms: i64,
     pub count: i32,
-    /// The script, as `[trigger,subject]`, and where in it.
     pub script: String,
     pub file: String,
     pub line: i32,
     pub message: String,
-    /// The scripts that called it, innermost first, a line each.
     pub trace: String,
-    /// The player it ran on, if any.
     pub name_hash: Option<u64>,
-    /// The NPC it ran on, if any: its debug name.
     pub npc: Option<String>,
     pub x: i16,
     pub z: i16,
     pub y: i16,
-    /// The player's recording, and how far into it the first one was.
     pub replay_id: Option<i64>,
     pub replay_ms: Option<i32>,
 }

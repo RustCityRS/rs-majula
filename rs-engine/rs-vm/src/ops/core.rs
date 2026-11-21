@@ -2,6 +2,7 @@ use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 #[cfg(since_647)]
 use crate::ops::controller::active_controller;
 use crate::register::OpsRegistry;
+use crate::session::{EngineHost, HostKind, ScriptHost};
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
 use crate::{Result, ScriptError, handlers, none};
@@ -38,8 +39,8 @@ const MAX_ARRAY_SIZE: i32 = 5000;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::core::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
-    let mut ops = language();
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
+    let mut ops = language::<EngineHost<E>>();
     ops.extend(handlers! { |m|
         // 4
         none!(m, PUSH_VARN => |s| {
@@ -255,8 +256,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     ops
 }
 
-pub fn language() -> OpsRegistry {
-    handlers! { |m|
+pub fn language<K: HostKind>() -> OpsRegistry<K>
+where
+    for<'a> K::Host<'a>: ScriptHost,
+{
+    handlers! { |m: OpsRegistry<K>|
         // 0
         none!(m, PUSH_CONSTANT_INT => |s| {
             s.push_int(s.int_operand());

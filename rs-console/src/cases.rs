@@ -130,8 +130,6 @@ pub enum Evidence {
     Chat {
         id: i64,
         from: String,
-        /// Its channel (see `ChatRecord::channel`); none on evidence kept
-        /// before chat logs had channels.
         #[serde(default)]
         channel: Option<u8>,
         to: Option<String>,

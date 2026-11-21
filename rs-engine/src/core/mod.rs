@@ -50,6 +50,7 @@ use rs_ver::TypeId;
 pub use rs_vm::engine::with_engine;
 use rs_vm::engine::{engine_typed, engine_typed_mut};
 use rs_vm::register::OpsRegistry;
+use rs_vm::session::EngineHost;
 use rs_vm::state::*;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
@@ -157,7 +158,7 @@ pub struct Engine {
     pub player_snapshots: PlayerSnapshots,
     pub npc_snapshots: Box<[NpcSnapshot; MAX_NPCS]>,
     pub invs: FxHashMap<TypeId, Inventory>,
-    pub ops: OpsRegistry,
+    pub ops: OpsRegistry<EngineHost<Engine>>,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
     #[cfg(since_530)]

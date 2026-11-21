@@ -1,6 +1,7 @@
 use crate::engine::engine;
 use crate::engine::{ScriptEngine, engine_mut};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::RUNEDAY_EPOCH_DAYS;
 use crate::{handlers, none};
 use rs_util::bits::{clearbit_range, getbit_range, setbit_range, setbit_range_toint};
@@ -29,7 +30,7 @@ use std::f64::consts::PI;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::number::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4600
         none!(m, ADD => |s| {

@@ -1,5 +1,6 @@
 use crate::engine::{ScriptEngine, engine};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ScriptState;
 use crate::util::pop_dbrow;
 use crate::{ScriptError, handlers, none};
@@ -34,7 +35,7 @@ use std::mem;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::db::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 7500
         none!(m, DB_FIND_WITH_COUNT => |s| {

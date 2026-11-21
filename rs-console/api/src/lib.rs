@@ -832,8 +832,6 @@ pub fn chat_channel_name(channel: u8) -> &'static str {
 pub struct ChatRecord {
     pub id: i64,
     pub from: String,
-    /// 0 public, 1 private (`to` is the recipient), 2 friends chat (`to` is
-    /// the channel's owner), 3 clan chat.
     #[serde(default)]
     pub channel: u8,
     pub to: Option<String>,

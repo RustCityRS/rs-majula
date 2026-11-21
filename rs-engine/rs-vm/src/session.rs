@@ -16,35 +16,40 @@ use std::sync::Arc;
 
 /// Script resources and the player bound to this execution.
 pub trait ScriptHost {
+    type Interface: ScriptInterface;
+    type Vars: ScriptVars;
+
     fn get_script(&self, id: i32) -> Option<&Arc<Script>>;
     fn seq_count(&self) -> usize;
-    fn interface(
-        &mut self,
-        state: &ScriptState,
-        secondary: bool,
-    ) -> Result<&mut dyn ScriptInterface>;
-    fn vars(&mut self, state: &ScriptState, secondary: bool) -> Result<PlayerVars<'_>>;
+    fn interface(&mut self, state: &ScriptState, secondary: bool) -> Result<&mut Self::Interface>;
+    fn vars(&mut self, state: &ScriptState, secondary: bool) -> Result<PlayerVars<'_, Self::Vars>>;
 }
 
-pub struct PlayerVars<'a> {
-    pub player: &'a mut dyn ScriptVars,
+/// Names a host type for any borrow, so one registry serves hosts that borrow
+/// per execution.
+pub trait HostKind {
+    type Host<'a>;
+}
+
+pub struct PlayerVars<'a, V> {
+    pub player: &'a mut V,
     pub varps: &'a VarPlayerTypeProvider,
     #[cfg(since_254)]
     pub bits: &'a VarpBitTypeProvider,
 }
 
-pub(crate) fn active_interface<'a>(
-    host: &'a mut dyn ScriptHost,
+pub(crate) fn active_interface<'a, H: ScriptHost>(
+    host: &'a mut H,
     state: &ScriptState,
-) -> Result<&'a mut dyn ScriptInterface> {
+) -> Result<&'a mut H::Interface> {
     require_active_player(state)?;
     host.interface(state, state.int_operand() != 0)
 }
 
-pub(crate) fn active_vars<'a>(
-    host: &'a mut dyn ScriptHost,
+pub(crate) fn active_vars<'a, H: ScriptHost>(
+    host: &'a mut H,
     state: &ScriptState,
-) -> Result<(u16, PlayerVars<'a>)> {
+) -> Result<(u16, PlayerVars<'a, H::Vars>)> {
     let operand = state.int_operand();
     let slot = operand >> 16;
     if !(0..=1).contains(&slot) {
@@ -53,9 +58,16 @@ pub(crate) fn active_vars<'a>(
     Ok((operand as u16, host.vars(state, slot != 0)?))
 }
 
-pub(crate) struct EngineHost<E>(pub PhantomData<fn() -> E>);
+pub struct EngineHost<E>(pub(crate) PhantomData<fn() -> E>);
+
+impl<E> HostKind for EngineHost<E> {
+    type Host<'a> = Self;
+}
 
 impl<E: ScriptEngine + 'static> ScriptHost for EngineHost<E> {
+    type Interface = E::Player;
+    type Vars = E::Player;
+
     fn get_script(&self, id: i32) -> Option<&Arc<Script>> {
         engine::<E>().get_script(id)
     }
@@ -64,15 +76,11 @@ impl<E: ScriptEngine + 'static> ScriptHost for EngineHost<E> {
         engine::<E>().seqs().count()
     }
 
-    fn interface(
-        &mut self,
-        state: &ScriptState,
-        secondary: bool,
-    ) -> Result<&mut dyn ScriptInterface> {
-        Ok(get_active_player_mut::<E>(state, secondary)?)
+    fn interface(&mut self, state: &ScriptState, secondary: bool) -> Result<&mut E::Player> {
+        get_active_player_mut::<E>(state, secondary)
     }
 
-    fn vars(&mut self, state: &ScriptState, secondary: bool) -> Result<PlayerVars<'_>> {
+    fn vars(&mut self, state: &ScriptState, secondary: bool) -> Result<PlayerVars<'_, E::Player>> {
         let varps = engine::<E>().varps();
         #[cfg(since_254)]
         let bits = engine::<E>().varpbits();

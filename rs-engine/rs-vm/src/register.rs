@@ -1,5 +1,5 @@
 use crate::Result;
-use crate::session::ScriptHost;
+use crate::session::HostKind;
 use crate::state::ScriptState;
 
 /// One past the highest opcode a handler can take.
@@ -11,9 +11,9 @@ const LAST: u16 = 50101;
 /// A script opcode handler function pointer.
 ///
 /// Each handler executes one opcode against the current [`ScriptState`] and
-/// its [`ScriptHost`]. Returns `Ok(())` on success or a
+/// its host, a `K::Host`. Returns `Ok(())` on success or a
 /// [`ScriptError`](crate::ScriptError) on failure.
-pub type Handler = fn(&mut ScriptState, &mut dyn ScriptHost) -> Result<()>;
+pub type Handler<K> = fn(&mut ScriptState, &mut <K as HostKind>::Host<'_>) -> Result<()>;
 
 /// A fixed-size lookup table mapping script opcodes to their [`Handler`] functions.
 ///
@@ -26,12 +26,12 @@ pub type Handler = fn(&mut ScriptState, &mut dyn ScriptHost) -> Result<()>;
 /// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/script/mod.rs),
 /// `LobbyVm::new` (rs-lobby/src/script.rs)
 /// **Used by:** `vm::run` (rs-vm/src/vm.rs)
-pub struct OpsRegistry {
-    table: Box<[Option<Handler>]>,
+pub struct OpsRegistry<K: HostKind> {
+    table: Box<[Option<Handler<K>>]>,
     count: usize,
 }
 
-impl OpsRegistry {
+impl<K: HostKind> OpsRegistry<K> {
     /// Creates a new empty `OpsRegistry` with all opcode slots set to `None`.
     ///
     /// # Returns
@@ -57,7 +57,7 @@ impl OpsRegistry {
     ///
     /// # Panics
     /// Panics if `opcode as usize` is out of bounds for the internal table.
-    pub fn insert(&mut self, opcode: u16, handler: Handler) {
+    pub fn insert(&mut self, opcode: u16, handler: Handler<K>) {
         let slot = &mut self.table[opcode as usize];
         if slot.is_none() {
             self.count += 1;
@@ -76,7 +76,7 @@ impl OpsRegistry {
     ///
     /// # Side Effects
     /// Updates the internal handler count to reflect newly added (not replaced) entries.
-    pub fn extend(&mut self, other: OpsRegistry) {
+    pub fn extend(&mut self, other: OpsRegistry<K>) {
         for (i, slot) in other.table.iter().enumerate() {
             if let Some(handler) = *slot {
                 if self.table[i].is_none() {
@@ -105,7 +105,7 @@ impl OpsRegistry {
     /// **Called by:** `vm::run` during opcode dispatch, `LobbyVm::new`
     /// (rs-lobby/src/script.rs) when it picks the lobby's handlers
     #[inline(always)]
-    pub fn get(&self, opcode: u16) -> Option<Handler> {
+    pub fn get(&self, opcode: u16) -> Option<Handler<K>> {
         self.table.get(opcode as usize).copied().flatten()
     }
 
@@ -139,6 +139,14 @@ impl OpsRegistry {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    struct NoHost;
+
+    impl HostKind for NoHost {
+        type Host<'a> = ();
+    }
+
+    type OpsRegistry = super::OpsRegistry<NoHost>;
 
     #[test]
     fn new_is_empty() {

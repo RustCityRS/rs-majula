@@ -62,6 +62,11 @@ macro_rules! handlers {
         $($body)*
         $m
     }};
+    (|$m:ident: $ty:ty| $($body:tt)*) => {{
+        let mut $m: $ty = $crate::register::OpsRegistry::new();
+        $($body)*
+        $m
+    }};
 }
 
 #[macro_export]

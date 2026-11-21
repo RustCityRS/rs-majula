@@ -1,5 +1,6 @@
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ScriptState;
 use crate::util::pop_coord;
 use crate::{RegionUid, ScriptError, handlers, none};
@@ -29,7 +30,7 @@ fn set_active_region(s: &mut ScriptState, uid: RegionUid, secondary: bool) {
 /// `REGION_GETCOORD`, `REGION_CREATE`, `REGION_SET`, `REGION_UID`,
 /// `REGION_FINDBYUID` and `REGION_SETEXITCOORD`, each with a dot form on
 /// the secondary region. A find that misses leaves its region as it was.
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 5200
         none!(m, REGION_FINDBYCOORD => |s| {

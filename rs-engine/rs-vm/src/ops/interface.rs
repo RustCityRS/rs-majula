@@ -1,6 +1,7 @@
 #[cfg(since_530)]
 use crate::Result;
 use crate::register::OpsRegistry;
+use crate::session::{HostKind, ScriptHost, ScriptInterface};
 #[cfg(since_530)]
 use crate::state::ScriptState;
 use crate::util::{overlay_button, pop_com};
@@ -12,8 +13,11 @@ use rs_ver::TypeId;
 use runec::opcodes::*;
 
 /// Registers interface and clientscript opcodes.
-pub fn build() -> OpsRegistry {
-    handlers! { |m|
+pub fn build<K: HostKind>() -> OpsRegistry<K>
+where
+    for<'a> K::Host<'a>: ScriptHost,
+{
+    handlers! { |m: OpsRegistry<K>|
         // 2033
         active_interface!(m, IF_CLOSE => |_s, player| {
             player.if_close(true)?;

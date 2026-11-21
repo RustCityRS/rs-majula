@@ -105,6 +105,7 @@ use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
+use rs_vm::session::EngineHost;
 use rs_vm::state::{LocRef, ScriptState};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType as Trigger;
@@ -1153,7 +1154,7 @@ fn subject_of(trigger: Trigger) -> Subject {
 ///   active player.
 /// - `TEST_OP` -- fires a trigger against a loc at a coord, or the first npc
 ///   of a type, with the active player as subject.
-pub fn ops() -> OpsRegistry {
+pub fn ops() -> OpsRegistry<EngineHost<Engine>> {
     let mut ops = test::build();
     ops.insert(SETUP_PLAYER, |s, _| setup_player(s));
     ops.insert(TEST_OP, |s, _| test_op(s));

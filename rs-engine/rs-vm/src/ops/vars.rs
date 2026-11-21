@@ -1,6 +1,6 @@
 use crate::engine::ScriptVars;
 use crate::register::OpsRegistry;
-use crate::session::PlayerVars;
+use crate::session::{HostKind, PlayerVars, ScriptHost};
 use crate::state::ScriptState;
 use crate::{Result, ScriptError, active_vars, handlers};
 #[cfg(since_254)]
@@ -16,8 +16,11 @@ use runec::opcodes::*;
 use std::borrow::Cow;
 
 /// Registers player variable, varpbit and client variable opcodes.
-pub fn build() -> OpsRegistry {
-    handlers! { |m|
+pub fn build<K: HostKind>() -> OpsRegistry<K>
+where
+    for<'a> K::Host<'a>: ScriptHost,
+{
+    handlers! { |m: OpsRegistry<K>|
         // 1
         active_vars!(m, PUSH_VARP => |s, id, vars| {
             let varp = vars.varp(id)?;
@@ -93,7 +96,7 @@ pub fn build() -> OpsRegistry {
     }
 }
 
-impl<'a> PlayerVars<'a> {
+impl<'a, V: ScriptVars> PlayerVars<'a, V> {
     fn varp(&self, id: u16) -> Result<&'a VarPlayerType> {
         self.varps
             .get_by_id(TypeId::new(id))
@@ -145,7 +148,7 @@ fn protected(state: &ScriptState) -> bool {
         .has(ScriptState::PROTECTED_ACTIVE_PLAYER[usize::from(secondary)])
 }
 
-fn varp_value(player: &dyn ScriptVars, id: u16, ty: ScriptVarType) -> Cow<'_, VarValue> {
+fn varp_value(player: &impl ScriptVars, id: u16, ty: ScriptVarType) -> Cow<'_, VarValue> {
     match player.stored_varp(id) {
         Some(value) => Cow::Borrowed(value),
         None => Cow::Owned(VarValue::default_for(ty)),

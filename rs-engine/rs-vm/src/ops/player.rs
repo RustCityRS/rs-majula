@@ -3,6 +3,7 @@ use crate::iterators::{self, PlayerIteratorState};
 #[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::{ExecutionState, QueuePriority, ScriptArgument, ScriptState, TimerPriority};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
@@ -93,7 +94,7 @@ fn enqueue(
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::player::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `active_player!` /
 /// `active_player_mut!` / `protected_active_player_mut!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 2000
         active_player_mut!(m, AFK_EVENT => |s, player| {

@@ -1,11 +1,12 @@
 use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::{pop_loc, pop_param};
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
 use runec::opcodes::*;
 
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4100
         none!(m, LC_CATEGORY => |s| {

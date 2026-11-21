@@ -57,6 +57,8 @@ use std::sync::Arc;
 /// Implementors represent the game engine itself and are stored in thread-local
 /// storage during script execution via [`with_engine`].
 pub trait ScriptEngine {
+    type Player: ScriptPlayer;
+
     /// Returns the current game clock tick.
     ///
     /// # Returns
@@ -213,9 +215,7 @@ pub trait ScriptEngine {
     ///
     /// # Returns
     /// `Some` with an immutable reference to the player, or `None` if the slot is empty.
-    fn get_player(&self, pid: u16) -> Option<&impl ScriptPlayer>
-    where
-        Self: Sized;
+    fn get_player(&self, pid: u16) -> Option<&Self::Player>;
 
     /// Looks up a player by their slot index (mutable).
     ///
@@ -224,9 +224,7 @@ pub trait ScriptEngine {
     ///
     /// # Returns
     /// `Some` with a mutable reference to the player, or `None` if the slot is empty.
-    fn get_player_mut(&mut self, pid: u16) -> Option<&mut impl ScriptPlayer>
-    where
-        Self: Sized;
+    fn get_player_mut(&mut self, pid: u16) -> Option<&mut Self::Player>;
 
     /// Looks up an NPC by its slot index (immutable).
     ///

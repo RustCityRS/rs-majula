@@ -1,5 +1,6 @@
 use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::{cert, pop_obj, pop_param, uncert};
 use crate::{handlers, none};
 use rs_pack::ParamValue;
@@ -22,7 +23,7 @@ use runec::opcodes::*;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::oc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4200
         none!(m, OC_CATEGORY => |s| {

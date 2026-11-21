@@ -1,6 +1,6 @@
 use crate::engine::{ScriptEngine, ScriptFault, ScriptPlayer, engine_mut};
 use crate::register::OpsRegistry;
-use crate::session::{EngineHost, ScriptHost};
+use crate::session::{EngineHost, HostKind};
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::get_active_player_mut;
 use crate::{Result, ScriptError};
@@ -36,16 +36,20 @@ const MAX_INSTRUCTIONS: i32 = 500_000;
 /// # Call Stack
 /// **Called by:** [`execute`], `LobbyPlayer::run_trigger` (rs-lobby/src/script.rs).
 /// **Calls:** `OpsRegistry::get`, individual opcode handler functions.
-pub fn run(state: &mut ScriptState, ops: &OpsRegistry, host: &mut dyn ScriptHost) -> Result<()> {
+pub fn run<K: HostKind>(
+    state: &mut ScriptState,
+    ops: &OpsRegistry<K>,
+    host: &mut K::Host<'_>,
+) -> Result<()> {
     dispatch(state, ops, host).map_err(|(_, e)| e)
 }
 
 /// [`run`]'s loop. A failure carries the opcode that raised it, or `None`
 /// when it came before an opcode was fetched.
-fn dispatch(
+fn dispatch<K: HostKind>(
     state: &mut ScriptState,
-    ops: &OpsRegistry,
-    host: &mut dyn ScriptHost,
+    ops: &OpsRegistry<K>,
+    host: &mut K::Host<'_>,
 ) -> std::result::Result<(), (Option<u16>, ScriptError)> {
     state.execution = ExecutionState::Running;
     while state.execution == ExecutionState::Running {
@@ -108,7 +112,7 @@ fn dispatch(
 /// [`report_error`], [`report`] (debug only).
 pub fn execute<E: ScriptEngine + 'static>(
     state: &mut ScriptState,
-    ops: &OpsRegistry,
+    ops: &OpsRegistry<EngineHost<E>>,
 ) -> ExecutionState {
     #[cfg(debug_assertions)]
     let start = Instant::now();

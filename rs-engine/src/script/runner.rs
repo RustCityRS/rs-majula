@@ -6,7 +6,6 @@ use rs_pack::cache::script::{Script, ScriptProvider};
 use rs_ver::TypeId;
 use rs_vm::engine::with_engine;
 use rs_vm::pointer::ScriptPointer;
-use rs_vm::register::OpsRegistry;
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -98,7 +97,7 @@ impl Engine {
     /// **Calls:** `vm::execute`.
     pub fn runescript_vm_execute(&mut self, state: &mut ScriptState) -> ExecutionState {
         self.flush_input_paths();
-        let ops = &self.ops as *const OpsRegistry;
+        let ops = &raw const self.ops;
         with_engine(self, move || vm::execute::<Engine>(state, unsafe { &*ops }))
     }
 

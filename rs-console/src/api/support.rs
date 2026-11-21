@@ -118,10 +118,7 @@ pub struct NameQuery {
 
 #[derive(Serialize)]
 pub struct SessionView {
-    /// The world or lobby whose claim on their session keeps them from
-    /// logging in anywhere else.
     owner: Option<OwnerView>,
-    /// How the owning world holds it, when the console could ask it.
     hold: Option<SessionHold>,
 }
 
@@ -133,7 +130,6 @@ pub struct OwnerView {
     since_ms: Option<i64>,
     heartbeat_age_ms: Option<i64>,
     takeover_after_ms: i64,
-    /// Whether the console can reach it.
     reachable: bool,
 }
 

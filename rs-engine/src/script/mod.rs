@@ -7,6 +7,7 @@ mod runner;
 use crate::core::Engine;
 use rs_vm::ops;
 use rs_vm::register::OpsRegistry;
+use rs_vm::session::EngineHost;
 
 /// Builds and returns the complete [`OpsRegistry`] for the script VM.
 ///
@@ -23,7 +24,7 @@ use rs_vm::register::OpsRegistry;
 ///
 /// **Called by:** `Engine::new`
 /// **Calls:** `ops::core::build`, `ops::db::build`, `ops::debug::build`, etc.
-pub fn register_ops() -> OpsRegistry {
+pub fn register_ops() -> OpsRegistry<EngineHost<Engine>> {
     let mut ops = OpsRegistry::new();
     ops.extend(ops::core::build::<Engine>());
     ops.extend(ops::db::build::<Engine>());

@@ -50,7 +50,6 @@ struct StoredSession {
 pub struct SessionOwner {
     pub node: i16,
     pub since_ms: Option<i64>,
-    /// How long ago the owning world's heartbeat was, `None` if it has none.
     pub heartbeat_age_ms: Option<i64>,
 }
 
@@ -58,26 +57,16 @@ pub struct SessionOwner {
 /// `0019_login_devices.sql`). The desktop client says nothing.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct LoginDevice {
-    /// The web client, rather than the desktop one.
     pub web: bool,
     pub user_agent: Option<String>,
-    /// The browser's platform hint (`Sec-CH-UA-Platform`), e.g. `Windows`.
     pub platform: Option<String>,
-    /// The browser's first language, e.g. `en-US`.
     pub language: Option<String>,
-    /// Whether the browser said it's a phone or tablet.
     pub touch: bool,
-    /// The hash of what the client page measured about the device (see
-    /// `0042_multilogging.sql`), if it sent one.
     pub fingerprint: Option<i64>,
-    /// What else the page measured: its rendering engine,
-    /// `navigator.platform` and graphics card.
     pub engine: Option<String>,
     pub js_platform: Option<String>,
     pub gpu: Option<String>,
-    /// How the page's check came back; `None` from a client without one.
     pub check: Option<DeviceCheck>,
-    /// The page's `navigator.userAgent` isn't the one the browser sent.
     pub agent_differs: bool,
 }
 

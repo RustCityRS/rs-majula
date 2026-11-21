@@ -4,7 +4,7 @@ use rs_pack::startup::LobbyAssets;
 use rs_vm::ops::{core, debug, interface, vars};
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
-use rs_vm::session::{PlayerVars, ScriptHost, ScriptInterface};
+use rs_vm::session::{HostKind, PlayerVars, ScriptHost};
 use rs_vm::state::ScriptState;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{Result, ScriptError, vm};
@@ -15,17 +15,17 @@ use tracing::error;
 mod tests;
 
 pub(crate) struct LobbyVm {
-    ops: OpsRegistry,
+    ops: OpsRegistry<LobbyHost>,
 }
 
 impl LobbyVm {
     pub fn new(assets: &LobbyAssets) -> Self {
-        let mut available = core::language();
+        let mut available = core::language::<LobbyHost>();
         available.extend(debug::build());
         available.extend(interface::build());
         available.extend(vars::build());
 
-        let mut ops = OpsRegistry::new();
+        let mut ops = OpsRegistry::<LobbyHost>::new();
         for &id in assets.commands.id_to_debugname.keys() {
             if let Ok(opcode) = u16::try_from(id)
                 && let Some(handler) = available.get(opcode)
@@ -42,7 +42,16 @@ pub(crate) struct LobbySession<'a> {
     pub assets: &'a LobbyAssets,
 }
 
+pub(crate) struct LobbyHost;
+
+impl HostKind for LobbyHost {
+    type Host<'a> = LobbySession<'a>;
+}
+
 impl ScriptHost for LobbySession<'_> {
+    type Interface = Self;
+    type Vars = Self;
+
     fn get_script(&self, id: i32) -> Option<&Arc<Script>> {
         self.assets.scripts.get_by_id(id)
     }
@@ -51,18 +60,14 @@ impl ScriptHost for LobbySession<'_> {
         self.assets.seq_count
     }
 
-    fn interface(
-        &mut self,
-        _state: &ScriptState,
-        secondary: bool,
-    ) -> Result<&mut dyn ScriptInterface> {
+    fn interface(&mut self, _state: &ScriptState, secondary: bool) -> Result<&mut Self> {
         if secondary {
             return Err(ScriptError::NoSubject);
         }
         Ok(self)
     }
 
-    fn vars(&mut self, _state: &ScriptState, secondary: bool) -> Result<PlayerVars<'_>> {
+    fn vars(&mut self, _state: &ScriptState, secondary: bool) -> Result<PlayerVars<'_, Self>> {
         if secondary {
             return Err(ScriptError::NoSubject);
         }
