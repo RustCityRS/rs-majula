@@ -2966,6 +2966,8 @@ dependencies = [
 [[package]]
 name = "rs-io"
 version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "81a743ff460d6b688c7d418b3a71f215aceb07ff82e0ced95ff9594f5cca3417"
 dependencies = [
  "cc",
  "crc32fast",

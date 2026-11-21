@@ -83,7 +83,7 @@ mimalloc = "0.1"
 libmimalloc-sys = { version = "0.1", features = ["extended"] }
 
 # MISC
-rs-io = { path = "../rs-io" }
+rs-io = "0.5"
 rs-pathfinder = "0.3"
 rs-runec = "0.7"
 num_enum = "0.7"
