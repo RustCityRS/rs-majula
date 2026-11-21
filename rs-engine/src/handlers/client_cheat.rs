@@ -601,7 +601,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
 /// and clears interaction. Returns `false`, after telling the player, when they
 /// are busy.
 fn take_protected_access(active: &mut ActivePlayer) -> bool {
-    if let Err(e) = active.close_modal(true) {
+    if let Err(e) = ActivePlayer::close_modal(active, true) {
         error!("error closing modal during setvar: {e}");
     }
     if !active.can_access() {
@@ -1023,7 +1023,7 @@ fn cheat_tele(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), S
         return Ok(());
     }
 
-    if let Err(e) = active.close_modal(true) {
+    if let Err(e) = ActivePlayer::close_modal(active, true) {
         error!("error closing modal during tele: {e}");
     }
     if !active.can_access() {

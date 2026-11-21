@@ -187,7 +187,7 @@ fn handle(
             })
             .collect();
         active.player.pathing.queue_waypoints(&path);
-        active.process_walktrigger();
+        ActivePlayer::process_walktrigger(active);
     } else {
         let (dest_x, dest_z) = unpack_coord(path[path.len() - 1]);
         active.request_path(PathRequest {
@@ -207,7 +207,7 @@ fn handle(
             collision: CollisionType::Normal,
             route_blockers: true,
         });
-        active.process_walktrigger();
+        ActivePlayer::process_walktrigger(active);
     }
 
     Ok(())

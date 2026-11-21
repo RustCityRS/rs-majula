@@ -137,7 +137,7 @@ impl ScriptInterface for ActivePlayer {
     /// **Called by:** VM ops via `ScriptInterface`
     /// **Calls:** `ActivePlayer::close_modal`
     fn if_close(&mut self, clear: bool) -> Result<()> {
-        self.close_modal(clear)
+        Self::close_modal(self, clear)
     }
 
     /// Closes any open modal interface unless `com` is the only one open.
@@ -155,7 +155,7 @@ impl ScriptInterface for ActivePlayer {
         if open.into_iter().flatten().all(|modal| modal == com) {
             return Ok(());
         }
-        self.close_modal(true)
+        Self::close_modal(self, true)
     }
 
     /// Opens a chatbox interface (e.g. a dialog).
@@ -979,7 +979,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::close_tutorial`
     fn tut_close(&mut self) -> Result<()> {
-        self.close_tutorial()
+        Self::close_tutorial(self)
     }
 
     /// Sets the player's forward walk animation.
@@ -1906,16 +1906,16 @@ impl ScriptPlayer for ActivePlayer {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `FxHashMap::get_mut` (via raw pointers for split borrows)
+    /// **Calls:** `FxHashMap::get_disjoint_mut`
     fn get_inv_pair_mut(
         &mut self,
         a: TypeId,
         b: TypeId,
     ) -> Option<(&mut Inventory, &mut Inventory)> {
-        assert_ne!(a, b, "get_inv_pair_mut: keys must differ");
-        let pa = self.player.invs.get_mut(&a)? as *mut Inventory;
-        let pb = self.player.invs.get_mut(&b)? as *mut Inventory;
-        Some(unsafe { (&mut *pa, &mut *pb) })
+        let [Some(a), Some(b)] = self.player.invs.get_disjoint_mut([&a, &b]) else {
+            return None;
+        };
+        Some((a, b))
     }
 
     /// Retrieves a player inventory, creating it if it does not yet exist.

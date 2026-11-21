@@ -705,7 +705,7 @@ fn edit_online(
 }
 
 fn teleport(active: &mut ActivePlayer, x: u16, z: u16, level: u8) -> Result<(), String> {
-    if let Err(e) = active.close_modal(true) {
+    if let Err(e) = ActivePlayer::close_modal(active, true) {
         error!("error closing modal for a console move: {e}");
     }
     if !active.can_access() {

@@ -3511,15 +3511,21 @@ impl ActivePlayer {
     ///
     /// # Returns
     /// `Ok(())` on success, or a [`ScriptError`] if the close trigger fails.
-    pub fn close_tutorial(&mut self) -> Result<(), ScriptError> {
-        if let Some(modal_tutorial) = self.player.modal_tutorial {
+    ///
+    /// # Safety Note
+    ///
+    /// Takes `*mut` to avoid noalias on the parameter: its scripts reach this
+    /// player through `engine_mut()`.
+    pub fn close_tutorial(active: *mut Self) -> Result<(), ScriptError> {
+        let active = unsafe { &mut *active };
+        if let Some(modal_tutorial) = active.player.modal_tutorial {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (
                     ServerTriggerType::IfClose,
                     Some(modal_tutorial as i32),
                     None,
                 ),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -3528,10 +3534,10 @@ impl ActivePlayer {
             {
                 return Err(e);
             }
-            self.player.modal_tutorial = None;
+            active.player.modal_tutorial = None;
             // -1 (u16::MAX on the wire) tells the client to close the tutorial.
             #[cfg(before_530)]
-            self.write(TutOpen { com: u16::MAX });
+            active.write(TutOpen { com: u16::MAX });
             // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         }
         Ok(())
@@ -3707,30 +3713,36 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Clears `player.walktrigger` and runs the associated script.
     /// * Logs an error if the script execution fails.
-    pub fn process_walktrigger(&mut self) {
-        let Some(trigger) = self.player.walktrigger else {
+    ///
+    /// # Safety Note
+    ///
+    /// Takes `*mut` to avoid noalias on the parameter: its scripts reach this
+    /// player through `engine_mut()`.
+    pub fn process_walktrigger(active: *mut Self) {
+        let active = unsafe { &mut *active };
+        let Some(trigger) = active.player.walktrigger else {
             return;
         };
-        if self.player.state.protect || self.player.state.delayed {
+        if active.player.state.protect || active.player.state.delayed {
             return;
         }
-        self.player.walktrigger = None;
+        active.player.walktrigger = None;
         if let Some(script) = engine().get_script(trigger).cloned() {
             let state = ScriptState::init(
                 script,
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 None,
             );
             if let Err(e) = engine_mut().run_script_by_state(
                 state,
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 Some(true),
                 None,
             ) {
                 error!(
                     "error running walktrigger script for player {}: {e}",
-                    self.player.uid.pid()
+                    active.player.uid.pid()
                 );
             }
         }
@@ -4018,7 +4030,12 @@ pub trait EnginePlayer {
 
     /// Closes any open modal interface, optionally clearing the weak script
     /// queue, and fires `IfClose` triggers.
-    fn close_modal(&mut self, clear_weak_queue: bool) -> Result<(), ScriptError>;
+    ///
+    /// # Safety Note
+    ///
+    /// Takes `*mut` to avoid noalias on the parameter: its scripts reach this
+    /// player through `engine_mut()`.
+    fn close_modal(active: *mut Self, clear_weak_queue: bool) -> Result<(), ScriptError>;
 
     /// Clears the player's current interaction and closes any modal.
     fn clear_pending_action(&mut self) -> Result<(), ScriptError>;
@@ -4516,7 +4533,7 @@ impl EnginePlayer for ActivePlayer {
         }
         self.player.build_area.clear(true);
         self.rebuild_normal(true);
-        self.close_modal(true)?;
+        Self::close_modal(self, true)?;
         self.sync_tabs();
         self.player.inv_first_seen.clear();
         #[cfg(since_530)]
@@ -4733,26 +4750,27 @@ impl EnginePlayer for ActivePlayer {
     /// * Clears suspended scripts and interface listeners.
     /// * Sends `update_inv_stop_transmit` for cleared inventory bindings.
     /// * Sets `refresh_modal_close = true`.
-    fn close_modal(&mut self, clear_weak_queue: bool) -> Result<(), ScriptError> {
+    fn close_modal(active: *mut Self, clear_weak_queue: bool) -> Result<(), ScriptError> {
+        let active = unsafe { &mut *active };
         if clear_weak_queue {
-            self.player.state.queues.weak.clear();
+            active.player.state.queues.weak.clear();
         }
 
-        if !self.player.state.delayed {
-            self.player.state.protect = false;
+        if !active.player.state.delayed {
+            active.player.state.protect = false;
         }
 
-        if self.player.modal_state == MODAL_NONE {
+        if active.player.modal_state == MODAL_NONE {
             return Ok(());
         }
 
-        self.player.modal_state = MODAL_NONE;
-        self.player.clear_suspended_script();
+        active.player.modal_state = MODAL_NONE;
+        active.player.clear_suspended_script();
 
-        if let Some(modal_main) = self.player.modal_main {
+        if let Some(modal_main) = active.player.modal_main {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_main as i32), None),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -4761,18 +4779,18 @@ impl EnginePlayer for ActivePlayer {
             {
                 return Err(e);
             }
-            let modal = self.player.modal_main;
-            let cleared = self.player.clear_interface_listeners(modal, root_layer);
+            let modal = active.player.modal_main;
+            let cleared = active.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
-                self.clear_inv_transmits(com);
+                active.clear_inv_transmits(com);
             }
-            self.player.modal_main = None;
+            active.player.modal_main = None;
         }
 
-        if let Some(modal_chat) = self.player.modal_chat {
+        if let Some(modal_chat) = active.player.modal_chat {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_chat as i32), None),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -4781,18 +4799,18 @@ impl EnginePlayer for ActivePlayer {
             {
                 return Err(e);
             }
-            let modal = self.player.modal_chat;
-            let cleared = self.player.clear_interface_listeners(modal, root_layer);
+            let modal = active.player.modal_chat;
+            let cleared = active.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
-                self.clear_inv_transmits(com);
+                active.clear_inv_transmits(com);
             }
-            self.player.modal_chat = None;
+            active.player.modal_chat = None;
         }
 
-        if let Some(modal_side) = self.player.modal_side {
+        if let Some(modal_side) = active.player.modal_side {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_side as i32), None),
-                Some(ScriptSubject::Player(self.player.uid)),
+                Some(ScriptSubject::Player(active.player.uid)),
                 None,
                 Some(false),
                 Some(false),
@@ -4801,15 +4819,15 @@ impl EnginePlayer for ActivePlayer {
             {
                 return Err(e);
             }
-            let modal = self.player.modal_side;
-            let cleared = self.player.clear_interface_listeners(modal, root_layer);
+            let modal = active.player.modal_side;
+            let cleared = active.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
-                self.clear_inv_transmits(com);
+                active.clear_inv_transmits(com);
             }
-            self.player.modal_side = None;
+            active.player.modal_side = None;
         }
 
-        self.player.refresh_modal_close = true;
+        active.player.refresh_modal_close = true;
         Ok(())
     }
 
@@ -4823,7 +4841,7 @@ impl EnginePlayer for ActivePlayer {
     /// **Calls:** [`close_modal`](Self::close_modal)
     fn clear_pending_action(&mut self) -> Result<(), ScriptError> {
         self.player.clear_interaction();
-        self.close_modal(true)?;
+        Self::close_modal(self, true)?;
         Ok(())
     }
 

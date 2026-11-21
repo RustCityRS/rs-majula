@@ -1592,14 +1592,12 @@ fn begin_shutdown(engine: &mut Engine) {
         return;
     }
     info!("Shutdown requested -- logging every player out with a save");
-    let ptr = &raw mut *engine;
-    with_engine(engine, || unsafe { &mut *ptr }.reboot_timer(0));
+    with_engine(engine, |engine| engine.reboot_timer(0));
 }
 
 /// Runs an admin API request on the engine, between ticks.
 fn run_admin_job(engine: &mut Engine, job: admin::EngineJob) {
-    let ptr = &raw mut *engine;
-    with_engine(engine, || job(unsafe { &mut *ptr }));
+    with_engine(engine, job);
 }
 
 /// Lets the recording task store what it was sent, for a few seconds at
@@ -1623,9 +1621,8 @@ fn apply_reload(engine: &mut Engine, reload: Reload) {
     #[cfg(since_530)]
     let (store, scripts, layout) = reload;
     let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
-    let ptr = &raw mut *engine;
-    with_engine(engine, || {
-        unsafe { &mut *ptr }.reload_assets(
+    with_engine(engine, |engine| {
+        engine.reload_assets(
             store,
             scripts,
             #[cfg(since_530)]

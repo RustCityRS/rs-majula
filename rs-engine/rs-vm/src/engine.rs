@@ -2353,7 +2353,8 @@ fn set_ptrs(engine: *mut ()) {
 ///
 /// # Arguments
 /// * `engine` - A mutable reference to the [`ScriptEngine`] implementor.
-/// * `f` - The closure to execute while the engine is installed.
+/// * `f` - The closure to run while the engine is installed, given the
+///   engine reborrowed from the installed pointer.
 ///
 /// # Returns
 /// The value returned by `f`.
@@ -2366,10 +2367,10 @@ fn set_ptrs(engine: *mut ()) {
 /// **Called by:** Game engine tick loop, script execution entry points.
 /// **Calls:** [`set_ptrs`], the user-provided closure `f`, and
 /// `Restore::drop` (which calls [`set_ptrs`] to restore previous values).
-pub fn with_engine<E: ScriptEngine, R>(engine: &mut E, f: impl FnOnce() -> R) -> R {
-    let ptr = engine as *mut E as *mut ();
+pub fn with_engine<E: ScriptEngine, R>(engine: &mut E, f: impl FnOnce(&mut E) -> R) -> R {
+    let ptr: *mut E = engine;
     let prev_engine = ENGINE_PTR.get();
-    set_ptrs(ptr);
+    set_ptrs(ptr.cast());
     struct Restore(*mut ());
     impl Drop for Restore {
         fn drop(&mut self) {
@@ -2377,7 +2378,7 @@ pub fn with_engine<E: ScriptEngine, R>(engine: &mut E, f: impl FnOnce() -> R) ->
         }
     }
     let _guard = Restore(prev_engine);
-    f()
+    f(unsafe { &mut *ptr })
 }
 
 /// Returns a typed immutable reference to the engine stored in thread-local

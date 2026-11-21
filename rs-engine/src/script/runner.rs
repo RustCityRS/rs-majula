@@ -1,4 +1,4 @@
-use crate::active_player::EnginePlayer;
+use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::controls::DISABLED_MESSAGE;
 use crate::core::Engine;
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -97,8 +97,7 @@ impl Engine {
     /// **Calls:** `vm::execute`.
     pub fn runescript_vm_execute(&mut self, state: &mut ScriptState) -> ExecutionState {
         self.flush_input_paths();
-        let ops = &raw const self.ops;
-        with_engine(self, move || vm::execute::<Engine>(state, unsafe { &*ops }))
+        with_engine(self, |engine| vm::execute::<Engine>(state, &engine.ops))
     }
 
     /// Executes a pre-built [`ScriptState`] against the appropriate subject entity.
@@ -486,7 +485,7 @@ impl Engine {
                             active.player.resume_buttons = None;
                         }
                         if active.player.modal_state & MODAL_MAIN == MODAL_NONE {
-                            if let Err(e) = active.close_modal(false) {
+                            if let Err(e) = ActivePlayer::close_modal(active, false) {
                                 error!(
                                     "error closing modal after script finish for player {pid}: {e}"
                                 );

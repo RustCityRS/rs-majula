@@ -78,9 +78,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
 
         // 4506
         none!(m, COMPARE => |s| {
-            let b_ptr = s.peek_string(0) as *const str;
-            let a_ptr = s.peek_string(1) as *const str;
-            let result = unsafe { (&*a_ptr).cmp(&*b_ptr) as i32 };
+            let result = s.peek_string(1).cmp(s.peek_string(0)) as i32;
             s.drop_strings(2);
             s.push_int(result);
         });

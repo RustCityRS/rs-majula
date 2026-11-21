@@ -268,8 +268,7 @@ where
 
         // 3
         none!(m, PUSH_CONSTANT_STRING => |s| {
-            let operand = s.string_operand() as *const str;
-            s.push_string(unsafe { &*operand });
+            s.push_string_operand();
         });
 
         // 6

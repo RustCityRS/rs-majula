@@ -286,7 +286,7 @@ impl Engine {
 
         if active.player.request_modal_close {
             active.player.request_modal_close = false;
-            if let Err(e) = active.close_modal(true) {
+            if let Err(e) = ActivePlayer::close_modal(active, true) {
                 error!(
                     "error closing modal for player {}: {e}",
                     active.player.uid.pid()
@@ -551,7 +551,7 @@ impl Engine {
             }
 
             if !following {
-                active.process_walktrigger();
+                ActivePlayer::process_walktrigger(active);
             }
 
             interacted = Self::try_interact(active, false);
@@ -563,7 +563,7 @@ impl Engine {
             let active = unsafe { &mut *(active as *mut ActivePlayer) };
 
             if active.player.pathing.has_waypoints() && active.can_access() {
-                active.process_walktrigger();
+                ActivePlayer::process_walktrigger(active);
             }
 
             if !active.player.pathing.has_waypoints() && following {
