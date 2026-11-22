@@ -24,6 +24,8 @@ settimer(general_macro_events, 500);
 queue(macro_event_login, 0, 0);
 // so antifire persists after logging back in
 ~set_antifire_login;
+// run mode is saved (option_run is scope=perm from 530), and the engine starts every login walking
+p_run(%option_run);
 ~open_game_frame()
 ~login_finish()
 // A new character starts where the engine spawns it, on Tutorial Island, as 289's do.

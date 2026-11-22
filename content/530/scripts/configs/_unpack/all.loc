@@ -30306,7 +30306,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A nicely fitted door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3015
 [newbiegateclosedl2]
@@ -30351,7 +30351,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A nicely fitted door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3018
 [newbie_door3]
@@ -30369,7 +30369,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A nicely fitted door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3019
 [newbie_door4]
@@ -30387,7 +30387,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A nicely fitted door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3020
 [newbiedoor4l]
@@ -30447,7 +30447,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A closed door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3025
 [newbie_door7]
@@ -30465,7 +30465,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A closed door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3026
 [newbie_door8]
@@ -30483,7 +30483,7 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=A closed door.
-param=next_loc_stage,inactiveposhdoor
+param=next_loc_stage,loc_36849
 
 // 3027
 [rocks_3027]
@@ -34744,6 +34744,8 @@ recolhsl1d=6928
 model=8,model_37387
 name=Rocks
 desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
 
 // 3432
 [build_imp_draynor_prison_roof]
@@ -107114,6 +107116,7 @@ recol3s=27296
 recol3d=13539
 model=8,model_2251
 name=Fireplace
+category=cooking_fire
 
 // 8713
 [hay_bale]
@@ -131796,6 +131799,7 @@ recol3s=5317
 recol3d=6308
 model=8,model_5170
 name=Fireplace
+category=cooking_fire
 
 // 10825
 [draynor_fireplace_right]
@@ -286205,6 +286209,7 @@ retex2s=material_380
 retex2d=material_309
 model=8,model_12612
 name=Fireplace
+category=cooking_fire
 
 // 24286
 [fai_varrock_kitchen_shelves_large]
@@ -400920,6 +400925,7 @@ anim=grandfireplace
 bgsound=fire_crackling_med,5
 model=8,model_35865
 name=Fireplace
+category=cooking_fire
 
 // 33499
 [fireplacecookingpot_gloffset]
@@ -425782,6 +425788,7 @@ retex2d=material_70
 model=8,model_24875
 model=8,model_24873
 name=Fireplace
+category=cooking_fire
 
 // 35450
 [fai_alkh_sorceresses_font]
@@ -444787,6 +444794,7 @@ recol5d=20081
 model=8,model_24875
 model=8,model_24873
 name=Fireplace
+category=cooking_fire
 
 // 36817
 [axe_cabinet_36817]

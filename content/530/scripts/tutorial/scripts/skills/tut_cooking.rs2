@@ -1,7 +1,5 @@
 // 289's fry is 647's cook: the same sound (skill_cooking's cooking.rs2).
-// The flour used on a bucket of water goes through 289's water sources
-// (general_use/scripts/water_sources.rs2: [opheldu,bucket_water]'s
-// newbie_pot_flour case), which wait for that file's port.
+// Flour used on a bucket of water goes through general_use's water_sources.rs2.
 [opheldu,newbie_pot_flour]
 if (oc_param(last_useitem, is_water_source) = ^true) {
     @tut_make_dough;

@@ -45,9 +45,7 @@ def_int $is_empty = loc_param(mining_rock_empty);
 if ($is_empty = ^true) {
     anim(null, 0);
     mes("There is no ore currently available in this rock.");
-    // 289 plays `prospect` here; its 2011 id is not known (skill_mining's
-    // prospect.rs2), so it is left out.
-    // sound_synth(prospect, 1, 0);
+    sound_synth(prospect, 1, 0);
     return(false);
 }
 
@@ -77,13 +75,14 @@ p_delay(0);
 // sound_synth(mine, 1, 10);
 p_delay(0);
 // Temp note: dur does not need updated ??
-loc_change(rocks, 10);
+// 530's tutorial rocks have new models; newbierocks1 is their empty rock (289 used rocks1)
+loc_change(newbierocks1, 10);
 anim(null, 0);
 return(true);
 
 [oploc2,newbiecopperrock]
 ~tut_prospect;
-// sound_synth(prospect, 1, 0); // 2011 id not known, as above
+sound_synth(prospect, 1, 0);
 if (%tutorial = ^newbie_mining_instructor_begin_prospecting) {
     %tutorial = ^newbie_mining_instructor_prospected_copper_first;
 }
@@ -96,7 +95,7 @@ if (%tutorial = ^newbie_mining_instructor_prospected_tin_first) {
 
 [oploc2,newbietinrock]
 ~tut_prospect;
-// sound_synth(prospect, 1, 0); // 2011 id not known, as above
+sound_synth(prospect, 1, 0);
 if (%tutorial = ^newbie_mining_instructor_begin_prospecting) {
     %tutorial = ^newbie_mining_instructor_prospected_tin_first;
 }

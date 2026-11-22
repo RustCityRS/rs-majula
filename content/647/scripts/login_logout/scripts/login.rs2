@@ -40,6 +40,8 @@ settimer(general_macro_events, 500);
 queue(macro_event_login, 0, 0);
 // so antifire persists after logging back in
 ~set_antifire_login;
+// run mode is saved (option_run is scope=perm from 530), and the engine starts every login walking
+p_run(%option_run);
 // Varp 281 is Unstable Foundations' (quest config 131): 0 is an account still to design its
 // character, 5 to 999 one mid-tutorial, 1000 one done.
 if (%tutorial = 0) {
