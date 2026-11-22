@@ -423,6 +423,8 @@
 [command,.cleartimer](timer $timer)
 // info: Return ^true if the active_player has $timer running
 [command,gettimer](timer $timer)(int) // confirmed
+// info: The clock $timer was last set or fired at on the active_player, or -1 if it isn't running
+[command,getsofttimer](softtimer $timer)(int)
 // info: Play a spotanim on the active_player
 [command,spotanim_pl](spotanim $spotanim, int $height, int $delay)
 // info: Play a spotanim on the secondary active_player

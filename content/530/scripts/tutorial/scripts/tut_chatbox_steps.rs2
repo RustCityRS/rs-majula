@@ -81,15 +81,18 @@ hint_coord(^hint_east, 0_48_48_6_12, 150);
 
 [proc,tutorial_step_talk_to_chef]
 ~set_hint_icon_newbie_cook_instructor;
-~tutorialstep("Find your next instructor.", "Talk to the chef indicated. He will teach you the more advanced|aspects of cooking such as combining ingredients. He will also|teach you about your music player menu as well.");
+// https://youtu.be/LgA4VsETE-g?t=228 (Jan 7 2009)
+~tutorialstep("Find your next instructor.", "Talk to the chef indicated. He will teach you the more advanced|aspects of Cooking such as combining ingredients. He will also|teach you about your Music Player.");
 
 [proc,tutorial_step_make_dough]
 hint_stop();
-~tutorialstep("Making dough.", "This is the base for many of the meals. To make dough we must|mix flour and water. So first right click the bucket of water and|select use then left click on the pot of flour.");
+// https://youtu.be/LgA4VsETE-g?t=250
+~tutorialstep("Making dough.", "This is the base for many of the meals. To make dough we must|mix flour and water. First, right click the bucket of water and|select use, then left click on the pot of flour.");
 
 [proc,tutorial_step_cooking_dough]
 hint_coord(2, 0_48_48_3_9, 100);
-~tutorialstep("", "Cooking dough. Now you have dough made you can cook it. To|cook the dough use it with the range shown by the arrow. If you|lose your dough talk to Lev, he will give you more ingredients.");
+// https://youtu.be/LgA4VsETE-g?t=252 (Jan 7 2009); its commas are too small to read at 360p.
+~tutorialstep("Cooking dough", "Now you have made dough, you can cook it. To cook the dough, use it with the range shown by the arrow. If you lose your dough, talk to Lev, he will give you more ingredients.");
 
 // 289 picks the low-detail music tab (music_ld) in low memory; 2011's cache has
 // only the one (music_v3).
@@ -97,39 +100,41 @@ hint_coord(2, 0_48_48_3_9, 100);
 hint_stop();
 ~tutorial_flash(^tab_music);
 if_settab(music_v3, ^tab_music);
-~tutorialstep("Well done, your first loaf of bread. As you gain experience in", "cooking you will be able to make other things like pies, cakes|and even kebabs. Now you've got the hang of cooking let's|move on. Click on the flashing icon in the bottom right to see|the jukebox.");
+// https://youtu.be/LgA4VsETE-g?t=259; it scrolls before its last line, 289's "the jukebox."
+~tutorialstep("Cooking dough", "Well done! Your first loaf of bread. As you gain experience in Cooking you will be able to make other things like pies, cakes and even kebabs. Now you've got the hang of cooking, let's move on. Click on the flashing icon in the bottom right to see the jukebox.");
 
 [proc,tutorial_step_music_player]
 hint_coord(^hint_east, 0_48_48_0_18, 150);
 if (lowmem = true) { // https://web.archive.org/web/20040408025047/http://www.imageshack.us:80/img2/8038/runescapetypo1.png
     ~tutorialstep("The Music Player.", "As you are playing in low memery mode you will not be able to|listen to the music of RuneScape, but this is where you would|find the jukebox controls. Pass through the door to continue. If you need a recap on anything covered here talk to Lev.");
-} else { // https://archive.org/details/PCPowerplay-101-2004-07/page/n13/mode/2up?q=runescape
-    ~tutorialstep("The Music Player.", "From this interface you can control the music that is played.|As you explore the world more of the tunes will become unlocked.|Once you've examined this menu use the next door to continue.|If you need a recap on anything covered here talk to Lev.");
+} else { // https://youtu.be/LgA4VsETE-g?t=262 (Jan 7 2009); it scrolls before "covered here", 289's end
+    ~tutorialstep("The Music Player.", "From this interface you can control the music that is played. As you explore the world and complete quests more of the tunes will become unlocked. Once you've examined this menu use the next door to continue. If you need a recap on anything covered here talk to Lev.");
 }
 
-// 289's controls tab is 2011's Emotes tab and run orb (tutorial.rs2).
-[proc,tutorial_step_click_run_icon]
+// 289's controls tab held both the emotes and the run button; 2009 teaches the emotes tab, then
+// the run orb (https://youtu.be/LgA4VsETE-g?t=272, Jan 7 2009). The recording never scrolls the
+// second emotes step or the run-on step: the first's "Don't worry!..." is Old School's (no source
+// to hand), the second's "to pass through it." 289's.
+[proc,tutorial_step_open_emotes]
 ~tutorial_flash(^tab_emotes);
 if_settab(emotes, ^tab_emotes);
 ~update_weight; // update weight
+~tutorialstep("Emotes", "Now, how about showing some feelings? You will see a flashing icon in the shape of a person. Click on that to access your emotes.");
 
-~tutorialstep("It's only a short distance to the next guide.", "|Why not try running there. Start by opening the player|controls, that's the flashing icon of a running man.");
+[proc,tutorial_step_try_emote]
+~tutorialstep("Emotes", "For those situations where words don't quite describe how you feel try an emote. Go ahead try one out! You might notice that some of the emotes are grey and cannot be used now. Don't worry! As you progress further into the game you'll gain access to all sorts of things to do, including more emotes.");
 
-[proc,tutorial_step_enable_run]
-if (p_finduid(uid) = true) {
-    p_run(^player_run_off);
-    return;
-}
-%option_run = %option_run;
-~tutorialstep("Running.", "In this menu you will see many options from waving to walking.|At the top of the panel there are two buttons. One is walk the|other one is run. Click on the run button.");
+[proc,tutorial_step_click_run_icon]
+~tutorial_flash(^tutorial_flash_run_orb);
+~tutorialstep("Running", "It's only a short distance to the next guide.|Why not try running there? To do this, click on the run icon next to the minimap.");
 
 [proc,tutorial_step_enter_newbie_quest_instructor_house]
 hint_coord(^hint_south, 0_48_48_14_54, 150);
-~tutorialstep("Run to the next guide.", "Now that you have run turned on follow the path, until you|come to the end. You may notice that your energy left goes|down. If this reaches zero you'll stop running. Click on the door|to pass through it.");
+~tutorialstep("Run to the next guide", "Now that you have the run button turned on, follow the path until you come to the end. You may notice that the number on the button goes down. This is your run energy. If your run energy reaches zero, you'll stop running. Click on the door to pass through it.");
 
 [proc,tutorial_step_talk_to_newbie_quest_instructor]
 ~set_hint_icon_newbie_quest_instructor;
-~tutorialstep("", "Talk with the Quest Guide Instructor.||He'll tell you all about quests.");
+~tutorialstep("", "Talk with the Quest Guide.||He will tell you all about quests."); // https://youtu.be/LgA4VsETE-g?t=341
 
 [proc,tutorial_step_open_quest_journal]
 hint_stop();

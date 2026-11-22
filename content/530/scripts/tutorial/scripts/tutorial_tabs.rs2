@@ -37,7 +37,7 @@ switch_int (%tutorial) {
     case ^newbie_survival_instructor_open_inventory : return(^tab_inventory);
     case ^newbie_survival_instructor_open_skill_menu : return(^tab_stats);
     case ^newbie_cook_instructor_baked_bread : return(^tab_music);
-    case ^newbie_cook_instructor_completed : return(^tab_emotes);
+    case ^tutorial_open_emotes : return(^tab_emotes);
     case ^newbie_quest_instructor_open_menu : return(^tab_quests);
     case ^newbie_combat_instructor_wielding_weapons : return(^tab_equipment);
     case ^newbie_combat_instructor_open_combat_interface : return(^tab_combat);

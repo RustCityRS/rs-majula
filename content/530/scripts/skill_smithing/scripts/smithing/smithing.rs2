@@ -8,9 +8,10 @@
 // as void-634's Anvil.kt does. smithing.dbtable gives each of 289's products
 // its slot; the buttons below find the product by the slot and the bar.
 //
-// 2011's anvil adds crossbow bolts and limbs, nails of every metal, the iron
-// spit, the bullseye lantern frame, the mithril grapple tip and pickaxes,
-// which 289 does not make; their slots stay hidden until they are ported.
+// The anvil also has crossbow bolts and limbs and nails of every metal, which
+// 289 does not make (smithing.dbrow's 2009 rows), and the iron spit, the
+// bullseye lantern frame, the mithril grapple tip and pickaxes, whose slots
+// stay hidden until they are ported.
 
 // 2011's buttons, Make All, X, 5 and 1 under each slot, where 289 had Make 1,
 // 5 and 10 on each inv column (inv_button1-3).
@@ -34,6 +35,11 @@
 [if_button,smithing_new:smith_medhelm_x] @smithing_anvil_button(smithing_new:smith_medhelm_pic, ^smithing_make_x);
 [if_button,smithing_new:smith_medhelm_5] @smithing_anvil_button(smithing_new:smith_medhelm_pic, 5);
 [if_button,smithing_new:smith_medhelm_1] @smithing_anvil_button(smithing_new:smith_medhelm_pic, 1);
+// Crossbow bolts (unf)
+[if_button,smithing_new:smith_bolts_all] @smithing_anvil_button(smithing_new:smith_bolts_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_bolts_x] @smithing_anvil_button(smithing_new:smith_bolts_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_bolts_5] @smithing_anvil_button(smithing_new:smith_bolts_pic, 5);
+[if_button,smithing_new:smith_bolts_1] @smithing_anvil_button(smithing_new:smith_bolts_pic, 1);
 // Sword
 [if_button,smithing_new:smith_sword_all] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_all);
 [if_button,smithing_new:smith_sword_x] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_x);
@@ -69,6 +75,11 @@
 [if_button,smithing_new:smith_scimitar_x] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_x);
 [if_button,smithing_new:smith_scimitar_5] @smithing_anvil_button(smithing_new:smith_scimitar_pic, 5);
 [if_button,smithing_new:smith_scimitar_1] @smithing_anvil_button(smithing_new:smith_scimitar_pic, 1);
+// Crossbow limbs
+[if_button,smithing_new:smith_limbs_all] @smithing_anvil_button(smithing_new:smith_limbs_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_limbs_x] @smithing_anvil_button(smithing_new:smith_limbs_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_limbs_5] @smithing_anvil_button(smithing_new:smith_limbs_pic, 5);
+[if_button,smithing_new:smith_limbs_1] @smithing_anvil_button(smithing_new:smith_limbs_pic, 1);
 // Longsword
 [if_button,smithing_new:smith_longsword_all] @smithing_anvil_button(smithing_new:smith_longsword_pic, ^smithing_make_all);
 [if_button,smithing_new:smith_longsword_x] @smithing_anvil_button(smithing_new:smith_longsword_pic, ^smithing_make_x);
@@ -237,26 +248,21 @@ if (inv_total(inv, hammer) < 1) {
 // names and bars, and %if1 for the darts' text once Tourist Trap taught them;
 // the slots are coloured below instead.
 %smithing_bar = $last_item;
-// 289's other_layer was one slot, Bronze wire for bronze and Steel nails for
-// steel: 2011 has a slot for each (wire, com81; nails, com73), and its nails
-// show by default.
+// 2009's anvil, https://youtu.be/smuh1cG0Bos?t=147 (Jan 7 2009): titled for the metal ("Bronze
+// Smithing"), with every metal's nails, crossbow bolts and limbs, bronze's wire and steel's studs.
+if_settext(smithing_new:title, "<~string_removeright(oc_name($last_item), 4)> Smithing");
+if_sethide(smithing_new:smith_nails, false);
+if_sethide(smithing_new:smith_bolts, false);
+if_sethide(smithing_new:smith_limbs, false);
 if ($last_item = bronze_bar) {
     if_sethide(smithing_new:smith_wire, false);
-    if_sethide(smithing_new:smith_nails, true);
-} else if ($last_item = steel_bar) {
-    if_sethide(smithing_new:smith_studs, false);
-    if_sethide(smithing_new:smith_nails, false);
-    if_sethide(smithing_new:smith_wire, true);
-}  else {
-    if_sethide(smithing_new:smith_nails, true);
-    if_sethide(smithing_new:smith_wire, true);
-    if_sethide(smithing_new:smith_studs, true);
-}
-// hide studs button if its not steel
-if ($last_item ! steel_bar) {
-    if_sethide(smithing_new:smith_studs, true);
 } else {
+    if_sethide(smithing_new:smith_wire, true);
+}
+if ($last_item = steel_bar) {
     if_sethide(smithing_new:smith_studs, false);
+} else {
+    if_sethide(smithing_new:smith_studs, true);
 }
 // hide claws button if death plateau is not complete
 if(%death_equiproom < ^death_complete) {
@@ -272,9 +278,6 @@ if (%desertrescue >= ^desertrescue_learned_darts) {
 } else {
     if_sethide(smithing_new:smith_darttip, true);
 }
-// 2011's crossbow bolts and limbs show by default; 289 makes neither.
-if_sethide(smithing_new:smith_bolts, true);
-if_sethide(smithing_new:smith_limbs, true);
 // each of the bar's products in its slot
 db_find(smithing:bar, $last_item);
 def_dbrow $data = db_findnext;

@@ -69,7 +69,7 @@ def_boolean $is_outside = ~check_axis(coord, loc_coord, loc_angle);
 ~open_and_close_door(loc_param(next_loc_stage), $is_outside, false);
 if (%tutorial = ^newbie_cook_instructor_opened_music_tab) {
     hint_stop();
-    %tutorial = ^newbie_cook_instructor_completed;
+    %tutorial = ^tutorial_open_emotes;
     ~set_tutorial_progress;
 }
 

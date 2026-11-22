@@ -76,7 +76,11 @@ if(testbit(%emote_access, ^macro_mime_lean) = ^false) {
 [label,controls_emote](seq $anim)
 if_close;
 if (p_finduid(uid) = false) {
-    // mes("You're already doing an emote!");
+    return;
+}
+// 2009 lets an emote play out: https://youtu.be/LgA4VsETE-g?t=289 (Jan 7 2009)
+if (getsofttimer(emote_hold) > 0) {
+    ~mesbox("You're already doing an emote!");
     return;
 }
 if (~inzone_coord_pair_table(trawler_wreck_zones, coord) = true) {
@@ -85,10 +89,14 @@ if (~inzone_coord_pair_table(trawler_wreck_zones, coord) = true) {
 }
 p_stopaction;
 anim($anim, 20);
-// p_delay(~seqlength20ms($anim));
+softtimer(emote_hold, ~seqlength20ms($anim));
+~tutorial_emote;
 // 289 tells Throne of Miscellania of the emote (~misc_quest_handle_emote):
 // waits for the Throne of Miscellania port.
 // ~misc_quest_handle_emote($anim); // For throne of miscellania quest
+
+[softtimer,emote_hold]
+clearsofttimer(emote_hold);
 
 [label,lockemote_mime_event]
 if (p_finduid(uid) = true) {

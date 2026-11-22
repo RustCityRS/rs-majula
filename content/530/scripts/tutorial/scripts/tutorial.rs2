@@ -149,6 +149,13 @@ if (%tutorial ! ^newbie_basics_instructor_start) {
 ~tutorial_set_active_tabs;
 ~set_tutorial_progress;
 
+// Any emote from the emotes tab (interface_controls' player_controls.rs2) moves the emotes step on.
+[proc,tutorial_emote]
+if (%tutorial = ^tutorial_opened_emotes) {
+    %tutorial = ^tutorial_performed_emote;
+    ~set_tutorial_progress;
+}
+
 // 289's [tutorial,_], run by the client's TUTORIAL_CLICKSIDE. 2011's client
 // has none; tutorial_tabs.rs2 runs it on a click of the step's tab.
 [proc,tutorial_clickside]
@@ -163,8 +170,8 @@ if (%tutorial = 2) {
     %tutorial = ^newbie_survival_instructor_opened_skill_menu;
 } else if (%tutorial = ^newbie_cook_instructor_baked_bread) {
     %tutorial = ^newbie_cook_instructor_opened_music_tab;
-} else if (%tutorial = ^newbie_cook_instructor_completed) {
-    %tutorial = ^tutorial_open_player_controls;
+} else if (%tutorial = ^tutorial_open_emotes) {
+    %tutorial = ^tutorial_opened_emotes;
 } else if(%tutorial = ^newbie_quest_instructor_open_menu) {
     %tutorial = ^newbie_quest_instructor_opened_menu;
 } else if (%tutorial = ^newbie_combat_instructor_wielding_weapons) {
@@ -234,7 +241,7 @@ switch_int ($segment) {
     case 2 : return(^newbie_survival_instructor_opened_skill_menu);
     case 3 : return(^newbie_survival_instructor_complete);
     case 4 : return(^newbie_cook_instructor_start);
-    case 5 : return(^newbie_cook_instructor_completed);
+    case 5 : return(^tutorial_open_emotes);
     case 6 : return(^newbie_quest_instructor_start);
     case 7 : return(^newbie_mining_instructor_start);
     case 8 : return(^newbie_mining_instructor_before_smelt_bronze_bar);
@@ -282,8 +289,9 @@ switch_int(%tutorial) {
     case ^newbie_cook_instructor_mixed_dough : ~tutorial_step_cooking_dough;
     case ^newbie_cook_instructor_baked_bread : ~tutorial_step_click_music_player;
     case ^newbie_cook_instructor_opened_music_tab : ~tutorial_step_music_player;
-    case ^newbie_cook_instructor_completed : ~tutorial_step_click_run_icon;
-    case ^tutorial_open_player_controls : ~tutorial_step_enable_run;
+    case ^tutorial_open_emotes : ~tutorial_step_open_emotes;
+    case ^tutorial_opened_emotes : ~tutorial_step_try_emote;
+    case ^tutorial_performed_emote : ~tutorial_step_click_run_icon;
 
     // Quest Guide
     case ^tutorial_has_toggled_on_run : ~tutorial_step_enter_newbie_quest_instructor_house;

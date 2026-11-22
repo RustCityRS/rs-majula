@@ -1465,13 +1465,14 @@ data=bar,steel_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_studs_pic,smithing_new:smith_studs_name,smithing_new:smith_studs_bars
 
+// 289's 2 a bar; Construction (2006) made it 15, with nails of every metal (below).
 [nails]
 table=smithing
 data=ifproduct,nails
 data=product,nails
-data=product_amount,2
+data=product_amount,15
 data=levelrequired,34
-data=end_message,two nails
+data=end_message,fifteen nails
 data=levelfailmessage,Nails
 data=bar,steel_bar
 data=bar_amount,1
@@ -1548,3 +1549,213 @@ data=levelfailmessage,some rune claws
 data=bar,runite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_claws_pic,smithing_new:smith_claws_name,smithing_new:smith_claws_bars
+
+// 2009 products 289 does not make: unfinished crossbow bolts and crossbow limbs (crossbows,
+// 2006) and the other metals' nails (Construction, 2006), shown for bronze on the island in
+// https://youtu.be/smuh1cG0Bos?t=147 (Jan 7 2009). Levels are the usual ladder (bolts with the
+// medium helm, nails with the sword, limbs with the longsword but iron's at 23); no 2009 source
+// for them or for these messages.
+
+[bronze_bolts_unf]
+table=smithing
+data=ifproduct,xbows_crossbow_bolts_bronze_unfeathered
+data=product,xbows_crossbow_bolts_bronze_unfeathered
+data=product_amount,10
+data=levelrequired,3
+data=end_message,ten unfinished bolts
+data=levelfailmessage,some bronze bolts
+data=bar,bronze_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_bolts_pic,smithing_new:smith_bolts_name,smithing_new:smith_bolts_bars
+
+[bronze_limbs]
+table=smithing
+data=ifproduct,xbows_crossbow_limbs_bronze
+data=product,xbows_crossbow_limbs_bronze
+data=product_amount,1
+data=levelrequired,6
+data=end_message,a pair of crossbow limbs
+data=levelfailmessage,some bronze limbs
+data=bar,bronze_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_limbs_pic,smithing_new:smith_limbs_name,smithing_new:smith_limbs_bars
+
+[bronze_nails]
+table=smithing
+data=ifproduct,nails_bronze
+data=product,nails_bronze
+data=product_amount,15
+data=levelrequired,4
+data=end_message,fifteen nails
+data=levelfailmessage,some bronze nails
+data=bar,bronze_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_nails_pic,smithing_new:smith_nails_name,smithing_new:smith_nails_bars
+
+[iron_bolts_unf]
+table=smithing
+data=ifproduct,xbows_crossbow_bolts_iron_unfeathered
+data=product,xbows_crossbow_bolts_iron_unfeathered
+data=product_amount,10
+data=levelrequired,18
+data=end_message,ten unfinished bolts
+data=levelfailmessage,some iron bolts
+data=bar,iron_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_bolts_pic,smithing_new:smith_bolts_name,smithing_new:smith_bolts_bars
+
+[iron_limbs]
+table=smithing
+data=ifproduct,xbows_crossbow_limbs_iron
+data=product,xbows_crossbow_limbs_iron
+data=product_amount,1
+data=levelrequired,23
+data=end_message,a pair of crossbow limbs
+data=levelfailmessage,some iron limbs
+data=bar,iron_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_limbs_pic,smithing_new:smith_limbs_name,smithing_new:smith_limbs_bars
+
+[iron_nails]
+table=smithing
+data=ifproduct,nails_iron
+data=product,nails_iron
+data=product_amount,15
+data=levelrequired,19
+data=end_message,fifteen nails
+data=levelfailmessage,some iron nails
+data=bar,iron_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_nails_pic,smithing_new:smith_nails_name,smithing_new:smith_nails_bars
+
+[steel_bolts_unf]
+table=smithing
+data=ifproduct,xbows_crossbow_bolts_steel_unfeathered
+data=product,xbows_crossbow_bolts_steel_unfeathered
+data=product_amount,10
+data=levelrequired,33
+data=end_message,ten unfinished bolts
+data=levelfailmessage,some steel bolts
+data=bar,steel_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_bolts_pic,smithing_new:smith_bolts_name,smithing_new:smith_bolts_bars
+
+[steel_limbs]
+table=smithing
+data=ifproduct,xbows_crossbow_limbs_steel
+data=product,xbows_crossbow_limbs_steel
+data=product_amount,1
+data=levelrequired,36
+data=end_message,a pair of crossbow limbs
+data=levelfailmessage,some steel limbs
+data=bar,steel_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_limbs_pic,smithing_new:smith_limbs_name,smithing_new:smith_limbs_bars
+
+[mithril_bolts_unf]
+table=smithing
+data=ifproduct,xbows_crossbow_bolts_mithril_unfeathered
+data=product,xbows_crossbow_bolts_mithril_unfeathered
+data=product_amount,10
+data=levelrequired,53
+data=end_message,ten unfinished bolts
+data=levelfailmessage,some mithril bolts
+data=bar,mithril_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_bolts_pic,smithing_new:smith_bolts_name,smithing_new:smith_bolts_bars
+
+[mithril_limbs]
+table=smithing
+data=ifproduct,xbows_crossbow_limbs_mithril
+data=product,xbows_crossbow_limbs_mithril
+data=product_amount,1
+data=levelrequired,56
+data=end_message,a pair of crossbow limbs
+data=levelfailmessage,some mithril limbs
+data=bar,mithril_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_limbs_pic,smithing_new:smith_limbs_name,smithing_new:smith_limbs_bars
+
+[mithril_nails]
+table=smithing
+data=ifproduct,nails_mithril
+data=product,nails_mithril
+data=product_amount,15
+data=levelrequired,54
+data=end_message,fifteen nails
+data=levelfailmessage,some mithril nails
+data=bar,mithril_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_nails_pic,smithing_new:smith_nails_name,smithing_new:smith_nails_bars
+
+[adamant_bolts_unf]
+table=smithing
+data=ifproduct,xbows_crossbow_bolts_adamantite_unfeathered
+data=product,xbows_crossbow_bolts_adamantite_unfeathered
+data=product_amount,10
+data=levelrequired,73
+data=end_message,ten unfinished bolts
+data=levelfailmessage,some adamant bolts
+data=bar,adamantite_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_bolts_pic,smithing_new:smith_bolts_name,smithing_new:smith_bolts_bars
+
+[adamant_limbs]
+table=smithing
+data=ifproduct,xbows_crossbow_limbs_adamantite
+data=product,xbows_crossbow_limbs_adamantite
+data=product_amount,1
+data=levelrequired,76
+data=end_message,a pair of crossbow limbs
+data=levelfailmessage,some adamant limbs
+data=bar,adamantite_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_limbs_pic,smithing_new:smith_limbs_name,smithing_new:smith_limbs_bars
+
+[adamant_nails]
+table=smithing
+data=ifproduct,nails_adamant
+data=product,nails_adamant
+data=product_amount,15
+data=levelrequired,74
+data=end_message,fifteen nails
+data=levelfailmessage,some adamant nails
+data=bar,adamantite_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_nails_pic,smithing_new:smith_nails_name,smithing_new:smith_nails_bars
+
+[rune_bolts_unf]
+table=smithing
+data=ifproduct,xbows_crossbow_bolts_runite_unfeathered
+data=product,xbows_crossbow_bolts_runite_unfeathered
+data=product_amount,10
+data=levelrequired,88
+data=end_message,ten unfinished bolts
+data=levelfailmessage,some rune bolts
+data=bar,runite_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_bolts_pic,smithing_new:smith_bolts_name,smithing_new:smith_bolts_bars
+
+[rune_limbs]
+table=smithing
+data=ifproduct,xbows_crossbow_limbs_runite
+data=product,xbows_crossbow_limbs_runite
+data=product_amount,1
+data=levelrequired,91
+data=end_message,a pair of crossbow limbs
+data=levelfailmessage,some rune limbs
+data=bar,runite_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_limbs_pic,smithing_new:smith_limbs_name,smithing_new:smith_limbs_bars
+
+[rune_nails]
+table=smithing
+data=ifproduct,nails_rune
+data=product,nails_rune
+data=product_amount,15
+data=levelrequired,89
+data=end_message,fifteen nails
+data=levelfailmessage,some rune nails
+data=bar,runite_bar
+data=bar_amount,1
+data=slot,smithing_new:smith_nails_pic,smithing_new:smith_nails_name,smithing_new:smith_nails_bars
