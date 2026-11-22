@@ -1,31 +1,25 @@
 #testscript
 
-// A new character (setup_player's) logs in to Lumbridge on the design screen (interface 771,
-// login_logout/scripts/new_player.rs2), a main modal: while it is open the player is busy, runs
+// A new character (setup_player's) logs in on Tutorial Island on the design screen (interface 771,
+// tutorial/scripts/player_design.rs2), a main modal: while it is open the player is busy, runs
 // no normal queue, and p_finduid cannot take the player back after a tick. Tests that need the
-// player free shut it as a finished character would never see it: %tutorial at 1000 first, so
-// the close gives no starter kit.
+// player free leave the island as a finished character comes back, without the kit: in Lumbridge,
+// with every tab.
 [proc,test_skip_design]
 %tutorial = 1000;
 if_close;
+minimap_toggle(0);
+~tutorial_close_instructions;
+~tutorial_progress_close;
+~initalltabs;
+p_telejump(0_50_50_22_18);
 
-[label,test_a_new_character_starts_in_lumbridge_on_the_design_screen]
+[label,test_a_new_character_starts_on_tutorial_island_on_the_design_screen]
 setup_player("test_player");
-assert_eq(coordx(coord), 3222);
-assert_eq(coordz(coord), 3218);
-assert_lt(%tutorial, 1000);
+assert_eq(coordx(coord), 3094);
+assert_eq(coordz(coord), 3106);
+assert_eq(%tutorial, 0);
 assert_true(busy);
-
-// Shut without confirming, the screen finishes the character: Tutorial Island's leaving kit.
-[label,test_shutting_the_design_screen_gives_the_starter_kit]
-def_player_uid $uid = setup_player("test_player");
-if_close;
-test_tick(2);
-assert_true(p_finduid($uid));
-assert_eq(%tutorial, 1000);
-assert_eq(inv_total(inv, bronze_axe), 1);
-assert_eq(inv_total(inv, bronze_arrow), 25);
-assert_eq(inv_total(bank, coins), 25);
 
 [label,test_skipping_the_design_screen_gives_no_kit]
 def_player_uid $uid = setup_player("test_player");
@@ -34,3 +28,26 @@ assert_false(busy);
 test_tick(2);
 assert_true(p_finduid($uid));
 assert_eq(inv_total(inv, bronze_axe), 0);
+
+// One gender counter is set at a time, and a switch starts the other gender's default look.
+[label,test_a_gender_switch_starts_the_other_s_default_look]
+setup_player("test_player");
+%wc_update09_target_diag = 5;
+~design_gender(true);
+assert_eq(%varplayerbit_5008, 0);
+assert_gt(%varplayerbit_5009, 0);
+assert_eq(%wc_update09_target_diag, 0);
+assert_eq(%wc_update09_target_short, 1);
+%wc_update09_target_diag = 5;
+~design_gender(true);
+assert_eq(%wc_update09_target_diag, 5);
+
+// The client reloads a random head only when its counter changes.
+[label,test_a_random_head_steps_its_counter]
+setup_player("test_player");
+def_int $count = %varplayerbit_5011;
+~design_random_head;
+assert_not_eq(%varplayerbit_5011, $count);
+assert_gt(%varplayerbit_5011, 0);
+assert_gte(%wc_update09_target_short, 1);
+assert_lte(%wc_update09_target_short, 24);

@@ -1,16 +1,20 @@
-//! 289's Tutorial Island on 2011's ids, kept as preserved content.
+//! 289's Tutorial Island on 530's and 2011's ids.
 //!
-//! A 2011 player never enters it on their own: the `tutorial_island` cheat
+//! On 530 a new character starts it, designing itself on interface 771; a
+//! 2011 player never enters it on their own: the `tutorial_island` cheat
 //! does. Each case drives the island as the client does (OPNPC1, OPLOC1,
 //! RESUME_PAUSEBUTTON, IF_BUTTON1 on a tab stone) and reads the island's
-//! progress varp, `tutorial` (a server-only varp: 2011's 281 is Unstable
-//! Foundations').
+//! progress varp: 530's `tutorial` (281), as 289's, and 2011's server-only
+//! `varplayer_419` (2011's 281 is Unstable Foundations').
 //!
-//! - A returning 2011 player standing on the island (the engine's new-player
+//! - On 530 a new character starts on the island with no tabs, on the design
+//!   screen; accepting the design moves it to step 1, and the guide opens the
+//!   Options tab.
+//! - A returning player standing on the island (the engine's new-player
 //!   spawn) logs in without the island starting.
-//! - The cheat puts the player in the RuneScape Guide's house at step 1, with
-//!   the instructions (cache 786 interface 372) on the chatbox's foreground
-//!   slot (752:7).
+//! - The cheat puts the player in the RuneScape Guide's house at step 1 (530
+//!   once the design is accepted), with the instructions (interface 372) on
+//!   the chatbox ([`chat_foreground`]).
 //! - The guide's welcome takes step 1 to 4, and the house door 4 to 10.
 //! - 2011's tab stones stand in for 289's TUTORIAL_CLICKSIDE: a click on the
 //!   step's tab (Inventory, toplevel 548:132) hands out the axe and
@@ -19,8 +23,8 @@
 //! - The rat pen's gate takes the player through both ways: 2011's leaves
 //!   stand on the other side of their wall from 289's.
 //! - The run orb is 289's run button for the island's run step.
-//! - Off the island, a 2011 player (island varp 0) wields a bronze dagger as
-//!   289's players past the island do.
+//! - Off the island, a returning player wields a bronze dagger as 289's
+//!   players past the island do.
 
 #![cfg(since_530)]
 
@@ -33,6 +37,8 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::life;
 use rs_test::names::BACKPACK;
 use rs_test::names::com;
+#[cfg(before_647)]
+use rs_test::names::iface;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
@@ -40,9 +46,14 @@ use rs_vm::state::ExecutionState;
 use std::fs;
 use std::sync::Mutex;
 
-/// The chatbox's foreground slot, `chatbox:com7`.
+/// The chatbox slot the island's instructions mount on: 530's overlay slot
+/// (752:9), 2011's foreground slot (752:7).
 fn chat_foreground() -> i32 {
-    com("chattop:mes_layer_large")
+    com(if cfg!(before_647) {
+        "chattop:chatoverlay"
+    } else {
+        "chattop:mes_layer_large"
+    })
 }
 
 const TUTORIAL_TEXT: u16 = 372;
@@ -78,8 +89,22 @@ fn multi2_second() -> i32 {
 /// The island's start, 0_48_48_22_34.
 const START: (u16, u16) = (3094, 3106);
 
+/// The island's progress varp, and its value for a returning player.
+const PROGRESS: &str = if cfg!(before_647) {
+    "tutorial"
+} else {
+    "varplayer_419"
+};
+const RETURNING: i32 = if cfg!(before_647) { 1000 } else { 0 };
+
 // The island's steps (tutorial/configs/tutorial.constant).
+#[cfg(before_647)]
+const DESIGN_CHARACTER: i32 = 0;
 const DESIGNED_CHARACTER: i32 = 1;
+#[cfg(before_647)]
+const SPANNER: i32 = 2;
+#[cfg(before_647)]
+const OPENED_OPTIONS: i32 = 3;
 const INTERACT_WITH_SCENERY: i32 = 4;
 const INTERACTED_WITH_DOOR: i32 = 10;
 const OPEN_INVENTORY: i32 = 20;
@@ -104,12 +129,12 @@ fn varp_id(engine: &Engine, name: &str) -> u16 {
 }
 
 fn tutorial(engine: &Engine, pid: u16) -> i32 {
-    let id = varp_id(engine, "varplayer_419");
+    let id = varp_id(engine, PROGRESS);
     engine.harness_player(pid).unwrap().vars.get(id).as_int()
 }
 
 fn set_tutorial(engine: &mut Engine, pid: u16, value: i32) {
-    let id = varp_id(engine, "varplayer_419");
+    let id = varp_id(engine, PROGRESS);
     engine
         .harness_player_mut(pid)
         .unwrap()
@@ -279,8 +304,50 @@ fn instructions_open(engine: &Engine, pid: u16) -> bool {
         .is_some_and(|&(sub, _)| sub == TUTORIAL_TEXT)
 }
 
+/// Whether a panel is mounted on the gameframe's `side<tab>`.
+#[cfg(before_647)]
+fn tab_open(engine: &Engine, pid: u16, tab: u8) -> bool {
+    engine
+        .harness_player(pid)
+        .unwrap()
+        .subs
+        .open
+        .contains_key(&com(&format!("toplevel:side{tab}")))
+}
+
+#[cfg(before_647)]
 #[test]
-fn a_2011_player_on_the_island_logs_in_without_it_starting() {
+fn a_new_character_designs_itself_on_the_island_with_no_tabs() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login("islandnewcomer").expect("login");
+        ticks(engine, &mut client, 3);
+        assert_eq!(coord(engine, client.pid), START, "at the island's start");
+        assert_eq!(tutorial(engine, client.pid), DESIGN_CHARACTER);
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().modal_main,
+            Some(iface("interface_771"))
+        );
+        assert!(instructions_open(engine, client.pid), "the design step");
+        assert!(
+            (0..14).all(|tab| !tab_open(engine, client.pid, tab)),
+            "no tabs"
+        );
+
+        button1(&mut client, com("interface_771:confirm_yes"));
+        ticks(engine, &mut client, 2);
+        assert_eq!(tutorial(engine, client.pid), DESIGNED_CHARACTER);
+        assert_eq!(engine.harness_player(client.pid).unwrap().modal_main, None);
+        assert!(
+            (0..14).all(|tab| !tab_open(engine, client.pid, tab)),
+            "the options tab comes with the guide"
+        );
+    });
+}
+
+#[test]
+fn a_returning_player_on_the_island_logs_in_without_it_starting() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
@@ -293,7 +360,11 @@ fn a_2011_player_on_the_island_logs_in_without_it_starting() {
             engine.cycle();
         }
         assert_eq!(coord(engine, client.pid), START, "on the island");
-        assert_eq!(tutorial(engine, client.pid), 0, "the island not entered");
+        assert_eq!(
+            tutorial(engine, client.pid),
+            RETURNING,
+            "the island not entered"
+        );
         assert!(
             !instructions_open(engine, client.pid),
             "no island instructions"
@@ -309,6 +380,12 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
         cheat(&mut client, "~tutorial_island");
         ticks(engine, &mut client, 3);
         assert_eq!(coord(engine, client.pid), START, "at the island's start");
+        #[cfg(before_647)]
+        {
+            assert_eq!(tutorial(engine, client.pid), DESIGN_CHARACTER);
+            button1(&mut client, com("interface_771:confirm_yes"));
+            ticks(engine, &mut client, 2);
+        }
         assert_eq!(tutorial(engine, client.pid), DESIGNED_CHARACTER);
         assert!(
             instructions_open(engine, client.pid),
@@ -333,6 +410,24 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
             resume(&mut client, chat);
         }
         assert!(lines >= 5, "the guide's five lines; {lines} pages");
+        // 2009's guide opens the Options tab mid-welcome and flashes it; its stone, then
+        // the guide again, move the island on.
+        #[cfg(before_647)]
+        {
+            assert_eq!(tutorial(engine, client.pid), SPANNER);
+            assert!(tab_open(engine, client.pid, 11), "the options tab");
+            button1(&mut client, com("toplevel:stone11"));
+            ticks(engine, &mut client, 2);
+            assert_eq!(tutorial(engine, client.pid), OPENED_OPTIONS);
+            op_npc1(&mut client, guide);
+            assert!(
+                until_paused(engine, &mut client, 10),
+                "the guide speaks again"
+            );
+            let chat = open_chat(engine, client.pid);
+            resume(&mut client, chat);
+            ticks(engine, &mut client, 2);
+        }
         assert_eq!(tutorial(engine, client.pid), INTERACT_WITH_SCENERY);
 
         // The house's door, from inside (0_48_48_26_35, its west edge).
@@ -443,11 +538,11 @@ fn the_run_orb_is_the_island_s_run_button() {
 }
 
 #[test]
-fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
+fn a_returning_player_wields_a_bronze_dagger_off_the_island() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "daggerwielder", (3222, 3218));
-        assert_eq!(tutorial(engine, client.pid), 0);
+        assert_eq!(tutorial(engine, client.pid), RETURNING);
         let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let dagger = obj(engine, "bronze_dagger");
         engine

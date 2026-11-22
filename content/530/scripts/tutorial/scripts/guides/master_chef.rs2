@@ -1,5 +1,5 @@
 [opnpc1,newbie_cook_instructor]
-switch_int(%varplayer_419) {
+switch_int(%tutorial) {
     case ^newbie_cook_instructor_start : @newbie_cook_instructor_start;
     case ^newbie_cook_instructor_make_dough : @newbie_cook_instructor_after_start;
     case ^newbie_cook_instructor_mixed_dough : @newbie_cook_instructor_after_start;
@@ -12,7 +12,7 @@ switch_int(%varplayer_419) {
 ~chatplayer("<p,neutral>I already know how to cook.|Brynna taught me just now.");
 ~chatnpc("<p,laugh>HA HA HA HA HA HA! You call THAT cooking?|Some shrimp on an open log fire? Oh no no no... I am|going to teach you the fine art of cooking bread.");
 ~chatnpc("<p,neutral>And no fine meal is complete without good music so|we'll cover that while you're here too.");
-%varplayer_419 = ^newbie_cook_instructor_make_dough;
+%tutorial = ^newbie_cook_instructor_make_dough;
 ~set_tutorial_progress;
 ~newbie_cook_instructor_give_ingredients;
 
@@ -51,7 +51,7 @@ if (inv_total(inv, newbie_pot_flour) < 1 & inv_total(inv, bucket_water) < 1) {
 ~newbie_cook_instructor_recap_options;
 
 [proc,newbie_cook_instructor_recap_options]
-if (%varplayer_419 < ^newbie_cook_instructor_opened_music_tab) {
+if (%tutorial < ^newbie_cook_instructor_opened_music_tab) {
     ~newbie_cook_instructor_recap_response(~p_choice3_header("Making dough.", 1, "Range cooking.", 2, "Nothing, thanks.", 4, "What would you like to hear more about?"));
 } else {
     ~newbie_cook_instructor_recap_response(~p_choice4_header("Making dough.", 1, "Range cooking.", 2, "Music.", 3, "Nothing, thanks.", 4, "What would you like to hear more about?"));

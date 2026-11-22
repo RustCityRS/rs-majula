@@ -1,16 +1,23 @@
+// While the design screen is open: https://www.youtube.com/watch?v=LgA4VsETE-g (Jan 7, 2009)
+[proc,tutorial_step_design_character]
+~tutorialstep("", "Getting started|Please take a moment to design your character.");
+
 [proc,tutorial_step_getting_started]
 ~set_hint_newbie_basics_instructor;
 // https://web.archive.org/web/20060328131241im_/http://www.runescape.com/lang/en/aff/runescape/img/screenshots/shots/free_chardesign.jpg
 ~tutorialstep("Getting started", "To start the tutorial use your left mouse-button to click|on the 'RuneScape Guide' in this room. He is indicated|by a flashing yellow arrow above his head. If you can't|see him, use your keyboard's arrow keys to rotate the view.");
 
-// Relevant in October 2006, Get Ready 435
+// October 2006's island and 2009's (https://www.youtube.com/watch?v=LgA4VsETE-g, Jan 7, 2009):
+// the Options tab opens here, mid-welcome (guides/runescape_guide.rs2).
 [proc,tutorial_step_player_controls_spanner]
-tut_flash(^tab_options);
-~tutorialstep("", "Player controls|Please click on the flashing spanner icon found at the bottom right of your screen. This will display your player controls.");
+if_settab(options, ^tab_options);
+~tutorial_flash(^tab_options);
+~tutorialstep("", "Game Options|Please click on the flashing spanner icon found at the bottom right of your screen. This will display your game options.");
 
-// Relevant in October 2006, Get Ready 435
+// The recording scrolls no further than "...as you explore": its last line is OSRS's.
 [proc,tutorial_step_player_controls_left_click]
-~tutorialstep("Player controls", "To start the tutorial use your left-mouse button to click on the|'RuneScape Guide' in this room. He is indicated by a flashing|yellow arrow above his head. If you can't see him, use your keyboard's arrow keys to rotate the view.");
+~set_hint_newbie_basics_instructor;
+~tutorialstep("Game Options", "In the interface you can now see a variety of options such as screen brightness, sound and music volume and whether you want to accept aid from other players or not. Don't worry about these too much for now, they will become clearer as you explore the game. Talk to the RuneScape Guide to continue.");
 
 // Removing "Feel free to" before try it in this room
 [proc,tutorial_step_interact_with_scenery]
@@ -28,7 +35,7 @@ hint_stop();
 ~tutorialstep("Viewing the items that you were given.", "Click on the flashing backpack icon to the|right side of the main window to view your inventory.|Your inventory is a list of everything you have in your backpack.");
 inv_transmit(inv, inventory:inv);
 if_settab(inventory, ^tab_inventory);
-tut_flash(^tab_inventory);
+~tutorial_flash(^tab_inventory);
 
 [proc,tutorial_step_cut_tree]
 hint_coord(^hint_west, 0_48_48_28_23, 175);
@@ -45,7 +52,7 @@ hint_coord(^hint_west, 0_48_48_28_23, 175);
 
 [proc,tutorial_step_you_gained_experience]
 if_settab(stats, ^tab_stats);
-tut_flash(^tab_stats);
+~tutorial_flash(^tab_stats);
 ~tutorialstep("You gained some experience...", "Click on the flashing bar graph icon|near the inventory button|to see your skill abilities.");
 
 [proc,tutorial_step_view_stats]
@@ -88,7 +95,7 @@ hint_coord(2, 0_48_48_3_9, 100);
 // only the one (music_v3).
 [proc,tutorial_step_click_music_player]
 hint_stop();
-tut_flash(^tab_music);
+~tutorial_flash(^tab_music);
 if_settab(music_v3, ^tab_music);
 ~tutorialstep("Well done, your first loaf of bread. As you gain experience in", "cooking you will be able to make other things like pies, cakes|and even kebabs. Now you've got the hang of cooking let's|move on. Click on the flashing icon in the bottom right to see|the jukebox.");
 
@@ -102,7 +109,7 @@ if (lowmem = true) { // https://web.archive.org/web/20040408025047/http://www.im
 
 // 289's controls tab is 2011's Emotes tab and run orb (tutorial.rs2).
 [proc,tutorial_step_click_run_icon]
-tut_flash(^tab_emotes);
+~tutorial_flash(^tab_emotes);
 if_settab(emotes, ^tab_emotes);
 ~update_weight; // update weight
 
@@ -126,7 +133,7 @@ hint_coord(^hint_south, 0_48_48_14_54, 150);
 
 [proc,tutorial_step_open_quest_journal]
 hint_stop();
-tut_flash(^tab_quests);
+~tutorial_flash(^tab_quests);
 ~update_questlist;
 if_settab(interface_274, ^tab_quests);
 ~tutorialstep("", "Open the Quest journal.||Click on the flashing icon next to your inventory.");
@@ -147,32 +154,32 @@ hint_coord(^hint_center, 0_48_48_16_47, 0);
 ~tutorialstep("Please wait...", "|Your character is now attempting to prospect the rock. This should take only a few seconds.");
 
 [proc,tutorial_step_prospect_rocks]
-if (%varplayer_419 = ^newbie_mining_instructor_begin_prospecting) {
+if (%tutorial = ^newbie_mining_instructor_begin_prospecting) {
     ~tutorialstep("Prospecting", "To prospect a mineable rock just right click it and select the|prospect rock option. This will tell you the type of ore you can|mine from it. Try it now on one of the rocks indicated.");
     ~tut_hint_icon_rocks;
     return;
 }
 
-if (%varplayer_419 = ^newbie_mining_instructor_prospected_copper_first) {
+if (%tutorial = ^newbie_mining_instructor_prospected_copper_first) {
     ~tutorialstep("It's copper.", "|So you know there's copper in the brown rocks, try prospecting|the grey ones next.");
     ~tut_hint_icon_rocks;
     return;
 }
 
-if (%varplayer_419 = ^newbie_mining_instructor_prospected_tin_first) {
+if (%tutorial = ^newbie_mining_instructor_prospected_tin_first) {
     ~tutorialstep("It's tin.", "|So you know there's tin in the grey rocks, try prospecting|the brown ones next.");
     ~tut_hint_icon_rocks;
     return;
 }
 
-if (%varplayer_419 = ^newbie_mining_instructor_prospected_tin_second) {
+if (%tutorial = ^newbie_mining_instructor_prospected_tin_second) {
     hint_stop();
     ~set_hint_icon_newbie_mining_instructor;
     ~tutorialstep("It's tin.", "Talk to the mining instructor to find out about these types of|ore and how you can mine them. He'll give you the needed tools|too.");
     return;
 }
 
-if (%varplayer_419 = ^newbie_mining_instructor_prospected_copper_second) {
+if (%tutorial = ^newbie_mining_instructor_prospected_copper_second) {
     hint_stop();
     ~set_hint_icon_newbie_mining_instructor;
     ~tutorialstep("It's copper.", "Talk to the mining instructor to find out about these types of|ore and how you can mine them. He'll give you the needed tools|too.");
@@ -184,15 +191,15 @@ if (%varplayer_419 = ^newbie_mining_instructor_prospected_copper_second) {
 
 [proc,tutorial_step_mining]
 ~tut_hint_icon_rocks;
-if (%varplayer_419 = ^newbie_mining_instructor_mining_start) {
+if (%tutorial = ^newbie_mining_instructor_mining_start) {
     ~tutorialstep("Mining.", "It's quite simple really, all you need to do is right click on the rock and select mine. You can only mine when you have a pickaxe. So give it a try, first mine one tin ore.");
 }
 
-if (%varplayer_419 = ^newbie_mining_instructor_minted_copper_first) {
+if (%tutorial = ^newbie_mining_instructor_minted_copper_first) {
     ~tutorialstep("Mining.", "Now you have some copper ore you just need some tin ore, then you'll have all you need to create a bronze bar. As you did|before right click on the tin rock and select 'mine'.");
 }
 
-if (%varplayer_419 = ^newbie_mining_instructor_mined_tin_first) {
+if (%tutorial = ^newbie_mining_instructor_mined_tin_first) {
     ~tutorialstep("Mining.", "Now you have some tin ore you just need some copper ore, then you'll have all you need to create a bronze bar. As you did|before right click on the copper rock and select 'mine'.");
 }
 
@@ -226,7 +233,7 @@ hint_stop();
 ~update_bonuses; // update bonuses if
 inv_transmit(worn, wornitems:com_28);
 if_settab(wornitems, ^tab_equipment);
-tut_flash(^tab_equipment);
+~tutorial_flash(^tab_equipment);
 
 [proc,tutorial_step_worn_inventory]
 ~tutorialstep("This is your worn inventory.", "From here you can see what items you have equipped. Let's|get one of those slots filled, go back to your inventory and |right click your dagger, select wield from the menu.");
@@ -242,7 +249,7 @@ hint_stop();
 [proc,tutorial_step_open_combat_interface]
 ~tutorialstep("Combat interface.", "|Click on the flashing crossed swords icon to see the combat interface.");
 ~update_weapon_category(inv_getobj(worn, ^wearpos_rhand));
-tut_flash(^tab_combat);
+~tutorial_flash(^tab_combat);
 
 [proc,tutorial_step_opened_combat_interface]
 hint_coord(^hint_west, 0_48_148_39_46, 125);
@@ -290,7 +297,7 @@ hint_coord(^hint_east, 0_48_48_57_52, 150);
 
 [proc,tutorial_your_prayer_menu]
 hint_stop();
-tut_flash(^tab_prayer);
+~tutorial_flash(^tab_prayer);
 if_settab(prayer, ^tab_prayer);
 ~tutorialstep("", "Your prayer menu.||Click on the flashing icon to open the prayer menu.");
 
@@ -300,12 +307,12 @@ if_settab(prayer, ^tab_prayer);
 
 [proc,tutorial_friends_tab]
 hint_stop();
-tut_flash(^tab_friends);
+~tutorial_flash(^tab_friends);
 if_settab(friends2, ^tab_friends);
 ~tutorialstep("", "You should now see another new icon. Click on flashing smily to open your friends list.");
 
 [proc,tutorial_ignore_tab]
-tut_flash(^tab_ignore);
+~tutorial_flash(^tab_ignore);
 if_settab(interface_551, ^tab_ignore);
 ~tutorialstep("This is your friends list.", "|This will be explained by Brother Brace shortly, but first click|on the other flashing icon next to the friends list one.");
 
@@ -322,7 +329,7 @@ hint_coord(^hint_north, 0_48_48_50_30, 125);
 ~tutorialstep("Your final instructor!", "Just follow the path to the wizards house, where you will be shown how to cast spells. Just talk with the mage indicated to find out more.");
 
 [proc,tutorial_open_your_final_menu]
-tut_flash(^tab_magic);
+~tutorial_flash(^tab_magic);
 if_settab(magic, ^tab_magic);
 ~tutorialstep("Open up your final menu.", "|Open up the Magic menu by clicking on the flashing icon next to the Prayer button you just learned about.");
 

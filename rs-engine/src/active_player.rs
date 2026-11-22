@@ -1715,13 +1715,31 @@ impl ActivePlayer {
         self.write(IfSetRecol { com, src, dst });
     }
 
-    /// Assigns an interface component to a tab slot on the client.
+    /// Assigns an interface component to a tab slot on the client. 530 has no
+    /// tab packet: the panel mounts on the gameframe's `side<tab>`, and a null
+    /// one closes it, which hides the tab's stone.
     pub fn if_settab(&mut self, com: u16, tab: u8) {
         #[cfg(before_530)]
         self.write(IfSetTab { com, tab });
+        #[cfg(all(since_530, before_647))]
+        {
+            let Some(parent) = engine().layout.tab_slot(self.player.frame_toplevel, tab) else {
+                warn!(
+                    "if_settab({com}, {tab}): toplevel {} has no side{tab}",
+                    self.player.frame_toplevel
+                );
+                return;
+            };
+            if com == u16::MAX {
+                self.if_close_sub(parent);
+            } else {
+                let kind = self.player.sub_kind(parent);
+                self.if_open_sub(com, parent, kind);
+            }
+        }
         // TODO(647): rev-647 has no tab packets — tabs are laid out via
         // IF_OPENSUB by content (interface milestone).
-        #[cfg(since_530)]
+        #[cfg(since_647)]
         let _ = (com, tab);
     }
 

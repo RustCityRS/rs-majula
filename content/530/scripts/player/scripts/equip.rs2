@@ -59,11 +59,11 @@ if (p_finduid(uid) = true) {
     // 289's island hook (player/scripts/equip.rs2): the sword and shield
     // move its combat lesson on.
     // todo: this needs a better home...
-    if (~in_tutorial_island(coord) = true & %varplayer_419 = ^newbie_combat_instructor_unequipping_items) {
+    if (~in_tutorial_island(coord) = true & %tutorial = ^newbie_combat_instructor_unequipping_items) {
         def_obj $shield = inv_getobj(worn, ^wearpos_lhand);
 
         if ($previous = bronze_sword & $shield = wooden_shield) {
-            %varplayer_419 = ^newbie_combat_instructor_open_combat_interface;
+            %tutorial = ^newbie_combat_instructor_open_combat_interface;
             ~set_tutorial_progress;
         }
     }

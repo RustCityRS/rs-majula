@@ -1,6 +1,6 @@
 [opnpc1,newbie_magic_instructor]
 
-switch_int(%varplayer_419) {
+switch_int(%tutorial) {
     case ^tutorial_exit_chapel : @newbie_magic_instructor_start;
     case ^tutorial_open_magic_tab : @newbie_magic_instructor_open_tab;
     case ^tutorial_opened_magic_tab : ~newbie_magic_instructor_opened_tab;
@@ -13,8 +13,8 @@ switch_int(%varplayer_419) {
 [label,newbie_magic_instructor_start]
 ~chatplayer("<p,neutral>Hello.");
 ~chatnpc("<p,neutral>Good day newcomer.|My name is Terrova.|I'm here to tell you about magic.|Let's start by opening your spell list. ");
-if (%varplayer_419 = ^tutorial_exit_chapel) {
-    %varplayer_419 = ^tutorial_open_magic_tab;
+if (%tutorial = ^tutorial_exit_chapel) {
+    %tutorial = ^tutorial_open_magic_tab;
     ~set_tutorial_progress;
 }
 
@@ -29,8 +29,8 @@ if (%varplayer_419 = ^tutorial_exit_chapel) {
 ~chatnpc("<p,neutral>Good. This is a list of your spells. Currently you can only cast one offensive spell called Wind Strike. Let's try it out on one of those chickens.");
 ~newbie_magic_instructor_give_runes;
 // This weirdly comes after giving runes...
-if (%varplayer_419 = ^tutorial_opened_magic_tab) {
-    %varplayer_419 = ^tutorial_cast_wind_strike;
+if (%tutorial = ^tutorial_opened_magic_tab) {
+    %tutorial = ^tutorial_cast_wind_strike;
     ~set_tutorial_progress;
 }
 
@@ -63,8 +63,8 @@ if (calc(25 - $total_runes) >= 5) {
 
 [label,newbie_magic_instructor_successfully_cast_wind_strike]
 ~chatnpc("<p,neutral>Well you're all finished here now. I'll give a reasonable number of runes when you leave.");
-if (%varplayer_419 = ^tutorial_successful_wind_strike) {
-    %varplayer_419 = ^newbie_magic_instructor_finished;
+if (%tutorial = ^tutorial_successful_wind_strike) {
+    %tutorial = ^newbie_magic_instructor_finished;
 }
 
 @multi2_header(

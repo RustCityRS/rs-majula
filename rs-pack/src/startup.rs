@@ -100,6 +100,7 @@ pub struct InterfaceLayout {
     pub overlay_tab: HashMap<u16, u16>,
     pub overlay: HashMap<u16, u16>,
     pub chatbox: HashMap<u16, u16>,
+    pub tabs: HashMap<(u16, u8), u16>,
     pub component_roots: HashMap<u16, i32>,
     pub component_names: HashMap<i32, Box<str>>,
     pub dialogue_parent_hash: i32,
@@ -137,6 +138,13 @@ impl InterfaceLayout {
     /// Where on toplevel `top` an overlay mounts, over the game view.
     pub fn overlay_slot(&self, top: u16) -> Option<i32> {
         Self::slot(&self.overlay, top)
+    }
+
+    /// Where on toplevel `top` tab `tab`'s panel mounts, its `side<tab>`.
+    pub fn tab_slot(&self, top: u16, tab: u8) -> Option<i32> {
+        self.tabs
+            .get(&(top, tab))
+            .map(|&com| (i32::from(top) << 16) | i32::from(com))
     }
 
     /// Chatbox child component hash an interface mounts on when opened as a
@@ -543,6 +551,12 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
         let interface = interfaces.get(iface_str).copied().unwrap_or_default();
         if let Some(slot) = toplevel_slot(&mut layout, interface, name) {
             slot.insert(iface, comp);
+        }
+        if let ("toplevel" | "toplevel_fullscreen", Some(tab)) = (
+            interface,
+            name.strip_prefix("side").and_then(|n| n.parse::<u8>().ok()),
+        ) {
+            layout.tabs.insert((iface, tab), comp);
         }
         if name == FULLSCREEN_INTERFACE {
             layout.fullscreen_tops.insert(iface);
