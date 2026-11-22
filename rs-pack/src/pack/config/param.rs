@@ -12,8 +12,8 @@ use crate::types::ScriptVarType;
 #[cfg(before_530)]
 use crate::types::{NpcStat, PlayerStat};
 use anyhow::Result;
-use std::collections::HashMap;
-#[cfg(since_530)]
+use std::collections::{HashMap, HashSet};
+use std::sync::{LazyLock, Mutex};
 use tracing::warn;
 
 pub fn pack_params(
@@ -244,15 +244,21 @@ pub fn get_param_value_for_type(
         .strip_prefix('"')
         .and_then(|value| value.strip_suffix('"'))
         .unwrap_or(value);
-    #[cfg(before_530)]
-    let id = pack.get_by_debugname(value).map_or(-1, |id| id as i32);
+    let id = pack.get_by_debugname(value).map(|id| id as i32);
     #[cfg(since_530)]
-    let id = pack
-        .get_by_debugname(value)
-        .map(|id| id as i32)
-        .or_else(|| placeholder_id(kind, value))
-        .unwrap_or(-1);
-    Some(ParamValue::Int(id))
+    let id = id.or_else(|| placeholder_id(kind, value));
+    Some(ParamValue::Int(id.unwrap_or_else(|| {
+        warn_unresolved(kind, value);
+        -1
+    })))
+}
+
+/// Warns, once per name, that a config value names no `kind`: it packs as -1 (nothing).
+fn warn_unresolved(kind: &str, value: &str) {
+    static SEEN: LazyLock<Mutex<HashSet<String>>> = LazyLock::new(Default::default);
+    if SEEN.lock().unwrap().insert(format!("{kind}:{value}")) {
+        warn!("Unknown {kind} '{value}' in a config value: packed as -1");
+    }
 }
 
 /// The id in a dump's name for an unnamed config, like `graphic_1807`.

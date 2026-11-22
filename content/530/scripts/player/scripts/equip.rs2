@@ -482,6 +482,9 @@ $rangebonus = ~equip_get_bonuses;
 ~update_bonus_text(equip_screen2:summoningdef, "Summoning", 0);
 ~update_bonus_text(equip_screen2:wearstrength, "Strength", $strengthbonus);
 ~update_bonus_text(equip_screen2:wearprayer, "Prayer", $prayerbonus);
+// The cache's "%1kg" (667:32) is the server's to fill: the carried weight, in whole kg as the
+// run weight sends it.
+if_settext(equip_screen2:com_32, "<tostring(calc(weight / 1000))>kg");
 
 [proc,update_bonus_text](component $com, string $name, int $bonus)
 def_string $sign = "+";

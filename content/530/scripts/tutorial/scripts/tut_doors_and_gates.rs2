@@ -138,8 +138,10 @@ while(loc_findnext = true) {
             loc_del(3);
             if(loc_type = newbiedoor4l) {
                 // Temp note: dur updated
-                loc_add(movecoord($central_coord, 1, 0, 0), inacmetalgateopenl, 1, loc_shape, 3);
-                loc_add(movecoord($central_coord, 1, 0, -1), inacmetalgateopenr, 3, loc_shape, 3);
+                // 289's metal gate leaves (inacmetalgateopenl/r) are cache 530's own open twins of
+                // these leaves, each with its closed leaf's model and mirror.
+                loc_add(movecoord($central_coord, 1, 0, 0), newbiedoor4l_open, 1, loc_shape, 3);
+                loc_add(movecoord($central_coord, 1, 0, -1), newbiedoor4r_open, 3, loc_shape, 3);
             }
             // Temp note: dur updated
             loc_add($central_coord, inviswall, $orig_angle, loc_shape, 3);
@@ -188,7 +190,8 @@ p_delay(1);
 // (loc_1562 at 0_48_148_38_46 angle 3, loc_1563 at 0_48_148_38_47 angle 1).
 // At 2011's leaves (above) the open leaves take the leaves' own wall slots,
 // so the inviswalls go on the edge's east tile, angle 0, as 289's do, and the
-// open leaves follow once both leaves are gone.
+// open leaves follow once both leaves are gone. They are cache 530's open twins
+// (newbiedoor5l_open/5r_open, the leaves' model and mirror) in 289's places.
 [proc,tut_open_rat_pit]
 def_coord $leaf_l = null;
 loc_findallzone(coord);
@@ -206,8 +209,8 @@ while(loc_findnext = true) {
 }
 if ($leaf_l ! null) {
     // Temp note: dur updated
-    loc_add(movecoord($leaf_l, 0, 0, -1), inacmetalgateopenl, 3, wall_straight, 3);
-    loc_add($leaf_l, inacmetalgateopenr, 1, wall_straight, 3);
+    loc_add(movecoord($leaf_l, 0, 0, -1), newbiedoor5l_open, 3, wall_straight, 3);
+    loc_add($leaf_l, newbiedoor5r_open, 1, wall_straight, 3);
 }
 sound_synth(nicedoor_open, 1, 0);
 

@@ -90,12 +90,23 @@ if (~inzone_coord_pair_table(trawler_wreck_zones, coord) = true) {
 p_stopaction;
 anim($anim, 20);
 softtimer(emote_hold, ~seqlength20ms($anim));
+// Walking off ends the emote, and its hold. The walktrigger slot is also a stun's or a freeze's
+// (movecheck.rs2, npc_combat_magic.rs2): an emote only takes it when it is free.
+if (getwalktrigger() = null) {
+    walktrigger(emote_walk);
+}
 ~tutorial_emote;
 // 289 tells Throne of Miscellania of the emote (~misc_quest_handle_emote):
 // waits for the Throne of Miscellania port.
 // ~misc_quest_handle_emote($anim); // For throne of miscellania quest
 
 [softtimer,emote_hold]
+clearsofttimer(emote_hold);
+if (getwalktrigger() = emote_walk) {
+    walktrigger(null);
+}
+
+[walktrigger,emote_walk]
 clearsofttimer(emote_hold);
 
 [label,lockemote_mime_event]

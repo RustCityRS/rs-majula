@@ -24,7 +24,8 @@ if ($amount > 0) {
     ~human_hit_sound;
 } else {
     ~player_damage(^hitmark_block, 0);
-    sound_synth(%armourhitsound, 1, 20);
+    // With the hitmark: 289's delay of 20 lands it well after the block.
+    sound_synth(%armourhitsound, 1, 0);
 }
 
 if (stat(hitpoints) = 0) {
@@ -56,7 +57,8 @@ if (gender() = 0) {
         case default : $sound = female_hit1;
     }
 }
-sound_synth($sound, 1, 20);
+// With the hitmark, as the block's armour sound is.
+sound_synth($sound, 1, 0);
 
 // Dev: `::hit [amount]` hits yourself, healing to the base level first when the
 // hit would be lethal so repeated calls stay observable. Defaults to 1.

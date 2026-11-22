@@ -597,14 +597,15 @@ impl ScriptPlayer for ActivePlayer {
         self.player.runenergy = (self.player.runenergy as i32 + amount).clamp(0, 10000) as u16;
     }
 
-    /// Returns the player's current carried weight.
+    /// Returns the player's carried weight in grams, counted now: the stored run
+    /// weight only catches up at the end of the tick, after a script has moved items.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** reads `self.player.runweight`
+    /// **Calls:** `ActivePlayer::carried_weight`
     fn weight(&self) -> i32 {
-        self.player.runweight
+        self.carried_weight()
     }
 
     /// Reports whether the buffered-packet queue has reached the soft

@@ -3348,16 +3348,18 @@ impl ActivePlayer {
         self.player.inv_other_transmits = transmits;
     }
 
-    /// Recomputes the player's carried weight, in grams, from every
-    /// `runweight`-flagged inventory the player owns.
+    /// Recomputes `self.player.runweight` from [`Self::carried_weight`].
+    fn calculate_runweight(&mut self) {
+        self.player.runweight = self.carried_weight();
+    }
+
+    /// The player's carried weight, in grams, from every `runweight`-flagged
+    /// inventory the player owns, as it stands now.
     ///
     /// Sums each non-stackable item's per-unit weight times its stack count.
     /// Stackable objects (coins, runes, arrows, ...) are excluded, as is any
     /// item whose obj type is missing from the cache.
-    ///
-    /// # Side Effects
-    /// * Overwrites `self.player.runweight`.
-    fn calculate_runweight(&mut self) {
+    pub(crate) fn carried_weight(&self) -> i32 {
         let invs = engine().invs();
         let objs = engine().objs();
         let mut weight = 0;
@@ -3378,7 +3380,7 @@ impl ActivePlayer {
                 weight += obj_type.weight as i32 * item.num as i32;
             }
         }
-        self.player.runweight = weight;
+        weight
     }
 
     /// Sends a game message to the player's chatbox, word-wrapping long
