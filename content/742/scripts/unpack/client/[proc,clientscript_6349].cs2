@@ -20,7 +20,7 @@ switch_int ($int2) {
             $int1 = -1;
         }
     case 24 :
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             if (if_hassubmodal(toplevel_fullscreen:sidemodal, interface_1266) = false) {
                 $component0 = null;
             }

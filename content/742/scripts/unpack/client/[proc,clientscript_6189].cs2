@@ -3,13 +3,13 @@
 %varclient_1919 = 0;
 switch_int (map_lang) {
     case 0 :
-        if_setgraphic(lobbyscreen:com_388, 10940);
+        if_setgraphic(lobbyscreen:com_388, graphic_10940);
     case 1 :
-        if_setgraphic(lobbyscreen:com_388, 10942);
+        if_setgraphic(lobbyscreen:com_388, graphic_10942);
     case 2 :
-        if_setgraphic(lobbyscreen:com_388, 10941);
+        if_setgraphic(lobbyscreen:com_388, graphic_10941);
     case 3 :
-        if_setgraphic(lobbyscreen:com_388, 10943);
+        if_setgraphic(lobbyscreen:com_388, graphic_10943);
 }
 if_sethide(lobbyscreen:com_34, false);
 if_sethide(lobbyscreen:com_338, true);

@@ -21,7 +21,7 @@
 use rs_io::{Packet, PacketFrame};
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
-use rs_protocol::network::game::server::loc_merge::LocMerge;
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
@@ -797,11 +797,11 @@ fn sound_areas_match_client() {
 /// coord, loc, shape (`g1_alt1`, -v), then a g2 list per flag, sized by the
 /// loc type. Flag 1 alone resets the loc.
 #[test]
-fn loc_merge_matches_client() {
-    assert_eq!(ZoneProt::LocMerge as u8, 0);
-    assert_eq!(LocMerge::PROT as u8, 20);
+fn loc_customise_matches_client() {
+    assert_eq!(ZoneProt::LocCustomise as u8, 0);
+    assert_eq!(LocCustomise::PROT as u8, 20);
 
-    let merge = LocMerge {
+    let customise = LocCustomise {
         coord: 0x35,
         id: TypeId::new(0x1234),
         shape_angle: 10 << 2 | 3,
@@ -809,8 +809,8 @@ fn loc_merge_matches_client() {
         recol: Some(Box::new([960, 8353])),
         retex: Some(Box::new([40])),
     };
-    let bytes = encode(&merge);
-    assert_eq!(merge.sizeof(), bytes.len());
+    let bytes = encode(&customise);
+    assert_eq!(customise.sizeof(), bytes.len());
     let mut c = ClientPacket::new(&bytes);
     assert_eq!(c.g1_alt3(), 0x4 | 0x8, "recolours and retextures");
     let coord = c.g1();
@@ -823,11 +823,11 @@ fn loc_merge_matches_client() {
     assert_eq!(c.g2(), 40, "retex 0");
     c.done(11);
 
-    let reset = LocMerge {
+    let reset = LocCustomise {
         models: None,
         recol: None,
         retex: None,
-        ..merge
+        ..customise
     };
     let bytes = encode(&reset);
     let mut c = ClientPacket::new(&bytes);

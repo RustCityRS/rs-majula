@@ -1,22 +1,22 @@
 // 5242
 [proc,clientscript_5242](component $component0)
-sound_vorbis_volume(6185, 1, 0, 127);
+sound_vorbis_volume(vorbis_6185, 1, 0, 127);
 if ($component0 = interface_1126:com_187) {
     if_setcolour(interface_1126:com_192, 0x99917a);
     if_setcolour(interface_1126:com_187, 0xebe0bc);
-    if_setgraphic(interface_1126:com_189, 459);
-    if_setgraphic(interface_1126:com_190, 460);
-    if_setgraphic(interface_1126:com_191, 459);
-    if_setgraphic(interface_1126:com_0, 454);
-    if_setgraphic(interface_1126:com_1, 456);
-    if_setgraphic(interface_1126:com_186, 454);
+    if_setgraphic(interface_1126:com_189, graphic_459);
+    if_setgraphic(interface_1126:com_190, graphic_460);
+    if_setgraphic(interface_1126:com_191, graphic_459);
+    if_setgraphic(interface_1126:com_0, graphic_454);
+    if_setgraphic(interface_1126:com_1, graphic_456);
+    if_setgraphic(interface_1126:com_186, graphic_454);
 } else {
     if_setcolour(interface_1126:com_187, 0x99917a);
     if_setcolour(interface_1126:com_192, 0xebe0bc);
-    if_setgraphic(interface_1126:com_189, 454);
-    if_setgraphic(interface_1126:com_190, 456);
-    if_setgraphic(interface_1126:com_191, 454);
-    if_setgraphic(interface_1126:com_0, 459);
-    if_setgraphic(interface_1126:com_1, 460);
-    if_setgraphic(interface_1126:com_186, 459);
+    if_setgraphic(interface_1126:com_189, graphic_454);
+    if_setgraphic(interface_1126:com_190, graphic_456);
+    if_setgraphic(interface_1126:com_191, graphic_454);
+    if_setgraphic(interface_1126:com_0, graphic_459);
+    if_setgraphic(interface_1126:com_1, graphic_460);
+    if_setgraphic(interface_1126:com_186, graphic_459);
 }

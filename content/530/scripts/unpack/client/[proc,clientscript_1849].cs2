@@ -7,7 +7,7 @@ def_int $windowmode1 = getdefaultwindowmode;
 if (detailget_antialiasing_default ! detailget_antialiasing) {
     detail_antialiasing(0);
     detail_antialiasing_default(0);
-    if (getwindowmode < 3 & getwindowmode ! $windowmode1) {
+    if (getwindowmode < ^windowmode_fullscreen & getwindowmode ! $windowmode1) {
         setwindowmode($windowmode1);
     }
 } else if (getwindowmode ! $windowmode1) {

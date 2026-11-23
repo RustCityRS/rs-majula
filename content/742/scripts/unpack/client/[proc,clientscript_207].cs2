@@ -1,12 +1,12 @@
 // 207
 [proc,clientscript_207]
 if (if_gethide(interface_628:com_3) = true) {
-    if_setgraphic(interface_628:com_1, 6122);
+    if_setgraphic(interface_628:com_1, graphic_6122);
     if_setposition(interface_628:com_1, 45, 4, ^setpos_abs_left, ^setpos_abs_top);
     if_setop(interface_628:com_2, 1, "Close key");
     if_sethide(interface_628:com_3, false);
 } else {
-    if_setgraphic(interface_628:com_1, 6121);
+    if_setgraphic(interface_628:com_1, graphic_6121);
     if_setposition(interface_628:com_1, 45, 7, ^setpos_abs_left, ^setpos_abs_top);
     if_setop(interface_628:com_2, 1, "Open key");
     if_sethide(interface_628:com_3, true);

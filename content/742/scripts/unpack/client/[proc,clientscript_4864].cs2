@@ -141,25 +141,25 @@ if (op718 = 1) {
     if_settext(interface_1260:com_280, $string1);
     switch_int (%varplayerbit_9553) {
         case 1 :
-            if_setgraphic(interface_1260:com_298, 7381);
+            if_setgraphic(interface_1260:com_298, graphic_7381);
         case 2 :
-            if_setgraphic(interface_1260:com_298, 7380);
+            if_setgraphic(interface_1260:com_298, graphic_7380);
         case 3 :
-            if_setgraphic(interface_1260:com_298, 7384);
+            if_setgraphic(interface_1260:com_298, graphic_7384);
         case 4 :
-            if_setgraphic(interface_1260:com_298, 7378);
+            if_setgraphic(interface_1260:com_298, graphic_7378);
         case 5 :
-            if_setgraphic(interface_1260:com_298, 7377);
+            if_setgraphic(interface_1260:com_298, graphic_7377);
         case 6 :
-            if_setgraphic(interface_1260:com_298, 7379);
+            if_setgraphic(interface_1260:com_298, graphic_7379);
         case 7 :
-            if_setgraphic(interface_1260:com_298, 7376);
+            if_setgraphic(interface_1260:com_298, graphic_7376);
         case 8 :
-            if_setgraphic(interface_1260:com_298, 7383);
+            if_setgraphic(interface_1260:com_298, graphic_7383);
         case 9 :
-            if_setgraphic(interface_1260:com_298, 7382);
+            if_setgraphic(interface_1260:com_298, graphic_7382);
         case 10 :
-            if_setgraphic(interface_1260:com_298, 7385);
+            if_setgraphic(interface_1260:com_298, graphic_7385);
         case default :
             if_setgraphic(interface_1260:com_298, null);
     }

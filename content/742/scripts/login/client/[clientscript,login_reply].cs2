@@ -13,7 +13,7 @@ if (op437 = 1) {
 if ($int1 = 49) {
     if (%login_reply_last ! 49) {
         ~login_popup_close;
-        ~login_popup($int1, 1, "The Jagex Account Guardian is protecting this account.<br><br>This device is not recognised. An email has been sent to the validated email address.<br><br>Follow the link in the email to add this device. (Please check your spam folders)", 0, 13105, 1, 0, "Resend Email", 1, "Back");
+        ~login_popup($int1, 1, "The Jagex Account Guardian is protecting this account.<br><br>This device is not recognised. An email has been sent to the validated email address.<br><br>Follow the link in the email to add this device. (Please check your spam folders)", 0, graphic_13105, 1, 0, "Resend Email", 1, "Back");
     }
     %login_reply_last = 49;
     return;
@@ -21,13 +21,13 @@ if ($int1 = 49) {
 if ($int1 = 52) {
     if (%login_reply_last ! 52) {
         ~login_popup_close;
-        ~login_popup($int1, 1, "The Jagex Account Guardian is protecting this account.<br><br>You need to validate this device to use with your account. Please follow the instructions in the window that will open shortly.<br><br>If no window appears, we can send you an email to complete the process.", 0, 13105, 1, 0, "Send Email", 1, "Back");
+        ~login_popup($int1, 1, "The Jagex Account Guardian is protecting this account.<br><br>You need to validate this device to use with your account. Please follow the instructions in the window that will open shortly.<br><br>If no window appears, we can send you an email to complete the process.", 0, graphic_13105, 1, 0, "Send Email", 1, "Back");
     }
     %login_reply_last = 52;
     return;
 }
 if ($int1 = 42) {
-    if_setgraphic(loginscreen:com_97, 6297);
+    if_setgraphic(loginscreen:com_97, graphic_6297);
     if_sethide(loginscreen:com_103, false);
     if_settext(loginscreen:com_130, tostring(map_world));
     if_settext(loginscreen:com_131, tostring(unknown_command_5625));
@@ -310,7 +310,7 @@ switch_int ($int1) {
         if_setontimer(login:popup, "clientscript_6715");
     case 50 :
         $string2 = "The Jagex Account Guardian is protecting this account.<br><br>This device is not recognised.<br><br>No new devices can be added for up to 24 hours as too many failed attempts to answer the security questions have been made.<br><br>During this time access will still be granted to any devices already trusted.";
-        $graphic10 = 13105;
+        $graphic10 = graphic_13105;
     case default :
         $string2 = "Unexpected server response. Please try using a different world.";
 }

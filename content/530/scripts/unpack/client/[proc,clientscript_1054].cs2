@@ -8,6 +8,6 @@ while (enum(int, component, enum_1550, $int0) ! null) {
     if_setonkey(enum(int, component, enum_1550, $int0), null);
     $int0 = calc($int0 + 1);
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     ~clientscript_1364;
 }

@@ -1,6 +1,6 @@
 // 1194
 [proc,clientscript_1194]
-if (detailget_removeroofs_option = 0 & getwindowmode >= 1) {
+if (detailget_removeroofs_option = 0 & getwindowmode >= ^windowmode_small) {
     if_settext(loginscreen:com_68, "Roofs<br>(in-game only)");
 } else {
     if_settext(loginscreen:com_68, "Remove roofs");

@@ -7,7 +7,7 @@ $int3 = calc($int3 * 12);
 if_setscrollsize($component1, 0, $int3);
 if ($int3 > if_getheight($component1)) {
     if_sethide($component2, false);
-    ~scrollbar_vertical($component2, $component1, 8383, 8380, 8381, 8382, 8375, 8374);
+    ~scrollbar_vertical($component2, $component1, graphic_8383, graphic_8380, graphic_8381, graphic_8382, graphic_8375, graphic_8374);
 } else {
     if_sethide($component2, true);
 }

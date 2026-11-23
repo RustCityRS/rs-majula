@@ -1,6 +1,6 @@
 // 1329
 [proc,clientscript_1329]
-if (getwindowmode = 0) {
+if (getwindowmode = ^windowmode_0) {
     ~dropdownbox_refuse("High Detail only", loginscreen:com_56, loginscreen:com_57, loginscreen:com_58, null, graphic_884, 0x7f0000, p11_full);
     return;
 }

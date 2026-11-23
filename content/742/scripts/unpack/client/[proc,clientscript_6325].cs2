@@ -1,12 +1,12 @@
 // 6325
 [proc,clientscript_6325]
 def_string $string0 = "<col=c8c8c8>";
-def_graphic $graphic0 = 11504;
+def_graphic $graphic0 = graphic_11504;
 if (%varclient_1936 = 2) {
     ~clientscript_6326(1, interface_1304:com_13, interface_1304:com_14);
     ~clientscript_6326(0, interface_1304:com_16, interface_1304:com_17);
     ~clientscript_6326(0, interface_1304:com_19, interface_1304:com_20);
-    $graphic0 = 11505;
+    $graphic0 = graphic_11505;
 } else if (%varclient_1936 = 1) {
     ~clientscript_6326(0, interface_1304:com_13, interface_1304:com_14);
     ~clientscript_6326(1, interface_1304:com_16, interface_1304:com_17);

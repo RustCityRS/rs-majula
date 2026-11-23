@@ -2,15 +2,15 @@
 [proc,clientscript_6487]
 switch_int (map_lang) {
     case 0 :
-        if_setgraphic(interface_1313:com_1, 11792);
-        if_setgraphic(interface_1313:com_11, 11796);
+        if_setgraphic(interface_1313:com_1, graphic_11792);
+        if_setgraphic(interface_1313:com_11, graphic_11796);
     case 1 :
-        if_setgraphic(interface_1313:com_1, 11794);
-        if_setgraphic(interface_1313:com_11, 11797);
+        if_setgraphic(interface_1313:com_1, graphic_11794);
+        if_setgraphic(interface_1313:com_11, graphic_11797);
     case 2 :
-        if_setgraphic(interface_1313:com_1, 11793);
-        if_setgraphic(interface_1313:com_11, 11798);
+        if_setgraphic(interface_1313:com_1, graphic_11793);
+        if_setgraphic(interface_1313:com_11, graphic_11798);
     case 3 :
-        if_setgraphic(interface_1313:com_1, 11795);
-        if_setgraphic(interface_1313:com_11, 11799);
+        if_setgraphic(interface_1313:com_1, graphic_11795);
+        if_setgraphic(interface_1313:com_11, graphic_11799);
 }

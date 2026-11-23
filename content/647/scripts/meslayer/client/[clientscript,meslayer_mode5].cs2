@@ -6,7 +6,7 @@ if (%has_displayname_client = false) {
 if (%snapshot_open = true) {
     ~script675;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 if_sethide(chattop:mes_layer, false);

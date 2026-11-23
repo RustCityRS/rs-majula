@@ -3,13 +3,13 @@
 if (%varplayer_2611 = 1) {
     switch_int (map_lang) {
         case 0 :
-            if_setgraphic(lobbyscreen:com_344, 10944);
+            if_setgraphic(lobbyscreen:com_344, graphic_10944);
         case 1 :
-            if_setgraphic(lobbyscreen:com_344, 10946);
+            if_setgraphic(lobbyscreen:com_344, graphic_10946);
         case 2 :
-            if_setgraphic(lobbyscreen:com_344, 10945);
+            if_setgraphic(lobbyscreen:com_344, graphic_10945);
         case 3 :
-            if_setgraphic(lobbyscreen:com_344, 10947);
+            if_setgraphic(lobbyscreen:com_344, graphic_10947);
     }
     if_sethide(lobbyscreen:com_346, true);
     if_setposition(lobbyscreen:com_352, if_getx(lobbyscreen:com_352), 130, ^setpos_abs_left, ^setpos_abs_top);

@@ -4,9 +4,9 @@ if (%follower_obj = obj_24906 | %follower_obj = obj_24907 | %follower_obj = obj_
     return;
 }
 if_sethide(enum(npc, component, enum_1092, %lore_npc_head), true);
-if (getwindowmode >= 2) {
-    if_setgraphic(topstat_lore:com_0, 8644);
-    if_setgraphic(topstat_lore:com_1, 8645);
+if (getwindowmode >= ^windowmode_resizable) {
+    if_setgraphic(topstat_lore:com_0, graphic_8644);
+    if_setgraphic(topstat_lore:com_1, graphic_8645);
 } else {
     if_setgraphic(topstat_lore:com_0, "topstat_fill_full,3");
     if_setgraphic(topstat_lore:com_1, "topstat_fill_full,4");

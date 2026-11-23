@@ -37,7 +37,7 @@ $int1 = 0;
 def_string $string0 = "<col=0000ff>";
 def_string $string1 = "<col=800000>";
 def_string $string2 = "<col=800080>";
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $string0 = "<col=7fa9ff>";
     $string1 = "<col=ff5256>";
     $string2 = "<col=ff78d9>";

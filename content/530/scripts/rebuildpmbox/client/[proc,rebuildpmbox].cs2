@@ -16,7 +16,7 @@ if (reboottimer > 0) {
 }
 def_int $int4 = 0;
 def_int $chattype5 = ^chattype_gamemessage;
-if (%option_pm = 1 & (getwindowmode < 2 | %chat_view ! -1)) {
+if (%option_pm = 1 & (getwindowmode < ^windowmode_resizable | %chat_view ! -1)) {
     while ($int4 < 100 & $int0 < 5) {
         if (~pm_filtertest($int4) = true) {
             $component1 = enum(int, component, enum_580, $int0);

@@ -1,8 +1,8 @@
 // 5153
 [proc,clientscript_5153](int $int0)
 if ($int0 = 1) {
-    if_setgraphic(interface_800:com_8, 7543);
+    if_setgraphic(interface_800:com_8, graphic_7543);
 } else {
-    if_setgraphic(interface_800:com_8, 7542);
+    if_setgraphic(interface_800:com_8, graphic_7542);
     ~deltooltip_action(interface_800:com_1);
 }

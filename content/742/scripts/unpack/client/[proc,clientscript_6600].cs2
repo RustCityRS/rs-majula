@@ -2,10 +2,10 @@
 [proc,clientscript_6600]
 def_component $component0 = null;
 def_int $int1 = 0;
-def_graphic $graphic2 = 12190;
-def_graphic $graphic3 = 12191;
-def_graphic $graphic4 = 12189;
-def_graphic $graphic5 = 12192;
+def_graphic $graphic2 = graphic_12190;
+def_graphic $graphic3 = graphic_12191;
+def_graphic $graphic4 = graphic_12189;
+def_graphic $graphic5 = graphic_12192;
 def_int $int6 = 0;
 while ($int6 < 5) {
     switch_int ($int6) {

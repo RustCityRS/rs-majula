@@ -1,7 +1,7 @@
 // 6686
 [proc,clientscript_6686](int $int0, obj $obj1, int $int2, int $int3, struct $struct4)
 if ($int0 ! 10) {
-    sound_vorbis_volume(6185, 1, 0, 200);
+    sound_vorbis_volume(vorbis_6185, 1, 0, 200);
 }
 if ($int0 ! 1 | $struct4 = %varclient_2015) {
     if_sethide(interface_1340:com_24, true);

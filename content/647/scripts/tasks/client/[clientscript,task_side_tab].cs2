@@ -14,7 +14,7 @@ switch_int ($int0) {
         } else if (compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1518, param_1266)) = 0) {
             $string0 = "Remember, the Hints tab provides more details about a Task.";
         }
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             $int1 = 196;
             $int2 = 183;
             $int3 = 1;
@@ -34,7 +34,7 @@ switch_int ($int0) {
         } else if (compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1518, param_1266)) = 0) {
             $string0 = "Remember, the Hints tab provides more details about a Task.";
         }
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             $int1 = 196;
             $int2 = 183;
             $int3 = 1;
@@ -52,7 +52,7 @@ switch_int ($int0) {
         if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0) {
             $string0 = "The '?' icon will add an arrow to the screen which points to your destination.";
         }
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             $int1 = 196;
             $int2 = 87;
             $int3 = 1;

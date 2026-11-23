@@ -3,7 +3,7 @@
 if (%meslayermode > 1) {
     return;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 if_settextfont(chattop:mes_text, q8_full);

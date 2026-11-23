@@ -170,9 +170,9 @@ if ($component2 = null | $component3 = null | $component4 = null | $component5 =
 }
 if_setcolour($component3, 0x5b5959);
 if_setcolour($component4, 0x863928);
-if_setgraphic($component5, 7932);
-if_setgraphic($component6, 7933);
-if_setgraphic($component7, 7934);
+if_setgraphic($component5, graphic_7932);
+if_setgraphic($component6, graphic_7933);
+if_setgraphic($component7, graphic_7934);
 if_setcolour($component8, 0x5b5959);
 if_sethide($component2, false);
 if ($component0 ! interface_1308:com_19 & $component0 ! interface_1308:com_21) {

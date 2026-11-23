@@ -164,13 +164,13 @@ while ($struct26 ! null) {
         cc_create(interface_1122:com_82, ^iftype_graphic, $int10);
         cc_setposition(calc($int9 + $int14 + 7), $int3, ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(calc($int2 - $int14 - $int14 - 14), calc($int4 - $int3 - 7), ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7536);
+        cc_setgraphic(graphic_7536);
         $int10 = calc($int10 + 1);
         $int17 = calc(($int2 - $int14 - $int14 - 14) * $int16 / $int15);
         cc_create(interface_1122:com_82, ^iftype_graphic, $int10);
         cc_setposition(calc($int9 + $int14 + 7), $int3, ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize($int17, calc($int4 - $int3 - 7), ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7540);
+        cc_setgraphic(graphic_7540);
         $int10 = calc($int10 + 1);
         cc_create(interface_1122:com_82, ^iftype_text, $int10);
         cc_setposition($int9, $int3, ^setpos_abs_left, ^setpos_abs_top);
@@ -204,7 +204,7 @@ while ($struct26 ! null) {
         cc_create(interface_1122:com_82, ^iftype_graphic, $int10);
         cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int9 - $int5 - $int7), calc($int4 - $int7), ^setpos_abs_left, ^setpos_abs_top);
-        cc_setgraphic(7465);
+        cc_setgraphic(graphic_7465);
     }
     $int25 = struct_param($struct26, param_1878);
     $struct26 = enum(int, struct, enum_4849, $int25);
@@ -243,13 +243,13 @@ while ($struct26 ! null) {
                 cc_create(interface_1122:com_82, ^iftype_graphic, $int10);
                 cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
                 cc_setposition(calc($int9 + $int1 - $int7), calc($int4 - $int7), ^setpos_abs_left, ^setpos_abs_top);
-                cc_setgraphic(7465);
+                cc_setgraphic(graphic_7465);
             }
         } else {
             cc_setonop("clientscript_5179(13)");
             $int10 = calc($int10 + 1);
             cc_create(interface_1122:com_82, ^iftype_graphic, $int10);
-            cc_setgraphic(7454);
+            cc_setgraphic(graphic_7454);
             cc_setsize($int1, $int4, ^setsize_abs, ^setsize_abs);
             cc_setposition($int9, 0, ^setpos_abs_left, ^setpos_abs_top);
         }

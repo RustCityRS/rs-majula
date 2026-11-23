@@ -20,7 +20,7 @@ if (%fairyrings_lastrotate < clientclock) {
     if_sethide($component16, true);
 } else {
     if (%fairyrings_nextsound <= clientclock & %fairyrings_hasclicked = true) {
-        sound_vorbis_rate(7540, 1, 0, 100, random_sound_pitch(15, 15));
+        sound_vorbis_rate(vorbis_7540, 1, 0, 100, random_sound_pitch(15, 15));
         %fairyrings_nextsound = calc(clientclock + 30);
     }
     if_sethide($component15, true);

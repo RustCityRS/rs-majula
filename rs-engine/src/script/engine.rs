@@ -48,7 +48,7 @@ use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 #[cfg(since_647)]
-use rs_protocol::network::game::server::loc_merge::LocMerge;
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
 #[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 #[cfg(all(since_530, before_647))]
@@ -987,16 +987,16 @@ impl ScriptEngine for Engine {
         self.track_zone(x, y, z);
     }
 
-    /// Merges a look into the loc `loc` names, if it is still shown. The
-    /// client looks the lists' lengths up by the loc's type and the shape its
-    /// models are filed under.
+    /// Customises the loc `loc` names, if it is still shown. The client looks
+    /// the lists' lengths up by the loc's type and the shape its models are
+    /// filed under.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `Zone::loc_index`, `Zone::merge_loc`, `Engine::track_zone`
+    /// **Calls:** `Zone::loc_index`, `Zone::customise_loc`, `Engine::track_zone`
     #[cfg(since_647)]
-    fn loc_merge(
+    fn loc_customise(
         &mut self,
         loc: LocRef,
         models: Option<Box<[TypeId]>>,
@@ -1012,7 +1012,7 @@ impl ScriptEngine for Engine {
         if !live.visible() {
             return;
         }
-        let merge = LocMerge {
+        let customise = LocCustomise {
             coord: live.packed_zone_coord(),
             id: live.id(),
             shape_angle: (live.shape().model_shape() as u8) << 2 | live.angle() as u8,
@@ -1020,7 +1020,7 @@ impl ScriptEngine for Engine {
             recol,
             retex,
         };
-        zone.merge_loc(idx, merge);
+        zone.customise_loc(idx, customise);
         self.track_zone(x, y, z);
     }
 

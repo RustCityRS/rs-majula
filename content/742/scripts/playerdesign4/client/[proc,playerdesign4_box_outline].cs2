@@ -3,23 +3,23 @@
 if ($int2 = 1) {
     if (cc_find($component0, $int1) = true) {
         if (cc_getheight > 90) {
-            cc_setgraphic(10552);
+            cc_setgraphic(graphic_10552);
         } else {
-            cc_setgraphic(10550);
+            cc_setgraphic(graphic_10550);
         }
     }
 } else if ($int2 = 2) {
     if (cc_find($component0, $int1) = true) {
         if (cc_getheight > 90) {
-            cc_setgraphic(10552);
+            cc_setgraphic(graphic_10552);
         } else {
-            cc_setgraphic(10550);
+            cc_setgraphic(graphic_10550);
         }
     }
 } else if (cc_find($component0, $int1) = true) {
     if (cc_getheight > 90) {
-        cc_setgraphic(10551);
+        cc_setgraphic(graphic_10551);
     } else {
-        cc_setgraphic(10549);
+        cc_setgraphic(graphic_10549);
     }
 }

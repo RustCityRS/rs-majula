@@ -6,6 +6,6 @@ if (%meslayermode = 7 | %meslayermode = 8 | %meslayermode = 9) {
     if_sethide(chattop:mes_layer_hide, false);
     %meslayermode = 0;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     ~clientscript_1364;
 }

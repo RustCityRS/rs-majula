@@ -1,6 +1,6 @@
 // 1387
 [proc,clientscript_1387](int $int0)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     switch_int ($int0) {
         case 0 :
             if_setgraphic(toplevel_fullscreen:stone0, "side_stone_highlights,4");

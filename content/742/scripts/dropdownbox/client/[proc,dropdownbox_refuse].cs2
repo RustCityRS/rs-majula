@@ -1,5 +1,5 @@
 // 1355
-[proc,dropdownbox_refuse](component $component0, component $component1, component $component2, component $component3, graphic $graphic4, int $rgb5, graphic $graphic6, string $string0)
+[proc,dropdownbox_refuse](component $component0, component $component1, component $component2, component $component3, graphic $graphic4, int $colour5, graphic $graphic6, string $string0)
 cc_deleteall($component0);
 if_sethide($component1, true);
 if_sethide($component2, true);
@@ -22,4 +22,4 @@ cc_setsize(if_getwidth($component0), if_getheight($component0), ^setsize_abs, ^s
 cc_settextshadow(false);
 cc_settextfont($graphic6);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-cc_setcolour($rgb5);
+cc_setcolour($colour5);

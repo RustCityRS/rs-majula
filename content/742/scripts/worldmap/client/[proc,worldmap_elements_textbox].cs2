@@ -10,7 +10,7 @@ def_int $int14 = calc(paraheight($string0, if_getwidth($component3), menu_font_s
 def_graphic $graphic15 = struct_param($struct2, param_647);
 def_graphic $graphic16 = struct_param($struct2, param_648);
 def_graphic $graphic17 = struct_param($struct2, param_649);
-def_int $rgb18 = struct_param($struct2, param_652);
+def_int $colour18 = struct_param($struct2, param_652);
 def_int $int19 = calc(($int13 - $int11) / 2);
 def_int $int20 = calc(($int14 - $int12) / 2);
 if (cc_find($component3, $int8) = true) {
@@ -137,7 +137,7 @@ if (cc_find($component3, $int8) = true) {
     cc_create($component3, ^iftype_text, $int8);
     cc_setposition($int9, $int10, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize($int13, $int14, ^setsize_abs, ^setsize_abs);
-    cc_setcolour($rgb18);
+    cc_setcolour($colour18);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
     cc_settextfont(menu_font_small);
     cc_settext($string0);

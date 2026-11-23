@@ -187,11 +187,11 @@ switch_int ($int0) {
     case 8 :
         if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,49");
     case 15 :
-        if_setgraphic(lunarfm_rewards_new:spell_icon, 7685);
+        if_setgraphic(lunarfm_rewards_new:spell_icon, graphic_7685);
     case 16 :
-        if_setgraphic(lunarfm_rewards_new:spell_icon, 7686);
+        if_setgraphic(lunarfm_rewards_new:spell_icon, graphic_7686);
     case 17 :
-        if_setgraphic(lunarfm_rewards_new:spell_icon, 7687);
+        if_setgraphic(lunarfm_rewards_new:spell_icon, graphic_7687);
 }
 if_sethide(lunarfm_rewards_new:spells_button_falador, true);
 if_sethide(lunarfm_rewards_new:spells_button_rune, true);

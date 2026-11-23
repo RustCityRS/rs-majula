@@ -2,7 +2,10 @@ use rs_io::Packet;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
@@ -92,7 +95,10 @@ zone_messages! {
     LocAddChange(LocAddChange),
     LocDel(LocDel),
     LocAnim(LocAnim),
+    #[cfg(before_647)]
     LocMerge(LocMerge),
+    #[cfg(since_647)]
+    LocCustomise(LocCustomise),
     #[cfg(since_647)]
     LocPrefetch(LocPrefetch),
     MapAnim(MapAnim),

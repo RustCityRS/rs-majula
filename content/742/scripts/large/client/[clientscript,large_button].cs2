@@ -1,7 +1,7 @@
 // 190
 [clientscript,large_button](component $component0)
-if (getwindowmode >= 2) {
-    if_setgraphic($component0, 8556);
+if (getwindowmode >= ^windowmode_resizable) {
+    if_setgraphic($component0, graphic_8556);
 } else {
     if_setgraphic($component0, large_button);
 }

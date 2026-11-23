@@ -44,7 +44,7 @@ switch_int ($int0) {
     case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 :
         $int5 = 1;
         $int5 = 7;
-        $graphic7 = 9887;
+        $graphic7 = graphic_9887;
         if ($int0 = 0 & if_gethide(interface_1253:com_39) = true & if_gethide(interface_1253:com_38) = false) {
             switch_int (random(10)) {
                 case 0 :
@@ -64,18 +64,18 @@ switch_int ($int0) {
     case 18, 19, 20, 21, 22, 23, 24 :
         $int5 = 19;
         $int6 = 90;
-        $graphic7 = 9888;
+        $graphic7 = graphic_9888;
     case 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 :
         $int5 = 1;
         $int6 = 84;
-        $graphic7 = 9889;
+        $graphic7 = graphic_9889;
         if ($int0 = 25 & if_gethide(interface_1253:com_39) = true & if_gethide(interface_1253:com_38) = false) {
             sound_vorbis_volume(~clientscript_2337(5709));
         }
     case default :
         $int5 = 19;
         $int6 = 90;
-        $graphic7 = 9888;
+        $graphic7 = graphic_9888;
 }
 if_setposition($component3, $int5, $int6, ^setpos_abs_left, ^setpos_abs_bottom);
 if_setgraphic($component3, ~clientscript_6267($graphic7));

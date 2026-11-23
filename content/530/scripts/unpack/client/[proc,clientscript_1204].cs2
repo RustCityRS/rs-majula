@@ -1,6 +1,6 @@
 // 1204
 [proc,clientscript_1204]
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     ~dropdownbox_refuse("Always `Many'", loginscreen:com_64, loginscreen:com_65, loginscreen:com_66, null, graphic_884, ^white, p11_full);
     return;
 }

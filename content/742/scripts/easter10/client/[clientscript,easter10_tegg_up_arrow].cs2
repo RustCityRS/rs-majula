@@ -5,6 +5,6 @@ if (%easter10_chocworkers < 15 & ~script2240 < %easter10_totalworkers) {
     %easter10_teggworkers = calc(%easter10_teggworkers + 1);
 } else {
     %easter10_resourcegame_errortextflag = 1;
-    sound_vorbis_volume(10046, 1, 0, 255);
+    sound_vorbis_volume(vorbis_10046, 1, 0, 255);
 }
 ~script2220;

@@ -63,5 +63,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             let loc = pop_loc::<E>(s)?;
             s.push_int(loc.width as i32);
         });
+
+        // 4108
+        #[cfg(since_530)]
+        none!(m, LC_GETMULTILOC => |s| {
+            let value = s.pop_int();
+            let loc = pop_loc::<E>(s)?;
+            s.push_int(loc.multi_loc(value).unwrap_or(loc.id).int());
+        });
     }
 }

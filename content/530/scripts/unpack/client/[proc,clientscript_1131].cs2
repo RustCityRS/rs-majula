@@ -1,6 +1,6 @@
 // 1131
 [proc,clientscript_1131]
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     if_setcolour(graphics_options:com_40, 0x996600);
     ~dropdownbox_refuse("Always `All'", graphics_options:com_89, graphics_options:com_90, graphics_options:com_91, null, tradebacking_dark, ^white, p11_full);
     return;

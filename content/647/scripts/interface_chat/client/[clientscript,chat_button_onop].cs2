@@ -6,7 +6,7 @@ if (%tutorial < 1000) {
 }
 switch_int ($int0) {
     case 1 :
-        if (%chat_view = $int1 & getwindowmode >= 2) {
+        if (%chat_view = $int1 & getwindowmode >= ^windowmode_resizable) {
             %chat_view = -1;
             ~subchanged;
         } else if (%chat_view = -1) {

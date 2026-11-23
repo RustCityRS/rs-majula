@@ -2,11 +2,11 @@
 [proc,clientscript_6721](component $component0)
 switch_int (map_lang) {
     case 0 :
-        if_setgraphic($component0, 13114);
+        if_setgraphic($component0, graphic_13114);
     case 1 :
-        if_setgraphic($component0, 13116);
+        if_setgraphic($component0, graphic_13116);
     case 2 :
-        if_setgraphic($component0, 13117);
+        if_setgraphic($component0, graphic_13117);
     case 3 :
-        if_setgraphic($component0, 13115);
+        if_setgraphic($component0, graphic_13115);
 }

@@ -1,6 +1,6 @@
 // 4690
 [proc,clientscript_4690](component $component0, int $int1)
-def_int $rgb2 = 0xebe0bc;
+def_int $colour2 = 0xebe0bc;
 def_int $int3 = 0;
 def_component $component4 = null;
 def_int $int5 = 0;
@@ -32,7 +32,7 @@ switch_component ($component0) {
 }
 if ($int6 = 0 & %varplayerbit_9465 >= $int7) {
     if ($int1 = 1) {
-        $rgb2 = ^white;
+        $colour2 = ^white;
     }
-    if_setcolour($component4, $rgb2);
+    if_setcolour($component4, $colour2);
 }

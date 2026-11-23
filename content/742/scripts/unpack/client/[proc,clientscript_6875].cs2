@@ -1,9 +1,9 @@
 // 6875
 [proc,clientscript_6875]
 def_int $int0 = 13777;
-def_graphic $graphic1 = 13780;
-def_graphic $graphic2 = 13779;
-def_graphic $graphic3 = 13778;
+def_graphic $graphic1 = graphic_13780;
+def_graphic $graphic2 = graphic_13779;
+def_graphic $graphic3 = graphic_13778;
 def_int $int4 = -1;
 def_int $int5 = -1;
 def_int $int6 = 0;
@@ -29,7 +29,7 @@ while ($int6 < enum_getoutputcount(enum_2345)) {
             cc_setgraphic($graphic3);
             $string0 = "Click again to set primary colour.";
         } else {
-            cc_setgraphic(13777);
+            cc_setgraphic(graphic_13777);
             $string0 = "Set colour to <$string1>.";
         }
         cc_setonmouserepeat("aif_tooltip(interface_1311:com_87, event_com, event_comsubid, $string0, 350, verdana_11pt_regular, verdana_11pt_regular, 0xb6b6b6, 12, 1, 1, event_mousex, event_mousey)");

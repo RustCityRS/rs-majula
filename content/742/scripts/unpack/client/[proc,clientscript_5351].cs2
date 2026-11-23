@@ -24,14 +24,14 @@ def_graphic $graphic31 = null;
 def_graphic $graphic32 = null;
 def_string $string0 = "";
 def_int $int33 = 0;
-def_graphic $graphic34 = 7874;
-def_graphic $graphic35 = 7875;
-def_graphic $graphic36 = 7877;
-def_graphic $graphic37 = 7877;
-def_graphic $graphic38 = 7875;
-def_graphic $graphic39 = 7877;
-def_graphic $graphic40 = 7874;
-def_int $rgb41 = 0xe6be78;
+def_graphic $graphic34 = graphic_7874;
+def_graphic $graphic35 = graphic_7875;
+def_graphic $graphic36 = graphic_7877;
+def_graphic $graphic37 = graphic_7877;
+def_graphic $graphic38 = graphic_7875;
+def_graphic $graphic39 = graphic_7877;
+def_graphic $graphic40 = graphic_7874;
+def_int $colour41 = 0xe6be78;
 def_int $int42 = 0;
 def_string $string1 = "Over";
 if ($struct0 ! null) {
@@ -123,12 +123,12 @@ if ($struct0 ! null) {
             $int42 = 1;
     }
     if ($intbool30 = ^false) {
-        $graphic31 = 7891;
-        $graphic32 = 7893;
+        $graphic31 = graphic_7891;
+        $graphic32 = graphic_7893;
         $string0 = "Buy";
     } else {
-        $graphic31 = 7892;
-        $graphic32 = 7894;
+        $graphic31 = graphic_7892;
+        $graphic32 = graphic_7894;
         $string0 = "Reclaim";
         if ($int42 = 1) {
             $string0 = "Unlocked";
@@ -157,7 +157,7 @@ if ($struct0 ! null) {
     cc_settext($string0);
     cc_settextfont(verdana_11pt_regular);
     cc_settextshadow(true);
-    cc_setcolour($rgb41);
+    cc_setcolour($colour41);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setsize(90, 23, ^setsize_abs, ^setsize_abs);
     if ($intbool30 = ^true & $int42 = 1) {
@@ -180,7 +180,7 @@ if ($struct0 ! null) {
     }
     cc_settextfont(verdana_11pt_regular);
     cc_settextshadow(true);
-    cc_setcolour($rgb41);
+    cc_setcolour($colour41);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 12);
     cc_setsize(107, 24, ^setsize_abs, ^setsize_abs);
     if (paraheight(cc_gettext, cc_getwidth, op115) > 1) {
@@ -291,7 +291,7 @@ if ($struct0 ! null) {
         cc_setsize(40, 50, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int2 - 166), calc($int3 + 10), ^setpos_abs_left, ^setpos_abs_top);
     } else if (struct_param($struct0, param_1937) = 4) {
-        cc_setgraphic(7883);
+        cc_setgraphic(graphic_7883);
         cc_setsize(42, 42, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int2 - 166), calc($int3 + 14), ^setpos_abs_left, ^setpos_abs_top);
     } else if (struct_param($struct0, param_1937) = 5) {
@@ -303,7 +303,7 @@ if ($struct0 ! null) {
         cc_create($component14, ^iftype_graphic, $int6);
         $int6 = calc($int6 + 1);
         cc_setposition(calc($int2 - 175), calc($int3 + 5), ^setpos_abs_left, ^setpos_abs_top);
-        cc_setgraphic(6348);
+        cc_setgraphic(graphic_6348);
         cc_setsize(40, 34, ^setsize_abs, ^setsize_abs);
     }
     $int1 = calc($int1 + 1);

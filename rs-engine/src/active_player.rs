@@ -4696,12 +4696,12 @@ impl EnginePlayer for ActivePlayer {
                         }
 
                         #[cfg(since_647)]
-                        for merge in zone.loc_merges() {
+                        for customise in zone.loc_customisations() {
                             if !wrote_follows {
                                 self.write(UpdateZonePartialFollows { x, z, y });
                                 wrote_follows = true;
                             }
-                            self.write(merge.clone());
+                            self.write(customise.clone());
                         }
                     } else {
                         if let Some(bytes) = zone.shared_bytes() {

@@ -5,7 +5,7 @@ def_int $int1 = 0;
 def_int $int2 = 0;
 if_sethide(interface_153:com_52, false);
 if_settext(interface_153:com_50, "");
-sound_vorbis_volume(6185, 1, 0, 150);
+sound_vorbis_volume(vorbis_6185, 1, 0, 150);
 switch_int ($int0) {
     case 1 :
         if (if_gethide(interface_153:com_104) = false) {

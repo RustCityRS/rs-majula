@@ -64,7 +64,7 @@ def_boolean $boolean5 = false;
 if (userdetail_lobby_lastloginday < date_runeday) {
     $int3, $int4, $boolean5 = userdetail_lobby_membership;
     if ($int4 < 10080 & $boolean5 = false) {
-        ~lobby_popup(-2000, 0, "You have less than 1 week of membership credit remaining. To enjoy the benefits of Sizzling Summer, re-subscribe now!", 0, 10151, 1, 0, "Re-subscribe", "Re-subscribe", 1, "Close", "Close");
+        ~lobby_popup(-2000, 0, "You have less than 1 week of membership credit remaining. To enjoy the benefits of Sizzling Summer, re-subscribe now!", 0, graphic_10151, 1, 0, "Re-subscribe", "Re-subscribe", 1, "Close", "Close");
         if (%varplayerbit_11162 < 1) {
             if_setposition(lobbyscreen:popup_body, 0, 150, ^setpos_abs_centre, ^setpos_abs_top);
         }

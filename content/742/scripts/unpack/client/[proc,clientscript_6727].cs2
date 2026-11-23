@@ -55,9 +55,9 @@ if (%varplayerbit_11985 > 0 & %varplayerbit_11986 > 0) {
     $struct0 = enum(int, struct, $enum1, %varplayerbit_11986);
     cc_create(interface_1343:com_59, ^iftype_graphic, $int2);
     if (calc(%varplayer_2752 - 1) = $int2) {
-        cc_setgraphic(13135);
+        cc_setgraphic(graphic_13135);
     } else {
-        cc_setgraphic(13133);
+        cc_setgraphic(graphic_13133);
         cc_setonmouserepeat("clientscript_6731(interface_1343:com_59, event_comsubid)");
         cc_setonmouseleave("clientscript_6732(interface_1343:com_59, event_comsubid)");
     }
@@ -77,51 +77,51 @@ if (%varplayerbit_11985 > 0 & %varplayerbit_11986 > 0) {
     cc_create(interface_1343:com_69, ^iftype_graphic, $int2);
     if (~clientscript_6783(1) = $struct0) {
         if (%varplayerbit_11987 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(2) = $struct0) {
         if (%varplayerbit_11991 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(3) = $struct0) {
         if (%varplayerbit_11995 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(4) = $struct0) {
         if (%varplayerbit_11999 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(5) = $struct0) {
         if (%varplayerbit_12003 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
@@ -184,9 +184,9 @@ if (%varplayerbit_11989 > 0 & %varplayerbit_11990 > 0) {
     $struct0 = enum(int, struct, $enum1, %varplayerbit_11990);
     cc_create(interface_1343:com_59, ^iftype_graphic, $int2);
     if (calc(%varplayer_2752 - 1) = $int2) {
-        cc_setgraphic(13135);
+        cc_setgraphic(graphic_13135);
     } else {
-        cc_setgraphic(13133);
+        cc_setgraphic(graphic_13133);
         cc_setonmouserepeat("clientscript_6731(interface_1343:com_59, event_comsubid)");
         cc_setonmouseleave("clientscript_6732(interface_1343:com_59, event_comsubid)");
     }
@@ -206,51 +206,51 @@ if (%varplayerbit_11989 > 0 & %varplayerbit_11990 > 0) {
     cc_create(interface_1343:com_69, ^iftype_graphic, $int2);
     if (~clientscript_6783(1) = $struct0) {
         if (%varplayerbit_11987 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(2) = $struct0) {
         if (%varplayerbit_11991 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(3) = $struct0) {
         if (%varplayerbit_11995 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(4) = $struct0) {
         if (%varplayerbit_11999 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(5) = $struct0) {
         if (%varplayerbit_12003 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
@@ -313,9 +313,9 @@ if (%varplayerbit_11993 > 0 & %varplayerbit_11994 > 0) {
     $struct0 = enum(int, struct, $enum1, %varplayerbit_11994);
     cc_create(interface_1343:com_59, ^iftype_graphic, $int2);
     if (calc(%varplayer_2752 - 1) = $int2) {
-        cc_setgraphic(13135);
+        cc_setgraphic(graphic_13135);
     } else {
-        cc_setgraphic(13133);
+        cc_setgraphic(graphic_13133);
         cc_setonmouserepeat("clientscript_6731(interface_1343:com_59, event_comsubid)");
         cc_setonmouseleave("clientscript_6732(interface_1343:com_59, event_comsubid)");
     }
@@ -335,51 +335,51 @@ if (%varplayerbit_11993 > 0 & %varplayerbit_11994 > 0) {
     cc_create(interface_1343:com_69, ^iftype_graphic, $int2);
     if (~clientscript_6783(1) = $struct0) {
         if (%varplayerbit_11987 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(2) = $struct0) {
         if (%varplayerbit_11991 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(3) = $struct0) {
         if (%varplayerbit_11995 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(4) = $struct0) {
         if (%varplayerbit_11999 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(5) = $struct0) {
         if (%varplayerbit_12003 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
@@ -442,9 +442,9 @@ if (%varplayerbit_11997 > 0 & %varplayerbit_11998 > 0) {
     $struct0 = enum(int, struct, $enum1, %varplayerbit_11998);
     cc_create(interface_1343:com_59, ^iftype_graphic, $int2);
     if (calc(%varplayer_2752 - 1) = $int2) {
-        cc_setgraphic(13135);
+        cc_setgraphic(graphic_13135);
     } else {
-        cc_setgraphic(13133);
+        cc_setgraphic(graphic_13133);
         cc_setonmouserepeat("clientscript_6731(interface_1343:com_59, event_comsubid)");
         cc_setonmouseleave("clientscript_6732(interface_1343:com_59, event_comsubid)");
     }
@@ -464,51 +464,51 @@ if (%varplayerbit_11997 > 0 & %varplayerbit_11998 > 0) {
     cc_create(interface_1343:com_69, ^iftype_graphic, $int2);
     if (~clientscript_6783(1) = $struct0) {
         if (%varplayerbit_11987 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(2) = $struct0) {
         if (%varplayerbit_11991 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(3) = $struct0) {
         if (%varplayerbit_11995 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(4) = $struct0) {
         if (%varplayerbit_11999 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(5) = $struct0) {
         if (%varplayerbit_12003 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
@@ -571,9 +571,9 @@ if (%varplayerbit_12001 > 0 & %varplayerbit_12002 > 0) {
     $struct0 = enum(int, struct, $enum1, %varplayerbit_12002);
     cc_create(interface_1343:com_59, ^iftype_graphic, $int2);
     if (calc(%varplayer_2752 - 1) = $int2) {
-        cc_setgraphic(13135);
+        cc_setgraphic(graphic_13135);
     } else {
-        cc_setgraphic(13133);
+        cc_setgraphic(graphic_13133);
         cc_setonmouserepeat("clientscript_6731(interface_1343:com_59, event_comsubid)");
         cc_setonmouseleave("clientscript_6732(interface_1343:com_59, event_comsubid)");
     }
@@ -593,51 +593,51 @@ if (%varplayerbit_12001 > 0 & %varplayerbit_12002 > 0) {
     cc_create(interface_1343:com_69, ^iftype_graphic, $int2);
     if (~clientscript_6783(1) = $struct0) {
         if (%varplayerbit_11987 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(2) = $struct0) {
         if (%varplayerbit_11991 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(3) = $struct0) {
         if (%varplayerbit_11995 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(4) = $struct0) {
         if (%varplayerbit_11999 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }
     } else if (~clientscript_6783(5) = $struct0) {
         if (%varplayerbit_12003 >= struct_param($struct0, param_2235)) {
-            cc_setgraphic(13902);
+            cc_setgraphic(graphic_13902);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
-            cc_setgraphic(13901);
+            cc_setgraphic(graphic_13901);
             cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
             cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_top);
         }

@@ -1,8 +1,8 @@
 // 5122
-[proc,clientscript_5122](component $component0, int $int1, graphic $graphic2, int $rgb3)
+[proc,clientscript_5122](component $component0, int $int1, graphic $graphic2, int $colour3)
 if (cc_find($component0, calc($int1 + 1)) = true) {
     cc_setgraphic($graphic2);
 }
 if (cc_find($component0, calc($int1 + 2)) = true) {
-    cc_setcolour($rgb3);
+    cc_setcolour($colour3);
 }

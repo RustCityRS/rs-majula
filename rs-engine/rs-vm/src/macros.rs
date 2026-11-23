@@ -25,7 +25,7 @@ pub(crate) fn active_loc_ref(state: &ScriptState) -> crate::Result<LocRef> {
     } else {
         state.active_loc
     }
-    .ok_or_else(|| ScriptError::Runtime("no active_loc".into()))
+    .ok_or_else(|| ScriptError::Runtime("Active location invalid".into()))
 }
 
 /// Extracts the [`ObjRef`] from the current script state's active ground object.
@@ -52,7 +52,7 @@ pub(crate) fn active_obj_ref(state: &ScriptState) -> crate::Result<ObjRef> {
     } else {
         state.active_obj
     }
-    .ok_or_else(|| ScriptError::Runtime("no active_obj".into()))
+    .ok_or_else(|| ScriptError::Runtime("Active object invalid".into()))
 }
 
 #[macro_export]

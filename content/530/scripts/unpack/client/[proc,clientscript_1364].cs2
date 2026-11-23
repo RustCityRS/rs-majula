@@ -12,7 +12,7 @@ if (if_hassubmodal(interface_549:com_2, interface_378) = false) {
 } else {
     if_sethide(interface_17:com_4, false);
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false)) {
         if_sethide(toplevel_fullscreen:chattop, false);
         if_setgraphic(chattop:chat_graphic, chat_background);

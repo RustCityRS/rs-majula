@@ -10,7 +10,7 @@ def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
 def_int $int10 = 0;
-sound_vorbis_volume(6185, 1, 0, 150);
+sound_vorbis_volume(vorbis_6185, 1, 0, 150);
 $int3 = enum_getoutputcount(enum_6060);
 $int3 = calc($int3 + $int1);
 if (if_find(interface_1324:com_15) = true) {
@@ -23,19 +23,19 @@ if (if_find(interface_1324:com_15) = true) {
 while ($int1 < $int3) {
     if (cc_find($component0, $int1) = true) {
         if (enum(int, int, enum_6060, $int2) = 1) {
-            cc_setgraphic(12168);
+            cc_setgraphic(graphic_12168);
             $int9, $int10 = op706;
         }
         if (enum(int, int, enum_6060, $int2) = 2) {
-            cc_setgraphic(12166);
+            cc_setgraphic(graphic_12166);
             $int9, $int10 = op706;
         }
         if (enum(int, int, enum_6060, $int2) = 3) {
-            cc_setgraphic(12162);
+            cc_setgraphic(graphic_12162);
             $int9, $int10 = op706;
         }
         if (enum(int, int, enum_6060, $int2) = 4) {
-            cc_setgraphic(12158);
+            cc_setgraphic(graphic_12158);
             $int9, $int10 = op706;
         }
         cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);

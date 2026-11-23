@@ -3,13 +3,13 @@
 def_int $int3 = calc($obj1 * 12);
 if ($int2 = 1) {
     if (cc_find($component0, calc($int3 + 2)) = true) {
-        cc_setgraphic(7555);
+        cc_setgraphic(graphic_7555);
     }
     if (cc_find($component0, calc($int3 + 3)) = true) {
-        cc_setgraphic(7554);
+        cc_setgraphic(graphic_7554);
     }
     if (cc_find($component0, calc($int3 + 4)) = true) {
-        cc_setgraphic(7556);
+        cc_setgraphic(graphic_7556);
     }
     if (cc_find($component0, $int3) = true) {
         cc_setonmouseover(null);
@@ -23,16 +23,16 @@ if ($int2 = 1) {
         }
     } else {
         if (cc_find($component0, calc($int3 + 5)) = true) {
-            cc_setgraphic(7555);
+            cc_setgraphic(graphic_7555);
         }
         if (cc_find($component0, calc($int3 + 6)) = true) {
-            cc_setgraphic(7554);
+            cc_setgraphic(graphic_7554);
         }
         if (cc_find($component0, calc($int3 + 7)) = true) {
-            cc_setgraphic(7556);
+            cc_setgraphic(graphic_7556);
         }
         if (cc_find($component0, calc($int3 + 10)) = true) {
-            cc_setgraphic(7408);
+            cc_setgraphic(graphic_7408);
         }
         if (cc_find($component0, calc($int3 + 1)) = true) {
             cc_setonmouseover(null);

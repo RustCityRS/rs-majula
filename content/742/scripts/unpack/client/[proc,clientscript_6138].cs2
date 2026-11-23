@@ -25,9 +25,9 @@ while ($int3 <= $int4) {
     $component8 = ~clientscript_6139($int3);
     if_setsize($component8, $int6, $int7, ^setsize_abs, ^setsize_abs);
     if (random(2) = 0) {
-        $graphic9 = 10556;
+        $graphic9 = graphic_10556;
     } else {
-        $graphic9 = 10557;
+        $graphic9 = graphic_10557;
     }
     $int14 = calc($int15 + scale($int3, $int4, calc($int16 - $int15)));
     $int14 = scale(calc(75 + random(50)), 100, $int14);
@@ -48,11 +48,11 @@ while ($int3 <= $int4) {
             cc_create($component8, ^iftype_graphic, 0);
             cc_setsize(768, 512, ^setsize_abs, ^setsize_abs);
             cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
-            cc_setgraphic(10560);
+            cc_setgraphic(graphic_10560);
         case 4, 8, 12 :
             cc_create($component8, ^iftype_graphic, 0);
             cc_setsize($int14, $int14, ^setsize_abs, ^setsize_abs);
-            cc_setgraphic(10558);
+            cc_setgraphic(graphic_10558);
             if_sethide($component8, true);
         case default :
             cc_create($component8, ^iftype_graphic, 0);

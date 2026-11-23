@@ -74,13 +74,13 @@ if ($int0 = calc(61 - 1)) {
         $int4 = calc($int4 + 1);
     }
     if ($int6 > $int7) {
-        sound_jingle(110, 6656);
+        sound_jingle(jingle_110, 6656);
         if_settext(interface_726:text_1, "<\"Teapotspout\"><\" wins!\">");
     } else if ($int6 < $int7) {
-        sound_jingle(110, 6656);
+        sound_jingle(jingle_110, 6656);
         if_settext(interface_726:text_1, "<\"Hotwater\"><\" wins!\">");
     } else {
-        sound_jingle(108, 6449);
+        sound_jingle(jingle_108, 6449);
         if_settext(interface_726:text_1, "It's a draw.");
     }
     if (calc($int6 + $int7) >= 64) {

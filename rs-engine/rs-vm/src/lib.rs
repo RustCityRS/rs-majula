@@ -167,10 +167,10 @@ pub enum ScriptError {
     #[error("Param not found: {0}")]
     ParamNotFoundName(String),
 
-    #[error("Loc not found: {0}")]
+    #[error("loc type {0} not valid")]
     LocNotFound(i32),
 
-    #[error("Loc not found: {0}")]
+    #[error("loc type {0} not valid")]
     LocNotFoundName(String),
 
     #[error("Interface not found: {0}")]
@@ -214,10 +214,10 @@ pub enum ScriptError {
     #[error("Varobj not found: {0}")]
     VarObjNotFound(i32),
 
-    #[error("Npc not found: {0}")]
+    #[error("npc type {0} not valid")]
     NpcNotFound(i32),
 
-    #[error("Npc not found: {0}")]
+    #[error("npc type {0} not valid")]
     NpcNotFoundName(String),
 
     #[error("Stat not found: {0}")]

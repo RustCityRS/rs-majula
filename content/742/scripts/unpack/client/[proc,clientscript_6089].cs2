@@ -31,12 +31,12 @@ def_obj $obj18 = inv_getobj($inv0, $int1);
 def_string $string0 = ~obj_warning_arg($obj18);
 if ($int3 = 0) {
     $int15 = 48;
-    $graphic16 = 10448;
-    $graphic17 = 10451;
+    $graphic16 = graphic_10448;
+    $graphic17 = graphic_10451;
 } else {
     $int15 = 151;
-    $graphic16 = 10453;
-    $graphic17 = 10456;
+    $graphic16 = graphic_10453;
+    $graphic17 = graphic_10456;
 }
 cc_setsize($int15, 52, ^setsize_abs, ^setsize_abs);
 if ($inv0 = %varplayer_2561 & $int1 = %varplayer_2563) {

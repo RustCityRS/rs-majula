@@ -304,7 +304,7 @@ impl ClientHandle {
         }
         let opcode = self.opcode.unwrap();
         let prot = ClientProt::try_from(opcode)
-            .map_err(|_| format!("Unknown opcode {opcode}, closing the connection"))?;
+            .map_err(|_| format!("Unrecognized packet type: {opcode}"))?;
         let queue = &self.read_queue;
         let (head, len) = match prot.info().frame {
             ClientProtFrame::VarByte { .. } if !queue.is_empty() => (1, queue[0] as usize),

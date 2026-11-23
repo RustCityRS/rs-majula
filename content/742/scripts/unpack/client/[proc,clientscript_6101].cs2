@@ -7,24 +7,24 @@ if (cc_find($component3, $int4) = true) {
     if ($int0 = 0) {
         if ($int1 = 1) {
             if ($int2 = 1) {
-                cc_setgraphic(10451);
+                cc_setgraphic(graphic_10451);
             } else {
-                cc_setgraphic(10451);
+                cc_setgraphic(graphic_10451);
             }
         } else if ($int2 = 1) {
-            cc_setgraphic(10449);
+            cc_setgraphic(graphic_10449);
         } else {
-            cc_setgraphic(10448);
+            cc_setgraphic(graphic_10448);
         }
     } else if ($int1 = 1) {
         if ($int2 = 1) {
-            cc_setgraphic(10456);
+            cc_setgraphic(graphic_10456);
         } else {
-            cc_setgraphic(10456);
+            cc_setgraphic(graphic_10456);
         }
     } else if ($int2 = 1) {
-        cc_setgraphic(10454);
+        cc_setgraphic(graphic_10454);
     } else {
-        cc_setgraphic(10453);
+        cc_setgraphic(graphic_10453);
     }
 }

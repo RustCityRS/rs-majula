@@ -38,7 +38,7 @@ if ($boolean0 = true & (userdetail_quickchat = true | map_quickchat = true)) {
 def_string $string0 = "<chat_playername_unfiltered><img=3>:";
 def_string $string1 = append($string0, " ");
 def_int $int1 = if_getx(chatdefault:input);
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_settext(chatdefault:input, "<$string1><col=7fa9ff><escape(%varclient_1520)>");
 } else {
     if_settext(chatdefault:input, "<$string1><col=0000ff><escape(%varclient_1520)>");

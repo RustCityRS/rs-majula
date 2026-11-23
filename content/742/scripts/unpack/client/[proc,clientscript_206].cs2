@@ -6,10 +6,10 @@ def_int $int0 = 0;
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
 if (%varplayerbit_4135 = 1) {
     $string0 = "Dwarven Mine - Complete";
-    cc_setgraphic(13616);
+    cc_setgraphic(graphic_13616);
 } else {
     $string0 = "Dwarven Mine - Incomplete";
-    cc_setgraphic(13617);
+    cc_setgraphic(graphic_13617);
 }
 cc_setposition(150, 50, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
@@ -19,10 +19,10 @@ $int0 = calc($int0 + 1);
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
 if (%varplayerbit_4136 = 1) {
     $string0 = "Varrock West Mine - Complete";
-    cc_setgraphic(13616);
+    cc_setgraphic(graphic_13616);
 } else {
     $string0 = "Varrock West Mine - Incomplete";
-    cc_setgraphic(13617);
+    cc_setgraphic(graphic_13617);
 }
 cc_setposition(275, 112, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
@@ -32,10 +32,10 @@ $int0 = calc($int0 + 1);
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
 if (%varplayerbit_4137 = 1) {
     $string0 = "Varrock East Mine - Complete";
-    cc_setgraphic(13616);
+    cc_setgraphic(graphic_13616);
 } else {
     $string0 = "Varrock East Mine - Incomplete";
-    cc_setgraphic(13617);
+    cc_setgraphic(graphic_13617);
 }
 cc_setposition(350, 120, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
@@ -45,10 +45,10 @@ $int0 = calc($int0 + 1);
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
 if (%varplayerbit_4138 = 1) {
     $string0 = "Rimmington Mine - Complete";
-    cc_setgraphic(13616);
+    cc_setgraphic(graphic_13616);
 } else {
     $string0 = "Rimmington Mine - Incomplete";
-    cc_setgraphic(13617);
+    cc_setgraphic(graphic_13617);
 }
 cc_setposition(120, 215, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
@@ -57,7 +57,7 @@ cc_setonmouseleave("deltooltip(interface_628:com_30)");
 $int0 = calc($int0 + 1);
 $string0 = "Falador Lodestone";
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
-cc_setgraphic(10141);
+cc_setgraphic(graphic_10141);
 cc_setposition(118, 80, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
 cc_setonmouserepeat("addtooltip_dynamic(interface_628:com_29, $int0, interface_628:com_30, $string0, 25, 100)");
@@ -65,7 +65,7 @@ cc_setonmouseleave("deltooltip(interface_628:com_30)");
 $int0 = calc($int0 + 1);
 $string0 = "Varrock Lodestone";
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
-cc_setgraphic(10141);
+cc_setgraphic(graphic_10141);
 cc_setposition(300, 105, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
 cc_setonmouserepeat("addtooltip_dynamic(interface_628:com_29, $int0, interface_628:com_30, $string0, 25, 100)");
@@ -73,7 +73,7 @@ cc_setonmouseleave("deltooltip(interface_628:com_30)");
 $int0 = calc($int0 + 1);
 $string0 = "Port Sarim Lodestone";
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
-cc_setgraphic(10141);
+cc_setgraphic(graphic_10141);
 cc_setposition(151, 230, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
 cc_setonmouserepeat("addtooltip_dynamic(interface_628:com_29, $int0, interface_628:com_30, $string0, 25, 100)");
@@ -101,14 +101,14 @@ cc_setonmouseleave("deltooltip(interface_628:com_30)");
 $int0 = calc($int0 + 1);
 $string0 = "Falador Castle";
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
-cc_setgraphic(10071);
+cc_setgraphic(graphic_10071);
 cc_setposition(112, 122, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
 cc_setonmouserepeat("addtooltip_dynamic(interface_628:com_29, $int0, interface_628:com_30, $string0, 25, 100)");
 cc_setonmouseleave("deltooltip(interface_628:com_30)");
 $int0 = calc($int0 + 1);
 cc_create(interface_628:com_29, ^iftype_graphic, $int0);
-cc_setgraphic(13620);
+cc_setgraphic(graphic_13620);
 cc_setposition(calc((coordx(coord) - 2815) * 75 / 100), calc((3520 - coordz(coord)) * 77 / 100), ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
 $string0 = "You are here";

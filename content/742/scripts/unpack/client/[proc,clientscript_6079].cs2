@@ -7,30 +7,30 @@ if ($component0 = interface_1265:com_50) {
 if ($int1 = 1) {
     if ($component0 = interface_1265:com_49) {
         if ($int2 = 1) {
-            if_setgraphic($component0, 10487);
+            if_setgraphic($component0, graphic_10487);
         } else {
-            if_setgraphic($component0, 10487);
+            if_setgraphic($component0, graphic_10487);
         }
     } else if ($component0 = interface_1265:com_50) {
         if ($int2 = 1) {
-            if_setgraphic($component0, 10485);
+            if_setgraphic($component0, graphic_10485);
         } else {
-            if_setgraphic($component0, 10485);
+            if_setgraphic($component0, graphic_10485);
         }
     }
 } else {
     ~deltooltip_action(interface_1265:com_89);
     if ($component0 = interface_1265:com_49) {
         if ($int2 = 1) {
-            if_setgraphic($component0, 10487);
+            if_setgraphic($component0, graphic_10487);
         } else {
-            if_setgraphic($component0, 10486);
+            if_setgraphic($component0, graphic_10486);
         }
     } else if ($component0 = interface_1265:com_50) {
         if ($int2 = 1) {
-            if_setgraphic($component0, 10485);
+            if_setgraphic($component0, graphic_10485);
         } else {
-            if_setgraphic($component0, 10484);
+            if_setgraphic($component0, graphic_10484);
         }
     }
 }

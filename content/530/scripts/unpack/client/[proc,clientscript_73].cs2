@@ -70,7 +70,7 @@ if ($key0 = ^key_return) {
 } else {
     %varclient_633 = ~clientscript_74(%varclient_633, 0, $key0, $char1);
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=7fa9ff><escape(%varclient_633)>*");
 } else {
     if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=0000ff><escape(%varclient_633)>*");

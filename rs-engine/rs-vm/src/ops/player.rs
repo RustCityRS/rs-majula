@@ -947,13 +947,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             };
 
             let loc = s.active_loc
-                .ok_or_else(|| ScriptError::Runtime("no active_loc".into()))?;
+                .ok_or_else(|| ScriptError::Runtime("Active location invalid".into()))?;
             let loc = engine::<E>().live_loc(loc);
 
-            let loc_type = engine::<E>()
-                .locs()
-                .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id.int()))?;
+            let loc_type = crate::util::loc_type::<E>(loc)?;
 
             if let Some(ops) = &loc_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1031,7 +1028,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             };
 
             let obj = s.active_obj
-                .ok_or_else(|| ScriptError::Runtime("no active_obj".into()))?;
+                .ok_or_else(|| ScriptError::Runtime("Active object invalid".into()))?;
 
             let obj_type = engine::<E>()
                 .objs()

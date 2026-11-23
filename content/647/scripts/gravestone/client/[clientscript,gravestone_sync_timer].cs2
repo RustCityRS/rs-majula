@@ -2,7 +2,7 @@
 [clientscript,gravestone_sync_timer](int $int0)
 %gravestone_countdown = calc($int0 * 300 / 10);
 if (%gravestone_countdown > 0) {
-    if (getwindowmode < 2) {
+    if (getwindowmode < ^windowmode_resizable) {
         if_setontimer(toplevel:gravestone_layer, "gravestone_update_timer");
         if_sethide(toplevel:gravestone_background, false);
         if_sethide(toplevel:gravestone_timer, false);

@@ -13,7 +13,7 @@ if ($int0 = 3) {
         mes("Your computer seems unable to enter the High Detail (fullscreen) mode.");
         return;
     }
-    if (getwindowmode < 1 & ($int1 = 1 | $int1 = 2)) {
+    if (getwindowmode < ^windowmode_small & ($int1 = 1 | $int1 = 2)) {
         ~clientscript_1886;
     }
     if (%selectedresolution < 0 | %selectedresolution >= fullscreen_modecount) {
@@ -22,13 +22,13 @@ if ($int0 = 3) {
     if (fullscreen_enter(fullscreen_getmode(%selectedresolution)) = true) {
         switch_int ($int1) {
             case 1 :
-                if (%last_windowmode < 1) {
+                if (%last_windowmode < ^windowmode_small) {
                     ~clientscript_1887(loginscreen:com_125, loginscreen:com_127, loginscreen:fader, loginscreen:com_128, loginscreen:com_129);
                 }
                 if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_226)");
                 ~clientscript_1174(loginscreen:windowmode_confirm);
             case 2 :
-                if (%last_windowmode < 1) {
+                if (%last_windowmode < ^windowmode_small) {
                     ~clientscript_1887(loginscreen:com_125, loginscreen:com_127, loginscreen:fader, loginscreen:com_128, loginscreen:com_129);
                 }
                 if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_138)");
@@ -53,7 +53,7 @@ if ($int0 = 3) {
     return;
 }
 def_int $int2 = 0;
-if (getwindowmode < 1) {
+if (getwindowmode < ^windowmode_small) {
     if ($int1 = 1 | $int1 = 2) {
         ~clientscript_1886;
     }

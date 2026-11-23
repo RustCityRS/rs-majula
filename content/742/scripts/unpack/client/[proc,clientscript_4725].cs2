@@ -25,8 +25,8 @@ while ($int8 <= 15) {
     cc_setcolour(0xbeb28c);
     cc_settextshadow(true);
     cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-    $graphic10 = 7715;
-    $graphic11 = 7716;
+    $graphic10 = graphic_7715;
+    $graphic11 = graphic_7716;
     cc_create($component5, ^iftype_graphic, $int9);
     cc_setgraphic($graphic10);
     cc_setop(1, "Target");
@@ -42,8 +42,8 @@ while ($int8 <= 15) {
     $string0 = "Add someone to the actor list. Click this, then click on the person you would like to add.";
     cc_setonmouserepeat("aif_tooltip(interface_310:com_26, event_com, event_comsubid, $string0, 90, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
     cc_setonmouseleave("deltooltip(interface_310:com_26)");
-    $graphic10 = 7718;
-    $graphic11 = 7719;
+    $graphic10 = graphic_7718;
+    $graphic11 = graphic_7719;
     cc_create($component4, ^iftype_graphic, $int9);
     cc_setgraphic($graphic10);
     cc_setop(1, "Remove");

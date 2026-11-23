@@ -118,14 +118,15 @@ pub fn execute<E: ScriptEngine + 'static>(
     let start = Instant::now();
     if let Err((opcode, e)) = dispatch(state, ops, &mut EngineHost::<E>(PhantomData)) {
         let name = &state.script.info.name;
-        match opcode {
-            Some(opcode) => error!(
-                "Script {name} error at pc={} opcode={opcode}: {e}",
-                state.pc
-            ),
-            None => error!("Script {name} error at pc={}: {e}", state.pc),
-        }
-        report_error::<E>(state, &e.to_string());
+        let msg = match opcode {
+            Some(opcode) => match command_name(opcode) {
+                Some(command) => format!("{command} error: {e}"),
+                None => format!("opcode {opcode} error: {e}"),
+            },
+            None => e.to_string(),
+        };
+        error!("Script {name} error at pc={}: {msg}", state.pc);
+        report_error::<E>(state, &msg);
         state.execution = ExecutionState::Aborted;
     }
 
@@ -145,6 +146,15 @@ pub fn execute<E: ScriptEngine + 'static>(
     }
 
     state.execution
+}
+
+/// The command an opcode runs, for errors in the Jagex client's form:
+/// `lc_name error: loc type 5 not valid`.
+fn command_name(opcode: u16) -> Option<&'static str> {
+    runec::opcodes::COMMANDS
+        .iter()
+        .find(|(_, op)| *op == opcode)
+        .map(|(command, _)| *command)
 }
 
 /// Sends a debug report to all active players in the current script state.

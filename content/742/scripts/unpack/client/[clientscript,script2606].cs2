@@ -1,6 +1,6 @@
 // 2606
 [clientscript,script2606](component $component0)
-sound_vorbis_volume(10046, 1, 0, 255);
+sound_vorbis_volume(vorbis_10046, 1, 0, 255);
 def_obj $obj1 = null;
 switch_int (%varclient_929) {
     case 0 :

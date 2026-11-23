@@ -16,7 +16,7 @@ def_int $int8 = 0;
 def_string $string0 = "";
 def_int $int9 = 15;
 def_int $int10 = 17;
-def_int $rgb11 = ^black;
+def_int $colour11 = ^black;
 def_int $int12 = 0;
 def_int $int13 = 0;
 def_int $int14 = 0;
@@ -75,7 +75,7 @@ if ($int7 <= 0) {
         $int13 = clan_getchatuserworld($int8);
         if ($int13 = 0) {
             $string0 = "Offline";
-            $rgb11 = ^red;
+            $colour11 = ^red;
         } else if ($int13 >= 1149 & $int13 < 1200) {
             $string0 = "Beta lobby";
         } else if ($int13 >= 200 & $int13 < 250) {
@@ -85,12 +85,12 @@ if ($int7 <= 0) {
         }
         if ($int13 > 0) {
             if ($int13 = map_world) {
-                $rgb11 = ^green;
+                $colour11 = ^green;
             } else {
-                $rgb11 = ^yellow;
+                $colour11 = ^yellow;
             }
         }
-        ~cc_add_text($component2, $int8, 0, $int9, 5, $int12, $string0, $rgb11, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        ~cc_add_text($component2, $int8, 0, $int9, 5, $int12, $string0, $colour11, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
         cc_setsize(5, $int9, ^setsize_minus, ^setsize_abs);
         cc_setmaxlines(1);
         $int12 = calc($int12 + $int9);

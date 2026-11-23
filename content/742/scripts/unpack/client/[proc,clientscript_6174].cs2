@@ -1,32 +1,32 @@
 // 6174
 [proc,clientscript_6174](int $int0, component $component1)(int)
 cc_create($component1, ^iftype_graphic, $int0);
-cc_setgraphic(10721);
+cc_setgraphic(graphic_10721);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(277, 125, ^setsize_abs, ^setsize_abs);
 $int0 = calc($int0 + 1);
 cc_create($component1, ^iftype_graphic, $int0);
-cc_setgraphic(10722);
+cc_setgraphic(graphic_10722);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
 cc_setsize(278, 125, ^setsize_abs, ^setsize_abs);
 $int0 = calc($int0 + 1);
 cc_create($component1, ^iftype_graphic, $int0);
-cc_setgraphic(10723);
+cc_setgraphic(graphic_10723);
 cc_setposition(0, 125, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(277, 125, ^setsize_abs, ^setsize_abs);
 $int0 = calc($int0 + 1);
 cc_create($component1, ^iftype_graphic, $int0);
-cc_setgraphic(10724);
+cc_setgraphic(graphic_10724);
 cc_setposition(0, 125, ^setpos_abs_right, ^setpos_abs_top);
 cc_setsize(278, 125, ^setsize_abs, ^setsize_abs);
 $int0 = calc($int0 + 1);
 cc_create($component1, ^iftype_graphic, $int0);
-cc_setgraphic(10725);
+cc_setgraphic(graphic_10725);
 cc_setposition(0, 250, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(277, 125, ^setsize_abs, ^setsize_abs);
 $int0 = calc($int0 + 1);
 cc_create($component1, ^iftype_graphic, $int0);
-cc_setgraphic(10726);
+cc_setgraphic(graphic_10726);
 cc_setposition(0, 250, ^setpos_abs_right, ^setpos_abs_top);
 cc_setsize(278, 125, ^setsize_abs, ^setsize_abs);
 $int0 = calc($int0 + 1);

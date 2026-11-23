@@ -1,7 +1,7 @@
 // 1301
 [proc,clientscript_1301](component $component0, component $component1)
 def_int $int2 = 0;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     ~clientscript_31($component0, $component1, "scrollbar_alpha,3", "scrollbar_alpha,0", "scrollbar_alpha,1", "scrollbar_alpha,2", graphic_641, graphic_642);
     while ($int2 < if_getnextsubid($component0)) {
         if (cc_find($component0, $int2) = true) {

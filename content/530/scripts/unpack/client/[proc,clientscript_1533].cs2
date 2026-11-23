@@ -1,12 +1,12 @@
 // 1533
 [proc,clientscript_1533](component $component0)
 if (~bool_to_int(%varclient_214) = 1) {
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         if_setgraphic($component0, graphic_1462);
     } else {
         if_setgraphic($component0, graphic_1458);
     }
-} else if (getwindowmode >= 2) {
+} else if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic($component0, graphic_1460);
 } else {
     if_setgraphic($component0, graphic_1456);

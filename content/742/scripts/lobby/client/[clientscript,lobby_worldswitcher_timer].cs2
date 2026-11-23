@@ -111,8 +111,8 @@ def_graphic $graphic22 = null;
 def_int $int23 = -1;
 def_int $int24 = -1;
 def_graphic $graphic25 = null;
-def_int $rgb26 = ^black;
-def_int $rgb27 = ^black;
+def_int $colour26 = ^black;
+def_int $colour27 = ^black;
 def_string $string2 = "";
 def_string $string3 = "";
 def_graphic $graphic28 = null;
@@ -147,22 +147,22 @@ while ($int2 = 0) {
     } else if (testbit($int18, 12) = ^true) {
         $int17, $int18, $string0, $int19, $string1, $int20, $int21, $string2 = worldlist_next;
     } else {
-        $graphic28, $string3, $graphic22, $rgb27, $graphic29, $rgb26, $graphic25, $string4, $string5 = ~script3117($int17, $int18, $int37, $string0, $string1, $int20, $int19);
+        $graphic28, $string3, $graphic22, $colour27, $graphic29, $colour26, $graphic25, $string4, $string5 = ~script3117($int17, $int18, $int37, $string0, $string1, $int20, $int19);
         if ($int17 = %worldselect_1stfavourite) {
             $int40 = 1;
         } else if ($int17 = %worldselect_2ndfavourite) {
             $int41 = 1;
         }
-        ~cc_add_rect($component4, $int37, if_getwidth($component4), 20, 0, $int38, $rgb26, true, 0);
+        ~cc_add_rect($component4, $int37, if_getwidth($component4), 20, 0, $int38, $colour26, true, 0);
         ~cc_add_graphic($component5, $int37, 13, 12, 0, calc($int38 + 4), $graphic25, false, false, false, 0);
         cc_setposition(0, calc($int38 + 4), ^setpos_abs_centre, ^setpos_abs_top);
         ~cc_add_graphic($component7, $int37, 19, 18, 2, calc($int38 + 1), $graphic22, false, false, false, 0);
-        ~cc_add_text($component6, $int37, calc(if_getwidth($component6) - 25), 20, 25, $int38, tostring($int17), $rgb27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
-        ~cc_add_text($component8, $int37, calc(if_getwidth($component8) - 6), 20, 3, $int38, $string5, $rgb27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        ~cc_add_text($component6, $int37, calc(if_getwidth($component6) - 25), 20, 25, $int38, tostring($int17), $colour27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        ~cc_add_text($component8, $int37, calc(if_getwidth($component8) - 6), 20, 3, $int38, $string5, $colour27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
         ~cc_add_graphic($component10, $int37, 24, 12, 4, calc($int38 + 4), $graphic28, false, false, false, 0);
-        ~cc_add_text($component9, $int37, 30, 20, 30, $int38, $string3, $rgb27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        ~cc_add_text($component9, $int37, 30, 20, 30, $int38, $string3, $colour27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
         cc_setsize(30, 20, ^setsize_minus, ^setsize_abs);
-        ~cc_add_text($component11, $int37, calc(if_getwidth($component11) - 10), 20, 5, $int38, $string4, $rgb27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        ~cc_add_text($component11, $int37, calc(if_getwidth($component11) - 10), 20, 5, $int38, $string4, $colour27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
         ~cc_add_graphic($component12, $int37, 17, 17, 0, calc($int38 + 1), $graphic29, false, false, false, 0);
         cc_setposition(0, calc($int38 + 1), ^setpos_abs_centre, ^setpos_abs_top);
         if ($int21 = -1) {
@@ -172,7 +172,7 @@ while ($int2 = 0) {
         } else {
             $string6 = tostring($int21);
         }
-        ~cc_add_text($component13, $int37, calc(if_getwidth($component13) - 10), 20, 5, $int38, $string6, $rgb27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        ~cc_add_text($component13, $int37, calc(if_getwidth($component13) - 10), 20, 5, $int38, $string6, $colour27, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
         ~cc_add_text($component14, $int37, if_getwidth($component14), 20, 0, $int38, "", ^black, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
         cc_setonmouseover("script3131($component14, $int37, $int17)");
         cc_setonmouseleave("script3133");

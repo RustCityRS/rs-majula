@@ -1,6 +1,6 @@
 // 1120
 [proc,clientscript_1120]
-if (getwindowmode = 0) {
+if (getwindowmode = ^windowmode_0) {
     if_setcolour(graphics_options:com_51, 0x996600);
     ~dropdownbox_refuse("High Detail only", graphics_options:com_56, graphics_options:com_57, graphics_options:com_58, null, tradebacking_dark, 0xcf0000, p11_full);
     return;

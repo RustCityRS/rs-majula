@@ -1,6 +1,6 @@
 // 121
 [proc,getsideicon](int $int0)(component)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     return(~getsideicon_resizeable($int0));
 } else {
     switch_int ($int0) {

@@ -3,16 +3,16 @@
 def_string $string0 = "";
 switch_int (~clientscript_5956($int1)) {
     case 0 :
-        if_setgraphic($component0, 9999);
+        if_setgraphic($component0, graphic_9999);
         $string0 = "Unlocked";
     case 1 :
-        if_setgraphic($component0, 9997);
+        if_setgraphic($component0, graphic_9997);
         $string0 = "Pending Lock: This skillplot will lock once the resource target has been met.";
     case 2 :
-        if_setgraphic($component0, 9996);
+        if_setgraphic($component0, graphic_9996);
         $string0 = "Pending Unlock: This skillplot will unlock once all resource targets have been met.";
     case 3 :
-        if_setgraphic($component0, 9996);
+        if_setgraphic($component0, graphic_9996);
         $string0 = "Locked: This skillplot has been manually locked.";
 }
 if_setonmouserepeat($component0, "aif_tooltip(interface_1117:com_144, $component0, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");

@@ -1602,6 +1602,16 @@ impl ScriptPlayer for ActivePlayer {
         self.write(LocPrefetch { id, shape });
     }
 
+    #[cfg(since_530)]
+    fn shown_loc(&self, id: TypeId) -> Option<TypeId> {
+        ActivePlayer::shown_loc(self, id)
+    }
+
+    #[cfg(since_530)]
+    fn shown_npc(&self, id: TypeId) -> Option<TypeId> {
+        ActivePlayer::shown_npc(self, id)
+    }
+
     /// Clears the player's pending action, if any.
     ///
     /// # Call Stack

@@ -98,7 +98,10 @@ pub mod loc_add_change;
 pub mod loc_anim;
 #[cfg(since_530)]
 pub mod loc_anim_specific;
+#[cfg(since_647)]
+pub mod loc_customise;
 pub mod loc_del;
+#[cfg(before_647)]
 pub mod loc_merge;
 #[cfg(since_647)]
 pub mod loc_prefetch;

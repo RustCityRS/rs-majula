@@ -18,46 +18,46 @@ if (clientclock < $int2) {
         $int8 = 0;
     }
     if_settrans($component1, $int8);
-    if_setgraphic(toplevel_fullscreen:com_250, 8946);
-    if_setgraphic(toplevel:com_34, 8957);
+    if_setgraphic(toplevel_fullscreen:com_250, graphic_8946);
+    if_setgraphic(toplevel:com_34, graphic_8957);
 } else if (clientclock < $int3) {
     $int8 = calc(if_gettrans($component1) + 15);
     if ($int8 > 255) {
         $int8 = 255;
     }
     if_settrans($component1, $int8);
-    if_setgraphic(toplevel_fullscreen:com_250, 8945);
-    if_setgraphic(toplevel:com_34, 8956);
+    if_setgraphic(toplevel_fullscreen:com_250, graphic_8945);
+    if_setgraphic(toplevel:com_34, graphic_8956);
 } else if (clientclock < $int4) {
     $int8 = calc(if_gettrans($component1) - 15);
     if ($int8 < 0) {
         $int8 = 0;
     }
     if_settrans($component1, $int8);
-    if_setgraphic(toplevel_fullscreen:com_250, 8946);
-    if_setgraphic(toplevel:com_34, 8957);
+    if_setgraphic(toplevel_fullscreen:com_250, graphic_8946);
+    if_setgraphic(toplevel:com_34, graphic_8957);
 } else if (clientclock < $int5) {
     $int8 = calc(if_gettrans($component1) + 15);
     if ($int8 > 255) {
         $int8 = 255;
     }
     if_settrans($component1, $int8);
-    if_setgraphic(toplevel_fullscreen:com_250, 8945);
-    if_setgraphic(toplevel:com_34, 8956);
+    if_setgraphic(toplevel_fullscreen:com_250, graphic_8945);
+    if_setgraphic(toplevel:com_34, graphic_8956);
 } else if (clientclock < $int6) {
     $int8 = calc(if_gettrans($component1) - 15);
     if ($int8 < 0) {
         $int8 = 0;
     }
     if_settrans($component1, $int8);
-    if_setgraphic(toplevel_fullscreen:com_250, 8946);
-    if_setgraphic(toplevel:com_34, 8957);
+    if_setgraphic(toplevel_fullscreen:com_250, graphic_8946);
+    if_setgraphic(toplevel:com_34, graphic_8957);
 } else {
     $int8 = calc(if_gettrans($component1) + 15);
     if ($int8 > 255) {
         $int8 = 255;
     }
     if_settrans($component1, $int8);
-    if_setgraphic(toplevel_fullscreen:com_250, 8945);
-    if_setgraphic(toplevel:com_34, 8956);
+    if_setgraphic(toplevel_fullscreen:com_250, graphic_8945);
+    if_setgraphic(toplevel:com_34, graphic_8956);
 }

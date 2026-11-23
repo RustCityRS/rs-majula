@@ -1,7 +1,7 @@
 // 1141
 [proc,clientscript_1141]
 if (~clientscript_1431 = 1) {
-    if (getwindowmode < 2) {
+    if (getwindowmode < ^windowmode_resizable) {
         if_setontimer(toplevel:com_6, "clientscript_1175");
     } else {
         if_setontimer(toplevel_fullscreen:com_19, "clientscript_1175");

@@ -1,6 +1,6 @@
 // 1569
 [proc,script1569]()(boolean)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_hassub(toplevel_fullscreen:sidemodal) = true) {
         return(true);
     }

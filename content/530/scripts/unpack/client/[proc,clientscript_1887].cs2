@@ -14,7 +14,7 @@ if_setontimer($component2, null);
 if_setcolour($component2, ^black);
 if_settrans($component2, 0);
 if_sethide($component2, false);
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     if_sethide($component3, true);
     if_sethide($component4, true);
     detail_removeroofs_option_override(1);

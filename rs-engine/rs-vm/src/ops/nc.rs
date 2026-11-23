@@ -14,6 +14,7 @@ use runec::opcodes::*;
 /// Key opcodes include:
 /// - **Identity:** `NC_NAME`, `NC_DEBUGNAME`, `NC_DESC`, `NC_CATEGORY`
 /// - **Properties:** `NC_SIZE`, `NC_VISLEVEL`
+/// - **Multinpc:** `NC_GETMULTINPC`
 /// - **Interactions:** `NC_OP`
 /// - **Params:** `NC_PARAM`
 ///
@@ -84,6 +85,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
         none!(m, NC_VISLEVEL => |s| {
             let npc = pop_npc::<E>(s)?;
             s.push_int(npc.vislevel.map(|x| x as i32).unwrap_or(-1));
+        });
+
+        // 4008
+        #[cfg(since_530)]
+        none!(m, NC_GETMULTINPC => |s| {
+            let value = s.pop_int();
+            let npc = pop_npc::<E>(s)?;
+            s.push_int(npc.multi_npc(value).unwrap_or(npc.id).int());
         });
     }
 }

@@ -2,15 +2,15 @@
 [proc,clientscript_6523](int $int0)(graphic)
 switch_int ($int0) {
     case 1 :
-        return(11630);
+        return(graphic_11630);
     case 2 :
-        return(11633);
+        return(graphic_11633);
     case 3 :
-        return(11627);
+        return(graphic_11627);
     case 4 :
-        return(11636);
+        return(graphic_11636);
     case 5 :
-        return(11639);
+        return(graphic_11639);
     case default :
-        return(11642);
+        return(graphic_11642);
 }

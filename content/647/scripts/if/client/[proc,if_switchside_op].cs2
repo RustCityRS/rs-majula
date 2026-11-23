@@ -10,7 +10,7 @@ if ($int0 = $int1 & %varplayerbit_9030 = 1) {
 }
 if ($int1 > -1) {
     if ($int1 = $int0) {
-        if (getwindowmode >= 2 & %varplayerbit_9030 = 0) {
+        if (getwindowmode >= ^windowmode_resizable & %varplayerbit_9030 = 0) {
             ~side_if_closeall;
         } else {
             return;

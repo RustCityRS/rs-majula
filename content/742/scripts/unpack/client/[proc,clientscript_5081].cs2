@@ -4,7 +4,7 @@ if (%varclient_1095 = false | %varclient_1095 = null) {
     ~clientscript_5085($component0);
     return;
 }
-sound_vorbis_volume(6185, 1, 0, 200);
+sound_vorbis_volume(vorbis_6185, 1, 0, 200);
 if_sethide(interface_1114:com_22, false);
 %varclient_160 = $int1;
 def_int $int7 = calc($int1 * 10);

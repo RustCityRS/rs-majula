@@ -864,6 +864,14 @@ pub(crate) fn pop_obj<E: ScriptEngine + 'static>(
         .ok_or(ScriptError::ObjNotFound(id))
 }
 
+/// The loc type of `loc`, which a script holds as a live loc.
+pub(crate) fn loc_type<E: ScriptEngine + 'static>(loc: LocRef) -> Result<&'static LocType> {
+    engine::<E>()
+        .locs()
+        .get_by_id(loc.id)
+        .ok_or(ScriptError::LocNotFound(loc.id.int()))
+}
+
 /// Pops an integer from the script stack and looks up the corresponding [`LocType`] from the cache.
 ///
 /// # Arguments

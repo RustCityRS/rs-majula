@@ -1,14 +1,14 @@
 // 6326
 [proc,clientscript_6326](int $int0, component $component1, component $component2)
 if ($int0 = 1) {
-    if_setgraphic($component1, 11510);
+    if_setgraphic($component1, graphic_11510);
     if_settrans($component1, 100);
     if_sethide($component2, true);
     if_settrans($component2, 255);
     if_clearscripthooks($component1);
     if_clearscripthooks($component2);
 } else {
-    if_setgraphic($component1, 11508);
+    if_setgraphic($component1, graphic_11508);
     if_settrans($component1, 100);
     if_sethide($component2, false);
     if_setonmouserepeat($component2, "clientscript_6327(event_com)");

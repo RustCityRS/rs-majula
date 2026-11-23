@@ -6,25 +6,25 @@ def_graphic $graphic2 = null;
 def_graphic $graphic3 = null;
 switch_int (map_lang) {
     case 2 :
-        $graphic0 = 13687;
-        $graphic1 = 13688;
-        $graphic2 = 13689;
-        $graphic3 = 13690;
+        $graphic0 = graphic_13687;
+        $graphic1 = graphic_13688;
+        $graphic2 = graphic_13689;
+        $graphic3 = graphic_13690;
     case 1 :
-        $graphic0 = 13683;
-        $graphic1 = 13684;
-        $graphic2 = 13685;
-        $graphic3 = 13686;
+        $graphic0 = graphic_13683;
+        $graphic1 = graphic_13684;
+        $graphic2 = graphic_13685;
+        $graphic3 = graphic_13686;
     case 3 :
-        $graphic0 = 13691;
-        $graphic1 = 13692;
-        $graphic2 = 13693;
-        $graphic3 = 13694;
+        $graphic0 = graphic_13691;
+        $graphic1 = graphic_13692;
+        $graphic2 = graphic_13693;
+        $graphic3 = graphic_13694;
     case default :
-        $graphic0 = 13679;
-        $graphic1 = 13680;
-        $graphic2 = 13681;
-        $graphic3 = 13682;
+        $graphic0 = graphic_13679;
+        $graphic1 = graphic_13680;
+        $graphic2 = graphic_13681;
+        $graphic3 = graphic_13682;
 }
 if_setgraphic(interface_1342:com_3, $graphic0);
 if_setgraphic(interface_1342:com_4, $graphic1);

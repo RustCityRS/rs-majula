@@ -41,7 +41,7 @@ if (op3328 = 1 | map_quickchat = true) {
     if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), ^setpos_abs_left, ^setpos_abs_top);
     if_setsize(chatdefault:quickchat_op, parawidth("<chat_playername_unfiltered><img=3>:", if_getwidth(chatdefault:input), p12_full), if_getheight(chatdefault:input), ^setsize_abs, ^setsize_abs);
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(chattop:chat_border, true);
     if_setgraphic(chattop:chat_graphic, graphic_1247);
     if_setalpha(chattop:chat_graphic, true);

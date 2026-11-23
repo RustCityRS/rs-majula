@@ -3,7 +3,7 @@
 if ($int0 ! 1 | enum(int, struct, enum_3943, $obj1) = null) {
     return;
 }
-sound_vorbis_volume(6185, 1, 0, 200);
+sound_vorbis_volume(vorbis_6185, 1, 0, 200);
 if ($obj1 = %varplayerbit_9516) {
     $boolean2 = if_gethide(interface_1111:com_18);
 } else {

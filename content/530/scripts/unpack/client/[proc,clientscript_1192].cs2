@@ -1,6 +1,6 @@
 // 1192
 [proc,clientscript_1192]
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     ~dropdownbox_refuse("Always `All'", loginscreen:com_293, loginscreen:com_294, loginscreen:com_295, null, graphic_884, ^white, p11_full);
     return;
 }

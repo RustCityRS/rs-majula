@@ -17,7 +17,7 @@ if ($component2 ! null) {
             $int7 = cc_gety;
         }
         if (.cc_find($component0, $int1) = true) {
-            sound_vorbis_volume(16950, 1, 0, 120);
+            sound_vorbis_volume(vorbis_16950, 1, 0, 120);
             .cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
         }
     }

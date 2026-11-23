@@ -5,7 +5,7 @@ if ($int0 > calc(clientclock - 5)) {
 }
 if_setontimer($component1, null);
 if (~script2465(~current_side_if) = false) {
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         ~if_switchside(-1);
         return;
     }

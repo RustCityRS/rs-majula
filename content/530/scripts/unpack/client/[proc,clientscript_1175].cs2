@@ -29,7 +29,7 @@ while ($int5 < 139 & calc($int5 - ($int0 + (5 + $int5 / 10))) <= $int3) {
     $int5 = calc($int5 + 1);
 }
 $int5 = calc($int5 - 1);
-if (getwindowmode < 2) {
+if (getwindowmode < ^windowmode_resizable) {
     if_settext(toplevel:com_6, "<tostring($int4)> - <tostring($int5)>");
 } else {
     if_settext(toplevel_fullscreen:com_19, "<tostring($int4)> - <tostring($int5)>");

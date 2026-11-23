@@ -12,7 +12,7 @@ switch_int (chat_gethistorytype($int0)) {
         }
         return(false);
     case ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
-        if (chat_getfilter_private < 2) {
+        if (chat_getfilter_private < ^chatfilter_off) {
             return(true);
         }
         return(false);

@@ -1,7 +1,7 @@
 // 493
 [clientscript,script493](component $component0, int $int1)
 def_int $int2 = 0;
-def_int $rgb3 = ^black;
+def_int $colour3 = ^black;
 def_struct $struct4 = null;
 switch_component ($component0) {
     case default :
@@ -26,12 +26,12 @@ switch_component ($component0) {
         $int2 = 9;
 }
 if ($int1 = 1) {
-    $rgb3 = ^white;
+    $colour3 = ^white;
 } else {
-    $rgb3 = 0xff981f;
+    $colour3 = 0xff981f;
 }
 if (%conq_command_ability_1 ! $int2 & %conq_command_ability_2 ! $int2 & %conq_command_ability_3 ! $int2 & %conq_command_ability_4 ! $int2) {
-    if_setcolour($component0, $rgb3);
+    if_setcolour($component0, $colour3);
     if ($int1 = 1) {
         $struct4 = ~script488($int2);
         if ($struct4 ! null) {

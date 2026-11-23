@@ -17,13 +17,13 @@ if ($int1 = 0 & $int2 = 0) {
 if ($int2 <= 0) {
     switch_int ($int1) {
         case 1 :
-            $graphic3 = 9862;
+            $graphic3 = graphic_9862;
             $int4 = 15;
         case 2 :
-            $graphic3 = 9861;
+            $graphic3 = graphic_9861;
             $int4 = 5;
         case default :
-            $graphic3 = 9860;
+            $graphic3 = graphic_9860;
             $int4 = 5;
     }
     $int1 = calc($int1 + 1);

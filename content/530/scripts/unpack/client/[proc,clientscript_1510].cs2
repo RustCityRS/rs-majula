@@ -1,6 +1,6 @@
 // 1510
 [proc,clientscript_1510]
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic(interface_768:com_5, chat_window);
     if_setalpha(interface_768:com_5, true);
 } else {
