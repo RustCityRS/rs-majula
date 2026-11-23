@@ -1,7 +1,7 @@
 // 1407
 [proc,clientscript_1407]
 if (%boardgames_rankedgame = 1) {
-    if_setgraphic(boardgames_options:ranked1, 181);
+    if_setgraphic(boardgames_options:ranked1, "miscgraphics,11");
 } else {
-    if_setgraphic(boardgames_options:ranked1, 180);
+    if_setgraphic(boardgames_options:ranked1, "miscgraphics,10");
 }

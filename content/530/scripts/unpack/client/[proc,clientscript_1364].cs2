@@ -15,7 +15,7 @@ if (if_hassubmodal(interface_549:com_2, interface_378) = false) {
 if (getwindowmode >= 2) {
     if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false)) {
         if_sethide(toplevel_fullscreen:chattop, false);
-        if_setgraphic(chattop:chat_graphic, 1017);
+        if_setgraphic(chattop:chat_graphic, chat_background);
         if_sethide(chattop:chat_graphic, false);
         if_sethide(chattop:chat_border, false);
         if_setalpha(chattop:chat_graphic, false);
@@ -29,10 +29,10 @@ if (getwindowmode >= 2) {
         if_sethide(chattop:chat_graphic, false);
         if_setalpha(chattop:chat_graphic, true);
         if (%cutscene_status = 0) {
-            if_setgraphic(chattop:chat_graphic, 1204);
+            if_setgraphic(chattop:chat_graphic, chat_window);
             if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(chattop:chat_graphic, 1205);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
             if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatmodal) = true) {
@@ -45,10 +45,10 @@ if (getwindowmode >= 2) {
         if_sethide(chattop:chat_graphic, false);
         if_setalpha(chattop:chat_graphic, true);
         if (%cutscene_status = 0) {
-            if_setgraphic(chattop:chat_graphic, 1204);
+            if_setgraphic(chattop:chat_graphic, chat_window);
             if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(chattop:chat_graphic, 1205);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
             if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatoverlaylarge) = true) {
@@ -61,10 +61,10 @@ if (getwindowmode >= 2) {
         if_sethide(chattop:chat_graphic, false);
         if_setalpha(chattop:chat_graphic, true);
         if (%cutscene_status = 0) {
-            if_setgraphic(chattop:chat_graphic, 1204);
+            if_setgraphic(chattop:chat_graphic, chat_window);
             if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(chattop:chat_graphic, 1205);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
             if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatoverlay) = true) {
@@ -77,10 +77,10 @@ if (getwindowmode >= 2) {
         if_sethide(chattop:chat_graphic, false);
         if_setalpha(chattop:chat_graphic, true);
         if (%cutscene_status = 0) {
-            if_setgraphic(chattop:chat_graphic, 1204);
+            if_setgraphic(chattop:chat_graphic, chat_window);
             if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(chattop:chat_graphic, 1205);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
             if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatdefault) = true) {
@@ -96,12 +96,12 @@ if (getwindowmode >= 2) {
         if_sethide(chattop:chatdefault, false);
         if_sethide(chattop:chat_graphic, false);
         if (if_gethide(chatdefault:quickchat) = false) {
-            if_setgraphic(chattop:chat_graphic, 1017);
+            if_setgraphic(chattop:chat_graphic, chat_background);
             if_setalpha(chattop:chat_graphic, false);
             if_sethide(chattop:chat_border, false);
         } else {
             if_sethide(chattop:chat_border, true);
-            if_setgraphic(chattop:chat_graphic, 1247);
+            if_setgraphic(chattop:chat_graphic, graphic_1247);
             if_setalpha(chattop:chat_graphic, true);
             if_sethide(chatdefault:divider_line, true);
             if_sethide(chatdefault:divider_graphic, false);
@@ -238,25 +238,25 @@ if (getwindowmode >= 2) {
     }
     if_sethide(toplevel_fullscreen:com_7, false);
     ~clientscript_1313;
-    if_setposition(statusicons:statusicons, 0, 0, 0, 0);
-    if_setsize(statusicons:statusicons, 115, 35, 0, 0);
-    if_setposition(statusicons:multiway_icon, 80, 0, 0, 0);
-    if_setposition(statusicons:assist_engaged, 40, 0, 0, 0);
-    if_setposition(statusicons:pvpw_safe, 0, 0, 0, 0);
-    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, 0, 0);
-    if_setposition(statusicons:pvpw_countdown, 0, 0, 0, 0);
-    if_setposition(statusicons:com_6, 0, 0, 0, 0);
-    if_setsize(statusicons:multiway_icon, 35, 35, 0, 0);
-    if_setsize(statusicons:assist_engaged, 35, 35, 0, 0);
-    if_setsize(statusicons:pvpw_safe, 35, 35, 0, 0);
-    if_setsize(statusicons:pvpw_safe_countdown, 35, 35, 0, 0);
-    if_setsize(statusicons:pvpw_countdown, 35, 35, 0, 0);
-    if_setsize(statusicons:com_6, 35, 35, 0, 0);
-    if_setgraphic(statusicons:multiway_icon, 1563);
-    if_setgraphic(statusicons:assist_engaged, 1562);
-    if_setgraphic(statusicons:pvpw_safe, 1579);
-    if_setgraphic(statusicons:pvpw_safe_countdown, 1580);
-    if_setgraphic(statusicons:com_6, 1581);
+    if_setposition(statusicons:statusicons, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:statusicons, 115, 35, ^setsize_abs, ^setsize_abs);
+    if_setposition(statusicons:multiway_icon, 80, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:assist_engaged, 40, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:com_6, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:multiway_icon, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:assist_engaged, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe_countdown, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_countdown, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:com_6, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setgraphic(statusicons:multiway_icon, overlay_multiway_big);
+    if_setgraphic(statusicons:assist_engaged, graphic_1562);
+    if_setgraphic(statusicons:pvpw_safe, graphic_1579);
+    if_setgraphic(statusicons:pvpw_safe_countdown, graphic_1580);
+    if_setgraphic(statusicons:com_6, graphic_1581);
 } else {
     if (%chat_view = -1) {
         %chat_view = 0;
@@ -265,7 +265,7 @@ if (getwindowmode >= 2) {
         ~clientscript_84;
         ~rebuildpmbox;
     }
-    if_setgraphic(chattop:chat_graphic, 1017);
+    if_setgraphic(chattop:chat_graphic, chat_background);
     if_sethide(chattop:chat_graphic, false);
     if_sethide(chattop:chat_border, false);
     if_setalpha(chattop:chat_graphic, false);
@@ -423,25 +423,25 @@ if (getwindowmode >= 2) {
         if_sethide(toplevel:stone13, true);
     }
     ~clientscript_1337;
-    if_setposition(statusicons:statusicons, 0, 0, 0, 0);
-    if_setsize(statusicons:statusicons, 82, 25, 0, 0);
-    if_setposition(statusicons:multiway_icon, 57, 0, 0, 0);
-    if_setposition(statusicons:assist_engaged, 28, 0, 0, 0);
-    if_setposition(statusicons:pvpw_safe, 0, 0, 0, 0);
-    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, 0, 0);
-    if_setposition(statusicons:pvpw_countdown, 0, 0, 0, 0);
-    if_setposition(statusicons:com_6, 0, 0, 0, 0);
-    if_setsize(statusicons:multiway_icon, 25, 25, 0, 0);
-    if_setsize(statusicons:assist_engaged, 25, 25, 0, 0);
-    if_setsize(statusicons:pvpw_safe, 25, 25, 0, 0);
-    if_setsize(statusicons:pvpw_safe_countdown, 25, 25, 0, 0);
-    if_setsize(statusicons:pvpw_countdown, 25, 25, 0, 0);
-    if_setsize(statusicons:com_6, 25, 25, 0, 0);
-    if_setgraphic(statusicons:multiway_icon, 442);
-    if_setgraphic(statusicons:assist_engaged, 1073);
-    if_setgraphic(statusicons:pvpw_safe, 1576);
-    if_setgraphic(statusicons:pvpw_safe_countdown, 1578);
-    if_setgraphic(statusicons:com_6, 1577);
+    if_setposition(statusicons:statusicons, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:statusicons, 82, 25, ^setsize_abs, ^setsize_abs);
+    if_setposition(statusicons:multiway_icon, 57, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:assist_engaged, 28, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:com_6, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:multiway_icon, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:assist_engaged, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe_countdown, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_countdown, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:com_6, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setgraphic(statusicons:multiway_icon, overlay_multiway);
+    if_setgraphic(statusicons:assist_engaged, assist_overlay);
+    if_setgraphic(statusicons:pvpw_safe, graphic_1576);
+    if_setgraphic(statusicons:pvpw_safe_countdown, graphic_1578);
+    if_setgraphic(statusicons:com_6, graphic_1577);
     if (if_hassuboverlay(toplevel:mainmodal, interface_759) = true) {
         if_sethide(toplevel:minimap_disable, false);
         if_sethide(toplevel:filterbuttons_disable, false);

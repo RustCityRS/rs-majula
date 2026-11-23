@@ -1,11 +1,11 @@
 // 2023
 [proc,clientscript_2023](int $int0)
 if ($int0 = 1) {
-    if_setgraphic(interface_378:com_183, 1601);
-    if_setgraphic(interface_378:com_184, 1602);
-    if_setgraphic(interface_378:com_185, 1601);
+    if_setgraphic(interface_378:com_183, graphic_1601);
+    if_setgraphic(interface_378:com_184, graphic_1602);
+    if_setgraphic(interface_378:com_185, graphic_1601);
 } else {
-    if_setgraphic(interface_378:com_183, 1599);
-    if_setgraphic(interface_378:com_184, 1600);
-    if_setgraphic(interface_378:com_185, 1599);
+    if_setgraphic(interface_378:com_183, graphic_1599);
+    if_setgraphic(interface_378:com_184, graphic_1600);
+    if_setgraphic(interface_378:com_185, graphic_1599);
 }

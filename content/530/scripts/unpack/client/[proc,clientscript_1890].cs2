@@ -1,6 +1,6 @@
 // 1890
 [proc,clientscript_1890](component $component0)
-if (getwindowmode ! 3) {
+if (getwindowmode ! ^windowmode_fullscreen) {
     setdefaultwindowmode(getwindowmode);
 }
 detail_antialiasing_default(detailget_antialiasing);

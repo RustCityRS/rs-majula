@@ -15,9 +15,9 @@ if (calc($int0 % 2) = 0) {
 }
 if_setobject($component2, $obj3, -1);
 if ($int1 = 1) {
-    cc_create(interface_725:com_70, 6, 0);
-    cc_setsize(32, 32, 0, 0);
-    cc_setposition(if_getx($component2), if_gety($component2), 0, 0);
+    cc_create(interface_725:com_70, ^iftype_model, 0);
+    cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(if_getx($component2), if_gety($component2), ^setpos_abs_left, ^setpos_abs_top);
     cc_setmodel(model_4611);
     cc_setmodelangle(0, 0, 512, 0, 0, 768);
     cc_setmodelanim(runeflash);

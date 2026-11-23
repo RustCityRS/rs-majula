@@ -17,7 +17,7 @@ y=25
 width=485
 height=300
 layer=main
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 767:2
@@ -28,7 +28,7 @@ y=294
 width=423
 height=32
 layer=main
-graphic=graphic_956
+graphic="v2_stone_borders_alt,2"
 tiling=yes
 
 // 767:3
@@ -39,7 +39,7 @@ y=51
 width=32
 height=243
 layer=main
-graphic=graphic_957
+graphic="v2_stone_borders_alt,3"
 tiling=yes
 
 // 767:4
@@ -50,7 +50,7 @@ y=53
 width=7
 height=241
 layer=main
-graphic=graphic_955
+graphic="v2_stone_borders_alt,1"
 tiling=yes
 
 // 767:5
@@ -61,7 +61,7 @@ y=294
 width=32
 height=32
 layer=main
-graphic=graphic_960
+graphic="v2_stone_borders_alt,6"
 
 // 767:6
 [com_6]
@@ -71,7 +71,7 @@ y=20
 width=32
 height=32
 layer=main
-graphic=graphic_1125
+graphic="v2_stone_borders,37"
 transmitop=10
 op10= 
 
@@ -83,7 +83,7 @@ y=294
 width=32
 height=32
 layer=main
-graphic=graphic_961
+graphic="v2_stone_borders_alt,7"
 
 // 767:8
 [com_8]
@@ -93,7 +93,7 @@ y=20
 width=424
 height=32
 layer=main
-graphic=graphic_1124
+graphic="v2_stone_borders,36"
 tiling=yes
 transmitop=10
 op10= 
@@ -106,7 +106,7 @@ y=272
 width=473
 height=32
 layer=main
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 transmitop=10
 op10= 
@@ -119,7 +119,7 @@ y=23
 width=16
 height=16
 layer=main
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -133,7 +133,7 @@ y=20
 width=32
 height=32
 layer=main
-graphic=graphic_1123
+graphic="v2_stone_borders,35"
 transmitop=10
 op10= 
 
@@ -165,7 +165,7 @@ y=35
 width=35
 height=35
 layer=page3
-graphic=graphic_1142
+graphic="bank_buttons,1"
 transmitop=1,10
 op1=Swap/insert
 op10= 
@@ -178,7 +178,7 @@ y=120
 width=35
 height=35
 layer=page3
-graphic=graphic_1144
+graphic="bank_buttons,3"
 transmitop=1,10
 op1=Item/note withdrawal
 op10= 
@@ -191,7 +191,7 @@ y=13
 width=391
 height=79
 layer=page4
-textfont=fontmetrics_495
+textfont=p12_full
 text=Deposit beast of burden inventory: If you have a Summoning familiar or other follower with you that is carrying items, clicking this button will transfer everything it is carrying into your bank (space permitting). 
 textshadow=yes
 transmitop=10
@@ -205,7 +205,7 @@ y=69
 width=391
 height=79
 layer=page4
-textfont=fontmetrics_495
+textfont=p12_full
 text=Search: Clicking this button will switch your bank to the main tab and open a search box. Type the name of the item you are looking for and it will narrow down your banked items as you type. (Note: don't worry, your other items aren't disappearing, they're just being removed from the current search and are still in your bank.) 
 textshadow=yes
 transmitop=10
@@ -219,7 +219,7 @@ y=8
 width=35
 height=35
 layer=page4
-graphic=graphic_1146
+graphic="bank_buttons,5"
 transmitop=1,10
 op1=Deposit beast of burden inventory
 op10=  
@@ -244,7 +244,7 @@ y=65
 width=35
 height=35
 layer=page4
-graphic=graphic_1141
+graphic="bank_buttons,0"
 transmitop=1,10
 op1=Search
 op10=  
@@ -257,7 +257,7 @@ y=3
 width=436
 height=33
 layer=page3
-textfont=fontmetrics_495
+textfont=p12_full
 text=Across the bottom of the bank there are some other features, which, from left to right, are: 
 textshadow=yes
 transmitop=10
@@ -271,7 +271,7 @@ y=39
 width=391
 height=79
 layer=page3
-textfont=fontmetrics_495
+textfont=p12_full
 text=Swap/insert: Clicking this button toggles how items are rearranged in your bank. `Swap' mode means that the item you drag and the item it is dragged over will swap places in your bank. `Insert' mode allows you to place an item in a specific bank slot, shifting other items over to make room.
 textshadow=yes
 transmitop=10
@@ -285,7 +285,7 @@ y=123
 width=391
 height=79
 layer=page3
-textfont=fontmetrics_495
+textfont=p12_full
 text=Item/note withdrawal: Clicking this button toggles how you withdraw items from your bank. `Item' mode places the actual item in your inventory; `Note' mode places a `noted' version of that object in your inventory. A note is worth the exact same value as the item it depicts, but is not the item itself and cannot be used as such. Notes are typically used for trading in bulk, as noted items can be stacked even if the actual item can not be.
 textshadow=yes
 transmitop=10
@@ -299,7 +299,7 @@ y=6
 width=436
 height=82
 layer=page2
-textfont=fontmetrics_495
+textfont=p12_full
 text= Using this tab system will allow you to easily group together related items as you wish. For instance, you could place all of your food in one tab, or all of your weapons in another. Alternatively, you could create a tab to contain all of those items you use to train a skill or play a certain minigame. There is no limit to the number of times you can rearrange your bank, so feel free to experiment. 
 textshadow=yes
 
@@ -311,7 +311,7 @@ y=91
 width=384
 height=101
 layer=page2
-textfont=fontmetrics_495
+textfont=p12_full
 text=At the top-right corner of the bank you will see two numbers. The top number displays the total number of items in your bank; the bottom number displays the total amount of bank space available to you.
 textshadow=yes
 
@@ -323,7 +323,7 @@ y=93
 width=47
 height=38
 layer=page2
-graphic=graphic_1453
+graphic=bank_counter
 transmitop=10
 op10= 
 
@@ -335,7 +335,7 @@ y=99
 width=32
 height=14
 layer=page2
-textfont=fontmetrics_494
+textfont=p11_full
 textalignh=centre
 colour=0xb4965a
 transmitop=10
@@ -349,7 +349,7 @@ y=114
 width=32
 height=13
 layer=page2
-textfont=fontmetrics_494
+textfont=p11_full
 textalignh=centre
 colour=0xb4965a
 transmitop=10
@@ -372,7 +372,7 @@ y=5
 width=436
 height=40
 layer=page1
-textfont=fontmetrics_495
+textfont=p12_full
 text=The Bank of RuneScape is a great place to keep all of your belongings safe. The bank has branches all over RuneScape, so you're never very far away from your possessions.
 textshadow=yes
 
@@ -384,7 +384,7 @@ y=64
 width=371
 height=58
 layer=page1
-textfont=fontmetrics_495
+textfont=p12_full
 text=The tab furthest to the left is the main bank tab (pictured left). The main tab will always display the entire contents of your bank account, but you can also create up to eight other tabs in which to categorise your banked items.
 textshadow=yes
 
@@ -396,7 +396,7 @@ y=132
 width=371
 height=58
 layer=page1
-textfont=fontmetrics_495
+textfont=p12_full
 text= To create a new tab, simply drag any item in your bank on to the 'plus' tab (pictured right). You can then drag as many other items as you want on to this new tab. Clicking on a tab other than the main one will show you only those items you have placed within it. The icon used to mark each new tab is taken from the first item within that tab.
 textshadow=yes
 
@@ -408,7 +408,7 @@ y=57
 width=48
 height=48
 layer=page1
-graphic=graphic_1419
+graphic="bank_tabs,1"
 
 // 767:34
 [com_34]
@@ -418,7 +418,7 @@ y=71
 width=36
 height=32
 layer=page1
-graphic=graphic_1434
+graphic="bank_misc_graphics,0"
 
 // 767:35
 [com_35]
@@ -428,7 +428,7 @@ y=129
 width=48
 height=48
 layer=page1
-graphic=graphic_1419
+graphic="bank_tabs,1"
 
 // 767:36
 [com_36]
@@ -438,7 +438,7 @@ y=143
 width=36
 height=32
 layer=page1
-graphic=graphic_1435
+graphic="bank_misc_graphics,1"
 
 // 767:37
 [page2]
@@ -474,7 +474,7 @@ x=21
 y=23
 width=471
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Bank of RuneScape - Help
 textalignh=centre
 textshadow=yes
@@ -528,7 +528,7 @@ y=10
 width=136
 height=16
 layer=pagecontrols
-textfont=fontmetrics_496
+textfont=b12_full
 text=Page 1 of 7
 textalignh=centre
 textshadow=yes
@@ -542,7 +542,7 @@ y=9
 width=16
 height=16
 layer=pagecontrols
-graphic=graphic_1174
+graphic="catcon_catapult_arrows,2"
 transmitop=1
 op1=Next page
 onmouseover=graphic_swapper(event_com, 1175)
@@ -556,7 +556,7 @@ y=9
 width=16
 height=16
 layer=pagecontrols
-graphic=graphic_1172
+graphic="catcon_catapult_arrows,0"
 transmitop=1
 op1=Previous page
 onmouseover=graphic_swapper(event_com, 1173)
@@ -587,7 +587,7 @@ y=5
 width=9
 height=24
 layer=buttoncontrol
-graphic=graphic_919
+graphic="v2_stone_button,6"
 
 // 767:51
 [com_51]
@@ -597,7 +597,7 @@ y=20
 width=122
 height=9
 layer=buttoncontrol
-graphic=graphic_920
+graphic="v2_stone_button,7"
 
 // 767:52
 [com_52]
@@ -607,7 +607,7 @@ y=5
 width=122
 height=9
 layer=buttoncontrol
-graphic=graphic_918
+graphic="v2_stone_button,5"
 
 // 767:53
 [com_53]
@@ -617,7 +617,7 @@ y=5
 width=9
 height=24
 layer=buttoncontrol
-graphic=graphic_917
+graphic="v2_stone_button,4"
 
 // 767:54
 [button]
@@ -627,7 +627,7 @@ y=5
 width=123
 height=24
 layer=buttoncontrol
-textfont=fontmetrics_494
+textfont=p11_full
 text=Shortcut keys
 textalignh=centre
 textalignv=centre
@@ -643,7 +643,7 @@ y=5
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_913
+graphic="v2_stone_button,0"
 
 // 767:56
 [com_56]
@@ -653,7 +653,7 @@ y=5
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_914
+graphic="v2_stone_button,1"
 
 // 767:57
 [com_57]
@@ -663,7 +663,7 @@ y=20
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_915
+graphic="v2_stone_button,2"
 
 // 767:58
 [com_58]
@@ -673,7 +673,7 @@ y=20
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_916
+graphic="v2_stone_button,3"
 
 // 767:59
 [buttoncontrol]

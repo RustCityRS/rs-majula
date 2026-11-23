@@ -17,7 +17,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 791:2
@@ -26,7 +26,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 791:3
@@ -36,7 +36,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 791:4
 [com_4]
@@ -45,7 +45,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 791:5
@@ -55,7 +55,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 791:6
@@ -65,7 +65,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 791:7
@@ -75,7 +75,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 791:8
 [com_8]
@@ -84,7 +84,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 791:9
 [com_9]
@@ -93,7 +93,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 791:10
 [com_10]
@@ -102,7 +102,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 791:11
@@ -112,7 +112,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 791:12
 [com_12]
@@ -121,7 +121,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 791:13
 [com_13]
@@ -130,7 +130,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -144,7 +144,7 @@ x=18
 y=27
 width=475
 height=22
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textalignv=centre
 textshadow=yes
@@ -176,7 +176,7 @@ type=text
 height=32
 widthmode=minus
 layer=victory
-textfont=fontmetrics_496
+textfont=b12_full
 text=Victory
 textalignh=centre
 textalignv=centre
@@ -191,7 +191,7 @@ y=32
 width=100
 height=30
 layer=victory
-textfont=fontmetrics_495
+textfont=p12_full
 text=Knock-out<br>(No run-ins)
 textalignv=centre
 textshadow=yes
@@ -205,7 +205,7 @@ y=38
 width=17
 height=17
 layer=victory
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:20
 [knockout_button]
@@ -231,7 +231,7 @@ width=121
 height=20
 xmode=abs_right
 layer=victory
-textfont=fontmetrics_495
+textfont=p12_full
 text=First team to...
 textalignv=centre
 textshadow=yes
@@ -255,7 +255,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=25
 textalignv=centre
 textshadow=yes
@@ -268,7 +268,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:25
 [25kills_button]
@@ -290,7 +290,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=50
 textalignv=centre
 textshadow=yes
@@ -303,7 +303,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:28
 [50kills_button]
@@ -325,7 +325,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=100
 textalignv=centre
 textshadow=yes
@@ -338,7 +338,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:31
 [100kills_button]
@@ -360,7 +360,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=200
 textalignv=centre
 textshadow=yes
@@ -373,7 +373,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:34
 [200kills_button]
@@ -395,7 +395,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=400
 textalignv=centre
 textshadow=yes
@@ -408,7 +408,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:37
 [400kills_button]
@@ -430,7 +430,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=750
 textalignv=centre
 textshadow=yes
@@ -443,7 +443,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:40
 [750kills_button]
@@ -465,7 +465,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=1 000
 textalignv=centre
 textshadow=yes
@@ -478,7 +478,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:43
 [1000kills_button]
@@ -500,7 +500,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=2 500
 textalignv=centre
 textshadow=yes
@@ -513,7 +513,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:46
 [2500kills_button]
@@ -535,7 +535,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=5 000
 textalignv=centre
 textshadow=yes
@@ -548,7 +548,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:49
 [5000kills_button]
@@ -570,7 +570,7 @@ x=25
 width=82
 height=17
 layer=killcounts
-textfont=fontmetrics_495
+textfont=p12_full
 text=10 000
 textalignv=centre
 textshadow=yes
@@ -583,7 +583,7 @@ x=4
 width=17
 height=17
 layer=killcounts
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:52
 [10000kills_button]
@@ -616,7 +616,7 @@ y=149
 width=100
 height=30
 layer=victory
-textfont=fontmetrics_495
+textfont=p12_full
 text=Most kills at end
 textalignv=centre
 textshadow=yes
@@ -630,7 +630,7 @@ y=157
 width=17
 height=17
 layer=victory
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:56
 [mostkills_button]
@@ -664,7 +664,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=0:05
 textalignv=centre
 textshadow=yes
@@ -677,7 +677,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:60
 [5mins_button]
@@ -699,7 +699,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=0:10
 textalignv=centre
 textshadow=yes
@@ -712,7 +712,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:63
 [10mins_button]
@@ -734,7 +734,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=0:30
 textalignv=centre
 textshadow=yes
@@ -747,7 +747,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:66
 [30mins_button]
@@ -769,7 +769,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=1:00
 textalignv=centre
 textshadow=yes
@@ -782,7 +782,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:69
 [1hour_button]
@@ -804,7 +804,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=1:30
 textalignv=centre
 textshadow=yes
@@ -817,7 +817,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:72
 [1hour30_button]
@@ -839,7 +839,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=2:00
 textalignv=centre
 textshadow=yes
@@ -852,7 +852,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:75
 [2hours_button]
@@ -874,7 +874,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=2:30
 textalignv=centre
 textshadow=yes
@@ -887,7 +887,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:78
 [2hours30_button]
@@ -909,7 +909,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=3:00
 textalignv=centre
 textshadow=yes
@@ -922,7 +922,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:81
 [3hours_button]
@@ -944,7 +944,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=4:00
 textalignv=centre
 textshadow=yes
@@ -957,7 +957,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:84
 [4hours_button]
@@ -979,7 +979,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=5:00
 textalignv=centre
 textshadow=yes
@@ -992,7 +992,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:87
 [5hours_button]
@@ -1014,7 +1014,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=6:00
 textalignv=centre
 textshadow=yes
@@ -1027,7 +1027,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:90
 [6hours_button]
@@ -1049,7 +1049,7 @@ x=25
 width=57
 height=17
 layer=timelimit_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=8:00
 textalignv=centre
 textshadow=yes
@@ -1062,7 +1062,7 @@ x=4
 width=17
 height=17
 layer=timelimit_layer
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:93
 [8hours_button]
@@ -1093,7 +1093,7 @@ type=text
 height=32
 widthmode=minus
 layer=timelimit
-textfont=fontmetrics_496
+textfont=b12_full
 text=Time limit
 textalignh=centre
 textalignv=centre
@@ -1128,7 +1128,7 @@ y=89
 width=75
 height=17
 layer=timelimit
-textfont=fontmetrics_495
+textfont=p12_full
 text=No limit
 textalignv=centre
 textshadow=yes
@@ -1142,7 +1142,7 @@ y=88
 width=17
 height=17
 layer=timelimit
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:100
 [notimelimit_button]
@@ -1185,7 +1185,7 @@ type=text
 height=32
 widthmode=minus
 layer=stragglers
-textfont=fontmetrics_496
+textfont=b12_full
 text=Stragglers
 textalignh=centre
 textalignv=centre
@@ -1200,7 +1200,7 @@ y=34
 width=100
 height=17
 layer=stragglers
-textfont=fontmetrics_495
+textfont=p12_full
 text=Kill 'em all
 textalignv=centre
 textshadow=yes
@@ -1214,7 +1214,7 @@ y=34
 width=17
 height=17
 layer=stragglers
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:106
 [stragglers_button]
@@ -1238,7 +1238,7 @@ y=53
 width=100
 height=17
 layer=stragglers
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ignore 5
 textalignv=centre
 textshadow=yes
@@ -1252,7 +1252,7 @@ y=53
 width=17
 height=17
 layer=stragglers
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 791:109
 [nostragglers_button]
@@ -1295,7 +1295,7 @@ type=text
 height=32
 widthmode=minus
 layer=itemloss
-textfont=fontmetrics_496
+textfont=b12_full
 text=On death...
 textalignh=centre
 textalignv=centre
@@ -1322,7 +1322,7 @@ height=25
 xmode=abs_centre
 layer=itemloss
 hide=yes
-graphic=graphic_439
+graphic=headicons_pk
 tiling=yes
 
 // 791:115
@@ -1333,7 +1333,7 @@ widthmode=minus
 heightmode=minus
 ymode=abs_bottom
 layer=itemloss
-textfont=fontmetrics_495
+textfont=p12_full
 text=... you keep<br>your items.
 textalignh=centre
 textalignv=centre
@@ -1381,7 +1381,7 @@ type=text
 height=32
 widthmode=minus
 layer=combatrules
-textfont=fontmetrics_496
+textfont=b12_full
 text=Combat rules
 textalignh=centre
 textalignv=centre
@@ -1396,7 +1396,7 @@ y=33
 width=52
 height=52
 layer=combatrules
-graphic=graphic_1478
+graphic="staticons_high_res_clean,0"
 graphicshadow=2629120
 transmitop=1
 opbase=<col=ff9040>Melee
@@ -1413,7 +1413,7 @@ y=70
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:122
 [magic]
@@ -1423,7 +1423,7 @@ y=33
 width=52
 height=52
 layer=combatrules
-graphic=graphic_1483
+graphic="staticons_high_res_clean,5"
 graphicshadow=1
 transmitop=1
 opbase=<col=ff9040>Magic
@@ -1440,7 +1440,7 @@ y=46
 width=24
 height=24
 layer=combatrules
-graphic=graphic_321
+graphic="magicon2,2"
 
 // 791:124
 [magic_normal]
@@ -1450,7 +1450,7 @@ y=46
 width=24
 height=24
 layer=combatrules
-graphic=graphic_23
+graphic="magicon,8"
 
 // 791:125
 [magic_zaros]
@@ -1460,7 +1460,7 @@ y=33
 width=24
 height=24
 layer=combatrules
-graphic=graphic_336
+graphic="magicon2,17"
 
 // 791:126
 [magic_lunar]
@@ -1470,7 +1470,7 @@ y=54
 width=24
 height=24
 layer=combatrules
-graphic=graphic_564
+graphic="lunar_magic_on,21"
 
 // 791:127
 [magic_indicator]
@@ -1480,7 +1480,7 @@ y=70
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:128
 [ranged]
@@ -1490,7 +1490,7 @@ y=33
 width=52
 height=52
 layer=combatrules
-graphic=graphic_1481
+graphic="staticons_high_res_clean,3"
 graphicshadow=1
 transmitop=1
 opbase=<col=ff9040>Ranging
@@ -1507,7 +1507,7 @@ y=70
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:130
 [prayer]
@@ -1517,7 +1517,7 @@ y=33
 width=52
 height=52
 layer=combatrules
-graphic=graphic_1482
+graphic="staticons_high_res_clean,4"
 graphicshadow=1
 transmitop=1
 opbase=<col=ff9040>Prayer
@@ -1534,7 +1534,7 @@ y=70
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:132
 [summoning]
@@ -1544,7 +1544,7 @@ y=88
 width=55
 height=54
 layer=combatrules
-graphic=graphic_1503
+graphic="staticons_high_res2_clean,7"
 graphicshadow=1
 transmitop=1
 opbase=<col=ff9040>Summoning
@@ -1561,7 +1561,7 @@ y=125
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:134
 [food]
@@ -1571,7 +1571,7 @@ y=88
 width=55
 height=54
 layer=combatrules
-graphic=graphic_1506
+graphic="staticons_high_res2_clean,10"
 graphicshadow=1
 transmitop=1
 opbase=<col=ff9040>Food
@@ -1588,7 +1588,7 @@ y=125
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:136
 [potions]
@@ -1598,7 +1598,7 @@ y=88
 width=55
 height=54
 layer=combatrules
-graphic=graphic_1504
+graphic="staticons_high_res2_clean,8"
 graphicshadow=1
 transmitop=1
 opbase=<col=ff9040>Potions
@@ -1615,7 +1615,7 @@ y=125
 width=17
 height=17
 layer=combatrules
-graphic=graphic_699
+graphic="options_radio_buttons,2"
 
 // 791:138
 [arena]
@@ -1642,7 +1642,7 @@ type=text
 height=32
 widthmode=minus
 layer=arena
-textfont=fontmetrics_496
+textfont=b12_full
 text=Arena
 textalignh=centre
 textalignv=centre
@@ -1719,7 +1719,7 @@ x=151
 y=280
 width=100
 height=35
-textfont=fontmetrics_495
+textfont=p12_full
 text=Accept
 textalignh=centre
 textalignv=centre
@@ -1733,7 +1733,7 @@ x=151
 y=280
 width=50
 height=35
-textfont=fontmetrics_494
+textfont=p11_full
 text=Watch
 textalignh=centre
 textalignv=centre
@@ -1747,7 +1747,7 @@ x=201
 y=280
 width=50
 height=35
-textfont=fontmetrics_494
+textfont=p11_full
 text=Fight
 textalignh=centre
 textalignv=centre

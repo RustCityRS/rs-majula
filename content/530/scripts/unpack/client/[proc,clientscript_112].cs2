@@ -1,6 +1,6 @@
 // 112
 [proc,clientscript_112](int $key0, char $char1)
-if ($key0 = 84) {
+if ($key0 = ^key_return) {
     if (%meslayermode = 12) {
         ~clientscript_1806(%varclient_654);
         return;
@@ -22,8 +22,8 @@ if ($key0 = 84) {
             } else if (%meslayermode = 3) {
                 friend_del(%varclient_654);
             } else if (%meslayermode = 6) {
-                if (chat_getfilter_private = 2) {
-                    chat_setfilter(chat_getfilter_public, 1, chat_getfilter_trade);
+                if (chat_getfilter_private = ^chatfilter_off) {
+                    chat_setfilter(chat_getfilter_public, ^chatfilter_friends, chat_getfilter_trade);
                     ~clientscript_178;
                     ~clientscript_84;
                     ~rebuildpmbox;
@@ -55,7 +55,7 @@ if ($key0 = 84) {
     }
     return;
 }
-if ($key0 = 13 & %meslayermode = 12) {
+if ($key0 = ^key_escape & %meslayermode = 12) {
     ~clientscript_1806(%varclient_670);
     ~clientscript_1548(0);
     return;

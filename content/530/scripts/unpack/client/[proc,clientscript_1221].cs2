@@ -3,18 +3,18 @@
 if (%loginscreen_focus = 6) {
     return;
 }
-if (%loginscreen_focus = 7 & $key0 = 13) {
+if (%loginscreen_focus = 7 & $key0 = ^key_escape) {
     ~clientscript_723(0);
     return;
 }
 if (%loginscreen_focus = 0) {
-    if ($key0 = 84) {
+    if ($key0 = ^key_return) {
         if (if_gethide(loginscreen:com_226) = false) {
             ~clientscript_1174(loginscreen:com_241);
         }
         return;
     }
-    if ($key0 = 13 & if_gethide(loginscreen:com_226) = true) {
+    if ($key0 = ^key_escape & if_gethide(loginscreen:com_226) = true) {
         ~clientscript_1174(loginscreen:com_226);
     }
     return;
@@ -23,7 +23,7 @@ if (%loginscreen_focus = 1) {
     if (login_reply = -3 | login_reply = 21 | login_reply = 1) {
         return;
     }
-    if ($key0 = 84 | $key0 = 80) {
+    if ($key0 = ^key_return | $key0 = ^key_tab) {
         if (%loginscreen_focustime >= clientclock) {
             return;
         }
@@ -31,11 +31,11 @@ if (%loginscreen_focus = 1) {
         %loginscreen_focustime = clientclock;
         return;
     }
-    if ($key0 = 13) {
+    if ($key0 = ^key_escape) {
         ~clientscript_1174(loginscreen:com_226);
         return;
     }
-    if (string_length(%varclient_664) >= 12 & $key0 ! 85) {
+    if (string_length(%varclient_664) >= 12 & $key0 ! ^key_backspace) {
         return;
     }
     %varclient_664 = removetags(~clientscript_74(%varclient_664, 0, $key0, $char1));
@@ -46,11 +46,11 @@ if (%loginscreen_focus = 3) {
     if (create_reply = -3) {
         return;
     }
-    if ($key0 = 13) {
+    if ($key0 = ^key_escape) {
         ~clientscript_1174(loginscreen:com_226);
         return;
     }
-    if (string_length(%varclient_666) >= 12 & $key0 ! 85) {
+    if (string_length(%varclient_666) >= 12 & $key0 ! ^key_backspace) {
         return;
     }
     %varclient_666 = removetags(~clientscript_74(%varclient_666, 0, $key0, $char1));
@@ -63,7 +63,7 @@ if (%loginscreen_focus = 2) {
     if (login_reply = -3 | login_reply = 21 | login_reply = 1) {
         return;
     }
-    if ($key0 = 84) {
+    if ($key0 = ^key_return) {
         if (%loginscreen_focustime >= clientclock) {
             return;
         }
@@ -71,7 +71,7 @@ if (%loginscreen_focus = 2) {
         ~clientscript_1183;
         return;
     }
-    if ($key0 = 80) {
+    if ($key0 = ^key_tab) {
         if (%loginscreen_focustime >= clientclock) {
             return;
         }
@@ -79,11 +79,11 @@ if (%loginscreen_focus = 2) {
         %loginscreen_focustime = clientclock;
         return;
     }
-    if ($key0 = 13) {
+    if ($key0 = ^key_escape) {
         ~clientscript_1174(loginscreen:com_226);
         return;
     }
-    if (string_length(%varclient_665) >= 20 & $key0 ! 85) {
+    if (string_length(%varclient_665) >= 20 & $key0 ! ^key_backspace) {
         return;
     }
     %varclient_665 = ~clientscript_74(%varclient_665, 0, $key0, $char1);
@@ -99,7 +99,7 @@ if (%loginscreen_focus = 4) {
     if (create_reply = -3) {
         return;
     }
-    if ($key0 = 84 | $key0 = 80) {
+    if ($key0 = ^key_return | $key0 = ^key_tab) {
         if (%loginscreen_focustime >= clientclock) {
             return;
         }
@@ -107,11 +107,11 @@ if (%loginscreen_focus = 4) {
         %loginscreen_focus = 5;
         return;
     }
-    if ($key0 = 13) {
+    if ($key0 = ^key_escape) {
         ~clientscript_1174(loginscreen:com_226);
         return;
     }
-    if (string_length(%varclient_667) >= 20 & $key0 ! 85) {
+    if (string_length(%varclient_667) >= 20 & $key0 ! ^key_backspace) {
         return;
     }
     %varclient_667 = ~clientscript_74(%varclient_667, 0, $key0, $char1);
@@ -127,7 +127,7 @@ if (%loginscreen_focus = 5) {
     if (create_reply = -3) {
         return;
     }
-    if ($key0 = 80) {
+    if ($key0 = ^key_tab) {
         if (%loginscreen_focustime >= clientclock) {
             return;
         }
@@ -135,11 +135,11 @@ if (%loginscreen_focus = 5) {
         %loginscreen_focus = 4;
         return;
     }
-    if ($key0 = 13) {
+    if ($key0 = ^key_escape) {
         ~clientscript_1174(loginscreen:com_226);
         return;
     }
-    if (string_length(%varclient_668) >= 20 & $key0 ! 85) {
+    if (string_length(%varclient_668) >= 20 & $key0 ! ^key_backspace) {
         return;
     }
     %varclient_668 = ~clientscript_74(%varclient_668, 0, $key0, $char1);

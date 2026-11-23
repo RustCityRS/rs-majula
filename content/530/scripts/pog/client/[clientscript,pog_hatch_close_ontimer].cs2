@@ -7,9 +7,9 @@ if (getwindowmode >= 2) {
     $int1 = if_getheight(toplevel_fullscreen:mainoverlay);
     if (%pog_hatch_zoom_var < $int0) {
         %pog_hatch_zoom_var = calc(%pog_hatch_zoom_var + 15);
-        if_setsize(pog_door_hatch_close:shutter, %pog_hatch_zoom_var, $int1, 0, 0);
+        if_setsize(pog_door_hatch_close:shutter, %pog_hatch_zoom_var, $int1, ^setsize_abs, ^setsize_abs);
     }
 } else if (%pog_hatch_zoom_var < 512) {
     %pog_hatch_zoom_var = calc(%pog_hatch_zoom_var + 15);
-    if_setsize(pog_door_hatch_close:shutter, %pog_hatch_zoom_var, 334, 0, 0);
+    if_setsize(pog_door_hatch_close:shutter, %pog_hatch_zoom_var, 334, ^setsize_abs, ^setsize_abs);
 }

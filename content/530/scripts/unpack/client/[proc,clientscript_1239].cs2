@@ -6,33 +6,33 @@ if ($int1 > 13) {
     %varclient_176 = calc($int1 * 10);
 }
 def_coord $coord2 = null;
-def_int $rgb3 = ^black;
+def_int $colour3 = ^black;
 switch_int ($int1) {
     case 0, 1 :
-        $coord2, $rgb3 = ~clientscript_1244($int0);
+        $coord2, $colour3 = ~clientscript_1244($int0);
     case 2 :
-        $coord2, $rgb3 = ~clientscript_1240($int0);
+        $coord2, $colour3 = ~clientscript_1240($int0);
     case 3 :
-        $coord2, $rgb3 = ~clientscript_1241($int0);
+        $coord2, $colour3 = ~clientscript_1241($int0);
     case 4 :
-        $coord2, $rgb3 = ~clientscript_1242($int0);
+        $coord2, $colour3 = ~clientscript_1242($int0);
     case 5 :
-        $coord2, $rgb3 = ~clientscript_1243($int0);
+        $coord2, $colour3 = ~clientscript_1243($int0);
     case 6 :
-        $coord2, $rgb3 = ~clientscript_1950($int0);
+        $coord2, $colour3 = ~clientscript_1950($int0);
     case 7 :
-        $coord2, $rgb3 = ~clientscript_1245($int0);
+        $coord2, $colour3 = ~clientscript_1245($int0);
     case 8 :
-        $coord2, $rgb3 = ~clientscript_1246($int0);
+        $coord2, $colour3 = ~clientscript_1246($int0);
     case 9 :
-        $coord2, $rgb3 = ~clientscript_1247($int0);
+        $coord2, $colour3 = ~clientscript_1247($int0);
     case 10 :
-        $coord2, $rgb3 = ~clientscript_1430($int0);
+        $coord2, $colour3 = ~clientscript_1430($int0);
     case 11 :
-        $coord2, $rgb3 = ~clientscript_1859($int0);
+        $coord2, $colour3 = ~clientscript_1859($int0);
     case 12 :
-        $coord2, $rgb3 = ~clientscript_1866($int0);
+        $coord2, $colour3 = ~clientscript_1866($int0);
     case 13 :
-        $coord2, $rgb3 = ~clientscript_1860($int0);
+        $coord2, $colour3 = ~clientscript_1860($int0);
 }
-return($coord2, $rgb3);
+return($coord2, $colour3);

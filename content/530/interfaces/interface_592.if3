@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase= 
 
@@ -27,7 +27,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 592:3
@@ -36,7 +36,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 592:4
@@ -46,7 +46,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 592:5
@@ -56,7 +56,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 592:6
@@ -66,7 +66,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 opbase= 
 
@@ -77,7 +77,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 592:8
 [com_8]
@@ -86,7 +86,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 592:9
 [com_9]
@@ -95,7 +95,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 592:10
 [com_10]
@@ -104,7 +104,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 592:11
 [border_t_left]
@@ -113,7 +113,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 592:12
 [border_t_right]
@@ -122,7 +122,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 592:13
 [com_13]
@@ -170,7 +170,7 @@ x=21
 y=31
 width=469
 height=15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Hairdresser's Salon
 textalignh=centre
 textshadow=yes
@@ -191,7 +191,7 @@ y=2
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=      
 
@@ -203,7 +203,7 @@ y=3
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Odango
 textshadow=yes
 colour=0xc9800d
@@ -217,7 +217,7 @@ y=2
 width=36
 height=36
 layer=com_176
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=      
 
@@ -229,7 +229,7 @@ y=3
 width=124
 height=16
 layer=com_176
-textfont=fontmetrics_495
+textfont=p12_full
 text=Pixie
 textshadow=yes
 colour=0xc9800d
@@ -244,7 +244,7 @@ y=3
 width=124
 height=16
 layer=com_149
-textfont=fontmetrics_495
+textfont=p12_full
 text=Bun
 textshadow=yes
 colour=0xc9800d
@@ -256,7 +256,7 @@ y=2
 width=36
 height=36
 layer=com_149
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:26
 [listitem_3]
@@ -266,7 +266,7 @@ y=3
 width=124
 height=16
 layer=com_150
-textfont=fontmetrics_495
+textfont=p12_full
 text=Dreadlocks
 textshadow=yes
 colour=0xc9800d
@@ -278,7 +278,7 @@ y=2
 width=36
 height=36
 layer=com_150
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:28
 [listitem_4]
@@ -288,7 +288,7 @@ y=3
 width=124
 height=16
 layer=com_151
-textfont=fontmetrics_495
+textfont=p12_full
 text=Long
 textshadow=yes
 colour=0xc9800d
@@ -300,7 +300,7 @@ y=2
 width=36
 height=36
 layer=com_151
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:30
 [listitem_5]
@@ -310,7 +310,7 @@ y=3
 width=124
 height=16
 layer=com_152
-textfont=fontmetrics_495
+textfont=p12_full
 text=Short
 textshadow=yes
 colour=0xc9800d
@@ -322,7 +322,7 @@ y=2
 width=36
 height=36
 layer=com_152
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:32
 [listitem_6]
@@ -332,7 +332,7 @@ y=3
 width=124
 height=16
 layer=com_153
-textfont=fontmetrics_495
+textfont=p12_full
 text=Pigtails
 textshadow=yes
 colour=0xc9800d
@@ -344,7 +344,7 @@ y=2
 width=36
 height=36
 layer=com_153
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:34
 [com_34]
@@ -354,7 +354,7 @@ y=3
 width=124
 height=16
 layer=com_154
-textfont=fontmetrics_495
+textfont=p12_full
 text=Crew cut
 textshadow=yes
 colour=0xc9800d
@@ -366,7 +366,7 @@ y=2
 width=36
 height=36
 layer=com_154
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:36
 [com_36]
@@ -376,7 +376,7 @@ y=3
 width=124
 height=16
 layer=com_155
-textfont=fontmetrics_495
+textfont=p12_full
 text=Close-cropped
 textshadow=yes
 colour=0xc9800d
@@ -388,7 +388,7 @@ y=2
 width=36
 height=36
 layer=com_155
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:38
 [com_38]
@@ -398,7 +398,7 @@ y=3
 width=124
 height=16
 layer=com_156
-textfont=fontmetrics_495
+textfont=p12_full
 text=Wild spikes
 textshadow=yes
 colour=0xc9800d
@@ -410,7 +410,7 @@ y=2
 width=36
 height=36
 layer=com_156
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:40
 [com_40]
@@ -420,7 +420,7 @@ y=3
 width=124
 height=16
 layer=com_157
-textfont=fontmetrics_495
+textfont=p12_full
 text=Spikes
 textshadow=yes
 colour=0xc9800d
@@ -432,7 +432,7 @@ y=2
 width=36
 height=36
 layer=com_157
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:42
 [com_42]
@@ -442,7 +442,7 @@ y=3
 width=124
 height=16
 layer=com_158
-textfont=fontmetrics_495
+textfont=p12_full
 text=Side ponytail
 textshadow=yes
 colour=0xc9800d
@@ -454,7 +454,7 @@ y=2
 width=36
 height=36
 layer=com_158
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:44
 [com_44]
@@ -464,7 +464,7 @@ y=4
 width=124
 height=16
 layer=com_159
-textfont=fontmetrics_495
+textfont=p12_full
 text=Curls
 textshadow=yes
 colour=0xc9800d
@@ -476,7 +476,7 @@ y=3
 width=36
 height=36
 layer=com_159
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:46
 [com_46]
@@ -486,7 +486,7 @@ y=3
 width=124
 height=16
 layer=com_160
-textfont=fontmetrics_495
+textfont=p12_full
 text=Wind braids
 textshadow=yes
 colour=0xc9800d
@@ -498,7 +498,7 @@ y=2
 width=36
 height=36
 layer=com_160
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:48
 [com_48]
@@ -508,7 +508,7 @@ y=4
 width=124
 height=16
 layer=com_161
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ponytail
 textshadow=yes
 colour=0xc9800d
@@ -520,7 +520,7 @@ y=3
 width=36
 height=36
 layer=com_161
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:50
 [com_50]
@@ -530,7 +530,7 @@ y=3
 width=124
 height=16
 layer=com_162
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ring braids
 textshadow=yes
 colour=0xc9800d
@@ -542,7 +542,7 @@ y=2
 width=36
 height=36
 layer=com_162
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:52
 [com_52]
@@ -552,7 +552,7 @@ y=3
 width=124
 height=16
 layer=com_163
-textfont=fontmetrics_495
+textfont=p12_full
 text=Four ponies
 textshadow=yes
 colour=0xc9800d
@@ -564,7 +564,7 @@ y=2
 width=36
 height=36
 layer=com_163
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:54
 [com_54]
@@ -574,7 +574,7 @@ y=2
 width=36
 height=36
 layer=com_164
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:55
 [com_55]
@@ -584,7 +584,7 @@ y=3
 width=124
 height=16
 layer=com_164
-textfont=fontmetrics_495
+textfont=p12_full
 text=Flip
 textshadow=yes
 colour=0xc9800d
@@ -597,7 +597,7 @@ y=3
 width=124
 height=16
 layer=com_165
-textfont=fontmetrics_495
+textfont=p12_full
 text=Layered flip
 textshadow=yes
 colour=0xc9800d
@@ -610,7 +610,7 @@ y=2
 width=36
 height=36
 layer=com_165
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:58
 [com_58]
@@ -620,7 +620,7 @@ y=3
 width=124
 height=16
 layer=com_166
-textfont=fontmetrics_495
+textfont=p12_full
 text=Straight
 textshadow=yes
 colour=0xc9800d
@@ -633,7 +633,7 @@ y=2
 width=36
 height=36
 layer=com_166
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:60
 [com_60]
@@ -643,7 +643,7 @@ y=3
 width=124
 height=16
 layer=com_167
-textfont=fontmetrics_495
+textfont=p12_full
 text=Long braids
 textshadow=yes
 colour=0xc9800d
@@ -656,7 +656,7 @@ y=2
 width=36
 height=36
 layer=com_167
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:62
 [com_62]
@@ -666,7 +666,7 @@ y=3
 width=124
 height=16
 layer=com_168
-textfont=fontmetrics_495
+textfont=p12_full
 text=Curtains
 textshadow=yes
 colour=0xc9800d
@@ -678,7 +678,7 @@ y=2
 width=36
 height=36
 layer=com_168
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:64
 [com_64]
@@ -687,7 +687,7 @@ y=2
 width=36
 height=36
 layer=com_169
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:65
 [com_65]
@@ -697,7 +697,7 @@ y=3
 width=124
 height=16
 layer=com_169
-textfont=fontmetrics_495
+textfont=p12_full
 text=Earmuffs
 textshadow=yes
 colour=0xc9800d
@@ -710,7 +710,7 @@ y=3
 width=124
 height=16
 layer=com_148
-textfont=fontmetrics_495
+textfont=p12_full
 text=Bald
 textshadow=yes
 colour=0xc9800d
@@ -722,7 +722,7 @@ y=2
 width=36
 height=36
 layer=com_148
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 592:68
 [paybutton]
@@ -731,7 +731,7 @@ x=408
 y=250
 width=42
 height=42
-graphic=graphic_1058
+graphic="player_kit_fancy_off,6"
 transmitop=1
 op1=Confirm Purchase
 onmouseover=graphic_swapper(event_com, 1050)
@@ -753,7 +753,7 @@ x=37
 y=62
 width=42
 height=42
-graphic=graphic_1048
+graphic="player_kit_fancy,4"
 transmitop=1
 op1=Hair
 onmouseleave=deltooltip(interface_592:com_246)
@@ -1159,7 +1159,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -1179,7 +1179,7 @@ x=451
 y=261
 width=23
 height=23
-graphic=graphic_938
+graphic="ame_confirm_button_no_back,0"
 transmitop=1
 opbase=  
 op1=Confirm Purchase
@@ -2125,7 +2125,7 @@ y=2
 width=36
 height=36
 layer=com_181
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=          
 
@@ -2137,7 +2137,7 @@ y=3
 width=124
 height=16
 layer=com_181
-textfont=fontmetrics_495
+textfont=p12_full
 text=Princess
 textshadow=yes
 colour=0xc9800d
@@ -2151,7 +2151,7 @@ y=2
 width=36
 height=36
 layer=com_180
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=         
 
@@ -2163,7 +2163,7 @@ y=3
 width=124
 height=16
 layer=com_180
-textfont=fontmetrics_495
+textfont=p12_full
 text=French twist
 textshadow=yes
 colour=0xc9800d
@@ -2177,7 +2177,7 @@ y=2
 width=36
 height=36
 layer=com_179
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=        
 
@@ -2189,7 +2189,7 @@ y=3
 width=124
 height=16
 layer=com_179
-textfont=fontmetrics_495
+textfont=p12_full
 text=Pigtails with fringe
 textshadow=yes
 colour=0xc9800d
@@ -2203,7 +2203,7 @@ y=2
 width=36
 height=36
 layer=com_178
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=       
 
@@ -2215,7 +2215,7 @@ y=3
 width=124
 height=16
 layer=com_178
-textfont=fontmetrics_495
+textfont=p12_full
 text=Bun with fringe
 textshadow=yes
 colour=0xc9800d
@@ -2229,7 +2229,7 @@ y=2
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=      
 
@@ -2241,7 +2241,7 @@ y=3
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ponytail spiked
 textshadow=yes
 colour=0xc9800d
@@ -2255,7 +2255,7 @@ y=2
 width=36
 height=36
 layer=com_174
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=     
 
@@ -2267,7 +2267,7 @@ y=3
 width=124
 height=16
 layer=com_174
-textfont=fontmetrics_495
+textfont=p12_full
 text=Pinned bun
 textshadow=yes
 colour=0xc9800d
@@ -2281,7 +2281,7 @@ y=2
 width=36
 height=36
 layer=com_173
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=    
 
@@ -2293,7 +2293,7 @@ y=3
 width=124
 height=16
 layer=com_173
-textfont=fontmetrics_495
+textfont=p12_full
 text=Top knot
 textshadow=yes
 colour=0xc9800d
@@ -2307,7 +2307,7 @@ y=2
 width=36
 height=36
 layer=com_172
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=   
 
@@ -2319,7 +2319,7 @@ y=3
 width=124
 height=16
 layer=com_172
-textfont=fontmetrics_495
+textfont=p12_full
 text=Layered
 textshadow=yes
 colour=0xc9800d
@@ -2333,7 +2333,7 @@ y=2
 width=36
 height=36
 layer=com_171
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10=  
 
@@ -2345,7 +2345,7 @@ y=3
 width=124
 height=16
 layer=com_171
-textfont=fontmetrics_495
+textfont=p12_full
 text=Pinned up
 textshadow=yes
 colour=0xc9800d
@@ -2359,7 +2359,7 @@ y=2
 width=36
 height=36
 layer=com_170
-graphic=graphic_180
+graphic="miscgraphics,10"
 transmitop=10
 op10= 
 
@@ -2371,7 +2371,7 @@ y=3
 width=124
 height=16
 layer=com_170
-textfont=fontmetrics_495
+textfont=p12_full
 text=Fringe
 textshadow=yes
 colour=0xc9800d
@@ -2386,7 +2386,7 @@ y=41
 width=70
 height=32
 layer=com_69
-textfont=fontmetrics_495
+textfont=p12_full
 text=2,000 Coins
 textshadow=yes
 colour=0xc9800d

@@ -39,7 +39,7 @@ while ($int8 < $int6) {
         while ($int10 < $int7) {
             $component13 = enum(int, component, $enum9, $int12);
             if ($component13 ! null) {
-                if_setposition($component13, $int5, $int4, 0, 0);
+                if_setposition($component13, $int5, $int4, ^setpos_abs_left, ^setpos_abs_top);
                 $int5 = calc($int5 + (struct_param($struct1, param_657) + struct_param($struct1, param_658)));
                 $int10 = calc($int10 + 1);
                 $int11 = calc($int11 + 1);
@@ -63,9 +63,9 @@ if ($enum16 ! null) {
     $int12 = 0;
     while ($int12 < $int17) {
         if ($int12 = $int2) {
-            if_setgraphic(enum(int, component, $enum16, $int12), 1703);
+            if_setgraphic(enum(int, component, $enum16, $int12), "magic_icon_set,2");
         } else {
-            if_setgraphic(enum(int, component, $enum16, $int12), 1702);
+            if_setgraphic(enum(int, component, $enum16, $int12), "magic_icon_set,1");
         }
         $int12 = calc($int12 + 1);
     }

@@ -25,9 +25,9 @@ def_int $int12 = 0;
 while ($int5 < 78) {
     $obj10 = enum(int, obj, enum_1277, $int6);
     $int8 = calc($int5 % $int1);
-    cc_create($component0, 5, $int5);
-    cc_setsize(36, 32, 0, 0);
-    cc_setposition(~clientscript_761($int8), calc($int5 / $int1 * (64 + $int4)), 0, 0);
+    cc_create($component0, ^iftype_graphic, $int5);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(~clientscript_761($int8), calc($int5 / $int1 * (64 + $int4)), ^setpos_abs_left, ^setpos_abs_top);
     $obj11 = enum(int, obj, enum_1188, $int6);
     if ($int6 = 1) {
         if (~wolf_magic_pouch_checker($obj11) = 1) {
@@ -56,13 +56,13 @@ while ($int5 < 78) {
 $int6 = 1;
 while ($int7 < 78) {
     $int8 = calc($int7 % $int1);
-    cc_create($component0, 4, $int5);
-    cc_setposition(~clientscript_762($int8), calc(32 + $int7 / $int1 * (64 + $int4)), 0, 0);
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setposition(~clientscript_762($int8), calc(32 + $int7 / $int1 * (64 + $int4)), ^setpos_abs_left, ^setpos_abs_top);
     $obj10 = enum(int, obj, enum_1277, $int6);
     $obj11 = enum(int, obj, enum_1188, $int6);
     cc_settext(enum(obj, string, enum_1187, $obj11));
-    cc_settextfont(496);
-    cc_setsize(90, 50, 0, 0);
+    cc_settextfont(b12_full);
+    cc_setsize(90, 50, ^setsize_abs, ^setsize_abs);
     if ($int6 = 1) {
         if (~wolf_magic_pouch_checker($obj11) = 1) {
             cc_setcolour(0xffff64);
@@ -73,7 +73,7 @@ while ($int7 < 78) {
         cc_setcolour(0x111111);
     }
     cc_settextshadow(true);
-    cc_settextalign(1, 0, 0);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
     $int7 = calc($int7 + 1);
     $int5 = calc($int5 + 1);
     $int6 = calc($int6 + 1);

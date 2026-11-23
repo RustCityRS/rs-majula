@@ -1,11 +1,11 @@
 // 1210
 [proc,clientscript_1210]
 if (getwindowmode = 0) {
-    ~dropdownbox_refuse("High Detail only", loginscreen:com_9, loginscreen:com_10, loginscreen:com_11, null, 884, 0x7f0000, 494);
+    ~dropdownbox_refuse("High Detail only", loginscreen:com_9, loginscreen:com_10, loginscreen:com_11, null, graphic_884, 0x7f0000, p11_full);
     return;
 }
 def_int $int0 = 0;
 if (detailget_lightdetail_high = 1) {
     $int0 = 1;
 }
-~clientscript_1435(enum_1581, $int0, 1, loginscreen:com_9, loginscreen:com_10, loginscreen:com_11, null, 884, 1248, 1250, 1402, 0x7f0000, ^white, 0xffc61a, 494, 798, 795, 796, 797, 793, 794);
+~clientscript_1435(enum_1581, $int0, 1, loginscreen:com_9, loginscreen:com_10, loginscreen:com_11, null, graphic_884, "drop_down_arrow_scroll,0", 1250, graphic_1402, 0x7f0000, ^white, 0xffc61a, p11_full, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");

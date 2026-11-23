@@ -26,7 +26,7 @@ y=25
 width=485
 height=300
 layer=content_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 672:3
@@ -36,7 +36,7 @@ y=53
 width=32
 height=241
 layer=content_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 672:4
@@ -47,7 +47,7 @@ y=20
 width=32
 height=32
 layer=content_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 672:5
 [com_5]
@@ -57,7 +57,7 @@ y=51
 width=32
 height=243
 layer=content_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 672:6
@@ -68,7 +68,7 @@ y=306
 width=423
 height=32
 layer=content_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 672:7
@@ -79,7 +79,7 @@ y=30
 width=16
 height=16
 layer=content_layer
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(interface_672:close, 832)
@@ -95,7 +95,7 @@ y=294
 width=32
 height=32
 layer=content_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 672:9
 [com_9]
@@ -105,7 +105,7 @@ y=20
 width=32
 height=32
 layer=content_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 672:10
 [com_10]
@@ -115,7 +115,7 @@ y=294
 width=32
 height=32
 layer=content_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 672:11
 [com_11]
@@ -125,7 +125,7 @@ y=35
 width=465
 height=32
 layer=content_layer
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 672:12
@@ -136,7 +136,7 @@ y=37
 width=32
 height=32
 layer=content_layer
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 672:13
 [com_13]
@@ -146,7 +146,7 @@ y=37
 width=32
 height=32
 layer=content_layer
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 672:14
 [com_14]
@@ -156,7 +156,7 @@ y=7
 width=424
 height=32
 layer=content_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 672:15
@@ -167,7 +167,7 @@ y=30
 width=250
 height=16
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Summoning Pouch Creation  
 textalignh=centre
 textshadow=yes
@@ -210,7 +210,7 @@ y=29
 width=79
 height=20
 layer=content_layer
-graphic=graphic_952
+graphic="tabs,0"
 transmitop=1
 op1=Transform Scrolls
 onmouseleave=deltooltip(interface_672:tool_tip_build_layer)
@@ -224,7 +224,7 @@ y=30
 width=25
 height=18
 layer=content_layer
-graphic=graphic_1192
+graphic="lore_switch,2"
 
 // 672:21
 [tab_front]
@@ -234,7 +234,7 @@ y=29
 width=79
 height=20
 layer=content_layer
-graphic=graphic_953
+graphic="tabs,1"
 
 // 672:22
 [com_22]
@@ -244,7 +244,7 @@ y=30
 width=25
 height=18
 layer=content_layer
-graphic=graphic_1191
+graphic="lore_switch,1"
 
 // 672:23
 [tooltip_bounding_box]

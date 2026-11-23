@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase= 
 
@@ -27,7 +27,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 593:3
@@ -36,7 +36,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 593:4
@@ -46,7 +46,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 593:5
@@ -56,7 +56,7 @@ x=44
 y=7
 width=424
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 593:6
@@ -66,7 +66,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 opbase= 
 
@@ -77,7 +77,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 593:8
 [com_8]
@@ -86,7 +86,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 593:9
 [com_9]
@@ -95,7 +95,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 593:10
 [com_10]
@@ -104,7 +104,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 593:11
 [border_t_left]
@@ -113,7 +113,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 593:12
 [border_t_right]
@@ -122,7 +122,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 593:13
 [com_13]
@@ -730,7 +730,7 @@ x=21
 y=31
 width=469
 height=15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Reinald's Smithing Emporium
 textalignh=centre
 textshadow=yes
@@ -744,7 +744,7 @@ y=4
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Bare arms
 textshadow=yes
 colour=0xc9800d
@@ -757,7 +757,7 @@ y=3
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:75
 [com_75]
@@ -777,7 +777,7 @@ y=30
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Silver wristguards
 textshadow=yes
 colour=0xc9800d
@@ -790,7 +790,7 @@ y=29
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:78
 [com_78]
@@ -810,7 +810,7 @@ y=57
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Silver clasps
 textshadow=yes
 colour=0xc9800d
@@ -823,7 +823,7 @@ y=56
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:81
 [com_81]
@@ -843,7 +843,7 @@ y=83
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Silver bangles
 textshadow=yes
 colour=0xc9800d
@@ -856,7 +856,7 @@ y=82
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:84
 [com_84]
@@ -876,7 +876,7 @@ y=109
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Silver banding
 textshadow=yes
 colour=0xc9800d
@@ -889,7 +889,7 @@ y=108
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:87
 [com_87]
@@ -909,7 +909,7 @@ y=135
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Silver bands
 textshadow=yes
 colour=0xc9800d
@@ -922,7 +922,7 @@ y=134
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:90
 [com_90]
@@ -942,7 +942,7 @@ y=162
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Silver armguards
 textshadow=yes
 colour=0xc9800d
@@ -955,7 +955,7 @@ y=161
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:93
 [com_93]
@@ -975,7 +975,7 @@ y=4
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Bare arms
 textshadow=yes
 colour=0xc9800d
@@ -988,7 +988,7 @@ y=3
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:96
 [com_96]
@@ -1008,7 +1008,7 @@ y=30
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gold wristguards
 textshadow=yes
 colour=0xc9800d
@@ -1021,7 +1021,7 @@ y=29
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:99
 [com_99]
@@ -1041,7 +1041,7 @@ y=57
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gold clasps
 textshadow=yes
 colour=0xc9800d
@@ -1054,7 +1054,7 @@ y=56
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:102
 [com_102]
@@ -1074,7 +1074,7 @@ y=83
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gold bangles
 textshadow=yes
 colour=0xc9800d
@@ -1087,7 +1087,7 @@ y=82
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:105
 [com_105]
@@ -1107,7 +1107,7 @@ y=109
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gold banding
 textshadow=yes
 colour=0xc9800d
@@ -1120,7 +1120,7 @@ y=108
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:108
 [com_108]
@@ -1140,7 +1140,7 @@ y=135
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gold bands
 textshadow=yes
 colour=0xc9800d
@@ -1153,7 +1153,7 @@ y=134
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:111
 [com_111]
@@ -1173,7 +1173,7 @@ y=162
 width=124
 height=16
 layer=com_116
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gold armguards
 textshadow=yes
 colour=0xc9800d
@@ -1186,7 +1186,7 @@ y=161
 width=36
 height=36
 layer=com_116
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 593:114
 [com_114]
@@ -1222,7 +1222,7 @@ x=407
 y=252
 width=42
 height=42
-graphic=graphic_1058
+graphic="player_kit_fancy_off,6"
 transmitop=1
 op1=Confirm Purchase
 onmouseover=graphic_swapper(event_com, 1050)
@@ -1236,7 +1236,7 @@ y=41
 width=70
 height=32
 layer=com_119
-textfont=fontmetrics_495
+textfont=p12_full
 text=500 Coins
 textshadow=yes
 colour=0xc9800d
@@ -1256,7 +1256,7 @@ x=37
 y=62
 width=42
 height=42
-graphic=graphic_1051
+graphic="player_kit_fancy,7"
 transmitop=1
 op1=Select
 onmouseleave=deltooltip(interface_593:com_152)
@@ -1270,7 +1270,7 @@ x=85
 y=62
 width=42
 height=42
-graphic=graphic_1057
+graphic="player_kit_fancy_off,5"
 transmitop=1
 op1=Select
 onmouseleave=deltooltip(interface_593:com_152)
@@ -1494,7 +1494,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -1622,7 +1622,7 @@ x=451
 y=261
 width=23
 height=23
-graphic=graphic_938
+graphic="ame_confirm_button_no_back,0"
 transmitop=1
 opbase=  
 op1=Confirm Purchase

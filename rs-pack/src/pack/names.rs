@@ -1,9 +1,9 @@
 use crate::archive;
 use crate::pack::incremental::{Lookups, Registry, answer};
 use crate::pack::pack_registry::PackFile;
-#[cfg(since_530)]
-use crate::pack::util::placeholder_prefix;
 use crate::pack::util::walk;
+#[cfg(since_530)]
+use crate::pack::util::{placeholder_prefix, raw_id_error};
 use anyhow::{Context, Result, bail, ensure};
 #[cfg(since_530)]
 use rs_io::stringtools::hash32;
@@ -143,6 +143,9 @@ impl AssetNames {
         if let Some(id) = self.packs.get(kind).and_then(|p| p.get_by_debugname(name)) {
             return Ok(id);
         }
+        if let Some(error) = raw_id_error(kind, name) {
+            bail!(error);
+        }
         let number = name
             .strip_prefix(&format!("{kind}_"))
             .or_else(|| name.strip_prefix(&format!("{}_", asset_prefix(kind))))
@@ -162,7 +165,7 @@ impl AssetNames {
     }
 
     pub fn resolve(&self, kind: &str, value: &str) -> Result<i64> {
-        if value == "null" || value == "-1" {
+        if value == "null" {
             Ok(-1)
         } else {
             Ok(self.id(kind, value)? as i64)
@@ -250,6 +253,9 @@ impl AssetNames {
             })
         {
             return Ok(id);
+        }
+        if let Some(error) = raw_id_error("component", name) {
+            bail!(error);
         }
         name.strip_prefix("com_")
             .or_else(|| name.strip_prefix("com"))

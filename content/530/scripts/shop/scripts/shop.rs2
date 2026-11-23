@@ -35,9 +35,9 @@ if_openmain_side(shop_template, shop_template_side);
 // opened over one already open drops the old one's events in the client.
 [proc,openshop_grids]
 def_inv $shop = %shop;
-runclientscript("interface_inv_init_big(shop_template:main_stock, $shop, 10, 4, 0, -1, \"Value\", \"Buy 1\", \"Buy 5\", \"Buy 10\", \"Buy 50\", \"\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init_big(shop_template:main_stock, $shop, 10, 4, 0, null, \"Value\", \"Buy 1\", \"Buy 5\", \"Buy 10\", \"Buy 50\", \"\", \"\", \"\", \"\")");
 if_setevents(shop_template:main_stock, 0, calc(inv_size(%shop) - 1), ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-runclientscript("interface_inv_init_big(shop_template_side:inventory_layer, inv, 4, 7, 0, -1, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init_big(shop_template_side:inventory_layer, inv, 4, 7, 0, null, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
 if_setevents(shop_template_side:inventory_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^no_op), 0, 0, ^false, ^false);
 
 [if_close,shop_template]

@@ -17,7 +17,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=universe
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase= 
 
@@ -30,7 +30,7 @@ width=16
 height=16
 xmode=abs_right
 layer=universe
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onload=clanwars_ffa_warning_setup(clanwars_ffa_warning:title, clanwars_ffa_warning:text, clanwars_ffa_warning:left_symbol, clanwars_ffa_warning:right_symbol, clanwars_ffa_warning:nomorewarnings, clanwars_ffa_warning:toggleicon)
@@ -46,7 +46,7 @@ y=8
 width=19
 height=19
 layer=universe
-graphic=graphic_940
+graphic="warning_icons,0"
 
 // 793:4
 [right_symbol]
@@ -56,7 +56,7 @@ width=19
 height=19
 xmode=abs_right
 layer=universe
-graphic=graphic_940
+graphic="warning_icons,0"
 
 // 793:5
 [title]
@@ -66,7 +66,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 layer=universe
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textalignv=centre
 textshadow=yes
@@ -149,7 +149,7 @@ width=17
 height=17
 ymode=abs_centre
 layer=nomorewarnings
-graphic=graphic_697
+graphic="options_radio_buttons,0"
 
 // 793:12
 [com_12]
@@ -162,7 +162,7 @@ heightmode=minus
 xmode=abs_right
 ymode=abs_centre
 layer=nomorewarnings
-textfont=fontmetrics_495
+textfont=p12_full
 text=Don't show this again
 textalignv=centre
 textshadow=yes
@@ -178,7 +178,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=text_layer
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textalignv=centre
 textshadow=yes
@@ -193,7 +193,7 @@ width=98
 height=34
 ymode=abs_bottom
 layer=universe
-textfont=fontmetrics_496
+textfont=b12_full
 text=Cancel
 textalignh=centre
 textalignv=centre
@@ -212,7 +212,7 @@ height=34
 xmode=abs_right
 ymode=abs_bottom
 layer=universe
-textfont=fontmetrics_496
+textfont=b12_full
 text=Go in
 textalignh=centre
 textalignv=centre

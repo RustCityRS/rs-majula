@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase= 
 
@@ -26,7 +26,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 626:3
@@ -36,7 +36,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 626:4
 [com_4]
@@ -45,7 +45,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 626:5
@@ -55,7 +55,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 626:6
@@ -65,7 +65,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 626:7
@@ -75,7 +75,7 @@ x=476
 y=28
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -89,7 +89,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 626:9
 [com_9]
@@ -98,7 +98,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 626:10
 [com_10]
@@ -107,7 +107,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 626:11
 [com_11]
@@ -116,7 +116,7 @@ x=24
 y=32
 width=470
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 626:12
@@ -126,7 +126,7 @@ x=468
 y=262
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 626:13
 [com_13]
@@ -135,7 +135,7 @@ x=13
 y=34
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 626:14
 [com_14]
@@ -144,7 +144,7 @@ x=232
 y=294
 width=32
 height=32
-graphic=graphic_839
+graphic="v2_stone_borders,11"
 
 // 626:15
 [com_15]
@@ -153,7 +153,7 @@ x=230
 y=57
 width=32
 height=260
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 opbase=   
 
@@ -164,7 +164,7 @@ x=19
 y=169
 width=226
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 626:17
@@ -174,7 +174,7 @@ x=248
 y=260
 width=241
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 opbase=m 
 
@@ -185,7 +185,7 @@ x=244
 y=260
 width=32
 height=32
-graphic=graphic_844
+graphic="v2_stone_borders,16"
 
 // 626:19
 [com_19]
@@ -194,7 +194,7 @@ x=231
 y=46
 width=32
 height=32
-graphic=graphic_842
+graphic="v2_stone_borders,14"
 
 // 626:20
 [com_20]
@@ -203,7 +203,7 @@ x=55
 y=27
 width=397
 height=18
-textfont=fontmetrics_496
+textfont=b12_full
 text=Are you sure you want to fight this duel?
 textalignh=centre
 textalignv=centre
@@ -234,7 +234,7 @@ y=2
 width=205
 height=15
 layer=com_21
-textfont=fontmetrics_495
+textfont=p12_full
 text=You are about to stake:
 textalignh=centre
 textshadow=yes
@@ -249,7 +249,7 @@ y=2
 width=205
 height=15
 layer=com_22
-textfont=fontmetrics_495
+textfont=p12_full
 text=Your opponent will stake:
 textalignh=centre
 textshadow=yes
@@ -263,7 +263,7 @@ y=20
 width=96
 height=11
 layer=com_21
-textfont=fontmetrics_494
+textfont=p11_full
 text=Absolutely nothing!
 textalignh=centre
 textshadow=yes
@@ -277,7 +277,7 @@ y=20
 width=96
 height=11
 layer=com_22
-textfont=fontmetrics_494
+textfont=p11_full
 text=Absolutely nothing!
 textalignh=centre
 textshadow=yes
@@ -290,7 +290,7 @@ x=255
 y=55
 width=221
 height=12
-textfont=fontmetrics_494
+textfont=p11_full
 text=Before the duel starts:
 textshadow=yes
 colour=0xbf751d
@@ -302,7 +302,7 @@ x=255
 y=80
 width=231
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -314,7 +314,7 @@ x=255
 y=92
 width=231
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -326,7 +326,7 @@ x=255
 y=104
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -338,7 +338,7 @@ x=255
 y=116
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -350,7 +350,7 @@ x=255
 y=129
 width=223
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=During the duel:
 textshadow=yes
 colour=0xbf751d
@@ -362,7 +362,7 @@ x=255
 y=142
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -374,7 +374,7 @@ x=255
 y=154
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -386,7 +386,7 @@ x=255
 y=166
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -398,7 +398,7 @@ x=255
 y=178
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -410,7 +410,7 @@ x=255
 y=190
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -422,7 +422,7 @@ x=255
 y=202
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -434,7 +434,7 @@ x=255
 y=214
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -446,7 +446,7 @@ x=255
 y=226
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -458,7 +458,7 @@ x=255
 y=68
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=Lots of y's and g's
 textshadow=yes
 colour=0xaaaaaa
@@ -470,7 +470,7 @@ x=255
 y=238
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -482,7 +482,7 @@ x=255
 y=250
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -494,7 +494,7 @@ x=255
 y=262
 width=232
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=There will be obstacles in the arena.
 textshadow=yes
 colour=0xaaaaaa
@@ -506,7 +506,7 @@ x=251
 y=303
 width=243
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=Waiting for other player...
 textalignh=centre
 textshadow=yes
@@ -520,7 +520,7 @@ y=4
 width=188
 height=200
 layer=minigamefools
-textfont=fontmetrics_494
+textfont=p11_full
 textshadow=yes
 colour=0xaaaaaa
 
@@ -532,7 +532,7 @@ y=4
 width=188
 height=200
 layer=opponent_text_layer
-textfont=fontmetrics_494
+textfont=p11_full
 textshadow=yes
 colour=0xaaaaaa
 
@@ -592,7 +592,7 @@ type=text
 width=70
 height=18
 layer=accept_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Accept
 textlineheight=12
 textalignh=centre
@@ -624,7 +624,7 @@ type=text
 width=70
 height=18
 layer=decline_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Decline
 textlineheight=12
 textalignh=centre

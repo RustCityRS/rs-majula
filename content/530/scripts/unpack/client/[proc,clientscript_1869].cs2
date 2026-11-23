@@ -2,14 +2,14 @@
 [proc,clientscript_1869](int $int0)
 if (%varclient_545 = 1) {
     if_settext(loginscreen:com_258, "<col=7f0000>N/A</col>");
-    if_setgraphic(loginscreen:com_257, 1555);
+    if_setgraphic(loginscreen:com_257, graphic_1555);
     if_setonclick(loginscreen:com_235, null);
     if_setonmouseover(loginscreen:com_235, null);
     if_setonmouseleave(loginscreen:com_235, null);
     return;
 }
-def_graphic $graphic1 = 1551;
-def_graphic $graphic2 = 1552;
+def_graphic $graphic1 = graphic_1551;
+def_graphic $graphic2 = graphic_1552;
 if_settext(loginscreen:com_258, tostring($int0));
 if_setgraphic(loginscreen:com_257, $graphic1);
 if_setonclick(loginscreen:com_235, "clientscript_1871($int0, 1)");

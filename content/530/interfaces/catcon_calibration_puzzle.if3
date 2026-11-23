@@ -139,7 +139,7 @@ height=93
 xmode=abs_centre
 ymode=abs_bottom
 layer=main_layer
-graphic=graphic_1223
+graphic=catcon_catapult_pointer
 
 // 680:11
 [com_11]
@@ -150,7 +150,7 @@ width=32
 height=64
 heightmode=minus
 layer=main_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 680:12
@@ -159,7 +159,7 @@ type=graphic
 width=32
 height=32
 layer=main_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 680:13
 [com_13]
@@ -171,7 +171,7 @@ height=64
 heightmode=minus
 xmode=abs_right
 layer=main_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 680:14
@@ -183,7 +183,7 @@ width=64
 height=34
 widthmode=minus
 layer=main_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 680:15
@@ -196,7 +196,7 @@ height=32
 widthmode=minus
 ymode=abs_bottom
 layer=main_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 680:16
@@ -206,7 +206,7 @@ width=32
 height=32
 ymode=abs_bottom
 layer=main_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 680:17
 [com_17]
@@ -215,7 +215,7 @@ width=32
 height=32
 xmode=abs_right
 layer=main_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 680:18
 [com_18]
@@ -225,7 +225,7 @@ height=32
 xmode=abs_right
 ymode=abs_bottom
 layer=main_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 680:19
 [close_button]
@@ -236,7 +236,7 @@ width=16
 height=16
 xmode=abs_right
 layer=main_layer
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 opbase= 
 op1=Close

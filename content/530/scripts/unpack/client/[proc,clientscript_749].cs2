@@ -1,22 +1,22 @@
 // 749
 [proc,clientscript_749]
 if (%com_mode = 0) {
-    if_setgraphic(interface_664:com_1, 294);
-    if_setgraphic(interface_664:com_3, 293);
-    if_setgraphic(interface_664:com_5, 293);
+    if_setgraphic(interface_664:com_1, "combatboxes,1");
+    if_setgraphic(interface_664:com_3, "combatboxes,0");
+    if_setgraphic(interface_664:com_5, "combatboxes,0");
 } else if (%com_mode = 1) {
-    if_setgraphic(interface_664:com_1, 293);
-    if_setgraphic(interface_664:com_3, 294);
-    if_setgraphic(interface_664:com_5, 293);
+    if_setgraphic(interface_664:com_1, "combatboxes,0");
+    if_setgraphic(interface_664:com_3, "combatboxes,1");
+    if_setgraphic(interface_664:com_5, "combatboxes,0");
 } else if (%com_mode = 2) {
-    if_setgraphic(interface_664:com_1, 293);
-    if_setgraphic(interface_664:com_3, 293);
-    if_setgraphic(interface_664:com_5, 294);
+    if_setgraphic(interface_664:com_1, "combatboxes,0");
+    if_setgraphic(interface_664:com_3, "combatboxes,0");
+    if_setgraphic(interface_664:com_5, "combatboxes,1");
 }
 if (%option_nodef = 0) {
-    if_setgraphic(interface_664:optnodef, 656);
+    if_setgraphic(interface_664:optnodef, "combatboxes_very_large,1");
     if_settext(interface_664:com_10, "Auto-retaliate <br>(On)");
 } else if (%option_nodef = 1) {
-    if_setgraphic(interface_664:optnodef, 655);
+    if_setgraphic(interface_664:optnodef, "combatboxes_very_large,0");
     if_settext(interface_664:com_10, "Auto-retaliate <br>(Off)");
 }

@@ -156,15 +156,16 @@ if (%playerdesign2_client_random > 0) {
 [if_button,interface_771:com_381] ~design_random_ask;
 [if_button,interface_771:com_398] ~design_random_ask;
 
+// 530 has no IF_SETGRAPHIC packet: the cache's run_if_setgraphic sets the graphic client-side.
 [proc,design_random_ask]
 if (%playerdesign2_client_random > 0) {
     %playerdesign2_client_random = 0;
-    if_setgraphic(interface_771:com_381, 941);
-    if_setgraphic(interface_771:com_398, 941);
+    runclientscript("run_if_setgraphic(interface_771:com_381, \"warning_icons,1\")");
+    runclientscript("run_if_setgraphic(interface_771:com_398, \"warning_icons,1\")");
 } else {
     %playerdesign2_client_random = 1;
-    if_setgraphic(interface_771:com_381, 942);
-    if_setgraphic(interface_771:com_398, 942);
+    runclientscript("run_if_setgraphic(interface_771:com_381, \"warning_icons,2\")");
+    runclientscript("run_if_setgraphic(interface_771:com_398, \"warning_icons,2\")");
 }
 
 // Every style and swatch the arrows and palettes reach.

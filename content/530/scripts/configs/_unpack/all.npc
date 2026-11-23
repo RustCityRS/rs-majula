@@ -6038,7 +6038,7 @@ param=rangedefence,72
 param=damagetype,^slash_style
 param=attack_anim,human_sword_slash
 param=defend_anim,human_sword_def
-param=attack_sound,synth_2503
+param=attack_sound,hacksword_slash
 param=defend_sound,steel
 huntmode=cowardly
 huntrange=5
@@ -8312,7 +8312,7 @@ param=crushdefence,45
 param=damagetype,^slash_style
 param=attack_anim,human_unarmedpunch
 param=defend_anim,human_sword_def
-param=attack_sound,synth_2503
+param=attack_sound,hacksword_slash
 param=defend_sound,steel2
 
 // 248
@@ -8871,7 +8871,7 @@ unknown119=3
 desc=She looks wealthy.
 
 // 265
-[npc_265]
+[jeremy_servil]
 bas=bas_165
 vislevel=0
 size=1
@@ -12453,7 +12453,7 @@ unknown119=3
 desc=Nice hat.
 
 // 390
-[npc_390]
+[big_fish]
 bas=bas_667
 vislevel=0
 size=1
@@ -12466,7 +12466,7 @@ unknown119=7
 desc=A frog.
 
 // 391
-[npc_391]
+[river_troll]
 bas=bas_42
 size=1
 resizev=96
@@ -12481,7 +12481,7 @@ model1=model_3752
 unknown119=2
 
 // 392
-[npc_392]
+[river_troll_392]
 bas=bas_42
 size=1
 resizev=96
@@ -12496,7 +12496,7 @@ model1=model_3752
 unknown119=2
 
 // 393
-[npc_393]
+[river_troll_393]
 bas=bas_42
 size=1
 resizev=96
@@ -12511,7 +12511,7 @@ model1=model_3752
 unknown119=2
 
 // 394
-[npc_394]
+[river_troll_394]
 bas=bas_42
 size=1
 resizev=96
@@ -12526,7 +12526,7 @@ model1=model_3752
 unknown119=2
 
 // 395
-[npc_395]
+[river_troll_395]
 bas=bas_42
 size=1
 resizev=96
@@ -12541,7 +12541,7 @@ model1=model_3752
 unknown119=2
 
 // 396
-[npc_396]
+[river_troll_396]
 bas=bas_42
 size=1
 resizev=96
@@ -12753,7 +12753,7 @@ wanderrange=3
 param=damagetype,^slash_style
 
 // 403
-[npc_403]
+[fishing_spot_403]
 bas=bas_43
 vislevel=0
 size=1
@@ -12969,7 +12969,7 @@ desc=An annoying flappy thing.
 wanderrange=8
 
 // 413
-[npc_413]
+[rock_golem]
 bas=bas_46
 size=1
 op2=Attack
@@ -13010,7 +13010,7 @@ unknown119=2
 desc=Rock with attitude.
 
 // 415
-[npc_415]
+[rock_golem_415]
 bas=bas_46
 size=1
 op2=Attack
@@ -13030,7 +13030,7 @@ unknown119=2
 desc=Rock with attitude.
 
 // 416
-[npc_416]
+[rock_golem_416]
 bas=bas_46
 size=1
 op2=Attack
@@ -13050,7 +13050,7 @@ unknown119=2
 desc=Rock with attitude.
 
 // 417
-[npc_417]
+[rock_golem_417]
 bas=bas_46
 size=1
 op2=Attack
@@ -26805,7 +26805,7 @@ desc=He looks busy attending to his cart.
 wanderrange=3
 
 // 842
-[npc_842]
+[rowdy_guard]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -49645,7 +49645,7 @@ unknown119=3
 desc=The winged reptile.
 
 // 1621
-[npc_1621]
+[cockatrice_1621]
 bas=bas_18
 size=3
 ambient=25
@@ -52006,7 +52006,7 @@ param=magicdefence,15
 param=rangedefence,10
 
 // 1753
-[npc_1753]
+[mounted_terrorbird_gnome_1753]
 bas=bas_91
 size=2
 op2=Attack
@@ -52287,7 +52287,7 @@ param=defend_anim,sheep_update_defend
 param=death_anim,sheep_update_death
 
 // 1766
-[npc_1766]
+[cow_calf]
 bas=bas_1397
 size=2
 resizeh=68
@@ -52330,7 +52330,7 @@ param=defend_sound,cow_hit
 param=death_sound,cow_death
 
 // 1768
-[npc_1768]
+[cow_calf_1768]
 bas=bas_1397
 size=2
 resizeh=68
@@ -53010,7 +53010,7 @@ head1=model_21
 unknown119=3
 
 // 1791
-[npc_1791]
+[jungle_tree]
 bas=bas_666
 size=1
 vislevel=0
@@ -53631,7 +53631,7 @@ unknown119=3
 desc=This goat belongs to the mountain camp people.
 
 // 1821
-[npc_1821]
+[bald_headed_eagle]
 bas=bas_264
 vislevel=0
 size=2
@@ -56779,12 +56779,12 @@ bas=bas_784
 vislevel=0
 size=2
 multivar=deserttreasure
-multinpc=13,npc_1971
-multinpc=14,npc_1971
+multinpc=13,azzanadra_1971
+multinpc=14,azzanadra_1971
 unknown119=3
 
 // 1971
-[npc_1971]
+[azzanadra_1971]
 bas=bas_784
 vislevel=0
 size=2
@@ -57393,7 +57393,7 @@ unknown119=3
 desc=An obnoxious, overgrown insect.
 
 // 1996
-[npc_1996]
+[vulture_1996]
 size=2
 op2=Attack
 vislevel=31
@@ -60195,7 +60195,7 @@ desc=He is regulating the flow of goods on the trade floor and maintaining order
 wanderrange=0
 
 // 2128
-[npc_2128]
+[supreme_commander]
 bas=bas_2
 resizeh=135
 resizev=135
@@ -61455,7 +61455,7 @@ unknown119=3
 desc=Works hard at whatever it is he does.
 
 // 2176
-[npc_2176]
+[inn_keeper]
 bas=bas_2
 resizeh=128
 resizev=138
@@ -62186,7 +62186,7 @@ head1=model_1
 unknown119=6
 
 // 2208
-[npc_2208]
+[dwarven_miner_2208]
 bas=bas_437
 op1=Talk-to
 vislevel=0
@@ -62286,7 +62286,7 @@ head1=model_0
 unknown119=6
 
 // 2212
-[npc_2212]
+[dwarven_miner_2212]
 bas=bas_437
 op1=Talk-to
 vislevel=0
@@ -62381,7 +62381,7 @@ head1=model_2
 unknown119=6
 
 // 2216
-[npc_2216]
+[dwarven_miner_2216]
 bas=bas_437
 op1=Talk-to
 vislevel=0
@@ -62984,7 +62984,7 @@ unknown119=3
 desc=A local farmer. She might be able to provide some useful information.
 
 // 2239
-[npc_2239]
+[pig_2239]
 bas=bas_1408
 vislevel=0
 ambient=15
@@ -66159,7 +66159,7 @@ unknown119=3
 desc=Looks like he knows his way around a kitchen.
 
 // 2358
-[npc_2358]
+[arianwyn_2358]
 bas=bas_4
 vislevel=0
 size=1
@@ -67554,7 +67554,7 @@ head1=model_3
 unknown119=3
 
 // 2432
-[npc_2432]
+[red_axe_henchman_2432]
 bas=bas_2
 op1=Talk-to
 vislevel=1
@@ -67577,7 +67577,7 @@ head2=model_8394
 unknown119=3
 
 // 2433
-[npc_2433]
+[red_axe_henchman_2433]
 bas=bas_969
 op1=Talk-to
 vislevel=1
@@ -67599,7 +67599,7 @@ head1=model_8393
 unknown119=3
 
 // 2434
-[npc_2434]
+[ogre_shaman_2434]
 bas=bas_60
 size=2
 op1=Talk-to
@@ -71047,7 +71047,7 @@ head1=model_34284
 unknown119=3
 
 // 2593
-[npc_2593]
+[tzhaar_mej_2593]
 bas=bas_481
 op2=Attack
 contrast=0
@@ -71127,7 +71127,7 @@ head1=model_34284
 unknown119=3
 
 // 2598
-[npc_2598]
+[tzhaar_hur]
 bas=bas_227
 op2=Attack
 contrast=0
@@ -71141,7 +71141,7 @@ model4=model_34163
 unknown119=3
 
 // 2599
-[npc_2599]
+[tzhaar_hur_2599]
 bas=bas_227
 op2=Attack
 contrast=0
@@ -71211,7 +71211,7 @@ model4=model_34165
 unknown119=3
 
 // 2604
-[npc_2604]
+[tzhaar_xil_2604]
 bas=bas_227
 op2=Attack
 contrast=0
@@ -71361,7 +71361,7 @@ unknown119=3
 desc=One of the stronger guards of Mor Ul Rek.
 
 // 2613
-[npc_2613]
+[tzhaar_ket_2613]
 bas=bas_228
 op2=Attack
 contrast=0
@@ -72090,7 +72090,7 @@ desc=A dwarf on top of the world.
 wanderrange=0
 
 // 2649
-[npc_2649]
+[gnome_2649]
 bas=bas_108
 size=1
 vislevel=0
@@ -72111,7 +72111,7 @@ head1=model_21
 unknown119=3
 
 // 2650
-[npc_2650]
+[gnome_2650]
 bas=bas_1058
 size=1
 vislevel=0
@@ -74131,7 +74131,7 @@ model1=model_21193
 unknown119=3
 
 // 2718
-[npc_2718]
+[betty_2718]
 bas=bas_4
 vislevel=0
 size=1
@@ -74161,7 +74161,7 @@ head1=model_39090
 unknown119=3
 
 // 2719
-[npc_2719]
+[grum_2719]
 bas=bas_4
 vislevel=0
 size=1
@@ -74197,7 +74197,7 @@ head3=model_39836
 unknown119=3
 
 // 2720
-[npc_2720]
+[gerrant_2720]
 bas=bas_29
 vislevel=0
 size=1
@@ -74232,7 +74232,7 @@ head3=model_39223
 unknown119=3
 
 // 2721
-[npc_2721]
+[wydin_2721]
 bas=bas_4
 vislevel=0
 size=1
@@ -82568,7 +82568,7 @@ unknown119=2
 desc=A mighty warrior, Haakon is powerfully concerned for his tribe.
 
 // 3092
-[npc_3092]
+[hooded_stranger]
 bas=bas_4
 resizeh=130
 resizev=150
@@ -83448,7 +83448,7 @@ model1=model_10874
 unknown119=1
 
 // 3131
-[npc_3131]
+[desert_spirit]
 bas=bas_252
 vislevel=0
 op1=Talk-to
@@ -83982,7 +83982,7 @@ head2=model_39259
 unknown119=1
 
 // 3157
-[npc_3157]
+[bill_teach_3157]
 bas=bas_35
 vislevel=0
 op1=Talk-to
@@ -85552,7 +85552,7 @@ unknown119=3
 desc=One of Gielinor's many citizens.
 
 // 3224
-[npc_3224]
+[man_3224]
 bas=bas_4
 size=1
 op2=Attack
@@ -88319,7 +88319,7 @@ unknown119=7
 desc=A graceful bird.
 
 // 3297
-[npc_3297]
+[black_swan]
 bas=bas_1420
 size=1
 vislevel=0
@@ -91899,7 +91899,7 @@ head1=model_141
 unknown119=3
 
 // 3468
-[npc_3468]
+[rantz_3468]
 bas=bas_764
 size=2
 op1=Talk-to
@@ -92022,12 +92022,12 @@ unknown119=3
 [general_wartface_3479]
 vislevel=1
 multivar=varplayerbit_1865
-multinpc=1,npc_3480
+multinpc=1,king_awowogei_3480
 multinpc=2,cyclossus
 unknown119=3
 
 // 3480
-[npc_3480]
+[king_awowogei_3480]
 bas=bas_177
 vislevel=0
 op1=Inspect
@@ -94514,7 +94514,7 @@ model1=model_26258
 unknown119=3
 
 // 3587
-[npc_3587]
+[rantz_3587]
 bas=bas_765
 size=2
 op1=Talk-to
@@ -96018,7 +96018,7 @@ unknown119=3
 desc=A hopeless poor creature.
 
 // 3668
-[npc_3668]
+[hopeless_beast]
 bas=bas_1202
 size=2
 resizev=106
@@ -96030,7 +96030,7 @@ model1=model_14283
 unknown119=3
 
 // 3669
-[npc_3669]
+[hopeless_beast_3669]
 bas=bas_1202
 size=2
 resizev=80
@@ -96042,7 +96042,7 @@ model1=model_14283
 unknown119=3
 
 // 3670
-[npc_3670]
+[odd_old_man]
 bas=bas_223
 size=2
 op1=Talk-to
@@ -96783,7 +96783,7 @@ unknown119=1
 wanderrange=0
 
 // 3709
-[npc_3709]
+[boulder_3709]
 bas=bas_709
 size=2
 vislevel=0
@@ -111740,17 +111740,17 @@ bas=bas_104
 op1=Talk-to
 vislevel=0
 multivar=fairy2_queencure_quest
-multinpc=45,npc_4456
-multinpc=50,npc_4456
-multinpc=60,npc_4456
-multinpc=65,npc_4456
-multinpc=70,npc_4456
-multinpc=72,npc_4456
-multinpc=73,npc_4456
-multinpc=75,npc_4456
-multinpc=80,npc_4456
-multinpc=90,npc_4456
-multinpc=100,npc_4456
+multinpc=45,ork
+multinpc=50,ork
+multinpc=60,ork
+multinpc=65,ork
+multinpc=70,ork
+multinpc=72,ork
+multinpc=73,ork
+multinpc=75,ork
+multinpc=80,ork
+multinpc=90,ork
+multinpc=100,ork
 unknown119=3
 
 // 4425
@@ -111759,17 +111759,17 @@ bas=bas_104
 op1=Talk-to
 vislevel=0
 multivar=fairy2_queencure_quest
-multinpc=45,npc_4458
-multinpc=50,npc_4458
-multinpc=60,npc_4458
-multinpc=65,npc_4458
-multinpc=70,npc_4458
-multinpc=72,npc_4458
-multinpc=73,npc_4458
-multinpc=75,npc_4458
-multinpc=80,npc_4458
-multinpc=90,npc_4458
-multinpc=100,npc_4458
+multinpc=45,ork_4458
+multinpc=50,ork_4458
+multinpc=60,ork_4458
+multinpc=65,ork_4458
+multinpc=70,ork_4458
+multinpc=72,ork_4458
+multinpc=73,ork_4458
+multinpc=75,ork_4458
+multinpc=80,ork_4458
+multinpc=90,ork_4458
+multinpc=100,ork_4458
 unknown119=3
 
 // 4426
@@ -112230,7 +112230,7 @@ unknown119=3
 desc=Fairy ring maintenance division.
 
 // 4456
-[npc_4456]
+[ork]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112248,7 +112248,7 @@ head1=model_16214
 unknown119=3
 
 // 4457
-[npc_4457]
+[ork_4457]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112274,7 +112274,7 @@ head1=model_16215
 unknown119=3
 
 // 4458
-[npc_4458]
+[ork_4458]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112300,7 +112300,7 @@ head1=model_16216
 unknown119=3
 
 // 4459
-[npc_4459]
+[ork_4459]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112654,7 +112654,7 @@ unknown119=3
 desc=Ugly and bad-tempered.
 
 // 4473
-[npc_4473]
+[woman_4473]
 bas=bas_117
 size=1
 op1=Talk-to
@@ -114561,7 +114561,7 @@ model3=model_16591
 unknown119=3
 
 // 4534
-[npc_4534]
+[moss_giant_4534]
 bas=bas_58
 size=2
 op2=Attack
@@ -115552,7 +115552,7 @@ unknown119=3
 desc=He looks like he's a long way from home.
 
 // 4579
-[npc_4579]
+[generic_diplomat]
 bas=bas_108
 op1=Talk-to
 vislevel=0
@@ -115775,7 +115775,7 @@ desc=Gnome customer.
 wanderrange=0
 
 // 4589
-[npc_4589]
+[sorrn]
 bas=bas_108
 op1=Talk-to
 vislevel=0
@@ -115795,7 +115795,7 @@ head1=model_16
 unknown119=3
 
 // 4590
-[npc_4590]
+[mimm]
 bas=bas_108
 size=1
 op1=Talk-to
@@ -115868,7 +115868,7 @@ unknown119=3
 desc=A gnome spinner.
 
 // 4593
-[npc_4593]
+[portobello]
 bas=bas_108
 op1=Talk-to
 vislevel=0
@@ -116373,7 +116373,7 @@ head2=model_16980
 unknown119=3
 
 // 4611
-[npc_4611]
+[saboteur]
 bas=bas_238
 vislevel=0
 name=Saboteur
@@ -116384,7 +116384,7 @@ head1=model_4653
 unknown119=3
 
 // 4612
-[npc_4612]
+[gnome_shop_keeper_4612]
 bas=bas_108
 size=1
 vislevel=0
@@ -117357,7 +117357,7 @@ head2=model_39218
 unknown119=3
 
 // 4661
-[npc_4661]
+[dark_wizard_4661]
 bas=bas_4
 size=1
 op2=Attack
@@ -117386,7 +117386,7 @@ head2=model_38097
 unknown119=3
 
 // 4662
-[npc_4662]
+[denath_4662]
 bas=bas_4
 size=1
 resizeh=135
@@ -119910,7 +119910,7 @@ unknown119=3
 wanderrange=0
 
 // 4731
-[npc_4731]
+[meiyerditch_citizen_4731]
 bas=bas_1009
 vislevel=0
 op1=Talk-to
@@ -119939,7 +119939,7 @@ head1=model_39603
 unknown119=3
 
 // 4732
-[npc_4732]
+[meiyerditch_citizen_4732]
 bas=bas_4
 vislevel=0
 op1=Talk-to
@@ -119970,7 +119970,7 @@ head1=model_38944
 unknown119=3
 
 // 4733
-[npc_4733]
+[meiyerditch_citizen_4733]
 bas=bas_4
 vislevel=0
 op1=Talk-to
@@ -121372,7 +121372,7 @@ head1=model_18051
 unknown119=3
 
 // 4796
-[npc_4796]
+[vanstrom_klause_4796]
 bas=bas_1012
 vislevel=0
 alwaysontop=yes
@@ -122447,7 +122447,7 @@ head4=model_39331
 unknown119=1
 
 // 4868
-[npc_4868]
+[holgart_4868]
 bas=bas_1110
 vislevel=0
 size=1
@@ -122488,7 +122488,7 @@ multinpc=12,kent
 unknown119=3
 
 // 4870
-[npc_4870]
+[fisherman_4870]
 bas=bas_1111
 vislevel=0
 size=1
@@ -123193,7 +123193,7 @@ head3=model_39450
 unknown119=3
 
 // 4897
-[npc_4897]
+[sir_tinley_4897]
 bas=bas_1089
 vislevel=0
 size=1
@@ -123889,7 +123889,7 @@ param=defend_sound,rat_hit
 param=death_sound,rat_death
 
 // 4925
-[npc_4925]
+[giant_rat_4925]
 bas=bas_9
 size=2
 op2=Attack
@@ -125139,7 +125139,7 @@ model1=model_19284
 unknown119=1
 
 // 4982
-[npc_4982]
+[ana_4982]
 vislevel=0
 size=1
 op1=Talk-to
@@ -125155,7 +125155,7 @@ head1=model_39124
 unknown119=3
 
 // 4983
-[npc_4983]
+[mercenary]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -126618,7 +126618,7 @@ unknown119=3
 desc=What on Gielinor is that?
 
 // 5046
-[npc_5046]
+[jack_5046]
 bas=bas_108
 vislevel=0
 op1=Talk-to
@@ -126643,7 +126643,7 @@ head1=model_139
 unknown119=3
 
 // 5047
-[npc_5047]
+[jill_5047]
 bas=bas_108
 vislevel=0
 op1=Talk-to
@@ -126666,7 +126666,7 @@ head1=model_138
 unknown119=3
 
 // 5048
-[npc_5048]
+[jeff_5048]
 bas=bas_108
 vislevel=0
 op1=Talk-to
@@ -127529,7 +127529,7 @@ model1=model_19974
 unknown119=3
 
 // 5097
-[npc_5097]
+[gyr_falcon_5097]
 bas=bas_1282
 vislevel=0
 turnspeed=0
@@ -129824,7 +129824,7 @@ head1=model_39661
 unknown119=3
 
 // 5204
-[npc_5204]
+[alice_s_husband_5204]
 bas=bas_1169
 ambient=40
 contrast=40
@@ -131501,7 +131501,7 @@ head2=model_39254
 unknown119=3
 
 // 5285
-[npc_5285]
+[osman_5285]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -134785,7 +134785,7 @@ param=defend_sound,ghost_hit
 param=death_sound,ghost_death
 
 // 5372
-[npc_5372]
+[ghost_5372]
 bas=bas_74
 size=1
 ambient=20
@@ -134797,7 +134797,7 @@ model1=model_21149
 unknown119=3
 
 // 5373
-[npc_5373]
+[ghost_5373]
 bas=bas_74
 size=1
 ambient=20
@@ -134809,7 +134809,7 @@ model1=model_21145
 unknown119=3
 
 // 5374
-[npc_5374]
+[ghost_5374]
 bas=bas_74
 size=1
 ambient=20
@@ -138933,7 +138933,7 @@ model2=model_22273
 unknown119=2
 
 // 5559
-[npc_5559]
+[osman_5559]
 bas=bas_153
 size=1
 vislevel=0
@@ -138967,7 +138967,7 @@ head2=model_39254
 unknown119=1
 
 // 5560
-[npc_5560]
+[osman_5560]
 bas=bas_153
 size=1
 vislevel=0
@@ -139001,7 +139001,7 @@ head2=model_39254
 unknown119=1
 
 // 5561
-[npc_5561]
+[osman_5561]
 bas=bas_354
 size=1
 vislevel=0
@@ -139139,7 +139139,7 @@ defence=80
 param=damagetype,^slash_style
 param=attack_anim,human_dhsword_chop
 param=defend_anim,seq_411
-param=attack_sound,synth_2503
+param=attack_sound,hacksword_slash
 
 // 5567
 [shadow_maj_scout1]
@@ -139461,7 +139461,7 @@ head1=model_22774
 unknown119=3
 
 // 5584
-[npc_5584]
+[cage]
 size=3
 ambient=10
 vislevel=0
@@ -144831,7 +144831,7 @@ head3=model_39190
 unknown119=3
 
 // 5852
-[npc_5852]
+[monkey_5852]
 bas=bas_116
 size=1
 vislevel=1
@@ -145013,7 +145013,7 @@ unknown119=1
 desc=He bristles with arcane power.
 
 // 5861
-[npc_5861]
+[zanik_5861]
 bas=bas_1168
 size=2
 op1=Talk-to
@@ -147580,7 +147580,7 @@ head1=model_28686
 unknown119=3
 
 // 5986
-[npc_5986]
+[workman_5986]
 bas=bas_534
 size=2
 alwaysontop=yes
@@ -149030,7 +149030,7 @@ huntmode=cowardly
 huntrange=2
 
 // 6048
-[npc_6048]
+[wolf_6048]
 bas=bas_97
 size=2
 resizeh=120
@@ -149048,7 +149048,7 @@ model1=model_26266
 unknown119=3
 
 // 6049
-[npc_6049]
+[wolf_6049]
 bas=bas_97
 size=2
 resizeh=110
@@ -151516,7 +151516,7 @@ head3=model_38096
 unknown119=3
 
 // 6159
-[npc_6159]
+[workman_6159]
 bas=bas_535
 size=2
 alwaysontop=yes
@@ -152274,7 +152274,7 @@ unknown119=3
 wanderrange=0
 
 // 6198
-[npc_6198]
+[sinclair]
 bas=bas_4
 vislevel=0
 minimap=no
@@ -152623,7 +152623,7 @@ model1=model_34385
 unknown119=3
 
 // 6217
-[npc_6217]
+[icefiend_6217]
 bas=bas_8
 size=1
 ambient=40
@@ -154168,7 +154168,7 @@ unknown119=1
 wanderrange=0
 
 // 6301
-[npc_6301]
+[cute_creature_6301]
 vislevel=0
 name=Cute creature
 model1=model_16956
@@ -154243,7 +154243,7 @@ head2=model_16981
 unknown119=3
 
 // 6306
-[npc_6306]
+[bolrie_6306]
 bas=bas_108
 vislevel=0
 recol1s=384
@@ -154281,7 +154281,7 @@ head1=model_16978
 unknown119=3
 
 // 6308
-[npc_6308]
+[king_argenthorg]
 bas=bas_108
 vislevel=0
 recol1s=15392
@@ -159375,7 +159375,7 @@ unknown119=3
 desc=A collector of ancient artefacts.
 
 // 6541
-[npc_6541]
+[sanchez_the_cleaner]
 bas=bas_93
 vislevel=0
 ambient=25
@@ -162195,7 +162195,7 @@ unknown119=3
 desc=A snowman armed with a winter staff.
 
 // 6750
-[npc_6750]
+[pet_shop_owner]
 bas=bas_4
 ambient=25
 op1=Talk-to
@@ -162230,7 +162230,7 @@ model1=model_6318
 unknown119=1
 
 // 6752
-[npc_6752]
+[bulldog]
 bas=bas_1338
 vislevel=0
 name=Bulldog
@@ -162629,7 +162629,7 @@ unknown119=3
 desc=It might be angry...it's hard to tell.
 
 // 6775
-[npc_6775]
+[scabaras_priest]
 bas=bas_242
 vislevel=1
 name=Scabaras priest
@@ -162782,7 +162782,7 @@ head1=model_39084
 unknown119=3
 
 // 6784
-[npc_6784]
+[priest_6784]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -162908,7 +162908,7 @@ head1=model_31081
 unknown119=3
 
 // 6792
-[npc_6792]
+[vulture_6792]
 bas=bas_20
 size=2
 op2=Attack
@@ -164699,7 +164699,7 @@ unknown119=3
 desc=A bulldog puppy.
 
 // 6898
-[npc_6898]
+[pet_shop_owner_6898]
 bas=bas_4
 ambient=25
 op1=Talk-to
@@ -164728,7 +164728,7 @@ head2=model_39256
 unknown119=2
 
 // 6899
-[npc_6899]
+[bulldog_6899]
 bas=bas_1338
 vislevel=0
 name=Bulldog
@@ -169823,7 +169823,7 @@ head1=model_28695
 unknown119=1
 
 // 7169
-[npc_7169]
+[kimberly_7169]
 bas=bas_975
 size=1
 ambient=25
@@ -172165,7 +172165,7 @@ model1=model_30530
 unknown119=3
 
 // 7291
-[npc_7291]
+[gecko_7291]
 bas=bas_1380
 vislevel=0
 resizeh=80
@@ -174434,7 +174434,7 @@ head2=model_39227
 unknown119=3
 
 // 7398
-[npc_7398]
+[elisabeta_7398]
 bas=bas_4
 vislevel=0
 resizeh=117
@@ -174463,7 +174463,7 @@ head1=model_39116
 unknown119=3
 
 // 7399
-[npc_7399]
+[sorin_7399]
 bas=bas_4
 vislevel=0
 resizeh=117
@@ -175261,7 +175261,7 @@ desc=This worker looks after the incubator.
 wanderrange=0
 
 // 7427
-[npc_7427]
+[orangeowns_7427]
 bas=bas_4
 headicon=1
 op3=Walk here
@@ -175297,7 +175297,7 @@ model12=model_539
 unknown119=1
 
 // 7428
-[npc_7428]
+[i_like_m0m]
 bas=bas_78
 vislevel=95
 op3=Walk here
@@ -177561,7 +177561,7 @@ desc=He demands to have some booze.
 wanderrange=0
 
 // 7521
-[npc_7521]
+[renderorder]
 bas=bas_430
 vislevel=61
 op3=Walk here
@@ -177589,7 +177589,7 @@ modeloffset3=3,-11,6
 unknown119=1
 
 // 7522
-[npc_7522]
+[boolean]
 bas=bas_220
 vislevel=101
 op3=Walk here
@@ -177619,7 +177619,7 @@ modeloffset6=3,-11,6
 unknown119=1
 
 // 7523
-[npc_7523]
+[stress_diva]
 bas=bas_216
 vislevel=138
 vislevel=79
@@ -177906,7 +177906,7 @@ model10=model_32863
 unknown119=1
 
 // 7533
-[npc_7533]
+[4sjustsilly]
 bas=bas_428
 op3=Walk here
 op4=Follow
@@ -178110,7 +178110,7 @@ model9=model_27738
 unknown119=1
 
 // 7541
-[npc_7541]
+[knickknack]
 bas=bas_221
 vislevel=87
 op3=Walk here
@@ -181887,7 +181887,7 @@ model1=model_34115
 unknown119=3
 
 // 7741
-[npc_7741]
+[three_little_kittens]
 bas=bas_302
 size=1
 contrast=15
@@ -183124,7 +183124,7 @@ model2=model_34402
 unknown119=3
 
 // 7809
-[npc_7809]
+[cat_7809]
 ambient=25
 alwaysontop=yes
 spotshadow=no
@@ -183147,7 +183147,7 @@ head1=model_34061
 unknown119=3
 
 // 7810
-[npc_7810]
+[banshee_7810]
 bas=bas_34
 size=2
 ambient=25
@@ -183159,7 +183159,7 @@ model1=model_34579
 unknown119=3
 
 // 7811
-[npc_7811]
+[kurask_7811]
 bas=bas_296
 size=3
 ambient=25
@@ -183171,7 +183171,7 @@ model1=model_34568
 unknown119=3
 
 // 7812
-[npc_7812]
+[cave_crawler_7812]
 bas=bas_297
 size=2
 op2=Attack
@@ -183182,7 +183182,7 @@ model1=model_34555
 unknown119=3
 
 // 7813
-[npc_7813]
+[basilisk_7813]
 bas=bas_298
 size=2
 op2=Attack
@@ -183193,7 +183193,7 @@ model1=model_34562
 unknown119=3
 
 // 7814
-[npc_7814]
+[turoth_7814]
 bas=bas_299
 size=3
 op2=Attack
@@ -183204,7 +183204,7 @@ model1=model_34560
 unknown119=3
 
 // 7815
-[npc_7815]
+[skeleton_7815]
 bas=bas_71
 size=1
 op2=Attack
@@ -183243,7 +183243,7 @@ head1=model_34585
 unknown119=3
 
 // 7817
-[npc_7817]
+[zombie_7817]
 bas=bas_67
 size=1
 op2=Attack
@@ -183270,7 +183270,7 @@ model7=model_21140
 unknown119=3
 
 // 7818
-[npc_7818]
+[zombie_7818]
 bas=bas_67
 size=1
 op2=Attack
@@ -183299,7 +183299,7 @@ model7=model_21140
 unknown119=3
 
 // 7819
-[npc_7819]
+[zombie_7819]
 bas=bas_67
 size=1
 op2=Attack
@@ -183328,7 +183328,7 @@ model7=model_21036
 unknown119=3
 
 // 7820
-[npc_7820]
+[zombie_7820]
 bas=bas_67
 size=1
 op2=Attack
@@ -183357,7 +183357,7 @@ model7=model_21036
 unknown119=3
 
 // 7821
-[npc_7821]
+[a_wanderer]
 bas=bas_166
 size=1
 op1=Talk-to
@@ -183381,7 +183381,7 @@ head1=model_113
 unknown119=3
 
 // 7822
-[npc_7822]
+[a_wanderer_7822]
 bas=bas_166
 size=1
 op1=Talk-to
@@ -183541,7 +183541,7 @@ unknown119=3
 desc=He's going for that 'stripy' look.
 
 // 7833
-[npc_7833]
+[young_ralph_7833]
 bas=bas_1138
 turnspeed=0
 ambient=10
@@ -183579,7 +183579,7 @@ unknown119=3
 desc=He's going for that 'stripy' look.
 
 // 7836
-[npc_7836]
+[young_ralph_7836]
 bas=bas_1138
 turnspeed=0
 ambient=10
@@ -184132,7 +184132,7 @@ unknown119=5
 wanderrange=0
 
 // 7864
-[npc_7864]
+[fishing_spot_7864]
 bas=bas_178
 vislevel=0
 size=1
@@ -184146,7 +184146,7 @@ model1=model_36844
 unknown119=5
 
 // 7865
-[npc_7865]
+[guardsman_dante_7865]
 bas=bas_105
 size=1
 alwaysontop=yes
@@ -185001,7 +185001,7 @@ head1=model_39792
 unknown119=3
 
 // 7888
-[npc_7888]
+[sergeant_abram]
 bas=bas_107
 size=1
 alwaysontop=yes
@@ -185271,7 +185271,7 @@ model1=model_4143
 unknown119=3
 
 // 7901
-[npc_7901]
+[loar_shadow_7901]
 bas=bas_881
 size=1
 op2=Attack
@@ -186376,7 +186376,7 @@ desc=A White Knight from Falador.
 wanderrange=0
 
 // 7940
-[npc_7940]
+[sir_vant_7940]
 bas=bas_474
 size=1
 ambient=25
@@ -186399,7 +186399,7 @@ head2=model_39223
 unknown119=1
 
 // 7941
-[npc_7941]
+[sir_vant_7941]
 bas=bas_474
 size=1
 ambient=25
@@ -186504,7 +186504,7 @@ model4=model_17422
 unknown119=1
 
 // 7945
-[npc_7945]
+[dragon_7945]
 bas=bas_464
 size=5
 ambient=25
@@ -186612,7 +186612,7 @@ model4=model_17422
 unknown119=1
 
 // 7949
-[npc_7949]
+[lumbridge_guide_7949]
 bas=bas_121
 vislevel=0
 recolhsl1s=6798
@@ -186665,7 +186665,7 @@ head1=model_39931
 unknown119=3
 
 // 7951
-[npc_7951]
+[ranged_tutor_7951]
 bas=bas_205
 op1=Talk-to
 vislevel=0
@@ -186705,7 +186705,7 @@ head1=model_39118
 unknown119=3
 
 // 7952
-[npc_7952]
+[magic_tutor_7952]
 bas=bas_206
 op1=Talk-to
 vislevel=0
@@ -186742,7 +186742,7 @@ head1=model_38964
 unknown119=3
 
 // 7953
-[npc_7953]
+[cooking_tutor_7953]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186842,7 +186842,7 @@ unknown119=3
 desc=Monlum, prospecting rocks.
 
 // 7957
-[npc_7957]
+[prayer_tutor_7957]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186869,7 +186869,7 @@ head1=model_39042
 unknown119=3
 
 // 7958
-[npc_7958]
+[smelting_tutor_7958]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186939,7 +186939,7 @@ unknown119=3
 desc=Sani, a master smith.
 
 // 7960
-[npc_7960]
+[woodcutting_tutor_7960]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186973,7 +186973,7 @@ head1=model_39677
 unknown119=3
 
 // 7961
-[npc_7961]
+[bank_tutor_7961]
 bas=bas_209
 op1=Talk-to
 vislevel=0
@@ -187052,7 +187052,7 @@ head1=model_40929
 unknown119=1
 
 // 7964
-[npc_7964]
+[goblin_7964]
 bas=bas_86
 size=1
 op1=Attack
@@ -187077,7 +187077,7 @@ head1=model_24209
 unknown119=1
 
 // 7965
-[npc_7965]
+[goblin_7965]
 bas=bas_465
 size=1
 op1=Attack
@@ -187128,7 +187128,7 @@ head1=model_39808
 unknown119=3
 
 // 7967
-[npc_7967]
+[shopkeeper_7967]
 bas=bas_117
 size=1
 vislevel=0
@@ -187683,7 +187683,7 @@ head1=model_39677
 unknown119=3
 
 // 8007
-[npc_8007]
+[jorral_8007]
 bas=bas_4
 vislevel=0
 size=1
@@ -188729,7 +188729,7 @@ unknown119=3
 wanderrange=0
 
 // 8077
-[npc_8077]
+[pumpkin]
 bas=bas_376
 alwaysontop=yes
 size=1
@@ -189454,7 +189454,7 @@ unknown119=3
 desc=A vision of supernatural horror.
 
 // 8134
-[npc_8134]
+[spirit_8134]
 bas=bas_4
 vislevel=0
 minimap=no
@@ -191438,7 +191438,7 @@ multinpc=1,sc_resource_npc_appearance
 unknown119=1
 
 // 8256
-[npc_8256]
+[resource_npc_8256]
 size=1
 ambient=30
 op1=Get-vars
@@ -192109,7 +192109,7 @@ model4=model_44684
 unknown119=3
 
 // 8296
-[npc_8296]
+[undead_hero_8296]
 bas=bas_906
 op2=Attack
 size=1
@@ -192124,7 +192124,7 @@ model4=model_44686
 unknown119=1
 
 // 8297
-[npc_8297]
+[undead_hero_8297]
 bas=bas_896
 op2=Attack
 size=1
@@ -192831,7 +192831,7 @@ modeloffset7=0,5,0
 unknown119=3
 
 // 8331
-[npc_8331]
+[guardian_of_armadyl_8331]
 bas=bas_249
 size=2
 op1=Talk-to

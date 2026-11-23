@@ -412,7 +412,7 @@ if_openmain_side(equip_screen2, inventory_wear2);
 // (op1), Operate (op2), Examine (op10). The backpack beside it has no script
 // of its own: the server draws it with Equip (op1) (clientscript 149,
 // interface_inv_init). Operate is not ported.
-runclientscript("interface_inv_init(inventory_wear2:layer_1, inv, 4, 7, 0, -1, \"Equip\", \"\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init(inventory_wear2:layer_1, inv, 4, 7, 0, null, \"Equip\", \"\", \"\", \"\", \"\")");
 if_setevents(equip_screen2:worn_items_layer, 0, 15, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 if_setevents(inventory_wear2:layer_1, 0, 27, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 ~equip_screen_bonuses;

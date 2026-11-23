@@ -4,9 +4,9 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 while ($int0 < inv_size(trail_puzzleinv)) {
-    cc_create(trail_puzzle:puzzle_layer, 5, $int0);
-    cc_setsize(36, 32, 0, 0);
-    cc_setposition(calc(38 * $int1), calc(38 * $int2), 0, 0);
+    cc_create(trail_puzzle:puzzle_layer, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(38 * $int1), calc(38 * $int2), ^setpos_abs_left, ^setpos_abs_top);
     if (inv_getobj(trail_puzzleinv, $int0) ! null) {
         cc_setobject(inv_getobj(trail_puzzleinv, $int0), inv_getnum(trail_puzzleinv, $int0));
         cc_setopbase(oc_name(inv_getobj(trail_puzzleinv, $int0)));

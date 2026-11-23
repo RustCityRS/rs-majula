@@ -3,9 +3,9 @@
 if (%elem_4_slider_8 < 2) {
     if_settext($component0, "I don't know it.");
     if_setop($component0, 1, "I don't know it.");
-    if_setposition(bankpin_main:com_30, 327, 252, 0, 0);
+    if_setposition(bankpin_main:com_30, 327, 252, ^setpos_abs_left, ^setpos_abs_top);
 } else {
     if_settext($component0, "");
     if_clearops($component0);
-    if_setposition(bankpin_main:com_30, 327, 263, 0, 0);
+    if_setposition(bankpin_main:com_30, 327, 263, ^setpos_abs_left, ^setpos_abs_top);
 }

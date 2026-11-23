@@ -1,12 +1,12 @@
 // 73
 [proc,clientscript_73](int $key0, char $char1)
-if ($key0 = 9) {
+if ($key0 = ^key_f9) {
     if (%quickchat_respond_phrase ! null) {
         ~quickchat_respond(%quickchat_respond_mode, %varclient_661, %quickchat_respond_phrase);
     }
     return;
 }
-if ($key0 = 10) {
+if ($key0 = ^key_f10) {
     if (~clientscript_1036 ! null) {
         ~quickchat_open_context(0, "");
     }
@@ -14,7 +14,7 @@ if ($key0 = 10) {
 }
 def_int $int2 = 0;
 def_int $int3 = 0;
-if ($key0 = 11) {
+if ($key0 = ^key_f11) {
     $int2 = 150;
     $int3 = calc(clientclock - %quickchat_phraserepeat_lastclock);
     if ($int3 > 1500) {
@@ -37,13 +37,13 @@ if ($key0 = 11) {
     }
 }
 if (staffmodlevel > 0) {
-    if ($key0 = 104) {
+    if ($key0 = ^key_page_up) {
         ~chatout_scrollup;
-    } else if ($key0 = 105) {
+    } else if ($key0 = ^key_page_down) {
         ~chatout_scrolldown;
     }
 } else if (op3328 = 1 | map_quickchat = true) {
-    if ($key0 = 84) {
+    if ($key0 = ^key_return) {
         ~clientscript_1050(0, "");
         return;
     }
@@ -53,7 +53,7 @@ if (staffmodlevel > 0) {
     }
     return;
 }
-if ($key0 = 84) {
+if ($key0 = ^key_return) {
     if (string_length(%varclient_633) <= 0) {
         %varclient_633 = "";
         ~clientscript_1050(0, "");

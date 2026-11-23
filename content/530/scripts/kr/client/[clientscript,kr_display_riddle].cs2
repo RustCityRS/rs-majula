@@ -30,6 +30,6 @@ if (%kr_display_riddle = 0) {
     if_sethide(kr_jewellery_boxes:kr_riddle_layer, false);
     if_sethide(kr_jewellery_boxes:kr_scroll_bar, false);
     if_setscrollsize(kr_jewellery_boxes:kr_riddle_text_layer, 190, 520);
-    ~clientscript_31(kr_jewellery_boxes:kr_scroll_bar, kr_jewellery_boxes:kr_riddle_text_layer, 792, 789, 790, 791, 773, 788);
+    ~clientscript_31(kr_jewellery_boxes:kr_scroll_bar, kr_jewellery_boxes:kr_riddle_text_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     %kr_display_riddle = 0;
 }

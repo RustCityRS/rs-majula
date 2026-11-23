@@ -5,7 +5,7 @@ x=4
 y=4
 width=180
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=%1
 textalignh=centre
 textshadow=yes
@@ -22,8 +22,8 @@ layer=com_12
 buttontype=select
 script1=eq,0
 script1op1=pushvar,com_mode
-graphic=graphic_293
-activegraphic=graphic_294
+graphic="combatboxes,0"
+activegraphic="combatboxes,1"
 option=Bash
 
 // 90:2
@@ -37,8 +37,8 @@ layer=com_12
 buttontype=select
 script1=eq,1
 script1op1=pushvar,com_mode
-graphic=graphic_293
-activegraphic=graphic_294
+graphic="combatboxes,0"
+activegraphic="combatboxes,1"
 option=Pound
 
 // 90:3
@@ -52,8 +52,8 @@ layer=com_12
 buttontype=select
 script1=eq,2
 script1op1=pushvar,com_mode
-graphic=graphic_293
-activegraphic=graphic_294
+graphic="combatboxes,0"
+activegraphic="combatboxes,1"
 option=Focus
 
 // 90:4
@@ -67,8 +67,8 @@ layer=com_12
 buttontype=normal
 script1=eq,1
 script1op1=push_varbit,autocast_defmode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Spell
 
 // 90:5
@@ -83,8 +83,8 @@ buttontype=normal
 script1=eq,3
 script1op1=pushvar,com_mode
 script1op2=push_varbit,autocast_defmode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Spell
 
 // 90:6
@@ -95,7 +95,7 @@ y=10
 width=34
 height=24
 layer=com_12
-graphic=graphic_266
+graphic="combaticons2,13"
 
 // 90:7
 [com_7]
@@ -105,7 +105,7 @@ y=45
 width=34
 height=24
 layer=com_12
-graphic=graphic_267
+graphic="combaticons2,14"
 
 // 90:8
 [com_8]
@@ -115,7 +115,7 @@ y=80
 width=34
 height=24
 layer=com_12
-graphic=graphic_252
+graphic="combaticons,19"
 
 // 90:9
 [optnodef]
@@ -127,8 +127,8 @@ height=46
 buttontype=normal
 script1=eq,0
 script1op1=pushvar,option_nodef
-graphic=graphic_655
-activegraphic=graphic_656
+graphic="combatboxes_very_large,0"
+activegraphic="combatboxes_very_large,1"
 option=Auto Retaliate
 
 // 90:10
@@ -140,7 +140,7 @@ width=112
 height=42
 script1=eq,0
 script1op1=pushvar,option_nodef
-textfont=fontmetrics_495
+textfont=p12_full
 text=Auto Retaliate <br>(Off)
 textalignh=centre
 textalignv=centre
@@ -157,7 +157,7 @@ y=94
 width=70
 height=13
 layer=com_12
-textfont=fontmetrics_494
+textfont=p11_full
 text=Spell
 textalignh=centre
 textshadow=yes
@@ -189,7 +189,7 @@ y=25
 width=20
 height=20
 layer=com_13
-graphic=graphic_329
+graphic="magicon2,10"
 
 // 90:15
 [com_15]
@@ -209,7 +209,7 @@ y=25
 width=20
 height=20
 layer=com_15
-graphic=graphic_337
+graphic="magicon2,18"
 
 // 90:17
 [com_17]
@@ -229,7 +229,7 @@ y=25
 width=20
 height=20
 layer=com_17
-graphic=graphic_333
+graphic="magicon2,14"
 
 // 90:19
 [com_19]
@@ -249,7 +249,7 @@ y=25
 width=20
 height=20
 layer=com_19
-graphic=graphic_325
+graphic="magicon2,6"
 
 // 90:21
 [com_21]
@@ -269,7 +269,7 @@ y=25
 width=20
 height=20
 layer=com_21
-graphic=graphic_330
+graphic="magicon2,11"
 
 // 90:23
 [com_23]
@@ -289,7 +289,7 @@ y=25
 width=20
 height=20
 layer=com_23
-graphic=graphic_338
+graphic="magicon2,19"
 
 // 90:25
 [com_25]
@@ -309,7 +309,7 @@ y=25
 width=20
 height=20
 layer=com_25
-graphic=graphic_334
+graphic="magicon2,15"
 
 // 90:27
 [com_27]
@@ -329,7 +329,7 @@ y=25
 width=20
 height=20
 layer=com_27
-graphic=graphic_326
+graphic="magicon2,7"
 
 // 90:29
 [com_29]
@@ -349,7 +349,7 @@ y=25
 width=20
 height=20
 layer=com_29
-graphic=graphic_331
+graphic="magicon2,12"
 
 // 90:31
 [com_31]
@@ -369,7 +369,7 @@ y=25
 width=20
 height=20
 layer=com_31
-graphic=graphic_339
+graphic="magicon2,20"
 
 // 90:33
 [com_33]
@@ -389,7 +389,7 @@ y=25
 width=20
 height=20
 layer=com_33
-graphic=graphic_335
+graphic="magicon2,16"
 
 // 90:35
 [com_35]
@@ -409,7 +409,7 @@ y=25
 width=20
 height=20
 layer=com_35
-graphic=graphic_327
+graphic="magicon2,8"
 
 // 90:37
 [com_37]
@@ -429,7 +429,7 @@ y=25
 width=20
 height=20
 layer=com_37
-graphic=graphic_332
+graphic="magicon2,13"
 
 // 90:39
 [com_39]
@@ -449,7 +449,7 @@ y=25
 width=20
 height=20
 layer=com_39
-graphic=graphic_340
+graphic="magicon2,21"
 
 // 90:41
 [com_41]
@@ -469,7 +469,7 @@ y=25
 width=20
 height=20
 layer=com_41
-graphic=graphic_336
+graphic="magicon2,17"
 
 // 90:43
 [com_43]
@@ -489,7 +489,7 @@ y=25
 width=20
 height=20
 layer=com_43
-graphic=graphic_328
+graphic="magicon2,9"
 
 // 90:45
 [com_45]
@@ -509,7 +509,7 @@ y=25
 width=20
 height=20
 layer=com_45
-graphic=graphic_15
+graphic="magicon,0"
 
 // 90:47
 [com_47]
@@ -529,7 +529,7 @@ y=25
 width=20
 height=20
 layer=com_47
-graphic=graphic_17
+graphic="magicon,2"
 
 // 90:49
 [com_49]
@@ -549,7 +549,7 @@ y=25
 width=20
 height=20
 layer=com_49
-graphic=graphic_19
+graphic="magicon,4"
 
 // 90:51
 [com_51]
@@ -569,7 +569,7 @@ y=25
 width=20
 height=20
 layer=com_51
-graphic=graphic_21
+graphic="magicon,6"
 
 // 90:53
 [com_53]
@@ -589,7 +589,7 @@ y=25
 width=20
 height=20
 layer=com_53
-graphic=graphic_23
+graphic="magicon,8"
 
 // 90:55
 [com_55]
@@ -609,7 +609,7 @@ y=25
 width=20
 height=20
 layer=com_55
-graphic=graphic_26
+graphic="magicon,11"
 
 // 90:57
 [com_57]
@@ -629,7 +629,7 @@ y=25
 width=20
 height=20
 layer=com_57
-graphic=graphic_29
+graphic="magicon,14"
 
 // 90:59
 [com_59]
@@ -649,7 +649,7 @@ y=25
 width=20
 height=20
 layer=com_59
-graphic=graphic_32
+graphic="magicon,17"
 
 // 90:61
 [com_61]
@@ -669,7 +669,7 @@ y=25
 width=20
 height=20
 layer=com_61
-graphic=graphic_35
+graphic="magicon,20"
 
 // 90:63
 [com_63]
@@ -689,7 +689,7 @@ y=25
 width=20
 height=20
 layer=com_63
-graphic=graphic_38
+graphic="magicon,23"
 
 // 90:65
 [com_65]
@@ -709,7 +709,7 @@ y=25
 width=20
 height=20
 layer=com_65
-graphic=graphic_40
+graphic="magicon,25"
 
 // 90:67
 [com_67]
@@ -729,7 +729,7 @@ y=25
 width=20
 height=20
 layer=com_67
-graphic=graphic_44
+graphic="magicon,29"
 
 // 90:69
 [com_69]
@@ -749,7 +749,7 @@ y=25
 width=20
 height=20
 layer=com_69
-graphic=graphic_46
+graphic="magicon,31"
 
 // 90:71
 [com_71]
@@ -769,7 +769,7 @@ y=25
 width=20
 height=20
 layer=com_71
-graphic=graphic_48
+graphic="magicon,33"
 
 // 90:73
 [com_73]
@@ -789,7 +789,7 @@ y=25
 width=20
 height=20
 layer=com_73
-graphic=graphic_51
+graphic="magicon,36"
 
 // 90:75
 [com_75]
@@ -809,7 +809,7 @@ y=25
 width=20
 height=20
 layer=com_75
-graphic=graphic_52
+graphic="magicon,37"
 
 // 90:77
 [com_77]
@@ -829,7 +829,7 @@ y=25
 width=20
 height=20
 layer=com_77
-graphic=graphic_34
+graphic="magicon,19"
 
 // 90:79
 [com_79]
@@ -849,7 +849,7 @@ y=25
 width=20
 height=20
 layer=com_79
-graphic=graphic_324
+graphic="magicon2,5"
 
 // 90:81
 [com_81]
@@ -869,7 +869,7 @@ y=25
 width=20
 height=20
 layer=com_81
-graphic=graphic_60
+graphic="magicon,45"
 
 // 90:83
 [com_83]
@@ -909,7 +909,7 @@ x=2
 width=150
 height=26
 layer=com_87
-graphic=graphic_657
+graphic=combatboxes_special_attack
 
 // 90:87
 [com_87]
@@ -1082,7 +1082,7 @@ height=11
 layer=com_87
 script1=gt,0
 script1op1=pushvar,sa_attack
-textfont=fontmetrics_494
+textfont=p11_full
 text=S P E C I A L  A T T A C K
 colour=0x000010
 activetext=<col=ffff00>S P E C I A L  A T T A C K
@@ -1095,7 +1095,7 @@ y=25
 width=180
 height=12
 script1op1=op8
-textfont=fontmetrics_494
+textfont=p11_full
 text=Combat Lvl: %1
 textalignh=centre
 textshadow=yes
@@ -1108,7 +1108,7 @@ x=20
 y=66
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Bash
 textalignh=centre
 textshadow=yes
@@ -1121,7 +1121,7 @@ x=20
 y=101
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Pound
 textalignh=centre
 textshadow=yes
@@ -1134,7 +1134,7 @@ x=20
 y=136
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Focus
 textalignh=centre
 textshadow=yes
@@ -1147,7 +1147,7 @@ x=105
 y=50
 width=36
 height=36
-graphic=graphic_760
+graphic=combat_shield
 
 // 90:105
 [com_105]
@@ -1218,7 +1218,7 @@ x=103
 y=74
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Spell
 textalignh=centre
 textshadow=yes
@@ -1241,7 +1241,7 @@ y=10
 width=20
 height=20
 layer=com_113
-graphic=graphic_329
+graphic="magicon2,10"
 
 // 90:115
 [com_115]
@@ -1260,7 +1260,7 @@ y=10
 width=20
 height=20
 layer=com_115
-graphic=graphic_337
+graphic="magicon2,18"
 
 // 90:117
 [com_117]
@@ -1279,7 +1279,7 @@ y=10
 width=20
 height=20
 layer=com_117
-graphic=graphic_333
+graphic="magicon2,14"
 
 // 90:119
 [com_119]
@@ -1298,7 +1298,7 @@ y=10
 width=20
 height=20
 layer=com_119
-graphic=graphic_325
+graphic="magicon2,6"
 
 // 90:121
 [com_121]
@@ -1317,7 +1317,7 @@ y=10
 width=20
 height=20
 layer=com_121
-graphic=graphic_330
+graphic="magicon2,11"
 
 // 90:123
 [com_123]
@@ -1336,7 +1336,7 @@ y=10
 width=20
 height=20
 layer=com_123
-graphic=graphic_338
+graphic="magicon2,19"
 
 // 90:125
 [com_125]
@@ -1355,7 +1355,7 @@ y=10
 width=20
 height=20
 layer=com_125
-graphic=graphic_334
+graphic="magicon2,15"
 
 // 90:127
 [com_127]
@@ -1374,7 +1374,7 @@ y=10
 width=20
 height=20
 layer=com_127
-graphic=graphic_326
+graphic="magicon2,7"
 
 // 90:129
 [com_129]
@@ -1393,7 +1393,7 @@ y=10
 width=20
 height=20
 layer=com_129
-graphic=graphic_331
+graphic="magicon2,12"
 
 // 90:131
 [com_131]
@@ -1412,7 +1412,7 @@ y=10
 width=20
 height=20
 layer=com_131
-graphic=graphic_339
+graphic="magicon2,20"
 
 // 90:133
 [com_133]
@@ -1431,7 +1431,7 @@ y=10
 width=20
 height=20
 layer=com_133
-graphic=graphic_335
+graphic="magicon2,16"
 
 // 90:135
 [com_135]
@@ -1450,7 +1450,7 @@ y=10
 width=20
 height=20
 layer=com_135
-graphic=graphic_327
+graphic="magicon2,8"
 
 // 90:137
 [com_137]
@@ -1469,7 +1469,7 @@ y=10
 width=20
 height=20
 layer=com_137
-graphic=graphic_332
+graphic="magicon2,13"
 
 // 90:139
 [com_139]
@@ -1488,7 +1488,7 @@ y=10
 width=20
 height=20
 layer=com_139
-graphic=graphic_340
+graphic="magicon2,21"
 
 // 90:141
 [com_141]
@@ -1507,7 +1507,7 @@ y=10
 width=20
 height=20
 layer=com_141
-graphic=graphic_336
+graphic="magicon2,17"
 
 // 90:143
 [com_143]
@@ -1526,7 +1526,7 @@ y=10
 width=20
 height=20
 layer=com_143
-graphic=graphic_328
+graphic="magicon2,9"
 
 // 90:145
 [com_145]
@@ -1545,7 +1545,7 @@ y=10
 width=20
 height=20
 layer=com_145
-graphic=graphic_15
+graphic="magicon,0"
 
 // 90:147
 [com_147]
@@ -1564,7 +1564,7 @@ y=10
 width=20
 height=20
 layer=com_147
-graphic=graphic_17
+graphic="magicon,2"
 
 // 90:149
 [com_149]
@@ -1583,7 +1583,7 @@ y=10
 width=20
 height=20
 layer=com_149
-graphic=graphic_19
+graphic="magicon,4"
 
 // 90:151
 [com_151]
@@ -1602,7 +1602,7 @@ y=10
 width=20
 height=20
 layer=com_151
-graphic=graphic_21
+graphic="magicon,6"
 
 // 90:153
 [com_153]
@@ -1621,7 +1621,7 @@ y=10
 width=20
 height=20
 layer=com_153
-graphic=graphic_23
+graphic="magicon,8"
 
 // 90:155
 [com_155]
@@ -1640,7 +1640,7 @@ y=10
 width=20
 height=20
 layer=com_155
-graphic=graphic_26
+graphic="magicon,11"
 
 // 90:157
 [com_157]
@@ -1659,7 +1659,7 @@ y=10
 width=20
 height=20
 layer=com_157
-graphic=graphic_29
+graphic="magicon,14"
 
 // 90:159
 [com_159]
@@ -1678,7 +1678,7 @@ y=10
 width=20
 height=20
 layer=com_159
-graphic=graphic_32
+graphic="magicon,17"
 
 // 90:161
 [com_161]
@@ -1697,7 +1697,7 @@ y=10
 width=20
 height=20
 layer=com_161
-graphic=graphic_35
+graphic="magicon,20"
 
 // 90:163
 [com_163]
@@ -1716,7 +1716,7 @@ y=10
 width=20
 height=20
 layer=com_163
-graphic=graphic_38
+graphic="magicon,23"
 
 // 90:165
 [com_165]
@@ -1735,7 +1735,7 @@ y=10
 width=20
 height=20
 layer=com_165
-graphic=graphic_40
+graphic="magicon,25"
 
 // 90:167
 [com_167]
@@ -1754,7 +1754,7 @@ y=10
 width=20
 height=20
 layer=com_167
-graphic=graphic_44
+graphic="magicon,29"
 
 // 90:169
 [com_169]
@@ -1773,7 +1773,7 @@ y=10
 width=20
 height=20
 layer=com_169
-graphic=graphic_46
+graphic="magicon,31"
 
 // 90:171
 [com_171]
@@ -1792,7 +1792,7 @@ y=10
 width=20
 height=20
 layer=com_171
-graphic=graphic_48
+graphic="magicon,33"
 
 // 90:173
 [com_173]
@@ -1811,7 +1811,7 @@ y=10
 width=20
 height=20
 layer=com_173
-graphic=graphic_51
+graphic="magicon,36"
 
 // 90:175
 [com_175]
@@ -1830,7 +1830,7 @@ y=10
 width=20
 height=20
 layer=com_175
-graphic=graphic_52
+graphic="magicon,37"
 
 // 90:177
 [com_177]
@@ -1849,7 +1849,7 @@ y=10
 width=20
 height=20
 layer=com_177
-graphic=graphic_34
+graphic="magicon,19"
 
 // 90:179
 [com_179]
@@ -1868,7 +1868,7 @@ y=10
 width=20
 height=20
 layer=com_179
-graphic=graphic_324
+graphic="magicon2,5"
 
 // 90:181
 [com_181]
@@ -1887,7 +1887,7 @@ y=10
 width=20
 height=20
 layer=com_181
-graphic=graphic_60
+graphic="magicon,45"
 
 // 90:183
 [com_183]
@@ -2469,7 +2469,7 @@ y=25
 width=24
 height=24
 layer=com_253
-graphic=graphic_1568
+graphic="magicon2,44"
 
 // 90:255
 [com_255]
@@ -2497,7 +2497,7 @@ y=25
 width=24
 height=24
 layer=com_256
-graphic=graphic_1569
+graphic="magicon2,45"
 
 // 90:258
 [com_258]
@@ -2525,7 +2525,7 @@ y=25
 width=24
 height=24
 layer=com_259
-graphic=graphic_1567
+graphic="magicon2,43"
 
 // 90:261
 [com_261]
@@ -2553,7 +2553,7 @@ y=25
 width=24
 height=24
 layer=com_262
-graphic=graphic_1566
+graphic="magicon2,42"
 
 // 90:264
 [com_264]
@@ -2580,7 +2580,7 @@ y=10
 width=24
 height=24
 layer=com_265
-graphic=graphic_1568
+graphic="magicon2,44"
 
 // 90:267
 [com_267]
@@ -2607,7 +2607,7 @@ y=10
 width=24
 height=24
 layer=com_268
-graphic=graphic_1569
+graphic="magicon2,45"
 
 // 90:270
 [com_270]
@@ -2634,7 +2634,7 @@ y=10
 width=24
 height=24
 layer=com_271
-graphic=graphic_1567
+graphic="magicon2,43"
 
 // 90:273
 [com_273]
@@ -2661,7 +2661,7 @@ y=10
 width=24
 height=24
 layer=com_274
-graphic=graphic_1566
+graphic="magicon2,42"
 
 // 90:276
 [com_276]

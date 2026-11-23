@@ -7,7 +7,7 @@ if ($chatphrase1 = null | chatphrase_getautoresponsecount($chatphrase1) = 0) {
 %varclient_659 = $string0;
 %quickchat_backspace = 1;
 if (getwindowmode >= 2) {
-    if_setgraphic(chattop:chat_graphic, 1017);
+    if_setgraphic(chattop:chat_graphic, chat_background);
     if_setalpha(chattop:chat_graphic, false);
     if_sethide(chattop:chat_graphic, false);
     if_sethide(chattop:chat_border, false);

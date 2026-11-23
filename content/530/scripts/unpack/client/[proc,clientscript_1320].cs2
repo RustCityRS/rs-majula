@@ -1,7 +1,7 @@
 // 1320
 [proc,clientscript_1320](component $component0, int $int1)
 if ($int1 = 1) {
-    if_setgraphic($component0, 181);
+    if_setgraphic($component0, "miscgraphics,11");
 } else {
-    if_setgraphic($component0, 180);
+    if_setgraphic($component0, "miscgraphics,10");
 }

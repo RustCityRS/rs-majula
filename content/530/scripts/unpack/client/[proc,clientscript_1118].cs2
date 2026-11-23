@@ -2,13 +2,13 @@
 [proc,clientscript_1118]
 if (getwindowmode = 0) {
     if_setcolour(graphics_options:com_52, 0x996600);
-    ~dropdownbox_refuse("High Detail only", graphics_options:com_53, graphics_options:com_54, graphics_options:com_55, null, 897, 0xcf0000, 494);
+    ~dropdownbox_refuse("High Detail only", graphics_options:com_53, graphics_options:com_54, graphics_options:com_55, null, tradebacking_dark, 0xcf0000, p11_full);
     return;
 }
 if (op6121 = 0) {
     if_setcolour(graphics_options:com_52, 0x996600);
-    ~dropdownbox_refuse("Incompatible", graphics_options:com_53, graphics_options:com_54, graphics_options:com_55, null, 897, 0xcf0000, 494);
+    ~dropdownbox_refuse("Incompatible", graphics_options:com_53, graphics_options:com_54, graphics_options:com_55, null, tradebacking_dark, 0xcf0000, p11_full);
     return;
 }
 if_setcolour(graphics_options:com_52, 0xe1981f);
-~clientscript_1435(enum_1583, detailget_antialiasing, 2, graphics_options:com_53, graphics_options:com_54, graphics_options:com_55, null, 897, 788, 788, 1040, 0xcf0000, ^white, ^yellow, 494, 792, 789, 790, 791, 773, 788);
+~clientscript_1435(enum_1583, detailget_antialiasing, 2, graphics_options:com_53, graphics_options:com_54, graphics_options:com_55, null, tradebacking_dark, "scrollbar_v2,1", 788, tradebacking_light, 0xcf0000, ^white, ^yellow, p11_full, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

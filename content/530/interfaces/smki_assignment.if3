@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 161:2
@@ -25,7 +25,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 161:3
@@ -35,7 +35,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 161:4
 [com_4]
@@ -44,7 +44,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 161:5
@@ -54,7 +54,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 161:6
@@ -64,7 +64,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 161:7
@@ -74,7 +74,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(smki_assignment:close_button, 832)
@@ -89,7 +89,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 161:9
 [com_9]
@@ -98,7 +98,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 161:10
 [com_10]
@@ -107,7 +107,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 161:11
 [com_11]
@@ -116,7 +116,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 161:12
@@ -126,7 +126,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 161:13
 [com_13]
@@ -135,7 +135,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 161:14
 [learn_tab]
@@ -144,7 +144,7 @@ x=99
 y=29
 width=102
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 transmitop=1
 op1=Learn
 onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
@@ -157,7 +157,7 @@ x=22
 y=29
 width=94
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 transmitop=1
 op1=Buy
 onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
@@ -170,7 +170,7 @@ x=182
 y=29
 width=98
 height=20
-graphic=graphic_952
+graphic="tabs,0"
 
 // 161:17
 [divider]
@@ -198,7 +198,7 @@ x=198
 y=87
 width=53
 height=13
-textfont=fontmetrics_496
+textfont=b12_full
 text=XXXX
 textalignh=centre
 textshadow=yes
@@ -211,7 +211,7 @@ x=35
 y=33
 width=21
 height=10
-textfont=fontmetrics_494
+textfont=p11_full
 text=Buy
 textshadow=yes
 colour=0xbf751d
@@ -223,7 +223,7 @@ x=112
 y=34
 width=34
 height=9
-textfont=fontmetrics_494
+textfont=p11_full
 text=Learn
 textshadow=yes
 colour=0xbf751d
@@ -235,7 +235,7 @@ x=193
 y=34
 width=65
 height=10
-textfont=fontmetrics_494
+textfont=p11_full
 text=Assignment
 textshadow=yes
 colour=0xff981f
@@ -247,7 +247,7 @@ x=55
 y=133
 width=285
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 text=Reassign current mission
 textshadow=yes
 colour=0xd7b011
@@ -263,7 +263,7 @@ x=55
 y=156
 width=286
 height=29
-textfont=fontmetrics_495
+textfont=p12_full
 text=Permanently remove current<br>(additional Quest Point requirement)
 textshadow=yes
 colour=0xd7b011
@@ -279,7 +279,7 @@ x=95
 y=87
 width=79
 height=11
-textfont=fontmetrics_496
+textfont=b12_full
 text=Current points =
 textshadow=yes
 colour=0xd7b011
@@ -291,7 +291,7 @@ x=375
 y=133
 width=73
 height=13
-textfont=fontmetrics_495
+textfont=p12_full
 text=(30 points)
 textshadow=yes
 colour=0xff981f
@@ -307,7 +307,7 @@ x=375
 y=154
 width=76
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=(100 points)
 textshadow=yes
 colour=0xff9800
@@ -323,7 +323,7 @@ x=381
 y=243
 width=45
 height=17
-textfont=fontmetrics_494
+textfont=p11_full
 text=(Does not
 textshadow=yes
 colour=0xbf751d
@@ -335,7 +335,7 @@ x=364
 y=257
 width=63
 height=18
-textfont=fontmetrics_494
+textfont=p11_full
 text=refund points)
 textshadow=yes
 colour=0xbf751d
@@ -347,7 +347,7 @@ x=55
 y=243
 width=8
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=B
 textshadow=yes
 colour=0xff981f
@@ -359,7 +359,7 @@ x=55
 y=261
 width=8
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 text=C
 textshadow=yes
 colour=0xff981f
@@ -371,7 +371,7 @@ x=55
 y=279
 width=13
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 text=D
 textshadow=yes
 colour=0xff981f
@@ -383,7 +383,7 @@ x=356
 y=225
 width=99
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Cancel removal
 textshadow=yes
 colour=0xff981f
@@ -395,7 +395,7 @@ x=130
 y=203
 width=106
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Currently removed
 textshadow=yes
 colour=0xbf751d
@@ -407,7 +407,7 @@ x=55
 y=225
 width=13
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=A
 textshadow=yes
 colour=0xff981f
@@ -419,7 +419,7 @@ x=304
 y=225
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Cancel Removal
 onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
@@ -434,7 +434,7 @@ x=304
 y=243
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Cancel Removal
 onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
@@ -449,7 +449,7 @@ x=304
 y=261
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Cancel Removal
 onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
@@ -464,7 +464,7 @@ x=304
 y=279
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Cancel Removal
 onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
@@ -479,7 +479,7 @@ x=246
 y=84
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 161:41
 [com_41]
@@ -488,7 +488,7 @@ x=246
 y=71
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 161:42
 [com_42]
@@ -497,7 +497,7 @@ x=68
 y=84
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 161:43
 [com_43]
@@ -506,7 +506,7 @@ x=68
 y=71
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 161:44
 [com_44]
@@ -515,7 +515,7 @@ x=99
 y=58
 width=147
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 
 // 161:45
 [com_45]
@@ -524,7 +524,7 @@ x=100
 y=96
 width=148
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 
 // 161:46
 [tooltip_bounding_box]

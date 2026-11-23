@@ -2,7 +2,7 @@
 [proc,clientscript_1104]
 if (%if1 = 1) {
     if (if_find(interface_200:com_21) = true) {
-        cc_setgraphic(442);
+        cc_setgraphic(overlay_multiway);
     }
     if (if_find(interface_200:com_22) = true) {
         cc_setgraphic(null);
@@ -24,7 +24,7 @@ if (%if1 = 1) {
         cc_setgraphic(null);
     }
     if (if_find(interface_200:com_22) = true) {
-        cc_setgraphic(442);
+        cc_setgraphic(overlay_multiway);
     }
     if (if_find(interface_200:com_23) = true) {
         cc_setgraphic(null);
@@ -46,7 +46,7 @@ if (%if1 = 1) {
         cc_setgraphic(null);
     }
     if (if_find(interface_200:com_23) = true) {
-        cc_setgraphic(442);
+        cc_setgraphic(overlay_multiway);
     }
     if (if_find(interface_200:com_24) = true) {
         cc_setgraphic(null);
@@ -68,7 +68,7 @@ if (%if1 = 1) {
         cc_setgraphic(null);
     }
     if (if_find(interface_200:com_24) = true) {
-        cc_setgraphic(442);
+        cc_setgraphic(overlay_multiway);
     }
     if (if_find(interface_200:com_25) = true) {
         cc_setgraphic(null);
@@ -90,7 +90,7 @@ if (%if1 = 1) {
         cc_setgraphic(null);
     }
     if (if_find(interface_200:com_25) = true) {
-        cc_setgraphic(442);
+        cc_setgraphic(overlay_multiway);
     }
     if (if_find(interface_200:com_26) = true) {
         cc_setgraphic(null);
@@ -112,7 +112,7 @@ if (%if1 = 1) {
         cc_setgraphic(null);
     }
     if (if_find(interface_200:com_26) = true) {
-        cc_setgraphic(442);
+        cc_setgraphic(overlay_multiway);
     }
 } else {
     if (if_find(interface_200:com_21) = true) {

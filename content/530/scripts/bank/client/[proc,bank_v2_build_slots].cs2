@@ -3,9 +3,9 @@
 def_int $int0 = 0;
 def_int $int1 = inv_size(bank);
 while ($int0 < $int1) {
-    cc_create(bank_v2_main:bank_v2_inv, 5, $int0);
-    cc_setsize(36, 32, 0, 0);
-    cc_setposition(0, 0, 0, 0);
+    cc_create(bank_v2_main:bank_v2_inv, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
     cc_sethide(true);
     if (inv_getobj(bank, $int0) ! null) {
         ~clientscript_1453($int0);

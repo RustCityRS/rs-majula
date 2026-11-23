@@ -16,7 +16,7 @@ x=61
 y=24
 width=374
 height=290
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 619:2
@@ -26,7 +26,7 @@ x=44
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 619:3
@@ -36,7 +36,7 @@ x=57
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 619:4
 [com_4]
@@ -45,7 +45,7 @@ x=420
 y=50
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 619:5
@@ -55,7 +55,7 @@ x=68
 y=7
 width=349
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 619:6
@@ -65,7 +65,7 @@ x=70
 y=296
 width=358
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 619:7
@@ -75,7 +75,7 @@ x=410
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -89,7 +89,7 @@ x=57
 y=284
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 619:9
 [com_9]
@@ -98,7 +98,7 @@ x=408
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 619:10
 [com_10]
@@ -107,7 +107,7 @@ x=408
 y=284
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 619:11
 [com_11]
@@ -116,7 +116,7 @@ x=66
 y=35
 width=365
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 619:12
@@ -126,7 +126,7 @@ x=57
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 619:13
 [com_13]
@@ -135,7 +135,7 @@ x=408
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 619:14
 [com_14]
@@ -544,7 +544,7 @@ x=148
 y=22
 width=210
 height=30
-textfont=fontmetrics_496
+textfont=b12_full
 text=Pay Bank Charge With...
 textalignh=centre
 textalignv=centre
@@ -559,7 +559,7 @@ y=274
 width=210
 height=30
 layer=bounding_box
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textalignv=centre
 textshadow=yes

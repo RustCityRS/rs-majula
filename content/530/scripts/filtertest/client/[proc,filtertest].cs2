@@ -3,36 +3,36 @@
 switch_int (chat_gethistorytype($int0)) {
     case null :
         return(false);
-    case 0, 1 :
+    case ^chattype_gamemessage, ^chattype_modchat :
         return(true);
-    case 2, 17 :
-        if (chat_getfilter_public = 0) {
+    case ^chattype_publicchat, ^chattype_quickchat_public :
+        if (chat_getfilter_public = ^chatfilter_on) {
             return(true);
         }
-        if (chat_getfilter_public = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+        if (chat_getfilter_public = ^chatfilter_friends & friend_test(chat_gethistoryname($int0)) = true) {
             return(true);
         }
         return(false);
-    case 3, 18 :
+    case ^chattype_privatechat, ^chattype_quickchat_private_incoming :
         if (%option_pm = 1 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
-        if (chat_getfilter_private = 0) {
+        if (chat_getfilter_private = ^chatfilter_on) {
             return(true);
         }
-        if (chat_getfilter_private = 1 & friend_test(chat_gethistoryname($int0)) = true) {
-            return(true);
-        }
-        return(false);
-    case 4, 8, 14, 15, 21 :
-        if (chat_getfilter_trade = 0) {
-            return(true);
-        }
-        if (chat_getfilter_trade = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+        if (chat_getfilter_private = ^chatfilter_friends & friend_test(chat_gethistoryname($int0)) = true) {
             return(true);
         }
         return(false);
-    case 5, 6, 19 :
+    case ^chattype_engine, 8, 14, 15, 21 :
+        if (chat_getfilter_trade = ^chatfilter_on) {
+            return(true);
+        }
+        if (chat_getfilter_trade = ^chatfilter_friends & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
         if (%option_pm = 1 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
@@ -40,12 +40,12 @@ switch_int (chat_gethistorytype($int0)) {
             return(true);
         }
         return(false);
-    case 7 :
+    case ^chattype_modprivatechat :
         if (%option_pm = 1 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
         return(true);
-    case 9, 16, 20 :
+    case ^chattype_friendschat, 16, ^chattype_quickchat_friend_chat :
         if (%varplayer_1054 = 0) {
             return(true);
         }
@@ -61,7 +61,7 @@ switch_int (chat_gethistorytype($int0)) {
             return(true);
         }
         return(false);
-    case 11 :
+    case ^chattype_friendschatnotification :
         if (%varplayer_1054 < 2) {
             return(true);
         }

@@ -191,13 +191,16 @@ pub fn pack_mels(
                     }),
 
                     // 19
-                    "category" => parse_number(
-                        value.strip_prefix("category_").unwrap_or(value),
-                        |v: u16| {
+                    // A map element's own category, not a config category.
+                    "category" => {
+                        let id = value
+                            .strip_prefix("category_")
+                            .unwrap_or_else(|| panic!("Unknown map element category: {value}"));
+                        parse_number(id, |v: u16| {
                             client.p1(19);
                             client.p2(v);
-                        },
-                    ),
+                        });
+                    }
 
                     // 20
                     "condition2" => {

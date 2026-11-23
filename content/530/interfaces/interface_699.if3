@@ -90,7 +90,7 @@ height=14
 xmode=proportion_centre
 ymode=proportion_centre
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Question:
 colour=0x1e1e2d
 
@@ -104,7 +104,7 @@ height=65
 xmode=proportion_centre
 ymode=proportion_centre
 layer=content_layer
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Player Safety Test
 colour=0x232330
 
@@ -118,7 +118,7 @@ height=23
 xmode=proportion_centre
 ymode=proportion_centre
 layer=content_layer
-graphic=graphic_538
+graphic="close_buttons,3"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 537)
@@ -135,7 +135,7 @@ height=32
 xmode=proportion_centre
 ymode=proportion_centre
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Where should you go in order to read about playing RuneScape safely?
 colour=0x242330
 
@@ -149,7 +149,7 @@ height=32
 xmode=proportion_centre
 ymode=proportion_centre
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=There is nowhere to go
 colour=0x191930
 
@@ -163,7 +163,7 @@ height=32
 xmode=proportion_centre
 ymode=proportion_centre
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=To the 'Safety & Security' section of the RuneScape homepage
 colour=0x191930
 
@@ -309,7 +309,7 @@ y=79
 width=449
 height=230
 layer=answer_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 699:23
@@ -320,7 +320,7 @@ y=111
 width=25
 height=173
 layer=answer_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 699:24
@@ -331,7 +331,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 699:25
 [com_25]
@@ -341,7 +341,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 699:26
@@ -352,7 +352,7 @@ y=66
 width=391
 height=32
 layer=answer_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 699:27
@@ -363,7 +363,7 @@ y=110
 width=32
 height=173
 layer=answer_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 699:28
@@ -374,7 +374,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 699:29
@@ -385,7 +385,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 699:30
@@ -396,7 +396,7 @@ y=296
 width=387
 height=25
 layer=answer_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 699:31
@@ -417,7 +417,7 @@ y=-4
 width=32
 height=32
 layer=com_31
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Correct!
 textshadow=yes
 colour=0xccbe8e
@@ -430,7 +430,7 @@ y=27
 width=388
 height=105
 layer=com_31
-textfont=fontmetrics_497
+textfont=q8_full
 text=Head to the 'Safety & Security' section of the RuneScape Knowledge Base for more information.
 textshadow=yes
 colour=0xa49279
@@ -453,7 +453,7 @@ y=-4
 width=32
 height=32
 layer=com_34
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Incorrect!
 textshadow=yes
 colour=0xccbe8e
@@ -466,7 +466,7 @@ y=27
 width=390
 height=105
 layer=com_34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Actually, there is! A "Play Safely" article can be found in the Safety & Security Guidelines section of the Knowledge Base! We also have pages on player safety, keeping healthy, responsible gaming and account security. If you would like more information, please go to the RuneScape Knowledge Base.
 textshadow=yes
 colour=0xa49279
@@ -508,7 +508,7 @@ type=text
 width=97
 height=42
 layer=com_37
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Next
 textalignh=centre
 textalignv=centre
@@ -544,7 +544,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 699:44
@@ -555,7 +555,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 699:45
@@ -566,7 +566,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 699:46
@@ -577,7 +577,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 699:47
@@ -589,7 +589,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 699:48
@@ -601,7 +601,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 699:49
@@ -613,7 +613,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 699:50
@@ -625,7 +625,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 699:51
@@ -688,7 +688,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -702,7 +702,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -715,7 +715,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -729,6 +729,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

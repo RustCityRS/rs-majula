@@ -9,9 +9,9 @@ $int3 = if_getscrolly(interface_631:your_stake);
 $int4 = if_getscrolly(interface_631:opponent_stake);
 while ($int0 < 450) {
     while ($int1 < 120) {
-        cc_create(interface_631:your_stake, 5, $int2);
-        cc_setsize(36, 32, 0, 0);
-        cc_setposition($int1, $int0, 0, 0);
+        cc_create(interface_631:your_stake, ^iftype_graphic, $int2);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (inv_getobj(dueloffer, $int2) ! null) {
             cc_setobject(inv_getobj(dueloffer, $int2), inv_getnum(dueloffer, $int2));
             cc_setopbase("<col=ff981f><oc_name(inv_getobj(dueloffer, $int2))>");
@@ -24,9 +24,9 @@ while ($int0 < 450) {
             cc_setgraphicshadow(0x333333);
             cc_setoutline(1);
         }
-        cc_create(interface_631:opponent_stake, 5, $int2);
-        cc_setsize(36, 32, 0, 0);
-        cc_setposition($int1, $int0, 0, 0);
+        cc_create(interface_631:opponent_stake, ^iftype_graphic, $int2);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (invother_getobj(dueloffer, $int2) ! null) {
             cc_setobject(invother_getobj(dueloffer, $int2), invother_getnum(dueloffer, $int2));
             cc_setopbase("<col=ff981f><oc_name(invother_getobj(dueloffer, $int2))>");

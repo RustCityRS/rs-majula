@@ -16,7 +16,7 @@ x=71
 y=24
 width=362
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 671:2
@@ -26,7 +26,7 @@ x=57
 y=52
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 opbase= 
 
@@ -37,7 +37,7 @@ x=70
 y=19
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 671:4
 [com_4]
@@ -46,7 +46,7 @@ x=420
 y=50
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 671:5
@@ -56,7 +56,7 @@ x=101
 y=6
 width=307
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 671:6
@@ -66,7 +66,7 @@ x=102
 y=305
 width=306
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 671:7
@@ -76,7 +76,7 @@ x=70
 y=293
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 671:8
 [com_8]
@@ -85,7 +85,7 @@ x=408
 y=19
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 671:9
 [com_9]
@@ -94,7 +94,7 @@ x=408
 y=293
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 671:10
 [com_10]
@@ -103,7 +103,7 @@ x=81
 y=34
 width=349
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 671:11
@@ -113,7 +113,7 @@ x=70
 y=36
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 671:12
 [com_12]
@@ -122,7 +122,7 @@ x=408
 y=36
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 671:13
 [closebutton]
@@ -131,7 +131,7 @@ x=413
 y=29
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -146,7 +146,7 @@ x=147
 y=28
 width=234
 height=13
-textfont=fontmetrics_496
+textfont=b12_full
 text=Familiar Inventory
 textalignh=centre
 textshadow=yes
@@ -169,7 +169,7 @@ x=77
 y=87
 width=324
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 trans=120
 
@@ -180,7 +180,7 @@ x=77
 y=141
 width=324
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 trans=120
 
@@ -191,7 +191,7 @@ x=77
 y=195
 width=324
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 trans=120
 
@@ -202,7 +202,7 @@ x=76
 y=249
 width=324
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 trans=120
 
@@ -213,7 +213,7 @@ x=116
 y=53
 width=32
 height=264
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=120
 
@@ -224,7 +224,7 @@ x=170
 y=53
 width=32
 height=264
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=120
 
@@ -235,7 +235,7 @@ x=224
 y=53
 width=32
 height=264
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=120
 
@@ -246,7 +246,7 @@ x=278
 y=53
 width=32
 height=264
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=120
 
@@ -257,7 +257,7 @@ x=332
 y=53
 width=32
 height=264
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=120
 
@@ -268,7 +268,7 @@ x=386
 y=53
 width=32
 height=264
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=120
 

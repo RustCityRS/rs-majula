@@ -1,7 +1,7 @@
 // 1887
 [proc,clientscript_1887](component $component0, component $component1, component $component2, component $component3, component $component4)
 if (if_find($component1) = true) {
-    cc_setsize(16384, 16384, 4, 2);
+    cc_setsize(16384, 16384, ^setsize_aspect, ^setsize_rel);
     cc_setaspectratio(956, 503);
     cc_settrans(0);
     cc_setontimer(null);

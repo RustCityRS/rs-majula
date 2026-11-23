@@ -4,7 +4,7 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 if (%tutorial < 1000 & %tutorial_version = 2) {
     while ($int0 <= 6) {
-        if_setgraphic(enum(int, component, enum_683, $int0), 1019);
+        if_setgraphic(enum(int, component, enum_683, $int0), small_button);
         $int0 = calc($int0 + 1);
     }
     if (%varplayerbit_4925 = 0) {
@@ -27,15 +27,15 @@ if (%tutorial < 1000 & %tutorial_version = 2) {
 }
 while ($int0 <= 6) {
     if (%chat_highlight = $int0 & %chat_view = $int0) {
-        if_setgraphic(enum(int, component, enum_683, $int0), 1023);
+        if_setgraphic(enum(int, component, enum_683, $int0), small_button_pressed_highlight);
     } else if (%chat_highlight = $int0) {
-        if_setgraphic(enum(int, component, enum_683, $int0), 1020);
+        if_setgraphic(enum(int, component, enum_683, $int0), small_button_highlight);
     } else if (%chat_view = $int0) {
-        if_setgraphic(enum(int, component, enum_683, $int0), 1022);
+        if_setgraphic(enum(int, component, enum_683, $int0), small_button_pressed);
     } else if (calc(~chat_alert_get($int0) / 25 % 2) = 1) {
-        if_setgraphic(enum(int, component, enum_683, $int0), 1021);
+        if_setgraphic(enum(int, component, enum_683, $int0), small_button_blue);
     } else {
-        if_setgraphic(enum(int, component, enum_683, $int0), 1019);
+        if_setgraphic(enum(int, component, enum_683, $int0), small_button);
     }
     $int0 = calc($int0 + 1);
 }

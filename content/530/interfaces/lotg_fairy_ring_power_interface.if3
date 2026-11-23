@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 624:2
@@ -25,7 +25,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 624:3
@@ -35,7 +35,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 624:4
 [com_4]
@@ -44,7 +44,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 624:5
@@ -54,7 +54,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 624:6
@@ -64,7 +64,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 624:7
@@ -74,7 +74,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -88,7 +88,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 624:9
 [com_9]
@@ -97,7 +97,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 624:10
 [com_10]
@@ -106,7 +106,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 624:11
 [com_11]
@@ -115,7 +115,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 624:12
@@ -125,7 +125,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 624:13
 [com_13]
@@ -134,7 +134,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 624:14
 [com_14]
@@ -501,7 +501,7 @@ x=19
 y=30
 width=474
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Fairy Ring Power Relay
 textalignh=centre
 textshadow=yes
@@ -514,7 +514,7 @@ x=294
 y=63
 width=182
 height=45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Assign power to each ring in proportion to its area:
 textalignv=centre
 textshadow=yes
@@ -647,7 +647,7 @@ x=376
 y=287
 width=108
 height=9
-graphic=graphic_918
+graphic="v2_stone_button,5"
 tiling=yes
 
 // 624:61
@@ -657,7 +657,7 @@ x=377
 y=307
 width=106
 height=9
-graphic=graphic_920
+graphic="v2_stone_button,7"
 tiling=yes
 
 // 624:62
@@ -667,7 +667,7 @@ x=479
 y=290
 width=9
 height=22
-graphic=graphic_919
+graphic="v2_stone_button,6"
 tiling=yes
 
 // 624:63
@@ -677,7 +677,7 @@ x=371
 y=292
 width=9
 height=18
-graphic=graphic_917
+graphic="v2_stone_button,4"
 tiling=yes
 
 // 624:64
@@ -687,7 +687,7 @@ x=479
 y=307
 width=9
 height=9
-graphic=graphic_916
+graphic="v2_stone_button,3"
 
 // 624:65
 [com_65]
@@ -696,7 +696,7 @@ x=479
 y=287
 width=9
 height=9
-graphic=graphic_914
+graphic="v2_stone_button,1"
 
 // 624:66
 [com_66]
@@ -705,7 +705,7 @@ x=371
 y=287
 width=9
 height=9
-graphic=graphic_913
+graphic="v2_stone_button,0"
 
 // 624:67
 [com_67]
@@ -714,7 +714,7 @@ x=371
 y=307
 width=9
 height=9
-graphic=graphic_915
+graphic="v2_stone_button,2"
 
 // 624:68
 [confirm]
@@ -723,7 +723,7 @@ x=378
 y=294
 width=103
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Confirm
 textalignh=centre
 textalignv=centre
@@ -747,7 +747,7 @@ x=107
 y=261
 width=13
 height=17
-textfont=fontmetrics_494
+textfont=p11_full
 text=0
 textalignh=centre
 textalignv=centre
@@ -761,7 +761,7 @@ x=148
 y=261
 width=13
 height=17
-textfont=fontmetrics_494
+textfont=p11_full
 text=0
 textalignh=centre
 textalignv=centre
@@ -775,7 +775,7 @@ x=190
 y=261
 width=13
 height=17
-textfont=fontmetrics_494
+textfont=p11_full
 text=0
 textalignh=centre
 textalignv=centre

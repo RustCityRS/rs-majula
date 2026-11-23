@@ -19,7 +19,7 @@ y=98
 width=32
 height=32
 layer=window_layer
-graphic=graphic_856
+graphic="v2_stone_borders,28"
 
 // 764:2
 [com_2]
@@ -29,7 +29,7 @@ y=98
 width=186
 height=32
 layer=window_layer
-graphic=graphic_1121
+graphic="v2_stone_borders,33"
 tiling=yes
 
 // 764:3
@@ -40,7 +40,7 @@ y=270
 width=186
 height=32
 layer=window_layer
-graphic=graphic_1121
+graphic="v2_stone_borders,33"
 tiling=yes
 
 // 764:4
@@ -51,7 +51,7 @@ y=130
 width=32
 height=112
 layer=window_layer
-graphic=graphic_1122
+graphic="v2_stone_borders,34"
 tiling=yes
 
 // 764:5
@@ -62,7 +62,7 @@ y=130
 width=32
 height=111
 layer=window_layer
-graphic=graphic_1122
+graphic="v2_stone_borders,34"
 tiling=yes
 
 // 764:6
@@ -73,7 +73,7 @@ y=241
 width=32
 height=32
 layer=window_layer
-graphic=graphic_858
+graphic="v2_stone_borders,30"
 
 // 764:7
 [com_7]
@@ -83,7 +83,7 @@ y=98
 width=32
 height=32
 layer=window_layer
-graphic=graphic_857
+graphic="v2_stone_borders,29"
 
 // 764:8
 [com_8]
@@ -93,7 +93,7 @@ y=241
 width=32
 height=32
 layer=window_layer
-graphic=graphic_859
+graphic="v2_stone_borders,31"
 
 // 764:9
 [compass]
@@ -103,7 +103,7 @@ y=60
 width=56
 height=14
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Compass
 textshadow=yes
 colour=0xff981f
@@ -116,7 +116,7 @@ y=102
 width=82
 height=13
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Player<br>Character<br>(PC)
 textshadow=yes
 colour=0xff981f
@@ -129,7 +129,7 @@ y=170
 width=83
 height=30
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Non-player Character (NPC)
 textshadow=yes
 colour=0xff981f
@@ -142,7 +142,7 @@ y=235
 width=51
 height=28
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Important Location
 textshadow=yes
 colour=0xff981f
@@ -155,7 +155,7 @@ y=290
 width=43
 height=13
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ladder
 textshadow=yes
 colour=0xff981f
@@ -168,7 +168,7 @@ y=60
 width=48
 height=14
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Log Out
 textshadow=yes
 colour=0xff981f
@@ -181,7 +181,7 @@ y=115
 width=48
 height=15
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Hitpoints
 textshadow=yes
 colour=0xff981f
@@ -194,7 +194,7 @@ y=170
 width=49
 height=15
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Object
 textshadow=yes
 colour=0xff981f
@@ -207,7 +207,7 @@ y=235
 width=47
 height=15
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Prayer
 textshadow=yes
 colour=0xff981f
@@ -220,7 +220,7 @@ y=284
 width=48
 height=29
 layer=window_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Run Energy
 textshadow=yes
 colour=0xff981f
@@ -233,7 +233,7 @@ y=101
 width=244
 height=168
 layer=window_layer
-graphic=graphic_1411
+graphic=tutorial_minimap
 
 // 764:20
 [com_20]
@@ -357,7 +357,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 764:31
@@ -366,7 +366,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 764:32
@@ -376,7 +376,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 764:33
 [com_33]
@@ -385,7 +385,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 764:34
@@ -395,7 +395,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 764:35
@@ -405,7 +405,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 764:36
@@ -415,7 +415,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 764:37
 [com_37]
@@ -424,7 +424,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 764:38
 [com_38]
@@ -433,7 +433,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 764:39
 [com_39]
@@ -442,7 +442,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 764:40
@@ -452,7 +452,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 764:41
 [com_41]
@@ -461,7 +461,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 764:42
 [closebutton]
@@ -470,7 +470,7 @@ x=473
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -484,7 +484,7 @@ x=19
 y=30
 width=474
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=RuneScape Minimap Key
 textalignh=centre
 textshadow=yes
@@ -514,7 +514,7 @@ y=60
 width=56
 height=14
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Compass
 textshadow=yes
 colour=0xff981f
@@ -529,7 +529,7 @@ y=160
 width=65
 height=43
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Player<br>Character<br>(PC)
 textshadow=yes
 colour=0xff981f
@@ -544,7 +544,7 @@ y=225
 width=67
 height=41
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Non-player Character (NPC)
 textshadow=yes
 colour=0xff981f
@@ -559,7 +559,7 @@ y=284
 width=51
 height=28
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Important Location
 textshadow=yes
 colour=0xff981f
@@ -574,7 +574,7 @@ y=290
 width=43
 height=13
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ladder
 textshadow=yes
 colour=0xff981f
@@ -589,7 +589,7 @@ y=60
 width=48
 height=14
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Log Out
 textshadow=yes
 colour=0xff981f
@@ -604,7 +604,7 @@ y=115
 width=48
 height=15
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Hitpoints
 textshadow=yes
 colour=0xff981f
@@ -619,7 +619,7 @@ y=112
 width=49
 height=15
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Object
 textshadow=yes
 colour=0xff981f
@@ -634,7 +634,7 @@ y=168
 width=47
 height=15
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Prayer
 textshadow=yes
 colour=0xff981f
@@ -649,7 +649,7 @@ y=217
 width=48
 height=29
 layer=com_45
-textfont=fontmetrics_495
+textfont=p12_full
 text=Run Energy
 textshadow=yes
 colour=0xff981f
@@ -664,7 +664,7 @@ y=101
 width=214
 height=173
 layer=com_45
-graphic=graphic_1412
+graphic=tutorial_minimap2
 transmitop=10
 op10= 
 

@@ -7,18 +7,18 @@ if_settext(interface_727:com_21, "<\"Lapsang\"><\" (1000)\">");
 if_settext(interface_727:com_23, "<\"Souchong\"><\" (1000)\">");
 def_int $int0 = 0;
 while ($int0 < 12) {
-    cc_create(interface_727:board, 5, $int0);
-    cc_setsize(36, 32, 0, 0);
-    cc_setposition(~clientscript_946(calc($int0 + 1)), 0, 0);
+    cc_create(interface_727:board, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(~clientscript_946(calc($int0 + 1)), ^setpos_abs_left, ^setpos_abs_top);
     cc_setobject(soulrune, -1);
     cc_setoutline(1);
     cc_setgraphicshadow(^black);
     $int0 = calc($int0 + 1);
 }
 while ($int0 < 24) {
-    cc_create(interface_727:board, 5, $int0);
-    cc_setsize(36, 32, 0, 0);
-    cc_setposition(~clientscript_946(calc($int0 + 9)), 0, 0);
+    cc_create(interface_727:board, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(~clientscript_946(calc($int0 + 9)), ^setpos_abs_left, ^setpos_abs_top);
     cc_setobject(chaosrune, -1);
     cc_setoutline(1);
     cc_setgraphicshadow(^black);

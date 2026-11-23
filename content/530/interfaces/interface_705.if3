@@ -42,7 +42,7 @@ y=133
 width=175
 height=14
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Question:
 colour=0x1e1e2d
 
@@ -54,7 +54,7 @@ y=38
 width=300
 height=65
 layer=content_layer
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Player Safety Test
 colour=0x232330
 
@@ -66,7 +66,7 @@ y=9
 width=26
 height=23
 layer=content_layer
-graphic=graphic_538
+graphic="close_buttons,3"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 537)
@@ -81,7 +81,7 @@ y=148
 width=388
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=A player that you do not know sends you a private message that is offensive. What should you do?
 colour=0x242330
 
@@ -93,7 +93,7 @@ y=199
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Nothing. I can't report anything that is said in private chat
 colour=0x191930
 
@@ -105,7 +105,7 @@ y=236
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Send the player an offensive message back
 colour=0x191930
 
@@ -117,7 +117,7 @@ y=266
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Use the Report Abuse button to report the player and then add them to my Ignore List
 colour=0x191930
 
@@ -340,7 +340,7 @@ y=79
 width=449
 height=230
 layer=answer_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 705:29
@@ -351,7 +351,7 @@ y=111
 width=25
 height=174
 layer=answer_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 705:30
@@ -362,7 +362,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 705:31
 [com_31]
@@ -372,7 +372,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 705:32
@@ -383,7 +383,7 @@ y=66
 width=391
 height=32
 layer=answer_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 705:33
@@ -394,7 +394,7 @@ y=110
 width=32
 height=174
 layer=answer_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 705:34
@@ -405,7 +405,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 705:35
@@ -416,7 +416,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 705:36
@@ -427,7 +427,7 @@ y=296
 width=387
 height=25
 layer=answer_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 705:37
@@ -448,7 +448,7 @@ y=-4
 width=32
 height=32
 layer=com_37
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Correct!
 textshadow=yes
 colour=0xccbe8e
@@ -461,7 +461,7 @@ y=27
 width=388
 height=105
 layer=com_37
-textfont=fontmetrics_497
+textfont=q8_full
 text=Correct! You can use the Report Abuse button to report any chat that you find offensive, whether it is said in Public or Private Chat. Adding a player to your Ignore List will prevent them from sending you any further messages.
 textshadow=yes
 colour=0xa49279
@@ -484,7 +484,7 @@ y=-4
 width=32
 height=32
 layer=com_40
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Incorrect!
 textshadow=yes
 colour=0xccbe8e
@@ -497,7 +497,7 @@ y=27
 width=390
 height=105
 layer=com_40
-textfont=fontmetrics_495
+textfont=p12_full
 text=Wrong. You can use the Report Abuse button to report any chat that you find offensive, whether it is said in Public or Private Chat.
 textshadow=yes
 colour=0xa49279
@@ -520,7 +520,7 @@ y=-4
 width=32
 height=32
 layer=com_43
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Incorrect!
 textshadow=yes
 colour=0xccbe8e
@@ -533,7 +533,7 @@ y=27
 width=390
 height=105
 layer=com_43
-textfont=fontmetrics_495
+textfont=p12_full
 text=Wrong. Retaliating may cause you to get in trouble and be reported yourself!
 textshadow=yes
 colour=0xa49279
@@ -575,7 +575,7 @@ type=text
 width=97
 height=42
 layer=com_46
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Next
 textalignh=centre
 textalignv=centre
@@ -611,7 +611,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 705:53
@@ -622,7 +622,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 705:54
@@ -633,7 +633,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 705:55
@@ -644,7 +644,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 705:56
@@ -656,7 +656,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 705:57
@@ -668,7 +668,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 705:58
@@ -680,7 +680,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 705:59
@@ -692,7 +692,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 705:60
@@ -755,7 +755,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -769,7 +769,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -782,7 +782,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -796,6 +796,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

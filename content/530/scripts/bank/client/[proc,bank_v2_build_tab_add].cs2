@@ -5,7 +5,7 @@ def_component $component2 = enum(int, component, enum_1615, $int0);
 if_sethide($component1, false);
 if_sethide($component2, false);
 if_setobject($component2, null, -1);
-if_setgraphic($component2, 1435);
+if_setgraphic($component2, "bank_misc_graphics,1");
 if_setoutline($component2, 0);
 if_setgraphicshadow($component2, ^black);
 if_clearops($component1);

@@ -912,7 +912,7 @@ y=6
 width=26
 height=23
 layer=content_layer
-graphic=graphic_541
+graphic="close_buttons,6"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 542)
@@ -1099,7 +1099,7 @@ y=224
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=1
 textshadow=yes
 colour=0x99ff99
@@ -1112,7 +1112,7 @@ y=227
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=2
 textshadow=yes
 colour=0x99ff99
@@ -1125,7 +1125,7 @@ y=228
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=3
 textshadow=yes
 colour=0x99ff99
@@ -1138,7 +1138,7 @@ y=243
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=4
 textshadow=yes
 colour=0x99ff99
@@ -1151,7 +1151,7 @@ y=70
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Use the valves
 textalignh=centre
 textalignv=centre
@@ -1166,7 +1166,7 @@ y=90
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=and the levers to
 textalignh=centre
 textalignv=centre
@@ -1181,7 +1181,7 @@ y=110
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=get the balls in
 textalignh=centre
 textalignv=centre
@@ -1196,7 +1196,7 @@ y=130
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=the holes, and 
 textalignh=centre
 textalignv=centre
@@ -1211,7 +1211,7 @@ y=150
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=then increase the
 textalignh=centre
 textalignv=centre
@@ -1226,7 +1226,7 @@ y=171
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=pressure to fill
 textalignh=centre
 textalignv=centre
@@ -1241,7 +1241,7 @@ y=192
 width=157
 height=18
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=the pipes!
 textalignh=centre
 textalignv=centre
@@ -1936,7 +1936,7 @@ y=5
 width=26
 height=23
 layer=tol_close_button
-graphic=graphic_542
+graphic="close_buttons,7"
 
 // 510:156
 [tol_leak_blackhole01]
@@ -2063,7 +2063,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 510:166
@@ -2074,7 +2074,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 510:167
@@ -2085,7 +2085,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 510:168
@@ -2096,7 +2096,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 510:169
@@ -2108,7 +2108,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 510:170
@@ -2120,7 +2120,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 510:171
@@ -2132,7 +2132,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 510:172
@@ -2144,7 +2144,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 510:173
@@ -2207,7 +2207,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -2221,7 +2221,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -2234,7 +2234,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -2248,6 +2248,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

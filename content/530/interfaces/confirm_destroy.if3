@@ -30,7 +30,7 @@ y=-1
 width=333
 height=32
 xmode=abs_centre
-textfont=fontmetrics_497
+textfont=q8_full
 text=Are you sure you want to destroy this object?
 textalignh=centre
 textalignv=centre
@@ -43,7 +43,7 @@ x=269
 y=32
 width=100
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Yes.
 textalignh=centre
 colour=0x000000
@@ -58,7 +58,7 @@ x=376
 y=32
 width=100
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=No.
 textalignh=centre
 colour=0x000000
@@ -74,7 +74,7 @@ y=8
 width=57
 height=13
 xmode=abs_right
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 94:6
 [com_6]
@@ -83,7 +83,7 @@ x=12
 y=9
 width=57
 height=13
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 94:7
 [destroy_message]
@@ -92,7 +92,7 @@ x=6
 y=67
 width=494
 height=58
-textfont=fontmetrics_497
+textfont=q8_full
 text=Single_Line_Text
 textalignh=centre
 colour=0x000088
@@ -104,7 +104,7 @@ x=80
 y=41
 width=145
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Name
 colour=0x000000
 

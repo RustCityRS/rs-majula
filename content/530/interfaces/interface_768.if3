@@ -28,7 +28,7 @@ y=81
 width=358
 height=48
 layer=com_0
-textfont=fontmetrics_496
+textfont=b12_full
 text=Please follow the instructions<br>below to continue.
 textalignh=centre
 textshadow=yes
@@ -62,7 +62,7 @@ width=500
 height=142
 layer=text_layer
 hide=yes
-graphic=graphic_1017
+graphic=chat_background
 
 // 768:6
 [title]
@@ -73,7 +73,7 @@ width=506
 height=17
 layer=text_layer
 hide=yes
-textfont=fontmetrics_307
+textfont=tutorial_font
 text=This is the Title
 textalignh=centre
 textalignv=centre
@@ -90,7 +90,7 @@ width=478
 height=110
 layer=text_layer
 hide=yes
-textfont=fontmetrics_307
+textfont=tutorial_font
 textalignh=centre
 textalignv=centre
 colour=0x000000
@@ -103,7 +103,7 @@ y=27
 width=430
 height=110
 layer=text_layer
-textfont=fontmetrics_307
+textfont=tutorial_font
 textalignh=centre
 textalignv=centre
 colour=0x000000
@@ -116,7 +116,7 @@ y=61
 width=36
 height=32
 layer=text_layer
-graphic=graphic_1413
+graphic="tutorial_mouse,0"
 
 // 768:10
 [chat_border]

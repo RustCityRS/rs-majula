@@ -4282,7 +4282,7 @@ iop5=Destroy
 name=Pressure gauge
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=It's part of a machine.
 weight=2oz
 tradeable=no
@@ -4303,7 +4303,7 @@ iop5=Destroy
 name=Fish food
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=Keeps pet fish strong and healthy.
 weight=1oz
 
@@ -4319,7 +4319,7 @@ iop5=Destroy
 name=Poison
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=This stuff looks nasty.
 weight=20g
 
@@ -4335,7 +4335,7 @@ iop5=Destroy
 name=Poisoned fish food
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=This isn't good for fish.
 weight=30g
 tradeable=no
@@ -4352,7 +4352,7 @@ iop5=Destroy
 name=Grimy key
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=A slightly smelly key.
 weight=10g
 tradeable=no
@@ -4369,7 +4369,7 @@ iop5=Destroy
 name=Rubber tube
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=It's slightly charred.
 weight=1oz
 tradeable=no
@@ -4387,7 +4387,7 @@ iop5=Destroy
 name=Oil can
 param=param_1397,1
 cursor3=cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=It's pretty full.
 weight=1oz
 tradeable=no
@@ -4624,7 +4624,7 @@ recol2d=10410
 name=Research package
 param=param_1397,1
 cursor3=cursor_take
-quest=55
+quest=rune_mysteries
 desc=This contains some vital research results.
 weight=2lb
 param=no_alchemy,1
@@ -4643,7 +4643,7 @@ iop5=Destroy
 name=Research notes
 param=param_1397,1
 cursor3=cursor_take
-quest=55
+quest=rune_mysteries
 desc=It's written in code.
 weight=1oz
 param=no_alchemy,1
@@ -8510,7 +8510,7 @@ iop5=Destroy
 name=Muddy skull
 param=param_1397,1
 cursor3=cursor_take
-quest=27
+quest=restless_ghost
 tradeable=no
 desc=Ooooh, spooky!
 
@@ -11926,7 +11926,7 @@ contrast=12
 iop5=Destroy
 name=Message
 cursor3=cursor_take
-quest=17
+quest=romeo_and_juliet
 desc=A message from Juliet to Romeo.
 
 // 756
@@ -57693,7 +57693,7 @@ param=param_214,1
 param=param_2522,Translucent white fabric<br>Spider
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3065
 [macro_cube_bluetriangle]
@@ -57717,7 +57717,7 @@ param=param_211,bucket_water
 param=param_212,7
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3067
 [macro_cube_yellowtriangle]
@@ -57744,7 +57744,7 @@ param=param_213,bone_scraps
 param=param_214,2
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3069
 [macro_cube_redsquare]
@@ -57769,7 +57769,7 @@ param=param_212,1
 param=param_2522,Some red paint
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3071
 [macro_cube_bluesquare]
@@ -57796,7 +57796,7 @@ param=param_214,3
 param=param_2522,Some red paint and 3 wooden boards
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3073
 [macro_cube_yellowsquare]
@@ -57823,7 +57823,7 @@ param=param_213,animal_skull_24493
 param=param_214,4
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3075
 [macro_cube_redcircle]
@@ -57846,7 +57846,7 @@ param=param_211,twine
 param=param_212,1
 param=param_23,31
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 3077
 [macro_cube_bluecircle]
@@ -58692,7 +58692,7 @@ param=param_9,0
 param=param_8,0
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=140
+quest=death_plateau
 desc=Climbing boots with spikes.
 param=equip_sound,equip_feet
 
@@ -252727,7 +252727,7 @@ param=param_529,Sorceress's Garden
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=20
+quest=swept_away
 tradeable=no
 desc=A threat to dusty corners everywhere.
 param=equip_sound,equip_staff
@@ -252750,7 +252750,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_drink
-quest=20
+quest=swept_away
 tradeable=no
 desc=What a curious and ghoulish smell!
 
@@ -252800,7 +252800,7 @@ recolhsl2d=46686
 name=Magic unguent
 param=param_1397,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Purple and pungent.
 
@@ -252817,7 +252817,7 @@ cost=2
 name=Broom ointment
 param=param_1397,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=To be used on brooms.
 
@@ -252835,7 +252835,7 @@ womanwear=model_42691
 2dxan=221
 dummyitem=2
 cursor3=cursor_take
-quest=20
+quest=swept_away
 
 // 14064
 [swept_newt]
@@ -252853,7 +252853,7 @@ iop5=Destroy
 cost=5
 name=Newt
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A newt from Hetty's basement.
 
@@ -252867,7 +252867,7 @@ cost=1
 name=Newt label
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A label for a shipping crate.
 
@@ -252881,7 +252881,7 @@ cost=1
 name=Toad label
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A label for a shipping crate.
 
@@ -252895,7 +252895,7 @@ cost=1
 name=Newts and toads label
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A label for a shipping crate.
 
@@ -252912,7 +252912,7 @@ cost=15
 name=Betty's wand
 param=param_1397,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Warm to the touch.
 
@@ -252931,7 +252931,7 @@ name=Magic slate
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=What a view!
 
@@ -252947,7 +252947,7 @@ cost=1
 name=Reptile
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Desert dweller.
 
@@ -252963,7 +252963,7 @@ cost=1
 name=Blackbird
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Bleak and beaky.
 
@@ -252980,7 +252980,7 @@ cost=1
 name=Bat
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Most at home in a dead tree.
 
@@ -252997,7 +252997,7 @@ cost=1
 name=Spider
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Isn't eight legs rather excessive?
 
@@ -253013,7 +253013,7 @@ cost=1
 name=Rat
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Cheese-eater.
 
@@ -253030,7 +253030,7 @@ cost=1
 name=Snail
 param=param_59,1
 cursor3=cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Rather quick, considering.
 
@@ -261527,7 +261527,7 @@ iop5=Destroy
 name=Stones
 param=param_1397,1
 cursor3=cursor_take
-quest=74
+quest=myths_of_the_white_lands
 tradeable=no
 desc=Explorer Jack's 'riches'. They have a suspicious look to them.
 
@@ -261544,7 +261544,7 @@ iop5=Destroy
 name=Enchanted stones
 param=param_1397,1
 cursor3=cursor_take
-quest=74
+quest=myths_of_the_white_lands
 tradeable=no
 desc=According to the snow imps, this is enchanted, frozen yeti dung.
 
@@ -274582,7 +274582,7 @@ iop5=Destroy
 name=Talisman
 param=param_1397,1
 cursor3=cursor_take
-quest=55
+quest=rune_mysteries
 tradeable=no
 desc=A mysterious power emanates from the talisman...
 
@@ -275552,7 +275552,7 @@ iop5=Destroy
 2dxan=207
 name=Super large egg
 cursor3=cursor_take
-quest=6
+quest=cook_quest
 tradeable=no
 desc=That is pretty big.
 param=destroy_message,You'll have to pick up another from near the chickens.
@@ -275568,7 +275568,7 @@ model=model_50958
 iop5=Destroy
 name=Top-quality milk
 cursor3=cursor_take
-quest=6
+quest=cook_quest
 tradeable=no
 desc=The best milk from a prize-winning cow.
 param=destroy_message,You'll have to milk the prized cow again.
@@ -275585,7 +275585,7 @@ cost=2
 iop5=Destroy
 name=Extra fine flour
 cursor3=cursor_take
-quest=6
+quest=cook_quest
 tradeable=no
 desc=The perfect flour for a perfect cake.
 param=destroy_message,You'll have to visit the mill again.
@@ -343424,7 +343424,7 @@ name=Dodgy flyer
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=174
+quest=thigui
 tradeable=no
 desc=Someone has put a great deal of effort into this handwritten flyer.
 
@@ -343442,7 +343442,7 @@ iop1=Read
 name=Thieves' guild pamphlet
 cursor3=cursor_take
 icursor1=cursor_read
-quest=174
+quest=thigui
 tradeable=no
 desc=Full of useful advice, Thieving XP and handy tips for budding bandits!
 
@@ -343467,7 +343467,7 @@ recolhsl3d=8758
 name=Complex key
 param=param_1397,1
 cursor3=cursor_take
-quest=174
+quest=thigui
 tradeable=no
 desc=A small, complex key to fit a display case.
 
@@ -343487,7 +343487,7 @@ members=yes
 name=Golden chalice
 param=param_1397,1
 cursor3=cursor_take
-quest=174
+quest=thigui
 tradeable=no
 desc=Very valuable to the right collector.
 
@@ -343967,7 +343967,7 @@ ambient=15
 name=Tooth extractor
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=Also called a BITE .
 
@@ -343986,7 +343986,7 @@ ambient=15
 name=Gnarly
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=The gruff, mischievous pet of the Tooth Fairy.
 
@@ -344010,7 +344010,7 @@ name=Fairy dossier
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_read
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A dossier detailing battle plans against the Fairy Godfather.
 
@@ -344027,7 +344027,7 @@ ambient=15
 name=Mango
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A juicy-looking mango, but still quite firm to the touch.
 
@@ -344046,7 +344046,7 @@ ambient=15
 name=Mango with tooth
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A juicy-looking mango with a tooth stuck in it.
 
@@ -344066,7 +344066,7 @@ ambient=15
 name=Bre'egth's tooth
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A gnarled and slightly mushy ork tooth.
 
@@ -344086,7 +344086,7 @@ ambient=15
 name=Shredflesh's tooth
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A barely identifiable ork tooth. Much like an ork, it's rotten to the core.
 
@@ -344106,7 +344106,7 @@ ambient=15
 name=Gromblod's tooth
 param=param_1397,1
 cursor3=cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A disgustingly rotten ork tooth. It hasn't been brushed in a long time...if ever.
 
@@ -344129,7 +344129,7 @@ name=Fairy wand
 param=render_emote,bas_2587
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=The '#ZFW1 combat apparatus' - it's a magic wand.
 
@@ -344195,7 +344195,7 @@ name=Ragged book
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=176
+quest=quest_176
 tradeable=no
 desc=Book of the Elemental Body, there is a raised relief on the front.
 
@@ -344215,7 +344215,7 @@ iop5=Destroy
 name=Key mould
 param=param_1397,1
 cursor3=cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A key mould, made from a ragged book.
 
@@ -344232,7 +344232,7 @@ iop5=Destroy
 name=Ragged silver key
 param=param_1397,1
 cursor3=cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A small silver key.
 
@@ -344249,7 +344249,7 @@ iop5=Destroy
 name=Ragged gold key
 param=param_1397,1
 cursor3=cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A small gold key.
 
@@ -344266,7 +344266,7 @@ iop5=Destroy
 name=Ragged elemental key
 param=param_1397,1
 cursor3=cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A small elemental key.
 
@@ -344467,7 +344467,7 @@ name=Diagram
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=176
+quest=quest_176
 tradeable=no
 desc=A scroll with a diagram drawn on it.
 
@@ -344487,7 +344487,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=176
+quest=quest_176
 tradeable=no
 desc=Educate yourself.
 
@@ -346269,7 +346269,7 @@ param=param_743,29
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=140
+quest=death_plateau
 tradeable=no
 desc=Boots made for climbing.
 param=equip_sound,equip_feet
@@ -346492,7 +346492,7 @@ iop5=Destroy
 name=Mabel's ring
 param=param_1397,1
 cursor3=cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=It doesn't look very valuable, but Mabel likes it.
 
@@ -346509,7 +346509,7 @@ iop5=Destroy
 name=Twig
 param=param_1397,1
 cursor3=cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=A completely ordinary twig.
 
@@ -346523,7 +346523,7 @@ iop5=Destroy
 name=Dummy
 param=param_1397,1
 cursor3=cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=Lets you find incredibly dangerous traps without suffering.
 
@@ -346540,7 +346540,7 @@ name=Teleport to house (chipped)
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_open
-quest=11
+quest=lovestory
 tradeable=no
 desc=The tablet has been chipped and can now be opened.
 
@@ -346558,7 +346558,7 @@ iop5=Destroy
 name=Teleport to house (chipped)
 param=param_1397,1
 cursor3=cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=The spell in this tablet has been modified.
 
@@ -346580,7 +346580,7 @@ recol2d=15618
 name=Mabel's lamp
 cursor3=cursor_take
 icursor1=cursor_use
-quest=11
+quest=lovestory
 tradeable=no
 desc=A battered lamp that belonged to Mabel.
 
@@ -346688,7 +346688,7 @@ iop5=Destroy
 name=Junk
 param=param_59,1
 cursor3=cursor_take
-quest=11
+quest=lovestory
 
 // 18816
 [love_wom_house]
@@ -346704,7 +346704,7 @@ iop5=Destroy
 name=Junk
 param=param_59,1
 cursor3=cursor_take
-quest=11
+quest=lovestory
 
 // 18817
 [rand_tank_ring]
@@ -359714,7 +359714,7 @@ womanwear=model_58683
 name=Puzzle box
 param=param_1397,1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Crack the puzzle to win a fabulous prize!
 
@@ -359730,7 +359730,7 @@ womanwear=model_58683
 name=Puzzle box
 param=param_1397,1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=I need to solve this!
 
@@ -359748,7 +359748,7 @@ name=Mysterious clue scroll
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=83
+quest=vkq2
 tradeable=no
 desc=The strange scroll that led Ali Tist to a stash of dubious boxes.
 
@@ -359764,7 +359764,7 @@ name=Blocks (iron oxide)
 param=param_59,1
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This chemical can be used to help balance the mixture.
 
@@ -359781,7 +359781,7 @@ name=Gas vial (chlorine)
 param=param_59,1
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 
 // 19629
 [vkq2_chem_powder]
@@ -359794,7 +359794,7 @@ name=Powder (copper sulphate)
 param=param_59,1
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 
 // 19630
 [vkq2_chem_liquid]
@@ -359809,7 +359809,7 @@ name=Liquid (uric acid)
 param=param_59,1
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 
 // 19631
 [vkq2_insignia]
@@ -359824,7 +359824,7 @@ iop5=Destroy
 name=Black knight access insignia
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Black Knight Industrial Team badge.
 
@@ -359841,7 +359841,7 @@ iop5=Destroy
 name=Rusty anchor cellar key
 param=param_1397,1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This key allows access to the cellar of the Rusty Anchor.
 
@@ -359856,7 +359856,7 @@ iop5=Destroy
 name=Search warrant
 param=param_1397,1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This document entitles the bearer to search the stock of one Ali Tist.
 
@@ -359871,7 +359871,7 @@ iop5=Destroy
 name=Void drone 'bug'
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=A void drone summoned by Jessika.
 
@@ -359892,7 +359892,7 @@ name=Void knight whistle
 womanwearoff=0,6,0
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Blow this if you get into difficulties.
 
@@ -359914,7 +359914,7 @@ recol3d=9377
 name=Jointed log
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This log has a tenon joint cut into it.
 
@@ -359933,7 +359933,7 @@ recol2d=14662
 name=Jointed plank
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This log has a mortise cut into it.
 
@@ -359960,7 +359960,7 @@ recol5d=14662
 name=Joist
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=A sturdy wooden joist.
 
@@ -359975,7 +359975,7 @@ iop5=Destroy
 name=Wood shards
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Broken bits of tooled, waxy wood.
 
@@ -360015,7 +360015,7 @@ iop5=Destroy
 name=Commorb
 param=param_1397,1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Use this to stay in touch with Korasi and Jessika.
 
@@ -360095,7 +360095,7 @@ iop5=Destroy
 name=Black knight workshop key
 param=param_1397,1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=A key to the secure area of the Black Knights' workshop.
 
@@ -360111,7 +360111,7 @@ iop5=Destroy
 name=Curious tool
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This might come in handy.
 
@@ -360126,7 +360126,7 @@ iop5=Destroy
 name=Metal strip
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Unscrewed from the frame of a Black Knight workbench.
 
@@ -360144,7 +360144,7 @@ iop5=Destroy
 name=Hook
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Pried loose from a Black Knight workbench.
 
@@ -360163,7 +360163,7 @@ womanwear=model_58685
 name=Gaff
 param=param_1397,-1
 cursor3=cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Jury-rigged, but it might do the job.
 
@@ -362267,7 +362267,7 @@ iop5=Destroy
 name=Ring from Jeffery
 param=param_1397,1
 cursor3=cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=A gold ring made by Jeffery of Edgeville. It doesn't look particularly special to you.
 
@@ -362283,7 +362283,7 @@ iop5=Destroy
 name=Dororan's engraved ring
 param=param_1397,1
 cursor3=cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=This ring is engraved 'Gudrun the Fair, Gudrun the Fiery'.
 
@@ -362301,7 +362301,7 @@ name=Gunnar's Ground
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=179
+quest=romcom
 tradeable=no
 desc=A poem to convince Gunthor to settle the barbarians permanently.
 
@@ -362334,7 +362334,7 @@ iop5=Destroy
 name=Love poem
 param=param_1397,1
 cursor3=cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=Laying everybody low with a love poem that he made.
 
@@ -362454,7 +362454,7 @@ param=param_9,0
 param=param_8,0
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=The sword of a Void Knight.
 param=equip_sound,equip_sword
@@ -362490,7 +362490,7 @@ param=param_749,defence
 param=param_750,10
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=This armour has been modified to track your movements.
 param=equip_sound,equip_metal_body
@@ -362528,7 +362528,7 @@ param=param_749,defence
 param=param_750,10
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=This armour has been modified to track your movements.
 param=equip_sound,equip_legs
@@ -362570,7 +362570,7 @@ param=param_749,defence
 param=param_750,10
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=This armour has been modified to track your movements.
 param=equip_sound,equip_helmet
@@ -362818,7 +362818,7 @@ members=yes
 iop5=Destroy
 name=Security block
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A section of the Black Knights' security system.
 
@@ -362833,7 +362833,7 @@ members=yes
 iop5=Destroy
 name=Broken security block
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A shattered section of the Black Knights' security system.
 
@@ -362850,7 +362850,7 @@ name=Key block labelled "2"
 param=param_1225,2
 param=param_1226,4
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 2.
 
@@ -362867,7 +362867,7 @@ name=Key block labelled "3"
 param=param_1225,3
 param=param_1226,2
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 3.
 
@@ -362885,7 +362885,7 @@ name=Key block labelled "4"
 param=param_1225,4
 param=param_1226,6
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 4.
 
@@ -362903,7 +362903,7 @@ name=Key block labelled "5"
 param=param_1225,5
 param=param_1226,3
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 5.
 
@@ -362921,7 +362921,7 @@ name=Key block labelled "6"
 param=param_1225,6
 param=param_1226,5
 cursor3=cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 6.
 
@@ -368472,7 +368472,7 @@ cursor3=cursor_take
 icursor1=cursor_open
 icursor3=cursor_talkto
 icursor5=cursor_use
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A squealing, rocking barrel of simians.
 
@@ -368490,7 +368490,7 @@ iop5=Destroy
 name=Monkey knife
 param=param_1397,1
 cursor3=cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A small knife, perfect for a monkey.
 
@@ -368508,7 +368508,7 @@ name=Metal crate
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_open
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A large, metal crate.
 
@@ -368529,7 +368529,7 @@ name=Economy building for dummies
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A small book that teaches strong economy building.
 
@@ -368547,7 +368547,7 @@ iop5=Destroy
 name=Bundle of carpets
 param=param_1397,1
 cursor3=cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=This bundle of magic carpets is an entrepreneur's dream.
 
@@ -368734,7 +368734,7 @@ recol3d=11909
 name=Green banana
 param=param_1397,1
 cursor3=cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A nearly ripe banana.
 
@@ -369033,7 +369033,7 @@ members=yes
 name=Miner
 param=param_59,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20086
@@ -369050,7 +369050,7 @@ recolhsl1d=5153
 name=Miner
 param=param_59,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20087
@@ -369065,7 +369065,7 @@ members=yes
 name=Miner
 param=param_59,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20088
@@ -369080,7 +369080,7 @@ members=yes
 name=Miner
 param=param_59,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20089
@@ -369097,7 +369097,7 @@ recolhsl1d=5267
 name=Miner
 param=param_59,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20090
@@ -369114,7 +369114,7 @@ recol1d=11428
 name=Miner
 param=param_59,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20091
@@ -369174,7 +369174,7 @@ members=yes
 iop5=Destroy
 name=Pretty flower
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=How pretty!
 
@@ -369217,7 +369217,7 @@ iop5=Destroy
 name=Keldagrim library key
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=A key to the Keldagrim Library display case.
 
@@ -369245,7 +369245,7 @@ iop5=Destroy
 name=Keldagrim key mould 1
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=A mould of one of the six keys to Keldagrim's records chamber.
 
@@ -369261,7 +369261,7 @@ iop5=Destroy
 name=Keldagrim key mould 2
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20100
 [ra4_key_mould_3]
@@ -369275,7 +369275,7 @@ iop5=Destroy
 name=Keldagrim key mould 3
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20101
 [ra4_key_mould_4]
@@ -369289,7 +369289,7 @@ iop5=Destroy
 name=Keldagrim key mould 4
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20102
 [ra4_key_mould_5]
@@ -369303,7 +369303,7 @@ iop5=Destroy
 name=Keldagrim key mould 5
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20103
 [ra4_key_mould_6]
@@ -369317,7 +369317,7 @@ iop5=Destroy
 name=Keldagrim key mould 6
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20104
 [ra4_key_1]
@@ -369333,7 +369333,7 @@ iop5=Destroy
 name=Keldagrim key 1
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=A duplicate of one of the six keys to Keldagrim's records chamber.
 
@@ -369351,7 +369351,7 @@ iop5=Destroy
 name=Keldagrim key 2
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20106
 [ra4_key_3]
@@ -369367,7 +369367,7 @@ iop5=Destroy
 name=Keldagrim key 3
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20107
 [ra4_key_4]
@@ -369383,7 +369383,7 @@ iop5=Destroy
 name=Keldagrim key 4
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20108
 [ra4_key_5]
@@ -369399,7 +369399,7 @@ iop5=Destroy
 name=Keldagrim key 5
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20109
 [ra4_key_6]
@@ -369415,7 +369415,7 @@ iop5=Destroy
 name=Keldagrim key 6
 param=param_1397,1
 cursor3=cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20110
 [ra4_records_chamber_key_dummy]
@@ -371345,7 +371345,7 @@ recol1s=29597
 recol1d=11561
 name=Minute crystal seed
 cursor3=cursor_take
-quest=186
+quest=prisoner_of_glouphrie
 
 // 20210
 [glo3_clear_circle]
@@ -372450,7 +372450,7 @@ name=A handwritten book
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=186
+quest=prisoner_of_glouphrie
 
 // 20259
 [glo3_schematic_right_page]
@@ -374685,7 +374685,7 @@ iop5=Destroy
 name=Keyblade
 param=param_1397,1
 cursor3=cursor_take
-quest=187
+quest=quest_187
 
 // 20431
 [elem4_cosmic_book]
@@ -374702,7 +374702,7 @@ name=Notched book
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=187
+quest=quest_187
 
 // 20432
 [elem4_chaos_book]
@@ -374719,7 +374719,7 @@ name=Shabby book
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=187
+quest=quest_187
 
 // 20433
 [elem4_cosmic_bar]
@@ -374736,7 +374736,7 @@ recol1s=11488
 recol1d=32736
 name=Cosmic bar
 cursor3=cursor_take
-quest=187
+quest=quest_187
 
 // 20434
 [elem4_chaos_bar]
@@ -374753,7 +374753,7 @@ recol1s=11488
 recol1d=10468
 name=Chaos bar
 cursor3=cursor_take
-quest=187
+quest=quest_187
 
 // 20435
 [elem4_astral_tile]
@@ -374766,7 +374766,7 @@ iop5=Destroy
 name=Astral token
 param=param_1397,1
 cursor3=cursor_take
-quest=187
+quest=quest_187
 
 // 20436
 [elem4_cosmic_shield]
@@ -379051,7 +379051,7 @@ name=Delivery note
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=188
+quest=clockwork_syringe
 
 // 20675
 [acs_pirate_spell_sheet]
@@ -379079,7 +379079,7 @@ recol4d=1093
 name=Pirate spell sheet
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20676
 [acs_zombie_head_default]
@@ -379096,7 +379096,7 @@ iop5=Destroy
 name=Zombie head
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20677
 [acs_saturday_night_special_locked]
@@ -379112,7 +379112,7 @@ iop5=Destroy
 name=Twiblick night special
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20678
 [acs_saturday_night_special_unlocked]
@@ -379130,7 +379130,7 @@ name=Twiblick night special
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_open
-quest=188
+quest=clockwork_syringe
 
 // 20679
 [acs_saturday_night_special_open]
@@ -379147,7 +379147,7 @@ iop5=Destroy
 name=Twiblick night special
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20680
 [acs_gunpowder]
@@ -379167,7 +379167,7 @@ name=Gunpowder
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20681
 [acs_cannonball]
@@ -379185,7 +379185,7 @@ name=Cannonball
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20682
 [acs_chain]
@@ -379201,7 +379201,7 @@ name=Chain
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20683
 [acs_chain_heated]
@@ -379239,7 +379239,7 @@ name=Heated chain
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20684
 [acs_ball_and_chain]
@@ -379257,7 +379257,7 @@ name=Cannonball and chain
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20685
 [acs_barrel]
@@ -379274,7 +379274,7 @@ name=Barrel
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20686
 [acs_cannonball_barrel_boat]
@@ -379296,7 +379296,7 @@ param=render_emote,bas_1119
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20687
 [acs_disguise_bandage]
@@ -379313,7 +379313,7 @@ name=Roll of bandage
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20688
 [acs_disguise_mask]
@@ -379329,7 +379329,7 @@ name=Surgical mask
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20689
 [acs_disguise_parts]
@@ -379347,7 +379347,7 @@ name=Barrelchest parts
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20690
 [acs_barrelchest_disguise]
@@ -379365,7 +379365,7 @@ name=Barrelchest disguise
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20691
 [acs_evidence_file]
@@ -379385,7 +379385,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=188
+quest=clockwork_syringe
 
 // 20692
 [acs_kegchest_barrel]
@@ -379402,7 +379402,7 @@ name=Gunpowder-filled barrel
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20693
 [acs_powder_keg_stash]
@@ -379420,7 +379420,7 @@ name=Bundle o' kegs
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20694
 [72_tele_falador]
@@ -383249,7 +383249,7 @@ recolhsl8d=39056
 name=Sea chart
 cursor3=cursor_take
 icursor1=cursor_read
-quest=191
+quest=quest_191
 
 // 20885
 [thalassus_tooth]
@@ -383266,7 +383266,7 @@ members=yes
 iop5=Destroy
 name=Thalassus tooth
 cursor3=cursor_take
-quest=191
+quest=quest_191
 
 // 20886
 [giant_harpoon]
@@ -383282,7 +383282,7 @@ members=yes
 iop5=Destroy
 name=Giant harpoon
 cursor3=cursor_take
-quest=191
+quest=quest_191
 
 // 20887
 [builder_s_tea]
@@ -383309,7 +383309,7 @@ recolhsl5s=38049
 recolhsl5d=22818
 name=Builder's tea
 cursor3=cursor_take
-quest=191
+quest=quest_191
 
 // 20888
 [lowland_heather]
@@ -383325,7 +383325,7 @@ iop5=Destroy
 2dxan=546
 name=Lowland heather
 cursor3=cursor_take
-quest=191
+quest=quest_191
 
 // 20889
 [sea_legs_potion]
@@ -383352,7 +383352,7 @@ recolhsl5s=38049
 recolhsl5d=22818
 name=Sea legs potion
 cursor3=cursor_take
-quest=191
+quest=quest_191
 
 // 20890
 [harpoon_plans]
@@ -383375,7 +383375,7 @@ name=Harpoon plans
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=191
+quest=quest_191
 
 // 20891
 [small_cast_net]
@@ -384147,7 +384147,7 @@ iop5=Destroy
 name=Tetrahedron 4
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 20939
 [fire_rune_20939]
@@ -389338,7 +389338,7 @@ iop5=Destroy
 name=Anti-mind control serum
 param=param_1397,1
 cursor3=cursor_take
-quest=192
+quest=quest_192
 
 // 21340
 [dwarven_army_axe]
@@ -395683,7 +395683,7 @@ param=param_1397,1
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=193
+quest=quest_193
 
 // 21584
 [vanescula_s_offer]
@@ -395698,7 +395698,7 @@ name=Vanescula's offer
 param=param_1397,1
 param=param_59,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21585
 [smoke_bomb]
@@ -395715,7 +395715,7 @@ stackable=yes
 name=Smoke bomb
 param=param_59,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21586
 [bottle_of_blood]
@@ -395739,7 +395739,7 @@ name=Bottle of blood
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_drink
-quest=193
+quest=quest_193
 
 // 21587
 [darkmeyer_notes]
@@ -395754,7 +395754,7 @@ name=Darkmeyer notes
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21588
 [type_a_blood]
@@ -395777,7 +395777,7 @@ name=Type a blood
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21589
 [type_b_blood]
@@ -395800,7 +395800,7 @@ name=Type b blood
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21590
 [type_ab_blood]
@@ -395823,7 +395823,7 @@ name=Type ab blood
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21591
 [type_o_blood]
@@ -395846,7 +395846,7 @@ name=Type o blood
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21592
 [ripped_darkmeyer_hood]
@@ -395863,7 +395863,7 @@ model=model_49335
 name=Ripped darkmeyer hood
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21593
 [ripped_darkmeyer_torso]
@@ -395880,7 +395880,7 @@ model=model_49294
 name=Ripped darkmeyer torso
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21594
 [ripped_darkmeyer_trousers]
@@ -395896,7 +395896,7 @@ model=model_49337
 name=Ripped darkmeyer trousers
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21595
 [ripped_darkmeyer_boots]
@@ -395912,7 +395912,7 @@ model=model_49347
 name=Ripped darkmeyer boots
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21596
 [darkmeyer_hood_21596]
@@ -396030,7 +396030,7 @@ param=param_1397,1
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_strength
-quest=193
+quest=quest_193
 
 // 21602
 [bloodveld_youngling]
@@ -396048,7 +396048,7 @@ name=Bloodveld youngling
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21603
 [bloodveld_youngling_21603]
@@ -396066,7 +396066,7 @@ name=Bloodveld youngling
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21604
 [bloodveld_youngling_21604]
@@ -396084,7 +396084,7 @@ name=Bloodveld youngling
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21605
 [bloodveld_youngling_21605]
@@ -396102,7 +396102,7 @@ name=Bloodveld youngling
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21606
 [bloodveld_youngling_21606]
@@ -396120,7 +396120,7 @@ name=Bloodveld youngling
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21607
 [bloodveld_youngling_21607]
@@ -396138,7 +396138,7 @@ name=Bloodveld youngling
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=193
+quest=quest_193
 
 // 21608
 [vyre_corpse_21608]
@@ -399721,7 +399721,7 @@ name=Odd lamp
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=194
+quest=quest_194
 
 // 21771
 [odd_lamp_21771]
@@ -399742,7 +399742,7 @@ name=Odd lamp
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=194
+quest=quest_194
 
 // 21772
 [odd_lamp_21772]
@@ -399763,7 +399763,7 @@ name=Odd lamp
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=194
+quest=quest_194
 
 // 21773
 [armadyl_rune]
@@ -400151,7 +400151,7 @@ name=Bob's collar
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21797
 [statue_arm]
@@ -400167,7 +400167,7 @@ recol1d=32067
 name=Statue arm
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21798
 [obj_21798]
@@ -400181,7 +400181,7 @@ recol1s=14142
 recol1d=32067
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21799
 [note_to_robert]
@@ -400200,7 +400200,7 @@ name=Note to robert
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21800
 [note_to_you]
@@ -400219,7 +400219,7 @@ name=Note to you
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21801
 [tetrahedron_1]
@@ -400235,7 +400235,7 @@ iop5=Destroy
 name=Tetrahedron 1
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21802
 [tetrahedron_2]
@@ -400251,7 +400251,7 @@ iop5=Destroy
 name=Tetrahedron 2
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21803
 [tetrahedron_3]
@@ -400267,7 +400267,7 @@ iop5=Destroy
 name=Tetrahedron 3
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21804
 [dathana_s_message]
@@ -400286,7 +400286,7 @@ name=Dathana's message
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21805
 [kethsian_key]
@@ -400304,7 +400304,7 @@ recol1d=32067
 name=Kethsian key
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21806
 [teleorb_21806]
@@ -400319,7 +400319,7 @@ stackable=yes
 name=Teleorb
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21807
 [arrav_s_heart]
@@ -400337,7 +400337,7 @@ recolhsl1d=289
 name=Arrav's heart
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21808
 [beacon]
@@ -400354,7 +400354,7 @@ recol1d=32067
 name=Beacon
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21809
 [beacon_part]
@@ -400371,7 +400371,7 @@ recol1d=32067
 name=Beacon part
 param=param_1397,-1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21810
 [beacon_part_21810]
@@ -400388,7 +400388,7 @@ recol1d=32067
 name=Beacon part
 param=param_1397,-1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21811
 [beacon_part_21811]
@@ -400405,7 +400405,7 @@ recol1d=32067
 name=Beacon part
 param=param_1397,-1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21812
 [beacon_part_21812]
@@ -400422,7 +400422,7 @@ recol1d=32067
 name=Beacon part
 param=param_1397,-1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21813
 [beacon_21813]
@@ -400438,7 +400438,7 @@ recol1d=32067
 name=Beacon
 param=param_1397,-1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21814
 [code_key__main_entrance]
@@ -400455,7 +400455,7 @@ name=Code key (main entrance)
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21815
 [code_key__storeroom]
@@ -400472,7 +400472,7 @@ name=Code key (storeroom)
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21816
 [code_key__reliquary]
@@ -400489,7 +400489,7 @@ name=Code key (reliquary)
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21817
 [heart_magic_notes]
@@ -400508,7 +400508,7 @@ name=Heart magic notes
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=194
+quest=quest_194
 
 // 21818
 [obj_21818]
@@ -400523,7 +400523,7 @@ recol1s=14142
 recol1d=32067
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21819
 [strange_device]
@@ -400541,7 +400541,7 @@ members=yes
 name=Strange device
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21820
 [robert_s_necklace]
@@ -400570,7 +400570,7 @@ name=Robert's necklace
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=194
+quest=quest_194
 
 // 21821
 [tune_bane_ore_scroll]
@@ -400595,7 +400595,7 @@ recol4d=1093
 name=Tune bane ore scroll
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21822
 [obj_21822]
@@ -400607,7 +400607,7 @@ members=yes
 wearpos=lefthand
 param=param_1397,1
 cursor3=cursor_take
-quest=194
+quest=quest_194
 
 // 21823
 [dragonbane_arrowheads]
@@ -410558,7 +410558,7 @@ members=yes
 iop5=Destroy
 name=Sister Anna's cell key
 cursor3=cursor_take
-quest=196
+quest=quest_196
 
 // 22433
 [sister_elena_s_cell_key]
@@ -410572,7 +410572,7 @@ members=yes
 iop5=Destroy
 name=Sister Elena's cell key
 cursor3=cursor_take
-quest=196
+quest=quest_196
 
 // 22434
 [cloth_fragment]
@@ -410586,7 +410586,7 @@ members=yes
 iop5=Destroy
 name=Cloth fragment
 cursor3=cursor_take
-quest=196
+quest=quest_196
 
 // 22435
 [cloth_fragment_22435]
@@ -410600,7 +410600,7 @@ members=yes
 iop5=Destroy
 name=Cloth fragment
 cursor3=cursor_take
-quest=196
+quest=quest_196
 
 // 22436
 [hymn_book]
@@ -410616,7 +410616,7 @@ iop5=Destroy
 name=Hymn book
 cursor3=cursor_take
 icursor1=cursor_read
-quest=196
+quest=quest_196
 
 // 22437
 [lyric_sheet]
@@ -410633,7 +410633,7 @@ iop5=Destroy
 name=Lyric sheet
 cursor3=cursor_take
 icursor1=cursor_read
-quest=196
+quest=quest_196
 
 // 22438
 [letters]
@@ -410650,7 +410650,7 @@ iop5=Destroy
 name=Letters
 cursor3=cursor_take
 icursor1=cursor_read
-quest=196
+quest=quest_196
 
 // 22439
 [investigator_s_notebook]
@@ -410666,7 +410666,7 @@ iop5=Destroy
 name=Investigator's notebook
 cursor3=cursor_take
 icursor1=cursor_read
-quest=196
+quest=quest_196
 
 // 22440
 [obj_22440]
@@ -410688,7 +410688,7 @@ name=Shopping list
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=197
+quest=quest_197
 
 // 22442
 [obj_22442]
@@ -418896,7 +418896,7 @@ iop5=Destroy
 name=Lesser demon claw
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22975
 [christmas_spirit_jar__full]
@@ -418909,7 +418909,7 @@ iop5=Destroy
 name=Christmas spirit jar (full)
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22976
 [christmas_spirit_jar__2_3]
@@ -418922,7 +418922,7 @@ iop5=Destroy
 name=Christmas spirit jar (2/3)
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22977
 [christmas_spirit_jar__1_3]
@@ -418935,7 +418935,7 @@ iop5=Destroy
 name=Christmas spirit jar (1/3)
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22978
 [christmas_spirit_jar__empty]
@@ -418948,7 +418948,7 @@ iop5=Destroy
 name=Christmas spirit jar (empty)
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22979
 [broken_wand]
@@ -418962,7 +418962,7 @@ iop5=Destroy
 name=Broken wand
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22980
 [dragon_s_eye]
@@ -418980,7 +418980,7 @@ womanwear=model_27856
 name=Dragon's eye
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22981
 [enchanted_christmas_pudding]
@@ -418996,7 +418996,7 @@ stackable=yes
 name=Enchanted christmas pudding
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22982
 [dwarven_spice]
@@ -419011,7 +419011,7 @@ iop5=Destroy
 name=Dwarven spice
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22983
 [grayzag_s_hat]
@@ -419026,7 +419026,7 @@ iop5=Destroy
 name=Grayzag's hat
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22984
 [whitezag_s_hat]
@@ -419041,7 +419041,7 @@ iop5=Destroy
 name=Whitezag's hat
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22985
 [christmas_wand]
@@ -419076,7 +419076,7 @@ param=param_686,1
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=198
+quest=quest_198
 
 // 22986
 [brick]
@@ -419091,7 +419091,7 @@ stackable=yes
 name=Brick
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22987
 [toy_doll_22987]
@@ -419107,7 +419107,7 @@ stackable=yes
 name=Toy doll
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22988
 [teddy_bear]
@@ -419121,7 +419121,7 @@ stackable=yes
 name=Teddy bear
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22989
 [snowball_22989]
@@ -419136,7 +419136,7 @@ stackable=yes
 name=Snowball
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22990
 [christmas_pudding]
@@ -419152,7 +419152,7 @@ stackable=yes
 name=Christmas pudding
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22991
 [timmys_christmas_present]
@@ -419167,7 +419167,7 @@ stackable=yes
 name=Timmys christmas present
 param=param_59,1
 cursor3=cursor_take
-quest=198
+quest=quest_198
 
 // 22992
 [warming_flames]
@@ -419452,7 +419452,7 @@ param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_firemaking
 icursor2=cursor_firemaking
-quest=199
+quest=quest_199
 
 // 23008
 [pitch_can__yellow]
@@ -419473,7 +419473,7 @@ param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_firemaking
 icursor2=cursor_firemaking
-quest=199
+quest=quest_199
 
 // 23009
 [pitch_can__blue]
@@ -419494,7 +419494,7 @@ param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_firemaking
 icursor2=cursor_firemaking
-quest=199
+quest=quest_199
 
 // 23010
 [rock_23010]
@@ -419511,7 +419511,7 @@ name=Rock
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=199
+quest=quest_199
 
 // 23011
 [yellow_powder]
@@ -419529,7 +419529,7 @@ name=Yellow powder
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=199
+quest=quest_199
 
 // 23012
 [blue_powder]
@@ -419547,7 +419547,7 @@ name=Blue powder
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=199
+quest=quest_199
 
 // 23013
 [red_powder]
@@ -419565,7 +419565,7 @@ name=Red powder
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=199
+quest=quest_199
 
 // 23014
 [burning_log]
@@ -419586,7 +419586,7 @@ name=Burning log
 param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
-quest=199
+quest=quest_199
 
 // 23015
 [firemaking_journal_compilation__1]
@@ -419604,7 +419604,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23016
 [firemaking_journal_compilation__2]
@@ -419622,7 +419622,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23017
 [firemaking_journal_compilation__3]
@@ -419640,7 +419640,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23018
 [firemaking_journal_compilation__4]
@@ -419658,7 +419658,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23019
 [firemaking_journal_compilation__5]
@@ -419676,7 +419676,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23020
 [firemaking_journal_compilation__6]
@@ -419694,7 +419694,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23021
 [firemaking_journal__chapter_1]
@@ -419711,7 +419711,7 @@ name=Firemaking journal: chapter 1
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23022
 [firemaking_journal__chapter_2]
@@ -419728,7 +419728,7 @@ name=Firemaking journal: chapter 2
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23023
 [firemaking_journal__chapter_3]
@@ -419745,7 +419745,7 @@ name=Firemaking journal: chapter 3
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23024
 [firemaking_journal__chapter_4]
@@ -419762,7 +419762,7 @@ name=Firemaking journal: chapter 4
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23025
 [firemaking_journal__chapter_5]
@@ -419779,7 +419779,7 @@ name=Firemaking journal: chapter 5
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23026
 [firemaking_journal__chapter_6]
@@ -419796,7 +419796,7 @@ name=Firemaking journal: chapter 6
 param=param_59,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=199
+quest=quest_199
 
 // 23027
 [the_book_of_char]
@@ -420537,7 +420537,7 @@ iop5=Destroy
 name=Ancient wolf bone amulet
 param=param_1397,1
 cursor3=cursor_take
-quest=52
+quest=wolfwhistle
 
 // 23067
 [white_hare_meat]
@@ -420551,7 +420551,7 @@ iop5=Destroy
 name=White hare meat
 param=param_1397,1
 cursor3=cursor_take
-quest=52
+quest=wolfwhistle
 
 // 23068
 [embroidered_pouch]
@@ -420568,7 +420568,7 @@ manwear=model_49756
 name=Embroidered pouch
 param=param_1397,1
 cursor3=cursor_take
-quest=52
+quest=wolfwhistle
 
 // 23069
 [rare_summoning_items]
@@ -420585,7 +420585,7 @@ recolhsl1d=42350
 name=Rare summoning items
 param=param_1397,1
 cursor3=cursor_take
-quest=52
+quest=wolfwhistle
 
 // 23070
 [giant_wolpertinger_pouch]
@@ -420601,7 +420601,7 @@ iop5=Destroy
 name=Giant wolpertinger pouch
 param=param_1397,1
 cursor3=cursor_take
-quest=52
+quest=wolfwhistle
 
 // 23071
 [maggoty_flour]
@@ -420619,7 +420619,7 @@ cost=1
 name=Maggoty flour
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23072
 [maggoty_pie_shell]
@@ -420639,7 +420639,7 @@ womanwear=model_50606
 name=Maggoty pie shell
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23073
 [manky_crayfish]
@@ -420654,7 +420654,7 @@ cost=1
 name=Manky crayfish
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23074
 [stinking_potato]
@@ -420672,7 +420672,7 @@ cost=1
 name=Stinking potato
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23075
 [terrible_pie__uncooked]
@@ -420690,7 +420690,7 @@ cost=1
 name=Terrible pie (uncooked)
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23076
 [terrible_pie]
@@ -420708,7 +420708,7 @@ cost=1
 name=Terrible pie
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23077
 [expensive_spices]
@@ -420725,7 +420725,7 @@ cost=1
 name=Expensive spices
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23078
 [mouth_watering_pie]
@@ -420743,7 +420743,7 @@ cost=1
 name=Mouth-watering pie
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23079
 [seal]
@@ -420760,7 +420760,7 @@ cost=1
 name=Seal
 param=param_1397,1
 cursor3=cursor_take
-quest=200
+quest=quest_200
 
 // 23080
 [forged_letter]
@@ -420779,7 +420779,7 @@ name=Forged letter
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=200
+quest=quest_200
 
 // 23081
 [expensive_spices_23081]
@@ -420833,7 +420833,7 @@ members=yes
 name=Spikes
 param=param_1397,1
 cursor3=cursor_take
-quest=140
+quest=death_plateau
 
 // 23084
 [survey]
@@ -420850,7 +420850,7 @@ name=Survey
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=140
+quest=death_plateau
 
 // 23085
 [reward_lamp]
@@ -420867,7 +420867,7 @@ name=Reward lamp
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=140
+quest=death_plateau
 
 // 23086
 [reward_lamp_23086]
@@ -420884,7 +420884,7 @@ name=Reward lamp
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=140
+quest=death_plateau
 
 // 23087
 [reward_lamp_23087]
@@ -420901,7 +420901,7 @@ name=Reward lamp
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=140
+quest=death_plateau
 
 // 23088
 [reward_lamp_23088]
@@ -420918,7 +420918,7 @@ name=Reward lamp
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=140
+quest=death_plateau
 
 // 23089
 [reward_lamp_23089]
@@ -420935,7 +420935,7 @@ name=Reward lamp
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=140
+quest=death_plateau
 
 // 23090
 [reward_lamp_23090]
@@ -420952,7 +420952,7 @@ name=Reward lamp
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=140
+quest=death_plateau
 
 // 23091
 [supplies]
@@ -420967,7 +420967,7 @@ members=yes
 name=Supplies
 param=param_1397,1
 cursor3=cursor_take
-quest=140
+quest=death_plateau
 
 // 23092
 [supplies_23092]
@@ -420982,7 +420982,7 @@ members=yes
 name=Supplies
 param=param_1397,1
 cursor3=cursor_take
-quest=140
+quest=death_plateau
 
 // 23093
 [supplies_23093]
@@ -420997,7 +420997,7 @@ members=yes
 name=Supplies
 param=param_1397,1
 cursor3=cursor_take
-quest=140
+quest=death_plateau
 
 // 23094
 [supplies_23094]
@@ -421012,7 +421012,7 @@ members=yes
 name=Supplies
 param=param_1397,1
 cursor3=cursor_take
-quest=140
+quest=death_plateau
 
 // 23095
 [supplies_23095]
@@ -421027,7 +421027,7 @@ members=yes
 name=Supplies
 param=param_1397,1
 cursor3=cursor_take
-quest=140
+quest=death_plateau
 
 // 23096
 [living_water]
@@ -421043,7 +421043,7 @@ recolhsl1d=37176
 name=Living water
 param=param_1397,1
 cursor3=cursor_take
-quest=111
+quest=druidic_ritual
 
 // 23097
 [wandering_wyrmwood]
@@ -421059,7 +421059,7 @@ iop5=Destroy
 name=Wandering wyrmwood
 param=param_1397,1
 cursor3=cursor_take
-quest=111
+quest=druidic_ritual
 
 // 23098
 [stone_fish]
@@ -421076,7 +421076,7 @@ womanwear=model_53712
 name=Stone fish
 param=param_1397,1
 cursor3=cursor_take
-quest=111
+quest=druidic_ritual
 
 // 23099
 [stone_scales]
@@ -421090,7 +421090,7 @@ iop5=Destroy
 name=Stone scales
 param=param_1397,1
 cursor3=cursor_take
-quest=111
+quest=druidic_ritual
 
 // 23100
 [ointment_of_imbalance]
@@ -421106,7 +421106,7 @@ recolhsl1d=19374
 name=Ointment of imbalance
 param=param_1397,1
 cursor3=cursor_take
-quest=111
+quest=druidic_ritual
 
 // 23101
 [obj_23101]
@@ -428303,7 +428303,7 @@ name=Journal of Perjour
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=201
+quest=quest_201
 
 // 23647
 [ket_yit_tal_s_tokkul]
@@ -428318,7 +428318,7 @@ recol1d=1350
 name=Ket-Yit'tal's TokKul
 param=param_1397,1
 cursor3=cursor_take
-quest=201
+quest=quest_201
 
 // 23648
 [early_bird_lamp]
@@ -440181,7 +440181,7 @@ model=model_70135
 2dxan=203
 name=Burning sapling
 cursor3=cursor_take
-quest=202
+quest=quest_202
 
 // 24310
 [dead_sapling]
@@ -440195,7 +440195,7 @@ model=model_70149
 2dxan=167
 name=Dead sapling
 cursor3=cursor_take
-quest=202
+quest=quest_202
 
 // 24311
 [budding_sapling]
@@ -440209,7 +440209,7 @@ model=model_70155
 2dxan=167
 name=Budding sapling
 cursor3=cursor_take
-quest=202
+quest=quest_202
 
 // 24312
 [healthy_sapling]
@@ -440224,7 +440224,7 @@ model=model_70133
 2dxan=1977
 name=Healthy sapling
 cursor3=cursor_take
-quest=202
+quest=quest_202
 
 // 24313
 [restless_sleep_potion]
@@ -440248,7 +440248,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_drink
-quest=202
+quest=quest_202
 
 // 24315
 [royal_cape]
@@ -443191,7 +443191,7 @@ name=Carnillean history
 param=param_1397,0
 cursor3=cursor_take
 icursor1=cursor_read
-quest=203
+quest=quest_203
 
 // 24483
 [sir_ceril_s_list]
@@ -443206,7 +443206,7 @@ name=Sir Ceril's list
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=203
+quest=quest_203
 
 // 24484
 [netting]
@@ -443221,7 +443221,7 @@ iop5=Destroy
 name=Netting
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24485
 [spider_24485]
@@ -443235,7 +443235,7 @@ iop5=Destroy
 name=Spider
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24486
 [dragon_head]
@@ -443250,7 +443250,7 @@ iop5=Destroy
 name=Dragon head
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24487
 [dragon_head_24487]
@@ -443265,7 +443265,7 @@ iop5=Destroy
 name=Dragon head
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24488
 [red_paint]
@@ -443279,7 +443279,7 @@ iop5=Destroy
 name=Red paint
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24489
 [helmet_and_breastplate]
@@ -443294,7 +443294,7 @@ iop5=Destroy
 name=Helmet and breastplate
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24490
 [cave_mouse]
@@ -443309,7 +443309,7 @@ iop5=Release
 name=Cave mouse
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24491
 [rusty_spikes]
@@ -443329,7 +443329,7 @@ iop5=Destroy
 name=Rusty spikes
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24492
 [bone_scraps]
@@ -443349,7 +443349,7 @@ iop5=Destroy
 name=Bone scraps
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24493
 [animal_skull_24493]
@@ -443365,7 +443365,7 @@ iop5=Destroy
 name=Animal skull
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24494
 [wooden_board]
@@ -443383,7 +443383,7 @@ iop5=Destroy
 name=Wooden board
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24495
 [twine]
@@ -443397,7 +443397,7 @@ iop5=Destroy
 name=Twine
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24496
 [lady_henryeta_s_necklace]
@@ -443412,7 +443412,7 @@ iop5=Destroy
 name=Lady Henryeta's necklace
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24497
 [sir_ceril_s_money_pouch]
@@ -443429,7 +443429,7 @@ name=Sir Ceril's money pouch
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_open
-quest=203
+quest=quest_203
 
 // 24498
 [sarsaparilla_s_dress]
@@ -443443,7 +443443,7 @@ iop5=Destroy
 name=Sarsaparilla's dress
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24499
 [sir_ceril_s_wine]
@@ -443462,7 +443462,7 @@ name=Sir Ceril's wine
 param=param_1397,1
 cursor3=cursor_take
 icursor4=cursor_drink
-quest=203
+quest=quest_203
 
 // 24500
 [sir_ceril_s_sword]
@@ -443477,7 +443477,7 @@ iop5=Destroy
 name=Sir Ceril's sword
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24501
 [philipe_s_sweets]
@@ -443494,7 +443494,7 @@ name=Philipe's sweets
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_open
-quest=203
+quest=quest_203
 
 // 24502
 [philipe_s_note]
@@ -443509,7 +443509,7 @@ name=Philipe's note
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=203
+quest=quest_203
 
 // 24503
 [carnillean_lamp]
@@ -443531,7 +443531,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=203
+quest=quest_203
 
 // 24504
 [carnillean_lamp_24504]
@@ -443553,7 +443553,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=203
+quest=quest_203
 
 // 24505
 [cave_wolf_matriarch_skull]
@@ -443568,7 +443568,7 @@ iop5=Destroy
 name=Cave Wolf Matriarch skull
 param=param_1397,1
 cursor3=cursor_take
-quest=203
+quest=quest_203
 
 // 24506
 [philipe_s_lamp]
@@ -443590,7 +443590,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_use
-quest=203
+quest=quest_203
 
 // 24507
 [treasure_chest]
@@ -449796,7 +449796,7 @@ param=param_59,1
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=204
+quest=quest_204
 
 // 24858
 [rock_carving_hammer]
@@ -449814,7 +449814,7 @@ name=Rock carving hammer
 womanwearoff=3,-11,6
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24859
 [unmoulded_soap]
@@ -449829,7 +449829,7 @@ members=yes
 name=Unmoulded soap
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24861
 [circus_props]
@@ -449844,7 +449844,7 @@ members=yes
 name=Circus props
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24862
 [ransom_letter]
@@ -449859,7 +449859,7 @@ name=Ransom letter
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=204
+quest=quest_204
 
 // 24863
 [rock_costume]
@@ -449877,7 +449877,7 @@ name=Rock costume
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=204
+quest=quest_204
 
 // 24864
 [pop_costume]
@@ -449892,7 +449892,7 @@ name=Pop costume
 param=param_1397,1
 cursor3=cursor_take
 icursor2=cursor_wield
-quest=204
+quest=quest_204
 
 // 24865
 [egg_24865]
@@ -449906,7 +449906,7 @@ members=yes
 name=Egg
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24866
 [lye]
@@ -449920,7 +449920,7 @@ members=yes
 name=Lye
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24867
 [olive_oil]
@@ -449934,7 +449934,7 @@ members=yes
 name=Olive oil
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24868
 [sugar_cube]
@@ -449947,7 +449947,7 @@ members=yes
 name=Sugar cube
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24869
 [dice]
@@ -449962,7 +449962,7 @@ members=yes
 name=Dice
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24870
 [popsicle_tray]
@@ -449977,7 +449977,7 @@ members=yes
 name=Popsicle tray
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24871
 [popsicle_tray_24871]
@@ -449992,7 +449992,7 @@ members=yes
 name=Popsicle tray
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24872
 [cork_screw]
@@ -450007,7 +450007,7 @@ members=yes
 name=Cork screw
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24873
 [squid]
@@ -450021,7 +450021,7 @@ members=yes
 name=Squid
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24874
 [shark_tooth_24874]
@@ -450034,7 +450034,7 @@ members=yes
 name=Shark tooth
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24875
 [soap]
@@ -450049,7 +450049,7 @@ op1=Carve
 name=Soap
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24876
 [carved_soap]
@@ -450063,7 +450063,7 @@ members=yes
 name=Carved soap
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24877
 [list_of_battlefish_supplies]
@@ -450080,7 +450080,7 @@ name=List of battlefish supplies
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=204
+quest=quest_204
 
 // 24878
 [ripped_fabric]
@@ -450095,7 +450095,7 @@ members=yes
 name=Ripped fabric
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24879
 [blueprints]
@@ -450109,7 +450109,7 @@ members=yes
 name=Blueprints
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24880
 [board]
@@ -450123,7 +450123,7 @@ members=yes
 name=Board
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24881
 [game_board]
@@ -450137,7 +450137,7 @@ members=yes
 name=Game board
 param=param_1397,1
 cursor3=cursor_take
-quest=204
+quest=quest_204
 
 // 24882
 [obj_24882]
@@ -453675,7 +453675,7 @@ iop5=Destroy
 name=Heavy weight
 param=param_1397,1
 cursor3=cursor_take
-quest=205
+quest=quest_205
 
 // 25117
 [kharid_ib]
@@ -453690,7 +453690,7 @@ iop5=Destroy
 name=Kharid-ib
 param=param_1397,1
 cursor3=cursor_take
-quest=205
+quest=quest_205
 
 // 25118
 [sundial_gnomon]
@@ -453707,7 +453707,7 @@ iop5=Destroy
 name=Sundial gnomon
 param=param_1397,1
 cursor3=cursor_take
-quest=205
+quest=quest_205
 
 // 25119
 [combat_lamp_25119]
@@ -453913,7 +453913,7 @@ name=Ransom note
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=206
+quest=quest_206
 
 // 25128
 [history_of_the_kharid_ib]
@@ -453929,7 +453929,7 @@ name=History of the Kharid-ib
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=206
+quest=quest_206
 
 // 25129
 [weight]
@@ -453945,7 +453945,7 @@ name=Weight
 param=param_59,1
 param=param_1397,0
 cursor3=cursor_take
-quest=206
+quest=quest_206
 
 // 25130
 [kharid_ib_25130]
@@ -453962,7 +453962,7 @@ name=Kharid-ib
 param=param_59,1
 param=param_1397,0
 cursor3=cursor_take
-quest=206
+quest=quest_206
 
 // 25131
 [combat_lamp_25131]
@@ -456824,7 +456824,7 @@ iop5=Destroy
 name=Ore bag
 param=param_1397,1
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25325
 [mining_sites_map]
@@ -456841,7 +456841,7 @@ name=Mining sites map
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=207
+quest=quest_207
 
 // 25326
 [wizard_s_diary]
@@ -456857,7 +456857,7 @@ name=Wizard's diary
 param=param_1397,1
 cursor3=cursor_take
 icursor1=cursor_read
-quest=207
+quest=quest_207
 
 // 25327
 [high_quality_tin_ore]
@@ -456872,7 +456872,7 @@ iop5=Destroy
 name=High-quality tin ore
 param=param_1397,1
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25328
 [high_quality_copper_ore]
@@ -456887,7 +456887,7 @@ iop5=Destroy
 name=High-quality copper ore
 param=param_1397,1
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25329
 [high_quality_bronze_bar]
@@ -456911,7 +456911,7 @@ param=param_2666,1
 param=param_2696,14
 param=param_2697,0
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25330
 [high_quality_bronze_dagger]
@@ -456931,7 +456931,7 @@ param=param_2665,1
 param=param_2696,14
 param=param_2697,0
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25331
 [high_quality_bronze_sword]
@@ -456951,7 +456951,7 @@ param=param_2665,1
 param=param_2696,14
 param=param_2697,0
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25332
 [finished_bronze_dagger]
@@ -456965,7 +456965,7 @@ iop5=Destroy
 name=Finished bronze dagger
 param=param_1397,1
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25333
 [finished_bronze_sword]
@@ -456979,7 +456979,7 @@ iop5=Destroy
 name=Finished bronze sword
 param=param_1397,1
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25334
 [ornamental_platebody]
@@ -457000,7 +457000,7 @@ param=param_2665,3
 param=param_2696,14
 param=param_2697,0
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25335
 [ornamental_chainbody]
@@ -457019,7 +457019,7 @@ param=param_2665,3
 param=param_2696,14
 param=param_2697,0
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25336
 [shop_sign]
@@ -457040,7 +457040,7 @@ param=param_2665,2
 param=param_2696,14
 param=param_2697,0
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25337
 [task_list_25337]
@@ -457258,7 +457258,7 @@ iop5=Destroy
 name=Broken anvil amulet
 param=param_1397,1
 cursor3=cursor_take
-quest=207
+quest=quest_207
 
 // 25350
 [goblin_cower_shield]

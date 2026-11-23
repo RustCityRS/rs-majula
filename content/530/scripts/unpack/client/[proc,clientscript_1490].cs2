@@ -2,12 +2,12 @@
 [proc,clientscript_1490]
 def_string $string0 = "";
 if (%bankinsert = 0) {
-    if_setgraphic(bank_v2_main:bank_sort_button, 1431);
-    if_setgraphic(bank_v2_main:bank_sort_icon, 1425);
+    if_setgraphic(bank_v2_main:bank_sort_button, "bank_buttons_new2,0");
+    if_setgraphic(bank_v2_main:bank_sort_icon, "bank_buttons_new1,2");
     $string0 = "Switch to insert items mode";
 } else {
-    if_setgraphic(bank_v2_main:bank_sort_button, 1433);
-    if_setgraphic(bank_v2_main:bank_sort_icon, 1426);
+    if_setgraphic(bank_v2_main:bank_sort_button, "bank_buttons_new2,2");
+    if_setgraphic(bank_v2_main:bank_sort_icon, "bank_buttons_new1,3");
     $string0 = "Switch to swap items mode";
 }
 if_setop(bank_v2_main:bank_sort_button, 1, $string0);

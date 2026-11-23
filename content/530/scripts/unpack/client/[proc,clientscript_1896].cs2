@@ -2,7 +2,7 @@
 [proc,clientscript_1896](int $int0, int $int1)
 def_string $string0 = "kbase/view.ws?guid=hd_fullscreen_help";
 if ($int0 = 3) {
-    if (getwindowmode = 3) {
+    if (getwindowmode = ^windowmode_fullscreen) {
         return;
     }
     if ($int1 = 3 & playermember = false) {
@@ -34,7 +34,7 @@ if ($int0 = 3) {
                 if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_138)");
                 ~clientscript_1174(loginscreen:windowmode_confirm);
         }
-        %last_windowmode = 3;
+        %last_windowmode = ^windowmode_fullscreen;
         return;
     }
     setwindowmode(getdefaultwindowmode);

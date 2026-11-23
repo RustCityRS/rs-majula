@@ -5,8 +5,8 @@ cc_deleteall(loginscreen:com_224);
 if_settext(loginscreen:com_223, "Loading...");
 if_sethide(loginscreen:com_223, false);
 ~clientscript_1874;
-if_setposition(loginscreen:com_198, min(calc((if_getwidth(loginscreen:com_194) + parawidth(if_gettext(loginscreen:com_197), 512, 496)) / 2 + 8), calc(if_getwidth(loginscreen:com_194) - if_getwidth(loginscreen:com_198))), 0, 0, 1);
-if_setposition(loginscreen:com_215, min(calc((if_getwidth(loginscreen:com_211) + parawidth(if_gettext(loginscreen:com_214), 512, 496)) / 2 + 8), calc(if_getwidth(loginscreen:com_211) - if_getwidth(loginscreen:com_215))), 0, 0, 1);
+if_setposition(loginscreen:com_198, min(calc((if_getwidth(loginscreen:com_194) + parawidth(if_gettext(loginscreen:com_197), 512, b12_full)) / 2 + 8), calc(if_getwidth(loginscreen:com_194) - if_getwidth(loginscreen:com_198))), 0, ^setpos_abs_left, ^setpos_abs_centre);
+if_setposition(loginscreen:com_215, min(calc((if_getwidth(loginscreen:com_211) + parawidth(if_gettext(loginscreen:com_214), 512, b12_full)) / 2 + 8), calc(if_getwidth(loginscreen:com_211) - if_getwidth(loginscreen:com_215))), 0, ^setpos_abs_left, ^setpos_abs_centre);
 if (map_lang = 0) {
     if_settext(loginscreen:com_193, "Location");
 } else {

@@ -13,12 +13,12 @@ while ($int5 <= 9) {
     $int0 = $int1;
     if ($int5 ! 0) {
         if_sethide(enum(int, component, enum_1611, $int5), false);
-        if_setposition(enum(int, component, enum_1611, $int5), calc($int3 - 2), calc($int4 - 2), 0, 0);
+        if_setposition(enum(int, component, enum_1611, $int5), calc($int3 - 2), calc($int4 - 2), ^setpos_abs_left, ^setpos_abs_top);
     }
     while ($int0 < $int2) {
         if (cc_find(bank_v2_main:bank_v2_inv, $int0) = true) {
             if (inv_getnum(bank, $int0) ! 0) {
-                cc_setposition($int3, $int4, 0, 0);
+                cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
                 cc_sethide(false);
                 $int3 = calc($int3 + 44);
                 if ($int3 >= calc(44 * 10)) {
@@ -32,8 +32,8 @@ while ($int5 <= 9) {
         $int0 = calc($int0 + 1);
     }
     if ($int3 ! 8) {
-        if_setposition(enum(int, component, enum_1612, $int5), $int3, $int4, 0, 0);
-        if_setsize(enum(int, component, enum_1612, $int5), calc(44 * 10 - $int3), 32, 0, 0);
+        if_setposition(enum(int, component, enum_1612, $int5), $int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(enum(int, component, enum_1612, $int5), calc(44 * 10 - $int3), 32, ^setsize_abs, ^setsize_abs);
         if_sethide(enum(int, component, enum_1612, $int5), false);
         $int4 = calc($int4 + 44);
     }
@@ -48,7 +48,7 @@ while ($int5 <= 9) {
     }
     if (enum(int, component, enum_1610, $int5) ! null) {
         if_sethide(enum(int, component, enum_1610, $int5), false);
-        if_setposition(enum(int, component, enum_1610, $int5), 0, $int4, 0, 0);
+        if_setposition(enum(int, component, enum_1610, $int5), 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
         $int4 = calc($int4 + 15);
         $int3 = 0;
     }
@@ -57,6 +57,6 @@ if_setscrollsize(bank_v2_main:bank_v2_inv, if_getwidth(bank_v2_main:bank_v2_inv)
 if_setscrollpos(bank_v2_main:bank_v2_inv, 0, %varclient_203);
 cc_deleteall(bank_v2_main:scrollbar);
 if ($int4 > if_getheight(bank_v2_main:bank_v2_inv)) {
-    ~clientscript_31(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, 792, 789, 790, 791, 773, 788);
+    ~clientscript_31(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     ~scrollbar_ondrag_doscroll(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, if_getscrolly(bank_v2_main:bank_v2_inv), 1);
 }

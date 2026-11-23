@@ -18,7 +18,7 @@ if (%tooltip_time < calc(clientclock + 25)) {
 }
 %tooltip_time = calc(clientclock + 25 + 10);
 if (%tooltip_built ! 1) {
-    $int5 = calc(parawidth($string0, 1000, 495) + 8);
+    $int5 = calc(parawidth($string0, 1000, p12_full) + 8);
     if (getwindowmode < 2) {
         $component6 = toplevel:statusicon_tooltip;
         $component8 = toplevel:statusicon_tooltip_text;
@@ -31,8 +31,8 @@ if (%tooltip_built ! 1) {
     $int3 = calc(if_getx($component7) + if_getx($component0) + $int1 - $int5);
     $int4 = calc(if_gety($component7) + if_gety($component0) + $int2 - 17);
     if_sethide($component6, false);
-    if_setsize($component6, $int5, 17, 0, 0);
-    if_setposition($component6, $int3, $int4, 0, 0);
+    if_setsize($component6, $int5, 17, ^setsize_abs, ^setsize_abs);
+    if_setposition($component6, $int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
     if_settext($component8, $string0);
     %tooltip_built = 1;
 }

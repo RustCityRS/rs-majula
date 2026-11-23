@@ -2,7 +2,7 @@
 [proc,clientscript_84]
 def_int $int0 = 0;
 def_int $int1 = 0;
-def_int $chattype2 = 0;
+def_int $chattype2 = ^chattype_gamemessage;
 def_component $component3 = null;
 def_int $int4 = 0;
 if (%chat_view = 3) {
@@ -48,25 +48,25 @@ while ($int1 < 100) {
         $component3 = enum(int, component, enum_579, $int0);
         $chattype2 = chat_gethistorytype($int1);
         switch_int ($chattype2) {
-            case 0, 11, 12, 13 :
+            case ^chattype_gamemessage, ^chattype_friendschatnotification, 12, 13 :
                 if_settext($component3, chat_gethistorymessage($int1));
-            case 1 :
+            case ^chattype_modchat :
                 if_settext($component3, "<chat_gethistoryname($int1)>: <$string0><chat_gethistorymessage($int1)>");
-            case 2 :
+            case ^chattype_publicchat :
                 if_settext($component3, "<chat_gethistoryname($int1)>: <$string0><chat_gethistorymessage($int1)>");
-            case 3 :
+            case ^chattype_privatechat :
                 if_settext($component3, "From <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
-            case 4 :
+            case ^chattype_engine :
                 if_settext($component3, "<$string2><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
-            case 5 :
+            case ^chattype_loginlogoutnotification :
                 if_settext($component3, "<$string1><chat_gethistorymessage($int1)>");
-            case 6 :
+            case ^chattype_privatechatout :
                 if_settext($component3, "To <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
-            case 7 :
+            case ^chattype_modprivatechat :
                 if_settext($component3, "From <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
             case 8 :
                 if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
-            case 9 :
+            case ^chattype_friendschat :
                 if_settext($component3, "[<$string0><chat_gethistoryclan($int1)></col>] <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
             case 10 :
                 if_settext($component3, "<col=8a2be2><chat_gethistoryname($int1)> is requesting your assistance.");
@@ -76,21 +76,21 @@ while ($int1 < 100) {
                 if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> wishes to duel with you (friendly).");
             case 16 :
                 if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> wishes to challenge your clan to a Clan War.");
-            case 17 :
+            case ^chattype_quickchat_public :
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
                     if_settext($component3, "<chat_gethistoryname($int1)><img=3>: <$string0><chat_gethistorymessage($int1)>");
                 } else {
                     if_settext($component3, "<chat_gethistoryname($int1)>: <$string0><chat_gethistorymessage($int1)>");
                 }
-            case 18 :
+            case ^chattype_quickchat_private_incoming :
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
                     if_settext($component3, "From <chat_gethistoryname($int1)><img=3>: <$string1><chat_gethistorymessage($int1)>");
                 } else {
                     if_settext($component3, "From <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
                 }
-            case 19 :
+            case ^chattype_quickchat_private_outgoing :
                 if_settext($component3, "To <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
-            case 20 :
+            case ^chattype_quickchat_friend_chat :
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
                     if_settext($component3, "[<$string0><chat_gethistoryclan($int1)></col>] <chat_gethistoryname($int1)><img=3>: <$string1><chat_gethistorymessage($int1)>");
                 } else {
@@ -103,7 +103,7 @@ while ($int1 < 100) {
         if_setonop($component3, "clientscript_86(event_op, event_opbase, $int1)");
         if_setopbase($component3, "<col=ffffff><chat_gethistoryname($int1)>");
         switch_int ($chattype2) {
-            case 1, 2, 3, 7, 9, 6 :
+            case ^chattype_modchat, ^chattype_publicchat, ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_friendschat, ^chattype_privatechatout :
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0) {
                     if (friend_test(chat_gethistoryname($int1)) = true) {
                         if (map_quickchat = false & op3328 = 0) {
@@ -117,13 +117,13 @@ while ($int1 < 100) {
                         if_setop($component3, 8, "Report abuse");
                     }
                 }
-            case 4 :
+            case ^chattype_engine :
                 if_setop($component3, 1, "Accept trade");
             case 8, 14, 15, 16 :
                 if_setop($component3, 2, "Accept challenge");
             case 10 :
                 if_setop($component3, 3, "Give assistance");
-            case 17, 18, 20 :
+            case ^chattype_quickchat_public, ^chattype_quickchat_private_incoming, ^chattype_quickchat_friend_chat :
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0) {
                     if (friend_test(chat_gethistoryname($int1)) = true) {
                         if (map_quickchat = false & op3328 = 0) {
@@ -137,9 +137,9 @@ while ($int1 < 100) {
                         if (%quickchat_respond_phrase = null) {
                             %quickchat_respond_phrase = chat_gethistoryphrase($int1);
                             %varclient_661 = chat_gethistoryname($int1);
-                            if ($chattype2 = 20) {
+                            if ($chattype2 = ^chattype_quickchat_friend_chat) {
                                 %quickchat_respond_mode = 6;
-                            } else if ($chattype2 = 18) {
+                            } else if ($chattype2 = ^chattype_quickchat_private_incoming) {
                                 %quickchat_respond_mode = 5;
                             } else {
                                 %quickchat_respond_mode = 4;
