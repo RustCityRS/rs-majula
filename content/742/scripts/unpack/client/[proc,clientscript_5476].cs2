@@ -34,7 +34,7 @@ if (%varplayerbit_9990 > 0) {
     if_settext(interface_1163:com_38, "0");
 }
 %tooltip_built = 0;
-sound_vorbis_volume(8099, 1, 0, 255);
+sound_vorbis_volume(vorbis_8099, 1, 0, 255);
 if ($int1 = 0) {
     if_settext(interface_1163:com_50, tostring(calc(%varplayerbit_9984 + 1)));
     %varclient_1678 = calc(1 + random(48));

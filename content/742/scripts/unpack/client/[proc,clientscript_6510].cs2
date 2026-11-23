@@ -11,17 +11,17 @@ if ($int0 = 0) {
 }
 def_graphic $graphic2 = null;
 switch_graphic (if_getgraphic($component1)) {
-    case 11643 :
-        $graphic2 = 11642;
-    case 11631 :
-        $graphic2 = 11630;
-    case 11634 :
-        $graphic2 = 11633;
-    case 11628 :
-        $graphic2 = 11627;
-    case 11637 :
-        $graphic2 = 11636;
-    case 11640 :
-        $graphic2 = 11639;
+    case graphic_11643 :
+        $graphic2 = graphic_11642;
+    case graphic_11631 :
+        $graphic2 = graphic_11630;
+    case graphic_11634 :
+        $graphic2 = graphic_11633;
+    case graphic_11628 :
+        $graphic2 = graphic_11627;
+    case graphic_11637 :
+        $graphic2 = graphic_11636;
+    case graphic_11640 :
+        $graphic2 = graphic_11639;
 }
 if_setgraphic($component1, $graphic2);

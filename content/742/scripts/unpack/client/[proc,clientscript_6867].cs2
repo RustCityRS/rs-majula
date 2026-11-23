@@ -88,36 +88,36 @@ cc_create(interface_1360:com_0, ^iftype_graphic, $int0);
 switch_int (calc($int0 / 4 + 1)) {
     case 1 :
         if (%varplayerbit_12183 = 1) {
-            $graphic5 = 13165;
+            $graphic5 = graphic_13165;
         } else {
             $string3 = "You have not yet helped Father Joakim with these celebrations.";
         }
     case 2 :
         if (%varplayerbit_12184 = 1) {
-            $graphic5 = 13165;
+            $graphic5 = graphic_13165;
         } else {
             $string3 = "You have not yet helped Father Joakim with these celebrations.";
         }
     case 3 :
         if (%varplayerbit_12185 = 1) {
-            $graphic5 = 13165;
+            $graphic5 = graphic_13165;
         } else {
             $string3 = "You have not yet helped Father Joakim with these celebrations.";
         }
     case 4 :
         if (%varplayerbit_12186 = 1) {
-            $graphic5 = 13165;
+            $graphic5 = graphic_13165;
         } else {
             $string3 = "You have not yet helped Father Joakim with these celebrations.";
         }
     case 5 :
         if (%varplayerbit_12187 = 1) {
-            $graphic5 = 13165;
+            $graphic5 = graphic_13165;
         } else {
             $string3 = "You have not yet helped Father Joakim with these celebrations.";
         }
     case default :
-        $graphic5 = 13166;
+        $graphic5 = graphic_13166;
 }
 if ($graphic5 ! null) {
     cc_setgraphic($graphic5);

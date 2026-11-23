@@ -10,7 +10,7 @@ if (~player_npc_hit_roll(^magic_style) = true) {
         return;
     }
     spotanim_npc(db_getfield($spell_data, magic_spell_table:spotanim_target, 0), $duration);
-    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, 0);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 1, 0);
     if(%legendsquest >= ^legends_defeated_nezikchened_fire) {
         ~chatnpc("<p,happy>Ha ha ha! There's no need to use that on me anymore... I'm cured now, remember?");
         return;

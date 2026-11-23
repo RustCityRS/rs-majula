@@ -35,7 +35,7 @@ width=16
 height=16
 xmode=abs_right
 layer=layer_1
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -50,7 +50,7 @@ y=85
 width=135
 height=119
 layer=layer_1
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
 textshadow=yes
@@ -66,7 +66,7 @@ y=83
 width=135
 height=119
 layer=layer_1
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
 textshadow=yes
@@ -82,7 +82,7 @@ y=85
 width=135
 height=119
 layer=layer_1
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
 textshadow=yes
@@ -98,7 +98,7 @@ y=83
 width=135
 height=119
 layer=layer_1
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
 textshadow=yes
@@ -114,7 +114,7 @@ y=84
 width=135
 height=119
 layer=layer_1
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
 textshadow=yes
@@ -165,7 +165,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 829:13
@@ -176,7 +176,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 829:14
@@ -187,7 +187,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 829:15
@@ -198,7 +198,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 829:16
@@ -210,7 +210,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 829:17
@@ -222,7 +222,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 829:18
@@ -234,7 +234,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 829:19
@@ -246,7 +246,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 829:20
@@ -309,7 +309,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -323,7 +323,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -336,7 +336,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -350,7 +350,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -361,7 +361,7 @@ x=84
 y=23
 width=350
 height=27
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=01234 43210 01234 43210
 textshadow=yes
 colour=0x000000
@@ -375,7 +375,7 @@ x=84
 y=21
 width=350
 height=27
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=01234 43210 01234 43210
 textshadow=yes
 colour=0x000000
@@ -389,7 +389,7 @@ x=82
 y=23
 width=350
 height=27
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=01234 43210 01234 43210
 textshadow=yes
 colour=0x000000
@@ -403,7 +403,7 @@ x=82
 y=21
 width=350
 height=27
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=01234 43210 01234 43210
 textshadow=yes
 colour=0x000000
@@ -417,7 +417,7 @@ x=83
 y=22
 width=350
 height=27
-textfont=fontmetrics_1591
+textfont=luc2_font_scratch_large
 text=01234 43210 01234 43210
 textshadow=yes
 colour=0x60543a

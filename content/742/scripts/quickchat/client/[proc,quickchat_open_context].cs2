@@ -3,8 +3,8 @@
 %quickchat_mode = $int0;
 %varclient_2049 = $string0;
 %quickchat_backspace = true;
-if (getwindowmode >= 2) {
-    if_setgraphic(chattop:chat_graphic, 8489);
+if (getwindowmode >= ^windowmode_resizable) {
+    if_setgraphic(chattop:chat_graphic, graphic_8489);
     if_setalpha(chattop:chat_graphic, false);
     if_sethide(chattop:chat_graphic, false);
     cc_deleteall(chattop:chat_border);

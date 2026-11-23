@@ -17,7 +17,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 620:2
@@ -26,7 +26,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 620:3
@@ -36,7 +36,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 620:4
 [com_4]
@@ -45,7 +45,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 620:5
@@ -55,7 +55,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 620:6
@@ -65,7 +65,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 620:7
@@ -75,7 +75,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -89,7 +89,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 620:9
 [com_9]
@@ -98,7 +98,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 620:10
 [com_10]
@@ -107,7 +107,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 620:11
 [com_11]
@@ -116,7 +116,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 620:12
@@ -126,7 +126,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 620:13
 [com_13]
@@ -135,7 +135,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 620:14
 [com_14]
@@ -144,7 +144,7 @@ x=23
 y=66
 width=470
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 620:15
@@ -154,7 +154,7 @@ x=13
 y=68
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 620:16
 [com_16]
@@ -163,7 +163,7 @@ x=468
 y=68
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 620:17
 [com_17]
@@ -172,7 +172,7 @@ y=2
 width=115
 height=20
 layer=com_26
-graphic=graphic_1016
+graphic="tabs_large,1"
 
 // 620:18
 [com_18]
@@ -182,7 +182,7 @@ y=2
 width=115
 height=20
 layer=com_25
-graphic=graphic_1016
+graphic="tabs_large,1"
 
 // 620:19
 [com_19]
@@ -192,7 +192,7 @@ y=3
 width=103
 height=20
 layer=com_26
-textfont=fontmetrics_495
+textfont=p12_full
 text=Player Stock
 textalignh=centre
 textalignv=centre
@@ -207,7 +207,7 @@ y=2
 width=115
 height=20
 layer=com_29
-graphic=graphic_1015
+graphic="tabs_large,0"
 
 // 620:21
 [com_21]
@@ -217,7 +217,7 @@ y=4
 width=96
 height=19
 layer=com_29
-textfont=fontmetrics_495
+textfont=p12_full
 text=Main Stock
 textalignh=centre
 textalignv=centre
@@ -231,7 +231,7 @@ x=18
 y=27
 width=475
 height=22
-textfont=fontmetrics_496
+textfont=b12_full
 text=Lowe's Archery Emporium
 textalignh=centre
 textalignv=centre
@@ -293,7 +293,7 @@ x=55
 y=287
 width=400
 height=32
-textfont=fontmetrics_494
+textfont=p11_full
 text=Right-click on an item in the shop or your inventory to see the available options.<br>Compare the prices between the Main and Player Stock to find the best deals!
 textalignh=centre
 textalignv=centre
@@ -317,7 +317,7 @@ y=2
 width=115
 height=20
 layer=com_27
-graphic=graphic_1015
+graphic="tabs_large,0"
 
 // 620:31
 [com_31]
@@ -327,7 +327,7 @@ y=3
 width=103
 height=20
 layer=com_27
-textfont=fontmetrics_495
+textfont=p12_full
 text=Player Stock
 textalignh=centre
 textalignv=centre
@@ -342,7 +342,7 @@ y=5
 width=96
 height=14
 layer=com_25
-textfont=fontmetrics_495
+textfont=p12_full
 text=Main Stock
 textalignh=centre
 textshadow=yes
@@ -356,7 +356,7 @@ y=54
 width=29
 height=29
 layer=com_34
-graphic=graphic_1067
+graphic=general_store_icon
 
 // 620:34
 [com_34]

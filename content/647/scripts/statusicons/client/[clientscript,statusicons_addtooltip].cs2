@@ -19,7 +19,7 @@ if (%tooltip_time < calc(clientclock + 25)) {
 %tooltip_time = calc(clientclock + 25 + 10);
 if (%tooltip_built ! 1) {
     $int5 = calc(parawidth($string0, 1000, p12_full) + 8);
-    if (getwindowmode < 2) {
+    if (getwindowmode < ^windowmode_resizable) {
         $component6 = toplevel:statusicon_tooltip;
         $component8 = toplevel:statusicon_tooltip_text;
         $component7 = toplevel:statusicons;

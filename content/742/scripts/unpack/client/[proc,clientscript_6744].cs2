@@ -27,16 +27,16 @@ while ($int1 < $int3) {
     if (~task_requirements_fulfilled(struct_param($struct4, param_1268)) = true) {
         cc_create(interface_1344:com_30, ^iftype_graphic, $int1);
         if (calc(%varplayer_2752 - 1) = $int1) {
-            cc_setgraphic(13136);
+            cc_setgraphic(graphic_13136);
         } else {
-            cc_setgraphic(13133);
+            cc_setgraphic(graphic_13133);
             cc_setonmouserepeat("clientscript_6729(interface_1344:com_30, event_comsubid)");
             cc_setonmouseleave("clientscript_6730(interface_1344:com_30, event_comsubid)");
         }
         cc_setsize(254, 43, ^setsize_abs, ^setsize_abs);
         cc_setposition(1, calc(0 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
         cc_create(interface_1344:com_31, ^iftype_graphic, $int1);
-        cc_setgraphic(13259);
+        cc_setgraphic(graphic_13259);
         cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
         cc_setposition(6, calc(8 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
         cc_create(interface_1344:com_32, ^iftype_text, $int1);

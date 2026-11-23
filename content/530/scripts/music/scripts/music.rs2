@@ -112,11 +112,6 @@ if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
 @music_play(db_getfield($song, music:track, 0));
 
 [label,music_playbyregion](coord $coord)
-// Not while a new character is designed (varp 281 below 1000): the spawn square would otherwise
-// play and unlock its own track before the player reaches Lumbridge.
-if (%tutorial < 1000) {
-    return;
-}
 // first, search for the song linked to this mapsquare
 def_int $map_x = calc(coordx($coord) / 64 * 64);
 def_int $map_z = calc(coordz($coord) / 64 * 64);

@@ -5,7 +5,7 @@ x=12
 y=20
 width=487
 height=299
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 725:1
@@ -15,7 +15,7 @@ x=12
 y=20
 width=25
 height=30
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 725:2
 [com_2]
@@ -24,7 +24,7 @@ x=-3
 y=49
 width=36
 height=241
-graphic=graphic_172
+graphic="miscgraphics,2"
 tiling=yes
 
 // 725:3
@@ -34,7 +34,7 @@ x=479
 y=49
 width=36
 height=241
-graphic=graphic_315
+graphic="steelborder2,1"
 tiling=yes
 
 // 725:4
@@ -44,7 +44,7 @@ x=37
 y=5
 width=438
 height=36
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 725:5
@@ -54,7 +54,7 @@ x=37
 y=299
 width=438
 height=36
-graphic=graphic_173
+graphic="miscgraphics,3"
 tiling=yes
 
 // 725:6
@@ -64,7 +64,7 @@ x=12
 y=290
 width=25
 height=30
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 725:7
 [com_7]
@@ -73,7 +73,7 @@ x=475
 y=20
 width=25
 height=30
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 725:8
 [com_8]
@@ -82,7 +82,7 @@ x=475
 y=290
 width=25
 height=30
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 725:9
 [com_9]
@@ -91,7 +91,7 @@ x=183
 y=26
 width=36
 height=288
-graphic=graphic_172
+graphic="miscgraphics,2"
 tiling=yes
 
 // 725:10
@@ -101,7 +101,7 @@ x=17
 y=34
 width=181
 height=36
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 725:11
@@ -111,7 +111,7 @@ x=26
 y=265
 width=25
 height=30
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 725:12
 [com_12]
@@ -120,7 +120,7 @@ x=47
 y=250
 width=36
 height=36
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 725:13
 [com_13]
@@ -129,7 +129,7 @@ x=79
 y=265
 width=25
 height=30
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 725:14
 [com_14]
@@ -138,7 +138,7 @@ x=26
 y=277
 width=25
 height=30
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 725:15
 [com_15]
@@ -147,7 +147,7 @@ x=47
 y=286
 width=36
 height=36
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 725:16
 [com_16]
@@ -156,7 +156,7 @@ x=79
 y=277
 width=25
 height=30
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 725:17
 [com_17]
@@ -178,7 +178,7 @@ x=21
 y=29
 width=176
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Runelink
 textshadow=yes
 colour=0xffaa44
@@ -204,7 +204,7 @@ x=43
 y=58
 width=140
 height=25
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffaa44
 
@@ -215,7 +215,7 @@ x=96
 y=75
 width=22
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=vs
 textalignh=centre
 textshadow=yes
@@ -228,7 +228,7 @@ x=43
 y=89
 width=140
 height=25
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffaa44
 
@@ -239,7 +239,7 @@ x=32
 y=271
 width=66
 height=30
-textfont=fontmetrics_495
+textfont=p12_full
 text=Close
 textalignh=centre
 textalignv=centre
@@ -279,7 +279,7 @@ x=23
 y=157
 width=169
 height=27
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xaaaaaa
@@ -291,7 +291,7 @@ x=23
 y=185
 width=169
 height=50
-textfont=fontmetrics_494
+textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xaaaaaa

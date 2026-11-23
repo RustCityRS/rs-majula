@@ -1,7 +1,7 @@
 // 1433
 [clientscript,toplevel_init]
 ~clientscript_6382;
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     if_setonvarctransmit(toplevel_fullscreen:mainoverlay, "toplevel_fovchange{fov}");
     if_setonvarctransmit(toplevel:com_5, "toplevel_fovchange{fov}");
 }

@@ -31,7 +31,7 @@ y=18
 width=329
 height=17
 layer=lj_layer1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Instructions for Beacon Ring
 colour=0x000000
 
@@ -56,7 +56,7 @@ y=45
 width=335
 height=163
 layer=lj_layer1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Use this ring when you are ready to summon me to your aid. It is a daunting task, yet you must battle the king to allow me to remove the spell from him. When the king is almost dead, use this ring and I will teleport to your aid. Be warned - Though I am skilled with magic, I am no fighter! Should you summon me too early I will have to teleport us out of danger! When our mission is completed, I will remove the summon ability from this ring, but you may keep it for protection.                                   Zaff
 colour=0x000000
 
@@ -67,7 +67,7 @@ x=372
 y=44
 width=26
 height=23
-graphic=graphic_537
+graphic="close_buttons,2"
 transmitop=1
 op1=Close
 onmouseleave=graphic_swapper(event_com, 537)

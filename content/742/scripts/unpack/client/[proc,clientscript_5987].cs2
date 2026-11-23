@@ -35,25 +35,25 @@ cc_sethflip(true);
 def_graphic $graphic3 = null;
 switch_int ($int1) {
     case 1 :
-        $graphic3 = 7381;
+        $graphic3 = graphic_7381;
     case 2 :
-        $graphic3 = 7380;
+        $graphic3 = graphic_7380;
     case 3 :
-        $graphic3 = 7384;
+        $graphic3 = graphic_7384;
     case 4 :
-        $graphic3 = 7378;
+        $graphic3 = graphic_7378;
     case 5 :
-        $graphic3 = 7377;
+        $graphic3 = graphic_7377;
     case 6 :
-        $graphic3 = 7379;
+        $graphic3 = graphic_7379;
     case 7 :
-        $graphic3 = 7376;
+        $graphic3 = graphic_7376;
     case 9 :
-        $graphic3 = 7382;
+        $graphic3 = graphic_7382;
     case 8 :
-        $graphic3 = 7383;
+        $graphic3 = graphic_7383;
     case 10 :
-        $graphic3 = 7385;
+        $graphic3 = graphic_7385;
     case default :
         return;
 }

@@ -1087,7 +1087,7 @@ pub(crate) fn decode_records(
 #[cfg(since_274)]
 fn decode_empty_record(name: &str, buf: &mut Packet) -> Vec<(String, String)> {
     let code = buf.g1();
-    assert_eq!(code, 0, "Unrecognized {name} config code: {code}");
+    assert_eq!(code, 0, "Error unrecognised .{name} config code: {code}");
     Vec::new()
 }
 

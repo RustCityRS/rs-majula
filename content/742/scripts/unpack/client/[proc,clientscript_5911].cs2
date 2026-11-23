@@ -1,7 +1,7 @@
 // 5911
-[proc,clientscript_5911](component $component0, component $component1, component $component2, component $component3, int $int4, string $string0, int $int5, fontmetrics $fontmetrics6, graphic $graphic7, int $rgb8, int $int9, int $int10, int $int11, int $int12, int $int13)
+[proc,clientscript_5911](component $component0, component $component1, component $component2, component $component3, int $int4, string $string0, int $int5, fontmetrics $fontmetrics6, graphic $graphic7, int $colour8, int $int9, int $int10, int $int11, int $int12, int $int13)
 if (if_gety($component1) > calc(if_getheight($component0) / 2)) {
-    ~aif_tooltip($component2, $component3, $int4, $string0, $int5, $fontmetrics6, $graphic7, $rgb8, $int9, $int10, 0, $int12, $int13);
+    ~aif_tooltip($component2, $component3, $int4, $string0, $int5, $fontmetrics6, $graphic7, $colour8, $int9, $int10, 0, $int12, $int13);
 } else {
-    ~aif_tooltip($component2, $component3, $int4, $string0, $int5, $fontmetrics6, $graphic7, $rgb8, $int9, $int10, 2, $int12, $int13);
+    ~aif_tooltip($component2, $component3, $int4, $string0, $int5, $fontmetrics6, $graphic7, $colour8, $int9, $int10, 2, $int12, $int13);
 }

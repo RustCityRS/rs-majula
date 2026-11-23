@@ -88,6 +88,18 @@ pub fn placeholder_prefix(kind: &str) -> &str {
     }
 }
 
+/// Content names what it refers to: a number (or `-1` for `null`) where a
+/// `kind` belongs is an error.
+pub fn raw_id_error(kind: &str, value: &str) -> Option<String> {
+    if value == "-1" {
+        Some(format!("`-1` for a {kind}: use `null`"))
+    } else if value.parse::<i64>().is_ok() {
+        Some(format!("`{value}` is a raw {kind} id: use its name"))
+    } else {
+        None
+    }
+}
+
 pub fn parse_ref(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce(u16)) {
     let id = match lookup_ref(pack, kind, value) {
         None => u16::MAX,
@@ -124,6 +136,9 @@ fn lookup_ref(pack: &PackFile, kind: &str, value: &str) -> Option<PackId> {
     }
     if let Some(id) = pack.get_by_debugname(value) {
         return Some(id);
+    }
+    if let Some(error) = raw_id_error(kind, value) {
+        panic!("{error}");
     }
     let number = value
         .strip_prefix(kind)
@@ -435,7 +450,13 @@ pub fn parse_cursor(registry: &PackRegistry, value: &str, callback: impl FnOnce(
     #[cfg(all(since_530, before_647))]
     {
         let _ = registry;
-        parse_number(value, callback);
+        if let Some(error) = raw_id_error("cursor", value) {
+            panic!("{error}");
+        }
+        let id = value
+            .strip_prefix("cursor_")
+            .unwrap_or_else(|| panic!("Unknown cursor: {value}"));
+        parse_number(id, callback);
     }
     #[cfg(since_647)]
     parse_ref(&registry.cursor, "cursor", value, callback);
@@ -575,4 +596,30 @@ pub fn verify_crc(name: &str, data: &[u8], expected: i32) {
         actual, expected,
         "CRC mismatch ['{name}']: Got: {actual}, Expected: {expected}"
     );
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_reference_is_a_name() {
+        let objs = PackFile::parse("995=coins\n");
+        let mut id = 0;
+        parse_ref(&objs, "obj", "coins", |v| id = v);
+        assert_eq!(id, 995);
+        parse_ref(&objs, "obj", "null", |v| id = v);
+        assert_eq!(id, u16::MAX);
+        assert_eq!(raw_id_error("obj", "coins"), None);
+        assert_eq!(
+            raw_id_error("obj", "-1").as_deref(),
+            Some("`-1` for a obj: use `null`")
+        );
+    }
+
+    #[test]
+    #[should_panic(expected = "`995` is a raw obj id: use its name")]
+    fn a_raw_id_is_an_error() {
+        parse_ref(&PackFile::parse("995=coins\n"), "obj", "995", |_| {});
+    }
 }

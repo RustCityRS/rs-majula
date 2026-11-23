@@ -16,14 +16,14 @@ while ($int1 < 13) {
     }
     $component4 = ~clientscript_5935($int1);
     $component5 = ~clientscript_5933($int1);
-    if_setgraphic($component5, ~clientscript_6267(9801));
+    if_setgraphic($component5, ~clientscript_6267(graphic_9801));
     if_setsize($component5, 55, 55, ^setsize_abs, ^setsize_abs);
     if_setposition($component5, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
     if_settiling($component5, true);
     switch_int ($int2) {
         case 0 :
             $int3 = 349;
-            if_setgraphic($component5, ~clientscript_6267(9882));
+            if_setgraphic($component5, ~clientscript_6267(graphic_9882));
             if_setsize($component5, 55, 77, ^setsize_abs, ^setsize_abs);
             %varclient_1789 = $int1;
             if_setposition(interface_1253:com_162, $int3, if_gety(interface_1253:com_162), ^setpos_abs_left, ^setpos_abs_top);

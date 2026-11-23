@@ -4,7 +4,7 @@ def_int $int4 = if_getheight($component0);
 def_int $int5 = calc(clientclock - $int3);
 def_int $int6 = 0;
 if ($int5 = 25) {
-    sound_vorbis_volume(8105, 1, 0, 100);
+    sound_vorbis_volume(vorbis_8105, 1, 0, 100);
 }
 if ($int5 <= 30) {
     $int6 = calc(scale($int5, 30, $int4) - $int4);

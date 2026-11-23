@@ -1,6 +1,6 @@
 // 6416
 [proc,clientscript_6416]
-if (if_getgraphic(interface_1308:com_140) = 8352) {
+if (if_getgraphic(interface_1308:com_140) = graphic_8352) {
     if_settext(interface_1308:com_342, tostring(%varplayerbit_11473));
 } else {
     if_settext(interface_1308:com_342, tostring(%varplayerbit_4781));

@@ -3,7 +3,7 @@
 def_int $int1 = ~current_side_if;
 %if_switchside_varc = $int0;
 if ($int0 = -1) {
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         ~side_if_closeall;
     } else {
         return;
@@ -14,7 +14,7 @@ if (~script2709 = 0 & ($int0 = 9 | $int0 = 11 | $int0 = 10)) {
 }
 if ($int1 > -1) {
     if ($int1 = $int0) {
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             ~side_if_closeall;
             ~side_if_open($int0);
         } else {

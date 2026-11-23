@@ -2169,7 +2169,7 @@ Each entry is a sequence of code-data pairs terminated by code 0:
 ```
 
 The decoder reads each code using a `while buf.remaining() > 0` loop with `0 => break` as the first match arm. Any
-unrecognized code value triggers a panic (e.g., `panic!("Unrecognized obj config code: {code}")`), ensuring all binary
+unrecognized code value triggers a panic (e.g., `panic!("Error unrecognised .obj config code: {code}")`), ensuring all binary
 data is fully accounted for.
 
 #### Processing Order
@@ -2241,7 +2241,7 @@ OBJ entries containing only `certlink` + `certtemplate` codes (97 + 98) are iden
 #### Config Unpacking Code Tables
 
 All config decoders use the naming convention `code` for the byte value. Unrecognized codes panic with
-`"Unrecognized {type} config code: {code}"`.
+`"Error unrecognised .{type} config code: {code}"`.
 
 ##### FLO (client codes)
 

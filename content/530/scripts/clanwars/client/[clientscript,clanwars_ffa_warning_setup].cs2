@@ -10,8 +10,8 @@ if (%clanwars_ffatype = 1) {
     if_settext($component1, "This is a SAFE arena. Although players may fight each other in here, items are not dropped on death.<br><br>You can teleport out of the arena at any time.<br><br>A non-combat zone exists at the southern end of the arena. This portal leads into that zone.");
     if_setonvartransmit($component4, "clanwars_ffa_warning_toggle_update($component4, $component5){clanwars, cws_var}");
 }
-def_int $int6 = parawidth(if_gettext($component0), if_getwidth($component0), 496);
+def_int $int6 = parawidth(if_gettext($component0), if_getwidth($component0), b12_full);
 $int6 = calc((if_getwidth($component0) - $int6) / 2);
 $int6 = calc($int6 - (if_getwidth($component2) + 10));
-if_setposition($component2, $int6, if_gety($component2), 0, 0);
-if_setposition($component3, $int6, if_gety($component3), 2, 0);
+if_setposition($component2, $int6, if_gety($component2), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component3, $int6, if_gety($component3), ^setpos_abs_right, ^setpos_abs_top);

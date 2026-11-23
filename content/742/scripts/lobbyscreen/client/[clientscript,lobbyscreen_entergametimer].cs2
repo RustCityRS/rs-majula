@@ -276,21 +276,21 @@ switch_int ($int7) {
         $int16 = 1;
         $string5 = "Back";
         $string6 = "Back";
-        $graphic15 = 13105;
+        $graphic15 = graphic_13105;
     case 52 :
         $string4 = "You need to validate this device to use with your account. Please follow the instructions in the window that will open shortly.";
         $int16 = 1;
         $string5 = "Back";
         $string6 = "Back";
         $int18 = 0;
-        $graphic15 = 13105;
+        $graphic15 = graphic_13105;
     case 49 :
         $string4 = "The device you are doing is no longer valid. You should have received an email to validate the device. Please follow the instructions there. Be sure to check your spam folder.";
         $int16 = 1;
         $string5 = "Back";
         $string6 = "Back";
         $int18 = 0;
-        $graphic15 = 13105;
+        $graphic15 = graphic_13105;
     case 54 :
         $string4 = "Activity on this account has been exceeded.<br><br>Please try again tomorrow.";
     case default :

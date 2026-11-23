@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 673:2
@@ -25,7 +25,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 673:3
@@ -35,7 +35,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 673:4
 [com_4]
@@ -44,7 +44,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 673:5
@@ -54,7 +54,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 673:6
@@ -64,7 +64,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 673:7
@@ -74,7 +74,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(interface_673:close, 832)
@@ -89,7 +89,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 673:9
 [com_9]
@@ -98,7 +98,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 673:10
 [com_10]
@@ -107,7 +107,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 673:11
 [com_11]
@@ -116,7 +116,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 673:12
@@ -126,7 +126,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 673:13
 [com_13]
@@ -135,7 +135,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 673:14
 [com_14]
@@ -144,7 +144,7 @@ x=222
 y=30
 width=250
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Scroll Creation  
 textalignh=centre
 textshadow=yes
@@ -175,7 +175,7 @@ x=22
 y=29
 width=79
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 transmitop=1
 op1=Infuse Pouches
 onmouseleave=deltooltip(interface_673:tool_tip_build_layer)
@@ -188,7 +188,7 @@ x=42
 y=30
 width=25
 height=18
-graphic=graphic_1193
+graphic="lore_switch,3"
 
 // 673:19
 [tab_front]
@@ -197,7 +197,7 @@ x=92
 y=29
 width=79
 height=20
-graphic=graphic_952
+graphic="tabs,0"
 
 // 673:20
 [com_20]
@@ -206,7 +206,7 @@ x=114
 y=30
 width=25
 height=19
-graphic=graphic_1190
+graphic="lore_switch,0"
 
 // 673:21
 [tooltip_bounding_box]

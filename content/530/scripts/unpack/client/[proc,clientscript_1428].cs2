@@ -5,7 +5,7 @@ if ($int0 ! 1) {
 }
 if_setontimer($component1, null);
 if_setonsubchange(toplevel:mainmodal, null);
-if (getwindowmode < 3) {
+if (getwindowmode < ^windowmode_fullscreen) {
     setdefaultwindowmode(getwindowmode);
 }
 detail_antialiasing_default(detailget_antialiasing);

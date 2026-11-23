@@ -23,7 +23,7 @@ if ($int1 >= 0) {
     if (%snapshot_open = true) {
         ~script675;
     }
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         if_sethide(toplevel_fullscreen:chattop, false);
     }
     if_sethide(chattop:mes_layer, false);

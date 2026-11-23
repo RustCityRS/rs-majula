@@ -1,8 +1,9 @@
 [opnpc1,newbie_basics_instructor]
 
-switch_int(%varplayer_419) {
+switch_int(%tutorial) {
     case ^newbie_basics_instructor_designed_character : @newbie_basics_instructor_welcome;
-//    case 2 : @newbie_basics_instructor_spanner;
+    case 2 : @newbie_basics_instructor_spanner;
+    case 3 : @newbie_basics_instructor_progress;
     case ^newbie_basics_instructor_interact_with_scenery : @newbie_basics_instructor_return;
     case default : @newbie_basics_instructor_return;
 }
@@ -12,7 +13,7 @@ if (map_live = false) {
     ~chatnpc("<p,neutral>Do you want to skip the tutorial?");
     def_int $choice = ~p_choice2("Yes please.", 1, "No, thank you.", 2);
     if ($choice = 1) {
-        %varplayer_419 = ^tutorial_complete;
+        %tutorial = ^tutorial_complete;
         @tutorial_complete;
     }
 }
@@ -20,19 +21,21 @@ if (map_live = false) {
 ~chatnpc("<p,neutral>Greetings! I see you are a new arrival to this land.|My job is to welcome all new visitors. So welcome!");
 ~chatnpc("<p,neutral>You have already learnt the first thing|needed to succeed in this world...|Talking to other people!");
 ~chatnpc("<p,neutral>You will find many inhabitants of this world|have useful things to say to you. By clicking|on them with your mouse you can talk to them.");
-~chatnpc("<p,neutral>I would also suggest reading through some of|the supporting information on the website.|There you can find maps, a bestiary, and much more.");
-~chatnpc("<p,neutral>To continue the tutorial go through that door|over there, and speak to your first instructor!");
-%varplayer_419 = ^newbie_basics_instructor_interact_with_scenery;
+// 289 (September 2006) sends the player on through the door here. October 2006's island, which
+// 2009's is (https://www.youtube.com/watch?v=LgA4VsETE-g, Jan 7, 2009), first shows the Game
+// Options: the spanner flashes, and its tab opens, as the guide asks for it.
+~chatnpc("<p,neutral>I would also suggest reading through some of the supporting information on the website. There you can find the Game Guide, which contains all the additional information you're ever likely to need. It also contains maps and helpful tips to help you on your journey.");
+%tutorial = 2;
 ~set_tutorial_progress;
-// The below commented out code will be relevant in October 2006, but was absent in September 2006.
-//~chatnpc("<p,neutral>You will notice a flashing icon of a spanner.|Please click on this to continue the tutorial.");
-//%tutorial_progress = 2;
-//~tutorial_step_player_controls_spanner;
-//if_settab(game_options, ^tab_game_options);
-//tut_flash(^tab_game_options);
+@newbie_basics_instructor_spanner;
 
-//[label,newbie_basics_instructor_spanner]
-//~chatnpc("<p,neutral>You will notice a flashing icon of a spanner.|Please click on this to continue the tutorial.");
+[label,newbie_basics_instructor_spanner]
+~chatnpc("<p,neutral>You will notice a flashing icon of a spanner, please click on this to continue the tutorial.");
+
+[label,newbie_basics_instructor_progress]
+~chatnpc("<p,neutral>I'm glad you're making progress!");
+%tutorial = ^newbie_basics_instructor_interact_with_scenery;
+~set_tutorial_progress;
 
 [label,newbie_basics_instructor_return]
 ~chatnpc("<p,neutral>Welcome back. You have already learnt the first thing needed to succeed in this world: talking to other people!");
@@ -40,7 +43,7 @@ if (map_live = false) {
 ~chatnpc("<p,neutral>To continue the tutorial go through that door over there, and speak to your first instructor!");
 
 [proc,set_hint_newbie_basics_instructor]
-if (%varplayer_419 < ^newbie_basics_instructor_interact_with_scenery) {
+if (%tutorial < ^newbie_basics_instructor_interact_with_scenery) {
     if (npc_find(0_48_48_21_35, newbie_basics_instructor, 10, 0) = true) {
       hint_npc;
     }

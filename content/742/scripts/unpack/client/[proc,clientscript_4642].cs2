@@ -19,6 +19,6 @@ switch_int (%varplayer_2192) {
         return;
 }
 $string0 = append($string0, "<br>Replay: Up to <tostring(enum(int, int, enum_5756, %varplayer_2192))> Dungeoneering tokens.");
-sound_vorbis_volume(6185, 1, 0, 150);
+sound_vorbis_volume(vorbis_6185, 1, 0, 150);
 if_sethide(interface_153:com_52, true);
 if_settext(interface_153:com_50, $string0);

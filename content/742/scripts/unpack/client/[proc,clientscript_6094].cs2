@@ -1,9 +1,9 @@
 // 6094
 [proc,clientscript_6094]
 def_component $component0 = interface_1265:com_20;
-def_graphic $graphic1 = 10448;
+def_graphic $graphic1 = graphic_10448;
 if (%varplayerbit_11055 = 1) {
-    $graphic1 = 10453;
+    $graphic1 = graphic_10453;
 }
 def_int $int2 = 0;
 while ($int2 < 40) {

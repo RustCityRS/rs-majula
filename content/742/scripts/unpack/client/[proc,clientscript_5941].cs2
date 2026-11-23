@@ -4,12 +4,12 @@ def_graphic $graphic1 = null;
 def_int $int2 = ~clientscript_5939($int0);
 switch_int ($int2) {
     case 0 :
-        $graphic1 = 9868;
+        $graphic1 = graphic_9868;
     case 1 :
-        $graphic1 = 9869;
+        $graphic1 = graphic_9869;
     case 2 :
-        $graphic1 = 9870;
+        $graphic1 = graphic_9870;
     case 3 :
-        $graphic1 = 9871;
+        $graphic1 = graphic_9871;
 }
 return($graphic1);

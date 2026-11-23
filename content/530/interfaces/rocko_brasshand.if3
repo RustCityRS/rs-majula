@@ -4,7 +4,7 @@ type=graphic
 width=520
 height=335
 layer=contents
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 159:1
@@ -15,7 +15,7 @@ y=232
 width=27
 height=97
 layer=contents
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 159:2
@@ -26,7 +26,7 @@ y=7
 width=30
 height=217
 layer=contents
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 159:3
@@ -37,7 +37,7 @@ y=8
 width=26
 height=321
 layer=contents
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 159:4
@@ -48,7 +48,7 @@ y=215
 width=257
 height=34
 layer=contents
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 159:5
@@ -59,7 +59,7 @@ y=-10
 width=257
 height=34
 layer=contents
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 159:6
@@ -70,7 +70,7 @@ y=-9
 width=227
 height=34
 layer=contents
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 159:7
@@ -81,7 +81,7 @@ y=232
 width=27
 height=97
 layer=contents
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 159:8
@@ -92,7 +92,7 @@ y=7
 width=25
 height=217
 layer=contents
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 159:9
@@ -103,7 +103,7 @@ y=8
 width=29
 height=321
 layer=contents
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 159:10
@@ -114,7 +114,7 @@ y=311
 width=257
 height=37
 layer=contents
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 opbase= 
 
@@ -126,7 +126,7 @@ y=206
 width=257
 height=37
 layer=contents
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 opbase= 
 
@@ -138,7 +138,7 @@ y=311
 width=227
 height=35
 layer=contents
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 opbase= 
 
@@ -150,7 +150,7 @@ y=9
 width=26
 height=23
 layer=contents
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(rocko_brasshand:close_button, 536)
@@ -299,7 +299,7 @@ y=248
 width=25
 height=25
 layer=contents
-graphic=graphic_1228
+graphic="catcon_catapult_icons,4"
 transmitop=1
 op1=Rotate-Left
 onmouseover=graphic_swapper(event_com, 1229)
@@ -313,7 +313,7 @@ y=248
 width=25
 height=25
 layer=contents
-graphic=graphic_1230
+graphic="catcon_catapult_icons,6"
 transmitop=1
 op1=Rotate-Right
 onmouseover=graphic_swapper(event_com, 1231)
@@ -327,7 +327,7 @@ y=283
 width=25
 height=25
 layer=contents
-graphic=graphic_1232
+graphic="catcon_catapult_icons,8"
 transmitop=1
 op1=Restart
 onmouseover=graphic_swapper(event_com, 1233)
@@ -584,7 +584,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 159:47
@@ -595,7 +595,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 159:48
@@ -606,7 +606,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 159:49
@@ -617,7 +617,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 159:50
@@ -629,7 +629,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 159:51
@@ -641,7 +641,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 159:52
@@ -653,7 +653,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 159:53
@@ -665,7 +665,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 159:54
@@ -728,7 +728,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -742,7 +742,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -755,7 +755,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -769,6 +769,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

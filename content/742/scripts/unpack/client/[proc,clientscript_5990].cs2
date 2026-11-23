@@ -66,13 +66,13 @@ cc_settrans(255);
 def_graphic $graphic3 = null;
 switch_int ($int1) {
     case 0 :
-        $graphic3 = 7396;
+        $graphic3 = graphic_7396;
     case 1 :
-        $graphic3 = 7397;
+        $graphic3 = graphic_7397;
     case 2 :
-        $graphic3 = 7398;
+        $graphic3 = graphic_7398;
     case 3 :
-        $graphic3 = 7399;
+        $graphic3 = graphic_7399;
     case default :
         return;
 }

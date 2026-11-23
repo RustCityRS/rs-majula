@@ -2,7 +2,7 @@
 [proc,clientscript_736](component $component0, int $int1)
 if ($component0 = null) {
     if_sethide(toplevel_fullscreen:arrow, true);
-    if_setposition(toplevel_fullscreen:arrow, 0, 0, 0, 0);
+    if_setposition(toplevel_fullscreen:arrow, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
     if_setontimer(toplevel_fullscreen:stones_off, null);
     return;
 }

@@ -15,25 +15,25 @@ if ($component2 = null) {
 if_setsize($component2, 0, 34, ^setsize_minus, ^setsize_abs);
 cc_create($component2, ^iftype_graphic, 0);
 if (if_gethide($component3) = true) {
-    cc_setgraphic(11863);
+    cc_setgraphic(graphic_11863);
 } else {
-    cc_setgraphic(11866);
+    cc_setgraphic(graphic_11866);
 }
 cc_setsize(17, 0, ^setsize_abs, ^setsize_minus);
 cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_create($component2, ^iftype_graphic, 1);
 if (if_gethide($component3) = true) {
-    cc_setgraphic(11864);
+    cc_setgraphic(graphic_11864);
 } else {
-    cc_setgraphic(11867);
+    cc_setgraphic(graphic_11867);
 }
 cc_setsize(calc(17 * 2 + 2), 0, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_create($component2, ^iftype_graphic, 2);
 if (if_gethide($component3) = true) {
-    cc_setgraphic(11865);
+    cc_setgraphic(graphic_11865);
 } else {
-    cc_setgraphic(11868);
+    cc_setgraphic(graphic_11868);
 }
 cc_setsize(17, 0, ^setsize_abs, ^setsize_minus);
 cc_setposition(1, 0, ^setpos_abs_right, ^setpos_abs_top);
@@ -49,11 +49,11 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
 cc_create($component2, ^iftype_graphic, 4);
 cc_setsize(12, 19, ^setsize_abs, ^setsize_abs);
 if (if_gethide($component3) = true) {
-    cc_setgraphic(11808);
+    cc_setgraphic(graphic_11808);
     cc_set2dangle(0);
     cc_setvflip(false);
 } else {
-    cc_setgraphic(11808);
+    cc_setgraphic(graphic_11808);
     cc_set2dangle(49152);
     cc_setvflip(true);
 }

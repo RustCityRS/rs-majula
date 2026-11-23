@@ -4,23 +4,23 @@ if_setonsubchange(filterbuttons:container, "redraw_chat_buttons");
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 8;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(filterbuttons:com_4, false);
     if_setsize(filterbuttons:container, if_getwidth(filterbuttons:container), 27, ^setsize_abs, ^setsize_abs);
     if_setposition(filterbuttons:com_5, -3, 0, ^setpos_abs_left, ^setpos_abs_top);
     if_setsize(filterbuttons:com_14, 63, 27, ^setsize_abs, ^setsize_abs);
-    if_setgraphic(filterbuttons:reportabuse_graphic, 8558);
+    if_setgraphic(filterbuttons:reportabuse_graphic, graphic_8558);
     while ($int0 < $int2) {
         if (%chat_highlight = $int0 & %chat_view = $int0) {
-            if_setgraphic(enum(int, component, enum_683, $int0), 8562);
+            if_setgraphic(enum(int, component, enum_683, $int0), graphic_8562);
         } else if (%chat_highlight = $int0) {
-            if_setgraphic(enum(int, component, enum_683, $int0), 8560);
+            if_setgraphic(enum(int, component, enum_683, $int0), graphic_8560);
         } else if (%chat_view = $int0) {
-            if_setgraphic(enum(int, component, enum_683, $int0), 8561);
+            if_setgraphic(enum(int, component, enum_683, $int0), graphic_8561);
         } else if (calc(~chat_alert_get($int0) / 25 % 2) = 1) {
-            if_setgraphic(enum(int, component, enum_683, $int0), 8559);
+            if_setgraphic(enum(int, component, enum_683, $int0), graphic_8559);
         } else {
-            if_setgraphic(enum(int, component, enum_683, $int0), 8558);
+            if_setgraphic(enum(int, component, enum_683, $int0), graphic_8558);
         }
         $int0 = calc($int0 + 1);
     }

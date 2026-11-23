@@ -16,9 +16,17 @@ if (p_finduid(uid) = true) {
         p_run(^player_run_off);
         return;
     }
-    // 289's island hook, on its controls tab's run button (com_5)
-    if (%varplayer_419 = ^tutorial_open_player_controls) {
-        %varplayer_419 = ^tutorial_has_toggled_on_run;
+    // 289's island has no run button until its run step gives the controls tab; 530's orb is
+    // there from the start, and stays off until that step.
+    if (%tutorial < ^tutorial_performed_emote & ~in_tutorial_island(coord) = true) {
+        %option_run = %option_run;
+        return;
+    }
+    // 2009's run step points at this orb (tut_chatbox_steps.rs2). A save from 289's flow can be
+    // at 195, its controls tab's run button, between the two.
+    if (%tutorial >= ^tutorial_performed_emote & %tutorial < ^tutorial_has_toggled_on_run) {
+        %varplayerbit_3756 = 0;
+        %tutorial = ^tutorial_has_toggled_on_run;
         ~set_tutorial_progress;
     }
     p_run(^player_run_on);

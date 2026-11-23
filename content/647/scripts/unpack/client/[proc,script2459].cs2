@@ -1,6 +1,6 @@
 // 2459
 [proc,script2459](int $int0)(component)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     switch_int ($int0) {
         case 0 :
             return(toplevel_fullscreen:off0);

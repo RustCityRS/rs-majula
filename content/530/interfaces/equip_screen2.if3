@@ -12,7 +12,7 @@ width=489
 height=297
 xmode=abs_centre
 layer=background
-graphic=graphic_297
+graphic=tradebacking
 
 // 667:2
 [content_layer]
@@ -31,7 +31,7 @@ y=291
 width=32
 height=32
 layer=background
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 667:4
 [com_4]
@@ -41,7 +41,7 @@ y=20
 width=32
 height=32
 layer=background
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 667:5
 [com_5]
@@ -52,7 +52,7 @@ width=32
 height=32
 xmode=abs_right
 layer=background
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 667:6
 [com_6]
@@ -63,7 +63,7 @@ width=32
 height=32
 xmode=abs_right
 layer=background
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 667:7
 [com_7]
@@ -73,7 +73,7 @@ y=52
 width=32
 height=240
 layer=background
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 667:8
@@ -85,7 +85,7 @@ width=32
 height=239
 xmode=abs_right
 layer=background
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 667:9
@@ -96,7 +96,7 @@ width=444
 height=32
 xmode=abs_centre
 layer=background
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 667:10
@@ -107,7 +107,7 @@ width=448
 height=32
 xmode=abs_centre
 layer=background
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 667:11
@@ -118,7 +118,7 @@ y=27
 width=26
 height=23
 layer=background
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 536)
@@ -133,7 +133,7 @@ y=10
 width=458
 height=14
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Equip Your Character...
 textshadow=yes
 colour=0xff981f
@@ -179,7 +179,7 @@ y=116
 width=32
 height=50
 layer=worn_items_layer
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 667:17
@@ -190,7 +190,7 @@ y=35
 width=32
 height=130
 layer=worn_items_layer
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 667:18
@@ -201,7 +201,7 @@ y=116
 width=32
 height=50
 layer=worn_items_layer
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 667:19
@@ -212,7 +212,7 @@ y=44
 width=48
 height=32
 layer=worn_items_layer
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 667:20
@@ -223,7 +223,7 @@ y=82
 width=82
 height=32
 layer=worn_items_layer
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 667:21
@@ -234,7 +234,7 @@ y=3
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:22
 [capeslot]
@@ -244,7 +244,7 @@ y=42
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:23
 [necklaceslot]
@@ -254,7 +254,7 @@ y=42
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:24
 [arrowslot]
@@ -264,7 +264,7 @@ y=42
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:25
 [weaponslot]
@@ -274,7 +274,7 @@ y=81
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 opbase=weaponslot
 
 // 667:26
@@ -285,7 +285,7 @@ y=81
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:27
 [shieldslot]
@@ -295,7 +295,7 @@ y=81
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:28
 [legslot]
@@ -305,7 +305,7 @@ y=121
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:29
 [footslot]
@@ -315,7 +315,7 @@ y=161
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:30
 [handslot]
@@ -325,7 +325,7 @@ y=161
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:31
 [ringslot]
@@ -335,7 +335,7 @@ y=161
 width=36
 height=36
 layer=worn_items_layer
-graphic=graphic_170
+graphic="miscgraphics,0"
 
 // 667:32
 [com_32]
@@ -345,7 +345,7 @@ y=218
 width=62
 height=17
 layer=worn_items_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=%1kg
 textalignv=centre
 textshadow=yes
@@ -359,7 +359,7 @@ y=217
 width=17
 height=18
 layer=worn_items_layer
-graphic=graphic_649
+graphic="options_icons_small,0"
 
 // 667:34
 [com_34]
@@ -369,7 +369,7 @@ y=1
 width=139
 height=15
 layer=com_15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Attack bonus
 textshadow=yes
 colour=0xff981f
@@ -382,7 +382,7 @@ y=93
 width=139
 height=15
 layer=com_15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Defence bonus
 textshadow=yes
 colour=0xff981f
@@ -395,7 +395,7 @@ y=15
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Stab: +120
 textshadow=yes
 colour=0xff981f
@@ -408,7 +408,7 @@ y=29
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Slash:+120
 textshadow=yes
 colour=0xff981f
@@ -421,7 +421,7 @@ y=43
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Crush:+120
 textshadow=yes
 colour=0xff981f
@@ -434,7 +434,7 @@ y=57
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Magic: +120
 textshadow=yes
 colour=0xff981f
@@ -447,7 +447,7 @@ y=71
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ranged: +120
 textshadow=yes
 colour=0xff981f
@@ -460,7 +460,7 @@ y=107
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Stab: +120
 textshadow=yes
 colour=0xff981f
@@ -473,7 +473,7 @@ y=121
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Slash: +120
 textshadow=yes
 colour=0xff981f
@@ -486,7 +486,7 @@ y=135
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Crush: +120
 textshadow=yes
 colour=0xff981f
@@ -499,7 +499,7 @@ y=149
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Magic: +120
 textshadow=yes
 colour=0xff981f
@@ -512,7 +512,7 @@ y=163
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Range: +120
 textshadow=yes
 colour=0xff981f
@@ -525,7 +525,7 @@ y=177
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Summoning: +120
 textshadow=yes
 colour=0xff981f
@@ -538,7 +538,7 @@ y=200
 width=139
 height=15
 layer=com_15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Other bonuses
 textshadow=yes
 colour=0xff981f
@@ -551,7 +551,7 @@ y=214
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Strength: +120
 textshadow=yes
 colour=0xff981f
@@ -564,7 +564,7 @@ y=228
 width=143
 height=15
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Prayer: +120
 textshadow=yes
 colour=0xff981f

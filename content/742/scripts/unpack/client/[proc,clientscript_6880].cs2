@@ -1,10 +1,10 @@
 // 6880
 [proc,clientscript_6880]
-def_graphic $graphic0 = 13784;
-def_graphic $graphic1 = 13786;
-def_graphic $graphic2 = 13785;
-def_graphic $graphic3 = 13782;
-def_graphic $graphic4 = 13783;
+def_graphic $graphic0 = graphic_13784;
+def_graphic $graphic1 = graphic_13786;
+def_graphic $graphic2 = graphic_13785;
+def_graphic $graphic3 = graphic_13782;
+def_graphic $graphic4 = graphic_13783;
 if (%varplayerbit_12195 = 0) {
     if_setonmouseover(interface_1311:com_259, null);
     if_setonmouseleave(interface_1311:com_259, null);

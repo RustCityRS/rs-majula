@@ -69,7 +69,7 @@ if(%gnome_obstacle_pipe_used >= map_clock) {
 %gnome_obstacle_pipe_used = calc(map_clock + 12);
 @enter_gnome_obstacle_pipe;
 
-[oploc1,loc_4058]
+[oploc1,obstacle_pipe_4058]
 if(coordz(coord) > coordz(loc_coord)) {
     mes("You can't enter the pipe from this side.");
     return;

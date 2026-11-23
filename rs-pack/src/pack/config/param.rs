@@ -7,13 +7,13 @@ use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
-use crate::pack::util::{parse_bool, parse_coord, parse_script_var_type};
+use crate::pack::util::{parse_bool, parse_coord, parse_script_var_type, raw_id_error};
 use crate::types::ScriptVarType;
 #[cfg(before_530)]
 use crate::types::{NpcStat, PlayerStat};
 use anyhow::Result;
-use std::collections::HashMap;
-#[cfg(since_530)]
+use std::collections::{HashMap, HashSet};
+use std::sync::{LazyLock, Mutex};
 use tracing::warn;
 
 pub fn pack_params(
@@ -154,6 +154,11 @@ pub fn get_param_value_for_type(
     if value == "null" {
         return Some(ParamValue::Int(-1));
     }
+    if !matches!(kind, "int" | "coord" | "boolean" | "long" | "char")
+        && let Some(error) = raw_id_error(kind, value)
+    {
+        panic!("{error}");
+    }
     if let Ok(value) = value.parse::<i32>() {
         return Some(ParamValue::Int(value));
     }
@@ -244,15 +249,21 @@ pub fn get_param_value_for_type(
         .strip_prefix('"')
         .and_then(|value| value.strip_suffix('"'))
         .unwrap_or(value);
-    #[cfg(before_530)]
-    let id = pack.get_by_debugname(value).map_or(-1, |id| id as i32);
+    let id = pack.get_by_debugname(value).map(|id| id as i32);
     #[cfg(since_530)]
-    let id = pack
-        .get_by_debugname(value)
-        .map(|id| id as i32)
-        .or_else(|| placeholder_id(kind, value))
-        .unwrap_or(-1);
-    Some(ParamValue::Int(id))
+    let id = id.or_else(|| placeholder_id(kind, value));
+    Some(ParamValue::Int(id.unwrap_or_else(|| {
+        warn_unresolved(kind, value);
+        -1
+    })))
+}
+
+/// Warns, once per name, that a config value names no `kind`: it packs as -1 (nothing).
+fn warn_unresolved(kind: &str, value: &str) {
+    static SEEN: LazyLock<Mutex<HashSet<String>>> = LazyLock::new(Default::default);
+    if SEEN.lock().unwrap().insert(format!("{kind}:{value}")) {
+        warn!("Unknown {kind} '{value}' in a config value: packed as -1");
+    }
 }
 
 /// The id in a dump's name for an unnamed config, like `graphic_1807`.
@@ -290,7 +301,9 @@ pub fn parse_params<'a>(
         })
         .filter(|(_pname, _)| {
             #[cfg(since_530)]
-            if registry.param.get_by_debugname(_pname).is_none() && _pname.parse::<u32>().is_err() {
+            if registry.param.get_by_debugname(_pname).is_none()
+                && raw_id_error("param", _pname).is_none()
+            {
                 warn!("Unknown param '{_pname}' for [{name}]");
                 return false;
             }
@@ -305,7 +318,12 @@ pub fn parse_params<'a>(
             let pval = pval.trim();
             let pid = registry.param.get_by_debugname(pname);
             #[cfg(since_530)]
-            let pid = pid.or_else(|| pname.parse().ok());
+            let pid = pid.or_else(|| {
+                if let Some(error) = raw_id_error("param", pname) {
+                    panic!("{error} for [{name}]");
+                }
+                None
+            });
             let pid = pid.unwrap_or_else(|| panic!("Unknown param '{pname}' for [{name}]"));
             let ptype = param_types.get(pname).map(String::as_str);
             #[cfg(since_530)]

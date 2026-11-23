@@ -1,7 +1,7 @@
 // 3230
 [proc,login_resize]
 def_int $int0 = 0;
-if (getwindowmode < 2) {
+if (getwindowmode < ^windowmode_resizable) {
     if_setposition(login:main, 0, 16, ^setpos_abs_centre, ^setpos_abs_centre);
     if_setposition(login:popup, 0, 16, ^setpos_abs_centre, ^setpos_abs_centre);
     if_setsize(loginscreen:com_16, 0, 0, ^setsize_minus, ^setsize_minus);

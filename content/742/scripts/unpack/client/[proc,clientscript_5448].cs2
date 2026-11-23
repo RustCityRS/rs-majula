@@ -7,24 +7,24 @@ def_int $int2 = 0;
 def_string $string2 = "";
 %varclient_1681 = $int0;
 $int2 = calc((%varclient_1680 - 1) * 6 + $int0);
-if_setgraphic(interface_1168:com_28, 8430);
-if_setgraphic(interface_1168:com_27, 8430);
-if_setgraphic(interface_1168:com_26, 8430);
-if_setgraphic(interface_1168:com_25, 8430);
-if_setgraphic(interface_1168:com_24, 8430);
-if_setgraphic(interface_1168:com_23, 8430);
+if_setgraphic(interface_1168:com_28, graphic_8430);
+if_setgraphic(interface_1168:com_27, graphic_8430);
+if_setgraphic(interface_1168:com_26, graphic_8430);
+if_setgraphic(interface_1168:com_25, graphic_8430);
+if_setgraphic(interface_1168:com_24, graphic_8430);
+if_setgraphic(interface_1168:com_23, graphic_8430);
 if ($int0 = 1) {
-    if_setgraphic(interface_1168:com_28, 8433);
+    if_setgraphic(interface_1168:com_28, graphic_8433);
 } else if ($int0 = 2) {
-    if_setgraphic(interface_1168:com_27, 8433);
+    if_setgraphic(interface_1168:com_27, graphic_8433);
 } else if ($int0 = 3) {
-    if_setgraphic(interface_1168:com_26, 8433);
+    if_setgraphic(interface_1168:com_26, graphic_8433);
 } else if ($int0 = 4) {
-    if_setgraphic(interface_1168:com_25, 8433);
+    if_setgraphic(interface_1168:com_25, graphic_8433);
 } else if ($int0 = 5) {
-    if_setgraphic(interface_1168:com_24, 8433);
+    if_setgraphic(interface_1168:com_24, graphic_8433);
 } else if ($int0 = 6) {
-    if_setgraphic(interface_1168:com_23, 8433);
+    if_setgraphic(interface_1168:com_23, graphic_8433);
 }
 $struct1 = enum(int, struct, enum_5213, $int2);
 $string0 = struct_param($struct1, param_2095);
@@ -41,7 +41,7 @@ if (struct_param($struct1, param_2097) = 1) {
     $string2 = "<col=f5b241>Arena</col>: Multi-way combat with podiums";
 }
 if_settext(interface_1168:com_2, $string0);
-sound_vorbis_volume(8097, 1, 0, 180);
+sound_vorbis_volume(vorbis_8097, 1, 0, 180);
 if (~clientscript_5451($int2) = 0) {
     if ($int2 = 1) {
         if_settext(interface_1168:com_101, "You must win against this monster in Endurance or Special mode before you can fight it here.");

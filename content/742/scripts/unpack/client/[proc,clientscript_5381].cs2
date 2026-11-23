@@ -3,22 +3,22 @@
 switch_int ($int0) {
     case 75497503 :
         if (if_find(interface_1152:com_11) = true) {
-            cc_setgraphic(6364);
+            cc_setgraphic(graphic_6364);
         }
         if (if_find(interface_1152:com_12) = true) {
-            cc_setgraphic(6365);
+            cc_setgraphic(graphic_6365);
         }
         if (if_find(interface_1152:com_13) = true) {
-            cc_setgraphic(6366);
+            cc_setgraphic(graphic_6366);
         }
     case 75497541 :
         if (if_find(interface_1152:com_7) = true) {
-            cc_setgraphic(6379);
+            cc_setgraphic(graphic_6379);
         }
         if (if_find(interface_1152:com_8) = true) {
-            cc_setgraphic(6380);
+            cc_setgraphic(graphic_6380);
         }
         if (if_find(interface_1152:com_9) = true) {
-            cc_setgraphic(6381);
+            cc_setgraphic(graphic_6381);
         }
 }

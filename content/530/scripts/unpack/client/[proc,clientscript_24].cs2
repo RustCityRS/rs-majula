@@ -1,19 +1,19 @@
 // 24
 [proc,clientscript_24](int $int0, obj $obj1, string $string0, int $int2, int $int3)(int)
-cc_create(skill_guide_v2:info, 4, calc($int2 * 3));
-cc_setsize(26, 32, 0, 0);
+cc_create(skill_guide_v2:info, ^iftype_text, calc($int2 * 3));
+cc_setsize(26, 32, ^setsize_abs, ^setsize_abs);
 if ($int0 > 0) {
     cc_settext(tostring($int0));
 } else {
     cc_settext(" ");
 }
-cc_setposition(0, $int3, 0, 0);
-cc_settextalign(2, 0, 0);
+cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_right, ^settextalign_top, 0);
 cc_setcolour(0x46320a);
-cc_settextfont(497);
+cc_settextfont(q8_full);
 cc_settextshadow(false);
-cc_create(skill_guide_v2:info, 5, calc($int2 * 3 + 1));
-cc_setsize(36, 32, 0, 0);
+cc_create(skill_guide_v2:info, ^iftype_graphic, calc($int2 * 3 + 1));
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
 cc_setoutline(1);
 cc_setgraphicshadow(0x604e32);
 if ($obj1 ! null) {
@@ -32,15 +32,15 @@ if ($obj1 ! null) {
 } else {
     cc_setobject(invis_rod, -1);
 }
-cc_setposition(28, $int3, 0, 0);
-cc_create(skill_guide_v2:info, 4, calc($int2 * 3 + 2));
-def_int $int4 = paraheight($string0, 228, 495);
-cc_setsize(228, calc($int4 * 15), 0, 0);
+cc_setposition(28, $int3, ^setpos_abs_left, ^setpos_abs_top);
+cc_create(skill_guide_v2:info, ^iftype_text, calc($int2 * 3 + 2));
+def_int $int4 = paraheight($string0, 228, p12_full);
+cc_setsize(228, calc($int4 * 15), ^setsize_abs, ^setsize_abs);
 cc_settext($string0);
-cc_setposition(66, $int3, 0, 0);
-cc_settextalign(0, 0, 0);
+cc_setposition(66, $int3, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
 cc_setcolour(0x46320a);
-cc_settextfont(495);
+cc_settextfont(p12_full);
 cc_settextshadow(false);
 if (calc($int4 * 15) < 32) {
     return(32);

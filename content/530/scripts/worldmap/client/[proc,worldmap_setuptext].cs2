@@ -1,11 +1,11 @@
 // 2052
-[proc,worldmap_setuptext](string $string0, int $int0, int $int1, int $int2, int $int3, int $rgb4, string $string1, string $string2, coord $coord5)
+[proc,worldmap_setuptext](string $string0, int $int0, int $int1, int $int2, int $int3, int $colour4, string $string1, string $string2, coord $coord5)
 cc_sethide(false);
-cc_setsize($int0, $int1, 0, 0);
-cc_setposition($int2, $int3, 1, 1);
-cc_setcolour($rgb4);
-cc_settextfont(591);
-cc_settextalign(1, 1, 13);
+cc_setsize($int0, $int1, ^setsize_abs, ^setsize_abs);
+cc_setposition($int2, $int3, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setcolour($colour4);
+cc_settextfont(menu_font_small);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
 cc_settext($string0);
 if ($coord5 ! null) {
     cc_setopbase("<col=ff9040><$string1></col>");

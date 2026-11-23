@@ -15,7 +15,7 @@ if ($int2 >= calc(if_getwidth(op543($component0)) - if_getwidth($component0))) {
     cc_create(interface_1253:com_49, ^iftype_graphic, if_getnextsubid(interface_1253:com_49));
     cc_setsize(120, 120, ^setsize_abs, ^setsize_abs);
     cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setgraphic(9854);
+    cc_setgraphic(graphic_9854);
     cc_settrans(255);
     cc_setontimer("clientscript_6589(event_com, event_comsubid, 0)");
 } else {

@@ -651,6 +651,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             npc.run(s.pop_int_as::<u8>()?);
         });
 
+        // 2553
+        #[cfg(since_530)]
+        active_npc!(m, NPC_GETMULTINPC => |s, npc| {
+            require_active_player(s)?;
+            let id = npc.uid().id();
+            let shown = get_active_player::<E>(s, false)?.shown_npc(id);
+            s.push_int(shown.unwrap_or(id).int());
+        });
+
         // 2545
         // https://x.com/JagexAsh/status/1780932943038345562
         active_npc_mut!(m, NPC_WALKTRIGGER => |s, npc| {

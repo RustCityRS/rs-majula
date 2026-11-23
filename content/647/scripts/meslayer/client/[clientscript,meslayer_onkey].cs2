@@ -81,7 +81,7 @@ switch_int ($key0) {
         if_sethide(chattop:mes_layer_large, true);
         if_sethide(chattop:mes_layer_hide, false);
         %meslayermode = 0;
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             ~subchanged;
         }
         return;

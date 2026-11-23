@@ -6,7 +6,7 @@ y=25
 width=497
 height=302
 layer=content_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 681:1
@@ -15,7 +15,7 @@ type=graphic
 width=512
 height=334
 layer=content_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 681:2
@@ -36,7 +36,7 @@ y=225
 width=496
 height=32
 layer=content_layer
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 681:4
@@ -63,7 +63,7 @@ y=30
 width=16
 height=16
 layer=content_layer
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -1454,7 +1454,7 @@ y=260
 width=327
 height=44
 layer=completed_close_layer
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Close
 textalignh=centre
 textalignv=centre
@@ -1472,7 +1472,7 @@ y=19
 width=138
 height=78
 layer=completed_close_layer
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Repairs Complete
 textalignh=centre
 textalignv=centre
@@ -1487,7 +1487,7 @@ y=95
 width=113
 height=133
 layer=completed_close_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=You finish repairing the catapult.  The Guard looks rather impressed.
 textlineheight=21
 textalignh=centre
@@ -1659,7 +1659,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 681:130
@@ -1670,7 +1670,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 681:131
@@ -1681,7 +1681,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 681:132
@@ -1692,7 +1692,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 681:133
@@ -1704,7 +1704,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 681:134
@@ -1716,7 +1716,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 681:135
@@ -1728,7 +1728,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 681:136
@@ -1740,7 +1740,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 681:137
@@ -1803,7 +1803,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -1817,7 +1817,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -1830,7 +1830,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -1844,6 +1844,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

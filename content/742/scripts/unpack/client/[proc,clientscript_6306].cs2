@@ -20,20 +20,20 @@ if_sethide(interface_1301:com_9, true);
 if_sethide(interface_1301:com_7, true);
 switch_int (map_lang) {
     case 1 :
-        if_setgraphic(interface_1301:com_0, 11410);
-        if_setgraphic(interface_1301:com_1, 11411);
-        if_setgraphic(interface_1301:com_2, 11412);
-        if_setgraphic(interface_1301:com_5, 11413);
+        if_setgraphic(interface_1301:com_0, graphic_11410);
+        if_setgraphic(interface_1301:com_1, graphic_11411);
+        if_setgraphic(interface_1301:com_2, graphic_11412);
+        if_setgraphic(interface_1301:com_5, graphic_11413);
     case 2 :
-        if_setgraphic(interface_1301:com_0, 11414);
-        if_setgraphic(interface_1301:com_1, 11415);
-        if_setgraphic(interface_1301:com_2, 11416);
-        if_setgraphic(interface_1301:com_5, 11417);
+        if_setgraphic(interface_1301:com_0, graphic_11414);
+        if_setgraphic(interface_1301:com_1, graphic_11415);
+        if_setgraphic(interface_1301:com_2, graphic_11416);
+        if_setgraphic(interface_1301:com_5, graphic_11417);
     case 3 :
-        if_setgraphic(interface_1301:com_0, 11418);
-        if_setgraphic(interface_1301:com_1, 11419);
-        if_setgraphic(interface_1301:com_2, 11420);
-        if_setgraphic(interface_1301:com_5, 11421);
+        if_setgraphic(interface_1301:com_0, graphic_11418);
+        if_setgraphic(interface_1301:com_1, graphic_11419);
+        if_setgraphic(interface_1301:com_2, graphic_11420);
+        if_setgraphic(interface_1301:com_5, graphic_11421);
 }
 if_sethide(interface_1301:com_8, false);
 if_setmodel(interface_1301:com_7, model_32143);

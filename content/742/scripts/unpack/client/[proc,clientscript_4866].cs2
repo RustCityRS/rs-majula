@@ -31,15 +31,15 @@ if_setsize($component9, min(calc($int21 - 2), calc($int16 - ($int18 + $int19))),
 if_setposition($component9, calc($int18 + $int19 + 1), 0, ^setpos_abs_left, ^setpos_abs_top);
 def_component $component23 = null;
 def_component $component24 = null;
-def_graphic $graphic25 = 7317;
-def_graphic $graphic26 = 7314;
+def_graphic $graphic25 = graphic_7317;
+def_graphic $graphic26 = graphic_7314;
 $component23, $component24 = ~clientscript_5223($int0);
 if ($component23 ! null & $component24 ! null) {
     $int17 = calc($int17 + 82);
     $int17 = calc($int17 - if_getwidth($component24) / 2);
     if (%varclan_2744 = $int0) {
-        $graphic25 = 7316;
-        $graphic26 = 7315;
+        $graphic25 = graphic_7316;
+        $graphic26 = graphic_7315;
     }
     if_sethide($component23, true);
     if_sethide($component24, true);
@@ -53,10 +53,10 @@ if ($component23 ! null & $component24 ! null) {
 }
 if (~clientscript_5956($int0) = 3 | ~clientscript_5956($int0) = 2) {
     if_sethide(~clientscript_5967($int0), false);
-    if_setgraphic(~clientscript_5967($int0), 9996);
+    if_setgraphic(~clientscript_5967($int0), graphic_9996);
 } else if (~clientscript_5956($int0) = 1) {
     if_sethide(~clientscript_5967($int0), false);
-    if_setgraphic(~clientscript_5967($int0), 9997);
+    if_setgraphic(~clientscript_5967($int0), graphic_9997);
 } else {
     if_sethide(~clientscript_5967($int0), true);
 }

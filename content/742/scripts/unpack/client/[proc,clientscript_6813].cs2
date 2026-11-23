@@ -32,49 +32,49 @@ if_setgraphic(interface_1351:com_51, null);
 if_setgraphic(interface_1351:com_52, null);
 ~clientscript_6830;
 if (%varplayerbit_12068 = 1) {
-    if_setgraphic(interface_1351:com_43, 13522);
+    if_setgraphic(interface_1351:com_43, graphic_13522);
 }
 if (%varplayerbit_12069 = 1) {
-    if_setgraphic(interface_1351:com_41, 13522);
+    if_setgraphic(interface_1351:com_41, graphic_13522);
 }
 if (%varplayerbit_12070 = 1) {
-    if_setgraphic(interface_1351:com_39, 13522);
+    if_setgraphic(interface_1351:com_39, graphic_13522);
 }
 if (%varplayerbit_12071 = 1) {
-    if_setgraphic(interface_1351:com_37, 13522);
+    if_setgraphic(interface_1351:com_37, graphic_13522);
 }
 if (%varplayerbit_12072 = 1) {
-    if_setgraphic(interface_1351:com_35, 13522);
+    if_setgraphic(interface_1351:com_35, graphic_13522);
 }
 if (%varplayerbit_12073 = 1) {
-    if_setgraphic(interface_1351:com_33, 13522);
+    if_setgraphic(interface_1351:com_33, graphic_13522);
 }
 if (%varplayerbit_12074 = 1) {
-    if_setgraphic(interface_1351:com_27, 13522);
+    if_setgraphic(interface_1351:com_27, graphic_13522);
 }
 if (%varplayerbit_12075 = 1) {
-    if_setgraphic(interface_1351:com_30, 13522);
+    if_setgraphic(interface_1351:com_30, graphic_13522);
 }
 if (%varplayerbit_12076 = 1) {
-    if_setgraphic(interface_1351:com_28, 13522);
+    if_setgraphic(interface_1351:com_28, graphic_13522);
 }
 if (%varplayerbit_12077 = 1) {
-    if_setgraphic(interface_1351:com_49, 13522);
+    if_setgraphic(interface_1351:com_49, graphic_13522);
 }
 if (%varplayerbit_12078 = 1) {
-    if_setgraphic(interface_1351:com_47, 13522);
+    if_setgraphic(interface_1351:com_47, graphic_13522);
 }
 if (%varplayerbit_12079 = 1) {
-    if_setgraphic(interface_1351:com_45, 13522);
+    if_setgraphic(interface_1351:com_45, graphic_13522);
 }
 if (%varplayerbit_12080 = 1) {
-    if_setgraphic(interface_1351:com_55, 13522);
+    if_setgraphic(interface_1351:com_55, graphic_13522);
 }
 if (%varplayerbit_12081 = 1) {
-    if_setgraphic(interface_1351:com_53, 13522);
+    if_setgraphic(interface_1351:com_53, graphic_13522);
 }
 if (%varplayerbit_12082 = 1) {
-    if_setgraphic(interface_1351:com_51, 13522);
+    if_setgraphic(interface_1351:com_51, graphic_13522);
 }
 def_component $component0 = ~clientscript_6814(%varplayerbit_12086);
 def_component $component1 = ~clientscript_6814(%varplayerbit_12087);
@@ -85,15 +85,15 @@ def_component $component5 = ~clientscript_6814(%varplayerbit_12091);
 def_component $component6 = ~clientscript_6814(%varplayerbit_12092);
 def_component $component7 = ~clientscript_6814(%varplayerbit_12093);
 def_component $component8 = ~clientscript_6814(%varplayerbit_12094);
-if_setgraphic($component0, 13504);
-if_setgraphic($component1, 13509);
-if_setgraphic($component2, 13511);
-if_setgraphic($component3, 13508);
-if_setgraphic($component4, 13513);
-if_setgraphic($component5, 13515);
-if_setgraphic($component6, 13519);
-if_setgraphic($component7, 13506);
-if_setgraphic($component8, 13505);
+if_setgraphic($component0, graphic_13504);
+if_setgraphic($component1, graphic_13509);
+if_setgraphic($component2, graphic_13511);
+if_setgraphic($component3, graphic_13508);
+if_setgraphic($component4, graphic_13513);
+if_setgraphic($component5, graphic_13515);
+if_setgraphic($component6, graphic_13519);
+if_setgraphic($component7, graphic_13506);
+if_setgraphic($component8, graphic_13505);
 if_sethide(interface_1351:com_111, false);
 if_sethide(interface_1351:com_99, true);
 if_sethide(interface_1351:com_100, true);

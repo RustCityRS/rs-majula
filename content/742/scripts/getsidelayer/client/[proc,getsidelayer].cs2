@@ -1,6 +1,6 @@
 // 8
 [proc,getsidelayer](int $int0)(component)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     switch_int ($int0) {
         case 0 :
             return(toplevel_fullscreen:side0);

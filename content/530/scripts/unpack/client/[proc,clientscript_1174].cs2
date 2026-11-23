@@ -11,12 +11,12 @@ switch_component ($component0) {
     case loginscreen:com_176 :
         if_sethide(loginscreen:com_131, true);
         if_sethide(loginscreen:com_132, true);
-        if_setsize(loginscreen:com_133, if_getwidth(loginscreen:com_133), 10, 0, 1);
+        if_setsize(loginscreen:com_133, if_getwidth(loginscreen:com_133), 10, ^setsize_abs, ^setsize_minus);
         if_sethide(loginscreen:com_133, false);
     case loginscreen:com_138 :
         if_sethide(loginscreen:com_131, true);
         if_sethide(loginscreen:com_132, true);
-        if_setsize(loginscreen:com_133, if_getwidth(loginscreen:com_133), 440, 0, 0);
+        if_setsize(loginscreen:com_133, if_getwidth(loginscreen:com_133), 440, ^setsize_abs, ^setsize_abs);
         if_sethide(loginscreen:com_133, false);
     case default :
         if_sethide(loginscreen:com_131, false);
@@ -73,8 +73,8 @@ if ($component0 = loginscreen:com_241) {
 def_string $string0 = "";
 def_string $string1 = "";
 if ($component0 = loginscreen:general_messages) {
-    if_setsize(loginscreen:general_messages_text, 0, calc(paraheight(if_gettext(loginscreen:general_messages_text), if_getwidth(loginscreen:general_messages_text), 495) * 15 + 5), 1, 0);
-    if_setposition(loginscreen:general_messages_continue, 0, min(calc((if_getheight(loginscreen:general_messages) + if_getheight(loginscreen:general_messages_text)) / 2 + 45), calc(if_getheight(loginscreen:general_messages) - if_getheight(loginscreen:general_messages_continue))), 1, 0);
+    if_setsize(loginscreen:general_messages_text, 0, calc(paraheight(if_gettext(loginscreen:general_messages_text), if_getwidth(loginscreen:general_messages_text), p12_full) * 15 + 5), ^setsize_minus, ^setsize_abs);
+    if_setposition(loginscreen:general_messages_continue, 0, min(calc((if_getheight(loginscreen:general_messages) + if_getheight(loginscreen:general_messages_text)) / 2 + 45), calc(if_getheight(loginscreen:general_messages) - if_getheight(loginscreen:general_messages_continue))), ^setpos_abs_centre, ^setpos_abs_top);
     $string0 = if_gettext(loginscreen:com_136);
     if (string_length($string0) > 0) {
         $string1 = "<col=461e00><u=461e00><$string0></u></col>";
@@ -82,7 +82,7 @@ if ($component0 = loginscreen:general_messages) {
         if_setonmouseleave(loginscreen:com_136, "text_swapper(loginscreen:com_136, $string1)");
         $string1 = "<col=ffffff><u=ffffff><$string0></u></col>";
         if_setonmouseover(loginscreen:com_136, "text_swapper(loginscreen:com_136, $string1)");
-        if_setposition(loginscreen:com_136, 0, min(calc((if_getheight(loginscreen:general_messages) + if_getheight(loginscreen:general_messages_text)) / 2 + 15), calc(if_gety(loginscreen:general_messages_continue) - if_getheight(loginscreen:com_136))), 1, 0);
+        if_setposition(loginscreen:com_136, 0, min(calc((if_getheight(loginscreen:general_messages) + if_getheight(loginscreen:general_messages_text)) / 2 + 15), calc(if_gety(loginscreen:general_messages_continue) - if_getheight(loginscreen:com_136))), ^setpos_abs_centre, ^setpos_abs_top);
         if_sethide(loginscreen:com_136, false);
     } else {
         if_setonmouseover(loginscreen:com_136, null);
@@ -190,10 +190,10 @@ if ($component0 = loginscreen:com_138) {
     $int3 = calc(fullscreen_modecount * 15);
     $int3 = min($int3, 240);
     $int3 = max($int3, 40);
-    if_setsize(loginscreen:com_284, if_getwidth(loginscreen:com_284), calc($int3 + 2), 0, 0);
-    if_setsize(loginscreen:com_285, if_getwidth(loginscreen:com_285), $int3, 0, 0);
-    if_setsize(loginscreen:com_286, if_getwidth(loginscreen:com_286), $int3, 0, 0);
-    ~clientscript_1169(loginscreen:com_283, loginscreen:com_284, loginscreen:com_285, loginscreen:com_286, 884, 1248, 1250, 1402, 0x7f0000, 0xffc61a, 494, 798, 795, 796, 797, 793, 794);
+    if_setsize(loginscreen:com_284, if_getwidth(loginscreen:com_284), calc($int3 + 2), ^setsize_abs, ^setsize_abs);
+    if_setsize(loginscreen:com_285, if_getwidth(loginscreen:com_285), $int3, ^setsize_abs, ^setsize_abs);
+    if_setsize(loginscreen:com_286, if_getwidth(loginscreen:com_286), $int3, ^setsize_abs, ^setsize_abs);
+    ~clientscript_1169(loginscreen:com_283, loginscreen:com_284, loginscreen:com_285, loginscreen:com_286, graphic_884, "drop_down_arrow_scroll,0", "drop_down_arrow_scroll,2", graphic_1402, 0x7f0000, 0xffc61a, p11_full, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
     ~loginscreen_brightness(loginscreen:brightness_dragzone, loginscreen:brightness_slider);
     ~clientscript_1192;
     ~clientscript_1194;

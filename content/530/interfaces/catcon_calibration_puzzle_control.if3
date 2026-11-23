@@ -203,7 +203,7 @@ x=-5
 y=142
 width=32
 height=64
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 
 // 682:16
 [com_16]
@@ -212,7 +212,7 @@ x=168
 y=142
 width=32
 height=64
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 
 // 682:17
 [com_17]
@@ -221,7 +221,7 @@ x=9
 y=126
 width=173
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 682:18
@@ -231,7 +231,7 @@ x=9
 y=188
 width=173
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 682:19
@@ -241,7 +241,7 @@ x=26
 y=22
 width=140
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 682:20
@@ -251,7 +251,7 @@ x=26
 y=67
 width=139
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 682:21
@@ -261,7 +261,7 @@ x=13
 y=39
 width=32
 height=44
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 opbase= 
 
@@ -272,7 +272,7 @@ x=151
 y=39
 width=32
 height=44
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 682:23
@@ -289,7 +289,7 @@ x=4
 y=53
 width=16
 height=16
-graphic=graphic_1172
+graphic="catcon_catapult_arrows,0"
 transmitop=1
 op1=Decrease-Weight
 onmouseover=graphic_swapper(event_com, 1173)
@@ -302,7 +302,7 @@ x=171
 y=53
 width=16
 height=16
-graphic=graphic_1174
+graphic="catcon_catapult_arrows,2"
 transmitop=1
 op1=Increase-Weight
 onmouseover=graphic_swapper(event_com, 1175)
@@ -438,7 +438,7 @@ x=22
 y=16
 width=146
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=COUNTERWEIGHT
 textalignh=centre
 textalignv=bottom
@@ -451,7 +451,7 @@ x=24
 y=120
 width=146
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=DIRECTION
 textalignh=centre
 textalignv=bottom

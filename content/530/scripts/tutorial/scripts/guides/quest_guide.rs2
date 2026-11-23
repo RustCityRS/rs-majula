@@ -1,5 +1,5 @@
 [opnpc1,newbie_quest_instructor]
-switch_int(%varplayer_419) {
+switch_int(%tutorial) {
     case ^newbie_quest_instructor_start : @newbie_quest_instructor_start;
     case ^newbie_quest_instructor_open_menu : @newbie_quest_instructor_menu_not_opened;
     case ^newbie_quest_instructor_opened_menu : @newbie_quest_instructor_journal_info;
@@ -8,13 +8,13 @@ switch_int(%varplayer_419) {
 
 [label,newbie_quest_instructor_start]
 ~chatnpc("<p,neutral>Ah... welcome adventurer. I'm here to tell you all about|quests. Let's start by opening the quest side panel.");
-%varplayer_419 = ^newbie_quest_instructor_open_menu;
+%tutorial = ^newbie_quest_instructor_open_menu;
 ~set_tutorial_progress;
 
 [label,newbie_quest_instructor_journal_info]
 ~chatnpc("<p,neutral>Now you have the journal open I'll tell you a bit about|it. As you see at the moment all the quests are shown|in red, a quest shown in red is unstarted.");
 ~newbie_quest_instructor_journal_info_no_intro;
-%varplayer_419 = ^newbie_quest_instructor_finished;
+%tutorial = ^newbie_quest_instructor_finished;
 ~set_tutorial_progress;
 
 [proc,newbie_quest_instructor_journal_info_no_intro]

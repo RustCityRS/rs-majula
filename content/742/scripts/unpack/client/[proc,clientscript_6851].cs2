@@ -15,7 +15,7 @@ def_int $int15 = -1;
 def_int $int16 = -1;
 def_int $int17 = -1;
 if ($int4 = 1 | calc($int4 % 25) = 1) {
-    sound_vorbis_volume(19101, 1, 0, 100);
+    sound_vorbis_volume(vorbis_19101, 1, 0, 100);
 }
 if ($boolean3 = true) {
     if ($int1 = 0) {
@@ -80,7 +80,7 @@ if (op2613(interface_1354:com_35) ! $int11) {
 }
 ~clientscript_6852($int5);
 if ($int5 = $int2) {
-    sound_vorbis_rate(6758, 1, 0, 240, 280);
+    sound_vorbis_rate(vorbis_6758, 1, 0, 240, 280);
     ~clientscript_6853($int2);
 } else {
     if_setontimer(interface_1354:com_35, "clientscript_6851(clientclock, $int5, $int2, $boolean3)");

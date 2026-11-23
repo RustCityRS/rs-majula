@@ -6,7 +6,7 @@ if (~script2709 = 0 & ($int0 = 9 | $int0 = 11 | $int0 = 10)) {
 }
 if ($int1 > -1) {
     if ($int1 = $int0) {
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             ~side_if_closeall;
         } else {
             return;

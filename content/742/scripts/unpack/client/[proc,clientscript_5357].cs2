@@ -1,6 +1,6 @@
 // 5357
 [proc,clientscript_5357](int $int0, component $component1)
 if (cc_find($component1, $int0) = true) {
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     if_settext(interface_1143:com_49, "");
 }

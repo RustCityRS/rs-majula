@@ -78,7 +78,7 @@ fn enqueue(
 /// - **Projectiles (647):** `P_PROJANIM_HALFSQ`
 /// - **Combat / hero:** `DAMAGE`, `BOTH_HEROPOINTS`, `FINDHERO`, `HEADICONS_GET`,
 ///   `HEADICONS_SET`, `P_ANIMPROTECT`
-/// - **Queues / timers:** `QUEUE`, `QUEUEVARARG`, `SETTIMER`, `CLEARTIMER`, `GETTIMER`
+/// - **Queues / timers:** `QUEUE`, `QUEUEVARARG`, `SETTIMER`, `CLEARTIMER`, `GETTIMER`, `GETSOFTTIMER`
 /// - **Delayed execution:** `P_DELAY`, `P_COUNTDIALOG`, `P_PAUSEBUTTON`
 /// - **Player search:** `FINDUID`, `P_FINDUID`, `HUNTALL`, `HUNTNEXT`
 /// - **Interactions:** `P_OPLOC`, `P_OPNPC`, `P_OPOBJ`, `P_STOPACTION`,
@@ -294,6 +294,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
 
         // 2022
         active_player!(m, GETTIMER => |s, player| {
+            let script_id = pop_script::<E>(s)?.id;
+            s.push_int(player.gettimer(script_id));
+        });
+
+        // 2190: GETTIMER for a softtimer (both lanes share the player's timer set)
+        active_player!(m, GETSOFTTIMER => |s, player| {
             let script_id = pop_script::<E>(s)?.id;
             s.push_int(player.gettimer(script_id));
         });
@@ -941,13 +947,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             };
 
             let loc = s.active_loc
-                .ok_or_else(|| ScriptError::Runtime("no active_loc".into()))?;
+                .ok_or_else(|| ScriptError::Runtime("Active location invalid".into()))?;
             let loc = engine::<E>().live_loc(loc);
 
-            let loc_type = engine::<E>()
-                .locs()
-                .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id.int()))?;
+            let loc_type = crate::util::loc_type::<E>(loc)?;
 
             if let Some(ops) = &loc_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1025,7 +1028,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             };
 
             let obj = s.active_obj
-                .ok_or_else(|| ScriptError::Runtime("no active_obj".into()))?;
+                .ok_or_else(|| ScriptError::Runtime("Active object invalid".into()))?;
 
             let obj_type = engine::<E>()
                 .objs()

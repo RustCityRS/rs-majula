@@ -5,7 +5,7 @@ x=19
 y=27
 width=476
 height=288
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 332:1
@@ -15,7 +15,7 @@ x=12
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 332:2
 [com_2]
@@ -24,7 +24,7 @@ x=12
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 332:3
 [com_3]
@@ -33,7 +33,7 @@ x=-1
 y=58
 width=32
 height=232
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 332:4
@@ -43,7 +43,7 @@ x=482
 y=58
 width=32
 height=232
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 opbase=  
 
@@ -54,7 +54,7 @@ x=43
 y=7
 width=427
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 332:6
@@ -64,7 +64,7 @@ x=44
 y=302
 width=426
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 332:7
@@ -74,7 +74,7 @@ x=12
 y=290
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 332:8
 [com_8]
@@ -83,7 +83,7 @@ x=470
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 opbase= 
 
 // 332:9
@@ -93,7 +93,7 @@ x=470
 y=290
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 332:10
 [com_10]
@@ -102,7 +102,7 @@ x=23
 y=35
 width=468
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 332:11
@@ -112,7 +112,7 @@ x=470
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 332:12
 [com_12]
@@ -121,7 +121,7 @@ x=471
 y=26
 width=26
 height=23
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 536)
@@ -135,7 +135,7 @@ x=139
 y=120
 width=117
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Water Battlestaff
 textalignh=centre
 textalignv=centre
@@ -148,7 +148,7 @@ x=20
 y=120
 width=117
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Air Battlestaff
 textalignh=centre
 textalignv=centre
@@ -161,7 +161,7 @@ x=257
 y=120
 width=114
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Earth Battlestaff
 textalignh=centre
 textalignv=centre
@@ -174,7 +174,7 @@ x=373
 y=120
 width=106
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Fire Battlestaff
 textalignh=centre
 textalignv=centre
@@ -187,7 +187,7 @@ x=71
 y=27
 width=363
 height=20
-textfont=fontmetrics_495
+textfont=p12_full
 text=What would you like to enchant?
 textalignh=centre
 textalignv=centre
@@ -201,7 +201,7 @@ x=28
 y=200
 width=110
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Lava Battlestaff
 textalignh=centre
 textalignv=centre
@@ -214,7 +214,7 @@ x=146
 y=200
 width=100
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Mud Battlestaff
 textalignh=centre
 textalignv=centre
@@ -227,7 +227,7 @@ x=257
 y=200
 width=100
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Steam Battlestaff
 textalignh=centre
 textalignv=centre

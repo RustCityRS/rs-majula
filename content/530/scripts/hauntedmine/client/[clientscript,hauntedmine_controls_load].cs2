@@ -26,7 +26,7 @@ if (testbit(%hauntedmine_bits, 8) = ^true) {
 }
 if (%hauntedmine_bits > 8191) {
     if_sethide(hauntedmine_controls:hauntedmine_cart0, true);
-    if_setgraphic(hauntedmine_controls:start_button, 296);
+    if_setgraphic(hauntedmine_controls:start_button, "combatboxes,3");
 }
 if (testbit(%hauntedmine_bits, 14) = ^true) {
     if_setmodel(hauntedmine_controls:hauntedmine_cart2, model_4910);

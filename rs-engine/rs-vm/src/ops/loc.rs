@@ -1,6 +1,6 @@
 #[cfg(since_647)]
 use crate::active_player_mut;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::iterators;
@@ -13,7 +13,9 @@ use crate::session::EngineHost;
 use crate::state::{LocRef, ScriptState};
 #[cfg(since_647)]
 use crate::util::pop_loc;
-use crate::util::{pop_coord, pop_param, pop_seq, set_active_loc};
+#[cfg(since_530)]
+use crate::util::{get_active_player, require_active_player};
+use crate::util::{loc_type, pop_coord, pop_param, pop_seq, set_active_loc};
 use crate::{ScriptError, active_loc, handlers, none};
 use num_enum::TryFromPrimitive;
 use rs_pack::ParamValue;
@@ -33,7 +35,8 @@ use runec::opcodes::*;
 /// - **Animation:** `LOC_ANIM`
 /// - **Search / iterators:** `LOC_FIND`, `LOC_FINDALLZONE`, `LOC_FINDNEXT`
 /// - **Model prefetch (647):** `LOC_PREFETCH`, `LOC_PREFETCHALL`
-/// - **Look (647):** `LOC_MERGE`
+/// - **Size:** `LOC_WIDTH`, `LOC_LENGTH`
+/// - **Look (647):** `LOC_CUSTOMISE`
 ///
 /// # Call Stack
 ///
@@ -73,11 +76,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
 
         // 3003
         active_loc!(m, LOC_CATEGORY => |s, loc| {
-            let loc = engine::<E>().live_loc(loc);
-            let category = engine::<E>()
-                .locs()
-                .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id.int()))?
+            let category = loc_type::<E>(engine::<E>().live_loc(loc))?
                 .category
                 .map(|c| c.int())
                 .unwrap_or(-1);
@@ -141,22 +140,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
 
         // 3010
         active_loc!(m, LOC_NAME => |s, loc| {
-            let loc = engine::<E>().live_loc(loc);
-            let loc = engine::<E>()
-                .locs()
-                .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id.int()))?;
+            let loc = loc_type::<E>(engine::<E>().live_loc(loc))?;
             s.push_string(loc.name.as_deref().unwrap_or(&loc.debugname));
         });
 
         // 3011
         active_loc!(m, LOC_PARAM => |s, loc| {
             let param = pop_param::<E>(s)?;
-            let loc = engine::<E>().live_loc(loc);
-            let value = engine::<E>()
-                .locs()
-                .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id.int()))?
+            let value = loc_type::<E>(engine::<E>().live_loc(loc))?
                 .params
                 .as_ref()
                 .and_then(|p| param.get_param_or_default(p))
@@ -195,11 +186,34 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
 
         // 3016
         #[cfg(since_647)]
-        active_loc!(m, LOC_MERGE => |s, loc| {
+        active_loc!(m, LOC_CUSTOMISE => |s, loc| {
             let look = s.pop_int();
             let loc = engine::<E>().live_loc(loc);
-            let (models, recol, retex) = merge_look::<E>(loc, look)?;
-            engine_mut::<E>().loc_merge(loc, models, recol, retex);
+            let (models, recol, retex) = customise_look::<E>(loc, look)?;
+            engine_mut::<E>().loc_customise(loc, models, recol, retex);
+        });
+
+        // 3017
+        #[cfg(since_530)]
+        active_loc!(m, LOC_WIDTH => |s, loc| {
+            let loc = loc_type::<E>(engine::<E>().live_loc(loc))?;
+            s.push_int(loc.width as i32);
+        });
+
+        // 3018
+        #[cfg(since_530)]
+        active_loc!(m, LOC_LENGTH => |s, loc| {
+            let loc = loc_type::<E>(engine::<E>().live_loc(loc))?;
+            s.push_int(loc.length as i32);
+        });
+
+        // 3019
+        #[cfg(since_530)]
+        active_loc!(m, LOC_GETMULTILOC => |s, loc| {
+            require_active_player(s)?;
+            let id = engine::<E>().live_loc(loc).id;
+            let shown = get_active_player::<E>(s, false)?.shown_loc(id);
+            s.push_int(shown.unwrap_or(id).int());
         });
     }
 }
@@ -218,25 +232,26 @@ fn pop_prefetch<E: ScriptEngine + 'static>(s: &mut ScriptState) -> crate::Result
     Ok((loc.id, shape.model_shape() as u8))
 }
 
-/// The lists `LOC_MERGE` sends to make `loc` look like loc type `look`: each
+/// The lists `LOC_CUSTOMISE` sends to make `loc` look like loc type `look`: each
 /// of its models for `loc`'s shape, recolours and retextures that `look` has
 /// as many of, where they differ. `null` resets it.
 ///
-/// The client sizes each list by `loc`'s type and merges only a loc it draws
-/// animated, so neither a loc it would draw static nor a multiloc, which it
-/// draws as another type, can be merged. Nor can one whose model sets differ,
+/// The client sizes each list by `loc`'s type and customises only a loc it
+/// draws animated, so neither a loc it would draw static nor a multiloc, which
+/// it draws as another type, can be customised. Nor can one whose model sets differ,
 /// as the client picks one by a detail option, or one with no models for its
 /// shape, which the client fails to look up.
 #[cfg(since_647)]
-fn merge_look<E: ScriptEngine + 'static>(loc: LocRef, look: i32) -> crate::Result<MergeLists> {
+fn customise_look<E: ScriptEngine + 'static>(
+    loc: LocRef,
+    look: i32,
+) -> crate::Result<CustomiseLists> {
     if look == -1 {
         return Ok((None, None, None));
     }
     let locs = engine::<E>().locs();
-    let base = locs
-        .get_by_id(loc.id)
-        .ok_or(ScriptError::LocNotFound(loc.id.int()))?;
-    let refuse = |why: &str| ScriptError::Runtime(format!("loc_merge: {} {why}", base.debugname));
+    let base = loc_type::<E>(loc)?;
+    let refuse = |why: &str| ScriptError::Runtime(format!("{} {why}", base.debugname));
     let have = base.look();
     let shape = loc.shape.model_shape();
     if base.multiloc.is_some() {
@@ -279,7 +294,7 @@ fn merge_look<E: ScriptEngine + 'static>(loc: LocRef, look: i32) -> crate::Resul
     Ok((models, recol.map(Box::from), retex.map(Box::from)))
 }
 
-/// A merge list pair whose lists are as long as each other, and not empty.
+/// A list pair whose lists are as long as each other, and not empty.
 #[cfg(since_647)]
 fn matching<'a, T>(pair: Option<(&'a [T], &'a [T])>) -> Option<(&'a [T], &'a [T])> {
     pair.filter(|(have, want)| !have.is_empty() && have.len() == want.len())
@@ -292,9 +307,9 @@ fn changed<'a, T: PartialEq>(pair: Option<(&'a [T], &'a [T])>) -> Option<&'a [T]
         .map(|(_, want)| want)
 }
 
-/// Models, recolours and retextures for `LOC_MERGE`.
+/// Models, recolours and retextures for `LOC_CUSTOMISE`.
 #[cfg(since_647)]
-type MergeLists = (
+type CustomiseLists = (
     Option<Box<[TypeId]>>,
     Option<Box<[u16]>>,
     Option<Box<[u16]>>,

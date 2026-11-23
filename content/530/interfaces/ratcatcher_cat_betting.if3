@@ -3,7 +3,7 @@
 type=graphic
 width=5000
 height=5000
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 279:1
@@ -97,7 +97,7 @@ y=188
 width=72
 height=36
 layer=content_layer
-graphic=graphic_293
+graphic="combatboxes,0"
 
 // 279:8
 [vc_reject_btn]
@@ -107,7 +107,7 @@ y=239
 width=72
 height=36
 layer=content_layer
-graphic=graphic_293
+graphic="combatboxes,0"
 
 // 279:9
 [vc_p1_name]
@@ -117,7 +117,7 @@ y=184
 width=142
 height=18
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Player's Cat
 textalignh=centre
 colour=0x46320a
@@ -130,7 +130,7 @@ y=184
 width=142
 height=19
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Opponent's Cat
 textalignh=centre
 colour=0x46320a
@@ -143,7 +143,7 @@ y=87
 width=94
 height=15
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Vs
 textalignh=centre
 colour=0x46320a
@@ -156,7 +156,7 @@ y=188
 width=72
 height=36
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=ACCEPT
 textalignh=centre
 textalignv=centre
@@ -173,7 +173,7 @@ y=239
 width=72
 height=36
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=DECLINE
 textalignh=centre
 textalignv=centre
@@ -190,7 +190,7 @@ y=208
 width=142
 height=16
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Amount
 textalignh=centre
 textshadow=yes
@@ -204,7 +204,7 @@ y=209
 width=142
 height=16
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Amount
 textalignh=centre
 textshadow=yes
@@ -218,7 +218,7 @@ y=235
 width=100
 height=14
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=0
 textalignh=centre
 textshadow=yes
@@ -232,7 +232,7 @@ y=235
 width=100
 height=14
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=0
 textalignh=centre
 textshadow=yes
@@ -302,7 +302,7 @@ x=199
 width=119
 height=36
 layer=content_layer
-graphic=graphic_293
+graphic="combatboxes,0"
 
 // 279:23
 [com_23]
@@ -312,7 +312,7 @@ y=36
 width=119
 height=36
 layer=content_layer
-graphic=graphic_293
+graphic="combatboxes,0"
 
 // 279:24
 [com_24]
@@ -322,7 +322,7 @@ y=10
 width=58
 height=32
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Your Limit:
 textshadow=yes
 colour=0xffff00
@@ -335,7 +335,7 @@ y=47
 width=59
 height=32
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Their Limit:
 textshadow=yes
 colour=0xffff00
@@ -348,7 +348,7 @@ y=11
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=1000
 textshadow=yes
 colour=0x009900
@@ -361,7 +361,7 @@ y=48
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=1000
 textshadow=yes
 colour=0x009900
@@ -403,7 +403,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 279:32
@@ -414,7 +414,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 279:33
@@ -425,7 +425,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 279:34
@@ -436,7 +436,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 279:35
@@ -448,7 +448,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 279:36
@@ -460,7 +460,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 279:37
@@ -472,7 +472,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 279:38
@@ -484,7 +484,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 279:39
@@ -547,7 +547,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -561,7 +561,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -574,7 +574,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -588,6 +588,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

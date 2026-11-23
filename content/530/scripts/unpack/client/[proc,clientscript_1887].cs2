@@ -1,7 +1,7 @@
 // 1887
 [proc,clientscript_1887](component $component0, component $component1, component $component2, component $component3, component $component4)
 if (if_find($component1) = true) {
-    cc_setsize(16384, 16384, 4, 2);
+    cc_setsize(16384, 16384, ^setsize_aspect, ^setsize_rel);
     cc_setaspectratio(956, 503);
     cc_settrans(0);
     cc_setontimer(null);
@@ -14,7 +14,7 @@ if_setontimer($component2, null);
 if_setcolour($component2, ^black);
 if_settrans($component2, 0);
 if_sethide($component2, false);
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     if_sethide($component3, true);
     if_sethide($component4, true);
     detail_removeroofs_option_override(1);

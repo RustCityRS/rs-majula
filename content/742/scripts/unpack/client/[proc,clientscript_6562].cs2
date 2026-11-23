@@ -23,12 +23,12 @@ if ($int7 < 255) {
     if_settrans($component0, min(255, calc($int7 + 5)));
 }
 if ($int6 = 1 & $int5 = 1 | $int7 = 255) {
-    if (if_getgraphic($component0) = 9249) {
-        if_setgraphic($component0, 9248);
+    if (if_getgraphic($component0) = graphic_9249) {
+        if_setgraphic($component0, graphic_9248);
         if_settrans($component0, 0);
         if_setsize($component0, 200, 200, ^setsize_abs, ^setsize_abs);
-    } else if (if_getgraphic($component0) = 9248) {
-        if_setgraphic($component0, 9247);
+    } else if (if_getgraphic($component0) = graphic_9248) {
+        if_setgraphic($component0, graphic_9247);
         if_settrans($component0, 0);
         if_setsize($component0, 200, 200, ^setsize_abs, ^setsize_abs);
     } else {

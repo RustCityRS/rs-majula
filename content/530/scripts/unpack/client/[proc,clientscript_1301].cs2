@@ -1,8 +1,8 @@
 // 1301
 [proc,clientscript_1301](component $component0, component $component1)
 def_int $int2 = 0;
-if (getwindowmode >= 2) {
-    ~clientscript_31($component0, $component1, 883, 802, 881, 882, 641, 642);
+if (getwindowmode >= ^windowmode_resizable) {
+    ~clientscript_31($component0, $component1, "scrollbar_alpha,3", "scrollbar_alpha,0", "scrollbar_alpha,1", "scrollbar_alpha,2", graphic_641, graphic_642);
     while ($int2 < if_getnextsubid($component0)) {
         if (cc_find($component0, $int2) = true) {
             cc_setalpha(true);
@@ -10,7 +10,7 @@ if (getwindowmode >= 2) {
         $int2 = calc($int2 + 1);
     }
 } else {
-    ~clientscript_31($component0, $component1, 792, 789, 790, 791, 773, 788);
+    ~clientscript_31($component0, $component1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     while ($int2 < if_getnextsubid($component0)) {
         if (cc_find($component0, $int2) = true) {
             cc_setalpha(false);

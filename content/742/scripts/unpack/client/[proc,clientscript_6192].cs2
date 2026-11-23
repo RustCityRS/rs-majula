@@ -2,17 +2,17 @@
 [proc,clientscript_6192]
 switch_int (map_lang) {
     case 0 :
-        if_setgraphic(lobbyscreen:com_415, 10787);
-        if_setgraphic(lobbyscreen:com_424, 10791);
+        if_setgraphic(lobbyscreen:com_415, graphic_10787);
+        if_setgraphic(lobbyscreen:com_424, graphic_10791);
     case 1 :
-        if_setgraphic(lobbyscreen:com_415, 10789);
-        if_setgraphic(lobbyscreen:com_424, 10793);
+        if_setgraphic(lobbyscreen:com_415, graphic_10789);
+        if_setgraphic(lobbyscreen:com_424, graphic_10793);
     case 2 :
-        if_setgraphic(lobbyscreen:com_415, 10788);
-        if_setgraphic(lobbyscreen:com_424, 10792);
+        if_setgraphic(lobbyscreen:com_415, graphic_10788);
+        if_setgraphic(lobbyscreen:com_424, graphic_10792);
     case 3 :
-        if_setgraphic(lobbyscreen:com_415, 10790);
-        if_setgraphic(lobbyscreen:com_424, 10794);
+        if_setgraphic(lobbyscreen:com_415, graphic_10790);
+        if_setgraphic(lobbyscreen:com_424, graphic_10794);
 }
 if (%varclient_1919 < 1) {
     if (%varplayer_2611 = 1) {

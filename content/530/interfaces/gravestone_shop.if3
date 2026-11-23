@@ -16,7 +16,7 @@ x=31
 y=31
 width=451
 height=275
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 652:2
@@ -26,7 +26,7 @@ x=24
 y=24
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 652:3
 [com_3]
@@ -35,7 +35,7 @@ x=11
 y=56
 width=32
 height=226
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 652:4
@@ -45,7 +45,7 @@ x=469
 y=56
 width=32
 height=225
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 652:5
@@ -55,7 +55,7 @@ x=24
 y=281
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 652:6
 [com_6]
@@ -64,7 +64,7 @@ x=56
 y=11
 width=401
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 652:7
@@ -74,7 +74,7 @@ x=56
 y=293
 width=401
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 652:8
@@ -84,7 +84,7 @@ x=457
 y=24
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 652:9
 [com_9]
@@ -93,7 +93,7 @@ x=457
 y=281
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 652:10
 [com_10]
@@ -102,7 +102,7 @@ x=24
 y=40
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 652:11
 [com_11]
@@ -111,7 +111,7 @@ x=457
 y=40
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 652:12
 [com_12]
@@ -120,7 +120,7 @@ x=35
 y=38
 width=443
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 652:13
@@ -130,7 +130,7 @@ x=30
 y=74
 width=32
 height=216
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 652:14
@@ -140,7 +140,7 @@ x=44
 y=56
 width=170
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 652:15
@@ -150,7 +150,7 @@ x=200
 y=74
 width=32
 height=216
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 652:16
@@ -160,7 +160,7 @@ x=44
 y=274
 width=170
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 652:17
@@ -170,7 +170,7 @@ x=245
 y=74
 width=32
 height=32
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 652:18
@@ -180,7 +180,7 @@ x=424
 y=74
 width=32
 height=32
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 652:19
@@ -190,7 +190,7 @@ x=424
 y=260
 width=32
 height=32
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 652:20
@@ -200,7 +200,7 @@ x=277
 y=60
 width=148
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 652:21
@@ -210,7 +210,7 @@ x=277
 y=272
 width=147
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 652:22
@@ -220,7 +220,7 @@ x=231
 y=106
 width=32
 height=154
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 652:23
@@ -230,7 +230,7 @@ x=436
 y=106
 width=32
 height=154
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 652:24
@@ -240,7 +240,7 @@ x=415
 y=74
 width=32
 height=32
-graphic=graphic_842
+graphic="v2_stone_borders,14"
 tiling=yes
 
 // 652:25
@@ -250,7 +250,7 @@ x=414
 y=85
 width=32
 height=196
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 652:26
@@ -260,7 +260,7 @@ x=415
 y=260
 width=32
 height=32
-graphic=graphic_843
+graphic="v2_stone_borders,15"
 tiling=yes
 
 // 652:27
@@ -270,7 +270,7 @@ x=245
 y=260
 width=32
 height=32
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 652:28
@@ -280,7 +280,7 @@ x=31
 y=31
 width=450
 height=21
-textfont=fontmetrics_496
+textfont=b12_full
 text=Gravestones
 textalignh=centre
 textalignv=centre
@@ -294,7 +294,7 @@ x=61
 y=87
 width=140
 height=30
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
@@ -306,7 +306,7 @@ x=61
 y=116
 width=140
 height=114
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
@@ -335,7 +335,7 @@ type=graphic
 width=90
 height=56
 layer=confirm_layer
-graphic=graphic_943
+graphic="wild_ditch_sign_button,2"
 
 // 652:34
 [confirm_layer]
@@ -352,7 +352,7 @@ x=83
 y=230
 width=90
 height=56
-textfont=fontmetrics_496
+textfont=b12_full
 textlineheight=15
 textalignh=centre
 textalignv=centre
@@ -368,7 +368,7 @@ x=463
 y=33
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)

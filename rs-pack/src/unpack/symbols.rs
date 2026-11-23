@@ -376,6 +376,11 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         generate_auto_pack_stride(&mut cache, pack_dir, "synth", archive::SYNTH, 1, force)?,
     );
 
+    report.record(
+        "sprites",
+        generate_auto_pack_stride(&mut cache, pack_dir, "sprites", archive::SPRITES, 1, force)?,
+    );
+
     // Interface / component.
     let (iface_report, comp_report) = generate_interface_packs(&mut cache, pack_dir, force)?;
     report.record("interface", iface_report);
@@ -798,6 +803,7 @@ fn generate_auto_pack_stride(
     let existing = load_existing_pack(&pack_path);
     let mut file = File::create(&pack_path)?;
     let group_count = cache.group_id_limit(archive_id).unwrap_or(0);
+    let prefix = placeholder_prefix(type_name);
     let mut report = TypeReport::default();
 
     for gid in 0..group_count {
@@ -805,14 +811,14 @@ fn generate_auto_pack_stride(
             for entry in &group.entries {
                 let id = gid * stride + entry.id;
                 if let Some(name) = existing.get(&id) {
-                    if should_preserve(name, type_name, id, force) {
+                    if should_preserve(name, prefix, id, force) {
                         writeln!(file, "{}={}", id, name)?;
                         report.preserved += 1;
                         report.total += 1;
                         continue;
                     }
                 }
-                writeln!(file, "{}={}_{}", id, type_name, id)?;
+                writeln!(file, "{}={}_{}", id, prefix, id)?;
                 report.added += 1;
                 report.total += 1;
             }
@@ -821,7 +827,7 @@ fn generate_auto_pack_stride(
 
     // Preserve out-of-cache hand-added entries.
     for (id, name) in &existing {
-        if should_preserve(name, type_name, *id, force) {
+        if should_preserve(name, prefix, *id, force) {
             let already_written = (0..group_count).any(|gid| {
                 cache
                     .read_group(archive_id, gid)

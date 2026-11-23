@@ -25,7 +25,7 @@ y=-1
 width=481
 height=53
 layer=tribalcl1
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase=  
 
@@ -35,7 +35,7 @@ type=graphic
 width=32
 height=32
 layer=tribalcl1
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 369:4
@@ -46,7 +46,7 @@ y=-13
 width=439
 height=35
 layer=tribalcl1
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 369:5
@@ -56,7 +56,7 @@ x=456
 width=32
 height=32
 layer=tribalcl1
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 369:6
@@ -67,7 +67,7 @@ y=7
 width=32
 height=32
 layer=tribalcl1
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 369:7
@@ -78,7 +78,7 @@ y=19
 width=440
 height=22
 layer=tribalcl1
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 369:8
@@ -88,7 +88,7 @@ y=7
 width=32
 height=32
 layer=tribalcl1
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 369:9
@@ -146,7 +146,7 @@ x=65
 y=97
 width=9
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=A
 textalignh=centre
 textshadow=yes
@@ -159,7 +159,7 @@ x=189
 y=97
 width=9
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=A
 textalignh=centre
 textshadow=yes
@@ -172,7 +172,7 @@ x=313
 y=97
 width=9
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=A
 textalignh=centre
 textshadow=yes
@@ -185,7 +185,7 @@ x=437
 y=97
 width=9
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=A
 textalignh=centre
 textshadow=yes
@@ -198,7 +198,7 @@ x=22
 y=196
 width=45
 height=36
-graphic=graphic_308
+graphic=leftarrow
 transmitop=1
 op1=Left
 
@@ -209,7 +209,7 @@ x=70
 y=196
 width=45
 height=36
-graphic=graphic_309
+graphic=rightarrow
 transmitop=1
 op1=Right
 
@@ -220,7 +220,7 @@ x=146
 y=196
 width=45
 height=36
-graphic=graphic_308
+graphic=leftarrow
 transmitop=1
 op1=Left
 
@@ -231,7 +231,7 @@ x=194
 y=196
 width=45
 height=36
-graphic=graphic_309
+graphic=rightarrow
 transmitop=1
 op1=Right
 
@@ -242,7 +242,7 @@ x=270
 y=196
 width=45
 height=36
-graphic=graphic_308
+graphic=leftarrow
 transmitop=1
 op1=Left
 
@@ -253,7 +253,7 @@ x=318
 y=196
 width=45
 height=36
-graphic=graphic_309
+graphic=rightarrow
 transmitop=1
 op1=Right
 
@@ -264,7 +264,7 @@ x=394
 y=196
 width=45
 height=36
-graphic=graphic_308
+graphic=leftarrow
 transmitop=1
 op1=Left
 
@@ -275,7 +275,7 @@ x=442
 y=196
 width=45
 height=36
-graphic=graphic_309
+graphic=rightarrow
 transmitop=1
 op1=Right
 
@@ -286,7 +286,7 @@ x=137
 y=31
 width=246
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Combination Lock Door
 textalignh=centre
 textalignv=centre
@@ -310,7 +310,7 @@ x=205
 y=264
 width=106
 height=28
-textfont=fontmetrics_496
+textfont=b12_full
 text=Enter
 textalignh=centre
 textalignv=centre
@@ -326,7 +326,7 @@ x=470
 y=28
 width=26
 height=23
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 536)
@@ -340,7 +340,7 @@ x=188
 y=256
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 369:30
 [com_30]
@@ -349,7 +349,7 @@ x=295
 y=256
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 369:31
 [com_31]
@@ -358,7 +358,7 @@ x=217
 y=243
 width=87
 height=31
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 369:32
@@ -368,7 +368,7 @@ x=188
 y=269
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 369:33
 [com_33]
@@ -377,7 +377,7 @@ x=295
 y=269
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 369:34
 [com_34]
@@ -386,7 +386,7 @@ x=218
 y=281
 width=91
 height=31
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 369:35
@@ -396,7 +396,7 @@ x=2
 y=66
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 369:36
 [com_36]
@@ -405,7 +405,7 @@ x=479
 y=66
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 369:37
 [com_37]
@@ -414,7 +414,7 @@ x=32
 y=53
 width=447
 height=23
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 369:38
@@ -424,7 +424,7 @@ x=491
 y=98
 width=31
 height=114
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 369:39
@@ -434,7 +434,7 @@ x=479
 y=211
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 369:40
 [com_40]
@@ -443,7 +443,7 @@ x=34
 y=223
 width=450
 height=19
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 369:41
@@ -453,7 +453,7 @@ x=3
 y=211
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 369:42
 [com_42]
@@ -462,6 +462,6 @@ x=-11
 y=97
 width=36
 height=115
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 opbase=  

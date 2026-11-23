@@ -2,7 +2,7 @@
 [proc,clientscript_71](int $int0)
 def_int $int1 = ~current_side_if;
 if ($int0 = -1) {
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         ~side_if_closeall;
     } else {
         return;
@@ -10,7 +10,7 @@ if ($int0 = -1) {
 }
 if ($int1 > -1) {
     if ($int1 = $int0) {
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             ~side_if_closeall;
             ~clientscript_1387($int0);
         } else {

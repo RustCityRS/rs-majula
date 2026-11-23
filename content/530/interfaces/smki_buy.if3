@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 164:2
@@ -25,7 +25,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 164:3
@@ -35,7 +35,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 164:4
 [com_4]
@@ -44,7 +44,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 164:5
@@ -54,7 +54,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 164:6
@@ -64,7 +64,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 164:7
@@ -74,7 +74,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(smki_buy:close_button, 832)
@@ -89,7 +89,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 164:9
 [com_9]
@@ -98,7 +98,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 164:10
 [com_10]
@@ -107,7 +107,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 164:11
 [com_11]
@@ -116,7 +116,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 164:12
@@ -126,7 +126,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 164:13
 [com_13]
@@ -135,7 +135,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 164:14
 [assignment_tab]
@@ -144,7 +144,7 @@ x=182
 y=29
 width=97
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
 onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Manage Slayer assignments", 25, 150)
 
@@ -155,7 +155,7 @@ x=99
 y=29
 width=102
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
 onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Learn new abilities", 25, 150)
 
@@ -186,7 +186,7 @@ x=22
 y=29
 width=93
 height=20
-graphic=graphic_952
+graphic="tabs,0"
 
 // 164:19
 [current_box]
@@ -205,7 +205,7 @@ x=198
 y=87
 width=53
 height=13
-textfont=fontmetrics_496
+textfont=b12_full
 text=XXXX
 textalignh=centre
 textshadow=yes
@@ -218,7 +218,7 @@ x=35
 y=33
 width=21
 height=10
-textfont=fontmetrics_494
+textfont=p11_full
 text=Buy
 textshadow=yes
 colour=0xff981f
@@ -230,7 +230,7 @@ x=112
 y=34
 width=34
 height=9
-textfont=fontmetrics_494
+textfont=p11_full
 text=Learn
 textshadow=yes
 colour=0xbf751d
@@ -242,7 +242,7 @@ x=193
 y=34
 width=65
 height=10
-textfont=fontmetrics_494
+textfont=p11_full
 text=Assignment
 textshadow=yes
 colour=0xbf751d
@@ -254,7 +254,7 @@ x=118
 y=138
 width=80
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 text=Buy Slayer XP
 textshadow=yes
 colour=0xd7b011
@@ -270,7 +270,7 @@ x=80
 y=132
 width=25
 height=25
-graphic=graphic_216
+graphic="staticons2,1"
 transmitop=1
 op1=Buy XP
 onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 10,000 Slayer XP.", 25, 150)
@@ -282,7 +282,7 @@ x=118
 y=171
 width=90
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Buy ring of slaying
 textshadow=yes
 colour=0xd7b011
@@ -315,7 +315,7 @@ x=118
 y=202
 width=127
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Buy runes for Slayer Dart
 textshadow=yes
 colour=0xd7b011
@@ -365,7 +365,7 @@ x=95
 y=87
 width=79
 height=11
-textfont=fontmetrics_496
+textfont=b12_full
 text=Current points =
 textshadow=yes
 colour=0xd7b011
@@ -377,7 +377,7 @@ x=341
 y=139
 width=65
 height=13
-textfont=fontmetrics_495
+textfont=p12_full
 text=400 points
 textshadow=yes
 colour=0xff981f
@@ -393,7 +393,7 @@ x=341
 y=169
 width=65
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=75 points
 textshadow=yes
 colour=0xff9800
@@ -409,7 +409,7 @@ x=340
 y=233
 width=65
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=35 points
 textshadow=yes
 colour=0xff981f
@@ -425,7 +425,7 @@ x=341
 y=261
 width=65
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=35 points
 textshadow=yes
 colour=0xff981f
@@ -441,7 +441,7 @@ x=341
 y=203
 width=65
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=35 points
 textshadow=yes
 colour=0xff981f
@@ -457,7 +457,7 @@ x=118
 y=233
 width=95
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Buy broad bolts
 textshadow=yes
 colour=0xd7b011
@@ -490,7 +490,7 @@ x=118
 y=261
 width=105
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Buy broad arrows
 textshadow=yes
 colour=0xd7b011
@@ -523,7 +523,7 @@ x=68
 y=84
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 164:42
 [com_42]
@@ -532,7 +532,7 @@ x=68
 y=71
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 164:43
 [com_43]
@@ -541,7 +541,7 @@ x=246
 y=71
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 164:44
 [com_44]
@@ -550,7 +550,7 @@ x=246
 y=84
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 164:45
 [com_45]
@@ -559,7 +559,7 @@ x=99
 y=58
 width=156
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 
 // 164:46
 [com_46]
@@ -568,7 +568,7 @@ x=100
 y=96
 width=156
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 
 // 164:47
 [tooltip_bounding_box]

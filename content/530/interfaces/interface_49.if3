@@ -17,7 +17,7 @@ x=43
 y=2
 width=39
 height=35
-graphic=graphic_1059
+graphic="v2_book_arrows,0"
 
 // 49:2
 [bookmacro_title_3]
@@ -26,7 +26,7 @@ x=81
 y=2
 width=351
 height=35
-graphic=graphic_1060
+graphic="v2_book_arrows,1"
 tiling=yes
 
 // 49:3
@@ -36,7 +36,7 @@ x=432
 y=2
 width=39
 height=35
-graphic=graphic_1061
+graphic="v2_book_arrows,2"
 
 // 49:4
 [bm1]
@@ -53,7 +53,7 @@ x=479
 y=5
 width=21
 height=21
-graphic=graphic_1064
+graphic="v2_book_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 1065)
@@ -67,7 +67,7 @@ x=18
 y=8
 width=478
 height=26
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Book Title
 textalignh=centre
 textalignv=centre
@@ -585,7 +585,7 @@ type=graphic
 width=39
 height=39
 layer=com_52
-graphic=graphic_1062
+graphic="v2_book_arrows,3"
 pausebutton=yes
 
 // 49:52
@@ -602,7 +602,7 @@ type=graphic
 width=39
 height=39
 layer=com_54
-graphic=graphic_1063
+graphic="v2_book_arrows,4"
 pausebutton=yes
 
 // 49:54
@@ -620,7 +620,7 @@ x=38
 y=80
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line1
 colour=0x46320a
 
@@ -631,7 +631,7 @@ x=38
 y=96
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line2
 colour=0x46320a
 
@@ -642,7 +642,7 @@ x=38
 y=112
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line3
 colour=0x46320a
 
@@ -653,7 +653,7 @@ x=38
 y=128
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line4
 colour=0x46320a
 
@@ -664,7 +664,7 @@ x=38
 y=144
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line5
 colour=0x46320a
 
@@ -675,7 +675,7 @@ x=38
 y=160
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line6
 colour=0x46320a
 
@@ -686,7 +686,7 @@ x=38
 y=176
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line7
 colour=0x46320a
 
@@ -697,7 +697,7 @@ x=38
 y=192
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line8
 colour=0x46320a
 
@@ -708,7 +708,7 @@ x=38
 y=208
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line9
 colour=0x46320a
 
@@ -719,7 +719,7 @@ x=38
 y=224
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line10
 colour=0x46320a
 
@@ -730,7 +730,7 @@ x=38
 y=240
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line11
 colour=0x46320a
 
@@ -741,7 +741,7 @@ x=283
 y=80
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line12
 colour=0x46320a
 
@@ -752,7 +752,7 @@ x=283
 y=96
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line13
 colour=0x46320a
 
@@ -763,7 +763,7 @@ x=283
 y=112
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line14
 colour=0x46320a
 
@@ -774,7 +774,7 @@ x=283
 y=128
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line15
 colour=0x46320a
 
@@ -785,7 +785,7 @@ x=283
 y=144
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line16
 colour=0x46320a
 
@@ -796,7 +796,7 @@ x=283
 y=160
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line17
 colour=0x46320a
 
@@ -807,7 +807,7 @@ x=283
 y=176
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line18
 colour=0x46320a
 
@@ -818,7 +818,7 @@ x=283
 y=192
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line19
 colour=0x46320a
 
@@ -829,7 +829,7 @@ x=283
 y=208
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line20
 colour=0x46320a
 
@@ -840,7 +840,7 @@ x=283
 y=224
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line21
 colour=0x46320a
 
@@ -851,7 +851,7 @@ x=283
 y=240
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line22
 colour=0x46320a
 
@@ -862,7 +862,7 @@ x=86
 y=294
 width=90
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Page%1
 colour=0x46320a
 
@@ -873,7 +873,7 @@ x=348
 y=295
 width=90
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Page%2
 textalignh=right
 colour=0x46320a

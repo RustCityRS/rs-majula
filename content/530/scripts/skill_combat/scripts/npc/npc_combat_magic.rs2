@@ -107,7 +107,7 @@ return($duration);
 
 [proc,npc_spell_success](dbrow $spell_data, int $maxhit, int $duration)
 if_close;
-sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, 0);
+sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 1, 0);
 def_int $damage = randominc($maxhit);
 if ($maxhit ! null) {
     // npc vs player spells have no 1t extra damage delay. Whereas player vs npc spells do (osrs)
@@ -148,11 +148,11 @@ if ($freeze_time > 0) {
 [proc,npc_spell_fail](dbrow $spell_data, int $duration)
 if_close;
 if (db_getfieldcount($spell_data, magic_spell_table:sound_fail) > 0) {
-    sound_synth(db_getfield($spell_data, magic_spell_table:sound_fail, 0), 0, 0);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_fail, 0), 1, 0);
 } else {
     // reduce stat, and freeze spells dont have fail sounds, so i assume they just play their normal sound
     // every time?
-    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, 0);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 1, 0);
 }
 // splash sound would play here, doesnt exist in this rev?
 // sound_synth(, 0, $duration);

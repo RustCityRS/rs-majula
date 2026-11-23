@@ -1,7 +1,7 @@
 // 1846
 [proc,clientscript_1846](component $component0, int $int1)
 %selectedresolution = ~dropdownbox_getselected($int1, $component0);
-if (getwindowmode = 3) {
+if (getwindowmode = ^windowmode_fullscreen) {
     if (playermember = false) {
         setwindowmode(getdefaultwindowmode);
         %last_windowmode = getwindowmode;

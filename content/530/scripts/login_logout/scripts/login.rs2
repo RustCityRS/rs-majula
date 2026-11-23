@@ -24,16 +24,12 @@ settimer(general_macro_events, 500);
 queue(macro_event_login, 0, 0);
 // so antifire persists after logging back in
 ~set_antifire_login;
-// Varp 281 is the tutorial's, which the client reads as done at 1000. There is no tutorial: a
-// character below 1000 is a new one, which designs itself and starts in Lumbridge (new_player.rs2).
+// run mode is saved (option_run is scope=perm from 530), and the engine starts every login walking
+p_run(%option_run);
 ~open_game_frame()
 ~login_finish()
-if (%tutorial < 1000) {
-    ~new_player_start;
-    return;
-}
-// 289's resume of its Tutorial Island (tutorial/), for a player who entered it by its cheat.
-if (%varplayer_419 > ^newbie_basics_instructor_start & %varplayer_419 < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
+// A new character starts where the engine spawns it, on Tutorial Island, as 289's do.
+if (%tutorial < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
     @start_tutorial;
 }
 

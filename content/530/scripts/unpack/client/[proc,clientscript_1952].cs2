@@ -2,7 +2,7 @@
 [proc,clientscript_1952]
 def_component $component0 = null;
 def_component $component1 = null;
-if (getwindowmode < 2) {
+if (getwindowmode < ^windowmode_resizable) {
     $component0 = toplevel:statusicon_tooltip;
     $component1 = toplevel:statusicon_tooltip_text;
 } else {

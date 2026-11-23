@@ -19,10 +19,15 @@
 ^newbie_cook_instructor_mixed_dough = 160
 ^newbie_cook_instructor_baked_bread = 170
 ^newbie_cook_instructor_opened_music_tab = 180
-^newbie_cook_instructor_completed = 190
 
-^tutorial_open_player_controls = 195
+// 2009 shows the emotes tab between the chef's back door and the run step, where 289 opened
+// its controls tab (195) for the run button. No source gives these two steps' values.
+^tutorial_open_emotes = 183
+^tutorial_opened_emotes = 187
+^tutorial_performed_emote = 190
 ^tutorial_has_toggled_on_run = 200
+// tutorial_flash's run orb: clientscript flashside_vartransmit arrows topstat_run for 14 + 1.
+^tutorial_flash_run_orb = 14
 
 ^newbie_quest_instructor_start = 220
 ^newbie_quest_instructor_open_menu = 230

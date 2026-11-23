@@ -5,7 +5,7 @@ x=4
 y=4
 width=180
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=%1
 textalignh=centre
 textshadow=yes
@@ -30,8 +30,8 @@ layer=com_1
 buttontype=select
 script1=eq,0
 script1op1=pushvar,com_mode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Accurate
 
 // 77:3
@@ -45,8 +45,8 @@ layer=com_1
 buttontype=select
 script1=eq,2
 script1op1=pushvar,com_mode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Longrange
 
 // 77:4
@@ -60,8 +60,8 @@ layer=com_1
 buttontype=select
 script1=eq,1
 script1op1=pushvar,com_mode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Rapid
 
 // 77:5
@@ -79,7 +79,7 @@ type=graphic
 width=34
 height=24
 layer=com_5
-graphic=graphic_268
+graphic="combaticons2,15"
 
 // 77:7
 [com_7]
@@ -96,7 +96,7 @@ type=graphic
 width=34
 height=24
 layer=com_7
-graphic=graphic_269
+graphic="combaticons2,16"
 
 // 77:9
 [com_9]
@@ -113,7 +113,7 @@ type=graphic
 width=34
 height=24
 layer=com_9
-graphic=graphic_270
+graphic="combaticons2,17"
 
 // 77:11
 [com_11]
@@ -134,7 +134,7 @@ x=2
 width=150
 height=26
 layer=com_13
-graphic=graphic_657
+graphic=combatboxes_special_attack
 
 // 77:13
 [com_13]
@@ -307,7 +307,7 @@ height=11
 layer=com_13
 script1=gt,0
 script1op1=pushvar,sa_attack
-textfont=fontmetrics_494
+textfont=p11_full
 text=S P E C I A L  A T T A C K
 colour=0x000010
 activetext=<col=ffff00>S P E C I A L  A T T A C K
@@ -320,7 +320,7 @@ y=25
 width=180
 height=12
 script1op1=op8
-textfont=fontmetrics_494
+textfont=p11_full
 text=Combat Lvl: %1
 textalignh=centre
 textshadow=yes
@@ -336,8 +336,8 @@ height=46
 buttontype=normal
 script1=eq,0
 script1op1=pushvar,option_nodef
-graphic=graphic_1409
-activegraphic=graphic_656
+graphic=tutorial_combat_button
+activegraphic="combatboxes_very_large,1"
 option=Auto Retaliate
 
 // 77:28
@@ -357,7 +357,7 @@ y=4
 width=29
 height=41
 layer=auto_icon
-graphic=graphic_1410
+graphic=tutorial_combat_icon
 
 // 77:30
 [com_30]
@@ -366,7 +366,7 @@ x=20
 y=128
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Longrange
 textalignh=centre
 textshadow=yes
@@ -379,7 +379,7 @@ x=20
 y=75
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Accurate
 textalignh=centre
 textshadow=yes
@@ -392,7 +392,7 @@ x=104
 y=75
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Rapid
 textalignh=centre
 textshadow=yes
@@ -407,7 +407,7 @@ width=112
 height=42
 script1=eq,0
 script1op1=pushvar,option_nodef
-textfont=fontmetrics_495
+textfont=p12_full
 text=Auto Retaliate <br>(Off)
 textalignh=centre
 textalignv=centre

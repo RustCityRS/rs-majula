@@ -357,7 +357,7 @@ switch_int ($int0) {
             return(false);
         }
     case 881 :
-        if (%macro_event_uid < 7 | %macro_whirlpool_counter < 7) {
+        if (%varplayer_205 < 7 | %macro_whirlpool_counter < 7) {
             return(false);
         }
     case 656 :

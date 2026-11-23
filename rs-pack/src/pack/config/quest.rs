@@ -39,10 +39,7 @@ fn write_var_requirements(
     for row in rows {
         let mut parts = row.splitn(4, ',');
         let var = parts.next().expect("Missing quest requirement var");
-        match var.parse::<i32>() {
-            Ok(id) => client.p4(id),
-            Err(_) => parse_ref(pack, kind, var, |v| client.p4(v as i32)),
-        }
+        parse_ref(pack, kind, var, |v| client.p4(v as i32));
         for _ in 0..2 {
             let bound = parts.next().expect("Missing quest requirement bound");
             parse_number(bound, |v: i32| client.p4(v));

@@ -29,38 +29,38 @@ while ($int6 < enum_getoutputcount($enum11)) {
                 }
                 if ($int5 = 2) {
                     if (enum(int, int, $enum11, $int6) = 1) {
-                        cc_setgraphic(12169);
+                        cc_setgraphic(graphic_12169);
                         $int7, $int8 = op706;
                     }
                     if (enum(int, int, $enum11, $int6) = 2) {
-                        cc_setgraphic(12167);
+                        cc_setgraphic(graphic_12167);
                         $int7, $int8 = op706;
                     }
                     if (enum(int, int, $enum11, $int6) = 3) {
-                        cc_setgraphic(12163);
+                        cc_setgraphic(graphic_12163);
                         $int7, $int8 = op706;
                     }
                     if (enum(int, int, $enum11, $int6) = 4) {
-                        cc_setgraphic(12159);
+                        cc_setgraphic(graphic_12159);
                         $int7, $int8 = op706;
                     }
                     cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
                 }
                 if ($int5 = 1) {
                     if (enum(int, int, $enum11, $int6) = 1) {
-                        cc_setgraphic(12168);
+                        cc_setgraphic(graphic_12168);
                         $int7, $int8 = op706;
                     }
                     if (enum(int, int, $enum11, $int6) = 2) {
-                        cc_setgraphic(12166);
+                        cc_setgraphic(graphic_12166);
                         $int7, $int8 = op706;
                     }
                     if (enum(int, int, $enum11, $int6) = 3) {
-                        cc_setgraphic(12162);
+                        cc_setgraphic(graphic_12162);
                         $int7, $int8 = op706;
                     }
                     if (enum(int, int, $enum11, $int6) = 4) {
-                        cc_setgraphic(12158);
+                        cc_setgraphic(graphic_12158);
                         $int7, $int8 = op706;
                     }
                     cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);

@@ -33,7 +33,7 @@ return(true);
 
 [proc,prayer_activate](dbrow $data)
 ~prayer_deactivate_conflicting($data);
-sound_synth(db_getfield($data, prayers:sound, 0), 0, 0);
+sound_synth(db_getfield($data, prayers:sound, 0), 1, 0);
 // activate headicon
 def_int $headicon = enum(int, int, prayer_headicons, db_getfield($data, prayers:prayer, 0));
 if ($headicon > 0) {

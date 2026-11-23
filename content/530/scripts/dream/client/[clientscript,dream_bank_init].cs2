@@ -5,9 +5,9 @@ def_int $int1 = 5;
 def_int $int2 = 0;
 while ($int0 < 255) {
     while ($int1 < 235) {
-        cc_create(dream_armour:bank_layer, 5, $int2);
-        cc_setsize(36, 32, 0, 0);
-        cc_setposition($int1, $int0, 0, 0);
+        cc_create(dream_armour:bank_layer, ^iftype_graphic, $int2);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (inv_getobj(dream_bank_inventory, $int2) ! null) {
             cc_setobject(inv_getobj(dream_bank_inventory, $int2), inv_getnum(dream_bank_inventory, $int2));
             cc_setopbase(oc_name(inv_getobj(dream_bank_inventory, $int2)));

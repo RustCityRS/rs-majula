@@ -30,7 +30,7 @@ pub(super) fn decode_clan_var(
                 props.push(("startbit".into(), buf.g1().to_string()));
                 props.push(("endbit".into(), buf.g1().to_string()));
             }
-            code => panic!("Unrecognized {kind} config code: {code}"),
+            code => panic!("Error unrecognised .{kind} config code: {code}"),
         }
     }
 }

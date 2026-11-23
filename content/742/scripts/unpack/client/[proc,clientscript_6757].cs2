@@ -13,19 +13,19 @@ if_settext(interface_1345:com_84, struct_param($struct3, param_1266));
 if (struct_param($struct3, param_1290) = 1) {
     if_settext(interface_1345:com_177, "Free to play content");
     if_setcolour(interface_1345:com_177, 0x676767);
-    if_setgraphic(interface_1345:com_176, 13165);
+    if_setgraphic(interface_1345:com_176, graphic_13165);
 } else if (playermember = false) {
     if_settext(interface_1345:com_177, "Runescape member: Click to subscribe!");
     if_setcolour(interface_1345:com_177, 0x959595);
-    if_setgraphic(interface_1345:com_176, 13166);
+    if_setgraphic(interface_1345:com_176, graphic_13166);
 } else if (map_members = false) {
     if_settext(interface_1345:com_177, "Member's world");
     if_setcolour(interface_1345:com_177, 0x959595);
-    if_setgraphic(interface_1345:com_176, 13166);
+    if_setgraphic(interface_1345:com_176, graphic_13166);
 } else {
     if_settext(interface_1345:com_177, "Runescape member");
     if_setcolour(interface_1345:com_177, 0x676767);
-    if_setgraphic(interface_1345:com_176, 13165);
+    if_setgraphic(interface_1345:com_176, graphic_13165);
 }
 def_int $int4 = 0;
 def_int $int5 = 0;

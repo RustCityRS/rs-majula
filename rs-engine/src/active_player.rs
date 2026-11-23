@@ -1715,13 +1715,31 @@ impl ActivePlayer {
         self.write(IfSetRecol { com, src, dst });
     }
 
-    /// Assigns an interface component to a tab slot on the client.
+    /// Assigns an interface component to a tab slot on the client. 530 has no
+    /// tab packet: the panel mounts on the gameframe's `side<tab>`, and a null
+    /// one closes it, which hides the tab's stone.
     pub fn if_settab(&mut self, com: u16, tab: u8) {
         #[cfg(before_530)]
         self.write(IfSetTab { com, tab });
+        #[cfg(all(since_530, before_647))]
+        {
+            let Some(parent) = engine().layout.tab_slot(self.player.frame_toplevel, tab) else {
+                warn!(
+                    "if_settab({com}, {tab}): toplevel {} has no side{tab}",
+                    self.player.frame_toplevel
+                );
+                return;
+            };
+            if com == u16::MAX {
+                self.if_close_sub(parent);
+            } else {
+                let kind = self.player.sub_kind(parent);
+                self.if_open_sub(com, parent, kind);
+            }
+        }
         // TODO(647): rev-647 has no tab packets — tabs are laid out via
         // IF_OPENSUB by content (interface milestone).
-        #[cfg(since_530)]
+        #[cfg(since_647)]
         let _ = (com, tab);
     }
 
@@ -3330,16 +3348,18 @@ impl ActivePlayer {
         self.player.inv_other_transmits = transmits;
     }
 
-    /// Recomputes the player's carried weight, in grams, from every
-    /// `runweight`-flagged inventory the player owns.
+    /// Recomputes `self.player.runweight` from [`Self::carried_weight`].
+    fn calculate_runweight(&mut self) {
+        self.player.runweight = self.carried_weight();
+    }
+
+    /// The player's carried weight, in grams, from every `runweight`-flagged
+    /// inventory the player owns, as it stands now.
     ///
     /// Sums each non-stackable item's per-unit weight times its stack count.
     /// Stackable objects (coins, runes, arrows, ...) are excluded, as is any
     /// item whose obj type is missing from the cache.
-    ///
-    /// # Side Effects
-    /// * Overwrites `self.player.runweight`.
-    fn calculate_runweight(&mut self) {
+    pub(crate) fn carried_weight(&self) -> i32 {
         let invs = engine().invs();
         let objs = engine().objs();
         let mut weight = 0;
@@ -3360,7 +3380,7 @@ impl ActivePlayer {
                 weight += obj_type.weight as i32 * item.num as i32;
             }
         }
-        self.player.runweight = weight;
+        weight
     }
 
     /// Sends a game message to the player's chatbox, word-wrapping long
@@ -4676,12 +4696,12 @@ impl EnginePlayer for ActivePlayer {
                         }
 
                         #[cfg(since_647)]
-                        for merge in zone.loc_merges() {
+                        for customise in zone.loc_customisations() {
                             if !wrote_follows {
                                 self.write(UpdateZonePartialFollows { x, z, y });
                                 wrote_follows = true;
                             }
-                            self.write(merge.clone());
+                            self.write(customise.clone());
                         }
                     } else {
                         if let Some(bytes) = zone.shared_bytes() {

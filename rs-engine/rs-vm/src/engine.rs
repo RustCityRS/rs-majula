@@ -540,11 +540,11 @@ pub trait ScriptEngine {
     #[cfg(since_647)]
     fn loc_prefetchall(&mut self, coord: CoordGrid, id: TypeId, shape: u8);
 
-    /// Merges a look into `loc` for everyone observing its zone: `models`
-    /// replace its models for its shape, `recol` and `retex` its recolour and
-    /// retexture destinations. With none of them it resets the loc.
+    /// Customises `loc` for everyone observing its zone: `models` replace its
+    /// models for its shape, `recol` and `retex` its recolour and retexture
+    /// destinations. With none of them it resets the loc.
     #[cfg(since_647)]
-    fn loc_merge(
+    fn loc_customise(
         &mut self,
         loc: LocRef,
         models: Option<Box<[TypeId]>>,
@@ -1630,6 +1630,16 @@ pub trait ScriptPlayer: ScriptVars + ScriptInterface {
     /// * `shape` - The shape the client looks the models up by.
     #[cfg(since_647)]
     fn loc_prefetch(&mut self, id: TypeId, shape: u8);
+
+    /// The loc type `id` shows as to this player, picked by the variable of
+    /// its multiloc. `None` when it shows as nothing.
+    #[cfg(since_530)]
+    fn shown_loc(&self, id: TypeId) -> Option<TypeId>;
+
+    /// The npc type `id` shows as to this player, picked by the variable of
+    /// its multinpc. `None` when it shows as nothing.
+    #[cfg(since_530)]
+    fn shown_npc(&self, id: TypeId) -> Option<TypeId>;
 
     /// Clears the player's pending action, if any.
     ///

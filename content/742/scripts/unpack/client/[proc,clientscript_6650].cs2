@@ -1,97 +1,97 @@
 // 6650
 [proc,clientscript_6650]
-def_graphic $graphic0 = 12305;
-def_graphic $graphic1 = 12305;
-def_graphic $graphic2 = 12305;
-def_graphic $graphic3 = 12305;
-def_graphic $graphic4 = 12305;
-def_graphic $graphic5 = 12305;
-def_graphic $graphic6 = 12305;
-def_graphic $graphic7 = 12305;
-def_graphic $graphic8 = 12305;
+def_graphic $graphic0 = graphic_12305;
+def_graphic $graphic1 = graphic_12305;
+def_graphic $graphic2 = graphic_12305;
+def_graphic $graphic3 = graphic_12305;
+def_graphic $graphic4 = graphic_12305;
+def_graphic $graphic5 = graphic_12305;
+def_graphic $graphic6 = graphic_12305;
+def_graphic $graphic7 = graphic_12305;
+def_graphic $graphic8 = graphic_12305;
 switch_int (%varplayerbit_11860) {
     case 5 :
-        $graphic0 = 12304;
+        $graphic0 = graphic_12304;
     case 3 :
-        $graphic0 = 12306;
+        $graphic0 = graphic_12306;
     case 4 :
-        $graphic0 = 12307;
+        $graphic0 = graphic_12307;
 }
 switch_int (%varplayerbit_11861) {
     case 5 :
-        $graphic1 = 12304;
+        $graphic1 = graphic_12304;
     case 3 :
-        $graphic1 = 12306;
+        $graphic1 = graphic_12306;
     case 4 :
-        $graphic1 = 12307;
+        $graphic1 = graphic_12307;
 }
 switch_int (%varplayerbit_11862) {
     case 5 :
-        $graphic2 = 12304;
+        $graphic2 = graphic_12304;
     case 3 :
-        $graphic2 = 12306;
+        $graphic2 = graphic_12306;
     case 4 :
-        $graphic2 = 12307;
+        $graphic2 = graphic_12307;
 }
 switch_int (%varplayerbit_11863) {
     case 5 :
-        $graphic3 = 12304;
+        $graphic3 = graphic_12304;
     case 3 :
-        $graphic3 = 12306;
+        $graphic3 = graphic_12306;
     case 4 :
-        $graphic3 = 12307;
+        $graphic3 = graphic_12307;
     case 0 :
-        $graphic3 = 12308;
+        $graphic3 = graphic_12308;
 }
 switch_int (%varplayerbit_11866) {
     case 5 :
-        $graphic4 = 12304;
+        $graphic4 = graphic_12304;
     case 3 :
-        $graphic4 = 12306;
+        $graphic4 = graphic_12306;
     case 4 :
-        $graphic4 = 12307;
+        $graphic4 = graphic_12307;
     case 0 :
-        $graphic4 = 12308;
+        $graphic4 = graphic_12308;
 }
 switch_int (%varplayerbit_11865) {
     case 5 :
-        $graphic7 = 12304;
+        $graphic7 = graphic_12304;
     case 3 :
-        $graphic7 = 12306;
+        $graphic7 = graphic_12306;
     case 4 :
-        $graphic7 = 12307;
+        $graphic7 = graphic_12307;
     case 0 :
-        $graphic7 = 12308;
+        $graphic7 = graphic_12308;
 }
 switch_int (%varplayerbit_11868) {
     case 5 :
-        $graphic8 = 12304;
+        $graphic8 = graphic_12304;
     case 3 :
-        $graphic8 = 12306;
+        $graphic8 = graphic_12306;
     case 4 :
-        $graphic8 = 12307;
+        $graphic8 = graphic_12307;
     case 0 :
-        $graphic8 = 12308;
+        $graphic8 = graphic_12308;
 }
 switch_int (%varplayerbit_11864) {
     case 5 :
-        $graphic5 = 12304;
+        $graphic5 = graphic_12304;
     case 3 :
-        $graphic5 = 12306;
+        $graphic5 = graphic_12306;
     case 4 :
-        $graphic5 = 12307;
+        $graphic5 = graphic_12307;
     case 0 :
-        $graphic5 = 12308;
+        $graphic5 = graphic_12308;
 }
 switch_int (%varplayerbit_11867) {
     case 5 :
-        $graphic6 = 12304;
+        $graphic6 = graphic_12304;
     case 3 :
-        $graphic6 = 12306;
+        $graphic6 = graphic_12306;
     case 4 :
-        $graphic6 = 12307;
+        $graphic6 = graphic_12307;
     case 0 :
-        $graphic6 = 12308;
+        $graphic6 = graphic_12308;
 }
 if_setgraphic(interface_1321:com_91, $graphic0);
 if_setgraphic(interface_1321:com_98, $graphic1);

@@ -1,6 +1,6 @@
 // 5038
 [proc,clientscript_5038](int $int0)
-sound_vorbis_volume(6185, 1, 0, 200);
+sound_vorbis_volume(vorbis_6185, 1, 0, 200);
 if ($int0 = 1) {
     if_sethide(interface_1111:com_6, true);
     if_sethide(interface_1111:com_1, false);

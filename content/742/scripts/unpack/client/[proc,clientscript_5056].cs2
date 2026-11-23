@@ -2,23 +2,23 @@
 [proc,clientscript_5056](component $component0, int $int1)
 if ($int1 = 1) {
     if (cc_find($component0, 0) = true) {
-        cc_setgraphic(7571);
+        cc_setgraphic(graphic_7571);
     }
     if (cc_find($component0, 1) = true) {
-        cc_setgraphic(7570);
+        cc_setgraphic(graphic_7570);
     }
     if (cc_find($component0, 2) = true) {
-        cc_setgraphic(7572);
+        cc_setgraphic(graphic_7572);
     }
     if (cc_find($component0, 3) = true) {
-        cc_setgraphic(7577);
+        cc_setgraphic(graphic_7577);
     }
     if_setonmouserepeat($component0, null);
     if_setonmouseleave($component0, null);
 } else {
     ~clientscript_5058($component0, 0);
     if (cc_find($component0, 3) = true) {
-        cc_setgraphic(7576);
+        cc_setgraphic(graphic_7576);
     }
     if_setonmouserepeat($component0, clientscript_5057, event_com, 1, "I1");
     if_setonmouseleave($component0, clientscript_5057, event_com, 0, "I1");

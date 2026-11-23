@@ -3,7 +3,7 @@
 %quickchat_mode = $int0;
 %varclient_1546 = $string0;
 %quickchat_backspace = true;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic(chattop:chat_graphic, chat_background);
     if_setalpha(chattop:chat_graphic, false);
     if_sethide(chattop:chat_graphic, false);

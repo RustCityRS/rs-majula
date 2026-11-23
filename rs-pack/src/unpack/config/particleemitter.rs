@@ -1,5 +1,6 @@
 use super::UnpackedPacks;
 use crate::cache::particleemitter::ParticleEmitterType;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn joined<T: ToString>(values: &[T]) -> String {
@@ -10,11 +11,19 @@ fn joined<T: ToString>(values: &[T]) -> String {
         .join(",")
 }
 
+/// Effector ids by name, as the packer reads them.
+fn effectors(packs: &UnpackedPacks, ids: &[u16]) -> String {
+    ids.iter()
+        .map(|&id| packs.reference("particleeffector", TypeId::new(id)))
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
 pub fn emit_particleemitter_props(
     def: &ParticleEmitterType,
     opcode: u8,
     _data: &[u8],
-    _packs: &mut UnpackedPacks,
+    packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
@@ -47,10 +56,14 @@ pub fn emit_particleemitter_props(
         p.push((8, "emissionrate".into(), joined(&def.rate)));
     }
     if opcode == 9 {
-        p.push((9, "worldeffectors".into(), joined(&def.effectors)));
+        p.push((9, "worldeffectors".into(), effectors(packs, &def.effectors)));
     }
     if opcode == 10 {
-        p.push((10, "localeffectors".into(), joined(&def.effectors10)));
+        p.push((
+            10,
+            "localeffectors".into(),
+            effectors(packs, &def.effectors10),
+        ));
     }
     if opcode == 12 {
         p.push((12, "killbelowlevel".into(), def.priority12.to_string()));
@@ -62,7 +75,11 @@ pub fn emit_particleemitter_props(
         p.push((14, "unknown14".into(), def.max_particles.to_string()));
     }
     if opcode == 15 {
-        p.push((15, "material".into(), def.material.unwrap().to_string()));
+        p.push((
+            15,
+            "material".into(),
+            packs.reference("texture", TypeId::new(def.material.unwrap())),
+        ));
     }
     if opcode == 16 {
         p.push((
@@ -119,7 +136,11 @@ pub fn emit_particleemitter_props(
         ));
     }
     if opcode == 25 {
-        p.push((25, "globaleffectors".into(), joined(&def.globaleffectors)));
+        p.push((
+            25,
+            "globaleffectors".into(),
+            effectors(packs, &def.globaleffectors),
+        ));
     }
     if opcode == 27 {
         p.push((

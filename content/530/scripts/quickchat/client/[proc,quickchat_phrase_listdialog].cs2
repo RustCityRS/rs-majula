@@ -19,13 +19,13 @@ if_sethide(chatdefault:quickchat_menu, true);
 if_sethide(chatdefault:quickchat_path, true);
 if_sethide(chatdefault:quickchat_title, false);
 if_setcolour(chatdefault:quickchat_title, ^black);
-if_settextfont(chatdefault:quickchat_title, 495);
-if_settextalign(chatdefault:quickchat_title, 0, 1, 0);
+if_settextfont(chatdefault:quickchat_title, p12_full);
+if_settextalign(chatdefault:quickchat_title, ^settextalign_left, ^settextalign_centre, 0);
 if_settext(chatdefault:quickchat_title, $string0);
 if_settextshadow(chatdefault:quickchat_title, false);
 cc_deleteall(chatdefault:quickchat_listdialog_options);
 def_enum $enum1 = chatphrase_getdynamiccommandparam_enum($chatphrase0, %quickchat_phrase_count, 0);
-cc_create(chatdefault:quickchat_listdialog_options, 3, 0);
+cc_create(chatdefault:quickchat_listdialog_options, ^iftype_rectangle, 0);
 def_int $int2 = if_getwidth(chatdefault:quickchat_listdialog_options);
 def_int $int3 = calc($int2 - 8);
 def_int $int4 = 1;
@@ -34,12 +34,12 @@ def_int $intarray0(250);
 def_int $int6 = 0;
 $string0 = enum(int, string, $enum1, 0);
 while (compare("", $string0) ! 0 & $int4 < 250) {
-    cc_create(chatdefault:quickchat_listdialog_options, 4, $int4);
-    cc_setposition(4, calc(14 * $int5), 0, 0);
-    cc_setsize($int3, 14, 0, 0);
+    cc_create(chatdefault:quickchat_listdialog_options, ^iftype_text, $int4);
+    cc_setposition(4, calc(14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int3, 14, ^setsize_abs, ^setsize_abs);
     cc_setcolour(^black);
     cc_settext($string0);
-    cc_settextfont(495);
+    cc_settextfont(p12_full);
     cc_settextshadow(false);
     cc_setonmouseover("quickchat_listdialog_highlight($int4, chatdefault:quickchat_listdialog_options, $int5)");
     cc_setonclick("quickchat_phrase_int(chatdefault:quickchat_path, $chatphrase0, calc($int4 - 1))");
@@ -54,7 +54,7 @@ if (compare(enum(int, string, $enum1, 1000), "non-alpha") ! 0) {
     $int5 = 0;
     while ($int5 <= $int6) {
         if (cc_find(chatdefault:quickchat_listdialog_options, calc($intarray0($int5) + 1)) = true) {
-            cc_setposition(4, calc(14 * $int5), 0, 0);
+            cc_setposition(4, calc(14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
             cc_setonmouseover("quickchat_listdialog_highlight(calc($intarray0($int5) + 1), chatdefault:quickchat_listdialog_options, $int5)");
         }
         $int5 = calc($int5 + 1);
@@ -67,5 +67,5 @@ while ($int5 < 250) {
 }
 if_setonkey(chatdefault:quickchat_listdialog_options, "quickchat_phrase_listdialog_onkey(event_keycode, event_keychar, chatdefault:quickchat_path, chatdefault:quickchat_listdialog_options, chatdefault:quickchat_listdialog_scroll, $chatphrase0, calc($int4 - 1))");
 if_setscrollsize(chatdefault:quickchat_listdialog_options, 0, calc(14 * ($int4 - 1)));
-~clientscript_31(chatdefault:quickchat_listdialog_scroll, chatdefault:quickchat_listdialog_options, 792, 789, 790, 791, 773, 788);
+~clientscript_31(chatdefault:quickchat_listdialog_scroll, chatdefault:quickchat_listdialog_options, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 ~clientscript_72(chatdefault:quickchat_listdialog_scroll, chatdefault:quickchat_listdialog_options, 0);

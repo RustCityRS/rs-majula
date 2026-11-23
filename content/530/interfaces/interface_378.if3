@@ -79,7 +79,7 @@ y=8
 width=180
 height=24
 layer=credit
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=Credit
 textalignh=centre
 colour=0x2b2519
@@ -159,7 +159,7 @@ y=10
 width=180
 height=24
 layer=com_119
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=Message Centre
 textalignh=centre
 colour=0x2b2519
@@ -172,7 +172,7 @@ y=129
 width=186
 height=154
 layer=com_118
-graphic=graphic_1119
+graphic=map_image
 
 // 378:16
 [com_16]
@@ -230,7 +230,7 @@ y=128
 width=8
 height=172
 layer=com_118
-graphic=graphic_894
+graphic="silver_border,2"
 tiling=yes
 
 // 378:21
@@ -241,7 +241,7 @@ y=120
 width=180
 height=8
 layer=com_118
-graphic=graphic_893
+graphic="silver_border,1"
 tiling=yes
 
 // 378:22
@@ -264,7 +264,7 @@ y=300
 width=8
 height=8
 layer=com_118
-graphic=graphic_892
+graphic="silver_border,0"
 2dangle=32768
 
 // 378:24
@@ -286,7 +286,7 @@ y=300
 width=8
 height=8
 layer=com_118
-graphic=graphic_892
+graphic="silver_border,0"
 2dangle=16384
 
 // 378:26
@@ -309,7 +309,7 @@ y=300
 width=180
 height=8
 layer=com_118
-graphic=graphic_895
+graphic="silver_border,3"
 tiling=yes
 
 // 378:28
@@ -332,7 +332,7 @@ y=128
 width=8
 height=172
 layer=com_118
-graphic=graphic_896
+graphic="silver_border,4"
 tiling=yes
 
 // 378:30
@@ -343,7 +343,7 @@ y=120
 width=8
 height=8
 layer=com_118
-graphic=graphic_892
+graphic="silver_border,0"
 
 // 378:31
 [com_31]
@@ -378,7 +378,7 @@ y=120
 width=8
 height=8
 layer=com_118
-graphic=graphic_892
+graphic="silver_border,0"
 2dangle=49152
 
 // 378:34
@@ -413,7 +413,7 @@ y=143
 width=40
 height=28
 layer=com_118
-graphic=graphic_1083
+graphic=letter_icon
 
 // 378:37
 [com_37]
@@ -423,7 +423,7 @@ y=178
 width=160
 height=13
 layer=com_118
-textfont=fontmetrics_494
+textfont=p11_full
 text=1 unread message
 textalignh=centre
 
@@ -435,7 +435,7 @@ y=218
 width=175
 height=40
 layer=com_118
-textfont=fontmetrics_494
+textfont=p11_full
 text=Jagex uses the message centre to keep you informed.
 
 // 378:39
@@ -446,7 +446,7 @@ y=141
 width=32
 height=32
 layer=com_118
-textfont=fontmetrics_473
+textfont=welcome_font_large
 text=1
 colour=0xebb723
 
@@ -515,7 +515,7 @@ width=357
 height=45
 xmode=abs_centre
 layer=com_134
-textfont=fontmetrics_473
+textfont=welcome_font_large
 text=Click Here To Play
 textalignh=centre
 textalignv=centre
@@ -564,7 +564,7 @@ y=216
 width=9
 height=9
 layer=com_125
-graphic=graphic_911
+graphic="bronze_border,0"
 
 // 378:50
 [com_50]
@@ -574,7 +574,7 @@ y=225
 width=9
 height=72
 layer=com_125
-graphic=graphic_951
+graphic="bronze_border,2"
 tiling=yes
 
 // 378:51
@@ -585,7 +585,7 @@ y=297
 width=9
 height=9
 layer=com_125
-graphic=graphic_911
+graphic="bronze_border,0"
 2dangle=16384
 
 // 378:52
@@ -596,7 +596,7 @@ y=225
 width=9
 height=72
 layer=com_125
-graphic=graphic_978
+graphic="bronze_border,4"
 tiling=yes
 
 // 378:53
@@ -607,7 +607,7 @@ y=297
 width=9
 height=9
 layer=com_125
-graphic=graphic_911
+graphic="bronze_border,0"
 2dangle=16384
 vflip=yes
 
@@ -619,7 +619,7 @@ y=297
 width=180
 height=9
 layer=com_125
-graphic=graphic_977
+graphic="bronze_border,3"
 tiling=yes
 
 // 378:55
@@ -630,7 +630,7 @@ y=216
 width=180
 height=9
 layer=com_125
-graphic=graphic_947
+graphic="bronze_border,1"
 tiling=yes
 
 // 378:56
@@ -641,7 +641,7 @@ y=226
 width=119
 height=70
 layer=com_125
-textfont=fontmetrics_494
+textfont=p11_full
 text=You have not yet set any recovery questions.
 textalignv=centre
 textshadow=yes
@@ -655,7 +655,7 @@ y=216
 width=9
 height=9
 layer=com_125
-graphic=graphic_911
+graphic="bronze_border,0"
 hflip=yes
 
 // 378:58
@@ -666,7 +666,7 @@ y=235
 width=51
 height=51
 layer=com_125
-graphic=graphic_1082
+graphic="security_icons,1"
 
 // 378:59
 [com_59]
@@ -711,7 +711,7 @@ y=130
 width=120
 height=70
 layer=com_124
-textfont=fontmetrics_494
+textfont=p11_full
 text=You do not have a bank pin. Please visit a bank if you would like one.
 textalignv=centre
 textshadow=yes
@@ -725,7 +725,7 @@ y=139
 width=51
 height=51
 layer=com_124
-graphic=graphic_1081
+graphic="security_icons,0"
 
 // 378:64
 [com_64]
@@ -735,7 +735,7 @@ y=120
 width=9
 height=9
 layer=com_124
-graphic=graphic_911
+graphic="bronze_border,0"
 hflip=yes
 
 // 378:65
@@ -746,7 +746,7 @@ y=129
 width=9
 height=72
 layer=com_124
-graphic=graphic_978
+graphic="bronze_border,4"
 tiling=yes
 
 // 378:66
@@ -757,7 +757,7 @@ y=201
 width=180
 height=9
 layer=com_124
-graphic=graphic_977
+graphic="bronze_border,3"
 tiling=yes
 
 // 378:67
@@ -768,7 +768,7 @@ y=129
 width=9
 height=72
 layer=com_124
-graphic=graphic_951
+graphic="bronze_border,2"
 tiling=yes
 
 // 378:68
@@ -779,7 +779,7 @@ y=201
 width=9
 height=9
 layer=com_124
-graphic=graphic_911
+graphic="bronze_border,0"
 2dangle=16384
 
 // 378:69
@@ -790,7 +790,7 @@ y=120
 width=9
 height=9
 layer=com_124
-graphic=graphic_911
+graphic="bronze_border,0"
 
 // 378:70
 [com_70]
@@ -800,7 +800,7 @@ y=120
 width=180
 height=9
 layer=com_124
-graphic=graphic_947
+graphic="bronze_border,1"
 tiling=yes
 
 // 378:71
@@ -811,7 +811,7 @@ y=201
 width=9
 height=9
 layer=com_124
-graphic=graphic_911
+graphic="bronze_border,0"
 2dangle=16384
 vflip=yes
 
@@ -823,7 +823,7 @@ y=127
 width=186
 height=154
 layer=com_121
-graphic=graphic_1119
+graphic=map_image
 
 // 378:73
 [com_73]
@@ -881,7 +881,7 @@ y=128
 width=8
 height=172
 layer=com_121
-graphic=graphic_894
+graphic="silver_border,2"
 tiling=yes
 
 // 378:78
@@ -892,7 +892,7 @@ width=180
 height=8
 xmode=abs_centre
 layer=com_121
-graphic=graphic_893
+graphic="silver_border,1"
 tiling=yes
 
 // 378:79
@@ -915,7 +915,7 @@ y=300
 width=8
 height=8
 layer=com_121
-graphic=graphic_892
+graphic="silver_border,0"
 2dangle=32768
 
 // 378:81
@@ -937,7 +937,7 @@ y=300
 width=8
 height=8
 layer=com_121
-graphic=graphic_892
+graphic="silver_border,0"
 2dangle=16384
 
 // 378:83
@@ -960,7 +960,7 @@ y=300
 width=180
 height=8
 layer=com_121
-graphic=graphic_895
+graphic="silver_border,3"
 tiling=yes
 
 // 378:85
@@ -983,7 +983,7 @@ y=128
 width=8
 height=172
 layer=com_121
-graphic=graphic_896
+graphic="silver_border,4"
 tiling=yes
 
 // 378:87
@@ -994,7 +994,7 @@ y=120
 width=8
 height=8
 layer=com_121
-graphic=graphic_892
+graphic="silver_border,0"
 
 // 378:88
 [com_88]
@@ -1029,7 +1029,7 @@ y=120
 width=8
 height=8
 layer=com_121
-graphic=graphic_892
+graphic="silver_border,0"
 2dangle=49152
 
 // 378:91
@@ -1064,7 +1064,7 @@ y=218
 width=175
 height=40
 layer=com_121
-textfont=fontmetrics_494
+textfont=p11_full
 text=You have 60 days of member credit remaining. Please click here to extend your credit.
 
 // 378:94
@@ -1075,7 +1075,7 @@ y=178
 width=160
 height=23
 layer=com_121
-textfont=fontmetrics_494
+textfont=p11_full
 text=60 days of member credit
 textalignh=centre
 
@@ -1087,7 +1087,7 @@ y=140
 width=42
 height=33
 layer=com_121
-graphic=graphic_1084
+graphic=coins_icon
 
 // 378:96
 [com_96]
@@ -1097,7 +1097,7 @@ y=141
 width=32
 height=32
 layer=com_121
-textfont=fontmetrics_473
+textfont=welcome_font_large
 text=60
 colour=0xebb723
 
@@ -1109,7 +1109,7 @@ width=554
 height=26
 xmode=abs_centre
 layer=com_114
-graphic=graphic_889
+graphic="welcome_fills,0"
 
 // 378:98
 [com_98]
@@ -1119,7 +1119,7 @@ width=251
 height=26
 xmode=abs_centre
 layer=com_114
-graphic=graphic_890
+graphic="welcome_fills,1"
 
 // 378:99
 [com_99]
@@ -1130,7 +1130,7 @@ width=37
 height=26
 xmode=abs_right
 layer=com_114
-graphic=graphic_888
+graphic="welcome_title,3"
 
 // 378:100
 [com_100]
@@ -1140,7 +1140,7 @@ y=60
 width=37
 height=26
 layer=com_114
-graphic=graphic_887
+graphic="welcome_title,2"
 
 // 378:101
 [com_101]
@@ -1151,7 +1151,7 @@ width=37
 height=26
 xmode=abs_right
 layer=com_114
-graphic=graphic_886
+graphic="welcome_title,1"
 
 // 378:102
 [com_102]
@@ -1161,7 +1161,7 @@ y=60
 width=37
 height=26
 layer=com_114
-graphic=graphic_885
+graphic="welcome_title,0"
 
 // 378:103
 [backing]
@@ -1301,7 +1301,7 @@ x=220
 y=62
 width=325
 height=22
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=Welcome to RuneScape
 textalignh=centre
 colour=0x2b2519
@@ -1313,7 +1313,7 @@ x=106
 y=94
 width=326
 height=12
-textfont=fontmetrics_495
+textfont=p12_full
 text=You last logged in yesterday from:
 textalignh=right
 colour=0x000000
@@ -1325,7 +1325,7 @@ x=436
 y=94
 width=200
 height=12
-textfont=fontmetrics_495
+textfont=p12_full
 text=10.1120.190
 colour=0x000000
 onload=clientscript_1390
@@ -1434,7 +1434,7 @@ y=3
 width=180
 height=24
 layer=com_120
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=Message Centre
 textalignh=centre
 colour=0xb08622
@@ -1479,7 +1479,7 @@ y=4
 width=180
 height=24
 layer=com_123
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=Credit
 textalignh=centre
 colour=0xb08622
@@ -1535,7 +1535,7 @@ width=357
 height=45
 xmode=abs_centre
 layer=com_139
-textfont=fontmetrics_473
+textfont=welcome_font_large
 text=Click Here To Play
 textalignh=centre
 textalignv=centre
@@ -1717,7 +1717,7 @@ height=81
 widthmode=minus
 heightmode=minus
 layer=com_148
-graphic=graphic_1594
+graphic=cc_background
 tiling=yes
 transmitop=10
 op10= 
@@ -1868,7 +1868,7 @@ y=6
 width=9
 height=9
 layer=com_148
-graphic=graphic_911
+graphic="bronze_border,0"
 transmitop=10
 op10= 
 
@@ -1881,7 +1881,7 @@ width=30
 height=9
 widthmode=minus
 layer=com_148
-graphic=graphic_947
+graphic="bronze_border,1"
 tiling=yes
 transmitop=10
 op10= 
@@ -1895,7 +1895,7 @@ width=9
 height=9
 xmode=abs_right
 layer=com_148
-graphic=graphic_911
+graphic="bronze_border,0"
 hflip=yes
 transmitop=10
 op10= 
@@ -1910,7 +1910,7 @@ height=30
 heightmode=minus
 xmode=abs_right
 layer=com_148
-graphic=graphic_951
+graphic="bronze_border,2"
 tiling=yes
 transmitop=10
 op10= 
@@ -1925,7 +1925,7 @@ height=9
 xmode=abs_right
 ymode=abs_bottom
 layer=com_148
-graphic=graphic_911
+graphic="bronze_border,0"
 2dangle=16384
 vflip=yes
 transmitop=10
@@ -1941,7 +1941,7 @@ height=9
 widthmode=minus
 ymode=abs_bottom
 layer=com_148
-graphic=graphic_977
+graphic="bronze_border,3"
 tiling=yes
 transmitop=10
 op10= 
@@ -1955,7 +1955,7 @@ width=9
 height=9
 ymode=abs_bottom
 layer=com_148
-graphic=graphic_911
+graphic="bronze_border,0"
 2dangle=16384
 transmitop=10
 op10= 
@@ -1969,7 +1969,7 @@ width=9
 height=30
 heightmode=minus
 layer=com_148
-graphic=graphic_978
+graphic="bronze_border,4"
 tiling=yes
 transmitop=10
 op10= 
@@ -2062,7 +2062,7 @@ y=4
 width=180
 height=45
 layer=com_172
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=RE-SUBSCRIBE NOW
 textlineheight=20
 textalignh=centre
@@ -2180,7 +2180,7 @@ width=180
 height=27
 ymode=abs_centre
 layer=com_180
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=CLOSE
 textalignh=centre
 colour=0x000000
@@ -2264,7 +2264,7 @@ width=180
 height=27
 ymode=abs_centre
 layer=com_179
-textfont=fontmetrics_468
+textfont=welcome_font_small
 text=CLOSE
 textalignh=centre
 colour=0x000000
@@ -2281,7 +2281,7 @@ height=110
 widthmode=minus
 heightmode=minus
 layer=com_150
-textfont=fontmetrics_495
+textfont=p12_full
 textlineheight=15
 transmitop=10
 op10= 
@@ -2325,7 +2325,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=com_194
-graphic=graphic_897
+graphic=tradebacking_dark
 tiling=yes
 
 // 378:197
@@ -2345,7 +2345,7 @@ width=16
 height=16
 xmode=abs_right
 layer=com_194
-graphic=graphic_788
+graphic="scrollbar_v2,1"
 
 // 378:199
 [com_199]
@@ -2357,7 +2357,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=com_194
-textfont=fontmetrics_494
+textfont=p11_full
 text=Remind me again in 3 days.
 textalignv=centre
 
@@ -2369,7 +2369,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=com_195
-graphic=graphic_1040
+graphic=tradebacking_light
 tiling=yes
 
 // 378:201
@@ -2391,7 +2391,7 @@ width=10
 height=15
 widthmode=minus
 layer=com_195
-textfont=fontmetrics_494
+textfont=p11_full
 text=Remind me again in 3 days.
 textalignv=centre
 transmitop=1
@@ -2409,7 +2409,7 @@ width=10
 height=15
 widthmode=minus
 layer=com_195
-textfont=fontmetrics_494
+textfont=p11_full
 text=Don't remind me again.
 textalignv=centre
 transmitop=1

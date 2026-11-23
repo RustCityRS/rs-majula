@@ -1,13 +1,13 @@
 // 1301
 [proc,script1301](component $component0, component $component1)
 def_int $int2 = 0;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_getnextsubid($component0) = 8) {
         return;
     } else {
         cc_deleteall($component0);
     }
-    ~clientscript_186($component0, $component1, 8605, 8606, 8607, 8602, 8603, 8604, 8597, 8596, 8599, 8598, 8601, 8600);
+    ~clientscript_186($component0, $component1, graphic_8605, graphic_8606, graphic_8607, graphic_8602, graphic_8603, graphic_8604, graphic_8597, graphic_8596, graphic_8599, graphic_8598, graphic_8601, graphic_8600);
 } else {
     if (if_getnextsubid($component0) = 6) {
         return;

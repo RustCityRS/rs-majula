@@ -1,5 +1,5 @@
 // 4709
-[proc,clientscript_4709](enum $enum0, enum $enum1, int $int2, int $int3, int $int4, component $component5, component $component6, component $component7, component $component8, int $int9, int $int10, int $int11, graphic $graphic12, int $rgb13, int $rgb14, int $rgb15, graphic $graphic16, graphic $graphic17, graphic $graphic18, graphic $graphic19, graphic $graphic20, graphic $graphic21, graphic $graphic22)
+[proc,clientscript_4709](enum $enum0, enum $enum1, int $int2, int $int3, int $int4, component $component5, component $component6, component $component7, component $component8, int $int9, int $int10, int $int11, graphic $graphic12, int $colour13, int $colour14, int $colour15, graphic $graphic16, graphic $graphic17, graphic $graphic18, graphic $graphic19, graphic $graphic20, graphic $graphic21, graphic $graphic22)
 def_int $int23 = 0;
 def_int $int24 = 0;
 $int24, $int23 = ~clientscript_4710($enum1, $int2, $component5, $component6, $component7, $component8, tradebacking_dark, "scrollbar_v2,1", "scrollbar_v2,1", ^white, ^yellow, p11_full);
@@ -29,15 +29,15 @@ while ($int25 <= $int4) {
     cc_setop(1, "Select");
     cc_setonop("clientscript_4713($enum0, event_comsubid)");
     if ($int25 > $int4) {
-        cc_setcolour($rgb14);
-        cc_setonmouseleave("dropdownbox_mouseoutelement($component7, $int26, $rgb14)");
-        cc_setonclick("clientscript_4715($component6, $component7, $component8, $component5, $int23, $int24, $string0, $rgb14)");
+        cc_setcolour($colour14);
+        cc_setonmouseleave("dropdownbox_mouseoutelement($component7, $int26, $colour14)");
+        cc_setonclick("clientscript_4715($component6, $component7, $component8, $component5, $int23, $int24, $string0, $colour14)");
     } else {
-        cc_setcolour($rgb13);
-        cc_setonmouseleave("dropdownbox_mouseoutelement($component7, $int26, $rgb13)");
-        cc_setonclick("clientscript_4715($component6, $component7, $component8, $component5, $int23, $int24, $string0, $rgb13)");
+        cc_setcolour($colour13);
+        cc_setonmouseleave("dropdownbox_mouseoutelement($component7, $int26, $colour13)");
+        cc_setonclick("clientscript_4715($component6, $component7, $component8, $component5, $int23, $int24, $string0, $colour13)");
     }
-    cc_setonmouseover("dropdownbox_mouseoverelement($component7, $int26, $rgb15)");
+    cc_setonmouseover("dropdownbox_mouseoverelement($component7, $int26, $colour15)");
     $int25 = calc($int25 + 1);
 }
 if ($component8 ! null) {

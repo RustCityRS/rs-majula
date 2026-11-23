@@ -1,6 +1,6 @@
 // 4750
 [proc,clientscript_4750]
-if (getwindowmode <= 1) {
+if (getwindowmode <= ^windowmode_small) {
     if_setposition(rand_dungeon_rewards_v2:main, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     return;
 }

@@ -11,21 +11,21 @@ while ($int1 < 13) {
     $component2 = ~clientscript_5933($int1);
     switch_int ($int6) {
         case 0 :
-            $graphic3 = 9873;
-            $graphic4 = 9874;
-            $graphic5 = 9875;
+            $graphic3 = graphic_9873;
+            $graphic4 = graphic_9874;
+            $graphic5 = graphic_9875;
         case 1 :
-            $graphic3 = 9876;
-            $graphic4 = 9877;
-            $graphic5 = 9878;
+            $graphic3 = graphic_9876;
+            $graphic4 = graphic_9877;
+            $graphic5 = graphic_9878;
         case 2 :
-            $graphic3 = 9879;
-            $graphic4 = 9880;
-            $graphic5 = 9881;
+            $graphic3 = graphic_9879;
+            $graphic4 = graphic_9880;
+            $graphic5 = graphic_9881;
         case 3 :
-            $graphic3 = 9882;
-            $graphic4 = 9883;
-            $graphic5 = 9884;
+            $graphic3 = graphic_9882;
+            $graphic4 = graphic_9883;
+            $graphic5 = graphic_9884;
     }
     if ($int0 = 0) {
         if_setgraphic($component2, ~clientscript_6267($graphic3));

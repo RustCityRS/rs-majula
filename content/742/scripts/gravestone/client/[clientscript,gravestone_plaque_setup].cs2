@@ -3,13 +3,13 @@
 if_settextfont($component0, barbassault_font);
 if_settextalign($component0, ^settextalign_centre, ^settextalign_centre, 0);
 if (%gravestone_transmit = 0) {
-    if_setgraphic($component1, 13087);
-    if_setgraphic($component2, 13088);
-    if_setgraphic($component3, 13089);
+    if_setgraphic($component1, graphic_13087);
+    if_setgraphic($component2, graphic_13088);
+    if_setgraphic($component3, graphic_13089);
     if_setcolour($component0, ~rgb_to_hex(242, 242, 242));
 } else if (%gravestone_transmit = 1) {
-    if_setgraphic($component1, 13084);
-    if_setgraphic($component2, 13085);
-    if_setgraphic($component3, 13086);
+    if_setgraphic($component1, graphic_13084);
+    if_setgraphic($component2, graphic_13085);
+    if_setgraphic($component3, graphic_13086);
     if_setcolour($component0, ~rgb_to_hex(242, 242, 242));
 }

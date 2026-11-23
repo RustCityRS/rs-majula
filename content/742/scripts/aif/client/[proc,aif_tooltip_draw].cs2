@@ -1,12 +1,12 @@
 // 4540
-[proc,aif_tooltip_draw](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $rgb6, int $int7, int $int8, int $int9, int $int10, int $int11)
+[proc,aif_tooltip_draw](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $colour6, int $int7, int $int8, int $int9, int $int10, int $int11)
 if_sethide($component0, false);
 cc_deleteall($component0);
 if ($fontmetrics4 = null | $graphic5 = null) {
     $fontmetrics4, $graphic5 = verdana_11pt_regular_multiline, verdana_11pt_regular_multiline;
 }
-if ($rgb6 = null) {
-    $rgb6 = ^white;
+if ($colour6 = null) {
+    $colour6 = ^white;
 }
 def_int $int12 = min(parawidth($string0, $int3, $fontmetrics4), $int3);
 def_int $int13 = calc(max(paraheight($string0, $int12, $fontmetrics4), 1) * $int7 + $int8);
@@ -174,7 +174,7 @@ switch_int ($int9) {
     case default :
         cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 }
-cc_setcolour($rgb6);
+cc_setcolour($colour6);
 cc_settextfont($graphic5);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, $int7);
 cc_settext($string0);

@@ -39,13 +39,13 @@ def_string $string1 = ~tostring_spacer($int7, ",");
 cc_deleteall(stockmarket:progressbar);
 if (if_find(stockmarket:progressbar) = true) {
     if (stockmarket_isofferadding($int0) = true) {
-        .cc_create(stockmarket:progressbar, 4, 0);
-        .cc_setposition(0, 0, 0, 0);
-        .cc_setsize(cc_getwidth, cc_getheight, 0, 0);
-        .cc_settextfont(494);
+        .cc_create(stockmarket:progressbar, ^iftype_text, 0);
+        .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_settextfont(p11_full);
         .cc_setcolour(0xdbd884);
         .cc_settext("Submitting offer...");
-        .cc_settextalign(1, 1, 0);
+        .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     } else {
         ~sm_draw_progress_bar(0, 0, cc_getwidth, cc_getheight, $int0, stockmarket:progressbar, 0, stockmarket:offertooltip, 2);
     }

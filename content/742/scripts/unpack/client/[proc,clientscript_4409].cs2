@@ -5,7 +5,7 @@ switch_int (%tutorial3_cutscene_tracker) {
     case 1 :
         ~tutorial3_fadeout(^black, 50, $component0);
     case 11 :
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             if_setonvartransmit(toplevel_fullscreen:com_46, "clientscript_5210(event_com){cutscene_var}");
             ~clientscript_5211(true);
         }

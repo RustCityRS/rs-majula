@@ -5,7 +5,7 @@ x=5
 y=4
 width=502
 height=324
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 646:1
@@ -15,7 +15,7 @@ x=-13
 y=30
 width=32
 height=273
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 646:2
@@ -24,7 +24,7 @@ type=graphic
 y=1
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 646:3
 [com_3]
@@ -33,7 +33,7 @@ x=492
 y=32
 width=32
 height=271
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 646:4
@@ -43,7 +43,7 @@ x=32
 y=-12
 width=450
 height=29
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 646:5
@@ -53,7 +53,7 @@ x=31
 y=314
 width=450
 height=36
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 646:6
@@ -62,7 +62,7 @@ type=graphic
 y=302
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 646:7
 [com_7]
@@ -71,7 +71,7 @@ x=480
 y=1
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 646:8
 [com_8]
@@ -80,7 +80,7 @@ x=480
 y=302
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 646:9
 [sand_timer]
@@ -103,7 +103,7 @@ x=16
 y=16
 width=25
 height=25
-graphic=graphic_1164
+graphic=grand_exchange_icon_25
 
 // 646:11
 [com_11]
@@ -112,7 +112,7 @@ x=50
 y=289
 width=408
 height=32
-textfont=fontmetrics_495
+textfont=p12_full
 text=Step 4 : With your items placed on the Grand Exchange system, just wait a while and we will let you know when your items are traded.
 textalignh=centre
 textalignv=centre
@@ -126,7 +126,7 @@ x=472
 y=21
 width=16
 height=16
-graphic=graphic_1174
+graphic="catcon_catapult_arrows,2"
 transmitop=1
 op1=Continue
 onmouseover=graphic_swapper(event_com, 1175)
@@ -139,7 +139,7 @@ x=375
 y=21
 width=106
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Click to continue
 colour=0xbf751d
 transmitop=1

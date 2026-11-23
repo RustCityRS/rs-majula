@@ -4,7 +4,7 @@ if ($int0 = -1) {
     return(false);
 }
 def_int $int1 = 48889942;
-if (getwindowmode < 2) {
+if (getwindowmode < ^windowmode_resizable) {
     $int1 = 35913728;
 }
 while ($int0 ! -1) {

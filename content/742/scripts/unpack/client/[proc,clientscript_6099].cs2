@@ -2,23 +2,23 @@
 [proc,clientscript_6099](int $int0, int $int1, component $component2, component $component3, component $component4)
 if ($int1 = 1) {
     if ($int0 = 1) {
-        if_setgraphic($component2, 10465);
-        if_setgraphic($component3, 10466);
-        if_setgraphic($component4, 10465);
+        if_setgraphic($component2, graphic_10465);
+        if_setgraphic($component3, graphic_10466);
+        if_setgraphic($component4, graphic_10465);
     } else {
-        if_setgraphic($component2, 10467);
-        if_setgraphic($component3, 10468);
-        if_setgraphic($component4, 10467);
+        if_setgraphic($component2, graphic_10467);
+        if_setgraphic($component3, graphic_10468);
+        if_setgraphic($component4, graphic_10467);
     }
 } else {
     if ($int0 = 1) {
-        if_setgraphic($component2, 10465);
-        if_setgraphic($component3, 10466);
-        if_setgraphic($component4, 10465);
+        if_setgraphic($component2, graphic_10465);
+        if_setgraphic($component3, graphic_10466);
+        if_setgraphic($component4, graphic_10465);
     } else {
-        if_setgraphic($component2, 10463);
-        if_setgraphic($component3, 10464);
-        if_setgraphic($component4, 10463);
+        if_setgraphic($component2, graphic_10463);
+        if_setgraphic($component3, graphic_10464);
+        if_setgraphic($component4, graphic_10463);
     }
     ~deltooltip_action(interface_1265:com_89);
 }

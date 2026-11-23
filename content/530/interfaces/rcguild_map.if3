@@ -34,7 +34,7 @@ y=191
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=You are here
 textalignh=centre
 textalignv=centre
@@ -49,7 +49,7 @@ y=138
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Asgarnia
 textalignh=centre
 textalignv=centre
@@ -64,7 +64,7 @@ y=148
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Misthalin
 textalignh=centre
 textalignv=centre
@@ -79,7 +79,7 @@ y=228
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Karamja
 textalignh=centre
 textalignv=centre
@@ -94,7 +94,7 @@ y=118
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Kandarin
 textalignh=centre
 textalignv=centre
@@ -109,7 +109,7 @@ y=171
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Tirannwn
 textalignh=centre
 textalignv=centre
@@ -124,7 +124,7 @@ y=231
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Feldip Hills
 textalignh=centre
 textalignv=centre
@@ -139,7 +139,7 @@ y=132
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Morytania
 textalignh=centre
 textalignv=centre
@@ -154,7 +154,7 @@ y=39
 width=32
 height=32
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=Wilderness
 textalignh=centre
 textalignv=centre
@@ -169,7 +169,7 @@ y=4
 width=16
 height=16
 layer=content_layer
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onload=clientscript_728
@@ -367,7 +367,7 @@ y=271
 width=211
 height=58
 layer=lay_info
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 780:27
@@ -378,7 +378,7 @@ y=267
 width=32
 height=32
 layer=lay_info
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 780:28
 [info_border_topright]
@@ -388,7 +388,7 @@ y=267
 width=32
 height=32
 layer=lay_info
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 780:29
 [info_border_bottomleft]
@@ -398,7 +398,7 @@ y=299
 width=32
 height=32
 layer=lay_info
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 780:30
 [info_border_bottomright]
@@ -408,7 +408,7 @@ y=299
 width=32
 height=32
 layer=lay_info
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 780:31
 [info_border_top]
@@ -418,7 +418,7 @@ y=254
 width=157
 height=32
 layer=lay_info
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 780:32
@@ -429,7 +429,7 @@ y=311
 width=156
 height=32
 layer=lay_info
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 780:33
@@ -440,7 +440,7 @@ y=277
 width=199
 height=43
 layer=lay_info
-textfont=fontmetrics_494
+textfont=p11_full
 textshadow=yes
 colour=0xc4c4a4
 
@@ -590,7 +590,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 780:53
@@ -601,7 +601,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 780:54
@@ -612,7 +612,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 780:55
@@ -623,7 +623,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 780:56
@@ -635,7 +635,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 780:57
@@ -647,7 +647,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 780:58
@@ -659,7 +659,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 780:59
@@ -671,7 +671,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 780:60
@@ -734,7 +734,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -748,7 +748,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -761,7 +761,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -775,6 +775,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

@@ -16,7 +16,7 @@ x=82
 y=5
 width=350
 height=36
-graphic=graphic_1060
+graphic="v2_book_arrows,1"
 tiling=yes
 
 // 617:2
@@ -26,7 +26,7 @@ x=43
 y=1
 width=39
 height=39
-graphic=graphic_1059
+graphic="v2_book_arrows,0"
 
 // 617:3
 [bookmacro_title_3]
@@ -35,7 +35,7 @@ x=82
 y=2
 width=352
 height=30
-graphic=graphic_1060
+graphic="v2_book_arrows,1"
 tiling=yes
 
 // 617:4
@@ -45,7 +45,7 @@ x=432
 y=1
 width=39
 height=39
-graphic=graphic_1061
+graphic="v2_book_arrows,2"
 
 // 617:5
 [bm1]
@@ -62,7 +62,7 @@ x=479
 y=5
 width=21
 height=21
-graphic=graphic_1064
+graphic="v2_book_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 1065)
@@ -76,7 +76,7 @@ x=18
 y=8
 width=478
 height=26
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Bolrie's Diary
 textalignh=centre
 textalignv=centre
@@ -89,7 +89,7 @@ x=38
 y=54
 width=197
 height=54
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Chapter 1. Bad advice
 colour=0x46320a
 transmitop=1
@@ -105,7 +105,7 @@ x=38
 y=108
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=In which Bolrie is advised by
 colour=0x46320a
 
@@ -116,7 +116,7 @@ x=38
 y=124
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=a mysterious stranger, and
 colour=0x46320a
 
@@ -127,7 +127,7 @@ x=38
 y=140
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=ambition is fed.
 colour=0x46320a
 
@@ -138,7 +138,7 @@ x=38
 y=156
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 colour=0x46320a
 
 // 617:13
@@ -148,7 +148,7 @@ x=38
 y=172
 width=197
 height=52
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Chapter 2. The King is dead
 colour=0x46320a
 transmitop=1
@@ -164,7 +164,7 @@ x=38
 y=224
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=In which a great king dies
 colour=0x46320a
 
@@ -175,7 +175,7 @@ x=38
 y=240
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=and the search for a new
 colour=0x46320a
 
@@ -186,7 +186,7 @@ x=38
 y=256
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=one begins.
 colour=0x46320a
 
@@ -197,7 +197,7 @@ x=38
 y=272
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 colour=0x46320a
 
 // 617:18
@@ -207,7 +207,7 @@ x=38
 y=288
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 colour=0x46320a
 
 // 617:19
@@ -217,7 +217,7 @@ x=283
 y=54
 width=197
 height=58
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Chapter 3. Eyes opened
 colour=0x46320a
 transmitop=1
@@ -233,7 +233,7 @@ x=283
 y=112
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=In which a secret is revealed,
 colour=0x46320a
 
@@ -244,7 +244,7 @@ x=283
 y=128
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=an old foe reappears and
 colour=0x46320a
 
@@ -255,7 +255,7 @@ x=283
 y=144
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=ambitions end.
 colour=0x46320a
 
@@ -266,7 +266,7 @@ x=283
 y=160
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 colour=0x46320a
 
 // 617:24
@@ -276,7 +276,7 @@ x=283
 y=176
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Finally, I understand my
 colour=0x46320a
 
@@ -287,7 +287,7 @@ x=283
 y=192
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=failings and my true enemies.
 colour=0x46320a
 opbase=my failings
@@ -299,7 +299,7 @@ x=283
 y=208
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=I dedicate the rest of my
 colour=0x46320a
 
@@ -310,7 +310,7 @@ x=283
 y=224
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=shattered life to the task of
 colour=0x46320a
 
@@ -321,7 +321,7 @@ x=283
 y=240
 width=197
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=eradicating them both.
 colour=0x46320a
 
@@ -332,7 +332,7 @@ x=418
 y=267
 width=48
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text= Bolrie
 colour=0x46320a
 opbase=m

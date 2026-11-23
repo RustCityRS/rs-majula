@@ -5,8 +5,8 @@ x=40
 y=136
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:1
 [com_1]
@@ -18,8 +18,8 @@ height=36
 buttontype=normal
 script1=eq,0
 script1op1=pushvar,if1
-graphic=graphic_170
-activegraphic=graphic_179
+graphic="miscgraphics,0"
+activegraphic="miscgraphics,9"
 
 // 398:2
 [com_2]
@@ -28,7 +28,7 @@ x=104
 y=90
 width=36
 height=36
-textfont=fontmetrics_495
+textfont=p12_full
 text=Off
 textalignh=centre
 textalignv=centre
@@ -43,8 +43,8 @@ x=66
 y=136
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:4
 [com_4]
@@ -53,8 +53,8 @@ x=92
 y=136
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:5
 [com_5]
@@ -63,8 +63,8 @@ x=118
 y=136
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:6
 [com_6]
@@ -73,8 +73,8 @@ x=144
 y=136
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:7
 [com_7]
@@ -83,7 +83,7 @@ x=16
 y=4
 width=162
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=House Options
 textalignh=centre
 textshadow=yes
@@ -96,8 +96,8 @@ x=40
 y=173
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:9
 [com_9]
@@ -106,8 +106,8 @@ x=66
 y=173
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:10
 [com_10]
@@ -116,8 +116,8 @@ x=92
 y=173
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:11
 [com_11]
@@ -126,8 +126,8 @@ x=118
 y=173
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:12
 [com_12]
@@ -136,8 +136,8 @@ x=144
 y=173
 width=36
 height=36
-graphic=graphic_176
-activegraphic=graphic_178
+graphic="miscgraphics,6"
+activegraphic="miscgraphics,8"
 
 // 398:13
 [com_13]
@@ -147,8 +147,8 @@ y=173
 width=170
 height=36
 buttontype=normal
-graphic=graphic_174
-activegraphic=graphic_177
+graphic="miscgraphics,4"
+activegraphic="miscgraphics,7"
 
 // 398:14
 [com_14]
@@ -160,8 +160,8 @@ height=36
 buttontype=normal
 script1=eq,1
 script1op1=pushvar,if1
-graphic=graphic_170
-activegraphic=graphic_179
+graphic="miscgraphics,0"
+activegraphic="miscgraphics,9"
 
 // 398:15
 [com_15]
@@ -171,8 +171,8 @@ y=136
 width=170
 height=36
 buttontype=normal
-graphic=graphic_174
-activegraphic=graphic_177
+graphic="miscgraphics,4"
+activegraphic="miscgraphics,7"
 
 // 398:16
 [com_16]
@@ -181,7 +181,7 @@ x=10
 y=183
 width=170
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Leave House
 textalignh=centre
 textshadow=yes
@@ -195,7 +195,7 @@ x=10
 y=70
 width=170
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Building Mode
 textalignh=centre
 textshadow=yes
@@ -209,7 +209,7 @@ x=10
 y=148
 width=170
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Expel Guests
 textalignh=centre
 textshadow=yes
@@ -223,7 +223,7 @@ x=50
 y=90
 width=36
 height=36
-textfont=fontmetrics_495
+textfont=p12_full
 text=On
 textalignh=centre
 textalignv=centre
@@ -239,7 +239,7 @@ y=216
 width=170
 height=14
 script1op1=pushvar,if2
-textfont=fontmetrics_495
+textfont=p12_full
 text=Number Of Rooms: %1
 textalignh=centre
 textshadow=yes
@@ -254,7 +254,7 @@ y=17
 width=26
 height=23
 overlayer=com_23
-graphic=graphic_535
+graphic="close_buttons,0"
 
 // 398:22
 [com_22]
@@ -265,7 +265,7 @@ width=26
 height=23
 layer=com_23
 buttontype=close
-graphic=graphic_536
+graphic="close_buttons,1"
 
 // 398:23
 [com_23]

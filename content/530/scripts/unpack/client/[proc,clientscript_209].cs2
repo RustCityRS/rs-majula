@@ -2,5 +2,5 @@
 [proc,clientscript_209]
 if_sethide(interface_595:listlayer, true);
 if_sethide(interface_595:com_116, false);
-if_setgraphic(interface_595:com_120, 1057);
-if_setgraphic(interface_595:com_121, 1049);
+if_setgraphic(interface_595:com_120, "player_kit_fancy_off,5");
+if_setgraphic(interface_595:com_121, "player_kit_fancy,5");

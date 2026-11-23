@@ -21,5 +21,5 @@ def_int $int8 = calc((if_getwidth($component0) - 164) / 2);
 def_int $int9 = calc($int8 + (146 + $int8) * $int6);
 if ($int9 > if_getheight($component0)) {
     if_setscrollsize($component0, 0, $int9);
-    ~clientscript_31($component1, $component0, 792, 789, 790, 791, 773, 788);
+    ~clientscript_31($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 }

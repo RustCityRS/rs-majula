@@ -52,7 +52,7 @@ struct Look {
     retex: Box<[u16]>,
 }
 
-/// What a 647 LocMerge copies from a loc type or checks on the loc it merges.
+/// What a 647 LocCustomise copies from a loc type or checks on the loc it merges.
 /// The client only merges a loc it builds `animated`, looks every merge's
 /// shape up in the model list when it has `shapes`, and picks one of
 /// `two_model_sets` by a detail option the server never sees.

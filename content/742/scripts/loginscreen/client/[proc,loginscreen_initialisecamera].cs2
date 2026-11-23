@@ -17,7 +17,7 @@ if (%loginscreen_previousprofiling = 1) {
     if (detailget_toolkit ! 1 & detailget_toolkit ! 3 & profile_cpu > 400) {
         %loginscreen_previousprofiling = 1;
         %loginscreen_camera_disabled = true;
-        if (getwindowmode > 1) {
+        if (getwindowmode > ^windowmode_small) {
             setwindowmode(^windowmode_small);
         }
         if (getdefaultwindowmode > 1) {
@@ -36,8 +36,8 @@ if (%loginscreen_camera_disabled = true) {
     return;
 }
 def_coord $coord6 = null;
-def_int $rgb7 = ^black;
-$coord6, $rgb7 = ~script1239(0);
+def_int $colour7 = ^black;
+$coord6, $colour7 = ~script1239(0);
 cam_moveto($coord6, 1000, 100, 100);
 cam_lookat($coord6, 0, 100, 100);
 if_setgraphic($component4, "animatedcam,3");

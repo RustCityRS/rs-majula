@@ -4,10 +4,10 @@ def_int $int2 = 0;
 %varclient_1911 = $int0;
 while ($int2 < enum_getoutputcount(enum_5838)) {
     if (cc_find($component1, $int2) = true & $int2 ! $int0) {
-        cc_setgraphic(10734);
+        cc_setgraphic(graphic_10734);
     }
     $int2 = calc($int2 + 1);
 }
 if (cc_find($component1, $int0) = true) {
-    cc_setgraphic(10735);
+    cc_setgraphic(graphic_10735);
 }

@@ -100,7 +100,7 @@ while ($int9 < $int2) {
         $int4 = calc($int4 + 1);
     }
     cc_create(interface_1143:com_52, ^iftype_graphic, $int3);
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     cc_setsize($int6, $int7, ^setsize_abs, ^setsize_abs);
     cc_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_top);
     if ($int2 > 1) {
@@ -127,7 +127,7 @@ while ($int9 < $int2) {
         cc_setsize(40, 50, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int8 + ($int6 - cc_getwidth) / 2), calc(($int7 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
     } else if (struct_param($struct11, param_1937) = 4) {
-        cc_setgraphic(7883);
+        cc_setgraphic(graphic_7883);
         cc_setsize(42, 42, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int8 + ($int6 - cc_getwidth) / 2 + 1), calc(($int7 - cc_getheight) / 2 + 1), ^setpos_abs_left, ^setpos_abs_top);
     } else if (struct_param($struct11, param_1937) = 5) {

@@ -11,9 +11,9 @@ if (stat($stat0) >= stat_base($stat0)) {
     $int2 = calc($int1 - $int1 * stat($stat0) / stat_base($stat0));
 }
 if ($stat0 = hitpoints) {
-    if_setsize(topstat_hitpoints:com_3, $int3, $int2, 0, 0);
+    if_setsize(topstat_hitpoints:com_3, $int3, $int2, ^setsize_abs, ^setsize_abs);
 } else if ($stat0 = prayer) {
-    if_setsize(topstat_prayer:com_3, $int3, $int2, 0, 0);
+    if_setsize(topstat_prayer:com_3, $int3, $int2, ^setsize_abs, ^setsize_abs);
 } else if ($stat0 = animallore) {
-    if_setsize(topstat_lore:com_3, $int3, $int2, 0, 0);
+    if_setsize(topstat_lore:com_3, $int3, $int2, ^setsize_abs, ^setsize_abs);
 }

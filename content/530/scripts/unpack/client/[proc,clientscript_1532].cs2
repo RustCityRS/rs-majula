@@ -1,5 +1,5 @@
 // 1532
 [proc,clientscript_1532]
-chat_setfilter(0, 1, 0);
+chat_setfilter(^chatfilter_on, ^chatfilter_friends, ^chatfilter_on);
 if_setonvartransmit(filterbuttons:chat_private_graphic, null);
 ~clientscript_178;

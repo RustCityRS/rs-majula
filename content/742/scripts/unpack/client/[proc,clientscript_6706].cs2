@@ -2,37 +2,37 @@
 [proc,clientscript_6706]
 if (%varplayerbit_11956 < 700000 | ~clientscript_6707(92) = 1) {
     if_sethide(interface_94:com_41, false);
-    if_setgraphic(interface_94:com_23, 12919);
+    if_setgraphic(interface_94:com_23, graphic_12919);
 }
 if (%varplayerbit_11956 < 350000 | ~clientscript_6707(86) = 1) {
     if_sethide(interface_94:com_40, false);
-    if_setgraphic(interface_94:com_47, 12919);
+    if_setgraphic(interface_94:com_47, graphic_12919);
 }
 if (%varplayerbit_11956 < 100000 | ~clientscript_6707(72) = 1) {
     if_sethide(interface_94:com_39, false);
-    if_setgraphic(interface_94:com_51, 12919);
+    if_setgraphic(interface_94:com_51, graphic_12919);
 }
 if (%varplayerbit_11956 < 50000 | ~clientscript_6707(65) = 1) {
     if_sethide(interface_94:com_38, false);
-    if_setgraphic(interface_94:com_55, 12919);
+    if_setgraphic(interface_94:com_55, graphic_12919);
 }
 if (%varplayerbit_11956 < 25000 | ~clientscript_6707(59) = 1) {
     if_sethide(interface_94:com_37, false);
-    if_setgraphic(interface_94:com_59, 12919);
+    if_setgraphic(interface_94:com_59, graphic_12919);
 }
 if (%varplayerbit_11956 < 5000 | ~clientscript_6707(43) = 1) {
     if_sethide(interface_94:com_36, false);
-    if_setgraphic(interface_94:com_63, 12919);
+    if_setgraphic(interface_94:com_63, graphic_12919);
 }
 if (%varplayerbit_11956 < 1000 | ~clientscript_6707(10) = 1) {
     if_sethide(interface_94:com_35, false);
-    if_setgraphic(interface_94:com_67, 12919);
+    if_setgraphic(interface_94:com_67, graphic_12919);
 }
 if (%varplayerbit_11956 < 500 | ~clientscript_6707(5) = 1) {
     if_sethide(interface_94:com_34, false);
-    if_setgraphic(interface_94:com_71, 12919);
+    if_setgraphic(interface_94:com_71, graphic_12919);
 }
 if (%varplayerbit_11956 < 100) {
     if_sethide(interface_94:com_33, false);
-    if_setgraphic(interface_94:com_75, 12919);
+    if_setgraphic(interface_94:com_75, graphic_12919);
 }

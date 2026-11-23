@@ -77,42 +77,42 @@ if (%clanwars_transmit_battlecommenced = 1) {
     if_sethide($component16, false);
     $int19 = 1;
 }
-def_int $int20 = parawidth(if_gettext($component3), 512, 494);
-def_int $int21 = parawidth(if_gettext($component9), 512, 494);
-$int20 = max(calc(parawidth(if_gettext($component4), 512, 494) + 10 + parawidth(if_gettext($component5), 512, 494)), $int20);
-$int21 = max(calc(parawidth(if_gettext($component10), 512, 494) + 10 + parawidth(if_gettext($component11), 512, 494)), $int21);
+def_int $int20 = parawidth(if_gettext($component3), 512, p11_full);
+def_int $int21 = parawidth(if_gettext($component9), 512, p11_full);
+$int20 = max(calc(parawidth(if_gettext($component4), 512, p11_full) + 10 + parawidth(if_gettext($component5), 512, p11_full)), $int20);
+$int21 = max(calc(parawidth(if_gettext($component10), 512, p11_full) + 10 + parawidth(if_gettext($component11), 512, p11_full)), $int21);
 def_int $int22 = calc(if_getheight($component3) + if_getheight($component4));
 if ($int17 = 1) {
-    $int20 = max(calc(parawidth(if_gettext($component6), 512, 494) + 10 + parawidth(if_gettext($component7), 512, 494)), $int20);
-    $int21 = max(calc(parawidth(if_gettext($component12), 512, 494) + 10 + parawidth(if_gettext($component13), 512, 494)), $int21);
+    $int20 = max(calc(parawidth(if_gettext($component6), 512, p11_full) + 10 + parawidth(if_gettext($component7), 512, p11_full)), $int20);
+    $int21 = max(calc(parawidth(if_gettext($component12), 512, p11_full) + 10 + parawidth(if_gettext($component13), 512, p11_full)), $int21);
     $int22 = calc($int22 + if_getheight($component6));
     if ($int18 = 1) {
-        $int20 = max(parawidth(if_gettext($component8), 512, 494), $int20);
-        $int21 = max(parawidth(if_gettext($component14), 512, 494), $int21);
+        $int20 = max(parawidth(if_gettext($component8), 512, p11_full), $int20);
+        $int21 = max(parawidth(if_gettext($component14), 512, p11_full), $int21);
         $int22 = calc($int22 + if_getheight($component8));
     }
 }
 def_int $int23 = calc($int20 + 10 + $int21);
 if ($int19 = 0) {
-    if_setsize($component0, calc($int23 + 8), calc($int22 + 8), 0, 0);
-    if_setsize($component1, if_getwidth($component0), if_getheight($component0), 0, 0);
+    if_setsize($component0, calc($int23 + 8), calc($int22 + 8), ^setsize_abs, ^setsize_abs);
+    if_setsize($component1, if_getwidth($component0), if_getheight($component0), ^setsize_abs, ^setsize_abs);
     ~clientscript_1788($int20, $component3, $component4, $component5, $component6, $component7, $component8, $int21, $component9, $component10, $component11, $component12, $component13, $component14, $int23);
-    if_setposition($component2, calc(4 + $int20 + 5), 4, 0, 0);
-    if_setsize($component2, 0, $int22, 0, 0);
+    if_setposition($component2, calc(4 + $int20 + 5), 4, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize($component2, 0, $int22, ^setsize_abs, ^setsize_abs);
     ~clientscript_1086($component0, 0, 0, 0);
     return;
 }
 def_int $int24 = $int22;
 $int22 = calc($int22 + 10 + if_getheight($component15) + if_getheight($component16));
-$int23 = max(parawidth(if_gettext($component15), 512, 494), $int23);
-$int23 = max(parawidth(if_gettext($component16), 512, 494), $int23);
-if_setsize($component0, calc($int23 + 8), calc($int22 + 8), 0, 0);
-if_setsize($component1, if_getwidth($component0), if_getheight($component0), 0, 0);
+$int23 = max(parawidth(if_gettext($component15), 512, p11_full), $int23);
+$int23 = max(parawidth(if_gettext($component16), 512, p11_full), $int23);
+if_setsize($component0, calc($int23 + 8), calc($int22 + 8), ^setsize_abs, ^setsize_abs);
+if_setsize($component1, if_getwidth($component0), if_getheight($component0), ^setsize_abs, ^setsize_abs);
 ~clientscript_1788($int20, $component3, $component4, $component5, $component6, $component7, $component8, $int21, $component9, $component10, $component11, $component12, $component13, $component14, $int23);
-if_setposition($component2, calc(4 + $int20 + ($int23 - ($int20 + $int21)) / 2), 4, 0, 0);
-if_setsize($component2, 0, $int24, 0, 0);
-if_setsize($component15, $int23, if_getheight($component15), 0, 0);
-if_setsize($component16, $int23, if_getheight($component16), 0, 0);
-if_setposition($component15, 4, calc(4 + $int24 + 10), 0, 0);
-if_setposition($component16, 4, calc(4 + $int24 + 10 + if_getheight($component15)), 0, 0);
+if_setposition($component2, calc(4 + $int20 + ($int23 - ($int20 + $int21)) / 2), 4, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component2, 0, $int24, ^setsize_abs, ^setsize_abs);
+if_setsize($component15, $int23, if_getheight($component15), ^setsize_abs, ^setsize_abs);
+if_setsize($component16, $int23, if_getheight($component16), ^setsize_abs, ^setsize_abs);
+if_setposition($component15, 4, calc(4 + $int24 + 10), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component16, 4, calc(4 + $int24 + 10 + if_getheight($component15)), ^setpos_abs_left, ^setpos_abs_top);
 ~clientscript_1086($component0, calc(4 + $int24 + 5), 0, 0);

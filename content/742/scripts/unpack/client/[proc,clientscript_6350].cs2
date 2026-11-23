@@ -1,7 +1,7 @@
 // 6350
 [proc,clientscript_6350](int $int0)(component)
 if (~getsidehidden($int0) = false) {
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         return(toplevel_fullscreen:com_72);
     } else {
         return(toplevel:com_16);

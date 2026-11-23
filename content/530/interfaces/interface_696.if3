@@ -80,7 +80,7 @@ y=133
 width=175
 height=14
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Question:
 colour=0x1e1e2d
 
@@ -92,7 +92,7 @@ y=38
 width=300
 height=65
 layer=content_layer
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Player Safety Test
 colour=0x232330
 
@@ -104,7 +104,7 @@ y=9
 width=26
 height=23
 layer=content_layer
-graphic=graphic_538
+graphic="close_buttons,3"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 537)
@@ -119,7 +119,7 @@ y=148
 width=388
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=A player has started to ask you personal questions that make you feel uncomfortable and you'd rather not answer. What should you do? 
 colour=0x242330
 
@@ -131,7 +131,7 @@ y=213
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Answer them anyway
 colour=0x191930
 
@@ -143,7 +143,7 @@ y=243
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Do not answer any questions and report the player using the Report Abuse button at the bottom of the game screen.
 colour=0x191930
 
@@ -267,7 +267,7 @@ y=79
 width=449
 height=230
 layer=answer_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 696:23
@@ -278,7 +278,7 @@ y=111
 width=25
 height=175
 layer=answer_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 696:24
@@ -289,7 +289,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 696:25
 [com_25]
@@ -299,7 +299,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 696:26
@@ -310,7 +310,7 @@ y=66
 width=391
 height=32
 layer=answer_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 696:27
@@ -321,7 +321,7 @@ y=110
 width=32
 height=175
 layer=answer_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 696:28
@@ -332,7 +332,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 696:29
@@ -343,7 +343,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 696:30
@@ -354,7 +354,7 @@ y=296
 width=387
 height=25
 layer=answer_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 696:31
@@ -375,7 +375,7 @@ y=-4
 width=32
 height=32
 layer=com_31
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Correct!
 textshadow=yes
 colour=0xccbe8e
@@ -388,7 +388,7 @@ y=27
 width=388
 height=105
 layer=com_31
-textfont=fontmetrics_497
+textfont=q8_full
 text=If you are at all concerned, speak to a parent, friend or adult that you trust.
 textshadow=yes
 colour=0xa49279
@@ -411,7 +411,7 @@ y=-4
 width=32
 height=32
 layer=com_34
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Incorrect!
 textshadow=yes
 colour=0xccbe8e
@@ -424,7 +424,7 @@ y=27
 width=390
 height=105
 layer=com_34
-textfont=fontmetrics_495
+textfont=p12_full
 text=If another player makes you feel uncomfortable by asking lots of personal questions, you can report them using the Report Abuse button. You can also use the ignore function, which can be found at the bottom of your game window.
 textshadow=yes
 colour=0xa49279
@@ -466,7 +466,7 @@ type=text
 width=97
 height=42
 layer=com_37
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Next
 textalignh=centre
 textalignv=centre
@@ -502,7 +502,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 696:44
@@ -513,7 +513,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 696:45
@@ -524,7 +524,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 696:46
@@ -535,7 +535,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 696:47
@@ -547,7 +547,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 696:48
@@ -559,7 +559,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 696:49
@@ -571,7 +571,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 696:50
@@ -583,7 +583,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 696:51
@@ -646,7 +646,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -660,7 +660,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -673,7 +673,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -687,6 +687,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

@@ -4,7 +4,7 @@ if (%has_displayname_client = false & $int0 ! 99) {
     return;
 }
 ~script4249($int0);
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_hassub(toplevel_fullscreen:sidemodal) = true) {
         if ($int0 ! 98 | if_hassub(toplevel_fullscreen:sidemodal2) = false) {
             if_sethide(toplevel_fullscreen:sidemodal, false);

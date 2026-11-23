@@ -226,7 +226,7 @@ if ($int13 > if_getheight(playerdesign4:menu)) {
     } else if (calc($int18 + 65) >= calc(if_getscrolly(playerdesign4:menu) + if_getheight(playerdesign4:menu))) {
         if_setscrollpos(playerdesign4:menu, 0, calc($int18 + 65 + 15 - if_getheight(playerdesign4:menu)));
     }
-    ~clientscript_186(playerdesign4:menu_scrollbar, playerdesign4:menu, 6118, 6119, 6120, 6115, 6116, 6117, 6122, 6121, 6124, 6123, 6126, 6125);
+    ~clientscript_186(playerdesign4:menu_scrollbar, playerdesign4:menu, graphic_6118, graphic_6119, graphic_6120, graphic_6115, graphic_6116, graphic_6117, graphic_6122, graphic_6121, graphic_6124, graphic_6123, graphic_6126, graphic_6125);
 } else {
     if_setscrollpos(playerdesign4:menu, 0, 0);
     if_setscrollsize(playerdesign4:menu, 0, 0);
@@ -284,7 +284,7 @@ if ($int13 > calc(if_getheight(playerdesign4:colours_container) - 12)) {
         if_setscrollpos(playerdesign4:colours, 0, calc($int18 + 17 + 5 - if_getheight(playerdesign4:colours)));
     }
     if_sethide(playerdesign4:colours_scrollbar, false);
-    ~clientscript_186(playerdesign4:colours_scrollbar, playerdesign4:colours, 6118, 6119, 6120, 6115, 6116, 6117, 6122, 6121, 6124, 6123, 6126, 6125);
+    ~clientscript_186(playerdesign4:colours_scrollbar, playerdesign4:colours, graphic_6118, graphic_6119, graphic_6120, graphic_6115, graphic_6116, graphic_6117, graphic_6122, graphic_6121, graphic_6124, graphic_6123, graphic_6126, graphic_6125);
 } else {
     if_setsize(playerdesign4:colours, 10, 12, ^setsize_minus, ^setsize_minus);
     if_setposition(playerdesign4:colours, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);

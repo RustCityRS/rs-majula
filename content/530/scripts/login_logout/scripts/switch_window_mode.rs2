@@ -15,6 +15,7 @@ if (getwindowmode < 2) {
 }
 ~movealltabs($old_mode)
 ~moveorbs($old_mode)
+~tutorial_progress_moved
 
 [proc,moveorbs](int $old_mode)
 if ($old_mode = 1) {

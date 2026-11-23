@@ -42,19 +42,19 @@ def_int $int10 = 0;
 while ($int5 < $int6) {
     cc_create($component0, ^iftype_graphic, $int5);
     if (enum(int, int, enum_6060, $int7) = 1) {
-        cc_setgraphic(12168);
+        cc_setgraphic(graphic_12168);
         $int9, $int10 = op706;
     }
     if (enum(int, int, enum_6060, $int7) = 2) {
-        cc_setgraphic(12166);
+        cc_setgraphic(graphic_12166);
         $int9, $int10 = op706;
     }
     if (enum(int, int, enum_6060, $int7) = 3) {
-        cc_setgraphic(12162);
+        cc_setgraphic(graphic_12162);
         $int9, $int10 = op706;
     }
     if (enum(int, int, enum_6060, $int7) = 4) {
-        cc_setgraphic(12158);
+        cc_setgraphic(graphic_12158);
         $int9, $int10 = op706;
     }
     cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);

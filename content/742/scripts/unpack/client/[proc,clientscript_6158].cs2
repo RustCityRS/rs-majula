@@ -4,11 +4,11 @@ if_settext(interface_1274:com_5, tostring(%varclient_1909));
 if_settext(interface_1274:com_2, tostring(%varclient_1916));
 switch_int (%varclient_1917) {
     case 1 :
-        if_setgraphic(interface_1274:com_8, 10708);
+        if_setgraphic(interface_1274:com_8, graphic_10708);
     case 2 :
-        if_setgraphic(interface_1274:com_8, 10709);
+        if_setgraphic(interface_1274:com_8, graphic_10709);
     case 3 :
-        if_setgraphic(interface_1274:com_8, 10710);
+        if_setgraphic(interface_1274:com_8, graphic_10710);
     case default :
         if_setgraphic(interface_1274:com_8, login_cross);
 }

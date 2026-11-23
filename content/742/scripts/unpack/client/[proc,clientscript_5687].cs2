@@ -1,19 +1,19 @@
 // 5687
 [proc,clientscript_5687](int $int0, int $int1)(int)
 cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
-cc_setgraphic(9042);
+cc_setgraphic(graphic_9042);
 cc_setsize(130, 105, ^setsize_abs, ^setsize_abs);
 cc_setposition(5, $int0, ^setpos_abs_left, ^setpos_abs_top);
 cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
-cc_setgraphic(9045);
+cc_setgraphic(graphic_9045);
 cc_setsize(130, 105, ^setsize_abs, ^setsize_abs);
 cc_setposition(5, $int0, ^setpos_abs_right, ^setpos_abs_top);
 cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
-cc_setgraphic(9043);
+cc_setgraphic(graphic_9043);
 cc_setsize(138, 105, ^setsize_abs, ^setsize_abs);
 cc_setposition(135, $int0, ^setpos_abs_left, ^setpos_abs_top);
 cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
-cc_setgraphic(9044);
+cc_setgraphic(graphic_9044);
 cc_setsize(138, 105, ^setsize_abs, ^setsize_abs);
 cc_setposition(135, $int0, ^setpos_abs_right, ^setpos_abs_top);
 cc_create(interface_1218:com_72, ^iftype_text, if_getnextsubid(interface_1218:com_72));

@@ -1,5 +1,5 @@
 // 4710
-[proc,clientscript_4710](enum $enum0, int $int1, component $component2, component $component3, component $component4, component $component5, graphic $graphic6, graphic $graphic7, graphic $graphic8, int $rgb9, int $rgb10, graphic $graphic11)(int, int)
+[proc,clientscript_4710](enum $enum0, int $int1, component $component2, component $component3, component $component4, component $component5, graphic $graphic6, graphic $graphic7, graphic $graphic8, int $colour9, int $colour10, graphic $graphic11)(int, int)
 cc_deleteall($component2);
 cc_create($component2, ^iftype_graphic, 0);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
@@ -27,8 +27,8 @@ cc_setsize(calc(if_getwidth($component2) - 22), if_getheight($component2), ^sets
 cc_settextshadow(false);
 cc_settextfont($graphic11);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-cc_setcolour($rgb9);
-cc_setonmouseleave("dropdownbox_mouseoutelement($component2, $int13, $rgb9)");
-cc_setonmouseover("dropdownbox_mouseoverelement($component2, $int13, $rgb10)");
+cc_setcolour($colour9);
+cc_setonmouseleave("dropdownbox_mouseoutelement($component2, $int13, $colour9)");
+cc_setonmouseover("dropdownbox_mouseoverelement($component2, $int13, $colour10)");
 cc_setonclick("clientscript_4711($component2, $component3, $component4, $component5, $int12)");
 return($int12, $int13);

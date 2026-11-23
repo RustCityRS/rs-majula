@@ -34,16 +34,16 @@ if_setonvarcstrtransmit(filterbuttons:container, "clientscript_710{varclient_632
 %varclient_653 = "";
 if (op3328 = 1 | map_quickchat = true) {
     if_settext(chatdefault:input, "Left-click here to enter Public Quick Chat or right-click for Clan Quick Chat.");
-    if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), 0, 0);
-    if_setsize(chatdefault:quickchat_op, parawidth("Left-click here to enter Public Quick Chat or right-click for Clan Quick Chat.", if_getwidth(chatdefault:input), 495), if_getheight(chatdefault:input), 0, 0);
+    if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(chatdefault:quickchat_op, parawidth("Left-click here to enter Public Quick Chat or right-click for Clan Quick Chat.", if_getwidth(chatdefault:input), p12_full), if_getheight(chatdefault:input), ^setsize_abs, ^setsize_abs);
 } else {
     if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=0000ff><escape(%varclient_633)>*");
-    if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), 0, 0);
-    if_setsize(chatdefault:quickchat_op, parawidth("<chat_playername_unfiltered><img=3>:", if_getwidth(chatdefault:input), 495), if_getheight(chatdefault:input), 0, 0);
+    if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(chatdefault:quickchat_op, parawidth("<chat_playername_unfiltered><img=3>:", if_getwidth(chatdefault:input), p12_full), if_getheight(chatdefault:input), ^setsize_abs, ^setsize_abs);
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(chattop:chat_border, true);
-    if_setgraphic(chattop:chat_graphic, 1247);
+    if_setgraphic(chattop:chat_graphic, graphic_1247);
     if_setalpha(chattop:chat_graphic, true);
     if_sethide(chattop:chat_graphic, false);
     if_sethide(chatdefault:divider_line, true);
@@ -57,7 +57,7 @@ if (getwindowmode >= 2) {
     if_settextshadow(chatdefault:input, true);
     if_setcolour(chatdefault:input, ^white);
 } else {
-    if_setgraphic(chattop:chat_graphic, 1017);
+    if_setgraphic(chattop:chat_graphic, chat_background);
     if_sethide(chattop:chat_graphic, false);
     if_sethide(chattop:chat_border, false);
     if_sethide(chatdefault:divider_line, false);
