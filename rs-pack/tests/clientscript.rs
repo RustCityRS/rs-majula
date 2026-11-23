@@ -229,11 +229,11 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
     registry.register_entity_id("options_boxes,1".to_owned(), Type::Obj, 99999);
     let path = Path::new("names.cs2");
     let text = r#"[proc,clientscript_100003]()
-        if_setgraphic(17104903, 762);
-        if_setonmouserepeat(17104903, 38, -2147483645, 17104916, "Accept aid", 25, 180, "IIsii");
-        if_settext(17104903, "options_boxes,1");
-        if_sethide(11862017, 0);
-        cc_setonmouseover(2140, -2147483645, -2147483643, 200, "Iii");"#;
+        if_setgraphic(options:optaid, "options_boxes,1");
+        if_setonmouserepeat(options:optaid, addtooltip, event_com, options:options_tooltip, "Accept aid", 25, 180, "IIsii");
+        if_settext(options:optaid, "options_boxes,1");
+        if_sethide(lighttemple_piller:mirror_layer, false);
+        cc_setonmouseover(cc_settrans, event_com, event_comsubid, 200, "Iii");"#;
     let parsed = Source::parse(text, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
@@ -384,18 +384,18 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
     let path = Path::new("formatting.cs2");
     let text = r#"[proc,clientscript_100008](int $parent)
         def_int $child = $parent;
-        if_setsize($child, calc(10 - (3 - 1)), calc((2 + 3) * 4), 0, 1);
-        if_setposition($child, 0, 0, 1, 2);
-        cc_create($child, 3, 0);
-        cc_settextalign(0, 1, 0);
+        if_setsize($child, calc(10 - (3 - 1)), calc((2 + 3) * 4), ^setsize_abs, ^setsize_minus);
+        if_setposition($child, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+        cc_create($child, ^iftype_rectangle, 0);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
         cc_setcolour(0);
         cc_setcolour(14483456);
         def_int $x;
         def_int $y;
         $x, $y = op6205();
         op6205();
-        if_setsize($child, op6205(), 0, 0);
-        cc_setoninvtransmit(38, $parent, $child, "text", 25, 180, 93, 1, "IIsiiY");"#;
+        if_setsize($child, op6205(), ^setsize_abs, ^setsize_abs);
+        cc_setoninvtransmit(addtooltip, $parent, $child, "text", 25, 180, 93, 1, "IIsiiY");"#;
     let parsed = Source::parse(text, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
@@ -462,10 +462,10 @@ fn dynamic_return_types_use_normal_command_names() {
     registry.register_param_type(99999, Type::String);
     let path = Path::new("dynamic.cs2");
     let text = r#"[proc,clientscript_100007]()
-        mes(enum('i', 's', 0, 1));
-        mes(struct_param(0, 99999));
-        enum('i', 's', 0, 2);
-        struct_param(0, 99999);"#;
+        mes(enum('i', 's', enum_0, 1));
+        mes(struct_param(struct_0, param_99999));
+        enum('i', 's', enum_0, 2);
+        struct_param(struct_0, param_99999);"#;
     let parsed = Source::parse(text, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
@@ -623,13 +623,13 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
         def_int $component = 39059508;
         if_sethide($component, $flag);
         if ($flag = 1) { $component = 63897654; }
-        if ($component = 39059508 | $component = 63897654) { if_setmodel($component, 41312); }
+        if ($component = 39059508 | $component = 63897654) { if_setmodel($component, model_41312); }
         def_int $item = 10010;
         if ($item = 10010) { $item = 11259; }
         mes(oc_name($item));
-        switch_obj ($item) { case 10010: mes("net"); case -1: mes("empty"); }
+        switch_obj ($item) { case hunting_butterfly_net: mes("net"); case null: mes("empty"); }
         def_component $components(1);
-        $components(0) = 39059508;
+        $components(0) = login:login_button_text;
         if ($flag = true) { if_sethide($components(0), false); }
         def_int $position = 60298074;
         cam_lookat($position, 100, 1, 2);

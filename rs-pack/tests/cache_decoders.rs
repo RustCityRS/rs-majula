@@ -738,8 +738,8 @@ fn particles_keep_their_keys_in_cache_order_and_repeats() {
     fs::write(path.join("particleeffector.pack"), "0=pef_0\n1=pef_1\n").unwrap();
     fs::write(
         path.join("_unpack/all.particleemitter"),
-        "// 0\n[pem_0]\nspeedcontrol=2,-6\nlinkcolourchannels=no\nlocaleffectors=1,0\n\
-         unknown16=1,32767,32767,1\nmaterial=816\nlinkcolourchannels=no\nrgba=-13421824,1\n",
+        "// 0\n[pem_0]\nspeedcontrol=2,-6\nlinkcolourchannels=no\nlocaleffectors=pef_1,pef_0\n\
+         unknown16=1,32767,32767,1\nmaterial=material_816\nlinkcolourchannels=no\nrgba=-13421824,1\n",
     )
     .unwrap();
     fs::write(
@@ -782,9 +782,9 @@ fn particles_keep_their_keys_in_cache_order_and_repeats() {
     let expected = [
         ("speedcontrol", "2,-6"),
         ("linkcolourchannels", "no"),
-        ("localeffectors", "1,0"),
+        ("localeffectors", "pef_1,pef_0"),
         ("unknown16", "1,32767,32767,1"),
-        ("material", "816"),
+        ("material", "material_816"),
         ("linkcolourchannels", "no"),
         ("rgba", "-13421824,1"),
     ]
@@ -834,7 +834,7 @@ fn billboards_keep_their_keys_in_cache_order() {
     fs::write(
         path.join("_unpack/all.billboard"),
         "// 0\n[billboard_0]\nsize=50,51\nunknown3=0\nsourceblendmode=1\nunknown7=yes\n\
-         destinationblendmode=2\nunknown6=yes\nmaterial=material_735\n\n// 2\n[billboard_2]\nmaterial=3\n",
+         destinationblendmode=2\nunknown6=yes\nmaterial=material_735\n\n// 2\n[billboard_2]\nmaterial=material_3\n",
     )
     .unwrap();
     let registry = PackRegistry::load(&path).unwrap();
@@ -924,7 +924,7 @@ fn client_var_tables_write_their_opcodes() {
     fs::write(path.join("varclansetting.pack"), "0=a\n1=b\n").unwrap();
     fs::write(
         path.join("_unpack/all.varclansetting"),
-        "[a]\ntype=long\n\n[b]\ntype=byte:0x01\nbasevar=3\nstartbit=4\nendbit=5\n",
+        "[a]\ntype=long\n\n[b]\ntype=byte:0x01\nbasevar=varclansetting_3\nstartbit=4\nendbit=5\n",
     )
     .unwrap();
     let registry = PackRegistry::load(&path).unwrap();
