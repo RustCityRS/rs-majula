@@ -102,7 +102,6 @@ pub enum CameraPlane {
     CopyPrev,
 }
 
-#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct NpcSpawn {
     pub level: u8,
@@ -111,7 +110,6 @@ pub struct NpcSpawn {
     pub npc_id: u16,
 }
 
-#[cfg(since_530)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ObjSpawn {
     pub level: u8,
@@ -402,7 +400,6 @@ pub fn parse_locations_binary(data: &[u8]) -> Vec<LocEntry> {
     locs
 }
 
-#[cfg(since_530)]
 pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
     let mut spawns = Vec::new();
     let mut buf = Packet::from(data);
@@ -422,7 +419,6 @@ pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
     spawns
 }
 
-#[cfg(since_530)]
 pub fn parse_obj_spawn_binary(data: &[u8]) -> Vec<ObjSpawn> {
     let mut spawns = Vec::new();
     let mut buf = Packet::from(data);

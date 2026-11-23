@@ -66,10 +66,12 @@ use crate::pack::incremental::{Stage, files_under};
 use crate::pack::media::pack_media_jag;
 #[cfg(before_530)]
 use crate::pack::model::pack_models;
+#[cfg(before_530)]
+use crate::pack::names::AssetNames;
 #[cfg(all(since_244, before_530))]
 use crate::pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
 #[cfg(before_530)]
-use crate::pack::other::map::pack_maps;
+use crate::pack::other::map::{self, pack_maps};
 #[cfg(before_530)]
 use crate::pack::other::song::pack_midis;
 #[cfg(before_530)]
@@ -87,6 +89,8 @@ use crate::pack::texture::pack_textures_jag;
 use crate::pack::title::pack_title_jag;
 #[cfg(before_530)]
 use crate::pack::wordenc::pack_wordenc;
+#[cfg(before_530)]
+use crate::types::MapSquares;
 #[cfg(all(since_244, before_530))]
 use crate::types::OndemandBlobs;
 #[cfg(all(since_244, before_530))]
@@ -538,6 +542,13 @@ pub fn pack_all(
     let config_files = ConfigFiles::new(&source.join("scripts"));
     check_configs(&config_files, pack, verify)?;
     let registry = PackRegistry::load(pack)?;
+    let names = AssetNames::load(pack)?;
+    let map_dirs = map::source_dirs(source);
+    let npc_spawns = map::pack_spawns(&map_dirs, &names)?;
+    let obj_spawns = map::pack_obj_spawns(&map_dirs, &names)?;
+    let mut spawns = MapSquares::default();
+    map::load_spawns(&npc_spawns, 'n', &mut spawns)?;
+    map::load_spawns(&obj_spawns, 'o', &mut spawns)?;
 
     // Run independent packing tasks in parallel using scoped threads.
     // Script compilation runs alongside asset packing - it's only needed
@@ -624,16 +635,19 @@ pub fn pack_all(
             let dat = |name: &str| assets[name].server.dat.clone();
             let (flo, loc, npc) = (dat("flo"), dat("loc"), dat("npc"));
             let (multimap, freemap) = (multimap.clone(), freemap.clone());
+            let (npc_spawns, obj_spawns, spawns) = (&npc_spawns, &obj_spawns, &spawns);
             s.spawn(move || {
                 let dirs = ["maps", "worldmap", "sprites", "fonts"].map(|dir| source.join(dir));
                 let configs = Hash::new("configs")
                     .bytes(&flo)
                     .bytes(&loc)
                     .bytes(&npc)
+                    .bytes(&npc_spawns.dat)
+                    .bytes(&obj_spawns.dat)
                     .key();
                 let deps = vec![("configs".to_owned(), configs)];
                 cached("worldmap", files_under(&dirs), deps, || {
-                    worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap)
+                    worldmap.build(source, &flo, &loc, &npc, spawns, &multimap, &freemap)
                 })
             })
         };
@@ -863,6 +877,7 @@ pub fn pack_all(
         jags,
         mapsquares,
         mapcrcs,
+        spawns,
         objs,
         invs,
         varps,

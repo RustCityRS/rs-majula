@@ -63,7 +63,7 @@ use crate::pack::pack_registry::PackedFile;
 #[cfg(since_647)]
 use crate::pack::pack_registry::{PackFile, PackRegistry};
 use crate::pack::packed_data::PackedData;
-use crate::types::ParamValue;
+use crate::types::{MapSquares, ParamValue};
 use crate::zone_csv::load_csv_zones;
 use crate::{archive, compile_scripts, unwrap_thread};
 #[cfg(since_647)]
@@ -284,7 +284,7 @@ pub fn pack_all(
         names::verify_names(content_dir, pack_dir, false)?;
     }
     let map_dirs = map::source_dirs(content_dir);
-    let spawns = map::pack_spawns(&map_dirs, &asset_names)?;
+    let npc_spawns = map::pack_spawns(&map_dirs, &asset_names)?;
     let obj_spawns = map::pack_obj_spawns(&map_dirs, &asset_names)?;
     let area_map = map::pack_area_map(&map_dirs, pack_dir)?;
     let store = load_cache(
@@ -292,7 +292,7 @@ pub fn pack_all(
         &cache,
         content_dir,
         pack_dir,
-        &spawns,
+        &npc_spawns,
         &obj_spawns,
         area_map,
         members,
@@ -321,7 +321,7 @@ fn load_cache(
     cache: &PackedCache,
     content_dir: &Path,
     pack_dir: &Path,
-    spawns: &PackedData,
+    npc_spawns: &PackedData,
     obj_spawns: &PackedData,
     area_map: AreaMap,
     members: bool,
@@ -376,16 +376,18 @@ fn load_cache(
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
     let keys = XteaKeyStore::load(&content_dir.join("keys.json"))?;
-    let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache, &keys)?;
+    let (mapsquares, mapcrcs) = loader::load_mapsquares(cache, &keys)?;
     let huffman = loader::load_huffman(cache)?;
     let fonts = FontTypeProvider::from_cache(cache);
-    loader::merge_server_layer(spawns, "map", 'n', &mut mapsquares);
-    loader::merge_server_layer(obj_spawns, "objspawn", 'o', &mut mapsquares);
+    let mut spawns = MapSquares::default();
+    map::load_spawns(npc_spawns, 'n', &mut spawns)?;
+    map::load_spawns(obj_spawns, 'o', &mut spawns)?;
 
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
     Ok(Box::new(CacheStore {
         mapsquares,
         mapcrcs,
+        spawns,
         objs,
         invs,
         varps,

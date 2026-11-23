@@ -2948,12 +2948,13 @@ Maps are NOT a Jag archive -- they are individual compressed files keyed by (typ
 
 Content is read from the `content/maps/` directory containing `.jm2` text files named `m{mx}_{mz}.jm2`.
 
-Each `.jm2` file can contain up to 4 sections, marked by header lines:
+Each `.jm2` file can contain up to 2 sections, marked by header lines:
 
 - `==== MAP ====` -- terrain tile data
 - `==== LOC ====` -- location/scenery placements
-- `==== NPC ====` -- NPC spawn points
-- `==== OBJ ====` -- ground item placements
+
+Spawns live in their own files, the same on every revision: `n{mx}_{mz}.jm2` (NPCs) and `o{mx}_{mz}.jm2` (ground
+items). See [Spawns](#spawns).
 
 #### Section Formats
 
@@ -2979,19 +2980,6 @@ Data format: `loc_id [shape] [angle]`
 - loc_id: location/scenery type ID
 - shape: placement shape (default 10 = centrepiece_straight)
 - angle: rotation 0-3 (default 0)
-
-##### NPC Section
-
-Data format: `npc_id`
-
-- npc_id: NPC type ID to spawn at this position
-
-##### OBJ Section
-
-Data format: `obj_id [count]`
-
-- obj_id: item/object type ID
-- count: stack count (default 1)
 
 #### Binary Encoding
 
@@ -3021,33 +3009,6 @@ for each loc_id (sorted, delta from previous):
 psmart(0)  // end all locs
 ```
 
-##### NPCs ('n' prefix)
-
-Same delta encoding as locs but without shape/angle:
-
-```
-for each npc_id (sorted, delta from previous):
-    psmart(id_delta)
-    for each placement:
-        psmart(position_delta + 1)
-    psmart(0)
-psmart(0)
-```
-
-##### Objects ('o' prefix)
-
-Same delta encoding with an additional count field:
-
-```
-for each obj_id (sorted, delta from previous):
-    psmart(id_delta)
-    for each placement:
-        psmart(position_delta + 1)
-        p2(count)
-    psmart(0)
-psmart(0)
-```
-
 #### Map Compression
 
 Each encoded binary is compressed with bzip2 (block size 1) and prepended with a 4-byte uncompressed size header:
@@ -3062,7 +3023,7 @@ CRC32 is computed on the compressed output for each file.
 
 Maps are stored in a `HashMap<MapSquare, Vec<u8>>` where:
 
-- char: `'m'` (terrain), `'l'` (locs), `'n'` (npcs), `'o'` (objs)
+- char: `'m'` (terrain), `'l'` (locs)
 - u8: map_x coordinate
 - u8: map_z coordinate
 
@@ -3116,14 +3077,10 @@ Each `.jm2` file combines all available data for a map square into sections.
 0 0 0: 1247 22 3
 0 0 4: 1911 3 2
 ...
-
-==== NPC ====
-
-==== OBJ ====
 ```
 
-All four section headers are always present, even if the section has no data. Sections are separated by a blank line
-before the header.
+Sections are separated by a blank line before the header. Spawns are server data, never in the cache, so unpacking
+writes no `n`/`o` files.
 
 #### Terrain Decoding
 
@@ -3184,22 +3141,32 @@ Format: `{level} {x} {z}: {loc_id} {shape}` or `{level} {x} {z}: {loc_id} {shape
 Shape is always written (unlike the packing side where shape 10 is the default for centrepiece). This ensures all
 placements roundtrip correctly regardless of model resolution logic.
 
-#### NPC and OBJ Sections
+### Spawns
 
-NPC and OBJ data is **not** present in the expected map files (only `m` terrain and `l` location files exist). Empty
-section headers are written to maintain the `.jm2` format:
+NPC and ground-item spawns are server-only: the client cache never holds them (from 530 the cache's own `n` groups are
+packed from the same files). Every revision reads them the same way.
+
+#### Source
+
+One line per spawn, in the order the engine spawns them:
 
 ```
-==== NPC ====
-
-==== OBJ ====
+n50_50.jm2:  0 0 36: giantspider1        level x z: npc
+o50_50.jm2:  0 5 27: bronze_arrow 1      level x z: obj count
 ```
 
-If NPC/OBJ expected files were present (`n{x}_{z}`, `o{x}_{z}`), their binary format would use the same delta-encoding
-as locations:
+NPCs and objs are named; a raw id is an error.
 
-- NPC: `gsmart(id_delta)`, positions, no extra data per placement
-- OBJ: `gsmart(id_delta)`, positions, `p2(count)` per placement
+#### Binary
+
+Each square encodes in file order, flat:
+
+- NPC: `p2(level << 14 | x << 7 | z) p2(npc)` per spawn
+- OBJ: `p2(level << 12 | x << 6 | z) p2(obj) p2(count)` per spawn
+
+`pack_spawns` and `pack_obj_spawns` pack each layer as one `PackedData` (an entry per square: `p1(mx) p1(mz)` then the
+square's spawns), and `load_spawns` puts them in `CacheStore.spawns` keyed `('n' | 'o', mx, mz)`, where the engine reads
+them.
 
 ---
 

@@ -5,7 +5,6 @@ pub mod defaults;
 #[cfg(since_647)]
 pub mod loading;
 pub mod map;
-#[cfg(since_530)]
 pub mod map_references;
 #[cfg(since_530)]
 pub mod material;

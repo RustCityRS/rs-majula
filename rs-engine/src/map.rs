@@ -368,9 +368,9 @@ impl GameMap {
                 );
             }
 
-            if let Some(data) = cache.mapsquares.get(&('n', mx, mz)) {
+            if let Some(data) = cache.spawns.get(&('n', mx, mz)) {
                 Self::decode_npcs(
-                    &mut decompress_map(data),
+                    &mut Packet::from(data.to_vec()),
                     cache,
                     &mut marks,
                     originx,
@@ -379,9 +379,9 @@ impl GameMap {
                 );
             }
 
-            if let Some(data) = cache.mapsquares.get(&('o', mx, mz)) {
+            if let Some(data) = cache.spawns.get(&('o', mx, mz)) {
                 Self::decode_objs(
-                    &mut decompress_map(data),
+                    &mut Packet::from(data.to_vec()),
                     &mut marks,
                     originx,
                     originz,
@@ -662,11 +662,12 @@ impl GameMap {
         })
     }
 
-    /// Decodes NPC spawn entries from the mapsquare buffer into a buffered
-    /// list and marks the zones covered by each spawn's occupancy footprint.
+    /// Decodes NPC spawn entries, flat `(u16 position, u16 npc id)` pairs with
+    /// the position packed `level << 14 | x << 7 | z`, into a buffered list and
+    /// marks the zones covered by each spawn's occupancy footprint.
     ///
     /// # Arguments
-    /// * `buf` - The decompressed mapsquare NPC data.
+    /// * `buf` - The square's NPC spawn data.
     /// * `cache` - The game cache for NPC type lookups.
     /// * `marks` - The world zone marks to record spawn footprints into.
     /// * `originx` - The mapsquare origin X in absolute tile coordinates.
@@ -675,112 +676,6 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
-    #[cfg(before_530)]
-    fn decode_npcs(
-        buf: &mut Packet,
-        cache: &CacheStore,
-        marks: &mut ZoneMarks,
-        originx: u16,
-        originz: u16,
-        out: &mut Vec<MapNpcEntry>,
-    ) {
-        let mut id: i32 = -1;
-        let mut id_offset = buf.gsmart1or2();
-        while id_offset != 0 {
-            id += id_offset;
-
-            let mut coord: i32 = 0;
-            let mut coord_offset = buf.gsmart1or2();
-
-            while coord_offset != 0 {
-                coord += coord_offset - 1;
-                let packed = coord as u16;
-
-                coord_offset = buf.gsmart1or2();
-
-                out.push(MapNpcEntry {
-                    id: id as u16,
-                    coord: packed,
-                });
-
-                let Some(npc) = cache.npcs.get_by_id(TypeId::from_int(id)) else {
-                    continue;
-                };
-
-                let coord = MapsquareCoordGrid::from(packed);
-                let size = npc.size.max(1) as u16;
-                let absolute_x = originx + coord.x() as u16;
-                let absolute_z = originz + coord.z() as u16;
-                marks.mark_rect(
-                    absolute_x,
-                    absolute_z,
-                    absolute_x + size - 1,
-                    absolute_z + size - 1,
-                    coord.y(),
-                );
-            }
-            id_offset = buf.gsmart1or2();
-        }
-    }
-
-    /// Decodes ground object spawn entries from the mapsquare buffer into a
-    /// buffered list and marks each spawn's zone.
-    ///
-    /// # Arguments
-    /// * `buf` - The decompressed mapsquare object data.
-    /// * `marks` - The world zone marks to record spawn tiles into.
-    /// * `originx` - The mapsquare origin X in absolute tile coordinates.
-    /// * `originz` - The mapsquare origin Z in absolute tile coordinates.
-    /// * `out` - The output vector receiving the decoded entries in file order.
-    ///
-    /// # Call Stack
-    /// **Called by:** [`load`](Self::load)
-    #[cfg(before_530)]
-    fn decode_objs(
-        buf: &mut Packet,
-        marks: &mut ZoneMarks,
-        originx: u16,
-        originz: u16,
-        out: &mut Vec<MapObjEntry>,
-    ) {
-        let mut id: i32 = -1;
-        let mut id_offset = buf.gsmart1or2();
-        while id_offset != 0 {
-            id += id_offset;
-
-            let mut coord: i32 = 0;
-            let mut coord_offset = buf.gsmart1or2();
-
-            while coord_offset != 0 {
-                coord += coord_offset - 1;
-                let packed = coord as u16;
-
-                let count = buf.g2();
-                coord_offset = buf.gsmart1or2();
-
-                out.push(MapObjEntry {
-                    id: id as u16,
-                    coord: packed,
-                    count,
-                });
-
-                let coord = MapsquareCoordGrid::from(packed);
-                marks.mark(
-                    originx + coord.x() as u16,
-                    originz + coord.z() as u16,
-                    coord.y(),
-                );
-            }
-            id_offset = buf.gsmart1or2();
-        }
-    }
-
-    /// Rev-647 NPC spawns come from the server `map.dat` overlay as flat
-    /// `(u16 packed_pos, u16 npc_id)` pairs, where the position packs as
-    /// `(level << 14) | (local_x << 7) | local_z` -- matching the deob client
-    /// and the rs-pack map codec that writes `map.dat`. Decoded into
-    /// the same entries, and marked the same way, as [`decode_npcs`] above.
-    #[cfg(since_530)]
     fn decode_npcs(
         buf: &mut Packet,
         cache: &CacheStore,
@@ -816,11 +711,19 @@ impl GameMap {
         }
     }
 
-    /// Rev-647 ground-item spawns come from the server `objspawn.dat` overlay
-    /// as flat `(u16 packed_pos, u16 obj_id, u16 count)` triples, the position
-    /// packed as the jag-era files pack it (`(level << 12) | (local_x << 6) |
-    /// local_z`). Decoded into the same entries as [`decode_objs`] above.
-    #[cfg(since_530)]
+    /// Decodes ground object spawn entries, flat `(u16 position, u16 obj id,
+    /// u16 count)` triples with the position packed `level << 12 | x << 6 | z`,
+    /// into a buffered list and marks each spawn's zone.
+    ///
+    /// # Arguments
+    /// * `buf` - The square's obj spawn data.
+    /// * `marks` - The world zone marks to record spawn tiles into.
+    /// * `originx` - The mapsquare origin X in absolute tile coordinates.
+    /// * `originz` - The mapsquare origin Z in absolute tile coordinates.
+    /// * `out` - The output vector receiving the decoded entries in file order.
+    ///
+    /// # Call Stack
+    /// **Called by:** [`load`](Self::load)
     fn decode_objs(
         buf: &mut Packet,
         marks: &mut ZoneMarks,

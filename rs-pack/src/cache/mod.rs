@@ -147,6 +147,8 @@ pub struct CacheStore {
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
     pub mapcrcs: MapSquareCrcs,
+    /// Server-only spawns, raw per square: `n` npcs and `o` objs.
+    pub spawns: MapSquares,
     pub objs: ObjTypeProvider,
     pub invs: InvTypeProvider,
     pub varps: VarPlayerTypeProvider,

@@ -120,12 +120,6 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
             decode_locs(loc_data, &mut lines);
         }
 
-        lines.push(String::new());
-        lines.push("==== NPC ====".to_string());
-
-        lines.push(String::new());
-        lines.push("==== OBJ ====".to_string());
-
         let filename = format!("m{map_x}_{map_z}.jm2");
         let content = lines.join("\n") + "\n";
         fs::write(out_dir.join(&filename), &content)?;
@@ -168,12 +162,6 @@ pub fn unpack_maps(
             lines.push("==== LOC ====".to_string());
             decode_locs(&loc, &mut lines);
         }
-
-        lines.push(String::new());
-        lines.push("==== NPC ====".to_string());
-
-        lines.push(String::new());
-        lines.push("==== OBJ ====".to_string());
 
         let content = lines.join("\n") + "\n";
         fs::write(out_dir.join(format!("m{map_x}_{map_z}.jm2")), &content)?;

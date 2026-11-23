@@ -1,9 +1,11 @@
+#[cfg(since_530)]
 use crate::archive;
 use crate::pack::incremental::{Lookups, Registry, answer};
-use crate::pack::pack_registry::PackFile;
-use crate::pack::util::walk;
+use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(since_530)]
-use crate::pack::util::{placeholder_prefix, raw_id_error};
+use crate::pack::util::placeholder_prefix;
+use crate::pack::util::raw_id_error;
+use crate::pack::util::walk;
 use anyhow::{Context, Result, bail, ensure};
 #[cfg(since_530)]
 use rs_io::stringtools::hash32;
@@ -124,7 +126,7 @@ impl AssetNames {
     fn find_name(&self, kind: &str, id: u32) -> String {
         self.packs
             .get(kind)
-            .and_then(|p| p.get_by_id(id))
+            .and_then(|p| p.get_by_id(id as PackId))
             .map(str::to_owned)
             .unwrap_or_else(|| format!("{}_{id}", asset_prefix(kind)))
     }
@@ -141,6 +143,8 @@ impl AssetNames {
     /// finds a stage's files, which is not what it packs from them.
     fn lookup(&self, kind: &str, name: &str) -> Result<u32> {
         if let Some(id) = self.packs.get(kind).and_then(|p| p.get_by_debugname(name)) {
+            #[cfg(before_530)]
+            let id = u32::from(id);
             return Ok(id);
         }
         if let Some(error) = raw_id_error(kind, name) {
@@ -281,6 +285,7 @@ fn asset_prefix(kind: &str) -> &str {
     kind
 }
 
+#[cfg(since_530)]
 pub fn archive_name(id: u8) -> &'static str {
     match id {
         archive::ANIMS => "anim",

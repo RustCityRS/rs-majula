@@ -11,7 +11,6 @@ use crate::archive;
 use crate::cache::js5::PackedCache;
 use crate::cache::map::XteaKeyStore;
 use crate::pack::incremental::{self, Hash};
-use crate::pack::packed_data::PackedData;
 use crate::types::{MapSquareCrcs, MapSquares};
 use anyhow::{Context, Result, anyhow, bail};
 use rayon::prelude::*;
@@ -219,29 +218,6 @@ pub(crate) fn load_mapsquares(
     Ok((mapsquares, mapcrcs))
 }
 
-pub(crate) fn merge_server_layer(
-    packed: &PackedData,
-    stem: &str,
-    kind: char,
-    mapsquares: &mut MapSquares,
-) {
-    let entries = match PackedData::entries(&packed.dat, &packed.idx) {
-        Ok(entries) => entries,
-        Err(error) => {
-            warn!("Invalid server {stem} layer: {error}");
-            return;
-        }
-    };
-    let mut loaded = 0;
-    for (_, data) in entries.filter(|(_, data)| data.len() >= 2) {
-        let container = compress(&data[2..], CompressionType::None).unwrap();
-        mapsquares.insert((kind, data[0], data[1]), Arc::from(container));
-        loaded += 1;
-    }
-
-    info!("Loaded {loaded} {stem} regions from server {stem}.dat");
-}
-
 pub(crate) fn load_huffman(cache: &PackedCache) -> Result<Huffman> {
     let target_hash = hash32("huffman");
     let ref_table = cache
@@ -261,14 +237,7 @@ pub(crate) fn load_huffman(cache: &PackedCache) -> Result<Huffman> {
 }
 
 fn build_map_name_lookup() -> HashMap<i32, (char, u8, u8)> {
-    let prefixes: &[(&str, char)] = &[
-        ("m", 'm'),
-        ("l", 'l'),
-        ("n", 'n'),
-        ("um", 'u'),
-        ("ul", 'U'),
-        ("e", 'e'),
-    ];
+    let prefixes: &[(&str, char)] = &[("m", 'm'), ("l", 'l'), ("um", 'u'), ("ul", 'U'), ("e", 'e')];
     let mut map = HashMap::new();
     for mx in 0..=255u8 {
         for mz in 0..=255u8 {

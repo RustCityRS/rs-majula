@@ -6,34 +6,36 @@ use crate::archive::{self, ArchiveVersions};
 use crate::cache::area::AreaMap;
 #[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-use crate::cache::map::TerrainTile;
 #[cfg(since_530)]
 use crate::cache::map::{
-    CameraData, CameraPlane, EnvParams, EnvironmentData, LocEntry, NpcSpawn, ObjSpawn, SkyboxData,
-    StaticPointLight, TerrainData, load_xtea_keys,
+    CameraData, CameraPlane, EnvParams, EnvironmentData, LocEntry, SkyboxData, StaticPointLight,
+    TerrainData, load_xtea_keys,
 };
+use crate::cache::map::{NpcSpawn, ObjSpawn, TerrainTile};
 #[cfg(since_530)]
-use crate::pack::incremental::{self, Hash, Stage};
+use crate::pack::incremental;
 #[cfg(before_530)]
-use crate::pack::incremental::{Hash, remember};
+use crate::pack::incremental::remember;
+use crate::pack::incremental::{Hash, Stage};
 #[cfg(since_530)]
 use crate::pack::js5::prepare_group;
 #[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, group_version, insert_archive, versions_dep};
-#[cfg(since_530)]
 use crate::pack::names::AssetNames;
 #[cfg(since_530)]
 use crate::pack::pack_registry::PackFile;
-#[cfg(since_530)]
+use crate::pack::pack_registry::PackId;
 use crate::pack::packed_data::PackedData;
+use crate::types::MapSquares;
 #[cfg(before_530)]
-use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
+use crate::types::{MapSquareCrcs, MapSquareCsv};
 #[cfg(before_530)]
 use crate::zone_csv::load_csv_zones;
 #[cfg(before_530)]
 pub(super) use crate::zone_csv::zone_key;
+use anyhow::Result;
 #[cfg(since_530)]
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Context, bail, ensure};
 #[cfg(before_530)]
 use rs_io::Packet;
 #[cfg(before_530)]
@@ -50,18 +52,12 @@ use rs_io::js5::index::FileInfo;
 use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use rs_ver::TypeId;
-#[cfg(since_530)]
-use std::collections::BTreeMap;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs;
-use std::path::Path;
-#[cfg(since_530)]
-use std::path::PathBuf;
-#[cfg(before_530)]
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 #[cfg(before_530)]
 use tracing::debug;
-#[cfg(since_530)]
 use tracing::info;
 
 #[cfg(before_530)]
@@ -83,25 +79,8 @@ pub(super) struct LocPlacement {
 }
 
 #[cfg(before_530)]
-pub(super) struct NpcPlacement {
-    pub(super) y: u8,
-    pub(super) x: u8,
-    pub(super) z: u8,
-}
-
-#[cfg(before_530)]
-pub(super) struct ObjPlacement {
-    pub(super) y: u8,
-    pub(super) x: u8,
-    pub(super) z: u8,
-    count: u16,
-}
-
-#[cfg(before_530)]
 pub struct ParsedMap {
     pub(super) locs: HashMap<u16, Vec<LocPlacement>>,
-    pub(super) npcs: HashMap<u16, Vec<NpcPlacement>>,
-    pub(super) objs: HashMap<u16, Vec<ObjPlacement>>,
 }
 
 #[cfg(before_530)]
@@ -158,8 +137,6 @@ fn read_map(bytes: &[u8], tiles: &mut [TerrainTile; TILE_COUNT]) -> ParsedMap {
     tiles.fill(TerrainTile::default());
 
     let mut locs: HashMap<u16, Vec<LocPlacement>> = HashMap::new();
-    let mut npcs: HashMap<u16, Vec<NpcPlacement>> = HashMap::new();
-    let mut objs: HashMap<u16, Vec<ObjPlacement>> = HashMap::new();
     let mut section: u8 = 0;
 
     let mut pos = 0;
@@ -188,10 +165,6 @@ fn read_map(bytes: &[u8], tiles: &mut [TerrainTile; TILE_COUNT]) -> ParsedMap {
                 section = 1;
             } else if memchr3(b'L', lb).is_some() {
                 section = 2;
-            } else if memchr3(b'N', lb).is_some() {
-                section = 3;
-            } else if memchr3(b'O', lb).is_some() {
-                section = 4;
             } else {
                 section = 0;
             }
@@ -287,41 +260,10 @@ fn read_map(bytes: &[u8], tiles: &mut [TerrainTile; TILE_COUNT]) -> ParsedMap {
                 shape,
                 angle,
             });
-        } else if section == 3 {
-            let (s0, e0) = next_word(data, 0);
-            if s0 >= e0 {
-                continue;
-            }
-            let id = fast_parse_int(&data[s0..e0]) as u16;
-
-            npcs.entry(id).or_default().push(NpcPlacement {
-                y: y as u8,
-                x: x as u8,
-                z: z as u8,
-            });
-        } else if section == 4 {
-            let (s0, e0) = next_word(data, 0);
-            if s0 >= e0 {
-                continue;
-            }
-            let id = fast_parse_int(&data[s0..e0]) as u16;
-            let (s1, e1) = next_word(data, e0);
-            let count = if s1 < e1 {
-                fast_parse_int(&data[s1..e1]) as u16
-            } else {
-                1
-            };
-
-            objs.entry(id).or_default().push(ObjPlacement {
-                y: y as u8,
-                x: x as u8,
-                z: z as u8,
-                count,
-            });
         }
     }
 
-    ParsedMap { locs, npcs, objs }
+    ParsedMap { locs }
 }
 
 #[cfg(before_530)]
@@ -352,64 +294,6 @@ pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
 
             let loc_info = (e.shape << 2) | (e.angle & 0x3);
             out.p1(loc_info);
-        }
-
-        out.psmart1or2(0);
-    }
-
-    out.psmart1or2(0);
-}
-
-#[cfg(before_530)]
-pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
-    out.pos = 0;
-
-    let mut npc_ids: Vec<u16> = map.npcs.keys().copied().collect();
-    npc_ids.sort();
-
-    let mut last_npc_id: i32 = -1;
-
-    for &npc_id in &npc_ids {
-        out.psmart1or2(npc_id as i32 - last_npc_id);
-        last_npc_id = npc_id as i32;
-
-        let entries = map.npcs.get(&npc_id).unwrap();
-        let mut last_pos: i32 = 0;
-
-        for e in entries {
-            let current_pos = ((e.y as i32) << 12) | ((e.x as i32) << 6) | (e.z as i32);
-            out.psmart1or2(current_pos - last_pos + 1);
-            last_pos = current_pos;
-        }
-
-        out.psmart1or2(0);
-    }
-
-    out.psmart1or2(0);
-}
-
-#[cfg(before_530)]
-pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
-    out.pos = 0;
-
-    let mut obj_ids: Vec<u16> = map.objs.keys().copied().collect();
-    obj_ids.sort();
-
-    let mut last_obj_id: i32 = -1;
-
-    for &obj_id in &obj_ids {
-        out.psmart1or2(obj_id as i32 - last_obj_id);
-        last_obj_id = obj_id as i32;
-
-        let entries = map.objs.get(&obj_id).unwrap();
-        let mut last_pos: i32 = 0;
-
-        for e in entries {
-            let current_pos = ((e.y as i32) << 12) | ((e.x as i32) << 6) | (e.z as i32);
-            out.psmart1or2(current_pos - last_pos + 1);
-            last_pos = current_pos;
-
-            out.p2(e.count);
         }
 
         out.psmart1or2(0);
@@ -476,8 +360,6 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
     let mut tiles = [TerrainTile::default(); TILE_COUNT];
     let mut terrain_buf = Vec::with_capacity(TILE_COUNT * 7);
     let mut loc_buf = Packet::new(64 * 1024);
-    let mut npc_buf = Packet::new(16 * 1024);
-    let mut obj_buf = Packet::new(16 * 1024);
 
     let mut count = 0;
 
@@ -522,22 +404,6 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
         mapsquares.insert(('l', map_x, map_z), Arc::from(loc_compressed));
         mapcrcs.insert(('l', map_x, map_z), loc_crc);
 
-        if !map_data.npcs.is_empty() {
-            encode_npcs(&map_data, &mut npc_buf);
-            let npc_compressed = bz2(&npc_buf.data[..npc_buf.pos]);
-            let npc_crc = crc::getcrc(&npc_compressed, 0, npc_compressed.len());
-            mapsquares.insert(('n', map_x, map_z), Arc::from(npc_compressed));
-            mapcrcs.insert(('n', map_x, map_z), npc_crc);
-        }
-
-        if !map_data.objs.is_empty() {
-            encode_objs(&map_data, &mut obj_buf);
-            let obj_compressed = bz2(&obj_buf.data[..obj_buf.pos]);
-            let obj_crc = crc::getcrc(&obj_compressed, 0, obj_compressed.len());
-            mapsquares.insert(('o', map_x, map_z), Arc::from(obj_compressed));
-            mapcrcs.insert(('o', map_x, map_z), obj_crc);
-        }
-
         count += 1;
     }
 
@@ -547,7 +413,6 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
 /// A server-only spawn layer, packed again only when its squares or the
 /// names they use change.
-#[cfg(since_530)]
 fn pack_spawn_layer(
     map_dirs: &[PathBuf],
     names: &AssetNames,
@@ -571,7 +436,6 @@ fn pack_spawn_layer(
     Ok(packed)
 }
 
-#[cfg(since_530)]
 pub fn pack_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
     pack_spawn_layer(map_dirs, names, "NPC", 'n', is_npc_spawns, |text| {
         let spawns = parse_npc_spawn_text(text);
@@ -579,10 +443,8 @@ pub fn pack_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedDat
     })
 }
 
-/// Pack global ground-item spawns. Same on-disk container shape as the NPC
-/// packer; the engine merges these as the `o` mapsquare layer and loads them
-/// as `EntityLifeTime::Respawn` objs.
-#[cfg(since_530)]
+/// Pack global ground-item spawns, same container shape as the NPC packer;
+/// the engine loads them as `EntityLifeTime::Respawn` objs.
 pub fn pack_obj_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
     pack_spawn_layer(map_dirs, names, "obj", 'o', is_obj_spawns, |text| {
         let spawns = parse_obj_spawn_text(text);
@@ -659,10 +521,8 @@ fn paint_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
     Ok(areas)
 }
 
-#[cfg(since_530)]
 type Entry = (u8, u8, Vec<u8>);
 
-#[cfg(since_530)]
 fn collect(
     map_dirs: &[PathBuf],
     names: &AssetNames,
@@ -695,9 +555,8 @@ fn collect(
     Ok(entries)
 }
 
-#[cfg(since_530)]
 fn pack_spawn_entries(entries: &[Entry]) -> PackedData {
-    let mut packed = PackedData::new(entries.len() as u32);
+    let mut packed = PackedData::new(entries.len() as PackId);
     for (mx, mz, binary) in entries {
         packed.start_entry();
         packed.p1(*mx);
@@ -706,6 +565,16 @@ fn pack_spawn_entries(entries: &[Entry]) -> PackedData {
         packed.finish_entry_raw();
     }
     packed
+}
+
+/// A packed spawn layer's squares into `spawns` as `(kind, mx, mz)`, raw.
+pub fn load_spawns(packed: &PackedData, kind: char, spawns: &mut MapSquares) -> Result<()> {
+    for (_, data) in PackedData::entries(&packed.dat, &packed.idx)? {
+        if let [mx, mz, binary @ ..] = data {
+            spawns.insert((kind, *mx, *mz), Arc::from(binary));
+        }
+    }
+    Ok(())
 }
 
 #[cfg(since_530)]
@@ -881,7 +750,6 @@ fn encode_tiles(tiles: &[TerrainTile], out: &mut Vec<u8>) {
     }
 }
 
-#[cfg(since_530)]
 pub fn source_dirs(content_dir: &Path) -> [PathBuf; 1] {
     [content_dir.join("maps")]
 }
@@ -894,7 +762,6 @@ pub fn find_square(dirs: &[PathBuf], name: &str) -> Option<PathBuf> {
         .find(|path| path.is_file())
 }
 
-#[cfg(since_530)]
 pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
     let mut out = BTreeMap::new();
     for dir in dirs {
@@ -920,17 +787,14 @@ pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
     out
 }
 
-#[cfg(since_530)]
 pub fn is_locations(name: &str) -> bool {
     name.starts_with("l") || name.starts_with("ul")
 }
 
-#[cfg(since_530)]
 pub fn is_npc_spawns(name: &str) -> bool {
     name.starts_with("n") && !name.starts_with("nl")
 }
 
-#[cfg(since_530)]
 pub fn is_obj_spawns(name: &str) -> bool {
     name.starts_with('o')
 }
@@ -1073,7 +937,6 @@ fn encode_light(light: &StaticPointLight, out: &mut Vec<u8>) {
     }
 }
 
-#[cfg(since_530)]
 fn write_u16(out: &mut Vec<u8>, v: u16) {
     out.push((v >> 8) as u8);
     out.push(v as u8);
@@ -1123,7 +986,6 @@ pub fn encode_locations_binary(locs: &[LocEntry]) -> Vec<u8> {
     out
 }
 
-#[cfg(since_530)]
 pub fn parse_npc_spawn_text(text: &str) -> Vec<NpcSpawn> {
     let mut spawns = Vec::new();
     for line in text.lines() {
@@ -1149,7 +1011,6 @@ pub fn parse_npc_spawn_text(text: &str) -> Vec<NpcSpawn> {
     spawns
 }
 
-#[cfg(since_530)]
 pub fn encode_npc_spawn_binary(spawns: &[NpcSpawn]) -> Vec<u8> {
     let mut out = Vec::new();
     for s in spawns {
@@ -1160,7 +1021,6 @@ pub fn encode_npc_spawn_binary(spawns: &[NpcSpawn]) -> Vec<u8> {
     out
 }
 
-#[cfg(since_530)]
 pub fn parse_obj_spawn_text(text: &str) -> Vec<ObjSpawn> {
     let mut spawns = Vec::new();
     for line in text.lines() {
@@ -1189,7 +1049,6 @@ pub fn parse_obj_spawn_text(text: &str) -> Vec<ObjSpawn> {
     spawns
 }
 
-#[cfg(since_530)]
 pub fn encode_obj_spawn_binary(spawns: &[ObjSpawn]) -> Vec<u8> {
     let mut out = Vec::new();
     for s in spawns {
