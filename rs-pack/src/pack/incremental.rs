@@ -8,6 +8,7 @@ use rayon::prelude::*;
 use rs_io::Packet;
 #[cfg(since_530)]
 use rs_io::js5::index::FileInfo;
+use rs_util::os::read_at;
 use rustc_hash::FxHashMap;
 use siphasher::sip128::{Hasher128, SipHasher13};
 use std::cell::RefCell;
@@ -17,12 +18,8 @@ use std::ffi::OsString;
 use std::fmt::Display;
 use std::fs::{self, File, Metadata, OpenOptions};
 use std::hash::Hasher;
-use std::io::{self, Write};
+use std::io::Write;
 use std::mem::take;
-#[cfg(unix)]
-use std::os::unix::fs::FileExt;
-#[cfg(windows)]
-use std::os::windows::fs::FileExt;
 use std::path::{Path, PathBuf};
 #[cfg(since_530)]
 use std::slice;
@@ -1190,24 +1187,5 @@ fn write_manifest(dir: &Path, manifest: &Manifest) -> Result<()> {
     file.sync_all()?;
     drop(file);
     fs::rename(&temp, dir.join("manifest"))?;
-    Ok(())
-}
-
-#[cfg(unix)]
-fn read_at(file: &File, buf: &mut [u8], offset: u64) -> io::Result<()> {
-    file.read_exact_at(buf, offset)
-}
-
-#[cfg(windows)]
-fn read_at(file: &File, mut buf: &mut [u8], mut offset: u64) -> io::Result<()> {
-    while !buf.is_empty() {
-        match file.seek_read(buf, offset)? {
-            0 => return Err(io::ErrorKind::UnexpectedEof.into()),
-            read => {
-                buf = &mut buf[read..];
-                offset += read as u64;
-            }
-        }
-    }
     Ok(())
 }

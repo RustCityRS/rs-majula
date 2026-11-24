@@ -2,6 +2,7 @@
 use std::ffi::c_ulong;
 #[cfg(windows)]
 use std::ffi::c_void;
+use std::fs::File;
 #[cfg(not(unix))]
 use std::future::pending;
 use std::io;
@@ -9,6 +10,10 @@ use std::io;
 use std::io::Error;
 #[cfg(not(windows))]
 use std::io::ErrorKind;
+#[cfg(unix)]
+use std::os::unix::fs::FileExt;
+#[cfg(windows)]
+use std::os::windows::fs::FileExt;
 use tokio::signal::ctrl_c;
 #[cfg(unix)]
 use tokio::signal::unix::{SignalKind, signal};
@@ -137,4 +142,27 @@ pub async fn shutdown_signal() -> &'static str {
         }
         "Ctrl+C"
     }
+}
+
+/// Fills `buf` from `file` at `offset`, leaving the file's cursor to other
+/// readers.
+#[cfg(unix)]
+pub fn read_at(file: &File, buf: &mut [u8], offset: u64) -> io::Result<()> {
+    file.read_exact_at(buf, offset)
+}
+
+/// Fills `buf` from `file` at `offset`, leaving the file's cursor to other
+/// readers.
+#[cfg(windows)]
+pub fn read_at(file: &File, mut buf: &mut [u8], mut offset: u64) -> io::Result<()> {
+    while !buf.is_empty() {
+        match file.seek_read(buf, offset)? {
+            0 => return Err(io::ErrorKind::UnexpectedEof.into()),
+            read => {
+                buf = &mut buf[read..];
+                offset += read as u64;
+            }
+        }
+    }
+    Ok(())
 }

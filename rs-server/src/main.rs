@@ -135,6 +135,9 @@ const MAX_JS5_CONNECTIONS: usize = 8192;
 
 const MAX_HTTP_PER_IP: usize = 16;
 const MAX_HTTP_CONNECTIONS: usize = 8192;
+/// Where each process keeps the JS5 groups it serves.
+#[cfg(since_530)]
+const JS5_DIR: &str = "data/js5";
 
 const MAX_JAGGRAB_PER_IP: usize = 8;
 const MAX_JAGGRAB_CONNECTIONS: usize = 2048;
@@ -611,7 +614,7 @@ impl SharedCache {
 #[derive(Clone)]
 struct Js5Service {
     /// JS5 cache delivery: archive-255 reference tables, the master index and
-    /// group containers are served from memory.
+    /// group containers, read from the cache's file per request.
     js5: Js5Cache,
     js5_latest: Arc<RwLock<Js5Cache>>,
 }
@@ -1027,7 +1030,7 @@ async fn bootstrap(
     device::init(&fs::read(rsa_path)?);
 
     #[cfg(since_530)]
-    let js5 = Js5Cache::new(js5_cache.groups, &js5_cache.tables, rsa)?;
+    let js5 = Js5Cache::new(js5_cache.groups, &js5_cache.tables, rsa, Path::new(JS5_DIR))?;
     #[cfg(since_530)]
     drop(js5_cache.tables);
     #[cfg(since_530)]
@@ -1568,7 +1571,7 @@ async fn reload_coordinator(
                 layout,
                 cache,
             })) => {
-                match Js5Cache::new(cache.groups, &cache.tables, rsa) {
+                match Js5Cache::new(cache.groups, &cache.tables, rsa, Path::new(JS5_DIR)) {
                     Ok(cache) => *js5.write().unwrap_or_else(PoisonError::into_inner) = cache,
                     Err(e) => error!("Hot-reload: the new JS5 cache failed: {e:#}"),
                 }

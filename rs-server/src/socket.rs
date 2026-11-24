@@ -576,16 +576,16 @@ async fn send_js5_file(
         .as_ref()
         .expect("accepted JS5 handshake")
         .js5;
-    let data = js5.get(archive, file).unwrap_or_else(|| {
+    let data = js5.get(archive, file)?.unwrap_or_else(|| {
         if !js5.is_absent(archive, file) {
             warn!("JS5 missing: archive={archive} group={file}");
         }
-        &[0; 5]
+        vec![0; 5]
     });
     let reply = Js5Response {
         archive,
         group: file,
-        data,
+        data: &data,
     };
     let mut buf = Packet::new(reply.encoded_size());
     reply.encode(&mut buf, urgent);
