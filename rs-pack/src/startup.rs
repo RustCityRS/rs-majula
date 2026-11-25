@@ -411,6 +411,8 @@ fn load_cache(
         varss,
         categories,
         interfaces: IfTypeProvider::from_cache(cache)?,
+        #[cfg(rev = "530")]
+        static_assets: crate::load_static_assets(),
         fonts,
         wordenc: WordEncProvider::empty(),
         songs: MidiProvider {

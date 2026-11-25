@@ -102,21 +102,21 @@ use rayon::ThreadPoolBuilder;
 use rs_io::crc;
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::collections::HashMap;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::fs;
 #[cfg(before_530)]
 use std::mem::take;
 use std::path::Path;
 #[cfg(before_530)]
 use std::path::PathBuf;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::sync::Arc;
 use std::thread;
 #[cfg(all(since_244, before_274))]
 use std::time::{SystemTime, UNIX_EPOCH};
-#[cfg(before_530)]
+#[cfg(before_647)]
 use tracing::debug;
 use tracing::warn;
 
@@ -923,7 +923,18 @@ pub fn pack_all(
     Ok((store, scripts))
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
+pub fn static_asset_content_type(path: &str) -> Option<&'static str> {
+    match path.rsplit_once('.')?.1 {
+        "js" | "mjs" => Some("application/javascript"),
+        "wasm" => Some("application/wasm"),
+        "sf2" => Some("application/octet-stream"),
+        "ico" => Some("image/vnd.microsoft.icon"),
+        _ => None,
+    }
+}
+
+#[cfg(before_647)]
 fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     let dir = Path::new("public");
     let mut assets = HashMap::new();
@@ -938,7 +949,7 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     assets
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 fn load_assets_recursive(
     base: &Path,
     dir: &Path,
@@ -954,7 +965,9 @@ fn load_assets_recursive(
             if recurse {
                 load_assets_recursive(base, &path, recurse, assets);
             }
-        } else if let Ok(data) = fs::read(&path) {
+        } else if static_asset_content_type(&path.to_string_lossy()).is_some()
+            && let Ok(data) = fs::read(&path)
+        {
             let key = path
                 .strip_prefix(base)
                 .unwrap_or(&path)

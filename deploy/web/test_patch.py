@@ -63,6 +63,7 @@ def read(path):
 
 
 def check_clients(root, old_key):
+    modulus, exponent = patch.rsa_numbers(os.path.join(root, patch.PRIVATE))
     clients = sorted(glob.glob(os.path.join(root, "public", "*", "client.js")))
     if not clients:
         fail("no clients staged")
@@ -70,9 +71,13 @@ def check_clients(root, old_key):
         js = read(path)
         if f'BigInt("{old_key}")' in js:
             fail(f"{path}: still has the old key")
-        for what, marker in MARKERS:
-            if js.count(marker) != 1:
-                fail(f"{path}: expected its {what} once, found it {js.count(marker)} times")
+        for number in (modulus, exponent):
+            if js.count(f'BigInt("{number}")') != 1:
+                fail(f"{path}: missing or duplicate current login key")
+        if os.path.basename(os.path.dirname(path)) != "530":
+            for what, marker in MARKERS:
+                if js.count(marker) != 1:
+                    fail(f"{path}: expected its {what} once, found it {js.count(marker)} times")
         node = subprocess.run(["node", "--check", path], capture_output=True, text=True)
         if node.returncode != 0:
             fail(f"{path}: patched client doesn't parse:\n{node.stderr}")
@@ -110,15 +115,20 @@ def main():
             stage(root)
             broken = os.path.join(root, client)
             js = read(broken)
-            # The countdown drawn from some other variable: a client the patch no longer knows.
-            js = js.replace('"System update in: "', '"System update at: "')
+            if os.path.basename(os.path.dirname(client)) == "530":
+                modulus, _ = patch.rsa_numbers(os.path.join(root, patch.PRIVATE))
+                js = js.replace(f'BigInt("{modulus}")', 'BigInt("1")')
+                expected_error = "expected the current key once"
+            else:
+                js = js.replace('"System update in: "', '"System update at: "')
+                expected_error = "system update countdown"
             with open(broken, "w", encoding="utf-8", newline="") as f:
                 f.write(js)
             untouched = snapshot(root)
             result = run_patch(root)
             if result.returncode == 0:
-                fail(f"{client}: a client without its countdown still patched")
-            if "system update countdown" not in result.stderr:
+                fail(f"{client}: a broken client still patched")
+            if expected_error not in result.stderr:
                 fail(f"{client}: stopped for another reason:\n{result.stderr}")
             if snapshot(root) != untouched:
                 fail(f"{client}: a stopped run changed files")

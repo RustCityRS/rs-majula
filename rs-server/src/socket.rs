@@ -431,8 +431,9 @@ async fn world_select(client: &mut Socket) -> anyhow::Result<()> {
 #[cfg(all(since_530, before_647))]
 async fn world_list(client: &mut Socket) -> anyhow::Result<()> {
     let checksum = timeout(HANDSHAKE_TIMEOUT, client.read_exact(4)).await??;
-    let SocketType::Tcp(stream) = &client.socket_type else {
-        bail!("a world list needs a TCP connection");
+    let stream = match &client.socket_type {
+        SocketType::Tcp(stream) => stream,
+        SocketType::WebSocket(ws) => ws.get_ref(),
     };
     let list = WorldList::new(&[WorldEntry {
         address: stream.local_addr()?.ip().to_canonical().to_string(),

@@ -41,7 +41,7 @@ use rs_ver::TypeId;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::sync::Arc;
 #[cfg(since_647)]
 use varcon::VarConTypeProvider;
@@ -186,7 +186,7 @@ pub struct CacheStore {
     pub midi_tick_lengths: Box<[Option<u16>]>,
     #[cfg(all(since_254, before_530))]
     pub midi_lengths_ms: Box<[Option<u32>]>,
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     #[cfg(before_530)]
     pub multimap: MapSquareCsv,

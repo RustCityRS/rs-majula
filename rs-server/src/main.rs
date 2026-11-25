@@ -599,10 +599,10 @@ static CACHE_SWAP: RwLock<()> = RwLock::new(());
 /// The cache the network tasks serve from. A debug reload replaces it in
 /// place, so nothing borrowed from it may outlive a [`read`](Self::read).
 #[derive(Clone, Copy)]
-#[cfg(before_530)]
+#[cfg(before_647)]
 pub struct SharedCache(&'static CacheStore);
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 impl SharedCache {
     pub fn read<R>(self, f: impl FnOnce(&CacheStore) -> R) -> R {
         let _swap = CACHE_SWAP.read().unwrap_or_else(PoisonError::into_inner);
@@ -621,7 +621,7 @@ struct Js5Service {
 
 #[derive(Clone)]
 pub struct ServerIO {
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     cache: SharedCache,
     #[cfg(since_530)]
     content: Option<Js5Service>,
@@ -1204,14 +1204,10 @@ async fn bootstrap(
     #[cfg(not(debug_assertions))]
     drop(trigger_rx);
 
-    #[cfg(before_530)]
     let server_state = ServerIO {
+        #[cfg(before_647)]
         cache: SharedCache(cache),
-        rsa,
-        new_player_tx,
-    };
-    #[cfg(since_530)]
-    let server_state = ServerIO {
+        #[cfg(since_530)]
         content: Some(Js5Service { js5, js5_latest }),
         #[cfg(since_647)]
         jav_config: Some(
@@ -1261,7 +1257,7 @@ async fn bootstrap(
     drop(jaggrab_guard);
 
     info!("Accepting HTTP connections on: {}:{}", host, http);
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
     #[cfg(before_530)]
     if !cache.static_assets.contains_key("/mapview.js") {
@@ -1271,7 +1267,7 @@ async fn bootstrap(
     if args.jaggrab_only {
         info!("--jaggrab-only: cache downloads over HTTP will 404 to force the JAGGRAB fallback");
     }
-    #[cfg(all(since_530, before_647))]
+    #[cfg(since_647)]
     info!(
         "Standalone client: java -cp client.jar client {} live english game0",
         world
