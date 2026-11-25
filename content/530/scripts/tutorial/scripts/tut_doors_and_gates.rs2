@@ -147,7 +147,7 @@ while(loc_findnext = true) {
             loc_add($central_coord, inviswall, $orig_angle, loc_shape, 3);
      }
 }
-sound_synth(nicedoor_open, 1, 0);
+sound_synth(grate_open, 1, 0);
 
 // Gate into Rat Pen
 [oploc1,_rat_pit_cage]
@@ -212,7 +212,7 @@ if ($leaf_l ! null) {
     loc_add(movecoord($leaf_l, 0, 0, -1), newbiedoor5l_open, 3, wall_straight, 3);
     loc_add($leaf_l, newbiedoor5r_open, 1, wall_straight, 3);
 }
-sound_synth(nicedoor_open, 1, 0);
+sound_synth(grate_open, 1, 0);
 
 
 [oploc1,newbieladder2]
