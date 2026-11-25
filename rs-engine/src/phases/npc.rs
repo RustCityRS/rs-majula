@@ -1735,6 +1735,7 @@ impl Engine {
 
             if Self::entity_in_approach_distance(
                 &active.npc.pathing,
+                FocusKind::Npc,
                 active.npc.interaction.target.as_ref().unwrap(),
                 attackrange as i32,
             ) {

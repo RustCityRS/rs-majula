@@ -41,6 +41,31 @@ fn expected(x: u16, z: u16) -> Vec<u32> {
     .to_vec()
 }
 
+#[cfg(before_742)]
+#[test]
+fn reads_the_lumbridge_signpost_from_six_tiles_away() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = engine.harness_login_returning("reader").unwrap();
+        engine.cycle();
+        engine.harness_telejump(client.pid, 3235, 0, 3222);
+        for _ in 0..4 {
+            engine.cycle();
+        }
+
+        let sign = if cfg!(since_647) { 2754 } else { 18493 };
+        client.op_loc(1, 3235, 3228, TypeId::from_int(sign));
+        engine.cycle();
+
+        let player = engine.harness_player(client.pid).unwrap();
+        let coord = player.pathing.coord;
+        assert_eq!((coord.x(), coord.z()), (3235, 3222));
+        assert_eq!(
+            player.modal_main,
+            Some(rs_test::names::iface("aide_compass"))
+        );
+    });
+}
+
 #[test]
 fn last_input_route_wins_without_skipping_walk_triggers() {
     runner::on_loaded_engine(|engine| {

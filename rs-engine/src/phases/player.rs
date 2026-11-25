@@ -983,7 +983,12 @@ impl Engine {
         let Some(range) = active.player.interaction.ap_range else {
             return false;
         };
-        Self::entity_in_approach_distance(&active.player.pathing, target, range as i32)
+        Self::entity_in_approach_distance(
+            &active.player.pathing,
+            FocusKind::Player,
+            target,
+            range as i32,
+        )
     }
 
     /// Attempts to execute an interaction between the player and its current

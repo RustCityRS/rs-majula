@@ -1,0 +1,21 @@
+[aploc1,signpost_2754] @lumbridge_signpost;
+[oploc1,signpost_2754] @lumbridge_signpost;
+
+[label,lumbridge_signpost]
+// Six tiles from the edge of the two-by-two sign.
+if (inzone(movecoord(loc_coord, -6, 0, -6), movecoord(loc_coord, 7, 0, 7), coord) = false) {
+    p_aprange(6);
+    return;
+}
+
+cam_moveto(movecoord(loc_coord, 0, 0, -11), 1500, 2, 10);
+cam_lookat(movecoord(loc_coord, 0, 0, -2), 450, 2, 10);
+%signpost_if_model = loc_param(param_479);
+if_settext(aide_compass:aide_west_text_2, "West to the Lumbridge Castle and Draynor Village. Beware the goblins!");
+if_settext(aide_compass:aide_south_text_2, "South to the swamps of Lumbridge.");
+if_settext(aide_compass:aide_north_text_2, "Head north towards Fred's farm and the windmill.");
+if_settext(aide_compass:aide_east_text_2, "Cross the bridge and head east to Al Kharid or north to Varrock.");
+if_openmain(aide_compass);
+
+[if_close,aide_compass]
+cam_reset;

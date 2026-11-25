@@ -290,6 +290,25 @@ fn lvl_1_enchant_makes_a_ring_of_recoil() {
     });
 }
 
+#[test]
+fn telekinetic_grab_reaches_coins_on_a_table() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = caster(engine, "grabcoins", 99, &[("lawrune", 1), ("airrune", 1)]);
+        let coins = id(engine, "coins");
+        let (x, z) = (3211, 3212);
+        engine.harness_telejump(client.pid, x, 0, z + 3);
+        engine.harness_add_obj(x, 0, z, coins, 5);
+        engine.cycle();
+
+        client.op_obj_t(x, z, coins, telekinetic_grab(), u16::MAX, TypeId::NULL);
+        ticks(engine, &mut client, 8);
+
+        let coord = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!((coord.x(), coord.z()), (x, z + 3));
+        assert_eq!(count(engine, client.pid, coins.g2()), 5);
+    });
+}
+
 /// Telekinetic Grab on the finished Zamorak and Guthix books is refused, and
 /// the books stay on the ground.
 #[test]
