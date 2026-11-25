@@ -99,3 +99,6 @@ sound_synth(locked, 1, 0);
 [oploc1,chestlockedgold]
 mes("The chest is locked.");
 sound_synth(locked, 1, 0);
+
+[oploc1,lost_tribe_chest]
+~mesbox("You don't have the key to open this chest.");
