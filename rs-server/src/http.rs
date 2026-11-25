@@ -11,7 +11,7 @@ use rs_pack::cache::CacheStore;
 #[cfg(before_647)]
 use rs_pack::static_asset_content_type;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::collections::HashMap;
 use std::io;
 use std::net::{IpAddr, SocketAddr};
@@ -514,6 +514,19 @@ async fn route(
     if jaggrab_only && matches_cache(path) {
         return not_found();
     }
+    #[cfg(before_647)]
+    if let Some(response) = route_client(
+        path,
+        query,
+        #[cfg(rev = "530")]
+        state.world.id,
+        nodeid,
+        members,
+        || cache.read(client_version),
+        site_origin,
+    ) {
+        return response;
+    }
     #[cfg(since_647)]
     let Some(config) = &state.jav_config else {
         return not_found();
@@ -540,45 +553,12 @@ async fn route(
             }
             Err(_) => not_found(),
         },
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         "/" => (
             "302 Found",
             "Location: /rs2.cgi?lowmem=0&plugin=0\r\nContent-Length: 0\r\n".into(),
             Body::Empty,
         ),
-        #[cfg(before_647)]
-        "/rs2.cgi" => {
-            let params = parse_query(query);
-            // Only ever echoed as parsed numbers: they end up in a redirect
-            // header and in the page's JavaScript.
-            let plugin = query_number(&params, "plugin");
-            let lowmem = query_number(&params, "lowmem") != 0;
-
-            if !params.contains_key("plugin") || !params.contains_key("lowmem") {
-                return (
-                    "302 Found",
-                    format!(
-                        "Location: /rs2.cgi?lowmem={}&plugin={}\r\nContent-Length: 0\r\n",
-                        u8::from(lowmem),
-                        plugin
-                    ),
-                    Body::Empty,
-                );
-            }
-
-            let page = render_client(nodeid, lowmem, members, cache.read(client_version));
-            let bytes = page.into_bytes();
-            let len = bytes.len();
-            (
-                "200 OK",
-                // Never reused: it names the client.js to load (see render_client).
-                format!(
-                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
-                    frame_ancestors(site_origin)
-                ),
-                Body::Owned(bytes),
-            )
-        }
         #[cfg(before_530)]
         "/worldmap" => {
             let bytes = render_worldmap(cache.read(|cache| asset_version(cache, "/mapview.js")))
@@ -762,6 +742,78 @@ fn read_asset(path: &str, cache: &CacheStore) -> Option<(&'static str, Body)> {
     let content_type = static_asset_content_type(path)?;
     let data = cache.static_assets.get(path)?;
     Some((content_type, Body::Shared(Arc::clone(data))))
+}
+
+#[cfg(before_647)]
+fn route_client(
+    path: &str,
+    query: &str,
+    #[cfg(rev = "530")] world_id: u16,
+    nodeid: &str,
+    members: bool,
+    version: impl FnOnce() -> Option<u32>,
+    site_origin: Option<&str>,
+) -> Option<(&'static str, String, Body)> {
+    #[cfg(rev = "530")]
+    let lowmem = {
+        let page = match path {
+            "/" | "/rs2.cgi" => "/rs2.cgi",
+            "/worldmap" => "/worldmap",
+            _ => return None,
+        };
+        let mut params =
+            form_urlencoded::Serializer::new(format!("worldid={world_id}&modewhere=1&modewhat=0"));
+        for (key, value) in form_urlencoded::parse(query.as_bytes()) {
+            if !matches!(
+                key.as_ref(),
+                "worldid" | "modewhere" | "modewhat" | "plugin" | "lowmem" | "world"
+            ) {
+                params.append_pair(&key, &value);
+            }
+        }
+        let canonical = params.finish();
+        if path != page || query != canonical {
+            return Some((
+                "302 Found",
+                format!("Location: {page}?{canonical}\r\nContent-Length: 0\r\n"),
+                Body::Empty,
+            ));
+        }
+        false
+    };
+    #[cfg(before_530)]
+    let lowmem = match path {
+        "/rs2.cgi" => {
+            let params = parse_query(query);
+            // Only ever echoed as parsed numbers: they end up in a redirect
+            // header and in the page's JavaScript.
+            let plugin = query_number(&params, "plugin");
+            let lowmem = query_number(&params, "lowmem") != 0;
+            if !params.contains_key("plugin") || !params.contains_key("lowmem") {
+                return Some((
+                    "302 Found",
+                    format!(
+                        "Location: /rs2.cgi?lowmem={}&plugin={}\r\nContent-Length: 0\r\n",
+                        u8::from(lowmem),
+                        plugin
+                    ),
+                    Body::Empty,
+                ));
+            }
+            lowmem
+        }
+        _ => return None,
+    };
+    let bytes = render_client(nodeid, lowmem, members, version()).into_bytes();
+    let len = bytes.len();
+    Some((
+        "200 OK",
+        format!(
+            "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
+            frame_ancestors(site_origin)
+        ),
+        Body::Owned(bytes),
+    ))
 }
 
 #[cfg(before_647)]
@@ -988,7 +1040,7 @@ fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
 }
 
 /// A numeric query parameter; missing or non-numeric reads as 0.
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn query_number(params: &HashMap<String, String>, key: &str) -> u8 {
     params.get(key).and_then(|v| v.parse().ok()).unwrap_or(0)
 }
@@ -1005,7 +1057,7 @@ fn not_found() -> (&'static str, String, Body) {
     ("404 Not Found", "Content-Length: 0\r\n".into(), Body::Empty)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn parse_query(query: &str) -> HashMap<String, String> {
     query
         .split('&')
@@ -1047,7 +1099,69 @@ mod tests {
         assert!(ISOLATION_HEADERS.contains("Cross-Origin-Embedder-Policy: require-corp\r\n"));
     }
 
-    #[cfg(before_647)]
+    #[cfg(rev = "530")]
+    #[test]
+    fn worldmap_client_page_loads_the_versioned_bundle_in_the_website_frame() {
+        let (status, headers, body) = route_client(
+            "/worldmap",
+            "worldid=1&modewhere=1&modewhat=0",
+            1,
+            "10",
+            true,
+            || Some(0xab12),
+            Some("https://rustcity.org"),
+        )
+        .expect("530 worldmap route");
+        assert_eq!(status, "200 OK");
+        let html = std::str::from_utf8(body.as_bytes()).unwrap();
+        assert!(html.contains("from './530/client.js?v=0000ab12'"));
+        assert!(html.contains("new Client()"));
+        assert!(headers.contains("Cache-Control: no-cache\r\n"));
+        assert!(
+            headers.contains(
+                "Content-Security-Policy: frame-ancestors 'self' https://rustcity.org\r\n"
+            )
+        );
+        assert!(headers.contains(&format!("Content-Length: {}\r\n", html.len())));
+    }
+
+    #[cfg(rev = "530")]
+    #[test]
+    fn world_supplies_the_launch_parameters() {
+        for (path, query, page, extra) in [
+            ("/", "", "/rs2.cgi", ""),
+            ("/rs2.cgi", "plugin=0&world=1&lowmem=0", "/rs2.cgi", ""),
+            ("/worldmap", "", "/worldmap", ""),
+            (
+                "/rs2.cgi",
+                "lang=1&worldid=1&modewhat=2&modewhere=0&settings=a%2Bb",
+                "/rs2.cgi",
+                "&lang=1&settings=a%2Bb",
+            ),
+        ] {
+            let (status, headers, _) =
+                route_client(path, query, 301, "10", true, || None, None).unwrap();
+            let canonical = format!("worldid=301&modewhere=1&modewhat=0{extra}");
+            assert_eq!(status, "302 Found");
+            assert!(headers.contains(&format!("Location: {page}?{canonical}\r\n")));
+            assert_eq!(
+                route_client(page, &canonical, 301, "10", true, || None, None)
+                    .unwrap()
+                    .0,
+                "200 OK"
+            );
+        }
+    }
+
+    #[cfg(before_530)]
+    #[test]
+    fn bare_game_url_redirects_to_its_canonical_query() {
+        let (status, headers, _) = route_client("/rs2.cgi", "", "10", true, || None, None).unwrap();
+        assert_eq!(status, "302 Found");
+        assert!(headers.contains("Location: /rs2.cgi?lowmem=0&plugin=0\r\n"));
+    }
+
+    #[cfg(before_530)]
     #[test]
     fn client_page_fills_every_marker() {
         let html = render_client("10", true, false, None);

@@ -30,6 +30,7 @@ tracing-subscriber = { workspace = true }
 tracing-appender = { workspace = true }
 tokio-tungstenite = { workspace = true }
 futures-util = { workspace = true }
+form_urlencoded = "1"
 ratatui = { workspace = true }
 crossterm = { workspace = true }
 sysinfo = { workspace = true }
