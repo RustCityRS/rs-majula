@@ -445240,6 +445240,8 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36848
 
 // 36847
 [door_36847]
@@ -445279,6 +445281,8 @@ model=1,model_9476
 model=5,model_9477
 name=Door
 desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36846
 
 // 36849
 [loc_36849]
