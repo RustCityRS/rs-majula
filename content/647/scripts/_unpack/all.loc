@@ -444091,6 +444091,8 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=948
 desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36848
 
 // 36847
 [door_36847]
@@ -444135,6 +444137,8 @@ name=Door
 occlude=yes
 unknown170=948
 desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36846
 
 // 36849
 [loc_36849]
