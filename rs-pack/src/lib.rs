@@ -923,6 +923,12 @@ pub fn pack_all(
     Ok((store, scripts))
 }
 
+#[cfg(rev = "530")]
+fn error_page_name(path: &str) -> Option<&str> {
+    let name = path.rsplit(['/', '\\']).next()?;
+    (name.starts_with("error_game_") && name.ends_with(".ws")).then_some(name)
+}
+
 #[cfg(before_647)]
 pub fn static_asset_content_type(path: &str) -> Option<&'static str> {
     match path.rsplit_once('.')?.1 {
@@ -930,6 +936,8 @@ pub fn static_asset_content_type(path: &str) -> Option<&'static str> {
         "wasm" => Some("application/wasm"),
         "sf2" => Some("application/octet-stream"),
         "ico" => Some("image/vnd.microsoft.icon"),
+        #[cfg(rev = "530")]
+        "ws" if error_page_name(path).is_some() => Some("text/html; charset=UTF-8"),
         _ => None,
     }
 }
@@ -973,10 +981,43 @@ fn load_assets_recursive(
                 .unwrap_or(&path)
                 .to_string_lossy()
                 .replace('\\', "/");
+            // The 530 client opens error pages relative to /rs2.cgi.
+            #[cfg(rev = "530")]
+            let key = error_page_name(&key).unwrap_or(&key);
             let key = format!("/{key}");
             assets.insert(Box::from(key), Arc::from(data));
         }
     }
+}
+
+#[cfg(all(test, rev = "530"))]
+#[test]
+fn serves_game_error_pages_at_the_client_codebase() {
+    let public = Path::new(env!("CARGO_MANIFEST_DIR")).join("../public");
+    let mut assets = HashMap::new();
+    load_assets_recursive(&public, &public.join("530"), true, &mut assets);
+    for reason in [
+        "alreadyloaded",
+        "crash",
+        "invalidhost",
+        "js5connect",
+        "js5connect_full",
+        "js5connect_outofdate",
+        "js5crc",
+        "js5io",
+        "wrongjava",
+    ] {
+        let url = format!("/error_game_{reason}.ws");
+        assert_eq!(
+            static_asset_content_type(&url),
+            Some("text/html; charset=UTF-8")
+        );
+        assert_eq!(
+            &*assets[url.as_str()],
+            fs::read(public.join("530").join(&url[1..])).unwrap()
+        );
+    }
+    assert_eq!(static_asset_content_type("/clienterror.ws"), None);
 }
 
 #[cfg(before_530)]
