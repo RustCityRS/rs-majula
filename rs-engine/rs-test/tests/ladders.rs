@@ -8,6 +8,7 @@
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_test::names::{com, iface};
 use rs_test::runner;
 use rs_ver::TypeId;
 
@@ -75,6 +76,34 @@ fn lumbridge_castle_s_2011_staircase_climbs_a_floor() {
         }
         let (_, y, _) = coord(engine, client.pid);
         assert_eq!(y, 1, "on the first floor");
+    });
+}
+
+#[test]
+fn climb_asks_for_a_direction_on_lumbridges_middle_ladder_and_stairs() {
+    runner::on_loaded_engine(|engine| {
+        for (loc, x, z, stand_x, stand_z) in [
+            (36769, 3229, 3213, 3228, 3213),
+            (36774, 3204, 3207, 3205, 3209),
+        ] {
+            for (button, floor) in [("multi2:multi2a", 2), ("multi2:multi2b", 0)] {
+                let mut client = climber(engine, "climber", stand_x, 1, stand_z);
+                op_loc1(&mut client, loc, x, z);
+                for _ in 0..8 {
+                    engine.cycle();
+                }
+                let player = engine.harness_player(client.pid).unwrap();
+                assert_eq!(player.modal_chat, Some(iface("multi2")), "loc {loc}");
+                let (x, y, z) = coord(engine, client.pid);
+                assert_eq!(y, 1);
+
+                client.resume_pausebutton(com(button), u16::MAX);
+                for _ in 0..8 {
+                    engine.cycle();
+                }
+                assert_eq!(coord(engine, client.pid), (x, floor, z), "loc {loc}");
+            }
+        }
     });
 }
 

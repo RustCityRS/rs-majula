@@ -267,7 +267,7 @@ switch_coord (loc_coord) {
     case 2_51_61_16_32 : p_telejump(3_51_61_17_32); // Rogues Castle - level 2
     case 1_50_54_58_31 : p_telejump(2_50_54_58_30); // Varrock church
     case 2_50_54_58_31 : p_telejump(3_50_54_58_30); // Varrock church
-    case default : @unhandled_stairs(loc_coord);
+    case default : @loc_tele_2011_op(2);
 }
 
 [oploc3,spiralstairsmiddle]
@@ -283,7 +283,7 @@ switch_coord (loc_coord) {
     case 2_51_61_16_32 : p_telejump(1_51_61_18_32); // Rogues Castle - level 2
     case 1_50_54_58_31 : p_telejump(0_50_54_58_30); // Varrock church
     case 2_50_54_58_31 : p_telejump(1_50_54_58_30); // Varrock church
-    case default : @unhandled_stairs(loc_coord);
+    case default : @loc_tele_2011_op(3);
 }
 
 [oploc1,spiralstairstop]
@@ -507,7 +507,7 @@ if ($option = 1) {
 [label,unhandled_stairs](coord $coord)
 // 2011 re-placed many of 289's stairs: its own climb, where void-634 records
 // one (loc_tele_2011.rs2), before 289's message.
-if (~loc_tele_2011(0) = true) {
+if (~loc_tele_2011(1) = true) {
     return;
 }
 mes("Unhandled stairs: <lc_debugname(loc_type)> at");
@@ -533,7 +533,7 @@ switch_coord (loc_coord) {
     case 1_39_60_9_31 : p_telejump(movecoord(coord, 0, 1, 0));
     case 2_39_60_9_8 : p_telejump(movecoord(coord, 0, 1, 0));
     case 2_39_60_9_31 : p_telejump(movecoord(coord, 0, 1, 0));
-    case default : @unhandled_stairs(loc_coord);
+    case default : @loc_tele_2011_op(2);
 }
 
 [oploc3,spiralstairsmiddle_wooden]
@@ -544,7 +544,7 @@ switch_coord (loc_coord) {
     case 1_39_60_9_31 : p_telejump(movecoord(coord, 0, -1, 0));
     case 2_39_60_9_8 : p_telejump(movecoord(coord, 0, -1, 0));
     case 2_39_60_9_31 : p_telejump(movecoord(coord, 0, -1, 0));
-    case default : @unhandled_stairs(loc_coord);
+    case default : @loc_tele_2011_op(3);
 }
 
 // 289's Castle Wars stairs wait for the Castle Wars port, as its ladders do
