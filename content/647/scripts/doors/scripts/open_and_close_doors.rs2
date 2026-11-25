@@ -117,7 +117,6 @@ def_locshape $shape = loc_shape;
 def_coord $loc_coord = loc_coord;
 $x, $z = ~door_open($angle, loc_shape);
 def_coord $dest = $loc_coord;
-sound_synth($sound, 1, 0);
 if ($entering = true) {
     if (coord ! $loc_coord) {
         p_teleport($loc_coord);
@@ -130,6 +129,7 @@ p_teleport($dest);
 // Temp note: dur updated
 loc_change(inviswall, 3);
 loc_add(movecoord($loc_coord, $x, 0, $z), $replacement, $dir, $shape, 3);
+sound_synth($sound, 1, 0);
 
 [proc,open_and_close_metal_gate](loc $replacement, boolean $entering, boolean $mirrored)
 // ~loc_shape_debug(loc_shape);

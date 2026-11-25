@@ -186,6 +186,62 @@ fn a_double_door_opens_both_leaves() {
 }
 
 #[test]
+fn lumbridge_dining_room_doors_let_the_player_through_then_shut() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = visitor(engine, "diningroom", 3213, 3221);
+        for (door, (x, z), across, side) in [
+            (
+                "hundred_lumbridge_doubledoorl",
+                (3213, 3221),
+                (3212, 0, 3221),
+                (3213, 3220),
+            ),
+            (
+                "hundred_lumbridge_doubledoorr",
+                (3213, 3222),
+                (3212, 0, 3222),
+                (3213, 3223),
+            ),
+            (
+                "hundred_lumbridge_door",
+                (3207, 3217),
+                (3207, 0, 3218),
+                (3206, 3217),
+            ),
+        ] {
+            engine.harness_telejump(client.pid, side.0, 0, side.1);
+            engine.cycle();
+            let id = TypeId::from(loc_id(engine, door));
+            for destination in [across, (x, 0, z)] {
+                client.op_loc(1, x, z, id);
+                if destination == across {
+                    let (_, approach_sounds) = run(engine, &mut client, 2);
+                    assert!(loc_at(engine, door, x, z).is_some(), "{door}");
+                    assert!(
+                        approach_sounds.is_empty(),
+                        "{door} played {approach_sounds:?} during approach"
+                    );
+                }
+                let (_, opening_sounds) = run(engine, &mut client, 1);
+                assert_eq!(opening_sounds, [DOOR_OPEN], "{door}");
+                assert_eq!(coord(engine, client.pid), destination, "{door}");
+                assert!(loc_at(engine, door, x, z).is_none(), "{door}");
+                if x == 3213 {
+                    let (other, other_z) = if z == 3221 {
+                        ("hundred_lumbridge_doubledoorr", 3222)
+                    } else {
+                        ("hundred_lumbridge_doubledoorl", 3221)
+                    };
+                    assert_eq!(loc_at(engine, other, x, other_z), Some(0));
+                }
+                run(engine, &mut client, 4);
+                assert!(loc_at(engine, door, x, z).is_some(), "{door}");
+            }
+        }
+    });
+}
+
+#[test]
 fn a_permanently_locked_door_refuses() {
     runner::on_loaded_engine(|engine| {
         // lockeddoor1 at 2794,3199 (angle 1, a straight wall).
