@@ -18,6 +18,10 @@ if (~check_if_success_pick_pocket($data) = false) {
 
 def_int $experience = db_getfield($data, pickpocket:experience, 0);
 ~pick_pocket_check_for_reward($data);
+if (npc_type = fai_varrock_guard | npc_type = fai_varrock_guard_captain) {
+    ~information_signs_new_day;
+    %information_signs_guards = calc(%information_signs_guards + 1);
+}
 anim(human_pickpocket, 0);
 // 289 pays with stat_advance, here and below; 2011's xp counter
 // counts what ~givexp pays (player/scripts/xp.rs2).
@@ -211,6 +215,10 @@ while ($count >= 0) {
             sound_synth(pick, 1, 0);
         }
         inv_add(inv, $reward, $reward_count);
+        if ($data = stealing_bakery_stall & ($reward = cake | $reward = bread)) {
+            ~information_signs_new_day;
+            %information_signs_cakes = calc(%information_signs_cakes + $reward_count);
+        }
         mes("You steal <$reward_message>.");
         return;
     }
