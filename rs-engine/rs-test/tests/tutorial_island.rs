@@ -110,9 +110,10 @@ const INTERACTED_WITH_DOOR: i32 = 10;
 const OPEN_INVENTORY: i32 = 20;
 const CUT_TREE: i32 = 30;
 const BUILD_FIRE: i32 = 40;
+#[cfg(before_647)]
+const PERFORMED_EMOTE: i32 = 190;
 #[cfg(since_647)]
 const OPEN_PLAYER_CONTROLS: i32 = 195;
-#[cfg(since_647)]
 const TOGGLED_ON_RUN: i32 = 200;
 const BEFORE_ATTACKING_MELEE: i32 = 430;
 
@@ -521,6 +522,29 @@ fn the_rat_pen_gate_takes_the_player_through_both_ways() {
         op_loc1(&mut client, leaf, gx, gz);
         ticks(engine, &mut client, 4);
         assert_eq!(coord(engine, client.pid), (3111, gz), "out of the pen");
+    });
+}
+
+#[cfg(before_647)]
+#[test]
+fn options_run_unlocks_at_the_run_step() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = developer(engine, "optionsrunner", START);
+        let run = varp_id(engine, "option_run");
+        let button = com("options:com_3");
+
+        for (step, expected_step, expected_run) in [
+            (OPENED_OPTIONS, OPENED_OPTIONS, 0),
+            (PERFORMED_EMOTE, TOGGLED_ON_RUN, 1),
+        ] {
+            set_tutorial(engine, client.pid, step);
+            button1(&mut client, button);
+            ticks(engine, &mut client, 2);
+            let player = engine.harness_player(client.pid).unwrap();
+            assert_eq!(player.vars.get(run).as_int(), expected_run);
+            assert_eq!(tutorial(engine, client.pid), expected_step);
+        }
     });
 }
 
