@@ -13,6 +13,10 @@ use rs_util::base37::{is_valid_userhash, to_raw_username};
 #[cfg(since_647)]
 use rs_util::base37::{is_valid_userhash, to_userhash};
 use rs_ver::STRING_TERMINATOR;
+#[cfg(all(since_647, before_742))]
+use rs_ver::archive::WORLDMAP_LOCS;
+#[cfg(since_647)]
+use rs_ver::archive::{LOADING_SPRITES, LOADING_SPRITES_RAW};
 #[cfg(since_647)]
 use std::net::Ipv4Addr;
 
@@ -65,6 +69,27 @@ pub struct LoginBlock {
 }
 
 impl LoginBlock {
+    /// Checks the reference-table CRCs in the order the client writes them.
+    #[cfg(since_530)]
+    pub fn archive_crcs_match(&self, expected: &[i32]) -> bool {
+        self.archive_crcs.iter().enumerate().all(|(slot, crc)| {
+            let archive = slot as u8;
+            #[cfg(since_647)]
+            let archive = match archive {
+                // The loader reports whichever loading-sprite archive it used.
+                LOADING_SPRITES if expected.get(LOADING_SPRITES_RAW as usize) == Some(crc) => {
+                    return true;
+                }
+                #[cfg(before_742)]
+                34 => WORLDMAP_LOCS,
+                #[cfg(since_742)]
+                34.. => archive + 1,
+                _ => archive,
+            };
+            expected.get(archive as usize) == Some(crc)
+        })
+    }
+
     #[cfg(before_530)]
     pub fn decode(
         mut buf: Packet,
@@ -702,6 +727,40 @@ Az5KOlJPE6c=
     #[test]
     fn world_select_reply_is_the_selected_code_and_world() {
         assert_eq!(world_select_reply(0x0102), [101, 1, 2]);
+    }
+
+    #[cfg(since_530)]
+    #[test]
+    fn login_checks_every_reported_archive_crc() {
+        #[cfg(before_647)]
+        let mut login =
+            LoginBlock::decode(login_payload(530, to_userhash("Player") as i64), &KEY).unwrap();
+        #[cfg(since_647)]
+        let mut login = LoginBlock::decode(login_payload(false, 0), &KEY, false).unwrap();
+        #[cfg(before_647)]
+        let archives: Vec<usize> = (0..28).collect();
+        #[cfg(all(since_647, before_742))]
+        let archives: Vec<usize> = (0..34).chain([36]).collect();
+        #[cfg(since_742)]
+        let archives: Vec<usize> = (0..34).chain(35..=37).collect();
+        let expected: Vec<i32> = (0..=*archives.last().unwrap() as i32)
+            .map(|id| -1000 - id)
+            .collect();
+        login.archive_crcs = array::from_fn(|slot| expected[archives[slot]]);
+        assert!(login.archive_crcs_match(&expected));
+        #[cfg(since_647)]
+        {
+            login.archive_crcs[32] = expected[34];
+            assert!(login.archive_crcs_match(&expected));
+        }
+        for slot in 0..ARCHIVE_CRCS {
+            login.archive_crcs[slot] ^= i32::MIN;
+            assert!(
+                !login.archive_crcs_match(&expected),
+                "stale CRC in slot {slot}"
+            );
+            login.archive_crcs[slot] ^= i32::MIN;
+        }
     }
 
     #[test]

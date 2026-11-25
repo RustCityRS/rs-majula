@@ -71,11 +71,15 @@ use crate::{compile_lobby_scripts, finish_cache, open_cache};
 use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rs_crypto::huffman::Huffman;
+#[cfg(since_647)]
+use rs_io::js5::compression::Container;
 use rs_ver::TypeId;
 use runec::symbol::identifier_form;
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
+#[cfg(since_647)]
+use std::sync::Arc;
 use std::time::Instant;
 use std::{fs, thread};
 use tracing::info;
@@ -168,6 +172,7 @@ impl InterfaceLayout {
 
 #[cfg(since_647)]
 pub struct LobbyAssets {
+    pub archive_crcs: Arc<[i32]>,
     pub commands: PackFile,
     pub seq_count: usize,
     pub scripts: ScriptProvider,
@@ -203,13 +208,35 @@ impl LobbyAssets {
         let varcs = pack_varcs(&files, &registry.varc, &constants)?.client;
         let varcstrs = pack_varc_strings(&files, &registry.varcstr, &constants)?.client;
         let names = AssetNames::load(pack_dir)?;
-        let mut packed = PackedCache::default();
-        let versions = archive::load_versions_dir(&content.join("versions"))?;
-        pack_archive(&mut packed, content, pack_dir, &versions, &names)?;
+        // A strict world serves the revision's known CRCs. A custom world serves
+        // the reference tables produced by packing the same content.
+        let packed = if verify {
+            let mut packed = PackedCache::default();
+            let versions = archive::load_versions_dir(&content.join("versions"))?;
+            pack_archive(&mut packed, content, pack_dir, &versions, &names)?;
+            packed
+        } else {
+            pack::pack_cache(content, pack_dir, false, &config_files, &names)?.1
+        };
+        let mut archive_crcs = Vec::new();
+        for (&id, expected) in archive::ARCHIVE_IDS.iter().zip(archive::EXPECTED_CRCS) {
+            let crc = if verify {
+                expected.with_context(|| format!("Missing reference CRC for archive {id}"))?
+            } else {
+                let table = packed
+                    .groups
+                    .get(&(archive::REFERENCE_TABLES, u32::from(id)))
+                    .with_context(|| format!("Missing reference table for archive {id}"))?;
+                Container::parse(table)?.crc() as i32
+            };
+            archive_crcs.resize(usize::from(id) + 1, 0);
+            archive_crcs[usize::from(id)] = crc;
+        }
         let enums = pack_enums(&files, &registry, &constants)?.server;
         let enums = TypeProvider::from_indexed_bytes::<EnumTypeRaw>(&enums.dat, &enums.idx, ())?;
         let layout = interface_layout(pack_dir, &enums, &names)?;
         let assets = Self {
+            archive_crcs: archive_crcs.into(),
             commands: PackFile::parse(&fs::read_to_string(pack_dir.join(LOBBY_COMMANDS))?),
             seq_count: registry.seq.max as usize,
             scripts: compile_lobby_scripts(content, pack_dir)?,

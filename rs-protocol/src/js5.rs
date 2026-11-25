@@ -3,7 +3,7 @@ use Prefetch::{Archive, Group};
 #[cfg(since_530)]
 use rs_crypto::rsa::RsaKey;
 use rs_io::Packet;
-#[cfg(all(since_530, before_647))]
+#[cfg(since_530)]
 use rs_io::crc::getcrc;
 #[cfg(since_530)]
 use rs_io::js5::compression::Container;
@@ -165,6 +165,7 @@ pub struct Js5Cache {
     groups: Arc<HashMap<(u8, u32), (u64, u32)>>,
     file: Arc<File>,
     absent: Arc<HashSet<(u8, u32)>>,
+    archive_crcs: Arc<[i32]>,
     #[cfg(since_647)]
     prefetches: [i32; PREFETCH_COUNT],
 }
@@ -193,13 +194,19 @@ impl Js5Cache {
             let len = Container::parse(data)?.data.len();
             data.truncate(len);
         }
+        let archive_crcs: Arc<[i32]> = (0..archive_count)
+            .map(|archive| {
+                let data = &groups[&(REFERENCE_TABLES, archive)];
+                getcrc(data, 0, data.len())
+            })
+            .collect();
         #[cfg(all(since_530, before_647))]
-        let master = encode_master_index((0..archive_count).map(|archive| {
+        let master = encode_master_index(archive_crcs.iter().enumerate().map(|(archive, &crc)| {
             let version = tables
                 .get(&(archive as u8))
                 .filter(|table| table.format >= 6)
                 .map_or(0, |table| table.index_version);
-            (groups[&(REFERENCE_TABLES, archive)].as_ref(), version)
+            (crc, version)
         }));
         #[cfg(since_647)]
         let master = encode_master_index(
@@ -265,9 +272,14 @@ impl Js5Cache {
             groups: Arc::new(groups),
             file: Arc::new(file),
             absent: Arc::new(absent),
+            archive_crcs,
             #[cfg(since_647)]
             prefetches,
         })
+    }
+
+    pub fn archive_crcs(&self) -> &[i32] {
+        &self.archive_crcs
     }
 
     pub fn get(&self, archive: u8, group: impl Into<u32>) -> io::Result<Option<Vec<u8>>> {
@@ -314,13 +326,13 @@ fn private_file(dir: &Path) -> io::Result<File> {
 }
 
 #[cfg(all(since_530, before_647))]
-fn encode_master_index<'a>(archives: impl ExactSizeIterator<Item = (&'a [u8], u32)>) -> Vec<u8> {
+fn encode_master_index(archives: impl ExactSizeIterator<Item = (i32, u32)>) -> Vec<u8> {
     let len = archives.len() << 3;
     let mut out = Packet::new(5 + len);
     out.p1(0);
     out.p4(len as i32);
-    for (data, version) in archives {
-        out.p4(getcrc(data, 0, data.len()));
+    for (crc, version) in archives {
+        out.p4(crc);
         out.p4(version as i32);
     }
     out.data

@@ -612,11 +612,10 @@ impl SharedCache {
 
 #[cfg(since_530)]
 #[derive(Clone)]
-struct Js5Service {
-    /// JS5 cache delivery: archive-255 reference tables, the master index and
-    /// group containers, read from the cache's file per request.
-    js5: Js5Cache,
-    js5_latest: Arc<RwLock<Js5Cache>>,
+enum Js5Service {
+    World(Arc<RwLock<Js5Cache>>),
+    #[cfg(since_647)]
+    Lobby(Arc<[i32]>),
 }
 
 #[derive(Clone)]
@@ -624,7 +623,7 @@ pub struct ServerIO {
     #[cfg(before_647)]
     cache: SharedCache,
     #[cfg(since_530)]
-    content: Option<Js5Service>,
+    content: Js5Service,
     #[cfg(since_647)]
     jav_config: Option<Arc<str>>,
     rsa: &'static RsaKey,
@@ -799,6 +798,7 @@ async fn serve_lobby(args: Args, secrets: Secrets) -> Result<()> {
         args.pack_cache.then_some(Path::new(PACK_CACHE_DIR)),
         args.verify,
     )?;
+    let content = Js5Service::Lobby(Arc::clone(&assets.archive_crcs));
     let (ether, outbound) = unbounded_channel();
     let (inbound, ether_rx) = unbounded_channel();
     let (new_player_tx, rx) = unbounded_channel();
@@ -831,7 +831,7 @@ async fn serve_lobby(args: Args, secrets: Secrets) -> Result<()> {
     }
     let state = ServerIO {
         rsa,
-        content: None,
+        content,
         jav_config: None,
         new_player_tx,
     };
@@ -1034,7 +1034,7 @@ async fn bootstrap(
     #[cfg(since_530)]
     drop(js5_cache.tables);
     #[cfg(since_530)]
-    let js5_latest = Arc::new(RwLock::new(js5.clone()));
+    let js5_latest = Arc::new(RwLock::new(js5));
 
     let (ether_tx, outbound) = unbounded_channel();
     let (inbound, ether_rx) = unbounded_channel();
@@ -1208,7 +1208,7 @@ async fn bootstrap(
         #[cfg(before_647)]
         cache: SharedCache(cache),
         #[cfg(since_530)]
-        content: Some(Js5Service { js5, js5_latest }),
+        content: Js5Service::World(js5_latest),
         #[cfg(since_647)]
         jav_config: Some(
             http::client_config(

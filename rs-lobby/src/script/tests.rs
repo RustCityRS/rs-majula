@@ -88,6 +88,7 @@ fn assets(source: &str) -> LobbyAssets {
         varcs.finish_entry();
     }
     LobbyAssets {
+        archive_crcs: Default::default(),
         commands: PackFile::parse(include_str!(concat!(
             "../../../content/",
             env!("REV"),

@@ -1,8 +1,8 @@
-#[cfg(since_530)]
-use crate::REVISION;
 #[cfg(all(since_530, before_647))]
 use crate::SocketType;
 use crate::{ConnectionGuard, ConnectionPermit, ServerIO, Socket};
+#[cfg(since_530)]
+use crate::{Js5Service, REVISION};
 use anyhow::bail;
 use mpsc::{Sender, UnboundedReceiver, UnboundedSender};
 use num_enum::TryFromPrimitive;
@@ -14,6 +14,8 @@ use rs_db::is_typeable_password;
 use rs_engine::{ClientIO, LoginRequest, MAX_UNSENT, create_io};
 use rs_io::Packet;
 use rs_protocol::LoginResponse;
+#[cfg(since_530)]
+use rs_protocol::js5::Js5Cache;
 #[cfg(since_244)]
 use rs_protocol::js5::{Js5Group, Js5Response};
 #[cfg(all(since_647, before_742))]
@@ -166,7 +168,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
 #[cfg(since_244)]
 pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     #[cfg(since_647)]
-    let mut permit = if client.server_io.content.is_none() {
+    let mut permit = if matches!(client.server_io.content, Js5Service::Lobby(_)) {
         Some(acquire_permit(&mut client, false, &[LoginResponse::IpLimit as u8]).await?)
     } else {
         None
@@ -223,7 +225,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                 #[cfg(before_530)]
                 client.write(&[0; 8]).await?;
                 #[cfg(since_530)]
-                {
+                let js5 = {
                     #[cfg(before_742)]
                     let current = {
                         let bytes = timeout(HANDSHAKE_TIMEOUT, client.read_exact(4)).await??;
@@ -243,19 +245,21 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                             .await?;
                         bail!("{}: js5 wrong revision", client.addr);
                     }
-                    let Some(content) = &mut client.server_io.content else {
-                        bail!("{}: JS5 requires a content endpoint", client.addr);
+                    let js5 = match &client.server_io.content {
+                        Js5Service::World(latest) => latest
+                            .read()
+                            .unwrap_or_else(PoisonError::into_inner)
+                            .clone(),
+                        #[cfg(since_647)]
+                        Js5Service::Lobby(_) => {
+                            bail!("{}: JS5 requires a content endpoint", client.addr)
+                        }
                     };
-                    content.js5 = content
-                        .js5_latest
-                        .read()
-                        .unwrap_or_else(PoisonError::into_inner)
-                        .clone();
                     #[cfg(before_647)]
                     client.write(&[0]).await?;
                     #[cfg(since_647)]
                     {
-                        let prefetches = content.js5.prefetches();
+                        let prefetches = js5.prefetches();
                         let mut reply = Packet::new(1 + size_of_val(&prefetches));
                         reply.p1(0);
                         for size in prefetches {
@@ -263,8 +267,14 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                         }
                         client.write(&reply.data).await?;
                     }
-                }
-                break js5_loop(client).await;
+                    js5
+                };
+                break js5_loop(
+                    client,
+                    #[cfg(since_530)]
+                    js5,
+                )
+                .await;
             }
             #[cfg(all(since_530, before_647))]
             HandshakeType::CreateAccount | HandshakeType::CheckName | HandshakeType::Unknown147 => {
@@ -310,7 +320,9 @@ async fn read_login_block(client: &mut Socket, max: usize) -> anyhow::Result<Pac
 
 async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Result<()> {
     #[cfg(since_647)]
-    if matches!(kind, HandshakeType::LobbyLogin) != client.server_io.content.is_none() {
+    if matches!(kind, HandshakeType::LobbyLogin)
+        != matches!(client.server_io.content, Js5Service::Lobby(_))
+    {
         client.write(&[LoginResponse::BadSession as u8]).await?;
         return Ok(());
     }
@@ -325,6 +337,24 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
     );
     #[cfg(since_647)]
     let login = login.map_err(|_| LoginResponse::BadCredentials);
+    #[cfg(since_530)]
+    let login = login.and_then(|login| {
+        let current = match &client.server_io.content {
+            Js5Service::World(latest) => login.archive_crcs_match(
+                latest
+                    .read()
+                    .unwrap_or_else(PoisonError::into_inner)
+                    .archive_crcs(),
+            ),
+            #[cfg(since_647)]
+            Js5Service::Lobby(crcs) => login.archive_crcs_match(crcs),
+        };
+        if current {
+            Ok(login)
+        } else {
+            Err(LoginResponse::OutOfDateClientVersion)
+        }
+    });
     let login = match login {
         Ok(login) => login,
         Err(response) => {
@@ -457,7 +487,7 @@ const REQUEST_LEN: usize = 4;
 const REQUEST_LEN: usize = 6;
 
 #[cfg(since_244)]
-async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
+async fn js5_loop(mut client: Socket, #[cfg(since_530)] js5: Js5Cache) -> anyhow::Result<()> {
     let mut queues: [VecDeque<(u8, Js5Group)>; 3] = Default::default();
     let mut partial = Vec::new();
     #[cfg(since_530)]
@@ -497,6 +527,8 @@ async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
             let urgent = priority == 0;
             let send = send_js5_file(
                 &mut client,
+                #[cfg(since_530)]
+                &js5,
                 archive,
                 file,
                 #[cfg(since_530)]
@@ -566,17 +598,12 @@ fn enqueue_requests(
 #[cfg(since_530)]
 async fn send_js5_file(
     client: &mut Socket,
+    js5: &Js5Cache,
     archive: u8,
     file: Js5Group,
     urgent: bool,
     xor: u8,
 ) -> anyhow::Result<()> {
-    let js5 = &client
-        .server_io
-        .content
-        .as_ref()
-        .expect("accepted JS5 handshake")
-        .js5;
     let data = js5.get(archive, file)?.unwrap_or_else(|| {
         if !js5.is_absent(archive, file) {
             warn!("JS5 missing: archive={archive} group={file}");
