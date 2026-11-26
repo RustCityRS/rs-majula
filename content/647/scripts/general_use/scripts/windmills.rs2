@@ -128,7 +128,14 @@ if(%hopper_full = ^false) {
 }
 p_arrivedelay;
 anim(human_pickuptable, 0);
-loc_change(hoppercontrol_inuse, 3);
+// 2011's: no pulled lever. Build 646 (OpenRS2 cache 680, 2011-05-11) still
+// had loc 2722 as "Hopper controls", model 1382. Build 647 (caches 786 and
+// 274, 2011-05-16 and 05-20) dropped it, with the old hoppers 2713 2714 2716
+// and controls 2720, and no loc in cache 786 draws model 1382. Our 2722 is
+// the donor Cupboard (build 650, cache 262) that the restored Draynor map
+// (l48_50) places, so changing into it showed a cupboard.
+// No source found for whether 2011 animated the controls instead.
+// loc_change(hoppercontrol_inuse, 3);
 sound_synth(lever, 1, 0);
 if(%hopper_full = ^true) {
     if (%millcheck_multi > 29) {
