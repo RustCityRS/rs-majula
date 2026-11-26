@@ -13,3 +13,58 @@ if(random(2) = 0) {
     midi_song("church music 2");
     if_settext(music_v3:now_playing_text, "");
 }
+
+// Lumbridge church
+[oploc1,organ_36978]
+def_coord $entry = coord;
+def_coord $organ = movecoord(loc_coord, -1, 0, 0);
+if (region_findbycoord($entry) = false) {
+    $organ = ~lumbridge_organ_scene;
+}
+p_telejump(movecoord($organ, 2, 0, -9));
+p_loaddelay;
+
+def_int $play_ticks = ~seqlength20ms(seq_9982);
+if (loc_find($organ, fai_lumbridge_playable_organ) = false) {
+    ~place_lumbridge_organ($organ, calc($play_ticks + 4));
+}
+minimap_toggle(2);
+cam_moveto(movecoord($organ, 2, 0, -7), 405, 1, 100);
+cam_lookat(movecoord($organ, 1, 0, 0), 405, 1, 100);
+// The client installs new scenery between updates. Start the hands once the organ is in place.
+p_delay(2);
+loc_anim(seq_9982);
+~music_jingle(jingle_325);
+cam_moveto(movecoord($organ, 2, 0, -3), 400, 1, 1);
+cam_lookat(movecoord($organ, 1, 0, 0), 400, 1, 1);
+p_delay($play_ticks);
+cam_reset;
+minimap_toggle(0);
+p_telejump($entry);
+
+[proc,lumbridge_organ_scene]()(coord)
+region_create(4, 3, 3);
+region_setexitcoord(coord);
+def_int $level = 0;
+while ($level < 4) {
+    def_int $x = 0;
+    while ($x < 3) {
+        def_int $z = 0;
+        while ($z < 3) {
+            region_set($level, $x, $z, movecoord(0_50_50_32_0, calc($x * 8), $level, calc($z * 8)), 0);
+            $z = calc($z + 1);
+        }
+        $x = calc($x + 1);
+    }
+    $level = calc($level + 1);
+}
+def_coord $organ = region_getcoord(0, 10, 14);
+~place_lumbridge_organ($organ, 0);
+return($organ);
+
+// The animated organ is four tiles wide and starts one tile west of the church organ.
+[proc,place_lumbridge_organ](coord $organ, int $duration)
+if (loc_find(movecoord($organ, 1, 0, 0), organ_36978) = true) {
+    loc_del($duration);
+}
+loc_add($organ, fai_lumbridge_playable_organ, 0, centrepiece_straight, $duration);

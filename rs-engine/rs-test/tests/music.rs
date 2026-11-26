@@ -14,7 +14,15 @@
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_grid::CoordGrid;
+use rs_io::Packet;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server::ServerProtMessage;
+use rs_protocol::network::game::server::loc_add_change::LocAddChange;
+use rs_protocol::network::game::server::loc_anim::LocAnim;
+use rs_protocol::network::game::server_prot::ServerProt;
+use rs_protocol::network::game::zone_prot::ZoneProt;
 use rs_test::names::com;
 use rs_test::runner;
 use rs_test::server;
@@ -73,6 +81,91 @@ fn unlocked(engine: &Engine, pid: u16, track: i32) -> bool {
     let var = varp(engine, &format!("musicmulti_{}", track / 32 + 1));
     let player = engine.harness_player(pid).unwrap();
     player.vars.get(var).as_int() & (1 << (track % 32)) != 0
+}
+
+fn zone_event_tick<M: ServerProtMessage>(
+    ticks: &[Vec<(u16, Vec<u8>)>],
+    opcode: ZoneProt,
+    message: M,
+) -> usize {
+    let mut expected = Packet::new(1 + message.sizeof());
+    expected.p1(opcode as u8);
+    message.encode(&mut expected);
+    let event = &expected.data[..expected.pos];
+    ticks
+        .iter()
+        .position(|packets| {
+            server::of(packets, M::PROT).any(|payload| payload == &event[1..])
+                || server::of(packets, ServerProt::UpdateZonePartialEnclosed)
+                    .any(|zone| zone.windows(event.len()).any(|part| part == event))
+        })
+        .expect("missing zone event")
+}
+
+#[test]
+fn playing_the_lumbridge_organ() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = engine
+            .harness_login_returning_at("organist", 3244, 3213)
+            .unwrap();
+        ticks(engine, &mut client, 3);
+        let entry = engine.harness_player(client.pid).unwrap().pathing.coord;
+        client.send(ClientProt::MapBuildComplete, &[]);
+        client.op_loc(1, 3243, 3214, TypeId::new(36978));
+
+        let mut scene = Vec::new();
+        for _ in 0..60 {
+            client.send(ClientProt::NoTimeout, &[]);
+            engine.cycle();
+            let packets = client.packets();
+            if server::of(&packets, ServerProt::RebuildRegion)
+                .next()
+                .is_some()
+            {
+                client.send(ClientProt::MapBuildComplete, &[]);
+            }
+            let ended = server::of(&packets, ServerProt::CamReset).next().is_some();
+            scene.push(packets);
+            if ended && engine.harness_player(client.pid).unwrap().pathing.coord == entry {
+                break;
+            }
+        }
+
+        let organ_tile = CoordGrid::packed_zone_coord(3242, 3214);
+        let placed = zone_event_tick(
+            &scene,
+            ZoneProt::LocAddChange,
+            LocAddChange {
+                coord: organ_tile,
+                shape_angle: 10 << 2,
+                id: TypeId::new(36979),
+            },
+        );
+        let played = zone_event_tick(
+            &scene,
+            ZoneProt::LocAnim,
+            LocAnim {
+                coord: organ_tile,
+                shape_angle: 10 << 2,
+                seq: TypeId::new(9982),
+            },
+        );
+        assert!(
+            played >= placed + 3,
+            "organ placed on tick {placed}, animated on tick {played}"
+        );
+
+        let scene: Vec<_> = scene.into_iter().flatten().collect();
+        assert_eq!(server::of(&scene, ServerProt::RebuildRegion).count(), 1);
+        assert_eq!(server::jingles(&scene), [325]);
+        assert!(!server::cam_movetos(&scene).is_empty());
+        assert!(!server::cam_lookats(&scene).is_empty());
+        assert_eq!(server::of(&scene, ServerProt::CamReset).count(), 1);
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().pathing.coord,
+            entry
+        );
+    });
 }
 
 #[test]
