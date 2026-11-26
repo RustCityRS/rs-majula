@@ -24,20 +24,15 @@ use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const ATTACK: usize = 0;
 /// 83 xp, level 2, in the engine's tenths.
-#[cfg(since_647)]
 const LEVEL_2_XP: i32 = 830;
 const LEVELUP: u16 = 740;
-#[cfg(since_647)]
 const LEVELUP_DETAILS: u16 = 741;
-#[cfg(since_647)]
 const SKILL_GUIDE: u16 = 499;
 /// The stats tab's attack: its View menu (void-634's id).
-#[cfg(since_647)]
 fn stats_attack() -> i32 {
     com("stats:attack_button")
 }
 
-#[cfg(since_647)]
 const SKILL_STAT_FLASH: u16 = 1179;
 #[cfg(since_647)]
 const LEVEL_UP_DETAILS: u16 = 1230;
@@ -76,7 +71,6 @@ fn continue_box(client: &mut HarnessClient) {
     client.resume_pausebutton(com("interface_740:close"), 0xFFFF);
 }
 
-#[cfg(since_647)]
 fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
     engine
         .harness_player(client.pid)
@@ -87,7 +81,6 @@ fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
 }
 
 /// Clicks `com`; the game messages said meanwhile.
-#[cfg(since_647)]
 fn click(engine: &mut Engine, client: &mut HarnessClient, com: i32) -> Vec<String> {
     client.if_button(1, com, 0xFFFF, TypeId::NULL);
     let mut said = Vec::new();
@@ -383,5 +376,98 @@ fn the_stat_flash_is_not_saved() {
             VarPlayerScope::Perm,
             "skill_stat_flash is not saved"
         );
+    });
+}
+
+/// Levels attack up with `xp` more (in tenths) and continues the level-up box.
+fn level_attack_up(engine: &mut Engine, client: &mut HarnessClient, xp: i32) {
+    engine.harness_add_xp(client.pid, ATTACK, xp);
+    for _ in 0..3 {
+        engine.cycle();
+    }
+    continue_box(client);
+    for _ in 0..2 {
+        engine.cycle();
+    }
+    client.packets();
+}
+
+/// Whether the server had a script for a click: no debug "No trigger for [...]" line.
+fn answered(said: &[String]) -> bool {
+    !said.iter().any(|m| m.starts_with("No trigger for"))
+}
+
+/// The level-up scroll (741) and the guide (499) from the stats tab, as a player reaches them:
+/// a level flashes the stat, its click opens the scroll, a later click the guide. Each window's
+/// close button (op1 "Close", transmitop) closes it in the client and sends IF_BUTTON1 too;
+/// the server closes its side, with no "No trigger" (530: 741:9 and 499:26; 647: 741:9 and
+/// 499:29; 742: 741:8 and 499:28). From 647 the scroll's "Open Skill Advance Guide" link (op1
+/// "Open Skill Guide", transmitop, no clientscript: 741:10 at 647, 741:9 at 742) opens the
+/// scroll's stat's guide. 530's scroll has no link.
+#[test]
+fn the_level_up_scroll_and_guide_buttons_answer() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("scrollbtns").expect("login");
+        engine.cycle();
+        client.packets();
+
+        level_attack_up(engine, &mut client, LEVEL_2_XP);
+        assert_eq!(
+            varp(engine, &client, SKILL_STAT_FLASH) & 1,
+            1,
+            "attack flashes"
+        );
+        let said = click(engine, &mut client, stats_attack());
+        assert!(
+            is_open(engine, &client, LEVELUP_DETAILS),
+            "the flashing stat opens lvl_scroll; said {said:?}"
+        );
+
+        let said = click(engine, &mut client, com("lvl_scroll:close_button"));
+        assert!(answered(&said), "the scroll's close; said {said:?}");
+        assert!(
+            !is_open(engine, &client, LEVELUP_DETAILS),
+            "the scroll closes"
+        );
+
+        let said = click(engine, &mut client, stats_attack());
+        assert!(
+            is_open(engine, &client, SKILL_GUIDE),
+            "the quiet stat opens the guide; said {said:?}"
+        );
+        let said = click(engine, &mut client, com("skill_guide_v2:close_button"));
+        assert!(answered(&said), "the guide's close; said {said:?}");
+        assert!(!is_open(engine, &client, SKILL_GUIDE), "the guide closes");
+
+        #[cfg(since_647)]
+        {
+            // Strength's guide first, so the link has to take the scroll's own stat.
+            click(engine, &mut client, com("stats:strength_button"));
+            assert!(is_open(engine, &client, SKILL_GUIDE), "strength's guide");
+            assert_ne!(varp(engine, &client, SKILL_GUIDE_VARP), 1);
+            click(engine, &mut client, com("skill_guide_v2:close_button"));
+
+            // Level 3 (174 xp): attack flashes again, and the scroll's link opens its guide.
+            level_attack_up(engine, &mut client, 1740 - LEVEL_2_XP);
+            let said = click(engine, &mut client, stats_attack());
+            assert!(
+                is_open(engine, &client, LEVELUP_DETAILS),
+                "lvl_scroll again; said {said:?}"
+            );
+            let said = click(engine, &mut client, com("lvl_scroll:skill_guide"));
+            assert!(answered(&said), "the link; said {said:?}");
+            assert!(
+                is_open(engine, &client, SKILL_GUIDE),
+                "the link opens the guide; said {said:?}"
+            );
+            assert!(!is_open(engine, &client, LEVELUP_DETAILS));
+            assert_eq!(
+                varp(engine, &client, SKILL_GUIDE_VARP),
+                1,
+                "attack's guide (1 in the menu), first section"
+            );
+        }
+        assert!(engine.script_errors.take().is_empty());
     });
 }

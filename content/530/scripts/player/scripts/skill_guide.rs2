@@ -69,6 +69,17 @@ if_openmain(skill_guide_v2);
 [if_button,skill_guide_v2:subsection_button_14] @change_skill_guide(13);
 [if_button,skill_guide_v2:subsection_button_15] @change_skill_guide(14);
 
+// The scroll's and the guide's close buttons (741:9 and 499:26 in 530's cache: op1 "Close",
+// transmitop) close the window in the client (onop=if_close: clientscript 29 is if_close)
+// and send IF_BUTTON1 too. As with trademain's close button, the server closes its own side
+// and does nothing else; before this it answered "No trigger". 530's scroll has no "Open
+// Skill Advance Guide" link (741:10 is layer_1), so it needs no handler for one.
+[if_button1,lvl_scroll:close_button]
+if_close;
+
+[if_button1,skill_guide_v2:close_button]
+if_close;
+
 [label,change_skill_guide](int $page)
 db_find(levelup:stat, %skill_guide_skill);
 def_dbrow $row = db_findnext;
