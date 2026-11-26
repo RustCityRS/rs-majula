@@ -13,7 +13,7 @@ use rs_protocol::network::game::client::oploc5::OpLoc5;
 use rs_protocol::network::game::client::oploc6::OpLoc6;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
-use rs_vm::engine::{ScriptEngine, ScriptPlayer};
+use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
 
 /// Handles the `OpLoc1` client protocol message.
@@ -86,14 +86,23 @@ impl ClientGameHandler for OpLoc5 {
     }
 }
 
-/// Handles the `OpLoc6` client protocol message: Examine. The client sends
-/// only the loc type it shows, and walks nowhere; the answer is the type's
-/// `desc`.
+/// Handles the `OpLoc6` client protocol message: Examine. Before 742 the
+/// client sends only the loc type it shows; from 742 it sends the loc's tile
+/// and type like the other ops, and the loc must be in that tile's zone. It
+/// walks nowhere; the answer is the shown type's `desc`.
 #[cfg(since_530)]
 impl ClientGameHandler for OpLoc6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
-        let desc = engine().locs().get_by_id(TypeId::from_int(self.loc.int()));
+        #[cfg(before_742)]
+        let shown = self.loc;
+        #[cfg(since_742)]
+        let Some(shown) = zone_loc(self.x, active.player.pathing.coord.y(), self.z, self.loc)
+            .and_then(|_| active.shown_loc(self.loc))
+        else {
+            return Ok(());
+        };
+        let desc = engine().locs().get_by_id(shown);
         if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
             active.message_game(desc);
         } else {
