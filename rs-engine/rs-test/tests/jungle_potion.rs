@@ -13,6 +13,7 @@ use rs_pack::cache::VarValue;
 use rs_test::names::com;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
@@ -521,6 +522,8 @@ fn the_rocks_lead_into_the_cave_and_the_hand_holds_out() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "jungle_herbalist", 9);
+        // The cave's jogres hunt a level 1 player, on ticks their wander rolls decide.
+        world::calm(engine, 2830, 9520, 32);
         let pothole = loc_id(engine, "pothole_cave_entrance");
         let (x, z) = beside(POTHOLE.0 - 1, 0, POTHOLE.1);
         engine.harness_telejump(client.pid, x, 0, z);
