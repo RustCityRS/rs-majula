@@ -130,7 +130,13 @@ if(%hopper_full = ^false) {
 }
 p_arrivedelay;
 anim(human_pickuptable, 0);
-loc_change(hoppercontrol_inuse, 3);
+// 742's: no pulled lever. Its own cache has 2722 as a 2x1 Cupboard (model
+// 48621, placed in Draynor), as since build 650 (OpenRS2 cache 262), and no
+// loc in it draws the pulled lever: its model 1382 is another mesh (440
+// vertices, not 88), used by 62143 and 62144. Changing into 2722 showed a
+// cupboard.
+// No source found for whether 742 animated the controls instead.
+// loc_change(hoppercontrol_inuse, 3);
 sound_synth(lever, 1, 0);
 if(%hopper_full = ^true) {
     if (%millcheck_multi > 29) {

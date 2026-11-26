@@ -14,6 +14,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 #[cfg(since_647)]
 use rs_pack::cache::VarValue;
+use rs_pack::types::LocLayer;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
@@ -148,6 +149,95 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
             "a pot of flour"
         );
         assert_eq!(flour(engine, client.pid), 0, "the bin is empty again");
+    });
+}
+
+/// The loc the controls' tile shows on the ground layer, by type.
+fn at_controls(engine: &Engine) -> Option<TypeId> {
+    let zone = engine.zones.zone(CONTROLS.1, 2, CONTROLS.2)?;
+    let idx = zone.get_loc_by_layer(CONTROLS.1, CONTROLS.2, LocLayer::Ground)?;
+    Some(zone.locs[idx].id())
+}
+
+fn loc_name(engine: &Engine, id: TypeId) -> Option<String> {
+    let ty = engine.cache.locs.get_by_id(id)?;
+    ty.name.as_deref().map(str::to_owned)
+}
+
+/// Operating the hopper controls. 530's own cache has 289's
+/// `hoppercontrol_inuse` (2722) as the pulled lever, "Hopper controls" on
+/// model 1382, so 530 swaps the controls for it for a few ticks. 2011 has no
+/// pulled lever: build 646 (OpenRS2 cache 680) had 2722, build 647 (caches
+/// 786 and 274) dropped it, and our 647 2722 is the donor Cupboard of build
+/// 650. 742's own cache has 2722 as a Cupboard too. So 647 and 742 leave the
+/// controls in place rather than turn them into a cupboard.
+#[test]
+fn operating_the_hopper_controls_never_shows_a_cupboard() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine
+            .harness_login_returning("leverpuller")
+            .expect("login");
+        engine.cycle();
+        engine.harness_telejump(client.pid, 3165, 2, 3307);
+        ticks(engine, &mut client, 10);
+        let controls = TypeId::from_int(CONTROLS.0);
+        assert_eq!(at_controls(engine), Some(controls));
+
+        set_recording(true);
+        forget_calls();
+        op_loc1(&mut client, CONTROLS);
+        // The loc on the controls' tile, tick by tick.
+        let shown: Vec<Option<TypeId>> = (0..10)
+            .map(|_| {
+                engine.cycle();
+                at_controls(engine)
+            })
+            .collect();
+        let said = calls_for("mes");
+        assert!(
+            said.iter()
+                .any(|m| m == "You operate the empty hopper. Nothing interesting happens."),
+            "said {said:?}"
+        );
+        assert!(engine.script_errors.take().is_empty());
+        for id in shown.iter().flatten() {
+            assert_eq!(
+                loc_name(engine, *id).as_deref(),
+                Some("Hopper controls"),
+                "loc {id:?} on the controls' tile, shown {shown:?}"
+            );
+        }
+
+        #[cfg(before_647)]
+        {
+            let inuse = engine
+                .cache
+                .locs
+                .get_by_debugname("hoppercontrol_inuse")
+                .expect("hoppercontrol_inuse")
+                .id;
+            // loc_change(hoppercontrol_inuse, 3): one run of up to 3 ticks.
+            let first = shown.iter().position(|&s| s == Some(inuse));
+            let first = first.unwrap_or_else(|| panic!("no pulled lever, shown {shown:?}"));
+            let pulled = shown[first..]
+                .iter()
+                .take_while(|&&s| s == Some(inuse))
+                .count();
+            assert!(
+                (1..=3).contains(&pulled),
+                "pulled for {pulled}, shown {shown:?}"
+            );
+            assert!(
+                shown[first + pulled..].iter().all(|&s| s == Some(controls)),
+                "then the controls again, shown {shown:?}"
+            );
+        }
+        #[cfg(since_647)]
+        assert!(
+            shown.iter().all(|&s| s == Some(controls)),
+            "the controls stay, shown {shown:?}"
+        );
     });
 }
 

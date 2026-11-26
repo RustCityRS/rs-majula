@@ -1853,6 +1853,10 @@ model=8,model_48642
 name=Wardrobe
 occlude=yes
 
+// Not a hopper lever: build 650's Cupboard (OpenRS2 cache 262, 2011-06-02),
+// for the restored maps l48_50 and l33_76 that place 2722. Cache 786 has no
+// 2722; build 646 (OpenRS2 cache 680) had it as the pulled hopper lever
+// (model 1382). The 647 windmill script does not change the controls into it.
 [hoppercontrol_inuse]
 desc=These control the flow of wheat from the hopper to the millstones.
 active=yes
