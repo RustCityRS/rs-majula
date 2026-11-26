@@ -126,7 +126,7 @@ See [`rs-ether/README.md`](rs-ether/README.md) for more on the sidecar.
 
 ## Playing
 
-**In a browser (225–289).** Open http://localhost:8080/ in any browser with WebAssembly, phones
+**In a browser (225–530).** Open http://localhost:8080/ in any browser with WebAssembly, phones
 included.
 
 **With the original Java client (225–289).** Find `public/<REV>/client.jar` for your revision and run:
@@ -142,49 +142,6 @@ The arguments are: node id, port offset, `lowmem` or `highmem`, `free` or `membe
 ```bash
 java -Xmx512m -jar public/530/launcher.jar 1 live english game0
 ```
-
-The first argument is the world. The client connects to port `40000 + world` on localhost, so
-world 1 (node 10) is port 40001. Its world list holds this world alone: `RS_WORLD_LOCATION` and
-`RS_WORLD_COUNTRY` (225 United States, 77 United Kingdom, 38 Canada) set its location and flag,
-and `RS_WORLD_ACTIVITY` fills its activity column. For high detail, run
-`public/530/hd/launcher.jar` the same way and choose High detail on the title screen. It ships
-the 2009 OpenGL natives for Windows, Linux, Solaris and macOS (Intel and PowerPC, on Apple's
-Java 6 or 5); without them it plays in standard detail. Windows x64 needs the Visual C++ 2005
-runtime (`MSVCR80.dll`), Linux `libXxf86vm`.
-
-**Lobbies for revisions 647 and 742.** Start the world and lobby in separate terminals with the
-same revision, content, login key, password pepper, cluster cookie and PostgreSQL database.
-
-```bash
-REV=742 cargo world1
-REV=742 cargo lobby
-```
-
-The world serves the client and JS5 cache. The lobby runs LS2 on a 50 ms tick. By default its
-client ID is 1001 (TCP 41001). With node 10 its WebSocket listener is on 8380 and its local
-Ether sidecar is on 5310. Configure the public endpoints with `RS_WORLD_ADDRESS` on each world
-and `RS_LOBBY_ADDRESS` and `RS_LOBBY_ID` on the worlds advertising a lobby. Set the same
-`RS_LOBBY_ID` on that lobby. A world's public TCP port is 40000 plus its client world ID.
-Each world sets its own row in the lobby's world list. `RS_WORLD_LOCATION` names its location (default RuneScape).
-`RS_WORLD_COUNTRY` picks the flag by the client's country number (default
-225, the United States; 77 is the United Kingdom, 38 Canada, 2 the European Union).
-`RS_WORLD_ACTIVITY` gives it an activity, shown in place of the location.
-Give every lobby a distinct numeric `--node-id` across the cluster. A world and a lobby may
-share a numeric ID. Point `RS_CLUSTER_HOSTS` at the participating `world<N>@host` and
-`lobby<N>@host` nodes. In production, run `rs-server migrate` and deploy the
-matching Ether release before starting these services. Start the lobby process with
-`rs-server --node-id 10 lobby` and the world process with `rs-server --node-id 10 --no-tui`.
-Forward WebSocket connections through the same trusted real-IP proxy configuration as the worlds.
-
-Release builds require a lobby visit for a fresh world login. Debug builds also accept direct
-world login. `--direct-world-login true|false` or `RS_DIRECT_WORLD_LOGIN` overrides the default.
-A lobby accepts up to 8,192 players. `--lobby-capacity` or `RS_LOBBY_CAPACITY` can lower that
-limit. Each process shares its transport cap across TCP and WebSocket logins. The account limit applies
-across all worlds and lobbies together (one per IP in release, two in debug, with IPv6 grouped
-by /64). Lobby visits last up to one hour. A client silent for 60 seconds is disconnected.
-The world has 15 seconds to claim a departing client's visit using the same account, address,
-revision and client session. Each visit can be claimed once. A client that returns to a lobby
-within those 15 seconds with the same address, revision and client session takes the visit back.
 
 **With the original Java client (647).**
 
@@ -202,6 +159,9 @@ This connects to world 1 at port 40001 and lobby 1001 at port 41001 on localhost
 java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
   deploy/client/AppletLoader.java http://127.0.0.1:8080/jav_config.ws
 ```
+
+**Lobbies for revisions 647 and 742.** Start the world and lobby in separate terminals with the
+same revision, content, login key, password pepper, cluster cookie and PostgreSQL database.
 
 For world 2 (node 11), use port 8081. Each world supplies its configured world and lobby endpoints.
 
