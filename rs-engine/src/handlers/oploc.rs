@@ -13,7 +13,7 @@ use rs_protocol::network::game::client::oploc5::OpLoc5;
 use rs_protocol::network::game::client::oploc6::OpLoc6;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::trigger::ServerTriggerType;
 
 /// Handles the `OpLoc1` client protocol message.
@@ -96,6 +96,8 @@ impl ClientGameHandler for OpLoc6 {
         let desc = engine().locs().get_by_id(TypeId::from_int(self.loc.int()));
         if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
             active.message_game(desc);
+        } else {
+            active.message_game("This examine is missing!")
         }
         Ok(())
     }

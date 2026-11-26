@@ -241,6 +241,28 @@ fn lumbridge_dining_room_doors_let_the_player_through_then_shut() {
     });
 }
 
+#[cfg(before_647)]
+#[test]
+fn swamp_hut_and_piscatoris_doors_close_to_their_original_locs() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = visitor(engine, "swampwalker", 3147, 3172);
+        for (closed, x, z) in [("door_15056", 3147, 3172), ("door_14923", 2319, 3677)] {
+            engine.harness_telejump(client.pid, x, 0, z);
+            run(engine, &mut client, 2);
+            client.op_loc(1, x, z, TypeId::from(loc_id(engine, closed)));
+            let (_, sounds) = run(engine, &mut client, 4);
+            assert_eq!(sounds, [DOOR_OPEN]);
+            assert_eq!(loc_at(engine, closed, x, z), None);
+            assert_eq!(loc_at(engine, "door_14924", x, z + 1), Some(2));
+
+            client.op_loc(1, x, z + 1, TypeId::from(loc_id(engine, "door_14924")));
+            run(engine, &mut client, 4);
+            assert_eq!(loc_at(engine, closed, x, z), Some(1));
+            assert_eq!(loc_at(engine, "door_14924", x, z + 1), None);
+        }
+    });
+}
+
 #[test]
 fn a_permanently_locked_door_refuses() {
     runner::on_loaded_engine(|engine| {

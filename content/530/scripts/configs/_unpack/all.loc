@@ -116101,6 +116101,7 @@ op1=Search
 forceapproach=east
 model=8,model_9500
 name=Bookcase
+desc=A case. With books.
 category=bookcase
 
 // 9524
@@ -181950,6 +181951,9 @@ recol3s=17764
 recol3d=12581
 model=1,model_5189
 name=Door
+desc=Keeps the wind out.
+category=door_closed
+param=next_loc_stage,door_14924
 
 // 15057
 [skeleton_15057]
@@ -188548,6 +188552,7 @@ recol3s=12448
 recol3d=9345
 model=8,model_5192
 name=Bed
+desc=A well slept in bed.
 
 // 15684
 [table_15684]
@@ -188562,6 +188567,7 @@ recol3s=16809
 recol3d=12581
 model=8,model_7712
 name=Table
+desc=Generally used for putting things on.
 
 // 15685
 [cooking_shelves_15685]
@@ -188573,6 +188579,7 @@ recol3s=6272
 recol3d=10434
 model=8,model_1271
 name=Cooking shelves
+desc=Storage for cookery items.
 
 // 15686
 [cave_generic_wall_pillar_ext1]
@@ -188626,6 +188633,7 @@ recol1s=2112
 recol1d=14694
 model=Q,model_2057
 name=Portrait
+desc=A painting of the King looking royal.
 
 // 15691
 [painting_15691]
@@ -188635,6 +188643,7 @@ recol1s=2112
 recol1d=14694
 model=Q,model_36410
 name=Painting
+desc=A mysterious figure stands alone in this haunting image.
 
 // 15692
 [crate_15692]
@@ -188649,6 +188658,7 @@ recol4s=11524
 recol4d=9410
 model=8,model_7700
 name=Crate
+desc=Some wooden crates.
 
 // 15693
 [crates_15693]
@@ -188663,6 +188673,7 @@ recol4s=11524
 recol4d=9410
 model=8,model_7704
 name=Crates
+desc=Wooden crates.
 
 // 15694
 [loc_15694]
@@ -321262,6 +321273,7 @@ recol1s=5217
 recol1d=8516
 model=8,model_14146
 name=Bush
+desc=A bush made up of long slender branches.
 
 // 27202
 [hw07_goo_pit_edge]
@@ -445049,6 +445061,7 @@ recolhsl4s=5908
 recolhsl4d=5396
 model=8,model_9500
 name=Bookcase
+desc=A case. With books.
 category=bookcase
 
 // 36833
@@ -446674,6 +446687,7 @@ recol2s=7329
 recol2d=8388
 model=8,model_5192
 name=Bed
+desc=A well slept in bed.
 
 // 36943
 [fai_lumbridge_bed3]
@@ -447832,7 +447846,7 @@ recol6s=11524
 recol6d=8388
 model=8,model_7700
 name=Crate
-desc=A wooden crate.
+desc=Some wooden crates.
 category=empty_crate
 
 // 37017
@@ -447855,6 +447869,7 @@ recol6s=11524
 recol6d=8388
 model=8,model_7704
 name=Boxes
+desc=Wooden crates.
 
 // 37018
 [slice_dwarf_station_entrance_inactive]
