@@ -64,7 +64,7 @@ against unmodified cache content.
 | **Rust** (via `rustup`) | stable, **1.95 or newer**, edition 2024 | `rust-toolchain.toml` pins it, so `rustup` installs the right one for you. Builds use `-C target-cpu=native`, so a binary is tuned to the machine that built it. |
 | **A C linker**          | any                                     | Every Rust build needs one: MSVC Build Tools on Windows, `cc` or `clang` on Linux and macOS.                                                                     |
 | **Docker** with Compose | any                                     | **Needed to log in.** It runs Postgres 17 (`docker-compose.yml`), where accounts live.                                                                           |
-| **Elixir** with `mix`   | `~> 1.15`                               | **Needed to log in.** It runs the `rs-ether` sidecar, which checks logins across worlds. The server starts it from source for you.                               |
+| **Elixir** with `mix`   | `~> 1.20`                               | **Needed to log in.** It runs the `rs-ether` sidecar, which checks logins across worlds. The server starts it from source for you.                               |
 | **Git**                 | any                                     | `rs-ether` is a submodule, so clone with `--recursive`.                                                                                                          |
 
 > [!NOTE]
