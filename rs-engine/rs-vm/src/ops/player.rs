@@ -1669,5 +1669,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
                 s.execution = ExecutionState::MapBuildPending;
             }
         });
+
+        // 2191
+        #[cfg(since_530)]
+        active_player_mut!(m, CAM_FORCEANGLE => |s, player| {
+            let yaw = s.pop_int_as::<u16>()?;
+            let pitch = s.pop_int_as::<u16>()?;
+            player.cam_forceangle(pitch, yaw);
+        });
     }
 }

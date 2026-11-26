@@ -603,6 +603,9 @@
 [command,getwindowmode]()(int)
 // info: set an option for a player
 [command,set_player_op](string $text, int $index, int $primary)
+// info: Set the camera pitch and yaw
+[command,cam_forceangle](int $pitch, int $yaw)
+[command,.cam_forceangle](int $pitch, int $yaw)
 // Npc ops (2500-2999)
 // info: Get access to the npc if they are in the world
 [command,npc_finduid](npc_uid $uid)(boolean)

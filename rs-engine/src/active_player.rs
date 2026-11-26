@@ -3475,6 +3475,8 @@ impl ActivePlayer {
         if self.player.open_main_side_modal(com, side) {
             self.if_close();
         }
+        #[cfg(since_530)]
+        self.reset_main_modal_background();
     }
 
     /// Opens a main (fullscreen) modal interface, closing any existing modal
@@ -3486,6 +3488,15 @@ impl ActivePlayer {
         if self.player.open_main_modal(com) {
             self.if_close();
         }
+        #[cfg(since_530)]
+        self.reset_main_modal_background();
+    }
+
+    #[cfg(since_530)]
+    fn reset_main_modal_background(&mut self) {
+        let layout = &engine().layout;
+        self.varc_transmit(layout.mainmodal_fullscreen_colour, -1);
+        self.varc_transmit(layout.mainmodal_fullscreen_trans, -1);
     }
 
     /// Opens a side-panel modal interface.

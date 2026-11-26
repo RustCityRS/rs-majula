@@ -2045,6 +2045,10 @@ pub trait ScriptPlayer: ScriptVars + ScriptInterface {
     /// * `range` - The maximum distance (in tiles) at which the player can
     ///   interact with their target.
     fn aprange(&mut self, range: i32);
+
+    /// Sets the camera's pitch and yaw in units of 1/2048 of a turn.
+    #[cfg(since_530)]
+    fn cam_forceangle(&mut self, pitch: u16, yaw: u16);
 }
 
 /// NPC-level operations available to the script VM.

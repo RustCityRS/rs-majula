@@ -16,8 +16,9 @@ use rs_entity::MoveSpeed;
 use rs_protocol::network::game::client::window_status::WindowStatus;
 use rs_test::names::INVENTORY as BACKPACK;
 use rs_test::names::com;
-use rs_test::runner;
+use rs_test::{runner, server};
 use rs_ver::TypeId;
+use rs_vm::engine::with_engine;
 
 const FIXED: u16 = 548;
 const RESIZABLE: u16 = 746;
@@ -50,6 +51,58 @@ fn the_server_knows_what_is_on_screen() {
         a_button_on_a_closed_interface_does_nothing(engine);
         main_and_side_modals_mount_on_their_slots(engine);
         a_window_switch_carries_everything_across(engine);
+    });
+}
+
+#[test]
+fn a_new_main_modal_clears_the_previous_background_before_it_opens() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = fresh(engine, "iface_backdrop");
+        client.packets();
+        with_engine(engine, |engine| {
+            let player = engine.get_player_mut(client.pid).unwrap();
+            player.open_main_modal(BANK);
+            player.varc_transmit(199, 0x204060);
+            player.varc_transmit(213, 128);
+        });
+        engine.cycle();
+        let changes: Vec<_> = server::varcs(&client.packets())
+            .into_iter()
+            .filter(|&(id, _)| id == 199 || id == 213)
+            .collect();
+        assert_eq!(changes, [(199, -1), (213, -1), (199, 0x204060), (213, 128)]);
+
+        engine.harness_open_side(client.pid, BANK_SIDE);
+        engine.cycle();
+        assert!(
+            server::varcs(&client.packets())
+                .iter()
+                .all(|&(id, _)| id != 199 && id != 213)
+        );
+        let player = engine.harness_player(client.pid).unwrap();
+        assert_eq!(player.varcs[199].as_int(), 0x204060);
+        assert_eq!(player.varcs[213].as_int(), 128);
+
+        with_engine(engine, |engine| {
+            engine
+                .get_player_mut(client.pid)
+                .unwrap()
+                .open_main_side_modal(BANK, BANK_SIDE);
+        });
+        engine.cycle();
+        let packets = client.packets();
+        let mount = packets
+            .iter()
+            .position(|packet| {
+                server::subs(std::slice::from_ref(packet))
+                    .contains(&(BANK, com("toplevel:mainmodal")))
+            })
+            .expect("main modal mounted");
+        let backdrop: Vec<_> = server::varcs(&packets[..mount])
+            .into_iter()
+            .filter(|&(id, _)| id == 199 || id == 213)
+            .collect();
+        assert_eq!(backdrop, [(199, -1), (213, -1)]);
     });
 }
 

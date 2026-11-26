@@ -2,8 +2,14 @@
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+#[cfg(before_742)]
+use rs_entity::MoveSpeed;
+#[cfg(before_742)]
+use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
+#[cfg(before_742)]
+use rs_test::server;
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::fs;
@@ -45,24 +51,60 @@ fn expected(x: u16, z: u16) -> Vec<u32> {
 #[test]
 fn reads_the_lumbridge_signpost_from_six_tiles_away() {
     runner::on_loaded_engine(|engine| {
-        let mut client = engine.harness_login_returning("reader").unwrap();
-        engine.cycle();
-        engine.harness_telejump(client.pid, 3235, 0, 3222);
-        for _ in 0..4 {
-            engine.cycle();
-        }
-
         let sign = if cfg!(since_647) { 2754 } else { 18493 };
-        client.op_loc(1, 3235, 3228, TypeId::from_int(sign));
-        engine.cycle();
+        for (name, x, z, running) in [
+            ("reader", 3235, 3222, false),
+            ("northreader", 3236, 3230, false),
+            ("runreader", 3244, 3225, true),
+        ] {
+            let mut client = engine.harness_login_returning_at(name, x, z).unwrap();
+            for _ in 0..4 {
+                engine.cycle();
+            }
+            if running {
+                engine.harness_player_mut(client.pid).unwrap().move_speed = MoveSpeed::Run;
+            }
+            client.packets();
+            client.op_loc(1, 3235, 3228, TypeId::from_int(sign));
+            engine.cycle();
 
-        let player = engine.harness_player(client.pid).unwrap();
-        let coord = player.pathing.coord;
-        assert_eq!((coord.x(), coord.z()), (3235, 3222));
-        assert_eq!(
-            player.modal_main,
-            Some(rs_test::names::iface("aide_compass"))
-        );
+            let player = engine.harness_player(client.pid).unwrap();
+            let coord = player.pathing.coord;
+            assert_eq!((coord.x(), coord.z()) != (x, z), running);
+            assert_eq!(
+                player.modal_main,
+                Some(rs_test::names::iface("aide_compass"))
+            );
+            let local_x = (coord.x() - player.build_area.origin.zone_origin_x()) as u8;
+            let local_z = (coord.z() - player.build_area.origin.zone_origin_z()) as u8;
+            let packets = client.packets();
+            assert_eq!(server::cam_forceangles(&packets), [(280, 0)]);
+            assert_eq!(
+                server::cam_movetos(&packets),
+                [(local_x, local_z - 6, 1500, 2, 10)]
+            );
+            assert_eq!(
+                server::cam_lookats(&packets),
+                [(local_x, local_z + 3, 450, 2, 10)]
+            );
+            let north = Some((
+                CoordGrid::fine(coord.x(), 1),
+                CoordGrid::fine(coord.z() + 1, 1),
+            ));
+            if running {
+                assert_ne!(
+                    player.info.orientation_x.zip(player.info.orientation_z),
+                    north
+                );
+                engine.cycle();
+            }
+            let player = engine.harness_player(client.pid).unwrap();
+            assert_eq!(player.pathing.coord, coord);
+            assert_eq!(
+                player.info.orientation_x.zip(player.info.orientation_z),
+                north
+            );
+        }
     });
 }
 

@@ -422,6 +422,19 @@ pub fn urls(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
         .collect()
 }
 
+/// The pitch and yaw of each CAM_FORCEANGLE.
+pub fn cam_forceangles(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u16)> {
+    read(packets, ServerProt::CamForceangle, |b| {
+        #[cfg(before_647)]
+        let (yaw, _, pitch) = (b.g2_alt1(), b.g2(), b.g2());
+        #[cfg(all(since_647, before_742))]
+        let (yaw, pitch) = (b.g2_alt1(), b.g2_alt2());
+        #[cfg(since_742)]
+        let (pitch, yaw) = (b.g2_alt2(), b.g2());
+        (pitch, yaw)
+    })
+}
+
 /// A CAM_MOVETO as (local x, local z, height, const speed, var speed).
 pub fn cam_movetos(packets: &[(u16, Vec<u8>)]) -> Vec<(u8, u8, u16, u8, u8)> {
     read(packets, ServerProt::CamMoveto, |b| {

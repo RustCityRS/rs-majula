@@ -1,10 +1,5 @@
-[aploc1,aide_signpost_1] @read_direction_sign;
-[oploc1,aide_signpost_1] @read_direction_sign;
-
-[label,read_direction_sign]
-switch_coord(loc_coord) {
-    case 0_50_50_35_28 : @lumbridge_signpost;
-}
+[aploc1,signpost_2754] @lumbridge_signpost;
+[oploc1,signpost_2754] @lumbridge_signpost;
 
 [label,lumbridge_signpost]
 // Six tiles from the edge of the two-by-two sign.
@@ -13,8 +8,11 @@ if (inzone(movecoord(loc_coord, -6, 0, -6), movecoord(loc_coord, 7, 0, 7), coord
     return;
 }
 
-cam_moveto(movecoord(loc_coord, 0, 0, -11), 1500, 2, 10);
-cam_lookat(movecoord(loc_coord, 0, 0, -2), 450, 2, 10);
+facesquare(movecoord(coord, 0, 0, 1));
+cam_forceangle(280, 0);
+cam_moveto(movecoord(coord, 0, 0, -6), 1500, 2, 10);
+cam_lookat(movecoord(coord, 0, 0, 3), 450, 2, 10);
+%signpost_if_model = loc_param(param_479);
 if_settext(aide_compass:aide_west_text_2, "West to the Lumbridge Castle and Draynor Village. Beware the goblins!");
 if_settext(aide_compass:aide_south_text_2, "South to the swamps of Lumbridge.");
 if_settext(aide_compass:aide_north_text_2, "Head north towards Fred's farm and the windmill.");

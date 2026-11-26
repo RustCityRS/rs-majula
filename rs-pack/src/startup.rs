@@ -112,6 +112,10 @@ pub struct InterfaceLayout {
     pub count_dialog: i32,
     pub world_map: u16,
     pub switch_side: u16,
+    #[cfg(since_530)]
+    pub mainmodal_fullscreen_colour: u16,
+    #[cfg(since_530)]
+    pub mainmodal_fullscreen_trans: u16,
     pub design: [u16; 12],
 }
 
@@ -643,7 +647,7 @@ fn load_dialogue_slots(
 
 /// The interface layout the world and the lobby share: the toplevel slots and
 /// component names from interface.pack, the dialogue slots and wide-screen
-/// interfaces from their enums, and the varc that switches the side panel.
+/// interfaces from their enums, and the varcs used by the game frame.
 fn interface_layout(
     pack_dir: &Path,
     enums: &TypeProvider<EnumType>,
@@ -653,6 +657,12 @@ fn interface_layout(
     load_dialogue_slots(pack_dir, enums, &mut layout);
     load_wide_screen_ifaces(pack_dir, enums, &mut layout);
     layout.switch_side = names.id("varc", SWITCH_SIDE)? as u16;
+    #[cfg(since_530)]
+    {
+        layout.mainmodal_fullscreen_colour =
+            names.id("varc", "mainmodal_fullscreen_colour")? as u16;
+        layout.mainmodal_fullscreen_trans = names.id("varc", "mainmodal_fullscreen_trans")? as u16;
+    }
     Ok(layout)
 }
 

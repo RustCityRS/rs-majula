@@ -15,6 +15,8 @@ use rs_pack::types::IfEvents;
 use rs_pack::types::{LocAngle, LocShape, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
+#[cfg(since_530)]
+use rs_protocol::network::game::server::cam_forceangle::CamForceangle;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_ver::TypeId;
@@ -1543,7 +1545,8 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// # Side Effects
     ///
-    /// Sets `face_x`, `face_z`, and the `FaceCoord` info mask.
+    /// Replaces a pending interaction turn, which is sent on the first idle
+    /// tick. Otherwise faces the requested tile immediately.
     ///
     /// # Call Stack
     ///
@@ -1552,9 +1555,19 @@ impl ScriptPlayer for ActivePlayer {
     fn facesquare(&mut self, coord: CoordGrid) {
         let fine_x = CoordGrid::fine(coord.x(), 1);
         let fine_z = CoordGrid::fine(coord.z(), 1);
-        self.player.info.face_x = Some(fine_x);
-        self.player.info.face_z = Some(fine_z);
-        self.player.info.masks |= PlayerInfoProt::FaceCoord as u16;
+        let interaction = &mut self.player.interaction;
+        if interaction.target.is_none() && interaction.target_x != -1 {
+            interaction.target_x = i32::from(fine_x);
+            interaction.target_z = i32::from(fine_z);
+            if self.player.pathing.steps_taken > 0 {
+                // The click may already have queued FaceCoord toward the loc.
+                self.player.info.masks &= !(PlayerInfoProt::FaceCoord as u16);
+                self.player.info.face_x = None;
+                self.player.info.face_z = None;
+            }
+        } else {
+            self.player.info.focus_player(fine_x, fine_z, true);
+        }
     }
 
     /// Plays a synthesized sound effect for the player.
@@ -2197,6 +2210,16 @@ impl ScriptPlayer for ActivePlayer {
     fn aprange(&mut self, range: i32) {
         self.player.interaction.ap_range = Some(range as u16);
         self.player.interaction.ap_range_called = true;
+    }
+
+    #[cfg(since_530)]
+    fn cam_forceangle(&mut self, pitch: u16, yaw: u16) {
+        self.write(CamForceangle {
+            pitch,
+            yaw,
+            #[cfg(all(since_530, before_647))]
+            verify: self.next_verify(),
+        });
     }
 }
 
