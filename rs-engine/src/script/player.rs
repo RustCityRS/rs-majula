@@ -19,6 +19,8 @@ use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::cam_forceangle::CamForceangle;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::vorbis_sound::VorbisSound;
 use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer, ScriptVars};
 use rs_vm::session::ScriptInterface;
@@ -2219,6 +2221,17 @@ impl ScriptPlayer for ActivePlayer {
             yaw,
             #[cfg(all(since_530, before_647))]
             verify: self.next_verify(),
+        });
+    }
+
+    #[cfg(since_647)]
+    fn sound_vorbis(&mut self, sound: u16, loops: u8, delay: u16, volume: u8, rate: u16) {
+        self.write(VorbisSound {
+            sample_id: sound,
+            loops,
+            delay,
+            volume,
+            speed: rate,
         });
     }
 }

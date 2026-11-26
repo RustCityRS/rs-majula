@@ -375,6 +375,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         "synth",
         generate_auto_pack_stride(&mut cache, pack_dir, "synth", archive::SYNTH, 1, force)?,
     );
+    report.record("vorbis", generate_vorbis_pack(&cache, pack_dir, force)?);
 
     report.record(
         "sprites",
@@ -856,6 +857,18 @@ fn generate_auto_pack_stride(
     Ok(report)
 }
 
+fn generate_vorbis_pack(cache: &Js5LocalCache, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+    let index = cache
+        .index(archive::VORBIS)
+        .context("Missing Vorbis archive index")?;
+    write_auto_pack(
+        pack_dir,
+        "vorbis",
+        index.groups.iter().map(|group| group.id),
+        force,
+    )
+}
+
 /// Quickchat ids span both archives; the global ones start at `QUICKCHAT_GLOBAL_FIRST`.
 fn generate_quickchat_pack(
     cache: &mut Js5LocalCache,
@@ -864,8 +877,6 @@ fn generate_quickchat_pack(
     group_id: u32,
     force: bool,
 ) -> Result<TypeReport> {
-    let pack_path = pack_dir.join(format!("{type_name}.pack"));
-    let existing = load_existing_pack(&pack_path);
     let mut ids = Vec::new();
     for (archive_id, first) in [
         (archive::QUICKCHAT, 0),
@@ -879,6 +890,17 @@ fn generate_quickchat_pack(
         }
     }
     ids.sort_unstable();
+    write_auto_pack(pack_dir, type_name, ids, force)
+}
+
+fn write_auto_pack(
+    pack_dir: &Path,
+    type_name: &str,
+    ids: impl IntoIterator<Item = u32>,
+    force: bool,
+) -> Result<TypeReport> {
+    let pack_path = pack_dir.join(format!("{type_name}.pack"));
+    let existing = load_existing_pack(&pack_path);
     let mut file = File::create(&pack_path)?;
     let mut report = TypeReport::default();
     for id in ids {
@@ -1295,6 +1317,7 @@ fn generate_npc_mode_pack(pack_dir: &Path) -> Result<TypeReport> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_io::js5::index::{GroupInfo, Js5Index};
     use std::fs;
     use std::path::PathBuf;
 
@@ -1318,6 +1341,39 @@ mod tests {
         assert!(should_preserve("category_22", "category", 208, false));
         assert!(!should_preserve("category_208", "category", 208, false));
         assert!(!should_preserve("drawer", "category", 22, true));
+    }
+
+    #[test]
+    fn vorbis_registry_follows_the_archive_index() {
+        let dir = scratch("vorbis");
+        let mut cache = Js5LocalCache::create(&dir, &[archive::VORBIS]).unwrap();
+        let groups = [0, 4250, 4275].map(|id| GroupInfo {
+            id,
+            name_hash: -1,
+            crc: 0,
+            whirlpool: None,
+            version: 1,
+            size: 0,
+            file_count: 0,
+            files: vec![],
+        });
+        let index = Js5Index {
+            archive_id: archive::VORBIS,
+            format: 6,
+            index_version: 1,
+            named: false,
+            has_group_whirlpools: false,
+            groups: groups.into(),
+        };
+        cache.write_index(archive::VORBIS, &index).unwrap();
+        let path = dir.join("vorbis.pack");
+        fs::write(&path, "4=old_clip\n4250=drawer_open\n").unwrap();
+
+        generate_vorbis_pack(&cache, &dir, false).unwrap();
+        assert_eq!(
+            fs::read_to_string(path).unwrap(),
+            "0=vorbis_0\n4250=drawer_open\n4275=vorbis_4275\n"
+        );
     }
 
     #[test]

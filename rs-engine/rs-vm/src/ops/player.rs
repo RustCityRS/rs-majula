@@ -84,7 +84,7 @@ fn enqueue(
 /// - **Interactions:** `P_OPLOC`, `P_OPNPC`, `P_OPOBJ`, `P_STOPACTION`,
 ///   `P_CLEARPENDINGACTION`, `P_LOCMERGE`
 /// - **Audio:** `MES`, `MIDI_JINGLE`, `MIDI_SONG`, `SOUND_SYNTH`, `SOUND_SPEECH_VOLUME`,
-///   `SOUND_SPEECH_STOP`
+///   `SOUND_SPEECH_STOP`, `SOUND_VORBIS`
 /// - **Misc:** `AFK_EVENT`, `BUILDAPPEARANCE`, `CAM_RESET`, `LAST_COM`, `LAST_INT`,
 ///   `LAST_ITEM`, `LAST_SLOT`, `LAST_TARGETSLOT`, `LAST_USEITEM`, `LAST_USESLOT`,
 ///   `P_LOGOUT`, `P_PREVENTLOGOUT`, `P_APRANGE`, `SESSION_LOG`, `WEALTH_EVENT`
@@ -1676,6 +1676,22 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             let yaw = s.pop_int_as::<u16>()?;
             let pitch = s.pop_int_as::<u16>()?;
             player.cam_forceangle(pitch, yaw);
+        });
+
+        // 2192
+        #[cfg(since_647)]
+        active_player_mut!(m, SOUND_VORBIS => |s, player| {
+            let rate = s.pop_int_as::<u16>()?;
+            let volume = s.pop_int_as::<u8>()?;
+            let delay = s.pop_int_as::<u16>()?;
+            let loops = s.pop_int_as::<u8>()?;
+            let sound = s.pop_int();
+            if sound == -1 {
+                return Ok(());
+            }
+            let sound = u16::try_from(sound)
+                .map_err(|_| ScriptError::Runtime(format!("Invalid vorbis: {sound}")))?;
+            player.sound_vorbis(sound, loops, delay, volume, rate);
         });
     }
 }

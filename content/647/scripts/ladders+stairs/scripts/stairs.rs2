@@ -1,3 +1,33 @@
+[oploc1,fai_lumbridge_stairs_left]
+@lumbridge_house_stairs;
+
+[oploc1,stairs_45483]
+@lumbridge_house_stairs;
+
+[oploc1,fai_lumbridge_stairs_left_top]
+@lumbridge_house_stairs;
+
+[oploc1,stairs_45484]
+@lumbridge_house_stairs;
+
+[oploc1,build_imp_lumbridge_stairs1_bottom]
+@lumbridge_house_stairs;
+
+[oploc1,stairs_45482]
+@lumbridge_house_stairs;
+
+[label,lumbridge_house_stairs]
+def_coord $dest;
+switch_coord (loc_coord) {
+    case 0_50_49_37_60 : $dest = 1_50_49_37_59;
+    case 1_50_49_37_60 : $dest = 0_50_49_37_62;
+    case 0_50_50_30_5, 0_50_50_30_9, 0_36_89_30_5, 0_36_89_30_9 : $dest = movecoord(loc_coord, -1, 1, 0);
+    case 1_50_50_30_5, 1_50_50_30_9, 1_36_89_30_5, 1_36_89_30_9 : $dest = movecoord(loc_coord, 2, -1, 0);
+    case default : @loc_tele_2011_op(1);
+}
+p_arrivedelay;
+p_telejump($dest);
+
 [oploc1,stairs]
 p_arrivedelay;
 // Climb up

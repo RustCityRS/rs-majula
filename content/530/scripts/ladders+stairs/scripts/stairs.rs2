@@ -1,3 +1,27 @@
+[oploc1,fai_lumbridge_stairs_left]
+@lumbridge_house_stairs;
+
+[oploc1,fai_lumbridge_stairs_left_top]
+@lumbridge_house_stairs;
+
+[oploc1,fai_lumbridge_stairs_right]
+@lumbridge_house_stairs;
+
+[oploc1,fai_lumbridge_stairs_right_top]
+@lumbridge_house_stairs;
+
+[label,lumbridge_house_stairs]
+def_coord $dest;
+switch_coord (loc_coord) {
+    case 0_50_49_37_60 : $dest = 1_50_49_37_59;
+    case 1_50_49_37_60 : $dest = 0_50_49_37_62;
+    case 0_50_50_30_5, 0_50_50_30_9 : $dest = movecoord(loc_coord, -1, 1, 0);
+    case 1_50_50_30_5, 1_50_50_30_9 : $dest = movecoord(loc_coord, 2, -1, 0);
+    case default : @unhandled_stairs(loc_coord);
+}
+p_arrivedelay;
+p_telejump($dest);
+
 [oploc1,stairs]
 p_arrivedelay;
 // Climb up
@@ -371,10 +395,10 @@ switch_int (loc_angle) {
 // Climb up
 switch_coord (loc_coord) {
     case 0_40_149_18_48 : // Yanille dungeon - part b
-        p_telejump(0_40_148_7_52);
-        mes("You go up the stairs...");
+    p_telejump(0_40_148_7_52);
+    mes("You go up the stairs...");
     case default :
-        @unhandled_stairs(loc_coord);
+    @unhandled_stairs(loc_coord);
 }
 
 // 289's cryptstairsdown (2616) and cryptstairsup (2617) are other locs in
@@ -390,7 +414,7 @@ switch_coord (loc_coord) {
 //     case 0_48_52_43_29 : // draynor manor stairs to the vampire // https://youtu.be/JmlR1NcDkGI?si=vd58QL7jZd1weQAi&t=168
 //         p_telejump(0_48_152_5_43);
 //         mes("You walk down the stairs...");
-//     case default : @unhandled_stairs(loc_coord);     
+//     case default : @unhandled_stairs(loc_coord);
 
 // }
 
@@ -465,10 +489,10 @@ switch_coord (loc_coord) {
 [oploc1,board_game_stairs_grey_all]
 p_arrivedelay;
 switch_coord (loc_coord) {
-    case 0_45_55_19_46 : 
-        def_int $randomZ = random(2);
-        def_int $randomX = ~random_range(-1, 1);
-        p_telejump(movecoord(1_34_77_30_5, $randomX, 0, $randomZ));
+    case 0_45_55_19_46 :
+    def_int $randomZ = random(2);
+    def_int $randomX = ~random_range(-1, 1);
+    p_telejump(movecoord(1_34_77_30_5, $randomX, 0, $randomZ));
     case default : @unhandled_stairs(loc_coord);
 }
 
@@ -489,10 +513,10 @@ switch_coord (loc_coord) {
 [oploc1,board_game_stairs_grey_base2]
 p_arrivedelay;
 switch_coord (loc_coord) {
-    case 1_34_77_29_7 : 
-        def_int $randomZ = random(2);
-        def_int $randomX = ~random_range(-1, 1);
-        p_telejump(movecoord(0_45_55_19_44, $randomX, 0, $randomZ));
+    case 1_34_77_29_7 :
+    def_int $randomZ = random(2);
+    def_int $randomX = ~random_range(-1, 1);
+    p_telejump(movecoord(0_45_55_19_44, $randomX, 0, $randomZ));
     case default : @unhandled_stairs(loc_coord);
 }
 

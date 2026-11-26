@@ -2049,6 +2049,10 @@ pub trait ScriptPlayer: ScriptVars + ScriptInterface {
     /// Sets the camera's pitch and yaw in units of 1/2048 of a turn.
     #[cfg(since_530)]
     fn cam_forceangle(&mut self, pitch: u16, yaw: u16);
+
+    /// Plays a Vorbis sound effect on the player's client at the given volume and rate.
+    #[cfg(since_647)]
+    fn sound_vorbis(&mut self, sound: u16, loops: u8, delay: u16, volume: u8, rate: u16);
 }
 
 /// NPC-level operations available to the script VM.

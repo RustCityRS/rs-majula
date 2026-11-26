@@ -614,6 +614,9 @@
 // info: Set the camera pitch and yaw
 [command,cam_forceangle](int $pitch, int $yaw)
 [command,.cam_forceangle](int $pitch, int $yaw)
+// info: Play a Vorbis sound effect at the given volume and playback rate
+[command,sound_vorbis](vorbis $sound, int $loops, int $delay, int $volume, int $rate)
+[command,.sound_vorbis](vorbis $sound, int $loops, int $delay, int $volume, int $rate)
 // Npc ops (2500-2999)
 // info: Get access to the npc if they are in the world
 [command,npc_finduid](npc_uid $uid)(boolean)

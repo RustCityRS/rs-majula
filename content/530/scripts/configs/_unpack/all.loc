@@ -444353,6 +444353,7 @@ recol2s=11561
 recol2d=16846
 model=Q,model_5972
 name=Hanging meat
+desc=I can't take someone's food.
 
 // 36785
 [fai_lumbridge_hangingmeat2]
@@ -444366,6 +444367,7 @@ recol2s=11561
 recol2d=16846
 model=Q,model_5973
 name=Hanging meat
+desc=I can't take someone's food.
 
 // 36786
 [bank_booth_36786]
@@ -444471,6 +444473,7 @@ forceapproach=north
 msi=msi_7
 model=8,model_36785
 name=Stairs
+desc=Some wooden stairs.
 
 // 36792
 [fai_lumbridge_stairs_left_top]
@@ -444482,6 +444485,7 @@ forceapproach=south
 msi=msi_7
 model=8,model_36768
 name=Stairs
+desc=Some wooden stairs.
 
 // 36793
 [fai_lumbridge_stairs_right]
@@ -444494,6 +444498,7 @@ mirror=yes
 msi=msi_7
 model=8,model_36785
 name=Stairs
+desc=Some wooden stairs.
 
 // 36794
 [fai_lumbridge_stairs_right_top]
@@ -444508,6 +444513,7 @@ retex1s=material_73
 retex1d=material_63
 model=8,model_36768
 name=Stairs
+desc=Some wooden stairs.
 
 // 36795
 [ladder_36795]
@@ -444641,6 +444647,7 @@ retex1s=material_267
 retex1d=material_91
 model=8,model_29632
 name=Barrel of swords
+desc=These belong to Bob, I shouldn't take them.
 
 // 36802
 [fai_lumbridge_barrel_unfinished_staffs]
@@ -444663,6 +444670,7 @@ recol6s=9479
 recol6d=12618
 model=8,model_25198
 name=Barrel
+desc=A barrel of unfinished staves and pieces of wood.
 
 // 36803
 [painting_36803]
@@ -444888,6 +444896,7 @@ recol4s=16707
 recol4d=8388
 model=8,model_4326
 name=Table
+desc=It's a small table.
 category=unusable_table
 
 // 36821
@@ -444952,6 +444961,7 @@ recolhsl3s=7952
 recolhsl3d=5396
 model=8,model_2133
 name=Shelves
+desc=Storage for all needs.
 
 // 36825
 [fai_lumbridge_shelves3]
@@ -444978,6 +444988,7 @@ recolhsl3s=7952
 recolhsl3d=5396
 model=8,model_2135
 name=Shelves
+desc=Storage for all needs.
 
 // 36827
 [loc_36827]
@@ -445082,6 +445093,7 @@ recol3s=12548
 recol3d=9445
 model=8,model_9501
 name=Bookcase
+desc=A good source of books.
 category=bookcase
 
 // 36834
@@ -445099,6 +445111,7 @@ recol3s=12548
 recol3d=9445
 model=8,model_35831
 name=Bookcase
+desc=A good source of books!
 
 // 36835
 [atvar_smithy_materialsupply]
@@ -446185,6 +446198,7 @@ ambient=25
 contrast=15
 model=8,model_36438
 name=Wardrobe
+desc=A fancy place to store clothes.
 
 // 36910
 [table_36910]
@@ -446595,6 +446609,7 @@ recol6s=11524
 recol6d=8388
 model=8,model_7906
 name=Counter
+desc=Items are for sale here.
 
 // 36936
 [fai_lumbridge_stepladders]
@@ -446620,6 +446635,7 @@ recol2s=15784
 recol2d=5251
 model=8,model_11878
 name=Grandfather clock
+desc=Tick-tock, it's a clock.
 
 // 36938
 [bust_36938]
@@ -446714,6 +446730,7 @@ recol2s=7329
 recol2d=8388
 model=8,model_36481
 name=Bed
+desc=Great for sleeping in.
 
 // 36945
 [fai_lumbridge_ladder]
@@ -447782,6 +447799,7 @@ recol4s=8419
 recol4d=8388
 model=8,model_36497
 name=Drawers
+desc=A chest of drawers.
 category=drawer
 param=drawer_other,fai_lumbridge_drawers2_open
 
@@ -447806,6 +447824,7 @@ recol4s=8419
 recol4d=8388
 model=8,model_36487
 name=Drawers
+desc=A chest of drawers.
 category=empty_drawer
 param=drawer_other,fai_lumbridge_drawers2
 
