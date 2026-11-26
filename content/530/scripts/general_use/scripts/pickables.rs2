@@ -10,8 +10,18 @@ if(inv_freespace(inv) = 0) {
     mes("You pick a potato.");
 }
 
-// Pickable Wheat
-[oploc2,wheat]
+// Pickable Wheat. The 530 cache's maps place field wheat under other locs
+// besides 313 `wheat` (15 tiles): fai_varrock_wheat (1,017 tiles),
+// fai_varrock_wheat_corner (178) and fai_varrock_wheat_small (337) in 13 map
+// squares, and brain_farm_wheat (64, Mos Le'Harmless, l59_44). Each is
+// name=Wheat, op2=Pick in this rev's all.loc, so each picks as `wheat` does.
+[oploc2,wheat] @pick_wheat;
+[oploc2,fai_varrock_wheat] @pick_wheat;
+[oploc2,fai_varrock_wheat_corner] @pick_wheat;
+[oploc2,fai_varrock_wheat_small] @pick_wheat;
+[oploc2,brain_farm_wheat] @pick_wheat;
+
+[label,pick_wheat]
 p_arrivedelay;
 if(inv_freespace(inv) = 0) {
     mes("You can't carry any more grain.");
