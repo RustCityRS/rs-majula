@@ -43,6 +43,8 @@ def_int $bit = db_getfield($row, levelup:flash_bit, 0);
 if (testbit(%skill_stat_flash, $bit) = ^true) {
     %level_up_details = multiply($menu, 8);
     %skill_stat_flash = clearbit(%skill_stat_flash, $bit);
+    // The stat the scroll's "Open Skill Advance Guide" link opens (below).
+    %skill_guide_skill = $lookup;
     if_openmain(lvl_scroll);
     return;
 }
@@ -68,6 +70,33 @@ if_openmain(skill_guide_v2);
 [if_button,skill_guide_v2:subsection_button_13] @change_skill_guide(12);
 [if_button,skill_guide_v2:subsection_button_14] @change_skill_guide(13);
 [if_button,skill_guide_v2:subsection_button_15] @change_skill_guide(14);
+
+// The level-up scroll's "Open Skill Advance Guide" link (lvl_scroll:skill_guide, 741:10 in cache
+// 786: op1 "Open Skill Guide", transmitop, and no clientscript on its op) is the server's to
+// answer: it opens the guide of the scroll's stat (%skill_guide_skill, set when the scroll
+// opens). It skips @skill_guide's flash check, so a stat that levels again while the scroll is
+// open still opens its guide. No source found for the section: the first, as the stats tab opens
+// it.
+[if_button1,lvl_scroll:skill_guide]
+db_find(levelup:stat, %skill_guide_skill);
+def_dbrow $row = db_findnext;
+if_close;
+if ($row = null) {
+    return;
+}
+%skill_guide_v2 = db_getfield($row, levelup:icon, 0);
+if_openmain(skill_guide_v2);
+
+// The scroll's and the guide's close buttons (741:9 and 499:29 in cache 786: op1 "Close",
+// transmitop) close the window in the client (onop=closebutton_click: clientscript 29 calls proc
+// 675, whose first line is if_close) and send IF_BUTTON1 too. As with trademain's and
+// book_small's close buttons, the server closes its own side and does nothing else; before this
+// it answered "No trigger".
+[if_button1,lvl_scroll:close_button]
+if_close;
+
+[if_button1,skill_guide_v2:close_button]
+if_close;
 
 [label,change_skill_guide](int $page)
 db_find(levelup:stat, %skill_guide_skill);
