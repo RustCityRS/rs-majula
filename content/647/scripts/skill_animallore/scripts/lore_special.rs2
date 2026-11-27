@@ -1,0 +1,28 @@
+// Summoning's special moves: the icon in Follower Details (662:74) and on the orb (747:17),
+// aimed at an npc. This is the slice Wolf Whistle needs: its Howl. Scroll and bar costs, the
+// moves themselves and the icon's plain "Cast" are the skill's later work.
+// 2011's: cache 786: clientscript 606 makes the icon's child 0 with the target verb "Cast"
+// (clientscript 608); the server lets it take an npc target (lore_open_details).
+[apnpct,lore_stats_side:spell_icon]
+~lore_cast_special_npc;
+
+[apnpct,topstat_lore:spell_icon]
+~lore_cast_special_npc;
+
+[opnpct,lore_stats_side:spell_icon]
+~lore_cast_special_npc;
+
+[opnpct,topstat_lore:spell_icon]
+~lore_cast_special_npc;
+
+// The active npc is the target.
+[proc,lore_cast_special_npc]
+if (~lore_has_familiar = false) {
+    return;
+}
+p_stopaction;
+// Wolf Whistle's Howl on the giant wolpertinger (quests/quest_wolf/scripts/wolf_howl.rs2).
+if (~wolf_cast_howl = true) {
+    return;
+}
+// The skill's own special moves come with the skill.

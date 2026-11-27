@@ -1,0 +1,79 @@
+// Wolf Whistle as of May 2011 (cache 786): the 2008 quest, the way into Summoning. 289 has no
+// Summoning, so nothing here is a port. Sources:
+//   R  = the dated recordings decoded in target/refs/wolf_whistle/.claude/647-wolf-whistle-states.md (17 recordings,
+//        2009-09-23 to 2011-10-30), cited as <video id> <upload date> @<second>.
+//   W  = the 2011 wiki, Wolf Whistle (mirror frozen 23 May 2011): the kit, the reward.
+//   C  = cache 786: quest config 52 (wolf_quest 10 to 110), quest list row 131, varbits
+//        4302-4306, objs 12525-12530, npcs 6970/6971/6988-6990, locs 4039, 28572, 28586, 28653,
+//        28675, 28676, 28714, 28716.
+// The quest's files: pikkupstix.rs2 (the talks), wolf_attic.rs2 (the ladder, cutscenes 1 and 2),
+// wolf_howl.rs2 (the summon, the Howl, cutscene 3), wolf_cellar.rs2 (the trapdoor, the obelisk's
+// quest lines), wolf_stikklebrix.rs2 (the dead body), wolf_journal.rs2. The Summoning it uses is
+// skill_animallore's.
+
+[proc,wolf_set_progress](int $stage)
+%wolf_quest = $stage;
+~send_quest_progress(^questlist_wolf, %wolf_quest, ^wolf_complete);
+
+// Whether the quest is under way.
+[proc,wolf_in_progress]()(boolean)
+if (%wolf_quest = ^wolf_not_started | %wolf_quest = ^wolf_complete) {
+    return(false);
+}
+return(true);
+
+// Tops the backpack up to $want of a kit item.
+[proc,wolf_topup](namedobj $obj, int $want)
+def_int $have = inv_total(inv, $obj);
+if ($have < $want) {
+    inv_add(inv, $obj, sub($want, $have));
+}
+
+// The kit Pikkupstix hands over.
+// 2011's: W: "2 Gold charms, 2 Pouches, 1 Trapdoor key, 14 Spirit shards"; HemCMqn3Y3E 2009-11-20
+// @162 and JQZnlZk0KqE 2011-05-24 @318 show them in the backpack, with no item box.
+// No source found: a backpack too full for them (inv_add's overflow lies on the floor).
+[proc,wolf_give_kit]
+~wolf_topup(wolf_druid_pouch, ^wolf_kit_pouches);
+~wolf_topup(wolf_creature_charm, ^wolf_kit_charms);
+~wolf_topup(wolf_spirit_shard, ^wolf_kit_shards);
+~wolf_topup(wolf_key, 1);
+%wolf_items = 1;
+
+// 2011's: the 2011 wiki, Trapdoor key (8 Mar 2011): "you will have to speak to Pikkupstix to get
+// another".
+// No source found: what he says as he gives it; it is in the backpack without a word, as the kit
+// is.
+[proc,wolf_replace_key]
+if (%wolf_items = 1 & %wolf_trapdoor = ^wolf_trapdoor_locked) {
+    ~wolf_topup(wolf_key, 1);
+}
+
+// The reward (W; the scroll, 2EfU5Mrh8Kc 2011-05-24 @336-341 and JQZnlZk0KqE 2011-05-24 @500-504):
+// 1 quest point, 276 Summoning xp, access to the skill, 275 gold charms; the 9 Howl scrolls are
+// kept (W: "You get to keep the 9 remaining Howl Scrolls"; HemCMqn3Y3E 2009-11-20 @263), as the
+// skill's own (W: "the others will change into that type of scroll after the quest").
+[queue,wolf_quest_complete]
+def_int $scrolls = inv_total(inv, wolf_howl);
+if ($scrolls > 0) {
+    inv_del(inv, wolf_howl, $scrolls);
+    inv_add(inv, lore_howl, $scrolls);
+}
+// No source found: what becomes of kit left over; it has no use after the quest and goes.
+inv_del(inv, wolf_druid_pouch, inv_total(inv, wolf_druid_pouch));
+inv_del(inv, wolf_wolf_pouch, inv_total(inv, wolf_wolf_pouch));
+inv_del(inv, wolf_creature_charm, inv_total(inv, wolf_creature_charm));
+inv_del(inv, wolf_spirit_shard, inv_total(inv, wolf_spirit_shard));
+inv_del(inv, wolf_key, inv_total(inv, wolf_key));
+// 2011's: the charms arrive without a box (.claude/647-wolf-whistle-states.md section 10: h15, h16, the scroll).
+inv_add(inv, lore_creature_charm, ^wolf_reward_charms);
+%wolf_items = 0;
+~wolf_set_progress(^wolf_complete);
+stat_advance(animallore, ^wolf_reward_xp);
+session_log(^log_adventure, "Quest complete: Wolf Whistle");
+// The scroll shows a spirit wolf pouch beside "You have completed Wolf Whistle!", "1 Quest
+// Point.", "276 Summoning XP.", "Access to the Summoning / skill." and "275 gold charms.", each
+// line with its full stop (read by eye in three recordings).
+// No source found: the pouch's zoom on the scroll.
+~send_quest_complete2(^questlist_wolf, lore_wolf, 250, ^wolf_questpoints, "You have completed Wolf Whistle!", "276 Summoning XP.|Access to the Summoning skill.|275 gold charms.");
+if_settext(questscroll_ver3:quest_reward1_ver3, "1 Quest Point.");

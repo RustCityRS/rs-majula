@@ -1,0 +1,87 @@
+// Wolf Whistle's stages: varbit 4302, wolf_quest (bits 1-10 of varp 1178, wolf_var).
+// 2011's: cache 786 fixes three values. Quest config 52 (masterquestvarpbit=wolf_quest,10,110)
+// starts the quest at 10 and completes it at 110 (^wolf_complete, general/configs/quest.constant),
+// and Pikkupstix (multinpc 6988) shows as his worried form at 0, 10, 20 ... 100 and as nothing
+// between them, so every stage is one of those.
+^wolf_not_started = 0
+^wolf_started = 10
+// No source found: our own stage values, from here to ^wolf_renewed.
+// Cutscene 1 seen.
+^wolf_seen_wolpertinger = 20
+// Volunteered: two lots of wolf bones wanted.
+^wolf_fetch_bones = 30
+// Kit handed over: pouch and scrolls to make.
+^wolf_given_kit = 40
+// Pouch and scrolls shown: summon and Howl upstairs.
+^wolf_sent_upstairs = 50
+// The wolpertinger banished, Summoning points at 0.
+^wolf_banished = 60
+// Sent to the obelisk.
+^wolf_drained = 70
+// Points renewed: the reward waits.
+^wolf_renewed = 80
+
+// 2011's: cache 786, varbit 4303 wolf_trapdoor: multiloc 4039 shows the closed trapdoor (28675)
+// at 0 and 1 and the open one (28676) at 2.
+// No source found: which of 0 and 1 is locked; 0 (a new player's) is taken as locked.
+^wolf_trapdoor_locked = 0
+^wolf_trapdoor_shut = 1
+^wolf_trapdoor_open = 2
+
+// The quest's kit (2011 wiki, Wolf Whistle, 23 May 2011: 2 gold charms, 2 pouches, 1 trapdoor
+// key, 14 spirit shards) and the bones Pikkupstix asks for (b19: "two lots of wolf bones").
+^wolf_kit_pouches = 2
+^wolf_kit_charms = 2
+^wolf_kit_shards = 14
+^wolf_kit_bones = 2
+// 2011's: .claude/647-wolf-whistle-states.md section 5 (HemCMqn3Y3E 2009-11-20 @174, JQZnlZk0KqE 2011-05-24 @345): a
+// stack of 10.
+^wolf_howl_scrolls = 10
+// 2011 wiki, Wolf Whistle (23 May 2011); the scroll, 2EfU5Mrh8Kc 2011-05-24 @336-341.
+^wolf_reward_charms = 275
+// 276 xp in tenths.
+^wolf_reward_xp = 2760
+
+// Places. Pikkupstix's house is square 45_53 (cache 786's map l45_53): the ground floor's ladder
+// 28572 at 45,50 and, on level 1, the attic. Its walls stand on the edges of tiles 40 and 47 and
+// of 48 and 55, so the room is 41-46 x 49-54: the ladder's top at 45,50, the rug at 41-43 x 51-54,
+// ruined furniture along the east and south sides. The zone takes in the tiles under the walls.
+^wolf_attic_sw = 1_45_53_40_48
+^wolf_attic_ne = 1_45_53_47_55
+// The cellar's obelisk 28716 (map l34_83).
+^wolf_obelisk_coord = 0_34_83_33_32
+
+// No source found: fitted by eye, to be checked in the client. Every tile, camera and animation
+// of the scenes: footage gives the shots (.claude/647-wolf-whistle-states.md section 2), not coordinates or ids.
+// Where the giant wolpertinger (3x3, south-west tile) stands: on the rug, the far side of the
+// room from the ladder.
+^wolf_wolpertinger_coord = 1_45_53_41_51
+// Where the player stands for cutscenes 1 and 2: the top of the ladder, which is the tile
+// Climb-up arrives on (loc_tele_2011's row: two tiles east of the ladder's west side).
+^wolf_attic_top = 1_45_53_46_50
+// Cutscene 3: the player at the near edge of the rug, the wolf beside them. The recordings have
+// the wolf at the player's right, where the cache's map has the ruined bed and bookshelves; it
+// stands behind the player's right shoulder until the scene is fitted in the client.
+^wolf_cs3_player = 1_45_53_44_51
+^wolf_cs3_wolf = 1_45_53_45_51
+// Where cutscene 3 ends: downstairs next to Pikkupstix (spawned on 45,51).
+^wolf_house_coord = 0_45_53_46_51
+// Shot A: a low camera in front of the player at the ladder top.
+^wolf_cam_a_from = 1_45_53_44_51
+^wolf_cam_a_from_height = 250
+^wolf_cam_a_to = 1_45_53_46_50
+^wolf_cam_a_to_height = 200
+// Shot B: over the player's shoulder, across the rug to the wolpertinger.
+^wolf_cam_b_from = 1_45_53_46_49
+^wolf_cam_b_from_height = 450
+^wolf_cam_b_to = 1_45_53_42_52
+^wolf_cam_b_to_height = 200
+// Shot C: behind the player and the wolf, facing the wolpertinger. Shot D: closer on the two.
+^wolf_cam_c_from = 1_45_53_46_50
+^wolf_cam_c_from_height = 500
+^wolf_cam_c_to = 1_45_53_42_52
+^wolf_cam_c_to_height = 200
+^wolf_cam_d_from = 1_45_53_46_52
+^wolf_cam_d_from_height = 350
+^wolf_cam_d_to = 1_45_53_44_51
+^wolf_cam_d_to_height = 200

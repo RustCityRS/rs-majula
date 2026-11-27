@@ -1,0 +1,135 @@
+// Summoning's familiars: the summon, Follower Details and the dismissal. This is the slice Wolf
+// Whistle needs (its spirit wolf, summoned once and gone in a cutscene); the familiar's timer,
+// its points, Call, Renew, the orb's ops and combat are the skill's later work, and hang on the
+// procs here.
+// 2011's: cache 786: Follower Details is interface 662 (lore_stats_side), shown in side tab 95
+// (548:220 fixed, 746:104 resizable), whose "stone" is the Summoning orb (747). What it shows it
+// reads from vars (.claude/647-summoning-inventory.md, sections 1.2 and 2):
+//   follower_obj (448)      the familiar's pouch: its level (param_394) and scroll (enum 1283)
+//   lore_npc_head (1174)    the head, and the name (enum 1279)
+//   varbits 4534 / 4290     minutes left / the half minute (lore_timer_var, 1176)
+//   lore_spell_points (1177) the special move bar, 0-60
+//   varbit 4288             the special move's cost (lore_npc_stats, 1175)
+//   varcstr 204 / 205       the special move's name / description
+//   varc 1436               1 adds a plain "Cast" to the icon; 0 leaves it a target-only move
+
+// Whether a Summoning familiar is out. The client reads 0 (hans) as none too
+// ([clientscript,lore_head_update]).
+[proc,lore_has_familiar]()(boolean)
+if (%lore_npc_head = null | %lore_npc_head = hans) {
+    return(false);
+}
+return(true);
+
+// Summons the familiar of a lore_familiar row beside the player, as their follower, and shows
+// Follower Details. The caller checks what it must (level, points, place) and takes the pouch
+// when this returns true. $quest is Wolf Whistle's summon.
+[proc,lore_summon](dbrow $row, string $special_name, string $special_desc, boolean $quest)(boolean)
+if (~lore_has_familiar = true | npc_finduid(%follower_uid) = true) {
+    // Void's, unconfirmed: the line (Summoning.kt). No recording has a second follower.
+    mes("You already have a follower.");
+    return(false);
+}
+def_npc $npc = db_getfield($row, lore_familiar:npc, 0);
+npc_add(coord, $npc, ^max_32bit_int);
+%follower_uid = npc_uid;
+%npc_attacking_uid = uid;
+npc_setmode(playerfollow);
+// 2011's: the wolf appears inside a ring of pale blue sparkles rising from the floor
+// (HemCMqn3Y3E 2009-11-20 @204; JQZnlZk0KqE 2011-05-24 @408-410).
+// Void's, unconfirmed: the graphic's ids, 1314 for a one-tile familiar and 1315 for a larger
+// one (summoning.gfx.toml, summon_familiar_size_1 and _2).
+if (nc_size($npc) > 1) {
+    spotanim_npc(spotanim_1315, 0, 0);
+} else {
+    spotanim_npc(spotanim_1314, 0, 0);
+}
+if ($quest = false) {
+    // 2011's: the 2011 wiki's Summoning familiars (23 May 2011): the points a summon takes and
+    // its xp (lore_familiar's points and summon_xp).
+    stat_sub(animallore, db_getfield($row, lore_familiar:points, 0), 0);
+    stat_advance(animallore, db_getfield($row, lore_familiar:summon_xp, 0));
+}
+// No source found: any points or xp for the quest's summon. Its points stand at 1/1 with the
+// wolf out (HemCMqn3Y3E 2009-11-20 @206) and no xp shows before the reward.
+
+// The vars first, the name and description before the pouch: the client builds the special
+// move's icon when follower_obj or varcstr 205 arrives (clientscript 211, on both 662 and 747),
+// from what the others hold then.
+%varclient_1723 = $special_name;
+%varclient_1724 = $special_desc;
+// Target-only: Howl is aimed at an npc (f10: "aim it at the giant wolpertinger").
+%lore_spell_op_binary = 0;
+%varplayerbit_4288 = db_getfield($row, lore_familiar:special_cost, 0);
+// 2011's: the bar reads "60/60 special move points remaining" on the summon (HemCMqn3Y3E
+// @208; JQZnlZk0KqE @410), and the hourglass "6.00".
+%lore_spell_points = 60;
+%varplayerbit_4534 = db_getfield($row, lore_familiar:minutes, 0);
+%varplayerbit_4290 = 0;
+// 2011's: cache 786: the client takes the scroll (enum 1283), the level (param_394) and the
+// layer to show (familiar or pet) from follower_obj, and only the skill's own pouches are in
+// its enums: the quest's pouch (12526, wolf_wolf_pouch) is in none, and with it the panel would
+// show the pet layer and count bones. So the quest's wolf is sent as the skill's spirit wolf
+// pouch (12047, the row's pouch). With that the client counts Howl scrolls 12425, not the
+// quest's 12529: the count under the icon reads 0 and the icon draws greyed, where the
+// recordings show 10 (HemCMqn3Y3E @206).
+// No source found: how 2011 made the quest's scrolls count there. To be checked in the client.
+%follower_obj = db_getfield($row, lore_familiar:pouch, 0);
+%lore_npc_head = $npc;
+~lore_open_details;
+return(true);
+
+// Opens Follower Details in side tab 95 and turns the client to it.
+// 2011's: the side panel switches by itself to the Follower Details tab on a summon (all
+// years: HemCMqn3Y3E 2009-11-20 @204; 2EfU5Mrh8Kc 2011-05-24 @237; JQZnlZk0KqE 2011-05-24 @408).
+[proc,lore_open_details]
+// An npc target on the special move's icon (child 0, made by clientscript 606), on the panel
+// and on the orb: events follow the open, which drops those set before it.
+def_int $target = ~inv_useon(^no_op, ^useon_npc, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op);
+if (getwindowmode = ^windowmode_small) {
+    if_opensub(lore_stats_side, toplevel:side95);
+} else {
+    if_opensub(lore_stats_side, toplevel_fullscreen:side95);
+}
+if_setevents(lore_stats_side:spell_icon, 0, 0, ^no_op, $target, 0, false, false);
+if_setevents(topstat_lore:spell_icon, 0, 0, ^no_op, $target, 0, false, false);
+// The orb's own "Follower Details" turns to tab 95 the same way (clientscript
+// lore_switchside_op(95, ...) sets the client's selected side).
+if_settabactive(95);
+
+// Sends the familiar away: the npc goes, Follower Details shuts and the orb is bare again.
+[proc,lore_dismiss]
+if (~lore_has_familiar = false) {
+    return;
+}
+if (npc_finduid(%follower_uid) = true) {
+    npc_del;
+}
+%follower_uid = null;
+// 2011's: cache 786: clientscript 2471 hides the orb's special icon and its action layer; it
+// reads lore_npc_head for the icon (enum 1092), so it runs before the vars are cleared.
+runclientscript("script2471()");
+if (getwindowmode = ^windowmode_small) {
+    if_closesub(toplevel:side95);
+} else {
+    if_closesub(toplevel_fullscreen:side95);
+}
+%follower_obj = null;
+%lore_npc_head = null;
+%lore_spell_points = 0;
+%varplayerbit_4288 = 0;
+%varplayerbit_4534 = 0;
+%varplayerbit_4290 = 0;
+
+// A logout takes the familiar with it ([logout,_]).
+// No source found: a familiar kept over a logout in this slice (its timer is not kept yet).
+[proc,lore_logout]
+~wolf_attic_logout;
+~lore_dismiss;
+
+// 2011's: cache 786: the spirit wolf (npc 6829) has Interact.
+[opnpc1,lore_wolf]
+if (~wolf_familiar_interact = true) {
+    return;
+}
+// The familiar's own talk is the skill's later work.

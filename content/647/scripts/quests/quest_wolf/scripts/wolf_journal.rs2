@@ -1,0 +1,44 @@
+// Wolf Whistle's journal, View on the quest list's row 131 (quest_list.rs2).
+// 2011's: only the entry for "bring him 2 lots of wolf bones" is shown, with the paragraph before
+// it struck through (HemCMqn3Y3E 2009-11-20 @91-94, read by eye; EwNMHpeFCRk 2010-03-27 @96-99
+// the same text): blue text with Pikkupstix, Summoning, giant wolpertinger, 2 and wolf bones in
+// red, and "I need to get 2 lots of wolf bones." on a line of its own, red. The struck paragraph
+// is the entry of the stage before it.
+// No source found: our wording for every other stage, each the shortest line the quest's own
+// sourced facts give (who sent the player where), and what stands above the struck paragraph.
+[label,questlist_wolf]
+def_string $seen = "It appears that I have underestimated the rabbit in this case; it is some huge rabbit-wolf-monster-bird-thing. I think I should speak to Pikkupstix to find out what is going on.";
+def_string $bones = "I have spoken to Pikkupstix, who has promised to teach me the secrets of Summoning if I can help dismiss the giant wolpertinger. To do this, I need to bring him 2 lots of wolf bones.";
+def_string $text;
+
+if (%wolf_quest = ^wolf_not_started) {
+    // No source found: our wording (2011 wiki: "Start point: Pikkupstix's house, Taverley").
+    $text = "@dbl@I can start this quest by speaking to @red@Pikkupstix @dbl@in his house in @red@Taverley@dbl@.";
+} else if (%wolf_quest = ^wolf_started) {
+    // No source found: our wording (a35: "You go see how well you do against it.").
+    $text = "@dbl@I should climb the ladder in @red@Pikkupstix@dbl@'s house to deal with the @red@rabbit @dbl@upstairs.";
+} else if (%wolf_quest = ^wolf_seen_wolpertinger) {
+    $text = "@dbl@It appears that I have underestimated the rabbit in this case; it is some huge rabbit-wolf-monster-bird-thing. I think I should speak to @red@Pikkupstix @dbl@to find out what is going on.";
+} else if (%wolf_quest = ^wolf_fetch_bones) {
+    $text = "@str@<$seen>||@dbl@I have spoken to @red@Pikkupstix@dbl@, who has promised to teach me the secrets of @red@Summoning @dbl@if I can help dismiss the @red@giant wolpertinger@dbl@. To do this, I need to bring him @red@2 @dbl@lots of @red@wolf bones@dbl@.|@red@I need to get 2 lots of wolf bones.";
+} else if (%wolf_quest = ^wolf_given_kit) {
+    // No source found: our wording (e03, e13).
+    $text = "@str@<$seen>||@str@<$bones>||@dbl@I need to make a @red@spirit wolf pouch @dbl@and some @red@Howl scrolls @dbl@at the @red@obelisk @dbl@under the trapdoor, then see @red@Pikkupstix@dbl@.";
+} else if (%wolf_quest = ^wolf_sent_upstairs) {
+    // No source found: our wording (f02).
+    $text = "@str@<$seen>||@str@<$bones>||@dbl@I need to go upstairs, summon the @red@spirit wolf @dbl@and use its @red@Howl @dbl@on the @red@giant wolpertinger@dbl@.";
+} else if (%wolf_quest = ^wolf_banished) {
+    // No source found: our wording (c3_03: "let's go tell Pikkupstix").
+    $text = "@str@<$seen>||@str@<$bones>||@dbl@The @red@giant wolpertinger @dbl@is gone. I should tell @red@Pikkupstix@dbl@.";
+} else if (%wolf_quest = ^wolf_drained) {
+    // No source found: our wording (g11).
+    $text = "@str@<$seen>||@str@<$bones>||@dbl@I need to renew my @red@Summoning skill points @dbl@at the @red@obelisk@dbl@.";
+} else if (%wolf_quest = ^wolf_renewed) {
+    // No source found: our wording (the obelisk's "You should speak to Pikkupstix to get your
+    // reward.").
+    $text = "@str@<$seen>||@str@<$bones>||@dbl@I should speak to @red@Pikkupstix @dbl@to get my reward.";
+} else {
+    // No source found: the completed journal.
+    $text = "@str@<$seen>||@str@<$bones>||@red@QUEST COMPLETE!";
+}
+~quest_journal("Wolf Whistle", $text);

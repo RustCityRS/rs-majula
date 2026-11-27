@@ -1,0 +1,298 @@
+// Pikkupstix's attic: the ladder and the two cutscenes the climb plays (.claude/647-wolf-whistle-states.md section 2;
+// times from JQZnlZk0KqE 2011-05-24 at 10 fps, with HemCMqn3Y3E 2009-11-20 alongside).
+// 2011's: the beats, their order, the lines, the overhead texts and where the player ends up.
+// No source found: every tile, camera and animation id (quest_wolf.constant), and the waits
+// between beats in ticks, fitted to the recordings' seconds by eye; to be checked in the client.
+// The giant wolpertinger (npc 6990) has no map spawn (cache 786): it is added for the scenes. It
+// has no option but Examine, so it cannot be attacked ("You can't attack this npc.", HemCMqn3Y3E
+// @211, comes of an attack the client has no menu entry for here).
+
+// The scenes' animations and graphics, kept here in one place (a constant cannot hold a seq).
+// 2011's: 2011 wiki, Wolf Whistle (23 May 2011), Trivia: "During the cutscene, your character
+// will perform the scared emote even if it hasn't been unlocked previously."
+// Void's, unconfirmed: the Scared emote is seq 2836 (emotes.anims.toml, emote_scared).
+[proc,wolf_seq_scared]()(seq)
+return(seq_2836);
+
+// No source found: fitted by eye, to be checked in the client. The giant wolpertinger's frame set
+// (2108: its bas 1116 stands with seq 8504 and walks with 8505) has two more seqs, taken as its
+// roar and its banishing.
+[proc,wolf_seq_wolpertinger_roar]()(seq)
+return(seq_8506);
+
+[proc,wolf_seq_wolpertinger_banished]()(seq)
+return(seq_8507);
+
+// No source found: fitted by eye, to be checked in the client. Spotanim 1517's model (31639) is
+// the one before the wolpertinger's (31640), taken as the whirlwind that rises over it.
+[proc,wolf_spotanim_whirlwind]()(spotanim)
+return(spotanim_1517);
+
+// No source found: fitted by eye, to be checked in the client. Seq 8293 is one of the spirit
+// wolf's frame set (1662), taken as its howl.
+[proc,wolf_seq_wolf_howl]()(seq)
+return(seq_8293);
+
+// 2011's: cache 786: ladder 28572 (Climb-up) at 2925,3442; loc_tele_2011's row for it climbs to
+// the attic.
+[oploc1,wolf_druid_quest_ladder]
+if (%wolf_quest = ^wolf_started) {
+    ~wolf_cutscene_1;
+    return;
+}
+if (%wolf_quest = ^wolf_sent_upstairs) {
+    // No source found: climbing at this stage without the pouch or the scrolls; the ladder does
+    // nothing, and Pikkupstix sends the player back to make them.
+    if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, wolf_howl) < 1) {
+        return;
+    }
+    ~wolf_cutscene_2;
+    return;
+}
+if (%wolf_quest >= ^wolf_banished) {
+    // The wolpertinger is gone: the attic is a room like any other.
+    if (~loc_tele_2011(1) = false) {
+        mes("Nothing interesting happens.");
+    }
+    return;
+}
+// No source found: the ladder before the first talk and between cutscene 1 and the fourth talk
+// (.claude/647-wolf-whistle-states.md section 11). The wolpertinger is up there and Pikkupstix has not sent the player:
+// the ladder does nothing.
+
+// 2011's: cache 786: the ladder's top 28653 (Climb-down). The player has control in the attic
+// only between cutscenes 2 and 3; leaving it sends the spirit wolf away.
+[oploc1,wolf_quest_druid_laddertop]
+~wolf_attic_leave;
+if (~loc_tele_2011(1) = false) {
+    mes("Nothing interesting happens.");
+}
+
+// The minimap is blacked out and the side tabs are hidden from the fade until the scene ends
+// (.claude/647-wolf-whistle-states.md section 2). The tabs are shut the way Demon Slayer's cutscene shuts them: this proc
+// is the same as [proc,demon_slayer_cutscene_tabs] in PR #25 (feat/647-demon-slayer-cutscenes),
+// kept here so this quest does not wait on that branch. One shared proc should replace both.
+[proc,wolf_cutscene_open]
+minimap_toggle(2);
+~wolf_cutscene_tabs(true);
+
+[proc,wolf_cutscene_close]
+cam_reset;
+minimap_toggle(0);
+~wolf_cutscene_tabs(false);
+
+[proc,wolf_cutscene_tabs](boolean $shut)
+if ($shut = false) {
+    ~initalltabs;
+    return;
+}
+if (getwindowmode = ^windowmode_small) {
+    if_closesub(toplevel:side0);
+    if_closesub(toplevel:side1);
+    if_closesub(toplevel:side2);
+    if_closesub(toplevel:side3);
+    if_closesub(toplevel:side4);
+    if_closesub(toplevel:side5);
+    if_closesub(toplevel:side6);
+    if_closesub(toplevel:side7);
+    if_closesub(toplevel:side12);
+    if_closesub(toplevel:side13);
+    if_closesub(toplevel:side15);
+} else {
+    if_closesub(toplevel_fullscreen:side0);
+    if_closesub(toplevel_fullscreen:side1);
+    if_closesub(toplevel_fullscreen:side2);
+    if_closesub(toplevel_fullscreen:side3);
+    if_closesub(toplevel_fullscreen:side4);
+    if_closesub(toplevel_fullscreen:side5);
+    if_closesub(toplevel_fullscreen:side6);
+    if_closesub(toplevel_fullscreen:side7);
+    if_closesub(toplevel_fullscreen:side12);
+    if_closesub(toplevel_fullscreen:side13);
+    if_closesub(toplevel_fullscreen:side15);
+}
+
+// Finds the attic's giant wolpertinger, or adds it: it is the active npc afterwards.
+// No source found: how long it stays. Ten minutes at a time; [timer,wolf_attic] adds it again
+// while a player is up there to banish it.
+[proc,wolf_wolpertinger]
+if (npc_find(^wolf_wolpertinger_coord, giant_wolpertinger, 10, ^vis_off) = true) {
+    return;
+}
+npc_add(^wolf_wolpertinger_coord, giant_wolpertinger, 1000);
+
+// Shot A: a low camera in the attic looking at the player from the front, at the top of the
+// ladder. Shot B: over the player's shoulder, across the green rug to the wolpertinger.
+[proc,wolf_shot_a]
+cam_moveto(^wolf_cam_a_from, ^wolf_cam_a_from_height, 0, 100);
+cam_lookat(^wolf_cam_a_to, ^wolf_cam_a_to_height, 0, 100);
+
+[proc,wolf_shot_b]
+cam_moveto(^wolf_cam_b_from, ^wolf_cam_b_from_height, 0, 100);
+cam_lookat(^wolf_cam_b_to, ^wolf_cam_b_to_height, 0, 100);
+
+// Cutscene 1, the first climb (JQZnlZk0KqE 2011-05-24 @120-147; 11 of 17 recordings show it).
+// The player never has control in the attic at this stage.
+[proc,wolf_cutscene_1]
+p_arrivedelay;
+def_coord $start = coord;
+// @120.0: Climb-up; the screen fades to black for about a second.
+if_openoverlay(fade_to_black);
+p_delay(2);
+~wolf_cutscene_open;
+p_telejump(^wolf_attic_top);
+~wolf_wolpertinger;
+def_npc_uid $bunny = npc_uid;
+// It stands at the far side of the rug with its back half-turned, gnawing.
+npc_facesquare(movecoord(npc_coord, -2, 0, 1));
+facesquare(^wolf_cam_a_from);
+p_delay(0);
+~wolf_shot_a;
+// @122.5: fade in on shot A.
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
+// 2011's: c1_01: QlQ_p-MBxJ8 2011-02-09 @100; JQZnlZk0KqE 2011-05-24 @122.
+~chatplayer("<p,neutral>Come on then little, fluffy...");
+// 2011's: c1_02: JQZnlZk0KqE 2011-05-24 @125; EADAootOI24 2010-07-09 @112.
+~chatplayer("<p,neutral>Gigantic...");
+// 2011's: c1_03: JQZnlZk0KqE 2011-05-24 @127; EADAootOI24 2010-07-09 @114.
+~chatplayer("<p,neutral>scary-looking...");
+// 2011's: c1_04: JQZnlZk0KqE 2011-05-24 @128; ldSYrbNZbI8 2010-07-31 @108.
+~chatplayer("<p,neutral>razor-fanged...");
+// 2011's: c1_04b: 2EfU5Mrh8Kc 2011-05-24 @81; JQZnlZk0KqE 2011-05-24 @130.
+~chatplayer("<p,neutral>bunny...");
+// @130.7: hard cut to shot B.
+~wolf_shot_b;
+p_delay(1);
+// @132.0-133.0: "Mrooowr?" over the wolpertinger (JQZnlZk0KqE @132.6, 2EfU5Mrh8Kc @82.5); it
+// turns its head to the player.
+if (npc_finduid($bunny) = true) {
+    npc_say("Mrooowr?");
+    npc_facesquare(coord);
+}
+p_delay(1);
+// 2011's: c1_05: QlQ_p-MBxJ8 2011-02-09 @111; JQZnlZk0KqE 2011-05-24 @133.
+~chatplayer("<p,neutral>What is that thing?");
+// 2011's: c1_06: QlQ_p-MBxJ8 2011-02-09 @113; JQZnlZk0KqE 2011-05-24 @135.
+~chatplayer("<p,neutral>Maybe, if I leave quietly, it won't notice me.");
+// @137.5-139.0: the box closes; the wolpertinger rears and lunges toward the camera.
+if (npc_finduid($bunny) = true) {
+    npc_anim(~wolf_seq_wolpertinger_roar, 0);
+}
+p_delay(2);
+// @139.5: "Raaaarw!" (JQZnlZk0KqE @139.8; HemCMqn3Y3E 2009-11-20 @61.2, read by eye), with a
+// white shock wave from its mouth.
+// No source found: the shock wave's graphic; none is played.
+if (npc_finduid($bunny) = true) {
+    npc_say("Raaaarw!");
+}
+p_delay(1);
+// @140.4: hard cut back to shot A.
+~wolf_shot_a;
+// 2011's: c1_07, a message box with no head: QlQ_p-MBxJ8 2011-02-09 @118; JQZnlZk0KqE @140.
+~mesbox("A chilling, unnatural fear envelops you!");
+// @142.5: the player cowers, and the words are also the player's overhead text and a public chat
+// line (HemCMqn3Y3E @63, JQZnlZk0KqE @142-145).
+anim(~wolf_seq_scared, 0);
+say("It's coming to get me!");
+// 2011's: c1_08: QlQ_p-MBxJ8 2011-02-09 @120; JQZnlZk0KqE 2011-05-24 @142.
+~chatplayer("<p,neutral>It's coming to get me!");
+// @145.5-146.5: fade to black, then in downstairs beside the ladder with the normal camera, the
+// cowering still playing as the view returns (HemCMqn3Y3E @66-67).
+if_openoverlay(fade_to_black);
+p_delay(2);
+p_telejump($start);
+anim(~wolf_seq_scared, 0);
+~wolf_cutscene_close;
+~wolf_set_progress(^wolf_seen_wolpertinger);
+p_delay(0);
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
+
+// Cutscene 2, the climb with pouch and scrolls (JQZnlZk0KqE 2011-05-24 @388-404). It ends with a
+// hard cut to normal play: the player at the ladder top with full control, the tabs back, and the
+// wolpertinger still in the room (JQZnlZk0KqE @404-414, 2EfU5Mrh8Kc @237).
+[proc,wolf_cutscene_2]
+p_arrivedelay;
+// @388.0-390.2: Climb-up; fade to black.
+if_openoverlay(fade_to_black);
+p_delay(2);
+~wolf_cutscene_open;
+p_telejump(^wolf_attic_top);
+~wolf_wolpertinger;
+def_npc_uid $bunny = npc_uid;
+npc_facesquare(movecoord(npc_coord, -2, 0, 1));
+facesquare(^wolf_cam_a_from);
+p_delay(0);
+~wolf_shot_a;
+// @390.5: fade in on shot A.
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
+// 2011's: c2_01, three identical lines, each on its own line of the box (forced breaks):
+// QlQ_p-MBxJ8 2011-02-09 @269; 2EfU5Mrh8Kc 2011-05-24 @217. A forced break in a chat line is
+// written | here (interface_chat/scripts/chat.rs2).
+~chatplayer("<p,neutral>Mustn't look round, bunny will eat me.|Mustn't look round, bunny will eat me.|Mustn't look round, bunny will eat me.");
+// 2011's: c2_02: QlQ_p-MBxJ8 2011-02-09 @272; 2EfU5Mrh8Kc 2011-05-24 @220.
+~chatplayer("<p,neutral>Okay, I have the spirit wolf pouch, so it can't hurt me...");
+// 2011's: c2_03: 2EfU5Mrh8Kc 2011-05-24 @222; EADAootOI24 2010-07-09 @324.
+~chatplayer("<p,neutral>...I hope.");
+// @395.5: hard cut to shot B, the wolpertinger gnawing with its back turned.
+~wolf_shot_b;
+p_delay(1);
+// 2011's: c2_04: QlQ_p-MBxJ8 2011-02-09 @278; 2EfU5Mrh8Kc 2011-05-24 @224.
+~chatplayer("<p,neutral>Oh, good. It's too busy gnawing to notice me.");
+// @398.5-399.0: it turns round and rears; @399.5 "Raaaarw!" (JQZnlZk0KqE @399.8).
+if (npc_finduid($bunny) = true) {
+    npc_facesquare(coord);
+    npc_anim(~wolf_seq_wolpertinger_roar, 0);
+}
+p_delay(1);
+if (npc_finduid($bunny) = true) {
+    npc_say("Raaaarw!");
+}
+// 2011's: c2_05: JQZnlZk0KqE 2011-05-24 @400; EADAootOI24 2010-07-09 @330.
+~chatplayer("<p,neutral>I spoke too soon!");
+// 2011's: c2_06: QlQ_p-MBxJ8 2011-02-09 @283; JQZnlZk0KqE 2011-05-24 @401.
+~chatplayer("<p,neutral>I'll use the spirit wolf pouch. I hope this works.");
+// @403.8: hard cut, no fade, to normal play.
+~wolf_cutscene_close;
+settimer(wolf_attic, 5);
+
+// While a player stands in the attic to banish the wolpertinger: it stays in the room, and the
+// spirit wolf goes when the player leaves (by a teleport or a death as much as by the ladder).
+// A timer, not a soft timer: it writes the familiar's vars, which need protected access, so it
+// waits out a dialogue or a delay.
+// No source found: the period; five ticks.
+[timer,wolf_attic]
+if (inzone(^wolf_attic_sw, ^wolf_attic_ne, coord) = false) {
+    ~wolf_attic_leave;
+    return;
+}
+if (%wolf_quest = ^wolf_sent_upstairs) {
+    ~wolf_wolpertinger;
+}
+
+// Leaving the attic before the banishing dismisses the spirit wolf.
+// No source found: summoning the wolf and leaving, dismissing it, or its time running out
+// (.claude/647-wolf-whistle-states.md section 11). So that the quest cannot stick with the only pouch used up, the wolf
+// goes back into its pouch.
+[proc,wolf_attic_leave]
+cleartimer(wolf_attic);
+if (%wolf_quest = ^wolf_sent_upstairs & ~lore_has_familiar = true) {
+    ~lore_dismiss;
+    inv_add(inv, wolf_wolf_pouch, 1);
+}
+
+// A logout in the attic before the banishing: the wolf goes as above, and the player is set
+// downstairs, where the climb plays its cutscene again.
+// No source found: this case at all; it keeps a player from logging in upstairs with no
+// wolpertinger to banish.
+[proc,wolf_attic_logout]
+if (%wolf_quest >= ^wolf_banished | inzone(^wolf_attic_sw, ^wolf_attic_ne, coord) = false) {
+    return;
+}
+~wolf_attic_leave;
+p_telejump(^wolf_house_coord);

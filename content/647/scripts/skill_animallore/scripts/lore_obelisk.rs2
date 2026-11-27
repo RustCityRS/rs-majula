@@ -1,0 +1,41 @@
+// Summoning's charged obelisks: Infuse-pouch and Renew-points (.claude/647-wolf-whistle-states.md section 5).
+// This is the slice Wolf Whistle needs, on the one obelisk it uses; the other six charged
+// obelisks, the small ones and the skill's own creation window (interface 79) come with the skill.
+// 2011's: cache 786: loc 28716 (wolf_obelisk_druid01) at 2209,5344 under Pikkupstix's house:
+// Infuse-pouch, Renew-points.
+[oploc1,wolf_obelisk_druid01]
+~lore_obelisk_infuse;
+
+[oploc2,wolf_obelisk_druid01]
+~lore_obelisk_renew;
+
+[proc,lore_obelisk_infuse]
+if (%wolf_quest ! ^wolf_complete) {
+    if (%wolf_quest = ^wolf_given_kit | %wolf_quest = ^wolf_sent_upstairs) {
+        ~lore_creation_open_quest;
+        return;
+    }
+    // 2011's: 2EfU5Mrh8Kc 2011-05-24 @306; ldSYrbNZbI8 2010-07-31 @323: the line appears at
+    // the quest's renew stage just before the recharge line. The click that caused it is
+    // off-screen, most likely Infuse-pouch: the cause is not confirmed by the recordings.
+    // No source found: Infuse-pouch before the quest's obelisk stages; the same line.
+    mes("You do not have the required Summoning knowledge to use this obelisk yet.");
+    return;
+}
+// After the quest the obelisk opens the skill's creation window; that is the skill's later work.
+
+// Summoning points are the stat's current level: an obelisk brings it back to the base.
+[proc,lore_obelisk_renew]
+if (stat(animallore) >= stat_base(animallore)) {
+    // 2011's: HemCMqn3Y3E 2009-11-20 @168; ldSYrbNZbI8 2010-07-31 @327.
+    mes("You already have full Summoning points.");
+    return;
+}
+p_arrivedelay;
+// 2011's: the player kneels at the obelisk (JQZnlZk0KqE 2011-05-24 @467).
+// Void's, unconfirmed: the kneel's seq (summoning.anims.toml, summoning_infuse = 8500).
+anim(seq_8500, 0);
+stat_heal(animallore, sub(stat_base(animallore), stat(animallore)), 0);
+// 2011's: 2EfU5Mrh8Kc 2011-05-24 @310; JQZnlZk0KqE 2011-05-24 @468 (12 of 17 recordings).
+mes("You have recharged your Summoning skill points.");
+~wolf_points_renewed;

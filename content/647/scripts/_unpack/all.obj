@@ -205841,6 +205841,10 @@ param=param_1397,1
 cursor1=3,cursor_take
 tradeable=no
 desc=A key to Pikkupstix's trapdoor.
+// 2011's: 2011 wiki, Trapdoor key (8 Mar 2011). The quest's other objs (12525-12527, 12529,
+// 12530) carry no param_1: no source found for their destroy texts, so the box shows only the
+// cache's own "Are you sure you want to destroy this object?" (confirm_destroy, 94).
+param=param_1,The trapdoor key will be destroyed if you drop it; you will have to speak to Pikkupstix to get another.
 
 // 12529
 [wolf_howl]
