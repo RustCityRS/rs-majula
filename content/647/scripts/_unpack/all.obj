@@ -4335,6 +4335,19 @@ cursor1=3,cursor_take
 desc=A sharp cattleprod.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_stab
+param=stabattack,4
+param=slashattack,2
+param=crushattack,-4
+param=magicattack,1
+param=magicdefence,1
+param=strengthbonus,3
+param=stabattack_anim,human_sword_stab
+param=slashattack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=stab_sound,farmersfork_stab
+param=slash_sound,armed_skeleton
 
 // 279
 [poisoned_feed]
@@ -6945,6 +6958,15 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless without the head.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,12
+param=slashattack,12
+param=crushattack,12
+param=attackrate,5
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=crush_sound,dwarf_attack
 
 // 467
 [cert_macro_pickaxehandle]
@@ -6989,6 +7011,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,2
+param=slashattack,-2
+param=crushattack,1
+param=slashdefence,1
+param=strengthbonus,2
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 469
 [cert_macro_broken_bronze_pickaxe]
@@ -7033,6 +7068,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,2
+param=slashattack,-2
+param=crushattack,1
+param=slashdefence,1
+param=strengthbonus,3
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 471
 [cert_macro_broken_iron_pickaxe]
@@ -7059,6 +7107,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,4
+param=slashattack,-2
+param=crushattack,2
+param=slashdefence,1
+param=strengthbonus,5
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 473
 [cert_macro_broken_steel_pickaxe]
@@ -7103,6 +7164,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,6
+param=slashattack,-2
+param=crushattack,3
+param=slashdefence,1
+param=strengthbonus,8
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 475
 [cert_macro_broken_mithril_pickaxe]
@@ -7147,6 +7221,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,8
+param=slashattack,-2
+param=crushattack,4
+param=slashdefence,1
+param=strengthbonus,11
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 477
 [cert_macro_broken_adamant_pickaxe]
@@ -7191,6 +7278,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,13
+param=slashattack,-2
+param=crushattack,6
+param=slashdefence,1
+param=strengthbonus,18
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 479
 [cert_macro_broken_rune_pickaxe]
@@ -7427,6 +7527,15 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,12
+param=slashattack,12
+param=crushattack,12
+param=attackrate,5
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=crush_sound,dwarf_attack
 
 // 493
 [cert_macro_hatchethandle]
@@ -7454,6 +7563,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,2
+param=crushattack,1
+param=slashdefence,1
+param=strengthbonus,2
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 495
 [cert_macro_broken_bronze_hatchet]
@@ -7481,6 +7603,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,2
+param=crushattack,1
+param=slashdefence,1
+param=strengthbonus,3
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 497
 [cert_macro_broken_iron_hatchet]
@@ -7506,6 +7641,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,4
+param=crushattack,2
+param=slashdefence,1
+param=strengthbonus,5
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 499
 [cert_macro_broken_steel_hatchet]
@@ -7533,6 +7681,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,5
+param=crushattack,2
+param=slashdefence,1
+param=strengthbonus,7
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 501
 [cert_macro_broken_black_hatchet]
@@ -7560,6 +7721,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,6
+param=crushattack,3
+param=slashdefence,1
+param=strengthbonus,8
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 503
 [cert_macro_broken_mithril_hatchet]
@@ -7587,6 +7761,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,8
+param=crushattack,4
+param=slashdefence,1
+param=strengthbonus,11
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 505
 [cert_macro_broken_adamant_hatchet]
@@ -7614,6 +7801,19 @@ icursor1=1,cursor_wield
 cursor1=3,cursor_take
 desc=Useless.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_blunt
+param=stabattack,-2
+param=slashattack,13
+param=crushattack,6
+param=slashdefence,1
+param=strengthbonus,18
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 507
 [cert_macro_broken_rune_hatchet]
@@ -9206,6 +9406,20 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=A curious looking neck ornament.
 wearpos=front
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=stabattack,1
+param=slashattack,1
+param=crushattack,1
+param=magicattack,1
+param=rangeattack,1
+param=stabdefence,1
+param=slashdefence,1
+param=crushdefence,1
+param=magicdefence,1
+param=rangedefence,1
+param=strengthbonus,1
+param=attackrate,1
+param=prayerbonus,1
 
 // 617
 [fake_coins]
@@ -9935,6 +10149,20 @@ cursor1=3,cursor_take
 desc=A Faladian Knight's sword.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_slash
+param=stabattack,9
+param=slashattack,14
+param=crushattack,-2
+param=slashdefence,3
+param=crushdefence,2
+param=strengthbonus,10
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
 
 // 668
 [blurite_ore]
@@ -11018,6 +11246,14 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=A vial of holy water, good against certain demons.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_thrown
+param=rangeattack,6
+param=rangebonus,12
+param=levelrequire,1
+param=rangeattack_anim,seq_385
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,thrown
 
 // 733
 [smashed_glass]
@@ -11229,6 +11465,18 @@ cursor1=3,cursor_take
 desc=A black obsidian dagger, it has a strange aura about it.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_stab
+param=stabattack,5
+param=slashattack,3
+param=crushattack,-4
+param=magicattack,1
+param=magicdefence,1
+param=stabattack_anim,human_sword_stab
+param=slashattack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=stab_sound,farmersfork_stab
+param=slash_sound,armed_skeleton
 
 // 747
 [deathdaggerdone]
@@ -11249,6 +11497,18 @@ cursor1=3,cursor_take
 desc=A black obsidian dagger, it has a strange aura about it - it seems to be glowing.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_stab
+param=stabattack,5
+param=slashattack,3
+param=crushattack,-4
+param=magicattack,1
+param=magicdefence,1
+param=stabattack_anim,human_sword_stab
+param=slashattack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=stab_sound,farmersfork_stab
+param=slash_sound,armed_skeleton
 
 // 748
 [holyforce]
@@ -11557,6 +11817,14 @@ desc=Second-rate crossbow; former property of the Phoenix Gang.
 wearpos=righthand
 param=param_0,equip_ranged
 weight=8lb
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_crossbow
+param=rangeattack,6
+param=levelrequire,1
+param=attackrate,6
+param=rangeattack_anim,human_crossbow
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,crossbow
 
 // 768
 [cert_phoenix_crossbow]
@@ -11631,6 +11899,21 @@ cursor1=3,cursor_take
 desc=Crafted from a Dramen tree branch.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_staff
+param=stabattack,-1
+param=slashattack,-1
+param=crushattack,10
+param=magicattack,10
+param=stabdefence,2
+param=slashdefence,3
+param=crushdefence,1
+param=magicdefence,10
+param=strengthbonus,10
+param=attackrate,5
+param=crushattack_anim,human_staff_pummel
+param=defend_anim,human_staff_block
+param=crush_sound,staff_hit
 
 // 773
 [perfect_ruby_ring]
@@ -16620,6 +16903,17 @@ cursor1=3,cursor_take
 desc=A jungle specific slashing device.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_slash
+param=slashattack,6
+param=crushattack,-2
+param=strengthbonus,5
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
 
 // 976
 [cert_machette]
@@ -24813,6 +25107,20 @@ wearpos=righthand
 param=param_0,equip_axe
 param=woodcutting_anim,human_woodcutting_iron_hatchet
 desc=A woodcutter's hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,5
+param=crushattack,3
+param=slashdefence,1
+param=strengthbonus,7
+param=levelrequire,0
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1350
 [cert_iron_axe]
@@ -24844,6 +25152,20 @@ cursor1=3,cursor_take
 wearpos=righthand
 param=woodcutting_anim,human_woodcutting_bronze_hatchet
 desc=A woodcutter's hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,4
+param=crushattack,2
+param=slashdefence,1
+param=strengthbonus,5
+param=levelrequire,0
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1352
 [cert_bronze_axe]
@@ -24877,6 +25199,20 @@ cursor1=3,cursor_take
 wearpos=righthand
 param=woodcutting_anim,human_woodcutting_steel_hatchet
 desc=A woodcutter's hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,8
+param=crushattack,6
+param=slashdefence,1
+param=strengthbonus,9
+param=levelrequire,6
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1354
 [cert_steel_axe]
@@ -24911,6 +25247,20 @@ cursor1=3,cursor_take
 wearpos=righthand
 param=woodcutting_anim,human_woodcutting_mithril_hatchet
 desc=A powerful hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,12
+param=crushattack,10
+param=slashdefence,1
+param=strengthbonus,13
+param=levelrequire,21
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1356
 [cert_mithril_axe]
@@ -24945,6 +25295,20 @@ cursor1=3,cursor_take
 wearpos=righthand
 param=woodcutting_anim,human_woodcutting_adamant_hatchet
 desc=A powerful hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,17
+param=crushattack,15
+param=slashdefence,1
+param=strengthbonus,19
+param=levelrequire,31
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1358
 [cert_adamant_axe]
@@ -24980,6 +25344,20 @@ cursor1=3,cursor_take
 wearpos=righthand
 param=woodcutting_anim,human_woodcutting_rune_axe
 desc=A powerful hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,26
+param=crushattack,24
+param=slashdefence,1
+param=strengthbonus,29
+param=levelrequire,41
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1360
 [cert_rune_axe]
@@ -25015,6 +25393,20 @@ cursor1=3,cursor_take
 wearpos=righthand
 param=woodcutting_anim,human_woodcutting_black_hatchet
 desc=A sinister looking hatchet.
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_axe
+param=stabattack,-2
+param=slashattack,10
+param=crushattack,8
+param=slashdefence,1
+param=strengthbonus,12
+param=levelrequire,11
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,dwarf_attack
 
 // 1362
 [cert_black_axe]
@@ -26277,6 +26669,21 @@ cursor1=3,cursor_take
 desc=An ancient staff, formerly the property of Iban.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_staff
+param=stabattack,10
+param=slashattack,-1
+param=crushattack,40
+param=magicattack,10
+param=stabdefence,2
+param=slashdefence,3
+param=crushdefence,1
+param=magicdefence,10
+param=strengthbonus,50
+param=attackrate,5
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=crush_sound,staff_hit
 
 // 1410
 [brokenibanstaff]
@@ -26383,6 +26790,22 @@ cursor1=3,cursor_take
 desc=It's a Scythe.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_scythe
+param=stabattack,3
+param=slashattack,8
+param=crushattack,3
+param=slashdefence,3
+param=crushdefence,1
+param=strengthbonus,10
+param=attackrate,7
+param=slashattack_anim,human_scythe_sweep
+param=crushattack_anim,human_scythe_lunge
+param=stabattack_anim,human_scythe_slash
+param=defend_anim,human_scythe_block
+param=stab_sound,scythe_stab
+param=slash_sound,scythe_slash
+param=crush_sound,scythe_double
 
 // 1420
 [iron_mace]
@@ -40821,6 +41244,21 @@ cursor1=3,cursor_take
 desc=A magical staff imbued with the power of Saradomin.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_staff
+param=stabattack,-1
+param=slashattack,-1
+param=crushattack,6
+param=magicattack,6
+param=stabdefence,2
+param=slashdefence,3
+param=crushdefence,1
+param=magicdefence,6
+param=strengthbonus,2
+param=attackrate,4
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=crush_sound,staff_hit
 
 // 2416
 [guthix_staff]
@@ -40844,6 +41282,21 @@ cursor1=3,cursor_take
 desc=A magical staff imbued with the power of Guthix.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_staff
+param=stabattack,-1
+param=slashattack,-1
+param=crushattack,6
+param=magicattack,6
+param=stabdefence,2
+param=slashdefence,3
+param=crushdefence,1
+param=magicdefence,6
+param=strengthbonus,2
+param=attackrate,4
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=crush_sound,staff_hit
 
 // 2417
 [zamorak_staff]
@@ -40867,6 +41320,21 @@ cursor1=3,cursor_take
 desc=A magical staff imbued with the power of Zamorak.
 wearpos=righthand
 param=param_0,equip_staff
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_staff
+param=stabattack,-1
+param=slashattack,-1
+param=crushattack,6
+param=magicattack,6
+param=stabdefence,2
+param=slashdefence,3
+param=crushdefence,1
+param=magicdefence,6
+param=strengthbonus,2
+param=attackrate,4
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=crush_sound,staff_hit
 
 // 2418
 [princeskey]
@@ -50044,6 +50512,10 @@ wearpos=lefthand
 param=param_0,shield_appear
 // 289's block sound (quests/quest_elemental_workshop/configs/quest_elemental_workshop.obj)
 param=defend_sound,blade4
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=armour_shield
+param=magicdefence,6
+param=defend_anim,human_shield_defence
 
 // 2891
 [cert_elemental_shield]
@@ -50988,6 +51460,20 @@ cursor1=3,cursor_take
 desc=A silver dagger that can prevent werewolves changing form.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_stab
+param=stabattack,11
+param=slashattack,5
+param=crushattack,-4
+param=magicattack,1
+param=magicdefence,1
+param=strengthbonus,10
+param=prayerbonus,5
+param=stabattack_anim,human_sword_stab
+param=slashattack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=stab_sound,farmersfork_stab
+param=slash_sound,armed_skeleton
 
 // 2953
 [bucket_murkywater]
@@ -51133,6 +51619,19 @@ wearpos=righthand
 param=param_0,equip_sword
 // 289's silver casting key (skill_crafting/configs/jewellery/silver.obj)
 param=crafting_jewelry_struct,silver_sickle
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_slash
+param=slashdefence,1
+param=crushdefence,1
+param=magicdefence,1
+param=rangedefence,1
+param=strengthbonus,1
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,sickle_slash
+param=stab_sound,sickle_stab
 
 // 2962
 [cert_silver_sickle]
@@ -51166,6 +51665,20 @@ cursor1=3,cursor_take
 desc=It's a blessed silver sickle.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_slash
+param=slashdefence,1
+param=crushdefence,1
+param=magicdefence,1
+param=rangedefence,1
+param=strengthbonus,1
+param=prayerbonus,5
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,sickle_slash
+param=stab_sound,sickle_stab
 
 // 2964
 [bowl_empty_filliman]
@@ -65084,6 +65597,18 @@ cursor1=3,cursor_take
 desc=A sword used only by Fremennik warriors.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_slash
+param=stabattack,-6
+param=slashattack,29
+param=crushattack,-2
+param=slashdefence,1
+param=strengthbonus,28
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
 
 // 3758
 [viking_shield]
@@ -65107,6 +65632,16 @@ wearpos=lefthand
 param=param_0,equip_shield
 // 289's block sound (quests/quest_viking/configs/viking.obj)
 param=defend_sound,wood_armour3_1
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=armour_shield
+param=magicattack,-8
+param=rangeattack,-2
+param=stabdefence,27
+param=slashdefence,31
+param=crushdefence,29
+param=magicdefence,-1
+param=rangedefence,29
+param=defend_anim,human_shield_defence
 
 // 3759
 [viking_cloak_green]
@@ -66526,6 +67061,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=An incomplete book of Saradomin.
 wearpos=lefthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,human_unarmedblock
+param=prayerbonus,5
 
 // 3840
 [saradominbook_complete]
@@ -66554,6 +67092,14 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=The holy book of Saradomin.
 wearpos=lefthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,human_unarmedblock
+param=stabdefence,8
+param=slashdefence,8
+param=crushdefence,8
+param=magicdefence,8
+param=rangedefence,8
+param=prayerbonus,5
 
 // 3841
 [unfinished_zamorakbook]
@@ -66581,6 +67127,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=An incomplete book of Zamorak.
 wearpos=lefthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,human_unarmedblock
+param=prayerbonus,5
 
 // 3842
 [zamorakbook_complete]
@@ -66609,6 +67158,14 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=The holy book of Zamorak.
 wearpos=lefthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,human_unarmedblock
+param=stabattack,8
+param=slashattack,8
+param=crushattack,8
+param=magicattack,8
+param=rangeattack,8
+param=prayerbonus,5
 
 // 3843
 [unfinished_guthixbook]
@@ -66636,6 +67193,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=An incomplete book of Guthix.
 wearpos=lefthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,human_unarmedblock
+param=prayerbonus,5
 
 // 3844
 [guthixbook_complete]
@@ -66664,6 +67224,19 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=The holy book of Guthix.
 wearpos=lefthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,human_unarmedblock
+param=stabattack,4
+param=slashattack,4
+param=crushattack,4
+param=magicattack,4
+param=rangeattack,4
+param=stabdefence,4
+param=slashdefence,4
+param=crushdefence,4
+param=magicdefence,4
+param=rangedefence,4
+param=prayerbonus,5
 
 // 3845
 [horror_diary1]
@@ -67560,6 +68133,19 @@ cursor1=3,cursor_take
 desc=Not as good as a pet frog.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_slash
+param=slashdefence,1
+param=crushdefence,1
+param=magicdefence,1
+param=rangedefence,1
+param=strengthbonus,1
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,sickle_slash
+param=stab_sound,sickle_stab
 
 // 3900
 [cert_iron_sickle]
@@ -69481,6 +70067,14 @@ cursor1=3,cursor_take
 desc=The Saradomin team's flag.
 wearpos=righthand
 param=param_0,equip_banner
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_spear
+param=defend_anim,seq_1429
+param=stabattack_anim,seq_1428
+param=slashattack_anim,seq_1428
+param=crushattack_anim,seq_1428
+param=stab_sound,staff_stab
+param=crush_sound,staff_hit
 
 // 4038
 [cert_castlewars_saradomin_banner]
@@ -69507,6 +70101,14 @@ cursor1=3,cursor_take
 desc=The Zamorak team's flag.
 wearpos=righthand
 param=param_0,equip_banner
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=weapon_spear
+param=defend_anim,seq_1429
+param=stabattack_anim,seq_1428
+param=slashattack_anim,seq_1428
+param=crushattack_anim,seq_1428
+param=stab_sound,staff_stab
+param=crush_sound,staff_hit
 
 // 4040
 [cert_castlewars_zamorak_banner]
@@ -69889,6 +70491,20 @@ tradeable=no
 desc=A sword with simple, basic decoration.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=attackrate,5
+param=stabattack,13
+param=slashattack,18
+param=crushattack,-2
+param=slashdefence,3
+param=crushdefence,2
+param=strengthbonus,16
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
+category=weapon_slash
 
 // 4069
 [castlewars_armour_body]
@@ -70156,6 +70772,8 @@ param=param_1397,1
 cursor1=3,cursor_take
 desc=A waxed sled.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+param=defend_anim,seq_1466
 
 // 4085
 [trollromance_wax]
@@ -70205,6 +70823,15 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=These pale flowers have a pungent odour.
 wearpos=righthand
+// 289's combat params: the port missed this item because 2011 renamed it.
+category=flowers
+param=stabattack,-100
+param=slashattack,-100
+param=crushattack,-50
+param=strengthbonus,-10
+param=attackrate,4
+param=crushattack_anim,human_blunt_spike
+param=crush_sound,flower_attack
 
 // 4087
 [dragon_platelegs]
