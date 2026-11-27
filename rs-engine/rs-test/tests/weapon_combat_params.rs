@@ -17,7 +17,8 @@ use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 /// The objs the first port missed: in both 289 and 647 under one debugname,
-/// with 289 combat params and none at 647.
+/// with 289 combat params and none at 647. Excalibur, also renamed, has its
+/// own fix with Merlin's Crystal (#22).
 const RENAMED: &[&str] = &[
     "silver_sickle",
     "saradomin_staff",
@@ -57,7 +58,6 @@ const RENAMED: &[&str] = &[
     "phoenix_crossbow",
     "viking_sword",
     "viking_shield",
-    "excalibur",
     "cattleprod",
     "macro_pickaxehandle",
     "macro_broken_bronze_pickaxe",
