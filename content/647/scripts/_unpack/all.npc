@@ -48048,6 +48048,10 @@ cursor1=1,cursor_talkto
 desc=Waydar is some kind of flight officer.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_waydar_cutscene, quests/quest_mm/configs/quest_mm.npc).
+maxrange=0
+moverestrict=nomove
+defaultmode=none
 
 // 1410
 [emrg_imp]
@@ -48083,6 +48087,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A large and weathered looking Gnome veteran.
 wanderrange=2
+// 289's server keys (mm_garkor, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
 
 // 1412
 [mm_garkor_final_battle]
@@ -48101,6 +48107,9 @@ head2=model_42660
 unknown119=3
 cursor1=1,cursor_talkto
 desc=A large and weathered looking Gnome veteran.
+// 289's server keys (mm_garkor_final_battle, quests/quest_mm/configs/quest_mm.npc).
+maxrange=40
+timer=9
 
 // 1413
 [mm_lumo]
@@ -48130,6 +48139,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A seasoned looking Gnome foot soldier.
 wanderrange=2
+// 289's server keys (mm_lumo, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
 
 // 1414
 [mm_lumo_final_battle]
@@ -48157,6 +48168,9 @@ head1=model_63369
 head2=model_42660
 unknown119=3
 desc=A seasoned looking Gnome foot soldier.
+// 289's server keys (mm_lumo_final_battle, quests/quest_mm/configs/quest_mm.npc).
+maxrange=40
+timer=9
 
 // 1415
 [mm_bunkdo]
@@ -48181,6 +48195,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A seasoned looking Gnome foot soldier.
 wanderrange=2
+// 289's server keys (mm_bunkdo, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
 
 // 1416
 [mm_bunkdo_final_battle]
@@ -48203,6 +48219,9 @@ head2=model_42660
 head3=model_42662
 unknown119=3
 desc=A seasoned looking Gnome foot soldier.
+// 289's server keys (mm_bunkdo_final_battle, quests/quest_mm/configs/quest_mm.npc).
+maxrange=40
+timer=9
 
 // 1417
 [mm_carado]
@@ -48226,6 +48245,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A seasoned looking Gnome foot soldier.
 wanderrange=2
+// 289's server keys (mm_carado, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
 
 // 1418
 [mm_carado_final_battle]
@@ -48253,6 +48274,10 @@ head1=model_63375
 head2=model_63392
 unknown119=3
 desc=A seasoned looking Gnome foot soldier.
+// 289's server keys (mm_carado_final_battle, quests/quest_mm/configs/quest_mm.npc).
+maxrange=40
+attackrange=5
+timer=9
 
 // 1419
 [lumdo]
@@ -48271,6 +48296,8 @@ head1=model_63344
 unknown119=3
 cursor1=1,cursor_talkto
 desc=A seasoned looking Gnome foot soldier.
+// 289's server keys (mm_lumdo, quests/quest_mm/configs/quest_mm.npc).
+timer=9
 
 // 1420
 [mm_karam]
@@ -48288,6 +48315,9 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=All you see is a glimmer of light and the suggestion of shadow.
 wanderrange=2
+// 289's server keys (mm_karam, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
+timer=1
 
 // 1421
 [mm_karam_final_battle]
@@ -48302,6 +48332,9 @@ model3=model_63124
 head1=model_63349
 unknown119=3
 desc=All you see is a glimmer of light and the suggestion of shadow.
+// 289's server keys (mm_karam_final_battle, quests/quest_mm/configs/quest_mm.npc).
+maxrange=40
+timer=9
 
 // 1422
 [mm_karam_talker]
@@ -48319,6 +48352,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=All you see is a glimmer of light and the suggestion of shadow.
 wanderrange=2
+// 289's server keys (mm_karam_talker, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
 
 // 1423
 [mm_bunkwicket]
@@ -48341,6 +48376,11 @@ cursor1=1,cursor_talkto
 desc=This Gnome is busy applying some kind of pasty material to the cave walls.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_bunkwicket, quests/quest_mm/configs/quest_mm.npc).
+defaultmode=none
+timer=40
+maxrange=0
+moverestrict=nomove
 
 // 1424
 [mm_waymottin]
@@ -48371,6 +48411,11 @@ cursor1=1,cursor_talkto
 desc=This Gnome is busy applying some kind of pasty material to the cave walls.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_waymottin, quests/quest_mm/configs/quest_mm.npc).
+defaultmode=none
+timer=40
+maxrange=0
+moverestrict=nomove
 
 // 1425
 [mm_zooknock]
@@ -48389,6 +48434,9 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A wizened little Gnome dressed in brightly coloured clothes.
 wanderrange=2
+// 289's server keys (mm_zooknock, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
+timer=40
 
 // 1426
 [mm_zooknock_final_battle]
@@ -48406,6 +48454,10 @@ head2=model_63401
 unknown119=3
 cursor1=1,cursor_talkto
 desc=A wizened little Gnome dressed in brightly coloured clothes.
+// 289's server keys (mm_zooknock_final_battle, quests/quest_mm/configs/quest_mm.npc).
+attackrange=5
+maxrange=40
+timer=9
 
 // 1427
 [mm_caranock]
@@ -48433,6 +48485,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=An official looking Gnome with small beady eyes.
 wanderrange=2
+// 289's server keys (mm_caranock, quests/quest_mm/configs/quest_mm.npc).
+maxrange=2
 
 // 1428
 [mm_caranock_cutscene]
@@ -48461,6 +48515,9 @@ cursor1=1,cursor_talkto
 desc=An official looking Gnome with small beady eyes.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_caranock_cutscene, quests/quest_mm/configs/quest_mm.npc).
+moverestrict=nomove
+defaultmode=none
 
 // 1429
 [mm_dugopul]
@@ -48477,6 +48534,12 @@ head1=model_4659
 unknown119=3
 cursor1=1,cursor_talkto
 desc=A large hairy monkey with a spade.
+// 289's server keys (mm_dugopul, quests/quest_mm/configs/quest_mm.npc).
+maxrange=10
+attackrange=10
+timer=1
+huntmode=mm_guard
+huntrange=10
 
 // 1430
 [tg09_cook]
@@ -48527,6 +48590,14 @@ cursor1=1,cursor_talkto
 desc=A huge brutish gorilla. He looks like a jail guard.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_trefaji, quests/quest_mm/configs/quest_mm.npc).
+maxrange=30
+param=damagetype,^crush_style
+huntrange=1
+attackrange=1
+moverestrict=indoors
+timer=2
+param=next_npc_type,mm_aberab
 
 // 1432
 [mm_aberab]
@@ -48544,6 +48615,15 @@ cursor1=1,cursor_talkto
 desc=A huge brutish gorilla. He looks like a jail guard.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_aberab, quests/quest_mm/configs/quest_mm.npc).
+maxrange=30
+param=damagetype,^crush_style
+param=death_drop,mm_medium_ninja_monkey_bones
+huntrange=1
+attackrange=1
+moverestrict=indoors
+timer=2
+param=next_npc_type,mm_trefaji
 
 // 1433
 [mm_solihib]
@@ -48565,6 +48645,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=The food merchant of Ape Atoll.
 wanderrange=1
+// 289's server keys (mm_solihib, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
+param=owned_shop,mm_food_shop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,500
+param=shop_delta,20
+param=shop_title,Solihib's Food Stall
 
 // 1434
 [mm_daga]
@@ -48586,6 +48673,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A shrewd-looking monkey swordsmith.
 wanderrange=1
+// 289's server keys (mm_daga, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
+param=owned_shop,mm_scimitar_shop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,500
+param=shop_delta,20
+param=shop_title,Daga's Scimitar Smithy
 
 // 1435
 [mm_tutab]
@@ -48607,6 +48701,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A magical trinket dealer.
 wanderrange=1
+// 289's server keys (mm_tutab, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
+param=owned_shop,mm_magic_shop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,10
+param=shop_title,Ifaba's General Store
 
 // 1436
 [mm_ifaba]
@@ -48626,6 +48727,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A general store type of monkey.
 wanderrange=1
+// 289's server keys (mm_ifaba, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
+param=owned_shop,mm_general_shop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,500
+param=shop_delta,20
+param=shop_title,Ifaba's General Store
 
 // 1437
 [mm_hamab]
@@ -48645,6 +48753,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A female monkey skilled in crafting.
 wanderrange=1
+// 289's server keys (mm_hamab, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
+param=owned_shop,mm_crafting_shop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,500
+param=shop_delta,20
+param=shop_title,Hamab's Crafting Emporium
 
 // 1438
 [mm_hafuba]
@@ -48711,6 +48826,20 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A large ninja monkey wielding two scimitars.
 wanderrange=5
+// 289's server keys (mm_kruk, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
 
 // 1442
 [mm_duke]
@@ -48727,6 +48856,20 @@ head1=model_4660
 unknown119=3
 cursorattack=cursor_attack
 desc=A large ninja monkey wielding two scimitars.
+// 289's server keys (mm_duke, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
 
 // 1443
 [mm_oipuis]
@@ -48743,6 +48886,20 @@ head1=model_4660
 unknown119=3
 cursorattack=cursor_attack
 desc=A large ninja monkey wielding two scimitars.
+// 289's server keys (mm_oipuis, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
 
 // 1444
 [mm_uyoro]
@@ -48759,6 +48916,20 @@ head1=model_4660
 unknown119=3
 cursorattack=cursor_attack
 desc=A large ninja monkey wielding two scimitars.
+// 289's server keys (mm_uyoro, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
 
 // 1445
 [mm_ouhai]
@@ -48775,6 +48946,20 @@ head1=model_4660
 unknown119=3
 cursorattack=cursor_attack
 desc=A large ninja monkey wielding two scimitars.
+// 289's server keys (mm_ouhai, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
 
 // 1446
 [mm_uodai]
@@ -48791,6 +48976,21 @@ head1=model_4660
 unknown119=3
 cursorattack=cursor_attack
 desc=A large ninja monkey wielding two scimitars.
+// 289's server keys (mm_uodai, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
+param=death_drop,mm_medium_ninja_monkey_bones
 
 // 1447
 [mm_padulah]
@@ -48808,6 +49008,37 @@ cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=A scimitar wielding ninja monkey. He looks like he is guarding something.
 wanderrange=2
+// 289's server keys (mm_padulah, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=7
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+respawnrate=100
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
+param=death_drop,mm_medium_ninja_monkey_bones
+huntrange=10
+huntmode=aa_aggressive_melee
+defaultmode=patrol
+patrol1=0_43_43_9_33,15
+patrol2=0_43_43_9_32,15
+patrol3=0_43_43_8_31,0
+patrol4=0_43_43_6_29,15
+patrol5=0_43_43_5_29,15
+patrol6=0_43_43_4_30,0
+patrol7=0_43_43_2_32,15
+patrol8=0_43_43_2_33,15
+patrol9=0_43_43_2_34,15
+patrol10=0_43_43_5_36,15
+patrol11=0_43_43_6_36,15
+patrol12=0_43_43_7_35,0
 
 // 1448
 [mm_awowogei_cutscene]
@@ -48823,6 +49054,10 @@ cursor1=1,cursor_talkto
 desc=A rather dapper little monkey.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_awowogei_cutscene, quests/quest_mm/configs/quest_mm.npc).
+maxrange=0
+moverestrict=nomove
+defaultmode=none
 
 // 1449
 [mm_uwogo]
@@ -48839,6 +49074,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A smartly clothed large monkey.
 wanderrange=1
+// 289's server keys (mm_uwogo, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
 
 // 1450
 [mm_murowoi]
@@ -48855,6 +49092,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A smartly clothed large monkey.
 wanderrange=1
+// 289's server keys (mm_murowoi, quests/quest_mm/configs/quest_mm.npc).
+maxrange=1
 
 // 1451
 [mm_sleeping_monkey_guard]
@@ -48872,6 +49111,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A rather sleepy looking guard, wielding some kind of bat.
 wanderrange=1
+// 289's server keys (mm_sleeping_monkey_guard, quests/quest_mm/configs/quest_mm.npc).
+timer=2
 
 // 1452
 [mm_monkey_child]
@@ -48920,6 +49161,17 @@ head1=model_4658
 unknown119=2
 cursor1=1,cursor_talkto
 desc=She looks like the Monkey's Aunt.
+// 289's server keys (mm_monkeys_aunt, quests/quest_mm/configs/quest_mm.npc).
+timer=2
+defaultmode=patrol
+patrol1=0_42_43_54_42,15
+patrol2=0_42_43_55_40,30
+patrol3=0_42_43_55_35,5
+patrol4=0_42_43_53_34,5
+patrol5=0_42_43_49_34,5
+patrol6=0_42_43_48_40,5
+patrol7=0_42_43_45_40,15
+patrol8=0_42_43_49_42,15
 
 // 1455
 [mm_monkey_guard]
@@ -48934,6 +49186,22 @@ head1=model_4660
 unknown119=3
 cursorattack=cursor_attack
 desc=A scimitar wielding ninja monkey.
+// 289's server keys (mm_monkey_guard, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=100
+attack=130
+defence=130
+strength=130
+hitpoints=1300
+magic=130
+param=attackrate,4
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,m_monkey_attack_scimitar
+param=defend_anim,m_monkey_block_scimitar
+param=death_anim,m_monkey_death
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
+param=death_drop,mm_small_ninja_monkey_bones
 
 // 1456
 [mm_monkey_archer]
@@ -48949,6 +49217,30 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A bow wielding ninja monkey. It looks particularly dangerous.
 wanderrange=2
+// 289's server keys (mm_monkey_archer, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=10
+attack=80
+defence=80
+strength=80
+hitpoints=500
+ranged=110
+attackrange=10
+respawnrate=100
+param=attackrate,4
+param=damagetype,^crush_style
+param=attack_anim,m_monkey_attack_bow
+param=defend_anim,m_monkey_block_bow
+param=death_anim,null
+param=attack_sound,arrowlaunch2
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
+param=death_drop,mm_small_ninja_monkey_bones
+param=rangeattack_sound,arrowlaunch2
+param=proj_launch,iron_arrow_launch
+param=proj_height,24
+param=proj_travel,iron_arrow_travel
+huntmode=aa_aggressive_ranged
+huntrange=6
 
 // 1457
 [mm_ravine_archer]
@@ -48964,6 +49256,29 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A bow wielding ninja monkey. It looks particularly dangerous.
 wanderrange=2
+// 289's server keys (mm_ravine_archer, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=30
+attack=80
+defence=80
+strength=80
+hitpoints=500
+ranged=110
+attackrange=15
+respawnrate=100
+param=damagetype,^crush_style
+param=attack_anim,m_monkey_attack_bow
+param=defend_anim,m_monkey_block_bow
+param=death_anim,null
+param=attack_sound,arrowlaunch2
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
+param=death_drop,mm_small_ninja_monkey_bones
+param=rangeattack_sound,arrowlaunch2
+param=proj_launch,iron_arrow_launch
+param=proj_height,24
+param=proj_travel,iron_arrow_travel
+huntmode=aa_aggressive_ranged
+huntrange=15
 
 // 1458
 [mm_posted_archer]
@@ -48979,6 +49294,32 @@ unknown119=5
 cursorattack=cursor_attack
 desc=A bow wielding ninja monkey.
 wanderrange=0
+// 289's server keys (mm_posted_archer, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=40
+attack=80
+defence=80
+strength=80
+hitpoints=500
+ranged=110
+respawnrate=100
+moverestrict=nomove
+attackrange=6
+defaultmode=none
+param=attackrate,4
+param=damagetype,^crush_style
+param=attack_anim,m_monkey_attack_bow
+param=defend_anim,m_monkey_block_bow
+param=death_anim,null
+param=attack_sound,arrowlaunch2
+param=defend_sound,monkey_hit
+param=death_sound,monkey_death
+param=death_drop,mm_small_ninja_monkey_bones
+param=rangeattack_sound,arrowlaunch2
+param=proj_launch,iron_arrow_launch
+param=proj_height,24
+param=proj_travel,iron_arrow_travel
+huntmode=aa_aggressive_ranged
+huntrange=6
 
 // 1459
 [mm_religious_guard]
@@ -48994,6 +49335,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A huge brutish gorilla armoured with dangerous looking vambraces.
 wanderrange=5
+// 289's server keys (mm_religious_guard, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=15
+attack=130
+defence=200
+strength=130
+hitpoints=1300
+magic=130
+respawnrate=100
+param=attackrate,4
+param=attackbonus,50
+param=damagetype,^crush_style
+param=attack_anim,m_gorilla_attack
+param=defend_anim,m_gorilla_block
+param=death_anim,m_gorilla_death
+param=attack_sound,gorilla_attack
+param=defend_sound,gorilla_hit
+param=death_sound,gorilla_death
+param=death_drop,mm_normal_gorilla_monkey_bones
+huntrange=5
+huntmode=aa_aggressive_melee
 
 // 1460
 [mm_religious_trapdoor_guard]
@@ -49009,6 +49370,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A huge brutish gorilla armoured with dangerous looking vambraces.
 wanderrange=1
+// 289's server keys (mm_religious_trapdoor_guard, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=2
+attack=130
+defence=200
+strength=130
+hitpoints=1300
+magic=130
+respawnrate=25
+param=attackrate,4
+param=attackbonus,50
+param=damagetype,^crush_style
+param=attack_anim,m_gorilla_attack
+param=defend_anim,m_gorilla_block
+param=death_anim,m_gorilla_death
+param=attack_sound,gorilla_attack
+param=defend_sound,gorilla_hit
+param=death_sound,gorilla_death
+param=death_drop,mm_bearded_gorilla_monkey_bones
+huntrange=2
+huntmode=aa_aggressive_melee
 
 // 1461
 [mm_elder_guard_1]
@@ -49025,6 +49406,14 @@ cursor1=1,cursor_talkto
 desc=A huge brutish gorilla stands here, blocking the way.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_elder_guard_1, quests/quest_mm/configs/quest_mm.npc).
+attackrange=1
+maxrange=2
+huntrange=1
+huntmode=mm_guard
+moverestrict=nomove
+defaultmode=none
+param=damagetype,^crush_style
 
 // 1462
 [mm_elder_guard_2]
@@ -49041,6 +49430,14 @@ cursor1=1,cursor_talkto
 desc=A huge brutish gorilla stands here, blocking the way.
 // cache 786 walk mode 1: stands
 wanderrange=0
+// 289's server keys (mm_elder_guard_2, quests/quest_mm/configs/quest_mm.npc).
+attackrange=1
+maxrange=2
+huntrange=1
+huntmode=mm_guard
+moverestrict=nomove
+defaultmode=none
+param=damagetype,^crush_style
 
 // 1463
 [mm_zoo_monkey]
@@ -49103,6 +49500,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A large and lumbering undead monkey.
 wanderrange=5
+// 289's server keys (mm_zombie_monkey_large, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=5
+attack=150
+defence=60
+strength=60
+hitpoints=600
+magic=60
+respawnrate=100
+param=attackbonus,35
+param=damagetype,^crush_style
+param=attack_anim,m_zombie_attack
+param=defend_anim,m_monkey_block_bow
+param=death_anim,m_monkey_death
+param=attack_sound,zombie_monkey_attack
+param=defend_sound,zombie_monkey_hit
+param=death_sound,zombie_monkey_death
+param=death_drop,mm_large_zombie_monkey_bones
+param=undead,^true
+huntmode=aa_aggressive_melee
+huntrange=5
 
 // 1466
 [mm_zombie_monkey_large_guard]
@@ -49125,6 +49542,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A large and lumbering undead monkey stands here, blocking the way.
 wanderrange=1
+// 289's server keys (mm_zombie_monkey_large_guard, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=1
+attack=150
+defence=90
+strength=110
+hitpoints=900
+magic=90
+respawnrate=25
+param=attackbonus,35
+param=damagetype,^crush_style
+param=attack_anim,m_zombie_attack
+param=defend_anim,m_monkey_block_bow
+param=death_anim,m_monkey_death
+param=attack_sound,zombie_monkey_attack
+param=defend_sound,zombie_monkey_hit
+param=death_sound,zombie_monkey_death
+param=death_drop,mm_large_zombie_monkey_bones
+param=undead,^true
+huntmode=aa_aggressive_melee
+huntrange=2
 
 // 1467
 [mm_zombie_monkey_small]
@@ -49145,6 +49582,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A recently deceased monkey. Its flesh seems to be worse for the wear.
 wanderrange=2
+// 289's server keys (mm_zombie_monkey_small, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=2
+attack=100
+defence=60
+strength=60
+hitpoints=600
+magic=60
+respawnrate=100
+param=attackbonus,15
+param=damagetype,^crush_style
+param=attack_anim,m_zombie_attack
+param=defend_anim,m_monkey_block_bow
+param=death_anim,m_monkey_death
+param=attack_sound,zombie_monkey_attack
+param=defend_sound,zombie_monkey_hit
+param=death_sound,zombie_monkey_death
+param=death_drop,mm_small_zombie_monkey_bones
+param=undead,^true
+huntmode=aa_aggressive_melee
+huntrange=2
 
 // 1468
 [mm_bonzara]
@@ -49166,6 +49623,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=A small monkey dressed in purple clothes. He looks like a priest.
 wanderrange=3
+// 289's server keys (mm_bonzara, quests/quest_mm/configs/quest_mm.npc).
+maxrange=3
 
 // 1469
 [mm_monkey_minder]
@@ -49183,6 +49642,8 @@ unknown119=3
 cursor1=1,cursor_talkto
 desc=He looks like the type of guy who would mind monkeys.
 wanderrange=5
+// 289's server keys (mm_monkey_minder, quests/quest_mm/configs/quest_mm.npc).
+maxrange=5
 
 // 1470
 [mm_foreman_cutscene]
@@ -49208,6 +49669,10 @@ head1=model_39726
 head2=model_39256
 unknown119=1
 desc=The boss!
+// 289's server keys (mm_foreman_cutscene, quests/quest_mm/configs/quest_mm.npc).
+wanderrange=0
+moverestrict=nomove
+defaultmode=none
 
 // 1471
 [mm_skeleton]
@@ -49220,6 +49685,32 @@ unknown119=3
 cursorattack=cursor_attack
 desc=It looks just a bit... underfed.
 wanderrange=10
+// Cache 786 draws this skeleton on the 2011 skeletons' skeleton (its BAS readies with
+// skeleton_update_gorilla_ready), which 289's seqs 261 and 263 do not share: its defend and death
+// are the cache's skeleton_update_gorilla_defend and _death. Its attack stays 289's
+// skeleton_attack, which shares that skeleton.
+// 289's server keys (mm_skeleton, quests/quest_mm/configs/quest_mm.npc): 289's skeleton_block keeps its id, seq 261; 289's skeleton_death keeps its id, seq 263; hitpoints as life points (x10).
+maxrange=16
+attack=180
+defence=110
+strength=90
+hitpoints=1100
+magic=110
+huntrange=16
+attackrange=15
+respawnrate=200
+huntmode=aa_aggressive_melee
+param=attackrate,4
+param=attackbonus,50
+param=damagetype,^slash_style
+param=attack_anim,skeleton_attack
+param=defend_anim,skeleton_update_gorilla_defend
+param=death_anim,skeleton_update_gorilla_death
+param=attack_sound,skeleton_attack
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
+param=death_drop,mm_skeleton_bones
+param=undead,^true
 
 // 1472
 [mm_demon]
@@ -49248,6 +49739,27 @@ model4=model_17399
 unknown119=3
 cursorattack=cursor_attack
 desc=A Greater Jungle Demon. A magical aura emanates from its hide.
+// 289's server keys (mm_demon, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=50
+attack=170
+defence=170
+strength=170
+hitpoints=1700
+magic=170
+attackrange=10
+timer=9
+param=attackrate,6
+param=attackbonus,50
+param=strengthbonus,50
+param=slashdefence,50
+param=magicdefence,50
+param=damagetype,^slash_style
+param=magicattack_anim,demon_casting
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,demon_death
+param=defend_sound,black_demon_hit
+param=death_drop,ashes
 
 // 1473
 [mm_warehouse_spider]
@@ -49290,6 +49802,11 @@ param=attack_sound,small_spider_attack
 param=defend_sound,small_spider_hit
 param=death_sound,small_spider_death
 param=death_drop,null
+// 289's server keys (mm_warehouse_spider, quests/quest_mm/configs/quest_mm.npc).
+huntmode=aa_aggressive_melee
+huntrange=1
+param=attackrate,6
+param=poison_severity,7
 
 // 1474
 [mm_cutscene_spider]
@@ -49311,6 +49828,8 @@ model1=model_24613
 unknown119=3
 desc=It's an extremely small brown spider, probably very poisonous.
 wanderrange=10
+// 289's server keys (mm_cutscene_spider, quests/quest_mm/configs/quest_mm.npc).
+maxrange=10
 
 // 1475
 [mm_jungle_bird_green]
@@ -49325,6 +49844,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=It's a brightly coloured bird of the jungle.
 wanderrange=16
+// Cache 786 draws this bird on the 2011 flying birds' skeleton (its BAS readies with
+// bird_flying_update_ready_and_extra_toucan_and_cormarant), which 289's bird_attack, bird_block and
+// bird_death do not share: its own attack, defend and death are the cache's bird_flying_update_*.
+// 289's server keys (mm_jungle_bird_green, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+moverestrict=outdoors
+maxrange=16
+attack=10
+defence=10
+strength=10
+hitpoints=100
+magic=10
+respawnrate=10
+param=attackrate,4
+param=damagetype,^stab_style
+param=attack_anim,bird_flying_update_attack
+param=defend_anim,bird_flying_update_defend
+param=death_anim,bird_flying_update_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
 
 // 1476
 [mm_jungle_bird_blue]
@@ -49339,6 +49878,26 @@ unknown119=3
 cursorattack=cursor_attack
 desc=It's a brightly coloured bird of the jungle. It flies very quickly.
 wanderrange=64
+// Cache 786 draws this bird on the 2011 flying birds' skeleton (its BAS readies with
+// bird_flying_update_ready_and_extra), which 289's bird_attack, bird_block and bird_death do not
+// share: its own attack, defend and death are the cache's bird_flying_update_*.
+// 289's server keys (mm_jungle_bird_blue, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+moverestrict=outdoors
+maxrange=64
+attack=5
+defence=5
+strength=5
+hitpoints=50
+magic=5
+respawnrate=10
+param=attackrate,4
+param=damagetype,^stab_style
+param=attack_anim,bird_flying_update_attack
+param=defend_anim,bird_flying_update_defend
+param=death_anim,bird_flying_update_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
 
 // 1477
 [mm_jungle_scorpion]
@@ -49366,6 +49925,31 @@ unknown119=3
 cursorattack=cursor_attack
 desc=It's an extremely dangerous looking scorpion.
 wanderrange=5
+// Cache 786 draws this scorpion on the 2011 scorpions' skeleton (its BAS readies with
+// scorpion_update_ready), which 289's seqs 246-248 do not share: its attack, defend and death are
+// the cache's scorpion_update_attack_tail, _defend and _death.
+// 289's server keys (mm_jungle_scorpion, quests/quest_mm/configs/quest_mm.npc): 289's scorpion_attack keeps its id, seq 246; 289's scorpion_death keeps its id, seq 248; 289's scorpion_parry keeps its id, seq 247; hitpoints as life points (x10).
+maxrange=5
+attack=50
+defence=10
+strength=50
+hitpoints=150
+magic=10
+respawnrate=100
+param=attackrate,4
+param=attackbonus,100
+param=strengthbonus,100
+param=damagetype,^stab_style
+param=attack_anim,scorpion_update_attack_tail
+param=defend_anim,scorpion_update_defend
+param=death_anim,scorpion_update_death
+param=attack_sound,insect_attack
+param=defend_sound,insect_hit
+param=death_sound,insect_death
+param=death_drop,null
+param=poison_severity,4
+huntmode=aa_aggressive_melee
+huntrange=1
 
 // 1478
 [mm_jungle_spider]
@@ -49392,6 +49976,31 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A very dangerous looking spider, with its fangs unsheathed.
 wanderrange=5
+// Cache 786 draws this spider on the 2011 spiders' skeleton (its BAS readies with
+// spider_update_ready), which 289's giantspider_* seqs do not share. The cache names no attack,
+// defend or death on it, so they stay 289's.
+// 289's server keys (mm_jungle_spider, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=5
+attack=50
+defence=10
+strength=30
+hitpoints=350
+magic=10
+respawnrate=50
+param=attackrate,4
+param=attackbonus,100
+param=strengthbonus,100
+param=damagetype,^stab_style
+param=attack_anim,giantspider_attack
+param=defend_anim,giantspider_block
+param=death_anim,giantspider_death
+param=attack_sound,insect_attack
+param=defend_sound,insect_hit
+param=death_sound,insect_death
+param=death_drop,null
+param=poison_severity,4
+huntmode=aa_aggressive_melee
+huntrange=1
 
 // 1479
 [mm_jungle_snake]
@@ -49409,6 +50018,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=It's a camouflaged jungle snake.
 wanderrange=5
+// 289's server keys (mm_jungle_snake, quests/quest_mm/configs/quest_mm.npc): hitpoints as life points (x10).
+maxrange=5
+attack=15
+defence=10
+strength=25
+hitpoints=350
+magic=10
+respawnrate=100
+param=attackrate,4
+param=attackbonus,100
+param=strengthbonus,100
+param=damagetype,^crush_style
+param=attack_anim,snake_attack
+param=defend_anim,snake_block
+param=death_anim,snake_death
+param=attack_sound,snake_attack
+param=defend_sound,snake_hit
+param=death_sound,snake_death
+param=poison_severity,7
+huntmode=aa_aggressive_melee
+huntrange=1
 
 // 1480
 [mm_transmogrification_small_ninja_monkey]

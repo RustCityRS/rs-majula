@@ -1,0 +1,220 @@
+// 289's Monkey Madness varbits (quest_mm.varpbit). Cache 786 has no varbit on these
+// varps and none free to give them (its varbit group is the client's, checked by the CRC
+// gate), so each is read and set here on 289's varp and bits, as Eadgar's Ruse reads its
+// eadgar_bits with testbit.
+
+[proc,mm_daero_option_bit_one]()(int)
+return(getbit_range(%mm_flags, 0, 0));
+
+[proc,set_mm_daero_option_bit_one](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 0, 0);
+
+[proc,mm_daero_option_bit_two]()(int)
+return(getbit_range(%mm_flags, 1, 1));
+
+[proc,set_mm_daero_option_bit_two](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 1, 1);
+
+[proc,mm_daero_option_bit_three]()(int)
+return(getbit_range(%mm_flags, 2, 2));
+
+[proc,set_mm_daero_option_bit_three](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 2, 2);
+
+[proc,mm_hangar_cutscene_flag]()(int)
+return(getbit_range(%mm_flags, 3, 3));
+
+[proc,set_mm_hangar_cutscene_flag](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 3, 3);
+
+[proc,mm_hangar_puzzle_complete]()(int)
+return(getbit_range(%mm_flags, 4, 4));
+
+[proc,set_mm_hangar_puzzle_complete](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 4, 4);
+
+[proc,mm_player_is_unconscious]()(int)
+return(getbit_range(%mm_flags, 5, 5));
+
+[proc,set_mm_player_is_unconscious](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 5, 5);
+
+[proc,mm_rock_falling]()(int)
+return(getbit_range(%mm_flags, 6, 6));
+
+[proc,set_mm_rock_falling](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 6, 6);
+
+[proc,mm_zooknock_has_gold_bar]()(int)
+return(getbit_range(%mm_flags, 7, 7));
+
+[proc,set_mm_zooknock_has_gold_bar](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 7, 7);
+
+[proc,mm_zooknock_has_amulet_mould]()(int)
+return(getbit_range(%mm_flags, 8, 8));
+
+[proc,set_mm_zooknock_has_amulet_mould](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 8, 8);
+
+[proc,mm_zooknock_has_dentures]()(int)
+return(getbit_range(%mm_flags, 9, 9));
+
+[proc,set_mm_zooknock_has_dentures](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 9, 9);
+
+[proc,mm_zooknock_has_magical_talisman]()(int)
+return(getbit_range(%mm_flags, 10, 10));
+
+[proc,set_mm_zooknock_has_magical_talisman](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 10, 10);
+
+[proc,mm_zooknock_has_monkey_relic]()(int)
+return(getbit_range(%mm_flags, 11, 11));
+
+[proc,set_mm_zooknock_has_monkey_relic](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 11, 11);
+
+[proc,mm_zooknock_player_is_collecting_for_amulet]()(int)
+return(getbit_range(%mm_flags, 12, 12));
+
+[proc,set_mm_zooknock_player_is_collecting_for_amulet](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 12, 12);
+
+[proc,mm_zooknock_player_is_collecting_for_talisman]()(int)
+return(getbit_range(%mm_flags, 13, 13));
+
+[proc,set_mm_zooknock_player_is_collecting_for_talisman](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 13, 13);
+
+[proc,mm_monkey_child_waiting_for_talisman]()(int)
+return(getbit_range(%mm_flags, 14, 14));
+
+[proc,set_mm_monkey_child_waiting_for_talisman](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 14, 14);
+
+[proc,mm_waiting_for_final_battle]()(int)
+return(getbit_range(%mm_flags, 15, 15));
+
+[proc,set_mm_waiting_for_final_battle](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 15, 15);
+
+[proc,mm_been_to_final_battle]()(int)
+return(getbit_range(%mm_flags, 16, 16));
+
+[proc,set_mm_been_to_final_battle](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 16, 16);
+
+[proc,mm_player_received_monkey_trail_clue]()(int)
+return(getbit_range(%mm_flags, 17, 17));
+
+[proc,set_mm_player_received_monkey_trail_clue](int $value)
+%mm_flags = setbit_range_toint(%mm_flags, $value, 17, 17);
+
+[proc,mm_kruk]()(int)
+return(getbit_range(%mm_monkeys, 0, 1));
+
+[proc,set_mm_kruk](int $value)
+%mm_monkeys = setbit_range_toint(%mm_monkeys, $value, 0, 1);
+
+[proc,mm_awowogei]()(int)
+return(getbit_range(%mm_monkeys, 2, 4));
+
+[proc,set_mm_awowogei](int $value)
+%mm_monkeys = setbit_range_toint(%mm_monkeys, $value, 2, 4);
+
+[proc,mm_monkey_child]()(int)
+return(getbit_range(%mm_monkeys, 5, 8));
+
+[proc,set_mm_monkey_child](int $value)
+%mm_monkeys = setbit_range_toint(%mm_monkeys, $value, 5, 8);
+
+[proc,mm_elder_guard]()(int)
+return(getbit_range(%mm_monkeys, 9, 10));
+
+[proc,set_mm_elder_guard](int $value)
+%mm_monkeys = setbit_range_toint(%mm_monkeys, $value, 9, 10);
+
+[proc,mm_narnode]()(int)
+return(getbit_range(%mm_gnomes, 0, 3));
+
+[proc,set_mm_narnode](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 0, 3);
+
+[proc,mm_caranock]()(int)
+return(getbit_range(%mm_gnomes, 4, 6));
+
+[proc,set_mm_caranock](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 4, 6);
+
+[proc,mm_daero]()(int)
+return(getbit_range(%mm_gnomes, 7, 10));
+
+[proc,set_mm_daero](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 7, 10);
+
+[proc,mm_waydar]()(int)
+return(getbit_range(%mm_gnomes, 11, 12));
+
+[proc,set_mm_waydar](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 11, 12);
+
+[proc,mm_lumdo]()(int)
+return(getbit_range(%mm_gnomes, 13, 15));
+
+[proc,set_mm_lumdo](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 13, 15);
+
+[proc,mm_garkor]()(int)
+return(getbit_range(%mm_gnomes, 16, 19));
+
+[proc,set_mm_garkor](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 16, 19);
+
+[proc,mm_zooknock]()(int)
+return(getbit_range(%mm_gnomes, 20, 23));
+
+[proc,set_mm_zooknock](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 20, 23);
+
+[proc,mm_karam]()(int)
+return(getbit_range(%mm_gnomes, 24, 25));
+
+[proc,set_mm_karam](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 24, 25);
+
+[proc,mm_lumo]()(int)
+return(getbit_range(%mm_gnomes, 26, 27));
+
+[proc,set_mm_lumo](int $value)
+%mm_gnomes = setbit_range_toint(%mm_gnomes, $value, 26, 27);
+
+[proc,mm_foreman]()(int)
+return(getbit_range(%mm_misc, 0, 1));
+
+[proc,set_mm_foreman](int $value)
+%mm_misc = setbit_range_toint(%mm_misc, $value, 0, 1);
+
+[proc,mm_jail_count]()(int)
+return(getbit_range(%mm_misc, 2, 9));
+
+[proc,set_mm_jail_count](int $value)
+%mm_misc = setbit_range_toint(%mm_misc, $value, 2, 9);
+
+[proc,mm_monkey_minder]()(int)
+return(getbit_range(%mm_misc, 10, 11));
+
+[proc,set_mm_monkey_minder](int $value)
+%mm_misc = setbit_range_toint(%mm_misc, $value, 10, 11);
+
+[proc,mm_zooknock_monkey_relic]()(int)
+return(getbit_range(%mm_misc, 12, 16));
+
+[proc,set_mm_zooknock_monkey_relic](int $value)
+%mm_misc = setbit_range_toint(%mm_misc, $value, 12, 16);
+
+[proc,mm_final_battle_gnomes]()(int)
+return(getbit_range(%mm_misc, 17, 20));
+
+[proc,set_mm_final_battle_gnomes](int $value)
+%mm_misc = setbit_range_toint(%mm_misc, $value, 17, 20);

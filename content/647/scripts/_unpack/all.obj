@@ -55241,6 +55241,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are smallish monkey bones.
+// 289's server keys (mm_small_ninja_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,160
 
 // 3180
 [mm_medium_ninja_monkey_bones]
@@ -55255,6 +55260,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are medium sized monkey bones.
+// 289's server keys (mm_medium_ninja_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,180
 
 // 3181
 [mm_normal_gorilla_monkey_bones]
@@ -55268,6 +55278,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are quite large monkey bones.
+// 289's server keys (mm_normal_gorilla_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=800g
+tradeable=no
+category=bones
+param=bone_exp,180
 
 // 3182
 [mm_bearded_gorilla_monkey_bones]
@@ -55281,6 +55296,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are quite large monkey bones.
+// 289's server keys (mm_bearded_gorilla_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=800g
+tradeable=no
+category=bones
+param=bone_exp,200
 
 // 3183
 [mm_normal_monkey_bones]
@@ -55296,6 +55316,10 @@ certlink=cert_mm_normal_monkey_bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are small monkey bones.
+// 289's server keys (mm_normal_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+category=bones
+param=bone_exp,50
 
 // 3184
 [cert_mm_normal_monkey_bones]
@@ -55315,6 +55339,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are smallish monkey bones. They smell extremely nauseating.
+// 289's server keys (mm_small_zombie_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,50
 
 // 3186
 [mm_large_zombie_monkey_bones]
@@ -55328,6 +55357,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are large monkey bones. They smell extremely nauseating.
+// 289's server keys (mm_large_zombie_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,50
 
 // 3187
 [mm_skeleton_bones]
@@ -55343,6 +55377,11 @@ name=Bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=They seem to shake slightly... It might be a good idea to bury them.
+// 289's server keys (mm_skeleton_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,30
 
 // 3188
 [tbwt_cleaning_cloth]
@@ -67620,6 +67659,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_01, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3905
 [cert_reinitialisation_01]
@@ -67647,6 +67688,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_02, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3907
 [cert_reinitialisation_02]
@@ -67674,6 +67717,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_03, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3909
 [cert_reinitialisation_03]
@@ -67701,6 +67746,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_04, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3911
 [cert_reinitialisation_04]
@@ -67728,6 +67775,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_05, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3913
 [cert_reinitialisation_05]
@@ -67755,6 +67804,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_06, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3915
 [cert_reinitialisation_06]
@@ -67782,6 +67833,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_07, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3917
 [cert_reinitialisation_07]
@@ -67809,6 +67862,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_08, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3919
 [cert_reinitialisation_08]
@@ -67836,6 +67891,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_09, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3921
 [cert_reinitialisation_09]
@@ -67863,6 +67920,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_10, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3923
 [cert_reinitialisation_10]
@@ -67890,6 +67949,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_11, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3925
 [cert_reinitialisation_11]
@@ -67917,6 +67978,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_12, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3927
 [cert_reinitialisation_12]
@@ -67944,6 +68007,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_13, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3929
 [cert_reinitialisation_13]
@@ -67971,6 +68036,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_14, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3931
 [cert_reinitialisation_14]
@@ -67998,6 +68065,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_15, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3933
 [cert_reinitialisation_15]
@@ -68025,6 +68094,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_16, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3935
 [cert_reinitialisation_16]
@@ -68052,6 +68123,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_17, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3937
 [cert_reinitialisation_17]
@@ -68079,6 +68152,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_18, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3939
 [cert_reinitialisation_18]
@@ -68106,6 +68181,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_19, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3941
 [cert_reinitialisation_19]
@@ -68133,6 +68210,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_20, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3943
 [cert_reinitialisation_20]
@@ -68160,6 +68239,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_21, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3945
 [cert_reinitialisation_21]
@@ -68187,6 +68268,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_22, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3947
 [cert_reinitialisation_22]
@@ -68214,6 +68297,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_23, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3949
 [cert_reinitialisation_23]
@@ -68241,6 +68326,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_24, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3951
 [cert_reinitialisation_24]
@@ -68268,6 +68355,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_01_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3953
 [cert_reinitialisation_01_inactive]
@@ -68295,6 +68384,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_02_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3955
 [cert_reinitialisation_02_inactive]
@@ -68322,6 +68413,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_03_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3957
 [cert_reinitialisation_03_inactive]
@@ -68349,6 +68442,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_04_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3959
 [cert_reinitialisation_04_inactive]
@@ -68376,6 +68471,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_05_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3961
 [cert_reinitialisation_05_inactive]
@@ -68403,6 +68500,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_06_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3963
 [cert_reinitialisation_06_inactive]
@@ -68430,6 +68529,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_07_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3965
 [cert_reinitialisation_07_inactive]
@@ -68457,6 +68558,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_08_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3967
 [cert_reinitialisation_08_inactive]
@@ -68484,6 +68587,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_09_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3969
 [cert_reinitialisation_09_inactive]
@@ -68511,6 +68616,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_10_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3971
 [cert_reinitialisation_10_inactive]
@@ -68538,6 +68645,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_11_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3973
 [cert_reinitialisation_11_inactive]
@@ -68565,6 +68674,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_12_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3975
 [cert_reinitialisation_12_inactive]
@@ -68592,6 +68703,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_13_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3977
 [cert_reinitialisation_13_inactive]
@@ -68619,6 +68732,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_14_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3979
 [cert_reinitialisation_14_inactive]
@@ -68646,6 +68761,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_15_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3981
 [cert_reinitialisation_15_inactive]
@@ -68673,6 +68790,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_16_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3983
 [cert_reinitialisation_16_inactive]
@@ -68700,6 +68819,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_17_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3985
 [cert_reinitialisation_17_inactive]
@@ -68727,6 +68848,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_18_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3987
 [cert_reinitialisation_18_inactive]
@@ -68754,6 +68877,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_19_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3989
 [cert_reinitialisation_19_inactive]
@@ -68781,6 +68906,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_20_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3991
 [cert_reinitialisation_20_inactive]
@@ -68808,6 +68935,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_21_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3993
 [cert_reinitialisation_21_inactive]
@@ -68835,6 +68964,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_22_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3995
 [cert_reinitialisation_22_inactive]
@@ -68862,6 +68993,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_23_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3997
 [cert_reinitialisation_23_inactive]
@@ -68889,6 +69022,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_24_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3999
 [cert_reinitialisation_24_inactive]
@@ -68958,6 +69093,9 @@ recol1d=5250
 name=Spare controls
 cursor1=3,cursor_take
 desc=It looks like some kind of control panel.
+// 289's server keys (mm_reinitialisation_hint, quests/quest_mm/configs/quest_mm.obj).
+weight=200g
+tradeable=no
 
 // 4003
 [cert_mm_reinitialisation_hint]
@@ -68980,6 +69118,9 @@ name=Gnome royal seal
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's the official Gnome Royal Seal, signed by King Narnode Shareen.
+// 289's server keys (mm_gnome_royal_seal, quests/quest_mm/configs/quest_mm.obj).
+weight=20g
+tradeable=no
 
 // 4005
 [mm_narnode_orders]
@@ -68996,6 +69137,9 @@ name=Narnode's orders
 param=param_1397,1
 cursor1=3,cursor_take
 desc=Unreadable orders handwritten by King Narnode Shareen.
+// 289's server keys (mm_narnode_orders, quests/quest_mm/configs/quest_mm.obj).
+weight=20g
+tradeable=no
 
 // 4006
 [mm_monkey_dentures]
@@ -69012,6 +69156,9 @@ name=Monkey dentures
 param=param_1397,1
 cursor1=3,cursor_take
 desc=Magical monkey talking dentures! What more can we say? Ook!
+// 289's server keys (mm_monkey_dentures, quests/quest_mm/configs/quest_mm.obj).
+weight=200g
+tradeable=no
 
 // 4007
 [mm_enchanted_gold_bar]
@@ -69030,6 +69177,9 @@ name=Enchanted bar
 param=param_1397,1
 cursor1=3,cursor_take
 desc=A gold bar invested with a talkative monkey spirit.
+// 289's server keys (mm_enchanted_gold_bar, quests/quest_mm/configs/quest_mm.obj).
+weight=4lb
+tradeable=no
 
 // 4008
 [mm_eye_of_gnome]
@@ -69045,6 +69195,8 @@ name=Eye of gnome
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's ... the eye of a gnome! Now what on earth could one do with this?
+// 289's server keys (mm_eye_of_gnome, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
 
 // 4009
 [cert_mm_eye_of_gnome]
@@ -69075,6 +69227,8 @@ name=Monkey magic
 param=param_1397,1
 cursor1=3,cursor_take
 desc=A small sample of monkey magic.
+// 289's server keys (mm_monkey_magic, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
 
 // 4011
 [cert_mm_monkey_magic]
@@ -69098,6 +69252,8 @@ param=param_1397,1
 icursor1=1,cursor_eat
 cursor1=3,cursor_take
 desc=These are monkey nuts. Yummy.
+// 289's server keys (mm_monkey_nuts, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
 
 // 4013
 [cert_mm_monkey_nuts]
@@ -69121,6 +69277,8 @@ name=Monkey bar
 icursor1=1,cursor_eat
 cursor1=3,cursor_take
 desc=It's a monkey bar. It looks highly nutritious.
+// 289's server keys (mm_monkey_bar, quests/quest_mm/configs/quest_mm.obj).
+weight=150g
 
 // 4015
 [cert_mm_monkey_bar]
@@ -69144,6 +69302,9 @@ name=Banana stew
 icursor1=1,cursor_eat
 cursor1=3,cursor_take
 desc=It's a bowl full of mushy banana.
+// 289's server keys (mm_banana_stew, quests/quest_mm/configs/quest_mm.obj).
+weight=250g
+param=next_obj_stage,bowl_empty
 
 // 4017
 [cert_mm_banana_stew]
@@ -69166,6 +69327,8 @@ name=Monkey wrench
 param=param_1397,1
 cursor1=3,cursor_take
 desc=For wrenching monkeys I'd guess.
+// 289's server keys (mm_monkey_wrench, quests/quest_mm/configs/quest_mm.obj).
+weight=21lb
 
 // 4019
 [cert_mm_monkey_wrench]
@@ -69187,6 +69350,9 @@ model=model_4707
 name=M'amulet mould
 cursor1=3,cursor_take
 desc=It's an amulet mould shaped like a monkey head.
+// 289's server keys (mm_monkey_amulet_mould, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
+tradeable=no
 
 // 4021
 [mm_amulet_of_monkey_speak]
@@ -69205,6 +69371,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=It's an amulet of monkeyspeak. It makes vague chattering noises.
 wearpos=front
+// 289's server keys (mm_amulet_of_monkey_speak, quests/quest_mm/configs/quest_mm.obj).
+weight=3lb
+tradeable=no
 
 // 4022
 [mm_amulet_of_monkey_speak_without_string]
@@ -69217,6 +69386,9 @@ model=model_4708
 name=M'speak amulet
 cursor1=3,cursor_take
 desc=It's an unstrung amulet of monkeyspeak. It makes vague chattering noises.
+// 289's server keys (mm_amulet_of_monkey_speak_without_string, quests/quest_mm/configs/quest_mm.obj).
+weight=3lb
+tradeable=no
 
 // 4023
 [mm_monkey_talisman]
@@ -69231,6 +69403,10 @@ iop2=Hold
 name=Monkey talisman
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a monkey head.
+// 289's server keys (mm_monkey_talisman, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+tradeable=no
 
 // 4024
 [mm_monkey_greegree_for_small_ninja_monkey]
@@ -69251,6 +69427,12 @@ recol3d=31808
 name=Ninja monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a small ninja monkey head.
+// 289's server keys (mm_monkey_greegree_for_small_ninja_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_small_ninja_monkey
 
 // 4025
 [mm_monkey_greegree_for_medium_ninja_monkey]
@@ -69271,6 +69453,12 @@ recol3d=31808
 name=Ninja monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a medium ninja monkey head.
+// 289's server keys (mm_monkey_greegree_for_medium_ninja_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_medium_ninja_monkey
 
 // 4026
 [mm_monkey_greegree_for_normal_gorilla]
@@ -69291,6 +69479,12 @@ recol3d=31808
 name=Gorilla greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a gorilla head.
+// 289's server keys (mm_monkey_greegree_for_normal_gorilla, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_normal_gorilla
 
 // 4027
 [mm_monkey_greegree_for_bearded_gorilla]
@@ -69311,6 +69505,12 @@ recol3d=31808
 name=Gorilla greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a bearded gorilla head.
+// 289's server keys (mm_monkey_greegree_for_bearded_gorilla, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_bearded_gorilla
 
 // 4028
 [mm_monkey_greegree_for_ancient_monkey_skull]
@@ -69331,6 +69531,12 @@ recol3d=31808
 name=Gorilla greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a mysterious monkey head.
+// 289's server keys (mm_monkey_greegree_for_ancient_monkey_skull, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_ancient_monkey
 
 // 4029
 [mm_monkey_greegree_for_small_zombie_monkey]
@@ -69351,6 +69557,12 @@ recol3d=31808
 name=Zombie monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a small zombie monkey head.
+// 289's server keys (mm_monkey_greegree_for_small_zombie_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_small_zombie_monkey
 
 // 4030
 [mm_monkey_greegree_for_large_zombie_monkey]
@@ -69371,6 +69583,12 @@ recol3d=31808
 name=Zombie monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a big zombie monkey head.
+// 289's server keys (mm_monkey_greegree_for_large_zombie_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_large_zombie_monkey
 
 // 4031
 [mm_monkey_greegree_for_normal_monkey]
@@ -69391,6 +69609,12 @@ recol3d=31808
 name=Monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a Karamjan monkey head.
+// 289's server keys (mm_monkey_greegree_for_normal_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_normal_monkey
 
 // 4032
 [fade_to_black_inv]
@@ -69415,6 +69639,9 @@ param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's a monkey in your backpack. As you look it pokes you.
+// 289's server keys (mm_monkey_in_backpack, quests/quest_mm/configs/quest_mm.obj).
+weight=15kg
+tradeable=no
 
 // 4034
 [mm_ancient_monkey_skull]
@@ -69428,6 +69655,9 @@ model=model_4714
 name=Monkey skull
 cursor1=3,cursor_take
 desc=It's a very ancient skull from some kind of ape.
+// 289's server keys (mm_ancient_monkey_skull, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
 
 // 4035
 [mm_sigil]
@@ -69446,6 +69676,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=It's the official sigil of the 10th squad of the Royal Guard.
 wearpos=front
+// 289's server keys (mm_sigil, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+tradeable=no
 
 // 4036
 [cert_fade_to_black_inv]
