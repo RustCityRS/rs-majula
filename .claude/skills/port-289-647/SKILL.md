@@ -1,6 +1,6 @@
 ---
 name: port-289-647
-description: Port one piece of rs-majula's rev-289 content (a quest, shop, skill, area or interface) to rev 647 (cache 786, May 2011) end to end, from research to a pushed, tested commit on feature/647-support. Use when asked to port, finish or fix 289 content at 647.
+description: Port one piece of rs-majula's rev-289 content (a quest, shop, skill, area or interface) to rev 647 (cache 786, May 2011) end to end, from research to a tested commit on its own branch, pushed with its own PR into main. Use when asked to port, finish or fix 289 content at 647.
 ---
 
 # Port 289 content to 647 (2011)
@@ -10,7 +10,7 @@ version: the wiki's Porting-Guide page.
 
 ## Steps
 
-1. **Sync.** `git fetch origin && git rebase origin/feature/647-support`. Say if upstream moved.
+1. **Branch.** Start `feat/647-<name>` (or `fix/647-<name>`) from a fresh `origin/main` (skill `git-pr-647`).
 2. **Research** (skills `sources-2011`, `recordings-matrix`):
    - list 289's files: `content/289/scripts/<dir>/`;
    - find the content's 2011 ids in cache 786 (`content/647/scripts/configs/_unpack/all.*`,
@@ -24,7 +24,7 @@ version: the wiki's Porting-Guide page.
 4. **Test** (skill `testing-647`). Write a red-then-green `rs-test` case per behaviour, plus one
    per branch the recordings show.
 5. **Check in the client and record** (skill `media-review`), beside the 2011 recording.
-6. **Commit and push** (skill `git-pr-647`): one item per commit, gates green.
+6. **Commit, push and open the PR** (skill `git-pr-647`): one item per branch and PR, gates green.
 7. **Write back** what you learned, to the matching skill or wiki page.
 
 ## Rules
