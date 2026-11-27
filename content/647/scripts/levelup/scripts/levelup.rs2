@@ -87,7 +87,9 @@ if ($level < 50) {
 ~music_jingle($jingle);
 // 2011: the stat's icon flashes in the stats tab until it is clicked
 // (skill_guide.rs2), and the level-up box shows the stat's icon. Both are bits
-// of %skill_stat_flash (varp 1179).
+// of %skill_stat_flash (varp 1179). The level before this level-up goes to the client first,
+// while the stat's flash bit still says whether its scroll was read since (below).
+~levelup_before_varc($unlock_row, calc($level - $levels));
 ~levelup_flash($unlock_row);
 // Unstable Foundations' reward, in Explorer Jack's house copy: the line alone, no level-up box
 // (VwpdbjfigD4 2011-01-17 @788-796, the scroll closed then "You've just advanced a Woodcutting
@@ -135,6 +137,76 @@ if ($level = 99) {
 [proc,levelup_flash](dbrow $row)
 %skill_stat_flash = setbit(%skill_stat_flash, db_getfield($row, levelup:flash_bit, 0));
 %level_up_icon = db_getfield($row, levelup:icon, 0);
+
+// 2011's level-up details (lvl_scroll, 741) count the levels on the client: clientscript 973
+// (unpack/client/[proc,script973].cs2 in this revision's cache) reads the stat's
+// %lvl_<stat>_before_levelup_varc (varcs 1469-1493, pack/varc.pack) and, when that plus one is
+// not the stat's base level, titles the scroll "You've just advanced <base - varc> <stat>
+// levels!"; it lists only the unlocks above that level too. No client script in the cache sets
+// these varcs, so the server must: unset they read -1, and the scroll said "You've just advanced
+// 10 Woodcutting levels! You have now reached level 9." after one level.
+// The varc is the level before this level-up, set only while the stat is not flashing. A
+// flashing stat's scroll is still unread, and the client's sum (base - varc) then counts every
+// level since it was last read, from the varc the first of those level-ups set. The flash ends
+// at logout (varp 1179 is not saved), so the first level-up after a login sets the varc again
+// before any scroll can read it.
+// Keyed by the stat's index in the skill menu (levelup:icon), as clientscript 973's switch is.
+[proc,levelup_before_varc](dbrow $row, int $before)
+if (testbit(%skill_stat_flash, db_getfield($row, levelup:flash_bit, 0)) = ^true) {
+    return;
+}
+switch_int (db_getfield($row, levelup:icon, 0)) {
+    case 1 :
+        %lvl_attack_before_levelup_varc = $before;
+    case 2 :
+        %lvl_strength_before_levelup_varc = $before;
+    case 3 :
+        %lvl_ranged_before_levelup_varc = $before;
+    case 4 :
+        %lvl_magic_before_levelup_varc = $before;
+    case 5 :
+        %lvl_defence_before_levelup_varc = $before;
+    case 6 :
+        %lvl_hitpoints_before_levelup_varc = $before;
+    case 7 :
+        %lvl_prayer_before_levelup_varc = $before;
+    case 8 :
+        %lvl_agility_before_levelup_varc = $before;
+    case 9 :
+        %lvl_herblore_before_levelup_varc = $before;
+    case 10 :
+        %lvl_thieving_before_levelup_varc = $before;
+    case 11 :
+        %lvl_crafting_before_levelup_varc = $before;
+    case 12 :
+        %lvl_runecraft_before_levelup_varc = $before;
+    case 13 :
+        %lvl_mining_before_levelup_varc = $before;
+    case 14 :
+        %lvl_smithing_before_levelup_varc = $before;
+    case 15 :
+        %lvl_fishing_before_levelup_varc = $before;
+    case 16 :
+        %lvl_cooking_before_levelup_varc = $before;
+    case 17 :
+        %lvl_firemaking_before_levelup_varc = $before;
+    case 18 :
+        %lvl_woodcutting_before_levelup_varc = $before;
+    case 19 :
+        %lvl_fletching_before_levelup_varc = $before;
+    case 20 :
+        %lvl_slayer_before_levelup_varc = $before;
+    case 21 :
+        %lvl_farming_before_levelup_varc = $before;
+    case 22 :
+        %lvl_construction_before_levelup_varc = $before;
+    case 23 :
+        %lvl_hunter_before_levelup_varc = $before;
+    case 24 :
+        %lvl_summoning_before_levelup_varc = $before;
+    case 25 :
+        %lvl_dungeoneering_before_levelup_varc = $before;
+}
 
 // 289's unlock messages after a level-up (levelup_unlocks.rs2 and
 // levelup_unlocks_<stat>.rs2), which 2011 does not show (above):
