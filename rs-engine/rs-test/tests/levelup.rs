@@ -385,3 +385,165 @@ fn the_stat_flash_is_not_saved() {
         );
     });
 }
+
+/// Woodcutting: stat 8, 18th in the skill menu (`levelup:icon`).
+#[cfg(since_647)]
+const WOODCUTTING: usize = 8;
+/// `lvl_woodcutting_before_levelup_varc`, which clientscript 973 reads for menu index 18.
+#[cfg(since_647)]
+const WOODCUTTING_BEFORE_LEVELUP: u16 = 1486;
+/// Levels 8, 9, 10 and 11 (801, 969, 1154 and 1358 xp), in the engine's tenths.
+#[cfg(since_647)]
+const WOODCUTTING_XP: [(i32, i32); 4] = [(8, 8010), (9, 9690), (10, 11_540), (11, 13_580)];
+
+#[cfg(since_647)]
+fn xp_for(level: i32) -> i32 {
+    WOODCUTTING_XP
+        .iter()
+        .find(|(l, _)| *l == level)
+        .map(|(_, xp)| *xp)
+        .expect("xp")
+}
+
+/// Takes woodcutting from level `from` to `to` through the real level-up (the
+/// `[advancestat]` script) and continues its box; the game messages said and
+/// each value of woodcutting's before-levelup varc sent to the client.
+#[cfg(since_647)]
+fn level_woodcutting(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    from: i32,
+    to: i32,
+) -> (Vec<String>, Vec<i32>) {
+    let xp = xp_for(to) - if from == 1 { 0 } else { xp_for(from) };
+    engine.harness_add_xp(client.pid, WOODCUTTING, xp);
+    let (mut said, mut sent) = (Vec::new(), Vec::new());
+    for _ in 0..3 {
+        engine.cycle();
+        let packets = client.packets();
+        said.extend(
+            HarnessClient::game_messages(&packets)
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+        sent.extend(
+            server::varcs(&packets)
+                .into_iter()
+                .filter(|(id, _)| *id == WOODCUTTING_BEFORE_LEVELUP)
+                .map(|(_, v)| v),
+        );
+    }
+    assert!(is_open(engine, client, LEVELUP), "the level-up box");
+    continue_box(client);
+    for _ in 0..2 {
+        engine.cycle();
+    }
+    client.packets();
+    (said, sent)
+}
+
+/// The player's woodcutting before-levelup varc as the server last set it.
+#[cfg(since_647)]
+fn woodcutting_before(engine: &Engine, client: &HarnessClient) -> i32 {
+    engine
+        .harness_player(client.pid)
+        .unwrap()
+        .varcs
+        .get(WOODCUTTING_BEFORE_LEVELUP)
+        .as_int()
+}
+
+/// Clicks woodcutting in the stats tab; it has to open its level-up details
+/// (lvl_scroll) at menu index 18, and the flash has to stop. Then closes it.
+#[cfg(since_647)]
+fn read_woodcutting_scroll(engine: &mut Engine, client: &mut HarnessClient) {
+    let said = click(engine, client, com("stats:woodcutting_button"));
+    assert!(
+        is_open(engine, client, LEVELUP_DETAILS),
+        "lvl_scroll; said {said:?}"
+    );
+    assert_eq!(varp(engine, client, LEVEL_UP_DETAILS), 18 * 8);
+    assert_eq!(
+        varp(engine, client, SKILL_STAT_FLASH) & (1 << 17),
+        0,
+        "woodcutting's flash (bit 17) stops"
+    );
+    engine.harness_close_modal(client.pid);
+    engine.cycle();
+    client.packets();
+}
+
+/// The level-up details count the levels on the client: clientscript 973 titles
+/// the scroll "You've just advanced <base - varc> <stat> levels!" unless varc + 1
+/// is the base level, and varc 1486 was never set, so it read -1: "You've just
+/// advanced 10 Woodcutting levels! You have now reached level 9." after one
+/// level. A level-up now sends the level before it.
+#[cfg(since_647)]
+#[test]
+fn a_level_up_sends_the_scroll_the_level_before_it() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("lumberjack").expect("login");
+        engine.cycle();
+        client.packets();
+
+        let (said, sent) = level_woodcutting(engine, &mut client, 1, 8);
+        assert_eq!(
+            said,
+            ["You've just advanced 7 Woodcutting levels! You have reached level 8."]
+        );
+        assert_eq!(sent, [1], "level 1 before the first level-up");
+        read_woodcutting_scroll(engine, &mut client);
+
+        let (said, sent) = level_woodcutting(engine, &mut client, 8, 9);
+        assert_eq!(
+            said,
+            ["You've just advanced a Woodcutting level! You have reached level 9."]
+        );
+        // 8 + 1 = 9: clientscript 973 keeps its one-level title (enum 1477) and lists
+        // only the unlocks above level 8.
+        assert_eq!(sent, [8], "the level before 9");
+        assert_eq!(woodcutting_before(engine, &client), 8);
+        read_woodcutting_scroll(engine, &mut client);
+        assert!(engine.script_errors.take().is_empty());
+    });
+}
+
+/// Two level-ups before the scroll is read: the second keeps the first one's
+/// varc, so the client's base - varc counts both levels ("You've just advanced
+/// 2 Woodcutting levels! You have now reached level 10."). Once read, the next
+/// level-up sends its own level before.
+#[cfg(since_647)]
+#[test]
+fn level_ups_before_the_scroll_is_read_count_from_the_first() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine
+            .harness_login_returning("lumberjack2")
+            .expect("login");
+        engine.cycle();
+        client.packets();
+
+        level_woodcutting(engine, &mut client, 1, 8);
+        read_woodcutting_scroll(engine, &mut client);
+
+        let (_, sent) = level_woodcutting(engine, &mut client, 8, 9);
+        assert_eq!(sent, [8]);
+        let (said, sent) = level_woodcutting(engine, &mut client, 9, 10);
+        assert_eq!(
+            said,
+            ["You've just advanced a Woodcutting level! You have reached level 10."]
+        );
+        assert_eq!(sent, Vec::<i32>::new(), "the scroll is unread: varc kept");
+        assert_eq!(
+            woodcutting_before(engine, &client),
+            8,
+            "10 - 8 = 2 levels on the scroll"
+        );
+        read_woodcutting_scroll(engine, &mut client);
+
+        let (_, sent) = level_woodcutting(engine, &mut client, 10, 11);
+        assert_eq!(sent, [10], "read, so the next level-up sends its own");
+        assert!(engine.script_errors.take().is_empty());
+    });
+}
