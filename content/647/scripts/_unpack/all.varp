@@ -292,6 +292,7 @@ scope=perm
 // 62
 [goblinquest]
 transmit=yes
+scope=perm
 
 // 63
 [runemysteries]
@@ -373,6 +374,7 @@ scope=perm
 // 77
 [barcrawl]
 transmit=yes
+scope=perm
 
 // 78
 [pk_skull]
@@ -558,6 +560,7 @@ protect=no
 
 // 109
 [trawler]
+scope=perm
 
 // 110
 [varplayer_110]
@@ -685,6 +688,7 @@ scope=perm
 // 139
 [legendsquest]
 transmit=yes
+scope=perm
 
 // 140
 [varplayer_140]
@@ -716,6 +720,7 @@ scope=perm
 // 147
 [zanaris]
 transmit=yes
+scope=perm
 
 // 148
 [crestquest]
@@ -745,6 +750,7 @@ transmit=yes
 
 // 154
 [shantay_jail_progress]
+scope=perm
 
 // 155
 [varplayer_155]
@@ -752,14 +758,17 @@ transmit=yes
 // 156
 [targetcount]
 transmit=yes
+scope=perm
 
 // 157
 [targetscore]
 transmit=yes
+scope=perm
 
 // 158
 [targethit]
 transmit=yes
+scope=perm
 
 // 159
 [seaslugquest]
@@ -798,6 +807,7 @@ scope=perm
 // 166
 [option_brightness]
 clientcode=1
+scope=perm
 
 // 167
 [option_jingles]
@@ -806,10 +816,12 @@ clientcode=2
 // 168
 [option_music]
 clientcode=3
+scope=perm
 
 // 169
 [option_sounds]
 clientcode=4
+scope=perm
 
 // 170
 [option_mouse]
@@ -858,10 +870,12 @@ scope=perm
 // 176
 [dragonquest]
 transmit=yes
+scope=perm
 
 // 177
 [dragonquestvar]
 transmit=yes
+scope=perm
 
 // 178
 [vampire]
@@ -941,6 +955,7 @@ scope=perm
 // 188
 [heroquest]
 transmit=yes
+scope=perm
 
 // 189
 [dragon_guildmaster]
@@ -1021,6 +1036,7 @@ scope=perm
 
 // 203
 [flour]
+scope=perm
 
 // 204
 [macro_event]
@@ -1456,6 +1472,7 @@ scope=perm
 // 309
 [agilityarena_varbit]
 transmit=yes
+scope=perm
 
 // 310
 [varplayer_310]
@@ -1653,10 +1670,12 @@ scope=perm
 // 353
 [boardgames_runelink_rank]
 transmit=yes
+scope=perm
 
 // 354
 [boardgames_draughts_rank]
 transmit=yes
+scope=perm
 
 // 355
 [boardgames_varbit]
@@ -1675,20 +1694,24 @@ transmit=yes
 // 359
 [misc_quest]
 transmit=yes
+scope=perm
 
 // 360
 [varplayer_360]
 
 // 361
 [misc_varbit_1]
+scope=perm
 
 // 362
 [misc_varbit_2]
 transmit=yes
+scope=perm
 
 // 363
 [misc_varbit_3]
 transmit=yes
+scope=perm
 
 // 364
 [varplayer_364]
@@ -1696,6 +1719,7 @@ transmit=yes
 // 365
 [mm_main]
 transmit=yes
+scope=perm
 
 // 366
 [varplayer_366]
@@ -1717,6 +1741,7 @@ transmit=yes
 
 // 372
 [mm_gnomes]
+scope=perm
 
 // 373
 [varplayer_373]
@@ -1754,10 +1779,12 @@ transmit=yes
 // 382
 [hauntedmine]
 transmit=yes
+scope=perm
 
 // 383
 [hauntedmine_bits]
 transmit=yes
+scope=perm
 
 // 384
 [varplayer_384]
@@ -1765,6 +1792,7 @@ transmit=yes
 // 385
 [troll_love]
 transmit=yes
+scope=perm
 
 // 386
 [varplayer_386]
@@ -1772,9 +1800,11 @@ transmit=yes
 // 387
 [routequest]
 transmit=yes
+scope=perm
 
 // 388
 [routequestmulti]
+scope=perm
 
 // 389
 [varplayer_389]
@@ -1791,6 +1821,7 @@ transmit=yes
 
 // 393
 [karam_dungeon_varbit]
+scope=perm
 
 // 394
 [slayer_count]
@@ -1998,6 +2029,7 @@ transmit=yes
 // 448
 [follower_obj]
 transmit=yes
+scope=perm
 
 // 449
 [tog_minigame]
@@ -3892,6 +3924,8 @@ transmit=yes
 // 1021
 [varplayer_1021]
 transmit=yes
+// Unstable Foundations' progress bits (the step hint, varbit 3756, and tutorial3_*), saved so a relog keeps them.
+scope=perm
 
 // 1022
 [varplayer_1022]
@@ -4718,6 +4752,8 @@ transmit=yes
 // 1254
 [tutorial2_tasks2]
 transmit=yes
+// Unstable Foundations' progress bits (the step hint, varbit 3756, and tutorial3_*), saved so a relog keeps them.
+scope=perm
 
 // 1255
 [tutorial2_tracking]
