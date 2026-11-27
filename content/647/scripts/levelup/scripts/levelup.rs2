@@ -19,6 +19,7 @@
 [advancestat,firemaking](int $levels) @levelup(enum(int, stat, stats, ^firemaking), $levels);
 [advancestat,woodcutting](int $levels) @levelup(enum(int, stat, stats, ^woodcutting), $levels);
 [advancestat,fletching](int $levels) @levelup(enum(int, stat, stats, ^fletching), $levels);
+[advancestat,animallore](int $levels) @levelup(enum(int, stat, stats, ^animallore), $levels);
 
 // $levels: how many levels the xp crossed (the engine passes it; 647).
 [label,levelup](stat $stat, int $levels)

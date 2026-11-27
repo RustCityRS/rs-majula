@@ -72,6 +72,11 @@ impl StaffModLevel {
     }
 }
 
+/// Summoning's stat id (`animallore`, stat.pack 23): cache 786 has 25 stats, and `PlayerStat`
+/// names the first 21.
+#[cfg(since_647)]
+pub const STAT_ANIMALLORE: usize = 23;
+
 /// Rev-647 chat modes, as CHAT_SETMODE carries them (CS2 op 5006): typed chat
 /// goes to public chat, the friends chat, the player's clan chat, or the clan
 /// chat they visit as a guest.
@@ -636,6 +641,13 @@ impl Player {
 
         // floor(x / 2) == x >> 1.
         let base_sum = defence + hitpoints + (prayer >> 1);
+        // 2011's: Summoning counts as Prayer does, "+ 1/2 summoning" inside the quarter (2011
+        // wiki, Combat level, 18 May 2011), on members' worlds outside the Wilderness. A level
+        // of 1, all a free player has, adds nothing. In the Wilderness without a familiar,
+        // pouch or scroll it is shown apart ("79+6"): not done, the Wilderness level is not
+        // ported.
+        #[cfg(since_647)]
+        let base_sum = base_sum + (levels[STAT_ANIMALLORE] as u32 >> 1);
         let melee_sum = attack + strength;
         let range_sum = (ranged >> 1) + ranged;
         let magic_sum = (magic >> 1) + magic;
@@ -1486,6 +1498,21 @@ mod combat_level_tests {
             player.stats.base_levels[i] = lvl as u16;
         }
         player
+    }
+
+    /// 2011's: half the Summoning level joins Defence, Constitution and half Prayer (2011 wiki,
+    /// Combat level, 18 May 2011); all 99s is 138.
+    #[cfg(since_647)]
+    #[test]
+    fn summoning_counts_towards_combat_level() {
+        let mut p = player_with([99, 99, 99, 99, 99, 99, 99]);
+        assert_eq!(p.get_combat_level(), 126);
+        p.stats.base_levels[STAT_ANIMALLORE] = 99;
+        assert_eq!(p.get_combat_level(), 138);
+        let mut p = player_with([40, 1, 50, 40, 1, 43, 1]);
+        let before = p.get_combat_level();
+        p.stats.base_levels[STAT_ANIMALLORE] = 1;
+        assert_eq!(p.get_combat_level(), before);
     }
 
     /// Binds the real `get_combat_level` to the float reference for a spread of

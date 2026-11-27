@@ -3,7 +3,9 @@
 // content-graph dependencies.
 
 [proc,player_combat_level]()(int)
-def_int $base = calc(10 * (stat_base(defence) + stat_base(hitpoints) + stat_base(prayer) / 2));
+// 2011's: half the Summoning level counts as half the Prayer level does (2011 wiki, Combat
+// level, 18 May 2011); the engine's get_combat_level does the same.
+def_int $base = calc(10 * (stat_base(defence) + stat_base(hitpoints) + stat_base(prayer) / 2 + stat_base(animallore) / 2));
 def_int $melee = calc(13 * (stat_base(attack) + stat_base(strength)));
 def_int $ranged = calc(13 * scale(3, 2, stat_base(ranged)));
 def_int $magic = calc(13 * scale(3, 2, stat_base(magic)));
@@ -12,7 +14,7 @@ def_int $final = calc(($base + max(max($melee, $ranged), $magic))/40);
 return($final);
 
 [proc,.player_combat_level]()(int)
-def_int $base = calc(10 * (.stat_base(defence) + .stat_base(hitpoints) + .stat_base(prayer) / 2));
+def_int $base = calc(10 * (.stat_base(defence) + .stat_base(hitpoints) + .stat_base(prayer) / 2 + .stat_base(animallore) / 2));
 def_int $melee = calc(13 * (.stat_base(attack) + .stat_base(strength)));
 def_int $ranged = calc(13 * scale(3, 2, .stat_base(ranged)));
 def_int $magic = calc(13 * scale(3, 2, .stat_base(magic)));
