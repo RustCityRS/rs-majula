@@ -169,3 +169,22 @@ data=stat_heal,hitpoints,110,0
 table=consume_table
 data=consumable,curry
 data=stat_heal,hitpoints,190,0
+
+// Monkey Madness's Ape Atoll food (289's player/scripts/consumption/effects/scripts/
+// ape_atoll_food.rs2: 4, 5 and 11 hitpoints). 2011's heals are the local wiki's: Monkey nuts 40
+// life points (2011-05-17), Monkey bar 90 (2011-03-07, not 289's 50), Banana stew 110
+// (2011-03-26). The stew leaves its bowl (its next_obj_stage, bowl_empty, in all.obj).
+[mm_monkey_nuts_heal]
+table=consume_table
+data=consumable,mm_monkey_nuts
+data=stat_heal,hitpoints,40,0
+
+[mm_monkey_bar_heal]
+table=consume_table
+data=consumable,mm_monkey_bar
+data=stat_heal,hitpoints,90,0
+
+[mm_banana_stew_heal]
+table=consume_table
+data=consumable,mm_banana_stew
+data=stat_heal,hitpoints,110,0

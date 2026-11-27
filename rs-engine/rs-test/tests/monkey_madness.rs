@@ -363,3 +363,54 @@ fn the_reinitialisation_puzzle_slides_on_2011_s_screen() {
         no_errors(engine);
     });
 }
+
+fn life_points(engine: &Engine, client: &HarnessClient) -> i32 {
+    engine
+        .harness_player(client.pid)
+        .unwrap()
+        .vars
+        .get(LIFE)
+        .as_int()
+        >> 1
+}
+
+fn set_life_points(engine: &mut Engine, client: &HarnessClient, points: i32) {
+    let player = engine.harness_player_mut(client.pid).unwrap();
+    let bit0 = player.vars.get(LIFE).as_int() & 1;
+    player.vars.set(LIFE, VarValue::Int((points << 1) | bit0));
+}
+
+/// The Ape Atoll food heals the 2011 wiki's life points (Monkey bar 90, not 289's 50), and the
+/// banana stew leaves its bowl.
+#[test]
+fn the_ape_atoll_food_heals_2011_s_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmfood");
+        for (food, heal) in [
+            ("mm_monkey_nuts", 40),
+            ("mm_monkey_bar", 90),
+            ("mm_banana_stew", 110),
+        ] {
+            set_life_points(engine, &client, 500);
+            give(engine, &client, 0, food);
+            let obj = id(engine, "obj", food);
+            client.if_button(1, BACKPACK, 0, obj);
+            let t = watch(engine, &mut client, 4);
+            // Natural regeneration may add a life point over the ticks.
+            let healed = life_points(engine, &client) - 500;
+            assert!(
+                (heal..=heal + 1).contains(&healed),
+                "{food} heals {heal}: {healed}"
+            );
+            assert_eq!(
+                held(engine, &client, food),
+                0,
+                "{food} is eaten: {:?}",
+                t.messages
+            );
+        }
+        assert_eq!(held(engine, &client, "bowl_empty"), 1, "the stew's bowl");
+        no_errors(engine);
+    });
+}
