@@ -3,7 +3,7 @@
 if ($int0 ! 1) {
     return;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 if_sethide(chattop:mes_layer, false);

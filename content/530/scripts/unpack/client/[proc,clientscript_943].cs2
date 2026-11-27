@@ -8,23 +8,23 @@ if (cc_getinvobject = soulrune) {
     cc_setobject(boardgames_draughts_chaosrune_king, -1);
 }
 if ($int5 ! -1) {
-    cc_setposition(~clientscript_946($int5), 0, 0);
+    cc_setposition(~clientscript_946($int5), ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
 if ($int4 ! -1) {
-    cc_setposition(~clientscript_946($int4), 0, 0);
+    cc_setposition(~clientscript_946($int4), ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
 if ($int3 ! -1) {
-    cc_setposition(~clientscript_946($int3), 0, 0);
+    cc_setposition(~clientscript_946($int3), ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
 if ($int2 ! -1) {
-    cc_setposition(~clientscript_946($int2), 0, 0);
+    cc_setposition(~clientscript_946($int2), ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
 if ($int1 ! -1) {
-    cc_setposition(~clientscript_946($int1), 0, 0);
+    cc_setposition(~clientscript_946($int1), ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
-cc_setposition(~clientscript_946($int0), 0, 0);
+cc_setposition(~clientscript_946($int0), ^setpos_abs_left, ^setpos_abs_top);

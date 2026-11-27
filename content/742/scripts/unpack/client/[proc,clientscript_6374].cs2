@@ -1,7 +1,7 @@
 // 6374
 [proc,clientscript_6374](int $int0, component $component1)
 def_int $int2 = calc(clientclock % 36);
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if ($int2 > calc(36 / 2) & enum(int, int, enum_5924, $int2) < 8) {
         if_sethide(toplevel_fullscreen:com_16, false);
         if_sethide(toplevel_fullscreen:com_6, false);

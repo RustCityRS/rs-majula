@@ -38,7 +38,7 @@ x=6
 y=25
 width=32
 height=32
-graphic=graphic_856
+graphic="v2_stone_borders,28"
 
 // 683:4
 [com_4]
@@ -47,7 +47,7 @@ x=38
 y=12
 width=116
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 opbase= 
 
@@ -58,7 +58,7 @@ x=153
 y=25
 width=32
 height=32
-graphic=graphic_857
+graphic="v2_stone_borders,29"
 
 // 683:6
 [com_6]
@@ -67,7 +67,7 @@ x=168
 y=58
 width=32
 height=60
-graphic=graphic_852
+graphic="v2_stone_borders,24"
 tiling=yes
 
 // 683:7
@@ -77,7 +77,7 @@ x=153
 y=118
 width=32
 height=32
-graphic=graphic_859
+graphic="v2_stone_borders,31"
 
 // 683:8
 [com_8]
@@ -86,7 +86,7 @@ x=38
 y=134
 width=115
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 683:9
@@ -96,7 +96,7 @@ x=6
 y=118
 width=32
 height=32
-graphic=graphic_858
+graphic="v2_stone_borders,30"
 
 // 683:10
 [com_10]
@@ -105,7 +105,7 @@ x=-8
 y=58
 width=32
 height=60
-graphic=graphic_852
+graphic="v2_stone_borders,24"
 tiling=yes
 
 // 683:11
@@ -122,7 +122,7 @@ x=-8
 y=163
 width=32
 height=91
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 683:13
@@ -132,7 +132,7 @@ x=6
 y=145
 width=177
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 683:14
@@ -142,7 +142,7 @@ x=170
 y=161
 width=32
 height=91
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 683:15
@@ -152,7 +152,7 @@ x=7
 y=236
 width=177
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 opbase= 
 
@@ -383,7 +383,7 @@ y=177
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1228
+graphic="catcon_catapult_icons,4"
 transmitop=1
 op1=Rotate-Left
 onmouseover=graphic_swapper(event_com, 1229)
@@ -398,7 +398,7 @@ y=177
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1230
+graphic="catcon_catapult_icons,6"
 transmitop=1
 op1=Rotate-Right
 onmouseover=graphic_swapper(event_com, 1231)
@@ -413,7 +413,7 @@ y=212
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1224
+graphic="catcon_catapult_icons,0"
 transmitop=1
 op1=Flip-Side
 onmouseover=graphic_swapper(catcon_repair_puzzle_side:catcon_flip, 1225)
@@ -428,7 +428,7 @@ y=212
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1232
+graphic="catcon_catapult_icons,8"
 transmitop=1
 op1=Restart
 onmouseover=graphic_swapper(event_com, 1233)
@@ -560,7 +560,7 @@ y=176
 width=94
 height=27
 layer=confirm_restart_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Yes, Restart
 textalignh=centre
 textalignv=centre
@@ -577,7 +577,7 @@ y=212
 width=94
 height=27
 layer=confirm_restart_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=No, Cancel
 textalignh=centre
 textalignv=centre
@@ -594,7 +594,7 @@ y=63
 width=96
 height=38
 layer=confirm_restart_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Are you sure you want to restart the puzzle?
 textalignh=centre
 textshadow=yes

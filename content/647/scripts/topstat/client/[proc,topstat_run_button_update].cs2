@@ -13,7 +13,7 @@ if (%option_run_status_varc = 1) {
 } else if (%option_run_status_varc = 4) {
     if_setgraphic(topstat_run:run_graphic, "topstat_icon,6");
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic($component0, graphic_1207);
     if_setposition(topstat_run:run_circle, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
     if_setposition(topstat_run:run_hide, 25, 1, ^setpos_abs_left, ^setpos_abs_top);

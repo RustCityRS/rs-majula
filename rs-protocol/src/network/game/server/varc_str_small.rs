@@ -30,6 +30,11 @@ impl VarcStrSmall<'_> {
         let header = size_of::<u16>();
         Packet::sizejstr(val) + header
     }
+
+    /// Whether `val` fits this packet's one-byte frame size.
+    pub fn fits(val: &str) -> bool {
+        Self::sizeof_str(val) <= u8::MAX as usize
+    }
 }
 
 #[cfg(all(since_530, before_647))]

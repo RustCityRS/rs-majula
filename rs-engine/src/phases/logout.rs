@@ -1,4 +1,4 @@
-use crate::active_player::EnginePlayer;
+use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::core::Engine;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::pointer::ScriptPointer;
@@ -149,7 +149,7 @@ impl Engine {
                 let Some(active) = &mut self.player_list.players[idx] else {
                     continue;
                 };
-                if let Err(e) = active.close_modal(true) {
+                if let Err(e) = ActivePlayer::close_modal(active, true) {
                     error!(
                         "error closing modal during logout for player {}: {e}",
                         active.player.uid.pid()

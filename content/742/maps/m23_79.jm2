@@ -1260,14 +1260,14 @@ fog_color=2698010
 fog_depth=2005
 
 ==== LIGHTS ====
-0 2820 4371 209: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 2323 4371 224: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 5764 1299 209: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 5267 1299 224: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 2300 6893 209: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 2797 6893 224: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 5756 3821 209: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
-0 6253 3821 224: radius=2 colors=5,5,5,5,5 hsl=7070 type=31 ref=light_9
+0 2820 4371 209: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 2323 4371 224: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 5764 1299 209: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 5267 1299 224: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 2300 6893 209: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 2797 6893 224: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 5756 3821 209: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
+0 6253 3821 224: radius=2 radiusgrid=5,5,5,5,5 hsl=7070 type=31 lighttype=light_9
 
 ==== ENVPARAMS ====
 32 8 32

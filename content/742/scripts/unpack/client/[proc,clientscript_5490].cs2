@@ -80,39 +80,39 @@ while ($int3 < 9) {
     switch_int ($int3) {
         case 0 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8515);
+                cc_setgraphic(graphic_8515);
             }
         case 1 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8514);
+                cc_setgraphic(graphic_8514);
             }
         case 2 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8516);
+                cc_setgraphic(graphic_8516);
             }
         case 3 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8512);
+                cc_setgraphic(graphic_8512);
             }
         case 4 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8518);
+                cc_setgraphic(graphic_8518);
             }
         case 5 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8513);
+                cc_setgraphic(graphic_8513);
             }
         case 6 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8511);
+                cc_setgraphic(graphic_8511);
             }
         case 7 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8517);
+                cc_setgraphic(graphic_8517);
             }
         case 8 :
             if (cc_find($component0, $int3) = true) {
-                cc_setgraphic(8519);
+                cc_setgraphic(graphic_8519);
             }
     }
     $int3 = calc($int3 + 1);

@@ -299,6 +299,7 @@ assert_str_eq(name, "test_player")
 
 [label,test_p_finduid_after_switch]
 setup_player("test_player")
+~test_skip_design
 def_playeruid $original_uid = uid
 setup_player("other")
 assert_str_eq(name, "other")

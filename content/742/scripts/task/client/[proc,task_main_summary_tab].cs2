@@ -1,6 +1,6 @@
 // 4019
 [proc,task_main_summary_tab](int $int0)
-sound_vorbis_volume(6185, 1, 0, 100);
+sound_vorbis_volume(vorbis_6185, 1, 0, 100);
 switch_int ($int0) {
     case 0 :
         if_sethide(task_main:com_95, false);

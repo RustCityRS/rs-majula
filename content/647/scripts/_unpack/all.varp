@@ -844,6 +844,7 @@ transmit=yes
 // transmit; this only opens it to the unprotected resync in run.rs2, as 289's
 // interface_controls/configs/player_controls.varp does.
 protect=no
+scope=perm
 
 // 174
 [marketthief]
@@ -1919,6 +1920,7 @@ transmit=yes
 // 425
 [goblin_caves]
 transmit=yes
+scope=perm
 
 // 426
 [varplayer_426]

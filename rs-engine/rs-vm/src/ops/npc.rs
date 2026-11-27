@@ -7,6 +7,7 @@ use crate::ops::player::{carried_source, queue_source};
 #[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::{ExecutionState, ScriptArgument};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
@@ -46,7 +47,7 @@ use runec::opcodes::*;
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::npc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `active_npc!` /
 /// `active_npc_mut!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 2500
         none!(m, NPC_ADD => |s| {
@@ -429,8 +430,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 (true, Ok(player)) => {
                     use crate::engine::ScriptPlayer as _;
                     let value = match npc_type.multivar {
-                        Some(MultiVar::Varbit(id)) => engine::<E>()
-                            .varbits()
+                        Some(MultiVar::VarpBit(id)) => engine::<E>()
+                            .varpbits()
                             .get_by_id(id)
                             .map(|v| {
                                 let base = player.get_var(v.basevar).as_int();
@@ -652,6 +653,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_530)]
         active_npc_mut!(m, NPC_RUN => |s, npc| {
             npc.run(s.pop_int_as::<u8>()?);
+        });
+
+        // 2553
+        #[cfg(since_530)]
+        active_npc!(m, NPC_GETMULTINPC => |s, npc| {
+            require_active_player(s)?;
+            let id = npc.uid().id();
+            let shown = get_active_player::<E>(s, false)?.shown_npc(id);
+            s.push_int(shown.unwrap_or(id).int());
         });
 
         // 2545

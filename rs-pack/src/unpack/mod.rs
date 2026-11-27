@@ -39,7 +39,7 @@ use rs_io::crc::getcrc;
 #[cfg(before_530)]
 use rs_io::jag::{JagCompression, JagFile};
 #[cfg(since_244)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 #[cfg(before_530)]
 use std::collections::{HashMap, HashSet};
 use std::fs;
@@ -466,7 +466,11 @@ fn versionlist_known_hashes() -> Vec<i32> {
 }
 
 #[cfg(all(since_244, before_530))]
-fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &mut Js5Store, crc_report: &mut CrcReport) {
+fn collect_js5_ondemand_crcs(
+    vl_jag: &JagFile,
+    cache: &mut Js5LocalCache,
+    crc_report: &mut CrcReport,
+) {
     let tables = [
         (archive::MODELS, "model", "model_version", "model_crc"),
         (archive::ANIMS, "anim", "anim_version", "anim_crc"),
@@ -493,12 +497,12 @@ fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &mut Js5Store, crc_report:
 
 #[cfg(all(since_244, before_530))]
 fn collect_js5_leftovers(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     expected_dir: &Path,
     version_list: &VersionList,
     leftover: &mut LeftoverReport,
 ) {
-    for file in 0..cache.group_count(archive::JAG).unwrap_or(0) as usize {
+    for file in 0..cache.group_id_limit(archive::JAG).unwrap_or(0) as usize {
         if (1..=8).contains(&file) {
             continue;
         }
@@ -522,7 +526,7 @@ fn collect_js5_leftovers(
         .iter()
         .flat_map(|m| [m.land_file as usize, m.loc_file as usize])
         .collect();
-    for file in 0..cache.group_count(archive::MAPS).unwrap_or(0) as usize {
+    for file in 0..cache.group_id_limit(archive::MAPS).unwrap_or(0) as usize {
         if referenced.contains(&file) {
             continue;
         }
@@ -600,7 +604,7 @@ pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> 
     }
 
     let mut frames: Vec<Vec<u8>> = Vec::new();
-    while dat.remaining() > 0 {
+    while dat.get_space() > 0 {
         let crop_x = idx.g1() as usize;
         let crop_y = idx.g1() as usize;
         let content_w = idx.g2() as usize;
@@ -746,7 +750,7 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
     info!("  {} registry types processed", report.types.len());
     let mut absent = Vec::new();
     step(&mut results, "archive metadata", || {
-        let mut store = Js5Store::open(expected_dir)?;
+        let mut store = Js5LocalCache::open(expected_dir)?;
         let (count, groups) = asset::unpack_metadata(&mut store, pack_dir, output_dir)?;
         absent = groups;
         Ok(format!("{count} archives"))
@@ -766,7 +770,7 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
         cs2::unpack_cs2_scripts(expected_dir, output_dir, pack_dir).map(|n| format!("{n} scripts"))
     });
     step(&mut results, "maps", || {
-        let mut store = Js5Store::open(expected_dir)?;
+        let mut store = Js5LocalCache::open(expected_dir)?;
         map::unpack_maps(&mut store, expected_dir, output_dir, pack_dir)
             .map(|n| format!("{n} map groups"))
     });
@@ -797,7 +801,7 @@ fn unpack_configs(
     }
 
     step(results, "empty config tables", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         for &(type_name, group_id, section, _) in CONFIG_EMPTY_TABLES {
             info!("  Unpacking {type_name} (group {group_id})...");
             unpack_empty_table(&mut store, group_id, type_name, section, &config_out)?;
@@ -808,7 +812,7 @@ fn unpack_configs(
 
 #[cfg(since_530)]
 fn unpack_empty_table(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     group_id: u32,
     type_name: &str,
     section: &str,
@@ -843,7 +847,7 @@ fn unpack_assets(
     output_dir: &Path,
 ) {
     step(results, "sprites", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         let stats = media::unpack_all_sprites(&mut store, output_dir, pack_dir)?;
         Ok(format!(
             "{} groups, {} sprites",
@@ -852,7 +856,7 @@ fn unpack_assets(
     });
     #[cfg(before_742)]
     step(results, "textures", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         texture::unpack_texture_text(&mut store, output_dir, pack_dir)
             .map(|n| format!("{n} groups"))
     });
@@ -871,13 +875,13 @@ fn unpack_assets(
         let format = archive::archive_format(aid).unwrap();
         let extension = raw_extension(aid).unwrap();
         step(results, format.content_dir, || {
-            let mut store = Js5Store::open(cache_dir)?;
+            let mut store = Js5LocalCache::open(cache_dir)?;
             binary_assets::unpack_raw(&mut store, aid, output_dir, pack_dir, extension)
                 .map(|n| format!("{n} groups"))
         });
     }
     step(results, "music", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         song::unpack_songs(&mut store, pack_dir, output_dir)
             .map(|n| format!("{n} songs and jingles"))
     });
@@ -894,23 +898,23 @@ fn unpack_assets(
     ] {
         let format = archive::archive_format(aid).unwrap();
         step(results, format.content_dir, || {
-            let mut store = Js5Store::open(cache_dir)?;
+            let mut store = Js5LocalCache::open(cache_dir)?;
             asset::unpack_archive(&mut store, aid, pack_dir, output_dir)
                 .map(|n| format!("{n} groups"))
         });
     }
     step(results, "materials", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         asset::unpack_materials(&mut store, pack_dir, output_dir).map(|n| format!("{n} materials"))
     });
     #[cfg(since_647)]
     step(results, "shaders", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         shaders::unpack_shaders(&mut store, output_dir, pack_dir).map(|n| format!("{n} groups"))
     });
     #[cfg(since_647)]
     step(results, "native libraries", || {
-        let mut store = Js5Store::open(cache_dir)?;
+        let mut store = Js5LocalCache::open(cache_dir)?;
         binary_assets::unpack_libraries(&mut store, output_dir, pack_dir)
             .map(|n| format!("{n} groups"))
     });

@@ -4,6 +4,7 @@ use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::window_status::WindowStatus;
 use rs_vm::ScriptError;
 use rs_vm::subject::ScriptSubject;
+use tracing::debug;
 
 /// Handles `WindowStatus` — rev-647 WINDOW_STATUS (opcode 69).
 ///
@@ -19,9 +20,8 @@ use rs_vm::subject::ScriptSubject;
 /// on screen: interface 149 never appeared in the drawn set, and no inventory
 /// component could be hovered, clicked or used as a drag target.
 ///
-/// Mode values are the client's own: 1 = fixed, 2 = resizable, 3 = fullscreen.
-/// Content only distinguishes 1 from everything else, matching the `= 1` test
-/// in the login scripts.
+/// Mode values are the client's own: 1 = fixed, 2 = resizable, 3 = fullscreen,
+/// and on 530 0 = SD (fixed). Content only distinguishes fixed from the rest.
 ///
 /// # Side Effects
 ///
@@ -34,12 +34,19 @@ impl ClientGameHandler for WindowStatus {
         active.player.window_mode = self.mode;
         active.player.window_width = self.width;
         active.player.window_height = self.height;
+        debug!("window status {previous} -> {}", self.mode);
 
         // `toplevel` is zero until IF_OPENTOP has run, which means login has not
         // reached `~open_game_frame` yet. It will read the mode we just stored,
         // so switching here would be redundant at best and would run against a
         // half-initialised player at worst.
-        if previous == self.mode || active.player.toplevel == 0 {
+        //
+        // The proc swaps the fixed toplevel (modes 0 and 1: 530's SD, and HD
+        // fixed) for the resizable one (2 and 3) and back. A change that keeps
+        // the side, SD to HD or resizable to fullscreen, keeps the toplevel: the
+        // proc would reopen it and move every tab and orb in from the other
+        // toplevel's empty slots, leaving the frame bare.
+        if (previous < 2) == (self.mode < 2) || active.player.toplevel == 0 {
             return Ok(());
         }
 

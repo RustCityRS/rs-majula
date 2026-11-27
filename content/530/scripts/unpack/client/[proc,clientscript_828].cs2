@@ -4,7 +4,7 @@ def_int $intarray0(calc(646 + 1));
 def_int $int0 = 0;
 while ($int0 <= 646) {
     $intarray0($int0) = $int0;
-    cc_create(music_v3:jukebox, 4, $int0);
+    cc_create(music_v3:jukebox, ^iftype_text, $int0);
     $int0 = calc($int0 + 1);
 }
 ~clientscript_520(intarray0, 0, 646, enum_1347);
@@ -15,19 +15,19 @@ def_int $int3 = 0;
 while ($int1 <= 646) {
     $int0 = $intarray0($int1);
     if (cc_find(music_v3:jukebox, $int0) = true) {
-        if (enum(int, midi, enum_1351, $int0) = 147 | enum(int, int, enum_1350, $int0) = 1) {
+        if (enum(int, midi, enum_1351, $int0) = silence | enum(int, int, enum_1350, $int0) = 1) {
             $int1 = calc($int1 + 1);
         } else {
-            cc_settextalign(0, 1, 0);
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
             cc_settext(enum_string(enum_1345, $int0));
-            cc_setposition(10, calc(5 + $int2 * 15), 0, 0);
-            cc_setsize(150, 15, 0, 0);
+            cc_setposition(10, calc(5 + $int2 * 15), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(150, 15, ^setsize_abs, ^setsize_abs);
             cc_setonop("clientscript_833(event_op, $int0)");
             cc_setop(1, "Click to play");
             cc_setop(2, "Unlock hint");
             cc_setopbase(enum_string(enum_1345, $int0));
             cc_settextshadow(false);
-            cc_settextfont(494);
+            cc_settextfont(p11_full);
             cc_setonmouseover("clan_motif_background_mouseover($int0, event_com)");
             cc_setonmouseleave("clientscript_830($int0, event_com)");
             if (~music_getvar($int0) = ^true) {
@@ -43,5 +43,5 @@ while ($int1 <= 646) {
 }
 if_setscrollsize(music_v3:jukebox, 167, calc(5 + $int2 * 15));
 if_setscrollpos(music_v3:jukebox, 0, 0);
-~clientscript_31(music_v3:scrollbar, music_v3:jukebox, 792, 789, 790, 791, 773, 788);
+~clientscript_31(music_v3:scrollbar, music_v3:jukebox, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 if_settext(music_v3:unlock_counter, "Unlocked:<br><tostring($int3)> / <tostring($int2)>");

@@ -1,18 +1,18 @@
 // 5910
 [proc,clientscript_5910](int $int0)
-def_graphic $graphic1 = 9959;
+def_graphic $graphic1 = graphic_9959;
 def_int $int2 = 9931;
 def_int $int3 = ~clientscript_5907($int0, %varplayerbit_10865);
 if (%varplayerbit_10861 > 0) {
     switch_int ($int3) {
         case 0 :
-            $graphic1 = 9957;
+            $graphic1 = graphic_9957;
             $int2 = 9943;
         case 1 :
-            $graphic1 = 9958;
+            $graphic1 = graphic_9958;
             $int2 = 9935;
         case 2 :
-            $graphic1 = 9959;
+            $graphic1 = graphic_9959;
             $int2 = 9931;
     }
 }

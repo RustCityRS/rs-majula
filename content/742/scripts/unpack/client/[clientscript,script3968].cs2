@@ -3,14 +3,14 @@
 if (%task_toggle_popup = 1 | %varclient_1425 = %varclient_1426) {
     return;
 }
-if (getwindowmode >= 2 & %varplayerbit_9030 = 1) {
+if (getwindowmode >= ^windowmode_resizable & %varplayerbit_9030 = 1) {
     %varclient_1425 = %varclient_1426;
     return;
 }
 %varclient_1427 = 0;
 def_struct $struct0 = ~clientscript_5795(%varclient_1425);
 def_int $int1 = 1;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_gethide(toplevel_fullscreen:icon3) = true | if_getgraphic(toplevel_fullscreen:icon3) = null) {
         $int1 = 0;
     }

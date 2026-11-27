@@ -18,7 +18,7 @@ if (%loginscreen_previousprofiling = 1) {
     if (profile_cpu > 400) {
         %loginscreen_previousprofiling = 1;
         %loginscreen_camera_disabled = true;
-        if (getwindowmode > 1) {
+        if (getwindowmode > ^windowmode_small) {
             setwindowmode(^windowmode_small);
         }
         if (getdefaultwindowmode > 1) {

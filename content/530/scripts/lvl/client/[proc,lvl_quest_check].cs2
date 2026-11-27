@@ -1147,7 +1147,7 @@ switch_int ($int1) {
         if ($stat0 = prayer & stat_base($stat0) = 35) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 19) {
+        if ($stat0 = animallore & stat_base($stat0) = 19) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%sum1_quest = 80) {
@@ -1173,7 +1173,7 @@ switch_int ($int1) {
         if ($stat0 = prayer & stat_base($stat0) = 55) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 23) {
+        if ($stat0 = animallore & stat_base($stat0) = 23) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 37) {
@@ -1217,7 +1217,7 @@ switch_int ($int1) {
         if ($stat0 = farming & stat_base($stat0) = 65) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = summoning & stat_base($stat0) = 23) {
+        if ($stat0 = animallore & stat_base($stat0) = 23) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (~clientscript_395 = 1 & ($stat0 = strength | $stat0 = attack)) {

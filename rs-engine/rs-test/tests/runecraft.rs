@@ -6,41 +6,41 @@
 //! bridge to Gunnarsgrunn instead of south of Falador (2011 wiki, Air altar:
 //! moved 17 September 2009) -- so the rows carry 2011's tiles, from
 //! the 2011 map's placements and `void-634`. The cases use a talisman on the
-//! air ruins as the client does (OPLOCT: `p2_alt2(obj) p2_alt2(slot) p2(z)
-//! p4_alt2(com) p2_alt2(x) p1_alt1(ctrl) p2_alt1(loc)`), bind essence at the air
-//! altar (OPLOC1: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`), and step back out
-//! through the temple's portal. The essence mine's portal, a loc at 289, is
-//! one of four npcs in 2011 (OPNPC1: `p1_alt3(ctrl) p2(nid)`).
+//! air ruins as the client does (OPLOCT), bind essence at the air altar
+//! (OPLOC1), and step back out through the temple's portal. The essence mine's
+//! portal, a loc at 289, is one of four npcs in 2011 (OPNPC1).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
 
 const RUNECRAFT: usize = 20;
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
-
-/// 2011's air ruins (`airtemple_ruined`, 3x3), west of Varrock.
+/// 2011's air ruins (`airtemple_ruined`, 3x3), west of Varrock; 530's are 289's, south of
+/// Falador.
+#[cfg(before_647)]
+const AIR_RUINS: (u16, u16, u16) = (2452, 2984, 3291);
+#[cfg(since_647)]
 const AIR_RUINS: (u16, u16, u16) = (2452, 3126, 3404);
 /// The air altar (`air_altar`, 3x3) and the temple's portal out.
 const AIR_ALTAR: (u16, u16, u16) = (2478, 2843, 4833);
 const AIR_PORTAL: (u16, u16, u16) = (2465, 2841, 4828);
 /// Where `runecraft_air` puts a player: inside the temple, and back outside.
 const AIR_INSIDE: (u16, u16) = (2841, 4830);
+#[cfg(before_647)]
+const AIR_OUTSIDE: (u16, u16) = (2983, 3288);
+#[cfg(since_647)]
 const AIR_OUTSIDE: (u16, u16) = (3129, 3406);
 
 /// The four corners of the essence mine, where 2011 leaves 2492's snow.
+#[cfg(since_647)]
 const MINE_PORTALS: [(u16, u16); 4] = [(2885, 4850), (2889, 4813), (2932, 4854), (2933, 4815)];
 /// `^essence_mine_to_sedridor`, the way back for a player with no other.
+#[cfg(since_647)]
 const SEDRIDOR: (u16, u16) = (3106, 9572);
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
@@ -98,12 +98,7 @@ fn until_moved_to(
 }
 
 fn oploc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
 #[test]
@@ -117,7 +112,7 @@ fn runecrafting_at_2011s_air_temple() {
         // The talisman, held to 2011's air ruins, takes the player inside.
         // Beside the ruins already: Barbarian Village's npcs wander onto the approach,
         // which made the walk there flaky.
-        let mut client = player_at(engine, "runecrafter", 3127, 3403);
+        let mut client = player_at(engine, "runecrafter", AIR_RUINS.1 + 1, AIR_RUINS.2 - 1);
         let player = engine.harness_player_mut(client.pid).unwrap();
         let backpack = player.invs.get_mut(&inv).unwrap();
         backpack.set(0, talisman, 1);
@@ -125,15 +120,7 @@ fn runecrafting_at_2011s_air_temple() {
         let xp = player.stats.xp[RUNECRAFT];
 
         let (loc, x, z) = AIR_RUINS;
-        let mut p = ClientPacket::new();
-        p.p2_alt2(talisman.int())
-            .p2_alt2(0)
-            .p2(z as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(x as i32)
-            .p1_alt1(0)
-            .p2_alt1(loc as i32);
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(x, z, TypeId::from_int(loc as i32), BACKPACK, 0, talisman);
         let said = until_moved_to(engine, &mut client, AIR_INSIDE);
         assert_eq!(
             said,
@@ -180,6 +167,7 @@ fn runecrafting_at_2011s_air_temple() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_essence_mine_portals_are_2011s_npcs() {
     runner::on_loaded_engine(|engine| {
@@ -212,9 +200,7 @@ fn the_essence_mine_portals_are_2011s_npcs() {
             .find(|n| n.npc.pathing.coord.x() == 2933 && n.npc.pathing.coord.z() == 4815)
             .map(|n| n.npc.uid.nid())
             .unwrap();
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2(nid as i32);
-        client.send(ClientProt::OpNpc1, &p.finish());
+        client.op_npc(1, nid);
         let mut said = Vec::new();
         for _ in 0..30 {
             engine.cycle();

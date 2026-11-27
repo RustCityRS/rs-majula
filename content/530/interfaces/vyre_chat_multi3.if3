@@ -4,7 +4,7 @@ type=text
 y=-1
 width=480
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
@@ -15,7 +15,7 @@ type=text
 y=23
 width=480
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=option1
 textalignh=centre
 colour=0x000000
@@ -30,7 +30,7 @@ type=text
 y=47
 width=480
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=option2
 textalignh=centre
 colour=0x000000
@@ -45,7 +45,7 @@ type=text
 y=71
 width=480
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=option3
 textalignh=centre
 colour=0x000000
@@ -60,7 +60,7 @@ type=graphic
 width=57
 height=13
 layer=multi3swords
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 458:5
 [com_5]
@@ -69,7 +69,7 @@ x=280
 width=57
 height=13
 layer=multi3swords
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 458:6
 [multi3swords]
@@ -85,7 +85,7 @@ type=graphic
 width=57
 height=13
 layer=com_9
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 458:8
 [com_8]
@@ -94,7 +94,7 @@ x=419
 width=57
 height=13
 layer=com_9
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 458:9
 [com_9]

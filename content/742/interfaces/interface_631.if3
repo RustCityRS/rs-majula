@@ -312,8 +312,8 @@ width=55
 height=55
 ymode=abs_bottom
 layer=com_8
-onload=clientscript_1635(event_com, summoning)
-onvartransmit=clientscript_1635(event_com, summoning){varplayer_2812}
+onload=clientscript_1635(event_com, animallore)
+onvartransmit=clientscript_1635(event_com, animallore){varplayer_2812}
 
 // 631:28
 [com_28]
@@ -325,8 +325,8 @@ height=55
 xmode=abs_centre
 ymode=abs_bottom
 layer=com_8
-onload=clientscript_1635(event_com, dungeoneering)
-onvartransmit=clientscript_1635(event_com, dungeoneering){varplayer_2812}
+onload=clientscript_1635(event_com, rand)
+onvartransmit=clientscript_1635(event_com, rand){varplayer_2812}
 
 // 631:29
 [com_29]

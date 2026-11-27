@@ -239,14 +239,6 @@
 [command,sound_synth](synth $sound, int $loops, int $delay)
 // info: Play a $sound for the secondary player
 [command,.sound_synth](synth $sound, int $loops, int $delay)
-// info: Play voice-over $clip at $volume, heard only with voice-over volume on
-[command,sound_speech_volume](vorbis $clip, int $loops, int $delay, int $volume)
-// info: Play voice-over $clip at $volume for the secondary player
-[command,.sound_speech_volume](vorbis $clip, int $loops, int $delay, int $volume)
-// info: Stop the player's voice-over clips
-[command,sound_speech_stop]
-// info: Stop the secondary player's voice-over clips
-[command,.sound_speech_stop]
 // info: Get the permissions level the player has
 [command,staffmodlevel]()(int)
 // info: Get the permissions level the secondary player has
@@ -314,8 +306,6 @@
 [command,.if_setobject](component $component, obj $obj, int $scale)
 // info: Set a component's model
 [command,if_setmodel](component $component, int $model)
-// info: Set a component's graphic (a sprite): 647's IF_SETGRAPHIC
-[command,if_setgraphic](component $component, graphic $graphic)
 // info: Open the tutorial modal mode ("sticky" interface)
 [command,tut_open](interface $interface)
 // info: Close the tutorial modal mode (back to normal gameplay)
@@ -431,6 +421,8 @@
 [command,.cleartimer](timer $timer)
 // info: Return ^true if the active_player has $timer running
 [command,gettimer](timer $timer)(int) // confirmed
+// info: The clock $timer was last set or fired at on the active_player, or -1 if it isn't running
+[command,getsofttimer](softtimer $timer)(int)
 // info: Play a spotanim on the active_player
 [command,spotanim_pl](spotanim $spotanim, int $height, int $delay)
 // info: Play a spotanim on the secondary active_player
@@ -611,6 +603,9 @@
 [command,getwindowmode]()(int)
 // info: set an option for a player
 [command,set_player_op](string $text, int $index, int $primary)
+// info: Set the camera pitch and yaw
+[command,cam_forceangle](int $pitch, int $yaw)
+[command,.cam_forceangle](int $pitch, int $yaw)
 // Npc ops (2500-2999)
 // info: Get access to the npc if they are in the world
 [command,npc_finduid](npc_uid $uid)(boolean)
@@ -749,6 +744,8 @@
 // info: Toggle the npc's run-mode: two tiles a tick while on, as a running player
 // (647; no source names Jagex's command for it, so this is p_run's name for an npc)
 [command,npc_run](int $state)
+// info: Get the npc config the current npc shows as to the current player; its own when it shows as nothing
+[command,npc_getmultinpc]()(npc)
 // info: Toggle the secondary npc's run-mode
 [command,.npc_run](int $state)
 // info: Get the npc's attack range
@@ -822,12 +819,16 @@
 [command,loc_shape]()(locshape)
 // info: Get the secondary loc's shape
 [command,.loc_shape]()(locshape)
-// info: Start the player's client downloading $loc's models for $shape, a tick before it needs them
-[command,loc_prefetch](loc $loc, locshape $shape)
-// info: Start every client that can see $coord's zone downloading $loc's models for $shape, a tick before they need them
-[command,loc_prefetchall](coord $coord, loc $loc, locshape $shape)
-// info: Make the loc look like $look for everyone, in its models for the loc's shape, recolours and retextures that match in count; null resets it
-[command,loc_merge](loc $look)
+// info: Get the current loc's width
+[command,loc_width]()(int)
+// info: Get the secondary loc's width
+[command,.loc_width]()(int)
+// info: Get the current loc's length
+[command,loc_length]()(int)
+// info: Get the secondary loc's length
+[command,.loc_length]()(int)
+// info: Get the loc config the current loc shows as to the current player; its own when it shows as nothing
+[command,loc_getmultiloc]()(loc)
 
 // Obj ops (3500-4000)
 // info: Spawn an object at $coord for the current player
@@ -878,6 +879,8 @@
 [command,nc_op](npc $npc, int $op)(string)
 // info: Get size form a npc config
 [command,nc_size](npc $npc)(int)
+// info: Get the npc config $npc shows as for $value; $npc itself when it shows as nothing
+[command,nc_getmultinpc](npc $npc, int $value)(npc)
 
 // Loc config ops (4100-4199)
 // info: Get the name from a loc config
@@ -894,6 +897,8 @@
 [command,lc_width](loc $loc)(int)
 // info: Get the length from a loc config
 [command,lc_length](loc $loc)(int)
+// info: Get the loc config $loc shows as for $value; $loc itself when it shows as nothing
+[command,lc_getmultiloc](loc $loc, int $value)(loc)
 
 // Obj config ops (4200-4299)
 // info: Get the obj config's name

@@ -1,6 +1,6 @@
 // 4089
 [proc,script4089]
 def_int $int0 = 35913902;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $int0 = 48890006;
 }

@@ -3,14 +3,22 @@ use crate::LoginResponse;
 use crate::network::game::server::player_info::player_info_init;
 use rs_crypto::rsa::RsaKey;
 #[cfg(since_647)]
-use rs_crypto::xtea::Xtea;
+use rs_crypto::tinykey::TinyKey;
 use rs_io::Packet;
 #[cfg(before_530)]
 use rs_io::crc::getcrc;
 use rs_io::packet::RsaFrame;
 #[cfg(all(since_530, before_647))]
 use rs_util::base37::{is_valid_userhash, to_raw_username};
+#[cfg(since_647)]
+use rs_util::base37::{is_valid_userhash, to_userhash};
 use rs_ver::STRING_TERMINATOR;
+#[cfg(all(since_647, before_742))]
+use rs_ver::archive::WORLDMAP_LOCS;
+#[cfg(since_647)]
+use rs_ver::archive::{LOADING_SPRITES, LOADING_SPRITES_RAW};
+#[cfg(since_647)]
+use std::net::Ipv4Addr;
 
 #[cfg(before_530)]
 pub const LOGIN_MAX_PAYLOAD: usize = u8::MAX as usize;
@@ -26,11 +34,13 @@ const MAX_USERNAME_LEN: usize = 12;
 const MAX_USERNAME_LEN: usize = 320;
 #[cfg(all(since_647, before_742))]
 const RSA_BLOCK_MAX: usize = 2 + 257;
+/// The largest account service request: 647's create account.
 #[cfg(all(since_647, before_742))]
-pub const CREATE_ACCOUNT_MAX_PAYLOAD: usize =
-    2 + RSA_BLOCK_MAX + 2 + 8 + 1 + 1 + 24 + 1 + 1 + 1 + 7 + 321 + 129 + 257;
-#[cfg(all(since_647, before_742))]
-pub const CHECK_NAME_MAX_PAYLOAD: usize = 2 + RSA_BLOCK_MAX + 1 + 7 + 321;
+pub const ACCOUNT_SERVICE_MAX_PAYLOAD: usize = 1014;
+/// The reply to every account service: the clients show it as an error
+/// contacting the create system. Accounts are made on the website.
+#[cfg(all(since_530, before_742))]
+pub const ACCOUNT_SERVICE_OFFLINE: u8 = 3;
 #[cfg(all(since_530, before_647))]
 const ARCHIVE_CRCS: usize = 28;
 #[cfg(all(since_647, before_742))]
@@ -41,8 +51,6 @@ const ARCHIVE_CRCS: usize = 37;
 const MAX_SETTINGS_LEN: usize = 255;
 #[cfg(all(since_530, before_647))]
 const WORLD_SELECTED: u8 = 101;
-#[cfg(all(since_530, before_647))]
-const NAME_SUGGESTIONS: u8 = 21;
 
 pub struct LoginBlock {
     pub username: String,
@@ -50,6 +58,8 @@ pub struct LoginBlock {
     pub seed: [i32; 4],
     pub low_memory: bool,
     pub uid: Option<i32>,
+    #[cfg(since_647)]
+    pub client_session: i64,
     #[cfg(since_530)]
     pub settings: ClientSettings,
     #[cfg(since_530)]
@@ -59,6 +69,27 @@ pub struct LoginBlock {
 }
 
 impl LoginBlock {
+    /// Checks the reference-table CRCs in the order the client writes them.
+    #[cfg(since_530)]
+    pub fn archive_crcs_match(&self, expected: &[i32]) -> bool {
+        self.archive_crcs.iter().enumerate().all(|(slot, crc)| {
+            let archive = slot as u8;
+            #[cfg(since_647)]
+            let archive = match archive {
+                // The loader reports whichever loading-sprite archive it used.
+                LOADING_SPRITES if expected.get(LOADING_SPRITES_RAW as usize) == Some(crc) => {
+                    return true;
+                }
+                #[cfg(before_742)]
+                34 => WORLDMAP_LOCS,
+                #[cfg(since_742)]
+                34.. => archive + 1,
+                _ => archive,
+            };
+            expected.get(archive as usize) == Some(crc)
+        })
+    }
+
     #[cfg(before_530)]
     pub fn decode(
         mut buf: Packet,
@@ -72,14 +103,14 @@ impl LoginBlock {
             revision = buf.g2();
         }
         if revision.to_string() != env!("REV").split('.').next().unwrap() {
-            return Err(LoginResponse::RuneScapeUpdated);
+            return Err(LoginResponse::OutOfDateClientVersion);
         }
         require(&buf, 1 + 9 * 4)?;
         let low_memory = buf.g1() & 0x1 != 0;
         let crc = getcrc(&buf.data, buf.pos, buf.pos + 9 * 4);
         buf.pos += 9 * 4;
         if crc != expected_crc {
-            return Err(LoginResponse::RuneScapeUpdated);
+            return Err(LoginResponse::OutOfDateClientVersion);
         }
         let (mut buf, seed) = decrypt_rsa(&mut buf, rsa)?;
         require(&buf, 4)?;
@@ -87,7 +118,7 @@ impl LoginBlock {
         let username = read_string(&mut buf, MAX_USERNAME_LEN)?;
         let password = read_string(&mut buf, 20)?;
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         Ok(Self {
             username,
@@ -102,7 +133,7 @@ impl LoginBlock {
     pub fn decode(mut buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
         require(&buf, 4)?;
         if buf.g4s() != 530 {
-            return Err(LoginResponse::RuneScapeUpdated);
+            return Err(LoginResponse::OutOfDateClientVersion);
         }
         require(&buf, 3 + 6 + 24)?;
         buf.pos += 3;
@@ -142,13 +173,13 @@ impl LoginBlock {
     ) -> Result<Self, LoginResponse> {
         require(&buf, 4)?;
         if buf.g4s().to_string() != env!("REV") {
-            return Err(LoginResponse::InvalidCredentials);
+            return Err(LoginResponse::BadCredentials);
         }
         #[cfg(since_742)]
         let reconnect = {
             require(&buf, 4 + usize::from(!lobby))?;
             if buf.g4s() != 1 {
-                return Err(LoginResponse::InvalidCredentials);
+                return Err(LoginResponse::BadCredentials);
             }
             !lobby && buf.g1() == 1
         };
@@ -157,17 +188,19 @@ impl LoginBlock {
         rsa_buf.pos += 8;
         let password = read_string(&mut rsa_buf, 128)?.to_lowercase();
         require(&rsa_buf, 16)?;
+        rsa_buf.g8s();
+        let client_session = rsa_buf.g8s();
         let mut buf = decrypt_xtea(buf, seed)?;
         #[cfg(since_742)]
         {
             require(&buf, 1)?;
             if buf.g1() != 1 {
-                return Err(LoginResponse::InvalidCredentials);
+                return Err(LoginResponse::BadCredentials);
             }
         }
         let username = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
-        if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
+        if username.len() > MAX_USERNAME_LEN || !is_valid_userhash(to_userhash(&username)) {
+            return Err(LoginResponse::BadCredentials);
         }
         let mut settings = ClientSettings::default();
         if !lobby {
@@ -195,6 +228,7 @@ impl LoginBlock {
             seed,
             low_memory: false,
             uid: None,
+            client_session,
             settings,
             archive_crcs,
             #[cfg(since_742)]
@@ -214,9 +248,9 @@ fn read_string(buf: &mut Packet, max: usize) -> Result<String, LoginResponse> {
     let len = buf.data[buf.pos..]
         .iter()
         .position(|&b| b == STRING_TERMINATOR)
-        .ok_or(LoginResponse::InvalidCredentials)?;
+        .ok_or(LoginResponse::BadCredentials)?;
     if len > max {
-        return Err(LoginResponse::InvalidCredentials);
+        return Err(LoginResponse::BadCredentials);
     }
     Ok(buf.gjstr(STRING_TERMINATOR))
 }
@@ -226,7 +260,7 @@ fn read_username37(buf: &mut Packet) -> Result<String, LoginResponse> {
     require(buf, 8)?;
     let username37 = buf.g8s() as u64;
     if !is_valid_userhash(username37) {
-        return Err(LoginResponse::InvalidCredentials);
+        return Err(LoginResponse::BadCredentials);
     }
     Ok(to_raw_username(username37))
 }
@@ -235,21 +269,6 @@ fn decrypt_rsa(
     buf: &mut Packet,
     rsa: &'static RsaKey,
 ) -> Result<(Packet, [i32; 4]), LoginResponse> {
-    let mut decrypted = decrypt_rsa_block(buf, rsa, 17)?;
-    let seed = [
-        decrypted.g4s(),
-        decrypted.g4s(),
-        decrypted.g4s(),
-        decrypted.g4s(),
-    ];
-    Ok((decrypted, seed))
-}
-
-fn decrypt_rsa_block(
-    buf: &mut Packet,
-    rsa: &'static RsaKey,
-    min: usize,
-) -> Result<Packet, LoginResponse> {
     let start = buf.pos;
     #[cfg(before_647)]
     let len = {
@@ -273,11 +292,17 @@ fn decrypt_rsa_block(
     decrypted.rsadecrypt(RsaFrame::Byte, rsa);
     #[cfg(since_647)]
     decrypted.rsadecrypt(RsaFrame::Short, rsa);
-    require(&decrypted, min)?;
+    require(&decrypted, 17)?;
     if decrypted.g1() != 10 {
-        return Err(LoginResponse::RuneScapeUpdated);
+        return Err(LoginResponse::OutOfDateClientVersion);
     }
-    Ok(decrypted)
+    let seed = [
+        decrypted.g4s(),
+        decrypted.g4s(),
+        decrypted.g4s(),
+        decrypted.g4s(),
+    ];
+    Ok((decrypted, seed))
 }
 
 #[cfg(since_647)]
@@ -285,38 +310,9 @@ fn decrypt_xtea(buf: Packet, seed: [i32; 4]) -> Result<Packet, LoginResponse> {
     let mut data = buf.data;
     data.drain(..buf.pos);
     let len = data.len() & !7;
-    Xtea::decrypt(&mut data[..len], &seed.map(|key| key as u32))
+    TinyKey::decrypt(&mut data[..len], &seed.map(|key| key as u32))
         .map_err(|_| LoginResponse::Rejected)?;
     Ok(Packet::from(data))
-}
-
-#[cfg(all(since_647, before_742))]
-fn decode_account(mut buf: Packet, rsa: &'static RsaKey) -> Result<Packet, LoginResponse> {
-    require(&buf, 2)?;
-    if buf.g2() != 647 {
-        return Err(LoginResponse::RuneScapeUpdated);
-    }
-    let (_, seed) = decrypt_rsa(&mut buf, rsa)?;
-    decrypt_xtea(buf, seed)
-}
-
-#[cfg(all(since_530, before_647))]
-fn decode_account(
-    mut buf: Packet,
-    rsa: &'static RsaKey,
-) -> Result<(Packet, String, String), LoginResponse> {
-    let mut buf = decrypt_rsa_block(&mut buf, rsa, 1 + 2 + 2)?;
-    buf.pos += 2;
-    if buf.g2() != 530 {
-        return Err(LoginResponse::RuneScapeUpdated);
-    }
-    let username = read_username37(&mut buf)?;
-    require(&buf, 4)?;
-    buf.pos += 4;
-    let password = read_string(&mut buf, 20)?;
-    require(&buf, 4)?;
-    buf.pos += 4;
-    Ok((buf, username, password))
 }
 
 #[cfg(since_530)]
@@ -328,253 +324,18 @@ pub struct ClientSettings {
     pub detail: u8,
 }
 
-#[cfg(all(since_530, before_742))]
-pub struct CreateAccountRequest {
-    pub username: String,
-    pub password: String,
-    #[cfg(all(since_530, before_647))]
-    pub day: u8,
-    #[cfg(all(since_530, before_647))]
-    pub month: u8,
-    #[cfg(all(since_530, before_647))]
-    pub year: u16,
-    #[cfg(all(since_530, before_647))]
-    pub country: u16,
-    #[cfg(since_647)]
-    pub age: u8,
-}
-
-#[cfg(all(since_530, before_647))]
-impl CreateAccountRequest {
-    pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
-        let (mut buf, username, password) = decode_account(buf, rsa)?;
-        require(&buf, 2 + 1 + 1 + 4 + 2 + 2)?;
-        buf.pos += 2;
-        let day = buf.g1();
-        let month = buf.g1();
-        buf.pos += 4;
-        let year = buf.g2();
-        let country = buf.g2();
-        Ok(Self {
-            username,
-            password,
-            day,
-            month,
-            year,
-            country,
-        })
-    }
-}
-
-#[cfg(all(since_647, before_742))]
-impl CreateAccountRequest {
-    pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
-        let mut buf = decode_account(buf, rsa)?;
-        let username = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
-        require(&buf, 2)?;
-        buf.pos += 2;
-        let password = read_string(&mut buf, 128)?;
-        require(&buf, 8 + 1 + 1 + 24 + 1)?;
-        buf.pos += 8 + 1 + 1 + 24;
-        if buf.g1() != 0 {
-            read_string(&mut buf, 256)?;
-        }
-        require(&buf, 2 + 7)?;
-        let age = buf.g1();
-        if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
-        }
-        Ok(Self {
-            username,
-            password,
-            age,
-        })
-    }
-}
-
-#[cfg(all(since_530, before_742))]
-pub struct CheckNameRequest {
-    pub name: String,
-}
-
-#[cfg(all(since_530, before_647))]
-impl CheckNameRequest {
-    pub fn decode(mut buf: Packet) -> Result<Self, LoginResponse> {
-        Ok(Self {
-            name: read_username37(&mut buf)?,
-        })
-    }
-}
-
-#[cfg(all(since_530, before_647))]
-pub fn name_suggestions_reply(names: &[i64]) -> Vec<u8> {
-    let mut buf = Packet::new(2 + (names.len() << 3));
-    buf.p1(NAME_SUGGESTIONS);
-    buf.p1(names.len() as u8);
-    for &name in names {
-        buf.p8(name);
-    }
-    buf.data
-}
-
-#[cfg(all(since_530, before_647))]
-pub struct WorldSelectRequest {
-    pub username: String,
-    pub password: String,
-}
-
-#[cfg(all(since_530, before_647))]
-impl WorldSelectRequest {
-    pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
-        let (_, username, password) = decode_account(buf, rsa)?;
-        Ok(Self { username, password })
-    }
-}
-
 #[cfg(all(since_530, before_647))]
 pub fn world_select_reply(world: u16) -> [u8; 3] {
     let [hi, lo] = world.to_be_bytes();
     [WORLD_SELECTED, hi, lo]
 }
 
+/// The game login reply. `member` is the player's own membership and
+/// `map_members` the world's.
 #[cfg(all(since_530, before_647))]
-pub struct WorldListRequest {
-    pub checksum: i32,
-}
-
-#[cfg(all(since_530, before_647))]
-impl WorldListRequest {
-    pub fn decode(mut buf: Packet) -> Result<Self, LoginResponse> {
-        require(&buf, 4)?;
-        Ok(Self {
-            checksum: buf.g4s(),
-        })
-    }
-}
-
-#[cfg(all(since_530, before_647))]
-pub struct Country<'a> {
-    pub flag: u16,
-    pub name: &'a str,
-}
-
-#[cfg(all(since_530, before_647))]
-pub struct World<'a> {
-    pub id: u16,
-    pub country: u8,
-    pub flags: i32,
-    pub activity: &'a str,
-    pub host: &'a str,
-    pub players: u16,
-}
-
-#[cfg(all(since_530, before_647))]
-pub struct WorldList<'a> {
-    pub countries: &'a [Country<'a>],
-    pub worlds: &'a [World<'a>],
-    pub checksum: i32,
-}
-
-#[cfg(all(since_530, before_647))]
-impl WorldList<'_> {
-    pub fn encode(&self, full: bool) -> Vec<u8> {
-        let min = self.worlds.iter().map(|world| world.id).min().unwrap_or(0);
-        let max = self.worlds.iter().map(|world| world.id).max().unwrap_or(0);
-        let mut len = 2 + self.sizeof_players(min);
-        if full {
-            len += self.sizeof_list(min, max);
-        }
-        let mut buf = Packet::new(1 + 2 + len);
-        buf.p1(0);
-        buf.p2(len as u16);
-        buf.p1(1);
-        buf.p1(full as u8);
-        if full {
-            buf.psmart1or2(self.countries.len() as i32);
-            for country in self.countries {
-                buf.psmart1or2(i32::from(country.flag));
-                buf.p1(0);
-                buf.pjstr(country.name, 0);
-            }
-            buf.psmart1or2(i32::from(min));
-            buf.psmart1or2(i32::from(max));
-            buf.psmart1or2(self.worlds.len() as i32);
-            for world in self.worlds {
-                buf.psmart1or2(i32::from(world.id - min));
-                buf.p1(world.country);
-                buf.p4(world.flags);
-                buf.p1(0);
-                buf.pjstr(world.activity, 0);
-                buf.p1(0);
-                buf.pjstr(world.host, 0);
-            }
-            buf.p4(self.checksum);
-        }
-        for world in self.worlds {
-            buf.psmart1or2(i32::from(world.id - min));
-            buf.p2(world.players);
-        }
-        buf.data
-    }
-
-    fn sizeof_list(&self, min: u16, max: u16) -> usize {
-        let countries: usize = self
-            .countries
-            .iter()
-            .map(|country| sizeof_smart(country.flag) + 1 + Packet::sizejstr(country.name))
-            .sum();
-        let worlds: usize = self
-            .worlds
-            .iter()
-            .map(|world| {
-                sizeof_smart(world.id - min)
-                    + size_of_val(&world.country)
-                    + size_of_val(&world.flags)
-                    + 1
-                    + Packet::sizejstr(world.activity)
-                    + 1
-                    + Packet::sizejstr(world.host)
-            })
-            .sum();
-        sizeof_smart(self.countries.len() as u16)
-            + countries
-            + sizeof_smart(min)
-            + sizeof_smart(max)
-            + sizeof_smart(self.worlds.len() as u16)
-            + worlds
-            + size_of_val(&self.checksum)
-    }
-
-    fn sizeof_players(&self, min: u16) -> usize {
-        self.worlds
-            .iter()
-            .map(|world| sizeof_smart(world.id - min) + size_of_val(&world.players))
-            .sum()
-    }
-}
-
-#[cfg(all(since_530, before_647))]
-const fn sizeof_smart(value: u16) -> usize {
-    if value < 128 { 1 } else { 2 }
-}
-
-#[cfg(all(since_647, before_742))]
-impl CheckNameRequest {
-    pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
-        let mut buf = decode_account(buf, rsa)?;
-        let name = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
-        require(&buf, 1 + 7)?;
-        if name.is_empty() || name.len() > MAX_USERNAME_LEN {
-            return Err(LoginResponse::InvalidCredentials);
-        }
-        Ok(Self { name })
-    }
-}
-
-#[cfg(all(since_530, before_647))]
-pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
+pub fn game_login_reply(staffmodlevel: u8, pid: u16, member: bool, map_members: bool) -> Vec<u8> {
     let mut buf = Packet::new(12);
-    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(staffmodlevel);
     buf.p1(0);
     buf.p1(0);
@@ -583,15 +344,31 @@ pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
     buf.p1(0);
     buf.p1(0);
     buf.p2(pid);
-    buf.p1(0);
-    buf.p1(1);
+    buf.p1(member.into());
+    buf.p1(map_members.into());
     buf.data
 }
 
+/// The player moderator rank the clients give staff level 1: 5 and 6 add
+/// the mute option to reports.
+#[cfg(since_647)]
+const PLAYER_MOD_LEVEL: u8 = 5;
+
+/// The crown and the player moderator rank a login reply gives staff level
+/// `staff`.
+#[cfg(since_647)]
+fn mod_levels(staff: u8) -> [u8; 2] {
+    [staff.min(2), if staff == 1 { PLAYER_MOD_LEVEL } else { 0 }]
+}
+
+/// The game login reply for a player of staff level `staff`. `member` is the
+/// player's own membership and `map_members` the world's.
 #[cfg(since_647)]
 pub fn game_login_reply(
-    staffmodlevel: u8,
+    staff: u8,
     pid: u16,
+    member: bool,
+    map_members: bool,
     #[cfg(since_742)] display_name: &str,
 ) -> Vec<u8> {
     #[cfg(before_742)]
@@ -599,87 +376,120 @@ pub fn game_login_reply(
     #[cfg(since_742)]
     let len = 13 + Packet::sizejstr(display_name);
     let mut buf = Packet::new(2 + len);
-    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(len as u8);
-    buf.p1(staffmodlevel);
-    buf.p1(0);
+    buf.pdata(&mod_levels(staff), 0, 2);
     buf.p1(0);
     buf.p1(0);
     buf.p1(1);
     buf.p1(0);
     buf.p2(pid);
-    buf.p1(1);
+    buf.p1(member.into());
     buf.p3(0);
-    buf.p1(1);
+    buf.p1(map_members.into());
     #[cfg(since_742)]
     buf.pjstr(display_name, 0);
     buf.data
 }
 
-/// The lobby's login reply. Its account details are fixed: on 742 the flags
-/// byte says member with an active subscription, so the lobby shows no
-/// membership expiry.
+/// What a lobby login reply tells the client about the account. Days are
+/// runedays, 0 for none: no recovery questions, no earlier login, no card.
+/// Times are milliseconds: `members_until` since 1970 and `members_left`
+/// from now, 0 for none. `play_age` is the account's age in minutes
+/// (inferred from Jagex's own replies); the clients only test it for 0, a new
+/// account, which the 647 lobby takes straight into the game.
 #[cfg(since_647)]
-pub fn lobby_login_reply(display_name: &str, world: u16) -> Vec<u8> {
-    #[cfg(before_742)]
-    let len = 59 + Packet::sizejstr(display_name);
+pub struct LobbyAccount<'a> {
+    pub display_name: &'a str,
+    pub staff: u8,
+    pub underage: bool,
+    pub chat_consent: bool,
+    pub advert_consent: bool,
     #[cfg(since_742)]
-    let len = 68 + Packet::sizejstr(display_name);
+    pub date_of_birth: i32,
+    #[cfg(since_742)]
+    pub gender: u8,
+    pub members_until: i64,
+    pub members_left: i64,
+    pub member: bool,
+    pub subscribed: bool,
+    pub jcoins: i32,
+    #[cfg(since_742)]
+    pub loyalty_points: i32,
+    pub recovery_day: u16,
+    pub unread_messages: u16,
+    pub last_login_day: u16,
+    pub last_login_ip: Ipv4Addr,
+    pub email_status: u8,
+    pub card_expiry_day: u16,
+    pub grace_expiry_day: u16,
+    pub dob_requested: bool,
+    pub play_age: i32,
+    pub world: Option<(u16, &'a str)>,
+}
+
+/// The reply's "members stats" byte: no 647 or 742 script reads it.
+#[cfg(since_647)]
+const MEMBERS_STATS: u8 = 0;
+
+/// The byte after the play age, which the name check also sets: no 647 or
+/// 742 script reads it.
+#[cfg(since_647)]
+const NAME_CHECKED: u8 = 0;
+
+/// 742's byte before the loyalty points: no 742 script reads it.
+#[cfg(since_742)]
+const LOYALTY_FLAG: u8 = 0;
+
+/// The lobby's login reply.
+#[cfg(since_647)]
+pub fn lobby_login_reply(account: &LobbyAccount) -> Vec<u8> {
+    #[cfg(before_742)]
+    let len = 50 + Packet::sizejstr(account.display_name);
+    #[cfg(since_742)]
+    let len = 59 + Packet::sizejstr(account.display_name);
+    let (world, address) = account
+        .world
+        .filter(|(_, addr)| len + addr.len() <= u8::MAX as usize)
+        .unwrap_or((u16::MAX, ""));
+    let len = len + address.len();
+    let members_left = account.members_left.clamp(0, (1 << 40) - 1);
     let mut buf = Packet::new(2 + len);
-    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(LoginResponse::LoginOk as u8);
     buf.p1(len as u8);
-    #[cfg(before_742)]
-    {
-        buf.p1(2);
-        buf.p1(0);
-        buf.p1(1);
-        buf.p1(0);
-        buf.p1(0);
-        buf.p4(0);
-        buf.p4(0);
-        buf.p1(0);
-        buf.p4(0);
-        buf.p1(3);
-        buf.p4(0x7f000001u32 as i32);
-        buf.p2(0);
-        buf.p2(0);
-        buf.p2(0);
-        buf.p4(0);
-        buf.p1(3);
-    }
+    buf.pdata(&mod_levels(account.staff), 0, 2);
+    buf.p1(account.underage.into());
     #[cfg(since_742)]
     {
-        buf.p1(2);
-        buf.p1(0);
-        buf.p1(0);
-        buf.p3(0);
-        buf.p1(0);
-        buf.p1(0);
-        buf.p1(0);
-        buf.p8(0);
-        buf.p1(0);
-        buf.p4(0);
-        buf.p1(3);
-        buf.p4(0);
-        buf.p1(0);
-        buf.p4(0);
-        buf.p2(0);
-        buf.p2(0);
-        buf.p2(0);
-        buf.p4(0x7f000001u32 as i32);
-        buf.p1(3);
+        buf.p3(account.date_of_birth);
+        buf.p1(account.gender);
     }
-    buf.p2(0xD1DF);
-    buf.p2(0xD1DF);
-    buf.p1(0);
-    buf.p1(0);
-    buf.pjstr(display_name, 0);
-    buf.p1(10);
-    buf.p4(0x0046F489);
-    buf.p1(0);
+    buf.p1(account.chat_consent.into());
+    buf.p1(account.advert_consent.into());
+    buf.p8(account.members_until);
+    buf.p1((members_left >> 32) as u8);
+    buf.p4(members_left as i32);
+    buf.p1(u8::from(account.member) | u8::from(account.subscribed) << 1);
+    buf.p4(account.jcoins);
+    #[cfg(since_742)]
+    {
+        buf.p1(LOYALTY_FLAG);
+        buf.p4(account.loyalty_points);
+    }
+    buf.p2(account.recovery_day);
+    buf.p2(account.unread_messages);
+    buf.p2(account.last_login_day);
+    buf.p4(u32::from(account.last_login_ip) as i32);
+    buf.p1(account.email_status);
+    buf.p2(account.card_expiry_day);
+    buf.p2(account.grace_expiry_day);
+    buf.p1(account.dob_requested.into());
+    buf.pjstr2(account.display_name, STRING_TERMINATOR);
+    buf.p1(MEMBERS_STATS);
+    buf.p4(account.play_age);
+    buf.p1(NAME_CHECKED);
     buf.p2(world);
-    buf.p1(0);
-    buf.pjstr("127.0.0.1", 0);
+    buf.pjstr2(address, STRING_TERMINATOR);
     buf.data
 }
 
@@ -689,7 +499,7 @@ pub fn lobby_login_reply(display_name: &str, world: u16) -> Vec<u8> {
 pub fn reconnect_reply(pid: u16, x: u16, z: u16, level: u8, regions: &[u32]) -> Vec<u8> {
     let init = player_info_init(pid, x, z, level, regions);
     let mut buf = Packet::new(1 + 2 + init.pos);
-    buf.p1(LoginResponse::Reconnect as u8);
+    buf.p1(LoginResponse::ReconnectOk as u8);
     buf.p2(init.pos as u16);
     buf.pdata(&init.data, 0, init.pos);
     buf.data
@@ -806,23 +616,6 @@ Az5KOlJPE6c=
         buf
     }
 
-    #[cfg(all(since_530, before_647))]
-    fn account_block(revision: u16, tail: &[u8]) -> Packet {
-        let mut buf = Packet::new(256);
-        buf.p1(10);
-        buf.p2(31337);
-        buf.p2(revision);
-        buf.p8(to_userhash("Zezima") as i64);
-        buf.p4(99);
-        buf.pjstr("Password£", 0);
-        buf.p4(98);
-        buf.pdata(tail, 0, tail.len());
-        buf.rsaencrypt(RsaFrame::Byte, &KEY);
-        buf.data.truncate(buf.pos);
-        buf.pos = 0;
-        buf
-    }
-
     #[cfg(since_647)]
     fn login_payload(lobby: bool, extra: usize) -> Packet {
         let rsa = rsa_block(123);
@@ -844,7 +637,7 @@ Az5KOlJPE6c=
             body.p4(crc - 17);
         }
         let len = body.pos & !7;
-        Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
+        TinyKey::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
         let mut buf = Packet::new(9 + rsa.pos + body.pos);
         buf.p4(env!("REV").parse().unwrap());
         #[cfg(since_742)]
@@ -876,7 +669,7 @@ Az5KOlJPE6c=
             assert_eq!(login.uid, (uid == 123456).then_some(uid));
             assert!(matches!(
                 LoginBlock::decode(login_payload(uid), &KEY, crc ^ 1),
-                Err(LoginResponse::RuneScapeUpdated)
+                Err(LoginResponse::OutOfDateClientVersion)
             ));
         }
     }
@@ -922,93 +715,52 @@ Az5KOlJPE6c=
         assert_eq!(login.settings.detail, 2);
         assert!(matches!(
             LoginBlock::decode(login_payload(529, to_userhash("Player") as i64), &KEY),
-            Err(LoginResponse::RuneScapeUpdated)
+            Err(LoginResponse::OutOfDateClientVersion)
         ));
         assert!(matches!(
             LoginBlock::decode(login_payload(530, 0), &KEY),
-            Err(LoginResponse::InvalidCredentials)
+            Err(LoginResponse::BadCredentials)
         ));
     }
 
     #[cfg(all(since_530, before_647))]
     #[test]
-    fn account_services_read_the_base37_name_and_password() {
-        let name = to_userhash("Zezima") as i64;
-        let check = CheckNameRequest::decode(Packet::from(name.to_be_bytes().to_vec())).unwrap();
-        assert_eq!(check.name, "zezima");
-
-        let select = WorldSelectRequest::decode(account_block(530, &[]), &KEY).unwrap();
-        assert_eq!(select.username, "zezima");
-        assert_eq!(select.password, "Password£");
-        assert!(matches!(
-            WorldSelectRequest::decode(account_block(529, &[]), &KEY),
-            Err(LoginResponse::RuneScapeUpdated)
-        ));
-
-        let tail = [0, 5, 24, 11, 0, 0, 0, 97, 0x07, 0xC4, 0, 77, 0, 0, 0, 96];
-        let create = CreateAccountRequest::decode(account_block(530, &tail), &KEY).unwrap();
-        assert_eq!(create.username, "zezima");
-        assert_eq!(create.password, "Password£");
-        assert_eq!(
-            (create.day, create.month, create.year, create.country),
-            (24, 11, 1988, 77)
-        );
-    }
-
-    #[cfg(all(since_530, before_647))]
-    #[test]
-    fn service_replies_match_the_client_readers() {
+    fn world_select_reply_is_the_selected_code_and_world() {
         assert_eq!(world_select_reply(0x0102), [101, 1, 2]);
-        assert_eq!(
-            name_suggestions_reply(&[1, -2]),
-            [
-                21, 2, 0, 0, 0, 0, 0, 0, 0, 1, 255, 255, 255, 255, 255, 255, 255, 254
-            ]
-        );
-        assert_eq!(
-            WorldListRequest::decode(Packet::from(vec![1, 2, 3, 4]))
-                .unwrap()
-                .checksum,
-            0x01020304
-        );
-        let countries = [Country {
-            flag: 0,
-            name: "UK",
-        }];
-        let worlds = [
-            World {
-                id: 1,
-                country: 0,
-                flags: 1,
-                activity: "",
-                host: "127.0.0.1",
-                players: 10,
-            },
-            World {
-                id: 200,
-                country: 0,
-                flags: 0,
-                activity: "PvP",
-                host: "a",
-                players: u16::MAX,
-            },
-        ];
-        let list = WorldList {
-            countries: &countries,
-            worlds: &worlds,
-            checksum: 0x01020304,
-        };
-        let mut full = vec![
-            0, 0, 57, 1, 1, 1, 0, 0, b'U', b'K', 0, 1, 0x80, 200, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-        ];
-        full.extend_from_slice(b"127.0.0.1\0");
-        full.extend_from_slice(&[0x80, 199, 0, 0, 0, 0, 0, 0, b'P', b'v', b'P', 0, 0, b'a', 0]);
-        full.extend_from_slice(&[1, 2, 3, 4, 0, 0, 10, 0x80, 199, 255, 255]);
-        assert_eq!(list.encode(true), full);
-        assert_eq!(
-            list.encode(false),
-            [0, 0, 9, 1, 0, 0, 0, 10, 0x80, 199, 255, 255]
-        );
+    }
+
+    #[cfg(since_530)]
+    #[test]
+    fn login_checks_every_reported_archive_crc() {
+        #[cfg(before_647)]
+        let mut login =
+            LoginBlock::decode(login_payload(530, to_userhash("Player") as i64), &KEY).unwrap();
+        #[cfg(since_647)]
+        let mut login = LoginBlock::decode(login_payload(false, 0), &KEY, false).unwrap();
+        #[cfg(before_647)]
+        let archives: Vec<usize> = (0..28).collect();
+        #[cfg(all(since_647, before_742))]
+        let archives: Vec<usize> = (0..34).chain([36]).collect();
+        #[cfg(since_742)]
+        let archives: Vec<usize> = (0..34).chain(35..=37).collect();
+        let expected: Vec<i32> = (0..=*archives.last().unwrap() as i32)
+            .map(|id| -1000 - id)
+            .collect();
+        login.archive_crcs = array::from_fn(|slot| expected[archives[slot]]);
+        assert!(login.archive_crcs_match(&expected));
+        #[cfg(since_647)]
+        {
+            login.archive_crcs[32] = expected[34];
+            assert!(login.archive_crcs_match(&expected));
+        }
+        for slot in 0..ARCHIVE_CRCS {
+            login.archive_crcs[slot] ^= i32::MIN;
+            assert!(
+                !login.archive_crcs_match(&expected),
+                "stale CRC in slot {slot}"
+            );
+            login.archive_crcs[slot] ^= i32::MIN;
+        }
     }
 
     #[test]
@@ -1047,62 +799,13 @@ Az5KOlJPE6c=
         assert!(read_string(&mut string, 320).is_err());
     }
 
-    #[cfg(all(since_647, before_742))]
-    #[test]
-    fn account_services_share_the_rsa_and_xtea_envelope() {
-        for create in [false, true] {
-            let mut rsa = Packet::new(256);
-            rsa.p1(10);
-            for key in SEED {
-                rsa.p4(key);
-            }
-            rsa.pos += 42;
-            rsa.rsaencrypt(RsaFrame::Short, &KEY);
-            let mut body = Packet::new(512);
-            body.pjstr("Player@Example.com", 0);
-            if create {
-                body.p2(12);
-                body.pjstr("PassWord£", 0);
-                body.p8(100);
-                body.p1(0);
-                body.p1(0);
-                body.pos += 24;
-                body.p1(1);
-                body.pjstr("additional", 0);
-                body.p1(25);
-                body.p1(1);
-            } else {
-                body.p1(0);
-            }
-            body.pos += 7;
-            let len = body.pos & !7;
-            Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
-            let mut payload = Packet::new(2 + rsa.pos + body.pos);
-            payload.p2(647);
-            payload.pdata(&rsa.data, 0, rsa.pos);
-            payload.pdata(&body.data, 0, body.pos);
-            payload.pos = 0;
-            if create {
-                let request = CreateAccountRequest::decode(payload, &KEY).unwrap();
-                assert_eq!(request.username, "player@example.com");
-                assert_eq!(request.password, "PassWord£");
-                assert_eq!(request.age, 25);
-            } else {
-                assert_eq!(
-                    CheckNameRequest::decode(payload, &KEY).unwrap().name,
-                    "player@example.com"
-                );
-            }
-        }
-    }
-
     #[cfg(all(since_530, before_647))]
     #[test]
     fn game_login_reply_matches_the_client_fields() {
         for level in 0..=2 {
             assert_eq!(
-                game_login_reply(level, 0x123),
-                [2, level, 0, 0, 0, 0, 0, 0, 1, 0x23, 0, 1]
+                game_login_reply(level, 0x123, true, false),
+                [2, level, 0, 0, 0, 0, 0, 0, 1, 0x23, 1, 0]
             );
         }
     }
@@ -1110,26 +813,94 @@ Az5KOlJPE6c=
     #[cfg(all(since_647, before_742))]
     #[test]
     fn game_login_reply_matches_the_client_fields() {
-        for level in 0..=2 {
+        for level in [0, 2] {
             assert_eq!(
-                game_login_reply(level, 0x123),
-                [2, 13, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 1]
+                game_login_reply(level, 0x123, true, false),
+                [2, 13, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 0]
             );
         }
+        assert_eq!(
+            game_login_reply(1, 0x123, true, false)[2..4],
+            [1, PLAYER_MOD_LEVEL]
+        );
+        assert_eq!(game_login_reply(3, 0x123, true, false)[2..4], [2, 0]);
     }
 
     #[cfg(since_742)]
     #[test]
     fn game_login_reply_ends_with_the_display_name() {
-        for level in 0..=2 {
+        for level in [0, 2] {
             assert_eq!(
-                game_login_reply(level, 0x123, "Zezima"),
+                game_login_reply(level, 0x123, true, false, "Zezima"),
                 [
-                    2, 20, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 1, b'Z', b'e', b'z', b'i',
+                    2, 20, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 0, b'Z', b'e', b'z', b'i',
                     b'm', b'a', 0
                 ]
             );
         }
+        assert_eq!(
+            game_login_reply(1, 0x123, true, false, "Zezima")[2..4],
+            [1, PLAYER_MOD_LEVEL]
+        );
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn lobby_reply_fields_land_where_the_client_reads_them() {
+        let reply = lobby_login_reply(&LobbyAccount {
+            display_name: "Zezima",
+            staff: 1,
+            underage: true,
+            chat_consent: true,
+            advert_consent: false,
+            #[cfg(since_742)]
+            date_of_birth: -4440,
+            #[cfg(since_742)]
+            gender: 1,
+            members_until: 1_400_000_000_000,
+            members_left: 0x01_0000_0002,
+            member: true,
+            subscribed: false,
+            jcoins: 7,
+            #[cfg(since_742)]
+            loyalty_points: 8,
+            recovery_day: 3000,
+            unread_messages: 4,
+            last_login_day: 9000,
+            last_login_ip: Ipv4Addr::new(192, 0, 2, 1),
+            email_status: 2,
+            card_expiry_day: 9100,
+            grace_expiry_day: 9200,
+            dob_requested: true,
+            play_age: 525_600,
+            world: Some((2, "world2.example")),
+        });
+        let mut buf = Packet::from(reply);
+        assert_eq!(buf.g1(), LoginResponse::LoginOk as u8);
+        let len = buf.g1() as usize;
+        let body = buf.pos;
+        assert_eq!((buf.g1(), buf.g1(), buf.g1()), (1, PLAYER_MOD_LEVEL, 1));
+        #[cfg(since_742)]
+        assert_eq!((buf.g3() - 16_777_216, buf.g1()), (-4440, 1));
+        assert_eq!((buf.g1(), buf.g1(), buf.g8s()), (1, 0, 1_400_000_000_000));
+        assert_eq!((buf.g1(), buf.g4s()), (1, 2));
+        assert_eq!((buf.g1(), buf.g4s()), (1, 7));
+        #[cfg(since_742)]
+        assert_eq!((buf.g1(), buf.g4s()), (LOYALTY_FLAG, 8));
+        assert_eq!((buf.g2(), buf.g2(), buf.g2()), (3000, 4, 9000));
+        assert_eq!(buf.g4s() as u32, u32::from(Ipv4Addr::new(192, 0, 2, 1)));
+        assert_eq!((buf.g1(), buf.g2(), buf.g2(), buf.g1()), (2, 9100, 9200, 1));
+        assert_eq!(buf.g1(), 0);
+        assert_eq!(buf.gjstr(0), "Zezima");
+        assert_eq!(
+            (buf.g1(), buf.g4s(), buf.g1()),
+            (MEMBERS_STATS, 525_600, NAME_CHECKED)
+        );
+        assert_eq!(buf.g2(), 2);
+        assert_eq!(buf.g1(), 0);
+        assert_eq!(buf.gjstr(0), "world2.example");
+        assert_eq!(buf.pos - body, len);
+        assert_eq!(buf.pos, buf.len());
     }
 
     #[cfg(since_647)]

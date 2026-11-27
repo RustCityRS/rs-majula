@@ -65,7 +65,7 @@ switch_int ($int0) {
         if (%varplayerbit_11060 = 1) {
             if_sethide(interface_102:com_15, true);
             if_sethide(interface_102:com_17, true);
-        } else if (%varplayerbit_9298 = 10 & stat_base(attack) >= 60 & stat_base(thieving) >= 45 & stat_base(dungeoneering) >= 55) {
+        } else if (%varplayerbit_9298 = 10 & stat_base(attack) >= 60 & stat_base(thieving) >= 45 & stat_base(rand) >= 55) {
             if_sethide(interface_102:com_70, false);
             if_sethide(interface_102:com_15, false);
             if_sethide(interface_102:com_17, false);

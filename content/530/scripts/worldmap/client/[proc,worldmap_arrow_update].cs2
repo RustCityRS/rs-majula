@@ -19,7 +19,7 @@ $int12 = max(min($int12, $int8), 0);
 $int13 = max(min($int13, $int9), 0);
 $int12 = calc($int12 - $int8 / 2);
 $int13 = calc($int9 / 2 - $int13);
-if_setposition($component0, $int12, $int13, 1, 1);
+if_setposition($component0, $int12, $int13, ^setpos_abs_centre, ^setpos_abs_centre);
 def_int $int14 = struct_param($struct2, param_132);
 def_int $int15 = struct_param($struct2, param_133);
 def_int $int16 = -1;
@@ -138,8 +138,8 @@ if (string_length($string0) > 0) {
     $graphic29 = struct_param($struct2, param_647);
     $graphic30 = struct_param($struct2, param_648);
     $graphic31 = struct_param($struct2, param_649);
-    $int21 = calc(parawidth($string0, $int8, 591) + $int25 + $int25);
-    $int22 = calc(paraheight($string0, $int21, 591) * 13 + 2 + $int26 + $int26);
+    $int21 = calc(parawidth($string0, $int8, menu_font_small) + $int25 + $int25);
+    $int22 = calc(paraheight($string0, $int21, menu_font_small) * 13 + 2 + $int26 + $int26);
     if (calc($int17 + $int22) < calc($int13 + $int9 / 2)) {
         $int24 = calc(0 - ($int17 + $int22 / 2));
     } else {
@@ -217,4 +217,4 @@ if ($int24 <= 0) {
     $int34 = calc($int18 + $int22);
 }
 $int33, $int34 = calc($int33 * 2 + 2), calc($int34 * 2 + 2);
-if_setsize($component0, $int33, $int34, 0, 0);
+if_setsize($component0, $int33, $int34, ^setsize_abs, ^setsize_abs);

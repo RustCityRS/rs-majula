@@ -10,11 +10,11 @@ def_int $int3 = calc(300 / 2);
 if ($int1 <= $int3 & %varclient_1891 >= $int3) {
     switch_int ($int0) {
         case 4 :
-            sound_vorbis_volume(14584, 1, 0, 50);
+            sound_vorbis_volume(vorbis_14584, 1, 0, 50);
         case 8 :
-            sound_vorbis_volume(14662, 1, 0, 60);
+            sound_vorbis_volume(vorbis_14662, 1, 0, 60);
         case 12 :
-            sound_vorbis_volume(14608, 1, 0, 70);
+            sound_vorbis_volume(vorbis_14608, 1, 0, 70);
     }
 }
 if ($int2 > $int3) {

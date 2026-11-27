@@ -48,7 +48,7 @@ cc_sethflip(true);
 cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(calc($int6 * 2), $int5, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
-cc_setgraphic(9698);
+cc_setgraphic(graphic_9698);
 cc_settiling(true);
 cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize($int8, $int5, ^setsize_abs, ^setsize_abs);

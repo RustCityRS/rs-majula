@@ -26,7 +26,7 @@ y=20
 width=483
 height=295
 layer=layer_1
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 144:3
@@ -37,7 +37,7 @@ y=13
 width=32
 height=32
 layer=layer_1
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 144:4
 [com_4]
@@ -47,7 +47,7 @@ y=56
 width=32
 height=236
 layer=layer_1
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 144:5
@@ -58,7 +58,7 @@ y=36
 width=32
 height=32
 layer=layer_1
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 144:6
 [com_6]
@@ -68,7 +68,7 @@ y=57
 width=76
 height=233
 layer=layer_1
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 144:7
@@ -79,7 +79,7 @@ y=36
 width=32
 height=32
 layer=layer_1
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 144:8
 [com_8]
@@ -88,7 +88,7 @@ x=37
 width=433
 height=33
 layer=layer_1
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 144:9
@@ -99,7 +99,7 @@ y=302
 width=433
 height=35
 layer=layer_1
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 144:10
@@ -110,7 +110,7 @@ y=290
 width=32
 height=32
 layer=layer_1
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 144:11
 [com_11]
@@ -120,7 +120,7 @@ y=13
 width=32
 height=32
 layer=layer_1
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 144:12
 [com_12]
@@ -130,7 +130,7 @@ y=290
 width=32
 height=32
 layer=layer_1
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 144:13
 [com_13]
@@ -140,7 +140,7 @@ y=34
 width=476
 height=29
 layer=layer_1
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 144:14
@@ -151,7 +151,7 @@ y=26
 width=202
 height=14
 layer=layer_1
-textfont=fontmetrics_496
+textfont=b12_full
 text=Points Settings
 textalignh=centre
 textshadow=yes
@@ -1673,7 +1673,7 @@ y=183
 width=71
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=< To Lift
 textalignh=centre
 textshadow=yes
@@ -1701,7 +1701,7 @@ y=96
 width=89
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=Controls
 textalignh=centre
 textshadow=yes
@@ -1883,7 +1883,7 @@ y=124
 width=72
 height=36
 layer=layer_1
-graphic=graphic_295
+graphic="combatboxes,2"
 
 // 144:147
 [hauntedmine_cart_start]
@@ -1893,7 +1893,7 @@ y=135
 width=67
 height=18
 layer=layer_1
-textfont=fontmetrics_496
+textfont=b12_full
 text=START
 textalignh=centre
 textshadow=yes
@@ -1925,7 +1925,7 @@ y=218
 width=94
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=Controls
 textalignh=centre
 textshadow=yes
@@ -1939,7 +1939,7 @@ y=82
 width=78
 height=26
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=You are<br>here
 textalignh=centre
 textshadow=yes
@@ -2065,7 +2065,7 @@ y=195
 width=8
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=A
 textshadow=yes
 
@@ -2077,7 +2077,7 @@ y=164
 width=7
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=B
 textshadow=yes
 
@@ -2089,7 +2089,7 @@ y=263
 width=7
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=C
 textshadow=yes
 
@@ -2101,7 +2101,7 @@ y=144
 width=7
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=D
 textshadow=yes
 
@@ -2113,7 +2113,7 @@ y=162
 width=6
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=E
 textshadow=yes
 
@@ -2125,7 +2125,7 @@ y=77
 width=6
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=F
 textshadow=yes
 
@@ -2137,7 +2137,7 @@ y=263
 width=8
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=G
 textshadow=yes
 
@@ -2149,7 +2149,7 @@ y=163
 width=7
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=H
 textshadow=yes
 
@@ -2161,7 +2161,7 @@ y=263
 width=4
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=I
 textshadow=yes
 
@@ -2173,7 +2173,7 @@ y=129
 width=7
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=J
 textshadow=yes
 
@@ -2185,7 +2185,7 @@ y=129
 width=7
 height=14
 layer=layer_1
-textfont=fontmetrics_495
+textfont=p12_full
 text=K
 textshadow=yes
 
@@ -2407,7 +2407,7 @@ y=27
 width=16
 height=16
 layer=layer_1
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)

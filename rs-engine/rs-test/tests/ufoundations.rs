@@ -18,10 +18,6 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
@@ -30,7 +26,10 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::zone_prot::ZoneProt;
+use rs_test::names::com;
+use rs_test::names::{BACKPACK, INVENTORY};
 use rs_test::runner;
+use rs_test::server;
 use rs_test::talk::{converse, converse_until, talk_to};
 use rs_ver::TypeId;
 use rs_vm::subject::ScriptSubject;
@@ -38,7 +37,6 @@ use rs_vm::subject::ScriptSubject;
 /// Square 57_77's south-west tile.
 const SQUARE: (u16, u16) = (57 * 64, 77 * 64);
 const NONE: i32 = 0xFFFF;
-const INVENTORY: u16 = 149;
 const OPTIONS: u16 = 261;
 const CONTROLS: u16 = 897;
 const CUTSCENES: u16 = 899;
@@ -53,8 +51,8 @@ const POPUP_TASK: u16 = 1425;
 /// The side tab the yellow arrow flashes, + 1 (cs2 117).
 const FLASH_SIDE: u16 = 3756;
 
-fn varbit(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
-    let bit = engine.cache.varbits.get_by_id(TypeId::new(id)).unwrap();
+fn varpbit(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
+    let bit = engine.cache.varpbits.get_by_id(TypeId::new(id)).unwrap();
     let value = engine
         .harness_player(client.pid)
         .unwrap()
@@ -74,16 +72,18 @@ fn is_open(engine: &Engine, client: &HarnessClient, iface: u16) -> bool {
 
 /// An arrow key on the Controls overlay's listener: IF_BUTTON1 on 897:0.
 fn arrow_key(client: &mut HarnessClient) {
-    let mut p = ClientPacket::new();
-    p.p4(i32::from(CONTROLS) << 16).p2_alt3(NONE).p2_alt1(NONE);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, i32::from(CONTROLS) << 16, NONE as u16, TypeId::NULL);
 }
 
 /// The run orb (topstat_run 750:1, op 1): turns run on with full energy.
+#[cfg(before_742)]
 fn run_orb(client: &mut HarnessClient) {
-    let mut p = ClientPacket::new();
-    p.p4(750 << 16 | 1).p2_alt3(NONE).p2_alt1(NONE);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(
+        1,
+        com("topstat_run:run_background"),
+        NONE as u16,
+        TypeId::NULL,
+    );
 }
 
 /// A click on the floor near the player: the first walkable tile of a few nearby.
@@ -99,9 +99,7 @@ fn walk_near(engine: &Engine, client: &mut HarnessClient) {
         })
         .find(|&(tx, tz)| !rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000))
         .expect("a walkable tile nearby");
-    let mut p = ClientPacket::new();
-    p.p2_alt1(i32::from(x)).p1_alt1(0).p2(i32::from(z));
-    client.send(ClientProt::MoveGameClick, &p.finish());
+    client.move_gameclick(x, z);
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
@@ -257,26 +255,18 @@ fn shots_start(ticks: &[CutsceneTick], shot: i32) -> usize {
     ticks.iter().position(|(now, _, _)| *now == shot).unwrap()
 }
 
-/// Where `packets` set the TASK COMPLETE! popup (varc 1425, by VARC_LARGE `p4_alt1 value,
-/// p2_alt3 varc`) to `task`.
+/// Where `packets` set the TASK COMPLETE! popup (varc 1425) to `task`.
 fn popup_at(packets: &[(u16, Vec<u8>)], task: i32) -> Option<usize> {
-    packets.iter().position(|(op, p)| {
-        *op == ServerProt::VarcLarge as u16
-            && p.len() >= 6
-            && u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]) == POPUP_TASK
-            && i32::from_le_bytes([p[0], p[1], p[2], p[3]]) == task
-    })
+    packets
+        .iter()
+        .position(|p| server::varcs(std::slice::from_ref(p)).contains(&(POPUP_TASK, task)))
 }
 
-/// Where `packets` last put varc 1007 back at 0 (VARC_SMALL `p1_alt2 value, p2_alt1 varc`): a
-/// cutscene's release.
+/// Where `packets` last put varc 1007 back at 0: a cutscene's release.
 fn shot_zero_at(packets: &[(u16, Vec<u8>)]) -> Option<usize> {
-    packets.iter().rposition(|(op, p)| {
-        *op == ServerProt::VarcSmall as u16
-            && p.len() >= 3
-            && u16::from_le_bytes([p[1], p[2]]) == SHOT
-            && p[0] == 0
-    })
+    packets
+        .iter()
+        .rposition(|p| server::varcs(std::slice::from_ref(p)).contains(&(SHOT, 0)))
 }
 
 /// The tick packet `i` went out on, counted in PLAYER_INFOs. A tick's Immediate packets (varps,
@@ -339,11 +329,15 @@ fn sent_text(packets: &[(u16, Vec<u8>)], text: &str) -> bool {
         .any(|(_, body)| body.windows(text.len()).any(|w| w == text))
 }
 
-/// Whether a tick's NPC_INFO carries an anim block for `seq`: 647 writes the id once for each of
-/// its four channels (info.rs's 0x80 npc block), each the high byte then the low byte plus 128.
+/// Whether a tick's NPC_INFO carries an anim block for `seq`: the id once for each of its four
+/// channels (info.rs's 0x80 npc block), each the high byte then the low byte plus 128 on 647, a
+/// 2-byte smart on 742.
 fn npc_anim_sent(packets: &[(u16, Vec<u8>)], seq: u16) -> bool {
     let [hi, lo] = seq.to_be_bytes();
+    #[cfg(before_742)]
     let block = [hi, lo.wrapping_add(128)].repeat(4);
+    #[cfg(since_742)]
+    let block = [hi, lo].repeat(4);
     packets
         .iter()
         .any(|(_, body)| body.windows(block.len()).any(|w| w == block))
@@ -351,9 +345,7 @@ fn npc_anim_sent(packets: &[(u16, Vec<u8>)], seq: u16) -> bool {
 
 /// Whether a tick's packets play synth sound `id` (SYNTH_SOUND).
 fn synth_sent(packets: &[(u16, Vec<u8>)], id: u16) -> bool {
-    packets
-        .iter()
-        .any(|(op, body)| *op == ServerProt::SynthSound as u16 && body[..2] == id.to_be_bytes())
+    server::synths(packets).iter().any(|(s, _)| *s == id)
 }
 
 /// The voice-over clips a tick's packets play.
@@ -392,51 +384,35 @@ fn create_character(engine: &mut Engine, client: &mut HarnessClient) -> Vec<(u16
     client.packets()
 }
 
-/// The 647 HINT_ARROW packets among `packets`, as (slot, type, model): type 1 points at an npc,
-/// 0 clears the slot; the model (or 0xFFFF) is drawn at the player's feet.
+/// The HINT_ARROW packets among `packets`, as (slot, type, model): type 1 points at an npc,
+/// 0 clears the slot; the model (or none) is drawn at the player's feet.
 fn hints(packets: &[(u16, Vec<u8>)]) -> Vec<(u8, u8, u16)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::HintArrow as u16)
-        .map(|(_, b)| (b[0] >> 5, b[0] & 0x1F, u16::from_be_bytes([b[10], b[11]])))
+    server::of(packets, ServerProt::HintArrow)
+        .map(|b| {
+            #[cfg(before_742)]
+            let model = u16::from_be_bytes([b[10], b[11]]);
+            #[cfg(since_742)]
+            let model = i32::from_be_bytes([b[10], b[11], b[12], b[13]]) as u16;
+            (b[0] >> 5, b[0] & 0x1F, model)
+        })
         .collect()
 }
 
 /// Whether `packets` run clientscript 115 (switchside) with side 1, the task system.
 fn switched_to_task(packets: &[(u16, Vec<u8>)]) -> bool {
-    packets.iter().any(|(op, b)| {
-        *op == ServerProt::RunClientScript as u16
-            && b.len() >= 8
-            && b[b.len() - 8..] == [0, 0, 0, 1, 0, 0, 0, 115]
-    })
+    server::scripts(packets).contains(&(115, vec![server::Arg::Int(1)]))
 }
 
 /// Whether `packets` run clientscript 4097 on the pack's hint layer with "Click to equip.".
 fn equip_hint_shown(packets: &[(u16, Vec<u8>)]) -> bool {
-    packets.iter().any(|(op, b)| {
-        *op == ServerProt::RunClientScript as u16
-            && b.len() >= 4
-            && b[b.len() - 4..] == 4097u32.to_be_bytes()
-            && b.windows(15).any(|w| w == b"Click to equip.")
-    })
+    server::scripts(packets)
+        .iter()
+        .any(|(s, args)| *s == 4097 && args.contains(&server::Arg::Str("Click to equip.".into())))
 }
 
-/// Whether `packets` hide the pack's hint layer (inventory 149:1).
+/// Whether `packets` hide the pack's hint layer (inventory:1).
 fn equip_hint_hidden(packets: &[(u16, Vec<u8>)]) -> bool {
-    let com: u32 = (149 << 16) | 1;
-    packets.iter().any(|(op, b)| {
-        *op == ServerProt::IfSetHide as u16
-            && b.len() >= 5
-            && b[..4]
-                == [
-                    (com >> 16) as u8,
-                    (com >> 24) as u8,
-                    com as u8,
-                    (com >> 8) as u8,
-                ]
-            && b[4] != 0
-            && b[4] != 128
-    })
+    server::hides(packets).contains(&(BACKPACK | 1, true))
 }
 
 /// The hint ring (cache 786 model 40497), as uf.constant's ^uf_hint_ring.
@@ -452,10 +428,9 @@ fn character_creation_grids_pick_by_the_slot_clicked() {
         engine.harness_reset();
         let mut client = engine.harness_login("uf_designer").expect("login");
         cycles(engine, &mut client, 3);
-        let click = |engine: &mut Engine, client: &mut HarnessClient, com: i32, slot: i32| {
-            let mut p = ClientPacket::new();
-            p.p4((1028 << 16) | com).p2_alt3(NONE).p2_alt1(slot);
-            client.send(ClientProt::IfButton1, &p.finish());
+        let click = |engine: &mut Engine, client: &mut HarnessClient, name: &str, slot: i32| {
+            let c = com(&format!("playerdesign4:{name}"));
+            client.if_button(1, c, slot as u16, TypeId::NULL);
             cycles(engine, client, 2);
         };
         let varc = |engine: &Engine, client: &HarnessClient, id: u16| {
@@ -466,22 +441,22 @@ fn character_creation_grids_pick_by_the_slot_clicked() {
                 .get(id)
                 .as_int()
         };
-        // The hair page (1028:96), then the styles (1028:107): enum_3304's slots 0 and 1 are
+        // The hair page, then its styles: enum_3304's slots 0 and 1 are
         // struct_746 "Short" (idkit_5) and struct_747 "Close-cropped" (idkit_6).
-        click(engine, &mut client, 96, NONE);
-        click(engine, &mut client, 107, 0);
+        click(engine, &mut client, "hair", NONE);
+        click(engine, &mut client, "menu", 0);
         assert_eq!(varc(engine, &client, 1008), 5, "playerdesign3_head");
-        click(engine, &mut client, 107, 1);
+        click(engine, &mut client, "menu", 1);
         assert_eq!(varc(engine, &client, 1008), 6, "playerdesign3_head");
-        // The hair page's colours (1028:111): enum_2345's slots 0 and 1 are 20 and 19.
-        click(engine, &mut client, 111, 0);
+        // The hair page's colours: enum_2345's slots 0 and 1 are 20 and 19.
+        click(engine, &mut client, "colours", 0);
         assert_eq!(varc(engine, &client, 1015), 20, "playerdesign3_haircol");
-        click(engine, &mut client, 111, 1);
+        click(engine, &mut client, "colours", 1);
         assert_eq!(varc(engine, &client, 1015), 19, "playerdesign3_haircol");
-        // The skin colours (1028:45): enum_748's slots 0 and 1 are 9 and 8.
-        click(engine, &mut client, 45, 0);
+        // The skin colours: enum_748's slots 0 and 1 are 9 and 8.
+        click(engine, &mut client, "skincolours", 0);
         assert_eq!(varc(engine, &client, 1019), 9, "playerdesign3_skincol");
-        click(engine, &mut client, 45, 1);
+        click(engine, &mut client, "skincolours", 1);
         assert_eq!(varc(engine, &client, 1019), 8, "playerdesign3_skincol");
     });
 }
@@ -570,12 +545,12 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert!(!is_open(engine, &client, INVENTORY), "no inventory tab yet");
         assert!(is_open(engine, &client, CONTROLS), "the Controls overlay");
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3522,
             "Rotate Your Camera"
         );
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             2,
             "the arrow at the task tab"
         );
@@ -606,11 +581,11 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             .as_int();
         assert_eq!(popup, 3522, "TASK COMPLETE! Rotate Your Camera");
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3500,
             "Talk to Sir Vant"
         );
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "no arrow after");
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 0, "no arrow after");
 
         // Talk to Sir Vant: "Hello!" and his warning, each with its voiced take (s001, s002).
         let vant = engine
@@ -893,7 +868,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(face(engine), None, "the lock ends with the talk's script");
         assert_eq!(progress(engine, &client), 10, "Assist Sir Vant");
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3501,
             "Assist Sir Vant pinned"
         );
@@ -973,7 +948,10 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         // Seq 12226 (raise the shield and vanish, 0.56 s; NPC_INFO's anim block, as Sir Vant's
         // swing below) with his "Aaargh!" as the fire lands, not as shot 5 opens: there it hid him
         // before the fire came (in-client ufdragon18).
+        #[cfg(before_742)]
         let shield = [0x2F, 0xC2u8.wrapping_add(128)].repeat(4);
+        #[cfg(since_742)]
+        let shield = [0x2Fu8, 0xC2].repeat(4);
         let hides = |packets: &[(u16, Vec<u8>)]| {
             packets.iter().any(|(op, body)| {
                 *op == ServerProt::NpcInfo as u16 && body.windows(8).any(|w| w == shield)
@@ -1017,16 +995,10 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             "and is not restarted as shot 3 opens"
         );
 
-        // Shot 6: Sir Vant's swing, seq 12232, from the shot's first tick (NPC_INFO's anim block:
-        // four ids, each big-endian with 128 added to its low byte).
-        let swing = [0x2F, 0xC8u8.wrapping_add(128)].repeat(4);
+        // Shot 6: Sir Vant's swing, seq 12232, from the shot's first tick.
         let six = shot_at(6);
         assert!(
-            ticks[six]
-                .1
-                .iter()
-                .any(|(op, body)| *op == ServerProt::NpcInfo as u16
-                    && body.windows(8).any(|w| w == swing)),
+            npc_anim_sent(&ticks[six].1, 12232),
             "Sir Vant's swing, seq 12232, as shot 6 opens"
         );
 
@@ -1101,9 +1073,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
 }
 
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
 /// The index of the npc of a type nearest the first harness player (the static world can hold
@@ -1154,51 +1124,34 @@ fn cycles(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16
 
 /// Take (OPOBJ3) on a ground obj at world (x, z).
 fn take(client: &mut HarnessClient, obj: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(i32::from(obj))
-        .p2_alt2(i32::from(z))
-        .p1(0)
-        .p2(i32::from(x));
-    client.send(ClientProt::OpObj3, &p.finish());
+    client.op_obj(3, x, z, TypeId::new(obj));
 }
 
 /// Wear / Wield (op 2) on a backpack slot.
 fn wear(client: &mut HarnessClient, obj: u16, slot: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(i32::from(INVENTORY) << 16)
-        .p2_alt3(i32::from(obj))
-        .p2_alt1(i32::from(slot));
-    client.send(ClientProt::IfButton2, &p.finish());
+    client.if_button(2, i32::from(INVENTORY) << 16, slot, TypeId::new(obj));
 }
 
 /// Op 1 on a loc at world (x, z).
 fn oploc1(client: &mut HarnessClient, loc: TypeId, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(i32::from(z))
-        .p2_alt1(loc.int())
-        .p1(0)
-        .p2_alt2(i32::from(x));
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, loc);
 }
 
 /// Op 1 on an npc (OPNPC1).
 fn opnpc1(client: &mut HarnessClient, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2(i32::from(nid));
-    client.send(ClientProt::OpNpc1, &p.finish());
+    client.op_npc(1, nid);
 }
 
 /// A backpack item used on a loc at world (x, z).
 fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: TypeId, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(i32::from(obj))
-        .p2_alt2(i32::from(slot))
-        .p2(i32::from(z))
-        .p4_alt2(i32::from(INVENTORY) << 16)
-        .p2_alt2(i32::from(x))
-        .p1_alt1(0)
-        .p2_alt1(loc.int());
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        x,
+        z,
+        loc,
+        i32::from(INVENTORY) << 16,
+        slot,
+        TypeId::new(obj),
+    );
 }
 
 fn slot_of(engine: &Engine, client: &HarnessClient, obj: u16) -> Option<u16> {
@@ -1308,7 +1261,7 @@ fn the_squires_gear_and_the_goblin() {
         assert_eq!(progress(engine, &client), 20, "Equip Yourself");
         assert!(is_open(engine, &client, INVENTORY), "the inventory tab");
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             5,
             "the arrow at the inventory tab"
         );
@@ -1343,7 +1296,7 @@ fn the_squires_gear_and_the_goblin() {
         assert!(is_open(engine, &client, COMBAT_SIDE), "the combat tab");
         assert!(is_open(engine, &client, 387), "the worn equipment tab");
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             6,
             "the arrow at worn equipment"
         );
@@ -1538,30 +1491,49 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             "two shots, then the player's camera"
         );
         assert_eq!(progress(engine, &client), 50, "Check your Quest Journal");
-        assert!(is_open(engine, &client, 190), "the quest list tab");
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
+        #[cfg(before_742)]
+        {
+            assert!(is_open(engine, &client, 190), "the quest list tab");
+            assert_eq!(varpbit(engine, &client, FLASH_SIDE), 4);
+        }
+        // 742 has no quest tab: the arrow is at the Noticeboard's stone.
+        #[cfg(since_742)]
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 2);
 
-        // The journal (quest list row 147), the world map (548:179, then its close 755:44) and
-        // the compass (548:177 "Face North").
-        let button = |client: &mut HarnessClient, iface: i32, com: i32, slot: i32| {
-            let mut p = ClientPacket::new();
-            p.p4((iface << 16) | com).p2_alt3(NONE).p2_alt1(slot);
-            client.send(ClientProt::IfButton1, &p.finish());
+        // The journal (quest list row 147), the world map (then its close) and the compass
+        // ("Face North").
+        let button = |client: &mut HarnessClient, name: &str, slot: i32| {
+            client.if_button(1, com(name), slot as u16, TypeId::NULL);
         };
-        // The quest list tab clicked at its arrow (toplevel:stone3, 548:131): the arrow stops
-        // (4KO2h2xPtdM @118-120; worn equipment's @85.5-86.5).
-        button(&mut client, 548, 131, NONE);
+        // The tab clicked at its arrow: the arrow stops (4KO2h2xPtdM @118-120; worn equipment's
+        // @85.5-86.5).
+        #[cfg(before_742)]
+        button(&mut client, "toplevel:stone3", NONE);
+        #[cfg(since_742)]
+        button(&mut client, "toplevel:stone1", NONE);
         cycles(engine, &mut client, 2);
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
+        assert_eq!(varpbit(engine, &client, 4895), 3, "tutorial_version");
         // The arrow moves to the quest's row: the client draws it at 55 on an Unstable
         // Foundations account (clientscript 1661; 4KO2h2xPtdM @119.0-120.0).
-        assert_eq!(progress(engine, &client), 55, "the quest list opened");
-        assert_eq!(varbit(engine, &client, 4895), 3, "tutorial_version");
-        button(&mut client, 190, 18, 147);
-        let journal = cycles(engine, &mut client, 3);
+        #[cfg(before_742)]
+        let journal = {
+            assert_eq!(progress(engine, &client), 55, "the quest list opened");
+            button(&mut client, "questlist_v4:quests", 147);
+            cycles(engine, &mut client, 3)
+        };
+        // 742: "Open Noticeboard", then the Featured page's Quests box, which has no row for the
+        // quest and opens its journal.
+        #[cfg(since_742)]
+        let journal = {
+            button(&mut client, "interface_1056:com_55", NONE);
+            cycles(engine, &mut client, 2);
+            button(&mut client, "interface_1345:com_23", NONE);
+            cycles(engine, &mut client, 3)
+        };
         assert_eq!(progress(engine, &client), 60, "Check your World Map");
         assert_eq!(
-            varbit(engine, &client, FLASH_SIDE),
+            varpbit(engine, &client, FLASH_SIDE),
             19,
             "the arrow at the globe"
         );
@@ -1570,7 +1542,10 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             "a new Task brings the panel to the task system (4KO2h2xPtdM @83.75, @103.75)"
         );
         engine.harness_close_modal(client.pid);
-        button(&mut client, 548, 179, NONE);
+        // 742: the Noticeboard's full-screen toplevel gives the gameframe back at the tick's end.
+        #[cfg(since_742)]
+        cycles(engine, &mut client, 1);
+        button(&mut client, "toplevel:worldmap_icon", NONE);
         let map = cycles(engine, &mut client, 3);
         // The map opens on the cellar the copy was made from (square 57_77, the "Tutorial
         // Cellar" areas), not the copy's own tiles, with the arrow at its close button.
@@ -1585,23 +1560,15 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             (57 * 64..58 * 64).contains(&hx) && (77 * 64..78 * 64).contains(&hz),
             "varc 622 on square 57_77, not the copy: {hx},{hz}"
         );
-        let closearrow = (755 << 16) | 45;
+        let closearrow = com("worldmap:closearrow");
         assert!(
-            map.iter().any(|(op, b)| *op == ServerProt::IfSetHide as u16
-                && b.len() >= 4
-                && b[..4]
-                    == [
-                        (closearrow >> 16) as u8,
-                        (closearrow >> 24) as u8,
-                        closearrow as u8,
-                        (closearrow >> 8) as u8
-                    ]),
+            server::hides(&map).iter().any(|(c, _)| *c == closearrow),
             "the arrow at the world map's close button (755:45)"
         );
-        button(&mut client, 755, 44, NONE);
+        button(&mut client, "worldmap:close", NONE);
         cycles(engine, &mut client, 3);
         assert_eq!(progress(engine, &client), 62, "Realign your Minimap");
-        button(&mut client, 548, 177, NONE);
+        button(&mut client, "toplevel:compass_clickzone", NONE);
         cycles(engine, &mut client, 3);
         assert_eq!(progress(engine, &client), 65, "Climb the Wall");
 
@@ -1677,42 +1644,32 @@ fn loc_id(engine: &Engine, name: &str) -> TypeId {
     engine.cache.locs.get_by_debugname(name).unwrap().id
 }
 
-fn varbit_named(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
-    let id = engine.cache.varbits.get_by_debugname(name).unwrap().id;
-    varbit(engine, client, id.g2())
+fn varpbit_named(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
+    let id = engine.cache.varpbits.get_by_debugname(name).unwrap().id;
+    varpbit(engine, client, id.g2())
 }
 
 /// Op 1 (the held item's first op) on a backpack slot.
 fn held1(client: &mut HarnessClient, obj: u16, slot: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(i32::from(INVENTORY) << 16)
-        .p2_alt3(i32::from(obj))
-        .p2_alt1(i32::from(slot));
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, i32::from(INVENTORY) << 16, slot, TypeId::new(obj));
 }
 
 /// A backpack item used on another (IF_BUTTONT).
 fn use_on_item(client: &mut HarnessClient, used: (u16, u16), target: (u16, u16)) {
     let backpack = i32::from(INVENTORY) << 16;
-    let mut p = ClientPacket::new();
-    p.p4(backpack)
-        .p2_alt1(i32::from(target.1))
-        .p2_alt1(i32::from(used.1))
-        .p2_alt2(i32::from(used.0))
-        .p4_alt1(backpack)
-        .p2(i32::from(target.0));
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(
+        backpack,
+        used.1,
+        TypeId::new(used.0),
+        backpack,
+        target.1,
+        TypeId::new(target.0),
+    );
 }
 
 /// A backpack item used on an npc (OPNPCT).
 fn use_on_npc(client: &mut HarnessClient, obj: u16, slot: u16, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(i32::from(obj))
-        .p2_alt2(i32::from(slot))
-        .p2_alt1(i32::from(nid))
-        .p4_alt3(i32::from(INVENTORY) << 16)
-        .p1_alt2(0);
-    client.send(ClientProt::OpNpcT, &p.finish());
+    client.op_npc_t(nid, i32::from(INVENTORY) << 16, slot, TypeId::new(obj));
 }
 
 /// Cycles until the conversation's boxes stop, answering them, then waits out a cutscene's
@@ -1783,7 +1740,7 @@ fn the_dragon_is_put_to_sleep() {
         // The meat shows in the bowl once it is put there, three ticks into the player's
         // animation (4KO2h2xPtdM @197.45-199.0; in the bowl @200.2 to @223.65).
         let early = cycles(engine, &mut client, 2);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_meatplacement"), 0);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_meatplacement"), 0);
         assert!(
             slot_of(engine, &client, meat.g2()).is_some(),
             "still in the hand"
@@ -1791,7 +1748,7 @@ fn the_dragon_is_put_to_sleep() {
         let mut first = early;
         first.extend(cycles(engine, &mut client, 4));
         assert_eq!(
-            varbit_named(engine, &client, "tutorial3_meatplacement"),
+            varpbit_named(engine, &client, "tutorial3_meatplacement"),
             1,
             "the meat in the bowl"
         );
@@ -1855,13 +1812,11 @@ fn the_dragon_is_put_to_sleep() {
         assert_eq!(vant.get(2), Some(&(31, 16)), "{vant:?}");
         assert_eq!(vant.last(), Some(&(31, 16)), "{vant:?}");
         // 2011's shots (4KO2h2xPtdM, cuts @202.67, 206.27, 211.04, 215.35, 216.45): clientscript
-        // 2762's 101 to 105, the fade 106, then 107. Varc 1007 by VARC_SMALL,
-        // `p1_alt2 value, p2_alt1 varc`.
-        let mut sent_shots: Vec<i32> = packets
-            .iter()
-            .filter(|(op, p)| *op == ServerProt::VarcSmall as u16 && p.len() >= 3)
-            .filter(|(_, p)| u16::from_le_bytes([p[1], p[2]]) == SHOT)
-            .map(|(_, p)| 0u8.wrapping_sub(p[0]) as i8 as i32)
+        // 2762's 101 to 105, the fade 106, then 107, by varc 1007.
+        let mut sent_shots: Vec<i32> = server::varcs(&packets)
+            .into_iter()
+            .filter(|(v, _)| *v == SHOT)
+            .map(|(_, n)| n)
             .collect();
         sent_shots.dedup();
         assert_eq!(sent_shots, vec![101, 102, 103, 104, 105, 106, 107, 0]);
@@ -1876,12 +1831,7 @@ fn the_dragon_is_put_to_sleep() {
         let at_shot = |n: i32| {
             packets
                 .iter()
-                .position(|(op, p)| {
-                    *op == ServerProt::VarcSmall as u16
-                        && p.len() >= 3
-                        && u16::from_le_bytes([p[1], p[2]]) == SHOT
-                        && 0u8.wrapping_sub(p[0]) as i8 as i32 == n
-                })
+                .position(|p| server::varcs(std::slice::from_ref(p)).contains(&(SHOT, n)))
                 .unwrap()
         };
         let (fade, last) = (at_shot(106), at_shot(107));
@@ -1905,12 +1855,7 @@ fn the_dragon_is_put_to_sleep() {
         // the camera back on the player.
         let banner = packets
             .iter()
-            .position(|(op, p)| {
-                *op == ServerProt::VarcLarge as u16
-                    && p.len() >= 6
-                    && u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]) == POPUP_TASK
-                    && i32::from_le_bytes([p[0], p[1], p[2], p[3]]) == 3510
-            })
+            .position(|p| server::varcs(std::slice::from_ref(p)).contains(&(POPUP_TASK, 3510)))
             .expect("TASK COMPLETE! Put the Dragon to Sleep");
         assert!(
             banner > at_shot(0),
@@ -1929,7 +1874,7 @@ fn the_dragon_is_put_to_sleep() {
         // The dragon eats it: from @227.9, the first frame the bowl shows again past the dragon,
         // it is the bowl with the bone that the cellar starts with.
         assert_eq!(
-            varbit_named(engine, &client, "tutorial3_meatplacement"),
+            varpbit_named(engine, &client, "tutorial3_meatplacement"),
             0,
             "the meat eaten, the bone bowl again"
         );
@@ -2112,8 +2057,8 @@ fn the_pillars_burn_and_the_roof_comes_down() {
                 converse(engine, &mut client, &[], 60).said("You attach the fuse to the pillar.")
             );
         }
-        assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 2);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_leftpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 2);
         assert_eq!(progress(engine, &client), 110);
 
         // The tinderbox to Sir Vant, then the far pillar.
@@ -2182,8 +2127,8 @@ fn the_pillars_burn_and_the_roof_comes_down() {
                     Some((27, 38)),
                     "Sir Vant north-east of the player: {vant:?}"
                 );
-                assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 5);
-                assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 5);
+                assert_eq!(varpbit_named(engine, &client, "tutorial3_leftpillar"), 5);
+                assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 5);
             }
             texts.extend(lines);
             packets.extend(sent);
@@ -2199,14 +2144,19 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             if *op != ServerProt::UpdateZonePartialEnclosed as u16 {
                 continue;
             }
-            for j in 0..body.len().saturating_sub(7) {
+            // 742 widens the height to a short and adds a trailing short.
+            #[cfg(before_742)]
+            let (wait_at, zero_at) = (5, 7);
+            #[cfg(since_742)]
+            let (wait_at, zero_at) = (6, 8);
+            for j in 0..body.len().saturating_sub(zero_at) {
                 let anim = u16::from_be_bytes([body[j + 2], body[j + 3]]);
                 if body[j] == ZoneProt::MapAnim as u8
                     && (anim == 2149 || anim == 2150)
                     && body[j + 4] == 0
-                    && body[j + 7] == 0
+                    && body[j + zero_at] == 0
                 {
-                    let wait = u16::from_be_bytes([body[j + 5], body[j + 6]]);
+                    let wait = u16::from_be_bytes([body[j + wait_at], body[j + wait_at + 1]]);
                     rocks.push((tick_of(&packets, i, true), body[j + 1], anim, wait));
                 }
             }
@@ -2232,12 +2182,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         let shot_at = |n: i32| {
             let i = packets
                 .iter()
-                .position(|(op, p)| {
-                    *op == ServerProt::VarcLarge as u16
-                        && p.len() >= 6
-                        && u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]) == SHOT
-                        && i32::from_le_bytes([p[0], p[1], p[2], p[3]]) == n
-                })
+                .position(|p| server::varcs(std::slice::from_ref(p)).contains(&(SHOT, n)))
                 .unwrap_or_else(|| panic!("no shot {n}"));
             tick_of(&packets, i, false)
         };
@@ -2290,11 +2235,9 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         );
         let tab = at(
             "Task panel",
-            packets.iter().rposition(|(op, b)| {
-                *op == ServerProt::RunClientScript as u16
-                    && b.len() >= 8
-                    && b[b.len() - 8..] == [0, 0, 0, 1, 0, 0, 0, 115]
-            }),
+            packets
+                .iter()
+                .rposition(|p| switched_to_task(std::slice::from_ref(p))),
         );
         let banner = at("banner", popup_at(&packets, 3512));
         let released = tick_of(&packets, zero, false);
@@ -2352,6 +2295,8 @@ fn the_pillars_burn_and_the_roof_comes_down() {
 
 /// Build plan stages 9-11: the kit back, Roddeck's choice, practice to Mining 2, the rocks, the
 /// hole, the ladder, the quest's end and Explorer Jack (4KO2h2xPtdM @427-655).
+// 742's way out (Roddeck's pickaxe, Explorer Jack's door) is not 2011's.
+#[cfg(before_742)]
 #[test]
 fn the_way_out_to_lumbridge() {
     runner::on_loaded_engine(|engine| {
@@ -2367,7 +2312,7 @@ fn the_way_out_to_lumbridge() {
         walk_near(engine, &mut client);
         cycles(engine, &mut client, 3);
         assert_eq!(
-            varbit_named(engine, &client, "varplayerbit_8522"),
+            varpbit_named(engine, &client, "varplayerbit_8522"),
             0,
             "not in the tutorial"
         );
@@ -2417,10 +2362,10 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 135);
         // The Task panel's overview: Discover an Exit, Breaking Through, four empty
         // (4KO2h2xPtdM @532).
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 4091, "the overview");
-        assert_eq!(varbit(engine, &client, 8587), 3514);
-        assert_eq!(varbit(engine, &client, 8588), 3516);
-        assert_eq!(varbit(engine, &client, 8589), 4091);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 4091, "the overview");
+        assert_eq!(varpbit(engine, &client, 8587), 3514);
+        assert_eq!(varpbit(engine, &client, 8588), 3516);
+        assert_eq!(varpbit(engine, &client, 8589), 4091);
 
         // The blockage at level 1.
         engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
@@ -2436,12 +2381,12 @@ fn the_way_out_to_lumbridge() {
             converse(engine, &mut client, &[], 60)
                 .said("You'll need a Mining level of 2 to clear the rocks.")
         );
-        // Its continue: the practice rocks live (varbit 6495 = 1) and the stats stone with its
+        // Its continue: the practice rocks live (varpbit 6495 = 1) and the stats stone with its
         // arrow, with no word from Roddeck (4KO2h2xPtdM @549.0).
         assert_eq!(progress(engine, &client), 140);
-        assert_eq!(varbit(engine, &client, 6495), 1, "the practice rocks");
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 3, "the stats stone");
-        assert_eq!(varbit(engine, &client, 8589), 3518, "Skill in Mining");
+        assert_eq!(varpbit(engine, &client, 6495), 1, "the practice rocks");
+        assert_eq!(varpbit(engine, &client, FLASH_SIDE), 3, "the stats stone");
+        assert_eq!(varpbit(engine, &client, 8589), 3518, "Skill in Mining");
         engine.harness_telejump(client.pid, origin.0 + 31, 0, origin.1 + 32);
         cycles(engine, &mut client, 3);
         talk_to(&mut client, npc_nid(engine, "roddeck_8867"));
@@ -2450,7 +2395,7 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 145);
 
         // Two practice rocks to level 2: the practice rock on (17, 38) (the map's (17, 14), the block
-        // moved north by the collapse), live at varbit 6495 = 1.
+        // moved north by the collapse), live at varpbit 6495 = 1.
         engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
         cycles(engine, &mut client, 3);
         let (px, pz) = at(17, 38);
@@ -2493,7 +2438,7 @@ fn the_way_out_to_lumbridge() {
                 .any(|t| t == "You swing your pick at the rock."),
             "{boxes:?}"
         );
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3516);
         // The Task System's How To Train and Level (425) once the boxes are closed, its line alone
         // (a first Task), and no Skill in Mining (3518) popup (4KO2h2xPtdM @569-577).
         let lines: Vec<String> = HarnessClient::game_messages(&practice)
@@ -2505,7 +2450,7 @@ fn the_way_out_to_lumbridge() {
             "{lines:?}"
         );
         assert!(!lines.iter().any(|m| m.contains("in total")), "{lines:?}");
-        assert_eq!(varbit_named(engine, &client, "task_tut4_how_to_2"), 1);
+        assert_eq!(varpbit_named(engine, &client, "task_tut4_how_to_2"), 1);
         assert_eq!(
             engine
                 .harness_player(client.pid)
@@ -2542,7 +2487,7 @@ fn the_way_out_to_lumbridge() {
         let hole = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 170, "To Freedom!");
         assert!(slot_of(engine, &client, pickaxe.g2()).is_none());
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3519);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3519);
         assert!(
             rs_test::talk::settexts(&hole)
                 .iter()
@@ -2698,7 +2643,7 @@ fn the_way_out_to_lumbridge() {
         // Pinned till Jack is talked to: Introducing...Explorer Jack (@607-640), then the Task
         // after it.
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3520,
             "Introducing...Explorer Jack"
         );
@@ -2710,7 +2655,7 @@ fn the_way_out_to_lumbridge() {
             jack.texts
         );
         assert!(jack.said("Look at the Rewards tab for a Task to learn more."));
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 3);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 3);
         // On the Run (363) on the first walk with run on after the tutorial (Qh_-AMJpVd0
         // 2011-05-10 @432.5, in this house).
         run_orb(&mut client);
@@ -2725,9 +2670,9 @@ fn the_way_out_to_lumbridge() {
             "{:?}",
             HarnessClient::game_messages(&ran)
         );
-        assert_eq!(varbit_named(engine, &client, "varplayerbit_8522"), 1);
+        assert_eq!(varpbit_named(engine, &client, "varplayerbit_8522"), 1);
         assert_eq!(
-            varbit(engine, &client, PINNED_TASK),
+            varpbit(engine, &client, PINNED_TASK),
             3521,
             "The Journey Begins"
         );
@@ -2753,6 +2698,7 @@ fn house_login(engine: &mut Engine, name: &str) -> (HarnessClient, (i32, i32)) {
 }
 
 /// Whether an npc of a type stands within `distance` tiles of the player.
+#[cfg(before_742)]
 fn npc_near(engine: &Engine, client: &HarnessClient, name: &str, distance: i32) -> bool {
     let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     let me = engine.harness_player(client.pid).unwrap().pathing.coord;
@@ -2766,22 +2712,22 @@ fn npc_near(engine: &Engine, client: &HarnessClient, name: &str, distance: i32) 
 
 /// A click on the floor at world (x, z).
 fn walk_to(client: &mut HarnessClient, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(i32::from(x)).p1_alt1(0).p2(i32::from(z));
-    client.send(ClientProt::MoveGameClick, &p.finish());
+    client.move_gameclick(x, z);
 }
 
 /// Explorer Jack's house after the quest (4KO2h2xPtdM 2011-04-30 @636-678, Qh_-AMJpVd0
 /// 2011-05-10 @428-467): Sir Vant in the doorway until the talk, which any of the three starts;
 /// he leaves and the door shuts; Open on it walks the player out of the copy under "As you
 /// leave, Roddeck wanders off home.", into Lumbridge with The Journey Begins done.
+// 742's way out (Roddeck's pickaxe, Explorer Jack's door) is not 2011's.
+#[cfg(before_742)]
 #[test]
 fn explorer_jacks_house_and_the_door_out() {
     runner::on_loaded_engine(|engine| {
         let (mut client, (dx, dz)) = house_login(engine, "uf_house");
         let at = |x: u16, z: u16| ((i32::from(x) + dx) as u16, (i32::from(z) + dz) as u16);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3520);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3520);
         assert!(
             is_open(engine, &client, 182),
             "the logout panel in its slot"
@@ -2803,7 +2749,7 @@ fn explorer_jacks_house_and_the_door_out() {
         let roddeck = converse(engine, &mut client, &[], 20);
         assert!(roddeck.said("At last, we're out!"), "{:?}", roddeck.texts);
         assert!(!roddeck.said("my mission is accomplished"));
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 0);
 
         // Sir Vant: the talk from his own line on.
         talk_to(
@@ -2816,8 +2762,8 @@ fn explorer_jacks_house_and_the_door_out() {
         assert!(vant.said("Well, my mission is accomplished now"));
         assert!(vant.said("I'd better head back to Falador."));
         assert!(vant.said("Look at the Rewards tab for a Task to learn more."));
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 3);
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3521);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 3);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3521);
         cycles(engine, &mut client, 8);
         assert!(
             !npc_near(engine, &client, "tutorial3_knight_waitingforbattle", 30),
@@ -2855,9 +2801,13 @@ fn explorer_jacks_house_and_the_door_out() {
         let here = engine.harness_player(client.pid).unwrap().pathing.coord;
         assert_eq!((here.x(), here.z()), (3204, 3247), "outside the real door");
         assert!(engine.regions.source(here).is_none(), "out of the copy");
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 5);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 5);
         assert!(popup_at(&out, 3521).is_some(), "The Journey Begins");
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 4091, "nothing pinned");
+        assert_eq!(
+            varpbit(engine, &client, PINNED_TASK),
+            4091,
+            "nothing pinned"
+        );
         assert!(!is_open(engine, &client, 214) && !is_open(engine, &client, 215));
     });
 }
@@ -2888,11 +2838,11 @@ fn explorer_jack_wants_a_word_first() {
             (3202..=3207).contains(&source.x()) && (3239..=3244).contains(&source.z()),
             "back inside: {source:?}"
         );
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 0);
     });
 }
 
-/// A finished player logging in anywhere else is past the house (varbit 6494 was not saved
+/// A finished player logging in anywhere else is past the house (varpbit 6494 was not saved
 /// before), and the mid-tutorial state on varp 1261 is saved now: the tool the way out is
 /// worked with (6495), the pillars (6496, 6497), the house's step (6494).
 #[test]
@@ -2904,7 +2854,7 @@ fn the_tutorials_state_outlives_a_logout() {
             .harness_login_returning("uf_long_done")
             .expect("login");
         cycles(engine, &mut client, 3);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 5);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_postquest"), 5);
         let here = engine.harness_player(client.pid).unwrap().pathing.coord;
         assert!(engine.regions.source(here).is_none());
         assert!(
@@ -2917,8 +2867,8 @@ fn the_tutorials_state_outlives_a_logout() {
             "tutorial3_leftpillar",
             "tutorial3_rightpillar",
         ] {
-            let bit = engine.cache.varbits.get_by_debugname(name).unwrap().id;
-            let base = engine.cache.varbits.get_by_id(bit).unwrap().basevar;
+            let bit = engine.cache.varpbits.get_by_debugname(name).unwrap().id;
+            let base = engine.cache.varpbits.get_by_id(bit).unwrap().basevar;
             assert_eq!(
                 engine
                     .cache
@@ -3008,11 +2958,7 @@ fn the_books_the_cabbage_and_the_drop_hint() {
 
         // Drop (op 8 on the backpack): the hint, with the dropped book in the box.
         let slot = slot_of(engine, &client, manual.g2()).expect("the manual");
-        let mut p = ClientPacket::new();
-        p.p4(i32::from(INVENTORY) << 16)
-            .p2_alt3(manual.int())
-            .p2_alt1(i32::from(slot));
-        client.send(ClientProt::IfButton8, &p.finish());
+        client.if_button(8, i32::from(INVENTORY) << 16, slot, manual);
         let drop = converse(engine, &mut client, &[], 60);
         assert!(
             drop.said("When you drop items on the ground, they will eventually vanish."),
@@ -3024,11 +2970,7 @@ fn the_books_the_cabbage_and_the_drop_hint() {
         // The diary dropped and taken back: "You won't be needing that again." (the 2011 wiki's
         // Roddeck's diary), N9 (clip 1558); it stays where it lies.
         let slot = slot_of(engine, &client, diary.g2()).expect("the diary");
-        let mut p = ClientPacket::new();
-        p.p4(i32::from(INVENTORY) << 16)
-            .p2_alt3(diary.int())
-            .p2_alt1(i32::from(slot));
-        client.send(ClientProt::IfButton8, &p.finish());
+        client.if_button(8, i32::from(INVENTORY) << 16, slot, diary);
         converse(engine, &mut client, &[], 60);
         assert!(slot_of(engine, &client, diary.g2()).is_none(), "dropped");
         let here = engine.harness_player(client.pid).unwrap().pathing.coord;
@@ -3104,9 +3046,9 @@ fn the_way_out_is_walkable_from_roddeck() {
     });
 }
 
-fn set_varbit(engine: &mut Engine, client: &HarnessClient, name: &str, value: u32) {
-    let id = engine.cache.varbits.get_by_debugname(name).unwrap().id;
-    let bit = engine.cache.varbits.get_by_id(id).unwrap();
+fn set_varpbit(engine: &mut Engine, client: &HarnessClient, name: &str, value: u32) {
+    let id = engine.cache.varpbits.get_by_debugname(name).unwrap().id;
+    let bit = engine.cache.varpbits.get_by_id(id).unwrap();
     let (basevar, start) = (bit.basevar, u32::from(bit.start_bit));
     let width = u32::from(bit.end_bit - bit.start_bit) + 1;
     let mask = (((1u64 << width) - 1) as u32) << start;
@@ -3159,7 +3101,7 @@ fn through_the_hole_sir_vant_and_roddeck_wait_in_the_kitchen() {
 fn the_roots_way_out_brings_them_through_too() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_stage(engine, "uf_roots", 150);
-        set_varbit(engine, &client, "tutorial3_tool", 2);
+        set_varpbit(engine, &client, "tutorial3_tool", 2);
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -3273,8 +3215,12 @@ fn walking_off_the_plans_last_line_still_opens_the_quest_list() {
             popup_at(&after, 3505).is_some(),
             "TASK COMPLETE! once the box is gone"
         );
-        assert!(is_open(engine, &client, 190), "the quest list tab");
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
+        // 742 opens the quest list from its Noticeboard's Quests page, not a tab.
+        #[cfg(before_742)]
+        {
+            assert!(is_open(engine, &client, 190), "the quest list tab");
+            assert_eq!(varpbit(engine, &client, FLASH_SIDE), 4);
+        }
 
         let meat = obj_id(engine, "tutorial3_meat");
         give(engine, &client, 5, meat.g2(), 1);
@@ -3329,7 +3275,7 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
         walk_near(engine, &mut client);
         let after = cycles(engine, &mut client, 4);
         assert_eq!(progress(engine, &client), 150, "the box gone by a walk");
-        assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
+        assert_eq!(varpbit(engine, &client, PINNED_TASK), 3516);
         assert!(
             rs_test::talk::settexts(&after)
                 .iter()
@@ -3427,8 +3373,8 @@ fn walking_off_a_cutscenes_line_still_ends_the_cutscene() {
 fn walking_off_its_burning_still_brings_the_roof_down() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_stage(engine, "uf_walk_fire", 115);
-        set_varbit(engine, &client, "tutorial3_leftpillar", 3);
-        set_varbit(engine, &client, "tutorial3_rightpillar", 3);
+        set_varpbit(engine, &client, "tutorial3_leftpillar", 3);
+        set_varpbit(engine, &client, "tutorial3_rightpillar", 3);
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -3439,8 +3385,8 @@ fn walking_off_its_burning_still_brings_the_roof_down() {
             .harness_player_mut(client.pid)
             .unwrap()
             .staff_mod_level = StaffModLevel::Normal;
-        assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 2);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_leftpillar"), 2);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 2);
 
         let origin = player_origin(engine, &client);
         let tinderbox = obj_id(engine, "tinderbox");
@@ -3456,12 +3402,12 @@ fn walking_off_its_burning_still_brings_the_roof_down() {
             origin.1 + 39,
         );
         until_box(engine, &mut client, "It's burning! Run!", 30);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 3);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 3);
         walk_near(engine, &mut client);
         until_box(engine, &mut client, "Ah, here you are, Roddeck.", 120);
         assert_eq!(progress(engine, &client), 125);
         assert_eq!(shot(engine, &client), 204);
-        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 5);
+        assert_eq!(varpbit_named(engine, &client, "tutorial3_rightpillar"), 5);
         walk_near(engine, &mut client);
         let mut ask = until_box(engine, &mut client, "squire's kit back", 8);
         assert_eq!(shot(engine, &client), 0, "the camera released");

@@ -8,17 +8,17 @@ if_sethide(lobbyscreen:com_31, true);
 if_sethide(lobbyscreen:com_34, false);
 switch_int (map_lang) {
     case 0 :
-        if_setgraphic(lobbyscreen:com_344, 10940);
-        if_setgraphic(lobbyscreen:com_376, 10795);
+        if_setgraphic(lobbyscreen:com_344, graphic_10940);
+        if_setgraphic(lobbyscreen:com_376, graphic_10795);
     case 1 :
-        if_setgraphic(lobbyscreen:com_344, 10942);
-        if_setgraphic(lobbyscreen:com_376, 10797);
+        if_setgraphic(lobbyscreen:com_344, graphic_10942);
+        if_setgraphic(lobbyscreen:com_376, graphic_10797);
     case 2 :
-        if_setgraphic(lobbyscreen:com_344, 10941);
-        if_setgraphic(lobbyscreen:com_376, 10796);
+        if_setgraphic(lobbyscreen:com_344, graphic_10941);
+        if_setgraphic(lobbyscreen:com_376, graphic_10796);
     case 3 :
-        if_setgraphic(lobbyscreen:com_344, 10943);
-        if_setgraphic(lobbyscreen:com_376, 10798);
+        if_setgraphic(lobbyscreen:com_344, graphic_10943);
+        if_setgraphic(lobbyscreen:com_376, graphic_10798);
 }
 if_settext(lobbyscreen:com_352, "Validate your email now for increased account security and these great rewards:");
 if_setsize(lobbyscreen:com_346, 240, if_getheight(lobbyscreen:com_346), ^setsize_abs, ^setsize_abs);

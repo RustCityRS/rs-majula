@@ -15,7 +15,7 @@ height=17
 xmode=abs_centre
 ymode=proportion_top
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
@@ -29,7 +29,7 @@ height=17
 xmode=abs_centre
 ymode=proportion_top
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=option1
 textalignh=centre
 colour=0x000000
@@ -46,7 +46,7 @@ height=17
 xmode=abs_centre
 ymode=proportion_top
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=option2
 textalignh=centre
 colour=0x000000
@@ -60,7 +60,7 @@ type=graphic
 width=57
 height=13
 layer=multi2swords_chat
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 229:5
 [com_5]
@@ -69,7 +69,7 @@ x=280
 width=57
 height=13
 layer=multi2swords_chat
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 229:6
 [multi2swords_chat]
@@ -87,7 +87,7 @@ type=graphic
 width=57
 height=13
 layer=com_9
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 229:8
 [com_8]
@@ -96,7 +96,7 @@ x=419
 width=57
 height=13
 layer=com_9
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 229:9
 [com_9]

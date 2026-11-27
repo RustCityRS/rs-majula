@@ -16396,22 +16396,22 @@ fog_depth=2000
 env_map=texture_1683,texture_1680,texture_1681,texture_1678,texture_1682,texture_1679
 
 ==== LIGHTS ====
-17 5888 2696 550: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=12240 type=31 ref=light_8
-17 4096 4104 625: radius=8 colors=17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17 hsl=12240 type=31 ref=light_8
-17 2167 5888 575: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=12240 type=31 ref=light_8
-1 6382 3097 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 5222 2713 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 5376 3464 100: radius=3 colors=7,7,7,7,7,7,7 hsl=16266 type=1
-1 2449 5248 100: radius=3 colors=7,7,7,7,7,7,7 hsl=16266 type=1
-1 3165 5623 150: radius=3 colors=7,7,7,7,7,7,7 hsl=16276 type=1
-1 3763 4241 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 2577 6280 150: radius=3 colors=7,7,7,7,7,7,7 hsl=16276 type=1
-1 4164 3677 150: radius=3 colors=7,7,7,7,7,7,7 hsl=16276 type=1
-1 4974 4360 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 1681 6152 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 4949 2867 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 3046 4522 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
-1 3942 5026 150: radius=2 colors=5,5,5,5,5 hsl=16276 type=1
+17 5888 2696 550: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=12240 type=31 lighttype=light_8
+17 4096 4104 625: radius=8 radiusgrid=17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17 hsl=12240 type=31 lighttype=light_8
+17 2167 5888 575: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=12240 type=31 lighttype=light_8
+1 6382 3097 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 5222 2713 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 5376 3464 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=16266 type=1
+1 2449 5248 100: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=16266 type=1
+1 3165 5623 150: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=16276 type=1
+1 3763 4241 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 2577 6280 150: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=16276 type=1
+1 4164 3677 150: radius=3 radiusgrid=7,7,7,7,7,7,7 hsl=16276 type=1
+1 4974 4360 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 1681 6152 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 4949 2867 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 3046 4522 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
+1 3942 5026 150: radius=2 radiusgrid=5,5,5,5,5 hsl=16276 type=1
 
 ==== ENVPARAMS ====
 32 8 32

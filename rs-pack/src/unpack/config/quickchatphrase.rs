@@ -45,7 +45,7 @@ pub fn emit_quickchatphrase_props(
         }
         p.push((1, "phrase".into(), phrase));
     }
-    for &id in def.responses.iter() {
+    for &id in def.autoresponses.iter() {
         p.push((
             2,
             "autoresponse".into(),

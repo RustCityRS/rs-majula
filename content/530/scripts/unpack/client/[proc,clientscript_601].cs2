@@ -1,7 +1,7 @@
 // 601
 [proc,clientscript_601]
 if (%loot_clanconfig_coinshare = 1) {
-    if_setgraphic(interface_590:opt_coinshare, 1135);
+    if_setgraphic(interface_590:opt_coinshare, "radio_buttons,1");
 } else if (%loot_clanconfig_coinshare = 0) {
-    if_setgraphic(interface_590:opt_coinshare, 1134);
+    if_setgraphic(interface_590:opt_coinshare, "radio_buttons,0");
 }

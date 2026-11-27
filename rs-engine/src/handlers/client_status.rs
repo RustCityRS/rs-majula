@@ -9,7 +9,7 @@ use rs_protocol::network::game::client_prot::{
     ClickWorldMap, EventKeyboard, VideoEnd, WorldLatency,
 };
 use rs_protocol::network::game::client_prot::{
-    ClientDetailoptionsStatus, MapBuildLoading, SoundSongPreloaded, TransmitvarVerifyId,
+    ClientDetailoptionsStatus, DetectModifiedClient, SoundSongPreloaded, TransmitvarVerifyId,
 };
 use rs_vm::ScriptError;
 #[cfg(since_647)]
@@ -29,7 +29,7 @@ macro_rules! client_status {
 
 client_status!(
     ClientDetailoptionsStatus,
-    MapBuildLoading,
+    DetectModifiedClient,
     SoundSongPreloaded,
     TransmitvarVerifyId,
 );

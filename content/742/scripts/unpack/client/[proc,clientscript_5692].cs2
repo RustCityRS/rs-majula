@@ -8,7 +8,7 @@ if (enum(int, stat, enum_681, struct_param($struct2, param_2215)) = null | $stru
 }
 if (stat_base(enum(int, stat, enum_681, struct_param($struct2, param_2215))) < struct_param($struct2, param_2212)) {
     .cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
-    .cc_setgraphic(8277);
+    .cc_setgraphic(graphic_8277);
     .cc_setposition(13, calc($int1 + 9), ^setpos_abs_left, ^setpos_abs_top);
     .cc_setonmouseover(clientscript_5693, event_comsubid, 1, "i1");
     .cc_setonmouseleave("clientscript_5694");
@@ -57,7 +57,7 @@ if (compare("", struct_param($struct2, param_2216)) ! 0) {
 if (string_length(struct_param($struct2, param_2211)) > 0) {
     .cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
     .cc_setposition(15, calc($int1 + 10), ^setpos_abs_right, ^setpos_abs_top);
-    .cc_setgraphic(8485);
+    .cc_setgraphic(graphic_8485);
     .cc_setsize(17, 19, ^setsize_abs, ^setsize_abs);
 }
 if (cc_find(interface_1218:com_30, $int0) = true) {

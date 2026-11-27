@@ -6,15 +6,19 @@ use crate::save::{
 };
 use crate::watch::schedule::{MAX_PLAYED, WEEK_MS};
 use rs_db::{
-    Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
-    PlayedSession, PlayerSave, SaveResult, check_new_password, refusal,
+    Claim, Db, DbConfig, Error as DbError, LogBatch, LoginAdmission, LoginDevice, ModAction,
+    NewPlayer, NewSnapshot, Passwords, PlayedSession, PlayerSave, SaveResult, check_new_password,
+    millis, refusal,
 };
+#[cfg(since_647)]
+use rs_db::{LobbyWorld, WorldEndpoint, validate_name};
 use rs_grid::CoordGrid;
+use rs_protocol::LoginResponse;
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 #[cfg(since_647)]
 use rs_util::random::JavaRandom;
 use std::fs;
-use std::net::IpAddr;
+use std::net::{IpAddr, Ipv4Addr};
 use std::path::Path;
 use std::sync::Arc;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
@@ -46,15 +50,19 @@ const _: () = assert!(DB_FENCE.as_secs() * 2 <= TAKEOVER_AFTER_SECS as u64);
 /// Password checks a world runs at once. Each is an argon2 hash, slow by
 /// design, on a blocking thread. The cores belong to the game loops, so a
 /// flood of guesses gets one.
-const MAX_AUTH_RUNNING: usize = 1;
+pub const MAX_AUTH_RUNNING: usize = 1;
 
 /// Logins that may wait for a password check. Past that the world is being
 /// flooded with them, and a login is turned away at once
 /// ([`AuthResult::Busy`]) rather than left to time out.
-const MAX_AUTH_WAITING: usize = 32;
+pub const MAX_AUTH_WAITING: usize = 32;
 
 /// Settings for [`db_client_task`].
 pub struct DbClientConfig {
+    #[cfg(since_647)]
+    pub endpoint: Option<WorldEndpoint>,
+    #[cfg(since_647)]
+    pub direct_login: bool,
     pub db: DbConfig,
     pub node_id: u8,
     pub pepper: String,
@@ -83,10 +91,14 @@ pub enum DbRequest {
         logout: bool,
     },
     Load {
+        admission: Option<LoginAdmission>,
         login: u32,
         user37: u64,
     },
     Release {
+        user37: u64,
+    },
+    GrantMembership {
         user37: u64,
     },
     WorldStatus {
@@ -208,6 +220,10 @@ pub enum AuthResult {
         left_other_world: Option<Duration>,
         account_age: Duration,
         unread_messages: u16,
+        last_login: Option<SystemTime>,
+        last_login_ip: Option<Ipv4Addr>,
+        member: bool,
+        jcoins: i32,
         played: Vec<PlayedSession>,
     },
     InvalidCredentials,
@@ -215,6 +231,20 @@ pub enum AuthResult {
     TooManyAttempts,
     MultiLogging,
     Busy,
+}
+
+impl AuthResult {
+    /// The reply a refused login gets, or `None` for an accepted one.
+    pub fn refusal(&self) -> Option<LoginResponse> {
+        Some(match self {
+            Self::Accepted { .. } => return None,
+            Self::InvalidCredentials => LoginResponse::BadCredentials,
+            Self::Banned => LoginResponse::Banned,
+            Self::TooManyAttempts => LoginResponse::TooManyAttempts,
+            Self::MultiLogging => LoginResponse::IpLimit,
+            Self::Busy => LoginResponse::BadSave,
+        })
+    }
 }
 
 /// Where a [`DbRequest::Save`] ended up.
@@ -228,13 +258,19 @@ pub enum SaveOutcome {
 
 /// The outcome of a [`DbRequest::Load`].
 pub enum LoadResult {
-    Loaded(Option<Box<PlayerProfile>>),
+    Loaded {
+        profile: Option<Box<PlayerProfile>>,
+        chat_filters: [u8; 3],
+    },
+    Refused(LoginResponse),
     Busy,
     Unregistered,
 }
 
 /// A response sent from the database client task back to the engine.
 pub enum DbResponse {
+    #[cfg(since_647)]
+    Worlds(Vec<LobbyWorld>),
     /// Rev-647: outcome of a [`DbRequest::SetDisplayName`] claim, keyed by the
     /// requesting account.
     #[cfg(since_647)]
@@ -481,7 +517,7 @@ async fn wait_offline(
 
 /// Brings the schema up to date, or with `auto_migrate` off, checks that it
 /// already is.
-async fn prepare_schema(db: &Db, auto_migrate: bool) -> Result<(), String> {
+pub async fn prepare_schema(db: &Db, auto_migrate: bool) -> Result<(), String> {
     if auto_migrate {
         return db
             .migrate()
@@ -583,7 +619,7 @@ enum Served {
     /// The connection couldn't be brought into service; retry after a delay.
     Retry(Duration),
     /// The connection failed mid-service.
-    Lost(rs_db::Error),
+    Lost(DbError),
 }
 
 /// Brings a fresh connection into service and serves requests on it.
@@ -629,6 +665,18 @@ async fn serve(
     if let Err(e) = db.touch_world(config.node_id.into()).await {
         return Served::Lost(e);
     }
+    #[cfg(since_647)]
+    if let Some(world) = &config.endpoint
+        && let Err(e) = db
+            .advertise_world(config.node_id, world, TAKEOVER_AFTER_SECS)
+            .await
+    {
+        return Served::Lost(e);
+    }
+    #[cfg(before_647)]
+    if let Err(e) = db.clear_world_endpoint(config.node_id).await {
+        return Served::Lost(e);
+    }
     let _ = response_tx.send(DbResponse::Lease { at });
     if lease.is_none() {
         *lease = Some(AbortOnDrop(tokio::spawn(lease_task(
@@ -656,7 +704,7 @@ async fn serve(
 ///
 /// # Call Stack
 /// **Called by:** [`db_client_task`]
-async fn take_over_node(db: &Db, node_id: u8) -> Result<bool, rs_db::Error> {
+async fn take_over_node(db: &Db, node_id: u8) -> Result<bool, DbError> {
     let live = db
         .live_worlds(TAKEOVER_AFTER_SECS)
         .await?
@@ -789,7 +837,7 @@ async fn sync_local_save(
     node_id: u8,
     user37: u64,
     username: &str,
-) -> Result<Option<SaveResult>, rs_db::Error> {
+) -> Result<Option<SaveResult>, DbError> {
     let Some(data) = load_from_file(username) else {
         return Ok(None);
     };
@@ -837,11 +885,11 @@ async fn run_requests(
     config: &DbClientConfig,
     request_rx: &mut UnboundedReceiver<DbRequest>,
     response_tx: &UnboundedSender<DbResponse>,
-) -> Result<(), rs_db::Error> {
+) -> Result<(), DbError> {
     let node_id = i16::from(config.node_id);
     let running = Arc::new(Semaphore::new(MAX_AUTH_RUNNING));
     // Dropped with the connection, abandoning the checks still in it.
-    let mut auths = JoinSet::<Result<(), rs_db::Error>>::new();
+    let mut auths = JoinSet::<Result<(), DbError>>::new();
     loop {
         let req = tokio::select! {
             req = request_rx.recv() => match req {
@@ -885,7 +933,7 @@ async fn run_requests(
                         &passwords,
                         auto_register,
                         block_multilog,
-                        node,
+                        node.into(),
                         user37,
                         &password,
                         ip,
@@ -938,8 +986,17 @@ async fn run_requests(
                 });
                 result?;
             }
-            DbRequest::Load { login, user37 } => {
-                let result = claim(db, config.node_id, user37).await?;
+            DbRequest::Load {
+                login,
+                user37,
+                admission,
+            } => {
+                #[cfg(since_647)]
+                let admission = admission.map(|mut a| {
+                    a.allow_direct = config.direct_login;
+                    a
+                });
+                let result = claim(db, config.node_id, user37, admission).await?;
                 #[cfg(since_647)]
                 let result = with_display_name(db, user37, result).await;
                 let _ = response_tx.send(DbResponse::LoadResponse {
@@ -949,7 +1006,7 @@ async fn run_requests(
                 });
             }
             DbRequest::EditLoad { user37, reply } => {
-                let _ = reply.send(claim(db, config.node_id, user37).await?);
+                let _ = reply.send(claim(db, config.node_id, user37, None).await?);
             }
             DbRequest::EditStore {
                 user37,
@@ -1013,6 +1070,7 @@ async fn run_requests(
                     db.release_session(user37, node_id).await?;
                 }
             }
+            DbRequest::GrantMembership { user37 } => db.grant_membership(user37).await?,
             DbRequest::WorldStatus {
                 players,
                 maintenance,
@@ -1023,6 +1081,13 @@ async fn run_requests(
                 db.report_world_status(node_id, players as i32, maintenance)
                     .await?;
                 let _ = response_tx.send(DbResponse::Lease { at });
+                #[cfg(since_647)]
+                if let Some(endpoint) = &config.endpoint {
+                    let worlds = db
+                        .lobby_worlds(endpoint.revision, TAKEOVER_AFTER_SECS)
+                        .await?;
+                    let _ = response_tx.send(DbResponse::Worlds(worlds));
+                }
                 held.extend(local_save_users());
                 let fixed = db.reconcile_sessions(node_id, &online, &held).await?;
                 for user37 in &fixed.released {
@@ -1156,25 +1221,38 @@ async fn run_requests(
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
-async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::Error> {
+async fn claim(
+    db: &Db,
+    node_id: u8,
+    user37: u64,
+    admission: Option<LoginAdmission>,
+) -> Result<LoadResult, DbError> {
     let username = to_raw_username(user37);
-    let save = match db
-        .claim_session(user37, node_id.into(), TAKEOVER_AFTER_SECS)
+    let (save, chat_filters) = match db
+        .claim_login(user37, node_id.into(), TAKEOVER_AFTER_SECS, admission)
         .await?
     {
-        Claim::Claimed { save, took_over } => {
+        Claim::Claimed {
+            save,
+            took_over,
+            chat_filters,
+        } => {
             if let Some(dead) = took_over {
                 warn!(
                     "Took over the session of '{}' from unresponsive world {}",
                     username, dead
                 );
             }
-            save
+            (save, chat_filters.map(|f| f as u8))
         }
         Claim::Busy { node } => {
             info!("Session of '{}' is owned by world {}", username, node);
             return Ok(LoadResult::Busy);
         }
+        Claim::BadSession => {
+            return Ok(LoadResult::Refused(LoginResponse::BadSession));
+        }
+        Claim::IpLimit => return Ok(LoadResult::Refused(LoginResponse::IpLimit)),
         Claim::Unregistered => return Ok(LoadResult::Unregistered),
     };
 
@@ -1188,7 +1266,11 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
                 {
                     delete_save_file(&username);
                     warn!("Loaded '{}' from an unsynced local save", username);
-                    return Ok(LoadResult::Loaded(Some(Box::new(local))));
+                    let chat_filters = [local.public_chat, local.private_chat, local.trade_chat];
+                    return Ok(LoadResult::Loaded {
+                        profile: Some(Box::new(local)),
+                        chat_filters,
+                    });
                 }
             }
             Err(e) => {
@@ -1197,9 +1279,10 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
             }
         }
     }
-    Ok(LoadResult::Loaded(
-        save.map(|save| Box::new(profile_from_save(*save))),
-    ))
+    Ok(LoadResult::Loaded {
+        profile: save.map(|save| Box::new(profile_from_save(*save))),
+        chat_filters,
+    })
 }
 
 /// Authenticates a login against the `players` table.
@@ -1217,31 +1300,30 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
-async fn authenticate(
+pub async fn authenticate(
     db: &Db,
     passwords: &Arc<Passwords>,
     auto_register: bool,
     block_multilog: bool,
-    node_id: u8,
+    node_id: i16,
     user37: u64,
     password: &str,
     ip: IpAddr,
     uid: Option<i32>,
     device: &LoginDevice,
-) -> Result<AuthResult, rs_db::Error> {
-    if db
-        .recent_login_failures(ip, LOGIN_FAILURE_WINDOW_SECS)
+) -> Result<AuthResult, DbError> {
+    let Some(attempt) = db
+        .claim_login_attempt(ip, LOGIN_FAILURE_WINDOW_SECS, i64::from(MAX_LOGIN_FAILURES))
         .await?
-        >= i64::from(MAX_LOGIN_FAILURES)
-    {
+    else {
         return Ok(AuthResult::TooManyAttempts);
-    }
+    };
 
-    if let Some(creds) = db.find_credentials(user37, node_id.into()).await? {
+    if let Some(creds) = db.find_credentials(user37, node_id).await? {
         if !verify_password(passwords, password, &creds.password_hash).await {
-            db.record_login_failure(ip).await?;
             return Ok(AuthResult::InvalidCredentials);
         }
+        db.forgive_login_attempt(attempt).await?;
         if creds.banned {
             return Ok(AuthResult::Banned);
         }
@@ -1256,7 +1338,7 @@ async fn authenticate(
             );
             db.record_login(
                 user37,
-                node_id.into(),
+                node_id,
                 ip,
                 Some(uid),
                 device,
@@ -1265,35 +1347,46 @@ async fn authenticate(
             .await?;
             return Ok(AuthResult::MultiLogging);
         }
-        db.record_login(user37, node_id.into(), ip, uid, device, None)
+        db.record_login(user37, node_id, ip, uid, device, None)
             .await?;
         let week_ago = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .map_or(0, |d| d.as_millis() as i64)
             - WEEK_MS;
-        let played = db
-            .played_since(user37, week_ago, MAX_PLAYED)
-            .await
-            .unwrap_or_else(|e| {
-                warn!(
-                    "Couldn't read the sessions '{}' played: {}",
-                    to_raw_username(user37),
-                    e
-                );
-                Vec::new()
-            });
+        let played = if node_id < 0 {
+            Vec::new()
+        } else {
+            db.played_since(user37, week_ago, MAX_PLAYED)
+                .await
+                .unwrap_or_else(|e| {
+                    warn!(
+                        "Couldn't read the sessions '{}' played: {}",
+                        to_raw_username(user37),
+                        e
+                    );
+                    Vec::new()
+                })
+        };
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),
             left_other_world: creds.left_other_world_ms.map(millis),
             account_age: millis(creds.age_ms),
             unread_messages: u16::try_from(creds.unread_messages).unwrap_or(u16::MAX),
+            last_login: creds
+                .last_login_ms
+                .and_then(|ms| UNIX_EPOCH.checked_add(millis(ms))),
+            last_login_ip: creds
+                .last_login_ipv4
+                .and_then(|ip| u32::try_from(ip).ok())
+                .map(Ipv4Addr::from),
+            member: creds.member,
+            jcoins: creds.jcoins,
             played,
         });
     }
 
     if !auto_register {
-        db.record_login_failure(ip).await?;
         return Ok(AuthResult::InvalidCredentials);
     }
 
@@ -1309,6 +1402,7 @@ async fn authenticate(
         && let Some(uid) = uid
         && let Some(other) = db.online_from_browser(user37, uid).await?
     {
+        db.forgive_login_attempt(attempt).await?;
         info!(
             "Didn't auto-register '{}': '{}' is online from the same browser",
             to_raw_username(user37),
@@ -1336,9 +1430,11 @@ async fn authenticate(
         // Registered concurrently (another world, or the website).
         return Ok(AuthResult::InvalidCredentials);
     }
+    db.forgive_login_attempt(attempt).await?;
     info!("Auto-registered player '{}'", username);
 
-    if let Some(data) = load_from_file(&username)
+    if node_id >= 0
+        && let Some(data) = load_from_file(&username)
         && let Ok(profile) = load_binary(&data)
         && db.import_save(user37, &to_save(&profile)).await?
     {
@@ -1346,7 +1442,7 @@ async fn authenticate(
         info!("Imported local save for '{}'", username);
     }
 
-    db.record_login(user37, node_id.into(), ip, uid, device, None)
+    db.record_login(user37, node_id, ip, uid, device, None)
         .await?;
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
@@ -1354,6 +1450,10 @@ async fn authenticate(
         left_other_world: None,
         account_age: Duration::ZERO,
         unread_messages: 0,
+        last_login: None,
+        last_login_ip: None,
+        member: false,
+        jcoins: 0,
         played: Vec::new(),
     })
 }
@@ -1374,11 +1474,6 @@ async fn hash_password(passwords: &Arc<Passwords>, password: &str) -> Option<Str
         .await
         .ok()
         .flatten()
-}
-
-/// A database millisecond count as a [`Duration`], clamping negatives to zero.
-fn millis(ms: i64) -> Duration {
-    Duration::from_millis(ms.max(0) as u64)
 }
 
 /// Flattens a [`PlayerProfile`] into its `player_saves` row. Inventory items
@@ -1504,7 +1599,7 @@ pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
 /// claims it for the account `own_user37` if no other player has it.
 #[cfg(since_647)]
 async fn set_display_name(db: &Db, own_user37: u64, display_name: &str) -> SetDisplayNameResult {
-    let Ok(name) = rs_db::validate_name(display_name) else {
+    let Ok(name) = validate_name(display_name) else {
         return SetDisplayNameResult::Error;
     };
     let lower = name.display.to_lowercase();
@@ -1565,7 +1660,7 @@ async fn free_name_suggestions(db: &Db, own_user37: u64, count: usize) -> Vec<St
         if suggestions.len() >= count {
             break;
         }
-        let Ok(name) = rs_db::validate_name(&random_name(&mut rng)) else {
+        let Ok(name) = validate_name(&random_name(&mut rng)) else {
             continue;
         };
         if db
@@ -1584,9 +1679,15 @@ async fn free_name_suggestions(db: &Db, own_user37: u64, count: usize) -> Vec<St
 #[cfg(since_647)]
 async fn with_display_name(db: &Db, user37: u64, result: LoadResult) -> LoadResult {
     match result {
-        LoadResult::Loaded(Some(mut profile)) => {
+        LoadResult::Loaded {
+            profile: Some(mut profile),
+            chat_filters,
+        } => {
             profile.display_name = db.display_name(user37).await.ok().flatten();
-            LoadResult::Loaded(Some(profile))
+            LoadResult::Loaded {
+                profile: Some(profile),
+                chat_filters,
+            }
         }
         other => other,
     }
@@ -1784,6 +1885,10 @@ mod tests {
             let (tx, req_rx) = unbounded_channel();
             let (resp_tx, rx) = unbounded_channel();
             let config = DbClientConfig {
+                #[cfg(since_647)]
+                direct_login: true,
+                #[cfg(since_647)]
+                endpoint: None,
                 db: test_db_config(pool),
                 node_id,
                 pepper: AUTH_PEPPER.to_owned(),
@@ -1834,6 +1939,7 @@ mod tests {
 
         async fn load(&mut self) -> LoadResult {
             let _ = self.tx.send(DbRequest::Load {
+                admission: None,
                 login: 0,
                 user37: to_userhash(HOPPER),
             });
@@ -1890,7 +1996,7 @@ mod tests {
 
     fn loaded_x(result: LoadResult) -> Option<u16> {
         match result {
-            LoadResult::Loaded(profile) => Some(profile.map_or(0, |p| p.x)),
+            LoadResult::Loaded { profile, .. } => Some(profile.map_or(0, |p| p.x)),
             _ => None,
         }
     }

@@ -2,23 +2,23 @@
 [proc,clientscript_4251](int $int0)
 switch_int ($int0) {
     case 80936962 :
-        if_setgraphic(interface_1235:com_3, 7935);
-        if_setgraphic(interface_1235:com_4, 8007);
+        if_setgraphic(interface_1235:com_3, graphic_7935);
+        if_setgraphic(interface_1235:com_4, graphic_8007);
         if_setonmouseover(interface_1235:com_2, null);
         if_setonmouseleave(interface_1235:com_2, null);
     case 80936965 :
-        if_setgraphic(interface_1235:com_6, 7935);
-        if_setgraphic(interface_1235:com_7, 8006);
+        if_setgraphic(interface_1235:com_6, graphic_7935);
+        if_setgraphic(interface_1235:com_7, graphic_8006);
         if_setonmouseover(interface_1235:com_5, null);
         if_setonmouseleave(interface_1235:com_5, null);
     case 80936968 :
-        if_setgraphic(interface_1235:com_9, 7935);
-        if_setgraphic(interface_1235:com_10, 8008);
+        if_setgraphic(interface_1235:com_9, graphic_7935);
+        if_setgraphic(interface_1235:com_10, graphic_8008);
         if_setonmouseover(interface_1235:com_8, null);
         if_setonmouseleave(interface_1235:com_8, null);
     case 80936971 :
-        if_setgraphic(interface_1235:com_12, 7935);
-        if_setgraphic(interface_1235:com_13, 8005);
+        if_setgraphic(interface_1235:com_12, graphic_7935);
+        if_setgraphic(interface_1235:com_13, graphic_8005);
         if_setonmouseover(interface_1235:com_11, null);
         if_setonmouseleave(interface_1235:com_11, null);
 }

@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -14,6 +18,7 @@ use rs_ver::STRING_TERMINATOR;
 #[cfg(before_647)]
 #[cfg_attr(before_530, client_prot(VarByte { min: 8 }, UserEvent))]
 #[cfg_attr(since_530, client_prot(VarByte { min: 9 }, UserEvent))]
+#[derive(Debug)]
 pub struct MessagePrivate {
     pub user37: i64,
     #[cfg(since_530)]
@@ -50,9 +55,21 @@ impl ClientProtMessage for MessagePrivate {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for MessagePrivate {
+    const PROT: ClientProt = ClientProt::MessagePrivate;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.user37);
+        buf.psmart1or2(self.chars as i32);
+        buf.pdata(&self.bytes, 0, self.bytes.len());
+    }
+}
+
 #[cfg(since_647)]
 #[cfg_attr(before_742, client_prot(VarByte { min: 2 }, UserEvent))]
 #[cfg_attr(since_742, client_prot(VarShort { min: 2 }, UserEvent))]
+#[derive(Debug)]
 pub struct MessagePrivate {
     pub name: String,
     pub chars: u16,
@@ -73,5 +90,16 @@ impl ClientProtMessage for MessagePrivate {
         let bytes = buf.data[buf.pos..len].to_vec();
         buf.pos = len;
         MessagePrivate { name, chars, bytes }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtEncode for MessagePrivate {
+    const PROT: ClientProt = ClientProt::MessagePrivate;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.pjstr(&self.name, STRING_TERMINATOR);
+        buf.psmart1or2(self.chars as i32);
+        buf.pdata(&self.bytes, 0, self.bytes.len());
     }
 }

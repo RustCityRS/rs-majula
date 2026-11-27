@@ -1,4 +1,8 @@
+#[cfg(all(since_530, before_647))]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(all(since_530, before_647))]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -8,6 +12,7 @@ use rs_ver::TypeId;
 
 #[cfg_attr(before_530, client_prot(Fixed(8), UserEvent))]
 #[cfg_attr(since_530, client_prot(Fixed(14), UserEvent))]
+#[derive(Debug)]
 pub struct OpHeldT {
     pub obj: TypeId,
     pub slot: u16,
@@ -38,9 +43,9 @@ impl ClientProtMessage for OpHeldT {
 #[cfg(since_530)]
 impl ClientProtMessage for OpHeldT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com2 = buf.g4s_alt1();
+        let com2 = buf.g4_alt1();
         let slot = buf.g2_alt3();
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         let obj = TypeId::from_g2(buf.g2_alt2());
         let slot2 = buf.g2_alt1();
         OpHeldT {
@@ -50,5 +55,18 @@ impl ClientProtMessage for OpHeldT {
             com2,
             slot2,
         }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for OpHeldT {
+    const PROT: ClientProt = ClientProt::OpHeldT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt1(self.com2);
+        buf.p2_alt3(self.slot);
+        buf.p4_alt1(self.com);
+        buf.p2_alt2(self.obj.g2());
+        buf.p2_alt1(self.slot2);
     }
 }

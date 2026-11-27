@@ -8,22 +8,22 @@ if ($component3 = null) {
     return($int1, $int2);
 }
 def_int $int4 = if_getnextsubid($component3);
-def_graphic $graphic5 = 11898;
-def_graphic $graphic6 = 11899;
-def_int $rgb7 = 0xb6b6b6;
+def_graphic $graphic5 = graphic_11898;
+def_graphic $graphic6 = graphic_11899;
+def_int $colour7 = 0xb6b6b6;
 def_obj $obj8 = null;
 def_obj $obj9 = null;
 def_obj $obj10 = null;
 def_obj $obj11 = null;
 def_bas $bas12 = bas_1426;
 if (~clientscript_6488($struct0) = 0) {
-    $graphic5 = 11900;
-    $graphic6 = 11900;
-    $rgb7 = 0x666666;
+    $graphic5 = graphic_11900;
+    $graphic6 = graphic_11900;
+    $colour7 = 0x666666;
 } else if (~clientscript_6489($struct0) = 1) {
-    $graphic5 = 11901;
-    $graphic6 = 11902;
-    $rgb7 = 0xb6b6b6;
+    $graphic5 = graphic_11901;
+    $graphic6 = graphic_11902;
+    $colour7 = 0xb6b6b6;
 } else if (struct_param($struct0, param_2531) = 2 & struct_param($struct0, param_2532) = 3) {
     $obj8 = enum(int, obj, struct_param($struct0, param_2542), 3);
     $obj9 = inv_getobj(inv_670, 3);
@@ -32,13 +32,13 @@ if (~clientscript_6488($struct0) = 0) {
     }
     if ($obj8 ! null) {
         if ($obj8 = %varplayer_2685) {
-            $graphic5 = 11901;
-            $graphic6 = 11902;
-            $rgb7 = 0xb6b6b6;
+            $graphic5 = graphic_11901;
+            $graphic6 = graphic_11902;
+            $colour7 = 0xb6b6b6;
         } else if (oc_param($obj8, render_emote) ! bas_1426 & oc_param($obj8, render_emote) ! $bas12) {
-            $graphic5 = 11900;
-            $graphic6 = 11900;
-            $rgb7 = 0x661111;
+            $graphic5 = graphic_11900;
+            $graphic6 = graphic_11900;
+            $colour7 = 0x661111;
         }
     }
 } else if (struct_param($struct0, param_2531) = 2 & struct_param($struct0, param_2532) = 5) {
@@ -46,18 +46,18 @@ if (~clientscript_6488($struct0) = 0) {
     $obj10 = inv_getobj(worn, 5);
     if ($obj10 ! null) {
         if ($obj11 = %varplayer_2728) {
-            $graphic5 = 11901;
-            $graphic6 = 11902;
-            $rgb7 = 0xb6b6b6;
+            $graphic5 = graphic_11901;
+            $graphic6 = graphic_11902;
+            $colour7 = 0xb6b6b6;
         } else if (op650($obj9) = 5) {
-            $graphic5 = 11900;
-            $graphic6 = 11900;
-            $rgb7 = 0x661111;
+            $graphic5 = graphic_11900;
+            $graphic6 = graphic_11900;
+            $colour7 = 0x661111;
         }
     } else {
-        $graphic5 = 11900;
-        $graphic6 = 11900;
-        $rgb7 = 0x661111;
+        $graphic5 = graphic_11900;
+        $graphic6 = graphic_11900;
+        $colour7 = 0x661111;
     }
 }
 def_int $int13 = 0;
@@ -71,9 +71,9 @@ cc_setgraphic($graphic5);
 cc_setsize(calc($int13 - 10), calc(29 - 5), ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int2 * $int13 + ($int13 - cc_getwidth) / 2), calc($int1 + (29 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_setop(1, "Preview");
-if ($graphic5 = 11901 & struct_param($struct0, param_2531) ! 1) {
+if ($graphic5 = graphic_11901 & struct_param($struct0, param_2531) ! 1) {
     cc_setop(2, "Deactivate");
-} else if ($graphic5 = 11898) {
+} else if ($graphic5 = graphic_11898) {
     cc_setop(2, "Activate");
 } else {
     cc_setop(2, "");
@@ -116,7 +116,7 @@ if (struct_param($struct0, param_2531) = 1) {
 cc_create($component3, ^iftype_text, calc($int4 + 1));
 cc_settext($string0);
 cc_settextfont(verdana_11pt_regular);
-cc_setcolour($rgb7);
+cc_setcolour($colour7);
 cc_setsize(calc($int13 - 10), calc(29 - 5), ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int2 * $int13 + ($int13 - cc_getwidth) / 2), calc($int1 + (29 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);

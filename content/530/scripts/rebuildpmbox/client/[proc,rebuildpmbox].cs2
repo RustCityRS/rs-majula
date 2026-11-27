@@ -15,23 +15,23 @@ if (reboottimer > 0) {
     $int0 = 1;
 }
 def_int $int4 = 0;
-def_int $chattype5 = 0;
-if (%option_pm = 1 & (getwindowmode < 2 | %chat_view ! -1)) {
+def_int $chattype5 = ^chattype_gamemessage;
+if (%option_pm = 1 & (getwindowmode < ^windowmode_resizable | %chat_view ! -1)) {
     while ($int4 < 100 & $int0 < 5) {
         if (~pm_filtertest($int4) = true) {
             $component1 = enum(int, component, enum_580, $int0);
             $chattype5 = chat_gethistorytype($int4);
             switch_int ($chattype5) {
-                case 3, 7, 18 :
+                case ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming :
                     if_settext($component1, "From <chat_gethistoryname($int4)>: <chat_gethistorymessage($int4)>");
-                case 5 :
+                case ^chattype_loginlogoutnotification :
                     if_settext($component1, chat_gethistorymessage($int4));
-                case 6, 19 :
+                case ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
                     if_settext($component1, "To <chat_gethistoryname($int4)>: <chat_gethistorymessage($int4)>");
             }
             if_clearops($component1);
             switch_int ($chattype5) {
-                case 3, 5, 6, 7, 18, 19 :
+                case ^chattype_privatechat, ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing :
                     if_setopbase($component1, "<col=ffffff><chat_gethistoryname($int4)>");
                     if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int4))) ! 0) {
                         if (friend_test(chat_gethistoryname($int4)) = true) {

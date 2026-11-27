@@ -4349,7 +4349,7 @@ fog_color=14077337
 fog_depth=200
 
 ==== LIGHTS ====
-0 5248 3054 184: radius=1 colors=0,0,1 hsl=12221 type=15
-0 5248 3200 187: radius=1 colors=1,0,0 hsl=12221 type=15
-0 5116 3200 187: radius=1 colors=513,0,0 hsl=12221 type=15
-0 5116 3058 187: radius=1 colors=512,0,513 hsl=12221 type=15
+0 5248 3054 184: radius=1 radiusgrid=0,0,1 hsl=12221 type=15
+0 5248 3200 187: radius=1 radiusgrid=1,0,0 hsl=12221 type=15
+0 5116 3200 187: radius=1 radiusgrid=513,0,0 hsl=12221 type=15
+0 5116 3058 187: radius=1 radiusgrid=512,0,513 hsl=12221 type=15

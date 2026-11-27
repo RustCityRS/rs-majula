@@ -2,12 +2,12 @@
 [proc,clientscript_1487]
 def_string $string0 = "";
 if (%bankcert = 0) {
-    if_setgraphic(bank_v2_main:bank_cert_button, 1431);
-    if_setgraphic(bank_v2_main:bank_cert_icon, 1427);
+    if_setgraphic(bank_v2_main:bank_cert_button, "bank_buttons_new2,0");
+    if_setgraphic(bank_v2_main:bank_cert_icon, "bank_buttons_new1,4");
     $string0 = "Switch to note withdrawal mode";
 } else {
-    if_setgraphic(bank_v2_main:bank_cert_button, 1433);
-    if_setgraphic(bank_v2_main:bank_cert_icon, 1428);
+    if_setgraphic(bank_v2_main:bank_cert_button, "bank_buttons_new2,2");
+    if_setgraphic(bank_v2_main:bank_cert_icon, "bank_buttons_new1,5");
     $string0 = "Switch to item withdrawal mode";
 }
 if_setop(bank_v2_main:bank_cert_button, 1, $string0);

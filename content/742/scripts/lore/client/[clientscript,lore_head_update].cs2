@@ -37,9 +37,9 @@ if (enum(obj, obj, enum_1283, %follower_obj) ! bones) {
         if_sethide(lore_stats_side:lore_pouch_counter, false);
         if_sethide(enum(npc, component, enum_1282, %lore_npc_head), false);
         if_sethide(enum(npc, component, enum_1092, %lore_npc_head), false);
-        if (getwindowmode >= 2) {
-            if_setgraphic(topstat_lore:com_0, 8652);
-            if_setgraphic(topstat_lore:com_1, 8645);
+        if (getwindowmode >= ^windowmode_resizable) {
+            if_setgraphic(topstat_lore:com_0, graphic_8652);
+            if_setgraphic(topstat_lore:com_1, graphic_8645);
         } else {
             if_setgraphic(topstat_lore:com_0, "topstat_fill_full,11");
             if_setgraphic(topstat_lore:com_1, "topstat_fill_full,4");

@@ -1,7 +1,7 @@
 // 6239
 [proc,clientscript_6239](int $int0)
 if ($int0 = 1) {
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         viewport_setzoom(370, 370);
         viewport_setfov(128, 128);
     } else {

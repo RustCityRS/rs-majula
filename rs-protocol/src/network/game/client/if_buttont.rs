@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -9,6 +13,7 @@ use rs_ver::TypeId;
 
 #[cfg_attr(before_647, client_prot(Fixed(12), UserEvent))]
 #[cfg_attr(since_647, client_prot(Fixed(16), UserEvent))]
+#[derive(Debug)]
 pub struct IfButtonT {
     pub com: i32,
     pub slot: u16,
@@ -24,7 +29,7 @@ pub struct IfButtonT {
 impl ClientProtMessage for IfButtonT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let slot = buf.g2();
-        let com2 = buf.g4s_alt2();
+        let com2 = buf.g4_alt2();
         let com = buf.g4s();
         let slot2 = buf.g2_alt3();
         IfButtonT {
@@ -44,7 +49,7 @@ impl ClientProtMessage for IfButtonT {
         let slot2 = buf.g2_alt1();
         let slot = buf.g2_alt1();
         let obj = TypeId::from_g2(buf.g2_alt2());
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         let obj2 = TypeId::from_g2(buf.g2());
         IfButtonT {
             com,
@@ -58,9 +63,9 @@ impl ClientProtMessage for IfButtonT {
 
     #[cfg(since_742)]
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         let slot2 = buf.g2_alt1();
-        let com2 = buf.g4s_alt1();
+        let com2 = buf.g4_alt1();
         let obj2 = TypeId::from_g2(buf.g2_alt3());
         let slot = buf.g2_alt3();
         let obj = TypeId::from_g2(buf.g2());
@@ -72,5 +77,42 @@ impl ClientProtMessage for IfButtonT {
             slot2,
             obj2,
         }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for IfButtonT {
+    const PROT: ClientProt = ClientProt::IfButtonT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.slot);
+        buf.p4_alt2(self.com2);
+        buf.p4(self.com);
+        buf.p2_alt3(self.slot2);
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtEncode for IfButtonT {
+    const PROT: ClientProt = ClientProt::IfButtonT;
+
+    #[cfg(before_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.com2);
+        buf.p2_alt1(self.slot2);
+        buf.p2_alt1(self.slot);
+        buf.p2_alt2(self.obj.g2());
+        buf.p4_alt1(self.com);
+        buf.p2(self.obj2.g2());
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt1(self.com);
+        buf.p2_alt1(self.slot2);
+        buf.p4_alt1(self.com2);
+        buf.p2_alt3(self.obj2.g2());
+        buf.p2_alt3(self.slot);
+        buf.p2(self.obj.g2());
     }
 }

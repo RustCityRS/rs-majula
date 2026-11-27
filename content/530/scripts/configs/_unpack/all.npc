@@ -773,7 +773,7 @@ param=rangedefence,74
 param=damagetype,^slash_style
 param=attack_anim,seq_7041
 param=defend_anim,human_unarmedblock
-param=attack_sound,2H_crush
+param=attack_sound,synth_2502
 param=defend_sound,blade3
 param=death_anim,human_death
 
@@ -1580,9 +1580,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 43
 [sheepunsheered]
@@ -1596,9 +1596,9 @@ model2=model_20291
 unknown119=3
 desc=White and fluffy.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 44
 [atvar_cookguild_banker01]
@@ -1711,8 +1711,8 @@ param=crushdefence,-42
 param=magicdefence,-42
 param=rangedefence,-42
 param=damagetype,^stab_style
-param=defend_anim,duck_defend
-param=death_anim,duck_death
+param=defend_anim,seagull_defend
+param=death_anim,duck_rework_death
 param=attack_sound,quack
 param=defend_sound,duck_hit
 param=death_sound,duck_death
@@ -1845,9 +1845,9 @@ param=crushdefence,90
 param=magicdefence,80
 param=rangedefence,70
 param=damagetype,^stab_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -1920,9 +1920,9 @@ param=crushdefence,50
 param=magicdefence,40
 param=rangedefence,30
 param=damagetype,^slash_style
-param=attack_anim,bdrag_attack
-param=defend_anim,bdrag_block
-param=death_anim,bdrag_death
+param=attack_anim,seq_25
+param=defend_anim,seq_26
+param=death_anim,seq_28
 param=attack_sound,babydragon_attack
 param=defend_sound,babydragon_hit
 param=death_sound,babydragon_death
@@ -1957,9 +1957,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -2007,9 +2007,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -2056,9 +2056,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -2572,9 +2572,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_861
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 huntmode=cowardly
 huntrange=1
@@ -2839,8 +2839,8 @@ param=crushdefence,12
 param=magicdefence,10
 param=rangedefence,8
 param=damagetype,^stab_style
-param=attack_anim,bat_attack
-param=defend_anim,bat_parry
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
 param=death_anim,bat_rework_death
 param=attack_sound,bat_attack
 param=defend_sound,bat_hit
@@ -2867,8 +2867,8 @@ attack=70
 strength=70
 defence=70
 param=damagetype,^stab_style
-param=attack_anim,bat_attack
-param=defend_anim,bat_parry
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
 param=death_anim,bat_rework_death
 param=attack_sound,bat_attack
 param=defend_sound,bat_hit
@@ -3072,9 +3072,9 @@ attack=2
 strength=3
 defence=2
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -3100,9 +3100,9 @@ attack=6
 strength=5
 defence=2
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -3143,9 +3143,9 @@ attack=10
 strength=10
 defence=10
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -3287,7 +3287,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -3558,7 +3558,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -4024,9 +4024,9 @@ param=strengthbonus,20
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
-param=defend_sound,mace_crush
+param=defend_sound,synth_2508
 param=death_sound,giant_death
 param=death_drop,big_bones
 huntmode=cowardly
@@ -4247,8 +4247,8 @@ attack=22
 strength=24
 defence=24
 param=damagetype,^crush_style
-param=attack_anim,hobgoblin_attackunarmed
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_164
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -4279,8 +4279,8 @@ param=strengthbonus,10
 param=stabdefence,1
 param=slashdefence,1
 param=damagetype,^stab_style
-param=attack_anim,hobgoblin_attack
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_163
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -4412,9 +4412,9 @@ param=attack_sound,otherworld_attack
 param=defend_sound,screech2
 param=death_sound,otherworld_death
 param=death_drop,null
-param=attack_anim,otherworldly_being_attack
-param=defend_anim,otherworldly_being_defend
-param=death_anim,otherworldly_being_death
+param=attack_anim,human_unarmedpunch
+param=defend_anim,human_unarmedblock
+param=death_anim,human_death
 
 // 127
 [magicaxe]
@@ -4516,9 +4516,9 @@ hitpoints=4
 strength=2
 defence=2
 param=damagetype,^stab_style
-param=attack_anim,penguin_attack
-param=defend_anim,penguin_block
-param=death_anim,penguin_death
+param=attack_anim,peng_gentoo_attack
+param=defend_anim,peng_gentoo_defend
+param=death_anim,peng_gentoo_death
 param=attack_sound,penguin_attack
 param=defend_sound,penguin_hit
 param=death_sound,penguin_death
@@ -6038,7 +6038,7 @@ param=rangedefence,72
 param=damagetype,^slash_style
 param=attack_anim,human_sword_slash
 param=defend_anim,human_sword_def
-param=attack_sound,2H_slash
+param=attack_sound,hacksword_slash
 param=defend_sound,steel
 huntmode=cowardly
 huntrange=5
@@ -7729,9 +7729,9 @@ attack=10
 strength=10
 defence=10
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -8312,7 +8312,7 @@ param=crushdefence,45
 param=damagetype,^slash_style
 param=attack_anim,human_unarmedpunch
 param=defend_anim,human_sword_def
-param=attack_sound,2H_slash
+param=attack_sound,hacksword_slash
 param=defend_sound,steel2
 
 // 248
@@ -8871,7 +8871,7 @@ unknown119=3
 desc=She looks wealthy.
 
 // 265
-[npc_265]
+[jeremy_servil]
 bas=bas_165
 vislevel=0
 size=1
@@ -8994,7 +8994,7 @@ param=strengthbonus,20
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -9782,7 +9782,7 @@ multinpc=1,sick_looking_sheep__1_2377
 unknown119=3
 desc=Even from here you can see this sheep's not well.
 wanderrange=3
-param=death_anim,sheep_death
+param=death_anim,sheep_update_death
 timer=25
 category=diseased_sheep
 
@@ -9809,7 +9809,7 @@ multinpc=1,sick_looking_sheep__3_2379
 unknown119=3
 desc=Even from here you can see this sheep's not well.
 wanderrange=3
-param=death_anim,sheep_death
+param=death_anim,sheep_update_death
 timer=25
 category=diseased_sheep
 
@@ -11462,7 +11462,7 @@ param=stabdefence,5
 param=slashdefence,5
 param=crushdefence,7
 param=damagetype,^crush_style
-param=attack_anim,human_staff_spike
+param=attack_anim,seq_412
 param=defend_anim,human_staff_block
 param=attack_sound,staff_stab
 
@@ -12040,7 +12040,7 @@ param=crushdefence,24
 param=damagetype,^crush_style
 param=attack_anim,seq_11404
 param=defend_anim,seq_11427
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,moss_giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -12453,7 +12453,7 @@ unknown119=3
 desc=Nice hat.
 
 // 390
-[npc_390]
+[big_fish]
 bas=bas_667
 vislevel=0
 size=1
@@ -12466,7 +12466,7 @@ unknown119=7
 desc=A frog.
 
 // 391
-[npc_391]
+[river_troll]
 bas=bas_42
 size=1
 resizev=96
@@ -12481,7 +12481,7 @@ model1=model_3752
 unknown119=2
 
 // 392
-[npc_392]
+[river_troll_392]
 bas=bas_42
 size=1
 resizev=96
@@ -12496,7 +12496,7 @@ model1=model_3752
 unknown119=2
 
 // 393
-[npc_393]
+[river_troll_393]
 bas=bas_42
 size=1
 resizev=96
@@ -12511,7 +12511,7 @@ model1=model_3752
 unknown119=2
 
 // 394
-[npc_394]
+[river_troll_394]
 bas=bas_42
 size=1
 resizev=96
@@ -12526,7 +12526,7 @@ model1=model_3752
 unknown119=2
 
 // 395
-[npc_395]
+[river_troll_395]
 bas=bas_42
 size=1
 resizev=96
@@ -12541,7 +12541,7 @@ model1=model_3752
 unknown119=2
 
 // 396
-[npc_396]
+[river_troll_396]
 bas=bas_42
 size=1
 resizev=96
@@ -12753,7 +12753,7 @@ wanderrange=3
 param=damagetype,^slash_style
 
 // 403
-[npc_403]
+[fishing_spot_403]
 bas=bas_43
 vislevel=0
 size=1
@@ -12969,7 +12969,7 @@ desc=An annoying flappy thing.
 wanderrange=8
 
 // 413
-[npc_413]
+[rock_golem]
 bas=bas_46
 size=1
 op2=Attack
@@ -13010,7 +13010,7 @@ unknown119=2
 desc=Rock with attitude.
 
 // 415
-[npc_415]
+[rock_golem_415]
 bas=bas_46
 size=1
 op2=Attack
@@ -13030,7 +13030,7 @@ unknown119=2
 desc=Rock with attitude.
 
 // 416
-[npc_416]
+[rock_golem_416]
 bas=bas_46
 size=1
 op2=Attack
@@ -13050,7 +13050,7 @@ unknown119=2
 desc=Rock with attitude.
 
 // 417
-[npc_417]
+[rock_golem_417]
 bas=bas_46
 size=1
 op2=Attack
@@ -13094,8 +13094,8 @@ attack=10
 strength=10
 defence=7
 param=damagetype,^crush_style
-param=attack_anim,midget_attackunarmed
-param=defend_anim,midget_block
+param=attack_anim,golem_attack
+param=defend_anim,golem_block
 param=death_anim,midget_death
 param=attack_sound,gnome_attack
 param=defend_sound,gnome_hit
@@ -13890,9 +13890,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -13944,7 +13944,7 @@ param=rangedefence,9
 param=damagetype,^crush_style
 param=attack_anim,human_blunt_pound
 param=defend_anim,human_blunt_block
-param=attack_sound,mace_crush
+param=attack_sound,synth_2508
 huntmode=aggressive_melee
 huntrange=5
 param=death_anim,human_death
@@ -13994,7 +13994,7 @@ param=rangedefence,9
 param=damagetype,^crush_style
 param=attack_anim,human_blunt_pound
 param=defend_anim,human_blunt_block
-param=attack_sound,mace_crush
+param=attack_sound,synth_2508
 huntmode=aggressive_melee
 huntrange=5
 param=death_anim,human_death
@@ -14043,7 +14043,7 @@ param=rangedefence,9
 param=damagetype,^crush_style
 param=attack_anim,human_blunt_pound
 param=defend_anim,human_blunt_block
-param=attack_sound,mace_crush
+param=attack_sound,synth_2508
 huntmode=aggressive_melee
 huntrange=5
 param=death_anim,human_death
@@ -15026,7 +15026,7 @@ param=magicdefence,2
 param=rangedefence,4
 param=damagetype,^crush_style
 param=attack_anim,midget_attackbow
-param=defend_anim,midget_block
+param=defend_anim,seq_193
 param=death_anim,midget_death
 param=rangeattack_sound,arrowlaunch2
 param=defend_sound,gnome_hit
@@ -15258,7 +15258,7 @@ param=stabdefence,4
 param=slashdefence,6
 param=crushdefence,6
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_spear_attack_shield
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -20885,8 +20885,8 @@ attack=10
 strength=10
 defence=7
 param=damagetype,^crush_style
-param=attack_anim,midget_attackunarmed
-param=defend_anim,midget_block
+param=attack_anim,seq_191
+param=defend_anim,seq_193
 param=death_anim,midget_death
 param=attack_sound,gnome_attack
 param=defend_sound,gnome_hit
@@ -21248,7 +21248,7 @@ param=attack_anim,demon_attack
 param=defend_anim,demon_block
 param=death_anim,demon_death
 param=demonbane_vulnerable,yes
-param=attack_sound,black_demon_attack
+param=attack_sound,synth_397
 param=defend_sound,black_demon_hit
 param=death_sound,demon_death
 param=death_drop,ashes
@@ -23594,9 +23594,9 @@ param=crushdefence,40
 param=magicdefence,30
 param=rangedefence,20
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -24140,7 +24140,7 @@ model1=model_34021
 head1=model_34042
 unknown119=2
 desc=A friendly little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,kittenobject
@@ -24177,7 +24177,7 @@ model1=model_34032
 head1=model_34039
 unknown119=2
 desc=A friendly little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,kittenobject_light
@@ -24214,7 +24214,7 @@ model1=model_34009
 head1=model_34042
 unknown119=2
 desc=A friendly little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,kittenobject_brown
@@ -24251,7 +24251,7 @@ model1=model_34032
 head1=model_34039
 unknown119=2
 desc=A friendly little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,kittenobject_black
@@ -24288,7 +24288,7 @@ model1=model_34021
 head1=model_34042
 unknown119=2
 desc=A friendly little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,kittenobject_browngrey
@@ -24321,7 +24321,7 @@ model1=model_34009
 head1=model_34057
 unknown119=2
 desc=A friendly little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,kittenobject_bluegrey
@@ -24378,7 +24378,7 @@ model1=model_34020
 head1=model_34053
 unknown119=2
 desc=A fully grown feline.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,growncatobject
@@ -24412,7 +24412,7 @@ model1=model_34012
 head1=model_34047
 unknown119=2
 desc=A fully grown feline.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,growncatobject_light
@@ -24446,7 +24446,7 @@ model1=model_34019
 head1=model_34046
 unknown119=2
 desc=A fully grown feline.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,growncatobject_brown
@@ -24480,7 +24480,7 @@ model1=model_34012
 head1=model_34047
 unknown119=2
 desc=A fully grown feline.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,growncatobject_black
@@ -24514,7 +24514,7 @@ model1=model_34020
 head1=model_34053
 unknown119=2
 desc=A fully grown feline.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,growncatobject_browngrey
@@ -24544,7 +24544,7 @@ model1=model_34019
 head1=model_34046
 unknown119=2
 desc=A fully grown feline.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,growncatobject_bluegrey
@@ -24578,7 +24578,7 @@ model1=model_34008
 head1=model_34056
 unknown119=2
 desc=A friendly not-so little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,overgrowncatobject
@@ -24611,7 +24611,7 @@ model1=model_34026
 head1=model_34055
 unknown119=2
 desc=A friendly not-so little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,overgrowncatobject_light
@@ -24644,7 +24644,7 @@ model1=model_34033
 head1=model_34052
 unknown119=2
 desc=A friendly not-so little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,overgrowncatobject_brown
@@ -24677,7 +24677,7 @@ model1=model_34026
 head1=model_34055
 unknown119=2
 desc=A friendly not-so little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,overgrowncatobject_black
@@ -24710,7 +24710,7 @@ model1=model_34008
 head1=model_34056
 unknown119=2
 desc=A friendly not-so little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,overgrowncatobject_browngrey
@@ -24739,7 +24739,7 @@ model1=model_34033
 head1=model_34052
 unknown119=2
 desc=A friendly not-so little pet.
-param=death_anim,cat_death
+param=death_anim,seq_9159
 category=petcat
 timer=1
 param=pet_item_id,overgrowncatobject_bluegrey
@@ -26805,7 +26805,7 @@ desc=He looks busy attending to his cart.
 wanderrange=3
 
 // 842
-[npc_842]
+[rowdy_guard]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -27099,8 +27099,8 @@ param=crushdefence,16
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
-param=attack_sound,mace_crush
+param=death_anim,seq_361
+param=attack_sound,synth_2508
 param=defend_sound,giant_hit
 param=defend_sound,blade3_mail
 param=death_sound,giant_death
@@ -27184,8 +27184,8 @@ param=crushdefence,21
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
-param=attack_sound,mace_crush
+param=death_anim,seq_361
+param=attack_sound,synth_2508
 param=defend_sound,blade3_mail
 param=death_sound,giant_death
 param=death_drop,big_bones
@@ -27215,7 +27215,7 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27246,7 +27246,7 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27279,7 +27279,7 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27310,7 +27310,7 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27341,7 +27341,7 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27373,8 +27373,8 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
-param=attack_sound,mace_crush
+param=death_anim,seq_361
+param=attack_sound,synth_2508
 param=defend_sound,giant_hit
 param=death_sound,giant_death
 param=death_drop,big_bones
@@ -27505,7 +27505,7 @@ param=crushdefence,19
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,mace_stab
 param=defend_sound,blade3_mail
 param=death_sound,giant_death
@@ -27571,7 +27571,7 @@ defence=63
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27606,7 +27606,7 @@ defence=63
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27641,7 +27641,7 @@ defence=63
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27670,7 +27670,7 @@ defence=63
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -27792,7 +27792,7 @@ param=damagetype,^crush_style
 param=attack_anim,demon_attack
 param=defend_anim,demon_block
 param=death_anim,qip_ds_delrith_banished
-param=attack_sound,black_demon_attack
+param=attack_sound,synth_397
 param=defend_sound,black_demon_hit
 param=death_sound,demon_death
 param=demonbane_vulnerable,yes
@@ -27821,7 +27821,7 @@ defaultmode=none
 wanderrange=0
 moverestrict=nomove
 timer=100
-param=death_anim,demon_portalend
+param=death_anim,qip_ds_delrith_banished
 param=death_sound,demon_death
 
 // 881
@@ -28736,8 +28736,8 @@ magic=50
 param=attack_anim,giant_attack
 param=defend_anim,giant_block
 param=death_anim,giant_death
-param=magicattack_anim,giant_casting
-param=spawn_anim,giant_teleport_reverse
+param=magicattack_anim,seq_132
+param=spawn_anim,seq_134
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -28876,8 +28876,8 @@ param=attack_anim,demon_attack
 param=magicattack_anim,demon_casting
 param=defend_anim,demon_block
 param=death_anim,demon_death
-param=spawn_anim,demon_portalend_reverse
-param=attack_sound,black_demon_attack
+param=spawn_anim,demon_update_appear
+param=attack_sound,synth_397
 param=defend_sound,black_demon_hit
 param=death_sound,demon_death
 param=death_drop,null
@@ -28995,9 +28995,9 @@ respawnrate=300
 hitpoints=120
 magic=50
 param=damagetype,^crush_style
-param=attack_anim,midget_attackunarmed
-param=magicattack_anim,midget_chanting
-param=defend_anim,midget_block
+param=attack_anim,seq_191
+param=magicattack_anim,seq_197
+param=defend_anim,seq_193
 param=death_anim,midget_death
 param=attack_sound,gnome_attack
 param=defend_sound,gnome_hit
@@ -29105,7 +29105,7 @@ param=rangedefence,9
 param=damagetype,^crush_style
 param=attack_anim,human_blunt_pound
 param=defend_anim,human_blunt_block
-param=attack_sound,mace_crush
+param=attack_sound,synth_2508
 huntmode=aggressive_melee
 huntrange=5
 param=death_anim,human_death
@@ -29778,9 +29778,9 @@ param=crushdefence,20
 param=magicdefence,-1
 param=rangedefence,20
 param=damagetype,^stab_style
-param=attack_anim,skeleton_trans_attack
-param=defend_anim,skeleton_trans_block
-param=death_anim,skeleton_trans_death
+param=attack_anim,skeleton_attack
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
 param=attack_sound,skeleton_attack
 param=defend_sound,skelly_hit
 param=death_sound,skeleton_death
@@ -29818,9 +29818,9 @@ param=crushdefence,29
 param=magicdefence,-1
 param=rangedefence,29
 param=damagetype,^slash_style
-param=attack_anim,skeleton_trans_attack
-param=defend_anim,skeleton_trans_block
-param=death_anim,skeleton_trans_death
+param=attack_anim,skeleton_attack
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
 param=attack_sound,skeleton_attack
 param=defend_sound,skelly_hit
 param=death_sound,skeleton_death
@@ -29857,9 +29857,9 @@ param=slashdefence,40
 param=crushdefence,36
 param=rangedefence,38
 param=damagetype,^slash_style
-param=attack_anim,skeleton_trans_attack
-param=defend_anim,skeleton_trans_block
-param=death_anim,skeleton_trans_death
+param=attack_anim,skeleton_attack
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
 param=attack_sound,skeleton_attack
 param=defend_sound,skelly_hit
 param=death_sound,skeleton_death
@@ -29944,9 +29944,9 @@ param=crushdefence,40
 param=magicdefence,30
 param=rangedefence,20
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -30272,9 +30272,9 @@ strength=3
 hitpoints=3
 respawnrate=60
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -31137,9 +31137,9 @@ param=crushdefence,-24
 param=magicdefence,-24
 param=rangedefence,-24
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -31598,7 +31598,7 @@ head1=model_34047
 unknown119=3
 desc=Curiosity is yet to kill this one...
 respawnrate=100
-param=death_anim,cat_death
+param=death_anim,seq_9159
 
 // 994
 [upassdwarf1]
@@ -31746,7 +31746,7 @@ param=damagetype,^slash_style
 param=attack_anim,demon_attack
 param=defend_anim,demon_block
 param=death_anim,demon_death
-param=attack_sound,black_demon_attack
+param=attack_sound,synth_397
 param=defend_sound,black_demon_hit
 param=death_sound,demon_death
 param=demonbane_vulnerable,yes
@@ -31781,7 +31781,7 @@ param=damagetype,^slash_style
 param=attack_anim,demon_attack
 param=defend_anim,demon_block
 param=death_anim,demon_death
-param=attack_sound,black_demon_attack
+param=attack_sound,synth_397
 param=defend_sound,black_demon_hit
 param=death_sound,demon_death
 param=demonbane_vulnerable,yes
@@ -31816,7 +31816,7 @@ param=damagetype,^slash_style
 param=attack_anim,demon_attack
 param=defend_anim,demon_block
 param=death_anim,demon_death
-param=attack_sound,black_demon_attack
+param=attack_sound,synth_397
 param=defend_sound,black_demon_hit
 param=death_sound,demon_death
 param=demonbane_vulnerable,yes
@@ -32149,7 +32149,7 @@ unknown119=3
 desc=A large dim looking humanoid.
 wanderrange=2
 param=damagetype,^crush_style
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=death_sound,giant_death
 
 // 1011
@@ -32172,7 +32172,7 @@ unknown119=3
 desc=This must be Rantz's daughter.
 wanderrange=3
 param=damagetype,^crush_style
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=death_sound,giant_death
 
 // 1012
@@ -32195,7 +32195,7 @@ unknown119=3
 desc=This must be Rantz's son.
 wanderrange=3
 param=damagetype,^crush_style
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=death_sound,giant_death
 
 // 1013
@@ -34582,7 +34582,7 @@ param=rangedefence,74
 param=damagetype,^slash_style
 param=attack_anim,seq_7041
 param=defend_anim,human_unarmedblock
-param=attack_sound,2H_stab
+param=attack_sound,synth_2504
 param=defend_sound,steel_mail
 param=death_anim,human_death
 
@@ -34682,9 +34682,9 @@ param=damagetype,^slash_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_champion_attack
-param=defend_sound,troll_hit
-param=defend_sound,troll_death
+param=attack_sound,synth_862
+param=defend_sound,synth_868
+param=defend_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -34731,9 +34731,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_champion_attack
-param=defend_sound,troll_hit
-param=defend_sound,troll_death
+param=attack_sound,synth_862
+param=defend_sound,synth_868
+param=defend_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -34782,9 +34782,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=defend_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=defend_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -34832,9 +34832,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=defend_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=defend_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -34923,12 +34923,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -34969,12 +34969,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -35015,12 +35015,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -35061,12 +35061,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -35107,12 +35107,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -35160,9 +35160,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35208,9 +35208,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35257,9 +35257,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35305,9 +35305,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35354,9 +35354,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35400,9 +35400,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35448,9 +35448,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -35568,10 +35568,10 @@ param=damagetype,^slash_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,2H_crush
+param=attack_sound,synth_2502
 param=defend_sound,stone_armour3
-param=defend_sound,troll_death
-param=death_sound,troll_death
+param=defend_sound,synth_866
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -35625,8 +35625,8 @@ param=defend_anim,troll_block
 param=death_anim,troll_death
 param=attack_sound,warhammer_crush
 param=defend_sound,stone_armour3
-param=defend_sound,troll_death
-param=death_sound,troll_death
+param=defend_sound,synth_866
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -35678,10 +35678,10 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
+param=attack_sound,synth_2508
 param=defend_sound,stone_armour3
-param=defend_sound,troll_death
-param=death_sound,troll_death
+param=defend_sound,synth_866
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_general
 huntmode=cowardly
@@ -35727,9 +35727,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -35774,9 +35774,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -35822,9 +35822,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -35869,9 +35869,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -35917,9 +35917,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -35962,9 +35962,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -36009,9 +36009,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,mace_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_2508
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=troll_spectator
 timer=10
@@ -36060,9 +36060,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_champion_attack
-param=defend_sound,troll_champion_hit
-param=death_sound,troll_champion_death
+param=attack_sound,synth_862
+param=defend_sound,synth_864
+param=death_sound,synth_863
 param=death_drop,big_bones
 regenrate=10
 timer=1
@@ -36112,9 +36112,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 timer=1
@@ -36164,9 +36164,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 timer=1
@@ -36217,9 +36217,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 timer=1
@@ -36270,9 +36270,9 @@ param=damagetype,^crush_style
 param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=attack_sound,troll_guard_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=attack_sound,synth_867
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 timer=1
@@ -36310,12 +36310,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -36356,12 +36356,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -36402,12 +36402,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -36448,12 +36448,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -36494,12 +36494,12 @@ param=attackrate,7
 param=magicdefence,200
 param=rangedefence,200
 param=damagetype,^crush_style
-param=attack_anim,troll_rock_throw
+param=attack_anim,seq_1142
 param=defend_anim,troll_block
 param=death_anim,troll_death
-param=rangeattack_sound,troll_with_rock_attack
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=rangeattack_sound,synth_870
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=proj_launch,troll_rock_launch
 param=proj_travel,troll_rock_travel
 param=death_drop,big_bones
@@ -36615,8 +36615,8 @@ param=attack_anim,troll_attack
 param=defend_anim,troll_block
 param=death_anim,troll_death
 param=attack_sound,warhammer_crush
-param=defend_sound,troll_hit
-param=death_sound,troll_death
+param=defend_sound,synth_868
+param=death_sound,synth_866
 param=death_drop,big_bones
 category=mountain_troll
 huntmode=cowardly
@@ -49009,9 +49009,9 @@ model3=model_17421
 unknown119=3
 desc=Young but still dangerous.
 wanderrange=4
-param=attack_anim,bdrag_attack
-param=defend_anim,bdrag_block
-param=death_anim,bdrag_death
+param=attack_anim,seq_25
+param=defend_anim,seq_26
+param=death_anim,seq_28
 param=attack_sound,babydragon_attack
 param=defend_sound,babydragon_hit
 param=death_sound,babydragon_death
@@ -49645,7 +49645,7 @@ unknown119=3
 desc=The winged reptile.
 
 // 1621
-[npc_1621]
+[cockatrice_1621]
 bas=bas_18
 size=3
 ambient=25
@@ -52006,7 +52006,7 @@ param=magicdefence,15
 param=rangedefence,10
 
 // 1753
-[npc_1753]
+[mounted_terrorbird_gnome_1753]
 bas=bas_91
 size=2
 op2=Attack
@@ -52234,9 +52234,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 1763
 [sheep_1763]
@@ -52250,9 +52250,9 @@ model2=model_20295
 model3=model_20293
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 1764
 [sheep_1764]
@@ -52266,9 +52266,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 1765
 [sheep_1765]
@@ -52282,12 +52282,12 @@ model2=model_20295
 model3=model_20293
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 1766
-[npc_1766]
+[cow_calf]
 bas=bas_1397
 size=2
 resizeh=68
@@ -52330,7 +52330,7 @@ param=defend_sound,cow_hit
 param=death_sound,cow_death
 
 // 1768
-[npc_1768]
+[cow_calf_1768]
 bas=bas_1397
 size=2
 resizeh=68
@@ -52368,6 +52368,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52419,6 +52420,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52464,6 +52466,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52513,6 +52516,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52556,6 +52560,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52604,6 +52609,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52652,6 +52658,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -52691,6 +52698,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -53010,7 +53018,7 @@ head1=model_21
 unknown119=3
 
 // 1791
-[npc_1791]
+[jungle_tree]
 bas=bas_666
 size=1
 vislevel=0
@@ -53631,7 +53639,7 @@ unknown119=3
 desc=This goat belongs to the mountain camp people.
 
 // 1821
-[npc_1821]
+[bald_headed_eagle]
 bas=bas_264
 vislevel=0
 size=2
@@ -56779,12 +56787,12 @@ bas=bas_784
 vislevel=0
 size=2
 multivar=deserttreasure
-multinpc=13,npc_1971
-multinpc=14,npc_1971
+multinpc=13,azzanadra_1971
+multinpc=14,azzanadra_1971
 unknown119=3
 
 // 1971
-[npc_1971]
+[azzanadra_1971]
 bas=bas_784
 vislevel=0
 size=2
@@ -57393,7 +57401,7 @@ unknown119=3
 desc=An obnoxious, overgrown insect.
 
 // 1996
-[npc_1996]
+[vulture_1996]
 size=2
 op2=Attack
 vislevel=31
@@ -58227,7 +58235,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -58280,7 +58288,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -60195,7 +60203,7 @@ desc=He is regulating the flow of goods on the trade floor and maintaining order
 wanderrange=0
 
 // 2128
-[npc_2128]
+[supreme_commander]
 bas=bas_2
 resizeh=135
 resizev=135
@@ -61455,7 +61463,7 @@ unknown119=3
 desc=Works hard at whatever it is he does.
 
 // 2176
-[npc_2176]
+[inn_keeper]
 bas=bas_2
 resizeh=128
 resizev=138
@@ -62186,7 +62194,7 @@ head1=model_1
 unknown119=6
 
 // 2208
-[npc_2208]
+[dwarven_miner_2208]
 bas=bas_437
 op1=Talk-to
 vislevel=0
@@ -62286,7 +62294,7 @@ head1=model_0
 unknown119=6
 
 // 2212
-[npc_2212]
+[dwarven_miner_2212]
 bas=bas_437
 op1=Talk-to
 vislevel=0
@@ -62381,7 +62389,7 @@ head1=model_2
 unknown119=6
 
 // 2216
-[npc_2216]
+[dwarven_miner_2216]
 bas=bas_437
 op1=Talk-to
 vislevel=0
@@ -62984,7 +62992,7 @@ unknown119=3
 desc=A local farmer. She might be able to provide some useful information.
 
 // 2239
-[npc_2239]
+[pig_2239]
 bas=bas_1408
 vislevel=0
 ambient=15
@@ -63768,6 +63776,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -63823,6 +63832,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -63868,6 +63878,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -63915,6 +63926,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -63958,6 +63970,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -64010,6 +64023,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -64054,6 +64068,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -64093,6 +64108,7 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -66159,7 +66175,7 @@ unknown119=3
 desc=Looks like he knows his way around a kitchen.
 
 // 2358
-[npc_2358]
+[arianwyn_2358]
 bas=bas_4
 vislevel=0
 size=1
@@ -67267,7 +67283,7 @@ defence=99
 param=damagetype,^crush_style
 param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -67554,7 +67570,7 @@ head1=model_3
 unknown119=3
 
 // 2432
-[npc_2432]
+[red_axe_henchman_2432]
 bas=bas_2
 op1=Talk-to
 vislevel=1
@@ -67577,7 +67593,7 @@ head2=model_8394
 unknown119=3
 
 // 2433
-[npc_2433]
+[red_axe_henchman_2433]
 bas=bas_969
 op1=Talk-to
 vislevel=1
@@ -67599,7 +67615,7 @@ head1=model_8393
 unknown119=3
 
 // 2434
-[npc_2434]
+[ogre_shaman_2434]
 bas=bas_60
 size=2
 op1=Talk-to
@@ -71047,7 +71063,7 @@ head1=model_34284
 unknown119=3
 
 // 2593
-[npc_2593]
+[tzhaar_mej_2593]
 bas=bas_481
 op2=Attack
 contrast=0
@@ -71127,7 +71143,7 @@ head1=model_34284
 unknown119=3
 
 // 2598
-[npc_2598]
+[tzhaar_hur]
 bas=bas_227
 op2=Attack
 contrast=0
@@ -71141,7 +71157,7 @@ model4=model_34163
 unknown119=3
 
 // 2599
-[npc_2599]
+[tzhaar_hur_2599]
 bas=bas_227
 op2=Attack
 contrast=0
@@ -71211,7 +71227,7 @@ model4=model_34165
 unknown119=3
 
 // 2604
-[npc_2604]
+[tzhaar_xil_2604]
 bas=bas_227
 op2=Attack
 contrast=0
@@ -71361,7 +71377,7 @@ unknown119=3
 desc=One of the stronger guards of Mor Ul Rek.
 
 // 2613
-[npc_2613]
+[tzhaar_ket_2613]
 bas=bas_228
 op2=Attack
 contrast=0
@@ -72090,7 +72106,7 @@ desc=A dwarf on top of the world.
 wanderrange=0
 
 // 2649
-[npc_2649]
+[gnome_2649]
 bas=bas_108
 size=1
 vislevel=0
@@ -72111,7 +72127,7 @@ head1=model_21
 unknown119=3
 
 // 2650
-[npc_2650]
+[gnome_2650]
 bas=bas_1058
 size=1
 vislevel=0
@@ -73197,8 +73213,8 @@ attack=22
 strength=24
 defence=24
 param=damagetype,^crush_style
-param=attack_anim,hobgoblin_attackunarmed
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_164
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -73236,8 +73252,8 @@ attack=22
 strength=24
 defence=24
 param=damagetype,^crush_style
-param=attack_anim,hobgoblin_attackunarmed
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_164
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -73271,8 +73287,8 @@ attack=22
 strength=24
 defence=24
 param=damagetype,^crush_style
-param=attack_anim,hobgoblin_attackunarmed
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_164
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -73314,8 +73330,8 @@ param=strengthbonus,10
 param=stabdefence,1
 param=slashdefence,1
 param=damagetype,^stab_style
-param=attack_anim,hobgoblin_attack
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_163
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -73453,8 +73469,8 @@ param=crushdefence,-42
 param=magicdefence,-42
 param=rangedefence,-42
 param=damagetype,^stab_style
-param=defend_anim,duck_defend
-param=death_anim,duck_death
+param=defend_anim,seagull_defend
+param=death_anim,duck_rework_death
 param=attack_sound,quack
 param=defend_sound,duck_hit
 param=death_sound,duck_death
@@ -73491,8 +73507,8 @@ param=crushdefence,-42
 param=magicdefence,-42
 param=rangedefence,-42
 param=damagetype,^stab_style
-param=defend_anim,duck_defend
-param=death_anim,duck_death
+param=defend_anim,seagull_defend
+param=death_anim,duck_rework_death
 param=attack_sound,quack
 param=defend_sound,duck_hit
 param=death_sound,duck_death
@@ -74131,7 +74147,7 @@ model1=model_21193
 unknown119=3
 
 // 2718
-[npc_2718]
+[betty_2718]
 bas=bas_4
 vislevel=0
 size=1
@@ -74161,7 +74177,7 @@ head1=model_39090
 unknown119=3
 
 // 2719
-[npc_2719]
+[grum_2719]
 bas=bas_4
 vislevel=0
 size=1
@@ -74197,7 +74213,7 @@ head3=model_39836
 unknown119=3
 
 // 2720
-[npc_2720]
+[gerrant_2720]
 bas=bas_29
 vislevel=0
 size=1
@@ -74232,7 +74248,7 @@ head3=model_39223
 unknown119=3
 
 // 2721
-[npc_2721]
+[wydin_2721]
 bas=bas_4
 vislevel=0
 size=1
@@ -82568,7 +82584,7 @@ unknown119=2
 desc=A mighty warrior, Haakon is powerfully concerned for his tribe.
 
 // 3092
-[npc_3092]
+[hooded_stranger]
 bas=bas_4
 resizeh=130
 resizev=150
@@ -83448,7 +83464,7 @@ model1=model_10874
 unknown119=1
 
 // 3131
-[npc_3131]
+[desert_spirit]
 bas=bas_252
 vislevel=0
 op1=Talk-to
@@ -83982,7 +83998,7 @@ head2=model_39259
 unknown119=1
 
 // 3157
-[npc_3157]
+[bill_teach_3157]
 bas=bas_35
 vislevel=0
 op1=Talk-to
@@ -85552,7 +85568,7 @@ unknown119=3
 desc=One of Gielinor's many citizens.
 
 // 3224
-[npc_3224]
+[man_3224]
 bas=bas_4
 size=1
 op2=Attack
@@ -87371,7 +87387,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -87417,7 +87433,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -87462,7 +87478,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -87507,7 +87523,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -88187,7 +88203,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -88319,7 +88335,7 @@ unknown119=7
 desc=A graceful bird.
 
 // 3297
-[npc_3297]
+[black_swan]
 bas=bas_1420
 size=1
 vislevel=0
@@ -90872,7 +90888,7 @@ model2=model_2874
 unknown119=3
 desc=A large dim looking humanoid.
 wanderrange=3
-param=death_anim,ogre_death
+param=death_anim,seq_361
 param=death_sound,giant_death
 hitpoints=60
 attack=43
@@ -91500,7 +91516,7 @@ param=attack_anim,ogre_attack
 param=defend_anim,ogre_block
 param=death_anim,ogre_death
 param=attack_sound,giant_attack
-param=defend_sound,mace_crush
+param=defend_sound,synth_2508
 param=death_sound,giant_death
 param=death_drop,big_bones
 huntmode=cowardly
@@ -91899,7 +91915,7 @@ head1=model_141
 unknown119=3
 
 // 3468
-[npc_3468]
+[rantz_3468]
 bas=bas_764
 size=2
 op1=Talk-to
@@ -92022,12 +92038,12 @@ unknown119=3
 [general_wartface_3479]
 vislevel=1
 multivar=varplayerbit_1865
-multinpc=1,npc_3480
+multinpc=1,king_awowogei_3480
 multinpc=2,cyclossus
 unknown119=3
 
 // 3480
-[npc_3480]
+[king_awowogei_3480]
 bas=bas_177
 vislevel=0
 op1=Inspect
@@ -94458,8 +94474,8 @@ name=Hobgoblin
 model1=model_14109
 unknown119=3
 desc=He doesn't look very welcoming.
-param=attack_anim,hobgoblin_attackunarmed
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_164
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -94514,7 +94530,7 @@ model1=model_26258
 unknown119=3
 
 // 3587
-[npc_3587]
+[rantz_3587]
 bas=bas_765
 size=2
 op1=Talk-to
@@ -96018,7 +96034,7 @@ unknown119=3
 desc=A hopeless poor creature.
 
 // 3668
-[npc_3668]
+[hopeless_beast]
 bas=bas_1202
 size=2
 resizev=106
@@ -96030,7 +96046,7 @@ model1=model_14283
 unknown119=3
 
 // 3669
-[npc_3669]
+[hopeless_beast_3669]
 bas=bas_1202
 size=2
 resizev=80
@@ -96042,7 +96058,7 @@ model1=model_14283
 unknown119=3
 
 // 3670
-[npc_3670]
+[odd_old_man]
 bas=bas_223
 size=2
 op1=Talk-to
@@ -96783,7 +96799,7 @@ unknown119=1
 wanderrange=0
 
 // 3709
-[npc_3709]
+[boulder_3709]
 bas=bas_709
 size=2
 vislevel=0
@@ -96826,8 +96842,8 @@ param=crushdefence,12
 param=magicdefence,10
 param=rangedefence,8
 param=damagetype,^stab_style
-param=attack_anim,bat_attack
-param=defend_anim,bat_parry
+param=attack_anim,firebat_attack
+param=defend_anim,firebat_defend
 param=death_anim,bat_rework_death
 param=attack_sound,bat_attack
 param=defend_sound,bat_hit
@@ -110711,7 +110727,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -110980,9 +110996,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -111300,7 +111316,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -111740,17 +111756,17 @@ bas=bas_104
 op1=Talk-to
 vislevel=0
 multivar=fairy2_queencure_quest
-multinpc=45,npc_4456
-multinpc=50,npc_4456
-multinpc=60,npc_4456
-multinpc=65,npc_4456
-multinpc=70,npc_4456
-multinpc=72,npc_4456
-multinpc=73,npc_4456
-multinpc=75,npc_4456
-multinpc=80,npc_4456
-multinpc=90,npc_4456
-multinpc=100,npc_4456
+multinpc=45,ork
+multinpc=50,ork
+multinpc=60,ork
+multinpc=65,ork
+multinpc=70,ork
+multinpc=72,ork
+multinpc=73,ork
+multinpc=75,ork
+multinpc=80,ork
+multinpc=90,ork
+multinpc=100,ork
 unknown119=3
 
 // 4425
@@ -111759,17 +111775,17 @@ bas=bas_104
 op1=Talk-to
 vislevel=0
 multivar=fairy2_queencure_quest
-multinpc=45,npc_4458
-multinpc=50,npc_4458
-multinpc=60,npc_4458
-multinpc=65,npc_4458
-multinpc=70,npc_4458
-multinpc=72,npc_4458
-multinpc=73,npc_4458
-multinpc=75,npc_4458
-multinpc=80,npc_4458
-multinpc=90,npc_4458
-multinpc=100,npc_4458
+multinpc=45,ork_4458
+multinpc=50,ork_4458
+multinpc=60,ork_4458
+multinpc=65,ork_4458
+multinpc=70,ork_4458
+multinpc=72,ork_4458
+multinpc=73,ork_4458
+multinpc=75,ork_4458
+multinpc=80,ork_4458
+multinpc=90,ork_4458
+multinpc=100,ork_4458
 unknown119=3
 
 // 4426
@@ -112230,7 +112246,7 @@ unknown119=3
 desc=Fairy ring maintenance division.
 
 // 4456
-[npc_4456]
+[ork]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112248,7 +112264,7 @@ head1=model_16214
 unknown119=3
 
 // 4457
-[npc_4457]
+[ork_4457]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112274,7 +112290,7 @@ head1=model_16215
 unknown119=3
 
 // 4458
-[npc_4458]
+[ork_4458]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112300,7 +112316,7 @@ head1=model_16216
 unknown119=3
 
 // 4459
-[npc_4459]
+[ork_4459]
 bas=bas_104
 size=1
 op1=Talk-to
@@ -112654,7 +112670,7 @@ unknown119=3
 desc=Ugly and bad-tempered.
 
 // 4473
-[npc_4473]
+[woman_4473]
 bas=bas_117
 size=1
 op1=Talk-to
@@ -112847,7 +112863,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_armed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -112892,7 +112908,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -112940,7 +112956,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_armed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -112988,7 +113004,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_spear_attack_shield
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113037,7 +113053,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_armed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113082,7 +113098,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113127,7 +113143,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113178,7 +113194,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_armed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113225,7 +113241,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113271,7 +113287,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_armed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113321,7 +113337,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_spear_attack_shield
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113414,7 +113430,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113463,7 +113479,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_squat_attack_spear
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -113662,7 +113678,7 @@ param=attackrate,6
 param=attackbonus,12
 param=strengthbonus,12
 param=damagetype,^stab_style
-param=attack_anim,goblin_attack_armed
+param=attack_anim,slice_surface_goblin_armed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
 param=attack_sound,goblin_attack
@@ -114561,7 +114577,7 @@ model3=model_16591
 unknown119=3
 
 // 4534
-[npc_4534]
+[moss_giant_4534]
 bas=bas_58
 size=2
 op2=Attack
@@ -115552,7 +115568,7 @@ unknown119=3
 desc=He looks like he's a long way from home.
 
 // 4579
-[npc_4579]
+[generic_diplomat]
 bas=bas_108
 op1=Talk-to
 vislevel=0
@@ -115775,7 +115791,7 @@ desc=Gnome customer.
 wanderrange=0
 
 // 4589
-[npc_4589]
+[sorrn]
 bas=bas_108
 op1=Talk-to
 vislevel=0
@@ -115795,7 +115811,7 @@ head1=model_16
 unknown119=3
 
 // 4590
-[npc_4590]
+[mimm]
 bas=bas_108
 size=1
 op1=Talk-to
@@ -115868,7 +115884,7 @@ unknown119=3
 desc=A gnome spinner.
 
 // 4593
-[npc_4593]
+[portobello]
 bas=bas_108
 op1=Talk-to
 vislevel=0
@@ -116373,7 +116389,7 @@ head2=model_16980
 unknown119=3
 
 // 4611
-[npc_4611]
+[saboteur]
 bas=bas_238
 vislevel=0
 name=Saboteur
@@ -116384,7 +116400,7 @@ head1=model_4653
 unknown119=3
 
 // 4612
-[npc_4612]
+[gnome_shop_keeper_4612]
 bas=bas_108
 size=1
 vislevel=0
@@ -117357,7 +117373,7 @@ head2=model_39218
 unknown119=3
 
 // 4661
-[npc_4661]
+[dark_wizard_4661]
 bas=bas_4
 size=1
 op2=Attack
@@ -117386,7 +117402,7 @@ head2=model_38097
 unknown119=3
 
 // 4662
-[npc_4662]
+[denath_4662]
 bas=bas_4
 size=1
 resizeh=135
@@ -117496,9 +117512,9 @@ param=crushdefence,50
 param=magicdefence,40
 param=rangedefence,30
 param=damagetype,^slash_style
-param=attack_anim,bdrag_attack
-param=defend_anim,bdrag_block
-param=death_anim,bdrag_death
+param=attack_anim,seq_25
+param=defend_anim,seq_26
+param=death_anim,seq_28
 param=attack_sound,babydragon_attack
 param=defend_sound,babydragon_hit
 param=death_sound,babydragon_death
@@ -117544,9 +117560,9 @@ param=crushdefence,50
 param=magicdefence,40
 param=rangedefence,30
 param=damagetype,^slash_style
-param=attack_anim,bdrag_attack
-param=defend_anim,bdrag_block
-param=death_anim,bdrag_death
+param=attack_anim,seq_25
+param=defend_anim,seq_26
+param=death_anim,seq_28
 param=attack_sound,babydragon_attack
 param=defend_sound,babydragon_hit
 param=death_sound,babydragon_death
@@ -117575,9 +117591,9 @@ model1=model_17412
 model2=model_17428
 model3=model_17421
 unknown119=3
-param=attack_anim,bdrag_attack
-param=defend_anim,bdrag_block
-param=death_anim,bdrag_death
+param=attack_anim,seq_25
+param=defend_anim,seq_26
+param=death_anim,seq_28
 param=attack_sound,babydragon_attack
 param=defend_sound,babydragon_hit
 param=death_sound,babydragon_death
@@ -117609,9 +117625,9 @@ model1=model_17413
 model2=model_17427
 model3=model_17421
 unknown119=3
-param=attack_anim,bdrag_attack
-param=defend_anim,bdrag_block
-param=death_anim,bdrag_death
+param=attack_anim,seq_25
+param=defend_anim,seq_26
+param=death_anim,seq_28
 param=attack_sound,babydragon_attack
 param=defend_sound,babydragon_hit
 param=death_sound,babydragon_death
@@ -117656,9 +117672,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117704,9 +117720,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117749,9 +117765,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117797,9 +117813,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117846,9 +117862,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117896,9 +117912,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117946,9 +117962,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -117996,9 +118012,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118046,9 +118062,9 @@ param=crushdefence,40
 param=magicdefence,30
 param=rangedefence,20
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118096,9 +118112,9 @@ param=crushdefence,40
 param=magicdefence,30
 param=rangedefence,20
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118146,9 +118162,9 @@ param=crushdefence,40
 param=magicdefence,30
 param=rangedefence,20
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118196,9 +118212,9 @@ param=crushdefence,40
 param=magicdefence,30
 param=rangedefence,20
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118244,9 +118260,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118292,9 +118308,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118340,9 +118356,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -118388,9 +118404,9 @@ param=crushdefence,70
 param=magicdefence,60
 param=rangedefence,50
 param=damagetype,^slash_style
-param=attack_anim,dragon_attack
-param=defend_anim,dragon_block
-param=death_anim,dragon_death
+param=attack_anim,seq_80
+param=defend_anim,seq_89
+param=death_anim,seq_92
 param=attack_sound,dragon_attack
 param=defend_sound,dragon_hit
 param=death_sound,dragon_death
@@ -119910,7 +119926,7 @@ unknown119=3
 wanderrange=0
 
 // 4731
-[npc_4731]
+[meiyerditch_citizen_4731]
 bas=bas_1009
 vislevel=0
 op1=Talk-to
@@ -119939,7 +119955,7 @@ head1=model_39603
 unknown119=3
 
 // 4732
-[npc_4732]
+[meiyerditch_citizen_4732]
 bas=bas_4
 vislevel=0
 op1=Talk-to
@@ -119970,7 +119986,7 @@ head1=model_38944
 unknown119=3
 
 // 4733
-[npc_4733]
+[meiyerditch_citizen_4733]
 bas=bas_4
 vislevel=0
 op1=Talk-to
@@ -121372,7 +121388,7 @@ head1=model_18051
 unknown119=3
 
 // 4796
-[npc_4796]
+[vanstrom_klause_4796]
 bas=bas_1012
 vislevel=0
 alwaysontop=yes
@@ -122447,7 +122463,7 @@ head4=model_39331
 unknown119=1
 
 // 4868
-[npc_4868]
+[holgart_4868]
 bas=bas_1110
 vislevel=0
 size=1
@@ -122488,7 +122504,7 @@ multinpc=12,kent
 unknown119=3
 
 // 4870
-[npc_4870]
+[fisherman_4870]
 bas=bas_1111
 vislevel=0
 size=1
@@ -123193,7 +123209,7 @@ head3=model_39450
 unknown119=3
 
 // 4897
-[npc_4897]
+[sir_tinley_4897]
 bas=bas_1089
 vislevel=0
 size=1
@@ -123245,8 +123261,8 @@ name=Hobgoblin
 model1=model_9463
 model2=model_2995
 unknown119=7
-param=attack_anim,hobgoblin_attack
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_163
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -123813,9 +123829,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -123847,9 +123863,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -123881,15 +123897,15 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
 
 // 4925
-[npc_4925]
+[giant_rat_4925]
 bas=bas_9
 size=2
 op2=Attack
@@ -123943,9 +123959,9 @@ attack=6
 strength=5
 defence=2
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -123982,9 +123998,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124025,9 +124041,9 @@ attack=10
 strength=10
 defence=10
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124066,9 +124082,9 @@ attack=10
 strength=10
 defence=10
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124202,9 +124218,9 @@ attack=10
 strength=10
 defence=10
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124245,9 +124261,9 @@ attack=10
 strength=10
 defence=10
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124362,9 +124378,9 @@ model2=model_18890
 model3=model_18895
 unknown119=3
 desc=Some oversized vermin, blessed by Zamorak.
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124464,9 +124480,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -124498,9 +124514,9 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -125139,7 +125155,7 @@ model1=model_19284
 unknown119=1
 
 // 4982
-[npc_4982]
+[ana_4982]
 vislevel=0
 size=1
 op1=Talk-to
@@ -125155,7 +125171,7 @@ head1=model_39124
 unknown119=3
 
 // 4983
-[npc_4983]
+[mercenary]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -126618,7 +126634,7 @@ unknown119=3
 desc=What on Gielinor is that?
 
 // 5046
-[npc_5046]
+[jack_5046]
 bas=bas_108
 vislevel=0
 op1=Talk-to
@@ -126643,7 +126659,7 @@ head1=model_139
 unknown119=3
 
 // 5047
-[npc_5047]
+[jill_5047]
 bas=bas_108
 vislevel=0
 op1=Talk-to
@@ -126666,7 +126682,7 @@ head1=model_138
 unknown119=3
 
 // 5048
-[npc_5048]
+[jeff_5048]
 bas=bas_108
 vislevel=0
 op1=Talk-to
@@ -127529,7 +127545,7 @@ model1=model_19974
 unknown119=3
 
 // 5097
-[npc_5097]
+[gyr_falcon_5097]
 bas=bas_1282
 vislevel=0
 turnspeed=0
@@ -128572,9 +128588,9 @@ model1=model_20272
 unknown119=3
 desc=How cute!
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5147
 [lamb]
@@ -128599,9 +128615,9 @@ model1=model_20272
 unknown119=3
 desc=The black sheep of the family.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5148
 [sheep_5148]
@@ -128627,9 +128643,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5149
 [sheep_5149]
@@ -128655,9 +128671,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5150
 [sheep_5150]
@@ -128683,9 +128699,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5151
 [sheep_5151]
@@ -128711,9 +128727,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5152
 [sheep_5152]
@@ -128739,9 +128755,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5153
 [sheep_5153]
@@ -128767,9 +128783,9 @@ model3=model_20285
 unknown119=3
 desc=Freshly sheared.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5154
 [sheep_5154]
@@ -128793,9 +128809,9 @@ model3=model_20284
 unknown119=3
 desc=White and shaggy.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5155
 [sheep_5155]
@@ -128819,9 +128835,9 @@ model3=model_20285
 unknown119=3
 desc=White and shaggy.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,goat_update_attack
+param=defend_anim,goat_update_defend
+param=death_anim,goat_update_death
 
 // 5156
 [sheep_5156]
@@ -128846,9 +128862,9 @@ model1=model_20290
 model2=model_20291
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 5157
 [sheep_5157]
@@ -128873,9 +128889,9 @@ model1=model_20290
 model2=model_20291
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 5158
 [sheep_5158]
@@ -128901,9 +128917,9 @@ model2=model_20295
 model3=model_20293
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 5159
 [sheep_5159]
@@ -128929,9 +128945,9 @@ model2=model_20295
 model3=model_20293
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 5160
 [sheep_5160]
@@ -128957,9 +128973,9 @@ model2=model_20295
 model3=model_20293
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 5161
 [sheep_5161]
@@ -128985,9 +129001,9 @@ model2=model_20295
 model3=model_20293
 unknown119=3
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_defend
+param=death_anim,sheep_update_death
 
 // 5162
 [sheep_5162]
@@ -129012,9 +129028,9 @@ model3=model_20284
 unknown119=3
 desc=White and shaggy.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_shaggy_defend
+param=death_anim,sheep_update_death
 
 // 5163
 [sheep_5163]
@@ -129039,9 +129055,9 @@ model3=model_20285
 unknown119=3
 desc=White and shaggy.
 timer=1
-param=attack_anim,sheep_attack
-param=defend_anim,sheep_block
-param=death_anim,sheep_death
+param=attack_anim,sheep_update_attack
+param=defend_anim,sheep_update_shaggy_defend
+param=death_anim,sheep_update_death
 
 // 5164
 [fairy_sheep2]
@@ -129824,7 +129840,7 @@ head1=model_39661
 unknown119=3
 
 // 5204
-[npc_5204]
+[alice_s_husband_5204]
 bas=bas_1169
 ambient=40
 contrast=40
@@ -131501,7 +131517,7 @@ head2=model_39254
 unknown119=3
 
 // 5285
-[npc_5285]
+[osman_5285]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -133552,7 +133568,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -133665,7 +133681,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,hatchet_skeleton_attack
@@ -134679,7 +134695,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,mace_skeleton_attack
@@ -134719,7 +134735,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,mace_skeleton_attack
@@ -134785,7 +134801,7 @@ param=defend_sound,ghost_hit
 param=death_sound,ghost_death
 
 // 5372
-[npc_5372]
+[ghost_5372]
 bas=bas_74
 size=1
 ambient=20
@@ -134797,7 +134813,7 @@ model1=model_21149
 unknown119=3
 
 // 5373
-[npc_5373]
+[ghost_5373]
 bas=bas_74
 size=1
 ambient=20
@@ -134809,7 +134825,7 @@ model1=model_21145
 unknown119=3
 
 // 5374
-[npc_5374]
+[ghost_5374]
 bas=bas_74
 size=1
 ambient=20
@@ -135066,7 +135082,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -138933,7 +138949,7 @@ model2=model_22273
 unknown119=2
 
 // 5559
-[npc_5559]
+[osman_5559]
 bas=bas_153
 size=1
 vislevel=0
@@ -138967,7 +138983,7 @@ head2=model_39254
 unknown119=1
 
 // 5560
-[npc_5560]
+[osman_5560]
 bas=bas_153
 size=1
 vislevel=0
@@ -139001,7 +139017,7 @@ head2=model_39254
 unknown119=1
 
 // 5561
-[npc_5561]
+[osman_5561]
 bas=bas_354
 size=1
 vislevel=0
@@ -139138,8 +139154,8 @@ strength=78
 defence=80
 param=damagetype,^slash_style
 param=attack_anim,human_dhsword_chop
-param=defend_anim,human_dhsword_def
-param=attack_sound,2H_slash
+param=defend_anim,seq_411
+param=attack_sound,hacksword_slash
 
 // 5567
 [shadow_maj_scout1]
@@ -139461,7 +139477,7 @@ head1=model_22774
 unknown119=3
 
 // 5584
-[npc_5584]
+[cage]
 size=3
 ambient=10
 vislevel=0
@@ -144831,7 +144847,7 @@ head3=model_39190
 unknown119=3
 
 // 5852
-[npc_5852]
+[monkey_5852]
 bas=bas_116
 size=1
 vislevel=1
@@ -145013,7 +145029,7 @@ unknown119=1
 desc=He bristles with arcane power.
 
 // 5861
-[npc_5861]
+[zanik_5861]
 bas=bas_1168
 size=2
 op1=Talk-to
@@ -147580,7 +147596,7 @@ head1=model_28686
 unknown119=3
 
 // 5986
-[npc_5986]
+[workman_5986]
 bas=bas_534
 size=2
 alwaysontop=yes
@@ -149030,7 +149046,7 @@ huntmode=cowardly
 huntrange=2
 
 // 6048
-[npc_6048]
+[wolf_6048]
 bas=bas_97
 size=2
 resizeh=120
@@ -149048,7 +149064,7 @@ model1=model_26266
 unknown119=3
 
 // 6049
-[npc_6049]
+[wolf_6049]
 bas=bas_97
 size=2
 resizeh=110
@@ -149760,9 +149776,9 @@ attack=6
 strength=5
 defence=2
 param=damagetype,^stab_style
-param=attack_anim,giantrat_attack
-param=defend_anim,giantrat_block
-param=death_anim,giantrat_death
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
 param=attack_sound,rat_attack
 param=defend_sound,rat_hit
 param=death_sound,rat_death
@@ -149882,7 +149898,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -149937,7 +149953,7 @@ param=crushdefence,-2
 param=magicdefence,1
 param=rangedefence,4
 param=damagetype,^slash_style
-param=attack_anim,seq_11637
+param=attack_anim,skeleton_attack
 param=defend_anim,skeleton_update_defend
 param=death_anim,skeleton_update_death
 param=attack_sound,warhammer_skeleton_attack
@@ -150404,9 +150420,9 @@ param=crushdefence,-26
 param=magicdefence,-26
 param=rangedefence,-26
 param=damagetype,^stab_style
-param=attack_anim,firebird_attack
-param=defend_anim,firebird_block
-param=death_anim,firebird_death
+param=attack_anim,firebird_update_attack
+param=defend_anim,firebird_update_defend
+param=death_anim,firebird_update_death
 param=attack_sound,terrorbird_attack
 param=defend_sound,terrorbird_hit
 param=death_sound,terrorbird_death
@@ -150435,9 +150451,9 @@ param=crushdefence,18
 param=magicdefence,15
 param=rangedefence,10
 param=damagetype,^stab_style
-param=attack_anim,terrorbird_mounted_attack_spear
-param=defend_anim,terrorbird_mounted_block
-param=death_anim,terrorbird_mounted_death
+param=attack_anim,pog_terror_bird_attack
+param=defend_anim,pog_terror_bird_defend
+param=death_anim,pog_terror_bird_death
 param=attack_sound,terrorbird_attack
 param=defend_sound,terrorbird_hit
 param=death_sound,terrorbird_death
@@ -150469,9 +150485,9 @@ param=crushdefence,18
 param=magicdefence,15
 param=rangedefence,10
 param=damagetype,^stab_style
-param=attack_anim,terrorbird_mounted_attack_spear
-param=defend_anim,terrorbird_mounted_block
-param=death_anim,terrorbird_mounted_death
+param=attack_anim,pog_terror_bird_attack
+param=defend_anim,pog_terror_bird_defend
+param=death_anim,pog_terror_bird_death
 param=attack_sound,terrorbird_attack
 param=defend_sound,terrorbird_hit
 param=death_sound,terrorbird_death
@@ -150507,9 +150523,9 @@ param=crushdefence,18
 param=magicdefence,15
 param=rangedefence,10
 param=damagetype,^stab_style
-param=attack_anim,terrorbird_mounted_attack_spear
-param=defend_anim,terrorbird_mounted_block
-param=death_anim,terrorbird_mounted_death
+param=attack_anim,pog_terror_bird_attack
+param=defend_anim,pog_terror_bird_defend
+param=death_anim,pog_terror_bird_death
 param=attack_sound,terrorbird_attack
 param=defend_sound,terrorbird_hit
 param=death_sound,terrorbird_death
@@ -150565,8 +150581,8 @@ param=crushdefence,-42
 param=magicdefence,-42
 param=rangedefence,-42
 param=damagetype,^stab_style
-param=defend_anim,duck_defend
-param=death_anim,duck_death
+param=defend_anim,seagull_defend
+param=death_anim,duck_rework_death
 param=attack_sound,quack
 param=defend_sound,duck_hit
 param=death_sound,duck_death
@@ -151516,7 +151532,7 @@ head3=model_38096
 unknown119=3
 
 // 6159
-[npc_6159]
+[workman_6159]
 bas=bas_535
 size=2
 alwaysontop=yes
@@ -152274,7 +152290,7 @@ unknown119=3
 wanderrange=0
 
 // 6198
-[npc_6198]
+[sinclair]
 bas=bas_4
 vislevel=0
 minimap=no
@@ -152623,7 +152639,7 @@ model1=model_34385
 unknown119=3
 
 // 6217
-[npc_6217]
+[icefiend_6217]
 bas=bas_8
 size=1
 ambient=40
@@ -153633,8 +153649,8 @@ name=Hobgoblin
 model1=model_10334
 unknown119=3
 desc=An ugly, smelly creature.
-param=attack_anim,hobgoblin_attackunarmed
-param=defend_anim,hobgoblin_block
+param=attack_anim,seq_164
+param=defend_anim,seq_165
 param=death_anim,hobgoblin_death
 param=attack_sound,goblin_attack
 param=defend_sound,goblin_champion_attack
@@ -154168,7 +154184,7 @@ unknown119=1
 wanderrange=0
 
 // 6301
-[npc_6301]
+[cute_creature_6301]
 vislevel=0
 name=Cute creature
 model1=model_16956
@@ -154243,7 +154259,7 @@ head2=model_16981
 unknown119=3
 
 // 6306
-[npc_6306]
+[bolrie_6306]
 bas=bas_108
 vislevel=0
 recol1s=384
@@ -154281,7 +154297,7 @@ head1=model_16978
 unknown119=3
 
 // 6308
-[npc_6308]
+[king_argenthorg]
 bas=bas_108
 vislevel=0
 recol1s=15392
@@ -159375,7 +159391,7 @@ unknown119=3
 desc=A collector of ancient artefacts.
 
 // 6541
-[npc_6541]
+[sanchez_the_cleaner]
 bas=bas_93
 vislevel=0
 ambient=25
@@ -162195,7 +162211,7 @@ unknown119=3
 desc=A snowman armed with a winter staff.
 
 // 6750
-[npc_6750]
+[pet_shop_owner]
 bas=bas_4
 ambient=25
 op1=Talk-to
@@ -162230,7 +162246,7 @@ model1=model_6318
 unknown119=1
 
 // 6752
-[npc_6752]
+[bulldog]
 bas=bas_1338
 vislevel=0
 name=Bulldog
@@ -162629,7 +162645,7 @@ unknown119=3
 desc=It might be angry...it's hard to tell.
 
 // 6775
-[npc_6775]
+[scabaras_priest]
 bas=bas_242
 vislevel=1
 name=Scabaras priest
@@ -162782,7 +162798,7 @@ head1=model_39084
 unknown119=3
 
 // 6784
-[npc_6784]
+[priest_6784]
 bas=bas_4
 size=1
 op1=Talk-to
@@ -162908,7 +162924,7 @@ head1=model_31081
 unknown119=3
 
 // 6792
-[npc_6792]
+[vulture_6792]
 bas=bas_20
 size=2
 op2=Attack
@@ -164699,7 +164715,7 @@ unknown119=3
 desc=A bulldog puppy.
 
 // 6898
-[npc_6898]
+[pet_shop_owner_6898]
 bas=bas_4
 ambient=25
 op1=Talk-to
@@ -164728,7 +164744,7 @@ head2=model_39256
 unknown119=2
 
 // 6899
-[npc_6899]
+[bulldog_6899]
 bas=bas_1338
 vislevel=0
 name=Bulldog
@@ -169823,7 +169839,7 @@ head1=model_28695
 unknown119=1
 
 // 7169
-[npc_7169]
+[kimberly_7169]
 bas=bas_975
 size=1
 ambient=25
@@ -172165,7 +172181,7 @@ model1=model_30530
 unknown119=3
 
 // 7291
-[npc_7291]
+[gecko_7291]
 bas=bas_1380
 vislevel=0
 resizeh=80
@@ -173858,9 +173874,9 @@ attack=48
 strength=60
 defence=39
 param=damagetype,^crush_style
-param=attack_anim,yeti_attack
-param=defend_anim,yeti_block
-param=death_anim,yeti_death
+param=attack_anim,human_unarmedpunch
+param=defend_anim,human_unarmedblock
+param=death_anim,human_death
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
 param=death_sound,giant_death
@@ -174434,7 +174450,7 @@ head2=model_39227
 unknown119=3
 
 // 7398
-[npc_7398]
+[elisabeta_7398]
 bas=bas_4
 vislevel=0
 resizeh=117
@@ -174463,7 +174479,7 @@ head1=model_39116
 unknown119=3
 
 // 7399
-[npc_7399]
+[sorin_7399]
 bas=bas_4
 vislevel=0
 resizeh=117
@@ -175261,7 +175277,7 @@ desc=This worker looks after the incubator.
 wanderrange=0
 
 // 7427
-[npc_7427]
+[orangeowns_7427]
 bas=bas_4
 headicon=1
 op3=Walk here
@@ -175297,7 +175313,7 @@ model12=model_539
 unknown119=1
 
 // 7428
-[npc_7428]
+[i_like_m0m]
 bas=bas_78
 vislevel=95
 op3=Walk here
@@ -177561,7 +177577,7 @@ desc=He demands to have some booze.
 wanderrange=0
 
 // 7521
-[npc_7521]
+[renderorder]
 bas=bas_430
 vislevel=61
 op3=Walk here
@@ -177589,7 +177605,7 @@ modeloffset3=3,-11,6
 unknown119=1
 
 // 7522
-[npc_7522]
+[boolean]
 bas=bas_220
 vislevel=101
 op3=Walk here
@@ -177619,7 +177635,7 @@ modeloffset6=3,-11,6
 unknown119=1
 
 // 7523
-[npc_7523]
+[stress_diva]
 bas=bas_216
 vislevel=138
 vislevel=79
@@ -177906,7 +177922,7 @@ model10=model_32863
 unknown119=1
 
 // 7533
-[npc_7533]
+[4sjustsilly]
 bas=bas_428
 op3=Walk here
 op4=Follow
@@ -178110,7 +178126,7 @@ model9=model_27738
 unknown119=1
 
 // 7541
-[npc_7541]
+[knickknack]
 bas=bas_221
 vislevel=87
 op3=Walk here
@@ -181330,9 +181346,9 @@ attack=20
 strength=20
 defence=20
 param=damagetype,^stab_style
-param=attack_anim,dm_attack
-param=defend_anim,dm_block
-param=death_anim,dm_death
+param=attack_anim,dog_update_small_dog_attack
+param=defend_anim,dog_update_medium_dog_defend
+param=death_anim,dog_update_medium_dog_death
 param=attack_sound,wolf_attack
 param=defend_sound,wolf_hit
 param=death_sound,wolf_death
@@ -181887,7 +181903,7 @@ model1=model_34115
 unknown119=3
 
 // 7741
-[npc_7741]
+[three_little_kittens]
 bas=bas_302
 size=1
 contrast=15
@@ -181951,8 +181967,8 @@ head1=model_34053
 unknown119=3
 wanderrange=0
 members=yes
-param=attack_anim,cat_attack
-param=death_anim,cat_death
+param=attack_anim,seq_9161
+param=death_anim,seq_9159
 
 // 7744
 [gertrudescat_done]
@@ -183124,7 +183140,7 @@ model2=model_34402
 unknown119=3
 
 // 7809
-[npc_7809]
+[cat_7809]
 ambient=25
 alwaysontop=yes
 spotshadow=no
@@ -183147,7 +183163,7 @@ head1=model_34061
 unknown119=3
 
 // 7810
-[npc_7810]
+[banshee_7810]
 bas=bas_34
 size=2
 ambient=25
@@ -183159,7 +183175,7 @@ model1=model_34579
 unknown119=3
 
 // 7811
-[npc_7811]
+[kurask_7811]
 bas=bas_296
 size=3
 ambient=25
@@ -183171,7 +183187,7 @@ model1=model_34568
 unknown119=3
 
 // 7812
-[npc_7812]
+[cave_crawler_7812]
 bas=bas_297
 size=2
 op2=Attack
@@ -183182,7 +183198,7 @@ model1=model_34555
 unknown119=3
 
 // 7813
-[npc_7813]
+[basilisk_7813]
 bas=bas_298
 size=2
 op2=Attack
@@ -183193,7 +183209,7 @@ model1=model_34562
 unknown119=3
 
 // 7814
-[npc_7814]
+[turoth_7814]
 bas=bas_299
 size=3
 op2=Attack
@@ -183204,7 +183220,7 @@ model1=model_34560
 unknown119=3
 
 // 7815
-[npc_7815]
+[skeleton_7815]
 bas=bas_71
 size=1
 op2=Attack
@@ -183243,7 +183259,7 @@ head1=model_34585
 unknown119=3
 
 // 7817
-[npc_7817]
+[zombie_7817]
 bas=bas_67
 size=1
 op2=Attack
@@ -183270,7 +183286,7 @@ model7=model_21140
 unknown119=3
 
 // 7818
-[npc_7818]
+[zombie_7818]
 bas=bas_67
 size=1
 op2=Attack
@@ -183299,7 +183315,7 @@ model7=model_21140
 unknown119=3
 
 // 7819
-[npc_7819]
+[zombie_7819]
 bas=bas_67
 size=1
 op2=Attack
@@ -183328,7 +183344,7 @@ model7=model_21036
 unknown119=3
 
 // 7820
-[npc_7820]
+[zombie_7820]
 bas=bas_67
 size=1
 op2=Attack
@@ -183357,7 +183373,7 @@ model7=model_21036
 unknown119=3
 
 // 7821
-[npc_7821]
+[a_wanderer]
 bas=bas_166
 size=1
 op1=Talk-to
@@ -183381,7 +183397,7 @@ head1=model_113
 unknown119=3
 
 // 7822
-[npc_7822]
+[a_wanderer_7822]
 bas=bas_166
 size=1
 op1=Talk-to
@@ -183541,7 +183557,7 @@ unknown119=3
 desc=He's going for that 'stripy' look.
 
 // 7833
-[npc_7833]
+[young_ralph_7833]
 bas=bas_1138
 turnspeed=0
 ambient=10
@@ -183579,7 +183595,7 @@ unknown119=3
 desc=He's going for that 'stripy' look.
 
 // 7836
-[npc_7836]
+[young_ralph_7836]
 bas=bas_1138
 turnspeed=0
 ambient=10
@@ -184132,7 +184148,7 @@ unknown119=5
 wanderrange=0
 
 // 7864
-[npc_7864]
+[fishing_spot_7864]
 bas=bas_178
 vislevel=0
 size=1
@@ -184146,7 +184162,7 @@ model1=model_36844
 unknown119=5
 
 // 7865
-[npc_7865]
+[guardsman_dante_7865]
 bas=bas_105
 size=1
 alwaysontop=yes
@@ -185001,7 +185017,7 @@ head1=model_39792
 unknown119=3
 
 // 7888
-[npc_7888]
+[sergeant_abram]
 bas=bas_107
 size=1
 alwaysontop=yes
@@ -185271,7 +185287,7 @@ model1=model_4143
 unknown119=3
 
 // 7901
-[npc_7901]
+[loar_shadow_7901]
 bas=bas_881
 size=1
 op2=Attack
@@ -186376,7 +186392,7 @@ desc=A White Knight from Falador.
 wanderrange=0
 
 // 7940
-[npc_7940]
+[sir_vant_7940]
 bas=bas_474
 size=1
 ambient=25
@@ -186399,7 +186415,7 @@ head2=model_39223
 unknown119=1
 
 // 7941
-[npc_7941]
+[sir_vant_7941]
 bas=bas_474
 size=1
 ambient=25
@@ -186504,7 +186520,7 @@ model4=model_17422
 unknown119=1
 
 // 7945
-[npc_7945]
+[dragon_7945]
 bas=bas_464
 size=5
 ambient=25
@@ -186612,7 +186628,7 @@ model4=model_17422
 unknown119=1
 
 // 7949
-[npc_7949]
+[lumbridge_guide_7949]
 bas=bas_121
 vislevel=0
 recolhsl1s=6798
@@ -186665,7 +186681,7 @@ head1=model_39931
 unknown119=3
 
 // 7951
-[npc_7951]
+[ranged_tutor_7951]
 bas=bas_205
 op1=Talk-to
 vislevel=0
@@ -186705,7 +186721,7 @@ head1=model_39118
 unknown119=3
 
 // 7952
-[npc_7952]
+[magic_tutor_7952]
 bas=bas_206
 op1=Talk-to
 vislevel=0
@@ -186742,7 +186758,7 @@ head1=model_38964
 unknown119=3
 
 // 7953
-[npc_7953]
+[cooking_tutor_7953]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186842,7 +186858,7 @@ unknown119=3
 desc=Monlum, prospecting rocks.
 
 // 7957
-[npc_7957]
+[prayer_tutor_7957]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186869,7 +186885,7 @@ head1=model_39042
 unknown119=3
 
 // 7958
-[npc_7958]
+[smelting_tutor_7958]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186939,7 +186955,7 @@ unknown119=3
 desc=Sani, a master smith.
 
 // 7960
-[npc_7960]
+[woodcutting_tutor_7960]
 bas=bas_117
 op1=Talk-to
 vislevel=0
@@ -186973,7 +186989,7 @@ head1=model_39677
 unknown119=3
 
 // 7961
-[npc_7961]
+[bank_tutor_7961]
 bas=bas_209
 op1=Talk-to
 vislevel=0
@@ -187052,7 +187068,7 @@ head1=model_40929
 unknown119=1
 
 // 7964
-[npc_7964]
+[goblin_7964]
 bas=bas_86
 size=1
 op1=Attack
@@ -187077,7 +187093,7 @@ head1=model_24209
 unknown119=1
 
 // 7965
-[npc_7965]
+[goblin_7965]
 bas=bas_465
 size=1
 op1=Attack
@@ -187128,7 +187144,7 @@ head1=model_39808
 unknown119=3
 
 // 7967
-[npc_7967]
+[shopkeeper_7967]
 bas=bas_117
 size=1
 vislevel=0
@@ -187683,7 +187699,7 @@ head1=model_39677
 unknown119=3
 
 // 8007
-[npc_8007]
+[jorral_8007]
 bas=bas_4
 vislevel=0
 size=1
@@ -188729,7 +188745,7 @@ unknown119=3
 wanderrange=0
 
 // 8077
-[npc_8077]
+[pumpkin]
 bas=bas_376
 alwaysontop=yes
 size=1
@@ -189454,7 +189470,7 @@ unknown119=3
 desc=A vision of supernatural horror.
 
 // 8134
-[npc_8134]
+[spirit_8134]
 bas=bas_4
 vislevel=0
 minimap=no
@@ -191438,7 +191454,7 @@ multinpc=1,sc_resource_npc_appearance
 unknown119=1
 
 // 8256
-[npc_8256]
+[resource_npc_8256]
 size=1
 ambient=30
 op1=Get-vars
@@ -192109,7 +192125,7 @@ model4=model_44684
 unknown119=3
 
 // 8296
-[npc_8296]
+[undead_hero_8296]
 bas=bas_906
 op2=Attack
 size=1
@@ -192124,7 +192140,7 @@ model4=model_44686
 unknown119=1
 
 // 8297
-[npc_8297]
+[undead_hero_8297]
 bas=bas_896
 op2=Attack
 size=1
@@ -192831,7 +192847,7 @@ modeloffset7=0,5,0
 unknown119=3
 
 // 8331
-[npc_8331]
+[guardian_of_armadyl_8331]
 bas=bas_249
 size=2
 op1=Talk-to

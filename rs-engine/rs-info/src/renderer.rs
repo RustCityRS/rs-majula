@@ -25,7 +25,7 @@ use rs_protocol::network::game::info::player::{
 };
 #[cfg(since_647)]
 use rs_protocol::network::game::info::player::{
-    move_type::PlayerInfoMoveType, temp_move_type::PlayerInfoTempMoveType,
+    move_speed::PlayerInfoMoveSpeed, temp_move_speed::PlayerInfoTempMoveSpeed,
 };
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::info_prot_message::InfoMessage;
@@ -50,7 +50,7 @@ const SLOT_SIZE: usize = 8;
 #[cfg(since_647)]
 const SLOT_SIZE: usize = 24;
 #[cfg(since_647)]
-const DEFAULT_MOVE_TYPE: u8 = 1;
+const DEFAULT_MOVE_SPEED: u8 = 1;
 
 /// The size a player faces from, and before 647 an npc.
 const ONE_TILE: u8 = 1;
@@ -356,7 +356,7 @@ pub struct PlayerRenderer {
     #[cfg(before_647)]
     exact_moves: Box<[ExactMove; MAX_PLAYERS]>,
     #[cfg(since_647)]
-    move_types: Box<[u8; MAX_PLAYERS]>,
+    move_speeds: Box<[u8; MAX_PLAYERS]>,
     #[cfg(since_647)]
     hit_views: Vec<HitView>,
     #[cfg(since_647)]
@@ -392,7 +392,7 @@ impl PlayerRenderer {
             #[cfg(before_647)]
             exact_moves: Box::new([ExactMove::default(); MAX_PLAYERS]),
             #[cfg(since_647)]
-            move_types: Box::new([DEFAULT_MOVE_TYPE; MAX_PLAYERS]),
+            move_speeds: Box::new([DEFAULT_MOVE_SPEED; MAX_PLAYERS]),
             #[cfg(since_647)]
             hit_views: vec![HitView::default(); MAX_PLAYERS],
             #[cfg(since_647)]
@@ -443,13 +443,13 @@ impl PlayerRenderer {
         self.add_directions[pid as usize]
     }
 
-    /// Caches the facing blocks (and on 647 the move type) that
+    /// Caches the facing blocks (and on 647 the move speed) that
     /// [`cache_low`](Self::cache_low) noted for player `pid`, for its adds.
     #[inline(always)]
     pub fn ready_low(&mut self, pid: u16) {
         self.cache_face(pid, self.low_faces[pid as usize]);
         #[cfg(since_647)]
-        self.cache_move_type(pid);
+        self.cache_move_speed(pid);
     }
 
     /// Which appearance player `pid` has this tick, if it has one.
@@ -597,7 +597,7 @@ impl PlayerRenderer {
             let chat = PlayerInfoChat {
                 colour: info.chat_colour.unwrap(),
                 effects: info.chat_effects.unwrap(),
-                ignored: info.chat_ignored.unwrap(),
+                crown: info.chat_crown.unwrap(),
                 bytes: info.chat_bytes.as_deref().unwrap(),
             };
             set_bytes(&mut self.chats[pid], &chat);
@@ -671,21 +671,21 @@ impl PlayerRenderer {
         }
         #[cfg(since_647)]
         {
-            if masks & PlayerInfoProt::MoveType as u16 != 0 {
-                let move_type = info.move_type.unwrap_or(0);
-                self.move_types[pid] = move_type;
+            if masks & PlayerInfoProt::MoveSpeed as u16 != 0 {
+                let move_speed = info.move_speed.unwrap_or(0);
+                self.move_speeds[pid] = move_speed;
                 order |= self.set(
-                    PlayerInfoProt::MoveType,
+                    PlayerInfoProt::MoveSpeed,
                     pid,
-                    &PlayerInfoMoveType { move_type },
+                    &PlayerInfoMoveSpeed { move_speed },
                 );
             }
-            if masks & PlayerInfoProt::TempMoveType as u16 != 0 {
-                let move_type = info.temp_move_type.unwrap_or(0);
+            if masks & PlayerInfoProt::TempMoveSpeed as u16 != 0 {
+                let move_speed = info.temp_move_speed.unwrap_or(0);
                 order |= self.set(
-                    PlayerInfoProt::TempMoveType,
+                    PlayerInfoProt::TempMoveSpeed,
                     pid,
-                    &PlayerInfoTempMoveType { move_type },
+                    &PlayerInfoTempMoveSpeed { move_speed },
                 );
             }
             let first = masks & PlayerInfoProt::Damage as u16 != 0;
@@ -812,7 +812,7 @@ impl PlayerRenderer {
     }
 
     /// Writes what `observer` gets of player `pid` as it adds it: this tick's
-    /// blocks, which way the player faces (and on 647 its move type), and
+    /// blocks, which way the player faces (and on 647 its move speed), and
     /// its appearance if `appearance`.
     #[inline]
     pub fn write_low_block_for(
@@ -828,7 +828,7 @@ impl PlayerRenderer {
         }
         #[cfg(since_647)]
         {
-            blocks = blocks.with(Blocks::player(PlayerInfoProt::MoveType));
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::MoveSpeed));
         }
         let appearance_block = Blocks::player(PlayerInfoProt::Appearance);
         blocks = if appearance {
@@ -950,7 +950,7 @@ impl PlayerRenderer {
             + PlayerInfoFaceEntity { entity: 0 }.sizeof()
             + PlayerInfoFaceCoord::default().sizeof();
         #[cfg(since_647)]
-        let facing = facing + PlayerInfoMoveType { move_type: 0 }.sizeof();
+        let facing = facing + PlayerInfoMoveSpeed { move_speed: 0 }.sizeof();
         facing
     }
 
@@ -976,13 +976,13 @@ impl PlayerRenderer {
 
     #[cfg(since_647)]
     #[inline(always)]
-    fn cache_move_type(&mut self, pid: u16) {
-        let move_type = self.move_types[pid as usize];
-        let slot = &mut self.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize];
+    fn cache_move_speed(&mut self, pid: u16) {
+        let move_speed = self.move_speeds[pid as usize];
+        let slot = &mut self.fixed[PlayerInfoProt::MoveSpeed.to_index()][pid as usize];
         if slot.bytes().is_empty() {
             self.written.push(pid);
         }
-        slot.set(&PlayerInfoMoveType { move_type });
+        slot.set(&PlayerInfoMoveSpeed { move_speed });
     }
 
     /// Returns the total pre-computed high-definition byte size for a player.
@@ -1046,7 +1046,7 @@ impl PlayerRenderer {
         let idx = id as usize;
         #[cfg(since_647)]
         {
-            self.move_types[idx] = DEFAULT_MOVE_TYPE;
+            self.move_speeds[idx] = DEFAULT_MOVE_SPEED;
         }
         self.low_faces[idx] = LowFace::default();
         self.highs[idx] = 0;
@@ -1576,7 +1576,7 @@ mod classic_tests {
         info.chat_bytes = Some(vec![2, 0x48, 0x69].into_boxed_slice());
         info.chat_colour = Some(3);
         info.chat_effects = Some(1);
-        info.chat_ignored = Some(2);
+        info.chat_crown = Some(2);
         info.apply_damage(300, 1, 50, 100, PlayerInfoProt::Damage as u16);
         info.damage2_taken = Some(7);
         info.damage2_type = Some(2);
@@ -1674,31 +1674,31 @@ mod classic_tests {
 }
 
 #[cfg(all(test, since_647))]
-mod move_type_tests {
+mod move_speed_tests {
     use super::*;
 
-    fn move_type_block(r: &PlayerRenderer, pid: u16) -> Option<u8> {
-        let byte = r.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize].data[0];
+    fn move_speed_block(r: &PlayerRenderer, pid: u16) -> Option<u8> {
+        let byte = r.fixed[PlayerInfoProt::MoveSpeed.to_index()][pid as usize].data[0];
         #[cfg(since_742)]
         let byte = byte.wrapping_sub(128);
-        r.has(pid, PlayerInfoProt::MoveType).then_some(byte)
+        r.has(pid, PlayerInfoProt::MoveSpeed).then_some(byte)
     }
 
     #[test]
-    fn an_added_player_carries_the_move_type_sent_ticks_earlier() {
+    fn an_added_player_carries_the_move_speed_sent_ticks_earlier() {
         let mut r = PlayerRenderer::new();
         let mut info = EntityMasks::new();
-        info.masks = PlayerInfoProt::MoveType as u16;
-        info.move_type = Some(2);
+        info.masks = PlayerInfoProt::MoveSpeed as u16;
+        info.move_speed = Some(2);
         r.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
-        assert_eq!(move_type_block(&r, 7), Some(2));
+        assert_eq!(move_speed_block(&r, 7), Some(2));
 
         r.remove_temporary();
-        assert_eq!(move_type_block(&r, 7), None, "the tick's block is gone");
+        assert_eq!(move_speed_block(&r, 7), None, "the tick's block is gone");
 
-        r.cache_move_type(7);
+        r.cache_move_speed(7);
         assert_eq!(
-            move_type_block(&r, 7),
+            move_speed_block(&r, 7),
             Some(2),
             "and the add still says run"
         );
@@ -1712,7 +1712,7 @@ mod move_type_tests {
         info.chat_bytes = Some(vec![2, 0x48, 0x69].into_boxed_slice());
         info.chat_colour = Some(3);
         info.chat_effects = Some(1);
-        info.chat_ignored = Some(2);
+        info.chat_crown = Some(2);
         r.compute_info(70, &info, CoordGrid::new(3222, 0, 3218));
         assert_eq!(r.chat(70), [3, 1, 2, 2, 0x48, 0x69]);
         assert_eq!(r.chatted()[1], 1 << 6);
@@ -1727,13 +1727,13 @@ mod move_type_tests {
     fn a_slot_freed_by_logout_goes_back_to_walk() {
         let mut r = PlayerRenderer::new();
         let mut info = EntityMasks::new();
-        info.masks = PlayerInfoProt::MoveType as u16;
-        info.move_type = Some(2);
+        info.masks = PlayerInfoProt::MoveSpeed as u16;
+        info.move_speed = Some(2);
         r.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         r.remove_temporary();
         r.remove_permanent(7);
-        r.cache_move_type(7);
-        assert_eq!(move_type_block(&r, 7), Some(DEFAULT_MOVE_TYPE));
+        r.cache_move_speed(7);
+        assert_eq!(move_speed_block(&r, 7), Some(DEFAULT_MOVE_SPEED));
     }
 
     #[test]
@@ -1747,8 +1747,8 @@ mod move_type_tests {
         player.compute_info(7, &info, coord);
         player.remove_temporary();
 
-        info.masks = PlayerInfoProt::MoveType as u16;
-        info.move_type = Some(2);
+        info.masks = PlayerInfoProt::MoveSpeed as u16;
+        info.move_speed = Some(2);
         player.compute_info(7, &info, coord);
         #[cfg(before_742)]
         let block: &[u8] = &[0x8, 2];
@@ -1762,7 +1762,7 @@ mod move_type_tests {
                 coord: face_coord(6445, 6437, coord),
             },
         );
-        player.cache_move_type(7);
+        player.cache_move_speed(7);
         assert_eq!(player.high_block(7), block);
         assert_eq!(player.highdefinitions(7), 2);
         assert!(player.has(7, PlayerInfoProt::Appearance));

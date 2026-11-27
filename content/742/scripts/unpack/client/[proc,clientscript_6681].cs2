@@ -13,30 +13,30 @@ if ($struct1 ! null) {
     cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     cc_setsize(5, 0, ^setsize_abs, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
-    cc_setgraphic(12905);
+    cc_setgraphic(graphic_12905);
     cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     cc_setsize(5, 0, ^setsize_abs, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
-    cc_setgraphic(12907);
+    cc_setgraphic(graphic_12907);
     cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     cc_setsize(10, 0, ^setsize_minus, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
-    cc_setgraphic(12906);
+    cc_setgraphic(graphic_12906);
     cc_settiling(false);
     cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     cc_setsize(5, 0, ^setsize_abs, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
-    cc_setgraphic(12911);
+    cc_setgraphic(graphic_12911);
     cc_settrans(255);
     .cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     .cc_setsize(5, 0, ^setsize_abs, ^setsize_minus);
     .cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
-    .cc_setgraphic(12913);
+    .cc_setgraphic(graphic_12913);
     .cc_settrans(255);
     .cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     .cc_setsize(10, 0, ^setsize_minus, ^setsize_minus);
     .cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
-    .cc_setgraphic(12912);
+    .cc_setgraphic(graphic_12912);
     .cc_settiling(false);
     .cc_settrans(255);
     if_setonmouserepeat($component0, "clientscript_6682(event_com, cc_getid)");
@@ -50,9 +50,9 @@ if ($struct1 ! null) {
     } else {
         cc_setsize(34, 34, ^setsize_abs, ^setsize_abs);
         if (map_lang = 1) {
-            cc_setgraphic(8635);
+            cc_setgraphic(graphic_8635);
         } else {
-            cc_setgraphic(8633);
+            cc_setgraphic(graphic_8633);
         }
         $string0 = "Hunter XP (x5)";
     }

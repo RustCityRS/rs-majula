@@ -7,21 +7,17 @@
 //! anyone could wield the item at any level. Each case clicks Wield on the
 //! item in the backpack, as the client does, and checks the level gate holds.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use rs_pack::ParamValue;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
+#[cfg(since_647)]
+use rs_test::server;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
-
-/// `inventory:inv`.
-const BACKPACK: i32 = 149 << 16;
 
 fn id(engine: &Engine, name: &str) -> TypeId {
     engine
@@ -33,9 +29,8 @@ fn id(engine: &Engine, name: &str) -> TypeId {
 }
 
 /// Logs a returning player in holding `obj` in backpack slot 0, with every
-/// stat at `level`, and clicks its Wield (`IF_BUTTON2`, `Class199.method1317`:
-/// `p4(com) p2_alt3(obj) p2_alt1(slot)`). Returns whether the obj is still in
-/// the backpack afterwards.
+/// stat at `level`, and clicks its Wield (`IF_BUTTON2`). Returns whether the
+/// obj is still in the backpack afterwards.
 fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
     let obj = id(engine, name);
     engine.harness_reset();
@@ -50,9 +45,7 @@ fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
     player.invs.get_mut(&inv).expect("backpack").set(0, obj, 1);
     forget_calls();
 
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK).p2_alt3(obj.int()).p2_alt1(0);
-    client.send(ClientProt::IfButton2, &p.finish());
+    client.if_button(2, BACKPACK, 0, obj);
     engine.cycle();
 
     engine
@@ -68,6 +61,7 @@ fn refused() -> bool {
     !calls_for("mes").is_empty()
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_renamed_items_keep_their_wield_levels() {
     runner::on_loaded_engine(|engine| {
@@ -150,13 +144,22 @@ fn the_newer_289_wield_lines_hold() {
 
 /// A wielded weapon brings its 2011 stance: the render anim (BAS) its cache
 /// param 644 names (`void-634`'s RENDER_EMOTE), which the appearance carries in
-/// place of 289's seven base animations. A two-handed sword stands as 124, a
-/// sword as 1381; nothing wielded is 1426 (void-634's `human_stand`).
+/// place of 289's seven base animations. On 647 a two-handed sword stands as
+/// 124, a sword as 1381; nothing wielded is 1426 (void-634's `human_stand`).
+#[cfg(since_647)]
 #[test]
 fn a_wielded_weapon_brings_its_2011_stance() {
     runner::on_loaded_engine(|engine| {
         let two_handed = id(engine, "bronze_2h_sword");
         let sword = id(engine, "bronze_sword");
+        let stance = |obj: TypeId| {
+            let params = engine.cache.objs.get_by_id(obj).unwrap().params.as_ref();
+            match params.and_then(|p| p.get(&TypeId::new(644))) {
+                Some(ParamValue::Int(bas)) => Some(TypeId::from_int(*bas)),
+                other => panic!("param 644 of {obj:?}: {other:?}"),
+            }
+        };
+        let (two_handed_bas, sword_bas) = (stance(two_handed), stance(sword));
         let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         engine.harness_reset();
         let mut client = engine.harness_login_returning("stance").expect("login");
@@ -166,33 +169,25 @@ fn a_wielded_weapon_brings_its_2011_stance() {
         backpack.set(0, two_handed, 1);
         backpack.set(1, sword, 1);
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(two_handed.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton2, &p.finish());
+        client.if_button(2, BACKPACK, 0, two_handed);
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(
-            player.info.readyanim,
-            Some(TypeId::new(124)),
+            player.info.readyanim, two_handed_bas,
             "the two-handed sword's stance"
         );
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(sword.int()).p2_alt1(1);
-        client.send(ClientProt::IfButton2, &p.finish());
+        client.if_button(2, BACKPACK, 1, sword);
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(
-            player.info.readyanim,
-            Some(TypeId::new(1381)),
-            "the sword's stance"
-        );
+        assert_eq!(player.info.readyanim, sword_bas, "the sword's stance");
     });
 }
 
 /// 289's `~equip` of the elemental shield (player/scripts/equip.rs2) takes it
 /// off for a tick and plays its shimmer: `shield_appear`, synth 1539 (647's
 /// synth.pack, the wire id), then puts it back on.
+#[cfg(since_647)]
 #[test]
 fn wearing_the_elemental_shield_plays_its_shimmer() {
     runner::on_loaded_engine(|engine| {
@@ -211,19 +206,15 @@ fn wearing_the_elemental_shield_plays_its_shimmer() {
             .set(0, obj, 1);
         engine.cycle();
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(obj.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton2, &p.finish());
+        client.if_button(2, BACKPACK, 0, obj);
         let mut packets = Vec::new();
         for _ in 0..4 {
             engine.cycle();
             packets.extend(client.packets());
         }
-        let synth = ServerProt::SynthSound as u16;
-        let sounds: Vec<u16> = packets
-            .iter()
-            .filter(|(op, _)| *op == synth)
-            .map(|(_, b)| u16::from_be_bytes([b[0], b[1]]))
+        let sounds: Vec<u16> = server::synths(&packets)
+            .into_iter()
+            .map(|(s, _)| s)
             .collect();
         assert!(
             sounds.contains(&1539),

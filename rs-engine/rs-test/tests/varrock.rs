@@ -1,7 +1,7 @@
 //! 289's Varrock at 647 (`areas/area_varrock`): every way through its
 //! shopkeepers' and townsfolk's Talk-to says something and fails no script.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;

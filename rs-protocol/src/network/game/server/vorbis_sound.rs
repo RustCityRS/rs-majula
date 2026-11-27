@@ -14,8 +14,8 @@ pub struct VorbisSound {
     pub sample_id: u16,
     pub loops: u8,
     pub delay: u16,
-    pub unk1: u8,
-    pub unk2: u16,
+    pub volume: u8,
+    pub speed: u16,
 }
 
 impl ServerProtMessage for VorbisSound {
@@ -23,15 +23,15 @@ impl ServerProtMessage for VorbisSound {
         buf.p2(self.sample_id);
         buf.p1(self.loops);
         buf.p2(self.delay);
-        buf.p1(self.unk1);
-        buf.p2(self.unk2);
+        buf.p1(self.volume);
+        buf.p2(self.speed);
     }
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.sample_id)
             + size_of_val(&self.loops)
             + size_of_val(&self.delay)
-            + size_of_val(&self.unk1)
-            + size_of_val(&self.unk2)
+            + size_of_val(&self.volume)
+            + size_of_val(&self.speed)
     }
 }

@@ -3,36 +3,21 @@
 //! 2011 re-issued the Lumbridge castle cellar's ladder as 29355 and rebuilt the
 //! castle's staircases (36773...), none of which 289 names: they climb by
 //! void-634's record of each 2011 placement (`loc_tele_2011`).
-//! `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::{com, iface};
 use rs_test::runner;
+use rs_ver::TypeId;
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
-/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
 fn op_loc2(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+    client.op_loc(2, x, z, TypeId::from_int(loc as i32));
 }
 
 fn coord(engine: &Engine, pid: u16) -> (u16, u8, u16) {
@@ -52,6 +37,8 @@ fn climber(engine: &mut Engine, name: &str, x: u16, y: u8, z: u16) -> HarnessCli
     client
 }
 
+// 742's cellar map (l50_150) is still encrypted: no ladder to climb.
+#[cfg(before_742)]
 #[test]
 fn the_cook_s_cellar_ladder_climbs_back_to_the_kitchen() {
     runner::on_loaded_engine(|engine| {
@@ -89,6 +76,34 @@ fn lumbridge_castle_s_2011_staircase_climbs_a_floor() {
         }
         let (_, y, _) = coord(engine, client.pid);
         assert_eq!(y, 1, "on the first floor");
+    });
+}
+
+#[test]
+fn climb_asks_for_a_direction_on_lumbridges_middle_ladder_and_stairs() {
+    runner::on_loaded_engine(|engine| {
+        for (loc, x, z, stand_x, stand_z) in [
+            (36769, 3229, 3213, 3228, 3213),
+            (36774, 3204, 3207, 3205, 3209),
+        ] {
+            for (button, floor) in [("multi2:multi2a", 2), ("multi2:multi2b", 0)] {
+                let mut client = climber(engine, "climber", stand_x, 1, stand_z);
+                op_loc1(&mut client, loc, x, z);
+                for _ in 0..8 {
+                    engine.cycle();
+                }
+                let player = engine.harness_player(client.pid).unwrap();
+                assert_eq!(player.modal_chat, Some(iface("multi2")), "loc {loc}");
+                let (x, y, z) = coord(engine, client.pid);
+                assert_eq!(y, 1);
+
+                client.resume_pausebutton(com(button), u16::MAX);
+                for _ in 0..8 {
+                    engine.cycle();
+                }
+                assert_eq!(coord(engine, client.pid), (x, floor, z), "loc {loc}");
+            }
+        }
     });
 }
 

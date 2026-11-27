@@ -1,7 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-#[cfg(since_647)]
-use crate::core::engine;
-use crate::core::{Engine, engine_mut};
+use crate::core::{Engine, engine, engine_mut};
 use crate::handlers::client_cheat::bot_tick;
 use crate::phases::shared::{EntityId, panic_message};
 use rs_vm::engine::ScriptPlayer;
@@ -82,7 +80,9 @@ impl Engine {
         };
         self.input_paths.current = Some(active.player.uid);
 
-        Self::check_afk(self.clock, active);
+        if self.afk_events {
+            Self::check_afk(self.clock, active);
+        }
         if active.decode() {
             active.player.last_response = self.clock;
         }
@@ -151,7 +151,7 @@ impl Engine {
     ///
     /// * Sets `active.player.move_request`.
     /// * Clears waypoints when the player is delayed.
-    /// * At 647, queues the path to an op's target.
+    /// * Queues the path to an op's target when the server paths (always from 647).
     #[inline(always)]
     fn post_process(active: &mut ActivePlayer) {
         if !active.player.move_clicked && !active.player.opcalled {
@@ -165,17 +165,19 @@ impl Engine {
 
         active.player.move_request = active.busy() || !active.player.opcalled;
 
-        #[cfg(since_647)]
         {
             use rs_vm::trigger::ServerTriggerType;
             let target_op = active.player.interaction.target_op;
             let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
                 || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
             let client_pathfinder = engine().client_pathfinder;
-            if !following
-                && active.player.opcalled
-                && (!active.player.pathing.has_waypoints() || !client_pathfinder)
-            {
+            // Before 647 the client sends its own route to an op's target, unless the
+            // server paths.
+            #[cfg(before_647)]
+            let server_route = !client_pathfinder;
+            #[cfg(since_647)]
+            let server_route = !active.player.pathing.has_waypoints() || !client_pathfinder;
+            if !following && active.player.opcalled && server_route {
                 Self::path_to_target(active as *mut ActivePlayer, client_pathfinder);
             }
         }

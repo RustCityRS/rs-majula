@@ -5905,11 +5905,11 @@ fog_color=8028560
 fog_depth=700
 
 ==== LIGHTS ====
-0 3421 6331 200: radius=2 colors=5,5,5,5,5 hsl=832 type=14
-0 3123 5981 200: radius=2 colors=5,5,5,5,5 hsl=832 type=14
-0 2875 5316 200: radius=2 colors=515,260,260,260,260 hsl=832 type=14
-0 7671 5785 194: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 8081 5785 194: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
+0 3421 6331 200: radius=2 radiusgrid=5,5,5,5,5 hsl=832 type=14
+0 3123 5981 200: radius=2 radiusgrid=5,5,5,5,5 hsl=832 type=14
+0 2875 5316 200: radius=2 radiusgrid=515,260,260,260,260 hsl=832 type=14
+0 7671 5785 194: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 8081 5785 194: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
 
 ==== ENVPARAMS ====
 32 8 32

@@ -1,12 +1,14 @@
+#[cfg(since_530)]
 use crate::archive;
 use crate::pack::incremental::{Lookups, Registry, answer};
-use crate::pack::pack_registry::PackFile;
+use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
+use crate::pack::util::raw_id_error;
 use crate::pack::util::walk;
 use anyhow::{Context, Result, bail, ensure};
 #[cfg(since_530)]
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 #[cfg(since_530)]
 use runec::lexer::Lexer;
 use runec::symbol::identifier_form;
@@ -124,7 +126,7 @@ impl AssetNames {
     fn find_name(&self, kind: &str, id: u32) -> String {
         self.packs
             .get(kind)
-            .and_then(|p| p.get_by_id(id))
+            .and_then(|p| p.get_by_id(id as PackId))
             .map(str::to_owned)
             .unwrap_or_else(|| format!("{}_{id}", asset_prefix(kind)))
     }
@@ -141,7 +143,12 @@ impl AssetNames {
     /// finds a stage's files, which is not what it packs from them.
     fn lookup(&self, kind: &str, name: &str) -> Result<u32> {
         if let Some(id) = self.packs.get(kind).and_then(|p| p.get_by_debugname(name)) {
+            #[cfg(before_530)]
+            let id = u32::from(id);
             return Ok(id);
+        }
+        if let Some(error) = raw_id_error(kind, name) {
+            bail!(error);
         }
         let number = name
             .strip_prefix(&format!("{kind}_"))
@@ -162,7 +169,7 @@ impl AssetNames {
     }
 
     pub fn resolve(&self, kind: &str, value: &str) -> Result<i64> {
-        if value == "null" || value == "-1" {
+        if value == "null" {
             Ok(-1)
         } else {
             Ok(self.id(kind, value)? as i64)
@@ -251,6 +258,9 @@ impl AssetNames {
         {
             return Ok(id);
         }
+        if let Some(error) = raw_id_error("component", name) {
+            bail!(error);
+        }
         name.strip_prefix("com_")
             .or_else(|| name.strip_prefix("com"))
             .unwrap_or(name)
@@ -275,6 +285,7 @@ fn asset_prefix(kind: &str) -> &str {
     kind
 }
 
+#[cfg(since_530)]
 pub fn archive_name(id: u8) -> &'static str {
     match id {
         archive::ANIMS => "anim",
@@ -419,7 +430,7 @@ fn name_problems(content_dir: &Path, pack_dir: &Path) -> Result<(usize, Vec<Stri
                 continue;
             }
             checked += 1;
-            if java_string_hash(&name) != hash
+            if hash32(&name) != hash
                 && trigger_hash(&names, &name) != Some(hash)
                 && !is_placeholder(kind, &name, id)
             {
@@ -542,9 +553,9 @@ mod tests {
             pack.join("clientscript.hashes"),
             format!(
                 "0={}\n1=7\n2=9\n3={}\n4={}\n",
-                java_string_hash("[clientscript,good]"),
+                hash32("[clientscript,good]"),
                 10 | 2 << 10,
-                java_string_hash("bare")
+                hash32("bare")
             ),
         )
         .unwrap();
@@ -555,18 +566,18 @@ mod tests {
         .unwrap();
         fs::write(
             pack.join("interface.hashes"),
-            format!("0={}\n", java_string_hash("cove lid")),
+            format!("0={}\n", hash32("cove lid")),
         )
         .unwrap();
         fs::write(
             dir.join("versions/interfaces.fileids"),
             format!(
                 "0=0:{},1:77,2:{},3:{},4:{},5:{}\n",
-                java_string_hash("a history"),
-                java_string_hash("meter1-"),
-                java_string_hash("meter1_"),
-                java_string_hash("2"),
-                java_string_hash("logout")
+                hash32("a history"),
+                hash32("meter1-"),
+                hash32("meter1_"),
+                hash32("2"),
+                hash32("logout")
             ),
         )
         .unwrap();

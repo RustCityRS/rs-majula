@@ -5,7 +5,7 @@ x=17
 y=26
 width=480
 height=293
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase=  
 
@@ -15,7 +15,7 @@ type=graphic
 y=26
 width=37
 height=276
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 opbase= 
 
@@ -26,7 +26,7 @@ x=479
 y=26
 width=22
 height=281
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 opbase= 
 
@@ -37,7 +37,7 @@ x=15
 y=302
 width=468
 height=23
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 675:4
@@ -47,7 +47,7 @@ x=14
 y=10
 width=478
 height=38
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 opbase= 
 
@@ -58,7 +58,7 @@ x=467
 y=290
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 opbase= 
 
 // 675:6
@@ -68,7 +68,7 @@ x=13
 y=290
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 675:7
 [top_left]
@@ -77,7 +77,7 @@ x=13
 y=23
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 opbase= 
 
 // 675:8
@@ -87,7 +87,7 @@ x=467
 y=23
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 opbase= 
 
 // 675:9
@@ -97,7 +97,7 @@ x=16
 y=38
 width=477
 height=35
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 675:10
@@ -107,7 +107,7 @@ x=13
 y=40
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 tiling=yes
 
 // 675:11
@@ -117,7 +117,7 @@ x=467
 y=40
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 tiling=yes
 
 // 675:12
@@ -127,7 +127,7 @@ x=471
 y=32
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -141,7 +141,7 @@ x=17
 y=29
 width=477
 height=24
-textfont=fontmetrics_496
+textfont=b12_full
 text=What Would You Like To Make?
 textalignh=centre
 textalignv=centre
@@ -177,7 +177,7 @@ y=24
 width=378
 height=36
 layer=com_14
-textfont=fontmetrics_495
+textfont=p12_full
 text=You need a ring mould to craft rings.
 textshadow=yes
 colour=0xff991f
@@ -189,7 +189,7 @@ x=80
 y=66
 width=394
 height=25
-textfont=fontmetrics_496
+textfont=b12_full
 text=Rings
 textshadow=yes
 colour=0xff9900
@@ -407,7 +407,7 @@ y=24
 width=378
 height=36
 layer=com_33
-textfont=fontmetrics_495
+textfont=p12_full
 text=You need a necklace mould to craft necklaces.
 textshadow=yes
 colour=0xff991f
@@ -419,7 +419,7 @@ x=80
 y=127
 width=394
 height=25
-textfont=fontmetrics_496
+textfont=b12_full
 text=Necklaces
 textshadow=yes
 colour=0xff9900
@@ -629,7 +629,7 @@ y=24
 width=378
 height=36
 layer=com_52
-textfont=fontmetrics_495
+textfont=p12_full
 text=You need an amulet mould to craft amulets.
 textshadow=yes
 colour=0xff991f
@@ -641,7 +641,7 @@ x=80
 y=188
 width=394
 height=25
-textfont=fontmetrics_496
+textfont=b12_full
 text=Amulets
 textshadow=yes
 colour=0xff9900
@@ -851,7 +851,7 @@ y=24
 width=378
 height=36
 layer=need_bracelet_mould
-textfont=fontmetrics_495
+textfont=p12_full
 text=You need a bracelet mould to craft bracelets.
 textshadow=yes
 colour=0xff991f
@@ -863,7 +863,7 @@ x=80
 y=249
 width=394
 height=25
-textfont=fontmetrics_496
+textfont=b12_full
 text=Bracelets
 textshadow=yes
 colour=0xff9900

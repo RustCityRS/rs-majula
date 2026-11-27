@@ -21,7 +21,7 @@
 use rs_io::{Packet, PacketFrame};
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
-use rs_protocol::network::game::server::loc_merge::LocMerge;
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
@@ -142,7 +142,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-2]<<16 | b[-1]<<24 | b[-3]<<8 | b[-4]` (little-endian-ish)
-    fn g4s_alt1(&mut self) -> i32 {
+    fn g4_alt1(&mut self) -> i32 {
         self.pos += 4;
         ((self.b(self.pos - 2) & 0xFF) << 16)
             + ((self.b(self.pos - 1) & 0xFF) << 24)
@@ -151,7 +151,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-2] | b[-3]<<24 | b[-4]<<16 | b[-1]<<8`
-    fn g4s_alt3(&mut self) -> i32 {
+    fn g4_alt3(&mut self) -> i32 {
         self.pos += 4;
         (self.b(self.pos - 2) & 0xFF)
             + ((self.b(self.pos - 3) & 0xFF) << 24)
@@ -160,7 +160,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-4]<<8 | b[-2]<<24 | b[-1]<<16 | b[-3]`
-    fn g4s_alt2(&mut self) -> i32 {
+    fn g4_alt2(&mut self) -> i32 {
         self.pos += 4;
         ((self.b(self.pos - 4) & 0xFF) << 8)
             + ((self.b(self.pos - 2) & 0xFF) << 24)
@@ -176,6 +176,26 @@ impl<'a> ClientPacket<'a> {
         }
         self.pos += 1;
         String::from_utf8_lossy(&self.buf[start..self.pos - 1]).into_owned()
+    }
+
+    /// Big-endian 64: two `g4`.
+    fn g8(&mut self) -> i64 {
+        let hi = self.g4s() as i64 & 0xFFFF_FFFF;
+        let lo = self.g4s() as i64 & 0xFFFF_FFFF;
+        (hi << 32) + lo
+    }
+
+    /// `fastgjstr`: a leading 0 is null (consumed), else `gjstr`.
+    fn fastgjstr(&mut self) -> Option<String> {
+        if self.buf[self.pos] == 0 {
+            self.pos += 1;
+            return None;
+        }
+        Some(self.gjstr())
+    }
+
+    fn remaining(&self) -> usize {
+        self.buf.len() - self.pos
     }
 
     fn done(&self, expected_len: usize) {
@@ -246,7 +266,7 @@ fn varc_str_large_matches_client() {
     assert_eq!(msg.sizeof(), bytes.len());
 }
 
-/// Client: `g2 varp`, `g4s_alt2 value`.
+/// Client: `g2 varp`, `g4_alt2 value`.
 #[test]
 fn varp_large_matches_client() {
     use rs_protocol::network::game::server::varp_large::VarpLarge;
@@ -256,7 +276,7 @@ fn varp_large_matches_client() {
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2(), 1240);
-    assert_eq!(p.g4s_alt2(), 0x0123_4567);
+    assert_eq!(p.g4_alt2(), 0x0123_4567);
     p.done(bytes.len());
 }
 
@@ -344,7 +364,7 @@ fn obj_count_matches_client() {
 // Interface prots
 // ---------------------------------------------------------------------------
 
-/// Client IF_OPENSUB: `g2_alt3 sub`, `g4s_alt3 parent_hash`, `g1_alt1 walkable`.
+/// Client IF_OPENSUB: `g2_alt3 sub`, `g4_alt3 parent_hash`, `g1_alt1 walkable`.
 #[test]
 fn if_opensub_matches_client() {
     use rs_protocol::network::game::server::if_opensub::IfOpensub;
@@ -357,7 +377,7 @@ fn if_opensub_matches_client() {
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2_alt3(), 747, "sub interface id");
-    assert_eq!(p.g4s_alt3(), parent_hash, "parent component hash");
+    assert_eq!(p.g4_alt3(), parent_hash, "parent component hash");
     assert_eq!(p.g1_alt1(), 1, "walkable");
     p.done(bytes.len());
 }
@@ -391,7 +411,7 @@ fn if_opentop_mode_matches_client() {
     p.done(bytes.len());
 }
 
-/// Client IF_SETCOLOUR: `g4s_alt2 hash`, `g2_alt3 colour`.
+/// Client IF_SETCOLOUR: `g4_alt2 hash`, `g2_alt3 colour`.
 ///
 /// Regression: previously `p4_alt1` + `p2` -- right byte count, wrong order.
 #[test]
@@ -403,7 +423,7 @@ fn if_setcolour_matches_client() {
         colour: 0x7ABC,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt2(), hash, "component hash");
+    assert_eq!(p.g4_alt2(), hash, "component hash");
     assert_eq!(p.g2_alt3(), 0x7ABC, "colour");
     p.done(bytes.len());
 }
@@ -499,7 +519,7 @@ fn vorbis_speech_stop_matches_client() {
 }
 
 /// Client IF_SETGRAPHIC (`MapAreaConfig.java`): `ig4 hash` (little-endian, this reader's
-/// `g4s_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
+/// `g4_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
 #[test]
 fn if_setgraphic_matches_client() {
     use rs_protocol::network::game::server::if_setgraphic::IfSetGraphic;
@@ -509,12 +529,12 @@ fn if_setgraphic_matches_client() {
         graphic: TypeId::new(2379),
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt1(), hash, "component hash");
+    assert_eq!(p.g4_alt1(), hash, "component hash");
     assert_eq!(p.g2_alt2(), 2379, "graphic");
     p.done(bytes.len());
 }
 
-/// Client IF_SETPOSITION: `g4s_alt3 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
+/// Client IF_SETPOSITION: `g4_alt3 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
 ///
 /// Regression: previously `p4_alt1` + `p2` + `p2`.
 #[test]
@@ -527,7 +547,7 @@ fn if_setposition_matches_client() {
         y: 250,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt3(), hash, "component hash");
+    assert_eq!(p.g4_alt3(), hash, "component hash");
     assert_eq!(p.g2_alt3(), 120, "x");
     assert_eq!(p.g2_alt3(), 250, "y");
     p.done(bytes.len());
@@ -551,17 +571,17 @@ fn create_check_name_matches_client() {
 // Misc
 // ---------------------------------------------------------------------------
 
-/// Client UPDATE_STAT: `g4s_alt2 xp`, `g1 skill`, `g1_alt2 level`.
+/// Client UPDATE_STAT: `g4_alt2 xp`, `g1 skill`, `g1_alt2 level`.
 #[test]
 fn update_stat_matches_client() {
     use rs_protocol::network::game::server::update_stat::UpdateStat;
     let bytes = encode(&UpdateStat {
-        stat: 23, // summoning
+        stat: 23, // animallore
         lvl: 42,
         exp: 123_456,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4s_alt2(), 123_456, "xp");
+    assert_eq!(p.g4_alt2(), 123_456, "xp");
     assert_eq!(p.g1(), 23, "skill id");
     assert_eq!(p.g1_alt2(), 42, "level");
     p.done(bytes.len());
@@ -777,11 +797,11 @@ fn sound_areas_match_client() {
 /// coord, loc, shape (`g1_alt1`, -v), then a g2 list per flag, sized by the
 /// loc type. Flag 1 alone resets the loc.
 #[test]
-fn loc_merge_matches_client() {
-    assert_eq!(ZoneProt::LocMerge as u8, 0);
-    assert_eq!(LocMerge::PROT as u8, 20);
+fn loc_customise_matches_client() {
+    assert_eq!(ZoneProt::LocCustomise as u8, 0);
+    assert_eq!(LocCustomise::PROT as u8, 20);
 
-    let merge = LocMerge {
+    let customise = LocCustomise {
         coord: 0x35,
         id: TypeId::new(0x1234),
         shape_angle: 10 << 2 | 3,
@@ -789,8 +809,8 @@ fn loc_merge_matches_client() {
         recol: Some(Box::new([960, 8353])),
         retex: Some(Box::new([40])),
     };
-    let bytes = encode(&merge);
-    assert_eq!(merge.sizeof(), bytes.len());
+    let bytes = encode(&customise);
+    assert_eq!(customise.sizeof(), bytes.len());
     let mut c = ClientPacket::new(&bytes);
     assert_eq!(c.g1_alt3(), 0x4 | 0x8, "recolours and retextures");
     let coord = c.g1();
@@ -803,11 +823,11 @@ fn loc_merge_matches_client() {
     assert_eq!(c.g2(), 40, "retex 0");
     c.done(11);
 
-    let reset = LocMerge {
+    let reset = LocCustomise {
         models: None,
         recol: None,
         retex: None,
-        ..merge
+        ..customise
     };
     let bytes = encode(&reset);
     let mut c = ClientPacket::new(&bytes);
@@ -822,7 +842,7 @@ fn loc_merge_matches_client() {
 // Camera, and the targeted spotanim. `MapAreaConfig`'s branches for each.
 // ---------------------------------------------------------------------------
 
-/// `AClass13.method622(const_speed, z, x, var_speed, height)` is fed
+/// `AClass13.method622(rate, z, x, rate2, height)` is fed
 /// `g1_alt2 x; g2_alt3 height << 2; g1_alt3 z; g1_alt2 const; g1_alt3 var`.
 #[test]
 fn cam_lookat_matches_client() {
@@ -831,8 +851,8 @@ fn cam_lookat_matches_client() {
         local_x: 40,
         local_z: 61,
         height: 300,
-        const_speed: 5,
-        var_speed: 100,
+        rate: 5,
+        rate2: 100,
     });
     let mut c = ClientPacket::new(&bytes);
     assert_eq!(c.g1_alt2(), 40, "x");
@@ -852,8 +872,8 @@ fn cam_moveto_matches_client() {
         local_x: 40,
         local_z: 61,
         height: 300,
-        const_speed: 5,
-        var_speed: 100,
+        rate: 5,
+        rate2: 100,
     });
     let mut c = ClientPacket::new(&bytes);
     assert_eq!(c.g1_alt1(), 40, "x");
@@ -864,17 +884,17 @@ fn cam_moveto_matches_client() {
     c.done(6);
 }
 
-/// `g1_alt2 jitter; g1 amplitude; g2_alt3 cycle; g1 type; g1_alt1
-/// frequency`, stored per axis and read back by `Class237`'s
-/// `random(-jitter..=jitter) + sin(frequency / 100 * cycle) * amplitude`.
+/// `g1_alt2 ran; g1 amp; g2_alt3 cycle; g1 axis; g1_alt1
+/// rate`, stored per axis and read back by `Class237`'s
+/// `random(-ran..=ran) + sin(rate / 100 * cycle) * amp`.
 #[test]
 fn cam_shake_matches_client() {
     use rs_protocol::network::game::server::cam_shake::CamShake;
     let bytes = encode(&CamShake {
-        direction: 4,
-        jitter: 3,
-        amplitude: 25,
-        frequency: 60,
+        axis: 4,
+        ran: 3,
+        amp: 25,
+        rate: 60,
         cycle: 0,
     });
     let mut c = ClientPacket::new(&bytes);
@@ -990,7 +1010,7 @@ fn trade_request_is_2011s_type_100() {
 
 /// Client (`MapAreaConfig`, UPDATE_INV_FULL): `g2 inv`, `g1 flags` (bit 0:
 /// the other player's copy of the inv, which trade's other offer shows),
-/// `g2 size`, then per slot `g1 count` (255: `g4s_alt1`) and `g2_alt2 obj + 1`.
+/// `g2 size`, then per slot `g1 count` (255: `g4_alt1`) and `g2_alt2 obj + 1`.
 #[test]
 fn update_inv_full_matches_client() {
     use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
@@ -1020,7 +1040,7 @@ fn update_inv_full_matches_client() {
         for _ in 0..3 {
             let mut count = p.g1();
             if count == 255 {
-                count = p.g4s_alt1();
+                count = p.g4_alt1();
             }
             slots.push((p.g2_alt2() - 1, count));
         }
@@ -1397,5 +1417,394 @@ fn url_open_matches_client() {
         url.as_bytes(),
         "the URL, with no length or terminator"
     );
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+// ---------------------------------------------------------------------------
+// Social
+// ---------------------------------------------------------------------------
+
+/// Client (CHAT_FILTER_SETTINGS, 9): `g1_alt2` (128 - b) trade, `g1_alt1` (-b) public.
+#[test]
+fn chat_filter_settings_sends_trade_first() {
+    use rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings;
+    let message = ChatFilterSettings {
+        trade: 2,
+        public: 1,
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1_alt3(), 2, "trade");
+    assert_eq!(p.g1_alt2(), 1, "public");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (UPDATE_FRIENDLIST, 2): per entry `g1 renamed, gjstr name, gjstr prev, g2 world,
+/// g1 rank`, then `gjstr worldName, g1 platform` only when online.
+#[test]
+fn update_friendlist_matches_client() {
+    use rs_protocol::network::game::server::update_friendlist::{FriendEntry, UpdateFriendlist};
+    let message = UpdateFriendlist {
+        friends: vec![
+            FriendEntry {
+                renamed: false,
+                name: "Mod Ash".to_string(),
+                previous_name: String::new(),
+                world: 12,
+                rank: 3,
+                world_name: "RuneScape 12".to_string(),
+                platform: 1,
+            },
+            FriendEntry {
+                renamed: true,
+                name: "Zezima".to_string(),
+                previous_name: "Old Name".to_string(),
+                world: 0,
+                rank: 0,
+                world_name: "RuneScape 9".to_string(),
+                platform: 1,
+            },
+        ],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.gjstr(), "Mod Ash");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.g2(), 12);
+    assert_eq!(p.g1(), 3);
+    assert_eq!(p.gjstr(), "RuneScape 12");
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.gjstr(), "Old Name");
+    assert_eq!(p.g2(), 0, "offline: no world name or platform follows");
+    assert_eq!(p.g1(), 0);
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+    let empty = UpdateFriendlist { friends: vec![] };
+    assert!(
+        encode(&empty).is_empty(),
+        "an empty list still loads the tab"
+    );
+}
+
+/// Client (UPDATE_IGNORELIST_FULL, 113): `g1 count`, then four strings per entry.
+#[test]
+fn update_ignorelist_full_matches_client() {
+    use rs_protocol::network::game::server::update_ignorelist_full::{
+        IgnoreEntry, UpdateIgnorelistFull,
+    };
+    let message = UpdateIgnorelistFull {
+        entries: vec![IgnoreEntry {
+            name: "Spammer".to_string(),
+            display_name: String::new(),
+            prev_name: String::new(),
+            prev_display_name: String::new(),
+        }],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Spammer");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.gjstr(), "");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (UPDATE_IGNORELIST_PARTIAL, 30): `g1 flags` (1 rename, 2 temporary), four strings.
+#[test]
+fn update_ignorelist_partial_matches_client() {
+    use rs_protocol::network::game::server::update_ignorelist_full::IgnoreEntry;
+    use rs_protocol::network::game::server::update_ignorelist_partial::{
+        IGNORE_TEMPORARY, UpdateIgnorelistPartial,
+    };
+    let message = UpdateIgnorelistPartial {
+        flags: IGNORE_TEMPORARY,
+        entry: IgnoreEntry {
+            name: "Spammer".to_string(),
+            display_name: String::new(),
+            prev_name: "Was".to_string(),
+            prev_display_name: String::new(),
+        },
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    let flags = p.g1();
+    assert_eq!(flags & 1, 0, "an add, not a rename");
+    assert_eq!(flags & 2, 2, "temporary");
+    assert_eq!(p.gjstr(), "Spammer");
+    assert_eq!(p.gjstr(), "");
+    assert_eq!(p.gjstr(), "Was");
+    assert_eq!(p.gjstr(), "");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (UPDATE_FRIENDCHAT_CHANNEL_FULL, 53): empty = left; else `gjstr owner, g1 flag
+/// [gjstr discarded], g8 channel, g1b min kick, g1 count`, then per member `gjstr name,
+/// g1 flag [gjstr unfiltered], g2 world (always), g1b rank, gjstr world name`.
+#[test]
+fn update_friendchat_channel_full_matches_client() {
+    use rs_protocol::network::game::server::update_friendchat_channel_full::{
+        FriendchatChannel, FriendchatMember, UpdateFriendchatChannelFull,
+    };
+    let message = UpdateFriendchatChannelFull {
+        channel: Some(FriendchatChannel {
+            owner: "Mod Ash".to_string(),
+            channel37: 12345678,
+            min_kick: 7,
+            members: vec![
+                FriendchatMember {
+                    name: "Mod Ash".to_string(),
+                    display_name: None,
+                    world: 1100,
+                    rank: 7,
+                    world_name: "Lobby 1".to_string(),
+                },
+                FriendchatMember {
+                    name: "Zezima".to_string(),
+                    display_name: Some("Zezima".to_string()),
+                    world: 3,
+                    rank: -1,
+                    world_name: "RuneScape 3".to_string(),
+                },
+            ],
+        }),
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.gjstr(), "Mod Ash");
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.g8(), 12345678);
+    assert_eq!(p.g1s(), 7);
+    assert_eq!(p.g1(), 2);
+    assert_eq!(p.gjstr(), "Mod Ash");
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.g2(), 1100, "world without an unfiltered name");
+    assert_eq!(p.g1s(), 7);
+    assert_eq!(p.gjstr(), "Lobby 1");
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g2(), 3);
+    assert_eq!(p.g1s(), -1);
+    assert_eq!(p.gjstr(), "RuneScape 3");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let left = UpdateFriendchatChannelFull { channel: None };
+    assert!(
+        encode(&left).is_empty(),
+        "a size-0 frame leaves the channel"
+    );
+    assert_eq!(left.sizeof(), 0);
+}
+
+/// Client (UPDATE_FRIENDCHAT_CHANNEL_SINGLEUSER, 71): `gjstr name, g1 flag [gjstr], g2 world,
+/// g1b rank`, then `gjstr world name` unless the rank is -128 (removed).
+#[test]
+fn update_friendchat_channel_singleuser_matches_client() {
+    use rs_protocol::network::game::server::update_friendchat_channel_full::FriendchatMember;
+    use rs_protocol::network::game::server::update_friendchat_channel_singleuser::{
+        FRIENDCHAT_REMOVED, UpdateFriendchatChannelSingleuser,
+    };
+    for rank in [4, FRIENDCHAT_REMOVED] {
+        let message = UpdateFriendchatChannelSingleuser {
+            member: FriendchatMember {
+                name: "Zezima".to_string(),
+                display_name: None,
+                world: 3,
+                rank,
+                world_name: "RuneScape 3".to_string(),
+            },
+        };
+        let bytes = encode(&message);
+        let mut p = ClientPacket::new(&bytes);
+        assert_eq!(p.gjstr(), "Zezima");
+        assert_eq!(p.g1(), 0);
+        assert_eq!(p.g2(), 3);
+        assert_eq!(p.g1s(), rank as i32);
+        if rank != FRIENDCHAT_REMOVED {
+            assert_eq!(p.gjstr(), "RuneScape 3");
+        }
+        p.done(bytes.len());
+        assert_eq!(message.sizeof(), bytes.len());
+    }
+}
+
+/// Client (MESSAGE_FRIENDCHAT, 21): `g1 flag, gjstr name [gjstr], g8 channel, g2 uid hi,
+/// g3 uid lo, g1 tier`, then the Huffman text.
+#[test]
+fn message_friendchat_matches_client() {
+    use rs_protocol::network::game::server::message_friendchat::MessageFriendchat;
+    let message = MessageFriendchat {
+        sender: "Zezima".to_string(),
+        display_name: None,
+        channel37: 987654321,
+        msg_uid_hi: 0x0A01,
+        msg_uid_lo: 0x123456,
+        tier: 2,
+        message_data: vec![3, 0xAB, 0xCD],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g8(), 987654321);
+    assert_eq!(p.g2(), 0x0A01);
+    assert_eq!(p.g3(), 0x123456);
+    assert_eq!(p.g1(), 2);
+    assert_eq!(p.remaining(), 3);
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (CLANCHANNEL_FULL, 87, `ClanChannel.decode`): `g1 affined`; size 1 = none; else
+/// `g1 flags, g8 hash, g8 updateNum, gjstr name, g1, g1b kick, g1b talk, g2 count`, then per
+/// user (display names always read on 647) `gjstr name, g1b rank, g2 world`.
+#[test]
+fn clanchannel_full_matches_client() {
+    use rs_protocol::network::game::server::clanchannel_full::{
+        ClanChannelData, ClanChannelUser, ClanchannelFull,
+    };
+    let message = ClanchannelFull {
+        affined: true,
+        channel: Some(ClanChannelData {
+            clan_hash: 77,
+            update_num: 5,
+            name: "Clan".to_string(),
+            rank_kick: 100,
+            rank_talk: 0,
+            users: vec![ClanChannelUser {
+                display_name: "Zezima".to_string(),
+                rank: -1,
+                world: 1101,
+            }],
+        }),
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.g1() & 1, 0, "no user hashes");
+    assert_eq!(p.g8(), 77);
+    assert_eq!(p.g8(), 5);
+    assert_eq!(p.gjstr(), "Clan");
+    p.g1();
+    assert_eq!(p.g1s(), 100);
+    assert_eq!(p.g1s(), 0);
+    assert_eq!(p.g2(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g1s(), -1);
+    assert_eq!(p.g2(), 1101);
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let none = ClanchannelFull {
+        affined: false,
+        channel: None,
+    };
+    assert_eq!(encode(&none), vec![0]);
+    assert_eq!(none.sizeof(), 1);
+}
+
+/// Client (CLANCHANNEL_DELTA, 90, `Class304` and `AClass38_Sub1..4`): `g1 affined, g8 hash,
+/// g8 updateNum`, then ops until 0. Op 4 reads talk before kick.
+#[test]
+fn clanchannel_delta_matches_client() {
+    use rs_protocol::network::game::server::clanchannel_delta::{
+        ClanChannelDeltaOp, ClanchannelDelta,
+    };
+    let message = ClanchannelDelta {
+        affined: false,
+        clan_hash: 77,
+        update_num: 5,
+        ops: vec![
+            ClanChannelDeltaOp::AddUser {
+                display_name: "Zezima".to_string(),
+                world: 3,
+                rank: -1,
+            },
+            ClanChannelDeltaOp::UpdateUserDetails {
+                slot: 0,
+                rank: 2,
+                world: 4,
+                display_name: "Zezima".to_string(),
+            },
+            ClanChannelDeltaOp::DeleteUser { slot: 1 },
+            ClanChannelDeltaOp::UpdateClanChannelBaseSettings {
+                name: Some("Clan".to_string()),
+                rank_talk: 1,
+                rank_kick: 100,
+            },
+            ClanChannelDeltaOp::UpdateClanChannelBaseSettings {
+                name: None,
+                rank_talk: 0,
+                rank_kick: 0,
+            },
+        ],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.g8(), 77);
+    assert_eq!(p.g8(), 5);
+
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.g1(), 255, "no member hash");
+    assert_eq!(p.fastgjstr().as_deref(), Some("Zezima"));
+    assert_eq!(p.g2(), 3);
+    assert_eq!(p.g1s(), -1);
+    p.g8();
+
+    assert_eq!(p.g1(), 2);
+    assert_eq!(p.g2(), 0);
+    assert_eq!(p.g1s(), 2);
+    assert_eq!(p.g2(), 4);
+    p.g8();
+    assert_eq!(p.gjstr(), "Zezima");
+
+    assert_eq!(p.g1(), 3);
+    assert_eq!(p.g2(), 1);
+    p.g1();
+    assert_eq!(p.g1(), 255, "no member hash");
+
+    assert_eq!(p.g1(), 4);
+    assert_eq!(p.fastgjstr().as_deref(), Some("Clan"));
+    p.g1();
+    assert_eq!(p.g1s(), 1, "talk first");
+    assert_eq!(p.g1s(), 100, "kick second");
+
+    assert_eq!(p.g1(), 4);
+    assert_eq!(p.fastgjstr(), None, "a null name carries no ranks");
+
+    assert_eq!(p.g1(), 0, "end of ops");
+    p.done(bytes.len());
+    assert_eq!(message.sizeof(), bytes.len());
+}
+
+/// Client (MESSAGE_CLANCHANNEL, 22): `g1 affined, gjstr name, g2 uid hi, g3 uid lo, g1 tier`,
+/// then the Huffman text.
+#[test]
+fn message_clanchannel_matches_client() {
+    use rs_protocol::network::game::server::message_clanchannel::MessageClanchannel;
+    let message = MessageClanchannel {
+        affined: true,
+        sender: "Zezima".to_string(),
+        msg_uid_hi: 1,
+        msg_uid_lo: 2,
+        tier: 0,
+        message_data: vec![1, 9],
+    };
+    let bytes = encode(&message);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 1);
+    assert_eq!(p.gjstr(), "Zezima");
+    assert_eq!(p.g2(), 1);
+    assert_eq!(p.g3(), 2);
+    assert_eq!(p.g1(), 0);
+    assert_eq!(p.remaining(), 2);
     assert_eq!(message.sizeof(), bytes.len());
 }

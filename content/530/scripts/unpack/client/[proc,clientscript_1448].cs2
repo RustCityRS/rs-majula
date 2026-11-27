@@ -8,9 +8,9 @@ $int2 = calc((if_getheight($component0) - 32 * 7) / 6);
 def_int $int3 = 0;
 def_int $int4 = inv_size(inv);
 while ($int3 < $int4) {
-    cc_create($component0, 5, $int3);
-    cc_setsize(36, 32, 0, 0);
-    cc_setposition(calc((36 + $int1) * ($int3 % 4)), calc($int3 / 4 * (32 + $int2)), 0, 0);
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((36 + $int1) * ($int3 % 4)), calc($int3 / 4 * (32 + $int2)), ^setpos_abs_left, ^setpos_abs_top);
     ~interface_inv_draw_slot_big(inv, $int3, $component0, $int3, 1, null, "Deposit-1", "Deposit-5", "Deposit-10", "Deposit-<tostring(%last_bank_amount)>", "Deposit-X", "Deposit-All", "", "", "");
     $int3 = calc($int3 + 1);
 }

@@ -16,7 +16,7 @@ x=88
 y=60
 width=326
 height=213
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 31:2
@@ -36,7 +36,7 @@ x=97
 y=65
 width=309
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Challenge: Select Game
 textshadow=yes
 colour=0xffaa44
@@ -60,7 +60,7 @@ y=7
 width=65
 height=30
 layer=boardgames_challenge_selectlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Select
 textalignh=centre
 textalignv=centre
@@ -85,7 +85,7 @@ y=29
 width=15
 height=15
 layer=boardgames_challenge_optionslayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 tiling=yes
 transmitop=1
 op1=Select
@@ -99,7 +99,7 @@ y=59
 width=15
 height=15
 layer=boardgames_challenge_optionslayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 tiling=yes
 transmitop=1
 op1=Select
@@ -113,7 +113,7 @@ y=29
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Draughts
 textshadow=yes
 colour=0xffaa44
@@ -129,7 +129,7 @@ y=59
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Runelink
 textshadow=yes
 colour=0xffaa44
@@ -145,7 +145,7 @@ y=29
 width=80
 height=15
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
@@ -158,7 +158,7 @@ y=59
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
@@ -171,7 +171,7 @@ y=4
 width=80
 height=15
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Game:
 textshadow=yes
 colour=0xffaa44
@@ -184,7 +184,7 @@ y=4
 width=177
 height=17
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ranks (mine vs opponent's):
 textshadow=yes
 colour=0xffaa44
@@ -197,7 +197,7 @@ y=89
 width=15
 height=15
 layer=boardgames_challenge_optionslayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 tiling=yes
 transmitop=1
 op1=Select
@@ -211,7 +211,7 @@ y=89
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Runesquares
 textshadow=yes
 colour=0xffaa44
@@ -227,7 +227,7 @@ y=89
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
@@ -240,7 +240,7 @@ y=119
 width=15
 height=15
 layer=boardgames_challenge_optionslayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 tiling=yes
 transmitop=1
 op1=Select
@@ -254,7 +254,7 @@ y=119
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Runeversi
 textshadow=yes
 colour=0xffaa44
@@ -270,7 +270,7 @@ y=119
 width=80
 height=14
 layer=boardgames_challenge_optionslayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
@@ -282,7 +282,7 @@ x=390
 y=64
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -296,7 +296,7 @@ x=71
 y=93
 width=32
 height=179
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 31:23
@@ -306,7 +306,7 @@ x=116
 y=41
 width=269
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 31:24
@@ -316,7 +316,7 @@ x=95
 y=70
 width=311
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 31:25
@@ -326,7 +326,7 @@ x=116
 y=259
 width=269
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 31:26
@@ -336,7 +336,7 @@ x=84
 y=54
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 31:27
 [com_27]
@@ -345,7 +345,7 @@ x=84
 y=247
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 31:28
 [com_28]
@@ -354,7 +354,7 @@ x=84
 y=72
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 31:29
 [com_29]
@@ -363,7 +363,7 @@ x=385
 y=54
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 opbase= 
 
 // 31:30
@@ -373,7 +373,7 @@ x=385
 y=247
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 31:31
 [com_31]
@@ -381,7 +381,7 @@ type=graphic
 width=32
 height=32
 layer=boardgames_challenge_selectlayer
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 31:32
@@ -391,7 +391,7 @@ y=12
 width=32
 height=32
 layer=boardgames_challenge_selectlayer
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 31:33
@@ -401,7 +401,7 @@ x=47
 width=32
 height=32
 layer=boardgames_challenge_selectlayer
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 31:34
@@ -412,7 +412,7 @@ y=12
 width=32
 height=32
 layer=boardgames_challenge_selectlayer
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 31:35
@@ -423,7 +423,7 @@ y=-14
 width=32
 height=32
 layer=boardgames_challenge_selectlayer
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 31:36
@@ -434,7 +434,7 @@ y=24
 width=32
 height=32
 layer=boardgames_challenge_selectlayer
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 31:37
@@ -444,7 +444,7 @@ x=385
 y=72
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 31:38
 [com_38]
@@ -453,5 +453,5 @@ x=397
 y=93
 width=32
 height=155
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes

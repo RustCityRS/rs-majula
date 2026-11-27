@@ -1,5 +1,6 @@
 use crate::engine::{ScriptEngine, ScriptPlayer, engine, engine_mut};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ObjRef;
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
@@ -36,7 +37,7 @@ use runec::opcodes::*;
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::inv::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` /
 /// `active_player_mut!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4300
         active_player_mut!(m, BOTH_DROPSLOT => |s, player| {

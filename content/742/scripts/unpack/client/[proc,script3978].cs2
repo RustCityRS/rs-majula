@@ -20,9 +20,9 @@ if (~script3999($int3) = 0 & $component4 ! null) {
     if_sethide($component4, false);
     if_setposition($component4, 2, calc($int1 + ($int8 - if_getheight($component4)) / 2), ^setpos_abs_right, ^setpos_abs_top);
     if (%varplayerbit_8578 = $int0 & %varplayerbit_8594 = $int3) {
-        if_setgraphic($component4, 9615);
+        if_setgraphic($component4, graphic_9615);
     } else {
-        if_setgraphic($component4, 9618);
+        if_setgraphic($component4, graphic_9618);
     }
 }
 return(calc($int1 + $int8));

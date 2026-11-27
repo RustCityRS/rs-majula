@@ -27,24 +27,21 @@
 // https://web.archive.org/web/20051215201825/http://runevillage.com:80/rs2specialTutorial.php
 // https://web.archive.org/web/20051215201825/http://runevillage.com:80/rs2specialTutorial.php - has pictures, yahoo!
 
-// 289's Tutorial Island, kept as preserved content: new characters skip it
-// (login_logout/new_player.rs2), and nothing in the game's own flow sends a
-// player here.
-// - Progress is %varplayer_419, a server-only varp: varp 281 is the client's
-//   own tutorial varp, which login.rs2 reads as the new-player state.
-// - A player enters by the tutorial_island cheat (tutorial_cheat.rs2), and
-//   login.rs2 resumes an island a player has entered.
-// - The tabs: 2011's client has no SET_TAB, TUT_FLASH or TUTORIAL_CLICKSIDE
-//   (647's prot lists in rs-protocol). if_settab and tut_flash stay as 289
-//   calls them, with 2011's tab names, and do nothing yet (the engine's
-//   if_settab rework). A tab click reaches the server as the tab stone's op1
-//   (tutorial_tabs.rs2).
+// 289's Tutorial Island, where a new character starts (login_logout/login.rs2).
+// - Progress is varp 281, %tutorial, as 289's: 530's client colours the quest
+//   list's Learning the Ropes by it (clientscript 1550).
+// - The character is designed on 2009's interface 771 (player_design.rs2).
+// - The tabs: 530's client has no SET_TAB, TUT_FLASH or TUTORIAL_CLICKSIDE.
+//   if_settab mounts a panel on the gameframe's side slot (the engine), and
+//   tutorial_flash flashes a stone (tutorial_tabs.rs2), where a click on it
+//   reaches the server as the stone's op1.
 // - The instructions: tutorialstep.rs2.
 
 [label,start_tutorial]
 // logging into a new character might show old tabs so we're going to clear them
 // 289's tabs by 530's slots (login_logout/configs/tabs.constant). 289's
 // logout tab is 530's gameframe logout button (side99), not a stone, so it has no line.
+// 2009's island opens no tab, the options either, until the character is designed.
 if_settab(null, ^tab_combat);
 if_settab(null, ^tab_stats);
 if_settab(null, ^tab_quests);
@@ -54,23 +51,19 @@ if_settab(null, ^tab_prayer);
 if_settab(null, ^tab_magic);
 if_settab(null, ^tab_friends);
 if_settab(null, ^tab_ignore);
+if_settab(null, ^tab_clan_chat);
 // if_settab(logout, ^tab_logout);
-if_settab(options, ^tab_options);
+if_settab(null, ^tab_options);
 if_settab(null, ^tab_emotes);
 if_settab(null, ^tab_music);
 
 ~tutorial_set_active_tabs;
 ~tutorial_set_npc_hints;
+~tutorial_progress_open;
 
-if (%varplayer_419 = ^newbie_basics_instructor_start) {
+if (%tutorial = ^newbie_basics_instructor_start) {
     p_telejump(0_48_48_22_34);
-    // 289 opens its design screen (player_kit) here, and its close moves the
-    // tutorial on (tutorial_designed_character below). A player here by the
-    // cheat designed the character on interface 771 as a new character
-    // (login_logout/new_player.rs2), so the step moves on as that close does.
-    // if_openmain(player_kit);
-    // allowdesign(true);
-    %varplayer_419 = ^newbie_basics_instructor_designed_character;
+    ~design_open;
 }
 ~set_tutorial_progress;
 @music_playbyregion(coord);
@@ -79,115 +72,120 @@ if (%varplayer_419 = ^newbie_basics_instructor_start) {
 // tabs are the high-detail ones. 289's controls tab (run and emotes) is two
 // things in 2011: the run orb (player/scripts/run.rs2) and the Emotes tab.
 [proc,tutorial_set_active_tabs]
-if (%varplayer_419 > ^newbie_basics_instructor_start) {
+if (%tutorial > ^newbie_basics_instructor_designed_character) {
     if_settab(options, ^tab_options);
 }
 
-if (%varplayer_419 > ^newbie_survival_instructor_open_inventory) {
+if (%tutorial > ^newbie_survival_instructor_open_inventory) {
     inv_transmit(inv, inventory:inv);
     if_settab(inventory, ^tab_inventory);
 }
 
-if (%varplayer_419 > ^newbie_survival_instructor_open_skill_menu) {
+if (%tutorial > ^newbie_survival_instructor_open_skill_menu) {
     if_settab(stats, ^tab_stats);
 }
 
-if (%varplayer_419 > ^newbie_cook_instructor_baked_bread) {
+if (%tutorial > ^newbie_cook_instructor_baked_bread) {
     if_settab(music_v3, ^tab_music);
 }
 
-if (%varplayer_419 > ^newbie_cook_instructor_opened_music_tab) {
+if (%tutorial > ^newbie_cook_instructor_opened_music_tab) {
     ~update_weight; // update weight
     if_settab(emotes, ^tab_emotes);
 }
 
-if (%varplayer_419 > ^newbie_quest_instructor_open_menu) {
+if (%tutorial > ^newbie_quest_instructor_open_menu) {
     ~update_questlist;
     if_settab(interface_274, ^tab_quests);
 }
 
 
-if (%varplayer_419 > ^newbie_combat_instructor_wielding_weapons) {
+if (%tutorial > ^newbie_combat_instructor_wielding_weapons) {
     ~update_bonuses; // update bonuses if
     inv_transmit(worn, wornitems:com_28);
     if_settab(wornitems, ^tab_equipment);
 }
 
-if (%varplayer_419 > ^newbie_combat_instructor_open_combat_interface) {
+if (%tutorial > ^newbie_combat_instructor_open_combat_interface) {
     ~update_weapon_category(inv_getobj(worn, ^wearpos_rhand));
 }
 
-if (%varplayer_419 > ^brother_noob_open_prayer_tab) {
+if (%tutorial > ^brother_noob_open_prayer_tab) {
     if_settab(prayer, ^tab_prayer);
 }
 
-if (%varplayer_419 > ^brother_noob_after_prayer_tab) {
+if (%tutorial > ^brother_noob_after_prayer_tab) {
     if_settab(friends2, ^tab_friends);
 }
 
-if (%varplayer_419 > ^brother_noob_open_friends_tab) {
+if (%tutorial > ^brother_noob_open_friends_tab) {
     if_settab(interface_551, ^tab_ignore);
 }
 
-if (%varplayer_419 > ^tutorial_open_magic_tab) {
+if (%tutorial > ^tutorial_open_magic_tab) {
     if_settab(magic, ^tab_magic);
 }
 
 [proc,tutorial_set_npc_hints]
-if (%varplayer_419 = ^newbie_survival_instructor_fish_shrimps) {
+if (%tutorial = ^newbie_survival_instructor_fish_shrimps) {
     if (npc_findexact(0_48_48_29_20, 0_48_48_newbiefishing) = true) {
         hint_npc;
     }
 }
 
-if (%varplayer_419 = ^newbie_combat_instructor_during_attacking_melee
-| %varplayer_419 = ^newbie_combat_instructor_before_attacking_ranged) {
+if (%tutorial = ^newbie_combat_instructor_during_attacking_melee
+| %tutorial = ^newbie_combat_instructor_before_attacking_ranged) {
     ~set_hint_icon_giant_rat;
 }
 
 
-// 289's design screen (player_kit) closes into the tutorial; 2011 has no such
-// screen (start_tutorial above).
-// [if_button,player_kit:accept]
-// if_close;
-//
-// [if_close,player_kit]
-// queue(tutorial_designed_character, 0, 0);
-//
-// [queue,tutorial_designed_character]
-// %tutorial = ^newbie_basics_instructor_designed_character;
-// allowdesign(false);
+// 289's design screen (player_kit) closes into the tutorial; 530's moves it on
+// when the design is accepted (player_design.rs2).
+[proc,tutorial_designed_character]
+if (%tutorial ! ^newbie_basics_instructor_start) {
+    return;
+}
+%tutorial = ^newbie_basics_instructor_designed_character;
+~tutorial_set_active_tabs;
+~set_tutorial_progress;
+
+// Any emote from the emotes tab (interface_controls' player_controls.rs2) moves the emotes step on.
+[proc,tutorial_emote]
+if (%tutorial = ^tutorial_opened_emotes) {
+    %tutorial = ^tutorial_performed_emote;
+    ~set_tutorial_progress;
+}
 
 // 289's [tutorial,_], run by the client's TUTORIAL_CLICKSIDE. 2011's client
 // has none; tutorial_tabs.rs2 runs it on a click of the step's tab.
 [proc,tutorial_clickside]
-if (%varplayer_419 = 2) {
-    %varplayer_419 = 3;
+if (%tutorial = 2) {
+    %tutorial = 3;
     ~tutorial_step_player_controls_left_click;
-} else if (%varplayer_419 = ^newbie_survival_instructor_open_inventory) {
+} else if (%tutorial = ^newbie_survival_instructor_open_inventory) {
     inv_add(inv, bronze_axe, 1);
     inv_add(inv, tinderbox, 1);
-    %varplayer_419 = ^newbie_survival_instructor_cut_tree;
-} else if (%varplayer_419 = ^newbie_survival_instructor_open_skill_menu) {
-    %varplayer_419 = ^newbie_survival_instructor_opened_skill_menu;
-} else if (%varplayer_419 = ^newbie_cook_instructor_baked_bread) {
-    %varplayer_419 = ^newbie_cook_instructor_opened_music_tab;
-} else if (%varplayer_419 = ^newbie_cook_instructor_completed) {
-    %varplayer_419 = ^tutorial_open_player_controls;
-} else if(%varplayer_419 = ^newbie_quest_instructor_open_menu) {
-    %varplayer_419 = ^newbie_quest_instructor_opened_menu;
-} else if (%varplayer_419 = ^newbie_combat_instructor_wielding_weapons) {
-    %varplayer_419 = ^newbie_combat_instructor_worn_inventory;
-} else if (%varplayer_419 = ^newbie_combat_instructor_open_combat_interface) {
-    %varplayer_419 = ^newbie_combat_instructor_opened_combat_interface;
-} else if (%varplayer_419 = ^brother_noob_open_prayer_tab) {
-    %varplayer_419 = ^brother_noob_opened_prayer_tab;
-} else if (%varplayer_419 = ^brother_noob_after_prayer_tab) {
-    %varplayer_419 = ^brother_noob_open_friends_tab;
-} else if (%varplayer_419 = ^brother_noob_open_friends_tab) {
-    %varplayer_419 = ^brother_noob_after_friends_tab;
-} else if (%varplayer_419 = ^tutorial_open_magic_tab) {
-    %varplayer_419 = ^tutorial_opened_magic_tab;
+    %tutorial = ^newbie_survival_instructor_cut_tree;
+} else if (%tutorial = ^newbie_survival_instructor_open_skill_menu) {
+    %tutorial = ^newbie_survival_instructor_opened_skill_menu;
+} else if (%tutorial = ^newbie_cook_instructor_baked_bread) {
+    %tutorial = ^newbie_cook_instructor_opened_music_tab;
+} else if (%tutorial = ^tutorial_open_emotes) {
+    %tutorial = ^tutorial_opened_emotes;
+} else if(%tutorial = ^newbie_quest_instructor_open_menu) {
+    %tutorial = ^newbie_quest_instructor_opened_menu;
+} else if (%tutorial = ^newbie_combat_instructor_wielding_weapons) {
+    %tutorial = ^newbie_combat_instructor_worn_inventory;
+} else if (%tutorial = ^newbie_combat_instructor_open_combat_interface) {
+    %tutorial = ^newbie_combat_instructor_opened_combat_interface;
+} else if (%tutorial = ^brother_noob_open_prayer_tab) {
+    %tutorial = ^brother_noob_opened_prayer_tab;
+} else if (%tutorial = ^brother_noob_after_prayer_tab) {
+    %tutorial = ^brother_noob_open_friends_tab;
+} else if (%tutorial = ^brother_noob_open_friends_tab) {
+    %tutorial = ^brother_noob_after_friends_tab;
+} else if (%tutorial = ^tutorial_open_magic_tab) {
+    %tutorial = ^tutorial_opened_magic_tab;
     if (npc_find(0_49_48_5_17, newbie_magic_instructor, 10, 0) = true) {
         hint_npc;
         ~newbie_magic_instructor_opened_tab;
@@ -196,11 +194,77 @@ if (%varplayer_419 = 2) {
 }
 ~set_tutorial_progress;
 
+// 2009's progress bar over the chatbox (interface 371, opened by start_tutorial): its varp at n
+// fills n - 1 of the 20 segments (clientscript tutorial_progress_bar). Each segment fills at the
+// step the recordings show it fill: https://www.youtube.com/watch?v=LgA4VsETE-g and
+// https://www.youtube.com/watch?v=smuh1cG0Bos (Jan 7, 2009). 12 and 18 pass too fast to read,
+// and are the steps between their neighbours'.
+// The bar sits on the game view's bottom edge (371's layer_1 is abs_bottom): fixed mode's main
+// overlay, and resizable mode's clipped one, which stops at the chatbox. The cache shows its
+// "Please follow the instructions" scroll (tutorial_rtfm_layer), which the recordings never do.
+[proc,tutorial_progress_open]
+if (getwindowmode < 2) {
+    if_opensub(tutorial_progress, toplevel:mainoverlay);
+} else {
+    if_opensub(tutorial_progress, toplevel_fullscreen:mainoverlay_clipped);
+}
+if_sethide(tutorial_progress:tutorial_rtfm_layer, true);
+
+[proc,tutorial_progress_close]
+if (getwindowmode < 2) {
+    if_closesub(toplevel:mainoverlay);
+} else {
+    if_closesub(toplevel_fullscreen:mainoverlay_clipped);
+}
+
+// switch_window_mode carries the main overlays across, and resizable mode's clipped one is not
+// among them: the bar goes back in the new frame's slot, and its copy in the main one shuts.
+[proc,tutorial_progress_moved]
+if (%tutorial >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {
+    return;
+}
+if (getwindowmode >= 2) {
+    if_closesub(toplevel_fullscreen:mainoverlay);
+}
+~tutorial_progress_open;
+
+[proc,tutorial_progress_bar]
+def_int $filled = 0;
+while ($filled < 19 & %tutorial >= ~tutorial_progress_step(calc($filled + 1))) {
+    $filled = calc($filled + 1);
+}
+%tutorial_progress_overlay = calc($filled + 1);
+
+[proc,tutorial_progress_step](int $segment)(int)
+switch_int ($segment) {
+    case 1 : return(^newbie_basics_instructor_interacted_with_door);
+    case 2 : return(^newbie_survival_instructor_opened_skill_menu);
+    case 3 : return(^newbie_survival_instructor_complete);
+    case 4 : return(^newbie_cook_instructor_start);
+    case 5 : return(^tutorial_open_emotes);
+    case 6 : return(^newbie_quest_instructor_start);
+    case 7 : return(^newbie_mining_instructor_start);
+    case 8 : return(^newbie_mining_instructor_before_smelt_bronze_bar);
+    case 9 : return(^newbie_combat_instructor_start);
+    case 10 : return(^newbie_combat_instructor_opened_combat_interface);
+    case 11 : return(^newbie_combat_instructor_before_attacking_ranged);
+    case 12 : return(^newbie_combat_instructor_after_attacking_ranged);
+    case 13 : return(^tutorial_open_banking);
+    case 14 : return(^tutorial_opened_newbie_account_instructor_door);
+    case 15 : return(^tutorial_exit_newbie_account_instructors_room);
+    case 16 : return(^brother_noob_after_friends_tab);
+    case 17 : return(^tutorial_exit_chapel);
+    case 18 : return(^tutorial_open_magic_tab);
+    case 19 : return(^tutorial_opened_magic_tab);
+}
+return(^tutorial_complete);
+
 [proc,set_tutorial_progress]
-switch_int(%varplayer_419) {
+~tutorial_progress_bar;
+switch_int(%tutorial) {
     // Runescape Guide's House
-    case ^newbie_basics_instructor_start,
-    ^newbie_basics_instructor_designed_character : ~tutorial_step_getting_started;
+    case ^newbie_basics_instructor_start : ~tutorial_step_design_character;
+    case ^newbie_basics_instructor_designed_character : ~tutorial_step_getting_started;
     // Not Relelvant until October 2006
     case 2 : ~tutorial_step_player_controls_spanner;
     case 3 : ~tutorial_step_player_controls_left_click;
@@ -225,8 +289,9 @@ switch_int(%varplayer_419) {
     case ^newbie_cook_instructor_mixed_dough : ~tutorial_step_cooking_dough;
     case ^newbie_cook_instructor_baked_bread : ~tutorial_step_click_music_player;
     case ^newbie_cook_instructor_opened_music_tab : ~tutorial_step_music_player;
-    case ^newbie_cook_instructor_completed : ~tutorial_step_click_run_icon;
-    case ^tutorial_open_player_controls : ~tutorial_step_enable_run;
+    case ^tutorial_open_emotes : ~tutorial_step_open_emotes;
+    case ^tutorial_opened_emotes : ~tutorial_step_try_emote;
+    case ^tutorial_performed_emote : ~tutorial_step_click_run_icon;
 
     // Quest Guide
     case ^tutorial_has_toggled_on_run : ~tutorial_step_enter_newbie_quest_instructor_house;
@@ -282,25 +347,19 @@ switch_int(%varplayer_419) {
     case ^tutorial_unsuccessful_wind_strike : ~tutorial_cast_wind_strike_splash;
     case ^tutorial_successful_wind_strike : ~tutorial_cast_wind_strike_success;
     case ^newbie_magic_instructor_finished : ~tutorial_cast_wind_strike_success;
-    case default : ~tutorialstep("Oops! Unhandled Tutorial Step.", "Please contact a server admin for assistance.||tutorial_progress value <tostring(%varplayer_419)>");
+    case default : ~tutorialstep("Oops! Unhandled Tutorial Step.", "Please contact a server admin for assistance.||tutorial_progress value <tostring(%tutorial)>");
 }
 
 [label,tutorial_island_equip](int $slot)
-// 289's players have all left the island (%tutorial 1000) before they wield
-// these anywhere else. 2011's players never entered it: %tutorial is a new
-// varp, 0 for them, and they wield as 289's do past the island.
-if (%varplayer_419 = ^newbie_basics_instructor_start) {
-    @levelrequire_attack(1, $slot);
-}
-if (%varplayer_419 < ^newbie_combat_instructor_worn_inventory) {
+if (%tutorial < ^newbie_combat_instructor_worn_inventory) {
     ~mesbox("You'll be told how to equip items later.");
     return;
 }
 
 def_obj $weapon = inv_getobj(inv, $slot);
 
-if (%varplayer_419 = ^newbie_combat_instructor_worn_inventory & $weapon = bronze_dagger) {
-    %varplayer_419 = ^newbie_combat_instructor_dagger_equipped;
+if (%tutorial = ^newbie_combat_instructor_worn_inventory & $weapon = bronze_dagger) {
+    %tutorial = ^newbie_combat_instructor_dagger_equipped;
     ~set_tutorial_progress;
 }
 
@@ -320,13 +379,18 @@ if (stat_base($skill) >= 3) {
 }
 stat_advance($skill, $xp);
 
-[label,tutorial_complete]
+[proc,tutorial_close_instructions]
 tut_close();
 // the instructions' slot (tutorialstep.rs2)
-if_closesub(chattop:mes_layer_large);
+if_closesub(chattop:chatoverlay);
+
+[label,tutorial_complete]
+~tutorial_close_instructions;
 if_close;
 
-%varplayer_419 = ^tutorial_complete;
+%tutorial = ^tutorial_complete;
+%varplayerbit_3756 = 0;
+~tutorial_progress_close;
 p_telejump(0_50_50_22_22);
 
 inv_clear(inv);

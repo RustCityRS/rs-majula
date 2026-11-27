@@ -27,30 +27,59 @@ use crate::cache::script::ScriptProvider;
 use crate::cache::seq::SeqTypeRaw;
 use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
-use crate::cache::varbit::VarbitType;
 use crate::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
 use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
+#[cfg(since_647)]
+use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::varp::VarPlayerTypeRaw;
+use crate::cache::varpbit::VarpBitType;
+#[cfg(since_647)]
+use crate::cache::varpbit::VarpBitTypeProvider;
 use crate::cache::vars::VarsType;
 use crate::cache::wordenc::WordEncProvider;
+#[cfg(since_647)]
+use crate::pack::config::{
+    r#enum::pack_enums,
+    varc::{pack_varc_strings, pack_varcs},
+    varp::pack_varps,
+    varpbit::pack_varpbits,
+};
+#[cfg(since_647)]
+use crate::pack::incremental::LOBBY_COMMANDS;
 use crate::pack::incremental::{Stage, files_under};
-use crate::pack::names;
+#[cfg(since_647)]
+use crate::pack::interface::pack_archive;
+use crate::pack::names::{self, AssetNames};
+#[cfg(since_647)]
+use crate::pack::other::asset;
 use crate::pack::other::map;
-use crate::pack::pack;
+use crate::pack::pack::{self, ConfigFiles};
+#[cfg(since_647)]
+use crate::pack::pack::{FileCache, load_constants_from_cache};
 use crate::pack::pack_registry::PackedFile;
+#[cfg(since_647)]
+use crate::pack::pack_registry::{PackFile, PackRegistry};
 use crate::pack::packed_data::PackedData;
-use crate::types::ParamValue;
+use crate::types::{MapSquares, ParamValue};
 use crate::zone_csv::load_csv_zones;
 use crate::{archive, compile_scripts, unwrap_thread};
+#[cfg(since_647)]
+use crate::{compile_lobby_scripts, finish_cache, open_cache};
 use anyhow::{Context, Result};
+#[cfg(since_647)]
+use rs_crypto::huffman::Huffman;
+#[cfg(since_647)]
+use rs_io::js5::compression::Container;
 use rs_ver::TypeId;
 use runec::symbol::identifier_form;
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
+#[cfg(since_647)]
+use std::sync::Arc;
 use std::time::Instant;
 use std::{fs, thread};
 use tracing::info;
@@ -75,6 +104,7 @@ pub struct InterfaceLayout {
     pub overlay_tab: HashMap<u16, u16>,
     pub overlay: HashMap<u16, u16>,
     pub chatbox: HashMap<u16, u16>,
+    pub tabs: HashMap<(u16, u8), u16>,
     pub component_roots: HashMap<u16, i32>,
     pub component_names: HashMap<i32, Box<str>>,
     pub dialogue_parent_hash: i32,
@@ -82,10 +112,49 @@ pub struct InterfaceLayout {
     pub count_dialog: i32,
     pub world_map: u16,
     pub switch_side: u16,
+    #[cfg(since_530)]
+    pub mainmodal_fullscreen_colour: u16,
+    #[cfg(since_530)]
+    pub mainmodal_fullscreen_trans: u16,
     pub design: [u16; 12],
 }
 
 impl InterfaceLayout {
+    /// The hash of the component `slots` gives toplevel `top`, if it has one.
+    fn slot(slots: &HashMap<u16, u16>, top: u16) -> Option<i32> {
+        slots
+            .get(&top)
+            .map(|&com| (i32::from(top) << 16) | i32::from(com))
+    }
+
+    /// Where on toplevel `top` main interface `iface` mounts: the main screen,
+    /// or the full-size slot for one `wide_screen_enum` lists.
+    pub fn main_slot(&self, top: u16, iface: u16) -> Option<i32> {
+        let slots = if self.wide_screen_ifaces.contains(&iface) {
+            &self.wide_screen
+        } else {
+            &self.main_screen
+        };
+        Self::slot(slots, top)
+    }
+
+    /// Where on toplevel `top` a side panel mounts, over the tabs.
+    pub fn side_slot(&self, top: u16) -> Option<i32> {
+        Self::slot(&self.overlay_tab, top)
+    }
+
+    /// Where on toplevel `top` an overlay mounts, over the game view.
+    pub fn overlay_slot(&self, top: u16) -> Option<i32> {
+        Self::slot(&self.overlay, top)
+    }
+
+    /// Where on toplevel `top` tab `tab`'s panel mounts, its `side<tab>`.
+    pub fn tab_slot(&self, top: u16, tab: u8) -> Option<i32> {
+        self.tabs
+            .get(&(top, tab))
+            .map(|&com| (i32::from(top) << 16) | i32::from(com))
+    }
+
     /// Chatbox child component hash an interface mounts on when opened as a
     /// chat dialogue: its `dialogue_slots` override, else the default slot.
     pub fn dialogue_slot(&self, iface: u16) -> i32 {
@@ -105,6 +174,110 @@ impl InterfaceLayout {
     }
 }
 
+#[cfg(since_647)]
+pub struct LobbyAssets {
+    pub archive_crcs: Arc<[i32]>,
+    pub commands: PackFile,
+    pub seq_count: usize,
+    pub scripts: ScriptProvider,
+    pub varps: VarPlayerTypeProvider,
+    pub varpbits: VarpBitTypeProvider,
+    pub varcs: VarClientTypeProvider,
+    pub interfaces: IfTypeProvider,
+    pub layout: InterfaceLayout,
+    pub toplevel: u16,
+    pub huffman: Huffman,
+    pub wordenc: WordEncProvider,
+}
+
+#[cfg(since_647)]
+impl LobbyAssets {
+    pub fn load(
+        content: &Path,
+        pack_dir: &Path,
+        cache: Option<&Path>,
+        verify: bool,
+    ) -> Result<Self> {
+        let session = open_cache(cache.map(|root| root.join("lobby")).as_deref());
+        let scripts = content.join("scripts");
+        let config_files = ConfigFiles::new(&scripts);
+        pack::check_configs(&config_files, pack_dir, verify)?;
+        let files = FileCache::from_files(
+            config_files.with_ext(&["constant", "varp", "varpbit", "varc", "enum"]),
+        );
+        let constants = load_constants_from_cache(&files);
+        let registry = PackRegistry::load(pack_dir)?;
+        let varps = pack_varps(&files, &registry, &constants)?.server;
+        let varpbits = pack_varpbits(&files, &registry, &constants)?.server;
+        let varcs = pack_varcs(&files, &registry.varc, &constants)?.client;
+        let varcstrs = pack_varc_strings(&files, &registry.varcstr, &constants)?.client;
+        let names = AssetNames::load(pack_dir)?;
+        // A strict world serves the revision's known CRCs. A custom world serves
+        // the reference tables produced by packing the same content.
+        let packed = if verify {
+            let mut packed = PackedCache::default();
+            let versions = archive::load_versions_dir(&content.join("versions"))?;
+            pack_archive(&mut packed, content, pack_dir, &versions, &names)?;
+            packed
+        } else {
+            pack::pack_cache(content, pack_dir, false, &config_files, &names)?.1
+        };
+        let mut archive_crcs = Vec::new();
+        for (&id, expected) in archive::ARCHIVE_IDS.iter().zip(archive::EXPECTED_CRCS) {
+            let crc = if verify {
+                expected.with_context(|| format!("Missing reference CRC for archive {id}"))?
+            } else {
+                let table = packed
+                    .groups
+                    .get(&(archive::REFERENCE_TABLES, u32::from(id)))
+                    .with_context(|| format!("Missing reference table for archive {id}"))?;
+                Container::parse(table)?.crc() as i32
+            };
+            archive_crcs.resize(usize::from(id) + 1, 0);
+            archive_crcs[usize::from(id)] = crc;
+        }
+        let enums = pack_enums(&files, &registry, &constants)?.server;
+        let enums = TypeProvider::from_indexed_bytes::<EnumTypeRaw>(&enums.dat, &enums.idx, ())?;
+        let layout = interface_layout(pack_dir, &enums, &names)?;
+        let assets = Self {
+            archive_crcs: archive_crcs.into(),
+            commands: PackFile::parse(&fs::read_to_string(pack_dir.join(LOBBY_COMMANDS))?),
+            seq_count: registry.seq.max as usize,
+            scripts: compile_lobby_scripts(content, pack_dir)?,
+            varps: TypeProvider::from_indexed_bytes::<VarPlayerTypeRaw>(
+                &varps.dat,
+                &varps.idx,
+                (),
+            )?,
+            varpbits: TypeProvider::from_indexed_bytes::<VarpBitType>(
+                &varpbits.dat,
+                &varpbits.idx,
+                (),
+            )?,
+            varcs: VarClientTypeProvider::from_indexed_bytes(
+                varcs.as_ref().context("Missing varc client config")?,
+                varcstrs.as_ref().context("Missing varcstr client config")?,
+            )?,
+            interfaces: IfTypeProvider::from_cache(&packed)?,
+            layout,
+            toplevel: names.id("interface", "lobbyscreen")? as u16,
+            huffman: Huffman::new(
+                &asset::pack_file(
+                    archive::BINARY,
+                    0,
+                    &content.join("binary").join("huffman.huffman"),
+                    &names,
+                )?
+                .remove(0)
+                .1,
+            ),
+            wordenc: WordEncProvider::empty(),
+        };
+        finish_cache(session);
+        Ok(assets)
+    }
+}
+
 pub fn pack_all(
     content_dir: &Path,
     pack_dir: &Path,
@@ -113,9 +286,9 @@ pub fn pack_all(
 ) -> Result<PackResult> {
     let start = Instant::now();
     // Validate config names before packing or compiling against the registries.
-    let config_files = pack::ConfigFiles::new(&content_dir.join("scripts"));
+    let config_files = ConfigFiles::new(&content_dir.join("scripts"));
     pack::check_configs(&config_files, pack_dir, verify)?;
-    let asset_names = names::AssetNames::load(pack_dir)?;
+    let asset_names = AssetNames::load(pack_dir)?;
     let (packed, scripts) = thread::scope(|scope| {
         let scripts = scope.spawn(|| compile_scripts(content_dir, pack_dir));
         let packed = pack::pack_cache(content_dir, pack_dir, verify, &config_files, &asset_names);
@@ -142,7 +315,7 @@ pub fn pack_all(
         names::verify_names(content_dir, pack_dir, false)?;
     }
     let map_dirs = map::source_dirs(content_dir);
-    let spawns = map::pack_spawns(&map_dirs, &asset_names)?;
+    let npc_spawns = map::pack_spawns(&map_dirs, &asset_names)?;
     let obj_spawns = map::pack_obj_spawns(&map_dirs, &asset_names)?;
     let area_map = map::pack_area_map(&map_dirs, pack_dir)?;
     let store = load_cache(
@@ -150,16 +323,13 @@ pub fn pack_all(
         &cache,
         content_dir,
         pack_dir,
-        &spawns,
+        &npc_spawns,
         &obj_spawns,
         area_map,
         members,
     )?;
-    let mut layout = load_interface_layout(pack_dir);
-    load_dialogue_slots(pack_dir, &store.enums, &mut layout);
-    load_wide_screen_ifaces(pack_dir, &store.enums, &mut layout);
+    let mut layout = interface_layout(pack_dir, &store.enums, &asset_names)?;
     layout.count_dialog = asset_names.id("clientscript", COUNT_DIALOG)? as i32;
-    layout.switch_side = asset_names.id("varc", SWITCH_SIDE)? as u16;
     for (varc, name) in layout.design.iter_mut().zip(DESIGN) {
         *varc = asset_names.id("varc", name)? as u16;
     }
@@ -182,7 +352,7 @@ fn load_cache(
     cache: &PackedCache,
     content_dir: &Path,
     pack_dir: &Path,
-    spawns: &PackedData,
+    npc_spawns: &PackedData,
     obj_spawns: &PackedData,
     area_map: AreaMap,
     members: bool,
@@ -200,7 +370,7 @@ fn load_cache(
     let seqs = load_config::<SeqTypeRaw, _>(assets, "seq", ())?;
     let enums = load_config::<EnumTypeRaw, _>(assets, "enum", ())?;
     let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
-    let varbits = load_config::<VarbitType, _>(assets, "varpbit", ())?;
+    let varpbits = load_config::<VarpBitType, _>(assets, "varpbit", ())?;
     let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
     #[cfg(all(since_530, before_647))]
     let varcs = VarClientTypeProvider::from_indexed_bytes(
@@ -228,7 +398,7 @@ fn load_cache(
     #[cfg(since_647)]
     let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
     #[cfg(since_647)]
-    let varconbits = load_config::<VarbitType, _>(assets, "varconbit", ())?;
+    let varconbits = load_config::<VarpBitType, _>(assets, "varconbit", ())?;
     #[cfg(since_647)]
     let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
     let phrases = client_config(assets, "quickchatphrase")?;
@@ -237,21 +407,23 @@ fn load_cache(
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
     let keys = XteaKeyStore::load(&content_dir.join("keys.json"))?;
-    let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache, &keys)?;
+    let (mapsquares, mapcrcs) = loader::load_mapsquares(cache, &keys)?;
     let huffman = loader::load_huffman(cache)?;
     let fonts = FontTypeProvider::from_cache(cache);
-    loader::merge_server_layer(spawns, "map", 'n', &mut mapsquares);
-    loader::merge_server_layer(obj_spawns, "objspawn", 'o', &mut mapsquares);
+    let mut spawns = MapSquares::default();
+    map::load_spawns(npc_spawns, 'n', &mut spawns)?;
+    map::load_spawns(obj_spawns, 'o', &mut spawns)?;
 
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
     Ok(Box::new(CacheStore {
         mapsquares,
         mapcrcs,
+        spawns,
         objs,
         invs,
         varps,
         varcs,
-        varbits,
+        varpbits,
         dbrows,
         dbtables,
         db_index,
@@ -270,6 +442,8 @@ fn load_cache(
         varss,
         categories,
         interfaces: IfTypeProvider::from_cache(cache)?,
+        #[cfg(rev = "530")]
+        static_assets: crate::load_static_assets(),
         fonts,
         wordenc: WordEncProvider::empty(),
         songs: MidiProvider {
@@ -413,6 +587,12 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
         if let Some(slot) = toplevel_slot(&mut layout, interface, name) {
             slot.insert(iface, comp);
         }
+        if let ("toplevel" | "toplevel_fullscreen", Some(tab)) = (
+            interface,
+            name.strip_prefix("side").and_then(|n| n.parse::<u8>().ok()),
+        ) {
+            layout.tabs.insert((iface, tab), comp);
+        }
         if name == FULLSCREEN_INTERFACE {
             layout.fullscreen_tops.insert(iface);
         }
@@ -463,6 +643,27 @@ fn load_dialogue_slots(
         "  dialogue slots: {} override(s) from {ENUM_NAME}",
         layout.dialogue_slots.len()
     );
+}
+
+/// The interface layout the world and the lobby share: the toplevel slots and
+/// component names from interface.pack, the dialogue slots and wide-screen
+/// interfaces from their enums, and the varcs used by the game frame.
+fn interface_layout(
+    pack_dir: &Path,
+    enums: &TypeProvider<EnumType>,
+    names: &AssetNames,
+) -> Result<InterfaceLayout> {
+    let mut layout = load_interface_layout(pack_dir);
+    load_dialogue_slots(pack_dir, enums, &mut layout);
+    load_wide_screen_ifaces(pack_dir, enums, &mut layout);
+    layout.switch_side = names.id("varc", SWITCH_SIDE)? as u16;
+    #[cfg(since_530)]
+    {
+        layout.mainmodal_fullscreen_colour =
+            names.id("varc", "mainmodal_fullscreen_colour")? as u16;
+        layout.mainmodal_fullscreen_trans = names.id("varc", "mainmodal_fullscreen_trans")? as u16;
+    }
+    Ok(layout)
 }
 
 /// Populate `layout.wide_screen_ifaces` from the content `wide_screen_enum`:

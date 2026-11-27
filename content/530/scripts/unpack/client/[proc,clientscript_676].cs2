@@ -43,9 +43,9 @@ while ($int4 = 0) {
         if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dagon_hai) {
             $int5 = calc($int5 + 9);
         }
-        cc_create(exchange_itemsets:stock_lay, 5, $int0);
-        cc_setsize(36, 32, 0, 0);
-        cc_setposition(calc((36 + $int2) * ($int5 % 10)), calc($int5 / 10 * (32 + $int3)), 0, 0);
+        cc_create(exchange_itemsets:stock_lay, ^iftype_graphic, $int0);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc((36 + $int2) * ($int5 % 10)), calc($int5 / 10 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
         cc_setobject(enum(int, namedobj, enum_1087, calc($int0 + 1)), -1);
         cc_setopbase("<col=ff981f><oc_name(enum(int, namedobj, enum_1087, calc($int0 + 1)))>");
         cc_setop(1, "Components");
@@ -98,10 +98,10 @@ while ($int4 = 0) {
         if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dagon_hai) {
             $int5 = calc($int5 + 9);
         }
-        cc_create(exchange_itemsets:stock_lay, 5, $int1);
-        cc_setsize(12, 6, 0, 0);
-        cc_setposition(calc((36 + $int2) * ($int5 % 10)), calc($int5 / 10 * (32 + $int3)), 0, 0);
-        cc_setgraphic(1066);
+        cc_create(exchange_itemsets:stock_lay, ^iftype_graphic, $int1);
+        cc_setsize(12, 6, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc((36 + $int2) * ($int5 % 10)), calc($int5 / 10 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(shop_infinity_icon);
     } else {
         $int4 = 1;
     }

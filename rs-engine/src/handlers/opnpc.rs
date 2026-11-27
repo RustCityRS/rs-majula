@@ -85,15 +85,29 @@ impl ClientGameHandler for OpNpc5 {
 }
 
 /// Handles the `OpNpc6` client protocol message: Examine. The client sends
-/// only the npc type it shows, and walks nowhere; the answer is the type's
-/// `desc`.
+/// only the npc type it shows, which an npc in the player's build area must
+/// show as, and walks nowhere; the answer is the type's `desc`.
 #[cfg(since_530)]
 impl ClientGameHandler for OpNpc6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
-        let desc = engine().npcs().get_by_id(self.npc);
+        let engine = engine();
+        let shown = active
+            .player
+            .build_area
+            .npcs
+            .iter()
+            .iter()
+            .filter_map(|&nid| engine.get_npc(nid))
+            .any(|npc| active.shown_npc(npc.npc.uid.id()) == Some(self.npc));
+        if !shown {
+            return Ok(());
+        }
+        let desc = engine.npcs().get_by_id(self.npc);
         if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
             active.message_game(desc);
+        } else {
+            active.message_game("This examine is missing!")
         }
         Ok(())
     }

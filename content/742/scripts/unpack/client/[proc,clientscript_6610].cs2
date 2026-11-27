@@ -18,7 +18,7 @@ if (if_find(interface_1324:com_15) = true) {
 }
 while ($int10 < calc(enum_getoutputcount(enum_6060) + 100)) {
     if (cc_find($component2, $int10) = true & .if_find(interface_1324:com_15) = true & cc_getx >= .cc_getx & cc_getx <= calc(.cc_getx + .cc_getwidth) & cc_gety >= .cc_gety & cc_gety <= calc(.cc_gety + .cc_getheight)) {
-        sound_vorbis_volume(5262, 1, 0, 200);
+        sound_vorbis_volume(vorbis_5262, 1, 0, 200);
         ~clientscript_6611($int0, $int1);
         if ($int0 = 2) {
             cc_setposition($int6, $int9, ^setpos_abs_left, ^setpos_abs_top);

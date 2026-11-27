@@ -8,21 +8,25 @@
 //! music player's list (clientscript 837), and its song is enum 1351's.
 //!
 //! 289's music tab is 2011's music player (187): a track's name is com1's
-//! child at its index * 2 (clientscript 828), and Play is IF_BUTTON1 on it
-//! (`Class199.method1317`: `p4(com) p2_alt3(obj) p2_alt1(slot)`).
+//! child at its index * 2 (clientscript 828), and Play is IF_BUTTON1 on it.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_grid::CoordGrid;
+use rs_io::Packet;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server::ServerProtMessage;
+use rs_protocol::network::game::server::loc_add_change::LocAddChange;
+use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server_prot::ServerProt;
+use rs_protocol::network::game::zone_prot::ZoneProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
+use rs_ver::TypeId;
 
 /// Tutorial Island (0_48_48), the harness's spawn: 289's Newbie Melody
 /// (track 89, song 62), which 2011 unlocks automatically.
@@ -31,39 +35,26 @@ const NEWBIE_MELODY: u16 = 62;
 const VARROCK: (u16, u16) = (3212, 3473);
 const ADVENTURE: u16 = 177;
 /// The music player's "Playing" text (music_v3, 187:4).
-const PLAYING: i32 = 187 << 16 | 4;
+fn playing() -> i32 {
+    com("music_v3:now_playing_text")
+}
+
 /// The music player's list (187:1).
-const TRACKS: i32 = 187 << 16 | 1;
+fn tracks() -> i32 {
+    com("music_v3:jukebox")
+}
+
 /// Scape Main (track 150), unlocked automatically: song 16.
 const SCAPE_MAIN: u16 = 16;
 
-fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec<u8>> {
-    let opcode = prot as u16;
-    packets
-        .iter()
-        .filter(move |(op, _)| *op == opcode)
-        .map(|(_, p)| p)
-}
-
 /// Each MIDI_SONG's song: `p1_alt3 volume, p2_alt3 song, p1_alt1 delay`.
 fn songs(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
-    of(packets, ServerProt::MidiSong)
-        .map(|p| u16::from_le_bytes([p[1].wrapping_sub(128), p[2]]))
-        .collect()
+    server::songs(packets)
 }
 
 /// Each IF_SETTEXT as `(com, text)`: `p4 com, pjstr text`.
 fn texts(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, String)> {
-    of(packets, ServerProt::IfSetText)
-        .map(|p| {
-            let com = i32::from_be_bytes([p[0], p[1], p[2], p[3]]);
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            (com, String::from_utf8_lossy(&p[4..end]).into_owned())
-        })
-        .collect()
+    server::settexts(packets)
 }
 
 /// Runs `n` ticks and gathers what the client was sent.
@@ -92,6 +83,91 @@ fn unlocked(engine: &Engine, pid: u16, track: i32) -> bool {
     player.vars.get(var).as_int() & (1 << (track % 32)) != 0
 }
 
+fn zone_event_tick<M: ServerProtMessage>(
+    ticks: &[Vec<(u16, Vec<u8>)>],
+    opcode: ZoneProt,
+    message: M,
+) -> usize {
+    let mut expected = Packet::new(1 + message.sizeof());
+    expected.p1(opcode as u8);
+    message.encode(&mut expected);
+    let event = &expected.data[..expected.pos];
+    ticks
+        .iter()
+        .position(|packets| {
+            server::of(packets, M::PROT).any(|payload| payload == &event[1..])
+                || server::of(packets, ServerProt::UpdateZonePartialEnclosed)
+                    .any(|zone| zone.windows(event.len()).any(|part| part == event))
+        })
+        .expect("missing zone event")
+}
+
+#[test]
+fn playing_the_lumbridge_organ() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = engine
+            .harness_login_returning_at("organist", 3244, 3213)
+            .unwrap();
+        ticks(engine, &mut client, 3);
+        let entry = engine.harness_player(client.pid).unwrap().pathing.coord;
+        client.send(ClientProt::MapBuildComplete, &[]);
+        client.op_loc(1, 3243, 3214, TypeId::new(36978));
+
+        let mut scene = Vec::new();
+        for _ in 0..60 {
+            client.send(ClientProt::NoTimeout, &[]);
+            engine.cycle();
+            let packets = client.packets();
+            if server::of(&packets, ServerProt::RebuildRegion)
+                .next()
+                .is_some()
+            {
+                client.send(ClientProt::MapBuildComplete, &[]);
+            }
+            let ended = server::of(&packets, ServerProt::CamReset).next().is_some();
+            scene.push(packets);
+            if ended && engine.harness_player(client.pid).unwrap().pathing.coord == entry {
+                break;
+            }
+        }
+
+        let organ_tile = CoordGrid::packed_zone_coord(3242, 3214);
+        let placed = zone_event_tick(
+            &scene,
+            ZoneProt::LocAddChange,
+            LocAddChange {
+                coord: organ_tile,
+                shape_angle: 10 << 2,
+                id: TypeId::new(36979),
+            },
+        );
+        let played = zone_event_tick(
+            &scene,
+            ZoneProt::LocAnim,
+            LocAnim {
+                coord: organ_tile,
+                shape_angle: 10 << 2,
+                seq: TypeId::new(9982),
+            },
+        );
+        assert!(
+            played >= placed + 3,
+            "organ placed on tick {placed}, animated on tick {played}"
+        );
+
+        let scene: Vec<_> = scene.into_iter().flatten().collect();
+        assert_eq!(server::of(&scene, ServerProt::RebuildRegion).count(), 1);
+        assert_eq!(server::jingles(&scene), [325]);
+        assert!(!server::cam_movetos(&scene).is_empty());
+        assert!(!server::cam_lookats(&scene).is_empty());
+        assert_eq!(server::of(&scene, ServerProt::CamReset).count(), 1);
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().pathing.coord,
+            entry
+        );
+    });
+}
+
 #[test]
 fn a_square_plays_its_track_and_unlocks_it() {
     runner::on_loaded_engine(|engine| {
@@ -99,15 +175,16 @@ fn a_square_plays_its_track_and_unlocks_it() {
         let mut client = engine.harness_login_returning("listener").expect("login");
 
         // Logging in: the spawn square's track, unlocked automatically, so
-        // no message.
+        // no message. 530's automatic tracks (enum 1349) leave it out.
         let sent = ticks(engine, &mut client, 3);
         assert_eq!(songs(&sent), [NEWBIE_MELODY], "the spawn square's track");
-        assert!(texts(&sent).contains(&(PLAYING, "Newbie Melody".to_string())));
-        assert!(
-            !HarnessClient::game_messages(&sent)
+        assert!(texts(&sent).contains(&(playing(), "Newbie Melody".to_string())));
+        assert_eq!(
+            HarnessClient::game_messages(&sent)
                 .iter()
                 .any(|(_, t)| t.contains("unlocked")),
-            "Newbie Melody unlocks automatically"
+            cfg!(before_647),
+            "Newbie Melody unlocks automatically from 647"
         );
         assert!(unlocked(engine, client.pid, 89), "Newbie Melody");
         assert!(
@@ -128,7 +205,7 @@ fn a_square_plays_its_track_and_unlocks_it() {
             )]
         );
         assert_eq!(songs(&sent), [ADVENTURE]);
-        assert!(texts(&sent).contains(&(PLAYING, "Adventure".to_string())));
+        assert!(texts(&sent).contains(&(playing(), "Adventure".to_string())));
         assert!(unlocked(engine, client.pid, 0), "Adventure");
 
         // Back to a square whose track is unlocked: the song plays on.
@@ -146,25 +223,16 @@ fn a_square_plays_its_track_and_unlocks_it() {
 }
 
 /// Clicks Play on a track of the music player's list: IF_BUTTON1 on 187:1 at
-/// the track's name, its index * 2 (`p4 com, p2_alt3 obj, p2_alt1 slot`).
+/// the track's name, its index * 2 (530: its index).
 fn play(client: &mut HarnessClient, track: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(TRACKS).p2_alt3(0xFFFF).p2_alt1(track * 2);
-    client.send(ClientProt::IfButton1, &p.finish());
+    let slot = if cfg!(before_647) { track } else { track * 2 };
+    client.if_button(1, tracks(), slot as u16, TypeId::NULL);
 }
 
 /// Each IF_SETEVENTS as `(com, from, to, ops)`: `p2_alt2 from, p4_alt3
 /// events, p4_alt3 com, p2_alt3 to`.
 fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
-    of(packets, ServerProt::IfSetEvents)
-        .map(|p| {
-            let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
-            let ops = i32::from_be_bytes([p[3], p[2], p[5], p[4]]);
-            let com = i32::from_be_bytes([p[7], p[6], p[9], p[8]]);
-            let to = u16::from_le_bytes([p[10].wrapping_sub(128), p[11]]);
-            (com, from, to, ops)
-        })
-        .collect()
+    server::events(packets)
 }
 
 #[test]
@@ -177,9 +245,14 @@ fn the_music_player_plays_an_unlocked_track() {
         // places); the playlist's ops stay off.
         let ops = events(&sent)
             .into_iter()
-            .find(|e| e.0 == TRACKS)
+            .find(|e| e.0 == tracks())
             .expect("the list's events");
-        assert_eq!((ops.1, ops.2, ops.3 & 0x7fe), (0, 1959, 0b110));
+        // 530's list ends at 646 (login.rs2).
+        #[cfg(before_647)]
+        let last = 646;
+        #[cfg(since_647)]
+        let last = 1959;
+        assert_eq!((ops.1, ops.2, ops.3 & 0x7fe), (0, last, 0b110));
 
         // A locked track: 289's answer (the client offers no Play on one).
         play(&mut client, 0);
@@ -197,6 +270,6 @@ fn the_music_player_plays_an_unlocked_track() {
         play(&mut client, 150);
         let sent = ticks(engine, &mut client, 1);
         assert_eq!(songs(&sent), [SCAPE_MAIN], "Scape Main");
-        assert!(texts(&sent).contains(&(PLAYING, "Scape Main".to_string())));
+        assert!(texts(&sent).contains(&(playing(), "Scape Main".to_string())));
     });
 }

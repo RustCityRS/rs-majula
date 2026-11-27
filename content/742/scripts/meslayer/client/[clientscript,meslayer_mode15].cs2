@@ -7,7 +7,7 @@ if (clan_getchatcount > 0 & clan_getchatrank >= clan_getchatminkick) {
     if (%snapshot_open = true) {
         ~script675;
     }
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         if_sethide(toplevel_fullscreen:chattop, false);
     }
     if_sethide(chattop:mes_layer, false);

@@ -8,7 +8,7 @@ if (%poh_building_mode = 1) {
     if_setgraphic(poh_house_options:com_1, "miscgraphics,9");
 }
 if (%varplayerbit_11840 = 0) {
-    if_setgraphic(poh_house_options:com_19, 12353);
+    if_setgraphic(poh_house_options:com_19, graphic_12353);
 } else {
-    if_setgraphic(poh_house_options:com_19, 12354);
+    if_setgraphic(poh_house_options:com_19, graphic_12354);
 }

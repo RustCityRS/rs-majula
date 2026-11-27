@@ -50,7 +50,7 @@ pub struct SeqTypeRaw {
     #[cfg(since_244)]
     pub duplicatebehaviour: Option<u8>,
     #[cfg(since_530)]
-    pub synths: Option<Box<[Option<SeqSynth>]>>,
+    pub sounds: Option<Box<[Option<SeqSound>]>>,
     #[cfg(since_530)]
     pub a_bool9: bool,
     #[cfg(since_530)]
@@ -60,9 +60,9 @@ pub struct SeqTypeRaw {
     #[cfg(since_647)]
     pub sound_vorbis: bool,
     #[cfg(since_647)]
-    pub op19: Vec<(u8, u8)>,
+    pub sound_volumes: Vec<(u8, u8)>,
     #[cfg(since_647)]
-    pub op20: Vec<(u8, u16, u16)>,
+    pub sound_random_rates: Vec<(u8, u16, u16)>,
     #[cfg(since_742)]
     pub tertiaryvolumefactor: Option<u8>,
     #[cfg(since_742)]
@@ -97,7 +97,7 @@ impl CacheType for SeqTypeRaw {
             #[cfg(since_244)]
             duplicatebehaviour: None,
             #[cfg(since_530)]
-            synths: None,
+            sounds: None,
             #[cfg(since_530)]
             a_bool9: false,
             #[cfg(since_530)]
@@ -107,9 +107,9 @@ impl CacheType for SeqTypeRaw {
             #[cfg(since_647)]
             sound_vorbis: false,
             #[cfg(since_647)]
-            op19: Vec::new(),
+            sound_volumes: Vec::new(),
             #[cfg(since_647)]
-            op20: Vec::new(),
+            sound_random_rates: Vec::new(),
             #[cfg(since_742)]
             tertiaryvolumefactor: None,
             #[cfg(since_742)]
@@ -157,7 +157,7 @@ impl CacheType for SeqTypeRaw {
             #[cfg(since_530)]
             13 => {
                 let len = buf.g2() as usize;
-                let mut synths = Vec::with_capacity(len);
+                let mut sounds = Vec::with_capacity(len);
                 for _ in 0..len {
                     let size = buf.g1() as usize;
                     if size > 0 {
@@ -166,15 +166,15 @@ impl CacheType for SeqTypeRaw {
                         for _ in 0..(size - 1) {
                             tail.push(buf.g2());
                         }
-                        synths.push(Some(SeqSynth {
+                        sounds.push(Some(SeqSound {
                             head,
                             tail: tail.into_boxed_slice(),
                         }));
                     } else {
-                        synths.push(None);
+                        sounds.push(None);
                     }
                 }
-                self.synths = Some(synths.into_boxed_slice());
+                self.sounds = Some(sounds.into_boxed_slice());
             }
             #[cfg(since_530)]
             14 => self.a_bool9 = true,
@@ -188,14 +188,14 @@ impl CacheType for SeqTypeRaw {
             19 => {
                 let idx = buf.g1();
                 let val = buf.g1();
-                self.op19.push((idx, val));
+                self.sound_volumes.push((idx, val));
             }
             #[cfg(since_647)]
             20 => {
                 let idx = buf.g1();
                 let a = buf.g2();
                 let b = buf.g2();
-                self.op20.push((idx, a, b));
+                self.sound_random_rates.push((idx, a, b));
             }
             #[cfg(since_742)]
             22 => self.tertiaryvolumefactor = Some(buf.g1()),
@@ -255,7 +255,7 @@ impl CacheType for SeqTypeRaw {
 
 #[cfg(since_530)]
 #[derive(Debug, Clone)]
-pub struct SeqSynth {
+pub struct SeqSound {
     pub head: i32,
     pub tail: Box<[u16]>,
 }

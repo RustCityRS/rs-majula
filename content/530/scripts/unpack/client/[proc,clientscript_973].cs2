@@ -116,5 +116,5 @@ if ($int3 = 1) {
 if_setscrollpos(lvl_scroll:info, 0, 0);
 if_setscrollsize(lvl_scroll:info, 296, $int5);
 if ($int5 > 160) {
-    ~clientscript_31(lvl_scroll:info_scrollbar, lvl_scroll:info, 798, 795, 796, 797, 793, 794);
+    ~clientscript_31(lvl_scroll:info_scrollbar, lvl_scroll:info, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
 }

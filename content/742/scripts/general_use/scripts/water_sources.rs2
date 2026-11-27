@@ -81,7 +81,11 @@ switch_obj (last_useitem) {
     case default : ~displaymessage(^dm_default);
 }
 
-[oplocu,_well]
+[oplocu,_well] @use_on_well;
+// 742's well_54639 (Lumbridge's, among others) carries no well category.
+[oplocu,well_54639] @use_on_well;
+
+[label,use_on_well]
 switch_obj (last_useitem) {
     case bucket_empty : @fill_bucket_well;
     case default : ~displaymessage(^dm_default);

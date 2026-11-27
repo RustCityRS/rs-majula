@@ -1,7 +1,7 @@
 // 5115
 [proc,clientscript_5115](component $component0, int $int1)
 if ($int1 = 1) {
-    if_setgraphic($component0, 7436);
+    if_setgraphic($component0, graphic_7436);
 } else {
-    if_setgraphic($component0, 7435);
+    if_setgraphic($component0, graphic_7435);
 }

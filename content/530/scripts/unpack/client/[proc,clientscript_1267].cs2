@@ -2,12 +2,12 @@
 [proc,clientscript_1267]
 def_string $string0 = null;
 if (%option_pm = 0) {
-    if_setgraphic(options:optpm, 761);
+    if_setgraphic(options:optpm, "options_boxes,0");
     $string0 = "Split Private Chat<br>(currently off)";
     if_setonmouserepeat(options:optpm, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
     %tooltip_built = 0;
 } else if (%option_pm = 1) {
-    if_setgraphic(options:optpm, 762);
+    if_setgraphic(options:optpm, "options_boxes,1");
     $string0 = "Split Private Chat<br>(currently on)";
     if_setonmouserepeat(options:optpm, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
     %tooltip_built = 0;

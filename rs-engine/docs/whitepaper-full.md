@@ -4684,8 +4684,9 @@ Two engineering details:
   the *pair* of complementary edge flags on the two tiles a wall separates (e.g. a West wall sets `WallWest` on the tile
   and `WallEast` on `x-1`, `lib.rs:270-277`). It also handles the `blockrange`/`breakroutefinding` mirrors by
   *recursing* to lay down the movement, projectile, and route-blocker copies in one call (`lib.rs:307-312`). The engine
-  passes `breakroutefinding = false` and `blockrange = loc_type.blockrange` at every site, so route-blocker bits come
-  only from the wall-mirror recursion, never from the engine directly.
+  passes `blockrange` and the inverse of the loc type's `breakroutefinding`, so as in the client every wall and loc gets
+  route-blocker bits unless it has `breakroutefinding`. When the server pathfinds (`client_pathfinder` off), player
+  routes search with `route_blockers`, so they run through bank booths and counters while a step into them still fails.
 
 The same dispatch serves three callers, which is the key to runtime coherence:
 
@@ -5677,7 +5678,7 @@ conditionally adds `int_operand()` to `pc`. The unconditional `BRANCH` simply do
 | `PUSH/POP_STRING_LOCAL` (35,36)                         | str ↔ local          | Local string read/write                                                                       |
 | `JOIN_STRING` (37)                                      | n strs → str         | Concatenate top `operand` strings                                                             |
 | `POP_INT_DISCARD/POP_STRING_DISCARD` (38,39)            | x →                  | Drop one stack entry                                                                          |
-| `PUSH_VARS/POP_VARS` (11,12), `PUSH/POP_VARBIT` (25,27) | —                    | No-op stubs                                                                                   |
+| `PUSH_VARS/POP_VARS` (11,12), `PUSH/POP_VARPBIT` (25,27) | —                    | No-op stubs                                                                                   |
 | `DEFINE_ARRAY`/`PUSH_ARRAY_INT`/`POP_ARRAY_INT` (44–46) | —                    | Error stub ("Not implemented")                                                                |
 
 `POP_VARP` (`core.rs:54-71`) is the most instructive: it looks up the varp definition in `cache().varps`, enforces
@@ -9069,9 +9070,10 @@ discipline is how the project validates that its from-scratch decoders/encoders 
 
 **The map packer** (`rs-pack/src/pack/other/map.rs`) deserves a note as the highest-throughput text parser.
 `pack_maps` (lines 449-557) parses `.jm2` text maps with a hand-rolled byte scanner (`fast_parse_int`, `next_word`,
-manual section detection — no regex, no `split` allocation) into a flat `[TileData; 4*64*64]` plus loc/npc/obj placement
-maps, then `encode_terrain`/`encode_locs`/`encode_npcs`/`encode_objs` produce the exact client wire format (delta-coded
-ids and positions via `psmart1or2`), bzip2-compress each, CRC it, and key it by `(prefix, mapX, mapZ)`. It also loads
+manual section detection — no regex, no `split` allocation) into a flat `[TileData; 4*64*64]` plus loc placement
+maps, then `encode_tiles`/`encode_locs` produce the exact client wire format (delta-coded ids and positions via
+`psmart1or2`), bzip2-compress each, CRC it, and key it by `(prefix, mapX, mapZ)`. NPC and obj spawns are packed
+separately by `pack_spawns`/`pack_obj_spawns`, the same on every revision. It also loads
 `multiway.csv`/`free2play.csv` into the packed-zone-key `HashSet`s. The SoA tile buffer is reused across all map squares
 to avoid per-square allocation.
 

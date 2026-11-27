@@ -6,6 +6,6 @@ if ($stat1 = prayer) {
 } else {
     if_settext($component0, tostring(stat($stat1)));
 }
-if ($stat1 = summoning) {
+if ($stat1 = animallore) {
     ~topstat_set_lore_icon;
 }

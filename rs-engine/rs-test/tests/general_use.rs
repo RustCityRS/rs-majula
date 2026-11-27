@@ -3,25 +3,33 @@
 //! gem. `OPLOCT` and `IFBUTTONT` are written as the 647 client's send sites
 //! write them (see `targeted_ops.rs`, `held_ops.rs`).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::converse;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::fs;
 
-/// `inventory:inv`.
-const BACKPACK: i32 = 149 << 16;
 /// Seers' Village's hat stand (`l42_54`: 0 22 26), and the tile south of it.
 const HAT_STAND: (u16, u16) = (2710, 3482);
+/// The well west of Lumbridge: 742 has its own.
+#[cfg(before_742)]
+const WELL: &str = "well";
+#[cfg(since_742)]
+const WELL: &str = "well_54639";
+/// The Taverley Dungeon coffin, shut and open: 742 has its own.
+#[cfg(before_742)]
+const COFFIN_SHUT: &str = "di2_coffin";
+#[cfg(before_742)]
+const COFFIN_OPEN: &str = "di2_coffin_open";
+#[cfg(since_742)]
+const COFFIN_SHUT: &str = "coffin_74824";
+#[cfg(since_742)]
+const COFFIN_OPEN: &str = "coffin_74825";
 const STAND_TILE: (u16, u16) = (2710, 3481);
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
@@ -55,15 +63,14 @@ fn holding(engine: &mut Engine, name: &str, x: u16, z: u16, objs: &[u16]) -> Har
 
 /// The item in backpack slot 0 used on the hat stand.
 fn use_on_hat_stand(client: &mut HarnessClient, item: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(item as i32)
-        .p2_alt2(0)
-        .p2(HAT_STAND.1 as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(HAT_STAND.0 as i32)
-        .p1_alt1(0)
-        .p2_alt1(374);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        HAT_STAND.0,
+        HAT_STAND.1,
+        TypeId::from_int(374),
+        BACKPACK,
+        0,
+        TypeId::from_int(item as i32),
+    );
 }
 
 fn said(line: &str) -> bool {
@@ -103,16 +110,9 @@ fn a_hammer_on_a_semi_precious_gem() {
     runner::on_loaded_engine(|engine| {
         let (hammer, topaz) = (obj(engine, "hammer"), obj(engine, "red_topaz"));
         let mut client = holding(engine, "smasher", 3222, 3219, &[hammer.g2(), topaz.g2()]);
-        let mut p = ClientPacket::new();
         // The topaz (slot 1) used on the hammer (slot 0): 289's [opheldu,hammer]
         // switches on the item used.
-        p.p4(BACKPACK)
-            .p2_alt1(0)
-            .p2_alt1(1)
-            .p2_alt2(topaz.int())
-            .p4_alt1(BACKPACK)
-            .p2(hammer.int());
-        client.send(ClientProt::IfButtonT, &p.finish());
+        client.if_button_t(BACKPACK, 1, topaz, BACKPACK, 0, hammer);
         for _ in 0..3 {
             engine.cycle();
         }
@@ -120,19 +120,20 @@ fn a_hammer_on_a_semi_precious_gem() {
     });
 }
 
-/// A loc's 647 id by its name in `content/647/pack/loc.pack` (the server
-/// loads 647 locs from the cache's data alone, which carries no names).
-fn loc_id(name: &str) -> u16 {
-    let pack = concat!(
+/// A loc's id by its name in the rev's `pack/loc.pack` (the server
+/// loads its locs from the cache's data alone, which carries no names).
+fn loc_id(name: &str) -> i32 {
+    let pack = &format!(
+        "{}/../../{}/pack/loc.pack",
         env!("CARGO_MANIFEST_DIR"),
-        "/../../content/647/pack/loc.pack"
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(pack)
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
         .and_then(|(id, _)| id.parse().ok())
-        .unwrap_or_else(|| panic!("647 has no loc {name}"))
+        .unwrap_or_else(|| panic!("{} has no loc {name}", rs_pack::CONTENT_DIR))
 }
 
 /// Whether the loc `name` stands at `x`,`level`,`z` now.
@@ -141,7 +142,7 @@ fn loc_at(engine: &Engine, name: &str, x: u16, level: u8, z: u16) -> bool {
     engine
         .zones
         .zone(x, level, z)
-        .is_some_and(|zone| zone.get_loc(x, z, TypeId::from(id)).is_some())
+        .is_some_and(|zone| zone.get_loc(x, z, TypeId::from_int(id)).is_some())
 }
 
 /// A walkable tile beside `x`,`z` on `level`.
@@ -162,27 +163,20 @@ fn beside(x: u16, level: u8, z: u16) -> (u16, u16) {
     .expect("a walkable tile beside the loc")
 }
 
-/// `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
-fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+fn op_loc1(client: &mut HarnessClient, loc: i32, x: u16, z: u16) {
+    client.op_loc(1, x, z, TypeId::from_int(loc));
 }
 
 /// Backpack slot 0's item used on the loc `loc` at `x`,`z` (`OPLOCT`).
-fn use_on_loc(client: &mut HarnessClient, item: u16, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(item as i32)
-        .p2_alt2(0)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(loc as i32);
-    client.send(ClientProt::OpLocT, &p.finish());
+fn use_on_loc(client: &mut HarnessClient, item: u16, loc: i32, x: u16, z: u16) {
+    client.op_loc_t(
+        x,
+        z,
+        TypeId::from_int(loc),
+        BACKPACK,
+        0,
+        TypeId::from_int(item as i32),
+    );
 }
 
 /// A player beside the loc at `x`,`level`,`z`, holding `objs` from slot 0.
@@ -218,20 +212,30 @@ fn slot0(engine: &Engine, pid: u16) -> Option<TypeId> {
 /// The 2011 wiki keeps Morgan's garlic in drawers (Garlic, 2011-05-01), where
 /// 289 had its garlic cupboard: drawers_46250, a tile north of 289's spot,
 /// opens into drawers_12961 (cupboards.loc), whose Search gives 289's garlic.
+// 742's Draynor has no drawers on Morgan's upper floor.
+#[cfg(before_742)]
 #[test]
 fn morgan_s_drawers_hold_289_s_garlic() {
     runner::on_loaded_engine(|engine| {
         const DRAWERS: (u16, u8, u16) = (3096, 1, 3269);
+        // 530's map has a cupboard there (33502, opening into 33503; cupboards.rs2).
+        #[cfg(before_647)]
+        let (shut, open) = (
+            "xmas09_landofsnow_fence_02_mirror",
+            "xmas09_landofsnow_fence_03",
+        );
+        #[cfg(since_647)]
+        let (shut, open) = ("drawers_46250", "drawers_12961");
         let garlic = obj(engine, "garlic");
         let mut client = beside_loc(engine, "morgan", DRAWERS, &[]);
-        op_loc1(&mut client, loc_id("drawers_46250"), DRAWERS.0, DRAWERS.2);
+        op_loc1(&mut client, loc_id(shut), DRAWERS.0, DRAWERS.2);
         cycles(engine, 6);
         assert!(
-            loc_at(engine, "drawers_12961", DRAWERS.0, 1, DRAWERS.2),
+            loc_at(engine, open, DRAWERS.0, 1, DRAWERS.2),
             "the drawers opened"
         );
 
-        op_loc1(&mut client, loc_id("drawers_12961"), DRAWERS.0, DRAWERS.2);
+        op_loc1(&mut client, loc_id(open), DRAWERS.0, DRAWERS.2);
         cycles(engine, 6);
         assert_eq!(slot0(engine, client.pid), Some(garlic), "garlic taken");
         assert!(said("You find a clove of garlic that you take."));
@@ -258,17 +262,14 @@ fn two_thousand_eleven_s_bookcases_and_coffins_on_289_s_spots() {
         // coffin_32290 opens into coffin_32291, which closes it again.
         const COFFIN: (u16, u8, u16) = (2878, 0, 9803);
         let mut client = beside_loc(engine, "undertaker", COFFIN, &[]);
-        op_loc1(&mut client, loc_id("di2_coffin"), COFFIN.0, COFFIN.2);
+        op_loc1(&mut client, loc_id(COFFIN_SHUT), COFFIN.0, COFFIN.2);
         cycles(engine, 6);
         assert!(said("The coffin creaks open..."));
-        assert!(
-            loc_at(engine, "di2_coffin_open", COFFIN.0, 0, COFFIN.2),
-            "opened"
-        );
-        op_loc1(&mut client, loc_id("di2_coffin_open"), COFFIN.0, COFFIN.2);
+        assert!(loc_at(engine, COFFIN_OPEN, COFFIN.0, 0, COFFIN.2), "opened");
+        op_loc1(&mut client, loc_id(COFFIN_OPEN), COFFIN.0, COFFIN.2);
         cycles(engine, 6);
         assert!(said("You close the coffin."));
-        assert!(loc_at(engine, "di2_coffin", COFFIN.0, 0, COFFIN.2), "shut");
+        assert!(loc_at(engine, COFFIN_SHUT, COFFIN.0, 0, COFFIN.2), "shut");
     });
 }
 
@@ -295,20 +296,23 @@ fn a_table_takes_an_item_and_a_tap_barrel_fills_a_glass() {
             "the logs left the backpack"
         );
 
-        // barrelwithtap at 0_48_51_23_2 (cache 786 map).
-        const BARREL: (u16, u8, u16) = (3095, 0, 3266);
-        let (glass, beer) = (obj(engine, "beer_glass"), obj(engine, "beer"));
-        let mut client = beside_loc(engine, "drinker", BARREL, &[glass.g2()]);
-        use_on_loc(
-            &mut client,
-            glass.g2(),
-            loc_id("barrelwithtap"),
-            BARREL.0,
-            BARREL.2,
-        );
-        cycles(engine, 6);
-        assert_eq!(slot0(engine, client.pid), Some(beer), "beer");
-        assert!(said("You fill the glass with beer."));
+        // barrelwithtap at 0_48_51_23_2 (cache 786 map); 742's Draynor has none.
+        #[cfg(before_742)]
+        {
+            const BARREL: (u16, u8, u16) = (3095, 0, 3266);
+            let (glass, beer) = (obj(engine, "beer_glass"), obj(engine, "beer"));
+            let mut client = beside_loc(engine, "drinker", BARREL, &[glass.g2()]);
+            use_on_loc(
+                &mut client,
+                glass.g2(),
+                loc_id("barrelwithtap"),
+                BARREL.0,
+                BARREL.2,
+            );
+            cycles(engine, 6);
+            assert_eq!(slot0(engine, client.pid), Some(beer), "beer");
+            assert!(said("You fill the glass with beer."));
+        }
     });
 }
 
@@ -316,13 +320,7 @@ fn a_table_takes_an_item_and_a_tap_barrel_fills_a_glass() {
 /// `IF_BUTTON` on `inventory:inv`, which `[if_button,inventory:inv]` hands to
 /// the item's `opheld` script).
 fn op_held(client: &mut HarnessClient, op: u8, obj: u16, slot: u16) {
-    let prot = match op {
-        1 => ClientProt::IfButton1,
-        _ => ClientProt::IfButton2,
-    };
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(slot as i32);
-    client.send(prot, &p.finish());
+    client.if_button(op, BACKPACK, slot, TypeId::from_int(obj as i32));
 }
 
 /// 2011's own searchable hay, on 289's hay spots, searches as 289's.
@@ -372,6 +370,13 @@ fn mithril_seeds_plant_flowers_and_the_paterdomus_organ_plays() {
 
         const ORGAN: (u16, u8, u16) = (3414, 0, 3494);
         let mut client = beside_loc(engine, "organist", ORGAN, &[]);
+        // 530's organ is not reached from the north: it is played from the south.
+        #[cfg(before_647)]
+        {
+            engine.harness_telejump(client.pid, ORGAN.0, ORGAN.1, ORGAN.2 - 1);
+            cycles(engine, 2);
+            client.packets();
+        }
         op_loc1(&mut client, loc_id("church_organ_30754"), ORGAN.0, ORGAN.2);
         cycles(engine, 6);
         let songs = calls_for("midi_song");
@@ -410,14 +415,8 @@ fn the_fence_squeezes_through_both_ways() {
     });
 }
 
-/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
-fn op_loc2(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+fn op_loc2(client: &mut HarnessClient, loc: i32, x: u16, z: u16) {
+    client.op_loc(2, x, z, TypeId::from_int(loc));
 }
 
 /// The manhole at 0_50_54_37_2 opens, closes again on the open manhole's own
@@ -483,12 +482,19 @@ fn port_sarim_s_karamja_gangplank_boards_the_ship_to_the_east() {
 fn a_locked_chest_and_a_locked_gate_stay_shut() {
     runner::on_loaded_engine(|engine| {
         // chestlocked at 0_40_60_60_53, from the tile west of it (walls run
-        // along the tiles south of it).
-        const CHEST: (u16, u16) = (2620, 3893);
-        let mut client = holding(engine, "lockpick", 2619, 3893, &[]);
-        op_loc1(&mut client, loc_id("chestlocked"), CHEST.0, CHEST.1);
-        cycles(engine, 6);
-        assert!(said("The chest is locked."));
+        // along the tiles south of it). 742 walls its tile in.
+        #[cfg(before_742)]
+        {
+            // 530's map has it a tile east.
+            #[cfg(before_647)]
+            const CHEST: (u16, u16) = (2621, 3893);
+            #[cfg(since_647)]
+            const CHEST: (u16, u16) = (2620, 3893);
+            let mut client = holding(engine, "lockpick", CHEST.0 - 1, CHEST.1, &[]);
+            op_loc1(&mut client, loc_id("chestlocked"), CHEST.0, CHEST.1);
+            cycles(engine, 6);
+            assert!(said("The chest is locked."));
+        }
 
         // lockedmetalgatel at 1_42_54_38_38.
         const GATE: (u16, u8, u16) = (2726, 1, 3494);
@@ -520,7 +526,7 @@ fn a_bucket_fills_at_a_sink_and_a_well() {
             ),
             (
                 "weller",
-                "well",
+                WELL,
                 (3161, 3220),
                 "You fill the bucket from the well.",
             ),

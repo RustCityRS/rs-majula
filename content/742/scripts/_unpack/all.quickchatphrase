@@ -453,7 +453,7 @@ autoresponse=chatphrase_85
 
 // 85
 [chatphrase_85]
-phrase=My Summoning level is <stat_base(summoning)>.
+phrase=My Summoning level is <stat_base(animallore)>.
 autoresponse=chatphrase_612
 autoresponse=chatphrase_613
 autoresponse=chatphrase_614
@@ -1862,7 +1862,7 @@ phrase=I'm around the edge.
 
 // 361
 [chatphrase_361]
-phrase=I've got charges: <tostring_varbit(varplayerbit_4562)>.
+phrase=I've got charges: <tostring_varpbit(varplayerbit_4562)>.
 
 // 362
 [chatphrase_362]
@@ -3070,7 +3070,7 @@ phrase=My levels are: Attack:<stat_base(attack)>  Strength:<stat_base(strength)>
 
 // 609
 [chatphrase_609]
-phrase=My levels are: Defence:<stat_base(defence)>  Prayer:<stat_base(prayer)>  Constitution:<stat_base(hitpoints)>  Summoning:<stat_base(summoning)>
+phrase=My levels are: Defence:<stat_base(defence)>  Prayer:<stat_base(prayer)>  Constitution:<stat_base(hitpoints)>  Summoning:<stat_base(animallore)>
 
 // 610
 [chatphrase_610]
@@ -3079,7 +3079,7 @@ autoresponse=chatphrase_952
 
 // 611
 [chatphrase_611]
-phrase=I have <tostring_varbit(varplayerbit_5505)> Stealing Creation Points.
+phrase=I have <tostring_varpbit(varplayerbit_5505)> Stealing Creation Points.
 
 // 612
 [chatphrase_612]
@@ -3151,7 +3151,7 @@ phrase=The total amount of experience between levels <stat_base(thieving)> and <
 
 // 629
 [chatphrase_629]
-phrase=The total amount of experience between levels <stat_base(summoning)> and <enum_string_statbase(enum_808,summoning)> is <enum_string_statbase(enum_2140,summoning)>.
+phrase=The total amount of experience between levels <stat_base(animallore)> and <enum_string_statbase(enum_808,animallore)> is <enum_string_statbase(enum_2140,animallore)>.
 
 // 630
 [chatphrase_630]
@@ -4088,7 +4088,7 @@ phrase=I found a penguin at: <listdialog(enum_1504)>.
 
 // 821
 [chatphrase_821]
-phrase=I have found <tostring_varbit(peng_spy_week_peng)> penguins this week.
+phrase=I have found <tostring_varpbit(peng_spy_week_peng)> penguins this week.
 
 // 822
 [chatphrase_822]
@@ -4615,7 +4615,7 @@ autoresponse=chatphrase_940
 
 // 941
 [chatphrase_941]
-phrase=My total investment credits is: <tostring_varbit(varplayerbit_6351)>.
+phrase=My total investment credits is: <tostring_varpbit(varplayerbit_6351)>.
 
 // 942
 [chatphrase_942]
@@ -4686,7 +4686,7 @@ autoresponse=chatphrase_957
 
 // 957
 [chatphrase_957]
-phrase=I have completed <tostring_varbit(champions_defeated_count)> of the Champions' Challenges.
+phrase=I have completed <tostring_varpbit(champions_defeated_count)> of the Champions' Challenges.
 
 // 958
 [chatphrase_958]
@@ -4702,7 +4702,7 @@ phrase=I found the Familiarisation obelisk at: <listdialog(enum_1504)>.
 
 // 961
 [chatphrase_961]
-phrase=I have collected <tostring_varbit(sfa_reward_points)> piles of raw shards.
+phrase=I have collected <tostring_varpbit(sfa_reward_points)> piles of raw shards.
 autoresponse=chatphrase_961
 
 // 962
@@ -4721,7 +4721,7 @@ autoresponse=chatphrase_965
 
 // 965
 [chatphrase_965]
-phrase=Life points: <tostring_varbit(life_points)>.
+phrase=Life points: <tostring_varpbit(life_points)>.
 
 // 966
 [chatphrase_966]
@@ -4813,7 +4813,7 @@ phrase=My casting distance will be <listdialog(enum_977)>.
 
 // 988
 [chatphrase_988]
-phrase=The total amount of experience between levels <stat_base(dungeoneering)> and <enum_string_statbase(enum_3031,dungeoneering)> is <enum_string_statbase(enum_3030,dungeoneering)>.
+phrase=The total amount of experience between levels <stat_base(rand)> and <enum_string_statbase(enum_3031,rand)> is <enum_string_statbase(enum_3030,rand)>.
 
 // 989
 [chatphrase_989]
@@ -4822,7 +4822,7 @@ autoresponse=chatphrase_990
 
 // 990
 [chatphrase_990]
-phrase=My Dungeoneering level is <stat_base(dungeoneering)>.
+phrase=My Dungeoneering level is <stat_base(rand)>.
 autoresponse=chatphrase_612
 autoresponse=chatphrase_613
 autoresponse=chatphrase_614
@@ -4862,7 +4862,7 @@ autoresponse=chatphrase_997
 
 // 997
 [chatphrase_997]
-phrase=I'm currently on floor: <tostring_varbit(rand_current_progress)>.
+phrase=I'm currently on floor: <tostring_varpbit(rand_current_progress)>.
 
 // 998
 [chatphrase_998]
@@ -5340,11 +5340,11 @@ autoresponse=chatphrase_154
 
 // 1088
 [chatphrase_1088]
-phrase=I've helped Pauline with <tostring_varbit(lunarfm_produce_points)>0 produce.
+phrase=I've helped Pauline with <tostring_varpbit(lunarfm_produce_points)>0 produce.
 
 // 1089
 [chatphrase_1089]
-phrase=I've unlocked <tostring_varbit(lunarfm_spells_unlocked)> of the spells.
+phrase=I've unlocked <tostring_varpbit(lunarfm_spells_unlocked)> of the spells.
 
 // 1090
 [chatphrase_1090]
@@ -5432,7 +5432,7 @@ autoresponse=chatphrase_154
 
 // 1108
 [chatphrase_1108]
-phrase=I have killed <tostring_varbit(varplayerbit_10057)> bosses.
+phrase=I have killed <tostring_varpbit(varplayerbit_10057)> bosses.
 
 // 1109
 [chatphrase_1109]
@@ -5440,11 +5440,11 @@ phrase=I have earned a total Dominion Factor of <tostring_varp(varplayer_2421)>.
 
 // 1110
 [chatphrase_1110]
-phrase=I have ascended as high as floor <tostring_varbit(varplayerbit_10118)> in climber mode.
+phrase=I have ascended as high as floor <tostring_varpbit(varplayerbit_10118)> in climber mode.
 
 // 1111
 [chatphrase_1111]
-phrase=I have ascended as high as floor <tostring_varbit(varplayerbit_10119)> in endurance mode.
+phrase=I have ascended as high as floor <tostring_varpbit(varplayerbit_10119)> in endurance mode.
 
 // 1112
 [chatphrase_1112]
@@ -5456,15 +5456,15 @@ phrase=I'm going to start a round in the Flash Factory.
 
 // 1114
 [chatphrase_1114]
-phrase=I have <tostring_varbit(varplayerbit_10300)> Brianpoints.
+phrase=I have <tostring_varpbit(varplayerbit_10300)> Brianpoints.
 
 // 1115
 [chatphrase_1115]
-phrase=My score so far this round is <tostring_varbit(varplayerbit_10301)>.
+phrase=My score so far this round is <tostring_varpbit(varplayerbit_10301)>.
 
 // 1116
 [chatphrase_1116]
-phrase=I have <tostring_varbit(varplayerbit_10304)> minutes left.
+phrase=I have <tostring_varpbit(varplayerbit_10304)> minutes left.
 
 // 1117
 [chatphrase_1117]
@@ -5524,15 +5524,15 @@ phrase=There's a Fisherman at the docks in southern Morytania.
 
 // 1131
 [chatphrase_1131]
-phrase=I have <tostring_varbit(varplayerbit_7287)> Fish Flingers tickets.
+phrase=I have <tostring_varpbit(varplayerbit_7287)> Fish Flingers tickets.
 
 // 1132
 [chatphrase_1132]
-phrase=I have won <tostring_varbit(varplayerbit_7285)> medals from Fish Flingers.
+phrase=I have won <tostring_varpbit(varplayerbit_7285)> medals from Fish Flingers.
 
 // 1133
 [chatphrase_1133]
-phrase=I have <tostring_varbit(varplayerbit_7295)> Fish Flingers tokens.
+phrase=I have <tostring_varpbit(varplayerbit_7295)> Fish Flingers tokens.
 
 // 1134
 [chatphrase_1134]
@@ -5611,7 +5611,7 @@ autoresponse=chatphrase_1156
 
 // 1152
 [chatphrase_1152]
-phrase=I have collected <tostring_varbit(varplayerbit_11841)> orts.
+phrase=I have collected <tostring_varpbit(varplayerbit_11841)> orts.
 
 // 1153
 [chatphrase_1153]
@@ -5639,7 +5639,7 @@ phrase=I'm hunting moths to help catch the plutionial chinchompa.
 
 // 1159
 [chatphrase_1159]
-phrase=I have competence points: <tostring_varbit(varplayerbit_11930)>
+phrase=I have competence points: <tostring_varpbit(varplayerbit_11930)>
 autoresponse=chatphrase_1162
 autoresponse=chatphrase_1163
 

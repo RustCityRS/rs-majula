@@ -9,7 +9,7 @@ def_int $int5 = calc(if_getx($component0) - $int4);
 def_int $int6 = calc(if_gety($component0) + $int2);
 if_setposition($component0, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
 if ($int1 = 10) {
-    if_setgraphic($component0, ~clientscript_6267(12093));
+    if_setgraphic($component0, ~clientscript_6267(graphic_12093));
     if_setsize($component0, 200, 60, ^setsize_abs, ^setsize_abs);
 }
 if (%varplayerbit_11768 = 3 | %varplayerbit_11768 = 1) {
@@ -26,7 +26,7 @@ if (%varplayerbit_11768 = 3 | %varplayerbit_11768 = 1) {
     cc_create(interface_1253:com_49, ^iftype_graphic, if_getnextsubid(interface_1253:com_49));
     cc_setsize(120, 120, ^setsize_abs, ^setsize_abs);
     cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setgraphic(9854);
+    cc_setgraphic(graphic_9854);
     cc_settrans(255);
     cc_setontimer("clientscript_6589(event_com, event_comsubid, 0)");
 } else {

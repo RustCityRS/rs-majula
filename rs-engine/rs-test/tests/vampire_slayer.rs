@@ -5,10 +5,6 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_inv::{Inventory, StackMode};
@@ -16,7 +12,10 @@ use rs_pack::ParamValue;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::life;
 use rs_test::runner;
+use rs_test::server;
 use rs_test::talk::{converse, explore, settexts, talk_to};
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
@@ -279,24 +278,16 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
             // Through the setstat cheat, so [changestat] works the max hit
             // out again (a level set directly leaves %com_maxhit as it was).
             for stat in ["attack", "strength", "defence"] {
-                let mut p = ClientPacket::new();
-                p.p1(0).p1(0).pjstr(&format!("setstat {stat} 99"));
-                client.send(ClientProt::ClientCheat, &p.finish());
+                client.client_cheat(&format!("setstat {stat} 99"));
                 ticks(engine, client, 1);
             }
             let player = engine.harness_player_mut(client.pid).unwrap();
             player.stats.levels[3] = 99;
             player.stats.base_levels[3] = 99;
             player.stats.xp[3] = 130_344_310;
-            let lp = player.vars.get(1240).as_int();
-            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+            life::set(player, 99 * life::SCALE);
             ticks(engine, client, 12);
-            let mut p = ClientPacket::new();
-            p.p2_alt1(COFFIN.2 as i32)
-                .p2_alt1(COFFIN.0 as i32)
-                .p1(0)
-                .p2_alt2(COFFIN.1 as i32);
-            client.send(ClientProt::OpLoc1, &p.finish());
+            client.op_loc(1, COFFIN.1, COFFIN.2, TypeId::from_int(COFFIN.0 as i32));
             let mut said = Vec::new();
             let mut hammered: Option<usize> = None;
             let mut gone: Option<usize> = None;
@@ -319,7 +310,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                     let c = player.pathing.coord;
                     trace.push((
                         tick,
-                        (player.vars.get(1240).as_int() >> 1) & 0x7FFF,
+                        life::of(player),
                         c.x(),
                         c.z(),
                         last.map(|l| l.1),
@@ -374,9 +365,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                         // Attack once the client has seen him, and again
                         // every 30 ticks in case a swing was refused.
                         if tick >= risen_at + 3 && (tick - risen_at - 3) % 30 == 0 {
-                            let mut p = ClientPacket::new();
-                            p.p1_alt2(0).p2_alt3(nid as i32);
-                            client.send(ClientProt::OpNpc2, &p.finish());
+                            client.op_npc(2, nid);
                         }
                     }
                     None if risen => {
@@ -502,11 +491,12 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
     });
 }
 
-/// A 647 pack registry's id for `name` (`content/647/pack/<kind>.pack`).
+/// A pack registry's id for `name` (the rev's `pack/<kind>.pack`).
 fn pack_id(kind: &str, name: &str) -> i32 {
     let path = format!(
-        "{}/../../content/647/pack/{kind}.pack",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/pack/{kind}.pack",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(&path)
         .expect(&path)
@@ -522,8 +512,9 @@ fn pack_id(kind: &str, name: &str) -> i32 {
 /// (`all.seq`: `frameN=<delay>:<frame>:<frame set>`).
 fn frame_sets(seq: &str) -> BTreeSet<String> {
     let path = format!(
-        "{}/../../content/647/scripts/_unpack/all.seq",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/scripts/_unpack/all.seq",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     let all = fs::read_to_string(&path).expect(&path);
     let head = format!(
@@ -588,31 +579,6 @@ fn the_count_fights_on_his_own_skeleton() {
     });
 }
 
-/// The client's own opcodes (`ServerProt.java`) for the camera packets.
-const CAM_LOOKAT: u16 = 26;
-const CAM_RESET: u16 = 67;
-const CAM_MOVETO: u16 = 94;
-
-/// A CAM_MOVETO's height, variable speed and constant speed, as its encoder
-/// writes them: `p1_alt1 x, p1_alt2 z, p1_alt1 var, p2 height, p1_alt1 const`.
-fn moveto(payload: &[u8]) -> (u16, u8, u8) {
-    (
-        u16::from_be_bytes([payload[3], payload[4]]),
-        payload[2].wrapping_sub(128),
-        payload[5].wrapping_sub(128),
-    )
-}
-
-/// A CAM_LOOKAT's height, variable speed and constant speed: `p1_alt2 x,
-/// p2_alt3 height, p1_alt3 z, p1_alt2 const, p1_alt3 var`.
-fn lookat(payload: &[u8]) -> (u16, u8, u8) {
-    (
-        u16::from_le_bytes([payload[1].wrapping_sub(128), payload[2]]),
-        128u8.wrapping_sub(payload[5]),
-        0u8.wrapping_sub(payload[4]),
-    )
-}
-
 /// Opening the coffin plays 2011's cutscene, timed to the 2011-05-30
 /// recording (YouTube soXccN_SXH4) from its cut to the cutscene's camera:
 /// the track unlocked at once, the player's push on the lid at tick 6, the
@@ -635,12 +601,7 @@ fn the_coffin_plays_2011s_cutscene() {
             &[("stake", 1), ("garlic", 1)],
         );
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p2_alt1(COFFIN.2 as i32)
-            .p2_alt1(COFFIN.0 as i32)
-            .p1(0)
-            .p2_alt2(COFFIN.1 as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, COFFIN.1, COFFIN.2, TypeId::from_int(COFFIN.0 as i32));
         let mut said: Vec<(usize, String)> = Vec::new();
         let mut moves: Vec<(usize, (u16, u8, u8))> = Vec::new();
         let mut looks: Vec<(usize, (u16, u8, u8))> = Vec::new();
@@ -659,12 +620,11 @@ fn the_coffin_plays_2011s_cutscene() {
             for (_, m) in HarnessClient::game_messages(&packets) {
                 said.push((tick, m));
             }
-            for (op, payload) in &packets {
-                match *op {
-                    CAM_MOVETO => moves.push((tick, moveto(payload))),
-                    CAM_LOOKAT => looks.push((tick, lookat(payload))),
-                    _ => {}
-                }
+            for (_, _, height, cs, vs) in server::cam_movetos(&packets) {
+                moves.push((tick, (height, vs, cs)));
+            }
+            for (_, _, height, cs, vs) in server::cam_lookats(&packets) {
+                looks.push((tick, (height, vs, cs)));
             }
             if risen.is_none()
                 && let Some(n) = engine
@@ -736,9 +696,7 @@ fn the_coffin_plays_2011s_cutscene() {
         let c = engine.get_npc(nid).expect("he stays").npc.pathing.coord;
         assert_eq!((c.x(), c.z()), (3081, 9777), "he waits where he rose");
         let attack_sound = pack_id("synth", "vampire_attack").to_string();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
         let (mut reset_at, mut swing_at, mut hit_at) = (None, None, None);
         // Where the cutscene left the player, who stays there until the camera returns.
         let left = engine.harness_player(client.pid).unwrap().pathing.coord;
@@ -747,7 +705,8 @@ fn the_coffin_plays_2011s_cutscene() {
         forget_calls();
         for t in 32..80 {
             engine.cycle();
-            if reset_at.is_none() && client.packets().iter().any(|(op, _)| *op == CAM_RESET) {
+            if reset_at.is_none() && server::of(&client.packets(), ServerProt::CamReset).count() > 0
+            {
                 reset_at = Some(t - tick);
             }
             let here = engine.harness_player(client.pid).unwrap().pathing.coord;
@@ -756,9 +715,7 @@ fn the_coffin_plays_2011s_cutscene() {
             }
             // As the 2011 player: Attack again once the camera is back.
             if reset_at == Some(t - tick) {
-                let mut p = ClientPacket::new();
-                p.p1_alt2(0).p2_alt3(nid as i32);
-                client.send(ClientProt::OpNpc2, &p.finish());
+                client.op_npc(2, nid);
             }
             if swing_at.is_none()
                 && calls_for("sound_synth")
@@ -803,7 +760,7 @@ fn the_coffin_plays_2011s_cutscene() {
         let mut reset = false;
         for _ in 0..5 {
             engine.cycle();
-            reset |= client.packets().iter().any(|(op, _)| *op == CAM_RESET);
+            reset |= server::of(&client.packets(), ServerProt::CamReset).count() > 0;
         }
         assert!(reset, "CAM_RESET as he goes");
         assert!(
@@ -842,12 +799,7 @@ fn a_staked_count_does_not_rise_again() {
         let count = npc_type(engine, "vampire_slayer_qip_count");
         let mut client = login(engine, (3079, 0, 9786), 2, 1, &[("stake", 1)]);
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p2_alt1(COFFIN.2 as i32)
-            .p2_alt1(COFFIN.0 as i32)
-            .p1(0)
-            .p2_alt2(COFFIN.1 as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, COFFIN.1, COFFIN.2, TypeId::from_int(COFFIN.0 as i32));
         let mut said = Vec::new();
         for _ in 0..25 {
             engine.cycle();

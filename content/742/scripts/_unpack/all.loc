@@ -134540,6 +134540,7 @@ model=8,model_9500
 name=Bookcase
 cursor1=cursor_search
 occlude=no
+desc=A case. With books.
 category=bookcase
 
 // 9524
@@ -216907,6 +216908,7 @@ recol3d=9345
 model=8,model_5192
 name=Bed
 occlude=no
+desc=A well slept in bed.
 
 // 15684
 [loom_15684]
@@ -216995,6 +216997,7 @@ recol1d=14694
 model=Q,model_2057
 name=Portrait
 occlude=no
+desc=A painting of the King looking royal.
 
 // 15691
 [loom_15691]
@@ -423930,6 +423933,7 @@ model=8,model_34357
 name=Signpost
 cursor1=cursor_read
 occlude=no
+desc=An interesting sign.
 
 // 31299
 [is_signs_deaths]
@@ -423951,6 +423955,7 @@ model=8,model_34358
 name=Signpost
 cursor1=cursor_read
 occlude=no
+desc=An interesting sign.
 
 // 31301
 [is_signs_goblins]
@@ -423960,6 +423965,7 @@ model=8,model_34355
 name=Signpost
 cursor1=cursor_read
 occlude=no
+desc=An interesting sign.
 
 // 31302
 [juna]
@@ -502961,6 +502967,7 @@ hillchange=tree_skew,120
 model=8,model_38576
 name=Ruined Pillar
 occlude=no
+desc=An old crumbled pillar.
 
 // 36697
 [ruined_pillar_36697]
@@ -502970,6 +502977,7 @@ hillchange=tree_skew,120
 model=8,model_38574
 name=Ruined Pillar
 occlude=no
+desc=An old crumbled pillar.
 
 // 36698
 [pillar_36698]
@@ -504147,6 +504155,7 @@ recol2d=16846
 model=Q,model_5972
 name=Hanging meat
 occlude=no
+desc=I can't take someone's food.
 
 // 36785
 [fai_lumbridge_hangingmeat2]
@@ -504161,6 +504170,7 @@ recol2d=16846
 model=Q,model_5973
 name=Hanging meat
 occlude=no
+desc=I can't take someone's food.
 
 // 36786
 [bank_booth_36786]
@@ -504275,6 +504285,7 @@ model=8,model_36785
 name=Stairs
 cursor1=cursor_climb_up
 occlude=no
+desc=Some wooden stairs.
 
 // 36792
 [fai_lumbridge_stairs_left_top]
@@ -504288,6 +504299,7 @@ model=8,model_36768
 name=Stairs
 cursor1=cursor_climb_down
 occlude=no
+desc=Some wooden stairs.
 
 // 36793
 [fai_lumbridge_stairs_right]
@@ -504439,6 +504451,7 @@ contrast=15
 model=8,model_36445
 name=Barrel
 occlude=no
+desc=Old wooden barrels.
 
 // 36801
 [fai_lumbridge_barrel_swords]
@@ -504462,6 +504475,7 @@ retex1d=material_91
 model=8,model_29632
 name=Barrel of swords
 occlude=no
+desc=These belong to Bob, I shouldn't take them.
 
 // 36802
 [fai_lumbridge_barrel_unfinished_staffs]
@@ -504485,6 +504499,7 @@ recol6d=12618
 model=8,model_25198
 name=Barrel
 occlude=no
+desc=A barrel of unfinished staves and pieces of wood.
 
 // 36803
 [painting_36803]
@@ -504722,6 +504737,7 @@ recol4d=8388
 model=8,model_9590
 name=Small table
 occlude=no
+desc=Useful for putting things on.
 
 // 36820
 [fai_lumbridge_table2]
@@ -504738,6 +504754,7 @@ recol4d=8388
 model=8,model_4326
 name=Table
 occlude=no
+desc=It's a small table.
 category=unusable_table
 
 // 36821
@@ -504806,6 +504823,7 @@ recolhsl3d=5396
 model=8,model_2133
 name=Shelves
 occlude=no
+desc=Storage for all needs.
 
 // 36825
 [fai_lumbridge_shelves3]
@@ -504834,6 +504852,7 @@ recolhsl3d=5396
 model=8,model_2135
 name=Shelves
 occlude=no
+desc=Storage for all needs.
 
 // 36827
 [loc_36827]
@@ -504927,6 +504946,7 @@ model=8,model_9500
 name=Bookcase
 cursor1=cursor_search
 occlude=no
+desc=A case. With books.
 category=bookcase
 
 // 36833
@@ -504946,6 +504966,7 @@ model=8,model_9501
 name=Bookcase
 cursor1=cursor_search
 occlude=no
+desc=A good source of books.
 category=bookcase
 
 // 36834
@@ -504965,6 +504986,7 @@ model=8,model_35831
 name=Bookcase
 cursor1=cursor_search
 occlude=no
+desc=A good source of books!
 
 // 36835
 [atvar_smithy_materialsupply]
@@ -505146,6 +505168,8 @@ cursor1=cursor_open
 occlude=yes
 unknown170=948
 desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36848
 
 // 36847
 [door_36847]
@@ -505190,6 +505214,8 @@ name=Door
 occlude=yes
 unknown170=948
 desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36846
 
 // 36849
 [loc_36849]
@@ -506219,6 +506245,7 @@ contrast=15
 model=8,model_36438
 name=Wardrobe
 occlude=no
+desc=A fancy place to store clothes.
 
 // 36910
 [table_36910]
@@ -506555,6 +506582,7 @@ model=8,model_1482
 name=Sacks
 cursor1=cursor_search
 occlude=no
+desc=These may have something in them.
 
 // 36930
 [fai_lumbridge_desk]
@@ -506672,6 +506700,7 @@ recol6d=8388
 model=8,model_7906
 name=Counter
 occlude=no
+desc=Items are for sale here.
 
 // 36936
 [fai_lumbridge_stepladders]
@@ -506695,6 +506724,7 @@ contrast=15
 model=8,model_46795
 name=Grandfather clock
 occlude=no
+desc=Tick-tock, it's a clock.
 
 // 36938
 [bust_36938]
@@ -506773,6 +506803,7 @@ recol2d=8388
 model=8,model_5192
 name=Bed
 occlude=no
+desc=A well slept in bed.
 
 // 36943
 [fai_lumbridge_bed3]
@@ -506798,6 +506829,7 @@ recol2d=8388
 model=8,model_36481
 name=Bed
 occlude=no
+desc=Great for sleeping in.
 
 // 36945
 [fai_lumbridge_ladder]
@@ -508011,6 +508043,7 @@ model=8,model_36497
 name=Drawers
 cursor1=cursor_open
 occlude=no
+desc=A chest of drawers.
 category=drawer
 param=drawer_other,fai_lumbridge_drawers2_open
 
@@ -508037,6 +508070,7 @@ model=8,model_36487
 name=Drawers
 cursor2=cursor_search
 occlude=no
+desc=A chest of drawers.
 category=empty_drawer
 param=drawer_other,fai_lumbridge_drawers2
 
@@ -508080,7 +508114,7 @@ recol6d=8388
 model=8,model_7700
 name=Crate
 occlude=no
-desc=A wooden crate.
+desc=Some wooden crates.
 
 // 37017
 [fai_lumbridge_boxes]
@@ -508102,6 +508136,7 @@ recol6d=8388
 model=8,model_7704
 name=Boxes
 occlude=no
+desc=Wooden crates.
 
 // 37018
 [slice_dwarf_station_entrance_inactive]
@@ -775795,6 +775830,7 @@ model=8,model_62357
 name=Signpost
 cursor1=cursor_read
 occlude=no
+desc=An interesting sign.
 
 // 56888
 [keg_56888]

@@ -391,27 +391,27 @@ if (%if2 = 1) {
     if_sethide(misc_both_manage:miscb_help_2, true);
 }
 if (%misc_herbs_or_flax = 1) {
-    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseherb, 180);
-    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseflax, 181);
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseherb, "miscgraphics,10");
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseflax, "miscgraphics,11");
 } else {
-    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseherb, 181);
-    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseflax, 180);
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseherb, "miscgraphics,11");
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseflax, "miscgraphics,10");
 }
 if (%misc_rarewood_type = 0) {
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, 181);
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, 180);
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, 180);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, "miscgraphics,11");
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, "miscgraphics,10");
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, "miscgraphics,10");
 } else if (%misc_rarewood_type = 1) {
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, 180);
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, 181);
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, 180);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, "miscgraphics,10");
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, "miscgraphics,11");
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, "miscgraphics,10");
 } else {
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, 180);
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, 180);
-    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, 181);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, "miscgraphics,10");
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, "miscgraphics,10");
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, "miscgraphics,11");
 }
 if (%misc_cooked = 0) {
-    if_setgraphic(misc_both_manage:miscb_if_fishing_cooked, 180);
+    if_setgraphic(misc_both_manage:miscb_if_fishing_cooked, "miscgraphics,10");
 } else {
-    if_setgraphic(misc_both_manage:miscb_if_fishing_cooked, 181);
+    if_setgraphic(misc_both_manage:miscb_if_fishing_cooked, "miscgraphics,11");
 }

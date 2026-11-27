@@ -9,7 +9,7 @@
 //! the loc conversion read the plain ops alone. 647's server runs a members
 //! world, so each memberop must be the server's op in that slot.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use std::collections::HashMap;
 use std::fs;
@@ -19,9 +19,17 @@ use rs_test::runner;
 use rs_ver::TypeId;
 
 fn content(path: &str) -> String {
-    let path = format!("{}/../../content/647/{path}", env!("CARGO_MANIFEST_DIR"));
+    let path = format!(
+        "{}/../../{}/{path}",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
+    );
     fs::read_to_string(&path).expect(&path)
 }
+
+/// Where the rev's unpack keeps the cache's configs.
+#[cfg(since_647)]
+const UNPACK: &str = "scripts/_unpack";
 
 fn pack_ids(kind: &str) -> HashMap<String, u16> {
     content(&format!("pack/{kind}.pack"))
@@ -32,10 +40,11 @@ fn pack_ids(kind: &str) -> HashMap<String, u16> {
 }
 
 /// (name, slot 1-5, op) for every memberop in a cache-derived config file.
+#[cfg(since_647)]
 fn memberops(kind: &str) -> Vec<(String, usize, String)> {
     let mut out = Vec::new();
     let mut name = String::new();
-    for line in content(&format!("scripts/_unpack/all.{kind}")).lines() {
+    for line in content(&format!("{UNPACK}/all.{kind}")).lines() {
         if let Some(h) = line.strip_prefix('[').and_then(|l| l.strip_suffix(']')) {
             name = h.to_string();
         } else if let Some(rest) = line.strip_prefix("membersop")
@@ -48,6 +57,8 @@ fn memberops(kind: &str) -> Vec<(String, usize, String)> {
     out
 }
 
+// 530's cache has no memberops.
+#[cfg(since_647)]
 #[test]
 fn every_members_op_is_the_servers() {
     runner::on_loaded_engine(|engine| {
@@ -95,6 +106,7 @@ fn every_members_op_is_the_servers() {
 /// `midi` id: a song at its id, a jingle at 10000 + its id), decoded from the
 /// cache's Jagex MIDI. The length parser had read only 4 of them: the 647
 /// client's rebuilt MIDI writes data bytes under a meta event's running status.
+#[cfg(since_647)]
 #[test]
 fn every_2011_song_and_jingle_has_a_length() {
     runner::on_loaded_engine(|engine| {

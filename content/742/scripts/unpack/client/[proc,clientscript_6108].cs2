@@ -81,9 +81,9 @@ if (%varclient_1881 ! null & %varclient_1880 ! -1) {
         cc_setonmouseover("clientscript_6100(%varplayerbit_11055, 0, 1, event_com, event_comsubid)");
         cc_setonmouseleave("clientscript_6100(%varplayerbit_11055, 0, 0, event_com, event_comsubid)");
         if (%varplayerbit_11055 = 0) {
-            cc_setgraphic(10448);
+            cc_setgraphic(graphic_10448);
         } else {
-            cc_setgraphic(10453);
+            cc_setgraphic(graphic_10453);
         }
     }
 }
@@ -100,9 +100,9 @@ if ($inv0 = %varplayer_2561) {
         cc_setonmouseover("clientscript_6100(%varplayerbit_11055, 1, 1, event_com, event_comsubid)");
         cc_setonmouseleave("clientscript_6100(%varplayerbit_11055, 1, 0, event_com, event_comsubid)");
         if (%varplayerbit_11055 = 0) {
-            cc_setgraphic(10451);
+            cc_setgraphic(graphic_10451);
         } else {
-            cc_setgraphic(10456);
+            cc_setgraphic(graphic_10456);
         }
     }
     %varclient_1881 = $inv0;

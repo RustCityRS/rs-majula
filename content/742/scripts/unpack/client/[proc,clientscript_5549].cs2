@@ -3,7 +3,7 @@
 def_int $int1 = 0;
 if (%varclient_1724 > 1 & %varclient_1726 = false) {
     %varclient_1808 = %varclient_1807;
-    sound_vorbis_volume(9178, 1, 0, 50);
+    sound_vorbis_volume(vorbis_9178, 1, 0, 50);
     %varclient_1724 = calc(%varclient_1724 - 1);
     $int1 = ~clientscript_5545;
     if_setontimer(interface_1178:com_78, "clientscript_5551(100, $int1, 1, $int0)");

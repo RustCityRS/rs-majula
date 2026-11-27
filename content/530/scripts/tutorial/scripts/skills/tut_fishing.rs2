@@ -29,9 +29,9 @@ p_delay(1);
 anim(null, 0);
 inv_add(inv, newbieraw_shrimp, 1);
 ~tutorial_give_xp(fishing, 100);
-if (%varplayer_419 = ^newbie_survival_instructor_fish_shrimps) {
+if (%tutorial = ^newbie_survival_instructor_fish_shrimps) {
     hint_stop();
-    %varplayer_419 = ^newbie_survival_instructor_cook_shrimps;
+    %tutorial = ^newbie_survival_instructor_cook_shrimps;
     ~tutorial_step_cook_shrimp;
 } else {
     ~set_tutorial_progress;

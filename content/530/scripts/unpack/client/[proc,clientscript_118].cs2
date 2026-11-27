@@ -12,9 +12,9 @@ def_int $int15 = 0;
 def_int $int16 = 0;
 if ($int0 = 0) {
     while ($int8 < $int1) {
-        cc_create(interface_102:com_18, 5, $int9);
-        cc_setsize(36, 32, 0, 0);
-        cc_setposition($int10, 25, 0, 0);
+        cc_create(interface_102:com_18, ^iftype_graphic, $int9);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int10, 25, ^setpos_abs_left, ^setpos_abs_top);
         if ($int8 = 0) {
             cc_setobject($obj2, 1);
             if ($obj2 ! null) {
@@ -62,9 +62,9 @@ if ($int0 = 0) {
             $int16 = calc($int16 + 1);
         }
         while (calc($int15 - $int16) > 0) {
-            cc_create(interface_102:com_21, 5, $int9);
-            cc_setsize(36, 32, 0, 0);
-            cc_setposition($int10, $int11, 0, 0);
+            cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
             cc_setobject($obj2, 1);
             cc_setopbase("<col=ff981f><oc_name($obj2)>");
             cc_setop(1, "Item : ");
@@ -89,9 +89,9 @@ if ($int0 = 0) {
             $int16 = calc($int16 + 1);
         }
         while (calc($int15 - $int16) > 0) {
-            cc_create(interface_102:com_21, 5, $int9);
-            cc_setsize(36, 32, 0, 0);
-            cc_setposition($int10, $int11, 0, 0);
+            cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
             cc_setobject($obj3, 1);
             cc_setopbase("<col=ff981f><oc_name($obj3)>");
             cc_setop(1, "Item : ");
@@ -113,9 +113,9 @@ if ($int0 = 0) {
             $int16 = calc($int16 + 1);
         }
         while (calc($int15 - $int16) > 0) {
-            cc_create(interface_102:com_21, 5, $int9);
-            cc_setsize(36, 32, 0, 0);
-            cc_setposition($int10, $int11, 0, 0);
+            cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
             cc_setobject($obj4, 1);
             cc_setopbase("<col=ff981f><oc_name($obj4)>");
             cc_setop(1, "Item : ");
@@ -134,9 +134,9 @@ if ($int0 = 0) {
         $int15 = calc(inv_total(inv, $obj5) + inv_total(worn, $obj5));
         $int16 = 1;
         while (calc($int15 - $int16) > 0) {
-            cc_create(interface_102:com_21, 5, $int9);
-            cc_setsize(36, 32, 0, 0);
-            cc_setposition($int10, $int11, 0, 0);
+            cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
             cc_setobject($obj5, 1);
             cc_setopbase("<col=ff981f><oc_name($obj5)>");
             cc_setop(1, "Item : ");
@@ -170,9 +170,9 @@ if ($int0 = 0) {
                         $int13 = calc($int13 + 1);
                     }
                     if (calc(inv_getnum(inv, $int8) - $int13) > 0) {
-                        cc_create(interface_102:com_21, 5, $int9);
-                        cc_setsize(36, 32, 0, 0);
-                        cc_setposition($int10, $int11, 0, 0);
+                        cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+                        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                        cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
                         cc_setobject(inv_getobj(inv, $int8), calc(inv_getnum(inv, $int8) - $int13));
                         cc_setopbase("<col=ff981f><oc_name(inv_getobj(inv, $int8))>");
                         cc_setop(1, "Item : ");
@@ -192,9 +192,9 @@ if ($int0 = 0) {
                     }
                 }
             } else {
-                cc_create(interface_102:com_21, 5, $int9);
-                cc_setsize(36, 32, 0, 0);
-                cc_setposition($int10, $int11, 0, 0);
+                cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+                cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
                 cc_setobject(inv_getobj(inv, $int8), inv_getnum(inv, $int8));
                 cc_setopbase("<col=ff981f><oc_name(inv_getobj(inv, $int8))>");
                 cc_setop(1, "Item : ");
@@ -236,9 +236,9 @@ if ($int0 = 0) {
                             $int13 = calc($int13 + 1);
                         }
                         if (calc(inv_getnum(worn, $int8) - $int13) > 0) {
-                            cc_create(interface_102:com_21, 5, $int9);
-                            cc_setsize(36, 32, 0, 0);
-                            cc_setposition($int10, $int11, 0, 0);
+                            cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+                            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                            cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
                             cc_setobject(inv_getobj(worn, $int8), calc(inv_getnum(worn, $int8) - $int13));
                             cc_setopbase("<col=ff981f><oc_name(inv_getobj(worn, $int8))>");
                             cc_setop(1, "Item : ");
@@ -258,9 +258,9 @@ if ($int0 = 0) {
                         }
                     }
                 } else {
-                    cc_create(interface_102:com_21, 5, $int9);
-                    cc_setsize(36, 32, 0, 0);
-                    cc_setposition($int10, $int11, 0, 0);
+                    cc_create(interface_102:com_21, ^iftype_graphic, $int9);
+                    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                    cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
                     cc_setobject(inv_getobj(worn, $int8), inv_getnum(worn, $int8));
                     cc_setopbase("<col=ff981f><oc_name(inv_getobj(worn, $int8))>");
                     cc_setop(1, "Item : ");

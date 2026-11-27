@@ -18,7 +18,7 @@ switch_stat ($stat0) {
         $enum1 = enum_5493;
     case hunter :
         $enum1 = enum_5494;
-    case summoning :
+    case animallore :
         $enum1 = enum_5495;
     case slayer :
         $enum1 = enum_5496;
@@ -40,7 +40,7 @@ switch_stat ($stat0) {
         $enum1 = enum_5504;
     case prayer :
         $enum1 = enum_5505;
-    case dungeoneering :
+    case rand :
         $enum1 = enum_5506;
     case default :
         return(null);

@@ -1,12 +1,12 @@
 use anyhow::{Context, Result};
 use rs_io::js5::compression::decompress;
-use rs_io::js5::reference::{ReferenceTable, parse_reference_table};
+use rs_io::js5::index::{Js5Index, load_index};
 use std::collections::BTreeMap;
 
 /// Decompress and parse a raw `(255, a)` reference-table container.
-pub fn parse_reference_container(raw: &[u8]) -> Result<ReferenceTable> {
+pub fn parse_reference_container(raw: &[u8]) -> Result<Js5Index> {
     let data = decompress(raw).context("decompressing reference table")?;
-    parse_reference_table(&data).context("parsing reference table")
+    load_index(&data).context("parsing reference table")
 }
 
 /// How two reference tables of the same archive disagree, group by group.
@@ -21,7 +21,7 @@ pub struct TableDiff {
     /// Groups in both whose CRC agrees but whose version does not.
     pub version: Vec<u32>,
     pub metadata: Vec<u32>,
-    /// The table header (format, table version, named, whirlpooled) differs.
+    /// The table header (format, table version, named, has_group_whirlpools) differs.
     pub header: bool,
 }
 
@@ -45,17 +45,21 @@ impl TableDiff {
     }
 }
 
-pub fn diff_reference_tables(ours: &ReferenceTable, theirs: &ReferenceTable) -> TableDiff {
+pub fn diff_reference_tables(ours: &Js5Index, theirs: &Js5Index) -> TableDiff {
     let o: BTreeMap<_, _> = ours.groups.iter().map(|g| (g.id, g)).collect();
     let t: BTreeMap<_, _> = theirs.groups.iter().map(|g| (g.id, g)).collect();
     let mut diff = TableDiff {
-        header: (ours.format, ours.version, ours.named, ours.whirlpooled)
-            != (
-                theirs.format,
-                theirs.version,
-                theirs.named,
-                theirs.whirlpooled,
-            ),
+        header: (
+            ours.format,
+            ours.index_version,
+            ours.named,
+            ours.has_group_whirlpools,
+        ) != (
+            theirs.format,
+            theirs.index_version,
+            theirs.named,
+            theirs.has_group_whirlpools,
+        ),
         ..TableDiff::default()
     };
     for (&id, ours) in &o {

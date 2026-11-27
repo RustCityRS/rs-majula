@@ -1,6 +1,6 @@
 // 707
 [clientscript,catcon_calib_init]
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setposition(catcon_calibration_puzzle:close_button, 220, 11, ^setpos_abs_right, ^setpos_abs_top);
 } else {
     if_setposition(catcon_calibration_puzzle:close_button, 12, 11, ^setpos_abs_right, ^setpos_abs_top);

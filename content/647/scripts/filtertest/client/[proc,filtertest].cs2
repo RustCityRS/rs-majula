@@ -41,7 +41,7 @@ switch_int (chat_gethistorytype($int0)) {
         if (%option_pm > 0 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
-        if (chat_getfilter_private < 2) {
+        if (chat_getfilter_private < ^chatfilter_off) {
             return(true);
         }
         return(false);
@@ -85,7 +85,7 @@ switch_int (chat_gethistorytype($int0)) {
         }
         return(false);
     case ^chattype_trade_notification :
-        if (chat_getfilter_trade < 2) {
+        if (chat_getfilter_trade < ^chatfilter_off) {
             return(true);
         }
         return(false);

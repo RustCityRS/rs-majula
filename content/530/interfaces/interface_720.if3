@@ -5,7 +5,7 @@ x=20
 y=19
 width=462
 height=297
-graphic=graphic_297
+graphic=tradebacking
 
 // 720:1
 [com_1]
@@ -14,7 +14,7 @@ x=460
 y=26
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -28,7 +28,7 @@ x=93
 y=80
 width=316
 height=157
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Here, the player will see an interface anim of the chocatrice hatching.
 textalignh=centre
 textalignv=centre

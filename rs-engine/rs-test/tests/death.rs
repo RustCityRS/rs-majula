@@ -10,49 +10,18 @@
 //! The death plays 289's death jingle, `death2`: 2011's jingle 90 by 647's
 //! midi.pack (void-634's `death`).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use std::collections::{HashMap, HashSet};
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use rs_test::names::BACKPACK;
 use rs_test::runner;
+use rs_test::server;
 use rs_vm::ops::test::{calls_for, forget_calls};
 use rs_vm::subject::ScriptSubject;
-
-/// `inventory:inv`, the backpack.
-const BACKPACK: i32 = 149 << 16;
-
-/// The client's `Packet` readers the three packets use (deob-647 `Packet`).
-struct Reader<'a>(&'a [u8], usize);
-
-impl Reader<'_> {
-    fn b(&self, i: usize) -> i32 {
-        self.0[i] as i8 as i32
-    }
-
-    /// `(b[-1] - 128 & 0xFF) + (b[-2] & 0xFF) << 8`
-    fn g2_alt2(&mut self) -> i32 {
-        self.1 += 2;
-        ((self.b(self.1 - 1) - 128) & 0xFF) + ((self.b(self.1 - 2) & 0xFF) << 8)
-    }
-
-    /// `(b[-1] & 0xFF) << 8 + (b[-2] - 128 & 0xFF)`
-    fn g2_alt3(&mut self) -> i32 {
-        self.1 += 2;
-        ((self.b(self.1 - 1) & 0xFF) << 8) + ((self.b(self.1 - 2) - 128) & 0xFF)
-    }
-
-    /// `b[-2] | b[-3] << 24 | b[-4] << 16 | b[-1] << 8`
-    fn g4s_alt3(&mut self) -> i32 {
-        self.1 += 4;
-        (self.b(self.1 - 2) & 0xFF)
-            + ((self.b(self.1 - 3) & 0xFF) << 24)
-            + ((self.b(self.1 - 4) & 0xFF) << 16)
-            + ((self.b(self.1 - 1) & 0xFF) << 8)
-    }
-}
 
 /// The client's open subs (parent -> interface) and server-set events
 /// (component, slot), kept as `MapAreaConfig` keeps them.
@@ -69,25 +38,21 @@ impl ClientInterfaces {
     }
 
     fn read(&mut self, packets: &[(u16, Vec<u8>)]) {
-        for (op, p) in packets {
-            let mut r = Reader(p, 0);
-            if *op == ServerProt::IfOpensub as u16 {
-                let iface = r.g2_alt3();
-                let parent = r.g4s_alt3();
-                if let Some(old) = self.subs.insert(parent, iface) {
+        for packet in packets {
+            let one = std::slice::from_ref(packet);
+            for (iface, parent) in server::subs(one) {
+                if let Some(old) = self.subs.insert(parent, iface as i32) {
                     self.close(old);
                 }
-            } else if *op == ServerProt::IfClosesub as u16 {
-                if let Some(old) = self.subs.remove(&r.g4s_alt3()) {
+            }
+            for parent in server::closes(one) {
+                if let Some(old) = self.subs.remove(&parent) {
                     self.close(old);
                 }
-            } else if *op == ServerProt::IfSetEvents as u16 {
-                let from = r.g2_alt2();
-                let _events = r.g4s_alt3();
-                let com = r.g4s_alt3();
-                let to = r.g2_alt3();
+            }
+            for (com, from, to, _) in server::events(one) {
                 for slot in from..=to {
-                    self.events.insert((com, slot));
+                    self.events.insert((com, slot as i32));
                 }
             }
         }
@@ -114,6 +79,7 @@ fn ticks(
     said
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_backpack_keeps_its_ops_after_a_death() {
     runner::on_loaded_engine(|engine| {

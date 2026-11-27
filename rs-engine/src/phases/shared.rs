@@ -2,7 +2,7 @@ use crate::core::{Engine, engine};
 use rs_entity::interaction::InteractionTarget;
 use rs_entity::{MoveStrategy, PathingEntity};
 use rs_grid::CoordGrid;
-use rs_info::Visibility;
+use rs_info::{FocusKind, Visibility};
 use rs_pack::types::BlockWalk;
 use rs_ver::TypeId;
 use rs_vm::engine::ScriptEngine;
@@ -222,7 +222,7 @@ impl Engine {
     /// Checks whether a pathing entity is within operable (adjacent /
     /// melee) distance of an interaction target.
     ///
-    /// Uses `rsmod::reached` to test collision-map reachability. For Obj
+    /// Uses `rsmod::has_arrived` to test collision-map reachability. For Obj
     /// targets, checks both shape -2 (default reach) and shape -1
     /// (diagonal reach). For Loc targets, incorporates the loc's
     /// dimensions, shape, angle, and `forceapproach` flag. For entity
@@ -248,8 +248,20 @@ impl Engine {
                 if coord.y() != y {
                     return false;
                 }
-                rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -2, 0)
-                    || rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -1, 0)
+                rsmod::has_arrived(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -2, 0)
+                    || rsmod::has_arrived(
+                        y,
+                        src_x,
+                        src_z,
+                        coord.x(),
+                        coord.z(),
+                        1,
+                        1,
+                        size,
+                        0,
+                        -1,
+                        0,
+                    )
             }
             InteractionTarget::Loc {
                 coord,
@@ -268,7 +280,7 @@ impl Engine {
                     .get_by_id(*id)
                     .map(|lt| lt.forceapproach as u8)
                     .unwrap_or(0);
-                rsmod::reached(
+                rsmod::has_arrived(
                     y,
                     src_x,
                     src_z,
@@ -288,7 +300,7 @@ impl Engine {
                         return false;
                     }
                     let target_size = target_npc.npc.pathing.size;
-                    rsmod::reached(
+                    rsmod::has_arrived(
                         y,
                         src_x,
                         src_z,
@@ -310,7 +322,7 @@ impl Engine {
                     if player.player.pathing.coord.y() != y {
                         return false;
                     }
-                    rsmod::reached(
+                    rsmod::has_arrived(
                         y,
                         src_x,
                         src_z,
@@ -329,7 +341,19 @@ impl Engine {
             }
             InteractionTarget::Coord { coord } => {
                 coord.y() == y
-                    && rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -1, 0)
+                    && rsmod::has_arrived(
+                        y,
+                        src_x,
+                        src_z,
+                        coord.x(),
+                        coord.z(),
+                        1,
+                        1,
+                        size,
+                        0,
+                        -1,
+                        0,
+                    )
             }
         }
     }
@@ -339,178 +363,89 @@ impl Engine {
     ///
     /// Approach distance is defined as Chebyshev distance (accounting for
     /// entity sizes) being at most `range` tiles **and** having
-    /// line-of-sight to the target. For entity targets (Player, Npc),
-    /// also checks that the source and target do not intersect (overlap
-    /// is not a valid approach position).
+    /// line-of-sight. The ray starts at the player for player-initiated
+    /// interactions and at the target for NPC-initiated interactions.
+    /// Player and NPC targets must occupy separate tiles from the actor.
     ///
     /// # Returns
     ///
     /// `true` if the entity is within approach range and has line-of-sight.
     pub(crate) fn entity_in_approach_distance(
         pathing: &PathingEntity,
+        actor: FocusKind,
         target: &InteractionTarget,
         range: i32,
     ) -> bool {
-        let y = pathing.coord.y();
-        let src_x = pathing.coord.x();
-        let src_z = pathing.coord.z();
-        let size = pathing.size;
-
-        match target {
+        let target_area = match *target {
             InteractionTarget::Obj { coord, .. } | InteractionTarget::Coord { coord } => {
-                if coord.y() != y {
-                    return false;
-                }
-                let dist = CoordGrid::distance_to(
-                    src_x as i32,
-                    src_z as i32,
-                    size as i32,
-                    size as i32,
-                    coord.x() as i32,
-                    coord.z() as i32,
-                    1,
-                    1,
-                );
-                if dist > range {
-                    return false;
-                }
-                rsmod::has_line_of_sight(
-                    y,
-                    coord.x(),
-                    coord.z(),
-                    src_x,
-                    src_z,
-                    1,
-                    1,
-                    size,
-                    size,
-                    CollisionFlag::Player as u32,
-                )
+                (coord, 1, 1)
             }
             InteractionTarget::Loc {
                 coord,
                 width,
                 length,
                 ..
-            } => {
-                if coord.y() != y {
-                    return false;
-                }
-                let dist = CoordGrid::distance_to(
-                    src_x as i32,
-                    src_z as i32,
-                    size as i32,
-                    size as i32,
-                    coord.x() as i32,
-                    coord.z() as i32,
-                    *width as i32,
-                    *length as i32,
-                );
-                if dist > range {
-                    return false;
-                }
-                rsmod::has_line_of_sight(
-                    y,
-                    coord.x(),
-                    coord.z(),
-                    src_x,
-                    src_z,
-                    *width,
-                    *length,
-                    size,
-                    size,
-                    CollisionFlag::Player as u32,
-                )
-            }
+            } => (coord, width, length),
             InteractionTarget::Npc { nid } => {
-                if let Some(target_npc) = engine().get_npc(*nid) {
-                    if target_npc.npc.pathing.coord.y() != y {
-                        return false;
-                    }
-                    let nx = target_npc.npc.pathing.coord.x();
-                    let nz = target_npc.npc.pathing.coord.z();
-                    let target_size = target_npc.npc.pathing.size;
-                    if CoordGrid::intersects(
-                        src_x,
-                        src_z,
-                        size as u16,
-                        size as u16,
-                        nx,
-                        nz,
-                        target_size as u16,
-                        target_size as u16,
-                    ) {
-                        return false;
-                    }
-                    let dist = CoordGrid::distance_to(
-                        src_x as i32,
-                        src_z as i32,
-                        size as i32,
-                        size as i32,
-                        nx as i32,
-                        nz as i32,
-                        target_size as i32,
-                        target_size as i32,
-                    );
-                    if dist > range {
-                        return false;
-                    }
-                    rsmod::has_line_of_sight(
-                        y,
-                        nx,
-                        nz,
-                        src_x,
-                        src_z,
-                        target_size,
-                        target_size,
-                        size,
-                        size,
-                        CollisionFlag::Player as u32,
-                    )
-                } else {
-                    false
-                }
+                let Some(npc) = engine().get_npc(nid) else {
+                    return false;
+                };
+                let pathing = &npc.npc.pathing;
+                (pathing.coord, pathing.size, pathing.size)
             }
             InteractionTarget::Player { pid } => {
-                if let Some(player) = engine().get_player(*pid) {
-                    if player.player.pathing.coord.y() != y {
-                        return false;
-                    }
-                    let px = player.player.pathing.coord.x();
-                    let pz = player.player.pathing.coord.z();
-                    if CoordGrid::intersects(src_x, src_z, size as u16, size as u16, px, pz, 1, 1) {
-                        return false;
-                    }
-                    let dist = CoordGrid::distance_to(
-                        src_x as i32,
-                        src_z as i32,
-                        size as i32,
-                        size as i32,
-                        px as i32,
-                        pz as i32,
-                        1,
-                        1,
-                    );
-                    if dist > range {
-                        return false;
-                    }
-                    rsmod::has_line_of_sight(
-                        y,
-                        px,
-                        pz,
-                        src_x,
-                        src_z,
-                        1,
-                        1,
-                        size,
-                        size,
-                        CollisionFlag::Player as u32,
-                    )
-                } else {
-                    false
-                }
+                let Some(player) = engine().get_player(pid) else {
+                    return false;
+                };
+                (player.player.pathing.coord, 1, 1)
             }
+        };
+
+        let actor_area = (pathing.coord, pathing.size, pathing.size);
+        let ((from, from_width, from_length), (to, to_width, to_length)) = match actor {
+            FocusKind::Player => (actor_area, target_area),
+            FocusKind::Npc => (target_area, actor_area),
+        };
+        if from.y() != to.y() {
+            return false;
         }
+        if target.is_pathing_entity()
+            && CoordGrid::intersects(
+                from.x(),
+                from.z(),
+                from_width as u16,
+                from_length as u16,
+                to.x(),
+                to.z(),
+                to_width as u16,
+                to_length as u16,
+            )
+        {
+            return false;
+        }
+
+        CoordGrid::distance_to(
+            from.x() as i32,
+            from.z() as i32,
+            from_width as i32,
+            from_length as i32,
+            to.x() as i32,
+            to.z() as i32,
+            to_width as i32,
+            to_length as i32,
+        ) <= range
+            && rsmod::has_line_of_sight(
+                from.y(),
+                from.x(),
+                from.z(),
+                to.x(),
+                to.z(),
+                from_width,
+                from_length,
+                to_width,
+                to_length,
+                CollisionFlag::Player as u32,
+            )
     }
 
     /// Computes a path from a pathing entity to an interaction target and
@@ -523,7 +458,7 @@ impl Engine {
     ///   straight-line step. Used when the entity's strategy is `Naive`
     ///   or the client pathfinder reports a coordinate overlap with the
     ///   target.
-    /// * **Full BFS:** Uses `rsmod::find_path` for a collision-aware route,
+    /// * **Full BFS:** Uses `rsmod::find_route` for a collision-aware route,
     ///   incorporating the target's dimensions, shape, angle, and
     ///   forceapproach configuration for Loc targets.
     ///
@@ -539,7 +474,7 @@ impl Engine {
         client_pathfinder: bool,
     ) {
         if let Some(request) = Self::entity_path_request(pathing, target, client_pathfinder) {
-            pathing.queue_waypoints(request.find_path());
+            pathing.queue_waypoints(request.find_route());
         }
     }
 
@@ -574,6 +509,7 @@ impl Engine {
             block_access_flags: 0,
             max_waypoints: 25,
             collision,
+            route_blockers: false,
         };
 
         match target {

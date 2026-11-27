@@ -1,0 +1,15 @@
+[opnpc1,lost_tribe_sigmund]
+~chatnpc("<p,neutral>Can I help you?");
+if (~p_choice2("Do you have any quests for me?", 1, "Who are you?", 2) = 1) {
+    ~chatplayer("<p,quiz>Do you have any quests for me?");
+    ~chatnpc("<p,neutral>Not really. I suppose if you want to make yourself|useful, there are always evil monsters to slay.");
+    ~mesbox("You do not meet all of the requirements to start|The Lost Tribe quest.");
+} else {
+    ~chatplayer("<p,quiz>Who are you?");
+    ~chatnpc("<p,neutral>I'm the Duke's advisor.");
+    ~chatplayer("<p,quiz>Can you give me any advice then?");
+    ~chatnpc("<p,neutral>I only advise the Duke. But if you want to make|yourself useful, there are evil goblins to slay on the|other side of the river.");
+}
+
+[opnpc3,lost_tribe_sigmund]
+mes("Sigmund doesn't seem to have anything of value.");

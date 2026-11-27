@@ -1,0 +1,394 @@
+// 2009's design screen, interface 771, where a new character starts Tutorial Island
+// (tutorial.rs2's start_tutorial): https://www.youtube.com/watch?v=LgA4VsETE-g (Jan 7, 2009).
+// Its pages are the client's: Mouse, Gender, Head, Body, then "Do you want to accept these
+// character settings?". The client previews each click itself (setgender, baseidkit and
+// basecolour), and every button transmits its op, so the server makes the same change to its
+// copy of the design, varbits 4208-4219: 4208 head, 4209 jaw, 4210 torso, 4211 arms, 4212 hands,
+// 4213 legs, 4214 feet (indices in the gender's idkit enums, 0 an enum's default), and 4215-4219
+// the hair, torso, legs, feet and skin colours. 4208-4215 carry the names 2011 reused their ids for.
+//
+// The client reloads its preview from them (clientscript 1710) when the server steps a counter in
+// varp 1262: on each of its transmits, components 424-427 run clientscripts 1575 (male, varbit
+// 5008), 1576 (female, 5009), 1606 (random body, 5010) and 1587 (random head, 5011), each while its
+// counter is set. So one gender counter is set at a time, and it is the gender being designed.
+//
+// Vars go out at once and interfaces at the end of the tick, so the vars set as it opens reach the
+// client before the screen's hooks exist. The black round it waits a tick (design_shown), and the
+// preview takes the server's copy as the player leaves the Mouse page (design_sync).
+[proc,design_open]
+~design_reset;
+%varplayerbit_5010 = 0;
+%varplayerbit_5011 = 0;
+if (gender = 1) {
+    %varplayerbit_5008 = 0;
+    %varplayerbit_5009 = ~design_step(%varplayerbit_5009);
+} else {
+    %varplayerbit_5009 = 0;
+    %varplayerbit_5008 = ~design_step(%varplayerbit_5008);
+}
+if_openmain(interface_771);
+// Every page starts hidden: the first is the Mouse page (clientscript 1564).
+if_sethide(interface_771:com_22, false);
+// The Head page's head is the server's to set; the Body page's model is the client's (clientcode).
+// IF_SETPLAYERHEAD leaves the head no anim, and the component's own (seq 569) moves the old
+// chathead skeleton, not 2009's heads: they idle as 530's other chatheads do (chatidle1, the
+// Message of the Week's).
+if_setplayerhead(interface_771:chathead);
+if_setanim(interface_771:chathead, chatidle1);
+minimap_toggle(2);
+softtimer(design_shown, 1);
+
+// Its own black backdrop fills the main screen. Resizable mode paints round it in the colour
+// these varcs give, until it shuts (toplevel_fullscreen:mainmodal_fullscreen, clientscripts
+// 725-727).
+[softtimer,design_shown]
+clearsofttimer(design_shown);
+%mainmodal_fullscreen_colour = ^black;
+%mainmodal_fullscreen_trans = 0;
+
+// The Mouse page's Next, and the tabs to the other pages.
+[if_button,interface_771:com_46] ~design_sync;
+[if_button,interface_771:com_16] ~design_sync;
+[if_button,interface_771:com_18] ~design_sync;
+[if_button,interface_771:com_20] ~design_sync;
+
+// The preview from the server's copy: the client's own varcs start at 0 (clientscript 1551).
+[proc,design_sync]
+if (~design_female = true) {
+    %varplayerbit_5009 = ~design_step(%varplayerbit_5009);
+} else {
+    %varplayerbit_5008 = ~design_step(%varplayerbit_5008);
+}
+
+[if_button,interface_771:confirm_yes]
+~design_apply;
+if_close;
+minimap_toggle(0);
+~tutorial_designed_character;
+
+// The default look: head and jaw step from 1 (clientscripts 1583-1586), the rest from 0.
+[proc,design_reset]
+%wc_update09_target_short = 1;
+%wc_update09_target_long = 1;
+%wc_update09_target_diag = 0;
+%wc_update09_target_tooth = 0;
+%wc_update09_target_groove = 0;
+%wc_update09_target_curve = 0;
+%wc_update09_plank_count = 0;
+%wc_update09_got_job = 0;
+%varplayerbit_4216 = 0;
+%varplayerbit_4217 = 0;
+%varplayerbit_4218 = 0;
+%varplayerbit_4219 = 0;
+
+// A counter's next value, 1-7: never 0, and never the one the client has.
+[proc,design_step](int $count)(int)
+return(calc($count % 7 + 1));
+
+[proc,design_female]()(boolean)
+if (%varplayerbit_5009 > 0) {
+    return(true);
+}
+return(false);
+
+[proc,design_apply]
+if (~design_female = true) {
+    setgender(1);
+    setidkit(enum(int, idkit, enum_689, %wc_update09_target_short), %wc_update09_got_job);
+    setidkit(enum(int, idkit, enum_1129, %wc_update09_target_diag), %varplayerbit_4216);
+    setidkit(enum(int, idkit, enum_1131, %wc_update09_target_tooth), %varplayerbit_4216);
+    setidkit(enum(int, idkit, enum_1133, %wc_update09_target_groove), 0);
+    setidkit(enum(int, idkit, enum_1135, %wc_update09_target_curve), %varplayerbit_4217);
+    setidkit(enum(int, idkit, enum_1137, %wc_update09_plank_count), %varplayerbit_4218);
+} else {
+    setgender(0);
+    setidkit(enum(int, idkit, enum_701, %wc_update09_target_short), %wc_update09_got_job);
+    setidkit(enum(int, idkit, enum_703, %wc_update09_target_long), %wc_update09_got_job);
+    setidkit(enum(int, idkit, enum_1128, %wc_update09_target_diag), %varplayerbit_4216);
+    setidkit(enum(int, idkit, enum_1130, %wc_update09_target_tooth), %varplayerbit_4216);
+    setidkit(enum(int, idkit, enum_1132, %wc_update09_target_groove), 0);
+    setidkit(enum(int, idkit, enum_1134, %wc_update09_target_curve), %varplayerbit_4217);
+    setidkit(enum(int, idkit, enum_1136, %wc_update09_plank_count), %varplayerbit_4218);
+}
+setidkcolour(4, %varplayerbit_4219);
+
+[if_button,interface_771:com_49] ~design_gender(false);
+[if_button,interface_771:com_52] ~design_gender(true);
+
+// The client's own click already re-showed the gender it has; a switch starts the other's
+// default look.
+[proc,design_gender](boolean $female)
+if (~design_female = $female) {
+    return;
+}
+~design_reset;
+if ($female = true) {
+    %varplayerbit_5008 = 0;
+    %varplayerbit_5009 = ~design_step(%varplayerbit_5009);
+} else {
+    %varplayerbit_5009 = 0;
+    %varplayerbit_5008 = ~design_step(%varplayerbit_5008);
+}
+
+[if_button,interface_771:com_37] %option_mouse = 0;
+[if_button,interface_771:com_40] %option_mouse = 1;
+
+// Random head and body. Unless "Don't ask me this again" is on, a confirm (com_28, com_29) asks
+// first; its No is the client's.
+[if_button,interface_771:com_169]
+if (%playerdesign2_client_random > 0) {
+    ~design_random_head;
+} else {
+    if_sethide(interface_771:com_28, false);
+}
+
+[if_button,interface_771:com_321]
+if (%playerdesign2_client_random > 0) {
+    ~design_random_body;
+} else {
+    if_sethide(interface_771:com_29, false);
+}
+
+[if_button,interface_771:com_377] ~design_random_head;
+[if_button,interface_771:com_394] ~design_random_body;
+
+// One setting for both confirms, shown as 1551 shows it when the screen opens.
+[if_button,interface_771:com_381] ~design_random_ask;
+[if_button,interface_771:com_398] ~design_random_ask;
+
+// 530 has no IF_SETGRAPHIC packet: the cache's run_if_setgraphic sets the graphic client-side.
+[proc,design_random_ask]
+if (%playerdesign2_client_random > 0) {
+    %playerdesign2_client_random = 0;
+    runclientscript("run_if_setgraphic(interface_771:com_381, \"warning_icons,1\")");
+    runclientscript("run_if_setgraphic(interface_771:com_398, \"warning_icons,1\")");
+} else {
+    %playerdesign2_client_random = 1;
+    runclientscript("run_if_setgraphic(interface_771:com_381, \"warning_icons,2\")");
+    runclientscript("run_if_setgraphic(interface_771:com_398, \"warning_icons,2\")");
+}
+
+// Every style and swatch the arrows and palettes reach.
+[proc,design_random_head]
+if (~design_female = true) {
+    %wc_update09_target_short = calc(random(34) + 1);
+} else {
+    %wc_update09_target_short = calc(random(24) + 1);
+    %wc_update09_target_long = calc(random(19) + 1);
+}
+%wc_update09_got_job = random(25);
+%varplayerbit_4219 = random(8);
+%varplayerbit_5011 = ~design_step(%varplayerbit_5011);
+
+[proc,design_random_body]
+if (~design_female = true) {
+    %wc_update09_target_diag = random(11);
+    %wc_update09_target_tooth = random(11);
+    %wc_update09_target_curve = random(15);
+} else {
+    %wc_update09_target_diag = random(14);
+    %wc_update09_target_tooth = random(12);
+    %wc_update09_target_curve = random(11);
+}
+%wc_update09_target_groove = random(13);
+%wc_update09_plank_count = random(2);
+%varplayerbit_4216 = random(29);
+%varplayerbit_4217 = random(29);
+%varplayerbit_4218 = random(6);
+%varplayerbit_5010 = ~design_step(%varplayerbit_5010);
+
+// Each part steps as its clientscript does (1583-1586, 1596-1605): the same bounds and the same
+// wrap, so the two copies stay equal.
+[proc,design_next](int $value, int $low, int $high)(int)
+if ($value = $high) {
+    return($low);
+}
+return(add($value, 1));
+
+[proc,design_prev](int $value, int $low, int $high)(int)
+if ($value = $low) {
+    return($high);
+}
+return(sub($value, 1));
+
+[if_button,interface_771:com_92]
+if (~design_female = true) {
+    %wc_update09_target_short = ~design_prev(%wc_update09_target_short, 1, 34);
+} else {
+    %wc_update09_target_short = ~design_prev(%wc_update09_target_short, 1, 24);
+}
+
+[if_button,interface_771:com_93]
+if (~design_female = true) {
+    %wc_update09_target_short = ~design_next(%wc_update09_target_short, 1, 34);
+} else {
+    %wc_update09_target_short = ~design_next(%wc_update09_target_short, 1, 24);
+}
+
+[if_button,interface_771:com_97]
+if (~design_female = false) {
+    %wc_update09_target_long = ~design_prev(%wc_update09_target_long, 1, 19);
+}
+
+[if_button,interface_771:com_98]
+if (~design_female = false) {
+    %wc_update09_target_long = ~design_next(%wc_update09_target_long, 1, 19);
+}
+
+[if_button,interface_771:com_341]
+if (~design_female = true) {
+    %wc_update09_target_diag = ~design_prev(%wc_update09_target_diag, 0, 10);
+} else {
+    %wc_update09_target_diag = ~design_prev(%wc_update09_target_diag, 0, 13);
+}
+
+[if_button,interface_771:com_342]
+if (~design_female = true) {
+    %wc_update09_target_diag = ~design_next(%wc_update09_target_diag, 0, 10);
+} else {
+    %wc_update09_target_diag = ~design_next(%wc_update09_target_diag, 0, 13);
+}
+
+[if_button,interface_771:com_345]
+if (~design_female = true) {
+    %wc_update09_target_tooth = ~design_prev(%wc_update09_target_tooth, 0, 10);
+} else {
+    %wc_update09_target_tooth = ~design_prev(%wc_update09_target_tooth, 0, 11);
+}
+
+[if_button,interface_771:com_346]
+if (~design_female = true) {
+    %wc_update09_target_tooth = ~design_next(%wc_update09_target_tooth, 0, 10);
+} else {
+    %wc_update09_target_tooth = ~design_next(%wc_update09_target_tooth, 0, 11);
+}
+
+// Clientscript 1601 wraps below 0 to 11, one short of the 12 that 1600 wraps at.
+[if_button,interface_771:com_349] %wc_update09_target_groove = ~design_prev(%wc_update09_target_groove, 0, 11);
+[if_button,interface_771:com_350] %wc_update09_target_groove = ~design_next(%wc_update09_target_groove, 0, 12);
+
+[if_button,interface_771:com_353]
+if (~design_female = true) {
+    %wc_update09_target_curve = ~design_prev(%wc_update09_target_curve, 0, 14);
+} else {
+    %wc_update09_target_curve = ~design_prev(%wc_update09_target_curve, 0, 10);
+}
+
+[if_button,interface_771:com_354]
+if (~design_female = true) {
+    %wc_update09_target_curve = ~design_next(%wc_update09_target_curve, 0, 14);
+} else {
+    %wc_update09_target_curve = ~design_next(%wc_update09_target_curve, 0, 10);
+}
+
+[if_button,interface_771:com_357] %wc_update09_plank_count = ~design_prev(%wc_update09_plank_count, 0, 1);
+[if_button,interface_771:com_358] %wc_update09_plank_count = ~design_next(%wc_update09_plank_count, 0, 1);
+
+// The colour swatches: slot 0 hair, 1 torso, 2 legs, 3 feet, 4 skin, and the colour each one's
+// clientscript passes to basecolour.
+[proc,design_colour](int $slot, int $colour)
+switch_int ($slot) {
+    case 0 : %wc_update09_got_job = $colour;
+    case 1 : %varplayerbit_4216 = $colour;
+    case 2 : %varplayerbit_4217 = $colour;
+    case 3 : %varplayerbit_4218 = $colour;
+    case 4 : %varplayerbit_4219 = $colour;
+}
+
+[if_button,interface_771:button_1] ~design_colour(0, 20);
+[if_button,interface_771:button_2] ~design_colour(0, 19);
+[if_button,interface_771:button_3] ~design_colour(0, 10);
+[if_button,interface_771:button_4] ~design_colour(0, 18);
+[if_button,interface_771:button_5] ~design_colour(0, 4);
+[if_button,interface_771:button_6] ~design_colour(0, 5);
+[if_button,interface_771:com_106] ~design_colour(0, 15);
+[if_button,interface_771:com_107] ~design_colour(0, 7);
+[if_button,interface_771:com_108] ~design_colour(0, 0);
+[if_button,interface_771:com_109] ~design_colour(0, 6);
+[if_button,interface_771:com_110] ~design_colour(0, 21);
+[if_button,interface_771:com_111] ~design_colour(0, 9);
+[if_button,interface_771:com_112] ~design_colour(0, 22);
+[if_button,interface_771:com_113] ~design_colour(0, 17);
+[if_button,interface_771:com_114] ~design_colour(0, 8);
+[if_button,interface_771:com_115] ~design_colour(0, 16);
+[if_button,interface_771:com_116] ~design_colour(0, 11);
+[if_button,interface_771:com_117] ~design_colour(0, 24);
+[if_button,interface_771:com_118] ~design_colour(0, 23);
+[if_button,interface_771:com_119] ~design_colour(0, 3);
+[if_button,interface_771:com_120] ~design_colour(0, 2);
+[if_button,interface_771:com_121] ~design_colour(0, 1);
+[if_button,interface_771:com_122] ~design_colour(0, 14);
+[if_button,interface_771:com_123] ~design_colour(0, 13);
+[if_button,interface_771:com_124] ~design_colour(0, 12);
+[if_button,interface_771:com_151] ~design_colour(4, 0);
+[if_button,interface_771:com_152] ~design_colour(4, 1);
+[if_button,interface_771:com_153] ~design_colour(4, 2);
+[if_button,interface_771:com_154] ~design_colour(4, 3);
+[if_button,interface_771:com_155] ~design_colour(4, 4);
+[if_button,interface_771:com_156] ~design_colour(4, 5);
+[if_button,interface_771:com_157] ~design_colour(4, 6);
+[if_button,interface_771:com_158] ~design_colour(4, 7);
+[if_button,interface_771:com_189] ~design_colour(1, 24);
+[if_button,interface_771:com_190] ~design_colour(1, 23);
+[if_button,interface_771:com_191] ~design_colour(1, 2);
+[if_button,interface_771:com_192] ~design_colour(1, 22);
+[if_button,interface_771:com_193] ~design_colour(1, 12);
+[if_button,interface_771:com_194] ~design_colour(1, 11);
+[if_button,interface_771:com_195] ~design_colour(1, 6);
+[if_button,interface_771:com_196] ~design_colour(1, 19);
+[if_button,interface_771:com_197] ~design_colour(1, 4);
+[if_button,interface_771:com_198] ~design_colour(1, 0);
+[if_button,interface_771:com_199] ~design_colour(1, 9);
+[if_button,interface_771:com_200] ~design_colour(1, 13);
+[if_button,interface_771:com_201] ~design_colour(1, 25);
+[if_button,interface_771:com_202] ~design_colour(1, 8);
+[if_button,interface_771:com_203] ~design_colour(1, 15);
+[if_button,interface_771:com_204] ~design_colour(1, 26);
+[if_button,interface_771:com_205] ~design_colour(1, 21);
+[if_button,interface_771:com_206] ~design_colour(1, 7);
+[if_button,interface_771:com_207] ~design_colour(1, 20);
+[if_button,interface_771:com_208] ~design_colour(1, 14);
+[if_button,interface_771:com_209] ~design_colour(1, 10);
+[if_button,interface_771:com_210] ~design_colour(1, 28);
+[if_button,interface_771:com_211] ~design_colour(1, 27);
+[if_button,interface_771:com_212] ~design_colour(1, 3);
+[if_button,interface_771:com_213] ~design_colour(1, 5);
+[if_button,interface_771:com_214] ~design_colour(1, 18);
+[if_button,interface_771:com_215] ~design_colour(1, 17);
+[if_button,interface_771:com_216] ~design_colour(1, 1);
+[if_button,interface_771:com_217] ~design_colour(1, 16);
+[if_button,interface_771:com_248] ~design_colour(2, 26);
+[if_button,interface_771:com_249] ~design_colour(2, 24);
+[if_button,interface_771:com_250] ~design_colour(2, 23);
+[if_button,interface_771:com_251] ~design_colour(2, 3);
+[if_button,interface_771:com_252] ~design_colour(2, 22);
+[if_button,interface_771:com_253] ~design_colour(2, 13);
+[if_button,interface_771:com_254] ~design_colour(2, 12);
+[if_button,interface_771:com_255] ~design_colour(2, 7);
+[if_button,interface_771:com_256] ~design_colour(2, 19);
+[if_button,interface_771:com_257] ~design_colour(2, 5);
+[if_button,interface_771:com_258] ~design_colour(2, 1);
+[if_button,interface_771:com_259] ~design_colour(2, 10);
+[if_button,interface_771:com_260] ~design_colour(2, 14);
+[if_button,interface_771:com_261] ~design_colour(2, 25);
+[if_button,interface_771:com_262] ~design_colour(2, 9);
+[if_button,interface_771:com_263] ~design_colour(2, 0);
+[if_button,interface_771:com_264] ~design_colour(2, 21);
+[if_button,interface_771:com_265] ~design_colour(2, 8);
+[if_button,interface_771:com_266] ~design_colour(2, 20);
+[if_button,interface_771:com_267] ~design_colour(2, 15);
+[if_button,interface_771:com_268] ~design_colour(2, 11);
+[if_button,interface_771:com_269] ~design_colour(2, 28);
+[if_button,interface_771:com_270] ~design_colour(2, 27);
+[if_button,interface_771:com_271] ~design_colour(2, 4);
+[if_button,interface_771:com_272] ~design_colour(2, 6);
+[if_button,interface_771:com_273] ~design_colour(2, 18);
+[if_button,interface_771:com_274] ~design_colour(2, 17);
+[if_button,interface_771:com_275] ~design_colour(2, 2);
+[if_button,interface_771:com_276] ~design_colour(2, 16);
+[if_button,interface_771:com_307] ~design_colour(3, 0);
+[if_button,interface_771:com_308] ~design_colour(3, 1);
+[if_button,interface_771:com_309] ~design_colour(3, 2);
+[if_button,interface_771:com_310] ~design_colour(3, 3);
+[if_button,interface_771:com_311] ~design_colour(3, 4);
+[if_button,interface_771:com_312] ~design_colour(3, 5);

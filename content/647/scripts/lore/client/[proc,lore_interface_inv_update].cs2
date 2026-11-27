@@ -57,7 +57,7 @@ while ($int5 <= calc($int4 - $int3)) {
     $obj32 = enum(int, obj, enum_1182, $int6);
     if ($obj32 = lore_pouch_grey) {
         ~lore_interface_inv_draw_slot($obj32, $obj32, $component0, $int35, $string0, $string1, $string2, $string3, $string4, $string5);
-    } else if (~lore_pouch_checker($obj32) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj32)) {
+    } else if (~lore_pouch_checker($obj32) = 1 & stat_base(animallore) >= enum(obj, int, enum_1185, $obj32)) {
         ~lore_interface_inv_draw_slot($obj32, $obj32, $component0, $int35, $string0, $string1, $string2, $string3, $string4, $string5);
     } else {
         ~lore_interface_inv_draw_slot(enum(int, obj, enum_1183, $int6), $obj32, $component0, $int35, $string0, $string1, $string2, $string3, $string4, $string5);

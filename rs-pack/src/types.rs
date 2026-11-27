@@ -16,19 +16,19 @@ pub type MapSquareCrcs = HashMap<MapSquare, i32>;
 // --- Ondemand blobs ---
 pub type OndemandBlobs = Vec<Vec<Box<[u8]>>>;
 
-// --- bone type ---
+// --- anim transform ---
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-pub enum BoneType {
-    Translate = 0,
-    Rotate = 1,
-    Scale = 2,
-    Alpha = 3,
-    Origin = 5,
+pub enum AnimTransform {
+    Origin = 0,
+    Translate = 1,
+    Rotate = 2,
+    Scale = 3,
+    Alpha = 5,
 }
 
-impl BoneType {
+impl AnimTransform {
     pub fn from_config_str(s: &str) -> Self {
         match s {
             "translate" => Self::Translate,
@@ -36,7 +36,7 @@ impl BoneType {
             "scale" => Self::Scale,
             "alpha" => Self::Alpha,
             "origin" => Self::Origin,
-            _ => panic!("unknown bone type: {s}"),
+            _ => panic!("unknown anim transform: {s}"),
         }
     }
 
@@ -316,16 +316,16 @@ pub enum ParamValue {
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub enum MultiVar {
-    Varbit(TypeId),
+    VarpBit(TypeId),
     Varp(TypeId),
 }
 
 impl MultiVar {
-    /// The variable a transform is picked by, the varbit before the varp.
-    pub fn new(varbit: TypeId, varp: TypeId) -> Option<Self> {
-        varbit
+    /// The variable a transform is picked by, the varpbit before the varp.
+    pub fn new(varpbit: TypeId, varp: TypeId) -> Option<Self> {
+        varpbit
             .non_null()
-            .map(Self::Varbit)
+            .map(Self::VarpBit)
             .or_else(|| varp.non_null().map(Self::Varp))
     }
 }
@@ -1054,9 +1054,9 @@ pub enum IfComponentType {
     #[cfg(all(since_530, before_647))]
     Unknown1 = 1,
     Inv = 2,
-    Rect = 3,
+    Rectangle = 3,
     Text = 4,
-    Graphic = 5,
+    Sprite = 5,
     Model = 6,
     InvText = 7,
     #[cfg(all(since_530, before_647))]
@@ -1072,9 +1072,9 @@ impl IfComponentType {
             #[cfg(all(since_530, before_647))]
             "unknown1" => Self::Unknown1,
             "inv" => Self::Inv,
-            "rect" => Self::Rect,
+            "rect" => Self::Rectangle,
             "text" => Self::Text,
-            "graphic" => Self::Graphic,
+            "graphic" => Self::Sprite,
             "model" => Self::Model,
             "invtext" => Self::InvText,
             #[cfg(all(since_530, before_647))]
@@ -1091,9 +1091,9 @@ impl IfComponentType {
             #[cfg(all(since_530, before_647))]
             Self::Unknown1 => "unknown1",
             Self::Inv => "inv",
-            Self::Rect => "rect",
+            Self::Rectangle => "rect",
             Self::Text => "text",
-            Self::Graphic => "graphic",
+            Self::Sprite => "graphic",
             Self::Model => "model",
             Self::InvText => "invtext",
             #[cfg(all(since_530, before_647))]
@@ -1323,7 +1323,7 @@ pub enum IfScriptOp {
     RunWeight = 12,
     TestBit = 13,
     #[cfg(since_254)]
-    PushVarbit = 14,
+    PushVarpBit = 14,
     #[cfg(since_254)]
     Subtract = 15,
     #[cfg(since_254)]
@@ -1355,7 +1355,7 @@ impl IfScriptOp {
             "runweight" => Self::RunWeight,
             "testbit" => Self::TestBit,
             #[cfg(since_254)]
-            "push_varbit" => Self::PushVarbit,
+            "push_varbit" => Self::PushVarpBit,
             #[cfg(since_254)]
             "subtract" => Self::Subtract,
             #[cfg(since_254)]

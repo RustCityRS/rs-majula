@@ -43,7 +43,7 @@ if ($struct1 = struct_7335 | $struct1 = struct_7336) {
         cc_create(interface_1170:com_141, ^iftype_graphic, 0);
         cc_setsize(274, 96, ^setsize_abs, ^setsize_abs);
         cc_setposition(4, 6, ^setpos_abs_left, ^setpos_abs_top);
-        cc_setgraphic(9723);
+        cc_setgraphic(graphic_9723);
     }
 } else if (cc_find(interface_1170:com_141, 0) = true) {
     cc_delete;
@@ -65,4 +65,4 @@ if_settext(interface_1170:com_142, "<$string1><br><br><$string3><br><br><$string
 ~clientscript_5475("<$string1><br><br><$string3><br><br><$string2>", interface_1170:com_142, interface_1170:com_141, interface_1170:com_140);
 $string0 = struct_param($struct1, param_2095);
 if_settext(interface_1170:com_38, $string0);
-sound_vorbis_volume(8088, 1, 0, 255);
+sound_vorbis_volume(vorbis_8088, 1, 0, 255);

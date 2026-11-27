@@ -2,7 +2,7 @@
 [proc,clientscript_786]
 if (map_members = true) {
     if_setscrollsize(interface_637:com_44, 0, 221);
-    ~clientscript_31(interface_637:com_87, interface_637:com_44, 792, 789, 790, 791, 773, 788);
+    ~clientscript_31(interface_637:com_87, interface_637:com_44, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
     if_sethide(interface_637:com_43, true);
 }

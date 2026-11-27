@@ -11,6 +11,14 @@ pub struct VarpSmall {
     pub val: u8,
 }
 
+impl VarpSmall {
+    /// Whether `val` fits this packet's byte, which the client reads signed;
+    /// a larger one goes as VARP_LARGE.
+    pub fn fits(val: i32) -> bool {
+        i8::try_from(val).is_ok()
+    }
+}
+
 #[cfg(before_530)]
 impl ServerProtMessage for VarpSmall {
     fn encode(&self, buf: &mut Packet) {

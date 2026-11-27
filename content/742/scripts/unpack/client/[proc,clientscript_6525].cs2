@@ -5,9 +5,9 @@ def_graphic $graphic1 = null;
 def_graphic $graphic2 = null;
 def_boolean $boolean3 = false;
 $boolean3 = true;
-$graphic0 = 11718;
-$graphic1 = 11719;
-$graphic2 = 11720;
+$graphic0 = graphic_11718;
+$graphic1 = graphic_11719;
+$graphic2 = graphic_11720;
 if_setgraphic(interface_1317:com_29, $graphic0);
 if_setonmouseleave(interface_1317:com_29, "graphic_swapper(interface_1317:com_29, $graphic0)");
 if_setonmouseover(interface_1317:com_29, "graphic_swapper(interface_1317:com_29, $graphic1)");
@@ -16,13 +16,13 @@ if_setonclick(interface_1317:com_29, "graphic_swapper(interface_1317:com_29, $gr
 if_sethide(interface_1317:com_30, $boolean3);
 ~clientscript_6559;
 if (map_lang = 0) {
-    $graphic0 = 11740;
+    $graphic0 = graphic_11740;
 } else if (map_lang = 1) {
-    $graphic0 = 11742;
+    $graphic0 = graphic_11742;
 } else if (map_lang = 2) {
-    $graphic0 = 11743;
+    $graphic0 = graphic_11743;
 } else if (map_lang = 3) {
-    $graphic0 = 11741;
+    $graphic0 = graphic_11741;
 }
 if_setgraphic(interface_1307:com_74, $graphic0);
 def_int $int4 = 0;

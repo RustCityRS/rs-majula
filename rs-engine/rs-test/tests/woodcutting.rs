@@ -15,12 +15,8 @@
 //! - 2011's choking ivy on Varrock Palace's north wall gives 332.5 xp and no
 //!   item (2011 wiki, Ivy).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
@@ -30,6 +26,30 @@ use std::fs;
 use std::sync::Mutex;
 
 const WOODCUTTING: usize = 8;
+
+/// Lumbridge's oak, Draynor's willow and a Lumbridge tree with its stump:
+/// 742's map has its own trees there.
+#[cfg(all(since_530, before_647))]
+const OAK: (&str, (u16, u16)) = ("oaktree", (3229, 3248));
+#[cfg(all(since_647, before_742))]
+const OAK: (&str, (u16, u16)) = ("oaktree", (3230, 3247));
+#[cfg(since_742)]
+const OAK: (&str, (u16, u16)) = ("oak_38731", (3192, 3213));
+#[cfg(all(since_647, before_742))]
+const WILLOW: (&str, (u16, u16)) = ("willowtree", (3114, 3488));
+#[cfg(since_742)]
+const WILLOW: (&str, (u16, u16)) = ("willow_38627", (3113, 3487));
+#[cfg(all(since_530, before_647))]
+const TREE: (&str, (u16, u16), &str) = ("tree", (3226, 3248), "treestump2");
+#[cfg(all(since_647, before_742))]
+const TREE: (&str, (u16, u16), &str) = ("tree", (3225, 3243), "treestump2");
+/// A dead tree north of Draynor and the stump it falls to.
+#[cfg(all(since_530, before_647))]
+const DEAD_TREE: (&str, (u16, u16), &str) = ("deadtree1", (3074, 3357), "deadtree1_large_stump");
+#[cfg(since_647)]
+const DEAD_TREE: (&str, (u16, u16), &str) = ("dead_tree_47594", (3084, 3371), "tree_stump_47595");
+#[cfg(since_742)]
+const TREE: (&str, (u16, u16), &str) = ("tree_38787", (3226, 3244), "tree_40356");
 
 struct Chop {
     tree: &'static str,
@@ -45,8 +65,8 @@ struct Chop {
 #[test]
 fn an_oak_gives_oak_logs_by_name() {
     chop(Chop {
-        tree: "oaktree",
-        at: (3230, 3247),
+        tree: OAK.0,
+        at: OAK.1,
         level: 15,
         hatchet: "bronze_axe",
         product: Some("oak_logs"),
@@ -56,11 +76,13 @@ fn an_oak_gives_oak_logs_by_name() {
     });
 }
 
+// 530's willows are not in its trees table.
+#[cfg(since_647)]
 #[test]
 fn a_2011_willow_gives_willow_logs() {
     chop(Chop {
-        tree: "willowtree",
-        at: (3114, 3488),
+        tree: WILLOW.0,
+        at: WILLOW.1,
         level: 30,
         hatchet: "mithril_axe",
         product: Some("willow_logs"),
@@ -73,31 +95,33 @@ fn a_2011_willow_gives_willow_logs() {
 #[test]
 fn a_2011_dead_tree_gives_logs_and_falls() {
     chop(Chop {
-        tree: "dead_tree_47594",
-        at: (3084, 3371),
+        tree: DEAD_TREE.0,
+        at: DEAD_TREE.1,
         level: 1,
         hatchet: "bronze_axe",
         product: Some("logs"),
         exp: 250,
         said: "You get some logs.",
-        falls_to: Some("tree_stump_47595"),
+        falls_to: Some(DEAD_TREE.2),
     });
 }
 
 #[test]
 fn a_black_hatchet_chops_at_woodcutting_6() {
     chop(Chop {
-        tree: "tree",
-        at: (3225, 3243),
+        tree: TREE.0,
+        at: TREE.1,
         level: 6,
         hatchet: "black_axe",
         product: Some("logs"),
         exp: 250,
         said: "You get some logs.",
-        falls_to: Some("treestump2"),
+        falls_to: Some(TREE.2),
     });
 }
 
+// 530 predates the ivy.
+#[cfg(since_647)]
 #[test]
 fn choking_ivy_gives_xp_and_no_item() {
     chop(Chop {
@@ -162,12 +186,7 @@ fn chop(case: Chop) {
         engine.cycle();
         client.packets();
 
-        let mut p = ClientPacket::new();
-        p.p2_alt1(z as i32)
-            .p2_alt1(tree.int())
-            .p1(0)
-            .p2_alt2(x as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, x, z, tree);
 
         let mut said = Vec::new();
         for tick in 0..600 {
@@ -225,20 +244,21 @@ fn chop(case: Chop) {
     });
 }
 
-/// A loc's 647 id by its name in `content/647/pack/loc.pack` (the server
-/// loads 647 locs from the cache's data alone, which carries their display
-/// names but not these debug names).
+/// A loc's id by its name in the rev's `pack/loc.pack` (the server loads its
+/// locs from the cache's data alone, which carries their display names but
+/// not these debug names).
 fn loc_id(name: &str) -> TypeId {
-    let pack = concat!(
+    let pack = format!(
+        "{}/../../{}/loc.pack",
         env!("CARGO_MANIFEST_DIR"),
-        "/../../content/647/pack/loc.pack"
+        rs_pack::PACK_DIR
     );
     fs::read_to_string(pack)
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
-        .and_then(|(id, _)| id.parse().ok().map(TypeId::new))
-        .unwrap_or_else(|| panic!("647 has no loc {name}"))
+        .and_then(|(id, _)| id.parse().ok().map(TypeId::from_int))
+        .unwrap_or_else(|| panic!("{} has no loc {name}", rs_pack::PACK_DIR))
 }
 
 fn loc_here(engine: &Engine, id: TypeId, x: u16, z: u16) -> bool {

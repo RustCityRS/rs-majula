@@ -25,11 +25,8 @@ if(inv_total(inv, tinderbox) < 0) {
 }
 p_delay(0);
 anim(human_createfire, 0);
-sound_synth(tinderbox_strike, 1, 0);
 ~tutorial_please_wait_firemaking;
-p_delay(3);
-sound_synth(tinderbox_strike, 1, 0);
-p_delay(2);
+p_delay(6);
 anim(null, 0);
 ~push_player(obj_coord);
 ~tut_firemaking_success(obj_coord, $log);
@@ -59,12 +56,9 @@ if(inv_total(inv, tinderbox) < 0) {
 
 p_delay(0);
 anim(human_createfire, 0);
-sound_synth(tinderbox_strike, 1, 0);
 inv_dropslot(inv, coord, $slot, ^lootdrop_duration);
 ~tutorial_please_wait_firemaking;
-p_delay(3);
-sound_synth(tinderbox_strike, 1, 0);
-p_delay(2);
+p_delay(6);
 anim(null, 0);
 ~push_player(obj_coord);
 ~tut_firemaking_success(obj_coord, $log);
@@ -74,8 +68,8 @@ obj_del();
 ~tutorial_give_xp(firemaking, 400);
 sound_synth(fire_lit, 1, 0);
 facesquare($fire_coord);
-if (%varplayer_419 = ^newbie_survival_instructor_build_fire) {
-    %varplayer_419 = ^newbie_survival_instructor_open_skill_menu;
+if (%tutorial = ^newbie_survival_instructor_build_fire) {
+    %tutorial = ^newbie_survival_instructor_open_skill_menu;
     ~tutorial_step_you_gained_experience;
 } else {
     ~set_tutorial_progress;

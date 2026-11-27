@@ -126,7 +126,7 @@ fn identified_properties_preserve_encoding_and_reject_old_names() {
     roundtrip(
         "particleemitter",
         &[25, 2, 0, 7, 1, 1, 0],
-        "globaleffectors=7,257\n",
+        "globaleffectors=pef_7,pef_257\n",
         "unknown25=7,257\n",
         emit_particleemitter_props,
         |files, registry| particleemitter::pack_particleemitters(files, registry, &HashMap::new()),

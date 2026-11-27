@@ -1,3 +1,5 @@
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use rs_io::Packet;
@@ -21,6 +23,14 @@ pub trait ClientProtMessage: ClientProtMessageInfo {
 
     /// Decodes a payload that has passed `validate`, with `len` bytes remaining.
     fn decode(buf: &mut Packet, len: usize) -> Self;
+}
+
+/// Writes a message as the client does, the inverse of its `decode`: for tests
+/// that play the client.
+#[cfg(since_530)]
+pub trait ClientProtEncode {
+    const PROT: ClientProt;
+    fn encode(&self, buf: &mut Packet);
 }
 
 #[cfg(since_530)]

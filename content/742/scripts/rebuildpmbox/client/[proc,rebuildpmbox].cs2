@@ -23,13 +23,13 @@ if (reboottimer > 0) {
 }
 def_int $int4 = 0;
 def_int $chattype5 = ^chattype_gamemessage;
-def_int $rgb6 = enum(int, int, enum_3056, %option_pm);
+def_int $colour6 = enum(int, int, enum_3056, %option_pm);
 def_boolean $boolean7 = enum(int, boolean, enum_3057, %option_pm);
-if (%option_pm > 0 & (getwindowmode < 2 | %chat_view ! -1)) {
+if (%option_pm > 0 & (getwindowmode < ^windowmode_resizable | %chat_view ! -1)) {
     while ($int4 < 100 & $int0 < 5) {
         if (~pm_filtertest($int4) = true) {
             $component1 = enum(int, component, enum_580, $int0);
-            if_setcolour($component1, $rgb6);
+            if_setcolour($component1, $colour6);
             if_settextshadow($component1, $boolean7);
             $chattype5 = chat_gethistorytype($int4);
             switch_int ($chattype5) {
@@ -96,7 +96,7 @@ while ($int0 < 5) {
 }
 def_int $int8 = 0;
 def_int $int9 = 0;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $int9 = 9;
 } else {
     $int9 = 5;

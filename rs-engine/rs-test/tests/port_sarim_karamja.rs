@@ -4,7 +4,7 @@
 //! spawned where void-634 has them (647's spawns had none), and 2011's Jenkins
 //! is the multi-npc 748.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
@@ -121,6 +121,8 @@ fn port_sarim_and_karamja_npcs_answer_every_branch() {
 /// 289's Gerrant (on 2011's npc 12261, Port Sarim), Rommik (Rimmington) and Peksa (Barbarian
 /// Village) at 647: every branch of their Talk-to says something, fails no script, and one opens
 /// their shop under 289's title.
+#[cfg(before_742)]
+#[cfg(since_647)]
 #[test]
 fn gerrant_rommik_and_peksa_open_their_shops() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());

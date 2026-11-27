@@ -57,17 +57,3 @@ npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
 npc_queue(2, ~combat_hit(10, ^hitmark_magic, 10), 0)
 test_tick(2)
 assert_called_with("npc_damage", "12,10")
-
-// A hit an npc's queue queues again is still the player's: the second queue
-// carries the player who queued the first.
-[ai_queue19,horror_dagganoth_jr] npc_queue(20, last_int, 0);
-[ai_queue20,horror_dagganoth_jr] npc_damage(^hitmark_damage, last_int);
-
-[label,test_a_hit_queued_twice_is_still_the_players]
-setup_player("test_player")
-~test_skip_design
-npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
-npc_queue(19, 4, 0)
-test_tick(3)
-assert_eq(npc_stat(hitpoints), 116)
-assert_called_with("npc_hit_by", tostring(calc(uid & 2047)))

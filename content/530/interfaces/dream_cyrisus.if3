@@ -16,7 +16,7 @@ x=12
 y=20
 width=482
 height=295
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 521:2
@@ -26,7 +26,7 @@ x=5
 y=13
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 521:3
 [com_3]
@@ -35,7 +35,7 @@ x=5
 y=34
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 521:4
 [com_4]
@@ -44,7 +44,7 @@ x=-8
 y=55
 width=37
 height=243
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 521:5
@@ -54,7 +54,7 @@ x=469
 y=34
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 521:6
 [com_6]
@@ -63,7 +63,7 @@ x=481
 y=55
 width=21
 height=246
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 521:7
@@ -72,7 +72,7 @@ type=graphic
 x=35
 width=442
 height=20
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 521:8
@@ -82,7 +82,7 @@ x=31
 y=302
 width=447
 height=28
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 521:9
@@ -92,7 +92,7 @@ x=5
 y=290
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 521:10
 [com_10]
@@ -101,7 +101,7 @@ x=469
 y=13
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 521:11
 [com_11]
@@ -110,7 +110,7 @@ x=469
 y=290
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 521:12
 [com_12]
@@ -119,7 +119,7 @@ x=14
 y=32
 width=477
 height=33
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 521:13
@@ -129,7 +129,7 @@ x=473
 y=25
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -143,7 +143,7 @@ x=41
 y=23
 width=422
 height=18
-textfont=fontmetrics_496
+textfont=b12_full
 text=Guidance System
 textalignh=centre
 textalignv=centre
@@ -326,7 +326,7 @@ x=202
 y=73
 width=42
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=100%
 textshadow=yes
 colour=0xff981f
@@ -338,7 +338,7 @@ x=50
 y=72
 width=151
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Health - 
 textalignv=centre
 textshadow=yes
@@ -492,7 +492,7 @@ x=202
 y=146
 width=42
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=100%
 textshadow=yes
 colour=0xff981f
@@ -504,7 +504,7 @@ x=49
 y=144
 width=152
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Spirit - 
 textalignv=centre
 textshadow=yes
@@ -618,7 +618,7 @@ x=203
 y=218
 width=42
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=100%
 textshadow=yes
 colour=0xff981f
@@ -630,7 +630,7 @@ x=50
 y=217
 width=150
 height=15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Armament - 
 textalignv=centre
 textshadow=yes
@@ -861,7 +861,7 @@ x=285
 y=183
 width=188
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 text=--- Stat ---
 textshadow=yes
 colour=0xff981f
@@ -873,7 +873,7 @@ x=285
 y=203
 width=188
 height=100
-textfont=fontmetrics_495
+textfont=p12_full
 text=Information...
 textshadow=yes
 colour=0xff981f

@@ -78,7 +78,6 @@ return (false);
 p_arrivedelay;
 anim(human_openchest, 0);
 sound_synth(chest_open, 1, 0);
-loc_prefetchall(loc_coord, $other_chest, loc_shape);
 p_delay(0);
 // Temp note: dur does not need updated
 loc_change($other_chest, 300);
@@ -99,3 +98,6 @@ sound_synth(locked, 1, 0);
 [oploc1,chestlockedgold]
 mes("The chest is locked.");
 sound_synth(locked, 1, 0);
+
+[oploc1,lost_tribe_chest]
+~mesbox("You don't have the key to open this chest.");

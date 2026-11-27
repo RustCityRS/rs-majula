@@ -1,6 +1,6 @@
 // 1176
 [proc,clientscript_1176]
-if (%last_windowmode = 3 & getwindowmode ! 3) {
+if (%last_windowmode = ^windowmode_fullscreen & getwindowmode ! ^windowmode_fullscreen) {
     if (%loginscreen_focus = 6) {
         ~clientscript_1893(1);
         return;

@@ -8,16 +8,16 @@ if ($component2 = interface_1265:com_142 | $component2 = interface_1265:com_143)
 }
 if_settext($component2, $string0);
 if_settext($component3, "(<$string1>)");
-def_int $rgb4 = ^green;
-def_int $rgb5 = ^red;
+def_int $colour4 = ^green;
+def_int $colour5 = ^red;
 if ($component2 = interface_1265:com_165) {
-    $rgb4 = ^red;
-    $rgb5 = ^green;
+    $colour4 = ^red;
+    $colour5 = ^green;
 }
 if ($int0 > $int1) {
-    if_setcolour($component2, $rgb4);
+    if_setcolour($component2, $colour4);
 } else if ($int0 < $int1) {
-    if_setcolour($component2, $rgb5);
+    if_setcolour($component2, $colour5);
 } else {
     if_setcolour($component2, ^white);
 }

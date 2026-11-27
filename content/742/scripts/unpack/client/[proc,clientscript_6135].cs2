@@ -43,12 +43,12 @@ if (cc_find($component0, 0) = true) {
 if_setontimer($component0, "clientscript_6141(event_com, $int2, $int4, $int5, 0, 0, 0, 0, 0, 0, 0)");
 $int3 = calc($int3 + 1);
 if ($int3 > 0) {
-    if_setgraphic(interface_1270:com_42, 10576);
+    if_setgraphic(interface_1270:com_42, graphic_10576);
 }
 if ($int3 > 1) {
-    if_setgraphic(interface_1270:com_43, 10576);
+    if_setgraphic(interface_1270:com_43, graphic_10576);
 }
 if ($int3 > 2) {
-    if_setgraphic(interface_1270:com_44, 10576);
+    if_setgraphic(interface_1270:com_44, graphic_10576);
 }
-sound_vorbis_volume(14660, 1, 0, 120);
+sound_vorbis_volume(vorbis_14660, 1, 0, 120);

@@ -5,19 +5,15 @@
 //! Chicken recording does (sbY-Uq0JI4M, 28-34s). "Mark on map" flips its tick, and Yes carries on
 //! with "I'm always happy to help a cook in distress." No leaves the quest unstarted.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -85,11 +81,9 @@ fn at_the_window(engine: &mut Engine, name: &str) -> (HarnessClient, Packets, Ve
     (client, talk.packets, talk.texts)
 }
 
-/// IF_BUTTON1 on a quest_intro component: `p4(com) p2_alt3(obj) p2_alt1(slot)`, no obj or slot.
+/// IF_BUTTON1 on a quest_intro component, no obj or slot.
 fn click(engine: &mut Engine, client: &mut HarnessClient, c: u16) -> Vec<(u16, Vec<u8>)> {
-    let mut p = ClientPacket::new();
-    p.p4(com(c)).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com(c), 0xFFFF, TypeId::NULL);
     let mut packets = Vec::new();
     for _ in 0..2 {
         engine.cycle();

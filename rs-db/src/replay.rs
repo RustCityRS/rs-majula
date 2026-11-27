@@ -3,13 +3,6 @@ use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 use std::slice;
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// A session a world started recording.
 #[derive(Debug)]
 pub struct NewReplay {
@@ -42,17 +35,11 @@ pub struct ReplayChunk {
 #[derive(Debug, Default)]
 pub struct ReplayStore {
     pub id: i64,
-    /// Its new chunks.
     pub chunks: Vec<ReplayChunk>,
     pub duration_ms: i32,
-    /// The checks' verdict so far, if one was due (else the last stays).
     pub report: Option<ReplayReport>,
-    /// The session is over.
     pub ended: bool,
-    /// `false`: a chunk before these was lost.
     pub complete: bool,
-    /// When the player chose an action so far (see [`ACTIVITY_STEP_MS`]),
-    /// whole, if it changed.
     pub activity: Option<Vec<u8>>,
 }
 

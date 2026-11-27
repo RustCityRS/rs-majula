@@ -1,6 +1,6 @@
 // 2708
 [proc,loginscreen_load](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
-setup_messagebox(0, 0, 4, 3, 135, 30, loadingbox_border_corner, loadingbox_border_side, 6127, 0xffa200, verdana_11pt_regular);
+setup_messagebox(0, 0, 4, 3, 135, 30, loadingbox_border_corner, loadingbox_border_side, graphic_6127, 0xffa200, verdana_11pt_regular);
 if_setsize(loginscreen:runescape_logo, 180, 100, ^setsize_abs, ^setsize_abs);
 if_setgraphic(loginscreen:runescape_logo, logo_alpha);
 if_setgraphic(loginscreen:com_8, battle_title_widescreen_2);

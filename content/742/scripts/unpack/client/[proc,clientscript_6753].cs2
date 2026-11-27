@@ -23,11 +23,11 @@ switch_int (%varplayerbit_11979) {
 if_settext(interface_1345:com_65, struct_param($struct0, param_1266));
 switch_int (random(3)) {
     case 0 :
-        if_setgraphic(interface_1345:com_63, 13170);
+        if_setgraphic(interface_1345:com_63, graphic_13170);
     case 1 :
-        if_setgraphic(interface_1345:com_63, 13182);
+        if_setgraphic(interface_1345:com_63, graphic_13182);
     case 2 :
-        if_setgraphic(interface_1345:com_63, 13186);
+        if_setgraphic(interface_1345:com_63, graphic_13186);
 }
 def_string $string0 = struct_param($struct0, param_1273);
 if_setonmouserepeat(interface_1345:com_25, "aif_tooltip(interface_1345:com_36, interface_1345:com_25, -1, $string0, 304, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");

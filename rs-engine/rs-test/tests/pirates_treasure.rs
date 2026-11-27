@@ -3,16 +3,12 @@
 //! the 2011 wiki: Redbeard Frank's "Arr, Matey!" and new lines, Luthas's, Wydin's job at the door,
 //! "You unlock the chest.", the gardener's shout and refusal, and Hector's casket as the reward.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
 use rs_ver::TypeId;
@@ -20,7 +16,6 @@ use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
 
-const BACKPACK: i32 = 149 << 16;
 /// Locs in cache 786's map (maps/l*.jm2): Luthas's crate, Wydin's back-room door and crate, and
 /// Hector's chest upstairs in the Blue Moon Inn.
 const BANANA_CRATE: (u16, u16, u16) = (2072, 2943, 3151);
@@ -146,31 +141,23 @@ fn talk(
 
 fn oploc1(client: &mut HarnessClient, loc: (u16, u16, u16)) {
     let (id, x, z) = loc;
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(id as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(id as i32));
 }
 
 fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: (u16, u16, u16)) {
     let (id, x, z) = loc;
-    let mut p = ClientPacket::new();
-    p.p2_alt2(obj as i32)
-        .p2_alt2(slot as i32)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(id as i32);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        x,
+        z,
+        TypeId::from_int(id as i32),
+        BACKPACK,
+        slot,
+        TypeId::from_int(obj as i32),
+    );
 }
 
 fn op_held1(client: &mut HarnessClient, obj: u16, slot: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(slot as i32);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, BACKPACK, slot, TypeId::from_int(obj as i32));
 }
 
 fn says(t: &Conversation, lines: &[&str]) {

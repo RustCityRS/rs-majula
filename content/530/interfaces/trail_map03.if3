@@ -379,7 +379,7 @@ y=85
 width=16
 height=11
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=2W
 colour=0x4c3d26
 
@@ -391,7 +391,7 @@ y=117
 width=12
 height=11
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=4S
 colour=0x4c3d26
 
@@ -403,7 +403,7 @@ y=130
 width=11
 height=11
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=3E
 colour=0x4c3d26
 
@@ -415,7 +415,7 @@ y=155
 width=13
 height=11
 layer=content_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=3S
 colour=0x4c3d26
 
@@ -525,7 +525,7 @@ y=13
 width=26
 height=23
 layer=content_layer
-graphic=graphic_539
+graphic="close_buttons,4"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 540)

@@ -32,7 +32,7 @@ switch_int (%varplayerbit_9306) {
             if_settext(interface_102:com_54, "Thok save Marm, but Thok not show how mighty Thok is. Thok need to do more.");
         }
     case 3 :
-        if (stat_base(attack) >= 60 & stat_base(thieving) >= 45 & stat_base(dungeoneering) >= 55) {
+        if (stat_base(attack) >= 60 & stat_base(thieving) >= 45 & stat_base(rand) >= 55) {
             if (%varplayerbit_9298 = 10) {
                 if_settext(interface_102:com_54, "I finally completed my task; the perfect spy, the perfect assassin.");
             } else {

@@ -28,8 +28,8 @@ def_int $int21 = calc(stat_visible_xp(slayer) - %xpdisplay_slayer);
 def_int $int22 = calc(stat_visible_xp(farming) - %xpdisplay_farming);
 def_int $int23 = calc(stat_visible_xp(construction) - %xpdisplay_construction);
 def_int $int24 = calc(stat_visible_xp(hunter) - %xpdisplay_hunter);
-def_int $int25 = calc(stat_visible_xp(summoning) - %xpdisplay_summoning);
-def_int $int26 = calc(stat_visible_xp(dungeoneering) - %xpdisplay_dungeoneering);
+def_int $int25 = calc(stat_visible_xp(animallore) - %xpdisplay_summoning);
+def_int $int26 = calc(stat_visible_xp(rand) - %xpdisplay_dungeoneering);
 def_int $int27 = calc($int1 + $int2 + $int3 + $int4 + $int5 + $int6 + $int8 + $int9 + $int10 + $int11 + $int12 + $int13 + $int14 + $int15 + $int16 + $int17 + $int18 + $int19 + $int20 + $int21 + $int22 + $int23 + $int24 + $int25 + $int26);
 if (%varplayerbit_10444 = 1) {
     switch_int (%varplayerbit_10440) {

@@ -1,28 +1,28 @@
 // 6066
 [proc,clientscript_6066]()(graphic)
 switch_graphic (if_getgraphic(interface_1253:com_20)) {
-    case 10236, 10237, 10238, 10239 :
+    case graphic_10236, graphic_10237, graphic_10238, graphic_10239 :
         switch_int (map_lang) {
             case 0 :
-                return(10236);
+                return(graphic_10236);
             case 1 :
-                return(10237);
+                return(graphic_10237);
             case 2 :
-                return(10238);
+                return(graphic_10238);
             case 3 :
-                return(10239);
+                return(graphic_10239);
         }
-    case 12958, 12959, 12960, 12961 :
+    case graphic_12958, graphic_12959, graphic_12960, graphic_12961 :
         switch_int (map_lang) {
             case 0 :
-                return(12958);
+                return(graphic_12958);
             case 1 :
-                return(12959);
+                return(graphic_12959);
             case 2 :
-                return(12960);
+                return(graphic_12960);
             case 3 :
-                return(12961);
+                return(graphic_12961);
         }
     case default :
-        return(10236);
+        return(graphic_10236);
 }

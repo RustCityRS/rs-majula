@@ -1,7 +1,7 @@
 // 192
 [proc,chatalerts]
 def_int $int0 = chat_gethistorylength;
-def_int $chattype1 = 0;
+def_int $chattype1 = ^chattype_gamemessage;
 if ($int0 > %chat_lastcount) {
     if (%chat_view = 0) {
         %chat_lastcount = $int0;
@@ -15,15 +15,15 @@ if ($int0 > %chat_lastcount) {
         $chattype1 = chat_gethistorytype($int0);
         if (~filtertest($int0, 0) = true & ~partnercheck($int0) = false) {
             switch_int ($chattype1) {
-                case 0 :
+                case ^chattype_gamemessage :
                     ~chat_alert_enable(1);
-                case 1, 2, 17 :
+                case ^chattype_modchat, ^chattype_publicchat, ^chattype_quickchat_public :
                     ~chat_alert_enable(2);
-                case 3, 5, 6, 7, 18, 19 :
+                case ^chattype_privatechat, ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing :
                     ~chat_alert_enable(3);
-                case 4, 8, 12, 14, 15, 21 :
+                case ^chattype_engine, 8, 12, 14, 15, 21 :
                     ~chat_alert_enable(5);
-                case 9, 11, 16, 20 :
+                case ^chattype_friendschat, ^chattype_friendschatnotification, 16, ^chattype_quickchat_friend_chat :
                     ~chat_alert_enable(4);
                 case 10, 13 :
                     ~chat_alert_enable(6);

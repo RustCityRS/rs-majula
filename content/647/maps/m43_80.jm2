@@ -4103,8 +4103,8 @@ fog_color=65792
 fog_depth=200
 
 ==== LIGHTS ====
-0 1851 2747 200: radius=1 colors=3,3,3 hsl=7080 type=1
-0 6075 5094 304: radius=1 colors=0,3,3 hsl=127 type=1
-0 1723 1382 304: radius=1 colors=0,3,3 hsl=127 type=1
-0 5435 6476 200: radius=1 colors=258,258,258 hsl=6451 type=6
-0 6843 6476 200: radius=1 colors=2,2,2 hsl=6451 type=6
+0 1851 2747 200: radius=1 radiusgrid=3,3,3 hsl=7080 type=1
+0 6075 5094 304: radius=1 radiusgrid=0,3,3 hsl=127 type=1
+0 1723 1382 304: radius=1 radiusgrid=0,3,3 hsl=127 type=1
+0 5435 6476 200: radius=1 radiusgrid=258,258,258 hsl=6451 type=6
+0 6843 6476 200: radius=1 radiusgrid=2,2,2 hsl=6451 type=6

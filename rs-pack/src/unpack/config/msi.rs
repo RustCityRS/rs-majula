@@ -14,9 +14,9 @@ pub fn emit_msi_props(
         p.push((1, "graphic".into(), packs.reference("sprites", def.sprite)));
     }
     if opcode == 2 {
-        p.push((2, "colour".into(), format_colour(def.colour)));
+        p.push((2, "colour".into(), format_colour(def.tint)));
     }
-    if def.locsize {
+    if def.resize {
         p.push((3, "resize".into(), "yes".into()));
     }
     if def.nosprite {

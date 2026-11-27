@@ -3,6 +3,6 @@
 if (cc_find($component0, $int1) = true) {
     ~worldmap_setupgraphic($graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $boolean9, $boolean10, $int11, $string0, $string1, $coord12);
 } else {
-    cc_create($component0, 5, $int1);
+    cc_create($component0, ^iftype_graphic, $int1);
     ~worldmap_setupgraphic($graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $boolean9, $boolean10, $int11, $string0, $string1, $coord12);
 }

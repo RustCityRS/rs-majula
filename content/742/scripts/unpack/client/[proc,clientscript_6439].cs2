@@ -1,5 +1,5 @@
 // 6439
 [proc,clientscript_6439]
-sound_vorbis_volume(5262, 1, 0, 50);
+sound_vorbis_volume(vorbis_5262, 1, 0, 50);
 %varclient_1968 = calc((max(0, %varclient_1968) + 1) % 2);
 ~clientscript_6443(0, 0, 1);

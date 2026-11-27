@@ -1,22 +1,21 @@
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+#[cfg(before_742)]
+use rs_entity::MoveSpeed;
+#[cfg(before_742)]
+use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+#[cfg(before_742)]
+use rs_test::server;
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::fs;
 
 fn click(client: &mut HarnessClient, x: u16, z: u16) {
-    let mut packet = ClientPacket::new();
-    packet.p2_alt1(x as i32).p1_alt1(0).p2(z as i32);
-    client.send(ClientProt::MoveGameClick, &packet.finish());
+    client.move_gameclick(x, z);
 }
 
 fn route(engine: &Engine, pid: u16) -> Vec<u32> {
@@ -28,7 +27,7 @@ fn route(engine: &Engine, pid: u16) -> Vec<u32> {
 }
 
 fn expected(x: u16, z: u16) -> Vec<u32> {
-    rsmod::find_path(
+    rsmod::find_route(
         0,
         3222,
         3218,
@@ -43,8 +42,70 @@ fn expected(x: u16, z: u16) -> Vec<u32> {
         0,
         25,
         CollisionType::Normal,
+        true,
     )
     .to_vec()
+}
+
+#[cfg(before_742)]
+#[test]
+fn reads_the_lumbridge_signpost_from_six_tiles_away() {
+    runner::on_loaded_engine(|engine| {
+        let sign = if cfg!(since_647) { 2754 } else { 18493 };
+        for (name, x, z, running) in [
+            ("reader", 3235, 3222, false),
+            ("northreader", 3236, 3230, false),
+            ("runreader", 3244, 3225, true),
+        ] {
+            let mut client = engine.harness_login_returning_at(name, x, z).unwrap();
+            for _ in 0..4 {
+                engine.cycle();
+            }
+            if running {
+                engine.harness_player_mut(client.pid).unwrap().move_speed = MoveSpeed::Run;
+            }
+            client.packets();
+            client.op_loc(1, 3235, 3228, TypeId::from_int(sign));
+            engine.cycle();
+
+            let player = engine.harness_player(client.pid).unwrap();
+            let coord = player.pathing.coord;
+            assert_eq!((coord.x(), coord.z()) != (x, z), running);
+            assert_eq!(
+                player.modal_main,
+                Some(rs_test::names::iface("aide_compass"))
+            );
+            let local_x = (coord.x() - player.build_area.origin.zone_origin_x()) as u8;
+            let local_z = (coord.z() - player.build_area.origin.zone_origin_z()) as u8;
+            let packets = client.packets();
+            assert_eq!(server::cam_forceangles(&packets), [(280, 0)]);
+            assert_eq!(
+                server::cam_movetos(&packets),
+                [(local_x, local_z - 6, 1500, 2, 10)]
+            );
+            assert_eq!(
+                server::cam_lookats(&packets),
+                [(local_x, local_z + 3, 450, 2, 10)]
+            );
+            let north = Some((
+                CoordGrid::fine(coord.x(), 1),
+                CoordGrid::fine(coord.z() + 1, 1),
+            ));
+            if running {
+                assert_ne!(
+                    player.info.orientation_x.zip(player.info.orientation_z),
+                    north
+                );
+                engine.cycle();
+            }
+            let player = engine.harness_player(client.pid).unwrap();
+            assert_eq!(player.pathing.coord, coord);
+            assert_eq!(
+                player.info.orientation_x.zip(player.info.orientation_z),
+                north
+            );
+        }
+    });
 }
 
 #[test]
@@ -132,7 +193,7 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
             .coord;
         assert_eq!((coord.x(), coord.z()), (3222, 3218));
 
-        let door = fs::read_to_string("content/647/pack/loc.pack")
+        let door = fs::read_to_string(format!("{}/pack/loc.pack", rs_pack::CONTENT_DIR))
             .unwrap()
             .lines()
             .find_map(|line| {
@@ -149,9 +210,7 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
         engine.harness_telejump(clients[0].pid, 2551, 0, 3099);
         engine.cycle();
         click(&mut clients[0], 2552, 3099);
-        let mut packet = ClientPacket::new();
-        packet.p2_alt1(3098).p2_alt1(door.int()).p1(0).p2_alt2(2551);
-        clients[0].send(ClientProt::OpLoc1, &packet.finish());
+        clients[0].op_loc(1, 2551, 3098, door);
         engine.harness_inputs();
         assert_eq!(engine.pathfinding_stats().requests, 2);
         assert_eq!(engine.pathfinding_stats().searches, 1);

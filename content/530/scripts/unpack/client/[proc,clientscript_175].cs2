@@ -27,7 +27,7 @@ if (%tutorial < 1000 & %tutorial_version = 2 & %varplayerbit_4925 < 3) {
         }
     }
 } else if ($int0 = 1) {
-    if (%chat_view = $int1 & getwindowmode >= 2 & %tutorial >= 1000) {
+    if (%chat_view = $int1 & getwindowmode >= ^windowmode_resizable & %tutorial >= 1000) {
         %chat_view = -1;
         ~clientscript_1364;
     } else if (%chat_view = -1) {

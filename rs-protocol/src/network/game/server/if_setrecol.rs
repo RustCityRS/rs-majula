@@ -1,17 +1,17 @@
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 use crate::network::game::server::ServerProtMessage;
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 use rs_io::{Packet, PacketFrame};
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_245_2)]
+#[cfg(before_244)]
 #[server_prot(IfSetRecol, Buffered, Fixed)]
 pub struct IfSetRecol {
     pub com: u16,
@@ -19,7 +19,7 @@ pub struct IfSetRecol {
     pub dst: u16,
 }
 
-#[cfg(before_245_2)]
+#[cfg(before_244)]
 impl ServerProtMessage for IfSetRecol {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);

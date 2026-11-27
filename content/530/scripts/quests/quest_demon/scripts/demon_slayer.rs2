@@ -63,8 +63,13 @@ return(false);
 // stuck inside until water washes it down into the sewer. The key is back in
 // the drain whenever the player has lost theirs (void-634's destroy text:
 // "You can get another one from the drain outside the Varrock Palace
-// kitchen.").
-[oploc1,loc_31759]
+// kitchen."). 530's map has it as a wall decoration on a blocked tile, which
+// no one can stand on to reach: it is used from beside it.
+[aploc1,loc_31759]
+if (distance(coord, loc_coord) > 1) {
+    p_aprange(1);
+    return;
+}
 anim(human_pickupfloor, 0); // void-634: climb_down
 ~demon_slayer_key_lost;
 // 289: nothing is there once Silverlight is had.
@@ -78,7 +83,11 @@ if (%delrith_drain_key ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_3
     ~chatplayer("<p,shifty>I don't seem to be able to reach it. I wonder if I can dislodge it somehow. That way it may go down into the sewers.");
 }
 
-[oplocu,loc_31759]
+[aplocu,loc_31759]
+if (distance(coord, loc_coord) > 1) {
+    p_aprange(1);
+    return;
+}
 def_namedobj $empty;
 switch_obj (last_useitem) {
     case bucket_water : $empty = bucket_empty;

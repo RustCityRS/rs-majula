@@ -5,7 +5,7 @@ y=4
 width=480
 height=17
 xmode=abs_centre
-textfont=fontmetrics_497
+textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
@@ -17,7 +17,7 @@ y=45
 width=480
 height=17
 xmode=abs_centre
-textfont=fontmetrics_497
+textfont=q8_full
 text=option1
 textalignh=centre
 colour=0x000000
@@ -32,7 +32,7 @@ y=83
 width=480
 height=17
 xmode=abs_centre
-textfont=fontmetrics_497
+textfont=q8_full
 text=option2
 textalignh=centre
 colour=0x000000
@@ -48,7 +48,7 @@ y=5
 width=57
 height=13
 layer=multivar2swords
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 236:4
 [com_4]
@@ -58,7 +58,7 @@ y=5
 width=57
 height=13
 layer=multivar2swords
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 236:5
 [multivar2swords]
@@ -85,7 +85,7 @@ y=5
 width=57
 height=13
 layer=com_6
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 236:8
 [com_8]
@@ -95,4 +95,4 @@ y=5
 width=57
 height=13
 layer=com_6
-graphic=graphic_301
+graphic="sworddecor,0"

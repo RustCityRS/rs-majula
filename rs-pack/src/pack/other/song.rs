@@ -19,7 +19,7 @@ use rs_io::Packet;
 #[cfg(before_530)]
 use rs_io::bz2::bz2_compress_with_size;
 #[cfg(since_530)]
-use rs_io::js5::reference::FileInfo;
+use rs_io::js5::index::FileInfo;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -373,8 +373,8 @@ pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
     let mut mod_wheel_vals: Vec<u8> = Vec::new();
     let mut volume_vals: Vec<u8> = Vec::new();
     let mut pan_vals: Vec<u8> = Vec::new();
-    let mut note_vel_vals: Vec<u8> = Vec::new(); // note pitches (shared: on+off+poly)
-    let mut note_pitch_vals: Vec<u8> = Vec::new(); // note-on velocities
+    let mut note_pitch_vals: Vec<u8> = Vec::new(); // note pitches (shared: on+off+poly)
+    let mut note_vel_vals: Vec<u8> = Vec::new(); // note-on velocities
     let mut other_cc_vals: Vec<u8> = Vec::new();
     let mut note_off_vel_vals: Vec<u8> = Vec::new();
     let mut mod_wheel_fine_vals: Vec<u8> = Vec::new();
@@ -400,7 +400,7 @@ pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
 
     for track in &tracks {
         for event in track {
-            deltas.pvarint(event.delta);
+            deltas.pmidivarlen(event.delta);
 
             match &event.kind {
                 MidiEventKind::EndOfTrack => {
@@ -422,8 +422,8 @@ pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
                     channel_xor = ch;
                     opcodes.push((ch_delta << 4) as u8);
 
-                    note_vel_vals.push(delta_byte(*note as i32, &mut pitch_delta));
-                    note_pitch_vals.push(delta_byte(*velocity as i32, &mut note_on_vel_delta));
+                    note_pitch_vals.push(delta_byte(*note as i32, &mut pitch_delta));
+                    note_vel_vals.push(delta_byte(*velocity as i32, &mut note_on_vel_delta));
                 }
                 MidiEventKind::NoteOff {
                     channel,
@@ -435,7 +435,7 @@ pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
                     channel_xor = ch;
                     opcodes.push(((ch_delta << 4) | 1) as u8);
 
-                    note_vel_vals.push(delta_byte(*note as i32, &mut pitch_delta));
+                    note_pitch_vals.push(delta_byte(*note as i32, &mut pitch_delta));
                     note_off_vel_vals.push(delta_byte(*velocity as i32, &mut note_off_vel_delta));
                 }
                 MidiEventKind::ControlChange {
@@ -503,7 +503,7 @@ pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
                     channel_xor = ch;
                     opcodes.push(((ch_delta << 4) | 5) as u8);
 
-                    note_vel_vals.push(delta_byte(*note as i32, &mut pitch_delta));
+                    note_pitch_vals.push(delta_byte(*note as i32, &mut pitch_delta));
                     poly_pressure_vals.push(delta_byte(*pressure as i32, &mut poly_press_delta));
                 }
                 MidiEventKind::ProgramChange { channel, program } => {
@@ -530,8 +530,8 @@ pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
     out.extend_from_slice(&mod_wheel_vals);
     out.extend_from_slice(&volume_vals);
     out.extend_from_slice(&pan_vals);
-    out.extend_from_slice(&note_vel_vals);
     out.extend_from_slice(&note_pitch_vals);
+    out.extend_from_slice(&note_vel_vals);
     out.extend_from_slice(&other_cc_vals);
     out.extend_from_slice(&note_off_vel_vals);
     out.extend_from_slice(&mod_wheel_fine_vals);

@@ -26,7 +26,7 @@ y=24
 width=361
 height=236
 layer=content_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 382:3
@@ -37,7 +37,7 @@ y=53
 width=32
 height=202
 layer=content_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 382:4
@@ -48,7 +48,7 @@ y=20
 width=32
 height=32
 layer=content_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 382:5
 [com_5]
@@ -58,7 +58,7 @@ y=51
 width=32
 height=205
 layer=content_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 382:6
@@ -69,7 +69,7 @@ y=245
 width=341
 height=32
 layer=content_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 382:7
@@ -80,7 +80,7 @@ y=233
 width=32
 height=32
 layer=content_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 382:8
 [com_8]
@@ -90,7 +90,7 @@ y=20
 width=32
 height=32
 layer=content_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 382:9
 [com_9]
@@ -100,7 +100,7 @@ y=233
 width=32
 height=32
 layer=content_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 382:10
 [com_10]
@@ -110,7 +110,7 @@ y=35
 width=358
 height=32
 layer=content_layer
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 opbase= 
 
@@ -122,7 +122,7 @@ y=37
 width=32
 height=32
 layer=content_layer
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 382:12
 [com_12]
@@ -132,7 +132,7 @@ y=37
 width=32
 height=32
 layer=content_layer
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 382:13
 [close_button]
@@ -142,7 +142,7 @@ y=30
 width=16
 height=16
 layer=content_layer
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -211,7 +211,7 @@ y=200
 width=90
 height=56
 layer=content_layer
-graphic=graphic_833
+graphic="wild_ditch_sign_button,0"
 transmitop=1
 op1=Ok
 onmouseover=graphic_swapper(event_com, 834)
@@ -225,7 +225,7 @@ y=200
 width=90
 height=56
 layer=content_layer
-graphic=graphic_833
+graphic="wild_ditch_sign_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 834)
@@ -240,7 +240,7 @@ y=28
 width=19
 height=19
 layer=content_layer
-graphic=graphic_940
+graphic="warning_icons,0"
 
 // 382:21
 [com_21]
@@ -250,7 +250,7 @@ y=28
 width=19
 height=19
 layer=content_layer
-graphic=graphic_940
+graphic="warning_icons,0"
 
 // 382:22
 [com_22]
@@ -260,7 +260,7 @@ y=30
 width=146
 height=19
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=WARNING!
 textalignh=centre
 textshadow=yes
@@ -274,7 +274,7 @@ y=50
 width=300
 height=144
 layer=content_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=If you go any further you will enter the Wilderness. This is a very dangerous area, haunted by ghosts! The further north you go, the more dangerous it becomes.
 textalignh=centre
 textalignv=centre
@@ -289,7 +289,7 @@ y=201
 width=90
 height=55
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Enter Wilderness
 textalignh=centre
 textalignv=centre
@@ -304,7 +304,7 @@ y=200
 width=91
 height=56
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Don't go
 textalignh=centre
 textalignv=centre
@@ -329,7 +329,7 @@ y=3
 width=227
 height=15
 layer=cws_warning_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Don't ask me this again
 textalignv=centre
 textshadow=yes
@@ -343,7 +343,7 @@ y=1
 width=19
 height=19
 layer=cws_warning_layer
-graphic=graphic_941
+graphic="warning_icons,1"
 transmitop=1
 op1=Off/On
 onvartransmit=cws_graphic_swap(wilderness_warning:cws_toggle_button, 7){cws_var}
@@ -357,5 +357,5 @@ y=7
 width=310
 height=32
 layer=content_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes

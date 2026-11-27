@@ -1,7 +1,7 @@
 //! 289's Bob at 647 (areas/area_lumbridge/scripts/bob.rs2): Talk-to offers
 //! 289's three options, and asking for a quest gets 289's answer.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};

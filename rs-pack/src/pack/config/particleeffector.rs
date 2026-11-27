@@ -49,13 +49,13 @@ pub fn pack_particleeffectors(
                     }
 
                     // 6
-                    "forcetype" => parse_number(value, |v: u8| {
+                    "unknown6" => parse_number(value, |v: u8| {
                         client.p1(6);
                         client.p1(v);
                     }),
 
                     // 8
-                    "unknown8" => parse_bool(value, |v| {
+                    "forcetype" => parse_bool(value, |v| {
                         if v {
                             client.p1(8);
                         }

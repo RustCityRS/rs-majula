@@ -22,7 +22,7 @@ if (calc(clientclock % 4) = 0) {
     if_settext(interface_1163:com_40, "<$string1><br><br><$string2>");
     ~clientscript_5475("<$string1><br><br><$string2>", interface_1163:com_40, interface_1163:com_43, interface_1163:com_42);
     if_setgraphic(interface_1163:com_25, $graphic1);
-    sound_vorbis_volume(8091, 1, 0, 255);
+    sound_vorbis_volume(vorbis_8091, 1, 0, 255);
     %varclient_1678 = calc(%varclient_1678 + 1);
     if (%varclient_1678 > 48) {
         %varclient_1678 = 1;

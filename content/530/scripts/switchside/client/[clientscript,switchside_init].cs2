@@ -2,7 +2,7 @@
 [clientscript,switchside_init]
 if_setonvarctransmit(toplevel:side, "switchside_varc{if_switchside_varc}");
 if_setonvarctransmit(toplevel_fullscreen:side, "switchside_varc{if_switchside_varc}");
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setonvartransmit(toplevel_fullscreen:stones_on, "flashside_vartransmit{varplayer_1021}");
     ~clientscript_1309(1);
 } else {

@@ -6,19 +6,19 @@ if_sethide(interface_768:chat_border, false);
 if (%option_mouse = 1 & string_length(if_gettext(interface_768:com_8)) > 0) {
     if_sethide(interface_768:com_8, false);
     if_sethide(interface_768:textbox, true);
-    if_setposition(interface_768:textbox, 14, 27, 0, 0);
-    if_setsize(interface_768:textbox, 478, 110, 0, 0);
-    if_setposition(interface_768:com_8, 14, 27, 0, 0);
-    if_setsize(interface_768:com_8, 478, 110, 0, 0);
+    if_setposition(interface_768:textbox, 14, 27, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(interface_768:textbox, 478, 110, ^setsize_abs, ^setsize_abs);
+    if_setposition(interface_768:com_8, 14, 27, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(interface_768:com_8, 478, 110, ^setsize_abs, ^setsize_abs);
     if_sethide(interface_768:com_9, true);
     return;
 } else {
     if_sethide(interface_768:textbox, false);
-    if_setposition(interface_768:textbox, 62, 27, 0, 0);
-    if_setsize(interface_768:textbox, 430, 110, 0, 0);
+    if_setposition(interface_768:textbox, 62, 27, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(interface_768:textbox, 430, 110, ^setsize_abs, ^setsize_abs);
     if_sethide(interface_768:com_8, true);
-    if_setposition(interface_768:com_8, 62, 27, 0, 0);
-    if_setsize(interface_768:com_8, 430, 110, 0, 0);
+    if_setposition(interface_768:com_8, 62, 27, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(interface_768:com_8, 430, 110, ^setsize_abs, ^setsize_abs);
     if_sethide(interface_768:com_9, false);
     return;
 }

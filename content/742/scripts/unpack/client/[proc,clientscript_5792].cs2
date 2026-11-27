@@ -114,10 +114,10 @@ cc_setopcursor(1, cursor_info);
 cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, calc(($int6 - cc_getheight) / 2), ^setpos_rel_left, ^setpos_abs_top);
 if (%varplayerbit_8578 = $int2 & %varplayerbit_8594 = $int0) {
-    cc_setgraphic(9615);
+    cc_setgraphic(graphic_9615);
     ~clientscript_5779(1, $int2, interface_1219:com_13);
 } else {
-    cc_setgraphic(9618);
+    cc_setgraphic(graphic_9618);
     ~clientscript_5779(0, $int2, interface_1219:com_13);
 }
 if_setscrollpos(interface_1219:com_5, 0, 0);

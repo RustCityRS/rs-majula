@@ -369,9 +369,10 @@ discipline is how the project validates that its from-scratch decoders/encoders 
 
 **The map packer** (`rs-pack/src/pack/other/map.rs`) deserves a note as the highest-throughput text parser.
 `pack_maps` (lines 449-557) parses `.jm2` text maps with a hand-rolled byte scanner (`fast_parse_int`, `next_word`,
-manual section detection — no regex, no `split` allocation) into a flat `[TileData; 4*64*64]` plus loc/npc/obj placement
-maps, then `encode_terrain`/`encode_locs`/`encode_npcs`/`encode_objs` produce the exact client wire format (delta-coded
-ids and positions via `psmart1or2`), bzip2-compress each, CRC it, and key it by `(prefix, mapX, mapZ)`. It also loads
+manual section detection — no regex, no `split` allocation) into a flat `[TileData; 4*64*64]` plus loc placement
+maps, then `encode_tiles`/`encode_locs` produce the exact client wire format (delta-coded ids and positions via
+`psmart1or2`), bzip2-compress each, CRC it, and key it by `(prefix, mapX, mapZ)`. NPC and obj spawns are packed
+separately by `pack_spawns`/`pack_obj_spawns`, the same on every revision. It also loads
 `multiway.csv`/`free2play.csv` into the packed-zone-key `HashSet`s. The SoA tile buffer is reused across all map squares
 to avoid per-square allocation.
 

@@ -21,7 +21,7 @@ use anyhow::{Context, Result, bail, ensure};
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::reference::FileInfo;
+use rs_io::js5::index::FileInfo;
 use std::collections::HashMap;
 use std::fs;
 #[cfg(before_530)]
@@ -149,7 +149,7 @@ struct SpriteFrame {
     left_padding: u16,
     top_padding: u16,
     has_alpha: bool,
-    row_major: bool,
+    column_major: bool,
     indices: Vec<u8>,
     alphas: Option<Vec<u8>>,
 }
@@ -187,7 +187,7 @@ pub fn encode_sprite_sheet(path: &Path) -> Result<Vec<u8>> {
                     top_padding: v[1].parse()?,
                     width: v[2].parse()?,
                     height: v[3].parse()?,
-                    row_major: v[4] == "columns",
+                    column_major: v[4] == "columns",
                     has_alpha: v[5] == "alpha",
                     indices: Vec::new(),
                     alphas: None,
@@ -277,7 +277,7 @@ fn encode_sprite_group_binary(group: &SpriteGroup) -> Vec<u8> {
         let h = sprite.height as usize;
         let pixel_count = w * h;
         let mut flags: u8 = 0;
-        if sprite.row_major {
+        if sprite.column_major {
             flags |= 0x01;
         }
         if sprite.has_alpha {
@@ -288,7 +288,7 @@ fn encode_sprite_group_binary(group: &SpriteGroup) -> Vec<u8> {
         if sprite.has_alpha {
             let opaque_fallback = vec![0xFFu8; pixel_count];
             let alpha = sprite.alphas.as_deref().unwrap_or(&opaque_fallback);
-            if !sprite.row_major {
+            if !sprite.column_major {
                 pixel_data.extend_from_slice(&sprite.indices[..pixel_count]);
                 pixel_data.extend_from_slice(&alpha[..pixel_count]);
             } else {
@@ -303,7 +303,7 @@ fn encode_sprite_group_binary(group: &SpriteGroup) -> Vec<u8> {
                     }
                 }
             }
-        } else if !sprite.row_major {
+        } else if !sprite.column_major {
             pixel_data.extend_from_slice(&sprite.indices[..pixel_count]);
         } else {
             for x in 0..w {

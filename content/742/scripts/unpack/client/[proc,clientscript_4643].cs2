@@ -22,7 +22,7 @@ switch_int ($int0) {
             return(0);
         }
     case 3 :
-        if (stat_base(thieving) >= 45 & stat_base(attack) >= 60 & stat_base(dungeoneering) >= 55) {
+        if (stat_base(thieving) >= 45 & stat_base(attack) >= 60 & stat_base(rand) >= 55) {
             return(1);
         } else {
             return(0);

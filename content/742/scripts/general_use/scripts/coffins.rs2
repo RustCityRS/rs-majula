@@ -12,14 +12,14 @@ mes("You close the coffin.");
 // Temp note: dur does not need updated ? @indio
 loc_change(coffin, 500);
 
-// 2011's coffin on 289's (general_use/configs/coffins.loc) opens and closes as
-// 289's does.
-[oploc1,di2_coffin]
+// 742's Taverley Dungeon coffin (coffin_74824 open, coffin_74825 shut on
+// 2011's di2_coffin spots) opens and closes as 289's does.
+[oploc1,coffin_74824]
 mes("The coffin creaks open...");
 sound_synth(coffin_open, 1, 0);
-loc_change(di2_coffin_open, 500);
+loc_change(coffin_74825, 500);
 
-[oploc1,di2_coffin_open]
+[oploc1,coffin_74825]
 mes("You close the coffin.");
 // sound_synth(coffin_close, 1, 0); -- no 2011 id is known for 289's coffin_close sound
-loc_change(di2_coffin, 500);
+loc_change(coffin_74824, 500);

@@ -708,7 +708,7 @@ fn pack_batch(
             packed.p1(132);
             packed.p1(u8::try_from(props.len()).expect("Too many obj quests"));
             for (_, value) in props {
-                parse_number(value, |v| packed.p2(v));
+                parse_ref(&registry.quest, "quest", value, |v| packed.p2(v));
             }
         }
         249 => parse_params(registry, param_types, packed, props, name),

@@ -1,11 +1,11 @@
 // 4720
 [proc,clientscript_4720](component $component0)
 if ($component0 = interface_622:com_23) {
-    if_setgraphic(interface_622:com_24, 6356);
-    if_setgraphic(interface_622:com_25, 6355);
-    if_setgraphic(interface_622:com_26, 6357);
+    if_setgraphic(interface_622:com_24, graphic_6356);
+    if_setgraphic(interface_622:com_25, graphic_6355);
+    if_setgraphic(interface_622:com_26, graphic_6357);
 } else {
-    if_setgraphic(interface_622:com_29, 6371);
-    if_setgraphic(interface_622:com_30, 6370);
-    if_setgraphic(interface_622:com_31, 6372);
+    if_setgraphic(interface_622:com_29, graphic_6371);
+    if_setgraphic(interface_622:com_30, graphic_6370);
+    if_setgraphic(interface_622:com_31, graphic_6372);
 }

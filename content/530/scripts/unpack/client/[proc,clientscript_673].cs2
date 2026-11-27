@@ -12,9 +12,9 @@ if ($int7 = 1) {
 } else {
     $string0 = "Sell";
 }
-cc_create($component10, 3, 0);
-cc_setsize($int11, $int12, 0, 0);
-cc_setposition(0, 0, 0, 0);
+cc_create($component10, ^iftype_rectangle, 0);
+cc_setsize($int11, $int12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
 cc_setcolour(^white);
 cc_settrans(255);
@@ -41,10 +41,10 @@ if ($int7 = 1) {
         if ($int0 = $int9) {
             if_sethide($component16, false);
         } else {
-            cc_create($component10, 5, $int13);
-            cc_setgraphic(1155);
-            cc_setsize(16, 14, 0, 0);
-            cc_setposition(5, 29, 0, 0);
+            cc_create($component10, ^iftype_graphic, $int13);
+            cc_setgraphic("grand_exchange_misc_graphics,5");
+            cc_setsize(16, 14, ^setsize_abs, ^setsize_abs);
+            cc_setposition(5, 29, ^setpos_abs_left, ^setpos_abs_top);
             $int13 = calc($int13 + 1);
         }
     }
@@ -53,33 +53,33 @@ if ($int7 = 1) {
     $int15 = calc($int12 - 30);
     ~clientscript_674($int14, $int15, calc($int11 - 14), 15, $int0, $component10, $int13, 1, $int7, $int8, $int2, $int3);
     $int13 = if_getnextsubid($component10);
-    cc_create($component10, 5, $int13);
+    cc_create($component10, ^iftype_graphic, $int13);
     $int13 = calc($int13 + 1);
-    cc_setposition(6, 30, 0, 0);
-    cc_setsize(40, 36, 0, 0);
-    cc_setgraphic(1137);
-    cc_create($component10, 5, $int13);
-    cc_setposition(8, 32, 0, 0);
-    cc_setsize(36, 32, 0, 0);
+    cc_setposition(6, 30, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("bank_slot,0");
+    cc_create($component10, ^iftype_graphic, $int13);
+    cc_setposition(8, 32, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     cc_setobject($obj5, $int2);
     cc_setgraphicshadow(^black);
     $int13 = calc($int13 + 1);
-    cc_create($component10, 4, $int13);
+    cc_create($component10, ^iftype_text, $int13);
     $int13 = calc($int13 + 1);
-    cc_setposition(48, 30, 0, 0);
-    cc_setsize(calc($int11 - 53), 22, 0, 0);
+    cc_setposition(48, 30, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int11 - 53), 22, ^setsize_abs, ^setsize_abs);
     cc_setcolour(0xcc9900);
-    cc_settextfont(494);
-    cc_settextalign(0, 0, 0);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
     cc_settextshadow(true);
     cc_settext(oc_name($obj5));
-    cc_create($component10, 4, $int13);
+    cc_create($component10, ^iftype_text, $int13);
     $int13 = calc($int13 + 1);
-    cc_setposition(48, 54, 0, 0);
-    cc_setsize(calc($int11 - 53), 15, 0, 0);
+    cc_setposition(48, 54, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int11 - 53), 15, ^setsize_abs, ^setsize_abs);
     cc_setcolour(0xbdbb5b);
-    cc_settextfont(494);
-    cc_settextalign(0, 0, 15);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 15);
     cc_settextshadow(true);
     cc_settext("<$string2> gp");
 }

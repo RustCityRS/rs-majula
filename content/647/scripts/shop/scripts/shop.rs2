@@ -84,7 +84,7 @@ if_openmain_side(shop_template, shop_template_side);
 %shops_stock_config38 = ~shop_stockbase(38);
 %shops_stock_config39 = ~shop_stockbase(39);
 if_setevents(shop_template:main, 0, calc(inv_size(%shop) * ^shop_slot_components - 1), ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-runclientscript("interface_inv_init_big(shop_template_side:inventory_layer, inv, 4, 7, 0, -1, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init_big(shop_template_side:inventory_layer, inv, 4, 7, 0, null, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
 if_setevents(shop_template_side:inventory_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^no_op), 0, 0, ^false, ^false);
 
 [proc,shop_stockbase](int $slot)(int)

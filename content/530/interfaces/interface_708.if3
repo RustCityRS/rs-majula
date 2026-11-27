@@ -26,7 +26,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 708:3
@@ -37,7 +37,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 708:4
@@ -48,7 +48,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 708:5
@@ -59,7 +59,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 708:6
@@ -71,7 +71,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 708:7
@@ -83,7 +83,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 708:8
@@ -95,7 +95,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 708:9
@@ -107,7 +107,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 708:10
@@ -182,7 +182,7 @@ y=133
 width=175
 height=14
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=Question:
 colour=0x1e1e2d
 
@@ -194,7 +194,7 @@ y=38
 width=300
 height=65
 layer=content_layer
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Player Safety Test
 colour=0x232330
 
@@ -206,7 +206,7 @@ y=9
 width=26
 height=23
 layer=content_layer
-graphic=graphic_538
+graphic="close_buttons,3"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 537)
@@ -221,7 +221,7 @@ y=148
 width=388
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=How long should you play RuneScape for at any one time?
 colour=0x242330
 
@@ -233,7 +233,7 @@ y=211
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=As long as I like. I'm having fun and don't want to stop
 colour=0x191930
 
@@ -245,7 +245,7 @@ y=248
 width=363
 height=32
 layer=content_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=I should take regular breaks in order to stay healthy
 colour=0x191930
 
@@ -369,7 +369,7 @@ y=79
 width=449
 height=230
 layer=answer_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 708:32
@@ -380,7 +380,7 @@ y=111
 width=25
 height=173
 layer=answer_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 708:33
@@ -391,7 +391,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 708:34
 [com_34]
@@ -401,7 +401,7 @@ y=79
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 708:35
@@ -412,7 +412,7 @@ y=66
 width=391
 height=32
 layer=answer_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 708:36
@@ -423,7 +423,7 @@ y=111
 width=32
 height=173
 layer=answer_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 708:37
@@ -434,7 +434,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 708:38
@@ -445,7 +445,7 @@ y=284
 width=32
 height=32
 layer=answer_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 708:39
@@ -456,7 +456,7 @@ y=296
 width=387
 height=25
 layer=answer_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 708:40
@@ -477,7 +477,7 @@ y=-4
 width=32
 height=32
 layer=com_40
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Correct!
 textshadow=yes
 colour=0xccbe8e
@@ -490,7 +490,7 @@ y=27
 width=388
 height=105
 layer=com_40
-textfont=fontmetrics_497
+textfont=q8_full
 text=It's very important to remain healthy by taking regular breaks and spending time doing other activities. 
 textshadow=yes
 colour=0xa49279
@@ -513,7 +513,7 @@ y=-4
 width=32
 height=32
 layer=com_43
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Incorrect!
 textshadow=yes
 colour=0xccbe8e
@@ -526,7 +526,7 @@ y=27
 width=390
 height=105
 layer=com_43
-textfont=fontmetrics_495
+textfont=p12_full
 text=Spending too much time on the computer can be harmful to your health. It's very important to take breaks, exercise and eat properly in order to stay healthy. While it's great to play RuneScape, it's also important to maintain a balanced lifestyle by socialising and spending time away from your computer. For more information, please look at our Responsible Gaming Policy on the RuneScape Knowledge Base.
 textshadow=yes
 colour=0xa49279
@@ -568,7 +568,7 @@ type=text
 width=97
 height=42
 layer=com_46
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Next
 textalignh=centre
 textalignv=centre
@@ -646,7 +646,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -660,7 +660,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -673,7 +673,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -687,6 +687,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

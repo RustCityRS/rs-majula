@@ -33,6 +33,7 @@ pub struct LocType {
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub category: Option<TypeId>,
     pub forceapproach: ForceApproach,
+    pub breakroutefinding: bool,
     pub multivar: Option<MultiVar>,
     pub multiloc: Option<Box<[TypeId]>>,
     pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
@@ -51,7 +52,7 @@ struct Look {
     retex: Box<[u16]>,
 }
 
-/// What a 647 LocMerge copies from a loc type or checks on the loc it merges.
+/// What a 647 LocCustomise copies from a loc type or checks on the loc it merges.
 /// The client only merges a loc it builds `animated`, looks every merge's
 /// shape up in the model list when it has `shapes`, and picks one of
 /// `two_model_sets` by a detail option the server never sees.
@@ -157,7 +158,11 @@ impl From<LocTypeRaw> for LocType {
             op,
             category: raw.category,
             forceapproach: raw.forceapproach,
-            multivar: MultiVar::new(raw.transform_varbit, raw.transform_varp),
+            #[cfg(since_245_2)]
+            breakroutefinding: raw.breakroutefinding,
+            #[cfg(before_245_2)]
+            breakroutefinding: false,
+            multivar: MultiVar::new(raw.transform_varpbit, raw.transform_varp),
             multiloc: raw.multiloc,
             params: raw.params,
             debugname: raw.debugname,
@@ -220,19 +225,19 @@ pub struct LocTypeRaw {
     pub breakroutefinding: bool,
     #[cfg(since_254)]
     pub raiseobject: Option<u8>,
-    pub transform_varbit: TypeId,
+    pub transform_varpbit: TypeId,
     pub transform_varp: TypeId,
     pub multiloc: Option<Box<[TypeId]>>,
     #[cfg(since_530)]
-    pub ambient_sfx_id: Option<TypeId>,
+    pub background_sound: Option<TypeId>,
     #[cfg(since_530)]
-    pub ambient_sfx_range: u8,
+    pub background_sound_range: u8,
     #[cfg(since_530)]
-    pub sfx_random_pri: i32,
+    pub random_sound_min: i32,
     #[cfg(since_530)]
-    pub sfx_random_sec: i32,
+    pub random_sound_max: i32,
     #[cfg(since_530)]
-    pub sfx_random_ids: Option<Box<[TypeId]>>,
+    pub random_sounds: Option<Box<[TypeId]>>,
     #[cfg(since_530)]
     pub hillskew_param: Option<i32>,
     #[cfg(since_530)]
@@ -240,7 +245,7 @@ pub struct LocTypeRaw {
     #[cfg(since_530)]
     pub minimap_visible: bool,
     #[cfg(since_530)]
-    pub blocks_npcs: bool,
+    pub use_random_anim_frame: bool,
     #[cfg(since_530)]
     pub unknown_90: bool,
     #[cfg(since_530)]
@@ -255,12 +260,12 @@ pub struct LocTypeRaw {
     pub cursor_op1: Option<(u8, TypeId)>,
     #[cfg(all(since_530, before_742))]
     pub cursor_op2: Option<(u8, TypeId)>,
-    #[cfg(all(since_530, before_647))]
-    pub unknown_101: Option<u8>,
+    #[cfg(since_530)]
+    pub msi_rotate_offset: Option<u8>,
     #[cfg(since_530)]
     pub msi_id: Option<TypeId>,
     #[cfg(since_647)]
-    pub interaction_side_flags: u8,
+    pub background_sound_volume: u8,
     #[cfg(since_647)]
     pub msimirror: bool,
     #[cfg(since_647)]
@@ -282,7 +287,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub postoffsetz: i16,
     #[cfg(since_647)]
-    pub op167: i32,
+    pub raise_object_ground_decor: i32,
     #[cfg(since_647)]
     pub bgsound_vorbis: bool,
     #[cfg(since_647)]
@@ -292,11 +297,11 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub op171: i32,
     #[cfg(since_647)]
-    pub op173: (u16, u16),
+    pub background_sound_rate: (u16, u16),
     #[cfg(since_647)]
     pub unknown_177: bool,
     #[cfg(since_647)]
-    pub op178: u8,
+    pub background_sound_dropoff_range: u8,
     #[cfg(since_742)]
     pub antimacro: bool,
     #[cfg(since_742)]
@@ -361,19 +366,19 @@ impl CacheType for LocTypeRaw {
             breakroutefinding: false,
             #[cfg(since_254)]
             raiseobject: None,
-            transform_varbit: TypeId::NULL,
+            transform_varpbit: TypeId::NULL,
             transform_varp: TypeId::NULL,
             multiloc: None,
             #[cfg(since_530)]
-            ambient_sfx_id: None,
+            background_sound: None,
             #[cfg(since_530)]
-            ambient_sfx_range: 0,
+            background_sound_range: 0,
             #[cfg(since_530)]
-            sfx_random_pri: 0,
+            random_sound_min: 0,
             #[cfg(since_530)]
-            sfx_random_sec: 0,
+            random_sound_max: 0,
             #[cfg(since_530)]
-            sfx_random_ids: None,
+            random_sounds: None,
             #[cfg(since_530)]
             hillskew_param: None,
             #[cfg(since_530)]
@@ -381,7 +386,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_530)]
             minimap_visible: true,
             #[cfg(since_530)]
-            blocks_npcs: true,
+            use_random_anim_frame: true,
             #[cfg(since_530)]
             unknown_90: false,
             #[cfg(since_530)]
@@ -396,12 +401,12 @@ impl CacheType for LocTypeRaw {
             cursor_op1: None,
             #[cfg(all(since_530, before_742))]
             cursor_op2: None,
-            #[cfg(all(since_530, before_647))]
-            unknown_101: None,
+            #[cfg(since_530)]
+            msi_rotate_offset: None,
             #[cfg(since_530)]
             msi_id: None,
             #[cfg(since_647)]
-            interaction_side_flags: 255,
+            background_sound_volume: 255,
             #[cfg(since_647)]
             msimirror: false,
             #[cfg(since_647)]
@@ -423,7 +428,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             postoffsetz: 0,
             #[cfg(since_647)]
-            op167: 0,
+            raise_object_ground_decor: 0,
             #[cfg(since_647)]
             bgsound_vorbis: false,
             #[cfg(since_647)]
@@ -433,11 +438,11 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             op171: 0,
             #[cfg(since_647)]
-            op173: (256, 256),
+            background_sound_rate: (256, 256),
             #[cfg(since_647)]
             unknown_177: false,
             #[cfg(since_647)]
-            op178: 0,
+            background_sound_dropoff_range: 0,
             #[cfg(since_742)]
             antimacro: false,
             #[cfg(since_742)]
@@ -532,15 +537,15 @@ impl CacheType for LocTypeRaw {
             77 => self.decode_multiloc(buf, false),
             #[cfg(since_530)]
             78 => {
-                self.ambient_sfx_id = Some(read_id(buf));
-                self.ambient_sfx_range = buf.g1();
+                self.background_sound = Some(read_id(buf));
+                self.background_sound_range = buf.g1();
             }
             #[cfg(since_530)]
             79 => {
-                self.sfx_random_pri = buf.g2() as i32;
-                self.sfx_random_sec = buf.g2() as i32;
-                self.ambient_sfx_range = buf.g1();
-                self.sfx_random_ids = Some(read_array(buf, read_id));
+                self.random_sound_min = buf.g2() as i32;
+                self.random_sound_max = buf.g2() as i32;
+                self.background_sound_range = buf.g1();
+                self.random_sounds = Some(read_array(buf, read_id));
             }
             #[cfg(since_530)]
             81 => {
@@ -552,7 +557,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_530)]
             88 => self.minimap_visible = false,
             #[cfg(since_530)]
-            89 => self.blocks_npcs = false,
+            89 => self.use_random_anim_frame = false,
             #[cfg(since_530)]
             90 => self.unknown_90 = true,
             #[cfg(since_530)]
@@ -584,16 +589,14 @@ impl CacheType for LocTypeRaw {
             99 => self.cursor_op1 = Some((buf.g1(), read_id(buf))),
             #[cfg(all(since_530, before_742))]
             100 => self.cursor_op2 = Some((buf.g1(), read_id(buf))),
-            #[cfg(all(since_530, before_647))]
-            101 => self.unknown_101 = Some(buf.g1()),
-            #[cfg(since_647)]
-            101 => self.mapfunction = Some(TypeId::new(buf.g1().into())),
+            #[cfg(since_530)]
+            101 => self.msi_rotate_offset = Some(buf.g1()),
             #[cfg(since_530)]
             102 => self.msi_id = Some(read_id(buf)),
             #[cfg(since_647)]
             103 => self.occlude = false,
             #[cfg(since_647)]
-            104 => self.interaction_side_flags = buf.g1(),
+            104 => self.background_sound_volume = buf.g1(),
             #[cfg(since_647)]
             105 => self.msimirror = true,
             #[cfg(since_647)]
@@ -637,7 +640,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             166 => self.postoffsetz = buf.g2s(),
             #[cfg(since_647)]
-            167 => self.op167 = buf.g2() as i32,
+            167 => self.raise_object_ground_decor = buf.g2() as i32,
             #[cfg(since_647)]
             168 => self.bgsound_vorbis = true,
             #[cfg(since_647)]
@@ -647,11 +650,11 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             171 => self.op171 = buf.gsmart1or2(),
             #[cfg(since_647)]
-            173 => self.op173 = (buf.g2(), buf.g2()),
+            173 => self.background_sound_rate = (buf.g2(), buf.g2()),
             #[cfg(since_647)]
             177 => self.unknown_177 = true,
             #[cfg(since_647)]
-            178 => self.op178 = buf.g1(),
+            178 => self.background_sound_dropoff_range = buf.g1(),
             #[cfg(since_742)]
             189 => self.antimacro = true,
             #[cfg(since_742)]
@@ -713,7 +716,7 @@ impl LocTypeRaw {
 
     #[cfg(since_289)]
     fn decode_multiloc(&mut self, buf: &mut Packet, has_default: bool) {
-        self.transform_varbit = read_id(buf);
+        self.transform_varpbit = read_id(buf);
         if cfg!(since_530) {
             self.transform_varp = read_id(buf);
         }

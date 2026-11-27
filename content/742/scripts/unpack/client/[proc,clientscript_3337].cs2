@@ -99,9 +99,9 @@ if ($int3 > $int2) {
             cc_setsize($int12, 33, ^setsize_abs, ^setsize_abs);
             cc_settiling(true);
             if ($stat6 = null) {
-                $graphic10 = 9257;
+                $graphic10 = graphic_9257;
             } else {
-                $graphic10 = 9240;
+                $graphic10 = graphic_9240;
             }
             cc_setontimer("clientscript_4226(event_comsubid, $graphic10, calc(clientclock + $int9 * $int1))");
             op1025;
@@ -111,9 +111,9 @@ if ($int3 > $int2) {
             cc_setposition(calc($int11 - 50), 24, ^setpos_abs_left, ^setpos_abs_bottom);
             cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
             if ($stat6 = null) {
-                $graphic10 = 9256;
+                $graphic10 = graphic_9256;
             } else {
-                $graphic10 = 9239;
+                $graphic10 = graphic_9239;
             }
             cc_setontimer("clientscript_4226(event_comsubid, $graphic10, calc(clientclock + $int9 * $int1))");
             op1025;
@@ -121,9 +121,9 @@ if ($int3 > $int2) {
             cc_setposition(calc($int11 + $int12), 24, ^setpos_abs_left, ^setpos_abs_bottom);
             cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
             if ($stat6 = null) {
-                $graphic10 = 9258;
+                $graphic10 = graphic_9258;
             } else {
-                $graphic10 = 9241;
+                $graphic10 = graphic_9241;
             }
             cc_setontimer("clientscript_4226(event_comsubid, $graphic10, calc(clientclock + $int9 * $int1))");
             op1025;

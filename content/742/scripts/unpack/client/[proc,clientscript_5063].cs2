@@ -3,25 +3,25 @@
 def_int $int3 = calc($obj1 * 12);
 if ($int2 = 1) {
     if (cc_find($component0, calc($int3 + 5)) = true) {
-        cc_setgraphic(7552);
+        cc_setgraphic(graphic_7552);
     }
     if (cc_find($component0, calc($int3 + 6)) = true) {
-        cc_setgraphic(7551);
+        cc_setgraphic(graphic_7551);
     }
     if (cc_find($component0, calc($int3 + 7)) = true) {
-        cc_setgraphic(7553);
+        cc_setgraphic(graphic_7553);
     }
 } else {
     if (cc_find($component0, calc($int3 + 5)) = true) {
-        cc_setgraphic(7549);
+        cc_setgraphic(graphic_7549);
     }
     if (cc_find($component0, calc($int3 + 6)) = true) {
-        cc_setgraphic(7548);
+        cc_setgraphic(graphic_7548);
     }
     if (cc_find($component0, calc($int3 + 7)) = true) {
-        cc_setgraphic(7550);
+        cc_setgraphic(graphic_7550);
     }
 }
 if (cc_find($component0, calc($int3 + 10)) = true) {
-    cc_setgraphic(7409);
+    cc_setgraphic(graphic_7409);
 }

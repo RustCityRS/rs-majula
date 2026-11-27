@@ -26,7 +26,9 @@ transmit=yes
 scope=perm
 
 // 6
-[varplayer_6]
+[macro_event_uid]
+protect=no
+type=npc_uid
 
 // 7
 [varplayer_7]
@@ -729,6 +731,7 @@ scope=perm
 [option_run]
 transmit=yes
 protect=no
+scope=perm
 
 // 174
 [marketthief]
@@ -869,9 +872,7 @@ scope=perm
 protect=no
 
 // 205
-[macro_event_uid]
-protect=no
-type=npc_uid
+[varplayer_205]
 
 // 206
 [macro_whirlpool_counter]
@@ -1738,6 +1739,7 @@ transmit=yes
 // 425
 [goblin_caves]
 transmit=yes
+scope=perm
 
 // 426
 [varplayer_426]
@@ -7137,6 +7139,7 @@ transmit=yes
 
 // 2041
 [varplayer_2041]
+transmit=yes
 
 // 2042
 [varplayer_2042]
@@ -8907,7 +8910,8 @@ transmit=yes
 [varplayer_2609]
 
 // 2610
-[varplayer_2610]
+[email_validation]
+transmit=yes
 
 // 2611
 [varplayer_2611]

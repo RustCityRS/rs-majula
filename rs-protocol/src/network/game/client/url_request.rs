@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
@@ -8,6 +12,7 @@ use rs_ver::STRING_TERMINATOR;
 
 #[cfg_attr(before_742, client_prot(VarByte { min: 3 }, UserEvent))]
 #[cfg_attr(since_742, client_prot(VarShort { min: 4 }, UserEvent))]
+#[derive(Debug)]
 pub struct UrlRequest {
     pub url: String,
     pub text: String,
@@ -32,5 +37,18 @@ impl ClientProtMessage for UrlRequest {
             extra: buf.gjstr(STRING_TERMINATOR),
             mode: buf.g1(),
         }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtEncode for UrlRequest {
+    const PROT: ClientProt = ClientProt::UrlRequest;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.pjstr(&self.url, STRING_TERMINATOR);
+        buf.pjstr(&self.text, STRING_TERMINATOR);
+        #[cfg(since_742)]
+        buf.pjstr(&self.extra, STRING_TERMINATOR);
+        buf.p1(self.mode);
     }
 }

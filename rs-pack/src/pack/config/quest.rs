@@ -39,10 +39,7 @@ fn write_var_requirements(
     for row in rows {
         let mut parts = row.splitn(4, ',');
         let var = parts.next().expect("Missing quest requirement var");
-        match var.parse::<i32>() {
-            Ok(id) => client.p4(id),
-            Err(_) => parse_ref(pack, kind, var, |v| client.p4(v as i32)),
-        }
+        parse_ref(pack, kind, var, |v| client.p4(v as i32));
         for _ in 0..2 {
             let bound = parts.next().expect("Missing quest requirement bound");
             parse_number(bound, |v: i32| client.p4(v));
@@ -90,8 +87,8 @@ pub fn pack_quests(
                     }
 
                     // 4
-                    "masterquestvarbit" if first => {
-                        write_progress(client, &registry.varbit, "varpbit", 4, rows(props, key));
+                    "masterquestvarpbit" if first => {
+                        write_progress(client, &registry.varpbit, "varpbit", 4, rows(props, key));
                     }
 
                     // 5
@@ -198,17 +195,17 @@ pub fn pack_quests(
                     }
 
                     // 19
-                    "varbitreq" if first => {
+                    "varpbitreq" if first => {
                         let rows = rows(props, key);
-                        write_var_requirements(client, &registry.varbit, "varpbit", 19, rows);
+                        write_var_requirements(client, &registry.varpbit, "varpbit", 19, rows);
                     }
 
                     // 249
                     "param" if first => parse_params(registry, param_types, client, props, name),
 
                     // later rows of a repeated key
-                    "masterquestvarp" | "masterquestvarbit" | "questreq" | "statreq"
-                    | "varpreq" | "varbitreq" | "param" => {}
+                    "masterquestvarp" | "masterquestvarpbit" | "questreq" | "statreq"
+                    | "varpreq" | "varpbitreq" | "param" => {}
 
                     // not found
                     _ => panic!("Unrecognized quest config key: {key}"),

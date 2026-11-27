@@ -4,17 +4,17 @@ def_graphic $graphic0 = null;
 def_graphic $graphic1 = null;
 switch_int (map_lang) {
     case default :
-        $graphic0 = 7790;
-        $graphic1 = 7791;
+        $graphic0 = graphic_7790;
+        $graphic1 = graphic_7791;
     case 1 :
-        $graphic0 = 7794;
-        $graphic1 = 7795;
+        $graphic0 = graphic_7794;
+        $graphic1 = graphic_7795;
     case 2 :
-        $graphic0 = 7792;
-        $graphic1 = 7793;
+        $graphic0 = graphic_7792;
+        $graphic1 = graphic_7793;
     case 3 :
-        $graphic0 = 7796;
-        $graphic1 = 7797;
+        $graphic0 = graphic_7796;
+        $graphic1 = graphic_7797;
 }
 switch_int (%varclient_1659) {
     case default :

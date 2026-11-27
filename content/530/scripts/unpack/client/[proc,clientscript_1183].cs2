@@ -13,7 +13,7 @@ if (~clientscript_1431 = 1 & %loginscreen_pvp_warned = 0) {
     if_sethide(loginscreen:com_132, false);
     if_sethide(loginscreen:com_131, true);
     if_sethide(loginscreen:com_242, false);
-    sound_jingle(349, 0);
+    sound_jingle(jingle_349, 0);
     if_sethide(loginscreen:com_241, true);
     return;
 }

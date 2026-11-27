@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -9,6 +13,7 @@ use rs_ver::TypeId;
 #[cfg_attr(before_647, client_prot(Fixed(6), UserEvent))]
 #[cfg_attr(all(since_647, before_742), client_prot(Fixed(7), UserEvent))]
 #[cfg_attr(since_742, client_prot(Fixed(9), UserEvent))]
+#[derive(Debug)]
 pub struct OpLoc1 {
     pub x: u16,
     pub z: u16,
@@ -38,6 +43,17 @@ impl ClientProtMessage for OpLoc1 {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for OpLoc1 {
+    const PROT: ClientProt = ClientProt::OpLoc1;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.x);
+        buf.p2_alt2(self.loc.g2());
+        buf.p2(self.z);
+    }
+}
+
 #[cfg(all(since_647, before_742))]
 impl ClientProtMessage for OpLoc1 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
@@ -49,13 +65,37 @@ impl ClientProtMessage for OpLoc1 {
     }
 }
 
+#[cfg(all(since_647, before_742))]
+impl ClientProtEncode for OpLoc1 {
+    const PROT: ClientProt = ClientProt::OpLoc1;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.z);
+        buf.p2_alt1(self.loc.g2());
+        buf.p1(self.ctrl as u8);
+        buf.p2_alt2(self.x);
+    }
+}
+
 #[cfg(since_742)]
 impl ClientProtMessage for OpLoc1 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let x = buf.g2();
         let z = buf.g2_alt1();
-        let loc = TypeId::from_int(buf.g4s_alt3());
+        let loc = TypeId::from_int(buf.g4_alt3());
         let ctrl = buf.g1_alt3() != 0;
         OpLoc1 { loc, x, z, ctrl }
+    }
+}
+
+#[cfg(since_742)]
+impl ClientProtEncode for OpLoc1 {
+    const PROT: ClientProt = ClientProt::OpLoc1;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.x);
+        buf.p2_alt1(self.z);
+        buf.p4_alt3(self.loc.int());
+        buf.p1_alt3(self.ctrl as u8);
     }
 }

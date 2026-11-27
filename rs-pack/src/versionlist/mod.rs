@@ -1,6 +1,6 @@
 use crate::archive;
 use rs_io::jag::JagFile;
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::collections::HashMap;
 use std::path::Path;
 use std::{fs, io};
@@ -93,7 +93,7 @@ pub struct VersionListMeta {
 }
 
 impl VersionListMeta {
-    pub fn extract(jag: &JagFile, cache: &mut Js5Store) -> Self {
+    pub fn extract(jag: &JagFile, cache: &mut Js5LocalCache) -> Self {
         let file_count = (0..).take_while(|&i| jag.get(i).is_some()).count();
         let order = (0..file_count)
             .filter_map(|i| name_for_hash(jag.file_hash(i)).map(String::from))

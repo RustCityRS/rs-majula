@@ -15,27 +15,27 @@ def_graphic $graphic4 = null;
 def_graphic $graphic5 = null;
 switch_int (struct_param($struct0, param_2558)) {
     case 1 :
-        $graphic3 = 11645;
+        $graphic3 = graphic_11645;
     case 2 :
-        $graphic3 = 11648;
+        $graphic3 = graphic_11648;
     case 3 :
-        $graphic3 = 11651;
+        $graphic3 = graphic_11651;
 }
 switch_int (struct_param($struct1, param_2558)) {
     case 1 :
-        $graphic4 = 11645;
+        $graphic4 = graphic_11645;
     case 2 :
-        $graphic4 = 11648;
+        $graphic4 = graphic_11648;
     case 3 :
-        $graphic4 = 11651;
+        $graphic4 = graphic_11651;
 }
 switch_int (struct_param($struct2, param_2558)) {
     case 1 :
-        $graphic5 = 11645;
+        $graphic5 = graphic_11645;
     case 2 :
-        $graphic5 = 11648;
+        $graphic5 = graphic_11648;
     case 3 :
-        $graphic5 = 11651;
+        $graphic5 = graphic_11651;
 }
 if ($graphic3 ! null) {
     if_sethide(interface_1302:com_24, false);

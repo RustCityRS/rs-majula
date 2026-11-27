@@ -19,7 +19,7 @@ if (%if_side_modal2_stone = 0) {
 %if_side_modal2_stone = %varplayerbit_4538;
 ~clientscript_940(%varplayerbit_4538, 0);
 if (%varplayerbit_4538 = calc(91 - 1)) {
-    sound_jingle(110, 6656);
+    sound_jingle(jingle_110, 6656);
     if_settext(interface_727:text_1, "<\"Souchong\"><\" wins!\">");
     if_settext(interface_727:text_2, "Opponent has no pieces left.");
     return;

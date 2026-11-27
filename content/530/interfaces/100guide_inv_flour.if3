@@ -4,7 +4,7 @@ type=graphic
 width=512
 height=334
 layer=content_layer
-graphic=graphic_444
+graphic=tex_brown
 tiling=yes
 
 // 2:1
@@ -259,7 +259,7 @@ y=107
 width=255
 height=126
 layer=content_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 2:21
@@ -270,7 +270,7 @@ y=100
 width=32
 height=32
 layer=content_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 2:22
 [com_22]
@@ -280,7 +280,7 @@ y=87
 width=205
 height=32
 layer=content_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 2:23
@@ -291,7 +291,7 @@ y=100
 width=32
 height=32
 layer=content_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 2:24
 [com_24]
@@ -301,7 +301,7 @@ y=132
 width=32
 height=76
 layer=content_layer
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 2:25
@@ -312,7 +312,7 @@ y=208
 width=32
 height=32
 layer=content_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 2:26
 [com_26]
@@ -322,7 +322,7 @@ y=132
 width=34
 height=76
 layer=content_layer
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 2:27
@@ -333,7 +333,7 @@ y=208
 width=32
 height=32
 layer=content_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 2:28
 [com_28]
@@ -343,7 +343,7 @@ y=220
 width=205
 height=32
 layer=content_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 opbase= 
 
@@ -355,7 +355,7 @@ y=6
 width=26
 height=23
 layer=content_layer
-graphic=graphic_541
+graphic="close_buttons,6"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 542)
@@ -407,7 +407,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 2:35
@@ -418,7 +418,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 2:36
@@ -429,7 +429,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 2:37
@@ -440,7 +440,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 2:38
@@ -452,7 +452,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 2:39
@@ -464,7 +464,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 2:40
@@ -476,7 +476,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 2:41
@@ -488,7 +488,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 2:42
@@ -551,7 +551,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -565,7 +565,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -578,7 +578,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -592,6 +592,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

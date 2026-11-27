@@ -129,7 +129,7 @@ impl ClientGameHandler for MoveOpClick {
 ///
 /// **Called by:** `MoveGameClick::handle`, `MoveMinimapClick::handle`, `MoveOpClick::handle`
 /// **Calls:** `ActivePlayer::clear_pending_action`, `ActivePlayer::process_walktrigger`,
-/// `rsmod::find_path` (server-side)
+/// `rsmod::find_route` (server-side)
 fn handle(
     path: Vec<u32>,
     ctrl: bool,
@@ -187,7 +187,7 @@ fn handle(
             })
             .collect();
         active.player.pathing.queue_waypoints(&path);
-        active.process_walktrigger();
+        ActivePlayer::process_walktrigger(active);
     } else {
         let (dest_x, dest_z) = unpack_coord(path[path.len() - 1]);
         active.request_path(PathRequest {
@@ -205,8 +205,9 @@ fn handle(
             block_access_flags: 0,
             max_waypoints: 25,
             collision: CollisionType::Normal,
+            route_blockers: true,
         });
-        active.process_walktrigger();
+        ActivePlayer::process_walktrigger(active);
     }
 
     Ok(())

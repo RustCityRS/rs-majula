@@ -11,13 +11,17 @@
 #![cfg(since_647)]
 
 use rs_test::runner;
+#[cfg(before_742)]
 use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
-use std::collections::{BTreeSet, HashMap};
+#[cfg(before_742)]
+use std::collections::BTreeSet;
+use std::collections::HashMap;
 use std::fs;
 
 /// The npc triggers a 289 base answers by its own name or category.
 #[rustfmt::skip]
+#[cfg(before_742)]
 const TRIGGERS: &[(ServerTriggerType, &str)] = {
     use ServerTriggerType::*;
     &[
@@ -37,6 +41,7 @@ const TRIGGERS: &[(ServerTriggerType, &str)] = {
 /// Clones left on 647's default for a trigger their base answers, and why
 /// (the sources are in the scripts' comments).
 #[rustfmt::skip]
+#[cfg(before_742)]
 const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     // 289's rat drops no bones; the 2011 wiki's Crypt rat always drops bones.
     ("barrows_rat", "ai_queue3", "289's rat table does not fit"),
@@ -85,11 +90,12 @@ const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     ("luc2_spy2", "opnpc3", "no Pickpocket op"),
 ];
 
-/// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
+/// A pack registry (the rev's `pack/<kind>.pack`): name to id.
 fn pack(kind: &str) -> HashMap<String, i32> {
     let path = format!(
-        "{}/../../content/647/pack/{kind}.pack",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/pack/{kind}.pack",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(&path)
         .expect(&path)
@@ -103,10 +109,12 @@ fn pack(kind: &str) -> HashMap<String, i32> {
 /// that comment names. The clones' sections were `npc_clones_2011.npc` until
 /// 9217853428 folded every authored npc section into `_unpack/all.npc`, where
 /// the comment follows the cache's lines.
+#[cfg(before_742)]
 fn clones() -> Vec<(String, String)> {
     let path = format!(
-        "{}/../../content/647/scripts/_unpack/all.npc",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/scripts/_unpack/all.npc",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     let text = fs::read_to_string(&path).expect(&path);
     let mut out = Vec::new();
@@ -128,6 +136,7 @@ fn clones() -> Vec<(String, String)> {
 
 /// Every (clone, trigger) where the base runs a script of its own (or its
 /// category's) and the clone runs 647's default.
+#[cfg(before_742)]
 #[test]
 fn every_2011_clone_answers_its_289_base_s_triggers() {
     runner::on_loaded_engine(|engine| {

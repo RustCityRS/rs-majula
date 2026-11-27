@@ -11,16 +11,16 @@ pub fn emit_light_props(
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if opcode == 1 {
-        p.push((1, "function".into(), def.function.to_string()));
+        p.push((1, "function".into(), def.wave_type.to_string()));
     }
     if opcode == 2 {
-        p.push((2, "frequency".into(), def.speed.to_string()));
+        p.push((2, "frequency".into(), def.frequency.to_string()));
     }
     if opcode == 3 {
         p.push((3, "amplitude".into(), def.amplitude.to_string()));
     }
     if opcode == 4 {
-        p.push((4, "offset".into(), def.base.to_string()));
+        p.push((4, "offset".into(), def.offset.to_string()));
     }
     p.into_iter()
         .filter(|(code, _, _)| *code == opcode)

@@ -4,73 +4,73 @@ def_graphic $graphic2 = null;
 def_string $string0 = "";
 switch_int ($int0) {
     case 1 :
-        $graphic2 = 8178;
+        $graphic2 = graphic_8178;
         $string0 = "Reduced melee attack";
     case 2 :
-        $graphic2 = 8184;
+        $graphic2 = graphic_8184;
         $string0 = "No shield";
     case 3 :
-        $graphic2 = 8185;
+        $graphic2 = graphic_8185;
         $string0 = "No food";
     case 4 :
-        $graphic2 = 8181;
+        $graphic2 = graphic_8181;
         $string0 = "Reduced melee defence";
     case 5 :
-        $graphic2 = 8187;
+        $graphic2 = graphic_8187;
         $string0 = "Random freeze";
     case 6 :
-        $graphic2 = 8188;
+        $graphic2 = graphic_8188;
         $string0 = "Halved HP";
     case 7 :
-        $graphic2 = 8186;
+        $graphic2 = graphic_8186;
         $string0 = "No body armour";
     case 8 :
-        $graphic2 = 8179;
+        $graphic2 = graphic_8179;
         $string0 = "Reduced ranged attack";
     case 9 :
-        $graphic2 = 8191;
+        $graphic2 = graphic_8191;
         $string0 = "No familiar";
     case 10 :
-        $graphic2 = 8199;
+        $graphic2 = graphic_8199;
         $string0 = "Monster stun";
     case 11 :
-        $graphic2 = 8193;
+        $graphic2 = graphic_8193;
         $string0 = "No prayers";
     case 12 :
-        $graphic2 = 8190;
+        $graphic2 = graphic_8190;
         $string0 = "Slippery fingers";
     case 13 :
-        $graphic2 = 8180;
+        $graphic2 = graphic_8180;
         $string0 = "Reduced magic attack";
     case 14 :
-        $graphic2 = 8192;
+        $graphic2 = graphic_8192;
         $string0 = "Diseased";
     case 15 :
-        $graphic2 = 8195;
+        $graphic2 = graphic_8195;
         $string0 = "No special attacks";
     case 16 :
-        $graphic2 = 8183;
+        $graphic2 = graphic_8183;
         $string0 = "Reduced magic defence";
     case 17 :
-        $graphic2 = 8196;
+        $graphic2 = graphic_8196;
         $string0 = "Random daze";
     case 18 :
-        $graphic2 = 8189;
+        $graphic2 = graphic_8189;
         $string0 = "Poisoned";
     case 19 :
-        $graphic2 = 8182;
+        $graphic2 = graphic_8182;
         $string0 = "Reduced ranged defence";
     case 20 :
-        $graphic2 = 8197;
+        $graphic2 = graphic_8197;
         $string0 = "No powerups";
     case 21 :
-        $graphic2 = 8194;
+        $graphic2 = graphic_8194;
         $string0 = "No potions";
     case 22 :
-        $graphic2 = 8198;
+        $graphic2 = graphic_8198;
         $string0 = "Life saver";
     case default :
-        $graphic2 = 8178;
+        $graphic2 = graphic_8178;
 }
 cc_create(interface_1159:com_31, ^iftype_graphic, $int1);
 cc_setgraphic($graphic2);

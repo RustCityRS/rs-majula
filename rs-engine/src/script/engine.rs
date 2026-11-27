@@ -1,4 +1,5 @@
 use crate::active_npc::ActiveNpc;
+use crate::active_player::ActivePlayer;
 #[cfg(since_647)]
 use crate::clients::client_db::DbRequest;
 use crate::core::{Engine, ObjDelayedRequest};
@@ -33,8 +34,6 @@ use rs_pack::cache::script::Script;
 use rs_pack::cache::seq::SeqTypeProvider;
 use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
-#[cfg(since_254)]
-use rs_pack::cache::varbit::VarbitTypeProvider;
 #[cfg(since_530)]
 use rs_pack::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
@@ -43,15 +42,17 @@ use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_530)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
+#[cfg(since_254)]
+use rs_pack::cache::varpbit::VarpBitTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 #[cfg(since_647)]
-use rs_protocol::network::game::server::loc_merge::LocMerge;
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
 #[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 #[cfg(all(since_530, before_647))]
-use rs_protocol::network::game::server::map_projanim_halfsq::ServerProt530_104;
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsqSrc;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
 #[cfg(since_647)]
@@ -68,7 +69,7 @@ use rs_vm::RegionUid;
 use rs_vm::ScriptError;
 #[cfg(since_530)]
 use rs_vm::engine::ProjAnimHalfsq;
-use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer};
+use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc};
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -81,6 +82,8 @@ use std::sync::Arc;
 use tracing::warn;
 
 impl ScriptEngine for Engine {
+    type Player = ActivePlayer;
+
     /// Returns the current game clock tick.
     ///
     /// # Call Stack
@@ -129,8 +132,8 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_254)]
-    fn varbits(&self) -> &VarbitTypeProvider {
-        &self.cache.varbits
+    fn varpbits(&self) -> &VarpBitTypeProvider {
+        &self.cache.varpbits
     }
 
     #[cfg(since_530)]
@@ -144,7 +147,7 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn varconbits(&self) -> &VarbitTypeProvider {
+    fn varconbits(&self) -> &VarpBitTypeProvider {
         &self.cache.varconbits
     }
 
@@ -349,11 +352,11 @@ impl ScriptEngine for Engine {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    fn get_player(&self, pid: u16) -> Option<&impl ScriptPlayer> {
+    fn get_player(&self, pid: u16) -> Option<&ActivePlayer> {
         self.player_list.get(pid)
     }
 
-    fn get_player_mut(&mut self, pid: u16) -> Option<&mut impl ScriptPlayer> {
+    fn get_player_mut(&mut self, pid: u16) -> Option<&mut ActivePlayer> {
         self.player_list.get_mut(pid)
     }
 
@@ -792,9 +795,19 @@ impl ScriptEngine for Engine {
         angle: LocAngle,
         duration: u64,
     ) -> rs_vm::Result<LocRef> {
-        let (width, length, blockwalk, blockrange) = self.placeable_loc_type(coord, id, angle)?;
+        let (width, length, blockwalk, blockrange, breakroutefinding) =
+            self.placeable_loc_type(coord, id, angle)?;
         let loc = self.add_or_change_loc(
-            coord, id, shape, angle, width, length, blockwalk, blockrange, duration,
+            coord,
+            id,
+            shape,
+            angle,
+            width,
+            length,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            duration,
         );
         Ok(loc_ref(coord, &loc))
     }
@@ -812,10 +825,19 @@ impl ScriptEngine for Engine {
         duration: u64,
     ) -> rs_vm::Result<Option<LocRef>> {
         let live = self.live_loc(loc);
-        let (width, length, blockwalk, blockrange) =
+        let (width, length, blockwalk, blockrange, breakroutefinding) =
             self.placeable_loc_type(loc.coord, id, live.angle)?;
         let changed = self.change_loc(
-            loc.coord, loc.layer, loc.serial, id, width, length, blockwalk, blockrange, duration,
+            loc.coord,
+            loc.layer,
+            loc.serial,
+            id,
+            width,
+            length,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            duration,
         );
         Ok(changed.map(|changed| loc_ref(loc.coord, &changed)))
     }
@@ -965,16 +987,16 @@ impl ScriptEngine for Engine {
         self.track_zone(x, y, z);
     }
 
-    /// Merges a look into the loc `loc` names, if it is still shown. The
-    /// client looks the lists' lengths up by the loc's type and the shape its
-    /// models are filed under.
+    /// Customises the loc `loc` names, if it is still shown. The client looks
+    /// the lists' lengths up by the loc's type and the shape its models are
+    /// filed under.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `Zone::loc_index`, `Zone::merge_loc`, `Engine::track_zone`
+    /// **Calls:** `Zone::loc_index`, `Zone::customise_loc`, `Engine::track_zone`
     #[cfg(since_647)]
-    fn loc_merge(
+    fn loc_customise(
         &mut self,
         loc: LocRef,
         models: Option<Box<[TypeId]>>,
@@ -990,7 +1012,7 @@ impl ScriptEngine for Engine {
         if !live.visible() {
             return;
         }
-        let merge = LocMerge {
+        let customise = LocCustomise {
             coord: live.packed_zone_coord(),
             id: live.id(),
             shape_angle: (live.shape().model_shape() as u8) << 2 | live.angle() as u8,
@@ -998,7 +1020,7 @@ impl ScriptEngine for Engine {
             recol,
             retex,
         };
-        zone.merge_loc(idx, merge);
+        zone.customise_loc(idx, customise);
         self.track_zone(x, y, z);
     }
 
@@ -1168,7 +1190,7 @@ impl ScriptEngine for Engine {
         let coord = ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8;
         #[cfg(all(since_530, before_647))]
         let message = match projectile.wearpos {
-            Some(wearpos) => ZoneMessage::ServerProt530_104(ServerProt530_104 {
+            Some(wearpos) => ZoneMessage::MapProjAnimHalfsqSrc(MapProjAnimHalfsqSrc {
                 coord,
                 dx: projectile.dx,
                 dz: projectile.dz,

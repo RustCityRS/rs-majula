@@ -59,39 +59,39 @@ while ($int2 < 9) {
         switch_int ($int2) {
             case 0 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8515);
+                    cc_setgraphic(graphic_8515);
                 }
             case 1 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8514);
+                    cc_setgraphic(graphic_8514);
                 }
             case 2 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8516);
+                    cc_setgraphic(graphic_8516);
                 }
             case 3 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8512);
+                    cc_setgraphic(graphic_8512);
                 }
             case 4 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8518);
+                    cc_setgraphic(graphic_8518);
                 }
             case 5 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8513);
+                    cc_setgraphic(graphic_8513);
                 }
             case 6 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8511);
+                    cc_setgraphic(graphic_8511);
                 }
             case 7 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8517);
+                    cc_setgraphic(graphic_8517);
                 }
             case 8 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8519);
+                    cc_setgraphic(graphic_8519);
                 }
         }
         $int2 = calc($int2 + 1);
@@ -99,39 +99,39 @@ while ($int2 < 9) {
         switch_int ($int2) {
             case 0 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8524);
+                    cc_setgraphic(graphic_8524);
                 }
             case 1 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8523);
+                    cc_setgraphic(graphic_8523);
                 }
             case 2 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8525);
+                    cc_setgraphic(graphic_8525);
                 }
             case 3 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8521);
+                    cc_setgraphic(graphic_8521);
                 }
             case 4 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8527);
+                    cc_setgraphic(graphic_8527);
                 }
             case 5 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8522);
+                    cc_setgraphic(graphic_8522);
                 }
             case 6 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8520);
+                    cc_setgraphic(graphic_8520);
                 }
             case 7 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8526);
+                    cc_setgraphic(graphic_8526);
                 }
             case 8 :
                 if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
-                    cc_setgraphic(8528);
+                    cc_setgraphic(graphic_8528);
                 }
         }
         $int2 = calc($int2 + 1);

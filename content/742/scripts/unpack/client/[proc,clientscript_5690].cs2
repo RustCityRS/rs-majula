@@ -83,9 +83,9 @@ if ($int8 > $int7) {
         if ($int10 > $int7 & $int10 <= $int8) {
             cc_create(interface_1218:com_30, ^iftype_graphic, if_getnextsubid(interface_1218:com_30));
             if (struct_param($struct9, param_2217) = true) {
-                cc_setgraphic(9310);
+                cc_setgraphic(graphic_9310);
             } else {
-                cc_setgraphic(9308);
+                cc_setgraphic(graphic_9308);
             }
             cc_setsize(540, 40, ^setsize_abs, ^setsize_abs);
             cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
@@ -118,9 +118,9 @@ while ($int6 < $int5) {
     cc_create(interface_1218:com_30, ^iftype_graphic, $int6);
     $struct9 = enum(int, struct, $enum4, $int6);
     if (struct_param($struct9, param_2217) = true) {
-        cc_setgraphic(9310);
+        cc_setgraphic(graphic_9310);
     } else {
-        cc_setgraphic(9308);
+        cc_setgraphic(graphic_9308);
     }
     cc_setsize(540, 40, ^setsize_abs, ^setsize_abs);
     cc_setposition(5, 5, ^setpos_abs_left, ^setpos_abs_top);

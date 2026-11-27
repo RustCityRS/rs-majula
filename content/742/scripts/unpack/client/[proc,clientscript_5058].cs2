@@ -2,22 +2,22 @@
 [proc,clientscript_5058](component $component0, int $int1)
 if ($int1 = 1) {
     if (cc_find($component0, 0) = true) {
-        cc_setgraphic(7565);
+        cc_setgraphic(graphic_7565);
     }
     if (cc_find($component0, 1) = true) {
-        cc_setgraphic(7564);
+        cc_setgraphic(graphic_7564);
     }
     if (cc_find($component0, 2) = true) {
-        cc_setgraphic(7566);
+        cc_setgraphic(graphic_7566);
     }
 } else {
     if (cc_find($component0, 0) = true) {
-        cc_setgraphic(7562);
+        cc_setgraphic(graphic_7562);
     }
     if (cc_find($component0, 1) = true) {
-        cc_setgraphic(7561);
+        cc_setgraphic(graphic_7561);
     }
     if (cc_find($component0, 2) = true) {
-        cc_setgraphic(7563);
+        cc_setgraphic(graphic_7563);
     }
 }

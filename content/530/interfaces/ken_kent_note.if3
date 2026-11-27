@@ -18,7 +18,7 @@ x=73
 y=75
 width=248
 height=32
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Dear friend,
 colour=0x362407
 
@@ -29,7 +29,7 @@ x=90
 y=135
 width=339
 height=115
-textfont=fontmetrics_497
+textfont=q8_full
 text=Come and meet me at the entrance to the Legends' Guild as soon as possible. There are things I would like to discuss with you, but it is difficult to talk in Witchaven...
 colour=0x362407
 
@@ -40,7 +40,7 @@ x=103
 y=246
 width=340
 height=31
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=~Kent
 textalignh=right
 colour=0x362407
@@ -52,7 +52,7 @@ x=421
 y=52
 width=26
 height=23
-graphic=graphic_537
+graphic="close_buttons,2"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 538)
@@ -67,7 +67,7 @@ y=4
 width=26
 height=23
 layer=scroll_close
-graphic=graphic_538
+graphic="close_buttons,3"
 
 // 712:6
 [scroll_close]

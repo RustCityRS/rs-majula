@@ -20,41 +20,46 @@
 //! approaches for the component's `[apcoordt]`. A component that can't aim at
 //! tiles, an item, or a tile the client could not have shown is refused.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::InteractionTarget;
+#[cfg(since_647)]
 use rs_grid::CoordGrid;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::calls_for;
 use rs_vm::trigger::ServerTriggerType;
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
-
 /// Open ground west of Falador, a tile from the tree the woodcutting tests
 /// chop (`tree_1276` at 2552,3450).
 const TILE: (u16, u16) = (2551, 3450);
+/// The tree beside `TILE`: 742's is its own, a tile south.
+#[cfg(before_742)]
+const TREE: (i32, u16, u16) = (1276, 2552, 3450);
+#[cfg(since_742)]
+const TREE: (i32, u16, u16) = (38785, 2551, 3449);
 
 /// Lumbridge, east of the castle: open ground `~area_allow_loc_add` accepts,
 /// so a fire may be lit there.
 const FIRE_TILE: (u16, u16) = (3221, 3219);
 
 /// The `object_id` the client sends for a source holding no item.
+#[cfg(since_647)]
 const NO_OBJ: i32 = 0xFFFF;
 
 /// `xmas10_snowball:throw_operation`, the 2010 snowball's thrower, which
 /// aims at a player or a tile (`targetmask=player,coord`).
-const SNOWBALL: i32 = (1061 << 16) | 8;
+#[cfg(since_647)]
+fn snowball() -> i32 {
+    com("xmas10_snowball:throw_operation")
+}
 
 /// Lumbridge's spawn, with open ground east of it (see `pathfinding.rs`).
+#[cfg(since_647)]
 const SPAWN: (u16, u16) = (3222, 3218);
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
@@ -108,21 +113,16 @@ fn a_targeted_op_takes_its_source_from_the_packet() {
     });
 }
 
-/// A player op, its packet, and how the client writes ctrl and the pid.
-type PlayerOp = (u8, ClientProt, fn(&mut ClientPacket, i32));
-
 /// Each OPPLAYER6-10, written as `Statics1.do_action` does, approaches the
 /// other player for that op's `[applayerN]`.
 #[test]
 fn player_ops_6_to_10_approach_the_player() {
     runner::on_loaded_engine(|engine| {
-        let sends: [PlayerOp; 5] = [
-            (6, ClientProt::OpPlayer6, |p, id| _ = p.p1(0).p2_alt2(id)),
-            (7, ClientProt::OpPlayer7, |p, id| _ = p.p1_alt2(0).p2(id)),
-            (8, ClientProt::OpPlayer8, |p, id| _ = p.p1(0).p2_alt1(id)),
-            (9, ClientProt::OpPlayer9, |p, id| _ = p.p2(id).p1_alt1(0)),
-            (10, ClientProt::OpPlayer10, |p, id| _ = p.p1_alt2(0).p2(id)),
-        ];
+        // 530's players have ops up to 8.
+        #[cfg(before_647)]
+        let ops = [6, 7, 8];
+        #[cfg(since_647)]
+        let ops = [6, 7, 8, 9, 10];
         let (x, z) = TILE;
         let mut client = player_at(engine, "op_player_n", x, z);
         let other = engine
@@ -130,10 +130,8 @@ fn player_ops_6_to_10_approach_the_player() {
             .expect("second login");
         engine.harness_telejump(other.pid, x + 1, 0, z);
         engine.cycle();
-        for (op, prot, write) in sends {
-            let mut p = ClientPacket::new();
-            write(&mut p, other.pid as i32);
-            client.send(prot, &p.finish());
+        for op in ops {
+            client.op_player(op, other.pid);
             engine.harness_inputs();
             let interaction = &engine.harness_player(client.pid).unwrap().interaction;
             let Some(InteractionTarget::Player { pid }) = interaction.target else {
@@ -151,23 +149,20 @@ fn player_ops_6_to_10_approach_the_player() {
 
 /// Aims `com` at tile `x, z`, as `Statics1.do_action` writes APCOORDT for
 /// TGT_GROUND. A static component's child id, the slot, is -1.
+#[cfg(since_647)]
 fn aim(client: &mut HarnessClient, com: i32, obj: i32, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(x as i32)
-        .p2(0xFFFF)
-        .p2_alt2(obj)
-        .p2_alt2(z as i32)
-        .p4(com);
-    client.send(ClientProt::ApCoordT, &p.finish());
+    client.ap_coord_t(x, z, com, 0xFFFF, TypeId::from_int(obj));
 }
 
 /// Opens the snowball's interface, which the next tick's output mounts.
+#[cfg(since_647)]
 fn open_snowball(engine: &mut Engine, pid: u16) {
-    engine.harness_open_main(pid, (SNOWBALL >> 16) as u16);
+    engine.harness_open_main(pid, (snowball() >> 16) as u16);
     engine.cycle();
 }
 
 /// Whether the player is aiming at `tile`, for `[apcoordt]` keyed on `com`.
+#[cfg(since_647)]
 fn aiming(engine: &Engine, pid: u16, com: i32, tile: CoordGrid) -> bool {
     let player = engine.harness_player(pid).unwrap();
     matches!(player.interaction.target, Some(InteractionTarget::Coord { coord }) if coord == tile)
@@ -178,6 +173,7 @@ fn aiming(engine: &Engine, pid: u16, com: i32, tile: CoordGrid) -> bool {
 
 /// A ground target approaches its tile. With no `[apcoordt]` for the
 /// snowball, the player walks onto it and nothing interesting happens.
+#[cfg(since_647)]
 #[test]
 fn a_ground_target_approaches_its_tile() {
     runner::on_loaded_engine(|engine| {
@@ -185,10 +181,10 @@ fn a_ground_target_approaches_its_tile() {
         let tile = CoordGrid::new(x + 3, 0, z);
         let mut client = player_at(engine, "ap_coord_t", x, z);
         open_snowball(engine, client.pid);
-        aim(&mut client, SNOWBALL, NO_OBJ, tile.x(), tile.z());
+        aim(&mut client, snowball(), NO_OBJ, tile.x(), tile.z());
         engine.harness_inputs();
         assert!(
-            aiming(engine, client.pid, SNOWBALL, tile),
+            aiming(engine, client.pid, snowball(), tile),
             "aims at the tile"
         );
 
@@ -213,19 +209,26 @@ fn a_ground_target_approaches_its_tile() {
 /// closed or not aiming at tiles, one holding an obj, a tile off the scene
 /// (or past the map, which a packed coord would wrap onto another), a
 /// delayed player, and a tile no zone is in, beside a region.
+#[cfg(since_647)]
 #[test]
 fn a_ground_target_is_refused_where_the_client_could_not_aim() {
     runner::on_loaded_engine(|engine| {
         let tinderbox = obj(engine, "tinderbox").int();
         // modern:wind_strike aims at npcs and players, not tiles.
-        let spell = (192 << 16) | 25;
+        let spell = com("magic:sb0");
         let (x, z) = SPAWN;
         let refused = [
-            ("its interface is closed", false, SNOWBALL, NO_OBJ, x + 3),
+            ("its interface is closed", false, snowball(), NO_OBJ, x + 3),
             ("wind strike aims at no tile", true, spell, NO_OBJ, x + 3),
-            ("an item aims at no tile", true, SNOWBALL, tinderbox, x + 3),
-            ("off the scene", true, SNOWBALL, NO_OBJ, x + 100),
-            ("past the map", true, SNOWBALL, NO_OBJ, x + 0x4000),
+            (
+                "an item aims at no tile",
+                true,
+                snowball(),
+                tinderbox,
+                x + 3,
+            ),
+            ("off the scene", true, snowball(), NO_OBJ, x + 100),
+            ("past the map", true, snowball(), NO_OBJ, x + 0x4000),
         ];
         for (case, open, com, obj, tx) in refused {
             let mut client = player_at(engine, "ap_coord_t_refused", x, z);
@@ -242,7 +245,7 @@ fn a_ground_target_is_refused_where_the_client_could_not_aim() {
         let mut client = player_at(engine, "ap_coord_t_delayed", x, z);
         open_snowball(engine, client.pid);
         engine.harness_player_mut(client.pid).unwrap().state.delayed = true;
-        aim(&mut client, SNOWBALL, NO_OBJ, x + 3, z);
+        aim(&mut client, snowball(), NO_OBJ, x + 3, z);
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.interaction.target_op, None, "a delayed player");
@@ -264,15 +267,15 @@ fn a_ground_target_is_refused_where_the_client_could_not_aim() {
         engine.cycle();
         open_snowball(engine, client.pid);
         let void = CoordGrid::new(inside.x() + 6, 0, inside.z());
-        aim(&mut client, SNOWBALL, NO_OBJ, void.x(), void.z());
+        aim(&mut client, snowball(), NO_OBJ, void.x(), void.z());
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.interaction.target_op, None, "a tile in no zone");
         let own = CoordGrid::new(inside.x() + 1, 0, inside.z());
-        aim(&mut client, SNOWBALL, NO_OBJ, own.x(), own.z());
+        aim(&mut client, snowball(), NO_OBJ, own.x(), own.z());
         engine.harness_inputs();
         assert!(
-            aiming(engine, client.pid, SNOWBALL, own),
+            aiming(engine, client.pid, snowball(), own),
             "its own region's tile"
         );
     });
@@ -288,15 +291,7 @@ fn item_on_ground_obj(engine: &mut Engine) {
     hold(engine, client.pid, 0, tinderbox.g2());
     engine.harness_add_obj(x, 0, z, logs, 1);
 
-    let mut p = ClientPacket::new();
-    p.p2_alt1(tinderbox.int())
-        .p2_alt1(logs.int())
-        .p2(0)
-        .p4_alt2(BACKPACK)
-        .p1_alt1(0)
-        .p2_alt2(z as i32)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpObjT, &p.finish());
+    client.op_obj_t(x, z, logs, BACKPACK, 0, tinderbox);
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -332,15 +327,14 @@ fn item_on_loc(engine: &mut Engine) {
     let mut client = player_at(engine, "op_t_loc", TILE.0, TILE.1);
     hold(engine, client.pid, 3, tinderbox.g2());
 
-    let mut p = ClientPacket::new();
-    p.p2_alt2(tinderbox.int())
-        .p2_alt2(3)
-        .p2(3450)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(2552)
-        .p1_alt1(0)
-        .p2_alt1(1276);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        TREE.1,
+        TREE.2,
+        TypeId::from_int(TREE.0),
+        BACKPACK,
+        3,
+        tinderbox,
+    );
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -353,7 +347,7 @@ fn item_on_loc(engine: &mut Engine) {
     assert!(
         matches!(
             player.interaction.target,
-            Some(InteractionTarget::Loc { id, .. }) if id == TypeId::new(1276)
+            Some(InteractionTarget::Loc { id, .. }) if id == TypeId::from_int(TREE.0)
         ),
         "targets the tree"
     );
@@ -385,14 +379,8 @@ fn spell_on_npc(engine: &mut Engine) {
     );
 
     // modern:wind_strike, the standard spellbook's first combat spell.
-    let wind_strike = (192 << 16) | 25;
-    let mut p = ClientPacket::new();
-    p.p2_alt2(NO_OBJ)
-        .p2_alt2(NO_OBJ)
-        .p2_alt1(nid as i32)
-        .p4_alt3(wind_strike)
-        .p1_alt2(0);
-    client.send(ClientProt::OpNpcT, &p.finish());
+    let wind_strike = com("magic:sb0");
+    client.op_npc_t(nid, wind_strike, 0xFFFF, TypeId::NULL);
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -431,13 +419,7 @@ fn item_on_player(engine: &mut Engine) {
         "the other player is in view"
     );
 
-    let mut p = ClientPacket::new();
-    p.p2_alt2(other.pid as i32)
-        .p2_alt1(0)
-        .p4(BACKPACK)
-        .p1_alt3(0)
-        .p2_alt1(tinderbox.int());
-    client.send(ClientProt::OpPlayerT, &p.finish());
+    client.op_player_t(other.pid, BACKPACK, 0, tinderbox);
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -461,15 +443,7 @@ fn forged_item_is_dropped(engine: &mut Engine) {
     let mut client = player_at(engine, "op_t_forged", TILE.0, TILE.1);
     hold(engine, client.pid, 0, tinderbox.g2());
 
-    let mut p = ClientPacket::new();
-    p.p2_alt2(logs.int())
-        .p2_alt2(0)
-        .p2(3450)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(2552)
-        .p1_alt1(0)
-        .p2_alt1(1276);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(TREE.1, TREE.2, TypeId::from_int(TREE.0), BACKPACK, 0, logs);
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -480,22 +454,14 @@ fn forged_item_is_dropped(engine: &mut Engine) {
 /// A spell cannot claim an inventory item or target an unsupported entity.
 fn a_forged_spell_source_is_dropped(engine: &mut Engine) {
     let tinderbox = obj(engine, "tinderbox");
-    let wind_strike = (192 << 16) | 25;
-    let on_tree = |source: i32, obj: i32| {
-        let mut p = ClientPacket::new();
-        p.p2_alt2(obj)
-            .p2_alt2(0)
-            .p2(3450)
-            .p4_alt2(source)
-            .p2_alt2(2552)
-            .p1_alt1(0)
-            .p2_alt1(1276);
-        p.finish()
+    let wind_strike = com("magic:sb0");
+    let on_tree = |client: &mut HarnessClient, source: i32, obj: TypeId| {
+        client.op_loc_t(TREE.1, TREE.2, TypeId::from_int(TREE.0), source, 0, obj);
     };
 
     let mut client = player_at(engine, "op_t_stray_obj", TILE.0, TILE.1);
     hold(engine, client.pid, 0, tinderbox.g2());
-    client.send(ClientProt::OpLocT, &on_tree(wind_strike, tinderbox.int()));
+    on_tree(&mut client, wind_strike, tinderbox);
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(
@@ -506,7 +472,7 @@ fn a_forged_spell_source_is_dropped(engine: &mut Engine) {
 
     let mut client = player_at(engine, "op_t_no_obj", TILE.0, TILE.1);
     hold(engine, client.pid, 0, tinderbox.g2());
-    client.send(ClientProt::OpLocT, &on_tree(BACKPACK, NO_OBJ));
+    on_tree(&mut client, BACKPACK, TypeId::NULL);
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(

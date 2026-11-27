@@ -57,7 +57,7 @@ while (loc_findnext = true) {
 def_coord $opposite = ~movecoord_loc_return(~door_close(loc_angle, loc_shape));
 
 if ($sound ! null) {
-    sound_synth($sound, 0, 0);
+    sound_synth($sound, 1, 0);
 }
 
 loc_del($duration);
@@ -71,7 +71,7 @@ if (loc_find($opposite, $opposite_loc) = true) {
 def_coord $opposite = ~movecoord_loc_return(~multiply2(~door_close(loc_angle, loc_shape), -1));
 
 if ($sound ! null) {
-    sound_synth($sound, 0, 0);
+    sound_synth($sound, 1, 0);
 }
 
 loc_del($duration);
@@ -85,7 +85,7 @@ if (loc_find($opposite, $opposite_loc) = true) {
 def_coord $opposite = ~movecoord_loc_return(~multiply2(~door_open(loc_angle, loc_shape), -1));
 
 if ($sound ! null) {
-    sound_synth($sound, 0, 0);
+    sound_synth($sound, 1, 0);
 }
 
 loc_del($duration);
@@ -99,7 +99,7 @@ if (loc_find($opposite, $opposite_loc) = true) {
 def_coord $opposite = ~movecoord_loc_return(~multiply2(~door_open(loc_angle, loc_shape), -1));
 
 if ($sound ! null) {
-    sound_synth($sound, 0, 0);
+    sound_synth($sound, 1, 0);
 }
 
 loc_del($duration);

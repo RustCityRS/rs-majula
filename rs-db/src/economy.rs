@@ -2,13 +2,6 @@ use crate::logs::transfer;
 use crate::{Db, Error};
 use std::collections::{HashMap, HashSet, VecDeque};
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// How long a dropped item can lie before a pickup of it is still matched
 /// to the drop: longer than any drop stays on the floor.
 const DROP_MATCH_MINS: i32 = 10;

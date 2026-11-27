@@ -1,11 +1,11 @@
 // 2959
 [proc,clientscript_2959]
 def_graphic $graphic0 = "topstat_icon,3";
-if (getwindowmode >= 2) {
-    $graphic0 = 8656;
+if (getwindowmode >= ^windowmode_resizable) {
+    $graphic0 = graphic_8656;
     if_setsize(topstat_lore:topstat_lore, 67, 34, ^setsize_abs, ^setsize_abs);
     if_setposition(topstat_lore:com_6, 2, 2, ^setpos_abs_right, ^setpos_abs_top);
-    if_setgraphic(topstat_lore:topstat_background_lore, 8625);
+    if_setgraphic(topstat_lore:topstat_background_lore, graphic_8625);
     if_setposition(topstat_lore:topstat_text_lore, 3, 15, ^setpos_abs_left, ^setpos_abs_top);
     if_setsize(topstat_lore:topstat_text_lore, 34, 14, ^setsize_abs, ^setsize_abs);
 } else {

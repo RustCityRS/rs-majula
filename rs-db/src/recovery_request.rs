@@ -1,14 +1,7 @@
 use crate::recovery::RESET_LOCKED;
-use crate::{Db, Error};
+use crate::{Db, Error, RECOVERY_LOCK, xact_lock};
 use sqlx::PgConnection;
 use std::net::IpAddr;
-
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
 
 /// The most requests one address may send in a day.
 pub const RECOVERIES_PER_ADDRESS: i64 = 3;
@@ -94,9 +87,6 @@ pub struct RecoveryRecord {
     pub key_hash: String,
     pub reset_until_ms: Option<i64>,
 }
-
-/// The class of the advisory locks taken per address on filing.
-const RECOVERY_LOCK: i32 = 0x5245_4356;
 
 /// The account a request for `name_hash` from `ip` and `uids` is for, or
 /// why it can't be filed. `lock` holds the account's row to the end of
@@ -193,11 +183,7 @@ impl Db {
     pub async fn file_recovery(&self, request: &NewRecovery<'_>) -> Result<RecoveryFiled, Error> {
         let mut tx = self.pool.begin().await?;
         // One at a time from an address, so its count holds.
-        sqlx::query("SELECT pg_advisory_xact_lock($1, hashtext($2))")
-            .bind(RECOVERY_LOCK)
-            .bind(request.ip.to_string())
-            .execute(&mut *tx)
-            .await?;
+        xact_lock(&mut tx, RECOVERY_LOCK, &request.ip.to_string()).await?;
         let player_id =
             match refusal(&mut tx, request.name_hash, request.ip, request.uids, true).await? {
                 Ok(id) => id,

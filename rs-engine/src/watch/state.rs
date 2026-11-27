@@ -52,7 +52,7 @@ fn table() -> &'static [Keep; 256] {
                 ServerProt::IfSetScrollPos as u8,
                 key(ServerProt::IfSetScrollPos as u8, 0, 2),
             );
-            #[cfg(before_245_2)]
+            #[cfg(before_244)]
             set(
                 ServerProt::IfSetRecol as u8,
                 key(ServerProt::IfSetRecol as u8, 0, 2),

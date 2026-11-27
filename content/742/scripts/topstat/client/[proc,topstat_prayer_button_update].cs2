@@ -4,13 +4,13 @@ def_int $int0 = 1245;
 def_graphic $graphic1 = "topstat_fill_full,1";
 def_graphic $graphic2 = "topstat_fill_full,5";
 def_graphic $graphic3 = "topstat_icon,1";
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $int0 = 8645;
-    $graphic1 = 8642;
-    $graphic2 = 8646;
-    $graphic3 = 8654;
-    if (if_getgraphic(topstat_prayer:topstat_background_prayer) ! 8625 & if_getgraphic(topstat_prayer:topstat_background_prayer) ! 8624) {
-        if_setgraphic(topstat_prayer:topstat_background_prayer, 8625);
+    $graphic1 = graphic_8642;
+    $graphic2 = graphic_8646;
+    $graphic3 = graphic_8654;
+    if (if_getgraphic(topstat_prayer:topstat_background_prayer) ! graphic_8625 & if_getgraphic(topstat_prayer:topstat_background_prayer) ! graphic_8624) {
+        if_setgraphic(topstat_prayer:topstat_background_prayer, graphic_8625);
     }
     if_setsize(topstat_prayer:topstat_prayer, 67, 34, ^setsize_abs, ^setsize_abs);
     if_setposition(topstat_prayer:com_5, 2, 1, ^setpos_abs_right, ^setpos_abs_top);

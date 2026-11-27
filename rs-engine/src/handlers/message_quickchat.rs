@@ -1,17 +1,24 @@
 use crate::active_player::ActivePlayer;
 use crate::core::engine;
-use crate::counters::{self, CHAT_PRIVATE, CHAT_PUBLIC, COUNTERS};
+#[cfg(before_647)]
+use crate::counters::CHAT_PRIVATE;
+use crate::counters::{self, CHAT_PUBLIC, COUNTERS};
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use crate::handlers::message_public::chat_counter;
+#[cfg(all(since_530, before_647))]
 use crate::handlers::message_public::not_in_clan_chat;
+#[cfg(since_647)]
+use crate::social::{self, CHAT_QUICK, ChatTarget, name_key};
+use rs_db::chat_channel;
 use rs_io::Packet;
 use rs_pack::ParamValue;
 use rs_pack::cache::quickchatphrase::QuickChatDynamicCommand;
 use rs_pack::types::DummyItem;
 use rs_protocol::network::game::client_prot::{MessageQuickchatPrivate, MessageQuickchatPublic};
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
+#[cfg(all(since_530, before_647))]
 use rs_protocol::network::game::server::message_quickchat_private_echo::MessageQuickchatPrivateEcho;
-#[cfg(since_647)]
-use rs_util::base37::to_userhash;
 use rs_util::bits::getbit_range;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
@@ -21,9 +28,14 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 /// (`activechatphrase_sendpublic`).
 const PUBLIC_CHAT: u8 = 0;
 
-/// The first byte for the clan chat (`activechatphrase_sendclan`). 2 and 3
-/// are for the clan channel the player is in and the one it listens to.
+/// The first byte for the friends chat (`activechatphrase_sendclan`; 530 calls
+/// it the clan chat). 647 adds 2 and 3, the clan channel the player is in and
+/// the one it visits as a guest.
 const CLAN_CHAT: u8 = 1;
+#[cfg(since_647)]
+const CLAN_CHANNEL: u8 = 2;
+#[cfg(since_647)]
+const GUEST_CLAN_CHANNEL: u8 = 3;
 
 /// The colour byte of a `MESSAGE_PUBLIC` that carries a phrase: the top bit
 /// of the colour and effect the client reads as one `g2`.
@@ -40,9 +52,9 @@ const OBJ_SEARCH_EXCLUDED: &str = "enum_1547";
 ///
 /// A phrase for public chat goes out with the player's chat as a
 /// `MESSAGE_PUBLIC` with the phrase bit set, one per tick shared with typed
-/// chat. A muted player can still use quick chat. One for the clan chat gets
-/// 2011's line for a player in none, and the client only offers a clan
-/// channel's when the server has sent it one, which it never does.
+/// chat. A muted player can still use quick chat. 530 has no clan chat to
+/// send one to. From 647 one goes to the friends chat or a clan channel the
+/// player is in; the client only offers a channel's when it shows one.
 impl ClientGameHandler for MessageQuickchatPublic {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let clock = engine().clock;
@@ -52,9 +64,22 @@ impl ClientGameHandler for MessageQuickchatPublic {
         let (values, text) = phrase(active, self.id.g2(), &self.bytes)?;
         match self.chat {
             PUBLIC_CHAT => {}
+            #[cfg(all(since_530, before_647))]
             CLAN_CHAT => {
                 not_in_clan_chat(active);
                 return Ok(());
+            }
+            #[cfg(since_647)]
+            chat @ (CLAN_CHAT | CLAN_CHANNEL | GUEST_CLAN_CHANNEL) => {
+                if let Some(target) = social::channel_target(active, chat) {
+                    return channel_phrase(active, target, self.id.g2(), values, text);
+                }
+                if chat == CLAN_CHAT {
+                    return Ok(());
+                }
+                return Err(ScriptError::Client(format!(
+                    "Quick chat for a channel the player is not in: {chat}"
+                )));
             }
             chat => {
                 return Err(ScriptError::Client(format!(
@@ -63,28 +88,57 @@ impl ClientGameHandler for MessageQuickchatPublic {
             }
         }
 
-        let mut bytes = Packet::new(2 + values.len());
-        bytes.p2(self.id.g2());
-        bytes.pdata(&values, 0, values.len());
-        active.player.info.chat_bytes = Some(bytes.data.into_boxed_slice());
+        active.player.info.chat_bytes =
+            Some(phrase_payload(self.id.g2(), &values).into_boxed_slice());
         active.player.info.chat_colour = Some(PHRASE_COLOUR);
         active.player.info.chat_effects = Some(0);
-        active.player.info.chat_ignored = Some(active.staffmodlevel().min(2));
+        active.player.info.chat_crown = Some(active.staffmodlevel().min(2));
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);
         counters::add(&COUNTERS.chat[CHAT_PUBLIC], 1);
-        active.log_chat(None, text);
+        active.log_chat(chat_channel::PUBLIC, None, text);
         Ok(())
     }
+}
+
+/// A phrase's id and then its values, as chat and ether carry it.
+fn phrase_payload(id: u16, values: &[u8]) -> Vec<u8> {
+    let mut bytes = Packet::new(2 + values.len());
+    bytes.p2(id);
+    bytes.pdata(values, 0, values.len());
+    bytes.data
+}
+
+/// A phrase for a friend, the friends chat, or a clan channel the player
+/// is in or visits.
+#[cfg(since_647)]
+fn channel_phrase(
+    active: &mut ActivePlayer,
+    target: ChatTarget,
+    id: u16,
+    values: Vec<u8>,
+    text: String,
+) -> Result<(), ScriptError> {
+    active.last_social = Some(engine().clock);
+    counters::add(&COUNTERS.chat[chat_counter(&target)], 1);
+    let message = social::say(
+        active,
+        target,
+        CHAT_QUICK,
+        phrase_payload(id, &values),
+        text,
+    );
+    engine().send_ether(message);
+    Ok(())
 }
 
 /// Handles the `MessageQuickchatPrivate` client protocol message.
 ///
 /// A phrase for a friend, one per tick shared with all chat, even from a muted
-/// player. One for a name not on the friends list is dropped. The sender gets
-/// it back as `MESSAGE_QUICKCHAT_PRIVATE_ECHO`; the ether relays no phrases
-/// yet, so it goes no further.
+/// player. On 530 one for a name not on the friends list is dropped, and the
+/// sender gets it back as `MESSAGE_QUICKCHAT_PRIVATE_ECHO` with no relay.
+#[cfg(all(since_530, before_647))]
 impl ClientGameHandler for MessageQuickchatPrivate {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let clock = engine().clock;
@@ -92,38 +146,46 @@ impl ClientGameHandler for MessageQuickchatPrivate {
             return Ok(());
         }
         let (values, text) = phrase(active, self.id.g2(), &self.bytes)?;
-        #[cfg(all(since_530, before_647))]
         let target37 = self.user37 as u64;
-        #[cfg(since_647)]
-        let target37 = to_userhash(&self.name);
         if !active.friends.contains(&(target37 as i64)) {
             return Ok(());
         }
 
-        #[cfg(all(since_530, before_647))]
         active.write(MessageQuickchatPrivateEcho {
             user37: self.user37,
             phrase: self.id,
             bytes: &values,
         });
-        #[cfg(since_647)]
-        active.write(MessageQuickchatPrivateEcho {
-            recipient: self.name,
-            phrase_id: self.id,
-            quickchat_data: values,
-        });
         active.last_social = Some(clock);
         counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
-        active.log_chat(Some(target37), text);
+        active.log_chat(chat_channel::PRIVATE, Some(target37), text);
         Ok(())
+    }
+}
+
+/// From 647 ether delivers the phrase to the friend, and the sender gets it
+/// back as `MESSAGE_QUICKCHAT_PRIVATE_ECHO` once it is delivered.
+#[cfg(since_647)]
+impl ClientGameHandler for MessageQuickchatPrivate {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let clock = engine().clock;
+        if active.last_social == Some(clock) {
+            return Ok(());
+        }
+        let (values, text) = phrase(active, self.id.g2(), &self.bytes)?;
+        let Some(name) = name_key(&self.name) else {
+            return Ok(());
+        };
+        channel_phrase(active, ChatTarget::Friend(name), self.id.g2(), values, text)
     }
 }
 
 /// The values `id`'s phrase goes out with, as its receivers read them, and the
 /// text they show, for the chat log. The sender's client picks what a list,
 /// obj or count dialog fills in, so it must be one the dialog offers. The
-/// server fills in the rest, writing over the 0 the client sends for a stat;
-/// a clan or clan chat's count is 0, with none to be in.
+/// server fills in the rest, writing over the 0 the client sends for a stat.
+/// From 647 the friends chat's member count and mean combat level are those
+/// of the channel the player is in; a clan's values are 0, with none to be in.
 fn phrase(active: &ActivePlayer, id: u16, sent: &[u8]) -> Result<(Vec<u8>, String), ScriptError> {
     let engine = engine();
     let Some(phrase) = engine.cache.chatphrases.get(TypeId::new(id)) else {
@@ -191,17 +253,21 @@ fn phrase(active: &ActivePlayer, id: u16, sent: &[u8]) -> Result<(Vec<u8>, Strin
             }
             "enum_string" => active.get_var(params[1]).as_int(),
             "tostring_varp" => active.get_var(params[0]).as_int(),
-            "tostring_varbit" => {
-                let varbit = engine
-                    .varbits()
+            "tostring_varpbit" => {
+                let varpbit = engine
+                    .varpbits()
                     .get_by_id(TypeId::new(params[0]))
-                    .ok_or(ScriptError::VarbitNotFound(params[0] as i32))?;
-                let base = active.get_var(varbit.basevar).as_int();
-                getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32)
+                    .ok_or(ScriptError::VarpBitNotFound(params[0] as i32))?;
+                let base = active.get_var(varpbit.basevar).as_int();
+                getbit_range(base, varpbit.start_bit as i32, varpbit.end_bit as i32)
             }
             "enum_string_statbase" => active.stat_base(params[1] as usize) as i32,
             "tostring_shared" => engine.get_var(params[0]).as_int(),
             "activecombatlevel" => active.player.combat_level as i32,
+            #[cfg(since_647)]
+            "acc_getcount_world" => i32::from(active.social.friendchat_count()),
+            #[cfg(since_647)]
+            "acc_getmeancombatlevel" => i32::from(active.social.friendchat_mean_combat()),
             _ => 0,
         };
         match command.decode_bytes {

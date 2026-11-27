@@ -1,8 +1,8 @@
 // 2049
 [proc,worldmap_setupgraphic](graphic $graphic0, int $int1, int $int2, int $int3, int $int4, int $int5, boolean $boolean6, boolean $boolean7, boolean $boolean8, int $int9, string $string0, string $string1, coord $coord10)
 cc_sethide(false);
-cc_setsize($int1, $int2, 0, 0);
-cc_setposition($int3, $int4, 1, 1);
+cc_setsize($int1, $int2, ^setsize_abs, ^setsize_abs);
+cc_setposition($int3, $int4, ^setpos_abs_centre, ^setpos_abs_centre);
 cc_set2dangle($int5);
 cc_settiling($boolean6);
 cc_sethflip($boolean7);

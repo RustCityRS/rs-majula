@@ -1,5 +1,6 @@
 use crate::engine::{ScriptEngine, engine};
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ScriptState;
 use crate::util::pop_dbrow;
 use crate::{ScriptError, handlers, none};
@@ -34,7 +35,7 @@ use std::mem;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::db::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 7500
         none!(m, DB_FIND_WITH_COUNT => |s| {
@@ -72,7 +73,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Dbtable {table} does not have any types!")));
             };
             let value_types = types.get(column)
-                .ok_or_else(|| ScriptError::Runtime(format!("Dbtable type {column} out of bounds!")))?;
+                .ok_or_else(|| ScriptError::Runtime("Column index out of range".to_string()))?;
             let (off, len) = if tuple >= 0 {
                 if tuple as usize >= value_types.len() {
                     return Err(ScriptError::Runtime(format!("Tuple index {tuple} out of bounds for {}!", value_types.len())));
@@ -130,12 +131,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Dbtable columns {column} is not defined!")));
             };
             let values = columns.get(column as usize)
-                .ok_or_else(|| ScriptError::Runtime(format!("Dbrow column {column} out of bounds!")))?;
+                .ok_or_else(|| ScriptError::Runtime("DBRow Column index out of range".to_string()))?;
             let Some(types) = &dbtable.types else {
                 return Err(ScriptError::Runtime(format!("Dbtable types for {table} is not defined!")));
             };
             let types = types.get(column as usize)
-                .ok_or_else(|| ScriptError::Runtime(format!("Dbtable type at column {column} out of bounds!")))?;
+                .ok_or_else(|| ScriptError::Runtime("Column index out of range".to_string()))?;
             s.push_int(values.as_ref().map_or(0, |v| (v.len() / types.len()) as i32));
         });
 

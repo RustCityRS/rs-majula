@@ -1,6 +1,6 @@
 // 1186
 [proc,script1186]
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_hassub(chattop:chatmodallarge) = true) {
         if_sethide(chattop:chat_graphic, false);
         if_setalpha(chattop:chat_graphic, true);

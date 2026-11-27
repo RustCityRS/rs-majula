@@ -15,7 +15,7 @@ x=5
 width=464
 height=24
 layer=com_88
-graphic=graphic_445
+graphic=tex_red
 tiling=yes
 
 // 14:2
@@ -25,7 +25,7 @@ x=6
 width=464
 height=26
 layer=com_90
-graphic=graphic_445
+graphic=tex_red
 tiling=yes
 
 // 14:3
@@ -35,7 +35,7 @@ x=470
 y=11
 width=26
 height=23
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 536)
@@ -49,7 +49,7 @@ x=10
 y=5
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 14:5
 [com_5]
@@ -58,7 +58,7 @@ x=470
 y=5
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 14:6
 [com_6]
@@ -67,7 +67,7 @@ x=10
 y=300
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 14:7
 [com_7]
@@ -76,7 +76,7 @@ x=470
 y=300
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 14:8
 [com_8]
@@ -85,7 +85,7 @@ x=-3
 y=36
 width=32
 height=264
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 14:9
@@ -95,7 +95,7 @@ x=482
 y=36
 width=32
 height=264
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 14:10
@@ -105,7 +105,7 @@ x=42
 y=-8
 width=428
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 14:11
@@ -115,7 +115,7 @@ x=40
 y=312
 width=430
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 14:12
@@ -125,7 +125,7 @@ x=16
 y=21
 width=478
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 14:13
@@ -135,7 +135,7 @@ x=10
 y=23
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 tiling=yes
 
 // 14:14
@@ -145,7 +145,7 @@ x=470
 y=23
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 tiling=yes
 
 // 14:15
@@ -155,7 +155,7 @@ x=313
 y=44
 width=32
 height=32
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 14:16
@@ -165,7 +165,7 @@ x=457
 y=44
 width=32
 height=32
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 14:17
@@ -175,7 +175,7 @@ x=313
 y=287
 width=32
 height=32
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 14:18
@@ -185,7 +185,7 @@ x=457
 y=287
 width=32
 height=32
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 14:19
@@ -195,7 +195,7 @@ x=343
 y=30
 width=114
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:20
@@ -205,7 +205,7 @@ x=344
 y=299
 width=114
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:21
@@ -215,7 +215,7 @@ x=299
 y=76
 width=32
 height=212
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 14:22
@@ -225,7 +225,7 @@ x=469
 y=76
 width=32
 height=211
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 14:23
@@ -235,7 +235,7 @@ x=31
 y=55
 width=32
 height=32
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 14:24
@@ -245,7 +245,7 @@ x=185
 y=55
 width=32
 height=32
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 14:25
@@ -255,7 +255,7 @@ x=185
 y=149
 width=32
 height=32
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 14:26
@@ -265,7 +265,7 @@ x=31
 y=149
 width=32
 height=32
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 14:27
@@ -275,7 +275,7 @@ x=17
 y=84
 width=32
 height=66
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 14:28
@@ -285,7 +285,7 @@ x=197
 y=87
 width=32
 height=62
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 14:29
@@ -295,7 +295,7 @@ x=62
 y=41
 width=123
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:30
@@ -305,7 +305,7 @@ x=62
 y=161
 width=123
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:31
@@ -315,7 +315,7 @@ x=31
 y=216
 width=32
 height=32
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 14:32
@@ -325,7 +325,7 @@ x=264
 y=216
 width=32
 height=32
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 14:33
@@ -335,7 +335,7 @@ x=264
 y=259
 width=32
 height=32
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 14:34
@@ -345,7 +345,7 @@ x=276
 y=238
 width=32
 height=32
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 14:35
@@ -355,7 +355,7 @@ x=17
 y=237
 width=32
 height=32
-graphic=graphic_841
+graphic="v2_stone_borders,13"
 tiling=yes
 
 // 14:36
@@ -365,7 +365,7 @@ x=60
 y=202
 width=204
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:37
@@ -375,7 +375,7 @@ x=60
 y=271
 width=204
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:38
@@ -385,7 +385,7 @@ x=31
 y=259
 width=32
 height=32
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 14:39
@@ -405,7 +405,7 @@ x=7
 y=15
 width=496
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Bank PIN Settings
 textalignh=centre
 textshadow=yes
@@ -418,7 +418,7 @@ x=321
 y=50
 width=162
 height=15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Messages
 textalignh=centre
 textshadow=yes
@@ -431,7 +431,7 @@ x=321
 y=67
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -442,7 +442,7 @@ x=321
 y=83
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -453,7 +453,7 @@ x=321
 y=99
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -464,7 +464,7 @@ x=321
 y=115
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -475,7 +475,7 @@ x=321
 y=131
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -486,7 +486,7 @@ x=321
 y=147
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -497,7 +497,7 @@ x=321
 y=163
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -508,7 +508,7 @@ x=321
 y=179
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -519,7 +519,7 @@ x=321
 y=195
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -530,7 +530,7 @@ x=321
 y=211
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -541,7 +541,7 @@ x=321
 y=227
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -552,7 +552,7 @@ x=321
 y=243
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 colour=0xffff7f
 
@@ -563,7 +563,7 @@ x=321
 y=258
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xffff7f
@@ -575,7 +575,7 @@ x=321
 y=274
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xffff7f
@@ -587,7 +587,7 @@ x=320
 y=289
 width=160
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xffff7f
@@ -599,7 +599,7 @@ x=320
 y=303
 width=161
 height=10
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xffff7f
@@ -620,7 +620,7 @@ y=-14
 width=255
 height=104
 layer=com_58
-graphic=graphic_445
+graphic=tex_red
 tiling=yes
 
 // 14:60
@@ -631,7 +631,7 @@ y=5
 width=252
 height=17
 layer=com_58
-textfont=fontmetrics_496
+textfont=b12_full
 text=Set a PIN
 textalignh=centre
 textshadow=yes
@@ -649,7 +649,7 @@ y=28
 width=252
 height=16
 layer=com_58
-textfont=fontmetrics_496
+textfont=b12_full
 text=Change your recovery delay
 textalignh=centre
 textshadow=yes
@@ -665,7 +665,7 @@ type=text
 width=252
 height=16
 layer=com_58
-textfont=fontmetrics_496
+textfont=b12_full
 text=Change your PIN
 textalignh=centre
 textshadow=yes
@@ -683,7 +683,7 @@ y=22
 width=253
 height=15
 layer=com_58
-textfont=fontmetrics_496
+textfont=b12_full
 text=Delete your PIN
 textalignh=centre
 textshadow=yes
@@ -701,7 +701,7 @@ y=41
 width=252
 height=15
 layer=com_58
-textfont=fontmetrics_496
+textfont=b12_full
 text=Change your recovery delay
 textalignh=centre
 textshadow=yes
@@ -719,7 +719,7 @@ y=20
 width=252
 height=15
 layer=com_58
-textfont=fontmetrics_496
+textfont=b12_full
 text=Cancel the PIN that's pending
 textalignh=centre
 textshadow=yes
@@ -737,7 +737,7 @@ y=-14
 width=176
 height=128
 layer=com_67
-graphic=graphic_444
+graphic=tex_brown
 tiling=yes
 
 // 14:67
@@ -756,7 +756,7 @@ y=1
 width=173
 height=17
 layer=com_67
-textfont=fontmetrics_496
+textfont=b12_full
 text=Your Bank PIN status:
 textalignh=centre
 textshadow=yes
@@ -769,7 +769,7 @@ y=15
 width=173
 height=30
 layer=com_67
-textfont=fontmetrics_496
+textfont=b12_full
 text=Unknown
 textalignh=centre
 textalignv=centre
@@ -784,7 +784,7 @@ y=44
 width=174
 height=35
 layer=com_67
-textfont=fontmetrics_496
+textfont=b12_full
 text=Recovery delay:
 textalignh=centre
 textalignv=centre
@@ -798,7 +798,7 @@ y=81
 width=173
 height=14
 layer=com_67
-textfont=fontmetrics_496
+textfont=b12_full
 text=X days
 textalignh=centre
 textshadow=yes
@@ -822,7 +822,7 @@ y=62
 width=496
 height=17
 layer=com_87
-textfont=fontmetrics_496
+textfont=b12_full
 text=Do you really wish to do that?
 textalignh=centre
 textshadow=yes
@@ -837,7 +837,7 @@ y=127
 width=32
 height=32
 layer=com_87
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 14:75
@@ -848,7 +848,7 @@ y=130
 width=32
 height=32
 layer=com_87
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 14:76
@@ -859,7 +859,7 @@ y=127
 width=32
 height=32
 layer=com_87
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 
 // 14:77
 [com_77]
@@ -869,7 +869,7 @@ y=130
 width=32
 height=32
 layer=com_87
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 
 // 14:78
 [com_78]
@@ -879,7 +879,7 @@ y=113
 width=411
 height=32
 layer=com_87
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:79
@@ -890,7 +890,7 @@ y=142
 width=412
 height=32
 layer=com_87
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:80
@@ -901,7 +901,7 @@ y=197
 width=32
 height=32
 layer=com_87
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 14:81
@@ -912,7 +912,7 @@ y=202
 width=32
 height=32
 layer=com_87
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 14:82
@@ -923,7 +923,7 @@ y=202
 width=32
 height=32
 layer=com_87
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 14:83
@@ -934,7 +934,7 @@ y=197
 width=32
 height=32
 layer=com_87
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 14:84
@@ -945,7 +945,7 @@ y=183
 width=411
 height=32
 layer=com_87
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:85
@@ -956,7 +956,7 @@ y=214
 width=411
 height=32
 layer=com_87
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 14:86
@@ -966,7 +966,7 @@ x=17
 y=181
 width=296
 height=35
-textfont=fontmetrics_496
+textfont=b12_full
 text=Use the buttons below to change your PIN settings
 textalignh=centre
 textalignv=centre
@@ -997,7 +997,7 @@ x=8
 y=134
 width=478
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Yes, I really want to do that.
 textalignh=centre
 textshadow=yes
@@ -1023,7 +1023,7 @@ x=8
 y=206
 width=478
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=No, forget I asked.
 textalignh=centre
 textshadow=yes

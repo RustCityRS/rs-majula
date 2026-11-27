@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -9,6 +13,7 @@ use rs_protocol_macros::client_prot;
 
 #[cfg_attr(before_530, client_prot(VarByte { min: 2 }, UserEvent))]
 #[cfg_attr(since_530, client_prot(VarByte { min: 3 }, UserEvent))]
+#[derive(Debug)]
 pub struct MessagePublic {
     pub colour: u8,
     pub effect: u8,
@@ -50,5 +55,17 @@ impl ClientProtMessage for MessagePublic {
             chars,
             bytes,
         }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtEncode for MessagePublic {
+    const PROT: ClientProt = ClientProt::MessagePublic;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1(self.colour);
+        buf.p1(self.effect);
+        buf.psmart1or2(self.chars as i32);
+        buf.pdata(&self.bytes, 0, self.bytes.len());
     }
 }

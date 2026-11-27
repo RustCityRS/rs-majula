@@ -1,22 +1,22 @@
 // 5803
 [proc,clientscript_5803](component $component0, component $component1, component $component2, int $int3, int $int4)
-def_graphic $graphic5 = 9620;
-def_graphic $graphic6 = 9621;
-def_graphic $graphic7 = 9622;
+def_graphic $graphic5 = graphic_9620;
+def_graphic $graphic6 = graphic_9621;
+def_graphic $graphic7 = graphic_9622;
 if ($int3 = 1) {
     if ($int4 = 1) {
-        $graphic5 = 9647;
-        $graphic6 = 9648;
-        $graphic7 = 9649;
+        $graphic5 = graphic_9647;
+        $graphic6 = graphic_9648;
+        $graphic7 = graphic_9649;
     } else {
-        $graphic5 = 9623;
-        $graphic6 = 9624;
-        $graphic7 = 9625;
+        $graphic5 = graphic_9623;
+        $graphic6 = graphic_9624;
+        $graphic7 = graphic_9625;
     }
 } else if ($int4 = 1) {
-    $graphic5 = 9644;
-    $graphic6 = 9645;
-    $graphic7 = 9646;
+    $graphic5 = graphic_9644;
+    $graphic6 = graphic_9645;
+    $graphic7 = graphic_9646;
 }
 if_setgraphic($component0, $graphic5);
 if_setgraphic($component1, $graphic6);

@@ -1,13 +1,6 @@
 use crate::{Db, Error};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// A player whose sessions the anti-cheat checks flagged.
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct AnticheatLeader {

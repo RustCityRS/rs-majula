@@ -1,11 +1,11 @@
 // 3984
 [proc,clientscript_3984](component $component0, struct $struct1)
-def_int $rgb2 = ^black;
-def_int $rgb3 = ^black;
+def_int $colour2 = ^black;
+def_int $colour3 = ^black;
 def_graphic $graphic4 = null;
 if ($component0 ! null & $struct1 ! null) {
-    $rgb2 = struct_param($struct1, param_2238);
-    $rgb3 = struct_param($struct1, param_2239);
+    $colour2 = struct_param($struct1, param_2238);
+    $colour3 = struct_param($struct1, param_2239);
     $graphic4 = struct_param($struct1, param_2237);
-    ~aif_text_layer_build($component0, $graphic4, $rgb2, $rgb3);
+    ~aif_text_layer_build($component0, $graphic4, $colour2, $colour3);
 }

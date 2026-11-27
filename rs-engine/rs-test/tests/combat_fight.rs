@@ -14,10 +14,6 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_pack::ParamValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
@@ -31,6 +27,7 @@ const COW: u16 = 12362;
 const ATTACK: usize = 0;
 const HITPOINTS: usize = 3;
 /// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
 const COW_LIFE_POINTS: u16 = 80;
 const UNARMED_MAX_HIT: u16 = 14;
@@ -55,7 +52,8 @@ fn a_fight_runs_on_life_points() {
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
             .find(|(_, id, c)| {
                 *id == TypeId::new(COW)
-                    && (3254..3265).contains(&c.x())
+                    // The player stands 2 west: the field's west fence is on x = 3252.
+                    && (3256..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
             })
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
@@ -78,6 +76,7 @@ fn a_fight_runs_on_life_points() {
         }
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK];
         let hp_xp = engine.harness_player(client.pid).unwrap().stats.xp[HITPOINTS];
+        #[cfg(since_647)]
         let counter = engine
             .harness_player(client.pid)
             .unwrap()
@@ -85,9 +84,7 @@ fn a_fight_runs_on_life_points() {
             .get(XP_COUNTER)
             .as_int();
 
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
 
         let mut ticks = 0;
         while hp(engine) == COW_LIFE_POINTS && ticks < 60 {
@@ -105,6 +102,7 @@ fn a_fight_runs_on_life_points() {
         let player = engine.harness_player(client.pid).unwrap();
         let hp_gained = player.stats.xp[HITPOINTS] - hp_xp;
         assert!(hp_gained > 0, "Constitution xp for the hit");
+        #[cfg(since_647)]
         assert_eq!(
             player.vars.get(XP_COUNTER).as_int() - counter,
             (gained + hp_gained) * 10,
@@ -115,11 +113,15 @@ fn a_fight_runs_on_life_points() {
 
 /// A 647 content file, from the repo root.
 fn content(path: &str) -> String {
-    let path = format!("{}/../../content/647/{path}", env!("CARGO_MANIFEST_DIR"));
+    let path = format!(
+        "{}/../../{}/{path}",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
+    );
     fs::read_to_string(&path).expect(&path)
 }
 
-/// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
+/// A pack registry (the rev's `pack/<kind>.pack`): name to id.
 fn pack_ids(kind: &str) -> HashMap<String, i32> {
     content(&format!("pack/{kind}.pack"))
         .lines()
@@ -207,9 +209,7 @@ fn the_player_fights_beside_the_cow_not_inside_it() {
             engine.cycle();
         }
 
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
 
         let hp = |engine: &rs_engine::Engine| {
             engine.get_npc(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize]
@@ -316,7 +316,8 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
             .find(|n| {
                 let c = n.npc.pathing.coord;
                 n.npc.uid.id() == TypeId::new(COW)
-                    && (3254..3265).contains(&c.x())
+                    // The player stands 2 west: the field's west fence is on x = 3252.
+                    && (3256..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
                     && n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS
             })
@@ -336,9 +337,7 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
         engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
         set_recording(true);
         forget_calls();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
         let (mut on_cow, mut on_player) = (Vec::new(), Vec::new());
         for tick in 0..40 {
             engine.cycle();

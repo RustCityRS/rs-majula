@@ -88,12 +88,7 @@ if (%option_pm = 0) {
 [if_button,options:com_3]
 if_close;
 if (p_finduid(uid) = true) {
-    if (%option_run = ^player_run_on | runenergy < 100) {
-        p_run(^player_run_off);
-        return;
-    }
-    p_run(^player_run_on);
-    return;
+    @toggle_run;
 }
 %option_run = %option_run; // resync varp
 

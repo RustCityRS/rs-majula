@@ -70,15 +70,15 @@ switch_int ($int1) {
         }
         ~combat_side_button("Accurate", "combaticons2,15", "Accurate<br>Magic XP<br><$string0>", "", null, "", "Long range", "combaticons2,17", "Long range<br>Magic XP<br>Defence XP", "", null, "");
     case 29 :
-        ~combat_side_button("Fire", 9185, "Fast, flaming fury<br>Interrupts enemy attacks<br>Fast attack rate", "Water", 9184, "Cold, aqueous suffocation<br>Slows enemy movement<br>Medium attack rate", "Earth", 9183, "Devastating terra impact<br>Heavy damage<br>Slow attack rate", "", null, "");
+        ~combat_side_button("Fire", graphic_9185, "Fast, flaming fury<br>Interrupts enemy attacks<br>Fast attack rate", "Water", graphic_9184, "Cold, aqueous suffocation<br>Slows enemy movement<br>Medium attack rate", "Earth", graphic_9183, "Devastating terra impact<br>Heavy damage<br>Slow attack rate", "", null, "");
     case default :
         ~combat_side_button("Punch", "combaticons,14", "Accurate<br>Crush<br>Attack XP", "Kick", "combaticons,15", "Aggressive<br>Crush<br>Strength XP", "Block", "combaticons,16", "Defensive<br>Crush<br>Defence XP", "", null, "");
 }
 if (map_members = true & inv_getobj(worn, 13) = bakriminel_bolts & $int1 = 17) {
-    ~combat_side_button("Target-Head", 9180, "Chance to reduce Magic/casting speed in PvP<br>Ranged XP", "Target-Torso", 9181, "Chance to inflict bleeding damage in PvP<br>Ranged XP", "Target-Legs", 9182, "Chance to drain energy/freeze the target in PvP<br>Ranged XP", "", null, "");
+    ~combat_side_button("Target-Head", graphic_9180, "Chance to reduce Magic/casting speed in PvP<br>Ranged XP", "Target-Torso", graphic_9181, "Chance to inflict bleeding damage in PvP<br>Ranged XP", "Target-Legs", graphic_9182, "Chance to drain energy/freeze the target in PvP<br>Ranged XP", "", null, "");
 }
 if (inv_getobj(worn, 3) = eggsterminator | inv_getobj(worn, 3) = eggsterminator_24146) {
-    ~combat_side_button("Scotch-Egg", 9187, "Covers your foes in deep-fried, battered scotch egg", "Marshmallow", 9186, "Covers your foes in molten marshmallow", "", null, "", "", null, "");
+    ~combat_side_button("Scotch-Egg", graphic_9187, "Covers your foes in deep-fried, battered scotch egg", "Marshmallow", graphic_9186, "Covers your foes in molten marshmallow", "", null, "", "", null, "");
 }
 if ($obj0 = thok_s_fists | $obj0 = thok_s_poison_fists | $obj0 = thok_s_crab_fists) {
     ~combat_side_button("Punch", "combaticons,14", "Devastating<br>Smash", "Punch", "combaticons,14", "Obliterating<br>Slam", "Punch", "combaticons,14", "Annihilating<br>Blow", "", null, "");

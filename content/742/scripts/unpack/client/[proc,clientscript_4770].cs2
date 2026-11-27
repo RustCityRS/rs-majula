@@ -2,7 +2,7 @@
 [proc,clientscript_4770](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)(int)
 def_int $int6 = calc($int1 / 8);
 def_int $int7 = 38;
-def_graphic $graphic8 = 7438;
+def_graphic $graphic8 = graphic_7438;
 def_graphic $graphic9 = aif_window_stone_header_fill;
 def_graphic $graphic10 = null;
 def_string $string0 = "";
@@ -112,7 +112,7 @@ if ($int2 > 300 & $int2 < 600) {
         cc_sethide(false);
         cc_setposition(5, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
         cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7542);
+        cc_setgraphic(graphic_7542);
         if ($int15 = 1) {
             if ($int14 = 0) {
                 $string1 = "Your citadel will become dilapidated this tick!";
@@ -139,7 +139,7 @@ if ($int2 > 300 & $int2 < 600) {
         cc_sethide(false);
         cc_setposition(5, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
         cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7542);
+        cc_setgraphic(graphic_7542);
         $string1 = "You need more members to visit your citadel this week to avoid this building degrading.";
         cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
         cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -155,7 +155,7 @@ if ($int2 > 300 & $int2 < 600) {
         cc_sethide(false);
         cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
         cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7542);
+        cc_setgraphic(graphic_7542);
         $string1 = "You lack some skill plot prerequisites to build this upgrade.";
         cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
         cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -164,7 +164,7 @@ if ($int2 > 300 & $int2 < 600) {
         cc_sethide(false);
         cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
         cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7542);
+        cc_setgraphic(graphic_7542);
         $string1 = "You need more members to visit your citadel this week to build this upgrade.";
         cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
         cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -177,7 +177,7 @@ if ($int2 > 300 & $int2 < 600) {
         cc_sethide(false);
         cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
         cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7542);
+        cc_setgraphic(graphic_7542);
         $string1 = "Cannot upgrade: not enough full members have visited to perform upkeep.";
         cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
         cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -186,7 +186,7 @@ if ($int2 > 300 & $int2 < 600) {
         cc_sethide(false);
         cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
         cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(7542);
+        cc_setgraphic(graphic_7542);
         $string1 = "Cannot upgrade: citadel walls will be too low tier. You will still be charged!";
         cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
         cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -198,7 +198,7 @@ if ($int2 > 300 & $int2 < 600) {
             cc_sethide(false);
             cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
             cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-            cc_setgraphic(7542);
+            cc_setgraphic(graphic_7542);
             $string1 = "Cannot upgrade: You may upgrade only one of storehouse or battlefield per week.";
             cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
             cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -211,7 +211,7 @@ if ($int2 > 300 & $int2 < 600) {
             cc_sethide(false);
             cc_setposition(60, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
             cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-            cc_setgraphic(7542);
+            cc_setgraphic(graphic_7542);
             $string1 = "Cannot upgrade: You may upgrade only two skilling plots per week.";
             cc_setonmouseover("clientscript_4781($component0, event_comsubid, 1)");
             cc_setonmouserepeat("clientscript_4783($string1, $component0, event_comsubid)");
@@ -230,7 +230,7 @@ if ($int2 > 600 | $int2 < 300) {
     cc_sethide(false);
     cc_setposition(5, calc(12 + $int7 * $int6), ^setpos_abs_right, ^setpos_abs_top);
     cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
-    cc_setgraphic(7545);
+    cc_setgraphic(graphic_7545);
     cc_setonmouseover("clientscript_4780($component0, event_comsubid, 1)");
     cc_setonmouserepeat("clientscript_4783($string3, $component0, event_comsubid)");
     cc_setonmouseleave("clientscript_4780($component0, event_comsubid, 0)");

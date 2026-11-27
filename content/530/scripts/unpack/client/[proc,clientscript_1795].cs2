@@ -1,7 +1,7 @@
 // 1795
 [proc,clientscript_1795](component $component0, component $component1)
-def_graphic $graphic2 = 697;
-def_graphic $graphic3 = 699;
+def_graphic $graphic2 = "options_radio_buttons,0";
+def_graphic $graphic3 = "options_radio_buttons,2";
 if (%clanwars_ffatype = 1) {
     if (%cws_warning_31 = 1) {
         if_setgraphic($component1, $graphic3);

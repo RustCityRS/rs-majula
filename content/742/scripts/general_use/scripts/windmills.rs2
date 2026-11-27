@@ -118,6 +118,8 @@ if (last_useitem = grain) {
 
 // [oplocu,hopper_full] @hopper_fill; // no full hopper at 2011 (hopper.loc)
 [oplocu,_hopper_nonfull] @hopper_fill;
+// 742's Lumbridge mill hopper (hopper_70034) carries no hopper category.
+[oplocu,hopper_70034] @hopper_fill;
 
 [oploc1,_hoppercontrol]
 def_coord $hopper_coord = loc_param(hopper_coord);

@@ -5,7 +5,7 @@ x=344
 y=-2
 width=166
 height=27
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=# Players in room:
 textalignh=right
 textshadow=yes
@@ -18,7 +18,7 @@ x=374
 y=19
 width=80
 height=16
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=Attackers:
 textshadow=yes
 colour=0xff981f
@@ -30,7 +30,7 @@ x=374
 y=38
 width=80
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=Defenders:
 textshadow=yes
 colour=0xff981f
@@ -42,7 +42,7 @@ x=374
 y=57
 width=80
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=Collectors:
 textshadow=yes
 colour=0xff981f
@@ -54,7 +54,7 @@ x=374
 y=77
 width=80
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=Healers:
 textshadow=yes
 colour=0xff981f
@@ -66,7 +66,7 @@ x=374
 y=96
 width=80
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=Any:
 textshadow=yes
 colour=0xff981f
@@ -78,7 +78,7 @@ x=489
 y=19
 width=8
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=0
 textshadow=yes
 colour=0xff981f
@@ -90,7 +90,7 @@ x=489
 y=38
 width=8
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=0
 textshadow=yes
 colour=0xff981f
@@ -102,7 +102,7 @@ x=489
 y=57
 width=8
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=0
 textshadow=yes
 colour=0xff981f
@@ -114,7 +114,7 @@ x=489
 y=77
 width=8
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=0
 textshadow=yes
 colour=0xff981f
@@ -126,7 +126,7 @@ x=489
 y=96
 width=8
 height=14
-textfont=fontmetrics_764
+textfont=barbassault_font
 text=0
 textshadow=yes
 colour=0xff981f
@@ -139,7 +139,7 @@ y=3
 width=17
 height=13
 layer=barbassault_att_arrow_layer
-graphic=graphic_772
+graphic="barbassault_icons,7"
 
 // 489:12
 [barbassault_def_arrow]
@@ -149,7 +149,7 @@ y=4
 width=17
 height=13
 layer=barbassault_def_arrow_layer
-graphic=graphic_772
+graphic="barbassault_icons,7"
 
 // 489:13
 [barbassault_col_arrow]
@@ -159,7 +159,7 @@ y=4
 width=17
 height=13
 layer=barbassault_col_arrow_layer
-graphic=graphic_772
+graphic="barbassault_icons,7"
 
 // 489:14
 [barbassault_heal_arrow]
@@ -169,7 +169,7 @@ y=4
 width=17
 height=13
 layer=barbassault_heal_arrow_layer
-graphic=graphic_772
+graphic="barbassault_icons,7"
 
 // 489:15
 [barbassault_any_arrow]
@@ -179,7 +179,7 @@ y=5
 width=17
 height=13
 layer=barbassault_any_arrow_layer
-graphic=graphic_772
+graphic="barbassault_icons,7"
 
 // 489:16
 [barbassault_att_arrow_layer]

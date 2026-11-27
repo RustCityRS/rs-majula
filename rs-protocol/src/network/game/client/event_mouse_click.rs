@@ -37,7 +37,7 @@ impl ClientProtMessage for EventMouseClick {
 impl ClientProtMessage for EventMouseClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let info = buf.g2_alt3();
-        let at = Cursor::unpack(buf.g4s_alt3() as u32);
+        let at = Cursor::unpack(buf.g4_alt3() as u32);
         EventMouseClick {
             at,
             right: info >> 15 == 1,
@@ -51,7 +51,7 @@ impl ClientProtMessage for EventMouseClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let info = buf.g2();
         #[cfg(before_742)]
-        let at = Cursor::unpack(buf.g4s_alt2() as u32);
+        let at = Cursor::unpack(buf.g4_alt2() as u32);
         #[cfg(since_742)]
         let at = Cursor::unpack(buf.g4s() as u32);
         EventMouseClick {

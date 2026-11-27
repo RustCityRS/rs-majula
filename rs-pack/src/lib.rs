@@ -47,12 +47,12 @@ use crate::cache::seq_frame::anim_frame_delays;
 use crate::cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
 #[cfg(before_530)]
 use crate::cache::r#struct::{StructType, StructTypeRaw};
-#[cfg(all(since_254, before_530))]
-use crate::cache::varbit::VarbitType;
 #[cfg(before_530)]
 use crate::cache::varn::VarnType;
 #[cfg(before_530)]
 use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
+#[cfg(all(since_254, before_530))]
+use crate::cache::varpbit::VarpBitType;
 #[cfg(before_530)]
 use crate::cache::vars::VarsType;
 #[cfg(before_530)]
@@ -66,10 +66,12 @@ use crate::pack::incremental::{Stage, files_under};
 use crate::pack::media::pack_media_jag;
 #[cfg(before_530)]
 use crate::pack::model::pack_models;
+#[cfg(before_530)]
+use crate::pack::names::AssetNames;
 #[cfg(all(since_244, before_530))]
 use crate::pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
 #[cfg(before_530)]
-use crate::pack::other::map::pack_maps;
+use crate::pack::other::map::{self, pack_maps};
 #[cfg(before_530)]
 use crate::pack::other::song::pack_midis;
 #[cfg(before_530)]
@@ -77,6 +79,8 @@ use crate::pack::pack::{ConfigFiles, check_configs, pack_config_files};
 #[cfg(before_530)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::script::compile as compile_runescript;
+#[cfg(since_647)]
+use crate::pack::script::compile_lobby;
 #[cfg(before_530)]
 use crate::pack::sound::pack_sounds;
 #[cfg(before_530)]
@@ -85,31 +89,34 @@ use crate::pack::texture::pack_textures_jag;
 use crate::pack::title::pack_title_jag;
 #[cfg(before_530)]
 use crate::pack::wordenc::pack_wordenc;
+#[cfg(before_530)]
+use crate::types::MapSquares;
 #[cfg(all(since_244, before_530))]
 use crate::types::OndemandBlobs;
 #[cfg(all(since_244, before_530))]
 use crate::unpack::model::load_existing_pack;
+use anyhow::Result;
 #[cfg(since_530)]
 use rayon::ThreadPoolBuilder;
 #[cfg(before_530)]
 use rs_io::crc;
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::collections::HashMap;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::fs;
 #[cfg(before_530)]
 use std::mem::take;
 use std::path::Path;
 #[cfg(before_530)]
 use std::path::PathBuf;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::sync::Arc;
 use std::thread;
 #[cfg(all(since_244, before_274))]
 use std::time::{SystemTime, UNIX_EPOCH};
-#[cfg(before_530)]
+#[cfg(before_647)]
 use tracing::debug;
 use tracing::warn;
 
@@ -207,7 +214,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 535204494;
     pub const SPOTANIM: i32 = -555849646;
     pub const INTERFACE: i32 = 1728499832;
-    pub const VARBIT: i32 = -1387031023;
+    pub const VARPBIT: i32 = -1387031023;
 }
 
 #[cfg(rev = "274")]
@@ -221,7 +228,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 128627047;
     pub const SPOTANIM: i32 = -1587698939;
     pub const INTERFACE: i32 = 2041671134;
-    pub const VARBIT: i32 = -234977015;
+    pub const VARPBIT: i32 = -234977015;
     pub const MESANIM: i32 = 1747166838;
     pub const MES: i32 = 1145177955;
     pub const PARAM: i32 = 254004952;
@@ -239,7 +246,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 1565507783;
     pub const SPOTANIM: i32 = 1145838588;
     pub const INTERFACE: i32 = 1940627269;
-    pub const VARBIT: i32 = -1746090972;
+    pub const VARPBIT: i32 = -1746090972;
     pub const MESANIM: i32 = 1747166838;
     pub const MES: i32 = 1145177955;
     pub const PARAM: i32 = -918994068;
@@ -257,7 +264,7 @@ pub(crate) mod config_crc {
     pub const IDK: i32 = 1761448388;
     pub const VARP: i32 = -1455560908;
     pub const VARPSTR: i32 = 1481820782;
-    pub const VARBIT: i32 = 1696381996;
+    pub const VARPBIT: i32 = 1696381996;
     pub const PARAM: i32 = -1326052345;
     pub const ENUM: i32 = 993097790;
     pub const INV: i32 = 807130584;
@@ -288,7 +295,7 @@ pub(crate) mod config_crc {
     pub const IDK: i32 = 50920008;
     pub const VARP: i32 = 1704792051;
     pub const VARPSTR: i32 = -1751999962;
-    pub const VARBIT: i32 = 763651066;
+    pub const VARPBIT: i32 = 763651066;
     pub const PARAM: i32 = 1671102909;
     pub const ENUM: i32 = -2002672615;
     pub const INV: i32 = -331361170;
@@ -329,7 +336,7 @@ pub(crate) mod config_crc {
     pub const IDK: i32 = -1771042825;
     pub const VARP: i32 = -1008474832;
     pub const VARPSTR: i32 = 856957251;
-    pub const VARBIT: i32 = 715464995;
+    pub const VARPBIT: i32 = 715464995;
     pub const PARAM: i32 = 1642273378;
     pub const ENUM: i32 = 1232165464;
     pub const INV: i32 = 86456445;
@@ -369,7 +376,7 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("idk", config_crc::IDK),
     ("varp", config_crc::VARP),
     #[cfg(since_254)]
-    ("varpbit", config_crc::VARBIT),
+    ("varpbit", config_crc::VARPBIT),
     #[cfg(since_274)]
     ("mesanim", config_crc::MESANIM),
     #[cfg(all(since_274, before_530))]
@@ -485,8 +492,14 @@ fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
 /// Compiles the RuneScript sources under `source` alone, for swapping into
 /// a running world: the cache it already serves stays as it is. Errors are
 /// the compiler's, as it reports them.
-pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvider> {
+pub fn compile_scripts(source: &Path, pack: &Path) -> Result<ScriptProvider> {
     let (dat, idx) = compile_runescript(source, pack)?;
+    Ok(ScriptProvider::from_bytes(&dat, &idx))
+}
+
+#[cfg(since_647)]
+pub fn compile_lobby_scripts(source: &Path, pack: &Path) -> Result<ScriptProvider> {
+    let (dat, idx) = compile_lobby(source, pack)?;
     Ok(ScriptProvider::from_bytes(&dat, &idx))
 }
 
@@ -499,7 +512,7 @@ pub fn pack_all(
     cache: Option<&Path>,
     verify: bool,
     members: bool,
-) -> anyhow::Result<startup::PackResult> {
+) -> Result<startup::PackResult> {
     let session = open_cache(cache);
     let result = ThreadPoolBuilder::new()
         .build()?
@@ -517,7 +530,7 @@ pub fn pack_all(
     cache: Option<&Path>,
     verify: bool,
     members: bool,
-) -> anyhow::Result<(Box<CacheStore>, ScriptProvider)> {
+) -> Result<(Box<CacheStore>, ScriptProvider)> {
     let session = open_cache(cache);
     debug!("Packing assets...");
     debug!("  source: {}", source.display());
@@ -529,6 +542,13 @@ pub fn pack_all(
     let config_files = ConfigFiles::new(&source.join("scripts"));
     check_configs(&config_files, pack, verify)?;
     let registry = PackRegistry::load(pack)?;
+    let names = AssetNames::load(pack)?;
+    let map_dirs = map::source_dirs(source);
+    let npc_spawns = map::pack_spawns(&map_dirs, &names)?;
+    let obj_spawns = map::pack_obj_spawns(&map_dirs, &names)?;
+    let mut spawns = MapSquares::default();
+    map::load_spawns(&npc_spawns, 'n', &mut spawns)?;
+    map::load_spawns(&obj_spawns, 'o', &mut spawns)?;
 
     // Run independent packing tasks in parallel using scoped threads.
     // Script compilation runs alongside asset packing - it's only needed
@@ -615,16 +635,19 @@ pub fn pack_all(
             let dat = |name: &str| assets[name].server.dat.clone();
             let (flo, loc, npc) = (dat("flo"), dat("loc"), dat("npc"));
             let (multimap, freemap) = (multimap.clone(), freemap.clone());
+            let (npc_spawns, obj_spawns, spawns) = (&npc_spawns, &obj_spawns, &spawns);
             s.spawn(move || {
                 let dirs = ["maps", "worldmap", "sprites", "fonts"].map(|dir| source.join(dir));
                 let configs = Hash::new("configs")
                     .bytes(&flo)
                     .bytes(&loc)
                     .bytes(&npc)
+                    .bytes(&npc_spawns.dat)
+                    .bytes(&obj_spawns.dat)
                     .key();
                 let deps = vec![("configs".to_owned(), configs)];
                 cached("worldmap", files_under(&dirs), deps, || {
-                    worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap)
+                    worldmap.build(source, &flo, &loc, &npc, spawns, &multimap, &freemap)
                 })
             })
         };
@@ -726,7 +749,7 @@ pub fn pack_all(
     let invs = build_type_provider_into::<InvTypeRaw, InvType>(&assets, "inv", ());
     let varps = build_type_provider_into::<VarPlayerTypeRaw, VarPlayerType>(&assets, "varp", ());
     #[cfg(since_254)]
-    let varbits = build_type_provider::<VarbitType>(&assets, "varpbit", ());
+    let varpbits = build_type_provider::<VarpBitType>(&assets, "varpbit", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
     let dbtables = build_type_provider::<DbTableType>(&assets, "dbtable", ());
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
@@ -854,11 +877,12 @@ pub fn pack_all(
         jags,
         mapsquares,
         mapcrcs,
+        spawns,
         objs,
         invs,
         varps,
         #[cfg(since_254)]
-        varbits,
+        varpbits,
         dbrows,
         dbtables,
         db_index,
@@ -899,7 +923,26 @@ pub fn pack_all(
     Ok((store, scripts))
 }
 
-#[cfg(before_530)]
+#[cfg(rev = "530")]
+fn error_page_name(path: &str) -> Option<&str> {
+    let name = path.rsplit(['/', '\\']).next()?;
+    (name.starts_with("error_game_") && name.ends_with(".ws")).then_some(name)
+}
+
+#[cfg(before_647)]
+pub fn static_asset_content_type(path: &str) -> Option<&'static str> {
+    match path.rsplit_once('.')?.1 {
+        "js" | "mjs" => Some("application/javascript"),
+        "wasm" => Some("application/wasm"),
+        "sf2" => Some("application/octet-stream"),
+        "ico" => Some("image/vnd.microsoft.icon"),
+        #[cfg(rev = "530")]
+        "ws" if error_page_name(path).is_some() => Some("text/html; charset=UTF-8"),
+        _ => None,
+    }
+}
+
+#[cfg(before_647)]
 fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     let dir = Path::new("public");
     let mut assets = HashMap::new();
@@ -914,7 +957,7 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     assets
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 fn load_assets_recursive(
     base: &Path,
     dir: &Path,
@@ -930,16 +973,51 @@ fn load_assets_recursive(
             if recurse {
                 load_assets_recursive(base, &path, recurse, assets);
             }
-        } else if let Ok(data) = fs::read(&path) {
+        } else if static_asset_content_type(&path.to_string_lossy()).is_some()
+            && let Ok(data) = fs::read(&path)
+        {
             let key = path
                 .strip_prefix(base)
                 .unwrap_or(&path)
                 .to_string_lossy()
                 .replace('\\', "/");
+            // The 530 client opens error pages relative to /rs2.cgi.
+            #[cfg(rev = "530")]
+            let key = error_page_name(&key).unwrap_or(&key);
             let key = format!("/{key}");
             assets.insert(Box::from(key), Arc::from(data));
         }
     }
+}
+
+#[cfg(all(test, rev = "530"))]
+#[test]
+fn serves_game_error_pages_at_the_client_codebase() {
+    let public = Path::new(env!("CARGO_MANIFEST_DIR")).join("../public");
+    let mut assets = HashMap::new();
+    load_assets_recursive(&public, &public.join("530"), true, &mut assets);
+    for reason in [
+        "alreadyloaded",
+        "crash",
+        "invalidhost",
+        "js5connect",
+        "js5connect_full",
+        "js5connect_outofdate",
+        "js5crc",
+        "js5io",
+        "wrongjava",
+    ] {
+        let url = format!("/error_game_{reason}.ws");
+        assert_eq!(
+            static_asset_content_type(&url),
+            Some("text/html; charset=UTF-8")
+        );
+        assert_eq!(
+            &*assets[url.as_str()],
+            fs::read(public.join("530").join(&url[1..])).unwrap()
+        );
+    }
+    assert_eq!(static_asset_content_type("/clienterror.ws"), None);
 }
 
 #[cfg(before_530)]

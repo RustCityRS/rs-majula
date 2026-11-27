@@ -7,9 +7,9 @@ if ($int0 = 1) {
     if_settext(interface_1172:com_8, "Yeah! You won!");
     switch_int (random(2)) {
         case 0 :
-            sound_vorbis_volume(7897, 1, 0, 255);
+            sound_vorbis_volume(vorbis_7897, 1, 0, 255);
         case 1 :
-            sound_vorbis_volume(7885, 1, 0, 255);
+            sound_vorbis_volume(vorbis_7885, 1, 0, 255);
     }
     if (%varplayerbit_9984 > 0 | %varplayerbit_9985 > 0 | %varplayerbit_9988 ! 0) {
         if_settext(interface_1172:com_10, "You now have a dominion factor of: <~tostring_spacer($int1, ",")>");
@@ -20,9 +20,9 @@ if ($int0 = 1) {
     if_settext(interface_1172:com_8, "Unlucky, you lost!");
     switch_int (random(2)) {
         case 0 :
-            sound_vorbis_volume(7904, 1, 0, 255);
+            sound_vorbis_volume(vorbis_7904, 1, 0, 255);
         case 1 :
-            sound_vorbis_volume(7874, 1, 0, 255);
+            sound_vorbis_volume(vorbis_7874, 1, 0, 255);
     }
     if (%varplayerbit_9984 > 0 | %varplayerbit_9985 > 0 | %varplayerbit_9988 ! 0) {
         if_settext(interface_1172:com_10, "You leave with a dominion factor of: <~tostring_spacer($int1, ",")>");

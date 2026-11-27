@@ -6,7 +6,7 @@ y=263
 width=190
 height=26
 layer=layer_timer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 730:1
@@ -17,7 +17,7 @@ y=256
 width=32
 height=32
 layer=layer_timer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 730:2
 [timer_corner2]
@@ -27,7 +27,7 @@ y=264
 width=32
 height=32
 layer=layer_timer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 730:3
 [timer_corner3]
@@ -37,7 +37,7 @@ y=256
 width=32
 height=32
 layer=layer_timer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 730:4
 [timer_corner4]
@@ -47,7 +47,7 @@ y=264
 width=32
 height=32
 layer=layer_timer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 730:5
 [timer_top]
@@ -57,7 +57,7 @@ y=243
 width=142
 height=32
 layer=layer_timer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 730:6
@@ -68,7 +68,7 @@ y=276
 width=140
 height=32
 layer=layer_timer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 730:7
@@ -79,7 +79,7 @@ y=13
 width=197
 height=17
 layer=layer_pickup
-textfont=fontmetrics_496
+textfont=b12_full
 text=Please pick up a stone!
 textalignh=centre
 textshadow=yes
@@ -103,7 +103,7 @@ y=17
 width=159
 height=50
 layer=content_layer2
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 730:10
@@ -114,7 +114,7 @@ y=10
 width=32
 height=32
 layer=content_layer2
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 730:11
 [info_corner2]
@@ -124,7 +124,7 @@ y=39
 width=32
 height=32
 layer=content_layer2
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 730:12
 [info_corner3]
@@ -134,7 +134,7 @@ y=10
 width=32
 height=32
 layer=content_layer2
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 730:13
 [info_corner4]
@@ -144,7 +144,7 @@ y=39
 width=32
 height=32
 layer=content_layer2
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 730:14
 [info_top]
@@ -154,7 +154,7 @@ y=-3
 width=108
 height=32
 layer=content_layer2
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 730:15
@@ -165,7 +165,7 @@ y=51
 width=108
 height=32
 layer=content_layer2
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 730:16
@@ -176,7 +176,7 @@ y=21
 width=153
 height=32
 layer=content_layer2
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 
 // 730:17
 [charge]
@@ -186,7 +186,7 @@ y=18
 width=61
 height=16
 layer=content_layer2
-textfont=fontmetrics_495
+textfont=p12_full
 text=Charge:
 textshadow=yes
 colour=0xc8aa64
@@ -199,7 +199,7 @@ y=43
 width=97
 height=16
 layer=content_layer2
-textfont=fontmetrics_495
+textfont=p12_full
 text=Name
 textalignh=right
 textshadow=yes
@@ -268,7 +268,7 @@ y=33
 width=78
 height=16
 layer=hunter_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Hunting:
 textshadow=yes
 colour=0xc8aa64
@@ -281,7 +281,7 @@ y=33
 width=78
 height=16
 layer=hunted_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Hunted by:
 textshadow=yes
 colour=0xc8aa64
@@ -294,7 +294,7 @@ y=263
 width=182
 height=32
 layer=layer_timer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Time left:
 textshadow=yes
 colour=0xc8aa64
@@ -318,5 +318,5 @@ y=279
 width=184
 height=8
 layer=layer_timer
-graphic=graphic_1072
+graphic=assist_buttton
 trans=128

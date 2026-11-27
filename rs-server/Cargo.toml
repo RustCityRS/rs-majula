@@ -14,6 +14,7 @@ path = "src/main.rs"
 rs-crypto = { workspace = true }
 rs-protocol = { workspace = true }
 rs-engine = { workspace = true }
+rs-lobby = { workspace = true }
 rs-db = { workspace = true }
 rs-io = { workspace = true }
 rs-pack = { workspace = true }
@@ -29,6 +30,7 @@ tracing-subscriber = { workspace = true }
 tracing-appender = { workspace = true }
 tokio-tungstenite = { workspace = true }
 futures-util = { workspace = true }
+form_urlencoded = "1"
 ratatui = { workspace = true }
 crossterm = { workspace = true }
 sysinfo = { workspace = true }

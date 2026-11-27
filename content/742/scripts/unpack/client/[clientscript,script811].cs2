@@ -4,7 +4,7 @@ def_boolean $boolean1 = false;
 if ($int0 > 1) {
     return;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $boolean1 = if_gethide(toplevel_fullscreen:com_243);
 } else {
     $boolean1 = if_gethide(toplevel:com_52);

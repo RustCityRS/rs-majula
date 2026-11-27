@@ -10582,13 +10582,13 @@ fog_depth=339
 env_map=texture_682,texture_683,texture_684,texture_685,texture_686,texture_687
 
 ==== LIGHTS ====
-24 3507 5589 580: radius=1 colors=3,3,3 hsl=291 type=144
-0 3515 5188 309: radius=2 colors=5,5,5,5,5 hsl=275 type=206
-0 3259 4292 73: radius=2 colors=5,5,5,5,5 hsl=278 type=67
-0 3515 5188 153: radius=2 colors=5,5,5,5,5 hsl=282 type=174
-24 3933 5196 580: radius=2 colors=5,5,5,5,5 hsl=291 type=208
-24 3515 4761 580: radius=2 colors=5,5,5,5,5 hsl=291 type=48
-24 3063 5205 580: radius=2 colors=5,5,5,5,5 hsl=291 type=144
+24 3507 5589 580: radius=1 radiusgrid=3,3,3 hsl=291 type=144
+0 3515 5188 309: radius=2 radiusgrid=5,5,5,5,5 hsl=275 type=206
+0 3259 4292 73: radius=2 radiusgrid=5,5,5,5,5 hsl=278 type=67
+0 3515 5188 153: radius=2 radiusgrid=5,5,5,5,5 hsl=282 type=174
+24 3933 5196 580: radius=2 radiusgrid=5,5,5,5,5 hsl=291 type=208
+24 3515 4761 580: radius=2 radiusgrid=5,5,5,5,5 hsl=291 type=48
+24 3063 5205 580: radius=2 radiusgrid=5,5,5,5,5 hsl=291 type=144
 
 ==== ENVPARAMS ====
 32 8 32

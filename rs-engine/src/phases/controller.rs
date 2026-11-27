@@ -140,22 +140,23 @@ impl Engine {
                     },
                 );
             }
-            for (id, value) in controller.varbits.iter() {
-                let Some(varbit) = self.cache.varconbits.get_by_id(TypeId::new(*id)) else {
+            for (id, value) in controller.varpbits.iter() {
+                let Some(varpbit) = self.cache.varconbits.get_by_id(TypeId::new(*id)) else {
                     continue;
                 };
-                let Some(varcon) = self.cache.varcons.get_by_id(TypeId::new(varbit.basevar)) else {
+                let Some(varcon) = self.cache.varcons.get_by_id(TypeId::new(varpbit.basevar))
+                else {
                     continue;
                 };
-                let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+                let (start, end) = (varpbit.start_bit as i32, varpbit.end_bit as i32);
                 let value = if fits_bit_range(*value, start, end) {
                     *value
                 } else {
                     0
                 };
-                let base = vars.get(varbit.basevar).as_int();
+                let base = vars.get(varpbit.basevar).as_int();
                 let value = setbit_range_toint(base, value, start, end);
-                vars.set(varbit.basevar, VarValue::from_int(varcon.var_type, value));
+                vars.set(varpbit.basevar, VarValue::from_int(varcon.var_type, value));
             }
         }
         self.controllers

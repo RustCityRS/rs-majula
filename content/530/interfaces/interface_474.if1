@@ -5,7 +5,7 @@ x=4
 y=4
 width=180
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=%1
 textalignh=centre
 textshadow=yes
@@ -30,8 +30,8 @@ layer=com_1
 buttontype=select
 script1=eq,0
 script1op1=pushvar,com_mode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Scorch
 
 // 474:3
@@ -45,8 +45,8 @@ layer=com_1
 buttontype=select
 script1=eq,1
 script1op1=pushvar,com_mode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Flare
 
 // 474:4
@@ -60,8 +60,8 @@ layer=com_1
 buttontype=select
 script1=eq,2
 script1op1=pushvar,com_mode
-graphic=graphic_653
-activegraphic=graphic_654
+graphic="combatboxes_large,0"
+activegraphic="combatboxes_large,1"
 option=Blaze
 
 // 474:5
@@ -72,7 +72,7 @@ y=10
 width=34
 height=24
 layer=com_1
-graphic=graphic_289
+graphic="combaticons3,16"
 
 // 474:6
 [com_6]
@@ -82,7 +82,7 @@ y=10
 width=34
 height=24
 layer=com_1
-graphic=graphic_290
+graphic="combaticons3,17"
 
 // 474:7
 [com_7]
@@ -92,7 +92,7 @@ y=63
 width=34
 height=24
 layer=com_1
-graphic=graphic_291
+graphic="combaticons3,18"
 
 // 474:8
 [com_8]
@@ -113,7 +113,7 @@ x=2
 width=150
 height=26
 layer=com_10
-graphic=graphic_657
+graphic=combatboxes_special_attack
 
 // 474:10
 [com_10]
@@ -286,7 +286,7 @@ height=11
 layer=com_10
 script1=gt,0
 script1op1=pushvar,sa_attack
-textfont=fontmetrics_494
+textfont=p11_full
 text=S P E C I A L  A T T A C K
 colour=0x000010
 activetext=<col=ffff00>S P E C I A L  A T T A C K
@@ -299,7 +299,7 @@ y=25
 width=180
 height=12
 script1op1=op8
-textfont=fontmetrics_494
+textfont=p11_full
 text=Combat Lvl: %1
 textalignh=centre
 textshadow=yes
@@ -315,8 +315,8 @@ height=46
 buttontype=normal
 script1=eq,0
 script1op1=pushvar,option_nodef
-graphic=graphic_655
-activegraphic=graphic_656
+graphic="combatboxes_very_large,0"
+activegraphic="combatboxes_very_large,1"
 option=Auto Retaliate
 
 // 474:25
@@ -326,7 +326,7 @@ x=20
 y=75
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Scorch
 textalignh=centre
 textshadow=yes
@@ -339,7 +339,7 @@ x=104
 y=75
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Flare
 textalignh=centre
 textshadow=yes
@@ -352,7 +352,7 @@ x=20
 y=128
 width=70
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=Blaze
 textalignh=centre
 textshadow=yes
@@ -367,7 +367,7 @@ width=112
 height=42
 script1=eq,0
 script1op1=pushvar,option_nodef
-textfont=fontmetrics_495
+textfont=p12_full
 text=Auto Retaliate <br>(Off)
 textalignh=centre
 textalignv=centre

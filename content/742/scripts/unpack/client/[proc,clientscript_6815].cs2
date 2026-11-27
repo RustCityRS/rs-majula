@@ -21,10 +21,10 @@ if ($component0 = null) {
 if ($component8 = interface_1351:com_0) {
     return;
 }
-if ($graphic2 = 13522 & $graphic4 = null & ~clientscript_6818($component1) = 1) {
+if ($graphic2 = graphic_13522 & $graphic4 = null & ~clientscript_6818($component1) = 1) {
     if_setgraphic($component6, null);
     if_setgraphic($component7, null);
     if_setgraphic($component8, $graphic2);
     if_setgraphic($component9, $graphic3);
-    sound_vorbis_rate(19113, 1, 0, calc(120 + random(60)), random_sound_pitch(10, 10));
+    sound_vorbis_rate(vorbis_19113, 1, 0, calc(120 + random(60)), random_sound_pitch(10, 10));
 }

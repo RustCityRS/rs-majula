@@ -60,7 +60,7 @@ y=10
 width=414
 height=16
 layer=resultlist_hide
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textalignv=centre
 colour=0xa05a00
@@ -73,7 +73,7 @@ y=48
 width=414
 height=31
 layer=resultlist_hide
-textfont=fontmetrics_494
+textfont=p11_full
 text=To search for an item, start by typing part of its name.<br>Then, simply select the item you want from the results on display.
 textlineheight=15
 textalignh=centre
@@ -94,7 +94,7 @@ x=27
 y=111
 width=457
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 
 // 389:10
@@ -104,7 +104,7 @@ x=490
 y=111
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -118,7 +118,7 @@ type=graphic
 y=94
 width=506
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 389:12
@@ -127,7 +127,7 @@ type=graphic
 x=46
 width=32
 height=108
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 trans=150
 opbase=   
@@ -139,7 +139,7 @@ x=6
 y=113
 width=16
 height=14
-graphic=graphic_1154
+graphic="grand_exchange_misc_graphics,4"
 opbase=  
 
 // 389:14
@@ -149,7 +149,7 @@ x=10
 y=8
 width=40
 height=36
-graphic=graphic_1139
+graphic="bank_slot,2"
 opbase=  
 
 // 389:15

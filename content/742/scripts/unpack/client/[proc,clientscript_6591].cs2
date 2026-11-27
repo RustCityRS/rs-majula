@@ -7,50 +7,50 @@ def_graphic $graphic3 = null;
 if (playermember = true) {
     switch_int (map_lang) {
         case 2 :
-            $graphic0 = 12449;
-            $graphic1 = 12450;
-            $graphic2 = 12451;
-            $graphic3 = 12452;
+            $graphic0 = graphic_12449;
+            $graphic1 = graphic_12450;
+            $graphic2 = graphic_12451;
+            $graphic3 = graphic_12452;
         case 1 :
-            $graphic0 = 12454;
-            $graphic1 = 12455;
-            $graphic2 = 12456;
-            $graphic3 = 12457;
+            $graphic0 = graphic_12454;
+            $graphic1 = graphic_12455;
+            $graphic2 = graphic_12456;
+            $graphic3 = graphic_12457;
         case 3 :
-            $graphic0 = 12445;
-            $graphic1 = 12446;
-            $graphic2 = 12447;
-            $graphic3 = 12448;
+            $graphic0 = graphic_12445;
+            $graphic1 = graphic_12446;
+            $graphic2 = graphic_12447;
+            $graphic3 = graphic_12448;
         case default :
-            $graphic0 = 12441;
-            $graphic1 = 12442;
-            $graphic2 = 12443;
-            $graphic3 = 12444;
+            $graphic0 = graphic_12441;
+            $graphic1 = graphic_12442;
+            $graphic2 = graphic_12443;
+            $graphic3 = graphic_12444;
     }
     if_sethide(interface_1322:com_10, false);
     if_sethide(interface_1322:com_6, true);
 } else {
     switch_int (map_lang) {
         case 2 :
-            $graphic0 = 12143;
-            $graphic1 = 12144;
-            $graphic2 = 12145;
-            $graphic3 = 12146;
+            $graphic0 = graphic_12143;
+            $graphic1 = graphic_12144;
+            $graphic2 = graphic_12145;
+            $graphic3 = graphic_12146;
         case 1 :
-            $graphic0 = 12147;
-            $graphic1 = 12148;
-            $graphic2 = 12149;
-            $graphic3 = 12150;
+            $graphic0 = graphic_12147;
+            $graphic1 = graphic_12148;
+            $graphic2 = graphic_12149;
+            $graphic3 = graphic_12150;
         case 3 :
-            $graphic0 = 12139;
-            $graphic1 = 12140;
-            $graphic2 = 12141;
-            $graphic3 = 12142;
+            $graphic0 = graphic_12139;
+            $graphic1 = graphic_12140;
+            $graphic2 = graphic_12141;
+            $graphic3 = graphic_12142;
         case default :
-            $graphic0 = 12135;
-            $graphic1 = 12136;
-            $graphic2 = 12137;
-            $graphic3 = 12138;
+            $graphic0 = graphic_12135;
+            $graphic1 = graphic_12136;
+            $graphic2 = graphic_12137;
+            $graphic3 = graphic_12138;
     }
     if_sethide(interface_1322:com_10, false);
     if_sethide(interface_1322:com_6, true);

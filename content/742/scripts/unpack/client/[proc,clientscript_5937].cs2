@@ -7,7 +7,7 @@ if (%varplayerbit_11162 ! 0) {
     if_setonvartransmit(lobbyscreen:com_235, null);
     return;
 }
-switch_int (%varplayer_2610) {
+switch_int (%email_validation) {
     case 0 :
         ~clientscript_5940;
     case 1 :

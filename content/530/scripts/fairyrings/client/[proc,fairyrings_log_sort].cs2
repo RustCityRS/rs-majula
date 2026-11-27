@@ -26,18 +26,18 @@ def_int $int8 = if_getwidth($component4);
 $int5 = 0;
 while ($int5 < $int3) {
     $component4 = $componentarray0($int5);
-    $int7 = paraheight(if_gettext($component4), $int8, 495);
+    $int7 = paraheight(if_gettext($component4), $int8, p12_full);
     $int7 = calc(12 * $int7 + 10);
-    if_settextfont($component4, 495);
-    if_setsize($component4, $int8, $int7, 0, 0);
-    if_setposition($component4, 0, $int6, 0, 0);
-    cc_create($component0, 4, $int5);
-    cc_setsize($int8, $int7, 0, 0);
-    cc_setposition(0, $int6, 0, 0);
-    cc_settextfont(495);
+    if_settextfont($component4, p12_full);
+    if_setsize($component4, $int8, $int7, ^setsize_abs, ^setsize_abs);
+    if_setposition($component4, 0, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setsize($int8, $int7, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p12_full);
     cc_setcolour(0xdf0f0f);
     cc_settextshadow(true);
-    cc_settextalign(0, 0, 0);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
     cc_settext(enum(component, string, enum_1466, $component4));
     $int6 = calc($int6 + $int7);
     $int5 = calc($int5 + 1);
@@ -48,21 +48,21 @@ if (string_length($string0) > 0) {
     if ($int6 > 0) {
         $int6 = calc($int6 + 5);
     }
-    $int7 = paraheight($string0, $int8, 495);
+    $int7 = paraheight($string0, $int8, p12_full);
     $int7 = calc(12 * $int7 + 5);
-    if_setsize($component4, $int8, $int7, 0, 0);
-    if_setposition($component4, 0, $int6, 0, 0);
+    if_setsize($component4, $int8, $int7, ^setsize_abs, ^setsize_abs);
+    if_setposition($component4, 0, $int6, ^setpos_abs_left, ^setpos_abs_top);
     $int6 = calc($int6 + $int7);
 }
 if_setscrollsize($component0, $int8, $int6);
 if ($int6 > if_getheight($component0)) {
-    if_setposition($component0, 3, if_gety($component0), 0, 0);
-    ~clientscript_31($component1, $component0, 792, 789, 790, 791, 773, 788);
+    if_setposition($component0, 3, if_gety($component0), ^setpos_abs_left, ^setpos_abs_top);
+    ~clientscript_31($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     if (cc_find($component1, 1) = true) {
         ~scrollbar_ondrag_doscroll($component1, $component0, %varclient_121, 1);
     }
 } else {
     if_setscrollpos($component0, 0, 0);
     %varclient_121 = 0;
-    if_setposition($component0, 12, if_gety($component0), 0, 0);
+    if_setposition($component0, 12, if_gety($component0), ^setpos_abs_left, ^setpos_abs_top);
 }

@@ -1,6 +1,6 @@
 // 2463
 [clientscript,meslayer_mode13](string $string0, string $string1)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 if_sethide(chattop:mes_layer, false);

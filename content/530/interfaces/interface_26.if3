@@ -707,7 +707,7 @@ y=-1
 width=39
 height=39
 layer=bookmacro_big_left_layer
-graphic=graphic_1062
+graphic="v2_book_arrows,3"
 pausebutton=yes
 
 // 26:62
@@ -724,7 +724,7 @@ type=graphic
 width=39
 height=39
 layer=bookmacro_big_right_layer
-graphic=graphic_1063
+graphic="v2_book_arrows,4"
 pausebutton=yes
 
 // 26:64
@@ -742,7 +742,7 @@ x=86
 y=294
 width=80
 height=20
-textfont=fontmetrics_497
+textfont=q8_full
 text=page%1
 colour=0x46320a
 
@@ -753,7 +753,7 @@ x=348
 y=295
 width=80
 height=20
-textfont=fontmetrics_497
+textfont=q8_full
 text=page%2
 textalignh=right
 colour=0x46320a
@@ -765,7 +765,7 @@ x=484
 y=5
 width=21
 height=21
-graphic=graphic_1064
+graphic="v2_book_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 1065)
@@ -779,7 +779,7 @@ x=38
 y=70
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line2
 colour=0x46320a
 
@@ -790,7 +790,7 @@ x=38
 y=86
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line3
 colour=0x46320a
 
@@ -801,7 +801,7 @@ x=38
 y=102
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line4
 colour=0x46320a
 
@@ -812,7 +812,7 @@ x=38
 y=118
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line5
 colour=0x46320a
 
@@ -823,7 +823,7 @@ x=38
 y=134
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line6
 colour=0x46320a
 
@@ -834,7 +834,7 @@ x=38
 y=150
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line7
 colour=0x46320a
 
@@ -845,7 +845,7 @@ x=38
 y=166
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line8
 colour=0x46320a
 
@@ -856,7 +856,7 @@ x=38
 y=182
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line9
 colour=0x46320a
 
@@ -867,7 +867,7 @@ x=38
 y=198
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line10
 colour=0x46320a
 
@@ -878,7 +878,7 @@ x=38
 y=214
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line11
 colour=0x46320a
 
@@ -889,7 +889,7 @@ x=38
 y=230
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line12
 colour=0x46320a
 
@@ -900,7 +900,7 @@ x=38
 y=246
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line13
 colour=0x46320a
 
@@ -911,7 +911,7 @@ x=38
 y=262
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line14
 colour=0x46320a
 
@@ -922,7 +922,7 @@ x=38
 y=278
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line15
 colour=0x46320a
 
@@ -933,7 +933,7 @@ x=283
 y=54
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line16
 colour=0x46320a
 
@@ -944,7 +944,7 @@ x=283
 y=70
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line17
 colour=0x46320a
 
@@ -955,7 +955,7 @@ x=283
 y=86
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line18
 colour=0x46320a
 
@@ -966,7 +966,7 @@ x=283
 y=102
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line19
 colour=0x46320a
 
@@ -977,7 +977,7 @@ x=283
 y=118
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line20
 colour=0x46320a
 
@@ -988,7 +988,7 @@ x=283
 y=134
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line21
 colour=0x46320a
 
@@ -999,7 +999,7 @@ x=283
 y=150
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line22
 colour=0x46320a
 
@@ -1010,7 +1010,7 @@ x=283
 y=166
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line23
 colour=0x46320a
 
@@ -1021,7 +1021,7 @@ x=283
 y=182
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line24
 colour=0x46320a
 
@@ -1032,7 +1032,7 @@ x=283
 y=198
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line25
 colour=0x46320a
 
@@ -1043,7 +1043,7 @@ x=283
 y=214
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line26
 colour=0x46320a
 
@@ -1054,7 +1054,7 @@ x=283
 y=230
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line27
 colour=0x46320a
 
@@ -1065,7 +1065,7 @@ x=283
 y=246
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line28
 colour=0x46320a
 
@@ -1076,7 +1076,7 @@ x=283
 y=262
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line28
 colour=0x46320a
 
@@ -1087,7 +1087,7 @@ x=283
 y=278
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line29
 colour=0x46320a
 
@@ -1098,7 +1098,7 @@ x=38
 y=54
 width=202
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=line1
 colour=0x46320a
 
@@ -1108,7 +1108,7 @@ type=graphic
 x=64
 width=382
 height=39
-graphic=graphic_1060
+graphic="v2_book_arrows,1"
 
 // 26:99
 [bookmacro_title]
@@ -1116,7 +1116,7 @@ type=graphic
 x=42
 width=39
 height=39
-graphic=graphic_1059
+graphic="v2_book_arrows,0"
 
 // 26:100
 [bookmacro_title_4]
@@ -1124,7 +1124,7 @@ type=graphic
 x=426
 width=39
 height=39
-graphic=graphic_1061
+graphic="v2_book_arrows,2"
 
 // 26:101
 [bookmacro_big_title]
@@ -1133,7 +1133,7 @@ x=149
 y=5
 width=220
 height=21
-textfont=fontmetrics_645
+textfont=quill_oblique_large
 text=Book Title
 textalignh=centre
 colour=0x493217

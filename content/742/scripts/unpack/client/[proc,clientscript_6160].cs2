@@ -3,13 +3,13 @@
 ~clientscript_6162;
 switch_int (map_lang) {
     case 1 :
-        if_setgraphic(interface_1273:com_41, 10719);
+        if_setgraphic(interface_1273:com_41, graphic_10719);
     case 2 :
-        if_setgraphic(interface_1273:com_41, 10720);
+        if_setgraphic(interface_1273:com_41, graphic_10720);
     case 3 :
-        if_setgraphic(interface_1273:com_41, 10718);
+        if_setgraphic(interface_1273:com_41, graphic_10718);
     case default :
-        if_setgraphic(interface_1273:com_41, 10717);
+        if_setgraphic(interface_1273:com_41, graphic_10717);
 }
 if_setontimer(interface_1273:com_13, "clientscript_6164(interface_1273:com_13, 0)");
 if (map_members = false) {

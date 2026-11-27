@@ -432,12 +432,12 @@ if ($int4 >= 1) {
     if_sethide($component1, false);
     if_sethide($component2, false);
     if_sethide($component3, false);
-    if_setgraphic($component1, 8754);
+    if_setgraphic($component1, graphic_8754);
 } else if ($int4 = 0) {
     if_sethide($component1, false);
     if_sethide($component2, false);
     if_sethide($component3, false);
-    if_setgraphic($component1, 8756);
+    if_setgraphic($component1, graphic_8756);
 } else {
     if_sethide($component1, true);
     if_sethide($component2, true);

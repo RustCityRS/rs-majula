@@ -107,22 +107,22 @@ if (.%tradepartner = uid & %tradestatus = ^tradestatus_received) {
 // slots (void-634 "has <n> free inventory slots."), and no offer modified
 // yet. Its wealth transfer bar and limits (com40-42, pointer) are not ported.
 [proc,trademain_2011](string $name)
-runclientscript("interface_inv_init_big(trademain:your_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"Remove\", \"Remove-5\", \"Remove-10\", \"Remove-All\", \"Remove-X\", \"\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init_big(trademain:your_offer_layer_flashy, tradeoffer, 4, 7, 0, null, \"Remove\", \"Remove-5\", \"Remove-10\", \"Remove-All\", \"Remove-X\", \"\", \"\", \"\", \"\")");
 if_setevents(trademain:your_offer_layer_flashy, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-runclientscript("interface_invother_init_big(trademain:other_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"Examine\<col=ff9040>\")");
+runclientscript("interface_invother_init_big(trademain:other_offer_layer_flashy, tradeoffer, 4, 7, 0, null, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"Examine\<col=ff9040>\")");
 if_setevents(trademain:other_offer_layer_flashy, 0, 27, ~inv_ops(^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op9, ^no_op), 0, 0, ^false, ^false);
-runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, null, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
 if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
 %traderemoved = 0;
 %traderemoved_other = 0;
 .if_settext(trademain:free_space_text, "has <tostring(inv_freespace(inv))> free inventory slots.");
 
 [proc,.trademain_2011](string $name)
-.runclientscript("interface_inv_init_big(trademain:your_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"Remove\", \"Remove-5\", \"Remove-10\", \"Remove-All\", \"Remove-X\", \"\", \"\", \"\", \"\")");
+.runclientscript("interface_inv_init_big(trademain:your_offer_layer_flashy, tradeoffer, 4, 7, 0, null, \"Remove\", \"Remove-5\", \"Remove-10\", \"Remove-All\", \"Remove-X\", \"\", \"\", \"\", \"\")");
 .if_setevents(trademain:your_offer_layer_flashy, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-.runclientscript("interface_invother_init_big(trademain:other_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"Examine\<col=ff9040>\")");
+.runclientscript("interface_invother_init_big(trademain:other_offer_layer_flashy, tradeoffer, 4, 7, 0, null, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"Examine\<col=ff9040>\")");
 .if_setevents(trademain:other_offer_layer_flashy, 0, 27, ~inv_ops(^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op9, ^no_op), 0, 0, ^false, ^false);
-.runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
+.runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, null, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
 .if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
 .%traderemoved = 0;
 .%traderemoved_other = 0;

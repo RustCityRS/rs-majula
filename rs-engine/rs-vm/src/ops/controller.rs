@@ -1,6 +1,7 @@
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::ops::player::carried_source;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::state::ScriptState;
 use crate::util::{pop_coord, pop_script};
 use crate::{ControllerUid, ScriptError, handlers, none};
@@ -30,7 +31,7 @@ fn set_active_controller(s: &mut ScriptState, uid: Option<ControllerUid>, second
 /// Registers the controller opcodes: `CONTROLLER_ADD`, `CONTROLLER_COORD`,
 /// `CONTROLLER_DEL`, `CONTROLLER_FINDEXACT`, `CONTROLLER_QUEUE`,
 /// `CONTROLLER_QUEUEVARARG` and `CONTROLLER_SETTIMER`.
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 5300
         none!(m, CONTROLLER_COORD => |s| {

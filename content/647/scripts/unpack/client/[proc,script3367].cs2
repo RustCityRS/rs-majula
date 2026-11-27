@@ -77,11 +77,11 @@ if (%xpdisplay_construction < stat_visible_xp(construction)) {
 if (%xpdisplay_hunter < stat_visible_xp(hunter)) {
     $int0 = calc($int0 + (stat_visible_xp(hunter) - %xpdisplay_hunter));
 }
-if (%xpdisplay_summoning < stat_visible_xp(summoning)) {
-    $int0 = calc($int0 + (stat_visible_xp(summoning) - %xpdisplay_summoning));
+if (%xpdisplay_summoning < stat_visible_xp(animallore)) {
+    $int0 = calc($int0 + (stat_visible_xp(animallore) - %xpdisplay_summoning));
 }
-if (%xpdisplay_dungeoneering < stat_visible_xp(dungeoneering)) {
-    $int0 = calc($int0 + (stat_visible_xp(dungeoneering) - %xpdisplay_dungeoneering));
+if (%xpdisplay_dungeoneering < stat_visible_xp(rand)) {
+    $int0 = calc($int0 + (stat_visible_xp(rand) - %xpdisplay_dungeoneering));
 }
 if ($int0 = 0) {
     return;

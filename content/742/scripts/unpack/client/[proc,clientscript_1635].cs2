@@ -10,10 +10,10 @@ cc_deleteall($component0);
 cc_create($component0, ^iftype_graphic, 0);
 cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
-def_graphic $graphic5 = 10203;
-def_graphic $graphic6 = 10205;
+def_graphic $graphic5 = graphic_10203;
+def_graphic $graphic6 = graphic_10205;
 def_int $int7 = 1908;
-def_graphic $graphic8 = 10204;
+def_graphic $graphic8 = graphic_10204;
 def_string $string0 = "You haven't reached the maximum level for this skill.";
 if ($boolean3 = true) {
     if (testbit(%varplayer_2812, $int2) = ^true) {

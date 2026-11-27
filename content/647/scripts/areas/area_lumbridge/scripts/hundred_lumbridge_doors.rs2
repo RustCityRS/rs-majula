@@ -1,0 +1,8 @@
+[oploc1,hundred_lumbridge_door]
+~open_and_close_door(loc_36842, ~check_axis_locactive(coord), false);
+
+[oploc1,hundred_lumbridge_doubledoorl]
+~open_and_close_door_dir(loc_36843, ~check_axis_locactive(coord), calc((loc_angle + 3) % 4), nicedoor_open);
+
+[oploc1,hundred_lumbridge_doubledoorr]
+~open_and_close_door(loc_36842, ~check_axis_locactive(coord), false);

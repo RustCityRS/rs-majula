@@ -77,25 +77,26 @@ anim(human_pickuptable, 0);
 loc_change(dungeon_tree_open, 2);
 p_delay(0);
 %karam_dungeon_varbit = ^false;
-p_teleport(0_42_149_25_28);
+// 742 rebuilt the entrance: its way in is west of the exit (exit_77421).
+p_teleport(0_42_149_22_28);
 
-[oploc1,karam_dungeon_exit]
+[oploc1,exit_77421]
 p_teleport(0_42_49_57_16);
 
-[oploc1,karam_dungeon_vineblocking1] @start_cut_vines(10, 0_42_149_3_28, 0_42_149_1_28);
-[oploc3,karam_dungeon_vineblocking1] @cut_vines(10, 0_42_149_3_28, 0_42_149_1_28);
+[oploc1,vines_77371] @start_cut_vines(10, 0_42_149_3_28, 0_42_149_1_28);
+[oploc3,vines_77371] @cut_vines(10, 0_42_149_3_28, 0_42_149_1_28);
 
-[oploc1,karam_dungeon_vineblocking2] @start_cut_vines(27, 0_41_149_59_32, 0_41_149_59_34);
-[oploc3,karam_dungeon_vineblocking2] @cut_vines(27, 0_41_149_59_32, 0_41_149_59_34);
+[oploc1,vines_77373] @start_cut_vines(27, 0_41_149_59_32, 0_41_149_59_34);
+[oploc3,vines_77373] @cut_vines(27, 0_41_149_59_32, 0_41_149_59_34);
 
-[oploc1,karam_dungeon_vineblocking3] @start_cut_vines(22, 0_41_148_48_27, 0_41_148_50_27);
-[oploc3,karam_dungeon_vineblocking3] @cut_vines(22,  0_41_148_48_27, 0_41_148_50_27);
+[oploc1,vines_77375] @start_cut_vines(22, 0_41_148_48_27, 0_41_148_50_27);
+[oploc3,vines_77375] @cut_vines(22,  0_41_148_48_27, 0_41_148_50_27);
 
-[oploc1,karam_dungeon_vineblocking4] @start_cut_vines(34, 0_41_148_50_7, 0_41_148_52_7);
-[oploc3,karam_dungeon_vineblocking4] @cut_vines(34, 0_41_148_50_7, 0_41_148_52_7);
+[oploc1,vines_77377] @start_cut_vines(34, 0_41_148_50_7, 0_41_148_52_7);
+[oploc3,vines_77377] @cut_vines(34, 0_41_148_50_7, 0_41_148_52_7);
 
-[oploc1,karam_dungeon_vineblocking5] @start_cut_vines(34, 0_42_148_5_10, 0_42_148_7_10);
-[oploc3,karam_dungeon_vineblocking5] @cut_vines(34, 0_42_148_5_10, 0_42_148_7_10);
+[oploc1,vines_77379] @start_cut_vines(34, 0_42_148_5_10, 0_42_148_7_10);
+[oploc3,vines_77379] @cut_vines(34, 0_42_148_5_10, 0_42_148_7_10);
 
 [label,start_cut_vines](int $req, coord $start, coord $dest)
 // check level first
@@ -171,7 +172,7 @@ if (stat_random(woodcutting, $tree_chance_low, $tree_chance_high) = true) {
 }
 p_oploc(3);
 
-[oploc1,karam_dungeon_stone1]
+[oploc1,stepping_stone_77570]
 if(stat(agility) < 12) {
     ~mesbox("You need an Agility level of 12 to cross the rocks.");
     return;
@@ -208,7 +209,7 @@ sound_synth(jump_no_land, 1, 0);
 stat_advance(agility, 75);
 mes("...You safely cross to the other side.");
 
-[oploc1,karam_dungeon_stone2]
+[oploc1,stepping_stone_77572]
 p_arrivedelay;
 mes("You carefully start crossing the stepping stones...");
 sound_synth(jump_no_land, 1, 0);
@@ -292,7 +293,7 @@ mes("...You make it safely to the other side.");
 ~update_bas;
 stat_advance(agility, 100);
 
-[oploc1,karam_dungeon_pipe]
+[oploc1,pipe_77424]
 def_int $mod = 1;
 def_int $dir = ^exact_north;
 def_coord $next_pipe = 0_42_148_10_26;
@@ -322,7 +323,7 @@ p_delay(0);
 sound_synth(squeeze_in, 1, 0);
 stat_advance(agility, 100);
 
-[oploc1,karam_dungeon_pipe2]
+[oploc1,pipe_77423]
 def_int $mod = -1;
 def_int $dir = ^exact_south;
 def_coord $next_pipe = 0_41_149_31_31;

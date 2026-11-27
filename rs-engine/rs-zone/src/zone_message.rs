@@ -2,7 +2,10 @@ use rs_io::Packet;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
@@ -11,7 +14,7 @@ use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 #[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 #[cfg(all(since_530, before_647))]
-use rs_protocol::network::game::server::map_projanim_halfsq::ServerProt530_104;
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsqSrc;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::obj_del::ObjDel;
@@ -92,7 +95,10 @@ zone_messages! {
     LocAddChange(LocAddChange),
     LocDel(LocDel),
     LocAnim(LocAnim),
+    #[cfg(before_647)]
     LocMerge(LocMerge),
+    #[cfg(since_647)]
+    LocCustomise(LocCustomise),
     #[cfg(since_647)]
     LocPrefetch(LocPrefetch),
     MapAnim(MapAnim),
@@ -100,7 +106,7 @@ zone_messages! {
     #[cfg(since_530)]
     MapProjAnimHalfsq(MapProjAnimHalfsq),
     #[cfg(all(since_530, before_647))]
-    ServerProt530_104(ServerProt530_104),
+    MapProjAnimHalfsqSrc(MapProjAnimHalfsqSrc),
     #[cfg(since_289)]
     SoundArea(SoundArea),
     #[cfg(since_647)]

@@ -100,9 +100,9 @@ if ($int25 > 0) {
             if ($int18 > 0) {
                 cc_create($component6, ^iftype_graphic, if_getnextsubid($component6));
                 if ($int20 > 199) {
-                    cc_setgraphic(11435);
+                    cc_setgraphic(graphic_11435);
                 } else {
-                    cc_setgraphic(11434);
+                    cc_setgraphic(graphic_11434);
                 }
                 cc_setsize(24, 12, ^setsize_abs, ^setsize_abs);
                 cc_setposition(2, calc($int22 + 3), ^setpos_abs_left, ^setpos_abs_top);

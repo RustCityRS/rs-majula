@@ -2,9 +2,11 @@ use rs_db::ModAction;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 /// Chat kinds, indexing [`Counters::chat`] and [`Counters::chat_muted`].
-pub const CHAT_KINDS: [&str; 2] = ["public", "private"];
+pub const CHAT_KINDS: [&str; 4] = ["public", "private", "friends_chat", "clan"];
 pub const CHAT_PUBLIC: usize = 0;
 pub const CHAT_PRIVATE: usize = 1;
+pub const CHAT_FRIENDS_CHAT: usize = 2;
+pub const CHAT_CLAN: usize = 3;
 
 /// What only a modified client sends, earning an automated ban. Indexes
 /// [`Counters::auto_bans`].
@@ -62,8 +64,8 @@ pub const fn mod_action_index(action: ModAction) -> usize {
 pub const LOG_KINDS: [&str; 3] = ["chat", "session", "wealth"];
 
 pub struct Counters {
-    pub chat: [AtomicU64; 2],
-    pub chat_muted: [AtomicU64; 2],
+    pub chat: [AtomicU64; 4],
+    pub chat_muted: [AtomicU64; 4],
     pub auto_bans: [AtomicU64; 3],
     pub reports: [AtomicU64; 12],
     pub mutes: AtomicU64,
@@ -81,8 +83,8 @@ pub struct Counters {
 }
 
 pub static COUNTERS: Counters = Counters {
-    chat: [const { AtomicU64::new(0) }; 2],
-    chat_muted: [const { AtomicU64::new(0) }; 2],
+    chat: [const { AtomicU64::new(0) }; 4],
+    chat_muted: [const { AtomicU64::new(0) }; 4],
     auto_bans: [const { AtomicU64::new(0) }; 3],
     reports: [const { AtomicU64::new(0) }; 12],
     mutes: AtomicU64::new(0),

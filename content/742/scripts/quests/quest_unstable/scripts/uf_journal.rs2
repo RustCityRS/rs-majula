@@ -13,11 +13,15 @@
 // entries above the struck-through line, and the ones after, no recording shows. The two shown
 // here are 4KO2h2xPtdM @124's.
 [label,questlist_unstable]
+~uf_journal;
+
+// 742's quest list has no row for it (enum_2252 skips 147), so the Quests page opens it at
+// "Check your Quest Journal" (uf_quest_list_opened).
+[proc,uf_journal]
 // Every step shows the one state the recordings show: what 2011 wrote before 50 or after 57, no
 // source found.
 def_string $text = "@str@Once his bag of supplies was safe, Sir Vant asked me to help him kill the dragon.||@dbl@Quest journals record what needs to be done next in each quest. If you ever forget what you have been asked to do, take a look in the journal to remind yourself. You can also click the @red@Get QuestHelp @dbl@link to receive more detailed hints for how to proceed with the quest.||@dbl@Sir Vant asked me to take some @red@drugged meat @dbl@from his @red@bag of supplies @dbl@and place it in a food bowl near @red@two wooden pillars@dbl@.";
-// The quest list is a side tab: its buttons run unprotected; access is taken before the journal
-// opens (an open journal makes the player busy).
+// Access is taken before the journal opens (an open journal makes the player busy).
 def_boolean $access = p_finduid(uid);
 ~quest_journal("Unstable Foundations", $text);
 if ($access = true & %tutorial >= 50 & %tutorial < 60) {

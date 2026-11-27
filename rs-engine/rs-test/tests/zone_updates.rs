@@ -8,18 +8,12 @@
 //! area: a felled tree stayed standing and a lit fire never showed until a
 //! relog sent the zone again.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
+use rs_test::server;
 
-/// The backpack (`inventory:inv`), whose op 8 is Drop.
-const BACKPACK: i32 = 149 << 16;
 /// A build area is 13 zones a side.
 const ZONES: u8 = 13;
 
@@ -43,25 +37,17 @@ fn a_drop_after_the_zones_settle_is_sent_in_its_own_zone() {
         engine.cycle();
         client.packets();
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(logs.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton8, &p.finish());
+        client.if_button(8, BACKPACK, 0, logs);
         let mut packets = Vec::new();
         for _ in 0..2 {
             engine.cycle();
             packets.extend(client.packets());
         }
 
-        // The zone's x is a plain byte in both headers -- FOLLOWS: `p1_alt2
-        // level; p1 x; p1_alt3 z`, ENCLOSED: `p1 x; p1_alt2 level; p1 z` --
-        // and a tile offset in place of the index shows in x as well as z.
-        let xs: Vec<u8> = packets
-            .iter()
-            .filter_map(|(op, p)| match *op {
-                op if op == ServerProt::UpdateZonePartialFollows as u16 => Some(p[1]),
-                op if op == ServerProt::UpdateZonePartialEnclosed as u16 => Some(p[0]),
-                _ => None,
-            })
+        // A tile offset in place of the index shows in x as well as z.
+        let xs: Vec<u8> = server::zone_partials(&packets)
+            .into_iter()
+            .map(|(x, _)| x)
             .collect();
         assert!(!xs.is_empty(), "the drop sent no zone update");
         for x in xs {

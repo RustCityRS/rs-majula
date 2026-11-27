@@ -1,8 +1,7 @@
 //! 289's doors, gates and trapdoors at 2011's placements.
 //!
-//! Each case clicks as the 647 client does (`OPLOC1`: `p2_alt1(z) p2_alt1(loc)
-//! p1(ctrl) p2_alt2(x)`; `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z)
-//! p2_alt3(x)`) and reads the zone's locs and the packets sent back.
+//! Each case clicks as the 647 client does and reads the zone's locs and the
+//! packets sent back.
 //!
 //! - A single door (2011's `door_1530` in Yanille, 289's `loc_1530`) swings a
 //!   quarter turn onto the next tile as `door_1531` and plays 289's door_open,
@@ -18,55 +17,43 @@
 //!   `trapdoor` spot) opens, then climbs down to the dungeon, 6399 north as
 //!   void-634 has it.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
+use rs_test::life;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 use std::fs;
 
-/// 647 SYNTH_SOUND: `p2 synth; p1 loops; p2 delay; p1 volume; p2 speed`.
-const SYNTH_SOUND: u16 = 50;
 const DOOR_OPEN: u16 = 81;
 const GATE_OPEN: u16 = 67;
 const LOCKED: u16 = 2402;
 const THIEVING: usize = 17;
+#[cfg(since_647)]
 const HITPOINTS: usize = 3;
-/// Holds the life points, shifted by one.
-const LIFE: u16 = 1240;
 /// The locked side of `picklock6` at 2610,3316.
+#[cfg(since_647)]
 const SIDE: (u16, u16) = (2610, 3316);
 
 fn op_loc(client: &mut HarnessClient, prot: ClientProt, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    match prot {
-        ClientProt::OpLoc1 => p
-            .p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(x as i32),
-        _ => p
-            .p2_alt1(loc as i32)
-            .p1_alt2(0)
-            .p2_alt2(z as i32)
-            .p2_alt3(x as i32),
+    let op = match prot {
+        ClientProt::OpLoc1 => 1,
+        _ => 2,
     };
-    client.send(prot, &p.finish());
+    client.op_loc(op, x, z, TypeId::new(loc));
 }
 
-/// A loc's 647 id by its name in `content/647/pack/loc.pack` (the server
+/// A loc's id by its name in the rev's `pack/loc.pack` (the server
 /// loads 647 locs from the cache's data alone, which carries no names).
 fn loc_id(_: &Engine, name: &str) -> u16 {
-    let pack = concat!(
+    let pack = &format!(
+        "{}/../../{}/pack/loc.pack",
         env!("CARGO_MANIFEST_DIR"),
-        "/../../content/647/pack/loc.pack"
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(pack)
         .expect("loc.pack")
@@ -108,12 +95,7 @@ fn run(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> (Vec<St
                 .into_iter()
                 .map(|(_, t)| t),
         );
-        synths.extend(
-            packets
-                .iter()
-                .filter(|(op, _)| *op == SYNTH_SOUND)
-                .map(|(_, p)| u16::from_be_bytes([p[0], p[1]])),
-        );
+        synths.extend(server::synths(&packets).into_iter().map(|(s, _)| s));
     }
     (said, synths)
 }
@@ -200,6 +182,84 @@ fn a_double_door_opens_both_leaves() {
         assert!(opened("opencastledoubledoorl"));
         assert!(opened("opencastledoubledoorr"));
         assert_eq!(synths, [DOOR_OPEN], "289's default open_sound");
+    });
+}
+
+#[test]
+fn lumbridge_dining_room_doors_let_the_player_through_then_shut() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = visitor(engine, "diningroom", 3213, 3221);
+        for (door, (x, z), across, side) in [
+            (
+                "hundred_lumbridge_doubledoorl",
+                (3213, 3221),
+                (3212, 0, 3221),
+                (3213, 3220),
+            ),
+            (
+                "hundred_lumbridge_doubledoorr",
+                (3213, 3222),
+                (3212, 0, 3222),
+                (3213, 3223),
+            ),
+            (
+                "hundred_lumbridge_door",
+                (3207, 3217),
+                (3207, 0, 3218),
+                (3206, 3217),
+            ),
+        ] {
+            engine.harness_telejump(client.pid, side.0, 0, side.1);
+            engine.cycle();
+            let id = TypeId::from(loc_id(engine, door));
+            for destination in [across, (x, 0, z)] {
+                client.op_loc(1, x, z, id);
+                if destination == across {
+                    let (_, approach_sounds) = run(engine, &mut client, 2);
+                    assert!(loc_at(engine, door, x, z).is_some(), "{door}");
+                    assert!(
+                        approach_sounds.is_empty(),
+                        "{door} played {approach_sounds:?} during approach"
+                    );
+                }
+                let (_, opening_sounds) = run(engine, &mut client, 1);
+                assert_eq!(opening_sounds, [DOOR_OPEN], "{door}");
+                assert_eq!(coord(engine, client.pid), destination, "{door}");
+                assert!(loc_at(engine, door, x, z).is_none(), "{door}");
+                if x == 3213 {
+                    let (other, other_z) = if z == 3221 {
+                        ("hundred_lumbridge_doubledoorr", 3222)
+                    } else {
+                        ("hundred_lumbridge_doubledoorl", 3221)
+                    };
+                    assert_eq!(loc_at(engine, other, x, other_z), Some(0));
+                }
+                run(engine, &mut client, 4);
+                assert!(loc_at(engine, door, x, z).is_some(), "{door}");
+            }
+        }
+    });
+}
+
+#[cfg(before_647)]
+#[test]
+fn swamp_hut_and_piscatoris_doors_close_to_their_original_locs() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = visitor(engine, "swampwalker", 3147, 3172);
+        for (closed, x, z) in [("door_15056", 3147, 3172), ("door_14923", 2319, 3677)] {
+            engine.harness_telejump(client.pid, x, 0, z);
+            run(engine, &mut client, 2);
+            client.op_loc(1, x, z, TypeId::from(loc_id(engine, closed)));
+            let (_, sounds) = run(engine, &mut client, 4);
+            assert_eq!(sounds, [DOOR_OPEN]);
+            assert_eq!(loc_at(engine, closed, x, z), None);
+            assert_eq!(loc_at(engine, "door_14924", x, z + 1), Some(2));
+
+            client.op_loc(1, x, z + 1, TypeId::from(loc_id(engine, "door_14924")));
+            run(engine, &mut client, 4);
+            assert_eq!(loc_at(engine, closed, x, z), Some(1));
+            assert_eq!(loc_at(engine, "door_14924", x, z + 1), None);
+        }
     });
 }
 
@@ -303,15 +363,14 @@ fn ardougnes_level_one_locked_door_picks_from_outside() {
 /// 2610,3316 springs its trap on 289's 32-250 of 256 roll: 7 picks in 8 at
 /// 1 Thieving. 89 Hitpoints cap the natural recovery under the 990 set here,
 /// so the trap is the only change.
+#[cfg(since_647)]
 #[test]
 fn a_trapped_lock_costs_a_tenth_of_the_life_points() {
     runner::on_loaded_engine(|engine| {
         assert_eq!(loc_at(engine, "picklock6", 2610, 3316), Some(2));
         let door = (loc_id(engine, "picklock6"), 2610, 3316);
         let mut client = visitor(engine, "trapped", SIDE.0, SIDE.1);
-        let life = |engine: &Engine, pid| {
-            (engine.harness_player(pid).unwrap().vars.get(LIFE).as_int() >> 1) & 0x7FFF
-        };
+        let life = |engine: &Engine, pid| life::get(engine, pid);
         let mut lost = None;
         for _ in 0..12 {
             let player = engine.harness_player_mut(client.pid).unwrap();
@@ -319,8 +378,7 @@ fn a_trapped_lock_costs_a_tenth_of_the_life_points() {
             player.stats.base_levels[THIEVING] = 1;
             player.stats.levels[HITPOINTS] = 89;
             player.stats.base_levels[HITPOINTS] = 89;
-            let lp = player.vars.get(LIFE).as_int();
-            player.vars.set(LIFE, VarValue::Int((lp & 1) | 990 << 1));
+            life::set(player, 99 * life::SCALE);
             engine.cycle();
             client.packets();
             op_loc(&mut client, ClientProt::OpLoc2, door);

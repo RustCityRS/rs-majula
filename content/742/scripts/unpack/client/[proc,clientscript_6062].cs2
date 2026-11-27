@@ -1,18 +1,18 @@
 // 6062
 [proc,clientscript_6062](component $component0, component $component1)
-def_graphic $graphic2 = 10277;
-def_graphic $graphic3 = 10281;
+def_graphic $graphic2 = graphic_10277;
+def_graphic $graphic3 = graphic_10281;
 switch_int (map_lang) {
     case 0 :
     case 2 :
-        $graphic2 = 10278;
-        $graphic3 = 10282;
+        $graphic2 = graphic_10278;
+        $graphic3 = graphic_10282;
     case 1 :
-        $graphic2 = 10279;
-        $graphic3 = 10283;
+        $graphic2 = graphic_10279;
+        $graphic3 = graphic_10283;
     case 3 :
-        $graphic2 = 10280;
-        $graphic3 = 10284;
+        $graphic2 = graphic_10280;
+        $graphic3 = graphic_10284;
 }
 if_setgraphic($component0, $graphic2);
 if_setgraphic($component1, $graphic3);
