@@ -117,13 +117,13 @@ if (p_finduid(uid) = true) {
     } else if($obj = ibanstaff) {
         // https://youtu.be/n_ip_vEDbCA?si=0uESoOC98Fvl7HqS&t=2333
         mes("You equip the staff of Iban.");
+    } else if(oc_category($obj) = mm_greegree) {
+        // 289's windwave_impact is spotanim 160, which cache 786 keeps (unnamed, a new model).
+        spotanim_pl(spotanim_160, 124, 0);
+        anim(null, 0);
+        // 289's oc_param($obj, transform_sound): cache 786 has no such param (quest_mm.rs2).
+        sound_synth(~mm_greegree_sound($obj, false), 0, 0);
     }
-    // 289's greegree transformation waits for the Monkey Madness port.
-    // else if(oc_category($obj) = mm_greegree) {
-    //     spotanim_pl(windwave_impact, 124, 0);
-    //     anim(null, 0);
-    //     sound_synth(oc_param($obj, transform_sound), 0, 0);
-    // }
 
     ~update_all($previous)
     // Unstable Foundations' "Equip Yourself" (quest_unstable/uf_gear.rs2).
@@ -165,10 +165,9 @@ if (p_finduid(uid) = true) {
 }
 
 // 289's player/scripts/equip.rs2, line for line (a bank deposit of worn items
-// runs it). The greegree, sled, sigil and Castle Wars standard effects wait
-// for Monkey Madness, Troll Romance and Castle Wars, which 647 has not ported:
-// mm_greegree, %wearing_sled, the teleport_mm_sigil timer and
-// ~castlewars_flag_drop do not exist in 647 yet.
+// runs it). The sled and Castle Wars standard effects wait for Troll Romance
+// and Castle Wars, which this branch has not ported: %wearing_sled and
+// ~castlewars_flag_drop do not exist here yet.
 [proc,unequip_effect](obj $obj, int $update_all)
 if($obj = elemental_shield & inv_getobj(worn, ^wearpos_lhand) = null) {
     sound_synth(shield_appear, 1, 0);
@@ -176,20 +175,22 @@ if($obj = elemental_shield & inv_getobj(worn, ^wearpos_lhand) = null) {
 if (oc_param($obj, specwep) = ^true) {
     %sa_attack = ^false;
 }
-// if(oc_category($obj) = mm_greegree) {
-//     p_transmogrify(null);
-//     cleartimer(mm_greegree_timer);
-//     p_animprotect(^false);
-//     spotanim_pl(windwave_impact, 124, 0);
-//     sound_synth(oc_param($obj, revert_sound), 0, 0);
-//     if_settab(magic, ^tab_magic);
-// }
+if(oc_category($obj) = mm_greegree) {
+    p_transmogrify(null);
+    cleartimer(mm_greegree_timer);
+    p_animprotect(^false);
+    // 289's windwave_impact is spotanim 160, which cache 786 keeps (unnamed, a new model).
+    spotanim_pl(spotanim_160, 124, 0);
+    // 289's oc_param($obj, revert_sound): cache 786 has no such param (quest_mm.rs2).
+    sound_synth(~mm_greegree_sound($obj, true), 0, 0);
+    if_settab(magic, ^tab_magic);
+}
 // if($obj = trollromance_toboggon_waxed) {
 //     %wearing_sled = ^false;
 // }
-// if($obj = mm_sigil) {
-//     cleartimer(teleport_mm_sigil);
-// }
+if($obj = mm_sigil) {
+    cleartimer(teleport_mm_sigil);
+}
 if($update_all = ^true) ~update_all($obj);
 // if ($obj = castlewars_saradomin_banner | $obj = castlewars_zamorak_banner) {
 //     ~castlewars_flag_drop(inv, $obj);
@@ -347,9 +348,8 @@ if (p_finduid(uid) = true) {
 ~update_weight
 ~update_weapon_category($previous_weapon)
 ~player_combat_stat
-// 289's greegree transformation and Troll Romance sled walk wait for the
-// Monkey Madness and Troll Romance ports.
-// ~mm_greegree_transmogrify(inv_getobj(worn, ^wearpos_rhand)); // greegree transmogrify
+~mm_greegree_transmogrify(inv_getobj(worn, ^wearpos_rhand)); // greegree transmogrify
+// 289's Troll Romance sled walk waits for the Troll Romance port.
 // // Force the sled 'crab walk' glitch. Must be a better way to do this than checking for the sled in the right hand slot, but this works for now.
 // // https://www.youtube.com/watch?v=i9m-APfxg5Y&t=29s
 // if (inv_getobj(worn, ^wearpos_rhand) = trollromance_toboggon_waxed) {

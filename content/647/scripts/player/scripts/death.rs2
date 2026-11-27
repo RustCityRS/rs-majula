@@ -38,6 +38,8 @@ if (findhero = true) {
 %information_signs_deaths = calc(%information_signs_deaths + 1);
 p_teleport(map_findsquare(0_50_50_21_18, 0, 2, ^map_findsquare_lineofwalk));
 buildappearance(worn);
+// 289's death.rs2: a player who dies as a monkey (Monkey Madness's greegrees) is themself again.
+p_transmogrify(null);
 ~prayer_deactivate_all;
 ~follower_death;
 anim(null, 0);

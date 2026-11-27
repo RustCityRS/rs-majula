@@ -64,6 +64,8 @@ if (%tutorial3_postquest < 5) {
         %tutorial3_postquest = 5;
     }
 }
+// 289's login.rs2: Monkey Madness's login (its monkey's timer, and a cutscene left part way).
+~mm_login;
 // 289's login.rs2: Charlie is back in his cell for a player who logs in beside it (The Grand Tree).
 if(inzone(movecoord(^grandtree_jail_coord, 0, 0, -2), movecoord(^grandtree_jail_coord, 3, 0, 2), coord) = true) {
     ~grandtree_spawn_charlie;

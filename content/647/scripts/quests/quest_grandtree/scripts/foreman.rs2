@@ -1,7 +1,8 @@
 // 289's quests/quest_grandtree/scripts/foreman.rs2, line for line.
 [opnpc1,grandtree_foreman]
-// Monkey Madness is not ported yet: 289's hook into it here returns with that quest's port
-// (`if(%mm_main = ^mm_shown_seal) @mm_foreman_dialogue`).
+if(%mm_main = ^mm_shown_seal) {
+    @mm_foreman_dialogue;
+}
 if((%grandtree ! ^grandtree_released_prison & %grandtree ! ^grandtree_obtained_lumber_order) | ~obj_gettotal(grandtree_order) > 0) {
     ~mesbox("The foreman is too busy to talk.");
     return;
