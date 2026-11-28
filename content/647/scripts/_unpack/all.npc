@@ -126434,6 +126434,9 @@ name=Earth elemental
 model1=model_18649
 unknown119=3
 cursorattack=cursor_attack
+// 289's earth_elemental_rock_version: what it leaves beside the elemental ore, and its style.
+param=death_drop,swamprocks1
+param=damagetype,^crush_style
 // Combat defaults from [elemental_earth].
 param=attack_anim,earth_elemental_rework_attack
 param=defend_anim,earth_elemental_rework_defend
