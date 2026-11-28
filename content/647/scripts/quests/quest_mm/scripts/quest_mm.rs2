@@ -1001,7 +1001,10 @@ p_delay(0);
 queue(fade_clear, 2, 0);
 if(stat_random(agility, 150, 300) = false) {
     // strongqueue
-    queue(damage_player, 0, divide(stat(hitpoints), 3)); // 1/3rd of hp
+    // 289's third of hitpoints, in life points, and at most 300. 2011's: the 2011 wiki's Monkey
+    // Madness page (revid 543991, 2011-05-11): "Players may fall and take up to 300 life
+    // points damage".
+    queue(damage_player, 0, min(multiply(divide(calc(%life_points / 10), 3), 10), 300));
     anim(m_human_land, 0);
     walktrigger(mm_land_getup);
     ~mesbox("... and fall to the bottom of a very deep cavern!");
@@ -1058,7 +1061,12 @@ if(~mm_wearing_greegree = true) {
     mes("You do not want to do that as a monkey.");
     return;
 }
-queue(damage_player, 0, 1);
+// 289's 1 hitpoint, in life points.
+// 289's figure in hitpoints, worked on life points / 10 and times ten: 2011 counts ten life
+// points to a hitpoint (the 2011 wiki's Constitution page, revid 526347, 2011-05-12: "at level
+// 99 Constitution, players will have 990 life points"; Hitpoints became Constitution in "the 3
+// March 2010 update").
+queue(damage_player, 0, 10);
 // 289's agilityarena_dive_player keeps its id, seq 1115, unnamed in 647's pack.
 ~agility_exactmove(seq_1115, 20, 1, coord, movecoord(coord, 0, 0, -2), 30, 49, ^exact_south, false);
 p_teleport(0_43_42_51_36);

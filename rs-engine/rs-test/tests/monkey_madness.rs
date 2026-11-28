@@ -14,7 +14,7 @@ use rs_engine::harness::HarnessClient;
 use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
 use rs_pack::cache::dbrow::DbRowValue;
-use rs_pack::types::NpcStat;
+use rs_pack::types::{LocAngle, LocShape, NpcStat};
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
@@ -23,6 +23,7 @@ use rs_test::talk::{Conversation, converse, settexts, talk_to};
 use rs_test::world;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
+use rs_vm::state::ScriptArgument;
 use rs_vm::subject::ScriptSubject;
 use std::sync::Mutex;
 
@@ -1112,7 +1113,10 @@ fn tutab_s_trade_opens_tutab_s_magical_market() {
         client.op_npc(3, tutab);
         let t = watch(engine, &mut client, 6);
         assert!(
-            engine.harness_player(client.pid).unwrap().is_interface_open(620),
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .is_interface_open(620),
             "the shop opens: {:?}",
             t.messages
         );
@@ -1122,5 +1126,328 @@ fn tutab_s_trade_opens_tutab_s_magical_market() {
             t.texts
         );
         no_errors(engine);
+    });
+}
+
+/// Every hit painted on the player since recording began: its hitmark and amount.
+fn hits_taken() -> Vec<(i32, i32)> {
+    calls_for("damage")
+        .iter()
+        .map(|hit| {
+            let mut n = hit.split(',').map(|n| n.parse::<i32>().unwrap());
+            (n.next().unwrap(), n.next().unwrap())
+        })
+        .collect()
+}
+
+/// Runs the player's `script` (a timer or queue of the quest) once, with `args`, then `ticks`
+/// ticks with full life (990), and gives each hit it painted.
+fn hit_by(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    script: &str,
+    args: Option<Vec<ScriptArgument>>,
+    ticks: usize,
+) -> Vec<(i32, i32)> {
+    set_life_points(engine, client, 990);
+    let uid = engine.harness_player(client.pid).unwrap().uid;
+    set_recording(true);
+    forget_calls();
+    engine
+        .run_script_by_name(
+            script,
+            Some(ScriptSubject::Player(uid)),
+            None,
+            Some(true),
+            Some(true),
+            args,
+        )
+        .unwrap_or_else(|e| panic!("{script}: {e:?}"));
+    for _ in 0..ticks {
+        engine.cycle();
+        client.packets();
+    }
+    let hits = hits_taken();
+    set_recording(false);
+    hits
+}
+
+/// `^hitmark_damage`: the plain hitmark, a trap's or a fall's.
+const HITMARK_DAMAGE: i32 = 3;
+
+/// Tiles of Zooknock's tunnel (0_42_142): a spring trap's trigger (cache 786's l42_142: 0 5 21)
+/// and a spear trap's (0 2 27).
+const SPRING_TRAP: (u16, u16) = (2693, 9109);
+const SPEAR_TRAP: (u16, u16) = (2690, 9115);
+
+/// Puts the loc `name` on the tunnel tile `at` and stands the player on it, at full life and
+/// Constitution 99.
+fn on_trap(engine: &mut Engine, client: &mut HarnessClient, name: &str, at: (u16, u16)) {
+    let loc = id(engine, "loc", name);
+    engine.harness_telejump(client.pid, at.0, 0, at.1);
+    settle(engine, client, 2);
+    engine.add_or_change_loc(
+        CoordGrid::new(at.0, 0, at.1),
+        loc,
+        LocShape::CentrepieceStraight,
+        LocAngle::West,
+        1,
+        1,
+        false,
+        false,
+        false,
+        0,
+    );
+}
+
+/// The traps of Zooknock's tunnel take 289's share of life, in life points (289's figure, worked
+/// on life points / 10 as hitpoints, times ten; the 2011 wiki's Constitution page, revid 526347,
+/// 2011-05-12: "at level 99 Constitution, players will have 990 life points"). At 990 life
+/// points: the spring trap 8% of 99 and 1, so 80 (the 2011 wiki's Ape Atoll Dungeon page, revid
+/// 519167, 2011-03-05: "traps that can hit up to 80"); the floor and wall spikes 7% and 1, so 70;
+/// the falling rocks 3% and 1, so 30. 289's took 8, 7 and 3.
+#[test]
+fn the_tunnel_s_traps_hit_in_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmtraps");
+        // The tunnel's monsters leave the player be.
+        world::calm(engine, SPRING_TRAP.0, SPRING_TRAP.1, 30);
+        // Beside the spring trap, under no ledge: the rocks fall there. Cache 786's maps place no
+        // floor spikes (mm_floorspikes): they are laid in the spear trap's place, and the spear
+        // trap is put back after.
+        let rocks = walkable_near((SPRING_TRAP.0 + 1, SPRING_TRAP.1), 0, false);
+        let traps = [
+            ("[queue,mm_dungeon_roof_collapse]", None, rocks, 30),
+            (
+                "[timer,mm_dungeon_spikes]",
+                Some("mm_floorspikes"),
+                SPEAR_TRAP,
+                70,
+            ),
+            (
+                "[timer,mm_dungeon_wallspikes]",
+                Some("di2_speartrap"),
+                SPEAR_TRAP,
+                70,
+            ),
+            (
+                "[timer,mm_springtrap]",
+                Some("mm_double_springtrap_trigger"),
+                SPRING_TRAP,
+                80,
+            ),
+        ];
+        let mut took = Vec::new();
+        for (script, loc, at, _) in traps {
+            match loc {
+                Some(loc) => on_trap(engine, &mut client, loc, at),
+                None => {
+                    engine.harness_telejump(client.pid, at.0, 0, at.1);
+                    settle(engine, &mut client, 2);
+                }
+            }
+            // Immune to the spikes' poison, so only their own hit is painted.
+            set_var(engine, &client, "poison", -1000);
+            let hits = hit_by(engine, &mut client, script, None, 3);
+            // A trap stood on keeps hitting, each hit worked on the life left: the hardest is the
+            // one taken at full life. A trap's hit has the plain hitmark (`^hitmark_damage`); the
+            // tunnel's monsters' have their style's.
+            let trap_hits = hits.iter().filter(|h| h.0 == HITMARK_DAMAGE);
+            took.push((script, trap_hits.map(|h| h.1).max().unwrap_or(0)));
+        }
+        let want: Vec<(&str, i32)> = traps.iter().map(|&(s, _, _, most)| (s, most)).collect();
+        assert_eq!(took, want, "each trap's hit at 990 life points");
+        no_errors(engine);
+    });
+}
+
+/// The jail's guards punch for a fifth of the player's life, in life points, up to 200: the 2011
+/// wiki's Monkey Madness page (revid 543991, 2011-05-11): "they will punch the player, dealing up
+/// to 200 life points damage". 289 takes a fifth of its hitpoints; at 990 life points that is 99
+/// / 5, so 190 (289's 19).
+#[test]
+fn the_jail_guard_s_punch_hits_in_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmjail");
+        let guard = stand_beside(engine, &mut client, "mm_aberab", (2768, 2803));
+        let uid = engine.get_npc(guard).unwrap().npc.uid.packed() as i32;
+        let hits = hit_by(
+            engine,
+            &mut client,
+            "[queue,mm_jail_guard_attack]",
+            Some(vec![ScriptArgument::Int(uid)]),
+            2,
+        );
+        assert_eq!(hits.first().map(|h| h.1), Some(190), "{hits:?}");
+    });
+}
+
+/// The fall through the crate over the hole takes a third of the player's life, in life points,
+/// up to 300: the 2011 wiki's Monkey Madness page (revid 543991, 2011-05-11): "Players may fall
+/// and take up to 300 life points damage". 289 takes a third of its hitpoints; at 990 life
+/// points, 99 / 3 is 330, so 300 (289's 33).
+#[test]
+fn the_fall_under_the_crate_hits_up_to_300() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmcrate");
+        // Agility 1: the climb down fails about two times in five (stat_random 150-300).
+        engine.harness_player_mut(client.pid).unwrap().stats.levels[16] = 1;
+        let crate_loc = id(engine, "loc", "mm_crate_over_hole");
+        let mut fell = None;
+        let mut last = Conversation::default();
+        for _ in 0..30 {
+            set_life_points(engine, &client, 990);
+            engine.harness_telejump(client.pid, 2769, 0, 2766);
+            settle(engine, &mut client, 2);
+            set_recording(true);
+            forget_calls();
+            client.op_loc(1, 2769, 2765, crate_loc);
+            let mut t = converse(engine, &mut client, &["Yes, I'm sure."], 40);
+            // The climb, its fade and the landing.
+            let landing = watch(engine, &mut client, 15);
+            t.texts.extend(landing.texts);
+            t.messages.extend(landing.messages);
+            // The fall's box is closed before its queued hit runs.
+            converse(engine, &mut client, &[], 10);
+            settle(engine, &mut client, 2);
+            let hits = hits_taken();
+            set_recording(false);
+            if t.said("... and fall to the bottom of a very deep cavern!") {
+                fell = Some(hits);
+                break;
+            }
+            last = t;
+        }
+        let hits = fell.unwrap_or_else(|| {
+            panic!(
+                "a climb down fails; the last climb: {:?} (chat {:?})",
+                last.texts, last.messages
+            )
+        });
+        assert_eq!(hits.first().map(|h| h.1), Some(300), "{hits:?}");
+    });
+}
+
+/// The jumping square's dive takes 10 life points, 289's 1 hitpoint (2011 wiki, Constitution,
+/// revid 526347: ten life points to a hitpoint, 990 at level 99).
+#[test]
+fn the_jumping_square_hits_10_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmjump");
+        let square = id(engine, "loc", "mm_jumping_square");
+        engine.harness_telejump(client.pid, 2803, 2, 2728);
+        settle(engine, &mut client, 2);
+        set_life_points(engine, &client, 990);
+        set_recording(true);
+        forget_calls();
+        client.op_loc(1, 2803, 2727, square);
+        settle(engine, &mut client, 8);
+        let hits = hits_taken();
+        set_recording(false);
+        assert_eq!(hits.first().map(|h| h.1), Some(10), "{hits:?}");
+    });
+}
+
+/// The temple's Monkey Guards beat their chest and heal 250 life points when low: the 2011 wiki's
+/// Monkey Guard page (revid 543988, 2011-03-30): "When they have very low health, they will beat
+/// their chest, causing them to heal 250 life points" (289 heals 24 hitpoints). "Low" is 289's 30
+/// hitpoints or fewer, 300 life points. One left 300 heals to 550 (289's would not heal at 300).
+#[test]
+fn a_low_monkey_guard_heals_250_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmguard");
+        let guard = stand_beside(engine, &mut client, "mm_religious_guard", (2788, 2778));
+        let guard_uid = engine.get_npc(guard).unwrap().npc.uid;
+        let player = engine.harness_player(client.pid).unwrap().uid;
+        let mut healed = None;
+        // It beats its chest one time in twelve.
+        for _ in 0..200 {
+            set_life_points(engine, &client, 990);
+            engine.get_npc_mut(guard).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 300;
+            engine
+                .run_script_by_name(
+                    "[ai_opplayer2,mm_religious_guard]",
+                    Some(ScriptSubject::Npc(guard_uid)),
+                    Some(ScriptSubject::Player(player)),
+                    None,
+                    None,
+                    None,
+                )
+                .expect("the guard's attack ran");
+            let life = engine.get_npc(guard).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize];
+            if life != 300 {
+                healed = Some(life);
+                break;
+            }
+        }
+        assert_eq!(healed, Some(550), "a guard left 300 heals 250");
+    });
+}
+
+/// The 10th squad's hits on the jungle demon are 0 or 10 life points, 289's 0 or 1 hitpoint (2011
+/// wiki, Constitution, revid 526347): no source gives 2011's own figure. Garkor's swing
+/// (`[ai_opnpc2,mm_garkor_final_battle]`, the melee gnomes' ~gnome_finalbattle_melee) is run 30
+/// times at the demon.
+#[test]
+fn the_10th_squad_hits_the_demon_in_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (mut client, _) = start_the_final_battle(engine, "mmsquad");
+        let mut fighters = None;
+        for _ in 0..80 {
+            set_life_points(engine, &client, 990);
+            engine.cycle();
+            client.packets();
+            let garkor = spawned(engine, "mm_garkor_final_battle", None);
+            let demon = spawned(engine, "mm_demon", None);
+            if let (Some(garkor), Some(demon)) = (garkor, demon) {
+                fighters = Some((garkor.0, demon.0));
+                break;
+            }
+        }
+        let (garkor, demon) = fighters.expect("Garkor and the jungle demon are there");
+        let garkor_uid = engine.get_npc(garkor).unwrap().npc.uid;
+        let demon_uid = engine.get_npc(demon).unwrap().npc.uid;
+        set_recording(true);
+        forget_calls();
+        for _ in 0..30 {
+            engine.get_npc_mut(demon).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] =
+                DEMON_LIFE_POINTS;
+            engine
+                .run_script_by_name(
+                    "[ai_opnpc2,mm_garkor_final_battle]",
+                    Some(ScriptSubject::Npc(garkor_uid)),
+                    Some(ScriptSubject::Npc(demon_uid)),
+                    None,
+                    None,
+                    None,
+                )
+                .expect("Garkor's swing ran");
+            stay_on(engine, &mut client);
+            set_life_points(engine, &client, 990);
+            engine.cycle();
+            client.packets();
+        }
+        // `npc_hit_on` ("nid:by") is recorded beside each `npc_damage` ("hitmark,amount"): other
+        // npcs are hit in the world meanwhile.
+        let on = calls_for("npc_hit_on");
+        let hits: Vec<i32> = calls_for("npc_damage")
+            .iter()
+            .zip(on.iter())
+            .filter(|(_, on)| on.split(':').next() == Some(demon.to_string().as_str()))
+            .map(|(d, _)| d.split(',').nth(1).unwrap().parse().unwrap())
+            .collect();
+        set_recording(false);
+        let landed: Vec<i32> = hits.iter().copied().filter(|&a| a > 0).collect();
+        assert!(!landed.is_empty(), "a swing lands: {hits:?}");
+        assert!(
+            landed.iter().all(|&a| a == 10),
+            "each hit is 10: {landed:?}"
+        );
     });
 }

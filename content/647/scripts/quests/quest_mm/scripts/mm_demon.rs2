@@ -222,7 +222,10 @@ npc_setmode(null);
 if ($impact ! null) {
     .spotanim_npc($impact, 200, $duration);
 }
-.npc_queue(4, random(2), calc($duration / 30));
+// The 10th squad's hit is 289's 0 or 1 hitpoint, as life points: 0 or 10. No 2011 source gives
+// the figure; converted by the life points rule (the 2011 wiki's Constitution page, revid
+// 526347, 2011-05-12: "at level 99 Constitution, players will have 990 life points").
+.npc_queue(4, multiply(random(2), 10), calc($duration / 30));
 .npc_anim(demon_block, calc($duration / 30));
 ~.sound_area(black_demon_hit, calc($duration / 30), .npc_coord, 15);
 
@@ -264,7 +267,11 @@ if(npc_type = mm_karam_final_battle) npc_anim(seq_1413, 0);
 // 289's midget_attacksword keeps its id, seq 192, unnamed in 647's pack.
 else npc_anim(seq_192, 0);
 npc_setmode(null);
-.npc_queue(4, random(2), 0); // always 1 damage on osrs, not originally: https://youtu.be/9bwZbgPNaOc?si=gmpIpGkKsQdVfXhJ&t=158
+// always 1 damage on osrs, not originally: https://youtu.be/9bwZbgPNaOc?si=gmpIpGkKsQdVfXhJ&t=158
+// The 10th squad's hit is 289's 0 or 1 hitpoint, as life points: 0 or 10. No 2011 source gives
+// the figure; converted by the life points rule (the 2011 wiki's Constitution page, revid
+// 526347, 2011-05-12: "at level 99 Constitution, players will have 990 life points").
+.npc_queue(4, multiply(random(2), 10), 0);
 .npc_anim(demon_block, 20);
 ~.sound_area(black_demon_hit, 20, .npc_coord, 15);
 
@@ -285,7 +292,10 @@ def_int $duration = 64;
 $duration = ~npc_to_npc_projectile(.npc_uid, vial_travel, 25, 50, 25, 16, 21, 64, 5);
 npc_setmode(null);
 .spotanim_npc(explodingvial, 200, calc($duration / 30));
-.npc_queue(4, random(2), calc($duration / 30));
+// The 10th squad's hit is 289's 0 or 1 hitpoint, as life points: 0 or 10. No 2011 source gives
+// the figure; converted by the life points rule (the 2011 wiki's Constitution page, revid
+// 526347, 2011-05-12: "at level 99 Constitution, players will have 990 life points").
+.npc_queue(4, multiply(random(2), 10), calc($duration / 30));
 .npc_anim(demon_block, calc($duration / 30));
 ~.sound_area(black_demon_hit, calc($duration / 30), .npc_coord, 15);
 

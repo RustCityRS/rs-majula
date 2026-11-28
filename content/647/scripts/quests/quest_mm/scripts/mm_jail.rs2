@@ -170,7 +170,10 @@ if(npc_finduid($npc_uid) = true) {
             }
         }
         anim(human_mm_flyback, 20);
-        ~damage_self(divide(stat(hitpoints), 5)); // 1/5th of hp?
+        // 289's fifth of hitpoints ("1/5th of hp?"), in life points, and at most 200. 2011's: the
+        // 2011 wiki's Monkey Madness page (revid 543991, 2011-05-11): "they will punch the
+        // player, dealing up to 200 life points damage".
+        ~damage_self(min(multiply(divide(calc(%life_points / 10), 5), 10), 200));
         if(lineofwalk(coord, $dest) = true & coord ! $dest) {
             p_exactmove(coord, $dest, 20, 40, $dir);
         }

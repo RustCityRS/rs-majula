@@ -46,9 +46,18 @@ if(npc_type ! mm_monkey_guard) {
 if(~mm_wearing_greegree = true) { // this does come before the healing check
     return;
 }
-if(npc_stat(hitpoints) <= 30 & random(12) = 0) {
+// 289's 30 hitpoints or fewer, in life points: 300.
+// 289's figure in hitpoints, worked on life points / 10 and times ten: 2011 counts ten life
+// points to a hitpoint (the 2011 wiki's Constitution page, revid 526347, 2011-05-12: "at level
+// 99 Constitution, players will have 990 life points"; Hitpoints became Constitution in "the 3
+// March 2010 update").
+if(npc_stat(hitpoints) <= 300 & random(12) = 0) {
     npc_anim(m_gorilla_poundchest, 0);
-    npc_statheal(hitpoints, 24, 0); // looks to be always 24 rather than 25 like the wiki says (checked w/monster examine)
+    // 289 heals 24 ("looks to be always 24 rather than 25 like the wiki says (checked w/monster
+    // examine)"). 2011's: the 2011 wiki's Monkey Guard page (revid 543988, 2011-03-30): "When
+    // they have very low health, they will beat their chest, causing them to heal 250 life
+    // points".
+    npc_statheal(hitpoints, 250, 0);
     sound_synth(gorilla_beatchest, 0, 0);
     // will not attack on the same tick as healing, will delay the next attack by 1t if it was supposed to attack this tick
     return;
