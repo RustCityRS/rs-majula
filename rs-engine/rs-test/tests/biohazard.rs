@@ -3,7 +3,7 @@
 //! rewards are the 2011 wiki's and Sal's Realm's as 289's (3 quest points, 1,250 Thieving
 //! experience); starting it fills Plague City's tunnel in (2011's dug hole is a patch again).
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
