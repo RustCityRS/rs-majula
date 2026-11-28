@@ -1,0 +1,29 @@
+// 289's areas/area_mausoleum/scripts/holy_barrier.rs2, line for line, on 2011's trapdoor.
+[oploc1,pip_underground_wall_side_withportal]
+if (%priestperil = ^priestperil_access_holy_barrier) {
+    if (p_finduid(uid) = true) {
+        p_telejump(0_53_54_31_29);
+        mes("You pass through the holy barrier.");
+    }
+} else {
+    @drezel_cant_access_holy_barrier;
+}
+
+// 289's east trapdoor (pipeastsidetrapdoor, on 0_53_54_30_29) is trapdoor_30573 in cache 786's
+// map (0_53_54_30_28, op Open) and its open form paterdomus_mory_entry_trapdoor_open (name
+// Ladder, op Climb-down; it has no Close op in 2011, so 289's close below is never offered).
+[oploc1,trapdoor_30573]
+mes("The trapdoor opens...");
+sound_synth(door_open, 1, 0);
+loc_change(paterdomus_mory_entry_trapdoor_open, 500);
+
+[oploc1,paterdomus_mory_entry_trapdoor_open]
+mes("You climb down through the trapdoor...");
+anim(human_pickupfloor, 0);
+p_delay(0);
+p_telejump(0_53_154_48_31);
+
+[oploc2,paterdomus_mory_entry_trapdoor_open]
+mes("You close the trapdoor.");
+sound_synth(door_close, 1, 0 );
+loc_change(trapdoor_30573, 500);
