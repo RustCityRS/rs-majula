@@ -1998,6 +1998,8 @@ transmit=yes
 // 448
 [follower_obj]
 transmit=yes
+// Server key: the pouch of the familiar out (289 types its follower_obj the same).
+type=namedobj
 
 // 449
 [tog_minigame]
@@ -4423,6 +4425,8 @@ transmit=yes
 // 1174
 [lore_npc_head]
 transmit=yes
+// Server key: the familiar whose head Follower Details shows.
+type=npc
 
 // 1175
 [lore_npc_stats]
@@ -4439,6 +4443,7 @@ transmit=yes
 // 1178
 [wolf_var]
 transmit=yes
+scope=perm
 
 // 1179
 [skill_stat_flash]

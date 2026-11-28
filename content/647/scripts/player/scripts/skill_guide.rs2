@@ -28,6 +28,8 @@
 [if_button,stats:fletching_button] @skill_guide(fletching, 0);
 [if_button,stats:woodcutting_button] @skill_guide(woodcutting, 0);
 [if_button,stats:runecraft_button] @skill_guide(runecraft, 0);
+// Summoning's button is unnamed in cache 786: 320:150, with the same View menu.
+[if_button,stats:com_150] @skill_guide(animallore, 0);
 
 [label,skill_guide](stat $lookup, int $page)
 db_find(levelup:stat, $lookup);

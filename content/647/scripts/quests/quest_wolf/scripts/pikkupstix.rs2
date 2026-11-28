@@ -1,0 +1,374 @@
+// Pikkupstix, in his house in Taverley (2925,3443): Wolf Whistle's talks. Every line is read off
+// the dated recordings (.claude/647-wolf-whistle-states.md section 1); each carries its line id there and two of its
+// sources as <video id> <upload date> @<second>. The recordings' line breaks are ordinary wraps,
+// which ~chatnpc and ~chatplayer make at 380 px, so the text is written unbroken.
+// No source found: any chathead expression. The faces are visible in the recordings but their
+// animations cannot be named from footage, so every line uses the neutral one.
+//
+// 2011's: cache 786: the map spawns npc 6988 and npc 6989 on one tile. 6988 (this trigger) shows
+// as wolf_druid_piccupstix_worried (6971) while wolf_quest is 0-100 and as nothing at 110; 6989
+// shows as wolf_druid_piccupstix_calm (6970; Talk-to, Trade, Enchant) at 110 only. A multinpc's
+// trigger is its own type's (as Osman's, npc_5282).
+[opnpc1,npc_6988]
+// 2011's: m_topic: QlQ_p-MBxJ8 2011-02-09 @64; ROB_P-ogto4 2011-03-01 @29: "Select an Option"
+// opens every talk with him, before and during the quest.
+def_int $option = ~p_choice2("Talk about Wolf Whistle quest.", 1, "Talk about Pikkenmix.", 2);
+if ($option = 2) {
+    // No source found: no recording picks "Talk about Pikkenmix."; it ends the talk.
+    if_close;
+    return;
+}
+switch_int (%wolf_quest) {
+    case ^wolf_not_started : @wolf_pikkupstix_start;
+    case ^wolf_started : @wolf_pikkupstix_go_upstairs;
+    case ^wolf_seen_wolpertinger : @wolf_pikkupstix_volunteer;
+    case ^wolf_fetch_bones : @wolf_pikkupstix_bones;
+    case ^wolf_given_kit : @wolf_pikkupstix_made;
+    case ^wolf_sent_upstairs : @wolf_pikkupstix_practice;
+    case ^wolf_banished : @wolf_pikkupstix_banished;
+    case ^wolf_drained : @wolf_pikkupstix_renew;
+    case ^wolf_renewed : @wolf_pikkupstix_reward;
+    case default : if_close;
+}
+
+// After the quest he is npc 6989, calm, with Talk-to, Trade and Enchant.
+// No source found: anything he says once the quest is done (.claude/647-wolf-whistle-states.md section 11); Talk-to ends
+// at once. Trade and Enchant are the skill's (his shop and the headgear), not written yet.
+[opnpc1,wolf_druid_piccupstix_2]
+return;
+
+// The first talk, a01-a35: the quest starts.
+[label,wolf_pikkupstix_start]
+// 2011's: a01: QlQ_p-MBxJ8 2011-02-09 @67; ROB_P-ogto4 2011-03-01 @32.
+~chatnpc("<p,neutral>You there! What are you doing here, as if I didn't have enough troubles?");
+// 2011's: a02: QlQ_p-MBxJ8 2011-02-09 @68; ROB_P-ogto4 2011-03-01 @40.
+~chatplayer("<p,neutral>I'm just a passing adventurer. Who are you?");
+// 2011's: a03: QlQ_p-MBxJ8 2011-02-09 @68; ROB_P-ogto4 2011-03-01 @42.
+~chatnpc("<p,neutral>Who am I? My dear boy, I just so happen to be one of the most important druids in this village!");
+// 2011's: a04: QlQ_p-MBxJ8 2011-02-09 @69; ROB_P-ogto4 2011-03-01 @46.
+~chatplayer("<p,neutral>Wow, I don't meet that many celebrities.");
+// 2011's: a05: QlQ_p-MBxJ8 2011-02-09 @70; ROB_P-ogto4 2011-03-01 @49.
+~chatplayer("<p,neutral>What do you do here?");
+// 2011's: a06: QlQ_p-MBxJ8 2011-02-09 @71; ROB_P-ogto4 2011-03-01 @51.
+~chatnpc("<p,neutral>Well, firstly, I-");
+// 2011's: a07: QlQ_p-MBxJ8 2011-02-09 @71; ROB_P-ogto4 2011-03-01 @53.
+~mesbox("There is a loud crash from upstairs, followed by the tinkling of broken glass.");
+// 2011's: a08: QlQ_p-MBxJ8 2011-02-09 @72; ROB_P-ogto4 2011-03-01 @58.
+~chatnpc("<p,neutral>Confound you, lapine menace!");
+// 2011's: a09: QlQ_p-MBxJ8 2011-02-09 @73; ROB_P-ogto4 2011-03-01 @61.
+~chatplayer("<p,neutral>What was that?");
+// 2011's: a10: QlQ_p-MBxJ8 2011-02-09 @74; ROB_P-ogto4 2011-03-01 @62.
+~chatnpc("<p,neutral>That was the sound of my carefully arranged room being destroyed by a fluffy typhoon of wickedness!");
+// 2011's: a11: QlQ_p-MBxJ8 2011-02-09 @74; ROB_P-ogto4 2011-03-01 @64.
+~chatplayer("<p,neutral>What?");
+// 2011's: a12: QlQ_p-MBxJ8 2011-02-09 @75; ROB_P-ogto4 2011-03-01 @65.
+~chatplayer("<p,neutral>Wait, I'm good with monsters. Do you want me to go kill it for you?");
+// 2011's: a13: QlQ_p-MBxJ8 2011-02-09 @75; ROB_P-ogto4 2011-03-01 @70.
+~chatnpc("<p,neutral>Well, yes, but it's a little more complicated than that.");
+// 2011's: a14: QlQ_p-MBxJ8 2011-02-09 @76; ROB_P-ogto4 2011-03-01 @72.
+~chatplayer("<p,neutral>How complicated can it be?");
+// 2011's: a15: QlQ_p-MBxJ8 2011-02-09 @77; ROB_P-ogto4 2011-03-01 @73.
+~mesbox("A resounding crash comes from upstairs.");
+// 2011's: a16: QlQ_p-MBxJ8 2011-02-09 @77; ROB_P-ogto4 2011-03-01 @77.
+~chatnpc("<p,neutral>Complicated enough for me to waste time explaining it to you.");
+// 2011's: a17: QlQ_p-MBxJ8 2011-02-09 @78; ROB_P-ogto4 2011-03-01 @82.
+~chatnpc("<p,neutral>Tell me, have you ever heard of Summoning?");
+// 2011's: a18: QlQ_p-MBxJ8 2011-02-09 @79; ROB_P-ogto4 2011-03-01 @85.
+~chatplayer("<p,neutral>Not really.");
+// 2011's: a19: QlQ_p-MBxJ8 2011-02-09 @80; ROB_P-ogto4 2011-03-01 @86.
+~chatnpc("<p,neutral>Well, some of the concepts I am about to discuss might go over your head, so I'll stick to the basics.");
+// 2011's: a20: QlQ_p-MBxJ8 2011-02-09 @80; ROB_P-ogto4 2011-03-01 @91.
+~mesbox("There is a series of loud crunches from upstairs.");
+// 2011's: a21: QlQ_p-MBxJ8 2011-02-09 @81; ROB_P-ogto4 2011-03-01 @94.
+~chatnpc("<p,neutral>Gah! That better not be my wardrobe!");
+// 2011's: a22: QlQ_p-MBxJ8 2011-02-09 @82; ROB_P-ogto4 2011-03-01 @97.
+~chatnpc("<p,neutral>Summoners are able to call upon animal familiars for a number of uses. These familiars can help the summoner practice their skills, fight on the battlefield, or offer any number of other benefits.");
+// 2011's: a23: QlQ_p-MBxJ8 2011-02-09 @82; ROB_P-ogto4 2011-03-01 @106.
+~chatnpc("<p,neutral>Beneath this house is a monument - an obelisk - that allows us druids to tap into this Summoning power.");
+// 2011's: a24: QlQ_p-MBxJ8 2011-02-09 @83; ROB_P-ogto4 2011-03-01 @112.
+~mesbox("A loud gnawing begins upstairs.");
+// 2011's: a25: QlQ_p-MBxJ8 2011-02-09 @83; ROB_P-ogto4 2011-03-01 @115.
+~chatnpc("<p,neutral>The downside to these obelisks is that rogue familiars, like the one upstairs, get into this world and wreak havoc.");
+// 2011's: a26: QlQ_p-MBxJ8 2011-02-09 @84; ROB_P-ogto4 2011-03-01 @121.
+~chatnpc("<p,neutral>I chased it upstairs, but I didn't have the necessary Summoning pouch to banish it.");
+// 2011's: a27: QlQ_p-MBxJ8 2011-02-09 @85; ROB_P-ogto4 2011-03-01 @125.
+~chatnpc("<p,neutral>If I leave this house, it will come down here, potentially even getting to the obelisk. If that happens, it could call another familiar through and multiply!");
+// 2011's: a28: QlQ_p-MBxJ8 2011-02-09 @85; ROB_P-ogto4 2011-03-01 @137.
+~chatnpc("<p,neutral>I sent my assistant, Stikklebrix, out to bring me what I needed, but he has not returned.");
+// 2011's: a29: QlQ_p-MBxJ8 2011-02-09 @86; ROB_P-ogto4 2011-03-01 @141.
+~mesbox("The gnawing stops. There is a crash.");
+// 2011's: a30: QlQ_p-MBxJ8 2011-02-09 @86; ROB_P-ogto4 2011-03-01 @145.
+~chatplayer("<p,neutral>How fast can it multiply?");
+// 2011's: a31: QlQ_p-MBxJ8 2011-02-09 @87; ROB_P-ogto4 2011-03-01 @147.
+~chatnpc("<p,neutral>Like a rabbit, because it is-");
+// 2011's: a32: QlQ_p-MBxJ8 2011-02-09 @88; ROB_P-ogto4 2011-03-01 @149.
+~chatplayer("<p,neutral>A rabbit!");
+// 2011's: a33: QlQ_p-MBxJ8 2011-02-09 @90; ROB_P-ogto4 2011-03-01 @151.
+~chatnpc("<p,neutral>Well yes, rabbit-like, but-");
+// 2011's: a34: ROB_P-ogto4 2011-03-01 @153; 2EfU5Mrh8Kc 2011-05-24 @60.
+~chatplayer("<p,neutral>Oh, don't worry, I'll deal with this myself. One rabbit stew coming right up.");
+// 2011's: a35: QlQ_p-MBxJ8 2011-02-09 @91; ROB_P-ogto4 2011-03-01 @155.
+~chatnpc("<p,neutral>Very well, young fool. You go see how well you do against it.");
+~wolf_set_progress(^wolf_started);
+
+// No source found: talking again before climbing the ladder. He repeats where he sent the player
+// (a35), nothing new.
+[label,wolf_pikkupstix_go_upstairs]
+// 2011's: a35: QlQ_p-MBxJ8 2011-02-09 @91; ROB_P-ogto4 2011-03-01 @155.
+~chatnpc("<p,neutral>Very well, young fool. You go see how well you do against it.");
+
+// The second talk, after cutscene 1: b01-b19, then the menu m_why.
+[label,wolf_pikkupstix_volunteer]
+// 2011's: b01: QlQ_p-MBxJ8 2011-02-09 @130; ROB_P-ogto4 2011-03-01 @214.
+~chatplayer("<p,neutral>The teeth!");
+// 2011's: b02: QlQ_p-MBxJ8 2011-02-09 @132; ROB_P-ogto4 2011-03-01 @215.
+~chatnpc("<p,neutral>So, you finally saw what you're up against, eh? Not as harmless as you assumed, I take it?");
+// 2011's: b03: QlQ_p-MBxJ8 2011-02-09 @133; ROB_P-ogto4 2011-03-01 @219.
+~chatplayer("<p,neutral>Horns! Teeth!");
+// 2011's: b04: QlQ_p-MBxJ8 2011-02-09 @134; ROB_P-ogto4 2011-03-01 @220.
+~chatnpc("<p,neutral>Are you prepared to treat this situation with the gravity it deserves, now?");
+// 2011's: b05: ROB_P-ogto4 2011-03-01 @223; 2EfU5Mrh8Kc 2011-05-24 @110.
+~chatplayer("<p,neutral>What IS it?");
+// 2011's: b06: QlQ_p-MBxJ8 2011-02-09 @136; ROB_P-ogto4 2011-03-01 @225.
+~chatnpc("<p,neutral>A wolpertinger, and a pretty big one at that.");
+// 2011's: b07: QlQ_p-MBxJ8 2011-02-09 @137; ROB_P-ogto4 2011-03-01 @228 (2009's said "spiritual plane": HemCMqn3Y3E 2009-11-20 @72).
+~chatnpc("<p,neutral>They are spirits that tend to be on the energetic and destructive side when they manifest here, but are a little less violent on the spirit plane.");
+// 2011's: b08: QlQ_p-MBxJ8 2011-02-09 @138; ROB_P-ogto4 2011-03-01 @232.
+~chatplayer("<p,neutral>So, what can be done about it? Can't you banish it?");
+// 2011's: b09: QlQ_p-MBxJ8 2011-02-09 @138; ROB_P-ogto4 2011-03-01 @234.
+~chatnpc("<p,neutral>Well, I could, but in order to do so, I'd need a spirit wolf pouch.");
+// 2011's: b10: QlQ_p-MBxJ8 2011-02-09 @139; ROB_P-ogto4 2011-03-01 @238.
+~chatnpc("<p,neutral>Wolpertingers are generally afraid of wolves; that's the rabbity-side of them. A spirit wolf will scare it and banish it.");
+// 2011's: b11: QlQ_p-MBxJ8 2011-02-09 @141; ROB_P-ogto4 2011-03-01 @244; the sentence runs over two boxes.
+~chatnpc("<p,neutral>The problem is that I don't have any of the necessary spirit wolf pouches, and the only thing keeping the giant wolpertinger upstairs is my presence. If I were to leave, it would amble downstairs to bring more of its kind");
+// 2011's: b12: QlQ_p-MBxJ8 2011-02-09 @141; ROB_P-ogto4 2011-03-01 @248.
+~chatnpc("<p,neutral>through, as I said before.");
+// 2011's: b13: QlQ_p-MBxJ8 2011-02-09 @142; ROB_P-ogto4 2011-03-01 @250.
+~chatplayer("<p,neutral>Well, what if I were to bring you the elements you needed? Would that work?");
+// 2011's: b14: QlQ_p-MBxJ8 2011-02-09 @144; ROB_P-ogto4 2011-03-01 @253.
+~chatnpc("<p,neutral>Not really; I would need to go down to the obelisk in my cellar and use the necessary ingredients to make a spirit wolf pouch and some Howl scrolls, but it may slip out of the front door.");
+// 2011's: b15: QlQ_p-MBxJ8 2011-02-09 @144; ROB_P-ogto4 2011-03-01 @254.
+~chatnpc("<p,neutral>You could infuse the pouch yourself, though. Would you like to learn the secrets of Summoning? I can sense the spark within you, urging you to master the art.");
+// 2011's: b16: QlQ_p-MBxJ8 2011-02-09 @145; ROB_P-ogto4 2011-03-01 @258.
+~chatplayer("<p,neutral>Certainly!");
+// 2011's: b17: QlQ_p-MBxJ8 2011-02-09 @145; ROB_P-ogto4 2011-03-01 @259.
+~chatplayer("<p,neutral>What do you need me to bring?");
+// 2011's: b18: QlQ_p-MBxJ8 2011-02-09 @146; ROB_P-ogto4 2011-03-01 @261.
+~chatnpc("<p,neutral>That's wonderful!");
+// 2011's: b19: QlQ_p-MBxJ8 2011-02-09 @147; ROB_P-ogto4 2011-03-01 @263.
+~chatnpc("<p,neutral>You need to bring two lots of wolf bones. I can provide the other items you will need.");
+// The player has volunteered (b16) and knows what to bring (b19): the next talk is about the
+// bones whichever answer follows, and a talk cut short at the menu is not asked twice.
+~wolf_set_progress(^wolf_fetch_bones);
+// 2011's: m_why: QlQ_p-MBxJ8 2011-02-09 @147; ROB_P-ogto4 2011-03-01 @268: "Select an Option".
+def_int $option = ~p_choice2("I'll get right on it.", 1, "Wait. Why do you need those things?", 2);
+if ($option = 1) {
+    // 2011's: b20: QlQ_p-MBxJ8 2011-02-09 @150; ROB_P-ogto4 2011-03-01 @270.
+    ~chatplayer("<p,neutral>I'll get right on it.");
+    return;
+}
+// The other answer is in one recording only, read from every frame of it.
+// 2011's: w01: QlQ_p-MBxJ8 2011-02-09 @149; 2EfU5Mrh8Kc 2011-05-24 @129.
+~chatplayer("<p,neutral>Wait. Why do you need those things?");
+// 2011's: w02: lGcCWqJlpSo 2010-01-01 @114.
+~chatnpc("<p,neutral>Well, I can tell you in depth later, but, since you ask, those are the ingredients for a spirit wolf pouch.");
+// 2011's: w03: lGcCWqJlpSo 2010-01-01 @114.
+~chatnpc("<p,neutral>One of the pouches can be split into some scrolls, which we will need to banish the giant wolpertinger.");
+// 2011's: w04: lGcCWqJlpSo 2010-01-01 @116.
+~chatplayer("<p,neutral>Just wolf bones?");
+// 2011's: w05: lGcCWqJlpSo 2010-01-01 @117.
+~chatnpc("<p,neutral>No, no. There are other items that I need to give you, but I do not have access to the bones.");
+// 2011's: w06: lGcCWqJlpSo 2010-01-01 @117.
+~chatnpc("<p,neutral>The wolf bones give a solidity to the spirit wolf's spirit. That's why I need them for a spirit wolf pouch.");
+// 2011's: w07: lGcCWqJlpSo 2010-01-01 @119.
+~chatnpc("<p,neutral>Other familiars' pouches require other items, like different charm types, or a larger number of spirit shards.");
+// 2011's: w08: lGcCWqJlpSo 2010-01-01 @120.
+~chatnpc("<p,neutral>Since the scrolls transform from Summoning pouches, you will need to bring enough ingredients for two Summoning pouches. This will leave you one spirit wolf pouch to summon the spirit wolf, and a set of scrolls.");
+// 2011's: w09: lGcCWqJlpSo 2010-01-01 @121; the sentence runs over two boxes.
+~chatnpc("<p,neutral>The charms are used to differentiate between different classes of spirit, as there might well be a spirit out there that requires a crimson charm and wolf bones. Obviously it would be a completely different animal to");
+// 2011's: w10: lGcCWqJlpSo 2010-01-01 @122.
+~chatnpc("<p,neutral>the spirit wolf, but the charm lets you know this in advance.");
+// 2011's: w11: lGcCWqJlpSo 2010-01-01 @123.
+~chatnpc("<p,neutral>The spirit shards are chips of an obelisk, and they give a focus to the spirit.");
+// 2011's: w12: lGcCWqJlpSo 2010-01-01 @124.
+~chatnpc("<p,neutral>More powerful creatures need more shards to focus on.");
+// 2011's: w13: lGcCWqJlpSo 2010-01-01 @125 ("allowing it Howl at", no "to", read from every frame).
+~chatnpc("<p,neutral>The scrolls allow a spirit wolf to perform a special move, allowing it Howl at the giant wolpertinger, sending it home.");
+// 2011's: w14: lGcCWqJlpSo 2010-01-01 @125.
+~chatplayer("<p,neutral>So, what items are you going to give me for the Summoning pouch?");
+// 2011's: w15: lGcCWqJlpSo 2010-01-01 @126.
+~chatnpc("<p,neutral>You'll find that out when you bring me the bones, won't you?");
+// 2011's: w16: lGcCWqJlpSo 2010-01-01 @127.
+~chatplayer("<p,neutral>Sorry for asking.");
+
+// The third talk: two lots of wolf bones bring the kit, e01-e14.
+[label,wolf_pikkupstix_bones]
+if (inv_total(inv, wolf_bones) < ^wolf_kit_bones) {
+    // No source found: talking again without the bones. He repeats what to bring (b19).
+    // 2011's: b19: QlQ_p-MBxJ8 2011-02-09 @147; ROB_P-ogto4 2011-03-01 @263.
+    ~chatnpc("<p,neutral>You need to bring two lots of wolf bones. I can provide the other items you will need.");
+    return;
+}
+// 2011's: e01: QlQ_p-MBxJ8 2011-02-09 @194; ROB_P-ogto4 2011-03-01 @308.
+~chatplayer("<p,neutral>I have the wolf bones right here.");
+// 2011's: e02: ROB_P-ogto4 2011-03-01 @310; 2EfU5Mrh8Kc 2011-05-24 @138.
+~chatnpc("<p,neutral>Splendid, dear boy.");
+// The kit is in the backpack with e03, with no item box (.claude/647-wolf-whistle-states.md section 10); the bones stay
+// with the player (HemCMqn3Y3E 2009-11-20 @162 shows them held after the talk), for the obelisk.
+~wolf_give_kit;
+~wolf_set_progress(^wolf_given_kit);
+// 2011's: e03: QlQ_p-MBxJ8 2011-02-09 @196; ROB_P-ogto4 2011-03-01 @311.
+~chatnpc("<p,neutral>Here are the pouches, spirit shards and charms you will need to make the spirit wolf pouch and Howl scrolls. This key is to the trapdoor over there, which leads to the obelisk.");
+// 2011's: e04: QlQ_p-MBxJ8 2011-02-09 @197; ROB_P-ogto4 2011-03-01 @315.
+~chatplayer("<p,neutral>What are these things?");
+// 2011's: e05: QlQ_p-MBxJ8 2011-02-09 @198; ROB_P-ogto4 2011-03-01 @317.
+~chatnpc("<p,neutral>Well, the wolf bones, spirit shards and gold charms are all ingredients to go into the pouch.");
+// 2011's: e06: QlQ_p-MBxJ8 2011-02-09 @199; ROB_P-ogto4 2011-03-01 @320.
+~chatnpc("<p,neutral>The wolf bones give a solidity to the spirit, the charm attracts the type of familiar that you desire - in this case a gold charm - and the shards are the spirit's focus.");
+// 2011's: e07: QlQ_p-MBxJ8 2011-02-09 @201; ROB_P-ogto4 2011-03-01 @324; the sentence runs over two boxes.
+~chatnpc("<p,neutral>You will first need to make two Summoning pouches: one that can be used to summon the spirit wolf, and another to tear open at the obelisk, creating some Howl scrolls. These Howl scrolls will help make the spirit wolf");
+// 2011's: e08: QlQ_p-MBxJ8 2011-02-09 @202; ROB_P-ogto4 2011-03-01 @328.
+~chatnpc("<p,neutral>perform a fear-inducing Howl special move.");
+// 2011's: e09: QlQ_p-MBxJ8 2011-02-09 @204; ROB_P-ogto4 2011-03-01 @330.
+~chatplayer("<p,neutral>Okay, I think I understood that. So, how do I get the obelisk to work?");
+// 2011's: e10: QlQ_p-MBxJ8 2011-02-09 @205; ROB_P-ogto4 2011-03-01 @335; the sentence runs over two boxes.
+~chatnpc("<p,neutral>Well, you stand before the obelisk with the charms, pouches, shards and bones necessary to complete two Summoning pouches. You should then 'use' your empty pouch on the obelisk. Your ingredients will be added to");
+// 2011's: e11: QlQ_p-MBxJ8 2011-02-09 @205; ROB_P-ogto4 2011-03-01 @346.
+~chatnpc("<p,neutral>the pouch, mixing with the spirit of a familiar to create a spirit wolf pouch.");
+// 2011's: e12: QlQ_p-MBxJ8 2011-02-09 @206; ROB_P-ogto4 2011-03-01 @348.
+~chatnpc("<p,neutral>Creating a scroll is a similar process. By using a Summoning pouch on an obelisk and breaking it open, you are allowing the spirit energy to transform into a different form - some scrolls.");
+// 2011's: e13: QlQ_p-MBxJ8 2011-02-09 @207; ROB_P-ogto4 2011-03-01 @351.
+~chatnpc("<p,neutral>Once you have a spirit wolf pouch and some Howl scrolls, you can come upstairs to see me, to find out what must be done with the giant wolpertinger.");
+// 2011's: e14: QlQ_p-MBxJ8 2011-02-09 @208; ROB_P-ogto4 2011-03-01 @354.
+~chatplayer("<p,neutral>It all sounds simple enough.");
+
+// The fourth talk: a spirit wolf pouch and Howl scrolls, f01-f16.
+[label,wolf_pikkupstix_made]
+if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, lore_howl) < 1) {
+    // No source found: talking again with a pouch or the scrolls still to make, or with kit
+    // lost. Only the key's replacement is sourced as existing (2011 wiki, Trapdoor key, 8 Mar
+    // 2011); the rest of the kit comes back the same silent way so the quest cannot stick, and he
+    // repeats what to come back with (e13).
+    ~wolf_replace_key;
+    if (inv_total(inv, wolf_wolf_pouch) < 2) {
+        ~wolf_topup(wolf_druid_pouch, ^wolf_kit_pouches);
+        ~wolf_topup(wolf_creature_charm, ^wolf_kit_charms);
+        ~wolf_topup(wolf_spirit_shard, ^wolf_kit_shards);
+    }
+    // 2011's: e13: QlQ_p-MBxJ8 2011-02-09 @207; ROB_P-ogto4 2011-03-01 @351.
+    ~chatnpc("<p,neutral>Once you have a spirit wolf pouch and some Howl scrolls, you can come upstairs to see me, to find out what must be done with the giant wolpertinger.");
+    return;
+}
+// 2011's: f01: QlQ_p-MBxJ8 2011-02-09 @243; ROB_P-ogto4 2011-03-01 @422.
+~chatplayer("<p,neutral>Here is the pouch and scroll.");
+// 2011's: f02: QlQ_p-MBxJ8 2011-02-09 @244; ROB_P-ogto4 2011-03-01 @424.
+~chatnpc("<p,neutral>Wonderful! Now, all you have to do is go upstairs and summon the spirit wolf, then the Howl effect.");
+// 2011's: f03: QlQ_p-MBxJ8 2011-02-09 @245; ROB_P-ogto4 2011-03-01 @428.
+~chatplayer("<p,neutral>That's it?");
+// 2011's: f04: QlQ_p-MBxJ8 2011-02-09 @247; ROB_P-ogto4 2011-03-01 @430; the sentence runs over two boxes.
+~chatnpc("<p,neutral>It's that simple. The spirit wolf will, when you use the Howl scroll, chase away the giant wolpertinger and then disappear. Under normal circumstances, the spirit wolf would follow you around, defend you in combat and");
+// 2011's: f05: QlQ_p-MBxJ8 2011-02-09 @248; ROB_P-ogto4 2011-03-01 @431.
+~chatnpc("<p,neutral>often lend you its powers.");
+// 2011's: f06: QlQ_p-MBxJ8 2011-02-09 @249; ROB_P-ogto4 2011-03-01 @433.
+~chatplayer("<p,neutral>What sort of powers?");
+// 2011's: f07: QlQ_p-MBxJ8 2011-02-09 @250; ROB_P-ogto4 2011-03-01 @435; the sentence runs over two boxes.
+~chatnpc("<p,neutral>Well, for a start, it has the ability to perform a Summoning scroll that forces opponents to flee. That is what it will use on the giant wolpertinger, with the difference being that the giant wolpertinger will be so");
+// 2011's: f08: QlQ_p-MBxJ8 2011-02-09 @252; ROB_P-ogto4 2011-03-01 @441 (2009's said "spiritual plane": HemCMqn3Y3E 2009-11-20 @183).
+~chatnpc("<p,neutral>scared that it will retreat to its spirit plane, rather than face the spirit wolf.");
+// 2011's: f09: QlQ_p-MBxJ8 2011-02-09 @253; ROB_P-ogto4 2011-03-01 @443.
+~chatplayer("<p,neutral>Great! So, how will I make it perform that Summoning scroll?");
+// 2011's: f10: QlQ_p-MBxJ8 2011-02-09 @254; ROB_P-ogto4 2011-03-01 @446.
+~chatnpc("<p,neutral>All you need to do is use the special move button in your follower details and aim it at the giant wolpertinger, once the spirit wolf has been summoned. The spirit wolf will then perform its special move.");
+// 2011's: f11: QlQ_p-MBxJ8 2011-02-09 @255; ROB_P-ogto4 2011-03-01 @450.
+~mesbox("To access your follower details, right-click the Summoning icon near your minimap and select 'Follower Details'.");
+// 2011's: f12: QlQ_p-MBxJ8 2011-02-09 @256; ROB_P-ogto4 2011-03-01 @457.
+~mesbox("You can also access your familiar's spell and various other functions from this menu.");
+// 2011's: f13: QlQ_p-MBxJ8 2011-02-09 @257; ROB_P-ogto4 2011-03-01 @462.
+~mesbox("Bear in mind that the icon will only function so long as you have a Summoning follower present.");
+// 2011's: f14: QlQ_p-MBxJ8 2011-02-09 @258; ROB_P-ogto4 2011-03-01 @465.
+~chatplayer("<p,neutral>What a relief!");
+~wolf_set_progress(^wolf_sent_upstairs);
+// 2011's: f15: QlQ_p-MBxJ8 2011-02-09 @259; ROB_P-ogto4 2011-03-01 @466.
+~chatnpc("<p,neutral>Well, I think that I have talked enough. Now you have to put it into practice.");
+// 2011's: f16: QlQ_p-MBxJ8 2011-02-09 @261; 2EfU5Mrh8Kc 2011-05-24 @207.
+~chatplayer("<p,neutral>Wish me luck!");
+
+// No source found: talking again before the banishing. With the pouch or the scrolls gone the
+// player goes back to making them; else he repeats his last word on it (f15).
+[label,wolf_pikkupstix_practice]
+if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, lore_howl) < 1) {
+    ~wolf_set_progress(^wolf_given_kit);
+    @wolf_pikkupstix_made;
+}
+// 2011's: f15: QlQ_p-MBxJ8 2011-02-09 @259; ROB_P-ogto4 2011-03-01 @466.
+~chatnpc("<p,neutral>Well, I think that I have talked enough. Now you have to put it into practice.");
+
+// The fifth talk, after cutscene 3: g01-g11.
+[label,wolf_pikkupstix_banished]
+// 2011's: g01: QlQ_p-MBxJ8 2011-02-09 @325; ROB_P-ogto4 2011-03-01 @561.
+~chatnpc("<p,neutral>So, how did it go?");
+// 2011's: g02: QlQ_p-MBxJ8 2011-02-09 @326; ROB_P-ogto4 2011-03-01 @562.
+~chatplayer("<p,neutral>The spirit wolf scared it away!");
+// 2011's: g03: QlQ_p-MBxJ8 2011-02-09 @327; ROB_P-ogto4 2011-03-01 @565.
+~chatnpc("<p,neutral>My dear boy, you've done it!");
+// 2011's: g04: QlQ_p-MBxJ8 2011-02-09 @328; ROB_P-ogto4 2011-03-01 @567.
+~chatnpc("<p,neutral>I just hope the damage to my room isn't too bad.");
+// 2011's: g05: QlQ_p-MBxJ8 2011-02-09 @329; ROB_P-ogto4 2011-03-01 @570.
+~chatplayer("<p,neutral>All in a day's...");
+// 2011's: g06: QlQ_p-MBxJ8 2011-02-09 @330; ROB_P-ogto4 2011-03-01 @571.
+~chatplayer("<p,neutral>Woah, I feel a little dizzy.");
+// 2011's: g07: QlQ_p-MBxJ8 2011-02-09 @330; ROB_P-ogto4 2011-03-01 @574.
+~chatnpc("<p,neutral>Well, that Summoning was a drain on your rather untrained reserves.");
+// 2011's: g08: QlQ_p-MBxJ8 2011-02-09 @331; ROB_P-ogto4 2011-03-01 @582.
+~chatnpc("<p,neutral>Go downstairs to the obelisk, as it will renew your energy.");
+// 2011's: g09: QlQ_p-MBxJ8 2011-02-09 @332; ROB_P-ogto4 2011-03-01 @585.
+~chatnpc("<p,neutral>You should do that immediately - you'll be cut off from Summoning while you have no Summoning skill points remaining.");
+// 2011's: g10: QlQ_p-MBxJ8 2011-02-09 @333; ROB_P-ogto4 2011-03-01 @592.
+~chatplayer("<p,neutral>Wooooah...");
+~wolf_set_progress(^wolf_drained);
+@wolf_pikkupstix_renew;
+
+// 2011's: g11 ends with the player's name ("...at the obelisk, B F W." JQZnlZk0KqE 2011-05-24 @459;
+// "...Love2phreak." ROB_P-ogto4 2011-03-01 @594).
+// No source found: talking again before renewing; he says g11 again. The key comes back as at
+// the fourth talk, for the way down.
+[label,wolf_pikkupstix_renew]
+~wolf_replace_key;
+// 2011's: g11: QlQ_p-MBxJ8 2011-02-09 @335; ROB_P-ogto4 2011-03-01 @594.
+~chatnpc("<p,neutral>You really need to renew your Summoning skill points at the obelisk, <displayname>.");
+
+// The last talk, h01-h16, then the quest's scroll.
+[label,wolf_pikkupstix_reward]
+// 2011's: h01: QlQ_p-MBxJ8 2011-02-09 @361; ROB_P-ogto4 2011-03-01 @623.
+~chatnpc("<p,neutral>Feeling refreshed?");
+// 2011's: h02: QlQ_p-MBxJ8 2011-02-09 @362; ROB_P-ogto4 2011-03-01 @625.
+~chatplayer("<p,neutral>Yeah, that does feel a lot better!");
+// 2011's: h03: QlQ_p-MBxJ8 2011-02-09 @363; ROB_P-ogto4 2011-03-01 @627.
+~chatplayer("<p,neutral>Won't my energy renew on its own?");
+// 2011's: h04: QlQ_p-MBxJ8 2011-02-09 @364; ROB_P-ogto4 2011-03-01 @630.
+~chatnpc("<p,neutral>Not really. Your Summoning skill points need to be renewed at the obelisks or mini obelisks scattered around the world, while your special move bar will recharge slowly over time.");
+// 2011's: h05: QlQ_p-MBxJ8 2011-02-09 @366; ROB_P-ogto4 2011-03-01 @639.
+~chatnpc("<p,neutral>Think of your Summoning skill points as Prayer Points, that need to be recharged from time-to-time.");
+// 2011's: h06: QlQ_p-MBxJ8 2011-02-09 @367; ROB_P-ogto4 2011-03-01 @645.
+~chatnpc("<p,neutral>The special move bar is like your special attack bar, not only because it is useful when attacking, but because it recharges slowly over time.");
+// 2011's: h07: QlQ_p-MBxJ8 2011-02-09 @368; ROB_P-ogto4 2011-03-01 @653.
+~chatnpc("<p,neutral>The action of Summoning a familiar uses up your Summoning skill points, while a special move will deplete your special move bar.");
+// 2011's: h08: QlQ_p-MBxJ8 2011-02-09 @371; ROB_P-ogto4 2011-03-01 @656.
+~chatnpc("<p,neutral>The best way to recover either of these is at the obelisks.");
+// 2011's: h09: QlQ_p-MBxJ8 2011-02-09 @372; ROB_P-ogto4 2011-03-01 @659.
+~chatnpc("<p,neutral>To help you on your way, I can tell you that I know of two other obelisks you can use.");
+// 2011's: h10: QlQ_p-MBxJ8 2011-02-09 @373; ROB_P-ogto4 2011-03-01 @663.
+~chatnpc("<p,neutral>One is guarded by the ogres in Gu'Tanoth, and the other is on the coast near Brimhaven. There will be others, however.");
+// 2011's: h11: QlQ_p-MBxJ8 2011-02-09 @375; ROB_P-ogto4 2011-03-01 @666.
+~chatplayer("<p,neutral>Thanks for the information.");
+// 2011's: h12: QlQ_p-MBxJ8 2011-02-09 @376; ROB_P-ogto4 2011-03-01 @668.
+~chatnpc("<p,neutral>My dear boy, it was nothing.");
+// 2011's: h13: QlQ_p-MBxJ8 2011-02-09 @378; ROB_P-ogto4 2011-03-01 @670.
+~chatnpc("<p,neutral>Well, from your actions, you have proved yourself worthy to learn the secrets of Summoning.");
+// 2011's: h14: QlQ_p-MBxJ8 2011-02-09 @379; ROB_P-ogto4 2011-03-01 @673.
+~chatnpc("<p,neutral>Speak to me on the subject if you wish to learn more about it. In the meantime, I will use my power to grant you access to the skill.");
+// 2011's: h15: QlQ_p-MBxJ8 2011-02-09 @381; ROB_P-ogto4 2011-03-01 @678.
+~chatnpc("<p,neutral>Here is a little something to help you start your Summoning training.");
+// 2011's: h16: QlQ_p-MBxJ8 2011-02-09 @382; ROB_P-ogto4 2011-03-01 @682.
+~chatplayer("<p,neutral>Thanks!");
+queue(wolf_quest_complete, 0, 0);

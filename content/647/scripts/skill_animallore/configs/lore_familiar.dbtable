@@ -1,0 +1,23 @@
+// What cache 786 does not hold for a familiar. Its level, recipe, scroll and npc are the pouch's
+// own params and the client's enums (param_394, 538-543, 697-700; enums 1283 and 1320), read
+// from there; this table carries the rest, one row per standard pouch (enum 1182, slots 1-78).
+// xp is in tenths, as givexp takes it.
+[lore_familiar]
+column=pouch,obj,INDEXED,REQUIRED
+column=npc,npc,INDEXED,REQUIRED
+column=npc_combat,npc,INDEXED
+column=scroll,obj,INDEXED
+// Minutes the familiar stays, and Summoning points taken as it is summoned.
+column=minutes,int
+column=points,int
+column=summon_xp,int
+// Infusing the pouch.
+column=create_xp,int
+column=hitpoints,int
+// Transforming a pouch into ten scrolls, and using one.
+column=scroll_create_xp,int
+column=scroll_use_xp,int
+// Special move points a scroll takes, of the bar's 60.
+column=special_cost,int
+// Slots a beast of burden carries.
+column=bob_slots,int

@@ -1,0 +1,140 @@
+// Summoning's pouch and scroll creation at an obelisk. This is the slice Wolf Whistle needs: the
+// quest's own window, 672 "Summoning Pouch Creation" and 666 "Scroll Creation", which only the
+// quest's client scripts fill. The skill's window (interface 79), its recipes from the pouches'
+// params and its quantities come with the skill and call the two procs at the end.
+//
+// 2011's: .claude/647-wolf-whistle-states.md section 5: one window with two modes, switched by its top-left button
+// ("Transform Scrolls", 2EfU5Mrh8Kc 2011-05-24 @171; JQZnlZk0KqE 2011-05-24 @338); a grid of
+// pouches 8 to a row; the slot menus are "Infuse Spirit wolf pouch" / "Examine" and "Transform
+// Howl scroll" / "Examine", with no quantities, in every recording from 2009-09 to 2011-10.
+// 2011's: cache 786: clientscript 791 (component, columns, rows, first slot, last slot, five op
+// strings) fills 672:16 from enum 1182 through [proc,script793], which lights slot 1 by
+// [proc,wolf_pouch_checker] and gives each slot five children, the clickable one at slot * 5 + 2
+// (op 6 is always Examine, [proc,script794]); clientscript 796 does the same for 666:16
+// ([proc,script798], [proc,wolf_magic_pouch_checker]).
+// Void's, unconfirmed: the grid's 8 x 10 and slots 1 to 78 (SummoningCrafting.kt, which sends
+// them to its own script 757), and the op's colour tag.
+
+// The grids' children: 78 slots of five.
+[proc,lore_creation_events](component $grid)
+if_setevents($grid, 0, 389, calc(^if_op1 + ^if_op6), 0, 0, false, false);
+
+[proc,lore_creation_open_quest]
+if_openmain(interface_672);
+runclientscript("script791(interface_672:scroll_icons, 8, 10, 1, 78, \"Infuse\<col=ff9040>\", \"\", \"\", \"\", \"\")");
+~lore_creation_events(interface_672:scroll_icons);
+
+[proc,lore_scrolls_open_quest]
+if_openmain(interface_666);
+runclientscript("script796(interface_666:scroll_icons, 8, 10, 1, 78, \"Transform\<col=ff9040>\", \"\", \"\", \"\", \"\")");
+~lore_creation_events(interface_666:scroll_icons);
+
+// 2011's: cache 786: 672:19, op "Transform Scrolls", and 666:18 swap the two modes.
+[if_button1,interface_672:tab_back]
+if (p_finduid(uid) = false) {
+    return;
+}
+~lore_scrolls_open_quest;
+
+[if_button1,interface_666:tab_back]
+if (p_finduid(uid) = false) {
+    return;
+}
+~lore_creation_open_quest;
+
+// Infuse on a pouch slot. Only slot 1, the spirit wolf pouch, is the quest's.
+[if_button1,interface_672:scroll_icons]
+if (p_finduid(uid) = false | last_slot ! 2) {
+    return;
+}
+// 2011's: one Infuse makes both pouches, from 2 pouches, 2 gold charms, 14 spirit shards and 2
+// wolf bones, and the window closes (HemCMqn3Y3E 2009-11-20 @169; JQZnlZk0KqE 2011-05-24 @343).
+// No source found: Infuse with ingredients missing (.claude/647-wolf-whistle-states.md section 11); nothing happens.
+if (~lore_infuse_pouch(wolf_druid_pouch, wolf_spirit_shard, 7, wolf_creature_charm, wolf_bones, wolf_wolf_pouch, 2, 0, ^wolf_obelisk_coord) = false) {
+    return;
+}
+if_close;
+~wolf_infused;
+
+// Transform on a scroll slot. Only slot 1, the Howl scroll, is the quest's.
+[if_button1,interface_666:scroll_icons]
+if (p_finduid(uid) = false | last_slot ! 2) {
+    return;
+}
+// No source found: a second Transform. The quest wants one pouch kept for the summon, so with
+// scrolls already made nothing happens.
+if (inv_total(inv, lore_howl) > 0) {
+    return;
+}
+// 2011's: one Transform turns one pouch into a stack of 10 Howl scrolls and the window closes
+// (HemCMqn3Y3E 2009-11-20 @174; JQZnlZk0KqE 2011-05-24 @345).
+// 2011's: the scrolls are the skill's own Howl scrolls (12425), not wolf_howl (12529). Follower
+// Details shows the Howl icon lit with "10" under it during the quest (HemCMqn3Y3E 2009-11-20
+// @210; QlQ_p-MBxJ8 2011-02-09 @296; 2EfU5Mrh8Kc 2011-05-24 @246; JQZnlZk0KqE 2011-05-24 @410),
+// and cache 786's client lights the icon and counts from the backpack's total of
+// enum 1283[follower_obj] alone (clientscripts 664 and 769), which holds lore_wolf -> lore_howl
+// and nothing for the quest's items.
+// W (Wolf Whistle, 2011 mirror) disagrees: it warns of a second scroll type that changes "after
+// the quest". Not followed: the client cannot show 10 for it.
+// No source found: Transform with no pouch (.claude/647-wolf-whistle-states.md section 11); nothing happens.
+if (~lore_make_scrolls(wolf_wolf_pouch, lore_howl, 1, 0, ^wolf_obelisk_coord) = false) {
+    return;
+}
+if_close;
+~wolf_transformed;
+
+// Examine on a slot: the pouch's or scroll's own examine (cache 786's desc).
+[if_button6,interface_672:scroll_icons]
+if (calc(last_slot % 5) = 2) {
+    mes(oc_desc(enum(int, obj, enum_1182, calc(last_slot / 5 + 1))));
+}
+
+[if_button6,interface_666:scroll_icons]
+if (calc(last_slot % 5) = 2) {
+    mes(oc_desc(enum(int, obj, enum_1188, calc(last_slot / 5 + 1))));
+}
+
+// Infuses $count pouches at the obelisk on $obelisk: each takes one empty pouch, $shards
+// shards, one charm and one $tertiary, and gives $xp (tenths). False when something is missing.
+// 2011's: the player kneels toward the obelisk while it is wrapped in bright cyan lightning for
+// about 2 s (JQZnlZk0KqE 2011-05-24 @320.5-321.5).
+// Void's, unconfirmed: the kneel's seq (summoning.anims.toml, summoning_infuse = 8500).
+// No source found: the obelisk's lightning. Its frame set (2109) holds its standing seq 8510
+// and one other, 8509, taken as the lightning; fitted by eye, to be checked in the client.
+// No source found: xp for the quest's infusing. None is given: the quest's reward of 276 xp is
+// what level 4 shows on the scroll's level-up line ("advanced 3 Summoning levels", 2EfU5Mrh8Kc
+// 2011-05-24 @353), and 276 xp alone is level 4.
+[proc,lore_infuse_pouch](obj $empty, obj $shard, int $shards, obj $charm, obj $tertiary, namedobj $pouch, int $count, int $xp, coord $obelisk)(boolean)
+if (inv_total(inv, $empty) < $count | inv_total(inv, $shard) < calc($shards * $count) | inv_total(inv, $charm) < $count | inv_total(inv, $tertiary) < $count) {
+    return(false);
+}
+inv_del(inv, $empty, $count);
+inv_del(inv, $shard, calc($shards * $count));
+inv_del(inv, $charm, $count);
+inv_del(inv, $tertiary, $count);
+inv_add(inv, $pouch, $count);
+~lore_obelisk_work($obelisk);
+if ($xp > 0) {
+    stat_advance(animallore, calc($xp * $count));
+}
+return(true);
+
+// Transforms $count pouches into ten scrolls each. False when the pouches are missing.
+// 2011's: the same kneel, the obelisk's glow weaker (JQZnlZk0KqE 2011-05-24 @344-345).
+[proc,lore_make_scrolls](obj $pouch, namedobj $scroll, int $count, int $xp, coord $obelisk)(boolean)
+if (inv_total(inv, $pouch) < $count) {
+    return(false);
+}
+inv_del(inv, $pouch, $count);
+inv_add(inv, $scroll, calc($count * ^wolf_howl_scrolls));
+~lore_obelisk_work($obelisk);
+if ($xp > 0) {
+    stat_advance(animallore, calc($xp * $count));
+}
+return(true);
+
+[proc,lore_obelisk_work](coord $obelisk)
+anim(seq_8500, 0);
+if (loc_find($obelisk, wolf_obelisk_druid01) = true) {
+    loc_anim(seq_8509);
+}

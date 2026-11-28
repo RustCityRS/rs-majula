@@ -1,0 +1,41 @@
+// Stikklebrix's body on White Wolf Mountain (.claude/647-wolf-whistle-states.md section 3).
+// 2011's: cache 786: loc 28586 "Dead body" (Search) at 2853,3473. Every line is the player's own
+// chat box: no message box, no item box and no game message.
+// No source found: any chathead expression (neutral, as Pikkupstix's talks).
+[oploc1,dead_body]
+if (~wolf_in_progress = false) {
+    // No source found: searching before the quest or after it (.claude/647-wolf-whistle-states.md section 11).
+    ~displaymessage(^dm_default);
+    return;
+}
+// 2011's: d01: ROB_P-ogto4 2011-03-01 @290; WKPggURQByY 2011-10-30 @175.
+~chatplayer("<p,neutral>This must be Stikklebrix.");
+// 2011's: d02: ROB_P-ogto4 2011-03-01 @292; WKPggURQByY 2011-10-30 @177.
+~chatplayer("<p,neutral>The poor fool didn't stand a chance against the wolves.");
+if (inv_total(inv, wolf_bones) >= ^wolf_kit_bones) {
+    // With the bones already held.
+    // 2011's: d03: ROB_P-ogto4 2011-03-01 @294 (1 of 17 recordings).
+    ~chatplayer("<p,neutral>I don't have time to search him. I have to get these wolf bones back to Pikkupstix so that Stikklebrix's sacrifice is not in vain.");
+    return;
+}
+if (%wolf_bones_taken ! 0) {
+    // No source found: searching again once the bones are taken and gone (.claude/647-wolf-whistle-states.md section
+    // 11). The pack is empty: the talk ends here, and wolves drop wolf bones (2011 wiki, Wolf
+    // Whistle, 23 May 2011: "or by simply killing two white wolves").
+    return;
+}
+// 2011's: d04: WKPggURQByY 2011-10-30 @178; zGpeA1CrlVg 2010-11-28 @44.
+~chatplayer("<p,neutral>Let's see what he has in his pack: three unfinished Strength potions, two burnt lobsters, a guam leaf with a footprint on it...");
+// 2011's: d05: WKPggURQByY 2011-10-30 @179; zGpeA1CrlVg 2010-11-28 @45.
+~chatplayer("<p,neutral>and some wolf bones!");
+// 2011's: cache 786: varbit 4306, wolf_bones_taken. The bones are in the backpack after the talk
+// (WKPggURQByY @183).
+// No source found: how many he gives and at which line (not readable in any recording). d06
+// says "enough wolf bones for Pikkupstix", who asks for two lots: two, given here.
+inv_add(inv, wolf_bones, ^wolf_kit_bones);
+%wolf_bones_taken = 1;
+// 2011's: d06, "It looks he got" with no "like": WKPggURQByY 2011-10-30 @180; f5AzI4WjuVc
+// 2010-04-24 @131.
+~chatplayer("<p,neutral>It looks he got enough wolf bones for Pikkupstix and then died. How tragic!");
+// 2011's: d07: WKPggURQByY 2011-10-30 @181; zGpeA1CrlVg 2010-11-28 @46.
+~chatplayer("<p,neutral>Well, his sacrifice will not be in vain.");

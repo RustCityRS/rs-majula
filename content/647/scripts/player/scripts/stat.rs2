@@ -37,7 +37,9 @@ while ($i <= enum_getoutputcount(stats)) {
     def_int $base_level = stat_base($stat);
     def_int $level = stat($stat);
     // prayer doesnt regen, or deplete when too high
-    if ($base_level > $level & $stat ! prayer & $stat ! hitpoints) {
+    // 2011's: Summoning points (the stat's level) come back at an obelisk or from a Summoning
+    // potion or super restore, not with time (2011 wiki, Summoning points, 12 Dec 2010).
+    if ($base_level > $level & $stat ! prayer & $stat ! hitpoints & $stat ! animallore) {
         // level is lower than base so add to it
         stat_add($stat, 1, 0);
     }

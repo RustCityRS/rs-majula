@@ -154,12 +154,22 @@ fn handle(
             if !held {
                 return Ok(());
             }
-        } else if !obj.is_null() {
-            return Err(ScriptError::Client(format!(
-                "No inv transmit for interface with id: {com}"
-            )));
         }
     }
+    // A slot can draw an obj with no inventory behind it: a clientscript's `cc_setobject` (the
+    // pouches of Summoning Pouch Creation, 672:16, drawn by clientscript 794), and the client
+    // sends that obj with the click. Nothing on the server vouches for it, so the click runs
+    // with the slot alone and `last_item` stays null.
+    #[cfg(since_530)]
+    let obj = if if3
+        && !inventory_click
+        && slot != u16::MAX
+        && !active.player.inv_other_transmits.contains_key(&com)
+    {
+        TypeId::NULL
+    } else {
+        obj
+    };
     #[cfg(since_530)]
     if if3 && !obj.is_null() && engine().objs().get_by_id(obj).is_none() {
         return Err(ScriptError::Client(format!("Unknown obj: {obj}")));

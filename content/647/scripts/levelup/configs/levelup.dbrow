@@ -298,3 +298,20 @@ data=unlocks_levels,levelup_unlocks_fletching
 data=title_text,"Congratulations! You've just advanced a Fletching level!"
 data=flash_bit,11
 data=icon,19
+
+// Summoning (stat 23, animallore). The box's line follows the other stats'. The flash bit is
+// varbit 4755 (bit 23 of skill_stat_flash), which clientscript 970 reads for stats:com_145; the
+// icon is the stat's index in enum 681.
+// Void's, unconfirmed: jingles 300 and 301 (void-634 level_up_summoning and its _unlock).
+[levelup_animallore]
+table=levelup
+data=stat,animallore
+data=interface,interface_740
+data=title,interface_740:text1
+data=body,interface_740:text3
+data=level_prefix,You have now reached level
+data=levelup_jingle,jingle_300
+data=unlocks_jingle,jingle_301
+data=title_text,"Congratulations! You've just advanced a Summoning level!"
+data=flash_bit,23
+data=icon,24

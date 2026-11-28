@@ -1,0 +1,160 @@
+// The spirit wolf in the attic: the quest's summon, its Howl and cutscene 3 (.claude/647-wolf-whistle-states.md sections 2
+// and 6). The familiar itself is skill_animallore's (lore_familiar.rs2, lore_special.rs2).
+
+// 2011's: cache 786: obj 12526 (Use, Summon, Destroy). Summon means something only in the attic
+// with the wolpertinger to banish.
+[opheld4,wolf_wolf_pouch]
+if (%wolf_quest ! ^wolf_sent_upstairs | inzone(^wolf_attic_sw, ^wolf_attic_ne, coord) = false) {
+    // 2011's: HemCMqn3Y3E 2009-11-20 @168, three times, for Summon in the obelisk's cave.
+    // No source found: Summon anywhere else, or in the attic at another stage (.claude/647-wolf-whistle-states.md
+    // section 11); the same line.
+    mes("You are standing in a Summoning-free area. You must move out of this area to summon a familiar.");
+    return;
+}
+// 2011's: the special move's name and description are the Follower Details tooltip's
+// (HemCMqn3Y3E 2009-11-20 @206: "Level 1: Howl (3 Special Move points)" / "Makes NPCs flee for a
+// short time").
+if (~lore_summon(lore_familiar_wolf, "Howl", "Makes NPCs flee for a short time", true) = false) {
+    return;
+}
+inv_del(inv, wolf_wolf_pouch, 1);
+// 2011's: 2EfU5Mrh8Kc 2011-05-24 @246; JQZnlZk0KqE 2011-05-24 @415 (12 of 17 recordings).
+mes("You have summoned the spirit wolf! Now you need to use the spirit wolf's special move - Howl - on the giant wolpertinger to banish it.");
+
+// Interact on the spirit wolf while it waits for the Howl.
+[proc,wolf_familiar_interact]()(boolean)
+if (%wolf_quest ! ^wolf_sent_upstairs) {
+    return(false);
+}
+// 2011's: HemCMqn3Y3E 2009-11-20 @212 (1 of 17 recordings).
+mes("The wolf is growling at the giant wolpertinger, and will not reply to you.");
+return(true);
+
+// 2011's: HemCMqn3Y3E 2009-11-20 @212-213 (1 of 17 recordings): "clicking the scroll item
+// itself". The scroll's only options are Use, Destroy and Examine (HemCMqn3Y3E @174), and the
+// client sends nothing for a bare Use.
+// No source found: which use gave the line; it is said for the scroll used on the wolpertinger,
+// on the wolf or on another item.
+[opnpcu,giant_wolpertinger]
+~wolf_scroll_used(last_useitem);
+
+[opnpcu,lore_wolf]
+~wolf_scroll_used(last_useitem);
+
+[opheldu,lore_howl]
+~wolf_scroll_used(lore_howl);
+
+[proc,wolf_scroll_used](obj $used)
+if ($used ! lore_howl) {
+    ~displaymessage(^dm_default);
+    return;
+}
+mes("These scrolls can only be used by clicking the Special Move button in the Follower Details tab.");
+
+// The special move's icon aimed at an npc while the quest's wolf is out: true when the quest
+// took the cast. The active npc is the target.
+[proc,wolf_cast_howl]()(boolean)
+if (%wolf_quest ! ^wolf_sent_upstairs) {
+    return(false);
+}
+if (npc_type ! giant_wolpertinger) {
+    // No source found: Howl cast on anything else (.claude/647-wolf-whistle-states.md section 11).
+    ~displaymessage(^dm_default);
+    return(true);
+}
+if (inv_total(inv, lore_howl) < 1) {
+    // No source found: the cast with no scroll held; nothing happens, and Pikkupstix sends
+    // the player back to make them.
+    return(true);
+}
+// 2011's: one scroll is used (HemCMqn3Y3E 2009-11-20 @263: 9 left).
+inv_del(inv, lore_howl, 1);
+// 2011's: 2EfU5Mrh8Kc 2011-05-24 @251; JQZnlZk0KqE 2011-05-24 @415 (12 of 17 recordings).
+mes("The spirit wolf howls at the giant wolpertinger.");
+~wolf_cutscene_3;
+return(true);
+
+// Cutscene 3, after the Howl (JQZnlZk0KqE 2011-05-24 @414.5-441.5; HemCMqn3Y3E 2009-11-20
+// @213.5-228.5). The active npc is the giant wolpertinger.
+// No source found: tiles, cameras, animations and the waits in ticks, as cutscenes 1 and 2.
+[proc,wolf_cutscene_3]
+def_npc_uid $bunny = npc_uid;
+cleartimer(wolf_attic);
+// @414.5-415.5: fade to black, about 2.5 s of it.
+if_openoverlay(fade_to_black);
+p_delay(3);
+~wolf_cutscene_open;
+p_telejump(^wolf_cs3_player);
+facesquare(^wolf_cam_c_to);
+// Shot C: the camera behind the player on the near edge of the rug; the spirit wolf beside
+// them facing the wolpertinger, which stands on the rug facing them.
+if (npc_finduid(%follower_uid) = true) {
+    npc_setmode(none);
+    npc_tele(^wolf_cs3_wolf);
+    npc_facesquare(^wolf_cam_c_to);
+}
+if (npc_finduid($bunny) = true) {
+    npc_tele(^wolf_wolpertinger_coord);
+    npc_facesquare(^wolf_cs3_player);
+}
+p_delay(0);
+cam_moveto(^wolf_cam_c_from, ^wolf_cam_c_from_height, 0, 100);
+cam_lookat(^wolf_cam_c_to, ^wolf_cam_c_to_height, 0, 100);
+// @418.5: fade in.
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
+// @420.0: over the wolf (HemCMqn3Y3E @216.3, read by eye).
+if (npc_finduid(%follower_uid) = true) {
+    npc_say("Grrrrrrrrrrrr...");
+}
+p_delay(1);
+// @421.0: over the wolpertinger (HemCMqn3Y3E @217.0, read by eye).
+if (npc_finduid($bunny) = true) {
+    npc_say("Whiiiiine!");
+}
+p_delay(1);
+// 2011's: c3_01: QlQ_p-MBxJ8 2011-02-09 @300; JQZnlZk0KqE 2011-05-24 @422.
+~chatplayer("<p,neutral>Get that thing!");
+// @424.0: the wolf raises its head and howls; the wolpertinger flips onto its back.
+if (npc_finduid(%follower_uid) = true) {
+    npc_anim(~wolf_seq_wolf_howl, 0);
+}
+p_delay(1);
+// @425.0-429.5: a dark grey whirlwind rises over the wolpertinger, which spins and shrinks in
+// it; @430.0 it is gone.
+if (npc_finduid($bunny) = true) {
+    npc_anim(~wolf_seq_wolpertinger_banished, 0);
+    spotanim_npc(~wolf_spotanim_whirlwind, 0, 0);
+}
+p_delay(8);
+if (npc_finduid($bunny) = true) {
+    npc_del;
+}
+// @430.5: the camera cuts closer (shot D: player and wolf side by side).
+cam_moveto(^wolf_cam_d_from, ^wolf_cam_d_from_height, 0, 100);
+cam_lookat(^wolf_cam_d_to, ^wolf_cam_d_to_height, 0, 100);
+// 2011's: c3_02: QlQ_p-MBxJ8 2011-02-09 @309; 2EfU5Mrh8Kc 2011-05-24 @261.
+~chatplayer("<p,neutral>Well, that certainly seems to have got rid of the giant wolpertinger.");
+// 2011's: c3_03 (the player turns to the wolf): QlQ_p-MBxJ8 2011-02-09 @311; 2EfU5Mrh8Kc @263.
+facesquare(^wolf_cs3_wolf);
+~chatplayer("<p,neutral>Come on, let's go tell Pikkupstix.");
+// @433.0-434.0: the spirit wolf fades out, with no graphic. Follower Details goes with it.
+~lore_dismiss;
+p_delay(1);
+// 2011's: c3_04: 2EfU5Mrh8Kc 2011-05-24 @268; EADAootOI24 2010-07-09 @365.
+~chatplayer("<p,neutral>They both vanished! I'm sure Pikkupstix will be able to explain this to me.");
+// @437.0-441.0: fade to black, about 3 s of it; @441.5 fade in downstairs next to Pikkupstix.
+if_openoverlay(fade_to_black);
+p_delay(4);
+p_telejump(^wolf_house_coord);
+~wolf_cutscene_close;
+// 2011's: afterwards the Summoning orb shows 0 points (g06-g11, "a drain on your rather
+// untrained reserves"): the banishing takes them all, the summon itself none (HemCMqn3Y3E
+// @206: 1/1 with the wolf out).
+stat_sub(animallore, stat(animallore), 0);
+~wolf_set_progress(^wolf_banished);
+p_delay(0);
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);

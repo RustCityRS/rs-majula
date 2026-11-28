@@ -1,0 +1,69 @@
+// Pikkupstix's trapdoor and the quest's lines at the obelisk under it (.claude/647-wolf-whistle-states.md sections 4-5).
+
+// 2011's: cache 786: multiloc 4039 at 2927,3444 shows the closed trapdoor 28675 (Open) while
+// wolf_trapdoor is 0 or 1 and the open one 28676 (Climb-down, Close) at 2. A multiloc's shown
+// form's script runs first.
+[oploc1,wolf_trapdoor_closed]
+~wolf_trapdoor_open;
+
+// 2011's: WKPggURQByY 2011-10-30 @215 uses the key on the trapdoor, with the same result.
+[oplocu,wolf_trapdoor_closed]
+if (last_useitem ! wolf_key) {
+    // No source found: another item used on it (.claude/647-wolf-whistle-states.md section 11).
+    ~displaymessage(^dm_default);
+    return;
+}
+~wolf_trapdoor_open;
+
+[proc,wolf_trapdoor_open]
+if (%wolf_trapdoor = ^wolf_trapdoor_locked) {
+    if (inv_total(inv, wolf_key) < 1) {
+        // 2011's: HemCMqn3Y3E 2009-11-20 @43, read by eye.
+        mes("This trapdoor appears to be locked.");
+        return;
+    }
+    // 2011's: plain Open with the key held (2EfU5Mrh8Kc 2011-05-24 @154-158; JQZnlZk0KqE
+    // 2011-05-24 @310; 14 of 17 recordings).
+    // No source found: whether the key leaves the backpack; it stays.
+    mes("You unlock the trapdoor.");
+}
+// No source found: a message on opening it a second time, once unlocked; none.
+%wolf_trapdoor = ^wolf_trapdoor_open;
+
+// 2011's: Climb-down has no message and arrives in the obelisk's cave (HemCMqn3Y3E @164).
+// loc_tele_2011's row for the open trapdoor is the way; it is found by the open trapdoor's own
+// name, since the loc clicked is the multiloc (4039), which has no row.
+[oploc1,wolf_trapdoor_open]
+db_find(loc_tele_2011:loc, wolf_trapdoor_open);
+def_dbrow $row = db_findnext;
+if ($row = null) {
+    mes("Nothing interesting happens.");
+    return;
+}
+~loc_tele_2011_go($row);
+
+// No source found: Close's message (one OCR frame of QlQ_p-MBxJ8 @271 read "You lock the
+// trapdoor.", not confirmed by eye); it shuts without a word and stays unlocked.
+[oploc2,wolf_trapdoor_open]
+%wolf_trapdoor = ^wolf_trapdoor_shut;
+
+// The quest's own lines after an infusing at the obelisk (skill_animallore/scripts/lore_infuse.rs2).
+// 2011's: 2EfU5Mrh8Kc 2011-05-24 @168; JQZnlZk0KqE 2011-05-24 @322-330 (12 of 17 recordings).
+[proc,wolf_infused]
+mes("You infuse a spirit wolf pouch.");
+mes("You now need to transform a spirit wolf pouch into some Howl scrolls.");
+
+// 2011's: 2EfU5Mrh8Kc 2011-05-24 @178; JQZnlZk0KqE 2011-05-24 @352 (12 of 17 recordings).
+[proc,wolf_transformed]
+mes("You transform a spirit wolf pouch into some Howl scrolls.");
+mes("You should speak to Pikkupstix. He will tell you what to do with the scrolls and the spirit wolf pouch.");
+
+// Renew-points once Pikkupstix has sent the player down for it.
+// 2011's: 2EfU5Mrh8Kc 2011-05-24 @310; JQZnlZk0KqE 2011-05-24 @468 (12 of 17 recordings), after
+// "You have recharged your Summoning skill points.".
+[proc,wolf_points_renewed]
+if (%wolf_quest ! ^wolf_drained) {
+    return;
+}
+mes("You should speak to Pikkupstix to get your reward.");
+~wolf_set_progress(^wolf_renewed);

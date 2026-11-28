@@ -2,6 +2,8 @@
 // 289's logout hooks (login_logout/logout.rs2), as their systems are ported.
 ~set_antifire_logout; // TODO: should be timer
 ~macro_event_logout;
+// A Summoning familiar goes with its owner (skill_animallore/scripts/lore_familiar.rs2).
+~lore_logout;
 return(true);
 
 // 289's logout button (logout:try_logout) is two in 2011's logout tab (logout, 182): button1
