@@ -13,11 +13,14 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server_prot::ServerProt;
+use rs_protocol::network::game::zone_prot::ZoneProt;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::server;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
 use rs_ver::TypeId;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -412,5 +415,143 @@ fn the_ape_atoll_food_heals_2011_s_life_points() {
         }
         assert_eq!(held(engine, &client, "bowl_empty"), 1, "the stew's bowl");
         no_errors(engine);
+    });
+}
+
+/// The spawned `name` nearest `near` (any, without it): its nid, tile and level.
+fn spawned(engine: &Engine, name: &str, near: Option<(u16, u16)>) -> Option<(u16, u16, u16, u8)> {
+    let want = id(engine, "npc", name);
+    engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .filter(|n| n.npc.uid.id() == want)
+        .map(|n| {
+            let c = n.npc.pathing.coord;
+            (n.npc.uid.nid(), c.x(), c.z(), c.y())
+        })
+        .min_by_key(|n| near.map_or(0, |(x, z)| n.1.abs_diff(x) + n.2.abs_diff(z)))
+}
+
+/// The spotanims of the projectiles in `packets`. MAP_PROJANIM rides in the tick's
+/// UPDATE_ZONE_PARTIAL_ENCLOSED: its spotanim is the u16 after the coord, dx, dz and target.
+fn projectiles(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
+    packets
+        .iter()
+        .filter(|(op, _)| *op == ServerProt::UpdateZonePartialEnclosed as u16)
+        .flat_map(|(_, body)| {
+            (0..body.len())
+                .filter(|&i| body[i] == ZoneProt::MapProjAnim as u8 && i + 8 <= body.len())
+                .map(|i| u16::from_be_bytes([body[i + 6], body[i + 7]]))
+                .collect::<Vec<_>>()
+        })
+        .collect()
+}
+
+/// 289's wave spells' travel spotanims, which cache 786 keeps: fire 156, wind 159, water 162 and
+/// earth 165.
+const WAVES: [u16; 4] = [156, 159, 162, 165];
+/// `^mm_completed_ch3`: the sigil is given, the demon not yet fought.
+const MM_COMPLETED_CH3: i32 = 5;
+
+/// What the jungle demon's fight did over its first ticks: the projectiles launched at the player,
+/// the spotanims shown on the player (`spotanim_pl`'s id, height and delay) and each hit painted on
+/// the player (`damage`'s hitmark and amount).
+struct DemonFight {
+    launched: Vec<u16>,
+    shown: Vec<String>,
+    hits: Vec<(i32, i32)>,
+}
+
+/// The 10th squad's sigil takes the player to the final battle, where the jungle demon spawns and
+/// attacks: it casts from 3 tiles or more, and casts or swings from nearer. Defence and Magic are
+/// 1, so its spells land, and life is put back each tick.
+fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> DemonFight {
+    let mut client = login(engine, name);
+    {
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        for skill in [1, 6] {
+            player.stats.levels[skill] = 1;
+            player.stats.base_levels[skill] = 1;
+        }
+    }
+    tele(engine, &mut client, ARDOUGNE, false);
+    set_var(engine, &client, "mm_main", MM_COMPLETED_CH3);
+    set_var(engine, &client, "lastcombat", -1);
+    give(engine, &client, 0, "mm_sigil");
+    let sigil = id(engine, "obj", "mm_sigil");
+    set_recording(true);
+    forget_calls();
+    client.if_button(2, BACKPACK, 0, sigil);
+    // The sigil's timer, the teleport and the cutscene, to Garkor's "the final battle begins!": the
+    // demon spawns as his words close.
+    let t = converse(engine, &mut client, &[], 200);
+    says(&t, &["Ready yourself, human: the final battle begins!"]);
+
+    let mut launched = projectiles(&t.packets);
+    let mut messages = t.messages;
+    for _ in 0..80 {
+        set_life_points(engine, &client, 990);
+        engine.cycle();
+        let packets = client.packets();
+        launched.extend(projectiles(&packets));
+        messages.extend(
+            HarnessClient::game_messages(&packets)
+                .into_iter()
+                .map(|(_, m)| m),
+        );
+    }
+    let fight = DemonFight {
+        launched,
+        shown: calls_for("spotanim_pl"),
+        hits: calls_for("damage")
+            .iter()
+            .map(|hit| {
+                let mut n = hit.split(',').map(|n| n.parse::<i32>().unwrap());
+                (n.next().unwrap(), n.next().unwrap())
+            })
+            .collect(),
+    };
+    set_recording(false);
+    assert!(
+        spawned(engine, "mm_demon", None).is_some(),
+        "the jungle demon is there"
+    );
+    // A script that fails tells its player so (the harness keeps no error log).
+    let errors: Vec<&String> = messages
+        .iter()
+        .filter(|m| m.starts_with("script error"))
+        .collect();
+    assert!(errors.is_empty(), "the demon's scripts run: {errors:?}");
+    no_errors(engine);
+    fight
+}
+
+/// The jungle demon's wave spells fly: each cast launches 289's travel spotanim, which cache 786
+/// keeps, at the player, and the spell that lands shows its impact (at the wave rows' height, 124)
+/// and hits. 647's magic_spell_table rows for the wave spells name spotanims 2011 does not have,
+/// so the cast read -1 and failed on its projectile ("projanim_pl error: Spotanim not found: -1",
+/// every cast of a fight in the client).
+#[test]
+fn the_jungle_demon_s_spells_fly_and_hit() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let fight = fight_the_jungle_demon(engine, "mmdemon");
+        assert!(
+            fight.launched.iter().any(|s| WAVES.contains(s)),
+            "a wave spell's projectile: {:?}",
+            fight.launched
+        );
+        assert!(
+            fight.shown.iter().any(|s| {
+                WAVES
+                    .iter()
+                    .any(|travel| s.starts_with(&format!("{},124,", travel + 1)))
+            }),
+            "a wave spell's impact: {:?}",
+            fight.shown
+        );
+        assert!(!fight.hits.is_empty(), "a spell lands");
     });
 }

@@ -323,41 +323,69 @@ if (~npc_check_notcombat_self = false) {
 def_int $spell;
 def_synth $success;
 def_synth $fail;
+// 289 reads each wave spell's projectile and impact off magic_spell_table. 647's rows still name
+// 289's spotanims (windwave_travel and so on), which 647's pack does not have, so each packs as -1
+// (rs-pack's tests/dbrow_refs_647.known.tsv) and projanim_pl fails on it: every cast was a script
+// error, with no projectile. No 2011 source found shows the demon's spells (the 2011 wiki's Wind
+// Wave page, 2011-05-01, only dates the players' new spell graphics, 24 June 2010): kept as 289's
+// spotanims by id. Cache 786 keeps each wave's travel and impact pair (unnamed, new models): wind
+// 159 and 160, water 162 and 163, earth 165 and 166, fire 156 and 157.
+def_spotanim $travel;
+def_spotanim $impact;
 switch_int(random(4)) {
     case 0 :
         $spell = ^wind_wave;
         $success = wind_wave_all;
         $fail = wind_wave_fail;
+        $travel = spotanim_159;
+        $impact = spotanim_160;
     case 1 :
         $spell = ^water_wave;
         $success = water_wave_all;
         $fail = water_wave_fail;
+        $travel = spotanim_162;
+        $impact = spotanim_163;
     case 2 :
         $spell = ^earth_wave;
         $success = earth_wave_all;
         $fail = earth_wave_fail;
+        $travel = spotanim_165;
+        $impact = spotanim_166;
     case default : 
         $spell = ^fire_wave;
         $success = fire_wave_all;
         $fail = fire_wave_fail;
+        $travel = spotanim_156;
+        $impact = spotanim_157;
 }
 if(npc_range(coord) < 3) { // melee range of 2 :)
     if (random(2) = 0) {
-        ~mm_demon_spellcast($spell, $success, $fail);
+        ~mm_demon_spellcast($spell, $success, $fail, $travel, $impact);
     } else {
         ~npc_default_attack;
     }
 } else {
-    ~mm_demon_spellcast($spell, $success, $fail);
+    ~mm_demon_spellcast($spell, $success, $fail, $travel, $impact);
 }
 
-[proc,mm_demon_spellcast](int $spell, synth $success, synth $fail)
+[proc,mm_demon_spellcast](int $spell, synth $success, synth $fail, spotanim $travel, spotanim $impact)
 if (~npc_combat_spell_checks = false) {
     return;
 }
 
 def_dbrow $spell_data = ~get_spell_data($spell);
-def_int $duration = ~npc_spell_cast($spell_data, 4);
+// 289's ~npc_spell_cast($spell_data, 4), line for line, with the demon's travel spotanim in place
+// of the row's (see mm_demon_attack) on the wave rows' flight (magic_spell_table:spotanim_proj:
+// 43, 31, 51, 16, -5, 64, 10). 289's cast spotanims on the caster (windwave_casting 158,
+// waterwave_casting 161, earthwave_casting 164, firewave_casting 155) are not in cache 786, so
+// the demon shows none.
+if_close;
+npc_anim(npc_param(magicattack_anim), 0);
+%npc_action_delay = add(map_clock, 4);
+def_int $duration = 64;
+if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
+    $duration = ~player_projectile(npc_coord, coord, uid, $travel, 43, 31, 51, 16, -5, 64, 10);
+}
 def_int $maxhit = 31;
 
 // it will still splash with prot prayer on, seems to just be based on hit roll
@@ -374,7 +402,8 @@ if (~npc_player_hit_roll(^magic_style) = true) {
         // npc vs player spells have no 1t extra damage delay. Whereas player vs npc spells do (osrs)
         queue(combat_damage_player, calc($duration / 30), $damage);
     }
-    spotanim_pl(db_getfield($spell_data, magic_spell_table:spotanim_target, 0), $duration);
+    // The wave rows' height (magic_spell_table:spotanim_target: 124).
+    spotanim_pl($impact, 124, $duration);
     queue*(playerhit_n_retaliate, calc($duration / 30))(npc_uid);
 } else {
     if_close;
