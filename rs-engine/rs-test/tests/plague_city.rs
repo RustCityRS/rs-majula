@@ -3,7 +3,7 @@
 //! and Elena are shown from varbits on `elenaquest_extra_bits` (cache 786). The rewards are the
 //! 2011 wiki's as 289's.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
