@@ -3,7 +3,7 @@
 //! and its obj table has a new pair of quest climbing boots beside 289's (now "Rock climbing
 //! boots"). The rewards are the 2011 wiki's and Sal's Realm's as 289's.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
