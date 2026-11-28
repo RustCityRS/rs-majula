@@ -16,6 +16,14 @@
 
 [opheld1,macro_genilamp]
 %if1 = ^xplamp_none;
+%if2 = 0;
+if_openmain(interface_134);
+
+// Troll Stronghold's mysterious lamps (cache 786's law_reward_lamp, Rub; the 2011 wiki's Mysterious
+// lamp page: "10,000 experience in any skill over level 30"). The same screen; %if2 marks the lamp.
+[opheld1,law_reward_lamp]
+%if1 = ^xplamp_none;
+%if2 = 1;
 if_openmain(interface_134);
 
 [if_button,interface_134:attack] @xplamp_select(attack);
@@ -137,6 +145,10 @@ if (map_members = ^false & ~stat_members($stat) = ^true) {
     return;
 }
 
+if (%if2 = 1) {
+    @xplamp_confirm_mysterious($stat);
+}
+
 if_close;
 inv_del(inv, macro_genilamp, 1);
 %if1 = ^xplamp_none;
@@ -146,3 +158,23 @@ stat_advance($stat, multiply($base_level, 100)); // stat level * 10
 sound_synth(found_gem, 1, 0);
 
 ~mesbox("Your wish has been granted!|You have been awarded <tostring(multiply($base_level, 10))> <enum(stat, string, stat_names, $stat)> experience!");
+
+// A mysterious lamp: 10,000 experience in a stat of level 30 or more (the 2011 wiki's Mysterious lamp
+// and Troll Stronghold pages). No source found gives the words for a stat below 30 or for the wish
+// granted: the first is plain, the second is the lamp's own above.
+[label,xplamp_confirm_mysterious](stat $stat)
+if (inv_total(inv, law_reward_lamp) = 0) {
+    return;
+}
+if (stat_base($stat) < 30) {
+    mes("You need a <~stat_name($stat)> level of at least 30 to choose that option.");
+    %if1 = ^xplamp_none;
+    return;
+}
+if_close;
+inv_del(inv, law_reward_lamp, 1);
+%if1 = ^xplamp_none;
+%if2 = 0;
+stat_advance($stat, 100000);
+sound_synth(found_gem, 1, 0);
+~mesbox("Your wish has been granted!|You have been awarded 10000 <enum(stat, string, stat_names, $stat)> experience!");
