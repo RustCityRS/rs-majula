@@ -1,0 +1,7 @@
+// 289's quests/quest_hero/scripts/locs/brimhaven_blackarm_hq.rs2, line for line.
+[oploc1,grubordoor] 
+if (%heroquest >= ^hero_blackarm_hq_door_unlocked & %blackarmgang = ^blackarmgang_complete) {
+  ~open_and_close_door(loc_type, ~check_axis(coord, loc_coord, loc_angle), false);
+  return;
+}
+@talk_grubor_thru_door;
