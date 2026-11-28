@@ -3,7 +3,7 @@
 //! roots two new locs, and 289's one glider pilot five captains; its glider map plays 289's
 //! journeys. The rewards are the 2011 wiki's, as 289's.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
