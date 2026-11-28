@@ -1,4 +1,4 @@
 // 1095
 [proc,cutscene_overlay_clamp]
 ~clientscript_1097;
-if_setsize(toplevel_fullscreen:mainoverlay, viewport_geteffectivesize, 0, 0);
+if_setsize(toplevel_fullscreen:mainoverlay, viewport_geteffectivesize, ^setsize_abs, ^setsize_abs);

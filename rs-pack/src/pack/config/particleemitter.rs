@@ -2,7 +2,7 @@ use super::client_config_table;
 use crate::pack::pack::FileCache;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_number;
+use crate::pack::util::{parse_number, parse_ref};
 use anyhow::Result;
 use std::collections::HashMap;
 
@@ -45,12 +45,14 @@ fn write_i32s(client: &mut PackedData, code: u8, value: &str) {
     }
 }
 
-fn write_list(client: &mut PackedData, code: u8, value: &str) {
+fn write_list(client: &mut PackedData, registry: &PackRegistry, code: u8, value: &str) {
     let ids: Vec<_> = parts(value).filter(|part| !part.is_empty()).collect();
     client.p1(code);
     client.p1(u8::try_from(ids.len()).expect("Too many effectors"));
     for id in ids {
-        parse_number(id, |v: u16| client.p2(v));
+        parse_ref(&registry.particleeffector, "particleeffector", id, |v| {
+            client.p2(v)
+        });
     }
 }
 
@@ -100,10 +102,10 @@ pub fn pack_particleemitters(
                     "emissionrate" => write_u16s(client, 8, value),
 
                     // 9
-                    "worldeffectors" => write_list(client, 9, value),
+                    "worldeffectors" => write_list(client, registry, 9, value),
 
                     // 10
-                    "localeffectors" => write_list(client, 10, value),
+                    "localeffectors" => write_list(client, registry, 10, value),
 
                     // 12
                     "killbelowlevel" => write_i8(client, 12, value),
@@ -115,7 +117,10 @@ pub fn pack_particleemitters(
                     "unknown14" => write_u16(client, 14, value),
 
                     // 15
-                    "material" => write_u16(client, 15, value),
+                    "material" => parse_ref(&registry.texture, "texture", value, |v| {
+                        client.p1(15);
+                        client.p2(v);
+                    }),
 
                     // 16
                     "unknown16" => {
@@ -155,7 +160,7 @@ pub fn pack_particleemitters(
                     "linkcolourchannels" => client.p1(24),
 
                     // 25
-                    "globaleffectors" => write_list(client, 25, value),
+                    "globaleffectors" => write_list(client, registry, 25, value),
 
                     // 26
                     "enabled" => client.p1(26),

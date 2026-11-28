@@ -6,13 +6,13 @@
 //
 // 289's server takes any tab click as the step's ([tutorial,_] reads no tab);
 // which clicks 289's client reported, no source here shows. A click moves the
-// island on when it is on the tab the step points at (its tut_flash, in
+// island on when it is on the tab the step points at (its tutorial_flash, in
 // tut_chatbox_steps.rs2), so a click on another tab does not hand out the
 // step's items.
 // The stones' triggers are general/side_stones.rs2's; a stone's index is its tab's.
 
 [proc,tutorial_tab_clicked](int $tab)
-if (%varplayer_419 >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {
+if (%tutorial >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {
     return;
 }
 if ($tab ! ~tutorial_flashing_tab) {
@@ -20,18 +20,24 @@ if ($tab ! ~tutorial_flashing_tab) {
 }
 // a tab button runs unprotected, and 289's [tutorial,_] ran protected
 if (p_finduid(uid) = true) {
+    %varplayerbit_3756 = 0;
     ~tutorial_clickside;
 }
 
+// 289's TUT_FLASH. 530's client flashes the stone of tab varbit 3756 - 1, and
+// stops when it is 0 (clientscripts flashside_vartransmit and flashside_timer).
+[proc,tutorial_flash](int $tab)
+%varplayerbit_3756 = calc($tab + 1);
+
 // The tab each step points at: 289's tut_flash calls (tut_chatbox_steps.rs2),
-// by 2011's tab.
+// by 530's tab.
 [proc,tutorial_flashing_tab]()(int)
-switch_int (%varplayer_419) {
+switch_int (%tutorial) {
     case 2 : return(^tab_options);
     case ^newbie_survival_instructor_open_inventory : return(^tab_inventory);
     case ^newbie_survival_instructor_open_skill_menu : return(^tab_stats);
     case ^newbie_cook_instructor_baked_bread : return(^tab_music);
-    case ^newbie_cook_instructor_completed : return(^tab_emotes);
+    case ^tutorial_open_emotes : return(^tab_emotes);
     case ^newbie_quest_instructor_open_menu : return(^tab_quests);
     case ^newbie_combat_instructor_wielding_weapons : return(^tab_equipment);
     case ^newbie_combat_instructor_open_combat_interface : return(^tab_combat);

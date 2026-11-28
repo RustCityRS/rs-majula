@@ -4,7 +4,7 @@ if ($component0 = null) {
     return(true);
 }
 $component0 = ~clientscript_6379($component0);
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     switch_int (op543($component0)) {
         case 48889906 :
             if (if_hassub(toplevel_fullscreen:mainmodal) = true) {

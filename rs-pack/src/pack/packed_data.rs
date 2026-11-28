@@ -150,7 +150,7 @@ impl PackedData {
         } else {
             4
         })
-        .psmart2or4null(value.int());
+        .psmartint2(value.int());
     }
 
     /// Writes a two-byte seq or graphic id as the client reads it.
@@ -173,10 +173,10 @@ impl PackedData {
     }
 
     #[cfg(since_530)]
-    pub fn pvarint(&mut self, value: u32) {
+    pub fn pmidivarlen(&mut self, value: u32) {
         let start = self.dat.len();
         let mut buf = self.packet(5);
-        buf.pvarint(value);
+        buf.pmidivarlen(value);
         let len = buf.pos;
         self.dat.truncate(start + len);
     }

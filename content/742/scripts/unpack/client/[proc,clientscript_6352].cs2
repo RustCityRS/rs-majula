@@ -4,7 +4,7 @@ if ($component0 = null) {
     return(false);
 }
 def_component $component1 = toplevel_fullscreen:com_86;
-if (getwindowmode < 2) {
+if (getwindowmode < ^windowmode_resizable) {
     $component1 = toplevel:com_0;
 }
 while ($component0 ! null) {

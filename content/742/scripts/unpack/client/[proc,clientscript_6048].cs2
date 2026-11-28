@@ -11,10 +11,10 @@ switch_int ($int1) {
     case 1 :
         $int3 = min(255, calc($int3 + 20));
         if ($int3 = 255) {
-            if (if_getgraphic($component0) = 10245) {
-                if_setgraphic($component0, ~clientscript_6267(10246));
+            if (if_getgraphic($component0) = graphic_10245) {
+                if_setgraphic($component0, ~clientscript_6267(graphic_10246));
             } else {
-                if_setgraphic($component0, ~clientscript_6267(10245));
+                if_setgraphic($component0, ~clientscript_6267(graphic_10245));
             }
             $int1 = 0;
         }

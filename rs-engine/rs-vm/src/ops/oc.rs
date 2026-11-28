@@ -1,5 +1,6 @@
 use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::{cert, pop_obj, pop_param, uncert};
 use crate::{handlers, none};
 use rs_pack::ParamValue;
@@ -12,7 +13,7 @@ use runec::opcodes::*;
 ///
 /// Key opcodes include:
 /// - **Identity:** `OC_NAME`, `OC_DEBUGNAME`, `OC_DESC`, `OC_CATEGORY`
-/// - **Properties:** `OC_COST`, `OC_STACKABLE`, `OC_TRADEABLE`, `OC_MEMBERS`
+/// - **Properties:** `OC_COST`, `OC_STACKABLE`, `OC_TRADEABLE`, `OC_MEMBERS`, `OC_WEIGHT`
 /// - **Equipment:** `OC_WEARPOS`, `OC_WEARPOS2`, `OC_WEARPOS3`
 /// - **Certificates:** `OC_CERT`, `OC_UNCERT`
 /// - **Params:** `OC_PARAM`
@@ -22,7 +23,7 @@ use runec::opcodes::*;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::oc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4200
         none!(m, OC_CATEGORY => |s| {
@@ -127,6 +128,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, OC_WEARPOS3 => |s| {
             let obj = pop_obj::<E>(s)?;
             s.push_int(obj.wearpos3.map_or(-1, |v| v as i32));
+        });
+
+        // 4216
+        none!(m, OC_WEIGHT => |s| {
+            let obj = pop_obj::<E>(s)?;
+            s.push_int(obj.weight as i32);
         });
     }
 }

@@ -442,7 +442,7 @@ impl Engine {
             _ => return,
         };
 
-        active.npc.timer_clock += 1;
+        active.npc.timer_clock = active.npc.timer_clock.saturating_add(1);
         if active.npc.timer_clock < interval {
             return;
         }
@@ -586,7 +586,7 @@ impl Engine {
             Self::npc_hunt_all(active, hunt);
         }
 
-        active.npc.hunt_clock += 1;
+        active.npc.hunt_clock = active.npc.hunt_clock.saturating_add(1);
     }
 
     /// Searches for a hunt target of the configured type within the NPC's
@@ -1351,7 +1351,7 @@ impl Engine {
 
         // Npc should teleport 501 ticks after its last movement.
         let stuck = active.npc.stuck_counter;
-        active.npc.stuck_counter += 1;
+        active.npc.stuck_counter = active.npc.stuck_counter.saturating_add(1);
         if stuck > 500 {
             if !on_spawn {
                 active.tele(active.npc.spawn_coord);
@@ -1402,7 +1402,7 @@ impl Engine {
             active.npc.pathing.queue_waypoint(dest);
         }
 
-        active.npc.stuck_counter += 1;
+        active.npc.stuck_counter = active.npc.stuck_counter.saturating_add(1);
 
         // Npc should teleport 32 ticks after its last movement, or if it needs to change floors.
         if active.npc.stuck_counter >= 32 || active.npc.pathing.coord.y() != dest.y() {
@@ -1543,7 +1543,7 @@ impl Engine {
         }
 
         if !Self::npc_process_movement(active) {
-            active.npc.stuck_counter += 1;
+            active.npc.stuck_counter = active.npc.stuck_counter.saturating_add(1);
         }
 
         // Give up retreating only when genuinely stuck, not merely cornered at
@@ -1735,6 +1735,7 @@ impl Engine {
 
             if Self::entity_in_approach_distance(
                 &active.npc.pathing,
+                FocusKind::Npc,
                 active.npc.interaction.target.as_ref().unwrap(),
                 attackrange as i32,
             ) {

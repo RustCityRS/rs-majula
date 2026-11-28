@@ -17,7 +17,7 @@ pub(super) fn read_big_id(buf: &mut Packet) -> TypeId {
     }
     #[cfg(since_742)]
     {
-        TypeId::from_int(buf.gsmart2or4null())
+        TypeId::from_int(buf.gsmart2or4s())
     }
 }
 

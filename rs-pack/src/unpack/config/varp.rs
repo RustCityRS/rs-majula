@@ -7,15 +7,15 @@ use super::param::char_to_type_name;
 use crate::archive;
 #[cfg(since_530)]
 use crate::cache::provider::CacheType;
-#[cfg(since_530)]
-use crate::cache::varbit::VarbitType;
 use crate::cache::varp::VarPlayerTypeRaw;
+#[cfg(since_530)]
+use crate::cache::varpbit::VarpBitType;
 #[cfg(since_530)]
 use crate::types::VarPlayerScope;
 #[cfg(since_530)]
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 #[cfg(since_530)]
 use rs_ver::TypeId;
 use std::collections::HashMap;
@@ -57,13 +57,13 @@ pub fn emit_varp_props(
 }
 
 #[cfg(since_530)]
-pub(super) fn transmit_varps(store: &mut Js5Store) -> anyhow::Result<HashSet<u32>> {
-    let (mut varps, varbits) = scan_cs2_varp_refs(store)?;
-    for group_id in 0..store.group_count(archive::CONFIG_VARBIT).unwrap_or(0) {
-        if let Some(group) = store.read_group(archive::CONFIG_VARBIT, group_id)? {
+pub(super) fn transmit_varps(store: &mut Js5LocalCache) -> anyhow::Result<HashSet<u32>> {
+    let (mut varps, varpbits) = scan_cs2_varp_refs(store)?;
+    for group_id in 0..store.group_id_limit(archive::CONFIG_VARPBIT).unwrap_or(0) {
+        if let Some(group) = store.read_group(archive::CONFIG_VARPBIT, group_id)? {
             for entry in group.entries {
-                if !entry.data().is_empty() && varbits.contains(&(group_id * 1024 + entry.id)) {
-                    let mut def = VarbitType::new(TypeId::new(0));
+                if !entry.data().is_empty() && varpbits.contains(&(group_id * 1024 + entry.id)) {
+                    let mut def = VarpBitType::new(TypeId::new(0));
                     def.decode(&mut Packet::from(entry.data().to_vec()));
                     varps.insert(def.basevar as u32);
                 }

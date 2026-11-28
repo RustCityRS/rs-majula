@@ -9,7 +9,6 @@
 [command,map_clock]()(int)
 // info: Returns true if the world is configured as a members world
 [command,map_members]()(int)
-[command,map_lobby]()(boolean)
 // info: Get the number of players in a given area
 [command,map_playercount](coord $coord1, coord $coord2)(int)
 // info: Search (hunt) for players in a given area
@@ -612,6 +611,12 @@
 [command,getwindowmode]()(int)
 // info: set an option for a player
 [command,set_player_op](string $text, int $index, int $primary)
+// info: Set the camera pitch and yaw
+[command,cam_forceangle](int $pitch, int $yaw)
+[command,.cam_forceangle](int $pitch, int $yaw)
+// info: Play a Vorbis sound effect at the given volume and playback rate
+[command,sound_vorbis](vorbis $sound, int $loops, int $delay, int $volume, int $rate)
+[command,.sound_vorbis](vorbis $sound, int $loops, int $delay, int $volume, int $rate)
 // Npc ops (2500-2999)
 // info: Get access to the npc if they are in the world
 [command,npc_finduid](npc_uid $uid)(boolean)
@@ -750,6 +755,8 @@
 // info: Toggle the npc's run-mode: two tiles a tick while on, as a running player
 // (647; no source names Jagex's command for it, so this is p_run's name for an npc)
 [command,npc_run](int $state)
+// info: Get the npc config the current npc shows as to the current player; its own when it shows as nothing
+[command,npc_getmultinpc]()(npc)
 // info: Toggle the secondary npc's run-mode
 [command,.npc_run](int $state)
 // info: Get the npc's attack range
@@ -827,8 +834,18 @@
 [command,loc_prefetch](loc $loc, locshape $shape)
 // info: Start every client that can see $coord's zone downloading $loc's models for $shape, a tick before they need them
 [command,loc_prefetchall](coord $coord, loc $loc, locshape $shape)
-// info: Make the loc look like $look for everyone, in its models for the loc's shape, recolours and retextures that match in count; null resets it
-[command,loc_merge](loc $look)
+// info: Get the current loc's width
+[command,loc_width]()(int)
+// info: Get the secondary loc's width
+[command,.loc_width]()(int)
+// info: Get the current loc's length
+[command,loc_length]()(int)
+// info: Get the secondary loc's length
+[command,.loc_length]()(int)
+// info: Get the loc config the current loc shows as to the current player; its own when it shows as nothing
+[command,loc_getmultiloc]()(loc)
+// info: Customise the loc to look like $look for everyone, in its models for the loc's shape, recolours and retextures that match in count; null resets it
+[command,loc_customise](loc $look)
 
 // Obj ops (3500-4000)
 // info: Spawn an object at $coord for the current player
@@ -879,6 +896,8 @@
 [command,nc_op](npc $npc, int $op)(string)
 // info: Get size form a npc config
 [command,nc_size](npc $npc)(int)
+// info: Get the npc config $npc shows as for $value; $npc itself when it shows as nothing
+[command,nc_getmultinpc](npc $npc, int $value)(npc)
 
 // Loc config ops (4100-4199)
 // info: Get the name from a loc config
@@ -895,6 +914,8 @@
 [command,lc_width](loc $loc)(int)
 // info: Get the length from a loc config
 [command,lc_length](loc $loc)(int)
+// info: Get the loc config $loc shows as for $value; $loc itself when it shows as nothing
+[command,lc_getmultiloc](loc $loc, int $value)(loc)
 
 // Obj config ops (4200-4299)
 // info: Get the obj config's name
@@ -1235,7 +1256,9 @@
 
 // [command,inv_setvar](inv $inv, int $slot, obj $obj, int $value)
 // [command,inv_getvar](inv $inv, int $slot, obj $obj)(int)
-// [command,p_transmogrify](npc $npc)
+// info: Draw the player as an npc type, or as themself again with null
+// (289's declaration: Monkey Madness's greegrees call it; the engine has the op, 2152)
+[command,p_transmogrify](npc $npc)
 // [command,if_setevents](component $component, int $int1, int $int2, boolean $boolean1, int $int3, int $int4, int $int5, boolean $boolean2, boolean $boolean3)
 [command,runclientscript](clientscript $hook)
 // info: Set interface component events — engine builds the access mask

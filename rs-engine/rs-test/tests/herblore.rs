@@ -4,10 +4,8 @@
 //! Leaf."); 2011's herbs are already named -- "Grimy guam", op Clean -- and
 //! cleaning one says nothing (void-634's `HerbCleaning`, and the 2007 game).
 //! The cases clean a grimy guam as the client does (IF_BUTTON1 on the
-//! backpack: `p4(com) p2_alt3(obj) p2_alt1(slot)`), put the clean guam into a
-//! vial of water, and mix an eye of newt into the result for an attack
-//! potion, both by use-on (IF_BUTTONT: `p4(to_com) p2_alt1(to_slot)
-//! p2_alt1(from_slot) p2_alt2(from_obj) p4_alt1(from_com) p2(to_obj)`). 289's
+//! backpack), put the clean guam into a vial of water, and mix an eye of newt
+//! into the result for an attack potion, both by use-on (IF_BUTTONT). 289's
 //! 3-dose potions share their names with the brewing structs that make them;
 //! the potions here are 647's (`attack_potion__3`), which the port missed
 //! until the porter learned names that start with a digit. Herblore pays
@@ -16,29 +14,23 @@
 //! 289's antifire (anti_fire.rs2): drinking a 4-dose antifire leaves the
 //! 3-dose, sets `%dragonresist` 600 ticks on, and says 289's two lines.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const HERBLORE: usize = 15;
 /// 2011's xp counter, which counts ten times what `~givexp` pays.
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' herbalists out: one at a time.
 static TURN: Mutex<()> = Mutex::new(());
-
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
     engine
@@ -64,14 +56,14 @@ fn messages(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Ve
 
 /// Uses the item in backpack slot `from` on the one in slot `to`.
 fn use_on(client: &mut HarnessClient, (from, from_obj): (u16, u16), (to, to_obj): (u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(to as i32)
-        .p2_alt1(from as i32)
-        .p2_alt2(from_obj as i32)
-        .p4_alt1(BACKPACK)
-        .p2(to_obj as i32);
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(
+        BACKPACK,
+        from,
+        TypeId::from_int(from_obj as i32),
+        BACKPACK,
+        to,
+        TypeId::from_int(to_obj as i32),
+    );
 }
 
 #[test]
@@ -99,14 +91,13 @@ fn cleaning_and_brewing_on_2011s_herbs() {
         backpack.set(1, water, 1);
         backpack.set(2, newt, 1);
         let xp = player.stats.xp[HERBLORE];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
 
         // Clean: the herb is cleaned in its slot, for 2.5 xp, in silence.
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(grimy.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, BACKPACK, 0, grimy);
         let said = messages(engine, &mut client, 2);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(
@@ -114,6 +105,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
             "the guam is clean; the game said {said:?}"
         );
         assert_eq!(player.stats.xp[HERBLORE] - xp, 25);
+        #[cfg(since_647)]
         assert_eq!(
             player.vars.get(XP_COUNTER).as_int() - counted,
             250,
@@ -136,6 +128,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
             .find(|&s| backpack.has_at(s, unf))
             .expect("the unfinished potion's slot");
         let xp = player.stats.xp[HERBLORE];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
         use_on(&mut client, (2, newt.g2()), (slot, unf.g2()));
         let said = messages(engine, &mut client, 3);
@@ -144,6 +137,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
         assert_eq!(backpack.total(attack), 1, "the game said {said:?}");
         assert_eq!(backpack.total(newt), 0);
         assert_eq!(player.stats.xp[HERBLORE] - xp, 250);
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 2500);
         assert_eq!(said, ["You mix the eye of newt into your potion."]);
     });
@@ -172,9 +166,7 @@ fn drinking_an_antifire_resists_dragonfire_for_600_ticks() {
         client.packets();
 
         // Drink, op1 on the backpack.
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(four.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, BACKPACK, 0, four);
         let said = messages(engine, &mut client, 1);
         let drunk_at = engine.clock as i32;
         let player = engine.harness_player(client.pid).unwrap();

@@ -6,24 +6,16 @@
 //! chests open to a loc whose Search is op1 or op2
 //! (`general_use/configs/searchables_2011.loc`). Each case holds a clue at a
 //! spot and does what a player does there; the clue goes, and the trail moves
-//! on (a new clue, or a casket). `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl)
-//! p2_alt2(x)`; `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`;
-//! a backpack op is IF_BUTTON1 on `inventory:inv`.
+//! on (a new clue, or a casket). A backpack op is IF_BUTTON1 on `inventory:inv`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
 use std::fs;
-
-const BACKPACK: i32 = 149 << 16;
 
 /// An obj's id from the cache's names; a loc's from 647's registry, since
 /// 647's locs carry no debugname.
@@ -37,8 +29,9 @@ fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
             .id;
     }
     let path = format!(
-        "{}/../../content/647/pack/loc.pack",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/pack/loc.pack",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(&path)
         .expect(&path)
@@ -150,21 +143,11 @@ fn loc_there(engine: &Engine, (y, x, z): (u8, u16, u16), loc: u16) -> bool {
 }
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, (_, x, z): (u8, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
 fn op_loc2(client: &mut HarnessClient, loc: u16, (_, x, z): (u8, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+    client.op_loc(2, x, z, TypeId::from_int(loc as i32));
 }
 
 #[test]
@@ -211,6 +194,8 @@ fn a_2011_drawer_opens_and_its_search_moves_the_trail() {
     });
 }
 
+#[cfg(since_647)]
+#[cfg(before_742)]
 #[test]
 fn a_2011_crate_search_moves_the_trail() {
     runner::on_loaded_engine(|engine| {
@@ -304,9 +289,7 @@ fn a_spade_on_a_map_clues_spot_digs_up_its_casket() {
             (0, 40 * 64 + 52, 54 * 64 + 26),
             &["spade", "trail_clue_easy_map004"],
         );
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(spade.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, BACKPACK, 0, spade);
         ticks(engine, 6);
         assert!(!has(engine, client.pid, clue.g2()), "the map is used");
         assert!(has(engine, client.pid, casket.g2()), "its casket");

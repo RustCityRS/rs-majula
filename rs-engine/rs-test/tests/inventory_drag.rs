@@ -6,19 +6,12 @@
 //! sprites, which login unlocks for drag, so the target slot arrives as
 //! 28 + slot and `[inv_buttond,inventory:inv]` takes the offset back off.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
-
-/// `inventory:inv`.
-const BACKPACK: i32 = 149 << 16;
 
 #[test]
 fn a_drag_moves_and_swaps_backpack_slots() {
@@ -80,14 +73,24 @@ fn drag(
         .find(|(s, _)| *s == to)
         .map_or(-1, |(_, obj)| *obj as i32);
 
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt3(from as i32)
-        .p2_alt3(if backing { 28 + to as i32 } else { to as i32 })
-        .p4_alt2(BACKPACK)
-        .p2_alt1(displayed_obj)
-        .p2(if backing { -1 } else { source_obj as i32 });
-    client.send(ClientProt::IfButtonD, &p.finish());
+    // 647's backpack has a backing sprite under each slot (28 + slot); 530's if1 backpack has
+    // none.
+    #[cfg(before_647)]
+    let slot2 = to;
+    #[cfg(since_647)]
+    let slot2 = if backing { 28 + to } else { to };
+    client.if_button_d(
+        BACKPACK,
+        from,
+        TypeId::from_int(displayed_obj),
+        BACKPACK,
+        slot2,
+        if backing {
+            TypeId::NULL
+        } else {
+            TypeId::from_int(source_obj as i32)
+        },
+    );
     engine.cycle();
 
     assert_eq!(

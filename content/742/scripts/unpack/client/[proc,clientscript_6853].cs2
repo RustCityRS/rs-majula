@@ -7,17 +7,17 @@ $graphic1, $component2 = ~clientscript_6855($int0);
 if_setgraphic($component2, $graphic1);
 if (%varplayerbit_12032 = 35 & $int0 = 4) {
     if_sethide(interface_1354:com_40, false);
-    sound_vorbis_rate(7176, 1, 0, 200, 220);
+    sound_vorbis_rate(vorbis_7176, 1, 0, 200, 220);
 }
 if (%varplayerbit_12032 = 57 & $int0 = 7) {
     if_sethide(interface_1354:com_38, false);
-    sound_vorbis_rate(7176, 1, 0, 200, 220);
+    sound_vorbis_rate(vorbis_7176, 1, 0, 200, 220);
 }
 if (%varplayerbit_12032 = 67 & $int0 = 10) {
     if_sethide(interface_1354:com_39, false);
-    sound_vorbis_rate(7176, 1, 0, 200, 220);
+    sound_vorbis_rate(vorbis_7176, 1, 0, 200, 220);
 }
 if (%varplayerbit_12032 = 92 & $int0 = 13) {
     if_sethide(interface_1354:com_41, false);
-    sound_vorbis_rate(7176, 1, 0, 200, 220);
+    sound_vorbis_rate(vorbis_7176, 1, 0, 200, 220);
 }

@@ -191,7 +191,7 @@ if (~task_get_progress($int0) = 2) {
     }
     if ($int0 = 419 & %varplayerbit_9030 = 1) {
         $string5 = "Task complete! Click here to return to the task list.";
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             if (if_getwidth(toplevel_fullscreen:main_game_container) < 997) {
                 $int11 = calc($int11 + 40);
             }
@@ -225,7 +225,7 @@ if (~task_get_progress($int0) = 2) {
     if (%varplayerbit_9030 = 0) {
         $string5 = "";
     }
-    if (getwindowmode >= 2) {
+    if (getwindowmode >= ^windowmode_resizable) {
         if (if_getwidth(toplevel_fullscreen:main_game_container) < 997) {
             ~script4248($string5, 196, 223, 1, ^white, verdana_11pt_regular_multiline);
         } else {

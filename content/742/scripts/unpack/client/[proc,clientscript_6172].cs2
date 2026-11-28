@@ -7,9 +7,9 @@ if ($struct2 = null) {
 def_int $int3 = struct_param($struct2, param_2390);
 def_int $int4 = struct_param($struct2, param_2391);
 def_string $string0 = struct_param($struct2, param_2392);
-def_graphic $graphic5 = 10735;
+def_graphic $graphic5 = graphic_10735;
 if (cc_find(interface_1273:com_14, $int0) = true) {
-    cc_setgraphic(10734);
+    cc_setgraphic(graphic_10734);
     cc_setsize(84, 78, ^setsize_abs, ^setsize_abs);
     cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
     cc_setnoclickthrough(true);

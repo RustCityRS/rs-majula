@@ -3,7 +3,7 @@
 if ($int6 ! 1) {
     return;
 }
-sound_vorbis_volume(6185, 1, 0, 200);
+sound_vorbis_volume(vorbis_6185, 1, 0, 200);
 if (testbit(%dueloptions, $int4) = ^true) {
     %dueloptions = clearbit(%dueloptions, $int4);
 } else {

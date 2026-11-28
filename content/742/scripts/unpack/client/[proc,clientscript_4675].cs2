@@ -4,7 +4,7 @@ def_int $int0 = calc(%varplayerbit_9298 * 10);
 def_int $int1 = 0;
 if (%varclient_1530 < $int0) {
     %varclient_1530 = calc(%varclient_1530 + 1);
-    sound_vorbis_volume(5251, 1, 0, 255);
+    sound_vorbis_volume(vorbis_5251, 1, 0, 255);
 }
 ~aif_progressbar_set(%varclient_1530, interface_102:com_100, interface_102:com_105);
 switch_int (%varplayerbit_9306) {

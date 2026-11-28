@@ -12,6 +12,7 @@ pub mod pointer;
 #[cfg(since_530)]
 pub mod region_uid;
 pub mod register;
+pub mod session;
 pub mod state;
 pub mod subject;
 pub mod trigger;
@@ -166,10 +167,10 @@ pub enum ScriptError {
     #[error("Param not found: {0}")]
     ParamNotFoundName(String),
 
-    #[error("Loc not found: {0}")]
+    #[error("loc type {0} not valid")]
     LocNotFound(i32),
 
-    #[error("Loc not found: {0}")]
+    #[error("loc type {0} not valid")]
     LocNotFoundName(String),
 
     #[error("Interface not found: {0}")]
@@ -202,8 +203,8 @@ pub enum ScriptError {
     #[error("Vars not found: {0}")]
     VarsNotFound(i32),
 
-    #[error("Varbit not found: {0}")]
-    VarbitNotFound(i32),
+    #[error("VarpBit not found: {0}")]
+    VarpBitNotFound(i32),
 
     #[cfg(since_647)]
     #[error("Varconbit not found: {0}")]
@@ -213,10 +214,10 @@ pub enum ScriptError {
     #[error("Varobj not found: {0}")]
     VarObjNotFound(i32),
 
-    #[error("Npc not found: {0}")]
+    #[error("npc type {0} not valid")]
     NpcNotFound(i32),
 
-    #[error("Npc not found: {0}")]
+    #[error("npc type {0} not valid")]
     NpcNotFoundName(String),
 
     #[error("Stat not found: {0}")]

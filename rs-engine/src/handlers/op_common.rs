@@ -75,16 +75,10 @@ pub fn component_protected(active: &ActivePlayer, com: ComId) -> bool {
             {
                 return true;
             }
-            let Some(parent) = active
-                .player
-                .open_subs
-                .iter()
-                .find(|(_, (sub, _))| *sub == iface)
-                .map(|(&parent, _)| (parent as u32 >> 16) as u16)
-            else {
+            let Some((parent, _)) = active.player.subs.holder(iface) else {
                 break;
             };
-            iface = parent;
+            iface = (parent as u32 >> 16) as u16;
         }
         false
     }
@@ -97,13 +91,7 @@ pub fn component_events(active: &ActivePlayer, com: ComId, slot: u16) -> Option<
     let events = interface.active_properties | if1_events(interface);
     #[cfg(since_647)]
     let events = interface.active_properties;
-    active
-        .player
-        .if_events
-        .get(&(com, slot))
-        .copied()
-        .or_else(|| (slot == u16::MAX).then_some(events))
-        .map(IfEvents)
+    active.player.subs.events(com, slot, events).map(IfEvents)
 }
 
 /// The events the 530 client gives an if1 component from its own fields
@@ -116,7 +104,7 @@ fn if1_events(interface: &IfType) -> u32 {
         interface.button_type,
         IfButtonType::Normal | IfButtonType::Toggle | IfButtonType::Select
     );
-    let targets = (interface.action_target & 0x3F) as i32;
+    let targets = (interface.target_mask & 0x3F) as i32;
     let pause = u32::from(interface.button_type == IfButtonType::Pause);
     IfEvents::new(0, targets, 0, false, targetable).0 | pause
 }
@@ -245,7 +233,7 @@ pub fn use_component_ok(active: &ActivePlayer, com: ComId, slot: u16, target: u1
 /// visible to the player; `false` otherwise (a bad or lagging client).
 #[cfg(before_530)]
 pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16, target: u16) -> bool {
-    component(active, com).is_ok_and(|interface| interface.action_target & target != 0)
+    component(active, com).is_ok_and(|interface| interface.target_mask & target != 0)
 }
 
 #[cfg(since_530)]

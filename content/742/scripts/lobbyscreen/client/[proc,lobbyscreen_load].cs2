@@ -4,7 +4,7 @@
 if_setonvartransmit(lobbyscreen:com_0, "clientscript_2354{varplayer_2411}");
 if_setonvartransmit(lobbyscreen:com_236, "clientscript_5950{varplayer_2536}");
 if (%varplayerbit_11162 < 1 & userdetail_quickchat = false) {
-    if_setonvartransmit(lobbyscreen:com_235, "clientscript_5937{varplayer_2610}");
+    if_setonvartransmit(lobbyscreen:com_235, "clientscript_5937{email_validation}");
 }
 if_settrans(lobbyscreen:com_336, 0);
 if ($int1 = 0) {
@@ -64,7 +64,7 @@ def_boolean $boolean5 = false;
 if (userdetail_lobby_lastloginday < date_runeday) {
     $int3, $int4, $boolean5 = userdetail_lobby_membership;
     if ($int4 < 10080 & $boolean5 = false) {
-        ~lobby_popup(-2000, 0, "You have less than 1 week of membership credit remaining. To enjoy the benefits of Sizzling Summer, re-subscribe now!", 0, 10151, 1, 0, "Re-subscribe", "Re-subscribe", 1, "Close", "Close");
+        ~lobby_popup(-2000, 0, "You have less than 1 week of membership credit remaining. To enjoy the benefits of Sizzling Summer, re-subscribe now!", 0, graphic_10151, 1, 0, "Re-subscribe", "Re-subscribe", 1, "Close", "Close");
         if (%varplayerbit_11162 < 1) {
             if_setposition(lobbyscreen:popup_body, 0, 150, ^setpos_abs_centre, ^setpos_abs_top);
         }

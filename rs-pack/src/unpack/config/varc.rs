@@ -8,7 +8,7 @@ pub(super) fn decode_varc(buf: &mut Packet) -> Vec<(String, String)> {
             0 => return props,
             1 => props.push(("type".into(), char_to_type_name(buf.g1()))),
             2 => props.push(("scope".into(), "perm".into())),
-            code => panic!("Unrecognized varc config code: {code}"),
+            code => panic!("Error unrecognised .varc config code: {code}"),
         }
     }
 }

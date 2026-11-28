@@ -1,5 +1,5 @@
 [opnpc1,newbie_fatigue_instructor]
-switch_int(%varplayer_419) {
+switch_int(%tutorial) {
     case ^newbie_basics_instructor_interacted_with_door : @newbie_survival_instructor_start;
     case ^newbie_survival_instructor_open_inventory : @newbie_survival_instructor_look_at_menu;
     case ^newbie_survival_instructor_cut_tree, ^newbie_survival_instructor_build_fire : @newbie_survival_instructor_fire;
@@ -14,7 +14,7 @@ switch_int(%varplayer_419) {
 [label,newbie_survival_instructor_start]
 ~chatnpc("<p,neutral>Hello there newcomer. My name is Brynna. My job|is to teach you a few survival tips and tricks.|First off we're going to start with the most|basic survival skill of all; making a fire.");
 ~doubleobjbox(tinderbox, bronze_axe, "The Survival Guide gives you a|@blu@Tinderbox@bla@|and a|@blu@Bronze Hatchet!", 200);
-%varplayer_419 = ^newbie_survival_instructor_open_inventory;
+%tutorial = ^newbie_survival_instructor_open_inventory;
 ~tutorial_step_view_inventory;
 
 [label,newbie_survival_instructor_look_at_menu]
@@ -41,7 +41,7 @@ if (~tutorial_has_obj_on_person(bronze_axe) = false & inv_total(inv, tinderbox) 
     ~objbox(tinderbox, "The Survival Guide gives you a|@blu@Tinderbox!", 250, 0, 0);
 }
 
-if (%varplayer_419 > ^newbie_survival_instructor_open_skill_menu & inv_total(inv, net) < 1) {
+if (%tutorial > ^newbie_survival_instructor_open_skill_menu & inv_total(inv, net) < 1) {
     inv_add(inv, net, 1);
     ~objbox(net, "The Survival Guide gives you a|@blu@Net!", 250, 0, divide(^objbox_height, 2));
 }
@@ -66,7 +66,7 @@ if (npc_findexact(0_48_48_29_20, 0_48_48_newbiefishing) = true) {
     hint_npc;
 }
 inv_add(inv, net, 1);
-%varplayer_419 = ^newbie_survival_instructor_fish_shrimps;
+%tutorial = ^newbie_survival_instructor_fish_shrimps;
 ~tutorial_step_catch_shrimp;
 ~objbox(net, "The Survival Guide gives you a|@blu@Net!", 250, 0, divide(^objbox_height, 2));
 ~newbie_survival_instructor_replace_items;

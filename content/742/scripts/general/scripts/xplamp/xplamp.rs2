@@ -41,8 +41,8 @@ if_openmain(interface_134);
 [if_button,interface_134:farming] @xplamp_select(farming);
 [if_button,interface_134:construction] @xplamp_select(construction);
 [if_button,interface_134:hunter] @xplamp_select(hunter);
-[if_button,interface_134:lore] @xplamp_select(summoning);
-[if_button,interface_134:dungeoneering] @xplamp_select(dungeoneering);
+[if_button,interface_134:lore] @xplamp_select(animallore);
+[if_button,interface_134:dungeoneering] @xplamp_select(rand);
 
 [if_button,interface_134:confirm]
 switch_int (%if1) {
@@ -72,8 +72,8 @@ switch_int (%if1) {
     case ^xplamp_farming : @xplamp_confirm(farming);
     case ^xplamp_construction : @xplamp_confirm(construction);
     case ^xplamp_hunter : @xplamp_confirm(hunter);
-    case ^xplamp_summoning : @xplamp_confirm(summoning);
-    case ^xplamp_dungeoneering : @xplamp_confirm(dungeoneering);
+    case ^xplamp_animallore : @xplamp_confirm(animallore);
+    case ^xplamp_rand : @xplamp_confirm(rand);
 }
 error("case not found for xplamp varp: <tostring(%if1)>");
 
@@ -107,8 +107,8 @@ switch_stat ($stat) {
     case farming : @xplamp_select_stat(^xplamp_farming);
     case construction : @xplamp_select_stat(^xplamp_construction);
     case hunter : @xplamp_select_stat(^xplamp_hunter);
-    case summoning : @xplamp_select_stat(^xplamp_summoning);
-    case dungeoneering : @xplamp_select_stat(^xplamp_dungeoneering);
+    case animallore : @xplamp_select_stat(^xplamp_animallore);
+    case rand : @xplamp_select_stat(^xplamp_rand);
 }
 error("case not found for stat: <enum(stat, string, stat_names, $stat)>");
 

@@ -15,26 +15,26 @@ switch_int ($int0) {
         return;
 }
 if (cc_find($component1, 1) = true) {
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     cc_setonmouseleave("clientscript_5357(1, $component1)");
 }
 if (cc_find($component1, 4) = true) {
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     cc_setonmouseleave("clientscript_5357(4, $component1)");
 }
 if (cc_find($component1, 7) = true) {
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     cc_setonmouseleave("clientscript_5357(7, $component1)");
 }
 if (cc_find($component1, 10) = true) {
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     cc_setonmouseleave("clientscript_5357(10, $component1)");
 }
 if (cc_find($component1, 13) = true) {
-    cc_setgraphic(7766);
+    cc_setgraphic(graphic_7766);
     cc_setonmouseleave("clientscript_5357(13, $component1)");
 }
 if (cc_find($component1, $int0) = true) {
-    cc_setgraphic(7767);
+    cc_setgraphic(graphic_7767);
     cc_setonmouseleave(null);
 }

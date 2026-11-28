@@ -4,16 +4,11 @@
 
 #![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_pack::types::{LocAngle, LocShape};
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_ver::TypeId;
@@ -389,11 +384,7 @@ fn a_save_in_region_space_logs_in_at_its_exit() {
 
 /// Types `input` into the client's command box.
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    #[cfg(since_647)]
-    p.p1(0).p1(0);
-    p.pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
 /// `::instance` sets no exit coord, so leaving it and a save in it both go
@@ -745,6 +736,7 @@ fn collision_by_a_copys_edge_leaves_the_void_beside_it() {
                 1,
                 1,
                 true,
+                false,
                 false,
                 0,
             );

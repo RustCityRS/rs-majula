@@ -1,53 +1,53 @@
 // 5433
 [proc,clientscript_5433](int $int0, int $int1)
-def_graphic $graphic2 = 8154;
+def_graphic $graphic2 = graphic_8154;
 switch_int (%varclient_1664) {
     case 1 :
-        $graphic2 = 8154;
+        $graphic2 = graphic_8154;
     case 2 :
-        $graphic2 = 8160;
+        $graphic2 = graphic_8160;
     case 3 :
-        $graphic2 = 8161;
+        $graphic2 = graphic_8161;
     case 4 :
-        $graphic2 = 8157;
+        $graphic2 = graphic_8157;
     case 5 :
-        $graphic2 = 8163;
+        $graphic2 = graphic_8163;
     case 6 :
-        $graphic2 = 8164;
+        $graphic2 = graphic_8164;
     case 7 :
-        $graphic2 = 8162;
+        $graphic2 = graphic_8162;
     case 8 :
-        $graphic2 = 8155;
+        $graphic2 = graphic_8155;
     case 9 :
-        $graphic2 = 8167;
+        $graphic2 = graphic_8167;
     case 10 :
-        $graphic2 = 8175;
+        $graphic2 = graphic_8175;
     case 11 :
-        $graphic2 = 8169;
+        $graphic2 = graphic_8169;
     case 12 :
-        $graphic2 = 8166;
+        $graphic2 = graphic_8166;
     case 13 :
-        $graphic2 = 8156;
+        $graphic2 = graphic_8156;
     case 14 :
-        $graphic2 = 8168;
+        $graphic2 = graphic_8168;
     case 15 :
-        $graphic2 = 8171;
+        $graphic2 = graphic_8171;
     case 16 :
-        $graphic2 = 8159;
+        $graphic2 = graphic_8159;
     case 17 :
-        $graphic2 = 8172;
+        $graphic2 = graphic_8172;
     case 18 :
-        $graphic2 = 8165;
+        $graphic2 = graphic_8165;
     case 19 :
-        $graphic2 = 8158;
+        $graphic2 = graphic_8158;
     case 20 :
-        $graphic2 = 8173;
+        $graphic2 = graphic_8173;
     case 21 :
-        $graphic2 = 8170;
+        $graphic2 = graphic_8170;
     case 22 :
-        $graphic2 = 8174;
+        $graphic2 = graphic_8174;
     case default :
-        $graphic2 = 8154;
+        $graphic2 = graphic_8154;
 }
 cc_create(interface_1167:com_1, ^iftype_graphic, $int0);
 cc_setgraphic($graphic2);

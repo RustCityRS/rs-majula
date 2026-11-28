@@ -1,5 +1,5 @@
 // 289's guild door (530 still has it; the gates came on 23 March 2010).
-[oploc1,loc_2025]
+[oploc1,door_2025]
 // check if high enough fishing level
 def_boolean $is_inside = ~check_axis(coord, loc_coord, loc_angle);
 if ($is_inside = false) {

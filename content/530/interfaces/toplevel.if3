@@ -58,7 +58,7 @@ y=320
 width=53
 height=19
 layer=main
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff981d
@@ -124,7 +124,7 @@ type=graphic
 width=519
 height=23
 layer=filterbuttons_container
-graphic=graphic_1018
+graphic=main_stones_bottom
 
 // 548:14
 [filterbuttons]
@@ -156,7 +156,7 @@ type=graphic
 width=246
 height=37
 layer=backbase2
-graphic=graphic_1032
+graphic=side_background_bottom
 
 // 548:18
 [backbase2_hide]
@@ -181,7 +181,7 @@ x=3
 width=38
 height=36
 layer=backbase2_hide
-graphic=graphic_1028
+graphic="side_stone_highlights,2"
 transmitop=1
 op1=Follower Details
 onop=clientscript_1303(7)
@@ -193,7 +193,7 @@ x=41
 width=38
 height=36
 layer=backbase2_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Friends List
@@ -207,7 +207,7 @@ x=74
 width=33
 height=36
 layer=backbase2_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Ignore List
@@ -220,7 +220,7 @@ x=107
 width=33
 height=36
 layer=backbase2_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Clan Chat
@@ -233,7 +233,7 @@ x=140
 width=33
 height=36
 layer=backbase2_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Options
@@ -246,7 +246,7 @@ x=173
 width=33
 height=36
 layer=backbase2_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Emotes
@@ -259,7 +259,7 @@ x=206
 width=38
 height=36
 layer=backbase2_hide
-graphic=graphic_1029
+graphic="side_stone_highlights,3"
 transmitop=1
 op1=Music Player
 onop=clientscript_1303(13)
@@ -349,7 +349,7 @@ type=graphic
 width=249
 height=37
 layer=backhmid1
-graphic=graphic_1036
+graphic=side_background_top
 
 // 548:36
 [backhmid1_hide]
@@ -375,7 +375,7 @@ x=6
 width=38
 height=36
 layer=backhmid1_hide
-graphic=graphic_1026
+graphic="side_stone_highlights,0"
 transmitop=1
 op1=Combat Styles
 opkey1=1,0
@@ -388,7 +388,7 @@ x=44
 width=33
 height=36
 layer=backhmid1_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Stats
@@ -402,7 +402,7 @@ x=77
 width=33
 height=36
 layer=backhmid1_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Quest List
@@ -416,7 +416,7 @@ x=110
 width=33
 height=36
 layer=backhmid1_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Inventory
@@ -431,7 +431,7 @@ x=143
 width=33
 height=36
 layer=backhmid1_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Worn Equipment
@@ -445,7 +445,7 @@ x=176
 width=33
 height=36
 layer=backhmid1_hide
-graphic=graphic_1030
+graphic="side_stone_highlights,4"
 tiling=yes
 transmitop=1
 op1=Prayer List
@@ -459,7 +459,7 @@ x=209
 width=38
 height=36
 layer=backhmid1_hide
-graphic=graphic_1027
+graphic="side_stone_highlights,1"
 transmitop=1
 op1=Magic Spellbook
 opkey1=7,0
@@ -548,7 +548,7 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 layer=backleft1
-graphic=graphic_4
+graphic=backleft1
 
 // 548:54
 [backright2]
@@ -564,7 +564,7 @@ type=graphic
 width=28
 height=261
 layer=backright2
-graphic=graphic_1035
+graphic=side_background_right
 
 // 548:56
 [backtop1]
@@ -596,7 +596,7 @@ type=graphic
 width=516
 height=4
 layer=backtop1
-graphic=graphic_1039
+graphic=main_top
 
 // 548:60
 [backvmid2]
@@ -612,7 +612,7 @@ type=graphic
 width=28
 height=133
 layer=backvmid2
-graphic=graphic_1033
+graphic=side_background_left1
 
 // 548:62
 [com_62]
@@ -621,7 +621,7 @@ y=133
 width=28
 height=128
 layer=backvmid2
-graphic=graphic_1034
+graphic=side_background_left2
 
 // 548:63
 [com_63]
@@ -629,7 +629,7 @@ type=graphic
 width=249
 height=4
 layer=minimap
-graphic=graphic_1221
+graphic=main_top2
 tiling=yes
 
 // 548:64
@@ -641,7 +641,7 @@ y=9
 width=152
 height=152
 layer=minimap
-graphic=graphic_1185
+graphic=mapmask
 
 // 548:65
 [compass]
@@ -652,7 +652,7 @@ y=8
 width=33
 height=33
 layer=minimap
-graphic=graphic_1186
+graphic=compassmask
 
 // 548:66
 [worldmap_icon]
@@ -673,7 +673,7 @@ y=4
 width=249
 height=157
 layer=minimap
-graphic=graphic_12
+graphic=mapback
 
 // 548:68
 [com_68]
@@ -682,7 +682,7 @@ y=161
 width=249
 height=7
 layer=minimap
-graphic=graphic_1126
+graphic=minimap_bottom
 
 // 548:69
 [logoutbutton]
@@ -692,7 +692,7 @@ y=1
 width=22
 height=21
 layer=minimap
-graphic=graphic_1201
+graphic="fullscreen_logout_button,0"
 transmitop=1
 op1=Log Out
 onmouseover=graphic_swapper(event_com, 1202)
@@ -784,7 +784,7 @@ type=graphic
 width=190
 height=261
 layer=side
-graphic=graphic_1031
+graphic=side_background
 
 // 548:80
 [sidemodal]
@@ -962,7 +962,7 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 layer=statusicon_tooltip
-textfont=fontmetrics_495
+textfont=p12_full
 textalignh=centre
 textalignv=centre
 colour=0x000000

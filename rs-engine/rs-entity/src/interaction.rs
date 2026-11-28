@@ -65,7 +65,7 @@ impl InteractionTarget {
     /// calculations, or `None` when it must be resolved from a live entity.
     ///
     /// `Obj` and `Coord` targets return the fine center of a 1x1 tile; `Loc` targets
-    /// return the fine center accounting for width and length. `Npc` and `Player`
+    /// return the fine center of the tiles they cover at their angle. `Npc` and `Player`
     /// targets return `None`: the variant stores only an index, so the coordinate cannot
     /// be derived here -- the caller must read it from the target's live pathing
     /// position (see `Engine::resolve_pathing_face`).
@@ -78,11 +78,20 @@ impl InteractionTarget {
                 coord,
                 width,
                 length,
+                angle,
                 ..
-            } => Some((
-                CoordGrid::fine(coord.x(), *width),
-                CoordGrid::fine(coord.z(), *length),
-            )),
+            } => {
+                // A quarter-turned loc covers length x width tiles.
+                let (width, length) = if *angle as u8 & 1 == 1 {
+                    (*length, *width)
+                } else {
+                    (*width, *length)
+                };
+                Some((
+                    CoordGrid::fine(coord.x(), width),
+                    CoordGrid::fine(coord.z(), length),
+                ))
+            }
             Self::Npc { .. } | Self::Player { .. } => None,
         }
     }
@@ -360,6 +369,19 @@ mod tests {
     #[test]
     fn loc_fine_coord_is_some() {
         assert_eq!(loc_target(3100, 3200).fine_coord(), Some((6201, 6401)));
+        // Tutorial Island's 2x3 furnace at angle 3 covers 3x2 tiles from its south-west one.
+        let furnace = |angle| InteractionTarget::Loc {
+            coord: CoordGrid::new(3078, 0, 9495),
+            id: TypeId::new(3044),
+            width: 2,
+            length: 3,
+            shape: LocShape::CentrepieceStraight,
+            angle,
+            layer: LocLayer::Ground,
+            serial: LocSerial::FIRST,
+        };
+        assert_eq!(furnace(LocAngle::South).fine_coord(), Some((6159, 18992)));
+        assert_eq!(furnace(LocAngle::East).fine_coord(), Some((6158, 18993)));
     }
 
     #[test]

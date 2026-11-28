@@ -15,8 +15,8 @@
 22=gosub
 23=jump
 24=switch
-25=push_varbit
-27=pop_varbit
+25=push_varpbit
+27=pop_varpbit
 31=branch_less_than_or_equals
 32=branch_greater_than_or_equals
 33=push_int_local
@@ -93,7 +93,6 @@
 1026=projanim_halfsq
 1027=sound_vorbis_area
 1028=text_coord
-1029=map_lobby
 2000=afk_event
 2001=allowdesign
 2002=anim
@@ -270,6 +269,8 @@
 2187=runclientscriptvararg
 2188=sound_speech_stop
 2189=sound_speech_volume
+2191=cam_forceangle
+2192=sound_vorbis
 2500=npc_add
 2501=npc_anim
 2502=npc_arrivedelay
@@ -322,6 +323,7 @@
 2550=npc_projanim_halfsq
 2551=npc_queuevararg
 2552=npc_run
+2553=npc_getmultinpc
 3000=loc_add
 3001=loc_angle
 3002=loc_anim
@@ -338,7 +340,10 @@
 3013=loc_type
 3014=loc_prefetch
 3015=loc_prefetchall
-3016=loc_merge
+3016=loc_customise
+3017=loc_width
+3018=loc_length
+3019=loc_getmultiloc
 3500=obj_add
 3501=obj_addall
 3502=obj_coord
@@ -361,6 +366,7 @@
 4005=nc_param
 4006=nc_size
 4007=nc_vislevel
+4008=nc_getmultinpc
 4100=lc_category
 4101=lc_debugname
 4102=lc_desc
@@ -369,6 +375,7 @@
 4105=lc_op
 4106=lc_param
 4107=lc_width
+4108=lc_getmultiloc
 4200=oc_category
 4201=oc_cert
 4202=oc_cost

@@ -22,19 +22,19 @@ if (op718 = 1) {
     switch_int ($int4) {
         case 1 :
             $string0 = "Stronghold";
-            $graphic1 = 7418;
+            $graphic1 = graphic_7418;
             $int6 = %varclan_2580;
             $int7 = min(%varclan_2633, calc($int6 - 1));
             $int2 = calc(%varclan_2600 + %varclan_2616);
         case 2 :
             $string0 = "Storehouse";
-            $graphic1 = 7419;
+            $graphic1 = graphic_7419;
             $int6 = %varclan_2581;
             $int7 = min(%varclan_2631, calc($int6 - 1));
             $int2 = calc(%varclan_2596 + %varclan_2614);
         case 3 :
             $string0 = "Battlefield";
-            $graphic1 = 7417;
+            $graphic1 = graphic_7417;
             $int6 = %varclan_2582;
             $int7 = min(%varclan_2632, calc($int6 - 1));
             $int2 = calc(%varclan_2597 + %varclan_2615);

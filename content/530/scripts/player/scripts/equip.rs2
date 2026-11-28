@@ -59,11 +59,11 @@ if (p_finduid(uid) = true) {
     // 289's island hook (player/scripts/equip.rs2): the sword and shield
     // move its combat lesson on.
     // todo: this needs a better home...
-    if (~in_tutorial_island(coord) = true & %varplayer_419 = ^newbie_combat_instructor_unequipping_items) {
+    if (~in_tutorial_island(coord) = true & %tutorial = ^newbie_combat_instructor_unequipping_items) {
         def_obj $shield = inv_getobj(worn, ^wearpos_lhand);
 
         if ($previous = bronze_sword & $shield = wooden_shield) {
-            %varplayer_419 = ^newbie_combat_instructor_open_combat_interface;
+            %tutorial = ^newbie_combat_instructor_open_combat_interface;
             ~set_tutorial_progress;
         }
     }
@@ -412,7 +412,7 @@ if_openmain_side(equip_screen2, inventory_wear2);
 // (op1), Operate (op2), Examine (op10). The backpack beside it has no script
 // of its own: the server draws it with Equip (op1) (clientscript 149,
 // interface_inv_init). Operate is not ported.
-runclientscript("interface_inv_init(inventory_wear2:layer_1, inv, 4, 7, 0, -1, \"Equip\", \"\", \"\", \"\", \"\")");
+runclientscript("interface_inv_init(inventory_wear2:layer_1, inv, 4, 7, 0, null, \"Equip\", \"\", \"\", \"\", \"\")");
 if_setevents(equip_screen2:worn_items_layer, 0, 15, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 if_setevents(inventory_wear2:layer_1, 0, 27, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 ~equip_screen_bonuses;
@@ -482,6 +482,9 @@ $rangebonus = ~equip_get_bonuses;
 ~update_bonus_text(equip_screen2:summoningdef, "Summoning", 0);
 ~update_bonus_text(equip_screen2:wearstrength, "Strength", $strengthbonus);
 ~update_bonus_text(equip_screen2:wearprayer, "Prayer", $prayerbonus);
+// The cache's "%1kg" (667:32) is the server's to fill: the carried weight, in whole kg as the
+// run weight sends it.
+if_settext(equip_screen2:com_32, "<tostring(calc(weight / 1000))>kg");
 
 [proc,update_bonus_text](component $com, string $name, int $bonus)
 def_string $sign = "+";

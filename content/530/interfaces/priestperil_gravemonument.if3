@@ -16,7 +16,7 @@ x=16
 y=25
 width=478
 height=293
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 272:2
@@ -66,7 +66,7 @@ x=9
 y=18
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 272:6
 [com_6]
@@ -75,7 +75,7 @@ x=481
 y=62
 width=40
 height=232
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 272:7
@@ -85,7 +85,7 @@ x=37
 y=5
 width=432
 height=28
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 272:8
@@ -95,7 +95,7 @@ x=9
 y=293
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 272:9
 [com_9]
@@ -104,7 +104,7 @@ x=469
 y=18
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 272:10
 [com_10]
@@ -113,7 +113,7 @@ x=469
 y=293
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 272:11
 [com_11]
@@ -122,7 +122,7 @@ x=19
 y=39
 width=472
 height=29
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 272:12
@@ -132,7 +132,7 @@ x=9
 y=41
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 272:13
 [com_13]
@@ -141,7 +141,7 @@ x=469
 y=41
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 272:14
 [com_14]
@@ -150,7 +150,7 @@ x=-4
 y=62
 width=36
 height=231
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 272:15
@@ -160,7 +160,7 @@ x=41
 y=305
 width=429
 height=31
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 
 // 272:16
 [monumenttitle]
@@ -169,7 +169,7 @@ x=94
 y=32
 width=331
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Grave Monument
 textalignh=centre
 textshadow=yes
@@ -182,7 +182,7 @@ x=195
 y=73
 width=127
 height=107
-textfont=fontmetrics_497
+textfont=q8_full
 text=Saradomin<br><br>lights my way<br><br>through<br><br>the darkness of life
 textalignh=centre
 colour=0xcccccc
@@ -194,7 +194,7 @@ x=468
 y=27
 width=26
 height=23
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 536)

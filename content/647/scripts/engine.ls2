@@ -1,0 +1,75 @@
+// Core language ops (0-99)
+// info: Call a proc and return to this point after. You cannot pass any arguments to it.
+[command,gosub](proc $proc)
+// info: Jump to a label and continue the script there. You cannot pass any arguments it.
+[command,jump](label $label)
+
+// Player ops (2000-2499)
+// info: Close open interfaces
+[command,if_close]
+// info: Set a component's colour
+[command,if_setcolour](component $component, int $colour)
+// info: Open a modal in the chat box
+[command,if_openchat](interface $interface)
+// info: Open two modals, one in the main viewport and one on the side tab
+[command,if_openmain_side](interface $interface1, interface $interface2)
+// info: Hide a component
+[command,if_sethide](component $component, boolean $hide)
+// info: Set a component's model to an object
+[command,if_setobject](component $component, obj $obj, int $scale)
+// info: Set a component's model
+[command,if_setmodel](component $component, int $model)
+// info: Set a component's graphic (a sprite): 647's IF_SETGRAPHIC
+[command,if_setgraphic](component $component, graphic $graphic)
+// info: Set a component's model animation
+[command,if_setanim](component $component, seq $anim)
+// info: Set a side tab to a specific interface
+[command,if_settab](interface $interface, int $tab)
+// info: Change the player's open side tab
+[command,if_settabactive](int $tab)
+// info: Open the top-level game frame (fixed=548 / resizable and full
+// screen=746, toplevel_fullscreen; 747 is the summoning orb, not a frame).
+// Note: 647 names this `if_opentop`; 2004scape called it `if_openmain` at the
+// same opcode (2036). The real `if_openmain` (sub on the main viewport) is a
+// separate command — see opcode 5011 below.
+[command,if_opentop](interface $interface)
+// info: if_opentop with IF_OPENTOP's mode byte: 2 has the client rebuild its
+// scene behind a "Loading - please wait." screen (ImageSourceTextureOp.method3619)
+[command,if_opentop_mode](interface $interface, int $mode)
+// info: Open a modal in the main viewport
+[command,if_openmain](interface $interface)
+// info: Open an overlay in the main viewport
+[command,if_openoverlay](interface $interface)
+// info: Open a modal in the side tab
+[command,if_openside](interface $interface)
+// info: Set a component's model to the local player's chat head
+[command,if_setplayerhead](component $component)
+// info: Set a component's text
+[command,if_settext](component $component, string $text)
+// info: Set a component's model to a npc's chat head
+[command,if_setnpchead](component $component, npc $npc)
+// info: Reposition a component
+[command,if_setposition](component $component, int $x, int $y);
+// info: Set the scrollbar position on a component
+[command,if_setscrollpos](component $component, int $y);
+// info: internal- set which buttons can re-trigger the suspended script
+[command,if_setresumebuttons](component $component1, component $component2, component $component3, component $component4, component $component5)
+// info: internal- set which buttons can re-trigger a script suspended with p_pausebutton
+[command,if_addresumebutton](component $button)
+
+// Debug ops (10000-11000)
+// info: Print a message on the server
+[command,console](string $text)
+// [command,inv_setvar](inv $inv, int $slot, obj $obj, int $value)
+// [command,inv_getvar](inv $inv, int $slot, obj $obj)(int)
+// [command,p_transmogrify](npc $npc)
+// [command,if_setevents](component $component, int $int1, int $int2, boolean $boolean1, int $int3, int $int4, int $int5, boolean $boolean2, boolean $boolean3)
+[command,runclientscript](clientscript $hook)
+// info: Set interface component events — engine builds the access mask
+[command,if_setevents](component $component, int $from_slot, int $to_slot, int $ops, int $useon_flags, int $depth, boolean $allow_drag, boolean $can_target)
+// info: Open a sub-interface on a specific parent component, as the type of the sub that holds it
+[command,if_opensub](interface $interface, int $component)
+// info: Close a sub-interface at a specific component hash
+[command,if_closesub](int $component_hash)
+// info: Move a sub-interface from one parent component to another without firing onload hooks
+[command,if_movesub](component $from, component $to)

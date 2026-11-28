@@ -1,7 +1,7 @@
 // 1511
 [proc,clientscript_1511]
 if (%tutorial2_instructions = 0) {
-    if_setposition(interface_768:control, 0, 0, 0, 2);
+    if_setposition(interface_768:control, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
 } else {
-    if_setposition(interface_768:control, 0, 165, 0, 2);
+    if_setposition(interface_768:control, 0, 165, ^setpos_abs_left, ^setpos_abs_bottom);
 }

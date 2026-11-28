@@ -5,31 +5,31 @@
 //! rework): hopper 36881 on the top floor, beside the controls, which keep
 //! 289's 2718, and flour bin 36880 on the ground floor. Every 2011 flour
 //! bin but one is a multiloc on varp 695, 289's `%flour` (22493 at 3786,2825
-//! turns on varbit 3405), so the client draws it full or empty and 289's loc
-//! changes go. `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl)
-//! p2_alt2(x)`; `OPLOCT`: `p2_alt2(obj) p2_alt2(slot) p2(z) p4_alt2(com)
-//! p2_alt2(x) p1_alt1(ctrl) p2_alt1(loc)`.
+//! turns on varpbit 3405), so the client draws it full or empty and 289's loc
+//! changes go.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+#[cfg(since_647)]
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
 /// 289's `%flour`: 2011's varp 695.
 const FLOUR: u16 = 695;
+#[cfg(before_742)]
 const HOPPER: (i32, u16, u16) = (36881, 3166, 3307);
+#[cfg(before_742)]
 const CONTROLS: (i32, u16, u16) = (2718, 3166, 3305);
+/// 742's rebuilt mill: its own hopper, the controls a tile west.
+#[cfg(since_742)]
+const HOPPER: (i32, u16, u16) = (70034, 3166, 3307);
+#[cfg(since_742)]
+const CONTROLS: (i32, u16, u16) = (2718, 3165, 3305);
 const FLOUR_BIN: (i32, u16, u16) = (36880, 3166, 3306);
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
@@ -65,9 +65,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
 }
 
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (i32, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32).p2_alt1(loc).p1(0).p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc));
 }
 
 #[test]
@@ -95,17 +93,16 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
         ticks(engine, &mut client, 10);
         assert_eq!(flour(engine, client.pid), 0);
 
-        let mut p = ClientPacket::new();
-        p.p2_alt2(grain.int())
-            .p2_alt2(0)
-            .p2(HOPPER.2 as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(HOPPER.1 as i32)
-            .p1_alt1(0)
-            .p2_alt1(HOPPER.0);
         set_recording(true);
         forget_calls();
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(
+            HOPPER.1,
+            HOPPER.2,
+            TypeId::from_int(HOPPER.0),
+            BACKPACK,
+            0,
+            grain,
+        );
         ticks(engine, &mut client, 6);
         // What the scripts said (the call log).
         let said = calls_for("mes");
@@ -194,6 +191,7 @@ fn a_dairy_cow_fills_an_empty_bucket() {
     });
 }
 
+#[cfg(since_647)]
 fn set_varp(engine: &mut Engine, pid: u16, name: &str, value: i32) {
     let id = engine.cache.varps.get_by_debugname(name).unwrap().id;
     engine
@@ -206,6 +204,7 @@ fn set_varp(engine: &mut Engine, pid: u16, name: &str, value: i32) {
 /// Cook's Assistant's rework (15 December 2009, 2011 wiki): once Millie
 /// Miller has set the millstones, Mill Lane's bin gives extra fine flour
 /// (void-634 Windmill); 289's mill gave a pot of flour.
+#[cfg(since_647)]
 #[test]
 fn mill_lane_mills_extra_fine_flour_for_the_cook() {
     runner::on_loaded_engine(|engine| {
@@ -230,15 +229,14 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
         set_varp(engine, client.pid, "cookquest_millie", 1);
         engine.harness_telejump(client.pid, 3165, 2, 3307);
         ticks(engine, &mut client, 10);
-        let mut p = ClientPacket::new();
-        p.p2_alt2(grain.int())
-            .p2_alt2(0)
-            .p2(HOPPER.2 as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(HOPPER.1 as i32)
-            .p1_alt1(0)
-            .p2_alt1(HOPPER.0);
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(
+            HOPPER.1,
+            HOPPER.2,
+            TypeId::from_int(HOPPER.0),
+            BACKPACK,
+            0,
+            grain,
+        );
         ticks(engine, &mut client, 6);
         op_loc1(&mut client, CONTROLS);
         ticks(engine, &mut client, 6);
@@ -263,6 +261,7 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
 
 /// The rework's prized dairy cow (47721, by Gillie Groats's field) gives
 /// top-quality milk during the quest.
+#[cfg(since_647)]
 #[test]
 fn the_prized_cow_gives_top_quality_milk() {
     runner::on_loaded_engine(|engine| {
@@ -279,9 +278,14 @@ fn the_prized_cow_gives_top_quality_milk() {
             .unwrap()
             .set(0, bucket, 1);
         set_varp(engine, client.pid, "cookquest", 1);
-        engine.harness_telejump(client.pid, 3263, 0, 3277);
+        // 742 stands the cow a tile west.
+        #[cfg(before_742)]
+        let (cow_x, from_x) = (3264, 3263);
+        #[cfg(since_742)]
+        let (cow_x, from_x) = (3263, 3262);
+        engine.harness_telejump(client.pid, from_x, 0, 3277);
         ticks(engine, &mut client, 10);
-        op_loc1(&mut client, (47721, 3264, 3277));
+        op_loc1(&mut client, (47721, cow_x, 3277));
         ticks(engine, &mut client, 10);
         assert!(
             slot_of(engine, client.pid, top.g2()).is_some(),

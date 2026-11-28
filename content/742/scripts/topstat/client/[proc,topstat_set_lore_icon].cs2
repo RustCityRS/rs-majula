@@ -6,10 +6,10 @@ if (map_members = true) {
     if_sethide(topstat_lore:com_2, false);
     if_sethide(topstat_lore:com_1, false);
     if_sethide(topstat_lore:select_leftclick_layer, false);
-    ~script817(summoning);
+    ~script817(animallore);
     if_sethide(topstat_lore:topstat_text_lore, false);
-    if_setcolour(topstat_lore:topstat_text_lore, ~topstat_set_text_colour_skill(summoning));
-    if_settext(topstat_lore:topstat_text_lore, tostring(stat(summoning)));
+    if_setcolour(topstat_lore:topstat_text_lore, ~topstat_set_text_colour_skill(animallore));
+    if_settext(topstat_lore:topstat_text_lore, tostring(stat(animallore)));
 } else {
     if_sethide(topstat_lore:topstat_background_lore, true);
     if_sethide(topstat_lore:com_0, true);

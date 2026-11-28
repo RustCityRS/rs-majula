@@ -2,7 +2,7 @@
 [proc,subchanged]
 def_int $int0 = 0;
 def_int $int1 = 0;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false)) {
         if_sethide(toplevel_fullscreen:chattop, false);
         if_setgraphic(chattop:chat_graphic, chat_background);

@@ -4,6 +4,8 @@ use crate::interaction::InteractionState;
 use crate::interaction::InteractionTarget;
 use crate::pathing::{MoveStrategy, PathingEntity};
 use crate::state::EntityState;
+#[cfg(since_530)]
+use crate::subs::SubTable;
 use rs_cam::CamQueue;
 use rs_grid::CoordGrid;
 use rs_hero::HeroPoints;
@@ -71,14 +73,35 @@ impl StaffModLevel {
 }
 
 /// Rev-647 chat modes, as CHAT_SETMODE carries them (CS2 op 5006): typed chat
-/// goes to public chat, or to the clan chat the player is in.
+/// goes to public chat, the friends chat, the player's clan chat, or the clan
+/// chat they visit as a guest.
 #[cfg(since_647)]
 pub const CHAT_MODE_PUBLIC: u8 = 0;
 #[cfg(since_647)]
-pub const CHAT_MODE_CLAN: u8 = 1;
+pub const CHAT_MODE_FRIENDS_CHAT: u8 = 1;
+#[cfg(since_647)]
+pub const CHAT_MODE_CLAN: u8 = 2;
+#[cfg(since_647)]
+pub const CHAT_MODE_GUEST_CLAN: u8 = 3;
+
+/// Whether a player can have these public, private and trade chat filters:
+/// on, friends or off, and hide for public chat.
+pub const fn chat_filters_valid(public: u8, private: u8, trade: u8) -> bool {
+    public <= 3 && private <= 2 && trade <= 2
+}
+
+/// `filters` (public, private, trade) if a player can have them, else all on.
+pub const fn checked_chat_filters(filters: [u8; 3]) -> [u8; 3] {
+    let [public, private, trade] = filters;
+    if chat_filters_valid(public, private, trade) {
+        filters
+    } else {
+        [0; 3]
+    }
+}
 
 /// The movement speed mode of an entity, determining how many tiles it moves per tick.
-/// The values are 647's move types, as the MoveType and TempMoveType blocks carry
+/// The values are 647's move speeds, as the MoveSpeed and TempMoveSpeed blocks carry
 /// them (`Class244.method1590`).
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -125,7 +148,7 @@ pub struct Player {
     pub move_speed: MoveSpeed,
     pub temp_move_speed: Option<MoveSpeed>,
     #[cfg(since_647)]
-    pub client_move_type: Option<MoveSpeed>,
+    pub client_move_speed: Option<MoveSpeed>,
     #[cfg(since_530)]
     pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
@@ -141,9 +164,7 @@ pub struct Player {
     #[cfg(since_530)]
     pub modal_side_parent: i32,
     #[cfg(since_530)]
-    pub open_subs: FxHashMap<i32, (u16, u8)>,
-    #[cfg(since_530)]
-    pub if_events: FxHashMap<(i32, u16), u32>,
+    pub subs: SubTable,
     pub modal_side: Option<u16>,
     pub last_modal_side: Option<u16>,
     pub modal_tutorial: Option<u16>,
@@ -296,7 +317,7 @@ impl Player {
             move_speed: MoveSpeed::Walk,
             temp_move_speed: None,
             #[cfg(since_647)]
-            client_move_type: None,
+            client_move_speed: None,
             #[cfg(since_530)]
             region_entry: None,
             move_request: false,
@@ -312,9 +333,7 @@ impl Player {
             #[cfg(since_530)]
             modal_side_parent: 0,
             #[cfg(since_530)]
-            open_subs: FxHashMap::default(),
-            #[cfg(since_530)]
-            if_events: FxHashMap::default(),
+            subs: SubTable::default(),
             modal_side: None,
             last_modal_side: None,
             modal_tutorial: None,
@@ -410,86 +429,23 @@ impl Player {
         (self.modal_state & (MODAL_MAIN | MODAL_CHAT)) != MODAL_NONE
     }
 
-    /// Rev-647: records IF_OPENSUB. As the client does, whatever was mounted
-    /// on `parent` closes first.
-    #[cfg(since_530)]
-    pub fn sub_opened(&mut self, parent: i32, sub: u16, kind: u8) {
-        self.sub_closed(parent);
-        self.open_subs.insert(parent, (sub, kind));
-    }
-
-    /// Rev-647: records IF_CLOSESUB. The client closes the sub mounted on
-    /// `parent`, then, recursively, every type-3 sub mounted inside it
-    /// (`LightDetailClientOption.method2499`); others stay in its table,
-    /// unreachable until something re-parents them.
-    #[cfg(since_530)]
-    pub fn sub_closed(&mut self, parent: i32) {
-        let Some((closed, _)) = self.open_subs.remove(&parent) else {
-            return;
-        };
-        self.if_events
-            .retain(|&(com, _), _| (com as u32 >> 16) as u16 != closed);
-        let children: Vec<i32> = self
-            .open_subs
-            .iter()
-            .filter(|(p, (_, kind))| *kind == 3 && (**p as u32 >> 16) as u16 == closed)
-            .map(|(&p, _)| p)
-            .collect();
-        for child in children {
-            self.sub_closed(child);
-        }
-    }
-
-    /// Rev-647: the IF_OPENSUB type for a sub mounted on `parent`: that of
-    /// the sub holding `parent`'s interface, or 1 on the toplevel. A main or
-    /// chat modal mounts as type 0 at the end of the tick, after the script.
+    /// Rev-647: the IF_OPENSUB type for a sub mounted on `parent` (see
+    /// [`SubTable::kind`]). A main or chat modal mounts as type 0 at the end
+    /// of the tick, after the script.
     #[cfg(since_530)]
     pub fn sub_kind(&self, parent: i32) -> u8 {
         let iface = (parent as u32 >> 16) as u16;
         if self.modal_main == Some(iface) || self.modal_chat == Some(iface) {
             return 0;
         }
-        self.open_subs
-            .values()
-            .find(|&&(sub, _)| sub == iface)
-            .map_or(1, |&(_, kind)| kind)
+        self.subs.kind(parent)
     }
 
-    /// Rev-647: records IF_MOVESUB -- the sub on `from` moves to `to`,
-    /// closing whatever `to` held, as the client's branch for it does.
-    #[cfg(since_530)]
-    pub fn sub_moved(&mut self, from: i32, to: i32) {
-        let moving = self.open_subs.remove(&from);
-        self.sub_closed(to);
-        if let Some(sub) = moving {
-            self.open_subs.insert(to, sub);
-        }
-    }
-
-    /// Rev-647: whether interface `iface` is on screen -- the toplevel, or a
-    /// sub mounted on a component of something that is. A sub left on a
-    /// parent that is no longer reachable (after IF_OPENTOP swaps the root)
-    /// is in the client's table but drawn nowhere.
+    /// Rev-647: whether interface `iface` is on screen under the toplevel
+    /// (see [`SubTable::is_open`]).
     #[cfg(since_530)]
     pub fn is_interface_open(&self, iface: u16) -> bool {
-        let mut current = iface;
-        // Each step climbs one parent; a mount chain is a handful deep, and
-        // the bound stops a cycle a bad move could make.
-        for _ in 0..16 {
-            if current == self.toplevel {
-                return true;
-            }
-            let Some(parent) = self
-                .open_subs
-                .iter()
-                .find(|(_, (sub, _))| *sub == current)
-                .map(|(&p, _)| (p as u32 >> 16) as u16)
-            else {
-                return false;
-            };
-            current = parent;
-        }
-        false
+        self.subs.is_open(self.toplevel, iface)
     }
 
     /// Returns `true` if the given interface root is currently visible to the player.
@@ -581,7 +537,9 @@ impl Player {
     /// * Removes `com` from every entry in `self.inv_transmits`.
     pub fn clear_inv_transmits(&mut self, com: ComId) {
         #[cfg(since_530)]
-        self.if_events.retain(|&(component, _), _| component != com);
+        self.subs
+            .events
+            .retain(|&(component, _), _| component != com);
         for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }
@@ -1129,7 +1087,7 @@ impl Player {
     /// private << 2 | trade`: on, friends, off, and for public chat hide.
     /// Returns `false`, storing nothing, when one is out of range.
     pub const fn set_chat_filters(&mut self, public: u8, private: u8, trade: u8) -> bool {
-        if public > 3 || private > 2 || trade > 2 {
+        if !chat_filters_valid(public, private, trade) {
             return false;
         }
         self.chat_filters = (public << 4) | (private << 2) | trade;
@@ -1148,12 +1106,12 @@ impl Player {
         self.chat_filters & 0x3
     }
 
-    /// Rev-647: settles this tick's MoveType and TempMoveType blocks.
+    /// Rev-647: settles this tick's MoveSpeed and TempMoveSpeed blocks.
     ///
-    /// The client stores one move type per player (MoveType, 0x8) and plays
+    /// The client stores one move speed per player (MoveSpeed, 0x8) and plays
     /// each step at it, unless the same update carries a one-tick override
-    /// (TempMoveType, 0x800). `Class244.method1590` reads both masks before it
-    /// applies the step, so the override wins and a MoveType sent this tick
+    /// (TempMoveSpeed, 0x800). `Class244.method1590` reads both masks before it
+    /// applies the step, so the override wins and a MoveSpeed sent this tick
     /// already counts.
     ///
     /// So the stored type has to follow `move_speed` however it changes -- the
@@ -1166,18 +1124,18 @@ impl Player {
     /// teleport is a walk, which a forced move carries to its end tile.
     ///
     /// # Side Effects
-    /// * May set `info.move_type`/`info.temp_move_type` and their mask bits.
-    /// * Updates `client_move_type`.
+    /// * May set `info.move_speed`/`info.temp_move_speed` and their mask bits.
+    /// * Updates `client_move_speed`.
     ///
     /// # Call Stack
     /// **Called by:** `Engine::compute_player_info`, once every source of
     /// movement and run changes has had its turn for the tick.
     #[cfg(since_647)]
-    pub fn sync_move_types(&mut self) {
-        if self.client_move_type != Some(self.move_speed) {
-            self.client_move_type = Some(self.move_speed);
-            self.info.move_type = Some(self.move_speed as u8);
-            self.info.masks |= PlayerInfoProt::MoveType as u16;
+    pub fn sync_move_speeds(&mut self) {
+        if self.client_move_speed != Some(self.move_speed) {
+            self.client_move_speed = Some(self.move_speed);
+            self.info.move_speed = Some(self.move_speed as u8);
+            self.info.masks |= PlayerInfoProt::MoveSpeed as u16;
         }
         let step = if self.pathing.tele {
             if self.pathing.jump {
@@ -1193,8 +1151,8 @@ impl Player {
             return;
         };
         if step != self.move_speed {
-            self.info.temp_move_type = Some(step as u8);
-            self.info.masks |= PlayerInfoProt::TempMoveType as u16;
+            self.info.temp_move_speed = Some(step as u8);
+            self.info.masks |= PlayerInfoProt::TempMoveSpeed as u16;
         }
     }
 }
@@ -1324,7 +1282,7 @@ mod move_speed_tests {
 }
 
 #[cfg(all(test, since_647))]
-mod move_type_tests {
+mod move_speed_block_tests {
     use super::*;
     use std::iter;
 
@@ -1337,21 +1295,21 @@ mod move_type_tests {
     /// One tick: clear last tick's blocks, take the given step, settle.
     fn tick(p: &mut Player, walk_dir: i8, run_dir: i8, tele: bool) {
         p.info.masks = 0;
-        p.info.move_type = None;
-        p.info.temp_move_type = None;
+        p.info.move_speed = None;
+        p.info.temp_move_speed = None;
         p.pathing.walk_dir = walk_dir;
         p.pathing.run_dir = run_dir;
         p.pathing.tele = tele;
-        p.sync_move_types();
+        p.sync_move_speeds();
     }
 
     fn stored(p: &Player) -> Option<u8> {
-        (p.info.masks & (PlayerInfoProt::MoveType as u16) != 0).then(|| p.info.move_type.unwrap())
+        (p.info.masks & (PlayerInfoProt::MoveSpeed as u16) != 0).then(|| p.info.move_speed.unwrap())
     }
 
     fn temp(p: &Player) -> Option<u8> {
-        (p.info.masks & (PlayerInfoProt::TempMoveType as u16) != 0)
-            .then(|| p.info.temp_move_type.unwrap())
+        (p.info.masks & (PlayerInfoProt::TempMoveSpeed as u16) != 0)
+            .then(|| p.info.temp_move_speed.unwrap())
     }
 
     #[test]
@@ -1459,10 +1417,10 @@ mod move_type_tests {
             p.pathing.jump = false;
             p.pathing.coord = CoordGrid::new(3222, 0, 3225);
             p.info.masks = PlayerInfoProt::ExactMove as u16;
-            p.info.temp_move_type = None;
+            p.info.temp_move_speed = None;
             p.pathing.tele = true;
             p.validate_distance_walked();
-            p.sync_move_types();
+            p.sync_move_speeds();
             let want = (speed == MoveSpeed::Run).then_some(MoveSpeed::Walk as u8);
             assert_eq!(temp(&p), want, "{speed:?}: a step, not 127");
         }
@@ -1713,66 +1671,6 @@ mod interaction_tests {
         p.interaction.target_subject_com = Some(42);
         p.set_interaction(obj_target(), ServerTriggerType::ApObj1 as u8, true);
         assert_eq!(p.interaction.target_subject_com, None);
-    }
-
-    // ---- rev-647 open interfaces ----
-
-    #[cfg(since_530)]
-    fn hash(iface: u16, com: u16) -> i32 {
-        ((iface as i32) << 16) | com as i32
-    }
-
-    /// A sub is open when it hangs, mount by mount, off the toplevel.
-    #[cfg(since_530)]
-    #[test]
-    fn an_interface_is_open_when_it_hangs_off_the_toplevel() {
-        let mut p = make_player();
-        p.toplevel = 548;
-        p.sub_opened(hash(548, 206), 149, 1); // backpack in its tab
-        p.sub_opened(hash(548, 18), 762, 0); // bank on the main screen
-        p.sub_opened(hash(762, 3), 9999, 3); // something inside the bank
-        assert!(p.is_interface_open(548), "the toplevel");
-        assert!(p.is_interface_open(149) && p.is_interface_open(762));
-        assert!(p.is_interface_open(9999), "two mounts down");
-        assert!(!p.is_interface_open(763), "never opened");
-    }
-
-    /// IF_OPENTOP leaves the client's sub table alone; what hung off the old
-    /// root is no longer drawn.
-    #[cfg(since_530)]
-    #[test]
-    fn a_new_toplevel_strands_what_hung_off_the_old_one() {
-        let mut p = make_player();
-        p.toplevel = 548;
-        p.sub_opened(hash(548, 206), 149, 1);
-        p.toplevel = 746;
-        assert!(!p.is_interface_open(149));
-        p.sub_moved(hash(548, 206), hash(746, 90));
-        assert!(p.is_interface_open(149), "moved across, it is drawn again");
-    }
-
-    /// Mounting on an occupied component closes the occupant, and closing a
-    /// sub takes its type-3 children with it.
-    #[cfg(since_530)]
-    #[test]
-    fn opening_over_a_sub_closes_it_and_its_type_3_children() {
-        let mut p = make_player();
-        p.toplevel = 548;
-        p.sub_opened(hash(548, 18), 762, 0);
-        p.sub_opened(hash(762, 3), 9999, 3);
-        p.sub_opened(hash(762, 4), 8888, 1);
-        p.sub_opened(hash(548, 18), 620, 0); // a shop replaces the bank
-        assert!(!p.is_interface_open(762) && !p.is_interface_open(9999));
-        assert!(
-            !p.open_subs.contains_key(&hash(762, 3)),
-            "type 3 closed with it"
-        );
-        assert!(
-            p.open_subs.contains_key(&hash(762, 4)),
-            "type 1 stays in the table"
-        );
-        assert!(!p.is_interface_open(8888), "but is drawn nowhere");
-        assert!(p.is_interface_open(620));
     }
 
     // ---- inventory transmit bindings (rev 647: whole component hashes) ----

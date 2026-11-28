@@ -71,7 +71,7 @@ if ($int0 = 0) {
     if_setonmouseover(lobbyscreen_pane_playerinfo:com_28, "text_swapper(event_com, $string3)");
     if_setonmouseleave(lobbyscreen_pane_playerinfo:com_28, "text_swapper(event_com, $string2)");
     $string1 = "account_settings.ws?mod=recoveries";
-} else if (%godwars_lore_book_armadyl_weapon = 0) {
+} else if (%account_guardian = 0) {
     if ($int0 < calc(date_runeday + 1)) {
         if_setgraphic(lobbyscreen_pane_playerinfo:com_22, graphic_2669);
         ~script3008(~lobbyscreen_playerinfo_bar_layers(1));
@@ -183,7 +183,7 @@ if ($boolean2 = true) {
 }
 if_setonclick(lobbyscreen_pane_playerinfo:circlesslide, "lobbyscreen_link($string0, $string1, true)");
 ~script3376(lobbyscreen_pane_playerinfo:circlesslide);
-if (%godwars_lore_book_armadyl_weapon = 0) {
+if (%account_guardian = 0) {
     if (op500 = 3) {
         if_setgraphic(lobbyscreen_pane_playerinfo:com_61, graphic_2672);
         ~script3010(~lobbyscreen_playerinfo_bar_layers(4));

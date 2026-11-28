@@ -503,7 +503,7 @@ impl ScriptState {
     ///
     /// **Called by:** [`goto_frame`](Self::goto_frame).
     #[inline(always)]
-    fn new_program(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
+    fn new_program(&mut self, script: &Arc<Script>) -> Result<(), ScriptError> {
         self.int_locals.clear();
         self.string_locals.clear();
         self.int_base = 0;
@@ -601,7 +601,10 @@ impl ScriptState {
     ///
     /// **Called by:** The `GoSub` / `GoSubWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
-    pub(crate) fn gosub_frame(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
+    pub fn gosub_frame(&mut self, script: &Arc<Script>) -> Result<(), ScriptError> {
+        if self.gosub_frame_stack.len() >= 50 {
+            return Err(ScriptError::StackOverflow);
+        }
         let old_script = mem::replace(&mut self.script, Arc::clone(script));
         self.goto_frame_stack.push(GoToFrame {
             script: Arc::clone(&old_script),
@@ -647,13 +650,21 @@ impl ScriptState {
     ///
     /// **Called by:** The `GoTo` / `GoToWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
-    pub(crate) fn goto_frame(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
+    pub fn goto_frame(&mut self, script: &Arc<Script>) -> Result<(), ScriptError> {
         self.goto_frame_stack.push(GoToFrame {
             script: Arc::clone(&self.script),
             pc: self.pc,
         });
         self.gosub_frame_stack.clear();
         self.new_program(script)
+    }
+
+    /// The current program counter.
+    ///
+    /// **Called by:** script error logs outside the VM, such as the lobby's
+    /// trigger runner.
+    pub fn pc(&self) -> i32 {
+        self.pc
     }
 
     /// Reads the integer operand at the current program counter position.
@@ -790,28 +801,34 @@ impl ScriptState {
         })
     }
 
-    /// Reads the string operand at the current program counter position.
-    ///
-    /// Uses unchecked pointer arithmetic for performance. The bounds are
-    /// validated only via `debug_assert!` in debug builds.
-    ///
-    /// # Returns
-    ///
-    /// A `&str` reference to `self.script.strings[int_operand]`: a string
-    /// push's int operand is its index into the script's string table.
+    /// Pushes the string operand at the current program counter position:
+    /// `self.script.strings[int_operand]`, since a string push's int operand
+    /// is its index into the script's string table.
     ///
     /// # Safety
     ///
-    /// Uses `unsafe` pointer access into `strings`. The caller must ensure
-    /// `self.pc` is a string push. In release builds, any other `pc` causes
-    /// undefined behavior.
+    /// Reads `strings` unchecked. The caller must ensure `self.pc` is a string
+    /// push. In release builds, any other `pc` causes undefined behavior.
     ///
     /// **Called by:** The `PushConstantString` opcode handler in `ops::core`.
     #[inline(always)]
-    pub(crate) fn string_operand(&self) -> &str {
+    pub(crate) fn push_string_operand(&mut self) {
         let index = self.int_operand() as usize;
         debug_assert!(index < self.script.strings.len());
-        unsafe { &*self.script.strings.as_ptr().add(index) }
+        let value = unsafe { self.script.strings.get_unchecked(index) };
+        Self::push_string_to(&mut self.string_stack, &mut self.ssp, value);
+    }
+
+    /// Clears the string stack slot at `ssp`, writes `value` into it and
+    /// moves `ssp` past it. Takes the fields, not `self`, so `value` can
+    /// borrow another field.
+    #[inline(always)]
+    fn push_string_to(stack: &mut [String], ssp: &mut i32, value: &str) {
+        debug_assert!((*ssp as usize) < stack.len(), "string stack overflow");
+        let slot = unsafe { stack.get_unchecked_mut(*ssp as usize) };
+        slot.clear();
+        slot.push_str(value);
+        *ssp += 1;
     }
 
     /// Pushes a string slice onto the string operand stack.
@@ -848,17 +865,13 @@ impl ScriptState {
             "{}",
             format!("string stack overflow, script: {}", self.script.info.name)
         );
-        let slot = unsafe { self.string_stack.get_unchecked_mut(self.ssp as usize) };
-        slot.clear();
-        slot.push_str(value);
-        self.ssp += 1;
+        Self::push_string_to(&mut self.string_stack, &mut self.ssp, value);
     }
 
     /// Pushes a copy of a string local variable onto the string operand stack.
     ///
     /// Copies from `string_locals[string_base + idx]` to the stack slot at
-    /// `ssp`. Uses raw pointer indirection to avoid borrow checker conflicts
-    /// (both `string_locals` and `string_stack` are fields of `self`).
+    /// `ssp`.
     ///
     /// # Arguments
     ///
@@ -866,8 +879,8 @@ impl ScriptState {
     ///
     /// # Safety
     ///
-    /// Uses `unsafe` pointer reads and `get_unchecked_mut`. Both `idx` and
-    /// `ssp` must be in bounds; only `debug_assert!` guards are present.
+    /// Uses `get_unchecked_mut` for the stack slot. `ssp` must be in bounds;
+    /// only a `debug_assert!` guards it.
     ///
     /// # Panics
     ///
@@ -884,16 +897,11 @@ impl ScriptState {
     pub(crate) fn push_string_local(&mut self, idx: usize) {
         let idx = self.string_base + idx;
         debug_assert!(idx < self.string_locals.len(), "string local out of bounds");
-        debug_assert!(
-            (self.ssp as usize) < self.string_stack.len(),
-            "string stack overflow"
+        Self::push_string_to(
+            &mut self.string_stack,
+            &mut self.ssp,
+            &self.string_locals[idx],
         );
-        let ssp = self.ssp as usize;
-        let src = self.string_locals[idx].as_str() as *const str;
-        let slot = unsafe { self.string_stack.get_unchecked_mut(ssp) };
-        slot.clear();
-        slot.push_str(unsafe { &*src });
-        self.ssp += 1;
     }
 
     /// Concatenates the top `count` strings on the string stack into one.
@@ -903,17 +911,14 @@ impl ScriptState {
     /// adjusted so only the concatenated result remains. If `count` is 0 or 1
     /// this is a no-op.
     ///
-    /// Uses raw pointer indirection to simultaneously read from one stack
-    /// slot and write to another without triggering borrow checker errors.
-    ///
     /// # Arguments
     ///
     /// * `count` - The number of strings from the top of the stack to join.
     ///
     /// # Safety
     ///
-    /// Uses a raw pointer into the stack for disjoint source and destination slots.
-    /// `count` must not exceed `ssp`; only `debug_assert!` guards are present.
+    /// Takes the joined slots unchecked. `count` must not exceed `ssp`; only
+    /// `debug_assert!` guards are present.
     ///
     /// # Panics
     ///
@@ -934,12 +939,13 @@ impl ScriptState {
         if count <= 1 {
             return;
         }
-        let start = self.ssp as usize - count;
-        let slots = self.string_stack.as_mut_ptr();
-        let dst = unsafe { &mut *slots.add(start) };
-        for i in (start + 1)..self.ssp as usize {
-            let src = unsafe { &*slots.add(i) };
-            dst.push_str(src);
+        let end = self.ssp as usize;
+        let start = end - count;
+        let slots = unsafe { self.string_stack.get_unchecked_mut(start..end) };
+        if let Some((dst, rest)) = slots.split_first_mut() {
+            for src in rest {
+                dst.push_str(src);
+            }
         }
         self.ssp = (start + 1) as i32;
     }
@@ -1000,6 +1006,12 @@ impl ScriptState {
     pub(crate) fn drop_strings(&mut self, count: i32) {
         self.ssp -= count;
         debug_assert!(self.ssp >= 0, "string stack underflow on drop");
+    }
+
+    /// Borrows a consumed string until the next stack mutation, retaining its allocation.
+    pub(crate) fn pop_string_ref(&mut self) -> &str {
+        self.drop_strings(1);
+        &self.string_stack[self.ssp as usize]
     }
 
     /// Pops a string from the string stack, taking ownership of the value.
@@ -1066,7 +1078,7 @@ impl ScriptState {
     /// **Called by:** Player opcode handlers (`ops::player`) for queue and
     /// timer operations that forward arguments to future script invocations.
     #[inline(always)]
-    pub(crate) fn pop_script_args(&mut self) -> Vec<ScriptArgument> {
+    pub fn pop_script_args(&mut self) -> Vec<ScriptArgument> {
         // Count chars, not bytes. type chars such as dbrows `Ð` are two bytes,
         // and a byte count would shift every later argument one slot along.
         let types = self.pop_string();
@@ -1353,7 +1365,7 @@ mod tests {
     }
 
     #[test]
-    fn string_operand_reads_the_string_table() {
+    fn push_string_operand_reads_the_string_table() {
         let script = Script {
             opcodes: Box::new([3, 0, 3]),
             int_operands: Box::new([0, 7, 1]),
@@ -1362,9 +1374,11 @@ mod tests {
         };
         let mut s = ScriptState::new(Arc::new(script), None);
         s.pc = 2;
-        assert_eq!(s.string_operand(), "yo");
+        s.push_string_operand();
         s.pc = 0;
-        assert_eq!(s.string_operand(), "hi");
+        s.push_string_operand();
+        assert_eq!(s.pop_string(), "hi");
+        assert_eq!(s.pop_string(), "yo");
     }
 
     #[test]

@@ -1,6 +1,6 @@
 // 1132
 [proc,clientscript_1132](int $int0, component $component1)
-if (getwindowmode >= 1) {
+if (getwindowmode >= ^windowmode_small) {
     return;
 }
 def_int $int2 = ~dropdownbox_getselected($int0, $component1);

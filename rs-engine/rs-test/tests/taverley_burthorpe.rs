@@ -4,15 +4,11 @@
 //! and 2011's do (2011 wiki, Crystal key: "You join the two halves of the key
 //! together.").
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{explore, talk_to};
 use rs_vm::ops::test::{calls_for, set_recording};
@@ -149,15 +145,8 @@ fn the_crystal_key_halves_join() {
         }
         client.packets();
         set_recording(true);
-        let backpack_if: i32 = 149 << 16;
-        let mut p = ClientPacket::new();
-        p.p4(backpack_if)
-            .p2_alt1(1)
-            .p2_alt1(0)
-            .p2_alt2(tooth.int())
-            .p4_alt1(backpack_if)
-            .p2(lp.int());
-        client.send(ClientProt::IfButtonT, &p.finish());
+        let backpack_if: i32 = BACKPACK;
+        client.if_button_t(backpack_if, 0, tooth, backpack_if, 1, lp);
         for _ in 0..4 {
             engine.cycle();
         }

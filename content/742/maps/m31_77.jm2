@@ -7609,10 +7609,10 @@ fog_color=0
 fog_depth=300
 
 ==== LIGHTS ====
-3 4787 6971 200: radius=2 colors=4,4,4,4,4 hsl=127 type=1
-3 1476 7116 200: radius=2 colors=5,5,5,5,5 hsl=127 type=1
-3 580 5708 200: radius=2 colors=260,260,260,260,260 hsl=127 type=1
-3 588 2781 200: radius=2 colors=0,260,260,260,260 hsl=127 type=1
+3 4787 6971 200: radius=2 radiusgrid=4,4,4,4,4 hsl=127 type=1
+3 1476 7116 200: radius=2 radiusgrid=5,5,5,5,5 hsl=127 type=1
+3 580 5708 200: radius=2 radiusgrid=260,260,260,260,260 hsl=127 type=1
+3 588 2781 200: radius=2 radiusgrid=0,260,260,260,260 hsl=127 type=1
 
 ==== ENVPARAMS ====
 32 8 32

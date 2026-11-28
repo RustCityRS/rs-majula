@@ -70,9 +70,9 @@ impl ServerProtMessage for MapProjAnimHalfsq {
 }
 
 #[cfg(all(since_530, before_647))]
-#[server_prot(ServerProt530_104, Immediate, Fixed)]
+#[server_prot(MapProjAnimHalfsqSrc, Immediate, Fixed)]
 #[derive(Debug, Clone)]
-pub struct ServerProt530_104 {
+pub struct MapProjAnimHalfsqSrc {
     pub coord: u8,
     pub dx: i8,
     pub dz: i8,
@@ -89,13 +89,16 @@ pub struct ServerProt530_104 {
 }
 
 #[cfg(all(since_530, before_647))]
-impl ServerProtMessage for ServerProt530_104 {
+impl ServerProtMessage for MapProjAnimHalfsqSrc {
     fn encode(&self, buf: &mut Packet) {
         let source = match self.source {
             0 => 0,
             source => {
-                let packed = ((source.unsigned_abs() - 1) | (self.wearpos as u16) << 11) + 1;
-                if source < 0 {
+                let index = source.unsigned_abs() - 1;
+                let packed = (index | (self.wearpos as u16) << 11) + 1;
+                if index > 0x7FF || (source > 0 && packed > 0x7FFF) {
+                    0
+                } else if source < 0 {
                     packed.wrapping_neg()
                 } else {
                     packed

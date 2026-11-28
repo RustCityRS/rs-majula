@@ -1,0 +1,58 @@
+[opnpc1,swamp_candle_guy]
+~chatnpc("<p,neutral>Do you want a lit candle for 1000 gold?");
+if (%swamp_candle_guy_conversation = ^true) {
+    @multi4("Yes please.", candle_seller_yes, "One thousand gold?!", candle_seller_price, "No thanks, I'd rather curse the darkness.", candle_seller_decline, "How do you make lanterns?", candle_seller_lanterns);
+}
+@multi3("Yes please.", candle_seller_yes, "One thousand gold?!", candle_seller_price, "No thanks, I'd rather curse the darkness.", candle_seller_decline);
+
+[label,candle_seller_decline]
+~chatplayer("<p,neutral>No thanks, I'd rather curse the darkness.");
+
+[label,candle_seller_price]
+~chatplayer("<p,shock>One thousand gold?!");
+~chatnpc("<p,neutral>Look, you're not going to be able to survive down that|hole without a light source.");
+~chatnpc("<p,neutral>So you could go off to the candle shop to buy one|more cheaply.  You could even make your own lantern,|which is a lot better.");
+~chatnpc("<p,neutral>But I bet you want to find out what's down there right|now, don't you?  And you can pay me 1000 gold for|the privilege!");
+%swamp_candle_guy_conversation = ^true;
+@multi3("All right, you win, I'll buy a candle.", candle_seller_agree, "No way.", candle_seller_no_way, "How do you make lanterns?", candle_seller_lanterns);
+
+[label,candle_seller_no_way]
+~chatplayer("<p,angry>No way.");
+
+[label,candle_seller_lanterns]
+~chatplayer("<p,quiz>How do you make lanterns?");
+~chatnpc("<p,neutral>Out of glass.  The more advanced lanterns have a|metal component as well.");
+~chatnpc("<p,neutral>Firstly you can make a simple candle lantern out of|glass.  It's just like a candle, but the flame isn't exposed,|so it's safer.");
+~chatnpc("<p,neutral>Then you can make an oil lamp, which is brighter but|has an exposed flame.  But if you make an iron frame|for it you can turn it into an oil lantern.");
+~chatnpc("<p,neutral>Finally there's the bullseye lantern.  You'll need to|make a frame out of steel and add a glass lens.");
+~chatnpc("<p,neutral>Once you've made your lamp or lantern, you'll need to|make lamp oil for it.  The chemist near Rimmington has|a machine for that.");
+~chatnpc("<p,neutral>For any light source, you'll need a tinderbox to light it.| Keep your tinderbox handy in case it goes out!");
+~chatnpc("<p,happy>But if all that's too complicated, you can buy a candle|right here for 1000 gold!");
+@multi2("All right, you win, I'll buy a candle.", candle_seller_agree, "No thanks, I'd rather curse the darkness.", candle_seller_decline);
+
+[label,candle_seller_yes]
+~chatplayer("<p,neutral>Yes please.");
+@candle_seller_sell;
+
+[label,candle_seller_agree]
+~chatplayer("<p,neutral>All right, you win, I'll buy a candle.");
+@candle_seller_sell;
+
+[label,candle_seller_sell]
+if (inv_total(inv, coins) < 1000) {
+    ~chatplayer("<p,sad>But I don't have that kind of money on me.");
+    ~chatnpc("<p,angry>Well then, no candle for you!");
+    return;
+}
+inv_del(inv, coins, 1000);
+inv_add(inv, lit_candle, 1);
+~chatnpc("<p,happy>Here you go then.");
+~chatnpc("<p,neutral>I should warn you, though, it can be dangerous to take|a naked flame down there.  You'd be better off making|a lantern.");
+@multi3("What's so dangerous about a naked flame?", candle_seller_danger, "How do you make lanterns?", candle_seller_lanterns, "Thanks, bye.", candle_seller_bye);
+
+[label,candle_seller_danger]
+~chatplayer("<p,quiz>What's so dangerous about a naked flame?");
+~chatnpc("<p,shifty>Heh heh... You'll find out.");
+
+[label,candle_seller_bye]
+~chatplayer("<p,neutral>Thanks, bye.");

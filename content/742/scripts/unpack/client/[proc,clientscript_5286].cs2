@@ -1,6 +1,6 @@
 // 5286
 [proc,clientscript_5286]
-sound_vorbis_rate(7536, 1, 0, 200, random_sound_pitch(20, 20));
+sound_vorbis_rate(vorbis_7536, 1, 0, 200, random_sound_pitch(20, 20));
 if (if_gethide(interface_555:com_48) = true) {
     if_sethide(interface_555:com_48, false);
     if_sethide(interface_555:com_49, true);

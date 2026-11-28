@@ -1,7 +1,7 @@
 // 430
 [clientscript,conq_command_text_highlight](component $component0, int $int1)
 def_int $int2 = 0;
-def_int $rgb3 = ^black;
+def_int $colour3 = ^black;
 def_int $int4 = 0;
 def_component $component5 = null;
 def_int $int6 = 0;
@@ -70,9 +70,9 @@ switch_int ($int2) {
 }
 if ($int4 = 0 & %conq_command_points >= $int6) {
     if ($int1 = 1) {
-        $rgb3 = ^white;
+        $colour3 = ^white;
     } else {
-        $rgb3 = 0xff981f;
+        $colour3 = 0xff981f;
     }
-    if_setcolour($component5, $rgb3);
+    if_setcolour($component5, $colour3);
 }

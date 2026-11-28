@@ -1,6 +1,6 @@
 // 81
 [proc,clientscript_81]
-if ((if_hassub(chattop:chatoverlay) = true | if_hassub(chattop:chatoverlaylarge) = true) & chat_gethistorytype(0) = 0) {
+if ((if_hassub(chattop:chatoverlay) = true | if_hassub(chattop:chatoverlaylarge) = true) & chat_gethistorytype(0) = ^chattype_gamemessage) {
     ~clientscript_102(chat_gethistorymessage(0));
 }
 ~clientscript_84;

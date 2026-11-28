@@ -41,14 +41,14 @@ pub enum PlayerInfoProt {
     FaceCoord = 0x1,
     Damage = 0x2,
     Appearance = 0x4,
-    MoveType = 0x8,
+    MoveSpeed = 0x8,
     FaceEntity = 0x10,
     BigInfo = 0x20,
     SpotAnim = 0x40,
     Anim = 0x80,
     Say = 0x200,
     Chat = 0x400,
-    TempMoveType = 0x800,
+    TempMoveSpeed = 0x800,
     Damage2 = 0x1000,
     ExactMove = 0x4000,
     BigInfo2 = 0x8000,
@@ -65,13 +65,13 @@ pub enum PlayerInfoProt {
     FaceEntity = 0x10,
     Appearance = 0x20,
     Anim = 0x40,
-    MoveType = 0x80,
+    MoveSpeed = 0x80,
     ExactMove = 0x200,
     Say = 0x400,
     Chat = 0x800,
     Damage2 = 0x1000,
     BigInfo2 = 0x2000,
-    TempMoveType = 0x8000,
+    TempMoveSpeed = 0x8000,
 }
 
 impl PlayerInfoProt {
@@ -157,9 +157,9 @@ impl PlayerInfoProt {
     pub const fn to_index(self) -> usize {
         match self {
             Self::FaceCoord => 0,
-            Self::TempMoveType => 1,
+            Self::TempMoveSpeed => 1,
             Self::Anim => 2,
-            Self::MoveType => 3,
+            Self::MoveSpeed => 3,
             Self::ExactMove => 4,
             Self::Damage | Self::Damage2 => 5,
             Self::FaceEntity => 6,
@@ -174,10 +174,10 @@ impl PlayerInfoProt {
     #[inline]
     pub const fn to_index(self) -> usize {
         match self {
-            Self::MoveType => 0,
+            Self::MoveSpeed => 0,
             Self::Damage | Self::Damage2 => 1,
             Self::Anim => 2,
-            Self::TempMoveType => 3,
+            Self::TempMoveSpeed => 3,
             Self::Say => 4,
             Self::FaceCoord => 5,
             Self::FaceEntity => 6,

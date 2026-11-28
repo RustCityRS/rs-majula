@@ -20,10 +20,7 @@ switch_obj (last_useitem)
 [opheldu,bucket_water]
 switch_obj (last_useitem)
 {
-    // 289's newbie_pot_flour makes Tutorial Island's dough (@tut_make_dough);
-    // 2011 has no Tutorial Island (Unstable Foundations replaced it on 17
-    // September 2009, wiki Unstable Foundations).
-    // case newbie_pot_flour : @tut_make_dough;
+    case newbie_pot_flour : @tut_make_dough;
     case pot_flour : @dough_interface(last_item);
     case clay : @make_softclay(bucket_water);
     case jug_empty, bowl_empty : @water_fill(last_useslot, last_slot);

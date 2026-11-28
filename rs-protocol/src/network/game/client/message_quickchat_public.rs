@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -7,6 +11,7 @@ use rs_protocol_macros::client_prot;
 use rs_ver::TypeId;
 
 #[client_prot(VarByte { min: 3 }, UserEvent)]
+#[derive(Debug)]
 pub struct MessageQuickchatPublic {
     pub chat: u8,
     pub id: TypeId,
@@ -20,5 +25,16 @@ impl ClientProtMessage for MessageQuickchatPublic {
         let bytes = buf.data[buf.pos..len].to_vec();
         buf.pos = len;
         MessageQuickchatPublic { chat, id, bytes }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtEncode for MessageQuickchatPublic {
+    const PROT: ClientProt = ClientProt::MessageQuickchatPublic;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1(self.chat);
+        buf.p2(self.id.g2());
+        buf.pdata(&self.bytes, 0, self.bytes.len());
     }
 }

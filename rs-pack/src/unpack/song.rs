@@ -11,7 +11,7 @@ use anyhow::{Context, Result};
 #[cfg(before_530)]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::fs;
 use std::path::Path;
 #[cfg(before_530)]
@@ -73,7 +73,7 @@ fn key_to_filename(key: &str) -> String {
 
 #[cfg(all(since_244, before_530))]
 pub fn unpack_midi(
-    cache: &mut Js5Store,
+    cache: &mut Js5LocalCache,
     version_list: &VersionList,
     output_dir: &Path,
     pack_dir: &Path,
@@ -84,7 +84,7 @@ pub fn unpack_midi(
     fs::create_dir_all(&jingles_dir)?;
 
     let existing_names = load_existing_pack(pack_dir, "midi");
-    let count = cache.group_count(archive::MIDI).unwrap_or(0) as usize;
+    let count = cache.group_id_limit(archive::MIDI).unwrap_or(0) as usize;
 
     let mut pack_lines = Vec::with_capacity(count);
     let mut songs = 0;
@@ -121,7 +121,7 @@ pub fn unpack_midi(
 }
 
 #[cfg(since_530)]
-pub fn unpack_songs(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
+pub fn unpack_songs(store: &mut Js5LocalCache, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
     let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let mut count = 0;
     for aid in [archive::SONGS, archive::JINGLES] {
@@ -129,7 +129,7 @@ pub fn unpack_songs(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -
         let dir = content_dir.join(format.content_dir);
         fs::create_dir_all(&dir)?;
         let groups = store
-            .reference_table(aid)
+            .index(aid)
             .context("Missing MIDI table")?
             .groups
             .clone();

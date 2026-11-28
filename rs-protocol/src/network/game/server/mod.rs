@@ -76,7 +76,7 @@ pub mod if_setnpchead;
 pub mod if_setobject;
 pub mod if_setplayerhead;
 pub mod if_setposition;
-#[cfg(any(before_245_2, since_647))]
+#[cfg(any(before_244, since_647))]
 pub mod if_setrecol;
 #[cfg(since_647)]
 pub mod if_setretex;
@@ -98,7 +98,10 @@ pub mod loc_add_change;
 pub mod loc_anim;
 #[cfg(since_530)]
 pub mod loc_anim_specific;
+#[cfg(since_647)]
+pub mod loc_customise;
 pub mod loc_del;
+#[cfg(before_647)]
 pub mod loc_merge;
 #[cfg(since_647)]
 pub mod loc_prefetch;
@@ -148,7 +151,7 @@ pub mod rebuild_region;
 pub mod reflection_checker;
 #[cfg(before_647)]
 pub mod reset_anims;
-#[cfg(before_647)]
+#[cfg(since_530)]
 pub mod reset_client_varcache;
 #[cfg(since_530)]
 pub mod run_client_script;
@@ -182,11 +185,14 @@ pub mod update_friendchat_channel_full;
 #[cfg(since_530)]
 pub mod update_friendchat_channel_singleuser;
 pub mod update_friendlist;
-#[cfg(before_647)]
+#[cfg(any(before_647, since_742))]
 pub mod update_ignorelist;
 #[cfg(since_647)]
 #[cfg(before_742)]
 pub mod update_ignorelist_full;
+#[cfg(since_647)]
+#[cfg(before_742)]
+pub mod update_ignorelist_partial;
 pub mod update_inv_full;
 pub mod update_inv_partial;
 #[cfg(before_647)]
@@ -203,10 +209,6 @@ pub mod update_zone_partial_follows;
 #[cfg(since_530)]
 pub mod url_open;
 #[cfg(since_530)]
-pub mod varbit_large;
-#[cfg(since_530)]
-pub mod varbit_small;
-#[cfg(since_530)]
 pub mod varc_large;
 #[cfg(since_530)]
 pub mod varc_small;
@@ -216,6 +218,12 @@ pub mod varc_str_large;
 pub mod varc_str_small;
 pub mod varp_large;
 pub mod varp_small;
+#[cfg(before_647)]
+pub mod varp_sync;
+#[cfg(since_530)]
+pub mod varpbit_large;
+#[cfg(since_530)]
+pub mod varpbit_small;
 #[cfg(since_647)]
 pub mod vorbis_sound;
 #[cfg(since_647)]

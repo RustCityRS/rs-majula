@@ -170,7 +170,7 @@ pub struct PackRegistry {
     pub anim: PackFile,
     pub midi: PackFile,
     #[cfg(since_254)]
-    pub varbit: PackFile,
+    pub varpbit: PackFile,
     #[cfg(since_530)]
     pub flu: PackFile,
     #[cfg(since_530)]
@@ -346,7 +346,7 @@ registry_files! {
     "anim" => anim,
     "midi" => midi,
     #[cfg(since_254)]
-    "varpbit" => varbit,
+    "varpbit" => varpbit,
     #[cfg(since_530)]
     "flu" => flu,
     #[cfg(since_530)]
@@ -467,7 +467,7 @@ impl PackRegistry {
         let anim = load("anim")?;
         let midi = load("midi")?;
         #[cfg(since_254)]
-        let varbit = load("varpbit")?;
+        let varpbit = load("varpbit")?;
 
         debug!(
             "PackRegistry: npc={} obj={} loc={} hunt={} param={} cat={} seq={} varp={} varn={} model={} interface={} dbrow={} synth={} flo={} texture={} spotanim={} anim={} idk={} midi={}",
@@ -518,7 +518,7 @@ impl PackRegistry {
             anim,
             midi,
             #[cfg(since_254)]
-            varbit,
+            varpbit,
             #[cfg(since_530)]
             flu: load("flu")?,
             #[cfg(since_530)]

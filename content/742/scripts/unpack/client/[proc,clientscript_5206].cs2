@@ -85,7 +85,7 @@ while ($int13 < $int15) {
             cc_create(interface_1122:com_87, ^iftype_graphic, $int14);
             cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize($int0, $int0, ^setsize_abs, ^setsize_abs);
-            cc_setgraphic(7454);
+            cc_setgraphic(graphic_7454);
         }
         $int14 = calc($int14 + 1);
         $int13 = calc($int13 + 1);

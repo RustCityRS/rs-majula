@@ -1,9 +1,9 @@
 // 5774
 [proc,clientscript_5774](int $int0, component $component1)
 if ($int0 = 1) {
-    if_setgraphic($component1, 9615);
+    if_setgraphic($component1, graphic_9615);
 } else {
-    if_setgraphic($component1, 9618);
+    if_setgraphic($component1, graphic_9618);
 }
 if_setonmouseover($component1, "task_hintarrow_hover(1, $int0, event_com, -1)");
 if_setonmouseleave($component1, "task_hintarrow_hover(0, $int0, event_com, -1)");

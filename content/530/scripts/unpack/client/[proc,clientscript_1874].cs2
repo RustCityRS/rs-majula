@@ -13,9 +13,9 @@ def_string $string1 = "";
 def_int $int2 = 0;
 $int0, $string0, $int1, $string1, $int2 = worldlist_specific(map_world);
 if (testbit($int0, 0) = ^true) {
-    if_setgraphic(loginscreen:com_181, 1531);
+    if_setgraphic(loginscreen:com_181, "world_select_stars,0");
 } else {
-    if_setgraphic(loginscreen:com_181, 1532);
+    if_setgraphic(loginscreen:com_181, "world_select_stars,1");
 }
-if_setposition(loginscreen:com_181, calc(if_getx(loginscreen:com_124) + if_getwidth(loginscreen:com_124) - (parawidth(if_gettext(loginscreen:com_124), 512, 495) + if_getwidth(loginscreen:com_181) + 5)), 0, 0, 2);
+if_setposition(loginscreen:com_181, calc(if_getx(loginscreen:com_124) + if_getwidth(loginscreen:com_124) - (parawidth(if_gettext(loginscreen:com_124), 512, p12_full) + if_getwidth(loginscreen:com_181) + 5)), 0, ^setpos_abs_left, ^setpos_abs_bottom);
 if_sethide(loginscreen:com_181, false);

@@ -87,17 +87,28 @@ impl ClientGameHandler for OpObj5 {
     }
 }
 
-/// Handles the `OpObj6` client protocol message: Examine. The client sends
-/// only the obj type, and walks nowhere; the answer is the type's `desc`.
-/// The 530 client sends it for a held obj too, unless more than 100000 are
-/// stacked: it shows that count itself.
+/// Handles the `OpObj6` client protocol message: Examine. Before 742 the
+/// client sends only the obj type; from 742 it sends the obj's tile too, and
+/// the obj must be on the floor of that tile's zone. It walks nowhere; the
+/// answer is the type's `desc`. The 530 client sends it for a held obj too,
+/// unless more than 100000 are stacked: it shows that count itself.
 #[cfg(since_530)]
 impl ClientGameHandler for OpObj6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
+        #[cfg(since_742)]
+        {
+            let y = active.player.pathing.coord.y();
+            let receiver = active.uid().username37();
+            if zone_obj(self.x, y, self.z, self.obj.g2(), receiver).is_none() {
+                return Ok(());
+            }
+        }
         let desc = engine().objs().get_by_id(self.obj);
         if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
             active.message_game(desc);
+        } else {
+            active.message_game("This examine is missing!")
         }
         Ok(())
     }

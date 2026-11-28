@@ -3,30 +3,40 @@ use Prefetch::{Archive, Group};
 #[cfg(since_530)]
 use rs_crypto::rsa::RsaKey;
 use rs_io::Packet;
-#[cfg(all(since_530, before_647))]
+#[cfg(since_530)]
 use rs_io::crc::getcrc;
 #[cfg(since_530)]
 use rs_io::js5::compression::Container;
-#[cfg(since_647)]
-use rs_io::js5::java_string_hash;
 #[cfg(since_530)]
-use rs_io::js5::reference::ReferenceTable;
+use rs_io::js5::index::Js5Index;
 #[cfg(since_647)]
-use rs_io::js5::reference::encode_master_index;
+use rs_io::js5::index::encode_master_index;
+#[cfg(since_647)]
+use rs_io::stringtools::hash32;
+#[cfg(since_530)]
+use rs_util::os::read_at;
 #[cfg(since_530)]
 use rs_ver::archive::REFERENCE_TABLES;
 #[cfg(since_647)]
 use rs_ver::archive::{
     BILLBOARDS, BINARY, CLIENTSCRIPT, CONFIG, CONFIG_ENUM, CONFIG_LOC, CONFIG_NPC, CONFIG_OBJ,
-    CONFIG_SEQ, CONFIG_SPOTANIM, CONFIG_VARBIT, DEFAULTS, DLLS, FONTMETRICS, INTERFACES, MATERIALS,
-    PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, SHADERS, WORLDMAP,
+    CONFIG_SEQ, CONFIG_SPOTANIM, CONFIG_VARPBIT, DEFAULTS, DLLS, FONTMETRICS, INTERFACES,
+    MATERIALS, PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, SHADERS, WORLDMAP,
 };
 #[cfg(since_530)]
 use std::collections::{HashMap, HashSet};
 #[cfg(since_530)]
-use std::ops::Range;
+use std::fs::{self, File, OpenOptions};
+#[cfg(since_530)]
+use std::io::{self, BufWriter, Write};
+#[cfg(since_530)]
+use std::path::Path;
+#[cfg(since_530)]
+use std::process;
 #[cfg(since_530)]
 use std::sync::Arc;
+#[cfg(since_530)]
+use std::sync::atomic::{AtomicU32, Ordering};
 #[cfg(since_530)]
 use tracing::info;
 
@@ -133,7 +143,7 @@ const PREFETCHES: [Prefetch; PREFETCH_COUNT] = [
     Archive(CONFIG_OBJ),
     Archive(CONFIG_SEQ),
     Archive(CONFIG_SPOTANIM),
-    Archive(CONFIG_VARBIT),
+    Archive(CONFIG_VARPBIT),
     Archive(QUICKCHAT),
     Archive(QUICKCHAT_GLOBAL),
     Archive(PARTICLES),
@@ -145,22 +155,29 @@ const PREFETCHES: [Prefetch; PREFETCH_COUNT] = [
     Group(WORLDMAP, "details"),
 ];
 
+/// The served groups, kept in a file only this process can reach and read
+/// from it per request: the OS caches what clients download, outside the
+/// process.
 #[cfg(since_530)]
 #[derive(Clone)]
 pub struct Js5Cache {
-    groups: Arc<HashMap<(u8, u32), Range<usize>>>,
-    data: Arc<Vec<u8>>,
+    /// Each group's offset and length in `file`.
+    groups: Arc<HashMap<(u8, u32), (u64, u32)>>,
+    file: Arc<File>,
     absent: Arc<HashSet<(u8, u32)>>,
+    archive_crcs: Arc<[i32]>,
     #[cfg(since_647)]
     prefetches: [i32; PREFETCH_COUNT],
 }
 
 #[cfg(since_530)]
 impl Js5Cache {
+    /// Writes `groups` to a new file in `dir`.
     pub fn new(
         mut groups: HashMap<(u8, u32), Vec<u8>>,
-        tables: &HashMap<u8, ReferenceTable>,
+        tables: &HashMap<u8, Js5Index>,
         #[cfg_attr(all(since_530, before_647), allow(unused_variables))] private_key: &RsaKey,
+        dir: &Path,
     ) -> anyhow::Result<Self> {
         let archive_count = groups
             .keys()
@@ -177,13 +194,19 @@ impl Js5Cache {
             let len = Container::parse(data)?.data.len();
             data.truncate(len);
         }
+        let archive_crcs: Arc<[i32]> = (0..archive_count)
+            .map(|archive| {
+                let data = &groups[&(REFERENCE_TABLES, archive)];
+                getcrc(data, 0, data.len())
+            })
+            .collect();
         #[cfg(all(since_530, before_647))]
-        let master = encode_master_index((0..archive_count).map(|archive| {
+        let master = encode_master_index(archive_crcs.iter().enumerate().map(|(archive, &crc)| {
             let version = tables
                 .get(&(archive as u8))
                 .filter(|table| table.format >= 6)
-                .map_or(0, |table| table.version);
-            (groups[&(REFERENCE_TABLES, archive)].as_ref(), version)
+                .map_or(0, |table| table.index_version);
+            (crc, version)
         }));
         #[cfg(since_647)]
         let master = encode_master_index(
@@ -191,15 +214,20 @@ impl Js5Cache {
             private_key,
         );
         groups.insert((REFERENCE_TABLES, REFERENCE_TABLES as u32), master);
-        let mut data = Vec::with_capacity(groups.values().map(Vec::len).sum());
-        let groups: HashMap<_, _> = groups
+        let file = private_file(dir)?;
+        let mut out = BufWriter::with_capacity(1 << 20, &file);
+        let mut end = 0;
+        let groups = groups
             .into_iter()
             .map(|(id, group)| {
-                let start = data.len();
-                data.extend_from_slice(&group);
-                (id, start..data.len())
+                out.write_all(&group)?;
+                let at = end;
+                end += group.len() as u64;
+                Ok((id, (at, group.len() as u32)))
             })
-            .collect();
+            .collect::<io::Result<HashMap<_, _>>>()?;
+        out.flush()?;
+        drop(out);
         let absent = tables
             .iter()
             .flat_map(|(&archive, table)| table.groups.iter().map(move |group| (archive, group.id)))
@@ -208,13 +236,17 @@ impl Js5Cache {
         #[cfg(since_647)]
         let mut archive_bytes = [0; REFERENCE_TABLES as usize];
         #[cfg(since_647)]
-        for (&(archive, _), range) in &groups {
+        for (&(archive, _), &(_, len)) in &groups {
             if archive != REFERENCE_TABLES {
-                archive_bytes[archive as usize] += range.len();
+                archive_bytes[archive as usize] += len as usize;
             }
         }
         #[cfg(since_647)]
-        let len = |archive: u8, group: u32| groups.get(&(archive, group)).map_or(0, Range::len);
+        let len = |archive: u8, group: u32| {
+            groups
+                .get(&(archive, group))
+                .map_or(0, |&(_, len)| len as usize)
+        };
         #[cfg(since_647)]
         let prefetches = PREFETCHES.map(|prefetch| {
             let size = match prefetch {
@@ -222,7 +254,7 @@ impl Js5Cache {
                     len(REFERENCE_TABLES, archive as u32) + archive_bytes[archive as usize]
                 }
                 Group(archive, name) => {
-                    let hash = java_string_hash(name);
+                    let hash = hash32(name);
                     tables
                         .get(&archive)
                         .and_then(|table| table.groups.iter().find(|group| group.name_hash == hash))
@@ -231,20 +263,32 @@ impl Js5Cache {
             };
             size as i32
         });
-        info!("JS5 cache ready: {} groups in memory", groups.len());
+        info!(
+            "JS5 cache ready: {} groups, {} MB on disk",
+            groups.len(),
+            end >> 20
+        );
         Ok(Self {
             groups: Arc::new(groups),
-            data: Arc::new(data),
+            file: Arc::new(file),
             absent: Arc::new(absent),
+            archive_crcs,
             #[cfg(since_647)]
             prefetches,
         })
     }
 
-    pub fn get(&self, archive: u8, group: impl Into<u32>) -> Option<&[u8]> {
-        self.groups
-            .get(&(archive, group.into()))
-            .map(|range| &self.data[range.clone()])
+    pub fn archive_crcs(&self) -> &[i32] {
+        &self.archive_crcs
+    }
+
+    pub fn get(&self, archive: u8, group: impl Into<u32>) -> io::Result<Option<Vec<u8>>> {
+        let Some(&(offset, len)) = self.groups.get(&(archive, group.into())) else {
+            return Ok(None);
+        };
+        let mut data = vec![0; len as usize];
+        read_at(&self.file, &mut data, offset)?;
+        Ok(Some(data))
     }
 
     /// Whether `group` is listed in its archive's reference table without data,
@@ -259,14 +303,36 @@ impl Js5Cache {
     }
 }
 
+/// A new file in `dir` that only the returned handle reaches: its name is
+/// removed at once, so the OS frees it when the process exits, even after a
+/// crash, and worlds starting together never share one.
+#[cfg(since_530)]
+fn private_file(dir: &Path) -> io::Result<File> {
+    static NEXT: AtomicU32 = AtomicU32::new(0);
+    fs::create_dir_all(dir)?;
+    let path = dir.join(format!(
+        "{}-{}",
+        process::id(),
+        NEXT.fetch_add(1, Ordering::Relaxed)
+    ));
+    let file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .truncate(true)
+        .open(&path)?;
+    fs::remove_file(&path)?;
+    Ok(file)
+}
+
 #[cfg(all(since_530, before_647))]
-fn encode_master_index<'a>(archives: impl ExactSizeIterator<Item = (&'a [u8], u32)>) -> Vec<u8> {
+fn encode_master_index(archives: impl ExactSizeIterator<Item = (i32, u32)>) -> Vec<u8> {
     let len = archives.len() << 3;
     let mut out = Packet::new(5 + len);
     out.p1(0);
     out.p4(len as i32);
-    for (data, version) in archives {
-        out.p4(getcrc(data, 0, data.len()));
+    for (crc, version) in archives {
+        out.p4(crc);
         out.p4(version as i32);
     }
     out.data
@@ -280,15 +346,22 @@ mod tests {
     #[cfg(since_530)]
     use rs_io::js5::compression::{CompressionType, compress};
     #[cfg(since_530)]
-    use rs_io::js5::reference::GroupInfo;
+    use rs_io::js5::index::GroupInfo;
     #[cfg(since_647)]
     use rs_ver::archive::{CONFIG_GROUP_FLU, CONFIG_GROUP_HUNT};
     #[cfg(since_530)]
-    use std::ptr;
+    use std::env;
+    #[cfg(since_530)]
+    use std::path::PathBuf;
+
+    #[cfg(since_530)]
+    fn dir() -> PathBuf {
+        env::temp_dir().join("rs-protocol-js5")
+    }
 
     #[cfg(all(since_530, before_647))]
     #[test]
-    fn memory_cache_serves_containers_without_versions_and_an_unsigned_index() {
+    fn cache_serves_containers_without_versions_and_an_unsigned_index() {
         let key = load_rsa_key(concat!(
             env!("CARGO_MANIFEST_DIR"),
             "/../.keys/classic/private.pem"
@@ -308,12 +381,12 @@ mod tests {
             file_count: 1,
             files: Vec::new(),
         };
-        let table = |archive_id, format, version, groups| ReferenceTable {
+        let table = |archive_id, format, index_version, groups| Js5Index {
             archive_id,
             format,
-            version,
+            index_version,
             named: false,
-            whirlpooled: false,
+            has_group_whirlpools: false,
             groups,
         };
         let cache = Js5Cache::new(
@@ -327,16 +400,17 @@ mod tests {
                 (2, table(2, 6, 77, vec![group(7), group(8)])),
             ]),
             &key,
+            &dir(),
         )
         .unwrap();
-        assert_eq!(cache.get(2, 7u32), Some(container.as_slice()));
-        assert!(cache.get(2, 8u32).is_none());
+        assert_eq!(cache.get(2, 7u32).unwrap(), Some(container));
+        assert!(cache.get(2, 8u32).unwrap().is_none());
         assert!(cache.is_absent(2, 8u32));
         assert!(!cache.is_absent(2, 7u32));
         assert!(!cache.is_absent(2, 9u32));
         assert_eq!(
-            cache.get(REFERENCE_TABLES, 1u32),
-            Some(reference.as_slice())
+            cache.get(REFERENCE_TABLES, 1u32).unwrap(),
+            Some(reference.clone())
         );
         let crc = getcrc(&reference, 0, reference.len()).to_be_bytes();
         let mut expected = vec![0, 0, 0, 0, 24];
@@ -345,19 +419,17 @@ mod tests {
             expected.extend_from_slice(&i32::to_be_bytes(version));
         }
         assert_eq!(
-            cache.get(REFERENCE_TABLES, REFERENCE_TABLES as u32),
-            Some(expected.as_slice())
+            cache
+                .get(REFERENCE_TABLES, REFERENCE_TABLES as u32)
+                .unwrap(),
+            Some(expected)
         );
-        let shared = cache.clone();
-        assert!(ptr::eq(
-            cache.get(2, 7u32).unwrap(),
-            shared.get(2, 7u32).unwrap()
-        ));
+        assert!(Arc::ptr_eq(&cache.file, &cache.clone().file));
     }
 
     #[cfg(since_647)]
     #[test]
-    fn memory_cache_serves_containers_without_versions_and_signs_the_complete_index() {
+    fn cache_serves_containers_without_versions_and_signs_the_complete_index() {
         let key = load_rsa_key(concat!(
             env!("CARGO_MANIFEST_DIR"),
             "/../.keys/js5/private.pem"
@@ -375,24 +447,19 @@ mod tests {
             ]),
             &HashMap::new(),
             &key,
+            &dir(),
         )
         .unwrap();
-        assert_eq!(cache.get(2, 7u32), Some(container.as_slice()));
-        assert_eq!(
-            cache.get(REFERENCE_TABLES, 1u32),
-            Some(reference.as_slice())
-        );
-        assert!(cache.get(2, 8u32).is_none());
+        assert_eq!(cache.get(2, 7u32).unwrap(), Some(container));
+        assert_eq!(cache.get(REFERENCE_TABLES, 1u32).unwrap(), Some(reference));
+        assert!(cache.get(2, 8u32).unwrap().is_none());
         let master = cache
             .get(REFERENCE_TABLES, REFERENCE_TABLES as u32)
+            .unwrap()
             .unwrap();
-        assert_eq!(Container::parse(master).unwrap().data.len(), master.len());
+        assert_eq!(Container::parse(&master).unwrap().data.len(), master.len());
         assert_eq!(master[5], 3);
-        let shared = cache.clone();
-        assert!(ptr::eq(
-            cache.get(2, 7u32).unwrap(),
-            shared.get(2, 7u32).unwrap()
-        ));
+        assert!(Arc::ptr_eq(&cache.file, &cache.clone().file));
     }
 
     #[cfg(since_647)]
@@ -409,15 +476,15 @@ mod tests {
         let huffman = compress(&[3; 20], CompressionType::None).unwrap();
         let mut versioned = huffman.clone();
         versioned.extend_from_slice(&[0, 7]);
-        let binary = ReferenceTable {
+        let binary = Js5Index {
             archive_id: BINARY,
             format: 5,
-            version: 0,
+            index_version: 0,
             named: true,
-            whirlpooled: false,
+            has_group_whirlpools: false,
             groups: vec![GroupInfo {
                 id: 4,
-                name_hash: java_string_hash("huffman"),
+                name_hash: hash32("huffman"),
                 crc: 0,
                 whirlpool: None,
                 version: 7,
@@ -436,6 +503,7 @@ mod tests {
             ]),
             &HashMap::from([(BINARY, binary)]),
             &key,
+            &dir(),
         )
         .unwrap();
         let prefetches = cache.prefetches();

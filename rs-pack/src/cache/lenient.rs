@@ -39,14 +39,13 @@ pub fn strict() -> bool {
 /// Written as a macro so the panic still reports the decoder at the call site,
 /// which a shared function would flatten into one useless location.
 ///
-/// The message is kept identical to the `panic!` this replaced, so a strict-mode
-/// failure reads exactly as it always has and nothing that greps the logs
-/// breaks. `obj.rs` alone spelled it "Unrecognised"; that one is normalised.
+/// The message is the Jagex client's (`Error unrecognised .loc config code: %i`),
+/// with our config's extension.
 #[macro_export]
 macro_rules! unknown_opcode {
     ($what:literal, $code:expr) => {{
         if $crate::cache::lenient::strict() {
-            panic!("Unrecognized {} config code: {}", $what, $code);
+            panic!("Error unrecognised .{} config code: {}", $what, $code);
         }
         return;
     }};

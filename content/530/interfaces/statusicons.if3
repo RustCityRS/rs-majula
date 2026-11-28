@@ -14,7 +14,7 @@ width=25
 height=25
 layer=statusicons
 hide=yes
-graphic=graphic_442
+graphic=overlay_multiway
 onmouseleave=statusicons_deltooltip
 onmouserepeat=statusicons_addtooltip(event_com, "Multiway Combat", event_mousex, event_mousey)
 
@@ -26,7 +26,7 @@ width=25
 height=25
 layer=statusicons
 hide=yes
-graphic=graphic_1073
+graphic=assist_overlay
 onmouseleave=statusicons_deltooltip
 onmouserepeat=statusicons_addtooltip(event_com, "Assisted", event_mousex, event_mousey)
 
@@ -63,7 +63,7 @@ width=25
 height=25
 layer=statusicons
 hide=yes
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textalignv=centre
 textshadow=yes

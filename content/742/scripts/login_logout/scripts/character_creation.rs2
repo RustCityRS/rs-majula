@@ -74,12 +74,12 @@ if (p_finduid(uid) = true) { %character_creation_sub_style = 6; ~cc_update_outfi
 if (p_finduid(uid) = true) {
     %character_creation_female = 0;
     %character_creation_sub_style = 1;
-    def_int $hair_struct = enum(105, 74, enum_3304, %character_creation_hair_style);
+    def_int $hair_struct = enum(int, struct, enum_3304, %character_creation_hair_style);
     if ($hair_struct ! -1) {
         def_int $hair = struct_param($hair_struct, param_788);
         if ($hair ! -1) { %playerdesign3_head = $hair; }
     }
-    def_int $beard = enum(105, 75, enum_3307, calc(%character_creation_hair_style / 2));
+    def_int $beard = enum(int, idkit, enum_3307, calc(%character_creation_hair_style / 2));
     if ($beard ! -1) { %playerdesign3_jaw = $beard; }
     ~cc_update_outfit_varcs();
 }
@@ -87,12 +87,12 @@ if (p_finduid(uid) = true) {
 if (p_finduid(uid) = true) {
     %character_creation_female = 1;
     %character_creation_sub_style = 1;
-    def_int $hair_struct = enum(105, 74, enum_3302, %character_creation_hair_style);
+    def_int $hair_struct = enum(int, struct, enum_3302, %character_creation_hair_style);
     if ($hair_struct ! -1) {
         def_int $hair = struct_param($hair_struct, param_788);
         if ($hair ! -1) { %playerdesign3_head = $hair; }
     }
-    %playerdesign3_jaw = -1
+    %playerdesign3_jaw = null
     ~cc_update_outfit_varcs();
 }
 
@@ -135,14 +135,10 @@ def_int $female = %character_creation_female;
 if ($style_index < 0) { $style_index = 0; }
 if ($sub_index < 0) { $sub_index = 0; }
 
-def_int $style_struct = enum(105, 74, enum_3278, $style_index);
+def_int $style_struct = enum(int, struct, enum_3278, $style_index);
 if ($style_struct = -1) { return; }
 
-def_int $sub_param = calc(1169 + $sub_index);
-if ($female = 1) {
-    $sub_param = calc(1175 + $sub_index);
-}
-def_int $sub_struct = struct_param($style_struct, $sub_param);
+def_int $sub_struct = struct_param($style_struct, ~cc_sub_param($sub_index, $female));
 if ($sub_struct <= 0) { return; }
 
 def_int $torso = struct_param($sub_struct, param_1182);
@@ -152,10 +148,13 @@ def_int $legs = struct_param($sub_struct, param_1185);
 def_int $feet = struct_param($sub_struct, param_1186);
 
 def_int $offset = %character_creation_colour_offset;
-def_int $base_param = calc(1187 + ($offset * 3));
-def_int $colour_top = struct_param($sub_struct, $base_param);
-def_int $colour_legs = struct_param($sub_struct, calc($base_param + 1));
-def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
+def_param $top_param;
+def_param $legs_param;
+def_param $feet_param;
+$top_param, $legs_param, $feet_param = ~cc_colour_params($offset);
+def_int $colour_top = struct_param($sub_struct, $top_param);
+def_int $colour_legs = struct_param($sub_struct, $legs_param);
+def_int $colour_feet = struct_param($sub_struct, $feet_param);
 
 %playerdesign3_torso = $torso
 %playerdesign3_arms = $arms
@@ -175,24 +174,57 @@ def_int $offset = %character_creation_colour_offset;
 if ($style_index < 0) { $style_index = 0; }
 if ($sub_index < 0) { $sub_index = 0; }
 
-def_int $style_struct = enum(105, 74, enum_3278, $style_index);
+def_int $style_struct = enum(int, struct, enum_3278, $style_index);
 if ($style_struct = -1) { return; }
 
-def_int $sub_param = calc(1169 + $sub_index);
-if ($female = 1) {
-    $sub_param = calc(1175 + $sub_index);
-}
-def_int $sub_struct = struct_param($style_struct, $sub_param);
+def_int $sub_struct = struct_param($style_struct, ~cc_sub_param($sub_index, $female));
 if ($sub_struct <= 0) { return; }
 
-def_int $base_param = calc(1187 + ($offset * 3));
-def_int $colour_top = struct_param($sub_struct, $base_param);
-def_int $colour_legs = struct_param($sub_struct, calc($base_param + 1));
-def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
+def_param $top_param;
+def_param $legs_param;
+def_param $feet_param;
+$top_param, $legs_param, $feet_param = ~cc_colour_params($offset);
+def_int $colour_top = struct_param($sub_struct, $top_param);
+def_int $colour_legs = struct_param($sub_struct, $legs_param);
+def_int $colour_feet = struct_param($sub_struct, $feet_param);
 
 %playerdesign3_torsocol = $colour_top
 %playerdesign3_legscol = $colour_legs
 %playerdesign3_feetcol = $colour_feet
+
+// A sub-style's outfit struct: params 1169-1174 for a man's six, 1175-1180 for a woman's.
+[proc,cc_sub_param](int $sub_index, int $female)(param)
+if ($female = 1) {
+    switch_int ($sub_index) {
+        case 1 : return(param_1176);
+        case 2 : return(param_1177);
+        case 3 : return(param_1178);
+        case 4 : return(param_1179);
+        case 5 : return(param_1180);
+    }
+    return(param_1175);
+}
+switch_int ($sub_index) {
+    case 1 : return(param_1170);
+    case 2 : return(param_1171);
+    case 3 : return(param_1172);
+    case 4 : return(param_1173);
+    case 5 : return(param_1174);
+}
+return(param_1169);
+
+// A colour set's top, legs and feet colours: params 1187-1210, three to each of the 8 sets.
+[proc,cc_colour_params](int $offset)(param, param, param)
+switch_int ($offset) {
+    case 1 : return(param_1190, param_1191, param_1192);
+    case 2 : return(param_1193, param_1194, param_1195);
+    case 3 : return(param_1196, param_1197, param_1198);
+    case 4 : return(param_1199, param_1200, param_1201);
+    case 5 : return(param_1202, param_1203, param_1204);
+    case 6 : return(param_1205, param_1206, param_1207);
+    case 7 : return(param_1208, param_1209, param_1210);
+}
+return(param_1187, param_1188, param_1189);
 
 // TODO color feet didn't appear to save correct for certain colors.
 
@@ -209,38 +241,38 @@ if (p_finduid(uid) = true) {
 
     if ($part = 1) {
         if ($female = 1) {
-            def_int $struct = enum(105, 74, enum_3302, $slot);
+            def_int $struct = enum(int, struct, enum_3302, $slot);
             if ($struct ! -1) { $idk = struct_param($struct, param_788); }
         } else {
-            def_int $struct = enum(105, 74, enum_3304, $slot);
+            def_int $struct = enum(int, struct, enum_3304, $slot);
             if ($struct ! -1) { $idk = struct_param($struct, param_788); }
         }
         if ($idk ! -1) { %playerdesign3_head = $idk; }
     } else if ($part = 2) {
         if ($female = 0) {
-            def_int $struct = enum(105, 74, enum_3307, $slot);
+            def_int $struct = enum(int, struct, enum_3307, $slot);
             if ($struct ! -1) { $idk = struct_param($struct, param_788); }
         }
         if ($idk ! -1) { %playerdesign3_jaw = $idk; }
     } else if ($part = 3) {
         if ($female = 1) {
-            $idk = enum(105, 75, enum_3299, $slot);
+            $idk = enum(int, idkit, enum_3299, $slot);
         } else {
-            $idk = enum(105, 75, enum_3287, $slot);
+            $idk = enum(int, idkit, enum_3287, $slot);
         }
         if ($idk ! -1) { %playerdesign3_torso = $idk; }
     } else if ($part = 6) {
         if ($female = 1) {
-            $idk = enum(105, 75, enum_3301, $slot);
+            $idk = enum(int, idkit, enum_3301, $slot);
         } else {
-            $idk = enum(105, 75, enum_3289, $slot);
+            $idk = enum(int, idkit, enum_3289, $slot);
         }
         if ($idk ! -1) { %playerdesign3_legs = $idk; }
     } else if ($part = 7) {
         if ($female = 1) {
-            $idk = enum(105, 75, enum_1137, $slot);
+            $idk = enum(int, idkit, enum_1137, $slot);
         } else {
-            $idk = enum(105, 75, enum_1136, $slot);
+            $idk = enum(int, idkit, enum_1136, $slot);
         }
         if ($idk ! -1) { %playerdesign3_feet = $idk; }
     }
@@ -255,19 +287,19 @@ if (p_finduid(uid) = true) {
     def_int $colour = -1;
 
     if ($part = 0) {
-        $colour = enum(105, 105, enum_748, $slot);
+        $colour = enum(int, int, enum_748, $slot);
         if ($colour ! -1) { %playerdesign3_skincol = $colour; }
     } else if ($part = 1 | $part = 2) {
-        $colour = enum(105, 105, enum_2345, $slot);
+        $colour = enum(int, int, enum_2345, $slot);
         if ($colour ! -1) { %playerdesign3_haircol = $colour; }
     } else if ($part = 3) {
-        $colour = enum(105, 105, enum_3283, $slot);
+        $colour = enum(int, int, enum_3283, $slot);
         if ($colour ! -1) { %playerdesign3_torsocol = $colour; }
     } else if ($part = 6) {
-        $colour = enum(105, 105, enum_3283, $slot);
+        $colour = enum(int, int, enum_3283, $slot);
         if ($colour ! -1) { %playerdesign3_legscol = $colour; }
     } else if ($part = 7) {
-        $colour = enum(105, 105, enum_3297, $slot);
+        $colour = enum(int, int, enum_3297, $slot);
         if ($colour ! -1) { %playerdesign3_feetcol = $colour; }
     }
     ~cc_rearm_grids();
@@ -277,7 +309,7 @@ if (p_finduid(uid) = true) {
 [if_button1,playerdesign4:skincolours]
 if (p_finduid(uid) = true) {
     def_int $slot = last_slot;
-    def_int $colour = enum(105, 105, enum_748, $slot);
+    def_int $colour = enum(int, int, enum_748, $slot);
     if ($colour ! -1) {
         %playerdesign3_skincol = $colour
     }

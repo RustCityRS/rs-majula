@@ -20,7 +20,7 @@ if_setposition(chatdefault:scrollarea, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
 if_setsize(chatdefault:scrollarea, 488, 17, ^setsize_abs, ^setsize_minus);
 if_setposition(chatdefault:scrollbar, 0, 0, ^setpos_abs_right, ^setpos_abs_top);
 if_setsize(chatdefault:scrollbar, 16, 17, ^setsize_abs, ^setsize_minus);
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(chatdefault:divider_graphic, false);
     if_sethide(chatdefault:divider_line, true);
 } else {
@@ -47,7 +47,7 @@ if (%varclient_1650 = true) {
 } else {
     if_settext(chatdefault:com_53, "<chat_playername_unfiltered><img=3>:");
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setcolour(chatdefault:input, 0x7fa9ff);
     if_setcolour(chatdefault:com_53, ^white);
     if_setcolour(chatdefault:caret, ^white);

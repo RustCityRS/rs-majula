@@ -1,5 +1,5 @@
 use anyhow::{Context, Result, ensure};
-use rs_io::js5::java_string_hash;
+use rs_io::stringtools::hash32;
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fs;
 use std::io::ErrorKind;
@@ -51,7 +51,7 @@ pub fn recover(
     let mut expanded = HashMap::new();
     let mut consider = |name: &str, pattern: Option<(&str, u32)>| {
         let name = name.to_lowercase();
-        let hash = java_string_hash(&name);
+        let hash = hash32(&name);
         if targets.contains_key(&hash) {
             if let Some((pattern, index)) = pattern {
                 expanded.insert(name.clone(), (pattern.to_lowercase(), index));
@@ -91,7 +91,7 @@ pub fn recover(
                     let neighbour = pattern.replace('#', &index.to_string());
                     known.values().any(|name| name == &neighbour)
                         || matches
-                            .get(&java_string_hash(&neighbour))
+                            .get(&hash32(&neighbour))
                             .is_some_and(|names| names.contains(&neighbour))
                 })
         })
@@ -163,15 +163,15 @@ mod tests {
             &hashes,
             format!(
                 "1={}\n2={}\n3={}\n4={}\n5={}\n",
-                java_string_hash("replacement"),
-                java_string_hash("named"),
-                java_string_hash("icon,9"),
-                java_string_hash("lonely,32"),
-                java_string_hash("an")
+                hash32("replacement"),
+                hash32("named"),
+                hash32("icon,9"),
+                hash32("lonely,32"),
+                hash32("an")
             ),
         )
         .unwrap();
-        assert_eq!(java_string_hash("an"), java_string_hash("c0"));
+        assert_eq!(hash32("an"), hash32("c0"));
         fs::write(
             &dictionary,
             "replacement\n900\tnamed\nicon,#\nlonely,#\nan\nc0\n",

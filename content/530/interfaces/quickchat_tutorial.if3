@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 157:2
@@ -26,7 +26,7 @@ x=13
 y=53
 width=7
 height=241
-graphic=graphic_955
+graphic="v2_stone_borders_alt,1"
 tiling=yes
 
 // 157:3
@@ -36,7 +36,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_958
+graphic="v2_stone_borders_alt,4"
 
 // 157:4
 [com_4]
@@ -45,7 +45,7 @@ x=468
 y=51
 width=32
 height=243
-graphic=graphic_957
+graphic="v2_stone_borders_alt,3"
 tiling=yes
 
 // 157:5
@@ -55,7 +55,7 @@ x=44
 y=20
 width=424
 height=7
-graphic=graphic_954
+graphic="v2_stone_borders_alt,0"
 tiling=yes
 
 // 157:6
@@ -65,7 +65,7 @@ x=45
 y=294
 width=423
 height=32
-graphic=graphic_956
+graphic="v2_stone_borders_alt,2"
 tiling=yes
 
 // 157:7
@@ -75,7 +75,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_960
+graphic="v2_stone_borders_alt,6"
 
 // 157:8
 [com_8]
@@ -84,7 +84,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_959
+graphic="v2_stone_borders_alt,5"
 
 // 157:9
 [com_9]
@@ -93,7 +93,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_961
+graphic="v2_stone_borders_alt,7"
 
 // 157:10
 [com_10]
@@ -102,7 +102,7 @@ x=24
 y=49
 width=465
 height=6
-graphic=graphic_962
+graphic="v2_stone_borders_alt,8"
 tiling=yes
 
 // 157:11
@@ -112,7 +112,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_963
+graphic="v2_stone_borders_alt,9"
 
 // 157:12
 [com_12]
@@ -121,7 +121,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_964
+graphic="v2_stone_borders_alt,10"
 
 // 157:13
 [closebutton]
@@ -130,7 +130,7 @@ x=473
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -145,7 +145,7 @@ x=21
 y=30
 width=471
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xcc9800
@@ -157,7 +157,7 @@ x=19
 y=275
 width=474
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 157:16
@@ -209,7 +209,7 @@ y=10
 width=136
 height=16
 layer=pagecontrols
-textfont=fontmetrics_496
+textfont=b12_full
 text=Page 1 of 7
 textalignh=centre
 textshadow=yes
@@ -223,7 +223,7 @@ y=9
 width=16
 height=16
 layer=pagecontrols
-graphic=graphic_1174
+graphic="catcon_catapult_arrows,2"
 transmitop=1
 op1= Continue
 onmouseover=graphic_swapper(event_com, 1175)
@@ -237,7 +237,7 @@ y=9
 width=16
 height=16
 layer=pagecontrols
-graphic=graphic_1172
+graphic="catcon_catapult_arrows,0"
 transmitop=1
 op1= Continue
 onmouseover=graphic_swapper(event_com, 1173)
@@ -276,7 +276,7 @@ y=5
 width=9
 height=24
 layer=buttoncontrol
-graphic=graphic_919
+graphic="v2_stone_button,6"
 
 // 157:27
 [com_27]
@@ -286,7 +286,7 @@ y=20
 width=122
 height=9
 layer=buttoncontrol
-graphic=graphic_920
+graphic="v2_stone_button,7"
 
 // 157:28
 [com_28]
@@ -296,7 +296,7 @@ y=5
 width=122
 height=9
 layer=buttoncontrol
-graphic=graphic_918
+graphic="v2_stone_button,5"
 
 // 157:29
 [com_29]
@@ -306,7 +306,7 @@ y=5
 width=9
 height=24
 layer=buttoncontrol
-graphic=graphic_917
+graphic="v2_stone_button,4"
 
 // 157:30
 [button]
@@ -316,7 +316,7 @@ y=5
 width=123
 height=24
 layer=buttoncontrol
-textfont=fontmetrics_494
+textfont=p11_full
 text=Shortcut keys
 textalignh=centre
 textalignv=centre
@@ -332,7 +332,7 @@ y=5
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_913
+graphic="v2_stone_button,0"
 
 // 157:32
 [com_32]
@@ -342,7 +342,7 @@ y=5
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_914
+graphic="v2_stone_button,1"
 
 // 157:33
 [com_33]
@@ -352,7 +352,7 @@ y=20
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_915
+graphic="v2_stone_button,2"
 
 // 157:34
 [com_34]
@@ -362,7 +362,7 @@ y=20
 width=9
 height=9
 layer=buttoncontrol
-graphic=graphic_916
+graphic="v2_stone_button,3"
 
 // 157:35
 [buttoncontrol]

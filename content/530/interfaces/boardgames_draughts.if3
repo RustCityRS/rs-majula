@@ -5,7 +5,7 @@ x=12
 y=20
 width=487
 height=297
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 32:1
@@ -15,7 +15,7 @@ x=12
 y=20
 width=25
 height=30
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 32:2
 [border_side_left]
@@ -24,7 +24,7 @@ x=-3
 y=49
 width=27
 height=250
-graphic=graphic_172
+graphic="miscgraphics,2"
 tiling=yes
 
 // 32:3
@@ -34,7 +34,7 @@ x=479
 y=50
 width=22
 height=247
-graphic=graphic_315
+graphic="steelborder2,1"
 tiling=yes
 
 // 32:4
@@ -44,7 +44,7 @@ x=43
 y=58
 width=140
 height=25
-textfont=fontmetrics_495
+textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
 colour=0xffaa44
@@ -56,7 +56,7 @@ x=37
 y=5
 width=444
 height=27
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 32:6
@@ -66,7 +66,7 @@ x=37
 y=299
 width=441
 height=27
-graphic=graphic_173
+graphic="miscgraphics,3"
 tiling=yes
 
 // 32:7
@@ -76,7 +76,7 @@ x=12
 y=290
 width=25
 height=30
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 32:8
 [com_8]
@@ -85,7 +85,7 @@ x=475
 y=20
 width=25
 height=30
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 32:9
 [com_9]
@@ -94,7 +94,7 @@ x=475
 y=290
 width=25
 height=30
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 32:10
 [vs]
@@ -103,7 +103,7 @@ x=100
 y=75
 width=14
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=vs
 textshadow=yes
 colour=0xaaaaaa
@@ -115,7 +115,7 @@ x=43
 y=89
 width=140
 height=25
-textfont=fontmetrics_495
+textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
 colour=0xffaa44
@@ -127,7 +127,7 @@ x=183
 y=26
 width=38
 height=289
-graphic=graphic_172
+graphic="miscgraphics,2"
 tiling=yes
 
 // 32:13
@@ -137,7 +137,7 @@ x=17
 y=34
 width=181
 height=23
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 32:14
@@ -147,7 +147,7 @@ x=38
 y=127
 width=44
 height=31
-textfont=fontmetrics_495
+textfont=p12_full
 text=Turn:
 textalignh=right
 textshadow=yes
@@ -181,7 +181,7 @@ x=21
 y=29
 width=176
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Draughts
 textshadow=yes
 colour=0xffaa44
@@ -205,7 +205,7 @@ y=6
 width=111
 height=23
 layer=com_15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Resign
 textalignh=centre
 textalignv=centre
@@ -231,7 +231,7 @@ y=6
 width=110
 height=25
 layer=com_16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Offer draw
 textlineheight=11
 textalignh=centre
@@ -247,7 +247,7 @@ y=-15
 width=77
 height=23
 layer=com_15
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 32:23
@@ -258,7 +258,7 @@ y=-15
 width=79
 height=23
 layer=com_16
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 32:24
@@ -268,7 +268,7 @@ x=85
 y=127
 width=111
 height=31
-textfont=fontmetrics_495
+textfont=p12_full
 text=A very long name
 textshadow=yes
 colour=0xaaaaaa
@@ -281,7 +281,7 @@ y=14
 width=84
 height=50
 layer=com_16
-graphic=graphic_173
+graphic="miscgraphics,3"
 tiling=yes
 
 // 32:26
@@ -290,7 +290,7 @@ type=graphic
 width=25
 height=30
 layer=com_15
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 32:27
 [com_27]
@@ -298,7 +298,7 @@ type=graphic
 width=25
 height=30
 layer=com_16
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 32:28
 [com_28]
@@ -307,7 +307,7 @@ x=97
 width=25
 height=30
 layer=com_15
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 32:29
 [com_29]
@@ -316,7 +316,7 @@ x=97
 width=25
 height=30
 layer=com_16
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 32:30
 [com_30]
@@ -325,7 +325,7 @@ y=6
 width=25
 height=30
 layer=com_15
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 32:31
 [com_31]
@@ -334,7 +334,7 @@ y=5
 width=25
 height=30
 layer=com_16
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 32:32
 [com_32]
@@ -344,7 +344,7 @@ y=6
 width=25
 height=30
 layer=com_15
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 32:33
 [com_33]
@@ -354,7 +354,7 @@ y=15
 width=77
 height=35
 layer=com_15
-graphic=graphic_173
+graphic="miscgraphics,3"
 tiling=yes
 
 // 32:34
@@ -365,7 +365,7 @@ y=5
 width=25
 height=30
 layer=com_16
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 32:35
 [board]
@@ -395,7 +395,7 @@ x=23
 y=185
 width=169
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=Blah blah blah blah blah blah blah!
 textalignh=centre
 textshadow=yes
@@ -421,7 +421,7 @@ x=17
 y=156
 width=180
 height=21
-textfont=fontmetrics_494
+textfont=p11_full
 text=Blah blah blah blah blah blah blah!
 textalignh=centre
 textalignv=centre
@@ -435,7 +435,7 @@ x=27
 y=157
 width=160
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=Blah blah blah blah blah!
 textalignh=centre
 textshadow=yes

@@ -71,6 +71,10 @@
 // next_obj_stage=bowl).
 [opheld1,kebab] @player_consume_item(consume_effect_kebab, 2, 3);
 [opheld1,stew] @player_consume_item(consume_effect_stat2, 2, 3);
+// Monkey Madness's Ape Atoll food (consume_normal.dbrow): the stew leaves its bowl.
+[opheld1,mm_monkey_nuts] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,mm_monkey_bar] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,mm_banana_stew] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,curry] @player_consume_item(consume_effect_stat2, 2, 3);
 
 // potions (289's consume.rs2). 289 drinks every potion here; 647 has only the

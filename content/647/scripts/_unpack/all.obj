@@ -529,6 +529,8 @@ name=Candle
 certlink=cert_unlit_candle
 cursor1=3,cursor_take
 desc=A candle.
+category=light_source_unlit
+param=product,lit_candle
 
 // 37
 [cert_unlit_candle]
@@ -4202,7 +4204,7 @@ iop5=Destroy
 name=Pressure gauge
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=It's part of a machine.
 weight=2oz
 tradeable=no
@@ -4223,7 +4225,7 @@ name=Fish food
 womanwearoff=3,-11,6
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=Keeps pet fish strong and healthy.
 wearpos=lefthand
 weight=1oz
@@ -4240,7 +4242,7 @@ iop5=Destroy
 name=Poison
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=This stuff looks nasty.
 weight=20g
 
@@ -4256,7 +4258,7 @@ iop5=Destroy
 name=Poisoned fish food
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=This isn't good for fish.
 weight=30g
 tradeable=no
@@ -4273,7 +4275,7 @@ iop5=Destroy
 name=Grimy key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=A slightly smelly key.
 weight=10g
 tradeable=no
@@ -4290,7 +4292,7 @@ iop5=Destroy
 name=Rubber tube
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=It's slightly charred.
 weight=1oz
 tradeable=no
@@ -4308,7 +4310,7 @@ iop5=Destroy
 name=Oil can
 param=param_1397,1
 cursor1=3,cursor_take
-quest=15
+quest=ernest_the_chicken
 desc=It's pretty full.
 weight=1oz
 tradeable=no
@@ -4517,7 +4519,7 @@ recol2d=10410
 name=Research package
 param=param_1397,1
 cursor1=3,cursor_take
-quest=55
+quest=rune_mysteries
 desc=This contains some vital research results.
 weight=2lb
 param=no_alchemy,1
@@ -4536,7 +4538,7 @@ iop5=Destroy
 name=Research notes
 param=param_1397,1
 cursor1=3,cursor_take
-quest=55
+quest=rune_mysteries
 desc=It's written in code.
 weight=1oz
 param=no_alchemy,1
@@ -8224,7 +8226,7 @@ iop5=Destroy
 name=Muddy skull
 param=param_1397,1
 cursor1=3,cursor_take
-quest=27
+quest=restless_ghost
 tradeable=no
 desc=Ooooh, spooky!
 
@@ -11356,7 +11358,7 @@ contrast=12
 iop5=Destroy
 name=Message
 cursor1=3,cursor_take
-quest=17
+quest=romeo_and_juliet
 desc=A message from Juliet to Romeo.
 
 // 756
@@ -55239,6 +55241,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are smallish monkey bones.
+// 289's server keys (mm_small_ninja_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,160
 
 // 3180
 [mm_medium_ninja_monkey_bones]
@@ -55253,6 +55260,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are medium sized monkey bones.
+// 289's server keys (mm_medium_ninja_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,180
 
 // 3181
 [mm_normal_gorilla_monkey_bones]
@@ -55266,6 +55278,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are quite large monkey bones.
+// 289's server keys (mm_normal_gorilla_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=800g
+tradeable=no
+category=bones
+param=bone_exp,180
 
 // 3182
 [mm_bearded_gorilla_monkey_bones]
@@ -55279,6 +55296,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are quite large monkey bones.
+// 289's server keys (mm_bearded_gorilla_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=800g
+tradeable=no
+category=bones
+param=bone_exp,200
 
 // 3183
 [mm_normal_monkey_bones]
@@ -55294,6 +55316,10 @@ certlink=cert_mm_normal_monkey_bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are small monkey bones.
+// 289's server keys (mm_normal_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+category=bones
+param=bone_exp,50
 
 // 3184
 [cert_mm_normal_monkey_bones]
@@ -55313,6 +55339,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are smallish monkey bones. They smell extremely nauseating.
+// 289's server keys (mm_small_zombie_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,50
 
 // 3186
 [mm_large_zombie_monkey_bones]
@@ -55326,6 +55357,11 @@ name=Monkey bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=These are large monkey bones. They smell extremely nauseating.
+// 289's server keys (mm_large_zombie_monkey_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,50
 
 // 3187
 [mm_skeleton_bones]
@@ -55341,6 +55377,11 @@ name=Bones
 icursor1=1,cursor_prayer
 cursor1=3,cursor_take
 desc=They seem to shake slightly... It might be a good idea to bury them.
+// 289's server keys (mm_skeleton_bones, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
+category=bones
+param=bone_exp,30
 
 // 3188
 [tbwt_cleaning_cloth]
@@ -67618,6 +67659,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_01, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3905
 [cert_reinitialisation_01]
@@ -67645,6 +67688,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_02, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3907
 [cert_reinitialisation_02]
@@ -67672,6 +67717,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_03, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3909
 [cert_reinitialisation_03]
@@ -67699,6 +67746,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_04, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3911
 [cert_reinitialisation_04]
@@ -67726,6 +67775,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_05, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3913
 [cert_reinitialisation_05]
@@ -67753,6 +67804,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_06, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3915
 [cert_reinitialisation_06]
@@ -67780,6 +67833,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_07, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3917
 [cert_reinitialisation_07]
@@ -67807,6 +67862,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_08, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3919
 [cert_reinitialisation_08]
@@ -67834,6 +67891,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_09, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3921
 [cert_reinitialisation_09]
@@ -67861,6 +67920,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_10, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3923
 [cert_reinitialisation_10]
@@ -67888,6 +67949,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_11, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3925
 [cert_reinitialisation_11]
@@ -67915,6 +67978,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_12, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3927
 [cert_reinitialisation_12]
@@ -67942,6 +68007,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_13, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3929
 [cert_reinitialisation_13]
@@ -67969,6 +68036,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_14, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3931
 [cert_reinitialisation_14]
@@ -67996,6 +68065,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_15, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3933
 [cert_reinitialisation_15]
@@ -68023,6 +68094,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_16, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3935
 [cert_reinitialisation_16]
@@ -68050,6 +68123,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_17, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3937
 [cert_reinitialisation_17]
@@ -68077,6 +68152,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_18, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3939
 [cert_reinitialisation_18]
@@ -68104,6 +68181,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_19, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3941
 [cert_reinitialisation_19]
@@ -68131,6 +68210,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_20, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3943
 [cert_reinitialisation_20]
@@ -68158,6 +68239,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_21, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3945
 [cert_reinitialisation_21]
@@ -68185,6 +68268,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_22, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3947
 [cert_reinitialisation_22]
@@ -68212,6 +68297,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_23, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3949
 [cert_reinitialisation_23]
@@ -68239,6 +68326,8 @@ dummyitem=1
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_24, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit
 
 // 3951
 [cert_reinitialisation_24]
@@ -68266,6 +68355,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_01_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3953
 [cert_reinitialisation_01_inactive]
@@ -68293,6 +68384,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_02_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3955
 [cert_reinitialisation_02_inactive]
@@ -68320,6 +68413,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_03_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3957
 [cert_reinitialisation_03_inactive]
@@ -68347,6 +68442,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_04_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3959
 [cert_reinitialisation_04_inactive]
@@ -68374,6 +68471,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_05_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3961
 [cert_reinitialisation_05_inactive]
@@ -68401,6 +68500,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_06_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3963
 [cert_reinitialisation_06_inactive]
@@ -68428,6 +68529,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_07_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3965
 [cert_reinitialisation_07_inactive]
@@ -68455,6 +68558,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_08_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3967
 [cert_reinitialisation_08_inactive]
@@ -68482,6 +68587,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_09_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3969
 [cert_reinitialisation_09_inactive]
@@ -68509,6 +68616,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_10_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3971
 [cert_reinitialisation_10_inactive]
@@ -68536,6 +68645,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_11_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3973
 [cert_reinitialisation_11_inactive]
@@ -68563,6 +68674,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_12_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3975
 [cert_reinitialisation_12_inactive]
@@ -68590,6 +68703,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_13_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3977
 [cert_reinitialisation_13_inactive]
@@ -68617,6 +68732,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_14_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3979
 [cert_reinitialisation_14_inactive]
@@ -68644,6 +68761,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_15_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3981
 [cert_reinitialisation_15_inactive]
@@ -68671,6 +68790,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_16_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3983
 [cert_reinitialisation_16_inactive]
@@ -68698,6 +68819,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_17_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3985
 [cert_reinitialisation_17_inactive]
@@ -68725,6 +68848,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_18_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3987
 [cert_reinitialisation_18_inactive]
@@ -68752,6 +68877,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_19_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3989
 [cert_reinitialisation_19_inactive]
@@ -68779,6 +68906,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_20_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3991
 [cert_reinitialisation_20_inactive]
@@ -68806,6 +68935,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_21_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3993
 [cert_reinitialisation_21_inactive]
@@ -68833,6 +68964,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_22_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3995
 [cert_reinitialisation_22_inactive]
@@ -68860,6 +68993,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_23_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3997
 [cert_reinitialisation_23_inactive]
@@ -68887,6 +69022,8 @@ iop5=Move
 name=Sliding button
 cursor1=3,cursor_take
 desc=It's a sliding button of some kind.
+// 289's server keys (reinitialisation_24_inactive, quests/quest_mm/configs/quest_mm.obj).
+category=mm_reinit_inactive
 
 // 3999
 [cert_reinitialisation_24_inactive]
@@ -68956,6 +69093,9 @@ recol1d=5250
 name=Spare controls
 cursor1=3,cursor_take
 desc=It looks like some kind of control panel.
+// 289's server keys (mm_reinitialisation_hint, quests/quest_mm/configs/quest_mm.obj).
+weight=200g
+tradeable=no
 
 // 4003
 [cert_mm_reinitialisation_hint]
@@ -68978,6 +69118,9 @@ name=Gnome royal seal
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's the official Gnome Royal Seal, signed by King Narnode Shareen.
+// 289's server keys (mm_gnome_royal_seal, quests/quest_mm/configs/quest_mm.obj).
+weight=20g
+tradeable=no
 
 // 4005
 [mm_narnode_orders]
@@ -68994,6 +69137,9 @@ name=Narnode's orders
 param=param_1397,1
 cursor1=3,cursor_take
 desc=Unreadable orders handwritten by King Narnode Shareen.
+// 289's server keys (mm_narnode_orders, quests/quest_mm/configs/quest_mm.obj).
+weight=20g
+tradeable=no
 
 // 4006
 [mm_monkey_dentures]
@@ -69010,6 +69156,9 @@ name=Monkey dentures
 param=param_1397,1
 cursor1=3,cursor_take
 desc=Magical monkey talking dentures! What more can we say? Ook!
+// 289's server keys (mm_monkey_dentures, quests/quest_mm/configs/quest_mm.obj).
+weight=200g
+tradeable=no
 
 // 4007
 [mm_enchanted_gold_bar]
@@ -69028,6 +69177,9 @@ name=Enchanted bar
 param=param_1397,1
 cursor1=3,cursor_take
 desc=A gold bar invested with a talkative monkey spirit.
+// 289's server keys (mm_enchanted_gold_bar, quests/quest_mm/configs/quest_mm.obj).
+weight=4lb
+tradeable=no
 
 // 4008
 [mm_eye_of_gnome]
@@ -69043,6 +69195,8 @@ name=Eye of gnome
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's ... the eye of a gnome! Now what on earth could one do with this?
+// 289's server keys (mm_eye_of_gnome, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
 
 // 4009
 [cert_mm_eye_of_gnome]
@@ -69073,6 +69227,8 @@ name=Monkey magic
 param=param_1397,1
 cursor1=3,cursor_take
 desc=A small sample of monkey magic.
+// 289's server keys (mm_monkey_magic, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
 
 // 4011
 [cert_mm_monkey_magic]
@@ -69096,6 +69252,8 @@ param=param_1397,1
 icursor1=1,cursor_eat
 cursor1=3,cursor_take
 desc=These are monkey nuts. Yummy.
+// 289's server keys (mm_monkey_nuts, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
 
 // 4013
 [cert_mm_monkey_nuts]
@@ -69119,6 +69277,8 @@ name=Monkey bar
 icursor1=1,cursor_eat
 cursor1=3,cursor_take
 desc=It's a monkey bar. It looks highly nutritious.
+// 289's server keys (mm_monkey_bar, quests/quest_mm/configs/quest_mm.obj).
+weight=150g
 
 // 4015
 [cert_mm_monkey_bar]
@@ -69142,6 +69302,9 @@ name=Banana stew
 icursor1=1,cursor_eat
 cursor1=3,cursor_take
 desc=It's a bowl full of mushy banana.
+// 289's server keys (mm_banana_stew, quests/quest_mm/configs/quest_mm.obj).
+weight=250g
+param=next_obj_stage,bowl_empty
 
 // 4017
 [cert_mm_banana_stew]
@@ -69164,6 +69327,8 @@ name=Monkey wrench
 param=param_1397,1
 cursor1=3,cursor_take
 desc=For wrenching monkeys I'd guess.
+// 289's server keys (mm_monkey_wrench, quests/quest_mm/configs/quest_mm.obj).
+weight=21lb
 
 // 4019
 [cert_mm_monkey_wrench]
@@ -69185,6 +69350,9 @@ model=model_4707
 name=M'amulet mould
 cursor1=3,cursor_take
 desc=It's an amulet mould shaped like a monkey head.
+// 289's server keys (mm_monkey_amulet_mould, quests/quest_mm/configs/quest_mm.obj).
+weight=7g
+tradeable=no
 
 // 4021
 [mm_amulet_of_monkey_speak]
@@ -69203,6 +69371,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=It's an amulet of monkeyspeak. It makes vague chattering noises.
 wearpos=front
+// 289's server keys (mm_amulet_of_monkey_speak, quests/quest_mm/configs/quest_mm.obj).
+weight=3lb
+tradeable=no
 
 // 4022
 [mm_amulet_of_monkey_speak_without_string]
@@ -69215,6 +69386,9 @@ model=model_4708
 name=M'speak amulet
 cursor1=3,cursor_take
 desc=It's an unstrung amulet of monkeyspeak. It makes vague chattering noises.
+// 289's server keys (mm_amulet_of_monkey_speak_without_string, quests/quest_mm/configs/quest_mm.obj).
+weight=3lb
+tradeable=no
 
 // 4023
 [mm_monkey_talisman]
@@ -69229,6 +69403,10 @@ iop2=Hold
 name=Monkey talisman
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a monkey head.
+// 289's server keys (mm_monkey_talisman, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+tradeable=no
 
 // 4024
 [mm_monkey_greegree_for_small_ninja_monkey]
@@ -69249,6 +69427,12 @@ recol3d=31808
 name=Ninja monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a small ninja monkey head.
+// 289's server keys (mm_monkey_greegree_for_small_ninja_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_small_ninja_monkey
 
 // 4025
 [mm_monkey_greegree_for_medium_ninja_monkey]
@@ -69269,6 +69453,12 @@ recol3d=31808
 name=Ninja monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a medium ninja monkey head.
+// 289's server keys (mm_monkey_greegree_for_medium_ninja_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_medium_ninja_monkey
 
 // 4026
 [mm_monkey_greegree_for_normal_gorilla]
@@ -69289,6 +69479,12 @@ recol3d=31808
 name=Gorilla greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a gorilla head.
+// 289's server keys (mm_monkey_greegree_for_normal_gorilla, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_normal_gorilla
 
 // 4027
 [mm_monkey_greegree_for_bearded_gorilla]
@@ -69309,6 +69505,12 @@ recol3d=31808
 name=Gorilla greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a bearded gorilla head.
+// 289's server keys (mm_monkey_greegree_for_bearded_gorilla, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_bearded_gorilla
 
 // 4028
 [mm_monkey_greegree_for_ancient_monkey_skull]
@@ -69329,6 +69531,12 @@ recol3d=31808
 name=Gorilla greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a mysterious monkey head.
+// 289's server keys (mm_monkey_greegree_for_ancient_monkey_skull, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_ancient_monkey
 
 // 4029
 [mm_monkey_greegree_for_small_zombie_monkey]
@@ -69349,6 +69557,12 @@ recol3d=31808
 name=Zombie monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a small zombie monkey head.
+// 289's server keys (mm_monkey_greegree_for_small_zombie_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_small_zombie_monkey
 
 // 4030
 [mm_monkey_greegree_for_large_zombie_monkey]
@@ -69369,6 +69583,12 @@ recol3d=31808
 name=Zombie monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a big zombie monkey head.
+// 289's server keys (mm_monkey_greegree_for_large_zombie_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_large_zombie_monkey
 
 // 4031
 [mm_monkey_greegree_for_normal_monkey]
@@ -69389,6 +69609,12 @@ recol3d=31808
 name=Monkey greegree
 cursor1=3,cursor_take
 desc=A magical talisman in the shape of a Karamjan monkey head.
+// 289's server keys (mm_monkey_greegree_for_normal_monkey, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+wearpos=righthand
+category=mm_greegree
+tradeable=no
+param=next_npc_type,mm_transmogrification_normal_monkey
 
 // 4032
 [fade_to_black_inv]
@@ -69413,6 +69639,9 @@ param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's a monkey in your backpack. As you look it pokes you.
+// 289's server keys (mm_monkey_in_backpack, quests/quest_mm/configs/quest_mm.obj).
+weight=15kg
+tradeable=no
 
 // 4034
 [mm_ancient_monkey_skull]
@@ -69426,6 +69655,9 @@ model=model_4714
 name=Monkey skull
 cursor1=3,cursor_take
 desc=It's a very ancient skull from some kind of ape.
+// 289's server keys (mm_ancient_monkey_skull, quests/quest_mm/configs/quest_mm.obj).
+weight=500g
+tradeable=no
 
 // 4035
 [mm_sigil]
@@ -69444,6 +69676,9 @@ icursor1=2,cursor_wield
 cursor1=3,cursor_take
 desc=It's the official sigil of the 10th squad of the Royal Guard.
 wearpos=front
+// 289's server keys (mm_sigil, quests/quest_mm/configs/quest_mm.obj).
+weight=3oz
+tradeable=no
 
 // 4036
 [cert_fade_to_black_inv]
@@ -197661,7 +197896,7 @@ name=Spirit terrorbird pouch
 certlink=cert_lore_terrorbird
 param=param_394,52
 param=param_457,9
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,52
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197697,7 +197932,7 @@ name=Granite crab pouch
 certlink=cert_lore_rock_crab
 param=param_394,16
 param=param_457,5
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,16
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197733,7 +197968,7 @@ name=Praying mantis pouch
 certlink=cert_lore_praying_mantis
 param=param_394,75
 param=param_457,118
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,75
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197769,7 +198004,7 @@ name=Giant ent pouch
 certlink=cert_lore_ent
 param=param_394,78
 param=param_457,87
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,78
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197805,7 +198040,7 @@ name=Spirit cobra pouch
 certlink=cert_lore_snake
 param=param_394,63
 param=param_457,82
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,63
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197841,7 +198076,7 @@ name=Spirit dagannoth pouch
 certlink=cert_lore_dagganoth
 param=param_394,83
 param=param_457,1
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,83
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197877,7 +198112,7 @@ name=Thorny snail pouch
 certlink=cert_lore_snail
 param=param_394,13
 param=param_457,7
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,13
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197913,7 +198148,7 @@ name=Beaver pouch
 certlink=cert_lore_beaver
 param=param_394,33
 param=param_457,51
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,33
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197949,7 +198184,7 @@ name=Karam. overlord pouch
 certlink=cert_lore_karamthulhu
 param=param_394,58
 param=param_457,101
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,58
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -197985,7 +198220,7 @@ name=Hydra pouch
 certlink=cert_lore_hydra
 param=param_394,80
 param=param_457,90
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,80
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198021,7 +198256,7 @@ name=Spirit jelly pouch
 certlink=cert_lore_jelly
 param=param_394,55
 param=param_457,106
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,55
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198057,7 +198292,7 @@ name=Bunyip pouch
 certlink=cert_lore_bunyip
 param=param_394,68
 param=param_457,77
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,68
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198093,7 +198328,7 @@ name=War tortoise pouch
 certlink=cert_lore_war_turtle
 param=param_394,67
 param=param_457,1
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,67
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198129,7 +198364,7 @@ name=Fruit bat pouch
 certlink=cert_lore_fruit_bat
 param=param_394,69
 param=param_457,91
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,69
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198165,7 +198400,7 @@ name=Abyssal parasite pouch
 certlink=cert_lore_abyssal_leech
 param=param_394,54
 param=param_457,75
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,54
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198201,7 +198436,7 @@ name=Abyssal lurker pouch
 certlink=cert_lore_abyssal_lurker
 param=param_394,62
 param=param_457,84
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,62
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198237,7 +198472,7 @@ name=Unicorn stallion pouch
 certlink=cert_lore_unicorn
 param=param_394,88
 param=param_457,98
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,88
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198273,7 +198508,7 @@ name=Magpie pouch
 certlink=cert_lore_magpie
 param=param_394,47
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,47
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198309,7 +198544,7 @@ name=Dreadfowl pouch
 certlink=cert_lore_dreadfowl
 param=param_394,4
 param=param_457,6
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198345,7 +198580,7 @@ name=Stranger plant pouch
 certlink=cert_lore_stranger_plant
 param=param_394,64
 param=param_457,90
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,64
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198415,7 +198650,7 @@ name=Desert wyrm pouch
 certlink=cert_lore_desert_worm
 param=param_394,18
 param=param_457,32
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,18
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198451,7 +198686,7 @@ name=Evil turnip pouch
 certlink=cert_lore_turnip
 param=param_394,42
 param=param_457,73
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,42
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198487,7 +198722,7 @@ name=Vampire bat pouch
 certlink=cert_lore_vampire_bat
 param=param_394,31
 param=param_457,57
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,31
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198523,7 +198758,7 @@ name=Spirit scorpion pouch
 certlink=cert_lore_scorpion
 param=param_394,19
 param=param_457,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,19
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198559,7 +198794,7 @@ name=Arctic bear pouch
 certlink=cert_lore_polar_bear
 param=param_394,71
 param=param_457,10
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,71
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198595,7 +198830,7 @@ name=Spirit spider pouch
 certlink=cert_lore_spider
 param=param_394,10
 param=param_457,6
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,10
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198631,7 +198866,7 @@ name=Bloated leech pouch
 certlink=cert_lore_leech
 param=param_394,49
 param=param_457,82
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,49
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198667,7 +198902,7 @@ name=Spirit kalphite pouch
 certlink=cert_lore_kalphite
 param=param_394,25
 param=param_457,36
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,25
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198703,7 +198938,7 @@ name=Honey badger pouch
 certlink=cert_lore_honey_badger
 param=param_394,32
 param=param_457,59
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,32
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198739,7 +198974,7 @@ name=Albino rat pouch
 certlink=cert_lore_giant_rat
 param=param_394,23
 param=param_457,53
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,23
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198775,7 +199010,7 @@ name=Granite lobster pouch
 certlink=cert_lore_rock_lobster
 param=param_394,74
 param=param_457,117
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,74
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198811,7 +199046,7 @@ name=Macaw pouch
 certlink=cert_lore_macaw
 param=param_394,41
 param=param_457,55
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,41
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198859,7 +199094,7 @@ name=Bronze minotaur pouch
 certlink=cert_lore_minotaur
 param=param_394,36
 param=param_457,72
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,36
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198907,7 +199142,7 @@ name=Iron minotaur pouch
 certlink=cert_lore_minotaur_2
 param=param_394,46
 param=param_457,88
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,46
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -198955,7 +199190,7 @@ name=Steel minotaur pouch
 certlink=cert_lore_minotaur_3
 param=param_394,56
 param=param_457,99
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,56
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199003,7 +199238,7 @@ name=Mithril minotaur pouch
 certlink=cert_lore_minotaur_4
 param=param_394,66
 param=param_457,107
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,66
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199051,7 +199286,7 @@ name=Adamant minotaur pouch
 certlink=cert_lore_minotaur_5
 param=param_394,76
 param=param_457,101
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,76
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199099,7 +199334,7 @@ name=Rune minotaur pouch
 certlink=cert_lore_minotaur_6
 param=param_394,86
 param=param_457,1
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,86
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199135,7 +199370,7 @@ name=Smoke devil pouch
 certlink=cert_lore_dust_devil
 param=param_394,61
 param=param_457,99
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,61
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199171,7 +199406,7 @@ name=Bull ant pouch
 certlink=cert_lore_giant_ant
 param=param_394,40
 param=param_457,8
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199207,7 +199442,7 @@ name=Wolpertinger pouch
 certlink=cert_lore_wolpertinger
 param=param_394,92
 param=param_457,143
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,92
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199245,7 +199480,7 @@ name=Compost mound pouch
 certlink=cert_lore_compost_mound
 param=param_394,28
 param=param_457,33
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,28
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199281,7 +199516,7 @@ name=Pack yak pouch
 certlink=cert_lore_pack_yak
 param=param_394,96
 param=param_457,148
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,96
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199317,7 +199552,7 @@ name=Sp. cockatrice pouch
 certlink=cert_lore_cockatrice
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199359,7 +199594,7 @@ name=Sp. guthatrice pouch
 certlink=cert_lore_cockatrice_2
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199401,7 +199636,7 @@ name=Sp. saratrice pouch
 certlink=cert_lore_cockatrice_3
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199443,7 +199678,7 @@ name=Sp. zamatrice pouch
 certlink=cert_lore_cockatrice_4
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199485,7 +199720,7 @@ name=Sp. pengatrice pouch
 certlink=cert_lore_cockatrice_5
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199527,7 +199762,7 @@ name=Sp. coraxatrice pouch
 certlink=cert_lore_cockatrice_6
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199569,7 +199804,7 @@ name=Sp. vulatrice pouch
 certlink=cert_lore_cockatrice_7
 param=param_394,43
 param=param_457,62
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -199824,7 +200059,7 @@ name=Barker toad pouch
 certlink=cert_lore_barker_toad
 param=param_394,66
 param=param_457,8
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,66
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -200431,7 +200666,7 @@ recol2d=32767
 name=Summoning cape
 param=param_528,Boost
 param=param_258,1
-param=param_277,summoning
+param=param_277,animallore
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -200456,7 +200691,7 @@ recol2d=32576
 name=Summoning cape (t)
 param=param_528,Boost
 param=param_259,1
-param=param_277,summoning
+param=param_277,animallore
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -200482,7 +200717,7 @@ recol2d=20220
 recol3s=1118
 recol3d=17015
 name=Summoning hood
-param=param_277,summoning
+param=param_277,animallore
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -200997,7 +201232,7 @@ ambient=25
 stockmarket=yes
 name=Antlers
 certlink=cert_lore_antlers
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,10
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
@@ -201063,7 +201298,7 @@ ambient=25
 stockmarket=yes
 name=Lizard skull
 certlink=cert_lore_lizard_skull
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,30
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
@@ -201137,7 +201372,7 @@ recol3d=5293
 name=Feather headdress
 certlink=cert_lore_feathered_headdress_1
 param=param_624,1
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,50
 param=param_751,ranged
 param=param_752,20
@@ -201219,7 +201454,7 @@ recol4d=15721
 name=Feather headdress
 certlink=cert_lore_feathered_headdress_2
 param=param_624,1
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,50
 param=param_751,ranged
 param=param_752,20
@@ -201299,7 +201534,7 @@ recol2d=24740
 name=Feather headdress
 certlink=cert_lore_feathered_headdress_3
 param=param_624,1
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,50
 param=param_751,ranged
 param=param_752,20
@@ -201383,7 +201618,7 @@ recol4d=2510
 name=Feather headdress
 certlink=cert_lore_feathered_headdress_4
 param=param_624,1
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,50
 param=param_751,ranged
 param=param_752,20
@@ -201467,7 +201702,7 @@ recol4d=19840
 name=Feather headdress
 certlink=cert_lore_feathered_headdress_5
 param=param_624,1
-param=param_749,summoning
+param=param_749,animallore
 param=param_750,50
 param=param_751,ranged
 param=param_752,20
@@ -203661,7 +203896,7 @@ name=Herbcall scroll
 param=param_394,41
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,41
 cursor1=3,cursor_take
 desc=A scroll for a macaw familiar.
@@ -203683,7 +203918,7 @@ name=Fruitfall scroll
 param=param_394,69
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,69
 cursor1=3,cursor_take
 desc=A scroll for a fruit bat familiar.
@@ -203706,7 +203941,7 @@ name=Fish rain scroll
 param=param_394,56
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,56
 cursor1=3,cursor_take
 desc=A scroll for an ibis familiar.
@@ -203749,7 +203984,7 @@ name=Thieving fingers scroll
 param=param_394,47
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,47
 cursor1=3,cursor_take
 desc=A scroll for a magpie familiar.
@@ -203772,7 +204007,7 @@ name=Abyssal stealth scroll
 param=param_394,62
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,62
 cursor1=3,cursor_take
 desc=A scroll for an abyssal lurker familiar.
@@ -203795,7 +204030,7 @@ name=Egg spawn scroll
 param=param_394,10
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,10
 cursor1=3,cursor_take
 desc=A scroll for a spirit spider familiar.
@@ -203817,7 +204052,7 @@ name=Multichop scroll
 param=param_394,33
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,33
 cursor1=3,cursor_take
 desc=A scroll for a beaver familiar.
@@ -203839,7 +204074,7 @@ name=Cheese feast scroll
 param=param_394,23
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,23
 cursor1=3,cursor_take
 desc=A scroll for an albino rat familiar.
@@ -203861,7 +204096,7 @@ name=Unburden scroll
 param=param_394,40
 param=param_599,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 cursor1=3,cursor_take
 desc=A scroll for a bull ant familiar.
@@ -203883,7 +204118,7 @@ name=Venom shot scroll
 param=param_394,19
 param=param_457,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,19
 cursor1=3,cursor_take
 desc=A scroll for a spirit scorpion familiar.
@@ -203905,7 +204140,7 @@ name=Insane ferocity scroll
 param=param_394,32
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,32
 cursor1=3,cursor_take
 desc=A scroll for a honey badger familiar.
@@ -203927,7 +204162,7 @@ name=Healing aura scroll
 param=param_394,88
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,88
 cursor1=3,cursor_take
 desc=A scroll for a unicorn stallion familiar.
@@ -203949,7 +204184,7 @@ name=Winter storage scroll
 param=param_394,96
 param=param_457,11
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,96
 cursor1=3,cursor_take
 desc=A scroll for a pack yak familiar.
@@ -203971,7 +204206,7 @@ name=Oph. incubation scroll
 param=param_394,63
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,63
 cursor1=3,cursor_take
 desc=A scroll for a spirit cobra familiar.
@@ -203993,7 +204228,7 @@ name=Magic focus scroll
 param=param_394,92
 param=param_457,11
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,92
 cursor1=3,cursor_take
 desc=A scroll for a wolpertinger familiar.
@@ -204015,7 +204250,7 @@ name=Swallow whole scroll
 param=param_394,68
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,68
 cursor1=3,cursor_take
 desc=A scroll for a bunyip familiar.
@@ -204037,7 +204272,7 @@ name=Testudo scroll
 param=param_394,67
 param=param_599,18
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,67
 cursor1=3,cursor_take
 desc=A scroll for a war tortoise familiar.
@@ -204059,7 +204294,7 @@ name=Generate compost scroll
 param=param_394,28
 param=param_457,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,28
 cursor1=3,cursor_take
 desc=A scroll for a compost mound familiar.
@@ -204081,7 +204316,7 @@ name=Tireless run scroll
 param=param_394,52
 param=param_599,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,52
 cursor1=3,cursor_take
 desc=A scroll for a spirit terrorbird familiar.
@@ -204103,7 +204338,7 @@ name=Regrowth scroll
 param=param_394,80
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,80
 cursor1=3,cursor_take
 desc=A scroll for a hydra familiar.
@@ -204125,7 +204360,7 @@ name=Call to arms scroll
 param=param_394,34
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,34
 cursor1=3,cursor_take
 desc=A scroll for a Pest Control familiar.
@@ -204147,7 +204382,7 @@ name=Blood drain scroll
 param=param_394,49
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,49
 cursor1=3,cursor_take
 desc=A scroll for a bloated leech familiar.
@@ -204169,7 +204404,7 @@ name=Dreadfowl strike scroll
 param=param_394,4
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 cursor1=3,cursor_take
 desc=A scroll for a dreadfowl familiar.
@@ -204191,7 +204426,7 @@ name=Sandstorm scroll
 param=param_394,25
 param=param_457,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,25
 cursor1=3,cursor_take
 desc=A scroll for a spirit kalphite familiar.
@@ -204213,7 +204448,7 @@ name=Vampire touch scroll
 param=param_394,31
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,31
 cursor1=3,cursor_take
 desc=A scroll for a vampyre bat familiar.
@@ -204236,7 +204471,7 @@ name=Evil flames scroll
 param=param_394,42
 param=param_457,5
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,42
 cursor1=3,cursor_take
 desc=A scroll for an evil turnip familiar.
@@ -204258,7 +204493,7 @@ name=Crushing claw scroll
 param=param_394,74
 param=param_457,9
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,74
 cursor1=3,cursor_take
 desc=A scroll for a granite lobster familiar.
@@ -204280,7 +204515,7 @@ name=Mantis strike scroll
 param=param_394,75
 param=param_457,9
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,75
 cursor1=3,cursor_take
 desc=A scroll for a praying mantis familiar.
@@ -204302,7 +204537,7 @@ name=Arctic blast scroll
 param=param_394,71
 param=param_599,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,71
 cursor1=3,cursor_take
 desc=A scroll for an arctic bear familiar.
@@ -204324,7 +204559,7 @@ name=Toad bark scroll
 param=param_394,66
 param=param_599,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,66
 cursor1=3,cursor_take
 desc=A scroll for a barker toad familiar.
@@ -204346,7 +204581,7 @@ name=Dissolve scroll
 param=param_394,55
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,55
 cursor1=3,cursor_take
 desc=A scroll for a spirit jelly familiar.
@@ -204368,7 +204603,7 @@ name=Abyssal drain scroll
 param=param_394,54
 param=param_457,5
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,54
 cursor1=3,cursor_take
 desc=A scroll for an abyssal parasite familiar.
@@ -204390,7 +204625,7 @@ name=Doomsphere scroll
 param=param_394,58
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,58
 cursor1=3,cursor_take
 desc=A scroll for a karamthulhu overlord familiar.
@@ -204412,7 +204647,7 @@ name=Spike shot scroll
 param=param_394,83
 param=param_599,18
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,83
 cursor1=3,cursor_take
 desc=A scroll for a spirit dagannoth familiar.
@@ -204434,7 +204669,7 @@ name=Acorn missile scroll
 param=param_394,78
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,78
 cursor1=3,cursor_take
 desc=A scroll for a giant ent familiar.
@@ -204456,7 +204691,7 @@ name=Petrifying gaze scroll
 param=param_394,43
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 cursor1=3,cursor_take
 desc=A scroll for a cockatrice variant familiar.
@@ -204478,7 +204713,7 @@ name=Slime spray scroll
 param=param_394,13
 param=param_599,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,13
 cursor1=3,cursor_take
 desc=A scroll for a thorny snail familiar.
@@ -204500,7 +204735,7 @@ name=Electric lash scroll
 param=param_394,18
 param=param_457,2
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,18
 cursor1=3,cursor_take
 desc=A scroll for a desert wyrm familiar.
@@ -204534,7 +204769,7 @@ name=Bronze bull rush scroll
 param=param_394,36
 param=param_457,5
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,36
 cursor1=3,cursor_take
 desc=A scroll for a bronze minotaur familiar.
@@ -204568,7 +204803,7 @@ name=Iron bull rush scroll
 param=param_394,46
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,46
 cursor1=3,cursor_take
 desc=A scroll for an iron minotaur familiar.
@@ -204602,7 +204837,7 @@ name=Steel bull rush scroll
 param=param_394,56
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,56
 cursor1=3,cursor_take
 desc=A scroll for a steel minotaur familiar.
@@ -204636,7 +204871,7 @@ name=Mith bull rush scroll
 param=param_394,66
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,66
 cursor1=3,cursor_take
 desc=A scroll for a mithril minotaur familiar.
@@ -204670,7 +204905,7 @@ name=Addy bull rush scroll
 param=param_394,76
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,76
 cursor1=3,cursor_take
 desc=A scroll for an adamant minotaur familiar.
@@ -204704,7 +204939,7 @@ name=Rune bull rush scroll
 param=param_394,86
 param=param_599,18
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,86
 cursor1=3,cursor_take
 desc=A scroll for a rune minotaur familiar.
@@ -204726,7 +204961,7 @@ name=Poisonous blast scroll
 param=param_394,64
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,64
 cursor1=3,cursor_take
 desc=A scroll for a stranger plant familiar.
@@ -204748,7 +204983,7 @@ name=Dust cloud scroll
 param=param_394,61
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,61
 cursor1=3,cursor_take
 desc=A scroll for a smoke devil familiar.
@@ -205343,7 +205578,7 @@ members=yes
 2dxan=519
 name=Baby giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -205361,7 +205596,7 @@ members=yes
 2dxan=519
 name=Giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -205540,7 +205775,7 @@ members=yes
 2dxan=60
 name=Terrier puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205557,7 +205792,7 @@ members=yes
 2dxan=60
 name=Terrier
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205575,7 +205810,7 @@ members=yes
 2dxan=33
 name=Greyhound puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205593,7 +205828,7 @@ members=yes
 2dxan=33
 name=Greyhound
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205611,7 +205846,7 @@ members=yes
 2dxan=2045
 name=Labrador puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205629,7 +205864,7 @@ members=yes
 2dxan=2045
 name=Labrador
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205647,7 +205882,7 @@ members=yes
 2dxan=153
 name=Dalmatian puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205665,7 +205900,7 @@ members=yes
 2dxan=153
 name=Dalmatian
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205683,7 +205918,7 @@ members=yes
 2dxan=39
 name=Sheepdog puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205701,7 +205936,7 @@ members=yes
 2dxan=39
 name=Sheepdog
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205719,7 +205954,7 @@ members=yes
 2dxan=21
 name=Bulldog puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205737,7 +205972,7 @@ members=yes
 2dxan=21
 name=Bulldog
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -205762,7 +205997,7 @@ recol2s=18451
 recol2d=32767
 name=Summoning cape
 param=param_258,1
-param=param_277,summoning
+param=param_277,animallore
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -205895,7 +206130,7 @@ name=Ibis pouch
 certlink=cert_lore_stork
 param=param_394,56
 param=param_457,77
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,56
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -205931,7 +206166,7 @@ name=Stony shell scroll
 param=param_394,16
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,16
 cursor1=3,cursor_take
 desc=A scroll for a granite crab familiar.
@@ -208976,7 +209211,7 @@ recol2s=26254
 recol2d=25269
 name=Terrier puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -208998,7 +209233,7 @@ recol2s=26254
 recol2d=25269
 name=Terrier
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209020,7 +209255,7 @@ recol2s=26254
 recol2d=10536
 name=Terrier puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209042,7 +209277,7 @@ recol2s=26254
 recol2d=10536
 name=Terrier
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209068,7 +209303,7 @@ recol4s=24142
 recol4d=24241
 name=Greyhound puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209094,7 +209329,7 @@ recol4s=24142
 recol4d=24241
 name=Greyhound
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209120,7 +209355,7 @@ recol4s=24142
 recol4d=20970
 name=Greyhound puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209146,7 +209381,7 @@ recol4s=24142
 recol4d=20970
 name=Greyhound
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209168,7 +209403,7 @@ recol2s=26388
 recol2d=8457
 name=Labrador puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209190,7 +209425,7 @@ recol2s=26388
 recol2d=8457
 name=Labrador
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209212,7 +209447,7 @@ recol2s=26388
 recol2d=14730
 name=Labrador puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209234,7 +209469,7 @@ recol2s=26388
 recol2d=14730
 name=Labrador
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209262,7 +209497,7 @@ recol5s=25300
 recol5d=28308
 name=Dalmatian puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209290,7 +209525,7 @@ recol5s=25300
 recol5d=28308
 name=Dalmatian
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209310,7 +209545,7 @@ recol1s=3171
 recol1d=8324
 name=Dalmatian puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209330,7 +209565,7 @@ recol1s=3171
 recol1d=8324
 name=Dalmatian
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209348,7 +209583,7 @@ members=yes
 2dxan=39
 name=Sheepdog puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209366,7 +209601,7 @@ members=yes
 2dxan=39
 name=Sheepdog
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209390,7 +209625,7 @@ recol3s=23220
 recol3d=26388
 name=Sheepdog puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209414,7 +209649,7 @@ recol3s=23220
 recol3d=26388
 name=Sheepdog
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209438,7 +209673,7 @@ recol3s=29591
 recol3d=10571
 name=Bulldog puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209462,7 +209697,7 @@ recol3s=29591
 recol3d=10571
 name=Bulldog
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209486,7 +209721,7 @@ recol3s=29591
 recol3d=21005
 name=Bulldog puppy
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -209510,7 +209745,7 @@ recol3s=29591
 recol3d=21005
 name=Bulldog
 param=param_394,4
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 param=param_764,131
 param=param_1397,1
@@ -210062,7 +210297,7 @@ recol4s=23053
 recol4d=9409
 name=Baby giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210088,7 +210323,7 @@ recol4s=23053
 recol4d=9409
 name=Giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210114,7 +210349,7 @@ recol4s=23053
 recol4d=22096
 name=Baby giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210140,7 +210375,7 @@ recol4s=23053
 recol4d=22096
 name=Giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210166,7 +210401,7 @@ recol4s=23053
 recol4d=17934
 name=Baby giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210192,7 +210427,7 @@ recol4s=23053
 recol4d=17934
 name=Giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210218,7 +210453,7 @@ recol4s=23053
 recol4d=18927
 name=Baby giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210244,7 +210479,7 @@ recol4s=23053
 recol4d=18927
 name=Giant crab
 param=param_394,40
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,40
 param=param_764,131
 param=param_1397,1
@@ -210688,7 +210923,7 @@ name=Swamp titan pouch
 certlink=cert_lore_swamp_titan
 param=param_394,85
 param=param_457,105
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,85
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210724,7 +210959,7 @@ name=Spirit mosquito pouch
 certlink=cert_lore_mosquito
 param=param_394,17
 param=param_457,1
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,17
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210760,7 +210995,7 @@ name=Void spinner pouch
 certlink=cert_lore_spinner
 param=param_394,34
 param=param_457,52
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,34
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210796,7 +211031,7 @@ name=Forge regent pouch
 certlink=cert_lore_flaming_prince
 param=param_394,76
 param=param_457,99
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,76
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210832,7 +211067,7 @@ name=Spirit larupia pouch
 certlink=cert_lore_larupita
 param=param_394,57
 param=param_457,109
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210868,7 +211103,7 @@ name=Geyser titan pouch
 certlink=cert_lore_geyser_titan
 param=param_394,89
 param=param_457,156
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,89
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210904,7 +211139,7 @@ name=Lava titan pouch
 certlink=cert_lore_lava_titan
 param=param_394,83
 param=param_457,154
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,83
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210940,7 +211175,7 @@ name=Steel titan pouch
 certlink=cert_lore_steel_titan
 param=param_394,99
 param=param_457,125
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,99
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -210976,7 +211211,7 @@ name=Obsidian golem pouch
 certlink=cert_lore_obsidian_golem
 param=param_394,73
 param=param_457,137
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,73
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211012,7 +211247,7 @@ name=Talon beast pouch
 certlink=cert_lore_nail_beast
 param=param_394,77
 param=param_457,122
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,77
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211048,7 +211283,7 @@ name=Abyssal titan pouch
 certlink=cert_lore_abyssal_titan
 param=param_394,93
 param=param_457,80
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,93
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211084,7 +211319,7 @@ name=Void torcher pouch
 certlink=cert_lore_torcher
 param=param_394,34
 param=param_457,52
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,34
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211120,7 +211355,7 @@ name=Giant chinchompa pouch
 certlink=cert_lore_chinchompa
 param=param_394,29
 param=param_457,59
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,29
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211156,7 +211391,7 @@ name=Fire titan pouch
 certlink=cert_lore_fire_titan
 param=param_394,79
 param=param_457,139
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,79
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211192,7 +211427,7 @@ name=Moss titan pouch
 certlink=cert_lore_moss_titan
 param=param_394,79
 param=param_457,142
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,79
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211228,7 +211463,7 @@ name=Ice titan pouch
 certlink=cert_lore_ice_titan
 param=param_394,79
 param=param_457,139
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,79
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211266,7 +211501,7 @@ name=Spirit tz-kih pouch
 certlink=cert_lore_tz_kih
 param=param_394,22
 param=param_457,45
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,22
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211302,7 +211537,7 @@ name=Spirit graahk pouch
 certlink=cert_lore_graahk
 param=param_394,57
 param=param_457,108
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211338,7 +211573,7 @@ name=Spirit kyatt pouch
 certlink=cert_lore_kyatt
 param=param_394,57
 param=param_457,108
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211374,7 +211609,7 @@ name=Void shifter pouch
 certlink=cert_lore_shifter
 param=param_394,34
 param=param_457,52
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,34
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211410,7 +211645,7 @@ name=Pyrelord pouch
 certlink=cert_lore_pyrefiend
 param=param_394,46
 param=param_457,78
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,46
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211446,7 +211681,7 @@ name=Void ravager pouch
 certlink=cert_lore_ravager
 param=param_394,34
 param=param_457,52
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,34
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211482,7 +211717,7 @@ name=Ravenous locust pouch
 certlink=cert_lore_locust
 param=param_394,70
 param=param_457,56
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,70
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211518,7 +211753,7 @@ name=Iron titan pouch
 certlink=cert_lore_iron_titan
 param=param_394,95
 param=param_457,139
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,95
 param=param_764,131
 param=param_540,lore_spirit_shard
@@ -211554,7 +211789,7 @@ name=Titan's con. scroll
 param=param_394,79
 param=param_457,11
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,79
 cursor1=3,cursor_take
 desc=A scroll for an elemental titan familiar.
@@ -211576,7 +211811,7 @@ name=Steel of legends scroll
 param=param_394,99
 param=param_457,9
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,99
 cursor1=3,cursor_take
 desc=A scroll for a steel titan familiar.
@@ -211598,7 +211833,7 @@ name=Volcanic str. scroll
 param=param_394,73
 param=param_457,10
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,73
 cursor1=3,cursor_take
 desc=A scroll for an obsidian golem familiar.
@@ -211620,7 +211855,7 @@ name=Essence shipment scroll
 param=param_394,93
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,93
 cursor1=3,cursor_take
 desc=A scroll for an abyssal titan familiar.
@@ -211642,7 +211877,7 @@ name=Iron within scroll
 param=param_394,95
 param=param_457,11
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,95
 cursor1=3,cursor_take
 desc=A scroll for an iron titan familiar.
@@ -211664,7 +211899,7 @@ name=Immense heat scroll
 param=param_394,46
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,46
 cursor1=3,cursor_take
 desc=A scroll for a pyrelord familiar.
@@ -211686,7 +211921,7 @@ name=Famine scroll
 param=param_394,70
 param=param_457,6
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,70
 cursor1=3,cursor_take
 desc=A scroll for a ravenous locust familiar.
@@ -211708,7 +211943,7 @@ name=Deadly claw scroll
 param=param_394,77
 param=param_457,9
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,77
 cursor1=3,cursor_take
 desc=A scroll for a talon beast familiar.
@@ -211730,7 +211965,7 @@ name=Swamp plague scroll
 param=param_394,85
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,85
 cursor1=3,cursor_take
 desc=A scroll for a swamp titan familiar.
@@ -211752,7 +211987,7 @@ name=Boil scroll
 param=param_394,89
 param=param_457,12
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,89
 cursor1=3,cursor_take
 desc=A scroll for a geyser titan familiar.
@@ -211774,7 +212009,7 @@ name=Explode scroll
 param=param_394,29
 param=param_457,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,29
 cursor1=3,cursor_take
 desc=A scroll for a giant chinchompa familiar.
@@ -211796,7 +212031,7 @@ name=Goad scroll
 param=param_394,57
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 cursor1=3,cursor_take
 desc=A scroll for a spirit graahk familiar.
@@ -211818,7 +212053,7 @@ name=Ambush scroll
 param=param_394,57
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 cursor1=3,cursor_take
 desc=A scroll for a spirit kyatt familiar.
@@ -211840,7 +212075,7 @@ name=Ebon thunder scroll
 param=param_394,83
 param=param_457,12
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,83
 cursor1=3,cursor_take
 desc=A scroll for a lava titan familiar.
@@ -211862,7 +212097,7 @@ name=Pester scroll
 param=param_394,17
 param=param_599,18
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,17
 cursor1=3,cursor_take
 desc=A scroll for a spirit mosquito familiar.
@@ -211884,7 +212119,7 @@ name=Fireball assault scroll
 param=param_394,22
 param=param_457,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,22
 cursor1=3,cursor_take
 desc=A scroll for a spirit Tz-Kih familiar.
@@ -211906,7 +212141,7 @@ name=Rending scroll
 param=param_394,57
 param=param_457,8
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 cursor1=3,cursor_take
 desc=A scroll for a spirit larupia familiar.
@@ -211928,7 +212163,7 @@ name=Inferno scroll
 param=param_394,76
 param=param_457,7
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,76
 cursor1=3,cursor_take
 desc=A scroll for a forge regent familiar.
@@ -231856,7 +232091,7 @@ param=param_528,Sorceress's Garden
 param=param_1397,1
 icursor2=2,cursor_wield
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A threat to dusty corners everywhere.
 wearpos=righthand
@@ -231880,7 +232115,7 @@ param=param_59,1
 param=param_1397,1
 icursor1=1,cursor_drink
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=What a curious and ghoulish smell!
 wearpos=righthand
@@ -231931,7 +232166,7 @@ recolhsl2d=46686
 name=Magic unguent
 param=param_1397,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Purple and pungent.
 
@@ -231948,7 +232183,7 @@ cost=2
 name=Broom ointment
 param=param_1397,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=To be used on brooms.
 
@@ -231966,7 +232201,7 @@ womanwear=model_42691
 dummyitem=2
 womanwearoff=3,-11,6
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 
 // 14064
 [swept_newt]
@@ -231984,7 +232219,7 @@ cost=5
 name=Newt
 womanwearoff=3,-11,6
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A newt from Hetty's basement.
 wearpos=righthand
@@ -231999,7 +232234,7 @@ cost=1
 name=Newt label
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A label for a shipping crate.
 
@@ -232013,7 +232248,7 @@ cost=1
 name=Toad label
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A label for a shipping crate.
 
@@ -232027,7 +232262,7 @@ cost=1
 name=Newts and toads label
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=A label for a shipping crate.
 
@@ -232044,7 +232279,7 @@ cost=15
 name=Betty's wand
 param=param_1397,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Warm to the touch.
 
@@ -232063,7 +232298,7 @@ name=Magic slate
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=What a view!
 
@@ -232079,7 +232314,7 @@ cost=1
 name=Reptile
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Desert dweller.
 
@@ -232095,7 +232330,7 @@ cost=1
 name=Blackbird
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Bleak and beaky.
 
@@ -232112,7 +232347,7 @@ cost=1
 name=Bat
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Most at home in a dead tree.
 
@@ -232129,7 +232364,7 @@ cost=1
 name=Spider
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Isn't eight legs rather excessive?
 
@@ -232145,7 +232380,7 @@ cost=1
 name=Rat
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Cheese-eater.
 
@@ -232162,7 +232397,7 @@ cost=1
 name=Snail
 param=param_59,1
 cursor1=3,cursor_take
-quest=20
+quest=swept_away
 tradeable=no
 desc=Rather quick, considering.
 
@@ -239900,7 +240135,7 @@ iop5=Destroy
 name=Stones
 param=param_1397,1
 cursor1=3,cursor_take
-quest=74
+quest=myths_of_the_white_lands
 tradeable=no
 desc=Explorer Jack's 'riches'. They have a suspicious look to them.
 
@@ -239917,7 +240152,7 @@ iop5=Destroy
 name=Enchanted stones
 param=param_1397,1
 cursor1=3,cursor_take
-quest=74
+quest=myths_of_the_white_lands
 tradeable=no
 desc=According to the snow imps, this is enchanted, frozen yeti dung.
 
@@ -240408,7 +240643,7 @@ param=param_394,72
 param=param_457,9
 param=param_764,131
 param=param_765,146
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,72
 cursor1=3,cursor_take
 desc=A scroll for a phoenix familiar.
@@ -240430,7 +240665,7 @@ name=Phoenix pouch
 certlink=cert_lore_phoenix
 param=param_394,72
 param=param_457,114
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,72
 param=param_764,131
 param=param_765,146
@@ -252521,7 +252756,7 @@ iop5=Destroy
 name=Talisman
 param=param_1397,1
 cursor1=3,cursor_take
-quest=55
+quest=rune_mysteries
 tradeable=no
 desc=A mysterious power emanates from the talisman...
 
@@ -253453,7 +253688,7 @@ iop5=Destroy
 2dxan=207
 name=Super large egg
 cursor1=3,cursor_take
-quest=6
+quest=cook_quest
 tradeable=no
 desc=That is pretty big.
 param=param_1,You'll have to pick up another from near the chickens.
@@ -253469,7 +253704,7 @@ model=model_50958
 iop5=Destroy
 name=Top-quality milk
 cursor1=3,cursor_take
-quest=6
+quest=cook_quest
 tradeable=no
 desc=The best milk from a prize-winning cow.
 param=param_1,You'll have to milk the prized cow again.
@@ -253486,7 +253721,7 @@ cost=2
 iop5=Destroy
 name=Extra fine flour
 cursor1=3,cursor_take
-quest=6
+quest=cook_quest
 tradeable=no
 desc=The perfect flour for a perfect cake.
 param=param_1,You'll have to visit the mill again.
@@ -301654,7 +301889,7 @@ name=Sundering strike (tier 1)
 param=param_394,1
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,1
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301679,7 +301914,7 @@ name=Sundering strike (tier 2)
 param=param_394,11
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,11
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301704,7 +301939,7 @@ name=Sundering strike (tier 3)
 param=param_394,21
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,21
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301729,7 +301964,7 @@ name=Sundering strike (tier 4)
 param=param_394,31
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,31
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301754,7 +301989,7 @@ name=Sundering strike (tier 5)
 param=param_394,41
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,41
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301779,7 +302014,7 @@ name=Sundering strike (tier 6)
 param=param_394,51
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,51
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301804,7 +302039,7 @@ name=Sundering strike (tier 7)
 param=param_394,61
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,61
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301829,7 +302064,7 @@ name=Sundering strike (tier 8)
 param=param_394,71
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,71
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301854,7 +302089,7 @@ name=Sundering strike (tier 9)
 param=param_394,81
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,81
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301879,7 +302114,7 @@ name=Sundering strike (tier 10)
 param=param_394,91
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,91
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301904,7 +302139,7 @@ name=Poisonous shot (tier 1)
 param=param_394,2
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,2
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301929,7 +302164,7 @@ name=Poisonous shot (tier 2)
 param=param_394,12
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,12
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301954,7 +302189,7 @@ name=Poisonous shot (tier 3)
 param=param_394,22
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,22
 param=param_1047,1
 cursor1=3,cursor_take
@@ -301979,7 +302214,7 @@ name=Poisonous shot (tier 4)
 param=param_394,32
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,32
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302004,7 +302239,7 @@ name=Poisonous shot (tier 5)
 param=param_394,42
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,42
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302029,7 +302264,7 @@ name=Poisonous shot (tier 6)
 param=param_394,52
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,52
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302054,7 +302289,7 @@ name=Poisonous shot (tier 7)
 param=param_394,62
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,62
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302079,7 +302314,7 @@ name=Poisonous shot (tier 8)
 param=param_394,72
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,72
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302104,7 +302339,7 @@ name=Poisonous shot (tier 9)
 param=param_394,82
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,82
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302129,7 +302364,7 @@ name=Poisonous shot (tier 10)
 param=param_394,92
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,92
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302154,7 +302389,7 @@ name=Snaring wave (tier 1)
 param=param_394,3
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,3
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302179,7 +302414,7 @@ name=Snaring wave (tier 2)
 param=param_394,13
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,13
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302204,7 +302439,7 @@ name=Snaring wave (tier 3)
 param=param_394,23
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,23
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302229,7 +302464,7 @@ name=Snaring wave (tier 4)
 param=param_394,33
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,33
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302254,7 +302489,7 @@ name=Snaring wave (tier 5)
 param=param_394,43
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,43
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302279,7 +302514,7 @@ name=Snaring wave (tier 6)
 param=param_394,53
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,53
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302304,7 +302539,7 @@ name=Snaring wave (tier 7)
 param=param_394,63
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,63
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302329,7 +302564,7 @@ name=Snaring wave (tier 8)
 param=param_394,73
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,73
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302354,7 +302589,7 @@ name=Snaring wave (tier 9)
 param=param_394,83
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,83
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302379,7 +302614,7 @@ name=Snaring wave (tier 10)
 param=param_394,93
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,93
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302404,7 +302639,7 @@ name=Aptitude (tier 1)
 param=param_394,5
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,5
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302429,7 +302664,7 @@ name=Aptitude (tier 2)
 param=param_394,15
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,15
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302454,7 +302689,7 @@ name=Aptitude (tier 3)
 param=param_394,25
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,25
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302479,7 +302714,7 @@ name=Aptitude (tier 4)
 param=param_394,35
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,35
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302504,7 +302739,7 @@ name=Aptitude (tier 5)
 param=param_394,45
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,45
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302529,7 +302764,7 @@ name=Aptitude (tier 6)
 param=param_394,55
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,55
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302554,7 +302789,7 @@ name=Aptitude (tier 7)
 param=param_394,65
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,65
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302579,7 +302814,7 @@ name=Aptitude (tier 8)
 param=param_394,75
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,75
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302604,7 +302839,7 @@ name=Aptitude (tier 9)
 param=param_394,85
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,85
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302629,7 +302864,7 @@ name=Aptitude (tier 10)
 param=param_394,95
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,95
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302654,7 +302889,7 @@ name=Second wind (tier 1)
 param=param_394,7
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,7
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302679,7 +302914,7 @@ name=Second wind (tier 2)
 param=param_394,17
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,17
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302704,7 +302939,7 @@ name=Second wind (tier 3)
 param=param_394,27
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,27
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302729,7 +302964,7 @@ name=Second wind (tier 4)
 param=param_394,37
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,37
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302754,7 +302989,7 @@ name=Second wind (tier 5)
 param=param_394,47
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,47
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302779,7 +303014,7 @@ name=Second wind (tier 6)
 param=param_394,57
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,57
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302804,7 +303039,7 @@ name=Second wind (tier 7)
 param=param_394,67
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,67
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302829,7 +303064,7 @@ name=Second wind (tier 8)
 param=param_394,77
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,77
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302854,7 +303089,7 @@ name=Second wind (tier 9)
 param=param_394,87
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,87
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302879,7 +303114,7 @@ name=Second wind (tier 10)
 param=param_394,97
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,97
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302904,7 +303139,7 @@ name=Glimmer of light (tier 1)
 param=param_394,9
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,9
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302929,7 +303164,7 @@ name=Glimmer of light (tier 2)
 param=param_394,19
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,19
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302954,7 +303189,7 @@ name=Glimmer of light (tier 3)
 param=param_394,29
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,29
 param=param_1047,1
 cursor1=3,cursor_take
@@ -302979,7 +303214,7 @@ name=Glimmer of light (tier 4)
 param=param_394,39
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,39
 param=param_1047,1
 cursor1=3,cursor_take
@@ -303004,7 +303239,7 @@ name=Glimmer of light (tier 5)
 param=param_394,49
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,49
 param=param_1047,1
 cursor1=3,cursor_take
@@ -303029,7 +303264,7 @@ name=Glimmer of light (tier 6)
 param=param_394,59
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,59
 param=param_1047,1
 cursor1=3,cursor_take
@@ -303054,7 +303289,7 @@ name=Glimmer of light (tier 7)
 param=param_394,69
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,69
 param=param_1047,1
 cursor1=3,cursor_take
@@ -303079,7 +303314,7 @@ name=Glimmer of light (tier 8)
 param=param_394,79
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,79
 param=param_1047,1
 cursor1=3,cursor_take
@@ -303104,7 +303339,7 @@ name=Glimmer of light (tier 9)
 param=param_394,89
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,89
 param=param_1047,1
 cursor1=3,cursor_take
@@ -303129,7 +303364,7 @@ name=Glimmer of light (tier 10)
 param=param_394,99
 param=param_599,3
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,99
 param=param_1047,1
 cursor1=3,cursor_take
@@ -309665,7 +309900,7 @@ retex1d=material_256
 name=Dungeoneering cape
 param=param_528,Boost
 param=param_258,1
-param=param_277,dungeoneering
+param=param_277,rand
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -309688,7 +309923,7 @@ retex1d=material_256
 name=Dungeoneering cape (t)
 param=param_528,Boost
 param=param_259,1
-param=param_277,dungeoneering
+param=param_277,rand
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -309714,7 +309949,7 @@ recol2d=7232
 recol3s=1118
 recol3d=0
 name=Dungeoneering hood
-param=param_277,dungeoneering
+param=param_277,rand
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -310895,7 +311130,7 @@ name=Dodgy flyer
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=174
+quest=thigui
 tradeable=no
 desc=Someone has put a great deal of effort into this handwritten flyer.
 
@@ -310913,7 +311148,7 @@ iop1=Read
 name=Thieves' guild pamphlet
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=174
+quest=thigui
 tradeable=no
 desc=Full of useful advice, Thieving XP and handy tips for budding bandits!
 
@@ -310938,7 +311173,7 @@ recolhsl3d=8758
 name=Complex key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=174
+quest=thigui
 tradeable=no
 desc=A small, complex key to fit a display case.
 
@@ -310958,7 +311193,7 @@ members=yes
 name=Golden chalice
 param=param_1397,1
 cursor1=3,cursor_take
-quest=174
+quest=thigui
 tradeable=no
 desc=Very valuable to the right collector.
 
@@ -311439,7 +311674,7 @@ name=Tooth extractor
 womanwearoff=3,-11,6
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=Also called a BITE .
 wearpos=lefthand
@@ -311459,7 +311694,7 @@ ambient=15
 name=Gnarly
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=The gruff, mischievous pet of the Tooth Fairy.
 
@@ -311483,7 +311718,7 @@ name=Fairy dossier
 param=param_1397,1
 icursor1=2,cursor_read
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A dossier detailing battle plans against the Fairy Godfather.
 
@@ -311500,7 +311735,7 @@ ambient=15
 name=Mango
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A juicy-looking mango, but still quite firm to the touch.
 
@@ -311519,7 +311754,7 @@ ambient=15
 name=Mango with tooth
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A juicy-looking mango with a tooth stuck in it.
 
@@ -311539,7 +311774,7 @@ ambient=15
 name=Bre'egth's tooth
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A gnarled and slightly mushy ork tooth.
 
@@ -311559,7 +311794,7 @@ ambient=15
 name=Shredflesh's tooth
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A barely identifiable ork tooth. Much like an ork, it's rotten to the core.
 
@@ -311579,7 +311814,7 @@ ambient=15
 name=Gromblod's tooth
 param=param_1397,1
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=A disgustingly rotten ork tooth. It hasn't been brushed in a long time...if ever.
 
@@ -311601,7 +311836,7 @@ name=Fairy wand
 womanwearoff=3,-11,6
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
-quest=175
+quest=fairy_tale_part_3
 tradeable=no
 desc=The '#ZFW1 combat apparatus' - it's a magic wand.
 wearpos=righthand
@@ -311669,7 +311904,7 @@ name=Ragged book
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=Book of the Elemental Body, there is a raised relief on the front.
 
@@ -311689,7 +311924,7 @@ iop5=Destroy
 name=Key mould
 param=param_1397,1
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A key mould, made from a ragged book.
 
@@ -311706,7 +311941,7 @@ iop5=Destroy
 name=Ragged silver key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A small silver key.
 
@@ -311723,7 +311958,7 @@ iop5=Destroy
 name=Ragged gold key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A small gold key.
 
@@ -311740,7 +311975,7 @@ iop5=Destroy
 name=Ragged elemental key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A small elemental key.
 
@@ -311926,7 +312161,7 @@ name=Diagram
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=A scroll with a diagram drawn on it.
 
@@ -311946,7 +312181,7 @@ param=param_59,1
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=176
+quest=quest_176
 tradeable=no
 desc=Educate yourself.
 
@@ -313788,7 +314023,7 @@ iop5=Destroy
 name=Mabel's ring
 param=param_1397,1
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=It doesn't look very valuable, but Mabel likes it.
 
@@ -313805,7 +314040,7 @@ iop5=Destroy
 name=Twig
 param=param_1397,1
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=A completely ordinary twig.
 
@@ -313819,7 +314054,7 @@ iop5=Destroy
 name=Dummy
 param=param_1397,1
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=Lets you find incredibly dangerous traps without suffering.
 
@@ -313836,7 +314071,7 @@ name=Teleport to house (chipped)
 param=param_1397,1
 icursor1=1,cursor_open
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=The tablet has been chipped and can now be opened.
 
@@ -313853,7 +314088,7 @@ iop5=Destroy
 name=Teleport to house (chipped)
 param=param_1397,1
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=The spell in this tablet has been modified.
 
@@ -313874,7 +314109,7 @@ recol2s=24288
 recol2d=15618
 name=Mabel's lamp
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 tradeable=no
 desc=A battered lamp that belonged to Mabel.
 
@@ -313976,7 +314211,7 @@ iop5=Destroy
 name=Junk
 param=param_59,1
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 
 // 18816
 [love_wom_house]
@@ -313992,7 +314227,7 @@ iop5=Destroy
 name=Junk
 param=param_59,1
 cursor1=3,cursor_take
-quest=11
+quest=lovestory
 
 // 18817
 [rand_tank_ring]
@@ -325982,7 +326217,7 @@ stockmarket=yes
 name=Fetch casket scroll
 param=param_394,4
 param=param_764,131
-param=param_770,summoning
+param=param_770,animallore
 param=param_771,4
 cursor1=3,cursor_take
 desc=A scroll for meerkat familiars.
@@ -326025,7 +326260,7 @@ womanwear=model_58683
 name=Puzzle box
 param=param_1397,1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Crack the puzzle to win a fabulous prize!
 
@@ -326041,7 +326276,7 @@ womanwear=model_58683
 name=Puzzle box
 param=param_1397,1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=I need to solve this!
 
@@ -326059,7 +326294,7 @@ name=Mysterious clue scroll
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=The strange scroll that led Ali Tist to a stash of dubious boxes.
 
@@ -326075,7 +326310,7 @@ name=Blocks (iron oxide)
 param=param_59,1
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This chemical can be used to help balance the mixture.
 
@@ -326092,7 +326327,7 @@ name=Gas vial (chlorine)
 param=param_59,1
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 
 // 19629
 [vkq2_chem_powder]
@@ -326105,7 +326340,7 @@ name=Powder (copper sulphate)
 param=param_59,1
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 
 // 19630
 [vkq2_chem_liquid]
@@ -326120,7 +326355,7 @@ name=Liquid (uric acid)
 param=param_59,1
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 
 // 19631
 [vkq2_insignia]
@@ -326135,7 +326370,7 @@ iop5=Destroy
 name=Black knight access insignia
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Black Knight Industrial Team badge.
 
@@ -326152,7 +326387,7 @@ iop5=Destroy
 name=Rusty anchor cellar key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This key allows access to the cellar of the Rusty Anchor.
 
@@ -326167,7 +326402,7 @@ iop5=Destroy
 name=Search warrant
 param=param_1397,1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This document entitles the bearer to search the stock of one Ali Tist.
 
@@ -326182,7 +326417,7 @@ iop5=Destroy
 name=Void drone 'bug'
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=A void drone summoned by Jessika.
 
@@ -326203,7 +326438,7 @@ name=Void knight whistle
 womanwearoff=0,6,0
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Blow this if you get into difficulties.
 
@@ -326225,7 +326460,7 @@ recol3d=9377
 name=Jointed log
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This log has a tenon joint cut into it.
 
@@ -326244,7 +326479,7 @@ recol2d=14662
 name=Jointed plank
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This log has a mortise cut into it.
 
@@ -326271,7 +326506,7 @@ recol5d=14662
 name=Joist
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=A sturdy wooden joist.
 
@@ -326286,7 +326521,7 @@ iop5=Destroy
 name=Wood shards
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Broken bits of tooled, waxy wood.
 
@@ -326326,7 +326561,7 @@ iop5=Destroy
 name=Commorb
 param=param_1397,1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Use this to stay in touch with Korasi and Jessika.
 
@@ -326406,7 +326641,7 @@ iop5=Destroy
 name=Black knight workshop key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=A key to the secure area of the Black Knights' workshop.
 
@@ -326422,7 +326657,7 @@ iop5=Destroy
 name=Curious tool
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=This might come in handy.
 
@@ -326437,7 +326672,7 @@ iop5=Destroy
 name=Metal strip
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Unscrewed from the frame of a Black Knight workbench.
 
@@ -326455,7 +326690,7 @@ iop5=Destroy
 name=Hook
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Pried loose from a Black Knight workbench.
 
@@ -326474,7 +326709,7 @@ womanwear=model_58682
 name=Gaff
 param=param_1397,-1
 cursor1=3,cursor_take
-quest=83
+quest=vkq2
 tradeable=no
 desc=Jury-rigged, but it might do the job.
 
@@ -327438,7 +327673,7 @@ retex1d=material_256
 name=Dungeoneering master cape
 param=param_528,Boost
 param=param_258,1
-param=param_277,dungeoneering
+param=param_277,rand
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
 tradeable=no
@@ -328455,7 +328690,7 @@ iop5=Destroy
 name=Ring from jeffery
 param=param_1397,1
 cursor1=3,cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=A gold ring made by Jeffery of Edgeville. It doesn't look particularly special to you.
 
@@ -328471,7 +328706,7 @@ iop5=Destroy
 name=Dororan's engraved ring
 param=param_1397,1
 cursor1=3,cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=This ring is engraved 'Gudrun the Fair, Gudrun the Fiery'.
 
@@ -328489,7 +328724,7 @@ name=Gunnar's ground
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=A poem to convince Gunthor to settle the barbarians permanently.
 
@@ -328522,7 +328757,7 @@ iop5=Destroy
 name=Love poem
 param=param_1397,1
 cursor1=3,cursor_take
-quest=179
+quest=romcom
 tradeable=no
 desc=Laying everybody low with a love poem that he made.
 
@@ -328621,7 +328856,7 @@ param=param_686,6
 param=param_687,1
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=The sword of a Void Knight.
 wearpos=righthand
@@ -328651,7 +328886,7 @@ param=param_749,defence
 param=param_750,10
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=This armour has been modified to track your movements.
 wearpos=torso
@@ -328681,7 +328916,7 @@ param=param_749,defence
 param=param_750,10
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=This armour has been modified to track your movements.
 wearpos=legs
@@ -328709,7 +328944,7 @@ param=param_749,defence
 param=param_750,10
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=This armour has been modified to track your movements.
 wearpos=hat
@@ -328921,7 +329156,7 @@ members=yes
 iop5=Destroy
 name=Security block
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A section of the Black Knights' security system.
 
@@ -328936,7 +329171,7 @@ members=yes
 iop5=Destroy
 name=Broken security block
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A shattered section of the Black Knights' security system.
 
@@ -328953,7 +329188,7 @@ name=Key block labelled "2"
 param=param_1225,2
 param=param_1226,4
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 2.
 
@@ -328970,7 +329205,7 @@ name=Key block labelled "3"
 param=param_1225,3
 param=param_1226,2
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 3.
 
@@ -328988,7 +329223,7 @@ name=Key block labelled "4"
 param=param_1225,4
 param=param_1226,6
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 4.
 
@@ -329006,7 +329241,7 @@ name=Key block labelled "5"
 param=param_1225,5
 param=param_1226,3
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 5.
 
@@ -329024,7 +329259,7 @@ name=Key block labelled "6"
 param=param_1225,6
 param=param_1226,5
 cursor1=3,cursor_take
-quest=180
+quest=vkq3_lie_in_ruins
 tradeable=no
 desc=A stamped block of metal from a box marked 6.
 
@@ -330518,7 +330753,7 @@ cost=18000
 name=Spirit cape
 param=param_749,defence
 param=param_750,50
-param=param_751,summoning
+param=param_751,animallore
 param=param_752,50
 icursor1=2,cursor_wield
 cursor1=3,cursor_take
@@ -334470,7 +334705,7 @@ param=param_1397,1
 icursor1=1,cursor_open
 cursor1=3,cursor_take
 icursor2=3,cursor_talkto
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A squealing, rocking barrel of simians.
 
@@ -334488,7 +334723,7 @@ iop5=Destroy
 name=Monkey knife
 param=param_1397,1
 cursor1=3,cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A small knife, perfect for a monkey.
 
@@ -334506,7 +334741,7 @@ name=Metal crate
 param=param_1397,1
 icursor1=1,cursor_open
 cursor1=3,cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A large, metal crate.
 
@@ -334526,7 +334761,7 @@ name=Economy building for dummies
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A small book that teaches strong economy building.
 
@@ -334544,7 +334779,7 @@ iop5=Destroy
 name=Bundle of carpets
 param=param_1397,1
 cursor1=3,cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=This bundle of magic carpets is an entrepreneur's dream.
 
@@ -334728,7 +334963,7 @@ recol3d=11909
 name=Green banana
 param=param_1397,1
 cursor1=3,cursor_take
-quest=183
+quest=apmeken_quest
 tradeable=no
 desc=A nearly ripe banana.
 
@@ -335000,7 +335235,7 @@ members=yes
 name=Miner
 param=param_59,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20086
@@ -335017,7 +335252,7 @@ recolhsl1d=5153
 name=Miner
 param=param_59,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20087
@@ -335032,7 +335267,7 @@ members=yes
 name=Miner
 param=param_59,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20088
@@ -335047,7 +335282,7 @@ members=yes
 name=Miner
 param=param_59,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20089
@@ -335064,7 +335299,7 @@ recolhsl1d=5267
 name=Miner
 param=param_59,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20090
@@ -335081,7 +335316,7 @@ recol1d=11428
 name=Miner
 param=param_59,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 desc=A dwarf lava-flow miner.
 
 // 20091
@@ -335141,7 +335376,7 @@ members=yes
 iop5=Destroy
 name=Pretty flower
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=How pretty!
 
@@ -335185,7 +335420,7 @@ iop5=Destroy
 name=Keldagrim library key
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=A key to the Keldagrim Library display case.
 
@@ -335213,7 +335448,7 @@ iop5=Destroy
 name=Keldagrim key mould 1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=A mould of one of the six keys to Keldagrim's records chamber.
 
@@ -335229,7 +335464,7 @@ iop5=Destroy
 name=Keldagrim key mould 2
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20100
 [ra4_key_mould_3]
@@ -335243,7 +335478,7 @@ iop5=Destroy
 name=Keldagrim key mould 3
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20101
 [ra4_key_mould_4]
@@ -335257,7 +335492,7 @@ iop5=Destroy
 name=Keldagrim key mould 4
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20102
 [ra4_key_mould_5]
@@ -335271,7 +335506,7 @@ iop5=Destroy
 name=Keldagrim key mould 5
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20103
 [ra4_key_mould_6]
@@ -335285,7 +335520,7 @@ iop5=Destroy
 name=Keldagrim key mould 6
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20104
 [ra4_key_1]
@@ -335301,7 +335536,7 @@ iop5=Destroy
 name=Keldagrim key 1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 tradeable=no
 desc=A duplicate of one of the six keys to Keldagrim's records chamber.
 
@@ -335319,7 +335554,7 @@ iop5=Destroy
 name=Keldagrim key 2
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20106
 [ra4_key_3]
@@ -335335,7 +335570,7 @@ iop5=Destroy
 name=Keldagrim key 3
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20107
 [ra4_key_4]
@@ -335351,7 +335586,7 @@ iop5=Destroy
 name=Keldagrim key 4
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20108
 [ra4_key_5]
@@ -335367,7 +335602,7 @@ iop5=Destroy
 name=Keldagrim key 5
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20109
 [ra4_key_6]
@@ -335383,7 +335618,7 @@ iop5=Destroy
 name=Keldagrim key 6
 param=param_1397,1
 cursor1=3,cursor_take
-quest=185
+quest=king_of_the_dwarves
 
 // 20110
 [ra4_records_chamber_key_dummy]
@@ -337046,7 +337281,7 @@ recol1s=29597
 recol1d=11561
 name=Minute crystal seed
 cursor1=3,cursor_take
-quest=186
+quest=prisoner_of_glouphrie
 
 // 20210
 [glo3_clear_circle]
@@ -338151,7 +338386,7 @@ name=A handwritten book
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=186
+quest=prisoner_of_glouphrie
 
 // 20259
 [glo3_schematic_right_page]
@@ -340326,7 +340561,7 @@ name=Keyblade
 womanwearoff=3,-11,6
 param=param_1397,1
 cursor1=3,cursor_take
-quest=187
+quest=quest_187
 
 // 20431
 [elem4_cosmic_book]
@@ -340343,7 +340578,7 @@ name=Notched book
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=187
+quest=quest_187
 
 // 20432
 [elem4_chaos_book]
@@ -340360,7 +340595,7 @@ name=Shabby book
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=187
+quest=quest_187
 
 // 20433
 [elem4_cosmic_bar]
@@ -340378,7 +340613,7 @@ recol1d=32736
 name=Cosmic bar
 womanwearoff=3,-11,6
 cursor1=3,cursor_take
-quest=187
+quest=quest_187
 
 // 20434
 [elem4_chaos_bar]
@@ -340396,7 +340631,7 @@ recol1d=10468
 name=Chaos bar
 womanwearoff=3,-11,6
 cursor1=3,cursor_take
-quest=187
+quest=quest_187
 
 // 20435
 [elem4_astral_tile]
@@ -340409,7 +340644,7 @@ iop5=Destroy
 name=Astral token
 param=param_1397,1
 cursor1=3,cursor_take
-quest=187
+quest=quest_187
 
 // 20436
 [elem4_cosmic_shield]
@@ -344280,7 +344515,7 @@ name=Delivery note
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20675
 [acs_pirate_spell_sheet]
@@ -344308,7 +344543,7 @@ recol4d=1093
 name=Pirate spell sheet
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20676
 [acs_zombie_head_default]
@@ -344325,7 +344560,7 @@ iop5=Destroy
 name=Zombie head
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20677
 [acs_saturday_night_special_locked]
@@ -344341,7 +344576,7 @@ iop5=Destroy
 name=Twiblik night special
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20678
 [acs_saturday_night_special_unlocked]
@@ -344359,7 +344594,7 @@ name=Twiblik night special
 param=param_1397,1
 icursor1=1,cursor_open
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20679
 [acs_saturday_night_special_open]
@@ -344376,7 +344611,7 @@ iop5=Destroy
 name=Twiblik night special
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20680
 [acs_gunpowder]
@@ -344396,7 +344631,7 @@ name=Gunpowder
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20681
 [acs_cannonball]
@@ -344414,7 +344649,7 @@ name=Cannonball
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20682
 [acs_chain]
@@ -344430,7 +344665,7 @@ name=Chain
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20683
 [acs_chain_heated]
@@ -344468,7 +344703,7 @@ name=Heated chain
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20684
 [acs_ball_and_chain]
@@ -344486,7 +344721,7 @@ name=Cannonball and chain
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20685
 [acs_barrel]
@@ -344503,7 +344738,7 @@ name=Barrel
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20686
 [acs_cannonball_barrel_boat]
@@ -344523,7 +344758,7 @@ param=render_emote,bas_1119
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20687
 [acs_disguise_bandage]
@@ -344540,7 +344775,7 @@ name=Roll of bandage
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20688
 [acs_disguise_mask]
@@ -344556,7 +344791,7 @@ name=Surgical mask
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20689
 [acs_disguise_parts]
@@ -344574,7 +344809,7 @@ name=Barrelchest parts
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20690
 [acs_barrelchest_disguise]
@@ -344592,7 +344827,7 @@ name=Barrelchest disguise
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20691
 [acs_evidence_file]
@@ -344612,7 +344847,7 @@ param=param_59,1
 param=param_1397,1
 icursor1=1,cursor_read
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20692
 [acs_kegchest_barrel]
@@ -344629,7 +344864,7 @@ name=Gunpowder-filled barrel
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20693
 [acs_powder_keg_stash]
@@ -344647,7 +344882,7 @@ name=Bundle o' kegs
 param=param_59,1
 param=param_1397,1
 cursor1=3,cursor_take
-quest=188
+quest=clockwork_syringe
 
 // 20694
 [72_tele_falador]

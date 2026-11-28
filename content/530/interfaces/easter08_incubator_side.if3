@@ -250,7 +250,7 @@ y=8
 width=173
 height=92
 layer=target_update_layer
-textfont=fontmetrics_497
+textfont=q8_full
 text=Temperature reached!<br><br>New target<br>temperature set.
 textalignh=centre
 textalignv=centre
@@ -316,7 +316,7 @@ x=167
 y=4
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -373,7 +373,7 @@ x=156
 y=197
 width=25
 height=25
-graphic=graphic_774
+graphic="easter_08_icon,0"
 
 // 717:32
 [com_32]
@@ -382,7 +382,7 @@ x=11
 y=196
 width=25
 height=25
-graphic=graphic_775
+graphic="easter_08_icon,1"
 
 // 717:33
 [water_highlight_layer]

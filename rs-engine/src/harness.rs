@@ -14,7 +14,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{profile_from_save, to_save};
 use crate::clients::client_game::create_io;
-use crate::core::{Engine, LoginRequest, engine_mut};
+use crate::core::{Engine, LoginAccount, LoginRequest, engine_mut};
 use crate::handlers::client_cheat::spawn_bots;
 #[cfg(since_647)]
 use crate::phases::controller::Controllers;
@@ -25,6 +25,76 @@ use rs_db::LoginDevice;
 use rs_entity::build::STAT_COUNT;
 use rs_entity::{EntityLifeTime, Obj, Player, StaffModLevel};
 use rs_grid::CoordGrid;
+use rs_io::Packet;
+use rs_protocol::network::game::client::ClientProtEncode;
+use rs_protocol::network::game::client::apcoordt::ApCoordT;
+use rs_protocol::network::game::client::client_cheat::ClientCheat;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::if_button::IfButton;
+use rs_protocol::network::game::client::if_button1::IfButton1;
+use rs_protocol::network::game::client::if_button2::IfButton2;
+use rs_protocol::network::game::client::if_button3::IfButton3;
+use rs_protocol::network::game::client::if_button4::IfButton4;
+use rs_protocol::network::game::client::if_button5::IfButton5;
+use rs_protocol::network::game::client::if_button6::IfButton6;
+use rs_protocol::network::game::client::if_button7::IfButton7;
+use rs_protocol::network::game::client::if_button8::IfButton8;
+use rs_protocol::network::game::client::if_button9::IfButton9;
+use rs_protocol::network::game::client::if_button10::IfButton10;
+use rs_protocol::network::game::client::if_buttond::IfButtonD;
+use rs_protocol::network::game::client::if_buttont::IfButtonT;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::inv_buttond::InvButtonD;
+use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheld1::OpHeld1;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheld2::OpHeld2;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheld3::OpHeld3;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheld4::OpHeld4;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheld5::OpHeld5;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheldt::OpHeldT;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opheldu::OpHeldU;
+use rs_protocol::network::game::client::oploc1::OpLoc1;
+use rs_protocol::network::game::client::oploc2::OpLoc2;
+use rs_protocol::network::game::client::oploct::OpLocT;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::oplocu::OpLocU;
+use rs_protocol::network::game::client::opnpc1::OpNpc1;
+use rs_protocol::network::game::client::opnpc2::OpNpc2;
+use rs_protocol::network::game::client::opnpc3::OpNpc3;
+use rs_protocol::network::game::client::opnpc4::OpNpc4;
+use rs_protocol::network::game::client::opnpc5::OpNpc5;
+use rs_protocol::network::game::client::opnpct::OpNpcT;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opnpcu::OpNpcU;
+use rs_protocol::network::game::client::opobj3::OpObj3;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opobj6::OpObj6;
+use rs_protocol::network::game::client::opobjt::OpObjT;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opobju::OpObjU;
+use rs_protocol::network::game::client::opplayer4::OpPlayer4;
+use rs_protocol::network::game::client::opplayer6::OpPlayer6;
+use rs_protocol::network::game::client::opplayer7::OpPlayer7;
+use rs_protocol::network::game::client::opplayer8::OpPlayer8;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer9::OpPlayer9;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer10::OpPlayer10;
+use rs_protocol::network::game::client::opplayert::OpPlayerT;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client::opplayeru::OpPlayerU;
+#[cfg(before_647)]
+use rs_protocol::network::game::client::pack_coord;
+use rs_protocol::network::game::client::resume_p_countdialog::ResumePCountDialog;
+use rs_protocol::network::game::client::resume_pause_button::ResumePauseButton;
+use rs_protocol::network::game::client::url_request::UrlRequest;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::server_prot::ServerProt;
@@ -35,9 +105,10 @@ use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
+use rs_vm::session::EngineHost;
 use rs_vm::state::{LocRef, ScriptState};
 use rs_vm::subject::ScriptSubject;
-use rs_vm::trigger::ServerTriggerType;
+use rs_vm::trigger::ServerTriggerType as Trigger;
 use rs_vm::{RegionUid, ScriptError};
 use runec::opcodes::{SETUP_PLAYER, TEST_OP};
 use std::cell::RefCell;
@@ -65,13 +136,24 @@ const SERVER_PROT_SIZES: [i8; 256] = [
 ];
 
 /// Rev-647 `ServerProt.java` lengths by opcode: -1 is var-byte, -2 is var-short.
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const SERVER_PROT_SIZES: [i8; 133] = [
     -2, 8, -2, 2, 4, 2, 0, 6, -1, 2, -1, 2, 0, 1, -2, 4, -2, 2, -1, 4, -1, -1, -1, -2, 0, 4, 6, -1,
     3, 4, -1, -2, -1, 20, -2, 4, 4, 8, 7, 1, 1, -2, 3, 6, 4, 12, 4, -1, 10, 6, 8, 8, 3, -2, 6, 6,
     10, 12, 6, 2, 11, 3, 0, 9, -1, 6, 0, 0, 7, 1, -1, -1, 6, -2, 4, 3, 3, -2, 6, 10, 7, -1, 17, -1,
     -1, -1, -1, -2, 6, -2, -2, 6, 5, 10, 6, -1, 6, 3, 6, 3, 1, 6, 28, 3, 1, 5, 0, -2, -1, 7, 2, -2,
     0, -2, 6, 16, 3, -1, 6, -2, 4, 7, -2, 2, 1, -1, 12, 8, 0, 6, 0, 10, 9,
+];
+
+/// Rev-742 client (`jl`) lengths by opcode: -1 is var-byte, -2 is var-short.
+#[cfg(since_742)]
+const SERVER_PROT_SIZES: [i8; 163] = [
+    8, -2, -1, 10, 6, 10, 3, 32, -1, 0, 3, 2, 0, 8, 8, 8, 8, 8, 0, 0, 10, 0, 3, -2, -2, 6, 6, 0, 0,
+    -2, 5, -1, 1, 3, 0, 0, -1, 2, 4, 4, 1, 7, 10, 6, -1, 19, -1, 23, 0, 4, -1, 5, 2, 6, 2, -2, 4,
+    -1, -1, -2, -1, -2, 3, 4, 25, -2, 6, -2, 20, 1, 3, 3, -2, 1, 14, 2, 1, 19, 8, 5, -1, 4, 6, 5,
+    9, 12, -1, 0, 28, -2, -2, 6, 2, -2, -2, 6, 6, 8, -2, 6, 8, 2, 4, 9, 2, 10, -2, -2, 6, 6, 29, 1,
+    5, 5, -2, 10, -1, 11, 12, 6, -1, -1, 2, -2, 1, 7, 10, 18, 3, 9, -2, -1, -1, 10, 8, 0, -2, -2,
+    0, -1, -2, 21, 4, -2, -1, 2, -1, 2, 4, -2, 8, -1, 6, -2, 1, 22, 3, 6, 1, 1, 25, -2, -2,
 ];
 
 thread_local! {
@@ -104,7 +186,7 @@ impl HarnessClient {
     /// If `prot`'s frame is Fixed and `payload` is not that size.
     pub fn send(&mut self, prot: ClientProt, payload: &[u8]) {
         let mut bytes = Vec::with_capacity(payload.len() + 3);
-        bytes.push((prot as u8).wrapping_add(self.isaac.next_int() as u8));
+        bytes.push((prot as u8).wrapping_add(self.isaac.take_next_value() as u8));
         match prot.info().frame {
             ClientProtFrame::Fixed(size) => {
                 assert_eq!(payload.len(), size as usize, "{prot:?} is Fixed({size})")
@@ -123,7 +205,7 @@ impl HarnessClient {
     /// Every packet the engine has flushed since the last call -- the
     /// session's only reader, since each read advances the ISAAC mirror -- as
     /// `(opcode, payload)`, read the way the client reads them: the opcode
-    /// unmasked with ISAAC (one byte on 530, a 1- or 2-byte smart on 647),
+    /// unmasked with ISAAC (one byte on 530, a 1- or 2-byte smart from 647),
     /// framed by the client's own size for that opcode.
     ///
     /// # Panics
@@ -136,7 +218,7 @@ impl HarnessClient {
         while let Ok(chunk) = self.bytes_rx.try_recv() {
             let mut pos = 0;
             while pos < chunk.len() {
-                let b0 = chunk[pos].wrapping_sub(self.out_isaac.next_int() as u8);
+                let b0 = chunk[pos].wrapping_sub(self.out_isaac.take_next_value() as u8);
                 pos += 1;
                 #[cfg(all(since_530, before_647))]
                 let opcode = b0 as u16;
@@ -144,7 +226,7 @@ impl HarnessClient {
                 let opcode = if b0 < 128 {
                     b0 as u16
                 } else {
-                    let b1 = chunk[pos].wrapping_sub(self.out_isaac.next_int() as u8);
+                    let b1 = chunk[pos].wrapping_sub(self.out_isaac.take_next_value() as u8);
                     pos += 1;
                     (((b0 - 128) as u16) << 8) | b1 as u16
                 };
@@ -237,6 +319,408 @@ impl HarnessClient {
                 }
             })
             .collect()
+    }
+}
+
+/// 530's backpack, `inventory:inv`, is an if1 inventory: its client sends an
+/// obj's held ops (OPHELD), its uses (OPHELDU, OP*U) and its drags
+/// (INV_BUTTOND) for it, where 647 sends the IF_BUTTON family.
+#[cfg(all(since_530, before_647))]
+const IF1_BACKPACK: i32 = 149 << 16;
+
+/// Client messages as each rev's client writes them. The tests name what the
+/// player did; the rev's own fields (647's `ctrl`, the held obj of a targeted
+/// op) are filled in the way an ordinary click fills them.
+impl HarnessClient {
+    /// Sends `msg` the way the client writes it.
+    pub fn send_msg<M: ClientProtEncode>(&mut self, msg: &M) {
+        let mut buf = Packet::new(5000);
+        msg.encode(&mut buf);
+        self.send(M::PROT, &buf.data[..buf.pos]);
+    }
+
+    /// OPLOC`op` on `loc` at (`x`, `z`).
+    pub fn op_loc(&mut self, op: u8, x: u16, z: u16, loc: TypeId) {
+        match op {
+            1 => self.send_msg(&OpLoc1 {
+                x,
+                z,
+                loc,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            2 => self.send_msg(&OpLoc2 {
+                x,
+                z,
+                loc,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            _ => panic!("the harness has no OPLOC{op}"),
+        }
+    }
+
+    /// OPLOCT: the component `com` (slot `slot`, holding `obj`) used on `loc`.
+    pub fn op_loc_t(&mut self, x: u16, z: u16, loc: TypeId, com: i32, slot: u16, obj: TypeId) {
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK {
+            return self.send_msg(&OpLocU {
+                x,
+                z,
+                loc,
+                obj,
+                slot,
+                com,
+            });
+        }
+        #[cfg(before_647)]
+        let _ = obj;
+        self.send_msg(&OpLocT {
+            loc,
+            x,
+            z,
+            #[cfg(since_647)]
+            obj,
+            slot,
+            com,
+            #[cfg(since_647)]
+            ctrl: false,
+        });
+    }
+
+    /// OPNPC`op` on npc `nid`.
+    pub fn op_npc(&mut self, op: u8, nid: u16) {
+        match op {
+            1 => self.send_msg(&OpNpc1 {
+                nid,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            2 => self.send_msg(&OpNpc2 {
+                nid,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            3 => self.send_msg(&OpNpc3 {
+                nid,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            4 => self.send_msg(&OpNpc4 {
+                nid,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            5 => self.send_msg(&OpNpc5 {
+                nid,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            _ => panic!("the harness has no OPNPC{op}"),
+        }
+    }
+
+    /// OPNPCT: the component `com` (slot `slot`, holding `obj`) used on npc `nid`.
+    pub fn op_npc_t(&mut self, nid: u16, com: i32, slot: u16, obj: TypeId) {
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK {
+            return self.send_msg(&OpNpcU {
+                nid,
+                obj,
+                slot,
+                com,
+            });
+        }
+        #[cfg(before_647)]
+        let _ = obj;
+        self.send_msg(&OpNpcT {
+            nid,
+            #[cfg(since_647)]
+            obj,
+            slot,
+            com,
+            #[cfg(since_647)]
+            ctrl: false,
+        });
+    }
+
+    /// OPOBJ`op` on the ground obj `obj` at (`x`, `z`).
+    pub fn op_obj(&mut self, op: u8, x: u16, z: u16, obj: TypeId) {
+        match op {
+            3 => self.send_msg(&OpObj3 {
+                x,
+                z,
+                obj,
+                #[cfg(since_647)]
+                ctrl: false,
+            }),
+            _ => panic!("the harness has no OPOBJ{op}"),
+        }
+    }
+
+    /// OPOBJT: the component `com` (slot `slot`, holding `held`) used on the
+    /// ground obj `obj` at (`x`, `z`).
+    pub fn op_obj_t(&mut self, x: u16, z: u16, obj: TypeId, com: i32, slot: u16, held: TypeId) {
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK {
+            return self.send_msg(&OpObjU {
+                x,
+                z,
+                obj,
+                use_obj: held,
+                slot,
+                com,
+            });
+        }
+        #[cfg(before_647)]
+        let _ = held;
+        self.send_msg(&OpObjT {
+            obj,
+            x,
+            z,
+            #[cfg(since_647)]
+            obj2: held,
+            slot,
+            com,
+            #[cfg(since_647)]
+            ctrl: false,
+        });
+    }
+
+    /// OPPLAYER`op` on player `pid`.
+    pub fn op_player(&mut self, op: u8, pid: u16) {
+        macro_rules! op {
+            ($ty:ident) => {
+                self.send_msg(&$ty {
+                    pid,
+                    #[cfg(since_647)]
+                    ctrl: false,
+                })
+            };
+        }
+        match op {
+            4 => op!(OpPlayer4),
+            6 => op!(OpPlayer6),
+            7 => op!(OpPlayer7),
+            8 => op!(OpPlayer8),
+            #[cfg(since_647)]
+            9 => op!(OpPlayer9),
+            #[cfg(since_647)]
+            10 => op!(OpPlayer10),
+            _ => panic!("the harness has no OPPLAYER{op}"),
+        }
+    }
+
+    /// OPPLAYERT: the component `com` (slot `slot`, holding `obj`) used on player `pid`.
+    pub fn op_player_t(&mut self, pid: u16, com: i32, slot: u16, obj: TypeId) {
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK {
+            return self.send_msg(&OpPlayerU {
+                pid,
+                obj,
+                slot,
+                com,
+            });
+        }
+        #[cfg(before_647)]
+        let _ = obj;
+        self.send_msg(&OpPlayerT {
+            pid,
+            #[cfg(since_647)]
+            obj,
+            slot,
+            com,
+            #[cfg(since_647)]
+            ctrl: false,
+        });
+    }
+
+    /// A click on an if1 component's button (IF_BUTTON), as 530's client sends for one with a
+    /// button type.
+    #[cfg(all(since_530, before_647))]
+    pub fn if1_button(&mut self, com: i32) {
+        self.send_msg(&IfButton { com });
+    }
+
+    /// IF_BUTTON`op` on component `com`, slot `slot` (holding `obj`, from 647).
+    pub fn if_button(&mut self, op: u8, com: i32, slot: u16, obj: TypeId) {
+        // 647's backpack puts the obj's iops 1-3 on buttons 1-3, iop4 on 7,
+        // iop5 on 8 and examine on 10.
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK {
+            return match op {
+                1 => self.send_msg(&OpHeld1 { obj, slot, com }),
+                2 => self.send_msg(&OpHeld2 { obj, slot, com }),
+                3 => self.send_msg(&OpHeld3 { obj, slot, com }),
+                7 => self.send_msg(&OpHeld4 { obj, slot, com }),
+                8 => self.send_msg(&OpHeld5 { obj, slot, com }),
+                10 => self.send_msg(&OpObj6 { obj }),
+                _ => panic!("530's backpack has no op for IF_BUTTON{op}"),
+            };
+        }
+        #[cfg(before_647)]
+        let _ = obj;
+        macro_rules! button {
+            ($ty:ident) => {
+                self.send_msg(&$ty {
+                    com,
+                    slot,
+                    #[cfg(since_647)]
+                    obj,
+                })
+            };
+        }
+        match op {
+            1 => button!(IfButton1),
+            2 => button!(IfButton2),
+            3 => button!(IfButton3),
+            4 => button!(IfButton4),
+            5 => button!(IfButton5),
+            6 => button!(IfButton6),
+            7 => button!(IfButton7),
+            8 => button!(IfButton8),
+            9 => button!(IfButton9),
+            10 => button!(IfButton10),
+            _ => panic!("the harness has no IF_BUTTON{op}"),
+        }
+    }
+
+    /// IF_BUTTONT: component `com` (slot `slot`, `obj`) used on component
+    /// `com2` (slot `slot2`, `obj2`).
+    pub fn if_button_t(
+        &mut self,
+        com: i32,
+        slot: u16,
+        obj: TypeId,
+        com2: i32,
+        slot2: u16,
+        obj2: TypeId,
+    ) {
+        // A spell on a backpack obj is OPHELDT, the obj first.
+        #[cfg(all(since_530, before_647))]
+        if com != IF1_BACKPACK && com2 == IF1_BACKPACK {
+            return self.send_msg(&OpHeldT {
+                obj: obj2,
+                slot: slot2,
+                com: com2,
+                com2: com,
+                slot2: slot,
+            });
+        }
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK && com2 == IF1_BACKPACK {
+            return self.send_msg(&OpHeldU {
+                obj,
+                slot,
+                com,
+                obj2,
+                slot2,
+                com2,
+            });
+        }
+        #[cfg(before_647)]
+        let _ = (obj, obj2);
+        self.send_msg(&IfButtonT {
+            com,
+            slot,
+            #[cfg(since_647)]
+            obj,
+            com2,
+            slot2,
+            #[cfg(since_647)]
+            obj2,
+        });
+    }
+
+    /// IF_BUTTOND: slot `slot` of `com` (holding `obj`) dragged onto slot
+    /// `slot2` of `com2` (holding `obj2`).
+    pub fn if_button_d(
+        &mut self,
+        com: i32,
+        slot: u16,
+        obj: TypeId,
+        com2: i32,
+        slot2: u16,
+        obj2: TypeId,
+    ) {
+        #[cfg(all(since_530, before_647))]
+        if com == IF1_BACKPACK && com2 == IF1_BACKPACK {
+            return self.send_msg(&InvButtonD {
+                com,
+                slot,
+                slot2,
+                mode: 0,
+            });
+        }
+        #[cfg(before_647)]
+        let _ = (obj, obj2);
+        self.send_msg(&IfButtonD {
+            com,
+            slot,
+            #[cfg(since_647)]
+            obj,
+            com2,
+            slot2,
+            #[cfg(since_647)]
+            obj2,
+        });
+    }
+
+    /// APCOORDT: the component `com` (slot `slot`, holding `obj`) used on the
+    /// tile (`x`, `z`).
+    pub fn ap_coord_t(&mut self, x: u16, z: u16, com: i32, slot: u16, obj: TypeId) {
+        #[cfg(before_647)]
+        let _ = obj;
+        self.send_msg(&ApCoordT {
+            x,
+            z,
+            #[cfg(since_647)]
+            obj,
+            slot,
+            com,
+        });
+    }
+
+    /// RESUME_PAUSEBUTTON on component `com`, slot `slot`.
+    pub fn resume_pausebutton(&mut self, com: i32, slot: u16) {
+        self.send_msg(&ResumePauseButton { com, slot });
+    }
+
+    /// RESUME_P_COUNTDIALOG with `input`.
+    pub fn resume_p_countdialog(&mut self, input: i32) {
+        self.send_msg(&ResumePCountDialog { input });
+    }
+
+    /// MOVE_GAMECLICK to (`x`, `z`): the client sends the destination, and its
+    /// own path only before 647.
+    pub fn move_gameclick(&mut self, x: u16, z: u16) {
+        #[cfg(before_647)]
+        self.send_msg(&MoveGameClick {
+            path: vec![pack_coord(x, z)],
+            ctrl: false,
+        });
+        #[cfg(since_647)]
+        self.send_msg(&MoveGameClick { x, z, ctrl: false });
+    }
+
+    /// CLIENT_CHEAT `cheat`, as typed in the chat box (`::` stripped).
+    pub fn client_cheat(&mut self, cheat: &str) {
+        self.send_msg(&ClientCheat {
+            cheat: cheat.into(),
+            #[cfg(since_647)]
+            flags: [0, 0],
+        });
+    }
+
+    /// URL_REQUEST for `url`, the link's `text` and its `mode`.
+    pub fn url_request(&mut self, url: &str, text: &str, mode: u8) {
+        self.send_msg(&UrlRequest {
+            url: url.into(),
+            text: text.into(),
+            #[cfg(since_742)]
+            extra: String::new(),
+            mode,
+        });
     }
 }
 
@@ -351,20 +835,24 @@ impl Engine {
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
             #[cfg(since_647)]
-            lobby: false,
-            #[cfg(since_647)]
-            world: 1,
+            client_session: 0,
         };
-        let engine = self as *mut Engine;
         // `ActivePlayer::new` and the `[login]` trigger read the global
         // engine and cache, which a direct call from a test has not installed.
-        with_engine(self, || {
-            unsafe { &mut *engine }.accept_login(
+        with_engine(self, |engine| {
+            engine.accept_login(
                 request,
                 profile,
-                StaffModLevel::Normal,
-                None,
-                0,
+                LoginAccount {
+                    staff_mod_level: StaffModLevel::Normal,
+                    muted_until: None,
+                    unread_messages: 0,
+                    member: true,
+                    #[cfg(since_647)]
+                    jcoins: 0,
+                    last_login_ip: None,
+                    chat_filters: None,
+                },
                 pid,
                 &[],
             )
@@ -396,20 +884,17 @@ impl Engine {
     /// and dispatched, and nothing else happens. A test reads what a handler
     /// set before the player phase acts on it.
     pub fn harness_inputs(&mut self) {
-        let engine = self as *mut Engine;
-        with_engine(self, || unsafe { &mut *engine }.inputs());
+        with_engine(self, |engine| engine.inputs());
     }
 
     pub fn harness_local_bots(&mut self, coord: CoordGrid, count: u16) -> u16 {
-        with_engine(self, || spawn_bots(coord, count, 15))
+        with_engine(self, |_| spawn_bots(coord, count, 15))
     }
 
     /// Moves a player as `p_telejump` does: placed, not walked, and the
     /// client's scene rebuilt around the new tile on the next tick.
     pub fn harness_telejump(&mut self, pid: u16, x: u16, y: u8, z: u16) {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            let engine = unsafe { &mut *engine };
+        with_engine(self, |engine| {
             if let Some(active) = engine.get_player_mut(pid) {
                 active.tele_jump(CoordGrid::new(x, y, z));
             }
@@ -419,9 +904,8 @@ impl Engine {
     /// Awards experience as `stat_advance` does (in the engine's tenths): a
     /// level gained queues the stat's `[advancestat]` script.
     pub fn harness_add_xp(&mut self, pid: u16, stat: usize, xp: i32) {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
+        with_engine(self, |engine| {
+            if let Some(active) = engine.get_player_mut(pid) {
                 active.add_xp(stat, xp);
             }
         });
@@ -441,7 +925,7 @@ impl Engine {
     /// Closes the player's modals as `if_close` does.
     pub fn harness_close_modal(&mut self, pid: u16) {
         self.with_harness_player(pid, |active| {
-            let _ = active.close_modal(true);
+            let _ = ActivePlayer::close_modal(active, true);
         });
     }
 
@@ -451,9 +935,8 @@ impl Engine {
     }
 
     fn with_harness_player(&mut self, pid: u16, f: impl FnOnce(&mut ActivePlayer)) {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
+        with_engine(self, |engine| {
+            if let Some(active) = engine.get_player_mut(pid) {
                 f(active);
             }
         });
@@ -462,18 +945,22 @@ impl Engine {
     /// Drops an obj on the ground for everyone, as a map spawn would be.
     pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: TypeId, count: u32) {
         let coord = CoordGrid::new(x, y, z);
-        let engine = self as *mut Engine;
-        with_engine(self, || {
+        with_engine(self, |engine| {
             let obj = Obj::new(coord, EntityLifeTime::Despawn, id, count);
-            unsafe { &mut *engine }.add_obj(coord, obj, None, 200);
+            engine.add_obj(coord, obj, None, 200);
         });
     }
 
     /// Registers the `#testscript` commands on this engine and turns the
     /// call log on. Without this, a test command is an unknown opcode.
+    ///
+    /// Also stops the 500-tick AFK random-event roll: the reset clock starts
+    /// at 0, so every test's first tick would roll it, and skilling scripts
+    /// then spawn an event instead of their product.
     pub fn harness_enable_tests(&mut self) {
         self.ops.extend(ops());
         test::set_recording(true);
+        self.afk_events = false;
     }
 
     /// Returns the world to its just-started state between tests: every
@@ -617,13 +1104,36 @@ enum Subject {
     Other,
 }
 
-fn subject_of(trigger: ServerTriggerType) -> Subject {
-    use ServerTriggerType::*;
+fn subject_of(trigger: Trigger) -> Subject {
     match trigger {
-        ApLoc1 | ApLoc2 | ApLoc3 | ApLoc4 | ApLoc5 | ApLocU | ApLocT | OpLoc1 | OpLoc2 | OpLoc3
-        | OpLoc4 | OpLoc5 | OpLocU | OpLocT => Subject::Loc,
-        ApNpc1 | ApNpc2 | ApNpc3 | ApNpc4 | ApNpc5 | ApNpcU | ApNpcT | OpNpc1 | OpNpc2 | OpNpc3
-        | OpNpc4 | OpNpc5 | OpNpcU | OpNpcT => Subject::Npc,
+        Trigger::ApLoc1
+        | Trigger::ApLoc2
+        | Trigger::ApLoc3
+        | Trigger::ApLoc4
+        | Trigger::ApLoc5
+        | Trigger::ApLocU
+        | Trigger::ApLocT
+        | Trigger::OpLoc1
+        | Trigger::OpLoc2
+        | Trigger::OpLoc3
+        | Trigger::OpLoc4
+        | Trigger::OpLoc5
+        | Trigger::OpLocU
+        | Trigger::OpLocT => Subject::Loc,
+        Trigger::ApNpc1
+        | Trigger::ApNpc2
+        | Trigger::ApNpc3
+        | Trigger::ApNpc4
+        | Trigger::ApNpc5
+        | Trigger::ApNpcU
+        | Trigger::ApNpcT
+        | Trigger::OpNpc1
+        | Trigger::OpNpc2
+        | Trigger::OpNpc3
+        | Trigger::OpNpc4
+        | Trigger::OpNpc5
+        | Trigger::OpNpcU
+        | Trigger::OpNpcT => Subject::Npc,
         _ => Subject::Other,
     }
 }
@@ -637,10 +1147,10 @@ fn subject_of(trigger: ServerTriggerType) -> Subject {
 ///   active player.
 /// - `TEST_OP` -- fires a trigger against a loc at a coord, or the first npc
 ///   of a type, with the active player as subject.
-pub fn ops() -> OpsRegistry {
+pub fn ops() -> OpsRegistry<EngineHost<Engine>> {
     let mut ops = test::build();
-    ops.insert(SETUP_PLAYER, setup_player);
-    ops.insert(TEST_OP, test_op);
+    ops.insert(SETUP_PLAYER, |s, _| setup_player(s));
+    ops.insert(TEST_OP, |s, _| test_op(s));
     ops
 }
 
@@ -669,7 +1179,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
     let coord = s.pop_int() as u32;
     let subject_id = s.pop_int();
     let trigger_byte = s.pop_int();
-    let trigger = ServerTriggerType::try_from(trigger_byte as u8)
+    let trigger = Trigger::try_from(trigger_byte as u8)
         .map_err(|_| ScriptError::Runtime(format!("test_op: bad trigger {trigger_byte}")))?;
     let player = s
         .active_player

@@ -17,15 +17,15 @@ if ($int2 >= 80) {
         switch_int (~clientscript_5939(%varclient_1781)) {
             case 0 :
                 sound_jingle(~clientscript_5995(504));
-                sound_vorbis_volume(20199, 1, 0, 150);
+                sound_vorbis_volume(vorbis_20199, 1, 0, 150);
             case 1 :
                 sound_jingle(~clientscript_5995(501));
             case 2 :
                 sound_jingle(~clientscript_5995(503));
-                sound_vorbis_volume(20201, 1, 0, 150);
+                sound_vorbis_volume(vorbis_20201, 1, 0, 150);
             case 3 :
                 sound_jingle(~clientscript_5995(502));
-                sound_vorbis_volume(20201, 1, 0, 150);
+                sound_vorbis_volume(vorbis_20201, 1, 0, 150);
         }
     }
 } else {

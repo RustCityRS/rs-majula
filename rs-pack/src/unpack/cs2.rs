@@ -7,7 +7,7 @@ use crate::pack::names::AssetNames;
 use crate::unpack::interface::{decode_interfaces, write_interfaces};
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use rs_ver::TypeId;
 use runec::clientscript;
 use runec::clientscript::decode::Script;
@@ -87,7 +87,7 @@ fn template_script_paths(dir: &Path, template: &Path) -> Result<HashMap<String, 
 
 pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<u32> {
     super::prepare_pack(pack_dir)?;
-    let mut store = Js5Store::open(cache_dir)?;
+    let mut store = Js5LocalCache::open(cache_dir)?;
     let names = AssetNames::load(pack_dir)?;
     let scripts_dir = output_dir.join("scripts");
     // The standalone clientscript importer also needs the declarations that
@@ -135,7 +135,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     }
     let template_paths = template_script_paths(&scripts_dir, &template)?;
     let groups = store
-        .reference_table(archive::CLIENTSCRIPT)
+        .index(archive::CLIENTSCRIPT)
         .context("Missing clientscript table")?
         .groups
         .clone();
@@ -305,13 +305,13 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     Ok(groups.len() as u32)
 }
 
-pub fn scan_cs2_varp_refs(store: &mut Js5Store) -> Result<(HashSet<u32>, HashSet<u32>)> {
+pub fn scan_cs2_varp_refs(store: &mut Js5LocalCache) -> Result<(HashSet<u32>, HashSet<u32>)> {
     let format =
         clientscript::format::Format::load(&Path::new(CONTENT_DIR).join("pack/cs2_command.pack"))?;
     let mut varps = HashSet::new();
-    let mut varbits = HashSet::new();
+    let mut varpbits = HashSet::new();
     let groups = store
-        .reference_table(archive::CLIENTSCRIPT)
+        .index(archive::CLIENTSCRIPT)
         .context("Missing clientscript table")?
         .groups
         .clone();
@@ -326,13 +326,13 @@ pub fn scan_cs2_varp_refs(store: &mut Js5Store) -> Result<(HashSet<u32>, HashSet
                     varps.insert(operand as u32);
                 }
                 25 | 27 => {
-                    varbits.insert(operand as u32);
+                    varpbits.insert(operand as u32);
                 }
                 _ => {}
             }
         }
     }
-    Ok((varps, varbits))
+    Ok((varps, varpbits))
 }
 
 #[cfg(test)]

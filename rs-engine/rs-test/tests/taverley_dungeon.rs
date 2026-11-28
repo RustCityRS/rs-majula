@@ -13,41 +13,44 @@
 //! 289's tile. Velrak (`velrak_the_explorer.rs2`) hands over the dusty key, and one more lies
 //! by the lava eels (2011 wiki, Dusty key, 2011-05-16).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
 
 /// The gate's two leaves (maps/l45_153.jm2: `0 8 38` and `0 8 39`).
+#[cfg(before_742)]
 const GATE_R: (u16, u16) = (2888, 9830);
+#[cfg(before_742)]
 const GATE_L: (u16, u16) = (2888, 9831);
 /// The suits of armour (`0 7 37` and `0 7 40`).
+#[cfg(before_742)]
 const SUIT_SOUTH: (u16, u16) = (2887, 9829);
+#[cfg(before_742)]
 const SUIT_NORTH: (u16, u16) = (2887, 9832);
 /// Another gate of the same locs (`0 13 33` and `0 12 33`, angle 1).
+#[cfg(before_742)]
 const OTHER_GATE_R: (u16, u16) = (2893, 9825);
+#[cfg(before_742)]
 const COMES_TO_LIFE: &str = "Suddenly the suit of armour comes to life!";
 /// Velrak's cell door (maps/l45_151.jm2: `0 51 25`, angle 1: the wall is its north edge).
 const CELL_DOOR: (u16, u16) = (2931, 9689);
 /// The cell beside it (`0 51 31`, angle 3: the wall is its south edge).
+#[cfg(before_742)]
 const OTHER_CELL_DOOR: (u16, u16) = (2931, 9695);
 /// The gate to the blue dragons (maps/l45_153.jm2: `0 44 11`, angle 0: the wall is its west edge).
 const DUSTY_GATE: (u16, u16) = (2924, 9803);
 /// Velrak's spawn (maps/n45_151.jm2: `0 51 21`) and the dusty key's (maps/o45_152.jm2: `0 20 38`).
 const VELRAK: (u16, u16) = (2931, 9685);
 const DUSTY_KEY: (u16, u16) = (2900, 9766);
-const BACKPACK: i32 = 149 << 16;
 
 fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let id = match kind {
@@ -93,12 +96,7 @@ fn open(
     ticks: usize,
 ) -> Vec<String> {
     let loc = loc_id(engine, name);
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc.int())
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, loc);
     let mut said = Vec::new();
     for _ in 0..ticks {
         engine.cycle();
@@ -147,15 +145,7 @@ fn use_on(
 ) -> Vec<String> {
     let obj = id(engine, "obj", obj);
     let loc = loc_id(engine, name);
-    let mut p = ClientPacket::new();
-    p.p2_alt2(obj.int())
-        .p2_alt2(slot as i32)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(loc.int());
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(x, z, loc, BACKPACK, slot, obj);
     let mut said = Vec::new();
     for _ in 0..ticks {
         engine.cycle();
@@ -202,6 +192,7 @@ fn talk_to_velrak(
     talk
 }
 
+#[cfg(before_742)]
 fn stands(engine: &Engine, name: &str, (x, z): (u16, u16)) -> bool {
     let loc = loc_id(engine, name);
     engine
@@ -210,6 +201,7 @@ fn stands(engine: &Engine, name: &str, (x, z): (u16, u16)) -> bool {
         .is_some_and(|zone| zone.get_loc(x, z, loc).is_some())
 }
 
+#[cfg(before_742)]
 fn suits_alive(engine: &Engine) -> usize {
     let suit = id(engine, "npc", "suit_of_armour");
     engine
@@ -226,6 +218,7 @@ fn at(engine: &Engine, client: &HarnessClient) -> (u16, u16) {
     (c.x(), c.z())
 }
 
+#[cfg(before_742)]
 #[test]
 fn the_suits_of_armour_come_to_life_before_the_gate_opens() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -262,6 +255,7 @@ fn the_suits_of_armour_come_to_life_before_the_gate_opens() {
     });
 }
 
+#[cfg(before_742)]
 #[test]
 fn the_gate_opens_from_the_cauldrons_side_without_waking_the_suits() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -286,6 +280,7 @@ fn the_gate_opens_from_the_cauldrons_side_without_waking_the_suits() {
     });
 }
 
+#[cfg(before_742)]
 #[test]
 fn the_dungeons_other_gate_of_the_same_locs_is_walked_through() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -319,6 +314,7 @@ fn the_dungeons_other_gate_of_the_same_locs_is_walked_through() {
     });
 }
 
+#[cfg(before_742)]
 #[test]
 fn the_black_knights_cells_need_the_jailers_key_to_enter() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -434,6 +430,8 @@ fn the_gate_to_the_blue_dragons_needs_the_dusty_key() {
 
         // 289: the key is needed from the gate's own tile, the lesser demons' side.
         let mut client = visitor(engine, "dusty", DUSTY_GATE);
+        // The lesser demons' room: one spawns 2 tiles from the gate.
+        world::calm(engine, DUSTY_GATE.0, DUSTY_GATE.1, 12);
         let said = open(engine, &mut client, "deepdungeondoor", DUSTY_GATE, 3);
         assert_eq!(said, ["This gate is locked."]);
         assert_eq!(at(engine, &client), DUSTY_GATE);

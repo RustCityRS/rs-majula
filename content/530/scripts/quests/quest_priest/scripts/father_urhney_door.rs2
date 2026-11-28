@@ -1,0 +1,7 @@
+[oploc1,door_14924]
+// Father Urhney's shack and Piscatoris share the open door.
+def_loc $closed = loc_param(next_loc_stage);
+if (loc_coord = 0_49_49_11_37) {
+    $closed = door_15056;
+}
+~close_door(500, $closed);

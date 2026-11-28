@@ -12,7 +12,7 @@ use anyhow::{Result, ensure};
 #[cfg(before_530)]
 use rs_io::jag::JagFile;
 #[cfg(since_530)]
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::fs;
 use std::path::Path;
 #[cfg(before_530)]
@@ -181,7 +181,7 @@ struct Sprite {
     left_padding: u16,
     top_padding: u16,
     has_alpha: bool,
-    row_major: bool,
+    column_major: bool,
     indices: Vec<u8>,
     alphas: Option<Vec<u8>>,
     palette: Vec<u32>,
@@ -224,7 +224,11 @@ height={height}
             sprite.top_padding,
             sprite.width,
             sprite.height,
-            if sprite.row_major { "columns" } else { "rows" },
+            if sprite.column_major {
+                "columns"
+            } else {
+                "rows"
+            },
             if sprite.has_alpha { "alpha" } else { "opaque" }
         ));
         ensure!(
@@ -339,12 +343,12 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
         pixel_pos += 1;
 
         let has_alpha_flag = (flags & 0x2) != 0;
-        let row_major = (flags & 0x1) != 0;
+        let column_major = (flags & 0x1) != 0;
 
         let alphas = if has_alpha_flag {
             let mut alpha_buf = vec![0u8; pixel_count];
 
-            if !row_major {
+            if !column_major {
                 for j in 0..pixel_count {
                     indices[j] = data[pixel_pos];
                     pixel_pos += 1;
@@ -370,7 +374,7 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
 
             Some(alpha_buf)
         } else {
-            if !row_major {
+            if !column_major {
                 for j in 0..pixel_count {
                     indices[j] = data[pixel_pos];
                     pixel_pos += 1;
@@ -392,7 +396,7 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
             left_padding: left_pads[i],
             top_padding: top_pads[i],
             has_alpha: has_alpha_flag,
-            row_major,
+            column_major,
             indices,
             alphas,
             palette: palette.clone(),
@@ -404,7 +408,7 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
 
 #[cfg(since_530)]
 pub fn unpack_sprites(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     archive_id: u8,
     dir_name: &str,
     output_dir: &Path,
@@ -414,7 +418,7 @@ pub fn unpack_sprites(
     let names = AssetNames::load(pack_dir)?;
     fs::create_dir_all(&archive_dir)?;
 
-    let group_count = store.group_count(archive_id).unwrap_or(0);
+    let group_count = store.group_id_limit(archive_id).unwrap_or(0);
 
     let mut stats = UnpackSpriteStats::default();
 
@@ -437,7 +441,7 @@ pub fn unpack_sprites(
 
 #[cfg(since_530)]
 pub fn unpack_all_sprites(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     content_dir: &Path,
     pack_dir: &Path,
 ) -> Result<UnpackSpriteStats> {

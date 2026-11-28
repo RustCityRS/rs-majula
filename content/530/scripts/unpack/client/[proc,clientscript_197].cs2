@@ -9,12 +9,12 @@ def_int $int5 = 0;
 def_int $int6 = 0;
 while ($int2 < $int1) {
     $int5 = calc($int2 + $int2 + $int2);
-    cc_create($component0, 4, $int5);
-    cc_settextfont(305);
-    cc_settextalign(0, 1, 0);
+    cc_create($component0, ^iftype_text, $int5);
+    cc_settextfont(friendslist_font);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
     cc_settext(clan_getchatusername($int2));
-    cc_setposition(11, calc($int2 * 15), 0, 0);
-    cc_setsize(85, 15, 0, 0);
+    cc_setposition(11, calc($int2 * 15), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(85, 15, ^setsize_abs, ^setsize_abs);
     cc_setcolour(^white);
     cc_settextshadow(false);
     cc_setonop("clientscript_199(clan_getchatusername($int2), event_op)");
@@ -32,12 +32,12 @@ while ($int2 < $int1) {
         cc_setop(6, "Kick user <clan_getchatusername($int2)>");
     }
     $int6 = clan_getchatuserworld($int2);
-    cc_create($component0, 4, calc($int5 + 1));
-    cc_settextfont(305);
-    cc_settextalign(2, 1, 0);
+    cc_create($component0, ^iftype_text, calc($int5 + 1));
+    cc_settextfont(friendslist_font);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
     cc_settext(clan_getchatuserworldname($int2));
-    cc_setposition(108, calc($int2 * 15), 0, 0);
-    cc_setsize(50, 15, 0, 0);
+    cc_setposition(108, calc($int2 * 15), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(50, 15, ^setsize_abs, ^setsize_abs);
     if ($int6 = map_world) {
         cc_setcolour(^green);
     } else {
@@ -58,9 +58,9 @@ while ($int2 < $int1) {
     if ($int4 >= $int3 & $int4 > clan_getchatuserrank($int2)) {
         cc_setop(6, "Kick user <clan_getchatusername($int2)>");
     }
-    cc_create($component0, 5, calc($int5 + 2));
-    cc_setposition(1, calc($int2 * 15 + 2), 0, 0);
-    cc_setsize(9, 9, 0, 0);
+    cc_create($component0, ^iftype_graphic, calc($int5 + 2));
+    cc_setposition(1, calc($int2 * 15 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(9, 9, ^setsize_abs, ^setsize_abs);
     cc_setgraphic(~clientscript_198(clan_getchatuserrank($int2)));
     cc_setonop("clientscript_199(clan_getchatusername($int2), event_op)");
     if (clan_isself($int2) = false) {

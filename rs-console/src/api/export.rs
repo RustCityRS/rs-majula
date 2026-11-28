@@ -9,7 +9,8 @@ use axum::extract::{Query, State};
 use axum::http::header;
 use axum::response::{IntoResponse, Response};
 use rs_admin_api::{
-    ChatLookup, ChatRecord, TimelineCursor, TimelineEntry, TimelineLookup, iso_time, path,
+    ChatLookup, ChatRecord, TimelineCursor, TimelineEntry, TimelineLookup, chat_channel_name,
+    iso_time, path,
 };
 use serde::Deserialize;
 use std::sync::Arc;
@@ -202,7 +203,7 @@ pub async fn chat(
     }
     rows.truncate(MAX_LOOKUP_ROWS);
     let mut csv = Csv::new(&[
-        "id", "time", "world", "from", "to", "x", "z", "level", "message",
+        "id", "time", "world", "from", "channel", "to", "x", "z", "level", "message",
     ]);
     for c in &rows {
         csv.row([
@@ -210,6 +211,7 @@ pub async fn chat(
             iso_time(c.at_ms),
             world(&app, Some(c.node)),
             c.from.clone(),
+            chat_channel_name(c.channel).to_owned(),
             c.to.clone().unwrap_or_default(),
             c.x.to_string(),
             c.z.to_string(),

@@ -33,13 +33,13 @@ if (%varplayerbit_4538 = calc(60 - 1)) {
         $int0 = calc($int0 + 1);
     }
     if ($int1 > $int2) {
-        sound_jingle(110, 6656);
+        sound_jingle(jingle_110, 6656);
         if_settext(interface_724:text_1, "<\"Sliceoflemon\"><\" wins!\">");
     } else if ($int2 > $int1) {
-        sound_jingle(110, 6656);
+        sound_jingle(jingle_110, 6656);
         if_settext(interface_724:text_1, "<\"Milknosugar\"><\" wins!\">");
     } else {
-        sound_jingle(108, 6449);
+        sound_jingle(jingle_108, 6449);
         if_settext(interface_724:text_1, "It's a draw.");
     }
     if_settext(interface_724:text_2, "The board is full.");

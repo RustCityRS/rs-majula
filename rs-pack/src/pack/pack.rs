@@ -4,7 +4,7 @@ use crate::archive;
 #[cfg(since_530)]
 use crate::cache::js5::PackedCache;
 use crate::pack::config::*;
-use crate::pack::incremental::{Key, Stage, dir_key};
+use crate::pack::incremental::{Key, LOBBY_COMMANDS, Stage, dir_key};
 #[cfg(before_530)]
 use crate::pack::interface;
 #[cfg(since_530)]
@@ -23,6 +23,7 @@ use anyhow::{Context, Result, bail};
 #[cfg(since_530)]
 use rayon::join;
 use rayon::prelude::*;
+use runec::sources::roots;
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -33,7 +34,7 @@ use tracing::debug;
 /// The registries config packing resolves names through: all but the script
 /// ids, which no config names.
 fn registry_key(pack_dir: &Path) -> Key {
-    dir_key(pack_dir, &["clientscript.pack"])
+    dir_key(pack_dir, &["clientscript.pack", LOBBY_COMMANDS])
 }
 
 /// The registry a kind reads whole: it packs an entry for every id in it.
@@ -222,7 +223,7 @@ fn pack_cached_assets(
                     #[cfg(before_530)]
                     "interface" => interface::pack_interfaces(files.dir(), registry, verify)?,
                     #[cfg(since_254)]
-                    "varpbit" => varbit::pack_varbits(fc, registry, constants)?,
+                    "varpbit" => varpbit::pack_varpbits(fc, registry, constants)?,
                     #[cfg(all(since_274, before_530))]
                     "mes" => mes::pack_mes(fc, constants)?,
                     #[cfg(since_530)]
@@ -439,7 +440,7 @@ impl FileCache {
         Self::from_files(source_files(source_dir))
     }
 
-    fn from_files(files: Vec<PathBuf>) -> Self {
+    pub(crate) fn from_files(files: Vec<PathBuf>) -> Self {
         let mut by_ext: HashMap<String, Vec<PathBuf>> = HashMap::new();
         let mut contents = HashMap::new();
 
@@ -507,7 +508,7 @@ impl ConfigFiles {
 /// Every file under a config source directory's roots, in order.
 fn source_files(source_dir: &Path) -> Vec<PathBuf> {
     let mut files = Vec::new();
-    for root in runec::sources::roots(source_dir) {
+    for root in roots(source_dir) {
         collect_all_recursive(&root, &mut files);
     }
     files.sort();
@@ -516,7 +517,7 @@ fn source_files(source_dir: &Path) -> Vec<PathBuf> {
 
 pub fn collect_config_files(dir: &Path, ext: &str) -> Vec<PathBuf> {
     let mut files = Vec::new();
-    for root in runec::sources::roots(dir) {
+    for root in roots(dir) {
         collect_all_recursive(&root, &mut files);
     }
     files.sort();

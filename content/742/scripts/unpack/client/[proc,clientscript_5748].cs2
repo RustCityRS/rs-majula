@@ -1,11 +1,11 @@
 // 5748
 [proc,clientscript_5748](int $int0)
 if (cc_find(interface_1239:com_8, calc($int0 - (8 - 1))) = true) {
-    cc_setgraphic(7632);
+    cc_setgraphic(graphic_7632);
 }
 if (cc_find(interface_1239:com_8, calc($int0 - (8 - 2))) = true) {
-    cc_setgraphic(7633);
+    cc_setgraphic(graphic_7633);
 }
 if (cc_find(interface_1239:com_8, calc($int0 - (8 - 3))) = true) {
-    cc_setgraphic(7634);
+    cc_setgraphic(graphic_7634);
 }

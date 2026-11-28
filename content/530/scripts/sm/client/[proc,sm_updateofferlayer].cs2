@@ -6,7 +6,7 @@ def_string $string1 = null;
 def_string $string2 = null;
 if ($int0 = 0) {
     if_settext(stockmarket:offertype_text, "Buy Offer");
-    if_setgraphic(stockmarket:offertype_icon, 1157);
+    if_setgraphic(stockmarket:offertype_icon, "grand_exchange_misc_graphics,7");
     if_settext(stockmarket:offercount_1, "+1");
     if_setop(stockmarket:offercount_1, 1, "Add 1");
     $string2 = "Add 1 to quantity";
@@ -25,7 +25,7 @@ if ($int0 = 0) {
     if_setonmouserepeat(stockmarket:offercount_1000, "sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)");
 } else {
     if_settext(stockmarket:offertype_text, "Sell Offer");
-    if_setgraphic(stockmarket:offertype_icon, 1156);
+    if_setgraphic(stockmarket:offertype_icon, "grand_exchange_misc_graphics,6");
     if_settext(stockmarket:offercount_1, "1");
     if_setop(stockmarket:offercount_1, 1, "Sell 1");
     $string2 = "Sell 1";
@@ -99,23 +99,23 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 if (if_find(stockmarket:offeritem_marketprice) = true & .if_find(stockmarket:offeritem_marketpriceicon) = true) {
     $int5 = cc_getwidth;
-    $int6 = parawidth(cc_gettext, $int5, 494);
+    $int6 = parawidth(cc_gettext, $int5, p11_full);
     $int7 = .cc_getwidth;
     $int4 = calc(52 + ($int5 - $int6) / 2 - ($int7 - 5));
-    .cc_setposition($int4, .cc_gety, 0, 0);
+    .cc_setposition($int4, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
 }
 if (if_find(stockmarket:com_145) = true) {
     $int4 = cc_getx;
     $int5 = cc_getwidth;
-    $int6 = parawidth(cc_gettext, $int5, 494);
+    $int6 = parawidth(cc_gettext, $int5, p11_full);
     if (.if_find(stockmarket:com_143) = true) {
         $int7 = .cc_getwidth;
         $int4 = calc($int4 + ($int5 - $int6) / 2 - $int7 - 1);
-        .cc_setposition($int4, .cc_gety, 0, 0);
+        .cc_setposition($int4, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
     }
     if (.if_find(stockmarket:com_144) = true) {
         $int4 = calc($int4 + $int7 + $int6 + 5);
-        .cc_setposition($int4, .cc_gety, 0, 0);
+        .cc_setposition($int4, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
     }
 }
 if (%stock_offercount_timer <= 0) {

@@ -46,7 +46,7 @@ y=203
 width=148
 height=18
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Waterbirth <br>Island
 textalignh=centre
 colour=0x282315
@@ -59,7 +59,7 @@ y=110
 width=120
 height=16
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Miscellania
 textalignh=centre
 colour=0x282315
@@ -72,7 +72,7 @@ y=161
 width=92
 height=16
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Etceteria
 textalignh=centre
 colour=0x282315
@@ -85,7 +85,7 @@ y=282
 width=75
 height=18
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Rellekka
 colour=0x282315
 
@@ -97,7 +97,7 @@ y=178
 width=135
 height=18
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Neitiznot & Jatizso
 colour=0x282315
 
@@ -109,7 +109,7 @@ y=260
 width=122
 height=18
 layer=layer_1
-textfont=fontmetrics_497
+textfont=q8_full
 text=Keldagrim<br>entrance
 textalignh=centre
 colour=0x282315
@@ -159,7 +159,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 505:14
@@ -170,7 +170,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 505:15
@@ -181,7 +181,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 505:16
@@ -192,7 +192,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 505:17
@@ -204,7 +204,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 505:18
@@ -216,7 +216,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 505:19
@@ -228,7 +228,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 505:20
@@ -240,7 +240,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 505:21
@@ -303,7 +303,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -317,7 +317,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -330,7 +330,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -344,6 +344,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

@@ -1,13 +1,13 @@
 // 5931
 [proc,clientscript_5931](component $component0, int $int1)
-def_graphic $graphic2 = 12104;
+def_graphic $graphic2 = graphic_12104;
 $int1 = calc($int1 + 1);
 if ($int1 >= 50) {
     $int1 = 0;
 }
 if_setontimer($component0, "clientscript_5931(event_com, $int1)");
 if ($int1 >= 25) {
-    $graphic2 = 12105;
+    $graphic2 = graphic_12105;
     if ($int1 = 25) {
         sound_vorbis_volume(~clientscript_2336(16827));
     }

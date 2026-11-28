@@ -6,7 +6,7 @@ def_string $string0 = "<tostring(scale($int5, 10500, 100))>% sleepy";
 if_setonmouserepeat($component0, "script1160($component0, -1, $component3, $string0, 25, $int4)");
 %tooltip_built = 0;
 if ($int5 >= calc(10500 / 2)) {
-    if_setgraphic($component2, 12877);
+    if_setgraphic($component2, graphic_12877);
 } else {
-    if_setgraphic($component2, 12876);
+    if_setgraphic($component2, graphic_12876);
 }

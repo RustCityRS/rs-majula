@@ -1,12 +1,12 @@
 // 5539
 [proc,clientscript_5539]
 switch_graphic (if_getgraphic(interface_1178:com_17)) {
-    case 8754, 8755 :
-        if_setgraphic(interface_1178:com_29, 8751);
+    case graphic_8754, graphic_8755 :
+        if_setgraphic(interface_1178:com_29, graphic_8751);
         if_sethide(interface_1178:com_30, false);
         if_setgraphic(interface_1178:com_30, ~clientscript_5552(if_getgraphic(interface_1178:com_18)));
-    case 8756, 8757 :
-        if_setgraphic(interface_1178:com_29, 8752);
+    case graphic_8756, graphic_8757 :
+        if_setgraphic(interface_1178:com_29, graphic_8752);
         if_sethide(interface_1178:com_30, false);
         if_setgraphic(interface_1178:com_30, ~clientscript_5552(if_getgraphic(interface_1178:com_18)));
 }

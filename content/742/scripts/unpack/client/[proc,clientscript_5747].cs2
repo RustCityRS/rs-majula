@@ -2,27 +2,27 @@
 [proc,clientscript_5747](struct $struct0, boolean $boolean1, int $int2, int $int3, int $int4)(int, int)
 cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
 if ($int2 = 1) {
-    cc_setgraphic(7635);
+    cc_setgraphic(graphic_7635);
 } else {
-    cc_setgraphic(7629);
+    cc_setgraphic(graphic_7629);
 }
 cc_setsize(12, 51, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
 $int3 = calc($int3 + 1);
 cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
 if ($int2 = 1) {
-    cc_setgraphic(7636);
+    cc_setgraphic(graphic_7636);
 } else {
-    cc_setgraphic(7630);
+    cc_setgraphic(graphic_7630);
 }
 cc_setsize(434, 51, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 12), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
 $int3 = calc($int3 + 1);
 cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
 if ($int2 = 1) {
-    cc_setgraphic(7637);
+    cc_setgraphic(graphic_7637);
 } else {
-    cc_setgraphic(7631);
+    cc_setgraphic(graphic_7631);
 }
 cc_setsize(12, 51, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 12 + 434), calc((51 + 3) * ($int4 / 1)), ^setpos_abs_left, ^setpos_abs_top);
@@ -54,11 +54,11 @@ def_string $string0 = "";
 def_int $int5 = 3;
 cc_create(interface_1239:com_8, ^iftype_graphic, $int3);
 if ($int2 = 1) {
-    cc_setgraphic(9603);
+    cc_setgraphic(graphic_9603);
 } else if ($boolean1 = true) {
-    cc_setgraphic(9601);
+    cc_setgraphic(graphic_9601);
 } else {
-    cc_setgraphic(9602);
+    cc_setgraphic(graphic_9602);
 }
 cc_setsize(34, 34, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc((2 * 12 + 434 + 5) * ($int4 % 1) + 5 + 12 + 434 - 34 - 4), calc((51 + 3) * ($int4 / 1) + (51 - 34) / 2), ^setpos_abs_left, ^setpos_abs_top);

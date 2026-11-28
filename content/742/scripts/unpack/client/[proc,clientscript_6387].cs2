@@ -1,7 +1,7 @@
 // 6387
 [proc,clientscript_6387]
 def_int $int0 = 0;
-def_graphic $graphic1 = 11756;
+def_graphic $graphic1 = graphic_11756;
 def_string $string0 = "";
 cc_deleteall(interface_396:com_6);
 cc_deleteall(interface_396:com_7);
@@ -9,8 +9,8 @@ while ($int0 < 18) {
     if ($int0 ! %varplayerbit_11465 & $int0 ! %varplayerbit_11466 & $int0 ! %varplayerbit_11467 & $int0 ! %varplayerbit_11468) {
         ~clientscript_6388(calc(11 + $int0 % 3 * 46), calc(10 + $int0 / 3 * 40), $int0, enum(int, obj, enum_5933, $int0), interface_396:com_6, interface_396:com_7);
         cc_setop(1, "Add");
-        cc_setonmouseleave("deltooltip_cc_graphic_swapper(\"interface_396:com_14\", interface_396:com_6, $int0, $graphic1)");
-        cc_setonmouserepeat("clientscript_5334(interface_396:com_7, $int0, \"interface_396:com_14\", oc_name(enum(int, obj, enum_5933, $int0)), 25, 180)");
+        cc_setonmouseleave("deltooltip_cc_graphic_swapper(interface_396:com_14, interface_396:com_6, $int0, $graphic1)");
+        cc_setonmouserepeat("clientscript_5334(interface_396:com_7, $int0, interface_396:com_14, oc_name(enum(int, obj, enum_5933, $int0)), 25, 180)");
     } else {
         ~clientscript_6388(calc(11 + $int0 % 3 * 46), calc(10 + $int0 / 3 * 40), $int0, null, interface_396:com_6, interface_396:com_7);
     }

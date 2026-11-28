@@ -82,9 +82,7 @@ impl Engine {
     /// `logins`, `ether`, `saves`, `zones`, `infos`, `outputs`, `cleanups`.
     #[rustfmt::skip]
     pub fn cycle(&mut self) -> CycleResult {
-        let engine = self as *mut Engine;
-        with_engine(self, || {
-            let engine = unsafe { &mut *engine };
+        with_engine(self, |engine| {
 
             let start = Instant::now();
 
@@ -121,8 +119,6 @@ impl Engine {
             let saves = phase!("saves", engine.saves());
             let zones = phase!("zones", engine.zones());
             let info = phase!("info", engine.infos());
-            #[cfg(since_647)]
-            let _ = phase!("lobby", engine.lobbies());
             let out = phase!("out", engine.outputs());
             engine.gather_output = false;
             let cleanup = phase!("cleanup", engine.cleanups());

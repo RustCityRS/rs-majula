@@ -1,6 +1,6 @@
 // 4002
 [clientscript,script4002]
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if (if_hassubmodal(toplevel_fullscreen:mainmodal, task_main) = true) {
         return;
     }

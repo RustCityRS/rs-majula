@@ -21,4 +21,21 @@ if (finduid(%npc_aggressive_player) = true) {
 }
 npc_anim(npc_param(death_anim), 0);
 npc_delay(1); // osrs has an extra tick of delay here. I think this delay can vary from npc to npc
+
+switch_npc(npc_type) {
+    case cow_12362, cow_12363, cow_calf_12364, cow_12365, cow_calf_12366 :
+        if (inzone(0_50_50_39_54, 0_51_51_3_36, npc_coord) = true & npc_findhero = ^true) {
+            ~information_signs_new_day;
+            %information_signs_cows = calc(%information_signs_cows + 1);
+        }
+    case cyclops_4291, cyclops_4292, cyclops_6078, cyclops_6079, cyclops_6080, cyclops_6081, cyclossus :
+        if (inzone(2_44_55_20_9, 2_44_55_62_34, npc_coord) = true & npc_findhero = ^true) {
+            ~information_signs_new_day;
+            if (npc_type = cyclossus) {
+                %information_signs_cyclossi = calc(%information_signs_cyclossi + 1);
+            } else {
+                %information_signs_cyclopes = calc(%information_signs_cyclopes + 1);
+            }
+        }
+}
 npc_del;

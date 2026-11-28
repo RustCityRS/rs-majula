@@ -56,4 +56,4 @@ if (compare($string6, "") ! 0 & $graphic3 ! null) {
 def_string $string8 = "When active, you will automatically fight back if attacked.";
 if_setonmouserepeat(combat_side:auto_retaliate, "addtooltip(combat_side:auto_retaliate, combat_side:tooltip, $string8, 25, 190)");
 if_setonmouseleave(combat_side:auto_retaliate, "deltooltip(combat_side:tooltip)");
-if_setonmouseleave(combat_side:com_4, "deltooltip(combat_side:tooltip)");
+if_setonmouseleave(combat_side:sp_attack_button, "deltooltip(combat_side:tooltip)");

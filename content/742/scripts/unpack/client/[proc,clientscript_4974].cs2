@@ -2,28 +2,28 @@
 [proc,clientscript_4974](int $int0)(graphic)
 switch_int ($int0) {
     case 17 :
-        return(7431);
+        return(graphic_7431);
     case 18 :
-        return(7430);
+        return(graphic_7430);
     case 19 :
-        return(7433);
+        return(graphic_7433);
     case 1 :
-        return(7422);
+        return(graphic_7422);
     case 2 :
-        return(7424);
+        return(graphic_7424);
     case 3 :
-        return(7423);
+        return(graphic_7423);
     case 4 :
-        return(7426);
+        return(graphic_7426);
     case 5 :
-        return(7427);
+        return(graphic_7427);
     case 6 :
-        return(7425);
+        return(graphic_7425);
     case 7 :
-        return(7428);
+        return(graphic_7428);
     case 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113 :
         return(enum(int, graphic, enum_4061, $int0));
     case 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 61 :
-        return(7434);
+        return(graphic_7434);
 }
 return(null);

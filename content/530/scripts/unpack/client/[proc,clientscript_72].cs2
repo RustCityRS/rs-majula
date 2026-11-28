@@ -10,6 +10,6 @@ if ($int3 < 10) {
     $int3 = 10;
 }
 if (cc_find($component0, 1) = true) {
-    cc_setsize(16, $int3, 0, 0);
+    cc_setsize(16, $int3, ^setsize_abs, ^setsize_abs);
     ~scrollbar_vertical_doscroll($component0, $component1, $int2, true);
 }

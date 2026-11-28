@@ -1,6 +1,6 @@
 // 110
 [proc,clientscript_110](string $string0)
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 if_sethide(chattop:mes_layer, false);

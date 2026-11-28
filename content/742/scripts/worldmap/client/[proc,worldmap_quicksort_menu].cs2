@@ -8,7 +8,7 @@ def_int $int5 = $int1;
 def_int $int6 = $int1;
 def_int $int7 = 0;
 while ($int6 < $int2) {
-    if (compare(lowercase(worldmap_getmapname(enum(int, wma, enum_708, $intarray0($int6)))), lowercase(worldmap_getmapname(enum(int, wma, enum_708, $int4)))) < calc($int6 & 1)) {
+    if (compare(lowercase(worldmap_getmapname(enum(int, maparea, enum_708, $intarray0($int6)))), lowercase(worldmap_getmapname(enum(int, maparea, enum_708, $int4)))) < calc($int6 & 1)) {
         $int7 = $intarray0($int6);
         $intarray0($int6) = $intarray0($int5);
         $intarray0($int5) = $int7;

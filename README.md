@@ -47,6 +47,7 @@ against unmodified cache content.
 | [`rs-pack/`](rs-pack/README.md)     | The content and cache compiler. The server also runs it at startup.                                                                 |
 | `rs-protocol/`                      | The wire codec, with no game logic in it.                                                                                           |
 | `rs-server/`                        | The game server: startup, sockets, the web client's HTTP server and the terminal dashboard.                                         |
+| `rs-lobby/`                         | The 647 and 742 lobby engine, session lifecycle and LS2 runtime.                                                                    |
 | `rs-db/`                            | The database layer and its migrations.                                                                                              |
 | `rs-web/`                           | The website.                                                                                                                        |
 | `rs-console/`                       | The staff console, plus `api/`, the admin API it shares with the worlds and the website.                                            |
@@ -63,7 +64,7 @@ against unmodified cache content.
 | **Rust** (via `rustup`) | stable, **1.95 or newer**, edition 2024 | `rust-toolchain.toml` pins it, so `rustup` installs the right one for you. Builds use `-C target-cpu=native`, so a binary is tuned to the machine that built it. |
 | **A C linker**          | any                                     | Every Rust build needs one: MSVC Build Tools on Windows, `cc` or `clang` on Linux and macOS.                                                                     |
 | **Docker** with Compose | any                                     | **Needed to log in.** It runs Postgres 17 (`docker-compose.yml`), where accounts live.                                                                           |
-| **Elixir** with `mix`   | `~> 1.15`                               | **Needed to log in.** It runs the `rs-ether` sidecar, which checks logins across worlds. The server starts it from source for you.                               |
+| **Elixir** with `mix`   | `~> 1.20`                               | **Needed to log in.** It runs the `rs-ether` sidecar, which checks logins across worlds. The server starts it from source for you.                               |
 | **Git**                 | any                                     | `rs-ether` is a submodule, so clone with `--recursive`.                                                                                                          |
 
 > [!NOTE]
@@ -125,7 +126,7 @@ See [`rs-ether/README.md`](rs-ether/README.md) for more on the sidecar.
 
 ## Playing
 
-**In a browser (225–289).** Open http://localhost:8080/ in any browser with WebAssembly, phones
+**In a browser (225–530).** Open http://localhost:8080/ in any browser with WebAssembly, phones
 included.
 
 **With the original Java client (225–289).** Find `public/<REV>/client.jar` for your revision and run:
@@ -142,21 +143,14 @@ The arguments are: node id, port offset, `lowmem` or `highmem`, `free` or `membe
 java -Xmx512m -jar public/530/launcher.jar 1 live english game0
 ```
 
-The first argument is the world. The client connects to port `40000 + world` on localhost, so
-world 1 (node 10) is port 40001. For high detail, run `public/530/hd/launcher.jar` the same way
-and choose High detail on the title screen. It ships the 2009 OpenGL natives for Windows, Linux,
-Solaris and macOS (Intel and PowerPC, on Apple's Java 6 or 5); without them it plays in standard
-detail. Windows x64 needs the Visual C++ 2005 runtime (`MSVCR80.dll`), Linux `libXxf86vm`.
-
 **With the original Java client (647).**
 
 ```bash
 java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
-  -cp public/647/client.jar client 1 1 1 live english game0
+  -cp public/647/client.jar client 1 1001 1 live english game0
 ```
 
-The three `1`s are the world. The client connects to port `40000 + world` on localhost, so
-world 1 (node 10) is port 40001.
+This connects to world 1 at port 40001 and lobby 1001 at port 41001 on localhost.
 
 **With the original Java client (742).** The client is an applet, so start it from the world's
 `jav_config.ws`:
@@ -166,7 +160,10 @@ java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
   deploy/client/AppletLoader.java http://127.0.0.1:8080/jav_config.ws
 ```
 
-For world 2 (node 11), use port 8081 and add `18=2 8=2` after the URL (the world and lobby ids).
+**Lobbies for revisions 647 and 742.** Start the world and lobby in separate terminals with the
+same revision, content, login key, password pepper, cluster cookie and PostgreSQL database.
+
+For world 2 (node 11), use port 8081. Each world supplies its configured world and lobby endpoints.
 
 ----
 
@@ -622,12 +619,12 @@ The defaults match `docker-compose.yml`, so locally the server connects with no 
 
 **The ether cluster**
 
-| Flag                     | Default                      | What it does                                                                                                                      |
-|--------------------------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `--ether-port <PORT>`    | `5000 + node_id` (`5010`)    | The ether sidecar's port.                                                                                                         |
-| `--node-host <HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | The host part of this world's ether node name (`world<id>@<host>`). Other worlds must be able to reach it.                        |
-| `--cluster <LIST>`       | empty (`RS_CLUSTER_HOSTS`)   | The ether nodes, comma-separated (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10` to `world20` on `--node-host`. |
-| `--ether-release <PATH>` | unset (`RS_ETHER_RELEASE`)   | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.                                  |
+| Flag                     | Default                      | What it does                                                                                                                                                                                                                       |
+|--------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--ether-port <PORT>`    | `5000 + node_id` (`5010`)    | The ether sidecar's port.                                                                                                                                                                                                          |
+| `--node-host <HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | The host part of this process's ether node name (`world<id>@<host>` or `lobby<id>@<host>`). The other nodes must be able to reach it.                                                                                              |
+| `--cluster <LIST>`       | empty (`RS_CLUSTER_HOSTS`)   | The ether nodes, comma-separated (e.g. `world10@10.0.0.5,world11@10.0.0.6,lobby10@10.0.0.5`). Empty means `world10` to `world20` and `lobby10` to `lobby20` on `--node-host`. Each node retries the missing ones every 10 seconds. |
+| `--ether-release <PATH>` | unset (`RS_ETHER_RELEASE`)   | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.                                                                                                                                   |
 
 ----
 
@@ -759,7 +756,7 @@ node, and the nodes join into one cluster for cross-world social features.
     GRANT SELECT, INSERT, UPDATE (read_at) ON staff_messages TO rs_web;
     -- the account page (/account)
     GRANT SELECT, DELETE ON players TO rs_web;
-    GRANT SELECT ON login_logs, player_saves, save_history, hiscores, chat_logs, session_logs, wealth_events, snapshots TO rs_web;
+    GRANT SELECT ON account_details, login_logs, player_saves, save_history, hiscores, chat_logs, session_logs, wealth_events, snapshots TO rs_web;
     GRANT SELECT (id, player_id, node_id, started_at, ended_at, duration_ms) ON replays TO rs_web;
     GRANT SELECT (node_id) ON moderation_logs TO rs_web;
     GRANT SELECT, DELETE ON friends, ignores TO rs_web;

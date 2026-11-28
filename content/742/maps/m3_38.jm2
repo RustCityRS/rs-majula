@@ -4873,19 +4873,19 @@ fog_color=0
 fog_depth=1500
 
 ==== LIGHTS ====
-0 832 2176 148: radius=1 colors=3,3,3 hsl=4738 type=171
-0 1215 2176 148: radius=1 colors=3,3,3 hsl=4738 type=139
-0 708 3993 200: radius=1 colors=3,2,3 hsl=4738 type=139
-0 130 3266 148: radius=1 colors=3,3,3 hsl=4738 type=139
-0 1348 4002 200: radius=1 colors=3,2,3 hsl=4738 type=139
-0 870 3737 450: radius=2 colors=5,5,5,5,5 hsl=31626 type=112
-0 1169 3737 450: radius=2 colors=5,5,5,5,5 hsl=31626 type=208
-0 830 2423 450: radius=3 colors=1536,7,7,7,7,7,7 hsl=15764 type=144
-0 1213 2423 450: radius=3 colors=1536,7,7,7,7,7,7 hsl=15764 type=208
-0 375 2892 450: radius=3 colors=262,262,262,262,262,262,262 hsl=15764 type=16
-0 375 3276 450: radius=3 colors=262,262,262,262,262,262,262 hsl=15764 type=240
-0 691 3746 450: radius=3 colors=7,7,7,7,7,7,1536 hsl=15764 type=112
-0 1339 3737 450: radius=3 colors=7,7,7,7,7,7,1536 hsl=15764 type=112
+0 832 2176 148: radius=1 radiusgrid=3,3,3 hsl=4738 type=171
+0 1215 2176 148: radius=1 radiusgrid=3,3,3 hsl=4738 type=139
+0 708 3993 200: radius=1 radiusgrid=3,2,3 hsl=4738 type=139
+0 130 3266 148: radius=1 radiusgrid=3,3,3 hsl=4738 type=139
+0 1348 4002 200: radius=1 radiusgrid=3,2,3 hsl=4738 type=139
+0 870 3737 450: radius=2 radiusgrid=5,5,5,5,5 hsl=31626 type=112
+0 1169 3737 450: radius=2 radiusgrid=5,5,5,5,5 hsl=31626 type=208
+0 830 2423 450: radius=3 radiusgrid=1536,7,7,7,7,7,7 hsl=15764 type=144
+0 1213 2423 450: radius=3 radiusgrid=1536,7,7,7,7,7,7 hsl=15764 type=208
+0 375 2892 450: radius=3 radiusgrid=262,262,262,262,262,262,262 hsl=15764 type=16
+0 375 3276 450: radius=3 radiusgrid=262,262,262,262,262,262,262 hsl=15764 type=240
+0 691 3746 450: radius=3 radiusgrid=7,7,7,7,7,7,1536 hsl=15764 type=112
+0 1339 3737 450: radius=3 radiusgrid=7,7,7,7,7,7,1536 hsl=15764 type=112
 
 ==== ENVPARAMS ====
 16 32 10

@@ -4,31 +4,33 @@
 //!
 //! The events are summoned with the dev cheat `~macro_event <event>`
 //! (`_test/scripts/cheats/cheat_macro_events.rs2`), as the event timer's roll
-//! would bring them. Inventory op 1 is `IF_BUTTON1` on `inventory:inv`:
-//! `p4(com) p2_alt3(obj) p2_alt1(slot)`.
+//! would bring them. Inventory op 1 is `IF_BUTTON1` on `inventory:inv`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
-use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
 use rs_protocol::network::game::server::npc_info::add_direction;
+#[cfg(since_647)]
+use rs_test::names::BACKPACK;
+#[cfg(since_647)]
+use rs_test::names::com;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::forget_calls;
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
 /// `ame_rewards:com_15`, the layer the gift's choices are drawn on.
-const GIFT_CHOICES: i32 = (202 << 16) | 15;
+#[cfg(since_647)]
+fn gift_choices() -> i32 {
+    com("ame_rewards:menu")
+}
+
 /// Lumbridge, east of the castle.
 const HOME: (u16, u16) = (3222, 3218);
 
+#[cfg(since_647)]
 fn obj(engine: &Engine, name: &str) -> TypeId {
     engine
         .cache
@@ -92,15 +94,12 @@ fn developer(engine: &mut Engine, name: &str) -> HarnessClient {
 }
 
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
+#[cfg(since_647)]
 fn button1(client: &mut HarnessClient, com: i32, slot: i32, obj: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(obj).p2_alt1(slot);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, slot as u16, TypeId::from_int(obj));
 }
 
 /// Cycles `n` ticks; the game messages said meanwhile.
@@ -156,16 +155,11 @@ fn the_maze_takes_a_player_in_and_their_run_never_tires() {
 
         // The shrine at the centre: 289's reward, and back home.
         let before = inv(engine, client.pid, "inv").iter().flatten().count();
-        let mut p = ClientPacket::new();
         let shrine = 3634;
         let (sx, sz) = (45 * 64 + 31, 71 * 64 + 31);
         engine.harness_telejump(client.pid, sx + 1, 0, sz);
         ticks(engine, &mut client, 2);
-        p.p2_alt1(sz as i32)
-            .p2_alt1(shrine)
-            .p1(0)
-            .p2_alt2(sx as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, sx, sz, TypeId::from_int(shrine));
         ticks(engine, &mut client, 12);
         let (x, _, z) = coord(engine, client.pid);
         assert!(
@@ -185,8 +179,10 @@ fn the_maze_takes_a_player_in_and_their_run_never_tires() {
 
 /// 2011's macro_mime_emotes (188) buttons by the mime's emote (289's
 /// %npc_int: cry, think, laugh, dance, climb rope, lean, glass wall, glass box).
+#[cfg(since_647)]
 const MIME_BUTTONS: [i32; 8] = [3, 2, 4, 5, 6, 7, 9, 8];
 
+#[cfg(since_647)]
 #[test]
 fn the_mime_takes_a_player_to_his_stage_and_four_right_answers_bring_a_gift() {
     runner::on_loaded_engine(|engine| {
@@ -248,6 +244,7 @@ fn the_mime_takes_a_player_to_his_stage_and_four_right_answers_bring_a_gift() {
     });
 }
 
+#[cfg(since_647)]
 fn open_gift(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
     cheat(client, "~macro_event_gift 7");
     ticks(engine, client, 2);
@@ -260,6 +257,7 @@ fn open_gift(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
     ticks(engine, client, 2)
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_gift_offers_2011_s_choices_and_gives_the_one_chosen() {
     runner::on_loaded_engine(|engine| {
@@ -283,7 +281,7 @@ fn a_gift_offers_2011_s_choices_and_gives_the_one_chosen() {
         // The first reward offered: its choice is its slot (the category).
         let slot = choices[..26].iter().position(Option::is_some).unwrap();
         let (reward, count) = choices[slot].unwrap();
-        button1(&mut client, GIFT_CHOICES, slot as i32 * 7, -1);
+        button1(&mut client, gift_choices(), slot as i32 * 7, -1);
         let said = ticks(engine, &mut client, 2);
         assert!(
             said.iter().any(|m| m == "Enjoy your gift."),
@@ -317,6 +315,7 @@ fn a_gift_offers_2011_s_choices_and_gives_the_one_chosen() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_gift_s_emote_unlocks_one_of_the_mime_s_emotes() {
     runner::on_loaded_engine(|engine| {
@@ -325,7 +324,7 @@ fn a_gift_s_emote_unlocks_one_of_the_mime_s_emotes() {
         open_gift(engine, &mut client);
         let choices = inv(engine, client.pid, "macro_certer");
         assert!(choices[26].is_some(), "the emote is offered");
-        button1(&mut client, GIFT_CHOICES, 26 * 7, -1);
+        button1(&mut client, gift_choices(), 26 * 7, -1);
         ticks(engine, &mut client, 2);
         let after = varp(engine, client.pid, "emote_access") & 0xF;
         assert_eq!(
@@ -341,6 +340,7 @@ fn a_gift_s_emote_unlocks_one_of_the_mime_s_emotes() {
 /// block, which the engine sent as 0 for every npc: angle 8192, their backs to
 /// the Mime. Seen in-client, angle 0 (direction 4, the client's own default)
 /// faces them at the stage.
+#[cfg(since_647)]
 #[test]
 fn the_mime_s_audience_faces_the_stage() {
     runner::on_loaded_engine(|engine| {

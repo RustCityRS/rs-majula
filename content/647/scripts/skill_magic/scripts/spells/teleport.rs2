@@ -123,13 +123,11 @@ if(inv_total(inv, plaguesample) > 0) { // Biohazard plague sample
 //     }
 // }
 ~clear_peer_trial_items;
-// 289 takes Monkey Madness's monkey from the backpack here; Monkey Madness
-// (quest_mm) is not ported.
-// if(inv_total(inv, monkey) > 0) {
-//     // this does delete all if you have multiple (confirmed on OSRS)
-//     inv_del(inv, monkey, ^max_32bit_int);
-//     mes("The monkey in your backpack disappears in a puff of smoke!");
-// }
+if(inv_total(inv, mm_monkey_in_backpack) > 0) {
+    // this does delete all if you have multiple (confirmed on OSRS)
+    inv_del(inv, mm_monkey_in_backpack, ^max_32bit_int);
+    mes("The monkey in your backpack disappears in a puff of smoke!");
+}
 
 [proc,tele_checks]()
 if(inv_total(inv, thanainabarrel) > 0) {

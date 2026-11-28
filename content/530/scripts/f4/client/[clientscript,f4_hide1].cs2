@@ -4,7 +4,7 @@ if (%dwarfrock_schematics_solved = 1) {
     return;
 }
 if (%gnome_course_progress = 0) {
-    if_setgraphic(dwarf_rock_schematics_control:f4_hide1, 180);
+    if_setgraphic(dwarf_rock_schematics_control:f4_hide1, "miscgraphics,10");
 } else {
-    if_setgraphic(dwarf_rock_schematics_control:f4_hide1, 181);
+    if_setgraphic(dwarf_rock_schematics_control:f4_hide1, "miscgraphics,11");
 }

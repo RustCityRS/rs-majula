@@ -1,9 +1,9 @@
-use super::map::{is_landscape, is_npc_spawns, is_obj_spawns};
+use super::map::{is_locations, is_npc_spawns, is_obj_spawns};
 use crate::pack::names::AssetNames;
 use anyhow::{Context, Result};
 
 pub fn convert(text: &str, name: &str, names: &AssetNames, unpack: bool) -> Result<String> {
-    let domain = if is_landscape(name) {
+    let domain = if is_locations(name) {
         Some("loc")
     } else if is_npc_spawns(name) {
         Some("npc")
@@ -80,8 +80,8 @@ pub fn convert(text: &str, name: &str, names: &AssetNames, unpack: bool) -> Resu
         } else if section == "lights" {
             line.split_whitespace()
                 .map(|v| -> Result<String> {
-                    if let Some(id) = v.strip_prefix("ref=") {
-                        Ok(format!("ref={}", reference("light", id, 0)?))
+                    if let Some(id) = v.strip_prefix("lighttype=") {
+                        Ok(format!("lighttype={}", reference("light", id, 0)?))
                     } else {
                         Ok(v.to_owned())
                     }

@@ -71,7 +71,7 @@ y=287
 width=380
 height=15
 layer=content_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=WHAT SORT OF CANOE WOULD YOU LIKE TO MAKE   ?
 textalignh=centre
 textshadow=yes
@@ -111,7 +111,7 @@ y=13
 width=26
 height=23
 layer=content_layer
-graphic=graphic_539
+graphic="close_buttons,4"
 onmouseover=graphic_swapper(canoe:canoe_close, 540)
 onmouseleave=graphic_swapper(canoe:canoe_close, 539)
 onclick=if_close
@@ -284,7 +284,7 @@ y=49
 width=105
 height=12
 layer=can_cat_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=A Stable Dugout.
 textshadow=yes
 colour=0x999999
@@ -297,7 +297,7 @@ y=55
 width=84
 height=13
 layer=can_waka_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=A Waka.
 textshadow=yes
 colour=0x999999
@@ -310,7 +310,7 @@ y=137
 width=79
 height=12
 layer=can_dug_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=A Dugout.
 textshadow=yes
 colour=0x999999
@@ -323,7 +323,7 @@ y=141
 width=59
 height=15
 layer=can_log_layer
-textfont=fontmetrics_494
+textfont=p11_full
 text=A Log.
 textshadow=yes
 colour=0x999999
@@ -380,7 +380,7 @@ y=29
 width=74
 height=150
 layer=can_log_layer
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
@@ -394,7 +394,7 @@ y=63
 width=113
 height=110
 layer=can_dug_layer
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
@@ -408,7 +408,7 @@ y=8
 width=180
 height=68
 layer=can_cat_layer
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
@@ -422,7 +422,7 @@ y=-2
 width=282
 height=85
 layer=can_waka_layer
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
@@ -526,7 +526,7 @@ y=44
 width=108
 height=114
 layer=canoe_dugout_greyed_out
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 
@@ -538,7 +538,7 @@ y=13
 width=197
 height=57
 layer=canoe_catamaran_greyed_out
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 
@@ -550,7 +550,7 @@ y=3
 width=285
 height=86
 layer=waka_canoe_greyed_out
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0xffff00
 
@@ -583,7 +583,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 52:46
@@ -594,7 +594,7 @@ width=462
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 52:47
@@ -605,7 +605,7 @@ width=512
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 52:48
@@ -616,7 +616,7 @@ width=32
 height=334
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 52:49
@@ -628,7 +628,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 tiling=yes
 
 // 52:50
@@ -640,7 +640,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 tiling=yes
 
 // 52:51
@@ -652,7 +652,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 tiling=yes
 
 // 52:52
@@ -664,7 +664,7 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 tiling=yes
 
 // 52:53
@@ -727,7 +727,7 @@ widthmode=minus
 heightmode=proportion
 ymode=abs_centre
 layer=fsborder_left_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -741,7 +741,7 @@ heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
 layer=fsborder_right_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -754,7 +754,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 layer=fsborder_upper_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2
 
@@ -768,6 +768,6 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
 layer=fsborder_lower_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 outline=2

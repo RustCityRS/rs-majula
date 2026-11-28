@@ -1,6 +1,6 @@
 // 6447
 [proc,clientscript_6447](component $component0, int $int1, int $int2, int $int3)
-if (if_getgraphic(interface_1311:com_1) = 3030) {
+if (if_getgraphic(interface_1311:com_1) = graphic_3030) {
     return;
 }
 def_int $int4 = 0;

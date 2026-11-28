@@ -1,75 +1,75 @@
 // 1895
-[proc,clientscript_1895](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, int $rgb13, int $rgb14)
+[proc,clientscript_1895](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, int $colour13, int $colour14)
 if ($component1 ! null) {
-    if (getwindowmode = 0) {
-        if_setgraphic($component2, 1584);
+    if (getwindowmode = ^windowmode_0) {
+        if_setgraphic($component2, graphic_1584);
         if_setonclick($component1, null);
         if_setonmouseover($component1, null);
         if_setonmouseleave($component1, null);
     } else {
         if_setgraphic($component2, null);
         if_setonclick($component1, "clientscript_1896(0, $int0)");
-        if_setonmouseover($component1, "text_colour_swapper($component3, $rgb13)");
-        if_setonmouseleave($component1, "text_colour_swapper($component3, $rgb14)");
+        if_setonmouseover($component1, "text_colour_swapper($component3, $colour13)");
+        if_setonmouseleave($component1, "text_colour_swapper($component3, $colour14)");
     }
-    if_setcolour($component3, $rgb14);
+    if_setcolour($component3, $colour14);
 }
 if ($component4 ! null) {
-    if (getwindowmode = 1) {
-        if_setgraphic($component5, 1584);
+    if (getwindowmode = ^windowmode_small) {
+        if_setgraphic($component5, graphic_1584);
         if_setonclick($component4, null);
         if_setonmouseover($component4, null);
         if_setonmouseleave($component4, null);
     } else {
         if_setgraphic($component5, null);
         if_setonclick($component4, "clientscript_1896(1, $int0)");
-        if_setonmouseover($component4, "text_colour_swapper($component6, $rgb13)");
-        if_setonmouseleave($component4, "text_colour_swapper($component6, $rgb14)");
+        if_setonmouseover($component4, "text_colour_swapper($component6, $colour13)");
+        if_setonmouseleave($component4, "text_colour_swapper($component6, $colour14)");
     }
-    if_setcolour($component6, $rgb14);
+    if_setcolour($component6, $colour14);
 }
 if ($component7 ! null) {
-    if (getwindowmode = 2) {
-        if_setgraphic($component8, 1584);
+    if (getwindowmode = ^windowmode_resizable) {
+        if_setgraphic($component8, graphic_1584);
         if_setonclick($component7, null);
         if_setonmouseover($component7, null);
         if_setonmouseleave($component7, null);
     } else {
         if_setgraphic($component8, null);
         if_setonclick($component7, "clientscript_1896(2, $int0)");
-        if_setonmouseover($component7, "text_colour_swapper($component9, $rgb13)");
-        if_setonmouseleave($component7, "text_colour_swapper($component9, $rgb14)");
+        if_setonmouseover($component7, "text_colour_swapper($component9, $colour13)");
+        if_setonmouseleave($component7, "text_colour_swapper($component9, $colour14)");
     }
-    if_setcolour($component9, $rgb14);
+    if_setcolour($component9, $colour14);
 }
 if ($component10 ! null) {
     if ($int0 = 2) {
-        if_setposition($component11, 24, 17, 1, 0);
+        if_setposition($component11, 24, 17, ^setpos_abs_centre, ^setpos_abs_top);
     }
     if ($int0 = 3) {
-        if_setposition($component11, 25, 17, 1, 0);
+        if_setposition($component11, 25, 17, ^setpos_abs_centre, ^setpos_abs_top);
     }
-    if (getwindowmode = 3) {
-        if_setgraphic($component11, 1584);
+    if (getwindowmode = ^windowmode_fullscreen) {
+        if_setgraphic($component11, graphic_1584);
         if_setonclick($component10, null);
         if_setonmouseover($component10, null);
         if_setonmouseleave($component10, null);
     } else if (fullscreen_modecount <= 0) {
         if ($int0 = 2) {
-            if_setposition($component11, 23, 19, 1, 0);
+            if_setposition($component11, 23, 19, ^setpos_abs_centre, ^setpos_abs_top);
         }
         if ($int0 = 3) {
-            if_setposition($component11, 22, 20, 1, 0);
+            if_setposition($component11, 22, 20, ^setpos_abs_centre, ^setpos_abs_top);
         }
-        if_setgraphic($component11, 698);
+        if_setgraphic($component11, "options_radio_buttons,1");
         if_setonclick($component10, null);
         if_setonmouseover($component10, null);
         if_setonmouseleave($component10, null);
     } else {
         if_setgraphic($component11, null);
         if_setonclick($component10, "clientscript_1896(3, $int0)");
-        if_setonmouseover($component10, "text_colour_swapper($component12, $rgb13)");
-        if_setonmouseleave($component10, "text_colour_swapper($component12, $rgb14)");
+        if_setonmouseover($component10, "text_colour_swapper($component12, $colour13)");
+        if_setonmouseleave($component10, "text_colour_swapper($component12, $colour14)");
     }
-    if_setcolour($component12, $rgb14);
+    if_setcolour($component12, $colour14);
 }

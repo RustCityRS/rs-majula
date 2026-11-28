@@ -2,7 +2,7 @@
 
 // 289's armour block sound (skill_combat/scripts/combat.rs2's
 // ~combat_defend_sound, player/scripts/damage.rs2): a hit of nothing plays the
-// worn shield's defend_sound, else the worn body's, once with delay 20.
+// worn shield's defend_sound, else the worn body's, once with the hitmark (delay 0).
 // The synths: swordclash6 1978, swordclash3 1975, leather_hit 1064, brassclash2
 // 1976.
 // A test player has 10 hitpoints.
@@ -14,7 +14,7 @@ setup_player("test_player")
 inv_setslot(worn, ^wearpos_lhand, rune_kiteshield, 1);
 ~player_combat_stat;
 ~damage_self(0);
-assert_called_with("sound_synth", "1978,1,20")
+assert_called_with("sound_synth", "1978,1,0")
 
 // Without a shield the body's: a rune platebody's swordclash3.
 [label,test_a_rune_platebody_blocks_with_its_clash]
@@ -23,7 +23,7 @@ setup_player("test_player")
 inv_setslot(worn, ^wearpos_torso, rune_platebody, 1);
 ~player_combat_stat;
 ~damage_self(0);
-assert_called_with("sound_synth", "1975,1,20")
+assert_called_with("sound_synth", "1975,1,0")
 // The supplied defender body must win over the active player's rune body.
 assert_true(~combat_defend_sound(null, leather_armour) = dagganoth_hide_hit)
 
@@ -35,7 +35,7 @@ inv_setslot(worn, ^wearpos_torso, rune_platebody, 1);
 inv_setslot(worn, ^wearpos_lhand, rune_kiteshield, 1);
 ~player_combat_stat;
 ~damage_self(0);
-assert_called_with("sound_synth", "1978,1,20")
+assert_called_with("sound_synth", "1978,1,0")
 assert_called("sound_synth", 1)
 
 // Leather (its configs, 289's leather_gear.obj, are not ported; 647's
@@ -46,7 +46,7 @@ setup_player("test_player")
 inv_setslot(worn, ^wearpos_torso, leather_armour, 1);
 ~player_combat_stat;
 ~damage_self(0);
-assert_called_with("sound_synth", "1064,1,20")
+assert_called_with("sound_synth", "1064,1,0")
 
 // 289's brassclash2 is 786's 1976 by its bytes, not 647's brassclash2 (513).
 [label,test_an_iron_kiteshield_blocks_with_289_s_brassclash2]
@@ -55,7 +55,7 @@ setup_player("test_player")
 inv_setslot(worn, ^wearpos_lhand, iron_kiteshield, 1);
 ~player_combat_stat;
 ~damage_self(0);
-assert_called_with("sound_synth", "1976,1,20")
+assert_called_with("sound_synth", "1976,1,0")
 
 // A hit that lands plays the one human hit sound (~human_hit_sound), not the
 // armour's.
@@ -68,14 +68,13 @@ inv_setslot(worn, ^wearpos_lhand, rune_kiteshield, 1);
 assert_eq(stat(hitpoints), 9)
 assert_called("sound_synth", 1)
 
-// 289's last resort, human_block_1, has no cache 786 synth: an unarmoured
-// block is silent.
-[label,test_an_unarmoured_block_is_silent]
+// 289's last resort, human_block_1, is cache 530's synth 511 (monk_of_zamorak_attack).
+[label,test_an_unarmoured_block_plays_289_s_human_block]
 setup_player("test_player")
 ~test_skip_design
 ~player_combat_stat;
 ~damage_self(0);
-assert_called("sound_synth", 0)
+assert_called_with("sound_synth", "511,1,0")
 
 // 289's anti-dragon shield config (289's antidragonbreathshield, obj 1540)
 // reaches 2011's anti_dragon_shield: its bonuses (7/9/8/2/8, as the 2011 wiki's

@@ -3,141 +3,141 @@
 def_graphic $graphic1 = null;
 cc_create($component0, ^iftype_graphic, 0);
 if (%varclient_1910 < 1) {
-    cc_setgraphic(10695);
-    $graphic1 = 10685;
+    cc_setgraphic(graphic_10695);
+    $graphic1 = graphic_10685;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10695;
+    $graphic1 = graphic_10695;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(0, $component0)");
 } else {
-    cc_setgraphic(10685);
+    cc_setgraphic(graphic_10685);
 }
 cc_setposition(28, 258, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 1);
 if (%varclient_1910 < 2) {
-    cc_setgraphic(10696);
-    $graphic1 = 10686;
+    cc_setgraphic(graphic_10696);
+    $graphic1 = graphic_10686;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10696;
+    $graphic1 = graphic_10696;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(1, $component0)");
 } else {
-    cc_setgraphic(10686);
+    cc_setgraphic(graphic_10686);
 }
 cc_setposition(174, 258, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 2);
 if (%varclient_1910 < 3) {
-    cc_setgraphic(10697);
-    $graphic1 = 10687;
+    cc_setgraphic(graphic_10697);
+    $graphic1 = graphic_10687;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10697;
+    $graphic1 = graphic_10697;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(2, $component0)");
 } else {
-    cc_setgraphic(10687);
+    cc_setgraphic(graphic_10687);
 }
 cc_setposition(314, 258, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 3);
 if (%varclient_1910 < 4) {
-    cc_setgraphic(10698);
-    $graphic1 = 10688;
+    cc_setgraphic(graphic_10698);
+    $graphic1 = graphic_10688;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10698;
+    $graphic1 = graphic_10698;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(3, $component0)");
 } else {
-    cc_setgraphic(10688);
+    cc_setgraphic(graphic_10688);
 }
 cc_setposition(453, 258, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 4);
 if (%varclient_1910 < 5) {
-    cc_setgraphic(10699);
-    $graphic1 = 10689;
+    cc_setgraphic(graphic_10699);
+    $graphic1 = graphic_10689;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10699;
+    $graphic1 = graphic_10699;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(4, $component0)");
 } else {
-    cc_setgraphic(10689);
+    cc_setgraphic(graphic_10689);
 }
 cc_setposition(99, 177, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 5);
 if (%varclient_1910 < 6) {
-    cc_setgraphic(10700);
-    $graphic1 = 10690;
+    cc_setgraphic(graphic_10700);
+    $graphic1 = graphic_10690;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10700;
+    $graphic1 = graphic_10700;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(5, $component0)");
 } else {
-    cc_setgraphic(10690);
+    cc_setgraphic(graphic_10690);
 }
 cc_setposition(243, 177, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 6);
 if (%varclient_1910 < 7) {
-    cc_setgraphic(10701);
-    $graphic1 = 10691;
+    cc_setgraphic(graphic_10701);
+    $graphic1 = graphic_10691;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10701;
+    $graphic1 = graphic_10701;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(6, $component0)");
 } else {
-    cc_setgraphic(10691);
+    cc_setgraphic(graphic_10691);
 }
 cc_setposition(382, 177, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 7);
 if (%varclient_1910 < 8) {
-    cc_setgraphic(10702);
-    $graphic1 = 10692;
+    cc_setgraphic(graphic_10702);
+    $graphic1 = graphic_10692;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10702;
+    $graphic1 = graphic_10702;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(7, $component0)");
 } else {
-    cc_setgraphic(10692);
+    cc_setgraphic(graphic_10692);
 }
 cc_setposition(159, 88, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 8);
 if (%varclient_1910 < 9) {
-    cc_setgraphic(10703);
-    $graphic1 = 10693;
+    cc_setgraphic(graphic_10703);
+    $graphic1 = graphic_10693;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10703;
+    $graphic1 = graphic_10703;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(8, $component0)");
 } else {
-    cc_setgraphic(10693);
+    cc_setgraphic(graphic_10693);
 }
 cc_setposition(323, 88, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_graphic, 9);
 if (%varclient_1910 < 10) {
-    cc_setgraphic(10704);
-    $graphic1 = 10694;
+    cc_setgraphic(graphic_10704);
+    $graphic1 = graphic_10694;
     cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic1)");
-    $graphic1 = 10704;
+    $graphic1 = graphic_10704;
     cc_setonmouseleave("clientscript_6176(event_com, event_comsubid, $graphic1)");
     cc_setop(1, "Buy Rank");
     cc_setonop("clientscript_6175(9, $component0)");
 } else {
-    cc_setgraphic(10694);
+    cc_setgraphic(graphic_10694);
 }
 cc_setposition(243, 13, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(75, 75, ^setsize_abs, ^setsize_abs);

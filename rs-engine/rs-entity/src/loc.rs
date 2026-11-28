@@ -17,34 +17,35 @@ const LIFETIME_SHIFT: u32 = 6;
 const BASE_INFO_SHIFT: u32 = 7;
 /// Bit offset for the current (possibly modified) info within the packed `u128`.
 #[cfg(before_742)]
-const CURRENT_INFO_SHIFT: u32 = 44;
-#[cfg(since_742)]
 const CURRENT_INFO_SHIFT: u32 = 45;
+#[cfg(since_742)]
+const CURRENT_INFO_SHIFT: u32 = 46;
 /// Bit offset for the `last_clock` field within the packed `u128`.
 #[cfg(before_742)]
-const LAST_CLOCK_SHIFT: u32 = 81;
-#[cfg(since_742)]
 const LAST_CLOCK_SHIFT: u32 = 83;
+#[cfg(since_742)]
+const LAST_CLOCK_SHIFT: u32 = 85;
 /// Bit offset for the removed flag within the packed `u128`.
 #[cfg(before_742)]
-const REMOVED_SHIFT: u32 = 113;
-#[cfg(since_742)]
 const REMOVED_SHIFT: u32 = 115;
+#[cfg(since_742)]
+const REMOVED_SHIFT: u32 = 117;
 /// Bit offset for the [`LocSerial`] within the packed `u128`.
 #[cfg(before_742)]
-const SERIAL_SHIFT: u32 = 114;
-#[cfg(since_742)]
 const SERIAL_SHIFT: u32 = 116;
+#[cfg(since_742)]
+const SERIAL_SHIFT: u32 = 118;
 
 /// Mask for the 3-bit local-coordinate fields.
 const COORD_MASK: u128 = 0x7;
 /// Mask for the single-bit lifetime field.
 const LIFETIME_MASK: u128 = 0x1;
-/// Mask for the 37-bit info field (id, shape, angle, blockwalk, blockrange, width, length).
+/// Mask for the 38-bit info field (id, shape, angle, blockwalk, blockrange,
+/// breakroutefinding, width, length).
 #[cfg(before_742)]
-const INFO_MASK: u128 = 0x1FFFFFFFFF;
-#[cfg(since_742)]
 const INFO_MASK: u128 = 0x3FFFFFFFFF;
+#[cfg(since_742)]
+const INFO_MASK: u128 = 0x7FFFFFFFFF;
 /// Mask for the 32-bit `last_clock` field. Its all-ones value is the `u32::MAX`
 /// "no timer" sentinel.
 const LAST_CLOCK_MASK: u128 = 0xFFFFFFFF;
@@ -53,7 +54,7 @@ const REMOVED_MASK: u128 = 0x1;
 /// Mask for the [`LocSerial`] field.
 const SERIAL_MASK: u128 = (1 << LocSerial::BITS) - 1;
 
-// ---- THE BELOW SECTION IS FOR BUILDING THE INDIVIDUAL INFO BITS `u64` -- 37 bits wide.
+// ---- THE BELOW SECTION IS FOR BUILDING THE INDIVIDUAL INFO BITS `u64` -- 38 bits wide.
 
 /// Bit offset for the loc type id within the info word.
 const ID_SHIFT: u32 = 0;
@@ -77,16 +78,21 @@ const BLOCKWALK_SHIFT: u32 = 24;
 const BLOCKRANGE_SHIFT: u32 = 24;
 #[cfg(since_742)]
 const BLOCKRANGE_SHIFT: u32 = 25;
+/// Bit offset for the breakroutefinding flag within the info word.
+#[cfg(before_742)]
+const BREAKROUTEFINDING_SHIFT: u32 = 25;
+#[cfg(since_742)]
+const BREAKROUTEFINDING_SHIFT: u32 = 26;
 /// Bit offset for the width field within the info word.
 #[cfg(before_742)]
-const WIDTH_SHIFT: u32 = 25;
-#[cfg(since_742)]
 const WIDTH_SHIFT: u32 = 26;
+#[cfg(since_742)]
+const WIDTH_SHIFT: u32 = 27;
 /// Bit offset for the length field within the info word.
 #[cfg(before_742)]
-const LENGTH_SHIFT: u32 = 31;
-#[cfg(since_742)]
 const LENGTH_SHIFT: u32 = 32;
+#[cfg(since_742)]
+const LENGTH_SHIFT: u32 = 33;
 
 /// Mask for the 16-bit loc type id.
 #[cfg(before_742)]
@@ -101,6 +107,8 @@ const ANGLE_MASK: u64 = 0x3;
 const BLOCKWALK_MASK: u64 = 0x1;
 /// Mask for the single-bit blockrange flag.
 const BLOCKRANGE_MASK: u64 = 0x1;
+/// Mask for the single-bit breakroutefinding flag.
+const BREAKROUTEFINDING_MASK: u64 = 0x1;
 /// Mask for the 6-bit width field.
 const WIDTH_MASK: u64 = 0x3F;
 /// Mask for the 6-bit length field.
@@ -116,8 +124,8 @@ const LENGTH_MASK: u64 = 0x3F;
 /// a door changes its `id`) while preserving the original state for revert on
 /// respawn-type locs.
 ///
-/// Each info holds `id`, `shape`, `angle`, the `blockwalk`/`blockrange` flags,
-/// and `width`/`length`. These are *per-info* (base and current each carry their
+/// Each info holds `id`, `shape`, `angle`, the `blockwalk`/`blockrange`/
+/// `breakroutefinding` flags, and `width`/`length`. These are *per-info* (base and current each carry their
 /// own) because a runtime change can swap the loc for a different type whose
 /// dimensions, shape, or flags differ -- e.g. lighting a fire (centrepiece) on a
 /// tile, then closing a diagonal door (wall) over it. The client renders by
@@ -133,29 +141,29 @@ const LENGTH_MASK: u64 = 0x3F;
 /// base info. A change only ever swaps a loc for another on the *same* layer, so the
 /// current shape always shares that layer.
 ///
-/// `last_clock` is a `u32` packed into bits `81..113` (a tick clock; the engine
+/// `last_clock` is a `u32` packed into bits `83..115` (a tick clock; the engine
 /// clock is `u32`). Its all-ones value is the `u32::MAX` "no timer" sentinel,
 /// returned by [`last_clock`](Self::last_clock) / set by
 /// [`set_last_clock`](Self::set_last_clock).
 ///
-/// Bit `113` marks a removed map loc, which stays in its zone until it
+/// Bit `115` marks a removed map loc, which stays in its zone until it
 /// respawns. It keeps the type it had when removed, as in the reference
-/// engine, so the flag can't be read off the info or the clock. Bits `114..128`
+/// engine, so the flag can't be read off the info or the clock. Bits `116..128`
 /// hold the [`LocSerial`] the zone gave it.
 ///
 /// Layout (bit offsets):
 /// - `0..3`    local X (`x & 0x7`)
 /// - `3..6`    local Z (`z & 0x7`)
 /// - `6`       lifetime
-/// - `7..44`   base info    (`id16 | shape5 | angle2 | blockwalk1 | blockrange1 | width6 | length6`)
-/// - `44..81`  current info (`id16 | shape5 | angle2 | blockwalk1 | blockrange1 | width6 | length6`)
-/// - `81..113` last_clock (32 bits)
-/// - `113`     removed
-/// - `114..128` serial (14 bits)
+/// - `7..45`   base info    (`id16 | shape5 | angle2 | blockwalk1 | blockrange1 | breakroutefinding1 | width6 | length6`)
+/// - `45..83`  current info (`id16 | shape5 | angle2 | blockwalk1 | blockrange1 | breakroutefinding1 | width6 | length6`)
+/// - `83..115` last_clock (32 bits)
+/// - `115`     removed
+/// - `116..128` serial (12 bits)
 ///
-/// From 742 the id is 17 bits (locs reach 78,747), so each info takes 38 bits
-/// and the serial 12: base `7..45`, current `45..83`, last_clock `83..115`,
-/// removed `115`, serial `116..128`.
+/// From 742 the id is 17 bits (locs reach 78,747), so each info takes 39 bits
+/// and the serial 10: base `7..46`, current `46..85`, last_clock `85..117`,
+/// removed `117`, serial `118..128`.
 #[derive(Debug, Clone, Copy)]
 pub struct Loc(u128);
 
@@ -181,6 +189,7 @@ impl Loc {
     /// * `angle` - The rotation angle of the loc.
     /// * `blockwalk` - Whether the loc blocks movement (from its loc type).
     /// * `blockrange` - Whether the loc blocks ranged projectiles (from its loc type).
+    /// * `breakroutefinding` - Whether routes run through the loc (from its loc type).
     /// * `width` - Width of the loc in tiles (x-axis); clamped to `0..=63`.
     /// * `length` - Length of the loc in tiles (z-axis); clamped to `0..=63`.
     ///
@@ -196,10 +205,20 @@ impl Loc {
         angle: LocAngle,
         blockwalk: bool,
         blockrange: bool,
+        breakroutefinding: bool,
         width: u8,
         length: u8,
     ) -> Self {
-        let info = Self::pack_info(id, shape, angle, blockwalk, blockrange, width, length) as u128;
+        let info = Self::pack_info(
+            id,
+            shape,
+            angle,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            width,
+            length,
+        ) as u128;
         let packed = (((coord.x() & COORD_MASK as u16) as u128) << LOCAL_X_SHIFT)
             | (((coord.z() & COORD_MASK as u16) as u128) << LOCAL_Z_SHIFT)
             | ((lifetime as u128) << LIFETIME_SHIFT)
@@ -352,6 +371,15 @@ impl Loc {
         (self.current_info() >> BLOCKRANGE_SHIFT) & BLOCKRANGE_MASK == 1
     }
 
+    /// Returns whether routes currently run through this loc.
+    ///
+    /// Read from the current info so it reflects any runtime change; after a
+    /// [`revert`](Self::revert) it again matches the base loc type.
+    #[inline(always)]
+    pub const fn breakroutefinding(&self) -> bool {
+        (self.current_info() >> BREAKROUTEFINDING_SHIFT) & BREAKROUTEFINDING_MASK == 1
+    }
+
     /// Returns the width of the loc in tiles along the x-axis (`0..=63`).
     ///
     /// Read from the current info; reflects any runtime change and is restored to
@@ -384,7 +412,7 @@ impl Loc {
     /// Returns the loc's `last_clock` (tick of its next scheduled state change),
     /// or `u32::MAX` when no timer is pending.
     ///
-    /// Stored in bits `81..113` of `packed`. The all-ones value is the `u32::MAX`
+    /// Stored in bits `83..115` of `packed`. The all-ones value is the `u32::MAX`
     /// "no timer" sentinel, which falls out naturally since the field is exactly 32
     /// bits wide.
     #[inline(always)]
@@ -394,7 +422,7 @@ impl Loc {
 
     /// Sets the loc's `last_clock`. Pass `u32::MAX` to clear the timer.
     ///
-    /// The value is stored verbatim in bits `81..113` of `packed`; `u32::MAX` is the
+    /// The value is stored verbatim in bits `83..115` of `packed`; `u32::MAX` is the
     /// "no timer" sentinel.
     #[inline(always)]
     pub const fn set_last_clock(&mut self, clock: u32) {
@@ -428,6 +456,7 @@ impl Loc {
     /// * `angle` - New rotation angle.
     /// * `blockwalk` - Whether the new loc type blocks movement.
     /// * `blockrange` - Whether the new loc type blocks ranged projectiles.
+    /// * `breakroutefinding` - Whether routes run through the new loc type.
     /// * `width` - New width in tiles (x-axis); clamped to `0..=63`.
     /// * `length` - New length in tiles (z-axis); clamped to `0..=63`.
     ///
@@ -442,10 +471,20 @@ impl Loc {
         angle: LocAngle,
         blockwalk: bool,
         blockrange: bool,
+        breakroutefinding: bool,
         width: u8,
         length: u8,
     ) {
-        let info = Self::pack_info(id, shape, angle, blockwalk, blockrange, width, length) as u128;
+        let info = Self::pack_info(
+            id,
+            shape,
+            angle,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            width,
+            length,
+        ) as u128;
         self.0 = (self.0 & !(INFO_MASK << CURRENT_INFO_SHIFT)) | (info << CURRENT_INFO_SHIFT);
     }
 
@@ -494,11 +533,12 @@ impl Loc {
     }
 
     /// Packs a loc type id, shape, angle, collision flags and dimensions into a
-    /// 37-bit info value.
+    /// 38-bit info value.
     ///
     /// Layout: bits 0-15 = id, bits 16-20 = shape, bits 21-22 = angle,
-    /// bit 23 = blockwalk, bit 24 = blockrange, bits 25-30 = width,
-    /// bits 31-36 = length. `width`/`length` are clamped to `0..=63`.
+    /// bit 23 = blockwalk, bit 24 = blockrange, bit 25 = breakroutefinding,
+    /// bits 26-31 = width, bits 32-37 = length. `width`/`length` are clamped to
+    /// `0..=63`.
     #[inline(always)]
     #[allow(clippy::too_many_arguments)]
     const fn pack_info(
@@ -507,6 +547,7 @@ impl Loc {
         angle: LocAngle,
         blockwalk: bool,
         blockrange: bool,
+        breakroutefinding: bool,
         width: u8,
         length: u8,
     ) -> u64 {
@@ -525,6 +566,7 @@ impl Loc {
             | ((angle as u64 & ANGLE_MASK) << ANGLE_SHIFT)
             | ((blockwalk as u64 & BLOCKWALK_MASK) << BLOCKWALK_SHIFT)
             | ((blockrange as u64 & BLOCKRANGE_MASK) << BLOCKRANGE_SHIFT)
+            | ((breakroutefinding as u64 & BREAKROUTEFINDING_MASK) << BREAKROUTEFINDING_SHIFT)
             | ((width as u64 & WIDTH_MASK) << WIDTH_SHIFT)
             | ((length as u64 & LENGTH_MASK) << LENGTH_SHIFT)
     }

@@ -217,7 +217,7 @@ switch_int ($int0) {
         if (%wolf_quest < 110) {
             return(false);
         }
-        if (stat_base(summoning) < 93) {
+        if (stat_base(animallore) < 93) {
             return(false);
         }
     case 58 :
@@ -463,7 +463,7 @@ switch_int ($int0) {
             return(false);
         }
     case 150 :
-        if (stat_base(summoning) < 56) {
+        if (stat_base(animallore) < 56) {
             return(false);
         }
     case 151 :
@@ -499,7 +499,7 @@ switch_int ($int0) {
         if (%wolf_quest < 110) {
             return(false);
         }
-        if (stat_base(summoning) < 80) {
+        if (stat_base(animallore) < 80) {
             return(false);
         }
     case 314 :
@@ -880,7 +880,7 @@ switch_int ($int0) {
         if (%wolf_quest < 110) {
             return(false);
         }
-        if (stat_base(summoning) < 95) {
+        if (stat_base(animallore) < 95) {
             return(false);
         }
         if (stat_base(hunter) < 27) {
@@ -898,7 +898,7 @@ switch_int ($int0) {
         if (%wolf_quest < 110) {
             return(false);
         }
-        if (stat_base(summoning) < 90) {
+        if (stat_base(animallore) < 90) {
             return(false);
         }
     case 330 :
@@ -977,7 +977,7 @@ switch_int ($int0) {
         if (stat_base(firemaking) < 45) {
             return(false);
         }
-        if (stat_base(summoning) < 46) {
+        if (stat_base(animallore) < 46) {
             return(false);
         }
     case 243 :

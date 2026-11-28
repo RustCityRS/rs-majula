@@ -16,7 +16,7 @@ pub fn health(current: u8, base: u8) -> u8 {
     (current as u32 * FULL / base as u32).min(FULL) as u8
 }
 
-/// The bytes `psmart2or4null` takes for `value`.
+/// The bytes `psmartint2` takes for `value`.
 #[cfg(since_742)]
 const fn smart2or4null_size(value: i32) -> usize {
     if value >= 32767 { 4 } else { 2 }

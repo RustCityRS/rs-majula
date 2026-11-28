@@ -20,47 +20,99 @@
 //! on a gold amulet (IF_BUTTONT `p4(com) p2_alt1(slot) p2_alt1(slot) p2_alt2(obj)
 //! p4_alt1(com) p2(obj)`) strings it for 4 xp.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
+#[cfg(since_647)]
+use rs_test::names::com;
 use rs_test::runner;
+#[cfg(since_647)]
+use rs_test::server;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const CRAFTING: usize = 12;
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
+#[cfg(since_647)]
 const NONE: i32 = 0xFFFF;
 /// skillmulti2010's first item.
-const FIRST_ITEM: i32 = 905 << 16 | 14;
+#[cfg(since_647)]
+fn first_item() -> i32 {
+    com("skillmulti2010:a")
+}
+
 /// Lumbridge's furnace, 2011's (loc 45310), and the tile it is used from.
+#[cfg(since_647)]
 const FURNACE: (u16, u16, u16) = (45310, 3226, 3256);
+#[cfg(since_647)]
 const AT_FURNACE: (u16, u8, u16) = (3226, 0, 3255);
-const GOLD_IF: i32 = 446 << 16;
+/// Where the cases that use no loc start: beside the furnace, or on 530, whose furnace
+/// stands elsewhere, Lumbridge's spawn.
+#[cfg(all(since_530, before_647))]
+const START: (u16, u8, u16) = (3222, 0, 3218);
+#[cfg(since_647)]
+const START: (u16, u8, u16) = AT_FURNACE;
 /// The sapphire ring's model and button, the emerald ring's button.
-const SAPPHIRE_RING: i32 = GOLD_IF | 83;
-const SAPPHIRE_RING_MAKE: i32 = GOLD_IF | 84;
-const EMERALD_RING_MAKE: i32 = GOLD_IF | 86;
+#[cfg(since_647)]
+fn sapphire_ring() -> i32 {
+    com("crafting_gold:sapphire_dark1")
+}
+
+#[cfg(since_647)]
+fn sapphire_ring_make() -> i32 {
+    com("crafting_gold:sapphire_ring")
+}
+
+#[cfg(since_647)]
+fn emerald_ring_make() -> i32 {
+    com("crafting_gold:emerald_ring")
+}
+
 /// The ring row's "You need a ring mould" layer and its items' layer.
-const RING_MOULD_TEXT: i32 = GOLD_IF | 17;
-const RINGS: i32 = GOLD_IF | 18;
-const SILVER_IF: i32 = 438 << 16;
+#[cfg(since_647)]
+fn ring_mould_text() -> i32 {
+    com("crafting_gold:com_17")
+}
+
+#[cfg(since_647)]
+fn rings() -> i32 {
+    com("crafting_gold:com_18")
+}
+
 /// The Saradomin symbol's row (its layer, model and button) and the Zamorak
 /// symbol's two layers.
-const HOLY_ROW: i32 = SILVER_IF | 15;
-const HOLY_MODEL: i32 = SILVER_IF | 17;
-const HOLY_MAKE: i32 = SILVER_IF | 16;
-const HOLY_NEED: i32 = SILVER_IF | 19;
-const UNHOLY_ROW: i32 = SILVER_IF | 22;
-const UNHOLY_NEED: i32 = SILVER_IF | 26;
+#[cfg(since_647)]
+fn holy_row() -> i32 {
+    com("crafting_silver_casting:com_15")
+}
+
+#[cfg(since_647)]
+fn holy_model() -> i32 {
+    com("crafting_silver_casting:com_17")
+}
+
+#[cfg(since_647)]
+fn holy_make() -> i32 {
+    com("crafting_silver_casting:com_16")
+}
+
+#[cfg(since_647)]
+fn holy_need() -> i32 {
+    com("crafting_silver_casting:com_19")
+}
+
+#[cfg(since_647)]
+fn unholy_row() -> i32 {
+    com("crafting_silver_casting:com_22")
+}
+
+#[cfg(since_647)]
+fn unholy_need() -> i32 {
+    com("crafting_silver_casting:com_26")
+}
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
@@ -119,15 +171,14 @@ fn beside(
 
 /// Uses the obj in `slot` on the loc `loc` at `(x, z)` (OPLOCT).
 fn use_on(client: &mut HarnessClient, o: u16, slot: i32, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(o as i32)
-        .p2_alt2(slot)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(loc as i32);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        x,
+        z,
+        TypeId::from_int(loc as i32),
+        BACKPACK,
+        slot as u16,
+        TypeId::from_int(o as i32),
+    );
 }
 
 #[test]
@@ -140,6 +191,7 @@ fn wool_on_lumbridge_castle_s_wheel_spins_a_ball_of_wool() {
         let mut client = beside(engine, "spinner", (3209, 1, 3213), &[wool.g2()]);
         let player = engine.harness_player(client.pid).unwrap();
         let xp = player.stats.xp[CRAFTING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
 
         use_on(&mut client, wool.g2(), 0, (36970, 3209, 3212));
@@ -149,11 +201,13 @@ fn wool_on_lumbridge_castle_s_wheel_spins_a_ball_of_wool() {
         assert_eq!(backpack.total(ball), 1, "the game said {said:?}");
         assert_eq!(backpack.total(wool), 0);
         assert_eq!(player.stats.xp[CRAFTING] - xp, 25, "2.5 xp");
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 250);
         assert_eq!(said, ["You spin the wool into a nice ball of wool."]);
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -171,6 +225,7 @@ fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
         );
         let player = engine.harness_player(client.pid).unwrap();
         let xp = player.stats.xp[CRAFTING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
 
         use_on(&mut client, sand.g2(), 0, (45310, 3226, 3256));
@@ -181,6 +236,7 @@ fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
         assert_eq!(backpack.total(bucket), 1);
         assert_eq!(backpack.total(sand) + backpack.total(ash), 0);
         assert_eq!(player.stats.xp[CRAFTING] - xp, 200, "20 xp");
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 2000);
         assert_eq!(
             said,
@@ -189,6 +245,7 @@ fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn soft_clay_on_a_potter_s_wheel_shapes_a_pot() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -210,9 +267,7 @@ fn soft_clay_on_a_potter_s_wheel_shapes_a_pot() {
                 .is_interface_open(905),
             "2011's make-X asks which; the game said {said:?}"
         );
-        let mut p = ClientPacket::new();
-        p.p2(NONE).p4_alt2(FIRST_ITEM);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(first_item(), NONE as u16);
         let said = ticks(engine, &mut client, 8);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -224,34 +279,25 @@ fn soft_clay_on_a_potter_s_wheel_shapes_a_pot() {
 }
 
 /// Each IF_SETOBJECT as `(com, obj)`.
+#[cfg(since_647)]
 fn objects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::IfSetObject as u16)
-        .map(|(_, p)| {
-            (
-                i32::from_le_bytes([p[0], p[1], p[2], p[3]]),
-                u16::from_be_bytes([p[8], p[9]]),
-            )
-        })
+    server::objects(packets)
+        .into_iter()
+        .map(|(c, o)| (c, o as u16))
         .collect()
 }
 
 /// Each IF_SETHIDE as `(com, hidden)`: `p4_alt3 com, p1_alt2 hidden`.
+#[cfg(since_647)]
 fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::IfSetHide as u16)
-        .map(|(_, p)| {
-            let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
-            (com, 0u8.wrapping_sub(p[4]) == 1)
-        })
-        .collect()
+    server::hides(packets)
 }
 
 /// What the server sent, packet by packet, and said, over `n` ticks.
+#[cfg(since_647)]
 type Sent = (Vec<(u16, Vec<u8>)>, Vec<String>);
 
+#[cfg(since_647)]
 fn sent_over(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Sent {
     let mut sent = Vec::new();
     let mut said = Vec::new();
@@ -269,18 +315,12 @@ fn sent_over(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Sent 
 }
 
 /// Op `op` (1-4: Make 1, 5, All and X) on the component `com` (IF_BUTTON1-4).
+#[cfg(since_647)]
 fn button(client: &mut HarnessClient, op: u8, com: i32) {
-    let prot = match op {
-        1 => ClientProt::IfButton1,
-        2 => ClientProt::IfButton2,
-        3 => ClientProt::IfButton3,
-        _ => ClientProt::IfButton4,
-    };
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(NONE).p2_alt1(NONE);
-    client.send(prot, &p.finish());
+    client.if_button(op.min(4), com, NONE as u16, TypeId::NULL);
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -302,6 +342,7 @@ fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
         player.stats.base_levels[CRAFTING] = 20;
         player.stats.xp[CRAFTING] = 44700;
         let xp = player.stats.xp[CRAFTING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
 
         use_on(&mut client, bar.g2(), 0, FURNACE);
@@ -314,23 +355,23 @@ fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
             "2011's gold interface; the game said {said:?}"
         );
         assert!(
-            objects(&sent).contains(&(SAPPHIRE_RING, ring.g2())),
+            objects(&sent).contains(&(sapphire_ring(), ring.g2())),
             "the sapphire ring in its model; sent {:?}",
             objects(&sent)
         );
         let hidden = hides(&sent);
         assert!(
-            hidden.contains(&(RING_MOULD_TEXT, true)),
+            hidden.contains(&(ring_mould_text(), true)),
             "a ring mould is held"
         );
-        assert!(hidden.contains(&(RINGS, false)));
+        assert!(hidden.contains(&(rings(), false)));
         assert!(
-            hidden.contains(&(SAPPHIRE_RING_MAKE, false)),
+            hidden.contains(&(sapphire_ring_make(), false)),
             "a sapphire is held"
         );
-        assert!(hidden.contains(&(EMERALD_RING_MAKE, true)), "no emerald");
+        assert!(hidden.contains(&(emerald_ring_make(), true)), "no emerald");
 
-        button(&mut client, 1, SAPPHIRE_RING_MAKE);
+        button(&mut client, 1, sapphire_ring_make());
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -338,12 +379,14 @@ fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
         assert_eq!(backpack.total(bar) + backpack.total(sapphire), 0);
         assert_eq!(backpack.total(mould), 1);
         assert_eq!(player.stats.xp[CRAFTING] - xp, 400, "40 xp");
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 4000);
         assert_eq!(said, ["You make a sapphire ring."]);
         assert!(!player.is_interface_open(446), "the interface closes");
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_silver_bar_on_lumbridge_s_furnace_casts_holy_symbols() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -375,17 +418,20 @@ fn a_silver_bar_on_lumbridge_s_furnace_casts_holy_symbols() {
             "2011's silver casting; the game said {said:?}"
         );
         assert!(
-            objects(&sent).contains(&(HOLY_MODEL, symbol.g2())),
+            objects(&sent).contains(&(holy_model(), symbol.g2())),
             "the symbol in its row; sent {:?}",
             objects(&sent)
         );
         let hidden = hides(&sent);
-        assert!(hidden.contains(&(HOLY_ROW, false)), "a holy mould is held");
-        assert!(hidden.contains(&(HOLY_NEED, true)));
-        assert!(hidden.contains(&(UNHOLY_ROW, true)), "no unholy mould");
-        assert!(hidden.contains(&(UNHOLY_NEED, false)));
+        assert!(
+            hidden.contains(&(holy_row(), false)),
+            "a holy mould is held"
+        );
+        assert!(hidden.contains(&(holy_need(), true)));
+        assert!(hidden.contains(&(unholy_row(), true)), "no unholy mould");
+        assert!(hidden.contains(&(unholy_need(), false)));
 
-        button(&mut client, 3, HOLY_MAKE);
+        button(&mut client, 3, holy_make());
         let said = ticks(engine, &mut client, 10);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -411,7 +457,7 @@ fn a_ball_of_wool_strings_a_gold_amulet() {
         let amulet = obj(engine, "unstrung_gold_amulet");
         let strung = obj(engine, "strung_gold_amulet");
         let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
-        let mut client = beside(engine, "stringer", AT_FURNACE, &[wool.g2(), amulet.g2()]);
+        let mut client = beside(engine, "stringer", START, &[wool.g2(), amulet.g2()]);
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[CRAFTING];
 
         use_on_obj(&mut client, (wool.g2(), 0), (amulet.g2(), 1));
@@ -427,14 +473,14 @@ fn a_ball_of_wool_strings_a_gold_amulet() {
 
 /// Uses the obj `used` in its slot on the obj `target` in its (IF_BUTTONT).
 fn use_on_obj(client: &mut HarnessClient, used: (u16, i32), target: (u16, i32)) {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(target.1)
-        .p2_alt1(used.1)
-        .p2_alt2(used.0 as i32)
-        .p4_alt1(BACKPACK)
-        .p2(target.0 as i32);
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(
+        BACKPACK,
+        used.1 as u16,
+        TypeId::from_int(used.0 as i32),
+        BACKPACK,
+        target.1 as u16,
+        TypeId::from_int(target.0 as i32),
+    );
 }
 
 /// Logs a crafter in with `objs` at crafting level `level` (and its xp), and
@@ -446,7 +492,7 @@ fn crafter(
     level: usize,
     xp: i32,
 ) -> (HarnessClient, i32) {
-    let client = beside(engine, name, AT_FURNACE, objs);
+    let client = beside(engine, name, START, objs);
     let player = engine.harness_player_mut(client.pid).unwrap();
     player.stats.levels[CRAFTING] = level as _;
     player.stats.base_levels[CRAFTING] = level as _;
@@ -454,6 +500,7 @@ fn crafter(
     (client, xp)
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_needle_on_leather_asks_in_2011_s_make_x_and_makes_gloves() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -481,9 +528,7 @@ fn a_needle_on_leather_asks_in_2011_s_make_x_and_makes_gloves() {
             "2011's make-X asks which; the game said {said:?}"
         );
         // The second item, gloves (289's order: body, gloves, boots, ...).
-        let mut p = ClientPacket::new();
-        p.p2(NONE).p4_alt2(FIRST_ITEM + 1);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(com("skillmulti2010:b"), NONE as u16);
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();

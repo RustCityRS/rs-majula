@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -9,6 +13,7 @@ use rs_ver::TypeId;
 
 #[cfg_attr(before_647, client_prot(Fixed(6), UserEvent))]
 #[cfg_attr(since_647, client_prot(Fixed(8), UserEvent))]
+#[derive(Debug)]
 pub struct IfButton7 {
     pub com: i32,
     pub slot: u16,
@@ -31,11 +36,41 @@ impl ClientProtMessage for IfButton7 {
         #[cfg(before_742)]
         let (com, obj, slot) = (buf.g4s(), buf.g2_alt3(), buf.g2_alt1());
         #[cfg(since_742)]
-        let (obj, slot, com) = (buf.g2(), buf.g2_alt3(), buf.g4s_alt2());
+        let (obj, slot, com) = (buf.g2(), buf.g2_alt3(), buf.g4_alt2());
         IfButton7 {
             com,
             slot,
             obj: TypeId::from_g2(obj),
+        }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for IfButton7 {
+    const PROT: ClientProt = ClientProt::IfButton7;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.com);
+        buf.p2(self.slot);
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtEncode for IfButton7 {
+    const PROT: ClientProt = ClientProt::IfButton7;
+
+    fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
+        {
+            buf.p4(self.com);
+            buf.p2_alt3(self.obj.g2());
+            buf.p2_alt1(self.slot);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2(self.obj.g2());
+            buf.p2_alt3(self.slot);
+            buf.p4_alt2(self.com);
         }
     }
 }

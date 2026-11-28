@@ -5,7 +5,7 @@ x=-2
 y=-1
 width=480
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Total Wins This Season!
 textalignh=centre
 colour=0x800000
@@ -17,7 +17,7 @@ x=152
 y=26
 width=177
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Saradomin: 0
 textalignh=centre
 colour=0x000000
@@ -29,7 +29,7 @@ x=154
 y=59
 width=177
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Zamorak: 0
 textalignh=centre
 colour=0x000000
@@ -65,7 +65,7 @@ x=54
 y=1
 width=57
 height=13
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 55:6
 [com_6]
@@ -74,7 +74,7 @@ x=366
 y=1
 width=57
 height=13
-graphic=graphic_301
+graphic="sworddecor,0"
 
 // 55:7
 [com_7]
@@ -107,7 +107,7 @@ x=447
 y=68
 width=26
 height=23
-graphic=graphic_537
+graphic="close_buttons,2"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 538)

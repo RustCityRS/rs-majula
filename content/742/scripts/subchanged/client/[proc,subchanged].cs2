@@ -2,12 +2,12 @@
 [proc,subchanged]
 def_int $int0 = 0;
 def_component $component1 = null;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     cc_deleteall(chattop:chat_border);
     ~clientscript_5392(chattop:chat_border, 0, 0);
     if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false)) {
         if_sethide(toplevel_fullscreen:chattop, false);
-        if_setgraphic(chattop:chat_graphic, 8489);
+        if_setgraphic(chattop:chat_graphic, graphic_8489);
         if_sethide(chattop:chat_graphic, false);
         cc_deleteall(chattop:chat_border);
         ~clientscript_5392(chattop:chat_border, 0, 0);
@@ -83,7 +83,7 @@ if (getwindowmode >= 2) {
         if_sethide(chattop:chatdefault, false);
         if_sethide(chattop:chat_graphic, false);
         if (if_gethide(chatdefault:quickchat) = false) {
-            if_setgraphic(chattop:chat_graphic, 8489);
+            if_setgraphic(chattop:chat_graphic, graphic_8489);
             if_setalpha(chattop:chat_graphic, false);
             cc_deleteall(chattop:chat_border);
             ~clientscript_5392(chattop:chat_border, 0, 0);
@@ -158,7 +158,7 @@ if (getwindowmode >= 2) {
             if_setonmouseover(~script2459($int0), null);
             if_setonmouserepeat(~script2459($int0), null);
             if_setonmouseleave(~script2459($int0), null);
-            if_setgraphic(~script2459($int0), 8547);
+            if_setgraphic(~script2459($int0), graphic_8547);
             $int0 = calc($int0 + 1);
         }
     } else {
@@ -170,7 +170,7 @@ if (getwindowmode >= 2) {
                 if_setonmouseover(~script2459($int0), null);
                 if_setonmouserepeat(~script2459($int0), null);
                 if_setonmouseleave(~script2459($int0), null);
-                if_setgraphic(~script2459($int0), 8547);
+                if_setgraphic(~script2459($int0), graphic_8547);
             } else {
                 if_setonmouseover(~script2459($int0), "clientscript_1292(event_com, true)");
                 if_setonmouserepeat(~script2459($int0), "clientscript_5515(toplevel_fullscreen:com_80, ~script2459($int0), if_getop(~getstonelayer($int0), 1))");

@@ -1,11 +1,11 @@
 use super::{UnpackedPacks, format_colour};
-use crate::cache::mel::{MelType, ShowVar};
+use crate::cache::mel::{MapElementType, ShowVar};
 use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn condition(var: &ShowVar, packs: &UnpackedPacks) -> String {
-    let name = if let Some(varbit) = var.varbit {
-        packs.reference("varpbit", varbit)
+    let name = if let Some(varpbit) = var.varpbit {
+        packs.reference("varpbit", varpbit)
     } else {
         packs.reference("varp", var.varp.unwrap_or(TypeId::NULL))
     };
@@ -13,7 +13,7 @@ fn condition(var: &ShowVar, packs: &UnpackedPacks) -> String {
 }
 
 pub fn emit_mel_props(
-    def: &MelType,
+    def: &MapElementType,
     opcode: u8,
     _data: &[u8],
     packs: &mut UnpackedPacks,

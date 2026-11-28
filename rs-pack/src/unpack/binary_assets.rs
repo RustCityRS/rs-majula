@@ -1,18 +1,22 @@
 use crate::archive;
 use crate::pack::names::{AssetNames, archive_name};
 use anyhow::{Context, Result};
-use rs_io::js5::Js5Store;
+use rs_io::js5::Js5LocalCache;
 use std::{fs, path::Path};
 
 #[cfg(since_647)]
-pub fn unpack_libraries(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path) -> Result<u32> {
+pub fn unpack_libraries(
+    store: &mut Js5LocalCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+) -> Result<u32> {
     unpack_raw(store, archive::DLLS, content_dir, pack_dir, "")
 }
 
 /// Writes each group of `aid` as the file it holds, named from its registry,
 /// with `extension` appended when the name carries none.
 pub fn unpack_raw(
-    store: &mut Js5Store,
+    store: &mut Js5LocalCache,
     aid: u8,
     content_dir: &Path,
     pack_dir: &Path,
@@ -21,7 +25,7 @@ pub fn unpack_raw(
     let names = AssetNames::load(pack_dir)?;
     let format = archive::archive_format(aid).context("Unknown raw archive")?;
     let groups = store
-        .reference_table(aid)
+        .index(aid)
         .context("Missing raw archive table")?
         .groups
         .clone();

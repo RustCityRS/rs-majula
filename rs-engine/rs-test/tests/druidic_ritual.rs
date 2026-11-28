@@ -4,31 +4,42 @@
 //! help.", the comma in "Actually, I don't need to speak to you.", the journal's first
 //! paragraph, the scroll's reward lines, and in nothing following the scroll.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
+#[cfg(all(since_647, before_742))]
+use rs_test::names::com;
 use rs_test::runner;
-use rs_test::talk::{Conversation, converse, settexts, talk_to};
+#[cfg(before_742)]
+use rs_test::talk::settexts;
+use rs_test::talk::{Conversation, converse, talk_to};
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
 
-const BACKPACK: i32 = 149 << 16;
+#[cfg(before_742)]
 const HERBLORE: usize = 15;
 /// The Cauldron of Thunder in Taverley Dungeon (cache 786's map, maps/l45_153.jm2).
 const CAULDRON: (u16, u16) = (2893, 9831);
 /// View on the quest list's row (questlist_v4:quests) and the journal's first line (qj1).
-const QUEST_LIST: i32 = 190 << 16 | 18;
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
+fn quest_list() -> i32 {
+    com("questlist_v4:quests")
+}
+
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const DRUIDIC_RITUAL: i32 = 33;
-const JOURNAL_LINE_1: u32 = 275 << 16 | 16;
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
+fn journal_line_1() -> u32 {
+    com("questjournal_scroll:qj1") as u32
+}
 
 fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let id = match kind {
@@ -160,16 +171,11 @@ fn says(t: &Conversation, lines: &[&str]) {
 /// Uses the backpack's `slot` on the cauldron and returns the game messages that follow.
 fn dip(engine: &mut Engine, client: &mut HarnessClient, obj: &str, slot: u16) -> Vec<String> {
     let obj = id(engine, "obj", obj);
+    #[cfg(all(since_530, before_742))]
     let cauldron = loc_id(engine, "cauldron_of_thunder");
-    let mut p = ClientPacket::new();
-    p.p2_alt2(obj.int())
-        .p2_alt2(slot as i32)
-        .p2(CAULDRON.1 as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(CAULDRON.0 as i32)
-        .p1_alt1(0)
-        .p2_alt1(cauldron.int());
-    client.send(ClientProt::OpLocT, &p.finish());
+    #[cfg(since_742)]
+    let cauldron = loc_id(engine, "cauldron_of_thunder_74872");
+    client.op_loc_t(CAULDRON.0, CAULDRON.1, cauldron, BACKPACK, slot, obj);
     let mut out = Vec::new();
     for _ in 0..4 {
         engine.cycle();
@@ -183,10 +189,9 @@ fn dip(engine: &mut Engine, client: &mut HarnessClient, obj: &str, slot: u16) ->
 }
 
 /// The journal's lines once View is clicked on the quest's row, their colour tags taken off.
+#[cfg(all(since_647, before_742))]
 fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
-    let mut p = ClientPacket::new();
-    p.p4(QUEST_LIST).p2_alt3(-1).p2_alt1(DRUIDIC_RITUAL);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, quest_list(), DRUIDIC_RITUAL as u16, TypeId::NULL);
     let mut texts = Vec::new();
     for _ in 0..3 {
         engine.cycle();
@@ -196,7 +201,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
         .map(|line| {
             let text = texts
                 .iter()
-                .find(|(c, _)| *c == JOURNAL_LINE_1 + line)
+                .find(|(c, _)| *c == journal_line_1() + line)
                 .map_or("", |(_, t)| t.as_str());
             let mut plain = String::new();
             let mut tag = false;
@@ -213,6 +218,8 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
         .collect()
 }
 
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const PREPARING: [&str; 4] = [
     "Kaqemeex and the druids are preparing a ceremony to",
     "purify the Varrock stone circle. I told Kaqemeex I would",
@@ -220,6 +227,7 @@ const PREPARING: [&str; 4] = [
     "",
 ];
 
+#[cfg(since_647)]
 #[test]
 fn kaqemeex_starts_the_quest_in_2011s_words() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -250,15 +258,20 @@ fn kaqemeex_starts_the_quest_in_2011s_words() {
         );
         assert_eq!(stage(engine, &client), 1, "Druidic Ritual started");
 
-        let lines = journal(engine, &mut client);
-        assert_eq!(lines[..4], PREPARING, "the recording at 133s");
-        assert_eq!(
-            lines[4],
-            "I should speak to Sanfew in the village to the south."
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(lines[..4], PREPARING, "the recording at 133s");
+            assert_eq!(
+                lines[4],
+                "I should speak to Sanfew in the village to the south."
+            );
+        }
     });
 }
 
+#[cfg(since_647)]
+#[cfg(before_742)]
 #[test]
 fn sanfew_sends_the_player_to_the_cauldron() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -285,16 +298,19 @@ fn sanfew_sends_the_player_to_the_cauldron() {
         );
         assert_eq!(stage(engine, &client), 2, "spoken to Sanfew");
 
-        let lines = journal(engine, &mut client);
-        assert_eq!(lines[..4], PREPARING, "the recording at 276s");
-        assert_eq!(
-            lines[4..7],
-            [
-                "Sanfew told me for the ritual they would need me to place",
-                "raw bear meat, raw chicken, raw rat meat and raw beef in",
-                "the Cauldron of Thunder in the dungeon south of Taverley.",
-            ]
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(lines[..4], PREPARING, "the recording at 276s");
+            assert_eq!(
+                lines[4..7],
+                [
+                    "Sanfew told me for the ritual they would need me to place",
+                    "raw bear meat, raw chicken, raw rat meat and raw beef in",
+                    "the Cauldron of Thunder in the dungeon south of Taverley.",
+                ]
+            );
+        }
     });
 }
 
@@ -337,6 +353,7 @@ fn the_cauldron_enchants_the_four_meats_once_sanfew_asks() {
     });
 }
 
+#[cfg(before_742)]
 #[test]
 fn sanfew_takes_the_meats_and_kaqemeex_teaches_herblore() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());

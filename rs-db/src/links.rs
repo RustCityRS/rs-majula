@@ -2,13 +2,6 @@ use crate::{Db, Error};
 use sqlx::query_as;
 use std::collections::{HashMap, HashSet};
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// An address shared by more accounts than this is a public one (a school,
 /// a mobile carrier, a VPN exit), and links nobody.
 pub const CROWDED_ADDRESS: i64 = 25;

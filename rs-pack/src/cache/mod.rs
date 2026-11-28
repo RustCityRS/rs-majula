@@ -15,12 +15,12 @@ use crate::cache::param::ParamTypeProvider;
 use crate::cache::seq::SeqTypeProvider;
 use crate::cache::spotanim::SpotAnimTypeProvider;
 use crate::cache::r#struct::StructTypeProvider;
-#[cfg(since_254)]
-use crate::cache::varbit::VarbitTypeProvider;
 #[cfg(since_530)]
 use crate::cache::varc::VarClientTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
+#[cfg(since_254)]
+use crate::cache::varpbit::VarpBitTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
 #[cfg(all(since_244, before_530))]
 use crate::types::OndemandBlobs;
@@ -41,7 +41,7 @@ use rs_ver::TypeId;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::sync::Arc;
 #[cfg(since_647)]
 use varcon::VarConTypeProvider;
@@ -117,8 +117,6 @@ pub mod spotanim;
 pub mod r#struct;
 #[cfg(since_530)]
 pub mod texture;
-#[cfg(since_254)]
-pub mod varbit;
 #[cfg(since_530)]
 pub mod varc;
 #[cfg(since_647)]
@@ -127,6 +125,8 @@ pub mod varn;
 #[cfg(since_530)]
 pub mod varobj;
 pub mod varp;
+#[cfg(since_254)]
+pub mod varpbit;
 pub mod vars;
 pub mod wordenc;
 
@@ -147,13 +147,15 @@ pub struct CacheStore {
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
     pub mapcrcs: MapSquareCrcs,
+    /// Server-only spawns, raw per square: `n` npcs and `o` objs.
+    pub spawns: MapSquares,
     pub objs: ObjTypeProvider,
     pub invs: InvTypeProvider,
     pub varps: VarPlayerTypeProvider,
     #[cfg(since_530)]
     pub varcs: VarClientTypeProvider,
     #[cfg(since_254)]
-    pub varbits: VarbitTypeProvider,
+    pub varpbits: VarpBitTypeProvider,
     pub dbrows: DbRowTypeProvider,
     pub dbtables: DbTableTypeProvider,
     pub db_index: DbTableIndex,
@@ -184,7 +186,7 @@ pub struct CacheStore {
     pub midi_tick_lengths: Box<[Option<u16>]>,
     #[cfg(all(since_254, before_530))]
     pub midi_lengths_ms: Box<[Option<u32>]>,
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     #[cfg(before_530)]
     pub multimap: MapSquareCsv,
@@ -202,7 +204,7 @@ pub struct CacheStore {
     #[cfg(since_647)]
     pub varcons: VarConTypeProvider,
     #[cfg(since_647)]
-    pub varconbits: VarbitTypeProvider,
+    pub varconbits: VarpBitTypeProvider,
     #[cfg(since_647)]
     pub controllers: ControllerTypeProvider,
     #[cfg(since_530)]

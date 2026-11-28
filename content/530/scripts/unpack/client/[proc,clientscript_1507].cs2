@@ -1,12 +1,12 @@
 // 1507
 [proc,clientscript_1507](graphic $graphic0)
-if ($graphic0 = 268 | $graphic0 = 269 | $graphic0 = 270) {
-    if_setsize(interface_674:com_1, 34, 24, 0, 0);
-} else if ($graphic0 = 900) {
-    if_setsize(interface_674:com_1, 32, 36, 0, 0);
+if ($graphic0 = "combaticons2,15" | $graphic0 = "combaticons2,16" | $graphic0 = "combaticons2,17") {
+    if_setsize(interface_674:com_1, 34, 24, ^setsize_abs, ^setsize_abs);
+} else if ($graphic0 = graphic_900) {
+    if_setsize(interface_674:com_1, 32, 36, ^setsize_abs, ^setsize_abs);
 }
-if_setsize(interface_674:textbox, 455, 93, 0, 0);
-if_setposition(interface_674:textbox, 50, 20, 0, 0);
+if_setsize(interface_674:textbox, 455, 93, ^setsize_abs, ^setsize_abs);
+if_setposition(interface_674:textbox, 50, 20, ^setpos_abs_left, ^setpos_abs_top);
 if_sethide(interface_674:com_1, false);
 if_setgraphic(interface_674:com_1, $graphic0);
 if_sethide(interface_674:textbox, false);

@@ -9,7 +9,7 @@ def_string $string0 = "";
 def_int $int4 = -1;
 while ($int3 >= 0) {
     switch_int (chat_gethistorytype($int3)) {
-        case 1, 2, 3, 7, 9, 11, 17, 18, 20 :
+        case ^chattype_modchat, ^chattype_publicchat, ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_friendschat, ^chattype_friendschatnotification, ^chattype_quickchat_public, ^chattype_quickchat_private_incoming, ^chattype_quickchat_friend_chat :
             if (compare(lowercase(removetags(chat_gethistoryname($int3))), %varclient_670) = 0) {
                 $string0 = chat_gethistorymessage($int3);
                 $int4 = $int3;

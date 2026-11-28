@@ -2,9 +2,9 @@
 [proc,clientscript_5644](component $component0, int $int1, int $int2)
 if ($int2 = 1) {
     if ($int1 = 1) {
-        if_setgraphic($component0, 9209);
+        if_setgraphic($component0, graphic_9209);
     } else {
-        if_setgraphic($component0, 9208);
+        if_setgraphic($component0, graphic_9208);
     }
 } else {
     ~deltooltip_action(options:options_tooltip);

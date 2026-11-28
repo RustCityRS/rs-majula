@@ -21,7 +21,7 @@ if ($is_empty = ^true) {
     anim(null, 0);
     if(loc_type = pile_of_rock_4030) mes("There are no minerals currently available in this rock.");
     else mes("There is no ore currently available in this rock.");
-    // 289 plays `prospect` here; its 2011 id is not known, so it is left out.
+    sound_synth(prospect, 1, 0);
     return;
 }
 db_find(mining_table:rock, loc_type);

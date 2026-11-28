@@ -19,6 +19,9 @@ random id, kept in its localStorage, which the world logs with each login so
 accounts played from the same browser link up in the staff console. Running
 it again on a patched client leaves the uid as it is.
 
+The uid, fullscreen and countdown patches apply to the pre-530 clients.
+The 530 port gets the same login key and retains its own client behaviour.
+
 And it patches where the web client's mouse lands in fullscreen. Out of the
 build it assumes anything fullscreen is a letterboxed canvas, so with Stretch
 to Fit (object-fit: fill), or the GPU scaling's fullscreen box, clicks land off
@@ -191,6 +194,9 @@ def main():
                 sys.exit(f"{path}: expected the current key once, found it {count} times "
                          f"(does {PRIVATE} match this client?)")
             js = js.replace(literal, f'BigInt("{new}")')
+        if os.path.basename(os.path.dirname(path)) == "530":
+            staged.append(write_atomic(path, js))
+            continue
         for what, shapes in (("login uid", ((UNPATCHED_UID, PATCHED_UID),)),
                              ("fullscreen check", FULLSCREEN_CHECKS)):
             patched = patch_once(js, shapes)

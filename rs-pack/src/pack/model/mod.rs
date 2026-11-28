@@ -2,7 +2,7 @@ use crate::archive::JagArchive;
 use crate::pack::pack_registry::PackFile;
 use crate::pack::pack_registry::PackRegistry;
 use crate::pack::util::{load_order, walk};
-use crate::types::BoneType;
+use crate::types::AnimTransform;
 use rs_io::Packet;
 use rs_io::jag::JagFile;
 use std::collections::HashMap;
@@ -353,7 +353,7 @@ fn parse_frame_bone(s: &str) -> (u8, Vec<i32>) {
 fn parse_bone_entry(s: &str) -> (u8, Vec<u8>) {
     let mut parts = s.splitn(2, ',');
     let type_name = parts.next().unwrap().trim();
-    let bone_type = BoneType::from_config_str(type_name) as u8;
+    let bone_type = AnimTransform::from_config_str(type_name) as u8;
     let labels = parts.next().map(parse_csv_u8).unwrap_or_default();
     (bone_type, labels)
 }

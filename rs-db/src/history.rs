@@ -2,23 +2,6 @@ use crate::save::PlayerSave;
 use crate::{Db, Error};
 use sqlx::PgConnection;
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
-/// A save's columns, in `player_saves` and `save_history` alike.
-macro_rules! columns {
-    () => {
-        "x, z, y, body, colors, gender, runenergy, playtime, stats, levels, \
-         afk_zones, last_afk_zone, public_chat, private_chat, trade_chat, \
-         last_date, varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts, \
-         inv_vars, exit_x, exit_z, exit_y"
-    };
-}
-
 /// The least time between two points kept at logout, and between two kept
 /// through a session. Within it the older point stays: it's from before
 /// whatever the player did since, which a rollback wants.
@@ -60,9 +43,10 @@ async fn keep_point(
     sqlx::query(concat!(
         "INSERT INTO save_history (player_id, kind, node_id, ",
         columns!(),
-        ") SELECT player_id, $2, $3, ",
+        ") SELECT s.player_id, $2, $3, ",
         columns!(),
-        " FROM player_saves WHERE player_id = $1 AND NOT EXISTS (
+        live_save!(),
+        " WHERE s.player_id = $1 AND NOT EXISTS (
              SELECT 1 FROM save_history
              WHERE player_id = $1 AND kind <> 'staff'
                AND saved_at > now() - make_interval(mins => $4))"
@@ -105,9 +89,10 @@ pub(crate) async fn keep_staff_point(
     sqlx::query(concat!(
         "INSERT INTO save_history (player_id, kind, node_id, note, ",
         columns!(),
-        ") SELECT player_id, 'staff', $2, $3, ",
+        ") SELECT s.player_id, 'staff', $2, $3, ",
         columns!(),
-        " FROM player_saves WHERE player_id = $1"
+        live_save!(),
+        " WHERE s.player_id = $1"
     ))
     .bind(player_id)
     .bind(node_id)

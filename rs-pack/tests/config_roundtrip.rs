@@ -1,6 +1,6 @@
 #![cfg(rev = "647")]
 
-use rs_io::{crc, js5::Js5Store};
+use rs_io::{crc, js5::Js5LocalCache};
 use rs_pack::archive;
 use rs_pack::pack::{pack::pack_configs, packed_data::PackedData};
 use rs_pack::unpack::unpack_configs_only;
@@ -35,7 +35,7 @@ fn original_configs_survive_unpack_and_repack() -> anyhow::Result<()> {
 
     // Compare to the original entries, without the authored server overlays.
     let packed = pack_configs(&source, &packs, false)?;
-    let mut store = Js5Store::open(&expected)?;
+    let mut store = Js5LocalCache::open(&expected)?;
     let mut failures = Vec::new();
     let mut total = 0;
     let mut kinds: Vec<_> = packed.keys().collect();
@@ -51,7 +51,7 @@ fn original_configs_survive_unpack_and_repack() -> anyhow::Result<()> {
             "obj" => (archive::CONFIG_OBJ, 256, None),
             "seq" => (archive::CONFIG_SEQ, 128, None),
             "spotanim" => (archive::CONFIG_SPOTANIM, 256, None),
-            "varpbit" => (archive::CONFIG_VARBIT, 1024, None),
+            "varpbit" => (archive::CONFIG_VARPBIT, 1024, None),
             "billboard" => (archive::BILLBOARDS, 256, None),
             "particleemitter" => (archive::PARTICLES, 0, Some(0..1)),
             "particleeffector" => (archive::PARTICLES, 0, Some(1..2)),
@@ -67,7 +67,7 @@ fn original_configs_survive_unpack_and_repack() -> anyhow::Result<()> {
                 (archive::CONFIG, 0, Some(group..group + 1))
             }
         };
-        let groups = groups.unwrap_or(0..store.group_count(aid).unwrap_or(0));
+        let groups = groups.unwrap_or(0..store.group_id_limit(aid).unwrap_or(0));
         let mut sources = vec![(aid, groups.clone(), 0)];
         if aid == archive::QUICKCHAT {
             sources.push((

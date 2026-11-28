@@ -1,9 +1,9 @@
 // 1564
 [proc,clientscript_1564]
-~clientscript_1561(interface_771:com_14, 1419, interface_771:com_403);
-~clientscript_1562(interface_771:com_16, 1418, 1421, interface_771:com_403);
-~clientscript_1562(interface_771:com_18, 1418, 1421, interface_771:com_403);
-~clientscript_1562(interface_771:com_20, 1418, 1421, interface_771:com_403);
+~clientscript_1561(interface_771:com_14, "bank_tabs,1", interface_771:com_403);
+~clientscript_1562(interface_771:com_16, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
+~clientscript_1562(interface_771:com_18, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
+~clientscript_1562(interface_771:com_20, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
 if_settext(interface_771:title, "Mouse");
 if_sethide(interface_771:com_22, false);
 if_sethide(interface_771:com_23, true);
@@ -13,9 +13,9 @@ if_sethide(interface_771:confirm_layer, true);
 if_sethide(interface_771:com_28, true);
 if_sethide(interface_771:com_29, true);
 if (%option_mouse = 0) {
-    if_setgraphic(interface_771:com_40, 833);
-    if_setgraphic(interface_771:com_37, 834);
+    if_setgraphic(interface_771:com_40, "wild_ditch_sign_button,0");
+    if_setgraphic(interface_771:com_37, "wild_ditch_sign_button,1");
 } else {
-    if_setgraphic(interface_771:com_40, 834);
-    if_setgraphic(interface_771:com_37, 833);
+    if_setgraphic(interface_771:com_40, "wild_ditch_sign_button,1");
+    if_setgraphic(interface_771:com_37, "wild_ditch_sign_button,0");
 }

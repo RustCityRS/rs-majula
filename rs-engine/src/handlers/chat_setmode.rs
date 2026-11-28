@@ -2,6 +2,8 @@ use crate::active_player::ActivePlayer;
 use crate::clients::client_ether::EtherOutbound;
 use crate::core::engine;
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use rs_entity::player::CHAT_MODE_GUEST_CLAN;
 use rs_protocol::network::game::client_prot::ChatSetMode;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::SetChatfiltersettings;
@@ -25,16 +27,18 @@ impl ClientGameHandler for ChatSetMode {
 }
 
 /// Handles the rev-647 `ChatSetMode` client protocol message: where the
-/// player's typed chat goes from now on, public chat or their clan chat
-/// (`CHAT_MODE_*`). The client sends it from CS2 op 5006 when the chatbox
-/// switches, so the next `MessagePublic` is routed by it.
+/// player's typed chat goes from now on (`CHAT_MODE_*`). The client sends it
+/// from CS2 op 5006 when the chatbox switches, so the next `MessagePublic` is
+/// routed by it; a mode past the guest clan chat comes from a modified client.
 ///
 /// The privacy filters this packet carried before 647 have their own packet,
 /// [`SetChatfiltersettings`].
 #[cfg(since_647)]
 impl ClientGameHandler for ChatSetMode {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.player.chat_mode = self.mode;
+        if self.mode <= CHAT_MODE_GUEST_CLAN {
+            active.player.chat_mode = self.mode;
+        }
         Ok(())
     }
 }
@@ -76,15 +80,9 @@ fn set_chat_filters(
         return Ok(());
     }
     active.chat_filter_settings();
-
-    let Some(tx) = &engine().ether_tx else {
-        return Ok(());
-    };
-
-    let _ = tx.send(EtherOutbound::ChatModeUpdate {
+    engine().send_ether(EtherOutbound::ChatModeUpdate {
         user37: active.uid().username37(),
         private_mode: private,
     });
-
     Ok(())
 }

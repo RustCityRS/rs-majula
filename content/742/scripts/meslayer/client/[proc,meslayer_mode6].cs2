@@ -7,7 +7,7 @@ if (%snapshot_open = true) {
     mes("You can't do that while you're reporting abuse.");
     return;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 %friendtomessage = $string0;

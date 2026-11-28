@@ -1,9 +1,9 @@
 use super::UnpackedPacks;
-use crate::cache::quest::{QuestType, QuestVarRequirement};
+use crate::cache::quest::{PrerequisiteVar, QuestType};
 use rs_ver::TypeId;
 use std::collections::HashMap;
 
-fn var_requirement(requirement: &QuestVarRequirement, kind: &str, packs: &UnpackedPacks) -> String {
+fn var_requirement(requirement: &PrerequisiteVar, kind: &str, packs: &UnpackedPacks) -> String {
     let var = u16::try_from(requirement.var).map_or_else(
         |_| requirement.var.to_string(),
         |id| packs.reference(kind, TypeId::from_g2(id)),
@@ -32,11 +32,11 @@ pub fn emit_quest_props(
         let var = packs.reference("varp", *var);
         p.push((3, "masterquestvarp".into(), format!("{var},{start},{end}")));
     }
-    for (var, start, end) in &def.progressvarbit {
+    for (var, start, end) in &def.progressvarpbit {
         let var = packs.reference("varpbit", *var);
         p.push((
             4,
-            "masterquestvarbit".into(),
+            "masterquestvarpbit".into(),
             format!("{var},{start},{end}"),
         ));
     }
@@ -66,7 +66,7 @@ pub fn emit_quest_props(
         p.push((8, "members".into(), "true".into()));
     }
     if opcode == 9 {
-        p.push((9, "questpoints".into(), def.points.to_string()));
+        p.push((9, "questpoints".into(), def.quest_points.to_string()));
     }
     if opcode == 10 {
         let values: Vec<_> = def
@@ -86,7 +86,7 @@ pub fn emit_quest_props(
     for quest in &def.questrequirement {
         p.push((13, "questreq".into(), packs.reference("quest", *quest)));
     }
-    for (stat, level) in &def.statrequirement {
+    for (stat, level) in &def.prerequisite_stats {
         let stat = packs.reference("stat", TypeId::from_g2((*stat).into()));
         p.push((14, "statreq".into(), format!("{stat},{level}")));
     }
@@ -107,9 +107,9 @@ pub fn emit_quest_props(
         let value = var_requirement(requirement, "varp", packs);
         p.push((18, "varpreq".into(), value));
     }
-    for requirement in &def.varbitrequirement {
+    for requirement in &def.varpbitrequirement {
         let value = var_requirement(requirement, "varpbit", packs);
-        p.push((19, "varbitreq".into(), value));
+        p.push((19, "varpbitreq".into(), value));
     }
     if opcode == 249 {
         p.extend(super::emit_params(_data, packs));

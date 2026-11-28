@@ -4,7 +4,7 @@
 //! for the four beads after the rework's cutscene, with the 2011 wiki's reward
 //! (Imp Catcher, 2011-05-16): an amulet of accuracy and 875 Magic experience.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;

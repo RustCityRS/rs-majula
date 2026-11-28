@@ -15,7 +15,7 @@ if ($int0 = 10 & activeclanchannel_find_listened = false) {
     mes("You need to be a guest in a Clan Channel to use Guest Clan Quick Chat.");
     return;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic(chattop:chat_graphic, chat_background);
     if_setalpha(chattop:chat_graphic, false);
     if_sethide(chattop:chat_graphic, false);

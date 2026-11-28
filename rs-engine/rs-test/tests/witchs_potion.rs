@@ -4,18 +4,14 @@
 //! her cauldron (loc 2024) offers "Drink-from" only at 2, and the reward with no quest point
 //! (cache 786's quest 178).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_test::server;
 use rs_test::talk::{converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
@@ -51,21 +47,15 @@ fn hetty(engine: &Engine) -> (u16, u16, u16) {
             )
         })
         .expect("Hetty is spawned");
-    let (sx, sz) = [(1i16, 0i16), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1)]
-        .into_iter()
-        .map(|(dx, dz)| (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz)))
-        .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
-        .expect("a walkable tile beside Hetty");
+    let (sx, sz) = world::beside(0, x, z).expect("a tile beside Hetty");
     (nid, sx, sz)
 }
 
-/// Each VARP_SMALL's (varp, value): `p1_alt3 value, p2 varp`.
+/// Each varp the client was sent, as (varp, value).
 fn varps_small(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u8)> {
-    let opcode = ServerProt::VarpSmall as u16;
-    packets
-        .iter()
-        .filter(|(op, p)| *op == opcode && p.len() >= 3)
-        .map(|(_, p)| (u16::from_be_bytes([p[1], p[2]]), 128u8.wrapping_sub(p[0])))
+    server::varps(packets)
+        .into_iter()
+        .map(|(v, n)| (v, n as u8))
         .collect()
 }
 
@@ -177,12 +167,7 @@ fn witchs_potion_as_2011s_miniquest() {
         // Drink-from: 325 Magic experience, complete, and no quest scroll.
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[MAGIC];
         let (loc, lx, lz) = CAULDRON;
-        let mut p = ClientPacket::new();
-        p.p2_alt1(lz as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(lx as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, lx, lz, TypeId::from_int(loc as i32));
         let talk = converse(engine, &mut client, &[], 300);
         assert!(
             talk.said(

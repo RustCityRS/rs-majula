@@ -3,13 +3,13 @@
 if (cc_find($component2, $int3) = true) {
     if ($int1 = 1) {
         if ($int0 = 1) {
-            cc_setgraphic(9616);
+            cc_setgraphic(graphic_9616);
         } else {
-            cc_setgraphic(9615);
+            cc_setgraphic(graphic_9615);
         }
     } else if ($int0 = 1) {
-        cc_setgraphic(9617);
+        cc_setgraphic(graphic_9617);
     } else {
-        cc_setgraphic(9618);
+        cc_setgraphic(graphic_9618);
     }
 }

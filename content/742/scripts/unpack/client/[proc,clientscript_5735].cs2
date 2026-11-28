@@ -83,9 +83,9 @@ while ($int8 < 13) {
     cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc(if_getx($component4) + parawidth(if_gettext($component4), if_getwidth($component4), verdana_11pt_regular) + 5), calc(if_getheight($component4) / 2 - cc_getheight / 2 + if_gety($component4)), ^setpos_abs_left, ^setpos_abs_top);
     if ($int0 = 1) {
-        cc_setgraphic(9604);
+        cc_setgraphic(graphic_9604);
     } else {
-        cc_setgraphic(9605);
+        cc_setgraphic(graphic_9605);
     }
     if ($int6 = $int5) {
         mes("Something went wrong; aborting at requirement <tostring($int8)>");

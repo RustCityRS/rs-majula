@@ -143,11 +143,29 @@ find_newmode=opplayer2
 
 // 12
 [aa_aggressive_melee]
-// 289's body needs category mm_greegree
+// 289's body (quests/quest_mm/configs/quest_mm.hunt).
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_invcat=worn,mm_greegree,<1
+check_notbusy=off
+find_keephunting=off
+find_newmode=opplayer2
 
 // 13
 [aa_aggressive_ranged]
-// 289's body needs category mm_greegree
+// 289's body (quests/quest_mm/configs/quest_mm.hunt).
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_invcat=worn,mm_greegree,<1
+check_notbusy=off
+find_keephunting=off
+find_newmode=applayer2
 
 // 14
 [mm_guard]

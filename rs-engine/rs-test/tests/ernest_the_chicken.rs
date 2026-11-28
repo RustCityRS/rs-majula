@@ -3,20 +3,17 @@
 //! per player (multilocs on %ernestlever and %ernest_doors), the secret room
 //! opens from a candle sconce, and the front doors open from outside only.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, talk_to};
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, set_recording};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+#[cfg(since_647)]
 use std::fs;
 use std::sync::Mutex;
 
@@ -41,10 +38,12 @@ fn varp(engine: &Engine, name: &str) -> u16 {
         .g2()
 }
 
+#[cfg(since_647)]
 fn loc(engine: &Engine, name: &str) -> u16 {
-    let pack = concat!(
+    let pack = &format!(
+        "{}/../../{}/pack/loc.pack",
         env!("CARGO_MANIFEST_DIR"),
-        "/../../content/647/pack/loc.pack"
+        rs_pack::CONTENT_DIR
     );
     let _ = engine;
     fs::read_to_string(pack)
@@ -57,24 +56,12 @@ fn loc(engine: &Engine, name: &str) -> u16 {
         .unwrap_or_else(|| panic!("loc.pack names {name}"))
 }
 
-/// `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
-/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
 fn op_loc2(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+    client.op_loc(2, x, z, TypeId::from_int(loc as i32));
 }
 
 /// A walkable tile beside (x, z), one step away.
@@ -194,6 +181,7 @@ fn the_basement_levers_unlock_2011_s_doors() {
 /// 2011's secret room opens from the candle sconce on the west room's wall
 /// (2011 wiki: "searching the candles hanging on the wall in the westernmost
 /// room"), to where 289's bookcase sent the player.
+#[cfg(since_647)]
 #[test]
 fn the_candle_sconce_opens_the_secret_room() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -209,6 +197,7 @@ fn the_candle_sconce_opens_the_secret_room() {
 
 /// The front doors open from outside (south) only (2011 wiki, Vampire Slayer:
 /// "To exit Draynor Manor you will not be able to use the main entrance").
+#[cfg(since_647)]
 #[test]
 fn the_front_doors_open_from_outside_only() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());

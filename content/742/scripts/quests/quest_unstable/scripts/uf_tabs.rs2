@@ -94,11 +94,10 @@ if (p_finduid(uid) = false) {
 }
 %varplayerbit_3756 = 0;
 
-// The quest list opened at "Check your Quest Journal" (742: the Noticeboard's Quests page): the
-// arrow moves to Unstable Foundations' row, which the client draws itself at %tutorial = 55
-// (clientscript 1661 in 786: model 41760 on the row, while %tutorial_version = 3).
-// 4KO2h2xPtdM (2011-04-30): the tab's arrow @117.5-118.5, the row's @119.0-120.0.
+// The quest list opened at "Check your Quest Journal" (742: the Noticeboard's Quests page). 786
+// moved the arrow to Unstable Foundations' row at %tutorial = 55 (clientscript 1661); 742's list
+// has no such row, so the journal opens in its place.
 [proc,uf_quest_list_opened]
 if (%tutorial = 50) {
-    %tutorial = 55;
+    ~uf_journal;
 }

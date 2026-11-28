@@ -4,17 +4,17 @@ def_graphic $graphic1 = null;
 def_graphic $graphic2 = null;
 switch_int (map_lang) {
     case 0 :
-        $graphic1 = 12950;
-        $graphic2 = 12954;
+        $graphic1 = graphic_12950;
+        $graphic2 = graphic_12954;
     case 1 :
-        $graphic1 = 12951;
-        $graphic2 = 12955;
+        $graphic1 = graphic_12951;
+        $graphic2 = graphic_12955;
     case 2 :
-        $graphic1 = 12952;
-        $graphic2 = 12956;
+        $graphic1 = graphic_12952;
+        $graphic2 = graphic_12956;
     case 3 :
-        $graphic1 = 12953;
-        $graphic2 = 12957;
+        $graphic1 = graphic_12953;
+        $graphic2 = graphic_12957;
 }
 if_setgraphic($component0, $graphic1);
 if_setgraphic(interface_94:com_31, $graphic2);

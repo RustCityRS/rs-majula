@@ -43,6 +43,8 @@
 ^questlist_legends = 67 // 289: Legends Quest
 ^questlist_zanaris = 68
 ^questlist_arthur = 72
+// Monkey Madness: the client's quest table (ql4_getprogress) reads %mm_main for quest 73.
+^questlist_mm = 73
 ^questlist_drunkmonk = 74
 ^questlist_murder = 78
 ^questlist_druidspirit = 80

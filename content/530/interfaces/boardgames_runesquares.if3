@@ -5,7 +5,7 @@ x=12
 y=20
 width=483
 height=296
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 40:1
@@ -15,7 +15,7 @@ x=12
 y=20
 width=25
 height=30
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 40:2
 [com_2]
@@ -24,7 +24,7 @@ x=-3
 y=49
 width=34
 height=252
-graphic=graphic_172
+graphic="miscgraphics,2"
 tiling=yes
 
 // 40:3
@@ -34,7 +34,7 @@ x=479
 y=50
 width=36
 height=243
-graphic=graphic_315
+graphic="steelborder2,1"
 tiling=yes
 
 // 40:4
@@ -44,7 +44,7 @@ x=43
 y=58
 width=140
 height=25
-textfont=fontmetrics_495
+textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
 colour=0xffaa44
@@ -56,7 +56,7 @@ x=37
 y=5
 width=441
 height=36
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 40:6
@@ -66,7 +66,7 @@ x=37
 y=299
 width=439
 height=54
-graphic=graphic_173
+graphic="miscgraphics,3"
 tiling=yes
 
 // 40:7
@@ -76,7 +76,7 @@ x=12
 y=290
 width=25
 height=30
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 40:8
 [com_8]
@@ -85,7 +85,7 @@ x=475
 y=20
 width=25
 height=30
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 40:9
 [com_9]
@@ -94,7 +94,7 @@ x=475
 y=290
 width=25
 height=30
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 40:10
 [vs]
@@ -103,7 +103,7 @@ x=100
 y=75
 width=14
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=vs
 textshadow=yes
 colour=0xaaaaaa
@@ -115,7 +115,7 @@ x=43
 y=89
 width=140
 height=25
-textfont=fontmetrics_495
+textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
 colour=0xffaa44
@@ -127,7 +127,7 @@ x=183
 y=26
 width=28
 height=290
-graphic=graphic_172
+graphic="miscgraphics,2"
 tiling=yes
 
 // 40:13
@@ -137,7 +137,7 @@ x=17
 y=34
 width=181
 height=42
-graphic=graphic_314
+graphic="steelborder2,0"
 tiling=yes
 
 // 40:14
@@ -147,7 +147,7 @@ x=38
 y=127
 width=44
 height=31
-textfont=fontmetrics_495
+textfont=p12_full
 text=Turn:
 textalignh=right
 textshadow=yes
@@ -192,7 +192,7 @@ x=21
 y=29
 width=176
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Runesquares
 textshadow=yes
 colour=0xffaa44
@@ -216,7 +216,7 @@ y=6
 width=110
 height=30
 layer=com_16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Resign
 textalignh=centre
 textalignv=centre
@@ -244,7 +244,7 @@ y=6
 width=110
 height=30
 layer=com_17
-textfont=fontmetrics_495
+textfont=p12_full
 text=Offer draw
 textalignh=centre
 textalignv=centre
@@ -261,7 +261,7 @@ y=-15
 width=36
 height=36
 layer=com_16
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 40:24
 [com_24]
@@ -271,7 +271,7 @@ y=-15
 width=36
 height=36
 layer=com_17
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 40:25
 [com_25]
@@ -280,7 +280,7 @@ x=85
 y=127
 width=111
 height=31
-textfont=fontmetrics_495
+textfont=p12_full
 text=A very long name
 textshadow=yes
 colour=0xaaaaaa
@@ -293,7 +293,7 @@ y=21
 width=36
 height=36
 layer=com_17
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:27
 [com_27]
@@ -301,7 +301,7 @@ type=graphic
 width=25
 height=30
 layer=com_16
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 40:28
 [com_28]
@@ -309,7 +309,7 @@ type=graphic
 width=25
 height=30
 layer=com_17
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 40:29
 [com_29]
@@ -318,7 +318,7 @@ x=93
 width=30
 height=30
 layer=com_16
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 40:30
 [com_30]
@@ -327,7 +327,7 @@ x=97
 width=25
 height=30
 layer=com_17
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 40:31
 [com_31]
@@ -336,7 +336,7 @@ y=12
 width=25
 height=30
 layer=com_16
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 40:32
 [com_32]
@@ -345,7 +345,7 @@ y=12
 width=25
 height=30
 layer=com_17
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 40:33
 [com_33]
@@ -355,7 +355,7 @@ y=12
 width=25
 height=30
 layer=com_16
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 40:34
 [com_34]
@@ -365,7 +365,7 @@ y=21
 width=36
 height=36
 layer=com_16
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:35
 [com_35]
@@ -375,7 +375,7 @@ y=12
 width=25
 height=30
 layer=com_17
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 40:36
 [com_36]
@@ -384,7 +384,7 @@ x=23
 y=185
 width=169
 height=22
-textfont=fontmetrics_494
+textfont=p11_full
 text=Blah blah blah blah blah blah blah!
 textalignh=centre
 textshadow=yes
@@ -397,7 +397,7 @@ x=23
 y=160
 width=169
 height=11
-textfont=fontmetrics_494
+textfont=p11_full
 text=Blah blah blah blah blah blah blah!
 textalignh=centre
 textshadow=yes
@@ -410,7 +410,7 @@ x=27
 y=157
 width=160
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=Blah blah blah blah blah!
 textalignh=centre
 textshadow=yes
@@ -455,7 +455,7 @@ y=15
 width=31
 height=14
 layer=com_39
-textfont=fontmetrics_495
+textfont=p12_full
 text=Close
 textshadow=yes
 colour=0x800000
@@ -468,7 +468,7 @@ y=-15
 width=36
 height=36
 layer=com_39
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 40:44
 [com_44]
@@ -476,7 +476,7 @@ type=graphic
 width=25
 height=30
 layer=com_39
-graphic=graphic_310
+graphic="steelborder,0"
 
 // 40:45
 [com_45]
@@ -485,7 +485,7 @@ x=53
 width=25
 height=30
 layer=com_39
-graphic=graphic_311
+graphic="steelborder,1"
 
 // 40:46
 [com_46]
@@ -494,7 +494,7 @@ y=12
 width=25
 height=30
 layer=com_39
-graphic=graphic_312
+graphic="steelborder,2"
 
 // 40:47
 [com_47]
@@ -504,7 +504,7 @@ y=12
 width=25
 height=30
 layer=com_39
-graphic=graphic_313
+graphic="steelborder,3"
 
 // 40:48
 [com_48]
@@ -514,7 +514,7 @@ y=21
 width=36
 height=36
 layer=com_39
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:49
 [com_49]
@@ -3654,7 +3654,7 @@ y=21
 width=36
 height=36
 layer=com_17
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:329
 [com_329]
@@ -3664,7 +3664,7 @@ y=21
 width=36
 height=36
 layer=com_17
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:330
 [com_330]
@@ -3674,7 +3674,7 @@ y=-15
 width=36
 height=36
 layer=com_17
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 40:331
 [com_331]
@@ -3684,7 +3684,7 @@ y=-15
 width=36
 height=36
 layer=com_17
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 40:332
 [com_332]
@@ -3694,7 +3694,7 @@ y=21
 width=36
 height=36
 layer=com_16
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:333
 [com_333]
@@ -3704,7 +3704,7 @@ y=21
 width=36
 height=36
 layer=com_16
-graphic=graphic_173
+graphic="miscgraphics,3"
 
 // 40:334
 [com_334]
@@ -3714,7 +3714,7 @@ y=-15
 width=36
 height=36
 layer=com_16
-graphic=graphic_314
+graphic="steelborder2,0"
 
 // 40:335
 [com_335]
@@ -3724,4 +3724,4 @@ y=-15
 width=36
 height=36
 layer=com_16
-graphic=graphic_314
+graphic="steelborder2,0"

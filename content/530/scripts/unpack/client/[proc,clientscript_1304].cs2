@@ -3,7 +3,7 @@
 def_int $int1 = ~current_side_if;
 if ($int1 > -1) {
     if ($int1 = $int0) {
-        if (getwindowmode >= 2 & %tutorial = 1000) {
+        if (getwindowmode >= ^windowmode_resizable & %tutorial = 1000) {
             ~side_if_closeall;
         } else {
             return;

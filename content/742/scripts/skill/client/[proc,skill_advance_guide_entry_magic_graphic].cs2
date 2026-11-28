@@ -100,7 +100,7 @@ switch_int ($int0) {
             case 47 :
                 return(75, "magicon,37", "Members: Fire Wave", "Members can now cast <col=000080>Fire Wave</col>.");
             case 48 :
-                return(77, 7699, "Members: Storm of Armadyl<br> (after Ritual of the Mahjarrat)", "Members can now cast <col=000080>Storm of Armadyl</col> (after Ritual of the Mahjarrat).");
+                return(77, graphic_7699, "Members: Storm of Armadyl<br> (after Ritual of the Mahjarrat)", "Members can now cast <col=000080>Storm of Armadyl</col> (after Ritual of the Mahjarrat).");
             case 49 :
                 return(79, "magicon2,2", "Members: Entangle", "Members can now cast <col=000080>Entangle</col>.");
             case 50 :
@@ -264,7 +264,7 @@ switch_int ($int0) {
             case 37 :
                 return(87, "lunar_magic_on,13", "Members: Teleport to Catherby", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Catherby</col>.");
             case 38 :
-                return(87, 7684, "Members: Tune Bane Ore<br> (after Ritual of the Mahjarrat)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Tune Bane Ore</col> (after Ritual of the Mahjarrat).");
+                return(87, graphic_7684, "Members: Tune Bane Ore<br> (after Ritual of the Mahjarrat)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Tune Bane Ore</col> (after Ritual of the Mahjarrat).");
             case 39 :
                 return(88, "lunar_magic_on,31", "Members: Group Teleport to Catherby", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Catherby</col>.");
             case 40 :
@@ -278,11 +278,11 @@ switch_int ($int0) {
             case 44 :
                 return(92, "lunar_magic_on,17", "Members: Heal Other", "Members using the Lunar spellbook can now cast <col=000080>Heal Other</col>.");
             case 45 :
-                return(92, 7685, "Members: Teleport to Trollheim<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Trollheim</col>. (unlocked at the Livid Farm).");
+                return(92, graphic_7685, "Members: Teleport to Trollheim<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Trollheim</col>. (unlocked at the Livid Farm).");
             case 46 :
                 return(93, "lunar_magic_on,18", "Members: Vengeance Other", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Vengeance Other</col>.");
             case 47 :
-                return(93, 7686, "Members: Group Teleport to Trollheim<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Trollheim</col>. (unlocked at the Livid Farm).");
+                return(93, graphic_7686, "Members: Group Teleport to Trollheim<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Trollheim</col>. (unlocked at the Livid Farm).");
             case 48 :
                 return(94, "lunar_magic_on,21", "Members: Vengeance", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Vengeance</col>.");
             case 49 :
@@ -292,6 +292,6 @@ switch_int ($int0) {
             case 51 :
                 return(96, "lunar_magic_on,39", "Members: Spellbook Swap<br> (after Dream Mentor)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Spellbook Swap</col> (after Dream Mentor).");
             case 52 :
-                return(99, 7687, "Members: Borrowed Power<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Borrowed Power</col>. (unlocked at the Livid Farm).");
+                return(99, graphic_7687, "Members: Borrowed Power<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Borrowed Power</col>. (unlocked at the Livid Farm).");
         }
 }

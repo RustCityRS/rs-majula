@@ -6,28 +6,24 @@
 //! param default, an unarmed punch, and no 289 stats (user-reported). 3229 is
 //! void-634's crossbow guard (`guard_xbow`), 289's `guard2`: it fights at
 //! range with void-634's crossbow animation (4230) and a bolt.
-//! `OPNPC2`: `g1_alt2(ctrl) g2_alt3(npc index)`.
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::ParamValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
 use rs_test::runner;
 use rs_ver::TypeId;
 use std::collections::HashMap;
 use std::fs;
 
-/// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
+/// A pack registry (the rev's `pack/<kind>.pack`): name to id.
 fn pack_id(kind: &str, name: &str) -> i32 {
     let path = format!(
-        "{}/../../content/647/pack/{kind}.pack",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/pack/{kind}.pack",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     let ids: HashMap<String, i32> = fs::read_to_string(&path)
         .expect(&path)
@@ -117,15 +113,9 @@ fn the_crossbow_guard_shoots_back() {
         for _ in 0..12 {
             engine.cycle();
         }
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
-        // A player's life points: varp 1240, bits 1-15 (varbit life_points).
+        client.op_npc(2, nid);
         let pid = client.pid;
-        let life_points = |engine: &Engine| {
-            (engine.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
-        };
-        let full = life_points(engine);
+        let full = life::get(engine, pid);
         let mut hit = false;
         for _ in 0..60 {
             engine.cycle();
@@ -134,7 +124,7 @@ fn the_crossbow_guard_shoots_back() {
                 !said.iter().any(|(_, m)| m.starts_with("script error")),
                 "no script error: {said:?}"
             );
-            if life_points(engine) < full {
+            if life::get(engine, pid) < full {
                 hit = true;
                 break;
             }

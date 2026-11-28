@@ -1,15 +1,14 @@
-use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
+use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 #[cfg(since_647)]
 use crate::ops::controller::active_controller;
 use crate::register::OpsRegistry;
+use crate::session::{EngineHost, HostKind, ScriptHost};
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
 use crate::{Result, ScriptError, handlers, none};
 use rs_pack::cache::ScriptVarType;
 use rs_pack::cache::VarValue;
-#[cfg(since_254)]
-use rs_pack::cache::provider::CacheType;
-#[cfg(since_254)]
+#[cfg(since_647)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 use rs_ver::TypeId;
 use runec::opcodes::*;
@@ -23,11 +22,8 @@ const MAX_ARRAY_SIZE: i32 = 5000;
 ///
 /// Key opcodes include:
 /// - **Constants:** `PUSH_CONSTANT_INT`, `PUSH_CONSTANT_STRING`
-/// - **Player variables:** `PUSH_VARP`, `POP_VARP`, `PUSH_VARBIT`, `POP_VARBIT`
 /// - **NPC variables:** `PUSH_VARN`, `POP_VARN`
 /// - **Shared variables:** `PUSH_VARS`, `POP_VARS`
-/// - **Client variables (647):** `PUSH_VARC_INT`, `POP_VARC_INT`, `PUSH_VARC_STRING`,
-///   `POP_VARC_STRING`: a write transmits, a read gets what was sent last
 /// - **Controller variables (647):** `PUSH_VARCON`, `POP_VARCON`, on the active controller
 /// - **Clan, obj and npc-bit variables (647):** `PUSH_VARCLAN` ...
 ///   `PUSH_CLANSETTING_STRING` (stubs; the server keeps no owner for them yet)
@@ -43,52 +39,9 @@ const MAX_ARRAY_SIZE: i32 = 5000;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::core::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
-    handlers! { |m|
-        // 0
-        none!(m, PUSH_CONSTANT_INT => |s| {
-            s.push_int(s.int_operand());
-        });
-
-        // 1
-        none!(m, PUSH_VARP => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let varp = get_active_player::<E>(s, secondary)?.get_var(id);
-            if let VarValue::String(v) = varp {
-                s.push_string(&v);
-            } else {
-                s.push_int(varp.as_int());
-            }
-        });
-
-        // 2
-        none!(m, POP_VARP => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let varp = engine::<E>()
-                .varps()
-                .get_by_id(TypeId::new(id))
-                .ok_or(ScriptError::VarpNotFound(id as i32))?;
-            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && varp.protect {
-                return Err(ScriptError::Runtime(format!("Varp: {} requires protected access!", varp.debugname)))
-            }
-            let value = if varp.var_type == ScriptVarType::String {
-                VarValue::String(s.pop_string())
-            } else {
-                VarValue::from_int(varp.var_type, s.pop_int())
-            };
-            get_active_player_mut::<E>(s, secondary)?.set_var(id, value, varp.transmit);
-        });
-
-        // 3
-        none!(m, PUSH_CONSTANT_STRING => |s| {
-            let operand = s.string_operand() as *const str;
-            s.push_string(unsafe { &*operand });
-        });
-
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
+    let mut ops = language::<EngineHost<E>>();
+    ops.extend(handlers! { |m|
         // 4
         none!(m, PUSH_VARN => |s| {
             let operand = s.int_operand();
@@ -119,23 +72,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             get_active_npc_mut::<E>(s, secondary)?.set_var(id, value);
         });
 
-        // 6
-        none!(m, BRANCH => |s| {
-            s.pc += s.int_operand();
-        });
-
-        // 7
-        m.insert(BRANCH_NOT, |s| branch_if(s, |a, b| a != b));
-
-        // 8
-        m.insert(BRANCH_EQUALS, |s| branch_if(s, |a, b| a == b));
-
-        // 9
-        m.insert(BRANCH_LESS_THAN, |s| branch_if(s, |a, b| a < b));
-
-        // 10
-        m.insert(BRANCH_GREATER_THAN, |s| branch_if(s, |a, b| a > b));
-
         // 11
         none!(m, PUSH_VARS => |s| {
             let operand = s.int_operand();
@@ -162,198 +98,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 VarValue::from_int(vars.var_type, s.pop_int())
             };
             engine_mut::<E>().set_var(id, value);
-        });
-
-        // 21
-        none!(m, RETURN => |s| {
-            if s.gosub_frame_stack.is_empty() {
-                s.execution = ExecutionState::Finished;
-            } else {
-                s.pop_frame();
-            }
-        });
-
-        // 22
-        none!(m, GOSUB => |s| {
-            if s.gosub_frame_stack.len() >= 50 {
-                return Err(ScriptError::StackOverflow);
-            }
-            let script = pop_script::<E>(s)?;
-            s.gosub_frame(script)?;
-        });
-
-        // 23
-        none!(m, JUMP => |s| {
-            let script = pop_script::<E>(s)?;
-            s.goto_frame(script)?;
-        });
-
-        // 24
-        none!(m, SWITCH => |s| {
-            let key = s.pop_int();
-            let off = s.script.switch_tables
-                .get(s.int_operand() as usize)
-                .and_then(|table| table.get(&key))
-                .copied()
-                .unwrap_or(0);
-            s.pc += off;
-        });
-
-        // 25
-        #[cfg(since_254)]
-        none!(m, PUSH_VARBIT => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
-                .varbits()
-                .get_by_id(TypeId::new(id))
-                .ok_or(ScriptError::VarbitNotFound(id as i32))?;
-            let base = get_active_player::<E>(s, secondary)?.get_var(varbit.basevar).as_int();
-            s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
-        });
-
-        // 27
-        #[cfg(since_254)]
-        none!(m, POP_VARBIT => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
-                .varbits()
-                .get_by_id(TypeId::new(id))
-                .ok_or(ScriptError::VarbitNotFound(id as i32))?;
-            let basevar = engine::<E>()
-                .varps()
-                .get_by_id(TypeId::new(varbit.basevar))
-                .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
-            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && basevar.protect {
-                return Err(ScriptError::Runtime(format!("Varbit: {} requires protected access!", varbit.debugname())))
-            }
-            let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
-            let mut value = s.pop_int();
-            if !fits_bit_range(value, start, end) {
-                value = 0;
-            }
-            let player = get_active_player_mut::<E>(s, secondary)?;
-            let current = player.get_var(varbit.basevar).as_int();
-            let new_value = setbit_range_toint(current, value, start, end);
-            player.set_var(varbit.basevar, VarValue::from_int(basevar.var_type, new_value), basevar.transmit);
-        });
-
-        // 31
-        m.insert(BRANCH_LESS_THAN_OR_EQUALS, |s| branch_if(s, |a, b| a <= b));
-
-        // 32
-        m.insert(BRANCH_GREATER_THAN_OR_EQUALS, |s| branch_if(s, |a, b| a >= b));
-
-        // 33
-        none!(m, PUSH_INT_LOCAL => |s| {
-            s.push_int(s.int_locals[s.int_base + s.int_operand() as usize]);
-        });
-
-        // 34
-        none!(m, POP_INT_LOCAL => |s| {
-            let idx = s.int_base + s.int_operand() as usize;
-            s.int_locals[idx] = s.pop_int();
-        });
-
-        // 35
-        none!(m, PUSH_STRING_LOCAL => |s| {
-            let idx = s.int_operand() as usize;
-            s.push_string_local(idx);
-        });
-
-        // 36
-        none!(m, POP_STRING_LOCAL => |s| {
-            let idx = s.string_base + s.int_operand() as usize;
-            s.string_locals[idx] = s.pop_string();
-        });
-
-        // 37
-        none!(m, JOIN_STRING => |s| {
-            let count = s.int_operand() as usize;
-            s.join_strings(count);
-        });
-
-        // 38
-        none!(m, POP_INT_DISCARD => |s| {
-            s.isp -= 1;
-        });
-
-        // 39
-        none!(m, POP_STRING_DISCARD => |s| {
-            s.ssp -= 1;
-        });
-
-        // 40
-        none!(m, GOSUB_WITH_PARAMS => |s| {
-            if s.gosub_frame_stack.len() >= 50 {
-                return Err(ScriptError::StackOverflow);
-            }
-            let id = s.int_operand();
-            let script = engine::<E>()
-                .get_script(id)
-                .ok_or(ScriptError::ScriptNotFound(id))?;
-            s.gosub_frame(script)?;
-        });
-
-        // 41
-        none!(m, JUMP_WITH_PARAMS => |s| {
-            let id = s.int_operand();
-            let script = engine::<E>()
-                .get_script(id)
-                .ok_or(ScriptError::ScriptNotFound(id))?;
-            s.goto_frame(script)?;
-        });
-
-        // 42
-        #[cfg(since_530)]
-        none!(m, PUSH_VARC_INT => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let value = get_active_player::<E>(s, secondary)?.varc(id);
-            s.push_int(value);
-        });
-
-        // 43
-        #[cfg(since_530)]
-        none!(m, POP_VARC_INT => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let value = s.pop_int();
-            get_active_player_mut::<E>(s, secondary)?.sendvarc(id, value);
-        });
-
-        // 44
-        m.insert(DEFINE_ARRAY, define_array);
-
-        // 45
-        m.insert(PUSH_ARRAY_INT, push_array_int);
-
-        // 46
-        m.insert(POP_ARRAY_INT, pop_array_int);
-
-        // 47
-        #[cfg(since_530)]
-        none!(m, PUSH_VARC_STRING => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let value = get_active_player::<E>(s, secondary)?.varc_str(id);
-            s.push_string(value);
-        });
-
-        // 48
-        #[cfg(since_530)]
-        none!(m, POP_VARC_STRING => |s| {
-            let operand = s.int_operand();
-            let secondary = ((operand >> 16) & 0x1) != 0;
-            let id = (operand & 0xFFFF) as u16;
-            let value = s.pop_string();
-            get_active_player_mut::<E>(s, secondary)?.sendvarc_str(id, &value);
         });
 
         // 74
@@ -453,14 +197,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
+            let varpbit = engine::<E>()
                 .varconbits()
                 .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
             let base = engine::<E>()
-                .controller_var(active_controller(s, secondary)?, varbit.basevar)?
+                .controller_var(active_controller(s, secondary)?, varpbit.basevar)?
                 .as_int();
-            s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
+            s.push_int(getbit_range(base, varpbit.start_bit as i32, varpbit.end_bit as i32));
         });
 
         #[cfg(since_647)]
@@ -468,21 +212,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = engine::<E>()
+            let varpbit = engine::<E>()
                 .varconbits()
                 .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
             let varcon = engine::<E>()
                 .varcons()
-                .get_by_id(TypeId::new(varbit.basevar))
-                .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {}", varbit.basevar)))?;
+                .get_by_id(TypeId::new(varpbit.basevar))
+                .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {}", varpbit.basevar)))?;
             let uid = active_controller(s, secondary)?;
-            let base = engine::<E>().controller_var(uid, varbit.basevar)?.as_int();
-            let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+            let base = engine::<E>().controller_var(uid, varpbit.basevar)?.as_int();
+            let (start, end) = (varpbit.start_bit as i32, varpbit.end_bit as i32);
             let value = s.pop_int();
             let value = if fits_bit_range(value, start, end) { value } else { 0 };
             let value = VarValue::from_int(varcon.var_type, setbit_range_toint(base, value, start, end));
-            engine_mut::<E>().set_controller_var(uid, varbit.basevar, value)?;
+            engine_mut::<E>().set_controller_var(uid, varpbit.basevar, value)?;
         });
 
         // 112
@@ -508,6 +252,143 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, PUSH_CLANSETTING_STRING => |_s| {
             Err(ScriptError::Runtime("Not implemented".to_string()))?;
         });
+    });
+    ops
+}
+
+pub fn language<K: HostKind>() -> OpsRegistry<K>
+where
+    for<'a> K::Host<'a>: ScriptHost,
+{
+    handlers! { |m: OpsRegistry<K>|
+        // 0
+        none!(m, PUSH_CONSTANT_INT => |s| {
+            s.push_int(s.int_operand());
+        });
+
+        // 3
+        none!(m, PUSH_CONSTANT_STRING => |s| {
+            s.push_string_operand();
+        });
+
+        // 6
+        none!(m, BRANCH => |s| {
+            s.pc += s.int_operand();
+        });
+
+        // 7
+        m.insert(BRANCH_NOT, |s, _| branch_if(s, |a, b| a != b));
+
+        // 8
+        m.insert(BRANCH_EQUALS, |s, _| branch_if(s, |a, b| a == b));
+
+        // 9
+        m.insert(BRANCH_LESS_THAN, |s, _| branch_if(s, |a, b| a < b));
+
+        // 10
+        m.insert(BRANCH_GREATER_THAN, |s, _| branch_if(s, |a, b| a > b));
+
+        // 21
+        none!(m, RETURN => |s| {
+            if s.gosub_frame_stack.is_empty() {
+                s.execution = ExecutionState::Finished;
+            } else {
+                s.pop_frame();
+            }
+        });
+
+        // 22
+        none!(m, GOSUB => |s, host| {
+            let id = s.pop_int();
+            let script = host.get_script(id).ok_or(ScriptError::ScriptNotFound(id))?;
+            s.gosub_frame(script)?;
+        });
+
+        // 23
+        none!(m, JUMP => |s, host| {
+            let id = s.pop_int();
+            let script = host.get_script(id).ok_or(ScriptError::ScriptNotFound(id))?;
+            s.goto_frame(script)?;
+        });
+
+        // 24
+        none!(m, SWITCH => |s| {
+            let key = s.pop_int();
+            let off = s.script.switch_tables
+                .get(s.int_operand() as usize)
+                .and_then(|table| table.get(&key))
+                .copied()
+                .unwrap_or(0);
+            s.pc += off;
+        });
+
+        // 31
+        m.insert(BRANCH_LESS_THAN_OR_EQUALS, |s, _| branch_if(s, |a, b| a <= b));
+
+        // 32
+        m.insert(BRANCH_GREATER_THAN_OR_EQUALS, |s, _| branch_if(s, |a, b| a >= b));
+
+        // 33
+        none!(m, PUSH_INT_LOCAL => |s| {
+            s.push_int(s.int_locals[s.int_base + s.int_operand() as usize]);
+        });
+
+        // 34
+        none!(m, POP_INT_LOCAL => |s| {
+            let idx = s.int_base + s.int_operand() as usize;
+            s.int_locals[idx] = s.pop_int();
+        });
+
+        // 35
+        none!(m, PUSH_STRING_LOCAL => |s| {
+            let idx = s.int_operand() as usize;
+            s.push_string_local(idx);
+        });
+
+        // 36
+        none!(m, POP_STRING_LOCAL => |s| {
+            let idx = s.string_base + s.int_operand() as usize;
+            s.string_locals[idx] = s.pop_string();
+        });
+
+        // 37
+        none!(m, JOIN_STRING => |s| {
+            let count = s.int_operand() as usize;
+            s.join_strings(count);
+        });
+
+        // 38
+        none!(m, POP_INT_DISCARD => |s| {
+            s.isp -= 1;
+        });
+
+        // 39
+        none!(m, POP_STRING_DISCARD => |s| {
+            s.ssp -= 1;
+        });
+
+        // 40
+        none!(m, GOSUB_WITH_PARAMS => |s, host| {
+            let id = s.int_operand();
+            let script = host.get_script(id).ok_or(ScriptError::ScriptNotFound(id))?;
+            s.gosub_frame(script)?;
+        });
+
+        // 41
+        none!(m, JUMP_WITH_PARAMS => |s, host| {
+            let id = s.int_operand();
+            let script = host.get_script(id).ok_or(ScriptError::ScriptNotFound(id))?;
+            s.goto_frame(script)?;
+        });
+
+        // 44
+        m.insert(DEFINE_ARRAY, |s, _| define_array(s));
+
+        // 45
+        m.insert(PUSH_ARRAY_INT, |s, _| push_array_int(s));
+
+        // 46
+        m.insert(POP_ARRAY_INT, |s, _| pop_array_int(s));
     }
 }
 

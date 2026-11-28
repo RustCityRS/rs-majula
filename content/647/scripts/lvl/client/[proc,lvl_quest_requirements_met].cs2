@@ -378,7 +378,7 @@ switch_int ($int0) {
             return(1);
         }
     case 94 :
-        if (stat_base(construction) >= 40 & stat_base(farming) >= 26 & stat_base(prayer) >= 35 & stat_base(summoning) >= 19) {
+        if (stat_base(construction) >= 40 & stat_base(farming) >= 26 & stat_base(prayer) >= 35 & stat_base(animallore) >= 19) {
             return(1);
         }
     case 95 :
@@ -386,7 +386,7 @@ switch_int ($int0) {
             return(1);
         }
     case 96 :
-        if (stat_base(firemaking) >= 47 & stat_base(hunter) >= 35 & stat_base(mining) >= 45 & stat_base(prayer) >= 55 & stat_base(summoning) >= 23 & stat_base(woodcutting) >= 37) {
+        if (stat_base(firemaking) >= 47 & stat_base(hunter) >= 35 & stat_base(mining) >= 45 & stat_base(prayer) >= 55 & stat_base(animallore) >= 23 & stat_base(woodcutting) >= 37) {
             return(1);
         }
     case 97 :
@@ -394,7 +394,7 @@ switch_int ($int0) {
             return(1);
         }
     case 98 :
-        if (stat_base(defence) >= 65 & stat_base(magic) >= 75 & stat_base(herblore) >= 65 & stat_base(thieving) >= 60 & stat_base(hunter) >= 55 & stat_base(farming) >= 65 & stat_base(summoning) >= 23 & ~script395 = 1) {
+        if (stat_base(defence) >= 65 & stat_base(magic) >= 75 & stat_base(herblore) >= 65 & stat_base(thieving) >= 60 & stat_base(hunter) >= 55 & stat_base(farming) >= 65 & stat_base(animallore) >= 23 & ~script395 = 1) {
             return(1);
         }
     case 99 :
@@ -422,7 +422,7 @@ switch_int ($int0) {
             return(1);
         }
     case 105 :
-        if (stat_base(summoning) >= 41 & stat_base(mining) >= 64 & stat_base(slayer) >= 37 & stat_base(agility) >= 61 & stat_base(strength) >= 64 & stat_base(ranged) >= 64 & stat_base(thieving) >= 66) {
+        if (stat_base(animallore) >= 41 & stat_base(mining) >= 64 & stat_base(slayer) >= 37 & stat_base(agility) >= 61 & stat_base(strength) >= 64 & stat_base(ranged) >= 64 & stat_base(thieving) >= 66) {
             return(1);
         }
     case 106 :
@@ -462,7 +462,7 @@ switch_int ($int0) {
             return(1);
         }
     case 115 :
-        if (stat_base(farming) >= 54 & stat_base(thieving) >= 51 & stat_base(magic) >= 59 & stat_base(summoning) >= 37 & stat_base(crafting) >= 36) {
+        if (stat_base(farming) >= 54 & stat_base(thieving) >= 51 & stat_base(magic) >= 59 & stat_base(animallore) >= 37 & stat_base(crafting) >= 36) {
             return(1);
         }
     case 116 :
@@ -478,11 +478,11 @@ switch_int ($int0) {
             return(1);
         }
     case 119 :
-        if (stat_base(construction) >= 47 & stat_base(herblore) >= 49 & stat_base(hunter) >= 46 & stat_base(mining) >= 47 & stat_base(summoning) >= 48 & stat_base(thieving) >= 54 & stat_base(woodcutting) >= 52) {
+        if (stat_base(construction) >= 47 & stat_base(herblore) >= 49 & stat_base(hunter) >= 46 & stat_base(mining) >= 47 & stat_base(animallore) >= 48 & stat_base(thieving) >= 54 & stat_base(woodcutting) >= 52) {
             return(1);
         }
     case 120 :
-        if (stat_base(attack) >= 78 & stat_base(construction) >= 70 & stat_base(crafting) >= 70 & stat_base(firemaking) >= 71 & stat_base(magic) >= 80 & stat_base(smithing) >= 70 & stat_base(strength) >= 78 & stat_base(summoning) >= 55 & stat_base(defence) >= 10) {
+        if (stat_base(attack) >= 78 & stat_base(construction) >= 70 & stat_base(crafting) >= 70 & stat_base(firemaking) >= 71 & stat_base(magic) >= 80 & stat_base(smithing) >= 70 & stat_base(strength) >= 78 & stat_base(animallore) >= 55 & stat_base(defence) >= 10) {
             return(1);
         }
     case 121 :
@@ -498,7 +498,7 @@ switch_int ($int0) {
             return(1);
         }
     case 124 :
-        if (stat_base(construction) >= 62 & stat_base(dungeoneering) >= 50 & stat_base(slayer) >= 61 & stat_base(summoning) >= 65 & stat_base(smithing) >= 74 & stat_base(defence) >= 76 & stat_base(thieving) >= 74) {
+        if (stat_base(construction) >= 62 & stat_base(rand) >= 50 & stat_base(slayer) >= 61 & stat_base(animallore) >= 65 & stat_base(smithing) >= 74 & stat_base(defence) >= 76 & stat_base(thieving) >= 74) {
             return(1);
         }
     case default :

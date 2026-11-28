@@ -43,107 +43,107 @@ if ($int0 > 0) {
         $int3 = calc($int3 + 1);
     }
 }
-if_setgraphic(interface_1218:com_31, 7844);
-if_setgraphic(interface_1218:com_82, 7844);
-if_setgraphic(interface_1218:com_112, 7844);
-if_setgraphic(interface_1218:com_106, 7844);
-if_setgraphic(interface_1218:com_145, 7844);
-if_setgraphic(interface_1218:com_124, 7844);
-if_setgraphic(interface_1218:com_91, 7844);
-if_setgraphic(interface_1218:com_109, 7844);
-if_setgraphic(interface_1218:com_155, 7844);
-if_setgraphic(interface_1218:com_148, 7844);
-if_setgraphic(interface_1218:com_142, 7844);
-if_setgraphic(interface_1218:com_127, 7844);
-if_setgraphic(interface_1218:com_117, 7844);
-if_setgraphic(interface_1218:com_133, 7844);
-if_setgraphic(interface_1218:com_100, 7844);
-if_setgraphic(interface_1218:com_136, 7844);
-if_setgraphic(interface_1218:com_97, 7844);
-if_setgraphic(interface_1218:com_94, 7844);
-if_setgraphic(interface_1218:com_103, 7844);
-if_setgraphic(interface_1218:com_130, 7844);
-if_setgraphic(interface_1218:com_139, 7844);
-if_setgraphic(interface_1218:com_88, 7844);
-if_setgraphic(interface_1218:com_158, 7844);
-if_setgraphic(interface_1218:com_121, 7844);
-if_setgraphic(interface_1218:com_152, 7844);
+if_setgraphic(interface_1218:com_31, graphic_7844);
+if_setgraphic(interface_1218:com_82, graphic_7844);
+if_setgraphic(interface_1218:com_112, graphic_7844);
+if_setgraphic(interface_1218:com_106, graphic_7844);
+if_setgraphic(interface_1218:com_145, graphic_7844);
+if_setgraphic(interface_1218:com_124, graphic_7844);
+if_setgraphic(interface_1218:com_91, graphic_7844);
+if_setgraphic(interface_1218:com_109, graphic_7844);
+if_setgraphic(interface_1218:com_155, graphic_7844);
+if_setgraphic(interface_1218:com_148, graphic_7844);
+if_setgraphic(interface_1218:com_142, graphic_7844);
+if_setgraphic(interface_1218:com_127, graphic_7844);
+if_setgraphic(interface_1218:com_117, graphic_7844);
+if_setgraphic(interface_1218:com_133, graphic_7844);
+if_setgraphic(interface_1218:com_100, graphic_7844);
+if_setgraphic(interface_1218:com_136, graphic_7844);
+if_setgraphic(interface_1218:com_97, graphic_7844);
+if_setgraphic(interface_1218:com_94, graphic_7844);
+if_setgraphic(interface_1218:com_103, graphic_7844);
+if_setgraphic(interface_1218:com_130, graphic_7844);
+if_setgraphic(interface_1218:com_139, graphic_7844);
+if_setgraphic(interface_1218:com_88, graphic_7844);
+if_setgraphic(interface_1218:com_158, graphic_7844);
+if_setgraphic(interface_1218:com_121, graphic_7844);
+if_setgraphic(interface_1218:com_152, graphic_7844);
 def_int $int7 = 0;
 switch_int ($int0) {
     case 1 :
-        if_setgraphic(interface_1218:com_82, 9287);
+        if_setgraphic(interface_1218:com_82, graphic_9287);
         $int7 = 0;
     case 2 :
-        if_setgraphic(interface_1218:com_88, 9287);
+        if_setgraphic(interface_1218:com_88, graphic_9287);
         $int7 = -640;
     case 5 :
-        if_setgraphic(interface_1218:com_91, 9287);
+        if_setgraphic(interface_1218:com_91, graphic_9287);
         $int7 = 0;
     case 3 :
-        if_setgraphic(interface_1218:com_94, 9287);
+        if_setgraphic(interface_1218:com_94, graphic_9287);
         $int7 = -640;
     case 7 :
-        if_setgraphic(interface_1218:com_97, 9287);
+        if_setgraphic(interface_1218:com_97, graphic_9287);
         $int7 = -640;
     case 4 :
-        if_setgraphic(interface_1218:com_100, 9287);
+        if_setgraphic(interface_1218:com_100, graphic_9287);
         $int7 = -320;
     case 6 :
-        if_setgraphic(interface_1218:com_112, 9287);
+        if_setgraphic(interface_1218:com_112, graphic_9287);
         $int7 = 0;
     case 8 :
-        if_setgraphic(interface_1218:com_31, 9287);
+        if_setgraphic(interface_1218:com_31, graphic_9287);
         $int7 = 0;
     case 9 :
-        if_setgraphic(interface_1218:com_117, 9287);
+        if_setgraphic(interface_1218:com_117, graphic_9287);
         $int7 = -320;
     case 10 :
-        if_setgraphic(interface_1218:com_121, 9287);
+        if_setgraphic(interface_1218:com_121, graphic_9287);
         $int7 = -640;
     case 11 :
-        if_setgraphic(interface_1218:com_124, 9287);
+        if_setgraphic(interface_1218:com_124, graphic_9287);
         $int7 = 0;
     case 19 :
-        if_setgraphic(interface_1218:com_127, 9287);
+        if_setgraphic(interface_1218:com_127, graphic_9287);
         $int7 = -320;
     case 13 :
-        if_setgraphic(interface_1218:com_136, 9287);
+        if_setgraphic(interface_1218:com_136, graphic_9287);
         $int7 = -320;
     case 14 :
-        if_setgraphic(interface_1218:com_139, 9287);
+        if_setgraphic(interface_1218:com_139, graphic_9287);
         $int7 = -640;
     case 15 :
-        if_setgraphic(interface_1218:com_142, 9287);
+        if_setgraphic(interface_1218:com_142, graphic_9287);
         $int7 = -320;
     case 16 :
-        if_setgraphic(interface_1218:com_145, 9287);
+        if_setgraphic(interface_1218:com_145, graphic_9287);
         $int7 = 0;
     case 17 :
-        if_setgraphic(interface_1218:com_148, 9287);
+        if_setgraphic(interface_1218:com_148, graphic_9287);
         $int7 = -320;
     case 18 :
-        if_setgraphic(interface_1218:com_152, 9287);
+        if_setgraphic(interface_1218:com_152, graphic_9287);
         $int7 = -960;
     case 12 :
-        if_setgraphic(interface_1218:com_103, 9287);
+        if_setgraphic(interface_1218:com_103, graphic_9287);
         $int7 = -640;
     case 20 :
-        if_setgraphic(interface_1218:com_130, 9287);
+        if_setgraphic(interface_1218:com_130, graphic_9287);
         $int7 = -640;
     case 21 :
-        if_setgraphic(interface_1218:com_155, 9287);
+        if_setgraphic(interface_1218:com_155, graphic_9287);
         $int7 = -320;
     case 22 :
-        if_setgraphic(interface_1218:com_106, 9287);
+        if_setgraphic(interface_1218:com_106, graphic_9287);
         $int7 = 0;
     case 23 :
-        if_setgraphic(interface_1218:com_133, 9287);
+        if_setgraphic(interface_1218:com_133, graphic_9287);
         $int7 = -320;
     case 24 :
-        if_setgraphic(interface_1218:com_158, 9287);
+        if_setgraphic(interface_1218:com_158, graphic_9287);
         $int7 = -640;
     case 25 :
-        if_setgraphic(interface_1218:com_109, 9287);
+        if_setgraphic(interface_1218:com_109, graphic_9287);
         $int7 = 0;
 }
 %varclient_1752 = 0;

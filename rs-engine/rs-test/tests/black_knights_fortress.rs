@@ -4,25 +4,20 @@
 //! runescape/target/refs/bkf/transcript_0504.md). %spy is the cache's varp 130, which quest 53
 //! counts from 1 to 4.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
+use rs_test::server;
 use rs_test::talk::{converse, settexts, talk_to};
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
 
-const BACKPACK: i32 = 149 << 16;
 /// The grill (maps/l47_54.jm2: level 0, 18,51) and the hole (level 1, 23,51).
 const GRILL: (u16, u16, u16, u8) = (2342, 3026, 3507, 0);
 const HOLE: (u16, u16, u16, u8) = (2336, 3031, 3507, 1);
@@ -88,12 +83,7 @@ fn to_sir_amik(engine: &mut Engine, client: &HarnessClient) -> u16 {
 }
 
 fn minimap_states(packets: &[(u16, Vec<u8>)]) -> Vec<u8> {
-    let opcode = ServerProt::MinimapToggle as u16;
-    packets
-        .iter()
-        .filter(|(op, p)| *op == opcode && p.len() == 1)
-        .map(|(_, p)| p[0])
-        .collect()
+    server::minimap_states(packets)
 }
 
 #[test]
@@ -162,12 +152,7 @@ fn black_knights_fortress_as_2011_had_it() {
             engine.cycle();
         }
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(x as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, x, z, TypeId::new(loc));
         let grill = converse(engine, &mut client, &[], 400);
         for line in [
             "So... how's the secret weapon coming along?",
@@ -194,15 +179,7 @@ fn black_knights_fortress_as_2011_had_it() {
             engine.cycle();
         }
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p2_alt2(cabbage.int())
-            .p2_alt2(5)
-            .p2(z as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(x as i32)
-            .p1_alt1(0)
-            .p2_alt1(loc as i32);
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(x, z, TypeId::new(loc), BACKPACK, 5, cabbage);
         let sabotage = converse(engine, &mut client, &[], 400);
         for line in [
             "Where has Greldo got to with that magic cabbage!",

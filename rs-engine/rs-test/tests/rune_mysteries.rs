@@ -10,16 +10,11 @@
 //! `p1_alt3(ctrl) p2_alt3(nid)`; OPNPC5: `p1_alt2(ctrl) p2_alt1(nid)`). The
 //! essence mine is map square 45,75.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
 use rs_ver::TypeId;
@@ -28,6 +23,8 @@ use std::sync::Mutex;
 
 const SEDRIDOR: u16 = 300;
 const AUBURY: u16 = 5913;
+#[cfg(before_742)]
+#[cfg(since_647)]
 const SHOP: u16 = 620;
 const COMPLETE: i32 = 6;
 
@@ -110,9 +107,7 @@ fn sedridor_teleports_a_player_who_finished_the_quest() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let (mut client, nid) = visitor(engine, "apprentice", SEDRIDOR, COMPLETE);
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
+        client.op_npc(3, nid);
         let said = run(engine, &mut client, 12);
         assert!(
             in_the_mine(engine, client.pid),
@@ -121,9 +116,7 @@ fn sedridor_teleports_a_player_who_finished_the_quest() {
 
         // Before the quest is done, he will not.
         let (mut client, nid) = visitor(engine, "novice", SEDRIDOR, 0);
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
+        client.op_npc(3, nid);
         let said = run(engine, &mut client, 8);
         assert!(!in_the_mine(engine, client.pid), "stays; said {said:?}");
         assert_eq!(
@@ -133,14 +126,14 @@ fn sedridor_teleports_a_player_who_finished_the_quest() {
     });
 }
 
+#[cfg(before_742)]
+#[cfg(since_647)]
 #[test]
 fn aubury_trades_on_op4_and_teleports_on_op5() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let (mut client, nid) = visitor(engine, "runebuyer", AUBURY, COMPLETE);
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc4, &p.finish());
+        client.op_npc(4, nid);
         let said = run(engine, &mut client, 6);
         assert!(
             engine
@@ -151,9 +144,7 @@ fn aubury_trades_on_op4_and_teleports_on_op5() {
         );
 
         let (mut client, nid) = visitor(engine, "runetraveller", AUBURY, COMPLETE);
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt1(nid as i32);
-        client.send(ClientProt::OpNpc5, &p.finish());
+        client.op_npc(5, nid);
         let said = run(engine, &mut client, 12);
         assert!(
             in_the_mine(engine, client.pid),

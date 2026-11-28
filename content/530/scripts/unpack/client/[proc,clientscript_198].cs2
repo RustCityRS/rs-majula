@@ -2,23 +2,23 @@
 [proc,clientscript_198](int $int0)(graphic)
 switch_int ($int0) {
     case 0 :
-        return(1004);
+        return("clan_chat_icons,0");
     case 1 :
-        return(1012);
+        return("clan_chat_icons,8");
     case 2 :
-        return(1011);
+        return("clan_chat_icons,7");
     case 3 :
-        return(1010);
+        return("clan_chat_icons,6");
     case 4 :
-        return(1009);
+        return("clan_chat_icons,5");
     case 5 :
-        return(1008);
+        return("clan_chat_icons,4");
     case 6 :
-        return(1007);
+        return("clan_chat_icons,3");
     case 7 :
-        return(1006);
+        return("clan_chat_icons,2");
     case 127 :
-        return(1005);
+        return("clan_chat_icons,1");
     case default :
         return(null);
 }

@@ -3,25 +3,21 @@
 //! runescape/target/refs/dragon). Stage one: the Guildmaster, Oziach, the Duke's shield, and the
 //! quest's end at Oziach with Elvarg's head.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
-
-const BACKPACK: i32 = 149 << 16;
 
 fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let id = match kind {
@@ -161,6 +157,7 @@ fn talk_on(
 
 const GUILDMASTER: (u16, u16, u8) = (3191, 3362, 0);
 const OZIACH: (u16, u16, u8) = (3068, 3516, 0);
+#[cfg(since_647)]
 const DUKE: (u16, u16, u8) = (3212, 3220, 1);
 
 /// The Guildmaster's "Can I have a quest?" and Oziach's quest, in 2011's words (2011-05-04
@@ -284,6 +281,7 @@ fn the_guildmaster_tells_of_crandor_and_the_map() {
 
 /// Duke Horacio's 2011 shield (UYp0v2Pc1yI 197.4-226.6s), offered once the Guildmaster has told
 /// of it.
+#[cfg(since_647)]
 #[test]
 fn the_duke_gives_the_shield() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -359,25 +357,19 @@ fn oziach_takes_elvargs_head() {
 
 fn oploc1(client: &mut HarnessClient, loc: (u16, u16, u16)) {
     let (id, x, z) = loc;
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(id as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(id as i32));
 }
 
 fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: (u16, u16, u16)) {
     let (id, x, z) = loc;
-    let mut p = ClientPacket::new();
-    p.p2_alt2(obj as i32)
-        .p2_alt2(slot as i32)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(id as i32);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        x,
+        z,
+        TypeId::from_int(id as i32),
+        BACKPACK,
+        slot,
+        TypeId::from_int(obj as i32),
+    );
 }
 
 /// The backpack slot holding `name`.
@@ -407,14 +399,14 @@ fn use_on_obj(
         slot_of(engine, client, used),
         slot_of(engine, client, target),
     );
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(ts)
-        .p2_alt1(us)
-        .p2_alt2(id(engine, "obj", used).int())
-        .p4_alt1(BACKPACK)
-        .p2(id(engine, "obj", target).int());
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(
+        BACKPACK,
+        us as u16,
+        id(engine, "obj", used),
+        BACKPACK,
+        ts as u16,
+        id(engine, "obj", target),
+    );
     converse(engine, client, choices, 300)
 }
 
@@ -591,9 +583,7 @@ fn wormbrain_drops_his_piece_and_lives() {
         let (nid, sx, sz) = npc_near_on(engine, "wormbrain", WORMBRAIN.0, WORMBRAIN.1, 0);
         engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
         tele(engine, &mut client, sx, 0, sz);
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
         let mut said = Vec::new();
         for _ in 0..60 {
             said.extend(messages(engine, &mut client, 1));
@@ -619,9 +609,7 @@ fn wormbrain_drops_his_piece_and_lives() {
         // He may have wandered a step in his cell: stand beside him again.
         let (_, sx, sz) = npc_near_on(engine, "wormbrain", WORMBRAIN.0, WORMBRAIN.1, 0);
         tele(engine, &mut client, sx, 0, sz);
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
         let said = messages(engine, &mut client, 12);
         let hp = engine
             .get_npc(nid)
@@ -704,9 +692,7 @@ fn the_maze_zombie_rat_drops_the_red_key() {
         let (nid, sx, sz) = npc_near_on(engine, "dragonslayer_giantrat_1_key", 2930, 3252, 0);
         engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
         tele(engine, &mut client, sx, 0, sz);
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
         let mut last = None;
         for _ in 0..60 {
             match engine.get_npc(nid) {
@@ -719,12 +705,7 @@ fn the_maze_zombie_rat_drops_the_red_key() {
         }
         let (kx, kz) = last.expect("the rat was seen alive");
         let redkey = id(engine, "obj", "redkey");
-        let mut p = ClientPacket::new();
-        p.p2_alt1(redkey.int())
-            .p2_alt2(kz as i32)
-            .p1(0)
-            .p2(kx as i32);
-        client.send(ClientProt::OpObj3, &p.finish());
+        client.op_obj(3, kx, kz, redkey);
         settle(engine, &mut client, 8);
         assert_eq!(
             held(engine, &client, "redkey"),
@@ -803,7 +784,7 @@ const GANGPLANK_OFF: (u16, u16, u16) = (2594, 3047, 3206);
 const DECK_LADDER: (u16, u16, u16) = (2590, 3049, 3208);
 const HOLD_LADDER: (u16, u16, u16) = (272, 3049, 3208);
 /// loc_25036, the multiloc cache 786 places at l47_50 level 0 (39,7): the hole until
-/// dragon_hull_repaired (varbit 1837, bit 10 of varp 177) is 1.
+/// dragon_hull_repaired (varpbit 1837, bit 10 of varp 177) is 1.
 const HOLE: (u16, u16, u16) = (25036, 3047, 3207);
 
 fn at(engine: &Engine, client: &HarnessClient) -> (u16, u8, u16) {
@@ -960,6 +941,10 @@ fn ned_takes_the_map_as_2011s() {
 /// back up, at void-634's destinations; the low wall of spikes before her ("You climb over the
 /// low wall.", the 2011-05-04 recording mYqjoMQCOHI, 290-295.4s); and 289's secret door, which
 /// is found from one side (%dragon_wall) and then opens.
+/// 530's map puts the hole a tile south-west.
+#[cfg(before_647)]
+const CRANDOR_HOLE: (u16, u16, u16) = (25154, 2832, 3254);
+#[cfg(since_647)]
 const CRANDOR_HOLE: (u16, u16, u16) = (25154, 2833, 3255);
 const CRANDOR_ROPE: (u16, u16, u16) = (25213, 2833, 9657);
 const CRANDOR_WALL: (u16, u16, u16) = (25161, 2846, 9635);
@@ -970,6 +955,11 @@ fn crandor_s_hole_rope_wall_and_secret_door() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "crandor");
+        // Skeletons by the rope's landing, a giant skeleton at the wall and a lesser demon by the
+        // secret door hunt the player, on ticks their wander rolls decide.
+        for (x, z) in [(2833, 9658), (2845, 9635), (2836, 9600)] {
+            world::calm(engine, x, z, 12);
+        }
         tele(engine, &mut client, 2833, 0, 3257);
         oploc1(&mut client, CRANDOR_HOLE);
         let said = messages(engine, &mut client, 12);
@@ -988,14 +978,13 @@ fn crandor_s_hole_rope_wall_and_secret_door() {
         );
 
         // Elvarg (spawned at 2852,9637) waits past the wall and a fresh harness player across it
-        // would be hers: 990 life points (varp 1240, bits 1-15) outlast the crossing. She stays,
+        // would be hers: 99 hitpoints outlast the crossing. She stays,
         // for elvarg_slain_gives_her_head.
         {
             let player = engine.harness_player_mut(client.pid).unwrap();
             player.stats.levels[3] = 99;
             player.stats.base_levels[3] = 99;
-            let lp = player.vars.get(1240).as_int();
-            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+            life::set(player, 99 * life::SCALE);
         }
         tele(engine, &mut client, 2845, 0, 9635);
         oploc1(&mut client, CRANDOR_WALL);
@@ -1055,9 +1044,7 @@ fn elvarg_slain_gives_her_head() {
                 player.stats.base_levels[skill] = 99;
                 player.stats.xp[skill] = 130_344_310;
             }
-            // Life points live in varp 1240 (bits 1-15): 990.
-            let lp = player.vars.get(1240).as_int();
-            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+            life::set(player, 99 * life::SCALE);
         }
         // The anti-dragon shield worn, as a player fights her: her fire then reaches 120, not
         // 600, so a swing or two that miss her 1 life point can't let her kill the player first
@@ -1083,9 +1070,7 @@ fn elvarg_slain_gives_her_head() {
         for tick in 0..90 {
             // Attack, and again every 10 ticks in case a swing missed.
             if tick % 10 == 0 {
-                let mut p = ClientPacket::new();
-                p.p1_alt2(0).p2_alt3(nid as i32);
-                client.send(ClientProt::OpNpc2, &p.finish());
+                client.op_npc(2, nid);
             }
             said.extend(messages(engine, &mut client, 1));
             if said.iter().any(|m| m == line) {

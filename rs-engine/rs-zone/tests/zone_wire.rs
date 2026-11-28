@@ -7,7 +7,7 @@ use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 #[cfg(all(since_530, before_647))]
 use rs_protocol::network::game::server::map_projanim_halfsq::{
-    MapProjAnimHalfsq, ServerProt530_104,
+    MapProjAnimHalfsq, MapProjAnimHalfsqSrc,
 };
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
@@ -96,7 +96,7 @@ fn zone_messages_match_client_ids_and_sizes() {
             arc: 64,
         }),
         #[cfg(all(since_530, before_647))]
-        ZoneMessage::ServerProt530_104(ServerProt530_104 {
+        ZoneMessage::MapProjAnimHalfsqSrc(MapProjAnimHalfsqSrc {
             coord: 0xA5,
             dx: -4,
             dz: 6,

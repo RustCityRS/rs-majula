@@ -6,7 +6,7 @@ use rs_grid::CoordGrid;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
-use rs_vm::engine::{ScriptPlayer, engine_typed_mut, with_engine};
+use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::subject::ScriptSubject;
 
 fn wait_for_map(engine: &mut Engine, client: &HarnessClient) {
@@ -58,8 +58,7 @@ fn acknowledge(engine: &mut Engine, client: &mut HarnessClient) {
 #[test]
 fn load_delay_waits_for_the_scene_and_bounds_a_missing_acknowledgement() {
     runner::on_loaded_engine(|engine| {
-        with_engine(engine, || {
-            let engine = unsafe { engine_typed_mut::<Engine>() };
+        with_engine(engine, |engine| {
             let mut client = engine
                 .harness_login_returning_at("mapready", 3222, 3218)
                 .unwrap();

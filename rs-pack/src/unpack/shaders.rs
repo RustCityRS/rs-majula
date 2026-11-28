@@ -3,13 +3,17 @@ use crate::{
     pack::{names::AssetNames, other::shader},
 };
 use anyhow::{Context, Result, ensure};
-use rs_io::js5::{Js5Store, encode_group_entries};
+use rs_io::js5::{Js5LocalCache, encode_group_entries};
 use std::{fs, path::Path};
 
-pub fn unpack_shaders(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path) -> Result<u32> {
+pub fn unpack_shaders(
+    store: &mut Js5LocalCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+) -> Result<u32> {
     let names = AssetNames::load(pack_dir)?;
     let groups = store
-        .reference_table(archive::SHADERS)
+        .index(archive::SHADERS)
         .context("Missing shader table")?
         .groups
         .clone();

@@ -1,0 +1,67 @@
+[oploc1,is_signs_cakes]
+~information_signs_new_day;
+switch_int(%information_signs_cakes) {
+    case 0 : ~mesbox("The bakers of East Ardougne are pleased to announce that not a single cake or loaf of bread has been stolen from the market, so far today.");
+    case 1 : ~mesbox("One of East Ardougne's bakers was slightly upset to find one of his delicious wares has been stolen from his stall today. Be vigilant.");
+    case default : ~mesbox("The knights and paladins of East Ardougne are keeping a watchful eye on the market stalls today. So far, a total of <tostring(%information_signs_cakes)> delicious cakes and loaves of bread have been stolen from the bakers' stalls.");
+}
+
+[oploc1,is_signs_cows]
+~information_signs_new_day;
+switch_int(%information_signs_cows) {
+    case 0 : ~mesbox("The Lumbridge cow population has been thriving today, without a single cow death to worry about!");
+    case 1 : ~mesbox("Local cowherders have reported that only a single cow has been slain in this field today. Farmers hope the remaining cows will be safe from harm.");
+    case default : ~mesbox("Local cowherders have reported that <tostring(%information_signs_cows)> cows have been slain in this field today by passing adventurers. Farmers throughout the land fear this may be an epidemic.");
+}
+
+[oploc1,is_signs_deaths]
+~information_signs_new_day;
+if (%information_signs_deaths = 0) {
+    ~mesbox("So far today, not a single adventurer on RuneScape has met their end grisly or otherwise. Either the streets are getting safer or adventurers are getting warier.");
+} else {
+    ~mesbox("So far today, <tostring(%information_signs_deaths)> unlucky adventurers have died on RuneScape and been sent to their respawn location. Be careful out there.");
+}
+
+[oploc1,is_signs_goblins]
+~mesbox("Welcome to Goblin Village. Current population: <tostring(~information_signs_goblin_population)>");
+
+[proc,information_signs_goblin_population]()(int)
+def_int $population = 0;
+// Count the ground-level village inside the entrance banners.
+npc_findallany(0_46_54_13_49, 15, ^vis_off);
+while (npc_findnext = true) {
+    if (compare(npc_name, "Goblin") = 0 & npc_stat(hitpoints) > 0) {
+        $population = add($population, 1);
+    }
+}
+return ($population);
+
+[oploc1,is_signs_guards]
+~information_signs_new_day;
+switch_int(%information_signs_guards) {
+    case 0 : ~mesbox("The Varrock Palace guards are pleased to announce that crime is at an all-time low, without a single guard in the palace or at the city gates being pickpocketed today.");
+    case 1 : ~mesbox("One of the Varrock Palace guards was pickpocketed today. He was close to tears at having lost his last few gold pieces.");
+    case default : ~mesbox("Guards in the Varrock Palace are on full alert due to increasing levels of pickpocketing. So far today, <tostring(%information_signs_guards)> guards have had their money pickpocketed in the palace or at the city gates.");
+}
+
+[oploc1,is_signs_cyclops]
+~information_signs_new_day;
+if (%information_signs_cyclopes = 0 & %information_signs_cyclossi = 0) {
+    ~mesbox("The cyclops and cyclossus populations have been thriving in the Warriors' Guild today, without a single death to worry about. Kamfreena is disappointed in all warriors!");
+} else if (%information_signs_cyclopes = 1 & %information_signs_cyclossi = 0) {
+    ~mesbox("Kamfreena reports that only a single cyclops has been slain in the guild today. She hopes that warriors will step up and kill more!");
+} else {
+    ~mesbox("Kamfreena reports that <tostring(%information_signs_cyclopes)> cyclopes and <tostring(%information_signs_cyclossi)> cyclossi have been slain in the guild today. She hopes that warriors will step up and kill more!");
+}
+
+[proc,information_signs_new_day]
+def_int $today = date_runeday;
+if (%information_signs_day ! $today) {
+    %information_signs_day = $today;
+    %information_signs_cakes = 0;
+    %information_signs_cows = 0;
+    %information_signs_deaths = 0;
+    %information_signs_guards = 0;
+    %information_signs_cyclopes = 0;
+    %information_signs_cyclossi = 0;
+}

@@ -7,7 +7,7 @@ if ($component3 ! null) {
     ~deltooltip_action($component3);
 }
 if ($int2 = %magre_cs_order) {
-    if_setgraphic($component0, 1703);
+    if_setgraphic($component0, "magic_icon_set,2");
 } else {
-    if_setgraphic($component0, 1702);
+    if_setgraphic($component0, "magic_icon_set,1");
 }

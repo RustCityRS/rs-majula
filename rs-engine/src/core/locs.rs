@@ -23,7 +23,7 @@ impl Engine {
     /// * `id` -- Loc type id (indexes into `cache.locs`).
     /// * `shape` -- The visual/collision shape of the loc.
     /// * `angle` -- Rotation angle of the loc (0-3).
-    /// * `width`, `length`, `blockwalk`, `blockrange` -- From the loc type.
+    /// * `width`, `length`, `blockwalk`, `blockrange`, `breakroutefinding` -- From the loc type.
     /// * `duration` -- Lifetime in game ticks before automatic revert (0 = permanent).
     ///
     /// # Returns
@@ -54,6 +54,7 @@ impl Engine {
         length: u8,
         blockwalk: bool,
         blockrange: bool,
+        breakroutefinding: bool,
         duration: u64,
     ) -> Loc {
         let layer = shape.layer();
@@ -67,7 +68,17 @@ impl Engine {
 
         if let Some(idx) = existing {
             return self.change_loc_at(
-                coord, idx, id, shape, angle, width, length, blockwalk, blockrange, duration,
+                coord,
+                idx,
+                id,
+                shape,
+                angle,
+                width,
+                length,
+                blockwalk,
+                blockrange,
+                breakroutefinding,
+                duration,
             );
         }
 
@@ -79,6 +90,7 @@ impl Engine {
             angle,
             blockwalk,
             blockrange,
+            breakroutefinding,
             width,
             length,
         );
@@ -130,6 +142,7 @@ impl Engine {
         length: u8,
         blockwalk: bool,
         blockrange: bool,
+        breakroutefinding: bool,
         duration: u64,
     ) -> Option<Loc> {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
@@ -146,6 +159,7 @@ impl Engine {
             length,
             blockwalk,
             blockrange,
+            breakroutefinding,
             duration,
         ))
     }
@@ -172,6 +186,7 @@ impl Engine {
         length: u8,
         blockwalk: bool,
         blockrange: bool,
+        breakroutefinding: bool,
         duration: u64,
     ) -> Loc {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
@@ -183,7 +198,16 @@ impl Engine {
             apply_loc_collision(&old_loc, coord, false);
         }
 
-        zone.locs[idx].change(id, shape, angle, blockwalk, blockrange, width, length);
+        zone.locs[idx].change(
+            id,
+            shape,
+            angle,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            width,
+            length,
+        );
 
         // Apply collision from the *stored* loc. The change above stored the new
         // id/angle/flags; only shape is shared (a change can't alter it). Reading
@@ -219,13 +243,13 @@ impl Engine {
     ///
     /// # Returns
     ///
-    /// The type's `(width, length, blockwalk, blockrange)`.
+    /// The type's `(width, length, blockwalk, blockrange, breakroutefinding)`.
     pub(crate) fn placeable_loc_type(
         &self,
         coord: CoordGrid,
         id: TypeId,
         angle: LocAngle,
-    ) -> rs_vm::Result<(u8, u8, bool, bool)> {
+    ) -> rs_vm::Result<(u8, u8, bool, bool, bool)> {
         let loc_type = self
             .cache
             .locs
@@ -254,6 +278,7 @@ impl Engine {
             loc_type.length,
             loc_type.blockwalk,
             loc_type.blockrange,
+            loc_type.breakroutefinding,
         ))
     }
 

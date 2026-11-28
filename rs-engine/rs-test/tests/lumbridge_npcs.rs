@@ -2,7 +2,7 @@
 //! through each one's Talk-to answers, with no script error, at each stage of
 //! the quest it depends on.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;

@@ -1,6 +1,6 @@
 // 642
 [proc,clientscript_642](component $component0)
-if_setgraphic($component0, 1168);
+if_setgraphic($component0, "grand_exchange_buy_sell_icon,0");
 def_int $int1 = 0;
 while ($int1 < 6) {
     ~deltooltip_action(~clientscript_626($int1));

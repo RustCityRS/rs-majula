@@ -16,7 +16,7 @@ x=76
 y=56
 width=362
 height=220
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 109:2
@@ -26,7 +26,7 @@ x=74
 y=86
 width=7
 height=161
-graphic=graphic_955
+graphic="v2_stone_borders_alt,1"
 tiling=yes
 
 // 109:3
@@ -36,7 +36,7 @@ x=74
 y=54
 width=32
 height=32
-graphic=graphic_958
+graphic="v2_stone_borders_alt,4"
 
 // 109:4
 [com_4]
@@ -45,7 +45,7 @@ x=408
 y=86
 width=32
 height=161
-graphic=graphic_957
+graphic="v2_stone_borders_alt,3"
 tiling=yes
 
 // 109:5
@@ -55,7 +55,7 @@ x=106
 y=54
 width=302
 height=7
-graphic=graphic_954
+graphic="v2_stone_borders_alt,0"
 tiling=yes
 
 // 109:6
@@ -65,7 +65,7 @@ x=106
 y=247
 width=302
 height=32
-graphic=graphic_956
+graphic="v2_stone_borders_alt,2"
 tiling=yes
 
 // 109:7
@@ -75,7 +75,7 @@ x=74
 y=247
 width=32
 height=32
-graphic=graphic_960
+graphic="v2_stone_borders_alt,6"
 
 // 109:8
 [com_8]
@@ -84,7 +84,7 @@ x=408
 y=54
 width=32
 height=32
-graphic=graphic_959
+graphic="v2_stone_borders_alt,5"
 
 // 109:9
 [com_9]
@@ -93,7 +93,7 @@ x=408
 y=247
 width=32
 height=32
-graphic=graphic_961
+graphic="v2_stone_borders_alt,7"
 
 // 109:10
 [com_10]
@@ -102,7 +102,7 @@ x=85
 y=82
 width=344
 height=6
-graphic=graphic_962
+graphic="v2_stone_borders_alt,8"
 tiling=yes
 
 // 109:11
@@ -112,7 +112,7 @@ x=74
 y=70
 width=32
 height=32
-graphic=graphic_963
+graphic="v2_stone_borders_alt,9"
 
 // 109:12
 [com_12]
@@ -121,7 +121,7 @@ x=408
 y=70
 width=32
 height=32
-graphic=graphic_964
+graphic="v2_stone_borders_alt,10"
 
 // 109:13
 [closebutton]
@@ -130,7 +130,7 @@ x=415
 y=63
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -145,7 +145,7 @@ x=85
 y=59
 width=25
 height=25
-graphic=graphic_1164
+graphic=grand_exchange_icon_25
 
 // 109:15
 [title]
@@ -154,7 +154,7 @@ x=81
 y=63
 width=352
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 text=Grand Exchange - Collection Box
 textalignh=centre
 textshadow=yes
@@ -321,7 +321,7 @@ type=graphic
 width=120
 height=80
 layer=offerbutton2_hide
-graphic=graphic_1167
+graphic=mesh
 tiling=yes
 
 // 109:34
@@ -393,7 +393,7 @@ type=graphic
 width=140
 height=110
 layer=offerbutton3_hide
-graphic=graphic_1167
+graphic=mesh
 tiling=yes
 
 // 109:42
@@ -465,7 +465,7 @@ type=graphic
 width=140
 height=110
 layer=offerbutton4_hide
-graphic=graphic_1167
+graphic=mesh
 tiling=yes
 
 // 109:50
@@ -537,5 +537,5 @@ type=graphic
 width=140
 height=110
 layer=offerbutton5_hide
-graphic=graphic_1167
+graphic=mesh
 tiling=yes

@@ -1,7 +1,7 @@
 // 4089
 [proc,script4089]
 def_component $component0 = toplevel:sidemodal;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $component0 = toplevel_fullscreen:sidemodal;
 }
 if (if_hassuboverlay(~getsidelayer(1), task_side) = true & if_hassub($component0) = false & ~script2728 = 1 & %varplayerbit_8587 ! 419) {

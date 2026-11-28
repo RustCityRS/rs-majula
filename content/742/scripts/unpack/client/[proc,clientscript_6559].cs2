@@ -6,14 +6,14 @@ def_graphic $graphic2 = null;
 def_boolean $boolean3 = false;
 if (%varplayerbit_11654 = 1) {
     $boolean3 = true;
-    $graphic0 = 11724;
-    $graphic1 = 11725;
-    $graphic2 = 11726;
+    $graphic0 = graphic_11724;
+    $graphic1 = graphic_11725;
+    $graphic2 = graphic_11726;
 } else {
     $boolean3 = false;
-    $graphic0 = 11733;
-    $graphic1 = 11734;
-    $graphic2 = 11735;
+    $graphic0 = graphic_11733;
+    $graphic1 = graphic_11734;
+    $graphic2 = graphic_11735;
 }
 if_setgraphic(interface_1317:com_46, $graphic0);
 if_setonmouseleave(interface_1317:com_46, "graphic_swapper(interface_1317:com_46, $graphic0)");
@@ -23,14 +23,14 @@ if_setonclick(interface_1317:com_46, "graphic_swapper(interface_1317:com_46, $gr
 if_sethide(interface_1317:com_47, $boolean3);
 if (%varplayerbit_11662 = 1) {
     $boolean3 = true;
-    $graphic0 = 11721;
-    $graphic1 = 11722;
-    $graphic2 = 11723;
+    $graphic0 = graphic_11721;
+    $graphic1 = graphic_11722;
+    $graphic2 = graphic_11723;
 } else {
     $boolean3 = false;
-    $graphic0 = 11730;
-    $graphic1 = 11731;
-    $graphic2 = 11732;
+    $graphic0 = graphic_11730;
+    $graphic1 = graphic_11731;
+    $graphic2 = graphic_11732;
 }
 if_setgraphic(interface_1317:com_48, $graphic0);
 if_setonmouseleave(interface_1317:com_48, "graphic_swapper(interface_1317:com_48, $graphic0)");

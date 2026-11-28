@@ -1,11 +1,11 @@
 // 1609
 [proc,clientscript_1609]
 if (%playerdesign2_client_random = 0) {
-    if_setgraphic(interface_771:com_398, 942);
+    if_setgraphic(interface_771:com_398, "warning_icons,2");
     %playerdesign2_client_random = 2;
     mes("%playerdesign2_client_random = <tostring(%playerdesign2_client_random)>");
 } else if (%playerdesign2_client_random > 0) {
-    if_setgraphic(interface_771:com_398, 941);
+    if_setgraphic(interface_771:com_398, "warning_icons,1");
     %playerdesign2_client_random = 1;
     mes("%playerdesign2_client_random = <tostring(%playerdesign2_client_random)>");
 }

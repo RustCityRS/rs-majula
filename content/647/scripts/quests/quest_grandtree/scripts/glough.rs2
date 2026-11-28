@@ -1,7 +1,17 @@
 // 289's quests/quest_grandtree/scripts/glough.rs2, line for line.
 [opnpc1,grandtree_glough]
-// Monkey Madness is not ported yet: 289's hook into it here returns with that quest's port
-// (his line once its demon is dead, and `if(%mm_daero = ^daero_started_reinit) @glough_reinit_dialogue`).
+if(%mm_main >= ^mm_defeated_demon) {
+    ~chatplayer("<p,quiz>Hello?");
+    ~chatnpc("<p,angry>This isn't the last you'll see of me, human. Mark my words - the monkeys are listening.");
+    // No 2011 id is known for 289's ooks sound.
+    // sound_synth(ooks, 0, 0);
+    ~objbox(mm_monkey_in_backpack, "Whatever could he mean?", 250, 0, 0);
+    return;
+}
+// 289's %mm_daero is bits 7-10 of mm_gnomes (quest_mm's mm_varbits.rs2).
+if(~mm_daero = ^daero_started_reinit) {
+    @glough_reinit_dialogue;
+}
 switch_int(%grandtree) {
     // https://youtu.be/LFvLBRCxFwk?si=IKRtVRjysWWM9U4u&t=482, fixed at some point?
     case ^grandtree_spoken_glough, ^grandtree_unlocked_trapdoor, ^grandtree_defeated_black_demon, ^grandtree_searching_daconia, ^grandtree_complete :

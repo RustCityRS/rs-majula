@@ -1,22 +1,33 @@
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+#[cfg(since_647)]
 use rs_entity::MoveSpeed;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use rs_test::names::BACKPACK;
+#[cfg(since_647)]
+use rs_test::names::INVENTORY;
+#[cfg(since_647)]
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
+#[cfg(since_647)]
 use rs_ver::TypeId;
 
-const BACKPACK: i32 = 149 << 16;
-const RUN_ORB: i32 = (750 << 16) | 1;
-const NO_OBJ: TypeId = TypeId::new(u16::MAX);
-const HIGH_ALCHEMY: i32 = (192 << 16) | 59;
+#[cfg(since_647)]
+fn run_orb() -> i32 {
+    com("topstat_run:run_background")
+}
 
+#[cfg(since_647)]
+const NO_OBJ: TypeId = TypeId::NULL;
+#[cfg(since_647)]
+fn high_alchemy() -> i32 {
+    com("magic:sb28")
+}
+
+#[cfg(since_647)]
 fn fresh(engine: &mut Engine) -> (HarnessClient, TypeId, TypeId, TypeId) {
     engine.harness_reset();
     let client = engine.harness_login_returning("click_checks").unwrap();
@@ -40,53 +51,13 @@ fn fresh(engine: &mut Engine) -> (HarnessClient, TypeId, TypeId, TypeId) {
     (client, inv, logs, sword)
 }
 
-fn button(com: i32, slot: u16, obj: u16) -> Vec<u8> {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
-    p.finish()
-}
-
-fn drag(com: i32, slot: u16, obj: u16, com2: i32, slot2: u16, obj2: u16) -> Vec<u8> {
-    let mut p = ClientPacket::new();
-    p.p4(com)
-        .p2_alt3(slot as i32)
-        .p2_alt3(slot2 as i32)
-        .p4_alt2(com2)
-        .p2_alt1(obj as i32)
-        .p2(obj2 as i32);
-    p.finish()
-}
-
-/// URL_REQUEST, as `openurl` sends it: the website module, the page and
-/// whether it is a signed-in page.
-fn link(module: &str, page: &str, secure: i32) -> Vec<u8> {
-    let mut p = ClientPacket::new();
-    p.pjstr(module).pjstr(page).p1(secure);
-    p.finish()
-}
-
 /// The URLs a tick has the client open.
 fn opened(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
     engine.cycle();
-    client
-        .packets()
-        .into_iter()
-        .filter(|(prot, _)| *prot == ServerProt::UrlOpen as u16)
-        .map(|(_, url)| String::from_utf8(url).unwrap())
-        .collect()
+    server::urls(&client.packets())
 }
 
-fn target(com: i32, slot: u16, obj: u16, slot2: u16, obj2: u16) -> Vec<u8> {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(slot2 as i32)
-        .p2_alt1(slot as i32)
-        .p2_alt2(obj as i32)
-        .p4_alt1(com)
-        .p2(obj2 as i32);
-    p.finish()
-}
-
+#[cfg(since_647)]
 #[test]
 fn clicks_require_server_permissions_and_current_inventory_contents() {
     runner::on_loaded_engine(|engine| {
@@ -97,13 +68,13 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                 1 => (BACKPACK, 0, NO_OBJ),
                 2 => (BACKPACK, 28, logs),
                 3 => (BACKPACK | 0xFFFF, 0, logs),
-                4 => ((762 << 16) | 93, 0, logs),
+                4 => (com("bank_v2_main:bank_v2_inv"), 0, logs),
                 _ => (BACKPACK, 0, logs),
             };
             let player = engine.harness_player_mut(client.pid).unwrap();
             match case {
                 5 => {
-                    player.if_events.insert((BACKPACK, 0), 0);
+                    player.subs.events.insert((BACKPACK, 0), 0);
                 }
                 6 => {
                     player.clear_inv_transmits(BACKPACK);
@@ -113,7 +84,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                 }
                 _ => {}
             }
-            client.send(ClientProt::IfButton8, &button(com, slot, obj.g2()));
+            client.if_button(8, com, slot, obj);
             engine.harness_inputs();
             let player = engine.harness_player(client.pid).unwrap();
             assert!(
@@ -127,29 +98,32 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         }
 
         let (mut client, _, logs, _) = fresh(engine);
-        client.send(ClientProt::IfButton10, &button(BACKPACK, 0, logs.g2()));
+        client.if_button(10, BACKPACK, 0, logs);
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().last_item,
             Some(logs)
         );
-        client.send(ClientProt::IfButton1, &button(RUN_ORB, u16::MAX, u16::MAX));
+        client.if_button(1, run_orb(), u16::MAX, TypeId::NULL);
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().move_speed,
             MoveSpeed::Run,
             "cache-defined static button is enabled"
         );
-        client.send(
-            ClientProt::IfButton1,
-            &button((387 << 16) | 42, u16::MAX, u16::MAX),
-        );
+        // A cache button no script takes: 647's price-checker, 742's toolbelt.
+        #[cfg(before_742)]
+        let unscripted = "pricechecker_container";
+        #[cfg(since_742)]
+        let unscripted = "com_42";
+        client.if_button(1, (387 << 16) | 42, u16::MAX, TypeId::NULL);
         engine.cycle();
-        assert!(client.packets().iter().any(|(prot, bytes)| {
-            *prot == ServerProt::MessageGame as u16
-                && bytes
-                    .ends_with(b"No trigger for [if_button1,wornitems:pricechecker_container]\0")
-        }));
+        let trigger = format!("No trigger for [if_button1,wornitems:{unscripted}]");
+        assert!(
+            HarnessClient::game_messages(&client.packets())
+                .iter()
+                .any(|(_, m)| m.ends_with(&trigger))
+        );
 
         for case in 0..7 {
             let (mut client, inv, logs, sword) = fresh(engine);
@@ -158,7 +132,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                 1 => (0, logs, BACKPACK, 56, NO_OBJ),
                 2 => (28, NO_OBJ, BACKPACK, 33, NO_OBJ),
                 3 => (0, sword, BACKPACK, 1, logs),
-                4 => (0, logs, RUN_ORB, u16::MAX, NO_OBJ),
+                4 => (0, logs, run_orb(), u16::MAX, NO_OBJ),
                 5 => (0, NO_OBJ, BACKPACK, 33, NO_OBJ),
                 _ => (0, logs, BACKPACK, 33, NO_OBJ),
             };
@@ -169,7 +143,8 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                 engine
                     .harness_player_mut(client.pid)
                     .unwrap()
-                    .if_events
+                    .subs
+                    .events
                     .insert((BACKPACK, 0), 0);
             }
             if matches!(case, 3 | 6) {
@@ -182,10 +157,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                     .clear_dirty();
                 client.packets();
             }
-            client.send(
-                ClientProt::IfButtonD,
-                &drag(BACKPACK, slot, obj.g2(), com2, slot2, obj2.g2()),
-            );
+            client.if_button_d(BACKPACK, slot, obj, com2, slot2, obj2);
             engine.harness_inputs();
             let player = engine.harness_player(client.pid).unwrap();
             assert!(
@@ -203,34 +175,21 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             if matches!(case, 3 | 6) {
                 engine.cycle();
                 let packets = client.packets();
-                let partials: Vec<_> = packets
-                    .iter()
-                    .filter(|(prot, _)| *prot == ServerProt::UpdateInvPartial as u16)
-                    .map(|(_, bytes)| bytes.as_slice())
-                    .collect();
-                let mut expected = ClientPacket::new();
-                expected.p2(inv.int()).p1(0).p1(0).p2(logs.int() + 1).p1(1);
+                let mut expected = vec![(0, Some((logs.int(), 1)))];
                 if case == 3 {
-                    expected.p1(1).p2(sword.int() + 1).p1(1);
+                    expected.push((1, Some((sword.int(), 1))));
                 }
                 assert_eq!(
-                    partials,
-                    [expected.finish()],
+                    server::inv_changes(&packets),
+                    [(inv.int(), false, expected)],
                     "resend only affected inventory slots"
                 );
-                assert!(
-                    packets
-                        .iter()
-                        .all(|(prot, _)| *prot != ServerProt::UpdateInvFull as u16)
-                );
+                assert!(server::invs(&packets).is_empty());
             }
         }
 
         let (mut client, inv, logs, _) = fresh(engine);
-        client.send(
-            ClientProt::IfButtonD,
-            &drag(BACKPACK, 0, u16::MAX, BACKPACK, 33, u16::MAX),
-        );
+        client.if_button_d(BACKPACK, 0, TypeId::NULL, BACKPACK, 33, TypeId::NULL);
         engine.harness_inputs();
         let held = engine
             .harness_player(client.pid)
@@ -247,20 +206,17 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             let (mut client, _, logs, sword) = fresh(engine);
             let player = engine.harness_player_mut(client.pid).unwrap();
             if case == 1 {
-                *player.if_events.get_mut(&(BACKPACK, 0)).unwrap() &= !(0x20 << 11);
+                *player.subs.events.get_mut(&(BACKPACK, 0)).unwrap() &= !(0x20 << 11);
             } else if case == 2 {
-                *player.if_events.get_mut(&(BACKPACK, 1)).unwrap() &= !(1 << 22);
+                *player.subs.events.get_mut(&(BACKPACK, 1)).unwrap() &= !(1 << 22);
             }
             let (com, slot, obj, slot2, obj2) = match case {
                 0 => (BACKPACK, 0, logs, 0, logs),
-                3 => (RUN_ORB, u16::MAX, NO_OBJ, 1, sword),
+                3 => (run_orb(), u16::MAX, NO_OBJ, 1, sword),
                 4 => (BACKPACK, 0, sword, 1, sword),
                 _ => (BACKPACK, 0, logs, 1, sword),
             };
-            client.send(
-                ClientProt::IfButtonT,
-                &target(com, slot, obj.g2(), slot2, obj2.g2()),
-            );
+            client.if_button_t(com, slot, obj, BACKPACK, slot2, obj2);
             engine.harness_inputs();
             let player = engine.harness_player(client.pid).unwrap();
             assert_eq!(
@@ -274,10 +230,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         }
 
         let (mut client, _, logs, _) = fresh(engine);
-        client.send(
-            ClientProt::IfButtonT,
-            &target(HIGH_ALCHEMY, u16::MAX, u16::MAX, 0, logs.g2()),
-        );
+        client.if_button_t(high_alchemy(), u16::MAX, TypeId::NULL, BACKPACK, 0, logs);
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().last_item,
@@ -288,13 +241,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         let (mut client, _, logs, _) = fresh(engine);
         let other = engine.harness_login_returning("click_target").unwrap();
         engine.cycle();
-        let mut p = ClientPacket::new();
-        p.p2_alt2(other.pid as i32)
-            .p2_alt1(-1)
-            .p4(HIGH_ALCHEMY)
-            .p1_alt3(0)
-            .p2_alt1(-1);
-        client.send(ClientProt::OpPlayerT, &p.finish());
+        client.op_player_t(other.pid, high_alchemy(), u16::MAX, TypeId::NULL);
         engine.harness_inputs();
         assert_eq!(
             engine
@@ -305,13 +252,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             None,
             "alchemy cannot target a player"
         );
-        let mut p = ClientPacket::new();
-        p.p2_alt2(other.pid as i32)
-            .p2_alt1(0)
-            .p4(BACKPACK)
-            .p1_alt3(0)
-            .p2_alt1(logs.int());
-        client.send(ClientProt::OpPlayerT, &p.finish());
+        client.op_player_t(other.pid, BACKPACK, 0, logs);
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().last_use_item,
@@ -323,15 +264,16 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         let parent = *engine
             .harness_player(client.pid)
             .unwrap()
-            .open_subs
+            .subs
+            .open
             .iter()
-            .find(|(_, (sub, _))| *sub == 149)
+            .find(|(_, (sub, _))| *sub == INVENTORY)
             .unwrap()
             .0;
         let player = engine.harness_player_mut(client.pid).unwrap();
-        player.sub_closed(parent);
-        player.sub_opened(parent, 149, 1);
-        client.send(ClientProt::IfButton8, &button(BACKPACK, 0, logs.g2()));
+        player.subs.closed(parent);
+        player.subs.opened(parent, INVENTORY, 1);
+        client.if_button(8, BACKPACK, 0, logs);
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().last_item,
@@ -350,28 +292,28 @@ fn a_link_opens_its_page_on_the_website() {
         client.packets();
 
         assert!(engine.set_site_origin("https://example.org/ https://www.example.org"));
-        client.send(ClientProt::UrlRequest, &link("forum", "forums.ws", 0));
-        client.send(ClientProt::UrlRequest, &link("www", "parents.ws", 0));
+        client.url_request("forum", "forums.ws", 0);
+        client.url_request("www", "parents.ws", 0);
         assert_eq!(
             opened(engine, &mut client),
             ["https://example.org/m=forum/forums.ws"],
             "one link a tick"
         );
-        client.send(ClientProt::UrlRequest, &link("www", "parents.ws", 0));
+        client.url_request("www", "parents.ws", 0);
         assert_eq!(
             opened(engine, &mut client),
             ["https://example.org/parents.ws"]
         );
 
-        client.send(ClientProt::UrlRequest, &link("forum", "forums.ws", 1));
-        client.send(ClientProt::UrlRequest, &link("forum", "../admin", 0));
+        client.url_request("forum", "forums.ws", 1);
+        client.url_request("forum", "../admin", 0);
         assert!(
             opened(engine, &mut client).is_empty(),
             "links no interface offers"
         );
 
         assert!(!engine.set_site_origin(""));
-        client.send(ClientProt::UrlRequest, &link("forum", "forums.ws", 0));
+        client.url_request("forum", "forums.ws", 0);
         assert!(opened(engine, &mut client).is_empty(), "no website");
         assert!(engine.script_errors.take().is_empty());
     });

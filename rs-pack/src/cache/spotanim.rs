@@ -33,7 +33,7 @@ pub struct SpotAnimTypeRaw {
     #[cfg(since_530)]
     pub hillskew_param: Option<i32>,
     #[cfg(since_647)]
-    pub allowloop: bool,
+    pub obey_extra_seq_settings: bool,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
     #[cfg(since_530)]
@@ -66,7 +66,7 @@ impl CacheType for SpotAnimTypeRaw {
             #[cfg(since_530)]
             hillskew_param: None,
             #[cfg(since_647)]
-            allowloop: false,
+            obey_extra_seq_settings: false,
             recol_s: None,
             recol_d: None,
             #[cfg(since_530)]
@@ -98,7 +98,7 @@ impl CacheType for SpotAnimTypeRaw {
                 self.hillskew_param = Some(8224);
             }
             #[cfg(since_647)]
-            10 => self.allowloop = true,
+            10 => self.obey_extra_seq_settings = true,
             #[cfg(since_647)]
             11 => self.hillskew = 1,
             #[cfg(since_647)]

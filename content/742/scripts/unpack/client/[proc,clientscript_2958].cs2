@@ -2,10 +2,10 @@
 [proc,clientscript_2958]
 def_graphic $graphic0 = small_button;
 def_graphic $graphic1 = small_button_highlight;
-if (getwindowmode >= 2) {
-    $graphic0 = 8558;
-    $graphic1 = 8560;
-    if_setgraphic(filterbuttons:reportabuse_graphic, 8558);
+if (getwindowmode >= ^windowmode_resizable) {
+    $graphic0 = graphic_8558;
+    $graphic1 = graphic_8560;
+    if_setgraphic(filterbuttons:reportabuse_graphic, graphic_8558);
 }
 if_setonmouseover(filterbuttons:reportabuse_graphic, "graphic_swapper(event_com, $graphic1)");
 if_setonmouseleave(filterbuttons:reportabuse_graphic, "graphic_swapper(event_com, $graphic0)");

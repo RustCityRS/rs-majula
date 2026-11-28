@@ -82,9 +82,9 @@ def_int $int23 = $int22;
 def_int $int24 = $int22;
 def_int $int25 = 0;
 def_struct $struct26 = null;
-def_graphic $graphic27 = 7835;
-def_graphic $graphic28 = 7836;
-def_graphic $graphic29 = 7837;
+def_graphic $graphic27 = graphic_7835;
+def_graphic $graphic28 = graphic_7836;
+def_graphic $graphic29 = graphic_7837;
 def_int $int30 = 0;
 def_int $int31 = 0;
 def_int $int32 = 0;
@@ -97,23 +97,23 @@ def_int $int37 = 0;
 def_string $string2 = "See More";
 def_int $int38 = 0;
 if ($int3 = 0) {
-    $graphic27 = 7826;
-    $graphic28 = 7827;
-    $graphic29 = 7828;
+    $graphic27 = graphic_7826;
+    $graphic28 = graphic_7827;
+    $graphic29 = graphic_7828;
     $int22 = 20;
     $int23 = 0;
     $int24 = $int22;
     cc_create($component8, ^iftype_graphic, $int21);
     $int21 = calc($int21 + 1);
     cc_setposition(17, 24, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setgraphic(7803);
+    cc_setgraphic(graphic_7803);
     $int36 = 311;
     $int37 = 311;
     cc_setsize($int36, $int37, ^setsize_abs, ^setsize_abs);
     cc_setop(1, $string2);
     cc_create($component8, ^iftype_graphic, $int21);
     $int21 = calc($int21 + 1);
-    cc_setgraphic(10133);
+    cc_setgraphic(graphic_10133);
     cc_setsize(219, 219, ^setsize_abs, ^setsize_abs);
     cc_setposition(17, 24, ^setpos_abs_left, ^setpos_abs_top);
     cc_setposition(calc(cc_getx + ($int36 - cc_getwidth) / 2), calc(cc_gety + 20 + ($int37 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
@@ -123,13 +123,13 @@ if ($int3 = 0) {
     cc_setsize(348, 34, ^setsize_abs, ^setsize_abs);
     switch_int (map_lang) {
         case default :
-            cc_setgraphic(7806);
+            cc_setgraphic(graphic_7806);
         case 1 :
-            cc_setgraphic(7808);
+            cc_setgraphic(graphic_7808);
         case 2 :
-            cc_setgraphic(7807);
+            cc_setgraphic(graphic_7807);
         case 3 :
-            cc_setgraphic(7809);
+            cc_setgraphic(graphic_7809);
     }
     cc_create($component8, ^iftype_text, $int21);
     $int21 = calc($int21 + 1);
@@ -201,7 +201,7 @@ if ($int3 = 0) {
             cc_setsize(40, 50, ^setsize_abs, ^setsize_abs);
             cc_setposition(calc($int23 - 61), calc($int24 + 20), ^setpos_abs_right, ^setpos_abs_top);
         } else if (struct_param($struct26, param_1937) = 4) {
-            cc_setgraphic(7883);
+            cc_setgraphic(graphic_7883);
             cc_setsize(42, 42, ^setsize_abs, ^setsize_abs);
             cc_setposition(calc($int23 - 63), calc($int24 + 25), ^setpos_abs_right, ^setpos_abs_top);
         } else if (struct_param($struct26, param_1937) = 5) {
@@ -213,7 +213,7 @@ if ($int3 = 0) {
             cc_create($component8, ^iftype_graphic, $int21);
             $int21 = calc($int21 + 1);
             cc_setposition(calc($int23 - 44), calc($int24 + 4), ^setpos_abs_right, ^setpos_abs_top);
-            cc_setgraphic(6348);
+            cc_setgraphic(graphic_6348);
             cc_setsize(40, 34, ^setsize_abs, ^setsize_abs);
         }
         cc_create($component8, ^iftype_text, $int21);
@@ -299,7 +299,7 @@ if ($int25 > if_getheight($component4)) {
     if_setsize($component6, if_getwidth($component4), $int25, ^setsize_abs, ^setsize_abs);
     if_setsize($component7, if_getwidth($component4), $int25, ^setsize_abs, ^setsize_abs);
     if_setsize($component8, if_getwidth($component4), $int25, ^setsize_abs, ^setsize_abs);
-    ~scrollbar_vertical(interface_1143:com_6, $component4, 7900, 7897, 7898, 7899, 7902, 7901);
+    ~scrollbar_vertical(interface_1143:com_6, $component4, graphic_7900, graphic_7897, graphic_7898, graphic_7899, graphic_7902, graphic_7901);
 } else {
     if_setscrollsize($component4, if_getwidth($component4), if_getheight($component4));
     if_setscrollpos($component4, 0, 0);

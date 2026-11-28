@@ -14,8 +14,8 @@ def_graphic $graphic10 = null;
 def_int $int11 = -1;
 def_int $int12 = -1;
 def_graphic $graphic13 = null;
-def_int $rgb14 = ^black;
-def_int $rgb15 = ^black;
+def_int $colour14 = ^black;
+def_int $colour15 = ^black;
 $int4, $string0, $int5, $string1, $int6, $int9, $string2 = worldlist_specific($int0);
 if_sethide($component1, false);
 def_graphic $graphic16 = null;
@@ -23,16 +23,16 @@ def_string $string3 = "";
 def_graphic $graphic17 = null;
 def_string $string4 = "";
 def_string $string5 = "";
-$graphic16, $string3, $graphic10, $rgb14, $graphic17, $rgb15, $graphic13, $string4, $string5 = ~script3117($int0, $int4, -1, $string0, $string1, $int6, $int5);
+$graphic16, $string3, $graphic10, $colour14, $graphic17, $colour15, $graphic13, $string4, $string5 = ~script3117($int0, $int4, -1, $string0, $string1, $int6, $int5);
 if ($int3 = 0) {
     if ($int0 = %worldselect_1stfavourite) {
-        $rgb15 = 0x203211;
+        $colour15 = 0x203211;
     } else if ($int0 = %worldselect_2ndfavourite) {
-        $rgb15 = 0x203c11;
+        $colour15 = 0x203c11;
     }
     $graphic13 = "world_select_hearts,2";
-    $rgb14 = 0xfcfc64;
-    ~cc_add_rect($component1, 0, if_getwidth($component1), 20, 0, 0, $rgb15, true, 0);
+    $colour14 = 0xfcfc64;
+    ~cc_add_rect($component1, 0, if_getwidth($component1), 20, 0, 0, $colour15, true, 0);
     ~cc_add_rect($component1, 1, 23, 20, 0, 0, 0x606060, true, 0);
     cc_sethide(true);
     ~cc_add_rect($component1, 2, 25, 20, 25, 0, 0x404040, true, 0);
@@ -46,7 +46,7 @@ if ($int3 = 0) {
         cc_sethide(true);
     }
     ~cc_add_graphic($component1, 4, 13, 12, calc(if_getx(lobbyscreen_pane_worldselect:fav) + (if_getwidth(lobbyscreen_pane_worldselect:fav) - 13) / 2), 4, $graphic13, false, false, false, 0);
-    ~cc_add_text($component1, 5, calc(if_getwidth($component1) - (if_getx(lobbyscreen_pane_worldselect:world_icon) + 2)), 20, calc(if_getx(lobbyscreen_pane_worldselect:world_icon) + 2), 0, "World <tostring($int0)> is running in a different language or is unavailable.", $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+    ~cc_add_text($component1, 5, calc(if_getwidth($component1) - (if_getx(lobbyscreen_pane_worldselect:world_icon) + 2)), 20, calc(if_getx(lobbyscreen_pane_worldselect:world_icon) + 2), 0, "World <tostring($int0)> is running in a different language or is unavailable.", $colour14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
     ~cc_add_text($component1, 6, if_getwidth(lobbyscreen_pane_worldselect:ws_buttons_r), 20, if_getx(lobbyscreen_pane_worldselect:ws_buttons_r), 0, "", ^black, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
     cc_setonmouseover("script3121($component1)");
     cc_setonmouseleave("script3123($component1)");
@@ -58,7 +58,7 @@ if ($int3 = 0) {
     cc_setonop("script3134($int0)");
     return;
 }
-~cc_add_rect($component1, 0, if_getwidth($component1), 20, 0, 0, $rgb15, true, 0);
+~cc_add_rect($component1, 0, if_getwidth($component1), 20, 0, 0, $colour15, true, 0);
 ~cc_add_rect($component1, 1, 23, 20, 0, 0, 0x606060, true, 0);
 cc_sethide(true);
 ~cc_add_rect($component1, 2, 25, 20, 25, 0, 0x404040, true, 0);
@@ -73,13 +73,13 @@ if (map_world = $int0) {
 }
 ~cc_add_graphic($component1, 4, 13, 12, calc(if_getx(lobbyscreen_pane_worldselect:fav) + (if_getwidth(lobbyscreen_pane_worldselect:fav) - 13) / 2), 4, $graphic13, false, false, false, 0);
 ~cc_add_graphic($component1, 5, 19, 18, calc(if_getx(lobbyscreen_pane_worldselect:world_icon) + 2), 1, $graphic10, false, false, false, 0);
-~cc_add_text($component1, 6, calc(if_getwidth(lobbyscreen_pane_worldselect:world) - 25), 20, calc(if_getx(lobbyscreen_pane_worldselect:world) + 25), 0, tostring($int0), $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
-~cc_add_text($component1, 7, calc(if_getwidth(lobbyscreen_pane_worldselect:players) - 6), 20, calc(if_getx(lobbyscreen_pane_worldselect:players) + 3), 0, $string5, $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+~cc_add_text($component1, 6, calc(if_getwidth(lobbyscreen_pane_worldselect:world) - 25), 20, calc(if_getx(lobbyscreen_pane_worldselect:world) + 25), 0, tostring($int0), $colour14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+~cc_add_text($component1, 7, calc(if_getwidth(lobbyscreen_pane_worldselect:players) - 6), 20, calc(if_getx(lobbyscreen_pane_worldselect:players) + 3), 0, $string5, $colour14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
 ~cc_add_graphic($component1, 8, 24, 12, calc(if_getx(lobbyscreen_pane_worldselect:location_flag) + 4), 4, $graphic16, false, false, false, 0);
-~cc_add_text($component1, 9, calc(if_getwidth(lobbyscreen_pane_worldselect:location) - 30), 20, calc(if_getx(lobbyscreen_pane_worldselect:location) + 30), 0, $string3, $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
-~cc_add_text($component1, 10, calc(if_getwidth(lobbyscreen_pane_worldselect:type) - 10), 20, calc(if_getx(lobbyscreen_pane_worldselect:type) + 5), 0, $string4, $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+~cc_add_text($component1, 9, calc(if_getwidth(lobbyscreen_pane_worldselect:location) - 30), 20, calc(if_getx(lobbyscreen_pane_worldselect:location) + 30), 0, $string3, $colour14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+~cc_add_text($component1, 10, calc(if_getwidth(lobbyscreen_pane_worldselect:type) - 10), 20, calc(if_getx(lobbyscreen_pane_worldselect:type) + 5), 0, $string4, $colour14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
 ~cc_add_graphic($component1, 11, 17, 17, calc(if_getx(lobbyscreen_pane_worldselect:lootshare) + (if_getwidth(lobbyscreen_pane_worldselect:lootshare) - 17) / 2), 1, $graphic17, false, false, false, 0);
-~cc_add_text($component1, 12, calc(if_getwidth(lobbyscreen_pane_worldselect:lootshare) - 10), 20, calc(if_getx(lobbyscreen_pane_worldselect:ping) + 5), 0, tostring($int9), $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+~cc_add_text($component1, 12, calc(if_getwidth(lobbyscreen_pane_worldselect:lootshare) - 10), 20, calc(if_getx(lobbyscreen_pane_worldselect:ping) + 5), 0, tostring($int9), $colour14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
 ~cc_add_text($component1, 13, if_getwidth(lobbyscreen_pane_worldselect:ws_buttons_r), 20, if_getx(lobbyscreen_pane_worldselect:ws_buttons_r), 0, "", ^black, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
 cc_setonmouseover("script3121($component1)");
 cc_setonmouseleave("script3123($component1)");

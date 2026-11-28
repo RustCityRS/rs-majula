@@ -24,9 +24,8 @@ if(map_members = ^true) {
 }
 p_arrivedelay;
 anim(human_openchest,0);
-loc_prefetchall(loc_coord, loc_param(drawer_other), loc_shape);
+sound_synth(drawer_open, 1, 0);
 p_delay(0);
-// todo - Sound
 // Temp note: dur does not need updated
 loc_change(loc_param(drawer_other), 300);
 
@@ -60,6 +59,12 @@ if(map_members = ^true) {
         @trail_clue_loc_interact($clue);
     }
 }
+// Upstairs in Bob's shop, Victoria's house and the Lumbridge kitchen.
+switch_coord (loc_coord) {
+    case 1_50_49_32_62, 1_50_50_27_1, 1_50_50_27_4, 1_50_50_32_9 :
+        mes("Nothing terribly interesting in here.");
+        return;
+}
 if (random(^findsomethingnice_chance) = 0 & ~in_tutorial_island(coord) = false) { // complete guess
     mes("You search the drawers..."); // guess
     p_delay(2);
@@ -73,8 +78,7 @@ mes("The drawers are empty.");
 [label,empty_drawer_shut]
 p_arrivedelay;
 anim(human_closechest,0);
-loc_prefetchall(loc_coord, loc_param(drawer_other), loc_shape);
+sound_synth(drawer_close, 1, 0);
 p_delay(0);
-// todo - Sound
 // Temp note: dur does not need updated
 loc_change(loc_param(drawer_other), 300);

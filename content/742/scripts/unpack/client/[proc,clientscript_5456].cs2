@@ -1,36 +1,36 @@
 // 5456
 [proc,clientscript_5456]
-if_setgraphic(interface_1156:com_101, 8331);
-if_setgraphic(interface_1156:com_1, 8331);
-if_setgraphic(interface_1156:com_2, 8331);
-if_setgraphic(interface_1156:com_3, 8331);
+if_setgraphic(interface_1156:com_101, graphic_8331);
+if_setgraphic(interface_1156:com_1, graphic_8331);
+if_setgraphic(interface_1156:com_2, graphic_8331);
+if_setgraphic(interface_1156:com_3, graphic_8331);
 switch_int (%varclient_1684) {
     case 1 :
         if_sethide(interface_1156:com_96, false);
         if_sethide(interface_1156:com_97, true);
         if_sethide(interface_1156:com_98, true);
         if_sethide(interface_1156:com_99, true);
-        if_setgraphic(interface_1156:com_101, 8334);
+        if_setgraphic(interface_1156:com_101, graphic_8334);
         %varclient_1684 = 1;
     case 2 :
         if_sethide(interface_1156:com_96, true);
         if_sethide(interface_1156:com_97, false);
         if_sethide(interface_1156:com_98, true);
         if_sethide(interface_1156:com_99, true);
-        if_setgraphic(interface_1156:com_1, 8334);
+        if_setgraphic(interface_1156:com_1, graphic_8334);
         %varclient_1684 = 2;
     case 3 :
         if_sethide(interface_1156:com_96, true);
         if_sethide(interface_1156:com_97, true);
         if_sethide(interface_1156:com_98, false);
         if_sethide(interface_1156:com_99, true);
-        if_setgraphic(interface_1156:com_2, 8334);
+        if_setgraphic(interface_1156:com_2, graphic_8334);
         %varclient_1684 = 3;
     case 4 :
         if_sethide(interface_1156:com_96, true);
         if_sethide(interface_1156:com_97, true);
         if_sethide(interface_1156:com_98, true);
         if_sethide(interface_1156:com_99, false);
-        if_setgraphic(interface_1156:com_3, 8334);
+        if_setgraphic(interface_1156:com_3, graphic_8334);
         %varclient_1684 = 4;
 }

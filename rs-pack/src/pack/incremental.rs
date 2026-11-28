@@ -7,7 +7,8 @@ use anyhow::{Context, Result, ensure};
 use rayon::prelude::*;
 use rs_io::Packet;
 #[cfg(since_530)]
-use rs_io::js5::reference::FileInfo;
+use rs_io::js5::index::FileInfo;
+use rs_util::os::read_at;
 use rustc_hash::FxHashMap;
 use siphasher::sip128::{Hasher128, SipHasher13};
 use std::cell::RefCell;
@@ -17,12 +18,8 @@ use std::ffi::OsString;
 use std::fmt::Display;
 use std::fs::{self, File, Metadata, OpenOptions};
 use std::hash::Hasher;
-use std::io::{self, Write};
+use std::io::Write;
 use std::mem::take;
-#[cfg(unix)]
-use std::os::unix::fs::FileExt;
-#[cfg(windows)]
-use std::os::windows::fs::FileExt;
 use std::path::{Path, PathBuf};
 #[cfg(since_530)]
 use std::slice;
@@ -255,6 +252,26 @@ pub fn files_under(dirs: &[PathBuf]) -> Vec<PathBuf> {
         collect(dir, &mut files);
     }
     files.sort();
+    files
+}
+
+/// The lobby's command table, which no game build reads.
+pub const LOBBY_COMMANDS: &str = "ls2_command.pack";
+
+/// The files under `dirs` that game builds read: all but lobbyscript.
+pub fn game_files_under(dirs: &[PathBuf]) -> Vec<PathBuf> {
+    let mut files = files_under(dirs);
+    files.retain(|path| path.extension().is_none_or(|ext| ext != "ls2"));
+    files
+}
+
+/// The files under `dirs` that the lobby build reads: lobbyscript and configs.
+pub fn lobby_files_under(dirs: &[PathBuf]) -> Vec<PathBuf> {
+    let mut files = files_under(dirs);
+    files.retain(|path| {
+        path.extension()
+            .is_none_or(|ext| !matches!(ext.to_str(), Some("rs2" | "cs2" | "gs2")))
+    });
     files
 }
 
@@ -1170,24 +1187,5 @@ fn write_manifest(dir: &Path, manifest: &Manifest) -> Result<()> {
     file.sync_all()?;
     drop(file);
     fs::rename(&temp, dir.join("manifest"))?;
-    Ok(())
-}
-
-#[cfg(unix)]
-fn read_at(file: &File, buf: &mut [u8], offset: u64) -> io::Result<()> {
-    file.read_exact_at(buf, offset)
-}
-
-#[cfg(windows)]
-fn read_at(file: &File, mut buf: &mut [u8], mut offset: u64) -> io::Result<()> {
-    while !buf.is_empty() {
-        match file.seek_read(buf, offset)? {
-            0 => return Err(io::ErrorKind::UnexpectedEof.into()),
-            read => {
-                buf = &mut buf[read..];
-                offset += read as u64;
-            }
-        }
-    }
     Ok(())
 }

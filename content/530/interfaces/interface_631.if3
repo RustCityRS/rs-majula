@@ -6,7 +6,7 @@ y=25
 width=497
 height=302
 layer=background
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 631:1
@@ -17,7 +17,7 @@ y=51
 width=32
 height=252
 layer=background
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 631:2
@@ -28,7 +28,7 @@ y=20
 width=32
 height=32
 layer=background
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 631:3
 [background]
@@ -44,7 +44,7 @@ y=51
 width=32
 height=251
 layer=background
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 631:5
@@ -55,7 +55,7 @@ y=7
 width=447
 height=34
 layer=background
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 631:6
@@ -66,7 +66,7 @@ y=314
 width=448
 height=32
 layer=background
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 631:7
@@ -77,7 +77,7 @@ y=302
 width=32
 height=32
 layer=background
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 631:8
 [com_8]
@@ -87,7 +87,7 @@ y=20
 width=32
 height=32
 layer=background
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 631:9
 [com_9]
@@ -97,7 +97,7 @@ y=302
 width=32
 height=32
 layer=background
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 631:10
 [com_10]
@@ -107,7 +107,7 @@ y=26
 width=32
 height=301
 layer=background
-graphic=graphic_852
+graphic="v2_stone_borders,24"
 tiling=yes
 
 // 631:11
@@ -118,7 +118,7 @@ y=37
 width=308
 height=32
 layer=background
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 631:12
@@ -129,7 +129,7 @@ y=37
 width=32
 height=32
 layer=background
-graphic=graphic_853
+graphic="v2_stone_borders,25"
 tiling=yes
 
 // 631:13
@@ -140,7 +140,7 @@ y=162
 width=32
 height=32
 layer=background
-graphic=graphic_854
+graphic="v2_stone_borders,26"
 tiling=yes
 
 // 631:14
@@ -151,7 +151,7 @@ y=162
 width=155
 height=32
 layer=background
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 631:15
@@ -162,7 +162,7 @@ y=29
 width=170
 height=32
 layer=background
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 631:16
@@ -173,7 +173,7 @@ y=49
 width=170
 height=32
 layer=background
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 opbase= 
 
@@ -185,7 +185,7 @@ y=180
 width=170
 height=32
 layer=background
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 opbase= 
 
@@ -197,7 +197,7 @@ y=200
 width=170
 height=32
 layer=background
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 631:19
@@ -208,7 +208,7 @@ y=53
 width=32
 height=210
 layer=background
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 631:20
@@ -219,7 +219,7 @@ y=277
 width=324
 height=32
 layer=background
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 631:21
@@ -230,7 +230,7 @@ y=249
 width=32
 height=32
 layer=background
-graphic=graphic_853
+graphic="v2_stone_borders,25"
 
 // 631:22
 [com_22]
@@ -240,7 +240,7 @@ y=249
 width=308
 height=32
 layer=background
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 631:23
@@ -250,7 +250,7 @@ x=486
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -264,7 +264,7 @@ x=185
 y=30
 width=65
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Opponent:
 textlineheight=12
 textshadow=yes
@@ -277,7 +277,7 @@ x=253
 y=30
 width=90
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=abcdefghijklmno
 textlineheight=12
 textshadow=yes
@@ -290,7 +290,7 @@ x=355
 y=30
 width=105
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=Opponent's Level:
 textlineheight=12
 textshadow=yes
@@ -303,7 +303,7 @@ x=459
 y=30
 width=26
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=126
 textlineheight=12
 textshadow=yes
@@ -316,7 +316,7 @@ x=181
 y=294
 width=323
 height=32
-textfont=fontmetrics_494
+textfont=p11_full
 text=AAAAAAAAAAAAAAAA
 textlineheight=12
 textalignh=centre
@@ -332,7 +332,7 @@ y=8
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Ranged
 textlineheight=12
 textalignv=centre
@@ -351,7 +351,7 @@ y=8
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -366,7 +366,7 @@ y=26
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Melee
 textlineheight=12
 textalignv=centre
@@ -385,7 +385,7 @@ y=26
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -400,7 +400,7 @@ y=44
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Magic
 textlineheight=12
 textalignv=centre
@@ -419,7 +419,7 @@ y=44
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -434,7 +434,7 @@ y=62
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=Fun Weapons
 textlineheight=12
 textalignv=centre
@@ -453,7 +453,7 @@ y=62
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -468,7 +468,7 @@ y=80
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Forfeit
 textlineheight=12
 textalignv=centre
@@ -487,7 +487,7 @@ y=80
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -502,7 +502,7 @@ y=98
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Drinks
 textlineheight=12
 textalignv=centre
@@ -521,7 +521,7 @@ y=98
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -536,7 +536,7 @@ y=116
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Food
 textlineheight=12
 textalignv=centre
@@ -555,7 +555,7 @@ y=116
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -570,7 +570,7 @@ y=134
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Prayer
 textlineheight=12
 textalignv=centre
@@ -589,7 +589,7 @@ y=134
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -604,7 +604,7 @@ y=152
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Movement
 textlineheight=12
 textalignv=centre
@@ -623,7 +623,7 @@ y=152
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -638,7 +638,7 @@ y=170
 width=100
 height=15
 layer=com_56
-textfont=fontmetrics_494
+textfont=p11_full
 text=Obstacles
 textlineheight=12
 textalignv=centre
@@ -657,7 +657,7 @@ y=170
 width=15
 height=15
 layer=com_56
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -680,7 +680,7 @@ y=18
 width=100
 height=15
 layer=com_55
-textfont=fontmetrics_494
+textfont=p11_full
 text=No Special Attacks
 textlineheight=12
 textalignv=centre
@@ -698,7 +698,7 @@ y=18
 width=15
 height=15
 layer=com_55
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -712,7 +712,7 @@ x=23
 width=100
 height=15
 layer=com_55
-textfont=fontmetrics_494
+textfont=p11_full
 text=Enable Summoning
 textlineheight=12
 textalignv=centre
@@ -729,7 +729,7 @@ type=graphic
 width=15
 height=15
 layer=com_55
-graphic=graphic_1134
+graphic="radio_buttons,0"
 tiling=yes
 transmitop=1
 op1=Ok
@@ -770,7 +770,7 @@ y=3
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their head.")
@@ -784,7 +784,7 @@ y=42
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their back.")
@@ -798,7 +798,7 @@ y=42
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items around their neck.")
@@ -812,7 +812,7 @@ y=42
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to have items in their quiver.")
@@ -826,7 +826,7 @@ y=81
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to use 2-handed items or items in their right hand.")
@@ -840,7 +840,7 @@ y=81
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their torso.")
@@ -854,7 +854,7 @@ y=81
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to use 2-handed items or items in their left hand.")
@@ -868,7 +868,7 @@ y=121
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their legs.")
@@ -882,7 +882,7 @@ y=161
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their fingers.")
@@ -896,7 +896,7 @@ y=161
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their feet.")
@@ -910,7 +910,7 @@ y=161
 width=36
 height=36
 layer=com_90
-graphic=graphic_170
+graphic="miscgraphics,0"
 transmitop=1
 op1=Ok
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their hands.")
@@ -924,7 +924,7 @@ y=5
 width=32
 height=32
 layer=com_90
-graphic=graphic_156
+graphic="wornicons,0"
 
 // 631:69
 [com_69]
@@ -934,7 +934,7 @@ y=44
 width=32
 height=32
 layer=com_90
-graphic=graphic_157
+graphic="wornicons,1"
 
 // 631:70
 [com_70]
@@ -944,7 +944,7 @@ y=44
 width=32
 height=32
 layer=com_90
-graphic=graphic_158
+graphic="wornicons,2"
 
 // 631:71
 [com_71]
@@ -954,7 +954,7 @@ y=44
 width=32
 height=32
 layer=com_90
-graphic=graphic_166
+graphic="wornicons,10"
 
 // 631:72
 [com_72]
@@ -964,7 +964,7 @@ y=83
 width=32
 height=32
 layer=com_90
-graphic=graphic_159
+graphic="wornicons,3"
 
 // 631:73
 [com_73]
@@ -974,7 +974,7 @@ y=83
 width=32
 height=32
 layer=com_90
-graphic=graphic_161
+graphic="wornicons,5"
 
 // 631:74
 [com_74]
@@ -984,7 +984,7 @@ y=83
 width=32
 height=32
 layer=com_90
-graphic=graphic_162
+graphic="wornicons,6"
 
 // 631:75
 [com_75]
@@ -994,7 +994,7 @@ y=123
 width=32
 height=32
 layer=com_90
-graphic=graphic_163
+graphic="wornicons,7"
 
 // 631:76
 [com_76]
@@ -1004,7 +1004,7 @@ y=163
 width=32
 height=32
 layer=com_90
-graphic=graphic_160
+graphic="wornicons,4"
 
 // 631:77
 [com_77]
@@ -1014,7 +1014,7 @@ y=163
 width=32
 height=32
 layer=com_90
-graphic=graphic_165
+graphic="wornicons,9"
 
 // 631:78
 [com_78]
@@ -1024,7 +1024,7 @@ y=163
 width=32
 height=32
 layer=com_90
-graphic=graphic_164
+graphic="wornicons,8"
 
 // 631:79
 [com_79]
@@ -1034,7 +1034,7 @@ y=7
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their head.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1046,7 +1046,7 @@ y=46
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their back.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1058,7 +1058,7 @@ y=46
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items around their neck.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1070,7 +1070,7 @@ y=46
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to have items in their quiver.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1082,7 +1082,7 @@ y=85
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to use 2-handed items or items in their right hand.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1094,7 +1094,7 @@ y=85
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their torso.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1106,7 +1106,7 @@ y=85
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to use 2-handed items or items in their left hand.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1118,7 +1118,7 @@ y=125
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their legs.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1130,7 +1130,7 @@ y=165
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their fingers.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1142,7 +1142,7 @@ y=165
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their feet.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1154,7 +1154,7 @@ y=165
 width=36
 height=36
 layer=com_91
-graphic=graphic_1132
+graphic=duel_misc_graphic
 onmouseover=text_swapper(interface_631:duelstatus, "Neither player will be allowed to wear items on their hands.")
 onmouseleave=text_swapper(interface_631:duelstatus, "")
 
@@ -1183,7 +1183,7 @@ x=86
 y=29
 width=83
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=0
 textlineheight=12
 textalignv=centre
@@ -1197,7 +1197,7 @@ x=86
 y=180
 width=83
 height=15
-textfont=fontmetrics_495
+textfont=p12_full
 text=0
 textlineheight=12
 textalignv=centre
@@ -1211,7 +1211,7 @@ x=14
 y=30
 width=56
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=Max Stake:
 textlineheight=12
 textalignv=centre
@@ -1225,7 +1225,7 @@ x=14
 y=181
 width=56
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=Max Stake:
 textlineheight=12
 textalignv=centre
@@ -1239,7 +1239,7 @@ x=12
 y=50
 width=134
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=Your stake:
 textlineheight=12
 textalignh=centre
@@ -1254,7 +1254,7 @@ x=12
 y=202
 width=134
 height=15
-textfont=fontmetrics_494
+textfont=p11_full
 text=Opponent's stake:
 textlineheight=12
 textalignh=centre
@@ -1296,7 +1296,7 @@ type=text
 width=80
 height=24
 layer=duel_acceptlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Accept
 textlineheight=12
 textalignh=centre
@@ -1342,7 +1342,7 @@ y=160
 width=32
 height=32
 layer=background
-graphic=graphic_855
+graphic="v2_stone_borders,27"
 
 // 631:106
 [vs]
@@ -1352,7 +1352,7 @@ y=171
 width=17
 height=12
 layer=background
-textfont=fontmetrics_494
+textfont=p11_full
 text=VS
 textshadow=yes
 colour=0xe6e68c
@@ -1383,7 +1383,7 @@ type=text
 width=80
 height=24
 layer=com_107
-textfont=fontmetrics_495
+textfont=p12_full
 text=Decline
 textlineheight=12
 textalignh=centre

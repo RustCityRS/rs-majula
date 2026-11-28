@@ -1,4 +1,6 @@
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_742)]
+pub use crate::network::game::client::affinedclansettings_addbanned_fromchannel::AffinedClansettingsAddBannedFromChannel;
 #[cfg(before_530)]
 pub use crate::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
 #[cfg(before_530)]
@@ -48,6 +50,8 @@ pub use crate::network::game::client::client_detailoptions_status::ClientDetailo
 pub use crate::network::game::client::close_modal::CloseModal;
 #[cfg(since_647)]
 pub use crate::network::game::client::create_check_name::CreateCheckName;
+#[cfg(since_530)]
+pub use crate::network::game::client::detect_modified_client::DetectModifiedClient;
 #[cfg(since_254)]
 pub use crate::network::game::client::event_applet_focus::EventAppletFocus;
 #[cfg(any(rev = "225", since_254))]
@@ -114,8 +118,6 @@ pub use crate::network::game::client::inv_button5::InvButton5;
 pub use crate::network::game::client::inv_buttond::InvButtonD;
 #[cfg(since_254)]
 pub use crate::network::game::client::map_build_complete::MapBuildComplete;
-#[cfg(since_530)]
-pub use crate::network::game::client::map_build_loading::MapBuildLoading;
 pub use crate::network::game::client::message_private::MessagePrivate;
 pub use crate::network::game::client::message_public::MessagePublic;
 #[cfg(since_530)]
@@ -216,7 +218,7 @@ pub use crate::network::game::client::transmitvar_verifyid::TransmitvarVerifyId;
 #[cfg(before_530)]
 pub use crate::network::game::client::tut_clickside::TutClickSide;
 #[cfg(since_742)]
-pub use crate::network::game::client::unknown::*;
+pub use crate::network::game::client::unhandled::*;
 #[cfg(since_530)]
 pub use crate::network::game::client::url_request::UrlRequest;
 #[cfg(since_647)]
@@ -793,7 +795,7 @@ client_prot! {
     IfButton10 = 9,
     IfButton = 10,
     GameloginContinue = 17,
-    MapBuildLoading = 20,
+    DetectModifiedClient = 20,
     EventCameraPosition = 21,
     EventAppletFocus = 22,
     ResumePCountDialog = 23,
@@ -904,7 +906,7 @@ client_prot! {
     SetChatfiltersettings = 10,
     OpPlayer6 = 11,
     ResumePHslDialog = 12,
-    MapBuildLoading = 13,
+    DetectModifiedClient = 13,
     ClientCheat = 14,
     OpPlayerT = 15,
     IfButton1 = 16,
@@ -987,21 +989,21 @@ client_prot! {
 #[cfg(rev = "742")]
 client_prot! {
     OpNpc6 = 0,
-    Unknown1 = 1,
-    Unknown2 = 2,
+    SimpleToolkitChange = 1,
+    CutsceneFinished = 2,
     OpLoc2 = 3,
     IfButton1 = 4,
     ResumePHslDialog = 5,
     OpNpcT = 6,
     IfButtonD = 7,
-    MapBuildLoading = 8,
+    DetectModifiedClient = 8,
     ClanchannelKickUser = 9,
     Unknown10 = 10,
     UrlRequest = 11,
     CreateCheckName = 12,
     IfButton3 = 13,
-    Unknown14 = 14,
-    Unknown15 = 15,
+    CreateAccount = 14,
+    AffinedClansettingsAddBannedFromChannel = 15,
     OpLoc3 = 16,
     IgnoreListDel = 17,
     VideoEnd = 18,
@@ -1015,7 +1017,7 @@ client_prot! {
     IfButtonT = 26,
     OpObj4 = 27,
     IfButton10 = 28,
-    Unknown29 = 29,
+    AddNewEmailAddress = 29,
     NoTimeout = 30,
     WindowStatus = 31,
     OpNpc5 = 32,
@@ -1046,10 +1048,10 @@ client_prot! {
     CloseModal = 57,
     OpPlayer5 = 58,
     IfButton5 = 59,
-    Unknown60 = 60,
-    Unknown61 = 61,
+    SoundSongEnd = 60,
+    EventNativeMouseClick = 61,
     OpObj3 = 62,
-    Unknown63 = 63,
+    DirectxFailure = 63,
     MapBuildComplete = 64,
     ResumePCountDialog = 65,
     ClickWorldMap = 66,
@@ -1075,20 +1077,20 @@ client_prot! {
     MessagePublic = 86,
     MessageQuickchatPublic = 87,
     OpNpc4 = 88,
-    Unknown89 = 89,
+    AutoSetupResult = 89,
     EventMouseClick = 90,
-    Unknown91 = 91,
-    Unknown92 = 92,
-    Unknown93 = 93,
+    SendPingReply = 91,
+    CreateLogProgress = 92,
+    PingStatistics = 93,
     EventAppletFocus = 94,
     MessagePrivate = 95,
     OpObjT = 96,
-    Unknown97 = 97,
-    Unknown98 = 98,
+    BugReport = 97,
+    EventNativeMouseMove = 98,
     ApCoordT = 99,
-    Unknown100 = 100,
-    Unknown101 = 101,
-    Unknown102 = 102,
+    UidPassportResendRequest = 100,
+    SendEmailValidationCode = 101,
+    ChangeEmailAddress = 102,
     IfButton6 = 103,
     OpPlayer4 = 104,
     ResumePObjDialog = 105,

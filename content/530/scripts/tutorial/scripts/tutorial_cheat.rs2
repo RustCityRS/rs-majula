@@ -1,9 +1,9 @@
-// Enters 289's Tutorial Island, which nothing in 2011's own flow reaches
-// (tutorial.rs2), at its first step: the RuneScape Guide's house.
+// Starts Tutorial Island over (tutorial.rs2), at its first step: the design
+// screen in the RuneScape Guide's house.
 [debugproc,tutorial_island]
 if_close;
 if (p_finduid(uid) = false) {
     return;
 }
-%varplayer_419 = ^newbie_basics_instructor_start;
+%tutorial = ^newbie_basics_instructor_start;
 @start_tutorial;

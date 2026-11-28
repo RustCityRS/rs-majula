@@ -14,58 +14,58 @@ while ($int0 < 28) {
     }
     if ($int1 ! 0 & $int1 > calc(clientclock - 750)) {
         if ($int0 = -1) {
-            cc_create(tradeconfirm:in_loan_layer, 3, 0);
+            cc_create(tradeconfirm:in_loan_layer, ^iftype_rectangle, 0);
             cc_sethide(false);
-            cc_setposition(0, 0, 0, 0);
-            cc_setsize(0, 0, 1, 1);
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
             cc_setcolour(^red);
             cc_setfill(true);
             cc_setontimer("interface_flash_fade(tradeconfirm:in_loan_layer, 0, $int1, calc($int1 + 750))");
-            cc_create(tradeconfirm:in_loan_layer, 3, 1);
+            cc_create(tradeconfirm:in_loan_layer, ^iftype_rectangle, 1);
             cc_sethide(false);
-            cc_setposition(0, 0, 0, 0);
-            cc_setsize(0, 0, 1, 1);
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
             cc_setcolour(0x990000);
             cc_setfill(false);
             cc_setontimer("interface_flash_fade(tradeconfirm:in_loan_layer, 1, $int1, calc($int1 + 750))");
         } else {
-            cc_create(tradeconfirm:com_19, 3, $int2);
+            cc_create(tradeconfirm:com_19, ^iftype_rectangle, $int2);
             cc_sethide(false);
             if ($int3 = 1) {
                 if ($int0 > 13) {
-                    cc_setposition(6, calc(12 * 13 + 3), 0, 0);
+                    cc_setposition(6, calc(12 * 13 + 3), ^setpos_abs_left, ^setpos_abs_top);
                 } else {
-                    cc_setposition(6, calc(12 * $int0 + 3), 0, 0);
+                    cc_setposition(6, calc(12 * $int0 + 3), ^setpos_abs_left, ^setpos_abs_top);
                 }
-                cc_setsize(223, 10, 0, 0);
+                cc_setsize(223, 10, ^setsize_abs, ^setsize_abs);
             } else {
                 if ($int0 < 14) {
-                    cc_setposition(6, calc(12 * $int0 + 3), 0, 0);
+                    cc_setposition(6, calc(12 * $int0 + 3), ^setpos_abs_left, ^setpos_abs_top);
                 } else {
-                    cc_setposition(118, calc(12 * ($int0 - 13) + 3), 0, 0);
+                    cc_setposition(118, calc(12 * ($int0 - 13) + 3), ^setpos_abs_left, ^setpos_abs_top);
                 }
-                cc_setsize(105, 10, 0, 0);
+                cc_setsize(105, 10, ^setsize_abs, ^setsize_abs);
             }
             cc_setcolour(^red);
             cc_setfill(true);
             cc_setontimer("interface_flash_fade(tradeconfirm:com_19, $int2, $int1, calc($int1 + 750))");
             $int2 = calc($int2 + 1);
-            cc_create(tradeconfirm:com_19, 3, $int2);
+            cc_create(tradeconfirm:com_19, ^iftype_rectangle, $int2);
             cc_sethide(false);
             if ($int3 = 1) {
                 if ($int0 > 13) {
-                    cc_setposition(6, calc(12 * 13 + 3), 0, 0);
+                    cc_setposition(6, calc(12 * 13 + 3), ^setpos_abs_left, ^setpos_abs_top);
                 } else {
-                    cc_setposition(6, calc(12 * $int0 + 3), 0, 0);
+                    cc_setposition(6, calc(12 * $int0 + 3), ^setpos_abs_left, ^setpos_abs_top);
                 }
-                cc_setsize(223, 10, 0, 0);
+                cc_setsize(223, 10, ^setsize_abs, ^setsize_abs);
             } else {
                 if ($int0 < 14) {
-                    cc_setposition(6, calc(12 * $int0 + 3), 0, 0);
+                    cc_setposition(6, calc(12 * $int0 + 3), ^setpos_abs_left, ^setpos_abs_top);
                 } else {
-                    cc_setposition(119, calc(12 * ($int0 - 13) + 3), 0, 0);
+                    cc_setposition(119, calc(12 * ($int0 - 13) + 3), ^setpos_abs_left, ^setpos_abs_top);
                 }
-                cc_setsize(103, 10, 0, 0);
+                cc_setsize(103, 10, ^setsize_abs, ^setsize_abs);
             }
             cc_setcolour(0x990000);
             cc_setfill(false);

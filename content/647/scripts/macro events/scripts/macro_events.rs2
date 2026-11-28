@@ -78,6 +78,10 @@ if (~macro_event_area(coord) = false) {
 if (%macro_event > 0) {
     return(false);
 }
+// can not get macro events as a monkey
+if(~mm_wearing_greegree = true) {
+    return(false);
+}
 return(true);
 
 // called when the player logs in

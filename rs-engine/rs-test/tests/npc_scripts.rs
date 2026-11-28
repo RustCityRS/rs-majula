@@ -6,20 +6,25 @@
 //! (`[label,barbarian_default_attack]`), and they are 289's whole barbarian
 //! category, so 2011's barbarians of that category cry it too.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
+#[cfg(since_647)]
 use rs_pack::ParamValue;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
+#[cfg(since_647)]
 use std::collections::HashMap;
+#[cfg(since_647)]
 use std::fs;
 
-/// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
+/// A pack registry (the rev's `pack/<kind>.pack`): name to id.
+#[cfg(since_647)]
 fn pack_id(kind: &str, name: &str) -> i32 {
     let path = format!(
-        "{}/../../content/647/pack/{kind}.pack",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/pack/{kind}.pack",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     let ids: HashMap<String, i32> = fs::read_to_string(&path)
         .expect(&path)
@@ -50,6 +55,7 @@ fn npc_script(engine: &rs_engine::Engine, trigger: ServerTriggerType, npc: u16) 
 }
 
 /// An npc's int param, by its `param.pack` name.
+#[cfg(since_647)]
 fn param(engine: &rs_engine::Engine, npc: u16, name: &str) -> Option<i32> {
     let params = engine
         .cache
@@ -89,6 +95,7 @@ fn barbarian_village_s_barbarians_attack_with_289_s_battle_cry() {
 /// 289's barbarian category, with void-634's life points for its level and its
 /// weapon's attack animation: the axes 2067, the warhammers 401, the swords
 /// 390, the spears 428, Aitan's bow 426. 13 had no config at all before.
+#[cfg(since_647)]
 #[test]
 fn every_2011_barbarian_is_289_s_barbarian_with_its_weapon() {
     runner::on_loaded_engine(|engine| {
@@ -147,6 +154,7 @@ fn aitan_shoots_and_every_barbarian_talks() {
 /// chaosmonk1 (188) up to 80 and chaosmonk2 (189) up to 60 (the 2011 wiki's
 /// level-22 and level-17 figures), chaosmonk3 (190) 289's 130, and 2011's
 /// Defender of Varrock monk (8178, level 17) 60.
+#[cfg(since_647)]
 #[test]
 fn monks_of_zamorak_zap_with_their_level_s_max() {
     runner::on_loaded_engine(|engine| {

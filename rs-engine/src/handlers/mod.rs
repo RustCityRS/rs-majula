@@ -12,16 +12,12 @@ pub mod event;
 pub mod event_tracking;
 #[cfg(since_530)]
 pub mod face_square;
-pub mod friendlist_add;
-pub mod friendlist_del;
 pub mod idk_savedesign;
 pub mod idle_timer;
 pub mod if_button;
 pub mod if_buttond;
 #[cfg(since_530)]
 pub mod if_buttont;
-pub mod ignorelist_add;
-pub mod ignorelist_del;
 pub mod map_build_complete;
 pub mod message_private;
 pub mod message_public;
@@ -57,6 +53,7 @@ pub mod resume_p_dialogs;
 pub mod resume_p_string_dialog;
 pub mod resume_pause_button;
 pub mod send_snapshot;
+pub mod social;
 pub mod tut_clickside;
 #[cfg(since_530)]
 pub mod unsupported;

@@ -7,9 +7,9 @@ use rs_io::Packet;
 use rs_pack::types::LocLayer;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
-use rs_protocol::network::game::server::loc_del::LocDel;
 #[cfg(since_647)]
-use rs_protocol::network::game::server::loc_merge::LocMerge;
+use rs_protocol::network::game::server::loc_customise::LocCustomise;
+use rs_protocol::network::game::server::loc_del::LocDel;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
@@ -55,10 +55,10 @@ pub struct Zone {
     #[cfg(since_530)]
     vars: FxHashMap<u64, i32>,
     #[cfg(since_647)]
-    merges: Vec<(u64, LocMerge)>,
+    customisations: Vec<(u64, LocCustomise)>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
-    next_serial: ObjSerial,
+    next_obj_serial: ObjSerial,
     next_loc_serial: LocSerial,
 }
 
@@ -100,10 +100,10 @@ impl Zone {
             #[cfg(since_530)]
             vars: FxHashMap::default(),
             #[cfg(since_647)]
-            merges: Vec::new(),
+            customisations: Vec::new(),
             events: Vec::new(),
             shared: Vec::new(),
-            next_serial: ObjSerial::FIRST,
+            next_obj_serial: ObjSerial::FIRST,
             next_loc_serial: LocSerial::FIRST,
         }
     }
@@ -235,8 +235,8 @@ impl Zone {
 
     /// Hands out the next obj [`ObjSerial`].
     fn next_obj_serial(&mut self) -> ObjSerial {
-        let serial = self.next_serial;
-        self.next_serial = serial.next();
+        let serial = self.next_obj_serial;
+        self.next_obj_serial = serial.next();
         serial
     }
 
@@ -270,7 +270,7 @@ impl Zone {
     /// Pushes a new [`ZoneEvent`] onto `self.events`.
     ///
     /// **Called by:** `add_loc`, `change_loc`, `remove_loc`, `respawn_loc`, `anim_loc`,
-    /// `merge_loc`, `add_obj`, `reveal_obj`, `remove_obj_at`, `respawn_obj`,
+    /// `merge_loc`, `customise_loc`, `add_obj`, `reveal_obj`, `remove_obj_at`, `respawn_obj`,
     /// `anim_map`, `map_proj_anim`.
     pub fn queue_event(
         &mut self,
@@ -588,7 +588,7 @@ impl Zone {
             .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocAddChange(_)));
         self.queue_event(Some(lid), ZoneEventType::Enclosed, None, message);
         #[cfg(since_647)]
-        self.unmerge_loc(lid);
+        self.uncustomise_loc(lid);
     }
 
     /// Removes a loc from this zone and queues an enclosed `LocDel` event.
@@ -641,7 +641,7 @@ impl Zone {
             ZoneMessage::LocDel(LocDel { coord, shape_angle }),
         );
         #[cfg(since_647)]
-        self.unmerge_loc(lid);
+        self.uncustomise_loc(lid);
     }
 
     /// Finds the index of a visible loc at the given position with the given type id.
@@ -731,7 +731,7 @@ impl Zone {
         let message = loc_add_change_msg(loc);
         self.queue_event(Some(lid), ZoneEventType::Enclosed, None, message);
         #[cfg(since_647)]
-        self.unmerge_loc(lid);
+        self.uncustomise_loc(lid);
     }
 
     /// Plays an animation sequence on a loc and queues an enclosed `LocAnim` event.
@@ -794,62 +794,62 @@ impl Zone {
         self.queue_event(Some(loc.lid()), ZoneEventType::Enclosed, None, message);
     }
 
-    /// Queues `merge` for loc `idx` and keeps it for players who load the
-    /// zone later, replacing one queued this tick. A merge with no lists
-    /// resets the loc, if it was merged.
+    /// Queues `customise` for loc `idx` and keeps it for players who load the
+    /// zone later, replacing one queued this tick. A customisation with no
+    /// lists resets the loc, if it was customised.
     ///
-    /// **Called by:** `Engine::loc_merge`.
+    /// **Called by:** `Engine::loc_customise`.
     ///
     /// **Calls:** [`queue_event`](Self::queue_event).
     #[cfg(since_647)]
-    pub fn merge_loc(&mut self, idx: usize, merge: LocMerge) {
-        if merge.models.is_none() && merge.recol.is_none() && merge.retex.is_none() {
-            self.unmerge_loc(self.locs[idx].lid());
+    pub fn customise_loc(&mut self, idx: usize, customise: LocCustomise) {
+        if customise.models.is_none() && customise.recol.is_none() && customise.retex.is_none() {
+            self.uncustomise_loc(self.locs[idx].lid());
             return;
         }
         let lid = self.locs[idx].lid();
         self.events
-            .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocMerge(_)));
-        match self.merges.iter_mut().find(|(id, _)| *id == lid) {
-            Some((_, stored)) => *stored = merge.clone(),
-            None => self.merges.push((lid, merge.clone())),
+            .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocCustomise(_)));
+        match self.customisations.iter_mut().find(|(id, _)| *id == lid) {
+            Some((_, stored)) => *stored = customise.clone(),
+            None => self.customisations.push((lid, customise.clone())),
         }
         self.queue_event(
             Some(lid),
             ZoneEventType::Enclosed,
             None,
-            ZoneMessage::LocMerge(merge),
+            ZoneMessage::LocCustomise(customise),
         );
     }
 
-    /// Resets the merge on `lid`'s tile and layer, if it has one. The client
-    /// keeps a merge on the tile, not the loc, so a loc that changes, goes or
-    /// comes back must drop it.
+    /// Resets the customisation on `lid`'s tile and layer, if it has one. The
+    /// client keeps a customisation on the tile, not the loc, so a loc that
+    /// changes, goes or comes back must drop it.
     #[cfg(since_647)]
-    fn unmerge_loc(&mut self, lid: u64) {
+    fn uncustomise_loc(&mut self, lid: u64) {
         self.events
-            .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocMerge(_)));
-        if let Some(pos) = self.merges.iter().position(|(id, _)| *id == lid) {
-            let (_, merge) = self.merges.swap_remove(pos);
-            let reset = LocMerge {
+            .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocCustomise(_)));
+        if let Some(pos) = self.customisations.iter().position(|(id, _)| *id == lid) {
+            let (_, customise) = self.customisations.swap_remove(pos);
+            let reset = LocCustomise {
                 models: None,
                 recol: None,
                 retex: None,
-                ..merge
+                ..customise
             };
             self.queue_event(
                 Some(lid),
                 ZoneEventType::Enclosed,
                 None,
-                ZoneMessage::LocMerge(reset),
+                ZoneMessage::LocCustomise(reset),
             );
         }
     }
 
-    /// The merges a player loading this zone needs, after its locs.
+    /// The customisations a player loading this zone needs, after its locs.
     #[cfg(since_647)]
-    pub fn loc_merges(&self) -> impl Iterator<Item = &LocMerge> {
-        self.merges.iter().map(|(_, merge)| merge)
+    pub fn loc_customisations(&self) -> impl Iterator<Item = &LocCustomise> {
+        self.customisations.iter().map(|(_, customise)| customise)
     }
 
     /// Queues an enclosed `LocPrefetch` of loc type `id`'s models for `shape`,
@@ -1481,6 +1481,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         )
@@ -1495,6 +1496,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         )
@@ -2116,6 +2118,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2149,6 +2152,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2172,6 +2176,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2212,6 +2217,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2230,6 +2236,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2259,6 +2266,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2276,6 +2284,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2291,6 +2300,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2314,6 +2324,7 @@ mod tests {
             LocAngle::North,
             false,
             false,
+            false,
             2,
             4,
         );
@@ -2325,6 +2336,7 @@ mod tests {
             LocAngle::East,
             true,
             true,
+            false,
             5,
             3,
         );
@@ -2348,6 +2360,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2390,6 +2403,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2420,6 +2434,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2491,6 +2506,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2511,6 +2527,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2553,6 +2570,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2598,6 +2616,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2644,6 +2663,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2698,6 +2718,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2791,6 +2812,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2865,8 +2887,8 @@ mod tests {
     }
 
     #[cfg(since_647)]
-    fn recolour(id: TypeId) -> LocMerge {
-        LocMerge {
+    fn recolour(id: TypeId) -> LocCustomise {
+        LocCustomise {
             coord: 0,
             id,
             shape_angle: 10 << 2,
@@ -2876,29 +2898,29 @@ mod tests {
         }
     }
 
-    /// The queued merges, as their loc type and whether each resets.
+    /// The queued customisations, as their loc type and whether each resets.
     #[cfg(since_647)]
-    fn queued_merges(zone: &Zone) -> Vec<(TypeId, bool)> {
+    fn queued_customisations(zone: &Zone) -> Vec<(TypeId, bool)> {
         zone.enclosed_events()
             .filter_map(|e| match &e.message {
-                ZoneMessage::LocMerge(m) => Some((m.id, m.recol.is_none())),
+                ZoneMessage::LocCustomise(m) => Some((m.id, m.recol.is_none())),
                 _ => None,
             })
             .collect()
     }
 
-    /// A merge stays for players who load the zone later, one queued per
-    /// tick, until the loc changes; the reset names the type the client
-    /// sized the merge by.
+    /// A customisation stays for players who load the zone later, one queued
+    /// per tick, until the loc changes; the reset names the type the client
+    /// sized the customisation by.
     #[cfg(since_647)]
     #[test]
-    fn merge_loc_is_kept_until_the_loc_changes() {
+    fn customise_loc_is_kept_until_the_loc_changes() {
         let mut z = zone();
         z.locs.push(respawn_loc(3222, 3222, TypeId::new(100)));
-        z.merge_loc(0, recolour(TypeId::new(100)));
-        z.merge_loc(0, recolour(TypeId::new(100)));
-        assert_eq!(queued_merges(&z), [(TypeId::new(100), false)]);
-        assert_eq!(z.loc_merges().count(), 1);
+        z.customise_loc(0, recolour(TypeId::new(100)));
+        z.customise_loc(0, recolour(TypeId::new(100)));
+        assert_eq!(queued_customisations(&z), [(TypeId::new(100), false)]);
+        assert_eq!(z.loc_customisations().count(), 1);
 
         z.reset();
         z.locs[0].change(
@@ -2907,19 +2929,20 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
         z.change_loc(0);
-        assert_eq!(queued_merges(&z), [(TypeId::new(100), true)]);
-        assert_eq!(z.loc_merges().count(), 0);
+        assert_eq!(queued_customisations(&z), [(TypeId::new(100), true)]);
+        assert_eq!(z.loc_customisations().count(), 0);
 
         z.reset();
-        let reset = LocMerge {
+        let reset = LocCustomise {
             recol: None,
             ..recolour(TypeId::new(200))
         };
-        z.merge_loc(0, reset);
-        assert!(queued_merges(&z).is_empty(), "nothing to reset");
+        z.customise_loc(0, reset);
+        assert!(queued_customisations(&z).is_empty(), "nothing to reset");
     }
 }

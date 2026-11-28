@@ -6,12 +6,10 @@ use rs_ver::TypeId;
 pub struct SkyboxType {
     pub id: TypeId,
     pub material: Option<TypeId>,
-    pub op2: bool,
-    pub staticmodels: Option<[i16; 3]>,
+    pub op2: Option<Vec<u16>>,
+    pub op3: Option<u8>,
     pub fillmode: Option<u8>,
     pub staticmodel: Option<TypeId>,
-    pub op6: Option<i32>,
-    pub op7: Option<[i16; 3]>,
 }
 
 impl CacheType for SkyboxType {
@@ -21,24 +19,23 @@ impl CacheType for SkyboxType {
         Self {
             id,
             material: None,
-            op2: false,
-            staticmodels: None,
+            op2: None,
+            op3: None,
             fillmode: None,
             staticmodel: None,
-            op6: None,
-            op7: None,
         }
     }
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
             1 => self.material = Some(read_id(buf)),
-            2 => self.op2 = true,
-            3 => self.staticmodels = Some([buf.g2s(), buf.g2s(), buf.g2s()]),
+            2 => {
+                let count = buf.g1();
+                self.op2 = Some((0..count).map(|_| buf.g2()).collect());
+            }
+            3 => self.op3 = Some(buf.g1()),
             4 => self.fillmode = Some(buf.g1()),
             5 => self.staticmodel = Some(read_big_id(buf)),
-            6 => self.op6 = Some(buf.g3()),
-            7 => self.op7 = Some([buf.g2s(), buf.g2s(), buf.g2s()]),
             _ => crate::unknown_opcode!("skybox", code),
         }
     }

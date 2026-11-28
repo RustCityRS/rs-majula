@@ -8,7 +8,7 @@ if (%tutorial < 1000 & %tutorial_version = 2) {
     mes("You need to complete 'Learning the Ropes' before talking to other players using Private Chat.");
     return;
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(toplevel_fullscreen:chattop, false);
 }
 %varclient_655 = $string0;

@@ -2,13 +2,13 @@
 [proc,clientscript_6385]
 def_graphic $graphic0 = null;
 if (map_lang = 0) {
-    $graphic0 = 11621;
+    $graphic0 = graphic_11621;
 } else if (map_lang = 1) {
-    $graphic0 = 11623;
+    $graphic0 = graphic_11623;
 } else if (map_lang = 2) {
-    $graphic0 = 11622;
+    $graphic0 = graphic_11622;
 } else if (map_lang = 3) {
-    $graphic0 = 11625;
+    $graphic0 = graphic_11625;
 }
 if_setgraphic(interface_396:com_11, $graphic0);
 ~clientscript_6387;

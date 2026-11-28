@@ -38,54 +38,74 @@ while ($page < $pagetotal) {
 }
 
 [proc,chatplayer_page](int $page)
-def_int $lines = split_linecount($page)
-if ($lines = 0) {
-    return
+def_int $lines = split_linecount($page);
+if ($lines = 1) {
+    if_setplayerhead(chat1:chat1head_1);
+    if_setanim(chat1:chat1head_1, split_getanim($page));
+    if_settext(chat1:chat1name, displayname);
+    if_settext(chat1:chat1a, split_get($page, 0));
+    if_openchat(chat1);
+} else if ($lines = 2) {
+    if_setplayerhead(chat2:chat2head_1);
+    if_setanim(chat2:chat2head_1, split_getanim($page));
+    if_settext(chat2:chat2name, displayname);
+    if_settext(chat2:chat2a, split_get($page, 0));
+    if_settext(chat2:chat2b, split_get($page, 1));
+    if_openchat(chat2);
+} else if ($lines = 3) {
+    if_setplayerhead(chat3:chat3head_1);
+    if_setanim(chat3:chat3head_1, split_getanim($page));
+    if_settext(chat3:chat3name, displayname);
+    if_settext(chat3:chat3a, split_get($page, 0));
+    if_settext(chat3:chat3b, split_get($page, 1));
+    if_settext(chat3:chat3c, split_get($page, 2));
+    if_openchat(chat3);
+} else if ($lines = 4) {
+    if_setplayerhead(chat4:chat4head_1);
+    if_setanim(chat4:chat4head_1, split_getanim($page));
+    if_settext(chat4:chat4name, displayname);
+    if_settext(chat4:chat4a, split_get($page, 0));
+    if_settext(chat4:chat4b, split_get($page, 1));
+    if_settext(chat4:chat4c, split_get($page, 2));
+    if_settext(chat4:chat4d, split_get($page, 3));
+    if_openchat(chat4);
 }
-// Rev 647: chat1-4 = interfaces 64-67
-// Components: head=2, title=3, line1=4, line2=5, etc.
-def_int $iface = calc(63 + $lines)
-def_int $hash = calc($iface * 65536)
-if_setplayerhead(calc($hash + 2))
-if_setanim(calc($hash + 2), split_getanim($page))
-if_settext(calc($hash + 3), displayname)
-if_settext(calc($hash + 4), split_get($page, 0))
-if ($lines > 1) {
-    if_settext(calc($hash + 5), split_get($page, 1))
-}
-if ($lines > 2) {
-    if_settext(calc($hash + 6), split_get($page, 2))
-}
-if ($lines > 3) {
-    if_settext(calc($hash + 7), split_get($page, 3))
-}
-if_openchat($iface)
 
 // ── NPC Chat ────────────────────────────────────────────────────────────────
 
 [proc,chatnpc_page](string $npc_name, npc $npc, int $page)
-def_int $lines = split_linecount($page)
-if ($lines = 0) {
-    return
+def_int $lines = split_linecount($page);
+if ($lines = 1) {
+    if_setnpchead(npcchat1:npcchat1head_1, $npc);
+    if_setanim(npcchat1:npcchat1head_1, split_getanim($page));
+    if_settext(npcchat1:npcchat1name, $npc_name);
+    if_settext(npcchat1:npcchat1a, split_get($page, 0));
+    if_openchat(npcchat1);
+} else if ($lines = 2) {
+    if_setnpchead(npcchat2:npcchat2head_1, $npc);
+    if_setanim(npcchat2:npcchat2head_1, split_getanim($page));
+    if_settext(npcchat2:npcchat2name, $npc_name);
+    if_settext(npcchat2:npcchat2a, split_get($page, 0));
+    if_settext(npcchat2:npcchat2b, split_get($page, 1));
+    if_openchat(npcchat2);
+} else if ($lines = 3) {
+    if_setnpchead(npcchat3:npcchat3head_1, $npc);
+    if_setanim(npcchat3:npcchat3head_1, split_getanim($page));
+    if_settext(npcchat3:npcchat3name, $npc_name);
+    if_settext(npcchat3:npcchat3a, split_get($page, 0));
+    if_settext(npcchat3:npcchat3b, split_get($page, 1));
+    if_settext(npcchat3:npcchat3c, split_get($page, 2));
+    if_openchat(npcchat3);
+} else if ($lines = 4) {
+    if_setnpchead(npcchat4:npcchat4head_1, $npc);
+    if_setanim(npcchat4:npcchat4head_1, split_getanim($page));
+    if_settext(npcchat4:npcchat4name, $npc_name);
+    if_settext(npcchat4:npcchat4a, split_get($page, 0));
+    if_settext(npcchat4:npcchat4b, split_get($page, 1));
+    if_settext(npcchat4:npcchat4c, split_get($page, 2));
+    if_settext(npcchat4:npcchat4d, split_get($page, 3));
+    if_openchat(npcchat4);
 }
-// Rev 647: npc_chat1-4 = interfaces 241-244
-// Components: head=2, title=3, line1=4, line2=5, etc.
-def_int $iface = calc(240 + $lines)
-def_int $hash = calc($iface * 65536)
-if_setnpchead(calc($hash + 2), $npc)
-if_setanim(calc($hash + 2), split_getanim($page))
-if_settext(calc($hash + 3), $npc_name)
-if_settext(calc($hash + 4), split_get($page, 0))
-if ($lines > 1) {
-    if_settext(calc($hash + 5), split_get($page, 1))
-}
-if ($lines > 2) {
-    if_settext(calc($hash + 6), split_get($page, 2))
-}
-if ($lines > 3) {
-    if_settext(calc($hash + 7), split_get($page, 3))
-}
-if_openchat($iface)
 
 // 289's chatnpc_specific: a line spoken as the npc named, who need not be the
 // active npc (a door's guard, a quest npc out of sight), so it faces no one.
@@ -104,46 +124,67 @@ while ($page < $pagetotal) {
 // ── Message Box ─────────────────────────────────────────────────────────────
 
 [proc,mesbox_page](int $page)
-def_int $lines = split_linecount($page)
-if ($lines = 0) {
-    return
+def_int $lines = split_linecount($page);
+if ($lines = 1) {
+    if_settext(message1:mes1a, split_get($page, 0));
+    if_openchat(message1);
+} else if ($lines = 2) {
+    if_settext(message2:mes2a, split_get($page, 0));
+    if_settext(message2:mes2b, split_get($page, 1));
+    if_openchat(message2);
+} else if ($lines = 3) {
+    if_settext(message3:mes3a, split_get($page, 0));
+    if_settext(message3:mes3b, split_get($page, 1));
+    if_settext(message3:mes3c, split_get($page, 2));
+    if_openchat(message3);
+} else if ($lines = 4) {
+    if_settext(message4:mes4a, split_get($page, 0));
+    if_settext(message4:mes4b, split_get($page, 1));
+    if_settext(message4:mes4c, split_get($page, 2));
+    if_settext(message4:mes4d, split_get($page, 3));
+    if_openchat(message4);
+} else if ($lines = 5) {
+    if_settext(message5:mes5a, split_get($page, 0));
+    if_settext(message5:mes5b, split_get($page, 1));
+    if_settext(message5:mes5c, split_get($page, 2));
+    if_settext(message5:mes5d, split_get($page, 3));
+    if_settext(message5:mes5e, split_get($page, 4));
+    if_openchat(message5);
 }
-// Rev 647: message1-5 = interfaces 210-214
-// Components: line1=1, line2=2, etc.
-def_int $iface = calc(209 + $lines)
-def_int $hash = calc($iface * 65536)
-if_settext(calc($hash + 1), split_get($page, 0))
-if ($lines > 1) {
-    if_settext(calc($hash + 2), split_get($page, 1))
-}
-if ($lines > 2) {
-    if_settext(calc($hash + 3), split_get($page, 2))
-}
-if ($lines > 3) {
-    if_settext(calc($hash + 4), split_get($page, 3))
-}
-if ($lines > 4) {
-    if_settext(calc($hash + 5), split_get($page, 4))
-}
-if_openchat($iface)
 
 // A message box with no "Click here to continue" (message_np1-5, interfaces 215-219), left open
 // while the script goes on: 2011's timed boxes, as Goblin Diplomacy's "Grubfoot goes into the
 // changing room..." (2011-06-14 recording, YouTube jxkBytyfG-U, 360s). One page; the caller
 // closes it or opens the next box.
 [proc,mesbox_np](string $string)
-split_init($string, 470, 5, q8_full)
-def_int $lines = split_linecount(0)
-if ($lines = 0) {
-    return
+split_init($string, 470, 5, q8_full);
+def_int $lines = split_linecount(0);
+if ($lines = 1) {
+    if_settext(message_np1:stakescores1, split_get(0, 0));
+    if_openchat(message_np1);
+} else if ($lines = 2) {
+    if_settext(message_np2:com_1, split_get(0, 0));
+    if_settext(message_np2:com_2, split_get(0, 1));
+    if_openchat(message_np2);
+} else if ($lines = 3) {
+    if_settext(message_np3:com_1, split_get(0, 0));
+    if_settext(message_np3:com_2, split_get(0, 1));
+    if_settext(message_np3:com_3, split_get(0, 2));
+    if_openchat(message_np3);
+} else if ($lines = 4) {
+    if_settext(message_np4:com_1, split_get(0, 0));
+    if_settext(message_np4:com_2, split_get(0, 1));
+    if_settext(message_np4:com_3, split_get(0, 2));
+    if_settext(message_np4:com_4, split_get(0, 3));
+    if_openchat(message_np4);
+} else if ($lines = 5) {
+    if_settext(message_np5:rectanglesmoderators, split_get(0, 0));
+    if_settext(message_np5:com_2, split_get(0, 1));
+    if_settext(message_np5:com_3, split_get(0, 2));
+    if_settext(message_np5:com_4, split_get(0, 3));
+    if_settext(message_np5:com_5, split_get(0, 4));
+    if_openchat(message_np5);
 }
-def_int $hash = calc((214 + $lines) * 65536)
-def_int $line = 0
-while ($line < $lines) {
-    if_settext(calc($hash + $line + 1), split_get(0, $line))
-    $line = calc($line + 1)
-}
-if_openchat(calc(214 + $lines))
 
 [proc,mesbox](string $string)
 split_init($string, 470, 5, q8_full)
@@ -723,11 +764,3 @@ while ($page < $pagetotal) {
     $page = calc($page + 1);
 }
 
-// A voiced line: VORBIS_SPEECH_STOP (66) first, then the line's VORBIS_SPEECH_SOUND (7). The 647
-// client plays every speech sound it is sent side by side (AClass55.method3670 adds each to its
-// sound list; 66 stops them all, Class95_Sub3.method3214), so a line clicked through before its
-// voice ended played on under the next one's. Not on each continue: cache 786's clip 3177 is one
-// take of both of Explorer Jack's boxes, which a stop at the second box would cut off.
-[proc,speech_line](vorbis $clip)
-sound_speech_stop;
-sound_speech_volume($clip, 1, 0, 255);

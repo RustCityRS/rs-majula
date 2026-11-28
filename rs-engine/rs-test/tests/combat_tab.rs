@@ -10,32 +10,24 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const COMBAT_SIDE: u16 = 884;
-const SPECIAL_BAR: u16 = 4;
-const STYLES: [u16; 4] = [11, 12, 13, 14];
-const RETALIATE: u16 = 15;
+const SPECIAL_BAR: &str = "sp_attack_button";
+const STYLES: [&str; 4] = ["button1", "button2", "button3", "button4"];
+const RETALIATE: &str = "auto_retaliate";
 
 const COM_MODE: u16 = 43;
 const OPTION_NODEF: u16 = 172;
 const SA_ATTACK: u16 = 301;
 
-/// `IF_BUTTON1` as `Class199.method1317` writes it: `p4(com) p2_alt3(obj)
-/// p2_alt1(slot)`, with no obj or slot for a plain button.
-fn click(engine: &mut Engine, client: &mut HarnessClient, com: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(((COMBAT_SIDE as i32) << 16) | com as i32)
-        .p2_alt3(0xFFFF)
-        .p2_alt1(0xFFFF);
-    client.send(ClientProt::IfButton1, &p.finish());
+/// `IF_BUTTON1` on combat_side's component `name`, with no obj or slot.
+fn click(engine: &mut Engine, client: &mut HarnessClient, name: &str) {
+    client.if_button(1, com(&format!("combat_side:{name}")), 0xFFFF, TypeId::NULL);
     engine.cycle();
 }
 

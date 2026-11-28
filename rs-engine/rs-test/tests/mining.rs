@@ -3,27 +3,28 @@
 //! 289's rocks are the 2005 ones; Rimmington's copper rock 9708 is 2011's
 //! (void-634 `copper_rocks_rimmington_1`), depleting to 9723 (void-634's
 //! `depleted_rocks_rimmington_1`). The case clicks Mine on it as the client
-//! does (OPLOC1, `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`) with a bronze pickaxe
-//! in the backpack, swings until the rock gives, and then clicks the depleted
-//! rock.
+//! does (OPLOC1) with a bronze pickaxe in the backpack, swings until the rock
+//! gives, and then clicks the depleted rock.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const MINING: usize = 14;
 /// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
+#[cfg(before_742)]
 const ROCK: (u16, u16, u16) = (9708, 2977, 3247);
+#[cfg(before_742)]
 const DEPLETED: u16 = 9723;
 
+// 742 rebuilt Rimmington's mine with rocks its mining tables do not list.
+#[cfg(before_742)]
 #[test]
 fn a_2011_copper_rock_gives_ore_and_depletes() {
     mine(ROCK, DEPLETED, "copper_ore", 1, 175, "copper");
@@ -33,11 +34,13 @@ fn a_2011_copper_rock_gives_ore_and_depletes() {
 /// south-east mine's copper (3027, shape 64231, bare 3281) and the
 /// south-west mine's coal (3233, shape 64233, bare 3227). 289's rocks never
 /// stood there, so nothing answered them ("Nothing interesting happens").
+#[cfg(since_647)]
 #[test]
 fn the_lumbridge_swamp_south_east_mine_gives_copper() {
     mine((3027, 3230, 3147), 3281, "copper_ore", 1, 175, "copper");
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_lumbridge_swamp_south_west_mine_gives_coal() {
     mine((3233, 3144, 3148), 3227, "coal", 30, 500, "coal");
@@ -90,6 +93,7 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
         player.stats.levels[MINING] = level;
         player.stats.base_levels[MINING] = level;
         let xp = player.stats.xp[MINING];
+        #[cfg(since_647)]
         let counter = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
@@ -128,6 +132,7 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
             rock.0
         );
         assert_eq!(player.stats.xp[MINING] - xp, exp, "{ore_name}'s rock_exp");
+        #[cfg(since_647)]
         assert_eq!(
             player.vars.get(XP_COUNTER).as_int() - counter,
             exp * 10,
@@ -160,10 +165,5 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
 }
 
 fn click(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }

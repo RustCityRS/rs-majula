@@ -4241,10 +4241,10 @@
 ==== OPCODE_ORDER 1,2 ====
 
 ==== LIGHTS ====
-0 3524 6493 56: radius=2 colors=0,0,0,0,0 hsl=127 type=1
-0 3507 4590 59: radius=2 colors=0,0,0,0,0 hsl=127 type=1
-0 5555 6357 56: radius=5 colors=0,0,0,0,0,0,0,0,0,0,0 hsl=5032 type=6
-0 5555 6357 188: radius=1 colors=0,0,0 hsl=1663 type=1
+0 3524 6493 56: radius=2 radiusgrid=0,0,0,0,0 hsl=127 type=1
+0 3507 4590 59: radius=2 radiusgrid=0,0,0,0,0 hsl=127 type=1
+0 5555 6357 56: radius=5 radiusgrid=0,0,0,0,0,0,0,0,0,0,0 hsl=5032 type=6
+0 5555 6357 188: radius=1 radiusgrid=0,0,0 hsl=1663 type=1
 
 ==== ENVPARAMS ====
 32 8 32

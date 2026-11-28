@@ -1,20 +1,20 @@
 // 1369
 [clientscript,worldmap_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9)
 ~script1088($component0, 0);
-def_wma $wma10 = null;
+def_maparea $maparea10 = null;
 if (%worldmap_focus ! null) {
-    $wma10 = worldmap_getmap(%worldmap_focus);
-    if ($wma10 = null) {
-        $wma10 = main;
+    $maparea10 = worldmap_getmap(%worldmap_focus);
+    if ($maparea10 = null) {
+        $maparea10 = main;
     }
 }
-$wma10 = ~script2785($wma10);
-if (worldmap_coordinmap(%worldmap_focus, $wma10) = true) {
-    worldmap_setmap_coord_override($wma10, %worldmap_focus);
+$maparea10 = ~script2785($maparea10);
+if (worldmap_coordinmap(%worldmap_focus, $maparea10) = true) {
+    worldmap_setmap_coord_override($maparea10, %worldmap_focus);
 } else {
-    worldmap_setmap($wma10);
+    worldmap_setmap($maparea10);
 }
-%worldmap_zoom = worldmap_getconfigzoom($wma10);
+%worldmap_zoom = worldmap_getconfigzoom($maparea10);
 ~worldmap_setzoom;
 ~worldmap_showoverview(0);
 ~script1376(0, $component5, $component9);
@@ -27,7 +27,7 @@ if_setonkey($component4, "worldmap_onkey(event_keycode, event_keychar, $componen
 def_int $int11 = 0;
 def_int $int12 = 0;
 def_coord $coord13 = %worldmap_focus;
-if (%varplayerbit_9030 = 1 & $wma10 = main & map_members = true) {
+if (%varplayerbit_9030 = 1 & $maparea10 = main & map_members = true) {
     $coord13 = 0_45_54_29_38;
 }
 if ($coord13 ! null) {

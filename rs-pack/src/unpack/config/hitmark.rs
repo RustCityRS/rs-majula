@@ -21,9 +21,9 @@ pub fn emit_hitmark_props(
         p.push((2, "damagecolour".into(), def.damagecolour.to_string()));
     }
     for (code, key, sprite) in [
-        (3, "classgraphic", def.classgraphic),
+        (3, "classgraphic", def.icon_sprite),
         (4, "leftgraphic", def.leftgraphic),
-        (5, "middlegraphic", def.middlegraphic),
+        (5, "middlegraphic", def.background_sprite),
         (6, "rightgraphic", def.rightgraphic),
     ] {
         if opcode == code {
@@ -41,7 +41,7 @@ pub fn emit_hitmark_props(
         p.push((8, "damageformat".into(), def.damageformat.clone()));
     }
     if opcode == 9 {
-        p.push((9, "sticktime".into(), def.sticktime.to_string()));
+        p.push((9, "sticktime".into(), def.duration.to_string()));
     }
     if opcode == 10 {
         p.push((

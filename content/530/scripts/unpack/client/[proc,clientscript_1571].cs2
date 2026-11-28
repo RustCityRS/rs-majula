@@ -1,9 +1,9 @@
 // 1571
 [proc,clientscript_1571]
-~clientscript_1562(interface_771:com_14, 1418, 1421, interface_771:com_403);
-~clientscript_1562(interface_771:com_16, 1418, 1421, interface_771:com_403);
-~clientscript_1562(interface_771:com_18, 1418, 1421, interface_771:com_403);
-~clientscript_1562(interface_771:com_20, 1418, 1421, interface_771:com_403);
+~clientscript_1562(interface_771:com_14, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
+~clientscript_1562(interface_771:com_16, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
+~clientscript_1562(interface_771:com_18, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
+~clientscript_1562(interface_771:com_20, "bank_tabs,0", "bank_tabs,3", interface_771:com_403);
 if_settext(interface_771:title, "Body");
 if_sethide(interface_771:com_22, true);
 if_sethide(interface_771:com_23, true);

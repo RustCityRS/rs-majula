@@ -20,7 +20,7 @@ if (map_members = true & $int1 = 41 | map_members = false & $int1 = 17) {
     if_sethide(rand_rewards_interface:failbg, true);
     if_sethide(rand_rewards_interface:failtext, true);
     if_settext(rand_rewards_interface:tokencost, "1 : 1xp");
-} else if (stat_base(dungeoneering) < struct_param(enum(int, struct, $enum2, $int1), param_1071)) {
+} else if (stat_base(rand) < struct_param(enum(int, struct, $enum2, $int1), param_1071)) {
     if_sethide(rand_rewards_interface:confirm_layer, true);
     if_settext(rand_rewards_interface:info_text, struct_param(enum(int, struct, $enum2, $int1), param_1078));
     if_sethide(rand_rewards_interface:info_title, false);

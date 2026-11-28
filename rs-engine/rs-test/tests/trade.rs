@@ -6,32 +6,23 @@
 //! the backpack as grids the server makes once the screens are open
 //! (clientscripts 150, own, and 695, the other's) and gets the other's offer
 //! as inv 90 with the "other" flag. Both accepting twice swaps the offers.
-//! OPPLAYER4 is `p2_alt2(pid) p1(ctrl)`; an IF_BUTTON{n} is
-//! `p4(com) p2_alt3(obj) p2_alt1(slot)`.
+//! An IF_BUTTON{n} is `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
+#[cfg(since_647)]
 use rs_util::base37::to_screen_name;
 use rs_ver::TypeId;
 
 const MAIN: u16 = 335;
+#[cfg(since_647)]
 const SIDE: u16 = 336;
 const CONFIRM: u16 = 334;
-const OFFER: i32 = (MAIN as i32) << 16 | 31;
-const OTHER_OFFER: i32 = (MAIN as i32) << 16 | 34;
-const BACKPACK: i32 = (SIDE as i32) << 16;
-const ACCEPT: i32 = (MAIN as i32) << 16 | 16;
-const DECLINE: i32 = (MAIN as i32) << 16 | 18;
-const CONFIRM_ACCEPT: i32 = (CONFIRM as i32) << 16 | 21;
 /// 289's tradeoffer, 2011's inv 90.
 const TRADEOFFER: u16 = 90;
 /// "Trade modified": the player's own offer, the other's.
@@ -70,91 +61,38 @@ fn ticks(
     (pa, pb)
 }
 
-fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec<u8>> {
-    let opcode = prot as u16;
-    packets
-        .iter()
-        .filter(move |(op, _)| *op == opcode)
-        .map(|(_, p)| p)
-}
-
 /// The clientscripts RUNCLIENTSCRIPT ran (`... p4 script_id` last).
 fn scripts(packets: &[(u16, Vec<u8>)]) -> Vec<i32> {
-    of(packets, ServerProt::RunClientScript)
-        .map(|p| {
-            let n = p.len();
-            i32::from_be_bytes([p[n - 4], p[n - 3], p[n - 2], p[n - 1]])
-        })
+    server::scripts(packets)
+        .into_iter()
+        .map(|(s, _)| s)
         .collect()
 }
 
-/// Each UPDATE_INV_FULL as `(inv, other, [(obj, count)] of its filled slots)`:
-/// `g2 inv; g1 flags; g2 size;` per slot `g1 count (255: ig4); g2_alt2 obj+1`.
+/// Each UPDATE_INV_FULL as `(inv, other, [(obj, count)] of its filled slots)`.
 fn invs(packets: &[(u16, Vec<u8>)]) -> Vec<Inv> {
-    of(packets, ServerProt::UpdateInvFull)
-        .map(|p| {
-            let inv = u16::from_be_bytes([p[0], p[1]]);
-            let other = p[2] & 1 == 1;
-            let size = u16::from_be_bytes([p[3], p[4]]);
-            let mut pos = 5;
-            let mut slots = Vec::new();
-            for _ in 0..size {
-                let mut count = p[pos] as i32;
-                pos += 1;
-                if count == 255 {
-                    count = i32::from_le_bytes([p[pos], p[pos + 1], p[pos + 2], p[pos + 3]]);
-                    pos += 4;
-                }
-                let id = ((p[pos] as u16) << 8 | p[pos + 1].wrapping_sub(128) as u16) as i32 - 1;
-                pos += 2;
-                if id >= 0 {
-                    slots.push((id as u16, count));
-                }
-            }
-            (inv, other, slots)
-        })
-        .collect()
-}
-
-/// Each varc set, `(varc, value)`: VARC_SMALL `p1_alt2 value, p2_alt1 varc`;
-/// VARC_LARGE `p4_alt1 value, p2_alt3 varc`.
-fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
-    let mut out: Vec<(u16, i32)> = of(packets, ServerProt::VarcSmall)
-        .map(|p| {
+    server::invs(packets)
+        .into_iter()
+        .map(|i| {
+            let slots = i.slots.into_iter().flatten();
             (
-                u16::from_le_bytes([p[1], p[2]]),
-                0u8.wrapping_sub(p[0]) as i32,
+                i.inv as u16,
+                i.other,
+                slots.map(|(o, c)| (o as u16, c)).collect(),
             )
         })
-        .collect();
-    out.extend(of(packets, ServerProt::VarcLarge).map(|p| {
-        (
-            u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]),
-            i32::from_le_bytes([p[0], p[1], p[2], p[3]]),
-        )
-    }));
-    out
+        .collect()
 }
 
-/// Each MESSAGE_GAME as `(type, name, text)`: `gsmart type; g4; g1 mask;`
-/// a name when mask bit 0 is set, then the text.
+/// Each varc set, `(varc, value)`.
+#[cfg(since_647)]
+fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
+    server::varcs(packets)
+}
+
+/// Each MESSAGE_GAME as `(type, name, text)`.
 fn messages(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, Option<String>, String)> {
-    of(packets, ServerProt::MessageGame)
-        .map(|p| {
-            let kind = p[0] as i32;
-            let mut pos = 5;
-            let mask = p[pos];
-            pos += 1;
-            let mut string = || {
-                let end = pos + p[pos..].iter().position(|&b| b == 0).unwrap();
-                let s = String::from_utf8_lossy(&p[pos..end]).into_owned();
-                pos = end + 1;
-                s
-            };
-            let name = (mask & 1 == 1).then(&mut string);
-            (kind, name, string())
-        })
-        .collect()
+    server::messages(packets)
 }
 
 fn count(engine: &Engine, pid: u16, inv: u16, obj: u16) -> i32 {
@@ -189,29 +127,18 @@ fn varp(engine: &Engine, pid: u16, varp: u16) -> i32 {
 /// The name `displayname` gives a player logged in as `username` who has
 /// claimed no display name: the login name as 289 shows it, as the client
 /// draws them.
+#[cfg(since_647)]
 fn display_name(username: &str) -> String {
     to_screen_name(username)
 }
 
 fn trade_with(client: &mut HarnessClient, other: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(other as i32).p1(0);
-    client.send(ClientProt::OpPlayer4, &p.finish());
+    client.op_player(4, other);
 }
 
 fn button(client: &mut HarnessClient, op: u8, com: i32, obj: u16, slot: u16) {
-    let prot = match op {
-        1 => ClientProt::IfButton1,
-        2 => ClientProt::IfButton2,
-        3 => ClientProt::IfButton3,
-        4 => ClientProt::IfButton4,
-        5 => ClientProt::IfButton5,
-        9 => ClientProt::IfButton9,
-        _ => ClientProt::IfButton10,
-    };
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
-    client.send(prot, &p.finish());
+    let op = if matches!(op, 1..=5 | 9) { op } else { 10 };
+    client.if_button(op, com, slot, TypeId::new(obj));
 }
 
 /// Two players side by side.
@@ -241,6 +168,7 @@ fn open_trade(
 /// The request names the requester as the other's client draws them: by the
 /// display name they claimed (2011's client finds the player to trade back
 /// by that name), not their login's.
+#[cfg(since_647)]
 #[test]
 fn trade_with_sends_2011s_request() {
     runner::on_loaded_engine(|engine| {
@@ -271,6 +199,7 @@ fn trade_with_sends_2011s_request() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn trading_back_opens_both_screens_with_their_grids() {
     runner::on_loaded_engine(|engine| {
@@ -299,9 +228,7 @@ fn trading_back_opens_both_screens_with_their_grids() {
                 "{who}: the other's offer, inv 90 with the other flag; sent {sent:?}"
             );
         }
-        let names: Vec<String> = of(&pb, ServerProt::VarcStrSmall)
-            .map(|p| String::from_utf8_lossy(&p[..p.len() - 3]).into_owned())
-            .collect();
+        let names: Vec<String> = server::varcstrs(&pb).into_iter().map(|(_, v)| v).collect();
         assert!(
             names.contains(&display_name("trader_a")),
             "the trader's name (varcstr 203); sent {names:?}"
@@ -309,6 +236,7 @@ fn trading_back_opens_both_screens_with_their_grids() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn an_offer_reaches_the_other_as_their_other_inv() {
     runner::on_loaded_engine(|engine| {
@@ -317,10 +245,10 @@ fn an_offer_reaches_the_other_as_their_other_inv() {
         give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
         // Offer-5, then Offer-All.
-        button(&mut a, 2, BACKPACK, coins.g2(), 0);
+        button(&mut a, 2, com("tradeside:side_layer"), coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
         assert_eq!(count(engine, a.pid, TRADEOFFER, coins.g2()), 5, "Offer-5");
-        button(&mut a, 4, BACKPACK, coins.g2(), 0);
+        button(&mut a, 4, com("tradeside:side_layer"), coins.g2(), 0);
         let (pa, pb) = ticks(engine, &mut a, &mut b, 1);
         assert_eq!(
             count(engine, a.pid, TRADEOFFER, coins.g2()),
@@ -356,10 +284,10 @@ fn both_accepting_twice_swaps_the_offers() {
         give(engine, a.pid, 0, coins.g2(), 1000);
         give(engine, b.pid, 0, axe.g2(), 1);
         open_trade(engine, &mut a, &mut b);
-        button(&mut a, 4, BACKPACK, coins.g2(), 0);
-        button(&mut b, 1, BACKPACK, axe.g2(), 0);
+        button(&mut a, 4, com("tradeside:side_layer"), coins.g2(), 0);
+        button(&mut b, 1, com("tradeside:side_layer"), axe.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 1, ACCEPT, 0xFFFF, 0xFFFF);
+        button(&mut a, 1, com("trademain:accept_button"), 0xFFFF, 0xFFFF);
         ticks(engine, &mut a, &mut b, 1);
         assert!(
             !engine
@@ -367,7 +295,7 @@ fn both_accepting_twice_swaps_the_offers() {
                 .unwrap()
                 .is_interface_open(CONFIRM)
         );
-        button(&mut b, 1, ACCEPT, 0xFFFF, 0xFFFF);
+        button(&mut b, 1, com("trademain:accept_button"), 0xFFFF, 0xFFFF);
         let (pa, _) = ticks(engine, &mut a, &mut b, 1);
         for pid in [a.pid, b.pid] {
             let player = engine.harness_player(pid).unwrap();
@@ -380,8 +308,8 @@ fn both_accepting_twice_swaps_the_offers() {
                 && sent.contains(&(TRADEOFFER, true, vec![(axe.g2(), 1)])),
             "both offers again, which 2011's confirm screen lists itself; sent {sent:?}"
         );
-        button(&mut a, 1, CONFIRM_ACCEPT, 0xFFFF, 0xFFFF);
-        button(&mut b, 1, CONFIRM_ACCEPT, 0xFFFF, 0xFFFF);
+        button(&mut a, 1, com("tradeconfirm:trade2accept"), 0xFFFF, 0xFFFF);
+        button(&mut b, 1, com("tradeconfirm:trade2accept"), 0xFFFF, 0xFFFF);
         let (pa, pb) = ticks(engine, &mut a, &mut b, 1);
         assert_eq!(
             count(engine, b.pid, 93, coins.g2()),
@@ -409,9 +337,9 @@ fn declining_gives_the_offer_back() {
         let (mut a, mut b) = traders(engine);
         give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
-        button(&mut a, 4, BACKPACK, coins.g2(), 0);
+        button(&mut a, 4, com("tradeside:side_layer"), coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 1, DECLINE, 0xFFFF, 0xFFFF);
+        button(&mut a, 1, com("trademain:decline_button"), 0xFFFF, 0xFFFF);
         let (_, pb) = ticks(engine, &mut a, &mut b, 1);
         assert_eq!(
             count(engine, a.pid, 93, coins.g2()),
@@ -440,9 +368,15 @@ fn a_removal_marks_the_trade_modified() {
         give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
         assert_eq!(varp(engine, a.pid, OFFER_MODIFIED), 0);
-        button(&mut a, 4, BACKPACK, coins.g2(), 0);
+        button(&mut a, 4, com("tradeside:side_layer"), coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 3, OFFER, coins.g2(), 0);
+        button(
+            &mut a,
+            3,
+            com("trademain:your_offer_layer_flashy"),
+            coins.g2(),
+            0,
+        );
         let (_, pb) = ticks(engine, &mut a, &mut b, 1);
         assert_eq!(
             count(engine, a.pid, TRADEOFFER, coins.g2()),
@@ -460,7 +394,13 @@ fn a_removal_marks_the_trade_modified() {
             "the slot flashes on the other's screen"
         );
         // Examine on the other's offer (op9).
-        button(&mut b, 9, OTHER_OFFER, coins.g2(), 0);
+        button(
+            &mut b,
+            9,
+            com("trademain:other_offer_layer_flashy"),
+            coins.g2(),
+            0,
+        );
         let (_, pb) = ticks(engine, &mut a, &mut b, 1);
         let desc = engine.cache.objs.get_by_id(coins).unwrap().desc.clone();
         assert!(
@@ -475,12 +415,7 @@ fn a_removal_marks_the_trade_modified() {
 
 /// Each IF_SETHIDE as `(com, hidden)`: `p4_alt3 com, p1_alt2 hidden`.
 fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
-    of(packets, ServerProt::IfSetHide)
-        .map(|p| {
-            let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
-            (com, 0u8.wrapping_sub(p[4]) == 1)
-        })
-        .collect()
+    server::hides(packets)
 }
 
 /// The confirm screen says "Trade modified" (com55) to the one whose trader
@@ -492,12 +427,18 @@ fn the_confirm_screen_says_the_trade_was_modified() {
         let (mut a, mut b) = traders(engine);
         give(engine, a.pid, 0, coins.g2(), 1000);
         open_trade(engine, &mut a, &mut b);
-        button(&mut a, 4, BACKPACK, coins.g2(), 0);
+        button(&mut a, 4, com("tradeside:side_layer"), coins.g2(), 0);
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 1, OFFER, coins.g2(), 0);
+        button(
+            &mut a,
+            1,
+            com("trademain:your_offer_layer_flashy"),
+            coins.g2(),
+            0,
+        );
         ticks(engine, &mut a, &mut b, 1);
-        button(&mut a, 1, ACCEPT, 0xFFFF, 0xFFFF);
-        button(&mut b, 1, ACCEPT, 0xFFFF, 0xFFFF);
+        button(&mut a, 1, com("trademain:accept_button"), 0xFFFF, 0xFFFF);
+        button(&mut b, 1, com("trademain:accept_button"), 0xFFFF, 0xFFFF);
         let (pa, pb) = ticks(engine, &mut a, &mut b, 2);
         assert!(
             engine
@@ -505,7 +446,7 @@ fn the_confirm_screen_says_the_trade_was_modified() {
                 .unwrap()
                 .is_interface_open(CONFIRM)
         );
-        let modified = (CONFIRM as i32) << 16 | 55;
+        let modified = com("tradeconfirm:trade_removed_warning_right");
         assert!(
             hides(&pb).contains(&(modified, false)),
             "shown to the other; sent {:?}",

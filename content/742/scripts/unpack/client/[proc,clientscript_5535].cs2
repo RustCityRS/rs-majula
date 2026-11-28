@@ -4,6 +4,6 @@ if ($int0 = -1) {
     $int0 = %varclient_1725;
 }
 if ($int0 ! %varclient_1725) {
-    sound_vorbis_volume(6185, 1, 0, 255);
+    sound_vorbis_volume(vorbis_6185, 1, 0, 255);
 }
 ~clientscript_5536($int0);

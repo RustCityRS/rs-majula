@@ -1,19 +1,21 @@
-#[cfg(before_530)]
+#[cfg(before_647)]
 use crate::REVISION;
 use crate::device;
 use crate::socket::handshake;
-use crate::{ConnectionGuard, ServerIO, SharedCache, Socket};
+use crate::{ConnectionGuard, ServerIO, Socket};
 use rs_db::LoginDevice;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use rs_io::crc::getcrc;
-#[cfg(before_530)]
+#[cfg(before_647)]
 use rs_pack::cache::CacheStore;
+#[cfg(before_647)]
+use rs_pack::static_asset_content_type;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 #[cfg(before_530)]
 use std::collections::HashMap;
 use std::io;
 use std::net::{IpAddr, SocketAddr};
-#[cfg(before_530)]
+#[cfg(before_647)]
 use std::sync::{Arc, LazyLock};
 use std::time::Duration;
 #[cfg(since_647)]
@@ -44,15 +46,13 @@ fn ws_config() -> WebSocketConfig {
 
 pub(crate) enum Body {
     Empty,
-    #[cfg(any(before_530, since_647))]
     Owned(Vec<u8>),
-    // Rev-647 serves no shared cache blobs over HTTP — only jav_config.ws.
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     Shared(Arc<[u8]>),
 }
 
 impl Body {
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     fn len(&self) -> usize {
         match self {
             Body::Empty => 0,
@@ -64,9 +64,8 @@ impl Body {
     pub(crate) fn as_bytes(&self) -> &[u8] {
         match self {
             Body::Empty => &[],
-            #[cfg(any(before_530, since_647))]
             Body::Owned(v) => v,
-            #[cfg(before_530)]
+            #[cfg(before_647)]
             Body::Shared(a) => a,
         }
     }
@@ -87,6 +86,8 @@ const CLIENT_HTML: &str = include_str!("../../public/254/client.html");
 const CLIENT_HTML: &str = include_str!("../../public/274/client.html");
 #[cfg(rev = "289")]
 const CLIENT_HTML: &str = include_str!("../../public/289/client.html");
+#[cfg(rev = "530")]
+const CLIENT_HTML: &str = include_str!("../../public/530/client.html");
 
 pub async fn serve(
     host: String,
@@ -284,7 +285,7 @@ async fn handle_connection(
             query,
             &nodeid,
             members,
-            server_state.cache,
+            &server_state,
             jaggrab_only,
             site_origin,
         )
@@ -294,7 +295,7 @@ async fn handle_connection(
         let connection_close = raw.to_ascii_lowercase().contains("connection: close");
 
         let header = format!(
-            "HTTP/1.1 {}\r\nConnection: {}\r\n{SECURITY_HEADERS}{}\r\n",
+            "HTTP/1.1 {}\r\nConnection: {}\r\n{SECURITY_HEADERS}{ISOLATION_HEADERS}{}\r\n",
             status,
             if connection_close {
                 "close"
@@ -330,7 +331,39 @@ async fn handle_connection(
 /// The rev-647 desktop client bootstraps from `/jav_config.ws` and fetches the
 /// cache over JS5 — the jag-era cache/CRC endpoints don't exist in that era.
 #[cfg(since_647)]
-const JAV_CONFIG: &[u8] = include_bytes!(concat!("../../public/", env!("REV"), "/jav_config.ws"));
+const JAV_CONFIG: &str = include_str!(concat!("../../public/", env!("REV"), "/jav_config.ws"));
+
+#[cfg(since_647)]
+pub fn client_config(world: &str, id: u16, lobby: &str, lobby_id: u16) -> String {
+    let mut config = String::new();
+    for line in JAV_CONFIG.lines() {
+        let (prefix, value) = match line.split_once('=') {
+            Some(("codebase", _)) if world.contains(':') => {
+                ("codebase=", format!("http://[{world}]"))
+            }
+            Some(("codebase", _)) => ("codebase=", format!("http://{world}")),
+            _ if line.starts_with("param=worldid=") => ("param=worldid=", id.to_string()),
+            _ if line.starts_with("param=18=") => ("param=18=", id.to_string()),
+            _ if line.starts_with("param=lobbyid=") => ("param=lobbyid=", lobby_id.to_string()),
+            _ if line.starts_with("param=8=") => ("param=8=", lobby_id.to_string()),
+            _ if line.starts_with("param=lobbyaddress=") => {
+                ("param=lobbyaddress=", lobby.to_owned())
+            }
+            _ if line.starts_with("param=10=") => ("param=10=", lobby.to_owned()),
+            _ if line.starts_with("param=gameaddress=") => ("param=gameaddress=", world.to_owned()),
+            _ => {
+                config.push_str(line);
+                config.push('\n');
+                continue;
+            }
+        };
+        config.push_str(prefix);
+        config.push_str(&value);
+        config.push('\n');
+    }
+    config
+}
+
 /// Peeks at the request until its head ends or fills `buf`: the bytes read.
 /// A peek before more arrives returns the same bytes at once, so it waits.
 async fn peek_head(stream: &TcpStream, buf: &mut [u8]) -> io::Result<usize> {
@@ -439,6 +472,12 @@ fn touch_device(head: &str) -> bool {
 const SECURITY_HEADERS: &str =
     "X-Content-Type-Options: nosniff\r\nReferrer-Policy: strict-origin-when-cross-origin\r\n";
 
+const ISOLATION_HEADERS: &str = if cfg!(rev = "530") {
+    "Cross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Embedder-Policy: require-corp\r\n"
+} else {
+    ""
+};
+
 /// Whether a WebSocket handshake comes from a page this host served: its
 /// `Origin` names the same host (and port) as its `Host`. The web client
 /// always connects back to the world that served it, so this refuses pages on
@@ -459,28 +498,48 @@ async fn route(
     query: &str,
     nodeid: &str,
     members: bool,
-    cache: SharedCache,
+    state: &ServerIO,
     jaggrab_only: bool,
     site_origin: Option<&'static str>,
 ) -> (&'static str, String, Body) {
-    // A 647 world serves only its client config and jar here, a 530 world nothing.
-    #[cfg(since_530)]
-    let _ = (query, nodeid, members, cache, jaggrab_only, site_origin);
+    #[cfg(since_647)]
+    let _ = (query, nodeid, members, jaggrab_only, site_origin);
+    #[cfg(rev = "530")]
+    let _ = jaggrab_only;
+    #[cfg(before_647)]
+    let cache = state.cache;
     // Test hook: refusing cache downloads over HTTP makes a stock desktop
     // client toggle its archive loader onto the JAGGRAB fallback.
     #[cfg(before_530)]
     if jaggrab_only && matches_cache(path) {
         return not_found();
     }
+    #[cfg(before_647)]
+    if let Some(response) = route_client(
+        path,
+        query,
+        #[cfg(rev = "530")]
+        state.world.id,
+        nodeid,
+        members,
+        || cache.read(client_version),
+        site_origin,
+    ) {
+        return response;
+    }
+    #[cfg(since_647)]
+    let Some(config) = &state.jav_config else {
+        return not_found();
+    };
     match path {
         #[cfg(since_647)]
         "/jav_config.ws" => (
             "200 OK",
             format!(
                 "Content-Type: text/plain; charset=ISO-8859-1\r\nContent-Length: {}\r\n",
-                JAV_CONFIG.len()
+                config.len()
             ),
-            Body::Owned(JAV_CONFIG.to_vec()),
+            Body::Owned(config.as_bytes().to_vec()),
         ),
         #[cfg(since_647)]
         "/client.jar" => match fs::read(concat!("public/", env!("REV"), "/client.jar")).await {
@@ -500,39 +559,6 @@ async fn route(
             "Location: /rs2.cgi?lowmem=0&plugin=0\r\nContent-Length: 0\r\n".into(),
             Body::Empty,
         ),
-        #[cfg(before_530)]
-        "/rs2.cgi" => {
-            let params = parse_query(query);
-            // Only ever echoed as parsed numbers: they end up in a redirect
-            // header and in the page's JavaScript.
-            let plugin = query_number(&params, "plugin");
-            let lowmem = query_number(&params, "lowmem") != 0;
-
-            if !params.contains_key("plugin") || !params.contains_key("lowmem") {
-                return (
-                    "302 Found",
-                    format!(
-                        "Location: /rs2.cgi?lowmem={}&plugin={}\r\nContent-Length: 0\r\n",
-                        u8::from(lowmem),
-                        plugin
-                    ),
-                    Body::Empty,
-                );
-            }
-
-            let bytes =
-                render_client(nodeid, lowmem, members, cache.read(client_version)).into_bytes();
-            let len = bytes.len();
-            (
-                "200 OK",
-                // Never reused: it names the client.js to load (see render_client).
-                format!(
-                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
-                    frame_ancestors(site_origin)
-                ),
-                Body::Owned(bytes),
-            )
-        }
         #[cfg(before_530)]
         "/worldmap" => {
             let bytes = render_worldmap(cache.read(|cache| asset_version(cache, "/mapview.js")))
@@ -575,7 +601,7 @@ async fn route(
         }
         #[cfg(before_530)]
         "/livemap.js" => LIVEMAP_SCRIPT.serve(query),
-        #[cfg(before_530)]
+        #[cfg(before_647)]
         "/device.js" => DEVICE_SCRIPT.serve(query),
         #[cfg(before_530)]
         "/gpu.js" => GPU_SCRIPT.serve(query),
@@ -605,7 +631,7 @@ async fn route(
             }
             None => bad_request(),
         },
-        #[cfg(before_530)]
+        #[cfg(before_647)]
         p if is_asset(p) => match cache.read(|cache| read_asset(p, cache)) {
             Some((content_type, body)) => {
                 let len = body.len();
@@ -692,20 +718,14 @@ pub(crate) fn read_cache(path: &str, cache: &CacheStore) -> Option<Body> {
     cache.jags.get(key).map(|arc| Body::Shared(Arc::clone(arc)))
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 fn is_asset(path: &str) -> bool {
-    path.ends_with(".js")
-        || path.ends_with(".wasm")
-        || path.ends_with(".sf2")
-        || path.ends_with(".mjs")
-        || path.ends_with(".ico")
-        || path.ends_with(".mid")
+    static_asset_content_type(path).is_some() || (cfg!(before_530) && path.ends_with(".mid"))
 }
 
-// The jag-era web client's pages and assets; a 647 world serves only
-// jav_config.ws and the client jar.
-#[cfg(before_530)]
+#[cfg(before_647)]
 fn read_asset(path: &str, cache: &CacheStore) -> Option<(&'static str, Body)> {
+    #[cfg(before_530)]
     if path.ends_with(".mid") {
         let filename = path.split('/').next_back().unwrap_or(path);
         let stem = filename.strip_suffix(".mid").unwrap_or(filename);
@@ -719,36 +739,97 @@ fn read_asset(path: &str, cache: &CacheStore) -> Option<(&'static str, Body)> {
             .map(|midi| ("audio/midi", Body::Shared(Arc::clone(&midi.data))));
     }
 
-    let content_type: &'static str = if path.ends_with(".js") || path.ends_with(".mjs") {
-        "application/javascript"
-    } else if path.ends_with(".wasm") {
-        "application/wasm"
-    } else if path.ends_with(".sf2") {
-        "application/octet-stream"
-    } else if path.ends_with(".ico") {
-        "image/vnd.microsoft.icon"
-    } else {
-        return None;
-    };
-
-    if let Some(data) = cache.static_assets.get(path) {
-        return Some((content_type, Body::Shared(Arc::clone(data))));
-    }
-
-    None
+    let content_type = static_asset_content_type(path)?;
+    let data = cache.static_assets.get(path)?;
+    Some((content_type, Body::Shared(Arc::clone(data))))
 }
 
-#[cfg(before_530)]
-/// Fills in this revision's client page. Every value is a number or a bool,
-/// so no request text reaches the page's JavaScript.
-///
+#[cfg(before_647)]
+fn route_client(
+    path: &str,
+    query: &str,
+    #[cfg(rev = "530")] world_id: u16,
+    nodeid: &str,
+    members: bool,
+    version: impl FnOnce() -> Option<u32>,
+    site_origin: Option<&str>,
+) -> Option<(&'static str, String, Body)> {
+    #[cfg(rev = "530")]
+    let lowmem = {
+        let page = match path {
+            "/" | "/rs2.cgi" => "/rs2.cgi",
+            "/worldmap" => "/worldmap",
+            _ => return None,
+        };
+        let mut params =
+            form_urlencoded::Serializer::new(format!("worldid={world_id}&modewhere=1&modewhat=0"));
+        for (key, value) in form_urlencoded::parse(query.as_bytes()) {
+            if !matches!(
+                key.as_ref(),
+                "worldid" | "modewhere" | "modewhat" | "plugin" | "lowmem" | "world"
+            ) {
+                params.append_pair(&key, &value);
+            }
+        }
+        let canonical = params.finish();
+        if path != page || query != canonical {
+            return Some((
+                "302 Found",
+                format!("Location: {page}?{canonical}\r\nContent-Length: 0\r\n"),
+                Body::Empty,
+            ));
+        }
+        false
+    };
+    #[cfg(before_530)]
+    let lowmem = match path {
+        "/rs2.cgi" => {
+            let params = parse_query(query);
+            // Only ever echoed as parsed numbers: they end up in a redirect
+            // header and in the page's JavaScript.
+            let plugin = query_number(&params, "plugin");
+            let lowmem = query_number(&params, "lowmem") != 0;
+            if !params.contains_key("plugin") || !params.contains_key("lowmem") {
+                return Some((
+                    "302 Found",
+                    format!(
+                        "Location: /rs2.cgi?lowmem={}&plugin={}\r\nContent-Length: 0\r\n",
+                        u8::from(lowmem),
+                        plugin
+                    ),
+                    Body::Empty,
+                ));
+            }
+            lowmem
+        }
+        _ => return None,
+    };
+    let bytes = render_client(nodeid, lowmem, members, version()).into_bytes();
+    let len = bytes.len();
+    Some((
+        "200 OK",
+        format!(
+            "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
+            frame_ancestors(site_origin)
+        ),
+        Body::Owned(bytes),
+    ))
+}
+
+#[cfg(before_647)]
 /// With `version`, the page imports `client.js?v=<version>`: a client.js that
 /// changes (a new release, or `deploy/web/patch.py` patching in a new login key)
 /// gets a new URL, so no browser or Cloudflare cache serves the old one.
 fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
+    #[cfg(before_530)]
     let device = format!(
         "<script src=\"/device.js?v={}\"></script>\n    <script src=\"/gpu.js?v={}\"></script>\n    <script type=\"module\">",
         DEVICE_SCRIPT.version, GPU_SCRIPT.version
+    );
+    #[cfg(rev = "530")]
+    let device = format!(
+        "<script src=\"/device.js?v={}\"></script>\n    <script type=\"module\">",
+        DEVICE_SCRIPT.version
     );
     let html = CLIENT_HTML
         .replacen("<script type=\"module\">", &device, 1)
@@ -761,7 +842,7 @@ fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>
     }
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 /// A script of the world's own pages, which name it with its CRC: asked for
 /// by that, it's kept for good, as it changes only with the world.
 struct Script {
@@ -769,7 +850,7 @@ struct Script {
     version: String,
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 impl Script {
     fn new(source: &str) -> Self {
         let body: Arc<[u8]> = source.as_bytes().into();
@@ -887,7 +968,7 @@ new MapView();
 /// Draws the players the staff console sends over the world map.
 static LIVEMAP_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("livemap.js")));
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 /// Measures the device and keeps the browser's id for the client page (see
 /// device.js), with this deploy's key and names. Only the game's own page
 /// loads it: replays play without it.
@@ -934,7 +1015,7 @@ window.__livemap.start(new MapView());
     )
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 /// The client page's framing rule: only this host and the website (which
 /// frames it on its play page) may show it, so no other site can wrap the
 /// game in its own page. Without a website origin, framing is left open (a
@@ -945,13 +1026,13 @@ fn frame_ancestors(site_origin: Option<&str>) -> String {
     })
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 /// The CRC of the client.js this world serves, `None` if it has none.
 fn client_version(cache: &CacheStore) -> Option<u32> {
     asset_version(cache, &format!("/{REVISION}/client.js"))
 }
 
-#[cfg(before_530)]
+#[cfg(before_647)]
 /// The CRC of a static asset, `None` if this world doesn't have it.
 fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
     let data = cache.static_assets.get(path)?;
@@ -972,7 +1053,6 @@ fn bad_request() -> (&'static str, String, Body) {
     )
 }
 
-#[cfg(any(before_530, since_647))]
 fn not_found() -> (&'static str, String, Body) {
     ("404 Not Found", "Content-Length: 0\r\n".into(), Body::Empty)
 }
@@ -1012,6 +1092,75 @@ mod tests {
         assert!(cache("v=00000000").contains("no-cache"));
     }
 
+    #[cfg(rev = "530")]
+    #[test]
+    fn web_client_enables_shared_memory() {
+        assert!(ISOLATION_HEADERS.contains("Cross-Origin-Opener-Policy: same-origin\r\n"));
+        assert!(ISOLATION_HEADERS.contains("Cross-Origin-Embedder-Policy: require-corp\r\n"));
+    }
+
+    #[cfg(rev = "530")]
+    #[test]
+    fn worldmap_client_page_loads_the_versioned_bundle_in_the_website_frame() {
+        let (status, headers, body) = route_client(
+            "/worldmap",
+            "worldid=1&modewhere=1&modewhat=0",
+            1,
+            "10",
+            true,
+            || Some(0xab12),
+            Some("https://rustcity.org"),
+        )
+        .expect("530 worldmap route");
+        assert_eq!(status, "200 OK");
+        let html = std::str::from_utf8(body.as_bytes()).unwrap();
+        assert!(html.contains("from './530/client.js?v=0000ab12'"));
+        assert!(html.contains("new Client()"));
+        assert!(headers.contains("Cache-Control: no-cache\r\n"));
+        assert!(
+            headers.contains(
+                "Content-Security-Policy: frame-ancestors 'self' https://rustcity.org\r\n"
+            )
+        );
+        assert!(headers.contains(&format!("Content-Length: {}\r\n", html.len())));
+    }
+
+    #[cfg(rev = "530")]
+    #[test]
+    fn world_supplies_the_launch_parameters() {
+        for (path, query, page, extra) in [
+            ("/", "", "/rs2.cgi", ""),
+            ("/rs2.cgi", "plugin=0&world=1&lowmem=0", "/rs2.cgi", ""),
+            ("/worldmap", "", "/worldmap", ""),
+            (
+                "/rs2.cgi",
+                "lang=1&worldid=1&modewhat=2&modewhere=0&settings=a%2Bb",
+                "/rs2.cgi",
+                "&lang=1&settings=a%2Bb",
+            ),
+        ] {
+            let (status, headers, _) =
+                route_client(path, query, 301, "10", true, || None, None).unwrap();
+            let canonical = format!("worldid=301&modewhere=1&modewhat=0{extra}");
+            assert_eq!(status, "302 Found");
+            assert!(headers.contains(&format!("Location: {page}?{canonical}\r\n")));
+            assert_eq!(
+                route_client(page, &canonical, 301, "10", true, || None, None)
+                    .unwrap()
+                    .0,
+                "200 OK"
+            );
+        }
+    }
+
+    #[cfg(before_530)]
+    #[test]
+    fn bare_game_url_redirects_to_its_canonical_query() {
+        let (status, headers, _) = route_client("/rs2.cgi", "", "10", true, || None, None).unwrap();
+        assert_eq!(status, "302 Found");
+        assert!(headers.contains("Location: /rs2.cgi?lowmem=0&plugin=0\r\n"));
+    }
+
     #[cfg(before_530)]
     #[test]
     fn client_page_fills_every_marker() {
@@ -1020,7 +1169,7 @@ mod tests {
         assert!(!html.contains("{{"));
     }
 
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     #[test]
     fn client_page_measures_the_device_before_the_client_loads() {
         assert!(!device::setup().source.contains("__DEVICE_"));
@@ -1080,7 +1229,7 @@ mod tests {
         assert_eq!(frame_ancestors(None), "");
     }
 
-    #[cfg(before_530)]
+    #[cfg(before_647)]
     #[test]
     fn client_page_versions_its_client_js() {
         let html = render_client("10", true, false, Some(0xab12));

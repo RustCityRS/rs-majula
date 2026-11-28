@@ -2596,9 +2596,33 @@ function chatItem(c) {
             class: 'chat-world',
             title: `${c.x}, ${c.z}${c.level ? `, floor ${c.level}` : ''}`
         }, c.world ? `W${c.world}` : `N${c.node}`),
-        h('span', {class: 'chat-who'}, playerLink(c.from),
-            c.to && [h('span', {class: 'muted'}, ' to '), playerLink(c.to)]),
-        h('span', {class: `chat-text ${c.to ? 'private' : ''}`}, c.message));
+        h('span', {class: 'chat-who'}, playerLink(c.from), chatWhere(c, playerLink)),
+        h('span', {class: `chat-text ${chatChannel(c) === 1 ? 'private' : ''}`}, c.message));
+}
+
+// A chat line's channel: 0 public, 1 private (`to` is the recipient), 2 friends
+// chat (`to` is the channel's owner), 3 clan chat. Evidence kept before chat
+// logs had channels has none, and a recipient makes it a private message.
+function chatChannel(c) {
+    return c.channel ?? (c.to ? 1 : 0);
+}
+
+// Where a chat line went: a private message's recipient, the friends chat it
+// was said in (named by its owner), or the clan chat. `first` words it to
+// start a line.
+function chatWhere(c, link, first = false) {
+    const muted = (text) => h('span', {class: 'muted'}, text);
+    const lead = (text) => muted(first ? text[1].toUpperCase() + text.slice(2) : text);
+    switch (chatChannel(c)) {
+        case 1:
+            return [lead(' to '), link(c.to)];
+        case 2:
+            return [lead(' in '), link(c.to), muted("'s friends chat")];
+        case 3:
+            return lead(' in clan chat');
+        default:
+            return null;
+    }
 }
 
 // A list that loads a page at a time, newest first, with "Load older".
@@ -2749,7 +2773,7 @@ function playerPage(ctx) {
         const act = (action) => () => moderateDialog(p.name, action, load);
         support.update(p);
         replace(head, pageHead(h('span', {}, p.name, ' ', playerBadges({staff_level: p.staff_level})),
-            p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
+            p.online_lobby != null ? `In lobby on node ${p.online_lobby}` : p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
             p.online_node != null && mayWatch(p.staff_level) && button('Watch live', {
                 icon: 'radio',
                 on: {click: () => watchLive(p.name)}
@@ -2768,7 +2792,9 @@ function playerPage(ctx) {
             pinButton(p.name)));
         changePrefs({op: 'viewed', name: p.name}).catch(() => {
         });
-        const seen = p.online_node != null
+        const seen = p.online_lobby != null
+            ? fact('activity', 'Status', 'In lobby', `Lobby node ${p.online_lobby}`)
+            : p.online_node != null
             ? fact('activity', 'Status', 'Online', `${p.online_world ? `World ${p.online_world}` : `Node ${p.online_node}`}${p.online_since_ms ? ` since ${ago(p.online_since_ms)}` : ''}`)
             : fact('clock', 'Last seen', p.last_seen_ms ? ago(p.last_seen_ms) : 'Never', p.last_seen_ms ? `${p.last_world ? `World ${p.last_world}` : 'Logged out'} · ${fullTime(p.last_seen_ms)}` : 'No logout on record');
         replace(facts,
@@ -3615,12 +3641,13 @@ function rollbackDialog(name, point, online, onDone) {
 
 // What a player's session state means, and whether freeing it can help.
 function sessionSummary(s) {
-    if (!s.owner) return {tone: 'ok', text: 'No world holds their session: they can log in on any world.', free: false};
+    if (!s.owner) return {tone: 'ok', text: 'No lobby or world holds their session.', free: false};
     const o = s.owner;
-    const at = worldLabel(o.node, o.world);
+    const at = o.lobby ? `lobby node ${o.node}` : worldLabel(o.node, o.world);
     const since = o.since_ms ? ` since ${ago(o.since_ms)}` : '';
     if (!o.reachable || !s.hold) {
         const silent = o.heartbeat_age_ms == null || o.heartbeat_age_ms > o.takeover_after_ms;
+        if (o.lobby && !silent) return {tone: 'ok', text: `In ${at}${since}.`, free: false};
         return silent
             ? {
                 tone: 'warn',
@@ -5555,8 +5582,8 @@ function evidenceItem(e, onRemove) {
             e.last_ms);
     }
     return row('chat', '',
-        [h('b', {}, playerLink(e.from)), e.to && [h('span', {class: 'muted'}, ' to '), h('b', {}, playerLink(e.to))]],
-        [h('span', {class: `chat-text ${e.to ? 'private' : ''}`}, e.message), h('br'), `${worldOf(e.node)} · ${fullTime(e.at_ms)}`],
+        [h('b', {}, playerLink(e.from)), chatWhere(e, (name) => h('b', {}, playerLink(name)))],
+        [h('span', {class: `chat-text ${chatChannel(e) === 1 ? 'private' : ''}`}, e.message), h('br'), `${worldOf(e.node)} · ${fullTime(e.at_ms)}`],
         e.at_ms);
 }
 
@@ -5681,7 +5708,7 @@ function evidenceDialog(c, onAdded) {
                     })),
                 `No recorded sessions of ${who}.`, (r) => r.started_ms],
             chat: [(before) => api('GET', `/lookup/chat?${query({name: who, before})}`),
-                (m) => pick('chat', [h('b', {}, m.from), m.to && [' to ', h('b', {}, m.to)], ': ', h('span', {class: `chat-text ${m.to ? 'private' : ''}`}, m.message)],
+                (m) => pick('chat', [h('b', {}, m.from), chatWhere(m, (name) => h('b', {}, name)), ': ', h('span', {class: `chat-text ${chatChannel(m) === 1 ? 'private' : ''}`}, m.message)],
                     `${worldOf(m.node)} · ${fullTime(m.at_ms)}`, add({type: 'chat', id: m.id})),
                 `No chat from ${who}.`, (m) => m.id],
         };
@@ -6144,14 +6171,17 @@ function casePage(ctx) {
         const muted = record.muted_until_ms != null;
         const banned = record.banned_until_ms != null;
         const online = record.online_node != null;
+        const inLobby = record.online_lobby != null;
         replace(playerBox,
             h('div', {class: 'list-title'}, h('b', {}, playerLink(record.name)), ' ', playerBadges({staff_level: record.staff_level}),
-                online ? h('span', {class: 'badge ok'}, `Online · ${worldOf(record.online_node)}`) : h('span', {class: 'badge'}, 'Offline'),
+                online ? h('span', {class: 'badge ok'}, `Online · ${worldOf(record.online_node)}`)
+                    : inLobby ? h('span', {class: 'badge ok'}, `In lobby · Node ${record.online_lobby}`)
+                    : h('span', {class: 'badge'}, 'Offline'),
                 muted && h('span', {class: 'badge warn'}, `Muted · ${until(record.muted_until_ms)}`),
                 banned && h('span', {class: 'badge danger'}, `Banned · ${until(record.banned_until_ms)}`)),
             h('dl', {class: 'facts'},
                 h('dt', {}, 'Registered'), h('dd', {}, dateOnly(record.registered_ms)),
-                h('dt', {}, 'Last seen'), h('dd', {}, online ? 'Now' : record.last_seen_ms ? ago(record.last_seen_ms) : 'Never')),
+                h('dt', {}, 'Last seen'), h('dd', {}, online || inLobby ? 'Now' : record.last_seen_ms ? ago(record.last_seen_ms) : 'Never')),
             h('div', {class: 'chips'},
                 online && button('Kick', {small: true, icon: 'kick', on: {click: act('kick')}}),
                 !(muted && isTrial()) && button(muted ? 'Unmute' : 'Mute', {
@@ -10084,11 +10114,13 @@ function timelineItem(e, name) {
                 }, icon('plus'), 'Restore'));
             break;
         }
-        case 'chat':
+        case 'chat': {
             iconName = 'chat';
-            title = e.other ? [h('span', {class: 'muted'}, 'To '), playerLink(e.other), ': ', e.text] : e.text;
-            sub = [e.other ? 'Private' : 'Public'];
+            const where = chatWhere({channel: e.event_type, to: e.other}, playerLink, true);
+            title = where ? [where, ': ', e.text] : e.text;
+            sub = e.detail ? [e.detail[0].toUpperCase() + e.detail.slice(1)] : [];
             break;
+        }
         case 'moderation': {
             const [verb, iconFor, toneFor] = MOD_VERBS[e.text] || [e.text, 'shield', ''];
             iconName = iconFor;

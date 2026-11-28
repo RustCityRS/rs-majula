@@ -15,7 +15,7 @@ if (~bool_to_int(%topstat_prayer_button_client) = 1) {
         if_setop(topstat_prayer:topstat_background_prayer, 1, "Turn quick prayers on");
     }
 }
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic(topstat_prayer:topstat_background_prayer, graphic_1207);
     if_setposition(topstat_prayer:topstat_circle_prayer, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
     if_setposition(topstat_prayer:com_3, 25, 1, ^setpos_abs_left, ^setpos_abs_top);

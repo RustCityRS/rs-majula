@@ -2,8 +2,12 @@
 pub use crate::network::game::client_prot::{ClientProt, ClientProtInfo};
 #[cfg(since_647)]
 pub use crate::network::game::client_prot_category::ClientProtCategory;
+#[cfg(since_530)]
+pub use crate::network::game::client_prot_message::ClientProtEncode;
 pub use crate::network::game::client_prot_message::ClientProtMessage;
 
+#[cfg(since_742)]
+pub mod affinedclansettings_addbanned_fromchannel;
 pub mod anticheat_cyclelogic1;
 pub mod anticheat_cyclelogic2;
 pub mod anticheat_cyclelogic3;
@@ -38,6 +42,8 @@ pub mod client_detailoptions_status;
 pub mod close_modal;
 #[cfg(since_647)]
 pub mod create_check_name;
+#[cfg(since_530)]
+pub mod detect_modified_client;
 #[cfg(since_254)]
 pub mod event_applet_focus;
 #[cfg(any(rev = "225", since_254))]
@@ -95,8 +101,6 @@ pub mod inv_button5;
 pub mod inv_buttond;
 #[cfg(since_254)]
 pub mod map_build_complete;
-#[cfg(since_530)]
-pub mod map_build_loading;
 pub mod message_private;
 pub mod message_public;
 #[cfg(since_530)]
@@ -183,7 +187,7 @@ pub mod sound_song_preloaded;
 pub mod transmitvar_verifyid;
 pub mod tut_clickside;
 #[cfg(since_742)]
-pub mod unknown;
+pub mod unhandled;
 #[cfg(since_530)]
 pub mod url_request;
 #[cfg(since_647)]

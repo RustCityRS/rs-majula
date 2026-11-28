@@ -3,260 +3,260 @@
 def_graphic $graphic1 = $graphic0;
 if (%varclient_1928 = 0) {
     switch_graphic ($graphic0) {
-        case 12962, 13996 :
-            $graphic1 = 12962;
-        case 12963, 13997 :
-            $graphic1 = 12963;
-        case 12964, 13998 :
-            $graphic1 = 12964;
-        case 12965, 13999 :
-            $graphic1 = 12965;
-        case 12966, 14000 :
-            $graphic1 = 12966;
-        case 12967, 14001 :
-            $graphic1 = 12967;
-        case 12968, 14002 :
-            $graphic1 = 12968;
-        case 12969, 14003 :
-            $graphic1 = 12969;
-        case 12970, 14004 :
-            $graphic1 = 12970;
-        case 12971, 14005 :
-            $graphic1 = 12971;
-        case 12972, 14006 :
-            $graphic1 = 12972;
-        case 12973, 14007 :
-            $graphic1 = 12973;
-        case 12974, 14008 :
-            $graphic1 = 12974;
-        case 12975, 14009 :
-            $graphic1 = 12975;
-        case 12976, 14010 :
-            $graphic1 = 12976;
-        case 12977, 14011 :
-            $graphic1 = 12977;
-        case 12978, 14012 :
-            $graphic1 = 12978;
-        case 12979, 14013 :
-            $graphic1 = 12979;
-        case 12980, 14014 :
-            $graphic1 = 12980;
-        case 12981, 14015 :
-            $graphic1 = 12981;
-        case 12982, 14033 :
-            $graphic1 = 12982;
-        case 12983, 14034 :
-            $graphic1 = 12983;
-        case 12984, 14035 :
-            $graphic1 = 12984;
-        case 12985, 14036 :
-            $graphic1 = 12985;
-        case 12986, 14037 :
-            $graphic1 = 12986;
-        case 12987, 14038 :
-            $graphic1 = 12987;
-        case 12988, 14039 :
-            $graphic1 = 12988;
-        case 12989, 14040 :
-            $graphic1 = 12989;
-        case 12990, 14041 :
-            $graphic1 = 12990;
-        case 12991, 14042 :
-            $graphic1 = 12991;
-        case 12992, 14043 :
-            $graphic1 = 12992;
-        case 12993, 14044 :
-            $graphic1 = 12993;
-        case 12994, 14045 :
-            $graphic1 = 12994;
-        case 12995, 14046 :
-            $graphic1 = 12995;
-        case 12996, 14047 :
-            $graphic1 = 12996;
-        case 12997, 14048 :
-            $graphic1 = 12997;
-        case 12998, 14049 :
-            $graphic1 = 12998;
-        case 12999, 14050 :
-            $graphic1 = 12999;
-        case 13000, 14051 :
-            $graphic1 = 13000;
-        case 13001, 14052 :
-            $graphic1 = 13001;
-        case 10244, 14016 :
-            $graphic1 = 10244;
-        case 14061 :
-            $graphic1 = 12585;
-        case 14062 :
-            $graphic1 = 12586;
-        case 14068 :
-            $graphic1 = 12592;
-        case 9957, 14028 :
-            $graphic1 = 9957;
-        case 9958, 14029 :
-            $graphic1 = 9958;
-        case 9959, 14030 :
-            $graphic1 = 9959;
-        case 9960, 14031 :
-            $graphic1 = 9960;
-        case 10219 :
-            $graphic1 = 10219;
-        case 9908, 14017 :
-            $graphic1 = 9908;
-        case 9909, 14018 :
-            $graphic1 = 9909;
-        case 9910, 14019 :
-            $graphic1 = 9910;
-        case 9911, 14020 :
-            $graphic1 = 9911;
-        case 9886, 14021 :
-            $graphic1 = 9886;
-        case 9887, 14022 :
-            $graphic1 = 9887;
-        case 9888, 14023 :
-            $graphic1 = 9888;
-        case 9889, 14024 :
-            $graphic1 = 9889;
-        case 9890, 14025 :
-            $graphic1 = 9890;
-        case 12093 :
-            $graphic1 = 12093;
-        case 12094 :
-            $graphic1 = 12094;
-        case 12095 :
-            $graphic1 = 12095;
-        case 9872, 12098 :
+        case graphic_12962, graphic_13996 :
+            $graphic1 = graphic_12962;
+        case graphic_12963, graphic_13997 :
+            $graphic1 = graphic_12963;
+        case graphic_12964, graphic_13998 :
+            $graphic1 = graphic_12964;
+        case graphic_12965, graphic_13999 :
+            $graphic1 = graphic_12965;
+        case graphic_12966, graphic_14000 :
+            $graphic1 = graphic_12966;
+        case graphic_12967, graphic_14001 :
+            $graphic1 = graphic_12967;
+        case graphic_12968, graphic_14002 :
+            $graphic1 = graphic_12968;
+        case graphic_12969, graphic_14003 :
+            $graphic1 = graphic_12969;
+        case graphic_12970, graphic_14004 :
+            $graphic1 = graphic_12970;
+        case graphic_12971, graphic_14005 :
+            $graphic1 = graphic_12971;
+        case graphic_12972, graphic_14006 :
+            $graphic1 = graphic_12972;
+        case graphic_12973, graphic_14007 :
+            $graphic1 = graphic_12973;
+        case graphic_12974, graphic_14008 :
+            $graphic1 = graphic_12974;
+        case graphic_12975, graphic_14009 :
+            $graphic1 = graphic_12975;
+        case graphic_12976, graphic_14010 :
+            $graphic1 = graphic_12976;
+        case graphic_12977, graphic_14011 :
+            $graphic1 = graphic_12977;
+        case graphic_12978, graphic_14012 :
+            $graphic1 = graphic_12978;
+        case graphic_12979, graphic_14013 :
+            $graphic1 = graphic_12979;
+        case graphic_12980, graphic_14014 :
+            $graphic1 = graphic_12980;
+        case graphic_12981, graphic_14015 :
+            $graphic1 = graphic_12981;
+        case graphic_12982, graphic_14033 :
+            $graphic1 = graphic_12982;
+        case graphic_12983, graphic_14034 :
+            $graphic1 = graphic_12983;
+        case graphic_12984, graphic_14035 :
+            $graphic1 = graphic_12984;
+        case graphic_12985, graphic_14036 :
+            $graphic1 = graphic_12985;
+        case graphic_12986, graphic_14037 :
+            $graphic1 = graphic_12986;
+        case graphic_12987, graphic_14038 :
+            $graphic1 = graphic_12987;
+        case graphic_12988, graphic_14039 :
+            $graphic1 = graphic_12988;
+        case graphic_12989, graphic_14040 :
+            $graphic1 = graphic_12989;
+        case graphic_12990, graphic_14041 :
+            $graphic1 = graphic_12990;
+        case graphic_12991, graphic_14042 :
+            $graphic1 = graphic_12991;
+        case graphic_12992, graphic_14043 :
+            $graphic1 = graphic_12992;
+        case graphic_12993, graphic_14044 :
+            $graphic1 = graphic_12993;
+        case graphic_12994, graphic_14045 :
+            $graphic1 = graphic_12994;
+        case graphic_12995, graphic_14046 :
+            $graphic1 = graphic_12995;
+        case graphic_12996, graphic_14047 :
+            $graphic1 = graphic_12996;
+        case graphic_12997, graphic_14048 :
+            $graphic1 = graphic_12997;
+        case graphic_12998, graphic_14049 :
+            $graphic1 = graphic_12998;
+        case graphic_12999, graphic_14050 :
+            $graphic1 = graphic_12999;
+        case graphic_13000, graphic_14051 :
+            $graphic1 = graphic_13000;
+        case graphic_13001, graphic_14052 :
+            $graphic1 = graphic_13001;
+        case graphic_10244, graphic_14016 :
+            $graphic1 = graphic_10244;
+        case graphic_14061 :
+            $graphic1 = graphic_12585;
+        case graphic_14062 :
+            $graphic1 = graphic_12586;
+        case graphic_14068 :
+            $graphic1 = graphic_12592;
+        case graphic_9957, graphic_14028 :
+            $graphic1 = graphic_9957;
+        case graphic_9958, graphic_14029 :
+            $graphic1 = graphic_9958;
+        case graphic_9959, graphic_14030 :
+            $graphic1 = graphic_9959;
+        case graphic_9960, graphic_14031 :
+            $graphic1 = graphic_9960;
+        case graphic_10219 :
+            $graphic1 = graphic_10219;
+        case graphic_9908, graphic_14017 :
+            $graphic1 = graphic_9908;
+        case graphic_9909, graphic_14018 :
+            $graphic1 = graphic_9909;
+        case graphic_9910, graphic_14019 :
+            $graphic1 = graphic_9910;
+        case graphic_9911, graphic_14020 :
+            $graphic1 = graphic_9911;
+        case graphic_9886, graphic_14021 :
+            $graphic1 = graphic_9886;
+        case graphic_9887, graphic_14022 :
+            $graphic1 = graphic_9887;
+        case graphic_9888, graphic_14023 :
+            $graphic1 = graphic_9888;
+        case graphic_9889, graphic_14024 :
+            $graphic1 = graphic_9889;
+        case graphic_9890, graphic_14025 :
+            $graphic1 = graphic_9890;
+        case graphic_12093 :
+            $graphic1 = graphic_12093;
+        case graphic_12094 :
+            $graphic1 = graphic_12094;
+        case graphic_12095 :
+            $graphic1 = graphic_12095;
+        case graphic_9872, graphic_12098 :
             if (%varplayerbit_11768 = 1 | %varplayerbit_11768 = 3) {
-                $graphic1 = 9872;
+                $graphic1 = graphic_9872;
             } else {
-                $graphic1 = 12098;
+                $graphic1 = graphic_12098;
             }
     }
 } else if (%varclient_1928 = 1) {
     switch_graphic ($graphic0) {
-        case 12962 :
-            $graphic1 = 13996;
-        case 12963 :
-            $graphic1 = 13997;
-        case 12964 :
-            $graphic1 = 13998;
-        case 12965 :
-            $graphic1 = 13999;
-        case 12966 :
-            $graphic1 = 14000;
-        case 12967 :
-            $graphic1 = 14001;
-        case 12968 :
-            $graphic1 = 14002;
-        case 12969 :
-            $graphic1 = 14003;
-        case 12970 :
-            $graphic1 = 14004;
-        case 12971 :
-            $graphic1 = 14005;
-        case 12972 :
-            $graphic1 = 14006;
-        case 12973 :
-            $graphic1 = 14007;
-        case 12974 :
-            $graphic1 = 14008;
-        case 12975 :
-            $graphic1 = 14009;
-        case 12976 :
-            $graphic1 = 14010;
-        case 12977 :
-            $graphic1 = 14011;
-        case 12978 :
-            $graphic1 = 14012;
-        case 12979 :
-            $graphic1 = 14013;
-        case 12980 :
-            $graphic1 = 14014;
-        case 12981 :
-            $graphic1 = 14015;
-        case 12982 :
-            $graphic1 = 14033;
-        case 12983 :
-            $graphic1 = 14034;
-        case 12984 :
-            $graphic1 = 14035;
-        case 12985 :
-            $graphic1 = 14036;
-        case 12986 :
-            $graphic1 = 14037;
-        case 12987 :
-            $graphic1 = 14038;
-        case 12988 :
-            $graphic1 = 14039;
-        case 12989 :
-            $graphic1 = 14040;
-        case 12990 :
-            $graphic1 = 14041;
-        case 12991 :
-            $graphic1 = 14042;
-        case 12992 :
-            $graphic1 = 14043;
-        case 12993 :
-            $graphic1 = 14044;
-        case 12994 :
-            $graphic1 = 14045;
-        case 12995 :
-            $graphic1 = 14046;
-        case 12996 :
-            $graphic1 = 14047;
-        case 12997 :
-            $graphic1 = 14048;
-        case 12998 :
-            $graphic1 = 14049;
-        case 12999 :
-            $graphic1 = 14050;
-        case 13000 :
-            $graphic1 = 14051;
-        case 13001 :
-            $graphic1 = 14052;
-        case 10244, 14016 :
-            $graphic1 = 14016;
-        case 12585 :
-            $graphic1 = 14061;
-        case 12586 :
-            $graphic1 = 14062;
-        case 12592 :
-            $graphic1 = 14068;
-        case 9957, 14028 :
-            $graphic1 = 14028;
-        case 9958, 14029 :
-            $graphic1 = 14029;
-        case 9959, 14030 :
-            $graphic1 = 14030;
-        case 9960, 14031 :
-            $graphic1 = 14031;
-        case 9908, 14017 :
-            $graphic1 = 14017;
-        case 9909, 14018 :
-            $graphic1 = 14018;
-        case 9910, 14019 :
-            $graphic1 = 14019;
-        case 9911, 14020 :
-            $graphic1 = 14020;
-        case 9886, 14021 :
-            $graphic1 = 14021;
-        case 9887, 14022 :
-            $graphic1 = 14022;
-        case 9888, 14023 :
-            $graphic1 = 14023;
-        case 9889, 14024 :
-            $graphic1 = 14024;
-        case 9890 :
-            $graphic1 = 14025;
-        case 12093 :
-            $graphic1 = 14026;
-        case 12094 :
-            $graphic1 = 14027;
-        case 9872, 12098 :
+        case graphic_12962 :
+            $graphic1 = graphic_13996;
+        case graphic_12963 :
+            $graphic1 = graphic_13997;
+        case graphic_12964 :
+            $graphic1 = graphic_13998;
+        case graphic_12965 :
+            $graphic1 = graphic_13999;
+        case graphic_12966 :
+            $graphic1 = graphic_14000;
+        case graphic_12967 :
+            $graphic1 = graphic_14001;
+        case graphic_12968 :
+            $graphic1 = graphic_14002;
+        case graphic_12969 :
+            $graphic1 = graphic_14003;
+        case graphic_12970 :
+            $graphic1 = graphic_14004;
+        case graphic_12971 :
+            $graphic1 = graphic_14005;
+        case graphic_12972 :
+            $graphic1 = graphic_14006;
+        case graphic_12973 :
+            $graphic1 = graphic_14007;
+        case graphic_12974 :
+            $graphic1 = graphic_14008;
+        case graphic_12975 :
+            $graphic1 = graphic_14009;
+        case graphic_12976 :
+            $graphic1 = graphic_14010;
+        case graphic_12977 :
+            $graphic1 = graphic_14011;
+        case graphic_12978 :
+            $graphic1 = graphic_14012;
+        case graphic_12979 :
+            $graphic1 = graphic_14013;
+        case graphic_12980 :
+            $graphic1 = graphic_14014;
+        case graphic_12981 :
+            $graphic1 = graphic_14015;
+        case graphic_12982 :
+            $graphic1 = graphic_14033;
+        case graphic_12983 :
+            $graphic1 = graphic_14034;
+        case graphic_12984 :
+            $graphic1 = graphic_14035;
+        case graphic_12985 :
+            $graphic1 = graphic_14036;
+        case graphic_12986 :
+            $graphic1 = graphic_14037;
+        case graphic_12987 :
+            $graphic1 = graphic_14038;
+        case graphic_12988 :
+            $graphic1 = graphic_14039;
+        case graphic_12989 :
+            $graphic1 = graphic_14040;
+        case graphic_12990 :
+            $graphic1 = graphic_14041;
+        case graphic_12991 :
+            $graphic1 = graphic_14042;
+        case graphic_12992 :
+            $graphic1 = graphic_14043;
+        case graphic_12993 :
+            $graphic1 = graphic_14044;
+        case graphic_12994 :
+            $graphic1 = graphic_14045;
+        case graphic_12995 :
+            $graphic1 = graphic_14046;
+        case graphic_12996 :
+            $graphic1 = graphic_14047;
+        case graphic_12997 :
+            $graphic1 = graphic_14048;
+        case graphic_12998 :
+            $graphic1 = graphic_14049;
+        case graphic_12999 :
+            $graphic1 = graphic_14050;
+        case graphic_13000 :
+            $graphic1 = graphic_14051;
+        case graphic_13001 :
+            $graphic1 = graphic_14052;
+        case graphic_10244, graphic_14016 :
+            $graphic1 = graphic_14016;
+        case graphic_12585 :
+            $graphic1 = graphic_14061;
+        case graphic_12586 :
+            $graphic1 = graphic_14062;
+        case graphic_12592 :
+            $graphic1 = graphic_14068;
+        case graphic_9957, graphic_14028 :
+            $graphic1 = graphic_14028;
+        case graphic_9958, graphic_14029 :
+            $graphic1 = graphic_14029;
+        case graphic_9959, graphic_14030 :
+            $graphic1 = graphic_14030;
+        case graphic_9960, graphic_14031 :
+            $graphic1 = graphic_14031;
+        case graphic_9908, graphic_14017 :
+            $graphic1 = graphic_14017;
+        case graphic_9909, graphic_14018 :
+            $graphic1 = graphic_14018;
+        case graphic_9910, graphic_14019 :
+            $graphic1 = graphic_14019;
+        case graphic_9911, graphic_14020 :
+            $graphic1 = graphic_14020;
+        case graphic_9886, graphic_14021 :
+            $graphic1 = graphic_14021;
+        case graphic_9887, graphic_14022 :
+            $graphic1 = graphic_14022;
+        case graphic_9888, graphic_14023 :
+            $graphic1 = graphic_14023;
+        case graphic_9889, graphic_14024 :
+            $graphic1 = graphic_14024;
+        case graphic_9890 :
+            $graphic1 = graphic_14025;
+        case graphic_12093 :
+            $graphic1 = graphic_14026;
+        case graphic_12094 :
+            $graphic1 = graphic_14027;
+        case graphic_9872, graphic_12098 :
             if (%varplayerbit_11768 = 1 | %varplayerbit_11768 = 3) {
-                $graphic1 = 9872;
+                $graphic1 = graphic_9872;
             } else {
-                $graphic1 = 12098;
+                $graphic1 = graphic_12098;
             }
     }
 } else if (%varclient_1928 = 2) {

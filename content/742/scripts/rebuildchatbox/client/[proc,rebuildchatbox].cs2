@@ -18,27 +18,27 @@ def_string $string0 = "<col=0000ff>";
 def_string $string1 = "<col=800000>";
 def_string $string2 = "<col=800080>";
 def_string $string3 = "<col=00ff00>";
-def_int $rgb9 = ^black;
-def_int $rgb10 = ^black;
-def_int $rgb11 = ^black;
-def_int $rgb12 = ^black;
+def_int $colour9 = ^black;
+def_int $colour10 = ^black;
+def_int $colour11 = ^black;
+def_int $colour12 = ^black;
 def_string $string4 = "<col=000000>";
 def_boolean $boolean13 = false;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     $string0 = "<col=7fa9ff>";
     $string1 = "<col=ff5256>";
     $string2 = "<col=ff78d9>";
     $string3 = "<col=96ff7d>";
-    $rgb12 = ^white;
+    $colour12 = ^white;
     $string4 = "<col=ffffff>";
     $boolean13 = true;
-    $rgb10 = enum(int, int, enum_3724, %varplayerbit_3612);
-    $rgb9 = enum(int, int, enum_3723, %varplayerbit_9188);
-    $rgb11 = enum(int, int, enum_3726, %varplayerbit_9191);
+    $colour10 = enum(int, int, enum_3724, %varplayerbit_3612);
+    $colour9 = enum(int, int, enum_3723, %varplayerbit_9188);
+    $colour11 = enum(int, int, enum_3726, %varplayerbit_9191);
 } else {
-    $rgb10 = enum(int, int, enum_3724, %varplayerbit_3612);
-    $rgb9 = enum(int, int, enum_3723, %varplayerbit_9188);
-    $rgb11 = enum(int, int, enum_3726, %varplayerbit_9191);
+    $colour10 = enum(int, int, enum_3724, %varplayerbit_3612);
+    $colour9 = enum(int, int, enum_3723, %varplayerbit_9188);
+    $colour11 = enum(int, int, enum_3726, %varplayerbit_9191);
 }
 def_int $int14 = 0;
 def_int $int15 = 0;
@@ -57,7 +57,7 @@ while ($int18 < 100) {
         $int16 = 1;
         $int14 = calc($int14 + 1);
         $chattype17 = chat_gethistorytype($int18);
-        cc_setcolour($rgb12);
+        cc_setcolour($colour12);
         cc_settextfont(p12_full);
         cc_settextalign(^settextalign_left, ^settextalign_top, 14);
         cc_settextshadow($boolean13);
@@ -84,13 +84,13 @@ while ($int18 < 100) {
             case ^chattype_challenge :
                 cc_settext("<col=7e3200><chat_gethistoryname($int18)> <chat_gethistorymessage($int18)>");
             case ^chattype_clanchat :
-                cc_setcolour($rgb10);
+                cc_setcolour($colour10);
                 cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)>: </col><chat_gethistorymessage($int18)>");
             case ^chattype_friendschat :
-                cc_setcolour($rgb9);
+                cc_setcolour($colour9);
                 cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)>: </col><chat_gethistorymessage($int18)>");
             case ^chattype_clanguestchat :
-                cc_setcolour($rgb11);
+                cc_setcolour($colour11);
                 cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)>: </col><chat_gethistorymessage($int18)>");
             case ^chattype_clan_join :
                 cc_settext("<col=7e3200><chat_gethistorymessage($int18)>");
@@ -119,21 +119,21 @@ while ($int18 < 100) {
             case ^chattype_quickchat_private_outgoing :
                 cc_settext("To <chat_gethistoryname($int18)>: <$string1><chat_gethistorymessage($int18)>");
             case ^chattype_quickchat_clanchat :
-                cc_setcolour($rgb10);
+                cc_setcolour($colour10);
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int18))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int18)) > 0) {
                     cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)><img=3>: </col><chat_gethistorymessage($int18)>");
                 } else {
                     cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)>: </col><chat_gethistorymessage($int18)>");
                 }
             case ^chattype_quickchat_clanguestchat :
-                cc_setcolour($rgb11);
+                cc_setcolour($colour11);
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int18))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int18)) > 0) {
                     cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)><img=3>: </col><chat_gethistorymessage($int18)>");
                 } else {
                     cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)>: </col><chat_gethistorymessage($int18)>");
                 }
             case ^chattype_quickchat_friend_chat :
-                cc_setcolour($rgb9);
+                cc_setcolour($colour9);
                 if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int18))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int18)) > 0) {
                     cc_settext("<$string4>[</col><$string0><chat_gethistoryclan($int18)></col><$string4>] <chat_gethistoryname($int18)><img=3>: </col><chat_gethistorymessage($int18)>");
                 } else {
@@ -256,7 +256,7 @@ while ($int18 < 100) {
 }
 $int20 = max($int20, if_getheight(chatdefault:scrollarea));
 if_setscrollsize(chatdefault:scrollarea, 463, $int20);
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     ~clientscript_5509(chatdefault:scrollbar, chatdefault:scrollarea, calc(%chat_lastscrollpos + if_getscrollheight(chatdefault:scrollarea) - %chat_lastscrollsize));
 } else {
     ~scrollbar_resize(chatdefault:scrollbar, chatdefault:scrollarea, calc(%chat_lastscrollpos + if_getscrollheight(chatdefault:scrollarea) - %chat_lastscrollsize));
@@ -264,6 +264,6 @@ if (getwindowmode >= 2) {
 %chat_lastscrollpos = if_getscrolly(chatdefault:scrollarea);
 %chat_lastscrollsize = if_getscrollheight(chatdefault:scrollarea);
 if_setnoclickthrough(toplevel_fullscreen:chattop, true);
-if (getwindowmode >= 2 & %varclient_1701 = 1) {
+if (getwindowmode >= ^windowmode_resizable & %varclient_1701 = 1) {
     if_setnoclickthrough(toplevel_fullscreen:chattop, false);
 }

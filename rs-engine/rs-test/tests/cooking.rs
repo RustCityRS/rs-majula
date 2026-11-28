@@ -10,37 +10,48 @@
 //! three cooked or burnt. The player has done Cook's Assistant, which the
 //! castle's range asks for.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+#[cfg(since_647)]
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::fs;
 use std::sync::Mutex;
 
+#[cfg(since_647)]
 const COOKING: usize = 7;
 
 /// `%cookquest` and 289's `^cook_complete`.
+#[cfg(since_647)]
 const COOKQUEST: u16 = 29;
+#[cfg(since_647)]
 const COOK_COMPLETE: i32 = 2;
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
-const ALL: i32 = 916 << 16 | 8;
-const FIRST_ITEM: i32 = 905 << 16 | 14;
+#[cfg(since_647)]
+fn all() -> i32 {
+    com("skillmulti2010_numbers:all")
+}
+
+#[cfg(since_647)]
+fn first_item() -> i32 {
+    com("skillmulti2010:a")
+}
+
+#[cfg(since_647)]
 const NONE: i32 = 0xFFFF;
 
 /// Lumbridge castle's cook-o-matic (289's `cooking_range`), 1x2.
+#[cfg(since_647)]
 const RANGE: (u16, u16, u16) = (114, 3212, 3215);
 
+#[cfg(since_647)]
 fn obj(engine: &Engine, name: &str) -> TypeId {
     engine
         .cache
@@ -50,6 +61,7 @@ fn obj(engine: &Engine, name: &str) -> TypeId {
         .id
 }
 
+#[cfg(since_647)]
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
     let mut said = Vec::new();
     for _ in 0..n {
@@ -63,6 +75,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
     said
 }
 
+#[cfg(since_647)]
 #[test]
 fn three_shrimps_on_a_range_in_one_go() {
     runner::on_loaded_engine(|engine| {
@@ -88,15 +101,7 @@ fn three_shrimps_on_a_range_in_one_go() {
         client.packets();
 
         let (loc, x, z) = RANGE;
-        let mut p = ClientPacket::new();
-        p.p2_alt2(raw.int())
-            .p2_alt2(0)
-            .p2(z as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(x as i32)
-            .p1_alt1(0)
-            .p2_alt1(loc as i32);
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(x, z, TypeId::from_int(loc as i32), BACKPACK, 0, raw);
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(
@@ -104,14 +109,10 @@ fn three_shrimps_on_a_range_in_one_go() {
             "2011 asks how many; the game said {said:?}"
         );
 
-        let mut p = ClientPacket::new();
-        p.p4(ALL).p2_alt3(NONE).p2_alt1(NONE);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, all(), NONE as u16, TypeId::NULL);
         let said = ticks(engine, &mut client, 1);
         assert!(said.is_empty(), "All said {said:?}");
-        let mut p = ClientPacket::new();
-        p.p2(NONE).p4_alt2(FIRST_ITEM);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(first_item(), NONE as u16);
 
         let said = ticks(engine, &mut client, 20);
         let player = engine.harness_player(client.pid).unwrap();
@@ -141,22 +142,19 @@ fn three_shrimps_on_a_range_in_one_go() {
 /// The Cooking Guild's door (`chefdoor`, 0_49_53_7_51). 2011 moved it a
 /// square south of 289's, onto the street's side of its wall: the guild is
 /// north (its Head chef, range and tables), so the door's own square is
-/// outside. OPLOC1 is `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
+/// outside.
 const CHEFDOOR: (u16, u16) = (3143, 3443);
 /// npc_chat3, the Head chef's three lines, and its "Click here to continue".
 const NPC_CHAT_3: u16 = 243;
-const NPC_CHAT_3_CONTINUE: i32 = 243 << 16 | 7;
+fn npc_chat_3_continue() -> i32 {
+    com("npcchat3:npcchat3next")
+}
 
 /// `chefdoor` in `loc.pack`.
 const CHEFDOOR_LOC: i32 = 2712;
 
 fn open_chefdoor(client: &mut HarnessClient) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(CHEFDOOR.1 as i32)
-        .p2_alt1(CHEFDOOR_LOC)
-        .p1(0)
-        .p2_alt2(CHEFDOOR.0 as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, CHEFDOOR.0, CHEFDOOR.1, TypeId::from_int(CHEFDOOR_LOC));
 }
 
 /// A cook below 32 at `(x, z)`, the welcome sent.
@@ -209,9 +207,7 @@ fn the_guild_door_turns_away_a_cook_below_32() {
         assert!(player.state.active_script.is_some(), "waiting for continue");
         assert!(player.pathing.coord.z() < 3444, "still outside");
 
-        let mut p = ClientPacket::new();
-        p.p2(0xFFFF).p4_alt2(NPC_CHAT_3_CONTINUE);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(npc_chat_3_continue(), 0xFFFF);
         engine.cycle();
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
@@ -249,8 +245,9 @@ fn the_head_chef_and_cooked_meats_take_289s_configs() {
         let chef = engine.cache.npcs.get_by_id(chef).unwrap();
         assert_eq!((chef.wanderrange, chef.maxrange), (3, 3));
         let meat: u16 = fs::read_to_string(format!(
-            "{}/../../content/647/pack/category.pack",
-            env!("CARGO_MANIFEST_DIR")
+            "{}/../../{}/pack/category.pack",
+            env!("CARGO_MANIFEST_DIR"),
+            rs_pack::CONTENT_DIR
         ))
         .unwrap()
         .lines()

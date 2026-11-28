@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -12,6 +16,7 @@ use rs_ver::TypeId;
 
 #[cfg(all(since_530, before_647))]
 #[client_prot(VarByte { min: 10 }, UserEvent)]
+#[derive(Debug)]
 pub struct MessageQuickchatPrivate {
     pub user37: i64,
     pub id: TypeId,
@@ -29,8 +34,20 @@ impl ClientProtMessage for MessageQuickchatPrivate {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for MessageQuickchatPrivate {
+    const PROT: ClientProt = ClientProt::MessageQuickchatPrivate;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.user37);
+        buf.p2(self.id.g2());
+        buf.pdata(&self.bytes, 0, self.bytes.len());
+    }
+}
+
 #[cfg(since_647)]
 #[client_prot(VarByte { min: 3 }, UserEvent)]
+#[derive(Debug)]
 pub struct MessageQuickchatPrivate {
     pub name: String,
     pub id: TypeId,
@@ -49,5 +66,16 @@ impl ClientProtMessage for MessageQuickchatPrivate {
         let bytes = buf.data[buf.pos..len].to_vec();
         buf.pos = len;
         MessageQuickchatPrivate { name, id, bytes }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtEncode for MessageQuickchatPrivate {
+    const PROT: ClientProt = ClientProt::MessageQuickchatPrivate;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.pjstr(&self.name, STRING_TERMINATOR);
+        buf.p2(self.id.g2());
+        buf.pdata(&self.bytes, 0, self.bytes.len());
     }
 }

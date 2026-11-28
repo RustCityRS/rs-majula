@@ -206,7 +206,7 @@ return($duration);
 def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
 def_int $damagestyle = ~player_magic_damagestyle;
 // play spell success sound
-sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, 0);
+sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 1, 0);
 // roll 0-maxhit
 def_int $spell = db_getfield($spell_data, magic_spell_table:spell, 0);
 def_int $damage = randominc(~npc_max_dealt($maxhit, $spell));
@@ -246,11 +246,11 @@ spotanim_npc(db_getfield($spell_data, magic_spell_table:spotanim_target, 0), $du
 [proc,pvm_spell_fail](dbrow $spell_data, int $duration)
 // splash
 if (db_getfieldcount($spell_data, magic_spell_table:sound_fail) > 0) {
-    sound_synth(db_getfield($spell_data, magic_spell_table:sound_fail, 0), 0, 0);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_fail, 0), 1, 0);
 } else {
     // reduce stat, and freeze spells dont have fail sounds, so i assume they just play their normal sound
     // every time?
-    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, 0);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 1, 0);
 }
 // splash sound would play here, doesnt exist in this rev?
 // sound_synth(, 0, $duration);

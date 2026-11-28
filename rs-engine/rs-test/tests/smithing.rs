@@ -20,40 +20,53 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const SMITHING: usize = 13;
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
 const FURNACE: (u16, u16, u16) = (45310, 3226, 3256);
-const MAKE: i32 = 905 << 16;
-const NUMBERS: i32 = 916 << 16;
-const ONE: i32 = NUMBERS | 5;
+fn one() -> i32 {
+    com("skillmulti2010_numbers:com_5")
+}
+
 /// skillmulti2010's first item: the bronze bar.
-const BRONZE: i32 = MAKE | 14;
+fn bronze_com() -> i32 {
+    com("skillmulti2010:a")
+}
+
 const NONE: i32 = 0xFFFF;
 
 /// Lumbridge's anvil, 2011's (loc 12692).
 const ANVIL: (u16, u16, u16) = (12692, 3229, 3254);
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
-const ANVIL_IF: i32 = 300 << 16;
 /// The dagger's slot (its item component), its Make All and its Make 1.
-const DAGGER: i32 = ANVIL_IF | 18;
-const DAGGER_ALL: i32 = ANVIL_IF | 21;
-const DAGGER_ONE: i32 = ANVIL_IF | 24;
+fn dagger_com() -> i32 {
+    com("smithing_new:smith_dagger_pic")
+}
+
+fn dagger_all() -> i32 {
+    com("smithing_new:smith_dagger_all")
+}
+
+fn dagger_one() -> i32 {
+    com("smithing_new:smith_dagger_1")
+}
+
 /// The bronze wire's and the claws' slots (their layers).
-const WIRE: i32 = ANVIL_IF | 81;
-const CLAWS: i32 = ANVIL_IF | 209;
+fn wire() -> i32 {
+    com("smithing_new:smith_wire")
+}
+
+fn claws() -> i32 {
+    com("smithing_new:smith_claws")
+}
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
@@ -109,6 +122,7 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
         backpack.set(0, copper, 1);
         backpack.set(1, tin, 1);
         let xp = player.stats.xp[SMITHING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
         for _ in 0..3 {
             engine.cycle();
@@ -116,12 +130,7 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
         client.packets();
 
         let (loc, x, z) = FURNACE;
-        let mut p = ClientPacket::new();
-        p.p2_alt1(loc as i32)
-            .p1_alt2(0)
-            .p2_alt2(z as i32)
-            .p2_alt3(x as i32);
-        client.send(ClientProt::OpLoc2, &p.finish());
+        client.op_loc(2, x, z, TypeId::from_int(loc as i32));
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(
@@ -129,13 +138,9 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
             "2011's make-X asks which bar; said {said:?}"
         );
 
-        let mut p = ClientPacket::new();
-        p.p4(ONE).p2_alt3(NONE).p2_alt1(NONE);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, one(), NONE as u16, TypeId::NULL);
         ticks(engine, &mut client, 1);
-        let mut p = ClientPacket::new();
-        p.p2(NONE).p4_alt2(BRONZE);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(bronze_com(), NONE as u16);
         let said = ticks(engine, &mut client, 10);
 
         let player = engine.harness_player(client.pid).unwrap();
@@ -143,6 +148,7 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
         assert_eq!(backpack.total(bronze), 1, "the game said {said:?}");
         assert_eq!(backpack.total(copper) + backpack.total(tin), 0);
         assert_eq!(player.stats.xp[SMITHING] - xp, 62, "6.2 xp");
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 620);
         assert_eq!(
             said,
@@ -159,28 +165,15 @@ type Packets = Vec<(u16, Vec<u8>)>;
 
 /// Each IF_SETOBJECT as `(com, obj)`.
 fn objects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::IfSetObject as u16)
-        .map(|(_, p)| {
-            (
-                i32::from_le_bytes([p[0], p[1], p[2], p[3]]),
-                u16::from_be_bytes([p[8], p[9]]),
-            )
-        })
+    server::objects(packets)
+        .into_iter()
+        .map(|(c, o)| (c, o as u16))
         .collect()
 }
 
 /// Each IF_SETHIDE as `(com, hidden)`: `p4_alt3 com, p1_alt2 hidden`.
 fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::IfSetHide as u16)
-        .map(|(_, p)| {
-            let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
-            (com, 0u8.wrapping_sub(p[4]) == 1)
-        })
-        .collect()
+    server::hides(packets)
 }
 
 /// Uses the first bronze bar in the backpack on Lumbridge's anvil (OPLOCT).
@@ -193,15 +186,7 @@ fn bar_on_anvil(engine: &Engine, client: &mut HarnessClient) {
         .find(|&s| backpack.get(s).is_some_and(|o| o.obj == bronze))
         .expect("a bronze bar");
     let (loc, x, z) = ANVIL;
-    let mut p = ClientPacket::new();
-    p.p2_alt2(bronze.int())
-        .p2_alt2(slot as i32)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(loc as i32);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(x, z, TypeId::from_int(loc as i32), BACKPACK, slot, bronze);
 }
 
 /// Logs a smith in beside Lumbridge's anvil with a hammer and `bars` bronze
@@ -268,14 +253,14 @@ fn a_bronze_bar_on_lumbridge_s_anvil_opens_2011_s_slots() {
             "2011's anvil interface; the game said {said:?}"
         );
         assert!(
-            objects(&sent).contains(&(DAGGER, dagger.g2())),
+            objects(&sent).contains(&(dagger_com(), dagger.g2())),
             "the bronze dagger in its slot; sent {:?}",
             objects(&sent)
         );
         let hidden = hides(&sent);
-        assert!(hidden.contains(&(WIRE, false)), "bronze shows its wire");
+        assert!(hidden.contains(&(wire(), false)), "bronze shows its wire");
         assert!(
-            hidden.contains(&(CLAWS, true)),
+            hidden.contains(&(claws(), true)),
             "no claws before Death Plateau"
         );
     });
@@ -292,17 +277,17 @@ fn make_1_smiths_a_bronze_dagger_and_make_all_the_rest() {
         let player = engine.harness_player(client.pid).unwrap();
         assert!(player.is_interface_open(300), "the game said {said:?}");
         let xp = player.stats.xp[SMITHING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
 
-        let mut p = ClientPacket::new();
-        p.p4(DAGGER_ONE).p2_alt3(NONE).p2_alt1(NONE);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, dagger_one(), NONE as u16, TypeId::NULL);
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
         assert_eq!(backpack.total(dagger), 1, "the game said {said:?}");
         assert_eq!(backpack.total(bronze), 2);
         assert_eq!(player.stats.xp[SMITHING] - xp, 125, "12.5 xp");
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 1250);
         assert_eq!(said, ["You hammer the bronze and make a dagger."]);
         assert!(!player.is_interface_open(300), "the interface closes");
@@ -319,9 +304,7 @@ fn make_1_smiths_a_bronze_dagger_and_make_all_the_rest() {
                 break;
             }
         }
-        let mut p = ClientPacket::new();
-        p.p4(DAGGER_ALL).p2_alt3(NONE).p2_alt1(NONE);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, dagger_all(), NONE as u16, TypeId::NULL);
         let said = ticks(engine, &mut client, 12);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();

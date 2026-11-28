@@ -1,11 +1,12 @@
 use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
+use crate::session::EngineHost;
 use crate::util::{pop_loc, pop_param};
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
 use runec::opcodes::*;
 
-pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
     handlers! { |m|
         // 4100
         none!(m, LC_CATEGORY => |s| {
@@ -61,6 +62,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, LC_WIDTH => |s| {
             let loc = pop_loc::<E>(s)?;
             s.push_int(loc.width as i32);
+        });
+
+        // 4108
+        #[cfg(since_530)]
+        none!(m, LC_GETMULTILOC => |s| {
+            let value = s.pop_int();
+            let loc = pop_loc::<E>(s)?;
+            s.push_int(loc.multi_loc(value).unwrap_or(loc.id).int());
         });
     }
 }

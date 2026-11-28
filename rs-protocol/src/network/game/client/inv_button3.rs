@@ -32,7 +32,7 @@ impl ClientProtMessage for InvButton3 {
 impl ClientProtMessage for InvButton3 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let slot = buf.g2_alt1();
-        let com = buf.g4s_alt2();
+        let com = buf.g4_alt2();
         let obj = TypeId::from_g2(buf.g2_alt3());
         InvButton3 { obj, slot, com }
     }

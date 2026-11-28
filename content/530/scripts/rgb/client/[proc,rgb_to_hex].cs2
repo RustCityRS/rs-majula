@@ -7,7 +7,7 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
-def_int $rgb10 = ^black;
+def_int $colour10 = ^black;
 if ($int0 > 255) {
     $int3 = 255;
 } else if ($int0 < 0) {
@@ -102,5 +102,5 @@ if (testbit($int5, 7) = ^true) {
     $int8 = setbit($int8, 7);
 }
 $int9 = calc($int6 | $int7);
-$rgb10 = calc($int9 | $int8);
-return($rgb10);
+$colour10 = calc($int9 | $int8);
+return($colour10);

@@ -10,7 +10,7 @@ switch_int (%meslayermode) {
     case 13 :
         ~meslayer_close(13);
     case default :
-        if (getwindowmode >= 2) {
+        if (getwindowmode >= ^windowmode_resizable) {
             ~subchanged;
         }
 }

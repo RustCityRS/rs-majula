@@ -1,6 +1,6 @@
 // 5356
 [proc,clientscript_5356](int $int0, component $component1, struct $struct2)
 if (cc_find($component1, $int0) = true) {
-    cc_setgraphic(7767);
+    cc_setgraphic(graphic_7767);
     if_settext(interface_1143:com_49, struct_param($struct2, param_1994));
 }

@@ -18,7 +18,7 @@ session_log(^log_adventure, "Quest complete: Druidic Ritual");
 // by the uid this queue took. 2011 does not: in R nothing opens once the scroll is closed, and
 // V has the fundamentals only on "Can you explain the fundamentals again?".
 
-[oplocu,cauldron_of_thunder]
+[oplocu,cauldron_of_thunder_74872]
 def_obj $useitem = last_useitem;
 if (%druidquest ! ^druid_spoken_sanfew) {
     ~displaymessage(^dm_default);

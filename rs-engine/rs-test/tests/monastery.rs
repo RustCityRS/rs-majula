@@ -7,20 +7,16 @@
 //!   downstairs, with Abbot Langley (npc 801, beside it) saying so; a member
 //!   (`%prayer_guild` 1) climbs.
 //!
-//! Clicks are the client's OPLOC1 (`p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`).
+//! Clicks are the client's OPLOC1.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_test::server;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const PRAYER: usize = 5;
@@ -32,27 +28,14 @@ const LADDER: (u16, u16, u16) = (2641, 3057, 3483);
 static TURN: Mutex<()> = Mutex::new(());
 
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
 /// Every IF_SETTEXT's text in `packets`: what a chat line says.
 fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
-    let opcode = ServerProt::IfSetText as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            String::from_utf8_lossy(&p[4..end]).into_owned()
-        })
+    server::settexts(packets)
+        .into_iter()
+        .map(|(_, t)| t)
         .collect()
 }
 

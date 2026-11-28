@@ -1,61 +1,61 @@
 // 1766
 [proc,clientscript_1766]
 if (%if_side_combat = 0) {
-    if_setgraphic(toplevel:icon0, 168);
-    if_setgraphic(toplevel_fullscreen:icon0, 168);
+    if_setgraphic(toplevel:icon0, graphic_168);
+    if_setgraphic(toplevel_fullscreen:icon0, graphic_168);
 }
 if (%if_side_stats = 0) {
-    if_setgraphic(toplevel:icon1, 898);
-    if_setgraphic(toplevel_fullscreen:icon1, 898);
+    if_setgraphic(toplevel:icon1, graphic_898);
+    if_setgraphic(toplevel_fullscreen:icon1, graphic_898);
 }
 if (%if_side_journal = 0) {
-    if_setgraphic(toplevel:icon2, 899);
-    if_setgraphic(toplevel_fullscreen:icon2, 899);
+    if_setgraphic(toplevel:icon2, graphic_899);
+    if_setgraphic(toplevel_fullscreen:icon2, graphic_899);
 }
 if (%if_side_inv = 0) {
-    if_setgraphic(toplevel:icon3, 900);
-    if_setgraphic(toplevel_fullscreen:icon3, 900);
+    if_setgraphic(toplevel:icon3, graphic_900);
+    if_setgraphic(toplevel_fullscreen:icon3, graphic_900);
 }
 if (%if_side_worn = 0) {
-    if_setgraphic(toplevel:icon4, 901);
-    if_setgraphic(toplevel_fullscreen:icon4, 901);
+    if_setgraphic(toplevel:icon4, graphic_901);
+    if_setgraphic(toplevel_fullscreen:icon4, graphic_901);
 } else if (%if_side_worn = 1) {
-    if_setgraphic(toplevel:icon4, 1477);
-    if_setgraphic(toplevel_fullscreen:icon4, 1477);
+    if_setgraphic(toplevel:icon4, graphic_1477);
+    if_setgraphic(toplevel_fullscreen:icon4, graphic_1477);
 }
 if (%if_side_prayer = 0) {
-    if_setgraphic(toplevel:icon5, 902);
-    if_setgraphic(toplevel_fullscreen:icon5, 902);
+    if_setgraphic(toplevel:icon5, graphic_902);
+    if_setgraphic(toplevel_fullscreen:icon5, graphic_902);
 }
 if (%if_side_magic = 0) {
-    if_setgraphic(toplevel:icon6, 903);
-    if_setgraphic(toplevel_fullscreen:icon6, 903);
+    if_setgraphic(toplevel:icon6, graphic_903);
+    if_setgraphic(toplevel_fullscreen:icon6, graphic_903);
 }
 if (%varclient_239 = 0) {
-    if_setgraphic(toplevel:icon7, 1242);
-    if_setgraphic(toplevel_fullscreen:icon7, 1242);
+    if_setgraphic(toplevel:icon7, graphic_1242);
+    if_setgraphic(toplevel_fullscreen:icon7, graphic_1242);
 }
 if (%if_side_friends = 0) {
-    if_setgraphic(toplevel:icon8, 904);
-    if_setgraphic(toplevel_fullscreen:icon8, 904);
+    if_setgraphic(toplevel:icon8, graphic_904);
+    if_setgraphic(toplevel_fullscreen:icon8, graphic_904);
 }
 if (%if_side_ignore = 0) {
-    if_setgraphic(toplevel:icon9, 905);
-    if_setgraphic(toplevel_fullscreen:icon9, 905);
+    if_setgraphic(toplevel:icon9, graphic_905);
+    if_setgraphic(toplevel_fullscreen:icon9, graphic_905);
 }
 if (%if_side_clanchat = 0) {
-    if_setgraphic(toplevel:icon10, 1241);
-    if_setgraphic(toplevel_fullscreen:icon10, 1241);
+    if_setgraphic(toplevel:icon10, graphic_1241);
+    if_setgraphic(toplevel_fullscreen:icon10, graphic_1241);
 }
 if (%if_side_options1 = 0) {
-    if_setgraphic(toplevel:icon11, 907);
-    if_setgraphic(toplevel_fullscreen:icon11, 907);
+    if_setgraphic(toplevel:icon11, graphic_907);
+    if_setgraphic(toplevel_fullscreen:icon11, graphic_907);
 }
 if (%if_side_options2 = 0) {
-    if_setgraphic(toplevel:icon12, 908);
-    if_setgraphic(toplevel_fullscreen:icon12, 908);
+    if_setgraphic(toplevel:icon12, graphic_908);
+    if_setgraphic(toplevel_fullscreen:icon12, graphic_908);
 }
 if (%if_side_music = 0) {
-    if_setgraphic(toplevel:icon13, 909);
-    if_setgraphic(toplevel_fullscreen:icon13, 909);
+    if_setgraphic(toplevel:icon13, graphic_909);
+    if_setgraphic(toplevel_fullscreen:icon13, graphic_909);
 }

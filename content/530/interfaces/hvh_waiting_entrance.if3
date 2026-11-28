@@ -6,7 +6,7 @@ y=24
 width=112
 height=26
 layer=waiting_room_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 731:1
@@ -17,7 +17,7 @@ y=17
 width=32
 height=32
 layer=waiting_room_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 731:2
 [rating_corner2]
@@ -27,7 +27,7 @@ y=25
 width=32
 height=32
 layer=waiting_room_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 731:3
 [rating_corner3]
@@ -37,7 +37,7 @@ y=17
 width=32
 height=32
 layer=waiting_room_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 731:4
 [rating_corner4]
@@ -47,7 +47,7 @@ y=25
 width=32
 height=32
 layer=waiting_room_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 731:5
 [rating_top]
@@ -57,7 +57,7 @@ y=4
 width=69
 height=29
 layer=waiting_room_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 731:6
@@ -68,7 +68,7 @@ y=37
 width=62
 height=20
 layer=waiting_room_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 731:7
@@ -79,7 +79,7 @@ y=20
 width=112
 height=33
 layer=waiting_room_layer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Rating
 textalignh=centre
 textalignv=centre
@@ -103,7 +103,7 @@ y=24
 width=112
 height=26
 layer=com_17
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 731:10
@@ -114,7 +114,7 @@ y=17
 width=32
 height=32
 layer=com_17
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 731:11
 [people_corner2]
@@ -124,7 +124,7 @@ y=25
 width=32
 height=32
 layer=com_17
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 731:12
 [people_corner3]
@@ -134,7 +134,7 @@ y=17
 width=32
 height=32
 layer=com_17
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 731:13
 [full_list01]
@@ -144,7 +144,7 @@ y=25
 width=32
 height=32
 layer=com_17
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 731:14
 [people_top]
@@ -154,7 +154,7 @@ y=4
 width=69
 height=29
 layer=com_17
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 731:15
@@ -165,7 +165,7 @@ y=37
 width=62
 height=20
 layer=com_17
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 731:16
@@ -176,7 +176,7 @@ y=20
 width=112
 height=33
 layer=com_17
-textfont=fontmetrics_495
+textfont=p12_full
 text=Text
 textalignh=centre
 textalignv=centre
@@ -200,7 +200,7 @@ y=10
 width=475
 height=30
 layer=not_allowed_layer
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 731:19
@@ -211,7 +211,7 @@ y=3
 width=32
 height=32
 layer=not_allowed_layer
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 731:20
 [com_20]
@@ -221,7 +221,7 @@ y=15
 width=32
 height=32
 layer=not_allowed_layer
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 731:21
 [com_21]
@@ -231,7 +231,7 @@ y=3
 width=32
 height=32
 layer=not_allowed_layer
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 731:22
 [com_22]
@@ -241,7 +241,7 @@ y=15
 width=32
 height=32
 layer=not_allowed_layer
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 731:23
 [com_23]
@@ -251,7 +251,7 @@ y=-10
 width=442
 height=32
 layer=not_allowed_layer
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 731:24
@@ -262,7 +262,7 @@ y=27
 width=441
 height=32
 layer=not_allowed_layer
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 731:25
@@ -273,7 +273,7 @@ y=9
 width=477
 height=20
 layer=not_allowed_layer
-textfont=fontmetrics_496
+textfont=b12_full
 text=The following item is not allowed in the arena:
 textalignh=centre
 textshadow=yes

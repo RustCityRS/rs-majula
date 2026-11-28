@@ -4,7 +4,7 @@
 def_int $hair_count = enum_getoutputcount(enum_3304);
 def_int $hair_index = random($hair_count);
 def_int $hair = -1;
-def_int $hair_struct = enum(105, 74, enum_3304, $hair_index);
+def_int $hair_struct = enum(int, struct, enum_3304, $hair_index);
 if ($hair_struct ! -1) {
     $hair = struct_param($hair_struct, param_788);
     if ($hair ! -1) { setidkit($hair, 0); }
@@ -13,14 +13,14 @@ if ($hair_struct ! -1) {
 
 def_int $colour_count = enum_getoutputcount(enum_2345);
 def_int $colour_index = random($colour_count);
-def_int $hair_colour = enum(105, 105, enum_2345, $colour_index);
+def_int $hair_colour = enum(int, int, enum_2345, $colour_index);
 if ($hair_colour ! -1) {
     setidkcolour(0, $hair_colour);
     %playerdesign3_haircol = $hair_colour;
 }
 
 if ($hair ! -1) { %playerdesign3_head = $hair; }
-%playerdesign3_jaw = 14;
+%playerdesign3_jaw = idkit_14;
 
 if_opentop(playerdesign4);
 allowdesign(^true);
@@ -31,13 +31,13 @@ allowdesign(^true);
 ~cc_transmit_invs();
 
 [proc,cc_send_makeover_varcs]()
-%playerdesign3_head = 0
-%playerdesign3_jaw = 14
-%playerdesign3_torso = 18
-%playerdesign3_arms = 26
-%playerdesign3_hands = 34
-%playerdesign3_legs = 38
-%playerdesign3_feet = 42
+%playerdesign3_head = idkit_0
+%playerdesign3_jaw = idkit_14
+%playerdesign3_torso = idkit_18
+%playerdesign3_arms = idkit_26
+%playerdesign3_hands = idkit_34
+%playerdesign3_legs = idkit_38
+%playerdesign3_feet = idkit_42
 %playerdesign3_haircol = 0
 %playerdesign3_torsocol = 0
 %playerdesign3_legscol = 0

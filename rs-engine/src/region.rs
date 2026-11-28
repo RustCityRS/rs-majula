@@ -636,7 +636,10 @@ impl Engine {
                 for (coord, serial) in region.statics.remove(&column).into_iter().flatten() {
                     let (x, y, z) = (coord.x(), coord.y(), coord.z());
                     if let Some(zone) = self.zones.zones.get_mut(&ZoneCoordGrid::new(x, y, z))
-                        && let Some(index) = zone.locs.iter().position(|loc| loc.serial() == serial)
+                        && let Some(index) = zone
+                            .locs
+                            .iter()
+                            .position(|loc| loc.serial() == serial && loc.is_at(x, z))
                     {
                         zone.locs.remove(index);
                     }
@@ -802,6 +805,7 @@ impl Engine {
                                     shape.layer(),
                                     angle,
                                     loc_type.blockrange,
+                                    loc_type.breakroutefinding,
                                     loc_type.length,
                                     loc_type.width,
                                     loc_type.active,
@@ -820,6 +824,7 @@ impl Engine {
                             angle,
                             loc_type.blockwalk,
                             loc_type.blockrange,
+                            loc_type.breakroutefinding,
                             loc_type.width,
                             loc_type.length,
                         ));

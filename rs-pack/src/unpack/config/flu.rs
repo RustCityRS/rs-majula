@@ -18,11 +18,11 @@ pub fn emit_flu_props(
         p.push((
             2,
             "material".into(),
-            packs.reference("texture", def.texture.unwrap_or(TypeId::NULL)),
+            packs.reference("texture", def.material.unwrap_or(TypeId::NULL)),
         ));
     }
     if opcode == 3 {
-        p.push((3, "texturescale".into(), def.size.to_string()));
+        p.push((3, "texturescale".into(), def.texture_scale.to_string()));
     }
     if def.op4 {
         p.push((4, "hardshadow".into(), "no".into()));

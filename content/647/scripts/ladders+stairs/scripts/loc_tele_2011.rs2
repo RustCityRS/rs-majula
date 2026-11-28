@@ -17,30 +17,44 @@ if (~loc_tele_2011($op) = false) {
     mes("Nothing interesting happens.");
 }
 
-// The active loc's climb for `$op` (0: any op): its placement's row, else its
-// default row. False when the table has neither.
 [proc,loc_tele_2011](int $op)(boolean)
+def_dbrow $row = ~loc_tele_2011_row($op);
+if ($row = null & $op = 1) {
+    def_dbrow $up = ~loc_tele_2011_row(2);
+    def_dbrow $down = ~loc_tele_2011_row(3);
+    if ($up ! null & $down ! null) {
+        if (~p_choice2_header("Climb up.", 1, "Climb down.", 2, "Climb up or down?") = 1) {
+            $row = $up;
+        } else {
+            $row = $down;
+        }
+        if_close;
+    }
+}
+if ($row = null) {
+    return(false);
+}
+~loc_tele_2011_go($row);
+return(true);
+
+// Prefer the route for this placement over the loc's default for the same op.
+[proc,loc_tele_2011_row](int $op)(dbrow)
 def_dbrow $default = null;
 db_find(loc_tele_2011:loc, loc_type);
 def_dbrow $row = db_findnext;
 while ($row ! null) {
-    if ($op = 0 | db_getfield($row, loc_tele_2011:op, 0) = $op) {
+    if (db_getfield($row, loc_tele_2011:op, 0) = $op) {
         if (db_getfieldcount($row, loc_tele_2011:coord) = 0) {
             if ($default = null) {
                 $default = $row;
             }
         } else if (db_getfield($row, loc_tele_2011:coord, 0) = loc_coord) {
-            ~loc_tele_2011_go($row);
-            return(true);
+            return($row);
         }
     }
     $row = db_findnext;
 }
-if ($default ! null) {
-    ~loc_tele_2011_go($default);
-    return(true);
-}
-return(false);
+return($default);
 
 // A delta is from the player's tile, as 289's ladders move (and void-634's).
 // Ladders climb as 289's do (~climb_ladder); stairs are walked onto the floor.

@@ -16396,25 +16396,25 @@ fog_depth=1300
 env_map=texture_2212,texture_2209,texture_2214,texture_2211,texture_2210,texture_2213
 
 ==== LIGHTS ====
-8 7276 1902 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=31 ref=light_9
-0 7441 2413 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=31 ref=light_9
-8 7276 1902 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=31 ref=light_6
-0 7441 2413 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=31 ref=light_6
-0 4974 3447 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 4377 3447 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 3857 2935 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 3857 2338 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 4249 1570 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 3473 7202 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 5495 5768 434: radius=2 colors=5,5,5,5,5 hsl=5022 type=127 ref=light_9
-0 7808 6714 510: radius=2 colors=0,0,260,260,260 hsl=5000 type=31 ref=light_9
-0 7679 7224 510: radius=2 colors=0,0,5,5,5 hsl=5000 type=63 ref=light_9
-0 6584 8004 510: radius=2 colors=515,515,515,515,515 hsl=5007 type=95 ref=light_9
-0 7224 7707 760: radius=5 colors=11,11,11,11,11,11,11,11,11,11,11 hsl=5052 type=193
-1 7869 6724 958: radius=2 colors=0,0,5,5,5 hsl=5007 type=255 ref=light_9
-1 7034 7359 958: radius=1 colors=0,3,3 hsl=5022 type=159 ref=light_9
-1 7419 7359 958: radius=1 colors=0,3,3 hsl=5022 type=255 ref=light_9
-1 7227 7884 1288: radius=6 colors=0,0,267,267,267,267,267,267,267,267,267,0,0 hsl=5032 type=1
+8 7276 1902 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=31 lighttype=light_9
+0 7441 2413 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=31 lighttype=light_9
+8 7276 1902 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=31 lighttype=light_6
+0 7441 2413 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=31 lighttype=light_6
+0 4974 3447 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 4377 3447 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 3857 2935 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 3857 2338 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 4249 1570 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 3473 7202 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 5495 5768 434: radius=2 radiusgrid=5,5,5,5,5 hsl=5022 type=127 lighttype=light_9
+0 7808 6714 510: radius=2 radiusgrid=0,0,260,260,260 hsl=5000 type=31 lighttype=light_9
+0 7679 7224 510: radius=2 radiusgrid=0,0,5,5,5 hsl=5000 type=63 lighttype=light_9
+0 6584 8004 510: radius=2 radiusgrid=515,515,515,515,515 hsl=5007 type=95 lighttype=light_9
+0 7224 7707 760: radius=5 radiusgrid=11,11,11,11,11,11,11,11,11,11,11 hsl=5052 type=193
+1 7869 6724 958: radius=2 radiusgrid=0,0,5,5,5 hsl=5007 type=255 lighttype=light_9
+1 7034 7359 958: radius=1 radiusgrid=0,3,3 hsl=5022 type=159 lighttype=light_9
+1 7419 7359 958: radius=1 radiusgrid=0,3,3 hsl=5022 type=255 lighttype=light_9
+1 7227 7884 1288: radius=6 radiusgrid=0,0,267,267,267,267,267,267,267,267,267,0,0 hsl=5032 type=1
 
 ==== ENVPARAMS ====
 64 21 7

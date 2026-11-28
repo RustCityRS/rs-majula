@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 opbase= 
 
@@ -27,7 +27,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 591:3
@@ -36,7 +36,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 591:4
@@ -46,7 +46,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 591:5
@@ -56,7 +56,7 @@ x=44
 y=7
 width=424
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 591:6
@@ -66,7 +66,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 opbase= 
 
@@ -77,7 +77,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 591:8
 [com_8]
@@ -86,7 +86,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 591:9
 [com_9]
@@ -95,7 +95,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 591:10
 [com_10]
@@ -104,7 +104,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 591:11
 [border_t_left]
@@ -113,7 +113,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 591:12
 [border_t_right]
@@ -122,7 +122,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 591:13
 [com_13]
@@ -611,7 +611,7 @@ x=21
 y=31
 width=469
 height=15
-textfont=fontmetrics_496
+textfont=b12_full
 text=Thessalia's Makeovers
 textalignh=centre
 textshadow=yes
@@ -625,7 +625,7 @@ y=4
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Striped sweater
 textshadow=yes
 colour=0xc9800d
@@ -638,7 +638,7 @@ y=3
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:64
 [com_64]
@@ -658,7 +658,7 @@ y=30
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Woollen vest
 textshadow=yes
 colour=0xc9800d
@@ -671,7 +671,7 @@ y=29
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:67
 [com_67]
@@ -691,7 +691,7 @@ y=57
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Princely vest
 textshadow=yes
 colour=0xc9800d
@@ -704,7 +704,7 @@ y=56
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:70
 [com_70]
@@ -724,7 +724,7 @@ y=83
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Tattered waistcoat
 textshadow=yes
 colour=0xc9800d
@@ -737,7 +737,7 @@ y=82
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:73
 [com_73]
@@ -757,7 +757,7 @@ y=109
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Fine shirt
 textshadow=yes
 colour=0xc9800d
@@ -770,7 +770,7 @@ y=108
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:76
 [com_76]
@@ -790,7 +790,7 @@ y=135
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Waistcoat
 textshadow=yes
 colour=0xc9800d
@@ -803,7 +803,7 @@ y=134
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:79
 [com_79]
@@ -823,7 +823,7 @@ y=162
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Plain top
 textshadow=yes
 colour=0xc9800d
@@ -836,7 +836,7 @@ y=161
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:82
 [com_82]
@@ -856,7 +856,7 @@ y=189
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Light buttons
 textshadow=yes
 colour=0xc9800d
@@ -869,7 +869,7 @@ y=188
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:85
 [com_85]
@@ -889,7 +889,7 @@ y=216
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Dark buttons
 textshadow=yes
 colour=0xc9800d
@@ -902,7 +902,7 @@ y=215
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:88
 [com_88]
@@ -922,7 +922,7 @@ y=243
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Jacket
 textshadow=yes
 colour=0xc9800d
@@ -935,7 +935,7 @@ y=242
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:91
 [com_91]
@@ -955,7 +955,7 @@ y=269
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Shirt
 textshadow=yes
 colour=0xc9800d
@@ -968,7 +968,7 @@ y=268
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:94
 [com_94]
@@ -988,7 +988,7 @@ y=296
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Stitching
 textshadow=yes
 colour=0xc9800d
@@ -1001,7 +1001,7 @@ y=295
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:97
 [com_97]
@@ -1021,7 +1021,7 @@ y=321
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ragged top
 textshadow=yes
 colour=0xc9800d
@@ -1034,7 +1034,7 @@ y=320
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:100
 [com_100]
@@ -1054,7 +1054,7 @@ y=347
 width=124
 height=16
 layer=listlayer
-textfont=fontmetrics_495
+textfont=p12_full
 text=Two-toned
 textshadow=yes
 colour=0xc9800d
@@ -1067,7 +1067,7 @@ y=346
 width=36
 height=36
 layer=listlayer
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:103
 [com_103]
@@ -1087,7 +1087,7 @@ y=4
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Striped arms
 textshadow=yes
 colour=0xc9800d
@@ -1100,7 +1100,7 @@ y=3
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:106
 [com_106]
@@ -1120,7 +1120,7 @@ y=30
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Princely sleeves
 textshadow=yes
 colour=0xc9800d
@@ -1133,7 +1133,7 @@ y=29
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:109
 [com_109]
@@ -1153,7 +1153,7 @@ y=57
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Fine cuffs
 textshadow=yes
 colour=0xc9800d
@@ -1166,7 +1166,7 @@ y=56
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:112
 [com_112]
@@ -1186,7 +1186,7 @@ y=83
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Woollen sleeves
 textshadow=yes
 colour=0xc9800d
@@ -1199,7 +1199,7 @@ y=82
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:115
 [com_115]
@@ -1219,7 +1219,7 @@ y=109
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ragged arms
 textshadow=yes
 colour=0xc9800d
@@ -1232,7 +1232,7 @@ y=108
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:118
 [com_118]
@@ -1252,7 +1252,7 @@ y=135
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Tattered sleeves
 textshadow=yes
 colour=0xc9800d
@@ -1265,7 +1265,7 @@ y=134
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:121
 [com_121]
@@ -1285,7 +1285,7 @@ y=162
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Loose sleeved
 textshadow=yes
 colour=0xc9800d
@@ -1298,7 +1298,7 @@ y=161
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:124
 [com_124]
@@ -1318,7 +1318,7 @@ y=189
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Regular
 textshadow=yes
 colour=0xc9800d
@@ -1331,7 +1331,7 @@ y=188
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:127
 [com_127]
@@ -1351,7 +1351,7 @@ y=216
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Musclebound
 textshadow=yes
 colour=0xc9800d
@@ -1364,7 +1364,7 @@ y=215
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:130
 [com_130]
@@ -1384,7 +1384,7 @@ y=243
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Large cuffed
 textshadow=yes
 colour=0xc9800d
@@ -1397,7 +1397,7 @@ y=242
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:133
 [com_133]
@@ -1417,7 +1417,7 @@ y=269
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Thin sleeved
 textshadow=yes
 colour=0xc9800d
@@ -1430,7 +1430,7 @@ y=268
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:136
 [com_136]
@@ -1450,7 +1450,7 @@ y=296
 width=124
 height=16
 layer=com_175
-textfont=fontmetrics_495
+textfont=p12_full
 text=Shoulder pads
 textshadow=yes
 colour=0xc9800d
@@ -1463,7 +1463,7 @@ y=295
 width=36
 height=36
 layer=com_175
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:139
 [com_139]
@@ -1483,7 +1483,7 @@ y=4
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Plain trousers
 textshadow=yes
 colour=0xc9800d
@@ -1496,7 +1496,7 @@ y=3
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:142
 [com_142]
@@ -1516,7 +1516,7 @@ y=30
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Princely breeches
 textshadow=yes
 colour=0xc9800d
@@ -1529,7 +1529,7 @@ y=29
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:145
 [com_145]
@@ -1549,7 +1549,7 @@ y=57
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Shorts
 textshadow=yes
 colour=0xc9800d
@@ -1562,7 +1562,7 @@ y=56
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:148
 [com_148]
@@ -1582,7 +1582,7 @@ y=83
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Ragged breeches
 textshadow=yes
 colour=0xc9800d
@@ -1595,7 +1595,7 @@ y=82
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:151
 [com_151]
@@ -1615,7 +1615,7 @@ y=109
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Tattered breeches
 textshadow=yes
 colour=0xc9800d
@@ -1628,7 +1628,7 @@ y=108
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:154
 [com_154]
@@ -1648,7 +1648,7 @@ y=135
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Torn trousers
 textshadow=yes
 colour=0xc9800d
@@ -1661,7 +1661,7 @@ y=134
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:157
 [com_157]
@@ -1681,7 +1681,7 @@ y=162
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Breeches
 textshadow=yes
 colour=0xc9800d
@@ -1694,7 +1694,7 @@ y=161
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:160
 [com_160]
@@ -1714,7 +1714,7 @@ y=189
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Striped trousers
 textshadow=yes
 colour=0xc9800d
@@ -1727,7 +1727,7 @@ y=188
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:163
 [com_163]
@@ -1747,7 +1747,7 @@ y=216
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Turn-ups
 textshadow=yes
 colour=0xc9800d
@@ -1760,7 +1760,7 @@ y=215
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:166
 [com_166]
@@ -1780,7 +1780,7 @@ y=243
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Flares
 textshadow=yes
 colour=0xc9800d
@@ -1793,7 +1793,7 @@ y=242
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:169
 [com_169]
@@ -1813,7 +1813,7 @@ y=269
 width=124
 height=16
 layer=com_177
-textfont=fontmetrics_495
+textfont=p12_full
 text=Fine breeches
 textshadow=yes
 colour=0xc9800d
@@ -1826,7 +1826,7 @@ y=268
 width=36
 height=36
 layer=com_177
-graphic=graphic_180
+graphic="miscgraphics,10"
 
 // 591:172
 [com_172]
@@ -1906,7 +1906,7 @@ y=41
 width=90
 height=32
 layer=com_181
-textfont=fontmetrics_495
+textfont=p12_full
 text=1,000 Coins
 textshadow=yes
 colour=0xc9800d
@@ -1918,7 +1918,7 @@ x=407
 y=252
 width=42
 height=42
-graphic=graphic_1058
+graphic="player_kit_fancy_off,6"
 transmitop=1
 op1=Confirm Purchase
 onmouseover=graphic_swapper(event_com, 1050)
@@ -1940,7 +1940,7 @@ x=37
 y=62
 width=42
 height=42
-graphic=graphic_1044
+graphic="player_kit_fancy,0"
 transmitop=1
 op1=Select
 onmouseleave=deltooltip(interface_591:com_299)
@@ -1954,7 +1954,7 @@ x=87
 y=62
 width=42
 height=42
-graphic=graphic_1053
+graphic="player_kit_fancy_off,1"
 transmitop=1
 op1=Select
 onmouseleave=deltooltip(interface_591:com_299)
@@ -1968,7 +1968,7 @@ x=140
 y=62
 width=42
 height=42
-graphic=graphic_1054
+graphic="player_kit_fancy_off,2"
 transmitop=1
 op1=Select
 onmouseleave=deltooltip(interface_591:com_299)
@@ -3299,7 +3299,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 832)
@@ -3445,7 +3445,7 @@ x=451
 y=261
 width=23
 height=23
-graphic=graphic_938
+graphic="ame_confirm_button_no_back,0"
 transmitop=1
 opbase=  
 op1=Confirm Purchase

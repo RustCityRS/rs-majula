@@ -16,7 +16,7 @@ x=14
 y=25
 width=485
 height=300
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 163:2
@@ -25,7 +25,7 @@ type=graphic
 y=53
 width=32
 height=241
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 163:3
@@ -35,7 +35,7 @@ x=13
 y=20
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 163:4
 [com_4]
@@ -44,7 +44,7 @@ x=480
 y=51
 width=32
 height=243
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 163:5
@@ -54,7 +54,7 @@ x=44
 y=7
 width=424
 height=34
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 163:6
@@ -64,7 +64,7 @@ x=45
 y=306
 width=423
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 163:7
@@ -74,7 +74,7 @@ x=474
 y=30
 width=16
 height=16
-graphic=graphic_831
+graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(smki_learn:close_button, 832)
@@ -89,7 +89,7 @@ x=13
 y=294
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 163:9
 [com_9]
@@ -98,7 +98,7 @@ x=468
 y=20
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 163:10
 [com_10]
@@ -107,7 +107,7 @@ x=468
 y=294
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 163:11
 [com_11]
@@ -116,7 +116,7 @@ x=24
 y=35
 width=465
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 163:12
@@ -126,7 +126,7 @@ x=13
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 163:13
 [com_13]
@@ -135,7 +135,7 @@ x=468
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 163:14
 [assignment_tab]
@@ -144,7 +144,7 @@ x=182
 y=29
 width=97
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 transmitop=1
 op1=Assignment
 onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
@@ -157,7 +157,7 @@ x=22
 y=29
 width=94
 height=20
-graphic=graphic_953
+graphic="tabs,1"
 transmitop=1
 op1=Buy
 onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
@@ -170,7 +170,7 @@ x=99
 y=29
 width=99
 height=20
-graphic=graphic_952
+graphic="tabs,0"
 
 // 163:17
 [com_17]
@@ -189,7 +189,7 @@ x=198
 y=87
 width=53
 height=13
-textfont=fontmetrics_496
+textfont=b12_full
 text=XXXX
 textalignh=centre
 textshadow=yes
@@ -202,7 +202,7 @@ x=35
 y=33
 width=21
 height=10
-textfont=fontmetrics_494
+textfont=p11_full
 text=Buy
 textshadow=yes
 colour=0xbf751d
@@ -214,7 +214,7 @@ x=112
 y=34
 width=34
 height=9
-textfont=fontmetrics_494
+textfont=p11_full
 text=Learn
 textshadow=yes
 colour=0xff981f
@@ -226,7 +226,7 @@ x=193
 y=34
 width=65
 height=10
-textfont=fontmetrics_494
+textfont=p11_full
 text=Assignment
 textshadow=yes
 colour=0xbf751d
@@ -238,7 +238,7 @@ x=118
 y=138
 width=181
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 text=Learn how to fletch broad arrows/bolts
 textshadow=yes
 colour=0xd7b011
@@ -254,7 +254,7 @@ x=118
 y=191
 width=166
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Learn how to craft rings of slaying
 textshadow=yes
 colour=0xd7b011
@@ -270,7 +270,7 @@ x=118
 y=241
 width=214
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=Learn how to craft Slayer helmets
 textshadow=yes
 colour=0xd7b011
@@ -286,7 +286,7 @@ x=118
 y=159
 width=81
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=(Already learned)
 textshadow=yes
 colour=0xbf751d
@@ -298,7 +298,7 @@ x=118
 y=211
 width=81
 height=12
-textfont=fontmetrics_494
+textfont=p11_full
 text=(Already learned)
 textshadow=yes
 colour=0xbf751d
@@ -310,7 +310,7 @@ x=118
 y=261
 width=82
 height=13
-textfont=fontmetrics_494
+textfont=p11_full
 text=(Already learned)
 textshadow=yes
 colour=0xbf751d
@@ -322,7 +322,7 @@ x=95
 y=87
 width=79
 height=11
-textfont=fontmetrics_496
+textfont=b12_full
 text=Current points =
 textshadow=yes
 colour=0xd7b011
@@ -334,7 +334,7 @@ x=366
 y=138
 width=64
 height=13
-textfont=fontmetrics_495
+textfont=p12_full
 text=300 points
 textshadow=yes
 colour=0xff981f
@@ -350,7 +350,7 @@ x=366
 y=191
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 text=300 points
 textshadow=yes
 colour=0xff9800
@@ -366,7 +366,7 @@ x=366
 y=241
 width=64
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=400 points
 textshadow=yes
 colour=0xff981f
@@ -446,7 +446,7 @@ x=68
 y=71
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 163:37
 [com_37]
@@ -455,7 +455,7 @@ x=246
 y=71
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 163:38
 [com_38]
@@ -464,7 +464,7 @@ x=68
 y=84
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 163:39
 [com_39]
@@ -473,7 +473,7 @@ x=246
 y=84
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 163:40
 [com_40]
@@ -482,7 +482,7 @@ x=100
 y=58
 width=155
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 
 // 163:41
 [com_41]
@@ -491,7 +491,7 @@ x=99
 y=96
 width=152
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 
 // 163:42
 [tooltip_bounding_box]

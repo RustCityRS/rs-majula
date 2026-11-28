@@ -1,6 +1,6 @@
 // 5287
 [proc,clientscript_5287]
-sound_vorbis_rate(7513, 1, 0, 200, random_sound_pitch(20, 20));
+sound_vorbis_rate(vorbis_7513, 1, 0, 200, random_sound_pitch(20, 20));
 if (op2613(interface_555:com_48) = 32768) {
     if_set2dangle(interface_555:com_49, 49152);
     if_set2dangle(interface_555:com_48, 49152);

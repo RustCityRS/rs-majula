@@ -5,25 +5,25 @@ def_graphic $graphic1 = null;
 def_graphic $graphic2 = null;
 def_boolean $boolean3 = false;
 if (map_lang = 0) {
-    $graphic0 = 11740;
+    $graphic0 = graphic_11740;
 } else if (map_lang = 1) {
-    $graphic0 = 11742;
+    $graphic0 = graphic_11742;
 } else if (map_lang = 2) {
-    $graphic0 = 11743;
+    $graphic0 = graphic_11743;
 } else if (map_lang = 3) {
-    $graphic0 = 11741;
+    $graphic0 = graphic_11741;
 }
 if_setgraphic(interface_1307:com_74, $graphic0);
 if (%varplayerbit_11651 = 1) {
     $boolean3 = true;
-    $graphic0 = 11718;
-    $graphic1 = 11719;
-    $graphic2 = 11720;
+    $graphic0 = graphic_11718;
+    $graphic1 = graphic_11719;
+    $graphic2 = graphic_11720;
 } else {
     $boolean3 = false;
-    $graphic0 = 11727;
-    $graphic1 = 11728;
-    $graphic2 = 11729;
+    $graphic0 = graphic_11727;
+    $graphic1 = graphic_11728;
+    $graphic2 = graphic_11729;
 }
 if_setgraphic(interface_1307:com_28, $graphic0);
 if_setonmouseleave(interface_1307:com_28, "graphic_swapper(interface_1307:com_28, $graphic0)");
@@ -33,14 +33,14 @@ if_setonclick(interface_1307:com_28, "graphic_swapper(interface_1307:com_28, $gr
 if_sethide(interface_1307:com_29, $boolean3);
 if (%varplayerbit_11652 = 1) {
     $boolean3 = true;
-    $graphic0 = 11724;
-    $graphic1 = 11725;
-    $graphic2 = 11726;
+    $graphic0 = graphic_11724;
+    $graphic1 = graphic_11725;
+    $graphic2 = graphic_11726;
 } else {
     $boolean3 = false;
-    $graphic0 = 11733;
-    $graphic1 = 11734;
-    $graphic2 = 11735;
+    $graphic0 = graphic_11733;
+    $graphic1 = graphic_11734;
+    $graphic2 = graphic_11735;
 }
 if_setgraphic(interface_1307:com_45, $graphic0);
 if_setonmouseleave(interface_1307:com_45, "graphic_swapper(interface_1307:com_45, $graphic0)");
@@ -50,14 +50,14 @@ if_setonclick(interface_1307:com_45, "graphic_swapper(interface_1307:com_45, $gr
 if_sethide(interface_1307:com_46, $boolean3);
 if (%varplayerbit_11653 = 1) {
     $boolean3 = true;
-    $graphic0 = 11721;
-    $graphic1 = 11722;
-    $graphic2 = 11723;
+    $graphic0 = graphic_11721;
+    $graphic1 = graphic_11722;
+    $graphic2 = graphic_11723;
 } else {
     $boolean3 = false;
-    $graphic0 = 11730;
-    $graphic1 = 11731;
-    $graphic2 = 11732;
+    $graphic0 = graphic_11730;
+    $graphic1 = graphic_11731;
+    $graphic2 = graphic_11732;
 }
 if_setgraphic(interface_1307:com_47, $graphic0);
 if_setonmouseleave(interface_1307:com_47, "graphic_swapper(interface_1307:com_47, $graphic0)");

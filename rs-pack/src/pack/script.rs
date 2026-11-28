@@ -1,4 +1,8 @@
-use crate::pack::incremental::{Cached, Registry, Stage, bundle, dir_key, files_under, unbundle};
+#[cfg(since_647)]
+use crate::pack::incremental::lobby_files_under;
+use crate::pack::incremental::{
+    Cached, LOBBY_COMMANDS, Registry, Stage, bundle, dir_key, game_files_under, unbundle,
+};
 use crate::pack::pack_dir::PrivatePack;
 use anyhow::Result;
 use runec::ScriptIds;
@@ -9,8 +13,11 @@ use std::sync::{Arc, LazyLock, Mutex, MutexGuard, PoisonError};
 use std::time::Instant;
 use tracing::debug;
 
-static IDS: LazyLock<Mutex<HashMap<PathBuf, Arc<Mutex<ScriptIds>>>>> =
-    LazyLock::new(Mutex::default);
+type IdMaps = LazyLock<Mutex<HashMap<PathBuf, Arc<Mutex<ScriptIds>>>>>;
+
+static IDS: IdMaps = LazyLock::new(Mutex::default);
+#[cfg(since_647)]
+static LOBBY_IDS: IdMaps = LazyLock::new(Mutex::default);
 
 fn lock<T>(mutex: &Mutex<T>) -> MutexGuard<'_, T> {
     mutex.lock().unwrap_or_else(PoisonError::into_inner)
@@ -65,28 +72,70 @@ impl Cached for CompiledScripts {
     }
 }
 
+type Compiler = fn(&Path, &Path, &mut ScriptIds) -> Result<(Vec<u8>, Vec<u8>)>;
+
 pub(crate) fn compile(source: &Path, pack: &Path) -> Result<(Vec<u8>, Vec<u8>)> {
+    compile_with(
+        source,
+        pack,
+        &IDS,
+        "scripts",
+        &[LOBBY_COMMANDS],
+        game_files_under,
+        |scripts, pack, ids| {
+            let compiled = runec::compile_memory_with_ids(scripts, Some(pack), ids)
+                .map_err(|e| anyhow::anyhow!("{e}"))?;
+            let _ = runec::lint(scripts, Some(pack));
+            Ok(compiled)
+        },
+    )
+}
+
+#[cfg(since_647)]
+pub(crate) fn compile_lobby(source: &Path, pack: &Path) -> Result<(Vec<u8>, Vec<u8>)> {
+    compile_with(
+        source,
+        pack,
+        &LOBBY_IDS,
+        "lobby scripts",
+        &[],
+        lobby_files_under,
+        |scripts, pack, ids| {
+            let compiled = runec::compile_lobby_memory_with_ids(scripts, Some(pack), ids)
+                .map_err(|e| anyhow::anyhow!("{e}"))?;
+            let _ = runec::lint_lobby(scripts, Some(pack));
+            Ok(compiled)
+        },
+    )
+}
+
+fn compile_with(
+    source: &Path,
+    pack: &Path,
+    id_maps: &IdMaps,
+    name: &str,
+    skip: &[&str],
+    inputs: fn(&[PathBuf]) -> Vec<PathBuf>,
+    compiler: Compiler,
+) -> Result<(Vec<u8>, Vec<u8>)> {
     let project = fs::canonicalize(source)?;
-    let ids = lock(&IDS).entry(project).or_default().clone();
+    let ids = lock(id_maps).entry(project).or_default().clone();
     let mut ids = lock(&ids);
     let registry = ScriptRegistry(Mutex::new(ids.clone()));
     let private = PrivatePack::copy(pack)?;
     let scripts = source.join("scripts");
     let stage = Stage::new(
-        "scripts",
-        vec![("pack".to_owned(), dir_key(private.path(), &[]))],
+        name,
+        vec![("pack".to_owned(), dir_key(private.path(), skip))],
     );
     let start = Instant::now();
     let compiled = stage.unit_with(
         &registry,
         0,
-        &files_under(&runec::sources::roots(&scripts)),
+        &inputs(&runec::sources::roots(&scripts)),
         |registry| {
             let mut ids = lock(&registry.0);
-            let (dat, idx) =
-                runec::compile_memory_with_ids(&scripts, Some(private.path()), &mut ids)
-                    .map_err(|e| anyhow::anyhow!("{e}"))?;
-            let _ = runec::lint(&scripts, Some(private.path()));
+            let (dat, idx) = compiler(&scripts, private.path(), &mut ids)?;
             Ok(CompiledScripts {
                 dat,
                 idx,
@@ -96,6 +145,6 @@ pub(crate) fn compile(source: &Path, pack: &Path) -> Result<(Vec<u8>, Vec<u8>)> 
     )?;
     ids.extend(compiled.ids);
     stage.finish(Vec::new());
-    debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
+    debug!("Compiled {name} in {:.2}s", start.elapsed().as_secs_f64());
     Ok((compiled.dat, compiled.idx))
 }

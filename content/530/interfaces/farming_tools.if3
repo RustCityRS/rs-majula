@@ -16,7 +16,7 @@ x=103
 y=37
 width=327
 height=248
-graphic=graphic_297
+graphic=tradebacking
 tiling=yes
 
 // 125:2
@@ -26,7 +26,7 @@ x=86
 y=58
 width=39
 height=202
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 125:3
@@ -36,7 +36,7 @@ x=414
 y=59
 width=27
 height=207
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 125:4
@@ -46,7 +46,7 @@ x=99
 y=34
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 125:5
 [com_5]
@@ -55,7 +55,7 @@ x=120
 y=21
 width=286
 height=22
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 125:6
@@ -65,7 +65,7 @@ x=123
 y=269
 width=285
 height=37
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 125:7
@@ -75,7 +75,7 @@ x=99
 y=257
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 125:8
 [com_8]
@@ -84,7 +84,7 @@ x=402
 y=34
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 125:9
 [com_9]
@@ -93,7 +93,7 @@ x=402
 y=257
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 125:10
 [com_10]
@@ -102,7 +102,7 @@ x=109
 y=52
 width=316
 height=22
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 125:11
@@ -112,7 +112,7 @@ x=99
 y=54
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 
 // 125:12
 [com_12]
@@ -121,7 +121,7 @@ x=402
 y=54
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 
 // 125:13
 [com_13]
@@ -130,7 +130,7 @@ x=105
 y=38
 width=320
 height=27
-textfont=fontmetrics_496
+textfont=b12_full
 text=Amazing Farming Equipment Store
 textalignh=centre
 textalignv=centre
@@ -144,7 +144,7 @@ x=119
 y=71
 width=97
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Farming rake
 textalignv=bottom
 textshadow=yes
@@ -157,7 +157,7 @@ x=119
 y=104
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -168,7 +168,7 @@ x=215
 y=71
 width=97
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Seed dibber
 textalignv=bottom
 textshadow=yes
@@ -181,7 +181,7 @@ x=215
 y=104
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -192,7 +192,7 @@ x=311
 y=71
 width=106
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=All-purpose spade
 textalignv=bottom
 textshadow=yes
@@ -205,7 +205,7 @@ x=311
 y=104
 width=64
 height=17
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -216,7 +216,7 @@ x=119
 y=135
 width=97
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Secateurs
 textalignv=bottom
 textshadow=yes
@@ -229,7 +229,7 @@ x=119
 y=168
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -240,7 +240,7 @@ x=215
 y=135
 width=97
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Watering Can
 textalignv=bottom
 textshadow=yes
@@ -253,7 +253,7 @@ x=215
 y=168
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -264,7 +264,7 @@ x=311
 y=135
 width=106
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Gardening trowel
 textalignv=bottom
 textshadow=yes
@@ -277,7 +277,7 @@ x=311
 y=168
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x870000
 
@@ -288,7 +288,7 @@ x=119
 y=199
 width=97
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Empty buckets
 textalignv=bottom
 textshadow=yes
@@ -301,7 +301,7 @@ x=119
 y=232
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -312,7 +312,7 @@ x=215
 y=199
 width=97
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Normal Compost
 textalignv=bottom
 textshadow=yes
@@ -325,7 +325,7 @@ x=215
 y=232
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x870000
 
@@ -336,7 +336,7 @@ x=311
 y=199
 width=106
 height=34
-textfont=fontmetrics_495
+textfont=p12_full
 text=Supercompost
 textalignv=bottom
 textshadow=yes
@@ -349,7 +349,7 @@ x=311
 y=232
 width=64
 height=16
-textfont=fontmetrics_495
+textfont=p12_full
 textshadow=yes
 colour=0x872300
 
@@ -360,7 +360,7 @@ x=401
 y=41
 width=26
 height=23
-graphic=graphic_535
+graphic="close_buttons,0"
 transmitop=1
 op1=Close
 onmouseover=graphic_swapper(event_com, 536)

@@ -52,7 +52,7 @@ x=5
 y=25
 width=32
 height=32
-graphic=graphic_856
+graphic="v2_stone_borders,28"
 
 // 663:5
 [com_5]
@@ -61,7 +61,7 @@ x=37
 y=12
 width=116
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 opbase= 
 
@@ -72,7 +72,7 @@ x=152
 y=25
 width=32
 height=32
-graphic=graphic_857
+graphic="v2_stone_borders,29"
 
 // 663:7
 [com_7]
@@ -81,7 +81,7 @@ x=167
 y=57
 width=32
 height=53
-graphic=graphic_852
+graphic="v2_stone_borders,24"
 tiling=yes
 
 // 663:8
@@ -91,7 +91,7 @@ x=152
 y=110
 width=32
 height=32
-graphic=graphic_859
+graphic="v2_stone_borders,31"
 
 // 663:9
 [com_9]
@@ -100,7 +100,7 @@ x=37
 y=126
 width=115
 height=32
-graphic=graphic_851
+graphic="v2_stone_borders,23"
 tiling=yes
 
 // 663:10
@@ -110,7 +110,7 @@ x=5
 y=110
 width=32
 height=32
-graphic=graphic_858
+graphic="v2_stone_borders,30"
 
 // 663:11
 [com_11]
@@ -119,7 +119,7 @@ x=-9
 y=57
 width=32
 height=53
-graphic=graphic_852
+graphic="v2_stone_borders,24"
 tiling=yes
 
 // 663:12
@@ -129,7 +129,7 @@ x=-1
 y=169
 width=32
 height=47
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 663:13
@@ -139,7 +139,7 @@ x=13
 y=153
 width=164
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 663:14
@@ -149,7 +149,7 @@ x=164
 y=169
 width=32
 height=47
-graphic=graphic_1075
+graphic="v2_borders_slim,12"
 tiling=yes
 
 // 663:15
@@ -159,7 +159,7 @@ x=12
 y=199
 width=165
 height=32
-graphic=graphic_1074
+graphic="v2_borders_slim,11"
 tiling=yes
 
 // 663:16
@@ -170,7 +170,7 @@ y=173
 width=25
 height=25
 layer=cat_bounding_box
-graphic=graphic_1177
+graphic="lore_icons,1"
 onmouseleave=deltooltip(lore_cats_side:build_layer)
 onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Size Percentage", 25, 300)
 
@@ -182,7 +182,7 @@ y=200
 width=32
 height=15
 layer=cat_bounding_box
-textfont=fontmetrics_494
+textfont=p11_full
 text=100%
 textalignh=centre
 textalignv=centre
@@ -200,7 +200,7 @@ y=173
 width=25
 height=25
 layer=cat_bounding_box
-graphic=graphic_1176
+graphic="lore_icons,0"
 onmouseleave=deltooltip(lore_cats_side:build_layer)
 onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Hunger Percentage", 25, 300)
 
@@ -212,7 +212,7 @@ y=200
 width=32
 height=15
 layer=cat_bounding_box
-textfont=fontmetrics_494
+textfont=p11_full
 text=9999
 textalignh=centre
 textalignv=centre
@@ -241,7 +241,7 @@ y=225
 width=25
 height=25
 layer=cat_bounding_box
-graphic=graphic_1179
+graphic="lore_icons,3"
 transmitop=1
 op1=Call Cat
 onmouseleave=deltooltip(lore_cats_side:build_layer)
@@ -267,7 +267,7 @@ y=225
 width=25
 height=25
 layer=cat_bounding_box
-graphic=graphic_1181
+graphic="lore_icons,5"
 transmitop=1,2
 op1=Dismiss Cat
 op2=Dismiss Now
@@ -281,7 +281,7 @@ x=13
 y=145
 width=166
 height=20
-graphic=graphic_1196
+graphic=lore_stats_box
 
 // 663:25
 [lore_name]
@@ -290,7 +290,7 @@ x=13
 y=143
 width=165
 height=22
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textalignv=centre
 colour=0xcc9900

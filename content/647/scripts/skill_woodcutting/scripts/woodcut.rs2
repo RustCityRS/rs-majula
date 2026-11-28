@@ -211,6 +211,9 @@ if (stat_random(woodcutting, $tree_chance_low, $tree_chance_high) = true) {
     if (random($deplete_chance) = 0) {
         $respawnrate = ~scale_by_playercount($respawnrate);
         loc_change(loc_param(next_loc_stage), $respawnrate);
+        if ($data = normal_tree_table) {
+            sound_synth(tree_fall, 1, 0);
+        }
         anim(null, 0);
         return;
     }

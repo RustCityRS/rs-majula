@@ -16396,16 +16396,16 @@ fog_depth=2558
 env_map=texture_2328,texture_2325,texture_2330,texture_2329,texture_2326,texture_2327
 
 ==== LIGHTS ====
-0 4668 5692 236: radius=3 colors=7,7,7,7,1537,1537,1537 hsl=15921 type=63 ref=light_8
-0 5436 5692 236: radius=3 colors=7,7,7,7,261,768,0 hsl=15921 type=63 ref=light_8
-0 5444 4164 236: radius=3 colors=0,768,261,7,7,7,7 hsl=15921 type=63 ref=light_8
-0 4676 4164 236: radius=3 colors=0,768,261,7,7,7,7 hsl=15921 type=63 ref=light_8
-0 6460 4538 399: radius=5 colors=521,266,266,266,266,266,266,266,266,266,266 hsl=15921 type=31 ref=light_8
-0 7996 3642 399: radius=5 colors=11,10,11,10,10,10,11,11,11,11,10 hsl=15921 type=31 ref=light_8
-0 5932 2892 550: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 ref=light_8
-0 7982 2508 550: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 ref=light_8
-0 7982 4556 550: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 ref=light_8
-0 5038 4940 550: radius=7 colors=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 ref=light_8
+0 4668 5692 236: radius=3 radiusgrid=7,7,7,7,1537,1537,1537 hsl=15921 type=63 lighttype=light_8
+0 5436 5692 236: radius=3 radiusgrid=7,7,7,7,261,768,0 hsl=15921 type=63 lighttype=light_8
+0 5444 4164 236: radius=3 radiusgrid=0,768,261,7,7,7,7 hsl=15921 type=63 lighttype=light_8
+0 4676 4164 236: radius=3 radiusgrid=0,768,261,7,7,7,7 hsl=15921 type=63 lighttype=light_8
+0 6460 4538 399: radius=5 radiusgrid=521,266,266,266,266,266,266,266,266,266,266 hsl=15921 type=31 lighttype=light_8
+0 7996 3642 399: radius=5 radiusgrid=11,10,11,10,10,10,11,11,11,11,10 hsl=15921 type=31 lighttype=light_8
+0 5932 2892 550: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 lighttype=light_8
+0 7982 2508 550: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 lighttype=light_8
+0 7982 4556 550: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 lighttype=light_8
+0 5038 4940 550: radius=7 radiusgrid=15,15,15,15,15,15,15,15,15,15,15,15,15,15,15 hsl=15891 type=31 lighttype=light_8
 
 ==== ENVPARAMS ====
 32 8 32

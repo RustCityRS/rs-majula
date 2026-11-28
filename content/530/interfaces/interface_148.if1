@@ -5,7 +5,7 @@ x=2
 y=5
 width=57
 height=13
-graphic=graphic_302
+graphic="sworddecor,1"
 
 // 148:1
 [com_1]
@@ -45,7 +45,7 @@ y=16
 width=101
 height=80
 buttontype=pause
-textfont=fontmetrics_497
+textfont=q8_full
 textalignh=centre
 textalignv=bottom
 colour=0x000000
@@ -59,7 +59,7 @@ y=16
 width=98
 height=79
 buttontype=pause
-textfont=fontmetrics_497
+textfont=q8_full
 textalignh=centre
 textalignv=bottom
 colour=0x000000
@@ -73,7 +73,7 @@ y=16
 width=97
 height=80
 buttontype=pause
-textfont=fontmetrics_497
+textfont=q8_full
 textalignh=centre
 textalignv=bottom
 colour=0x000000
@@ -86,7 +86,7 @@ x=8
 y=3
 width=464
 height=17
-textfont=fontmetrics_497
+textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
@@ -99,7 +99,7 @@ y=10
 width=26
 height=23
 overlayer=com_10
-graphic=graphic_539
+graphic="close_buttons,4"
 
 // 148:9
 [com_9]
@@ -110,7 +110,7 @@ width=26
 height=23
 layer=com_10
 buttontype=close
-graphic=graphic_540
+graphic="close_buttons,5"
 
 // 148:10
 [com_10]

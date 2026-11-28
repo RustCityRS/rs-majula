@@ -54,5 +54,5 @@ if_setontimer(interface_951:com_36, "clientscript_5372(interface_951:com_36, $in
 if_setontimer(interface_951:com_34, "clientscript_5372(interface_951:com_34, $int4)");
 def_int $int5 = calc(if_getx(interface_951:com_36) + if_getwidth(interface_951:com_36) / 2 - if_getwidth(interface_951:com_14) / 2);
 if ($int5 < $int3) {
-    sound_vorbis_volume(7717, 1, 0, 180);
+    sound_vorbis_volume(vorbis_7717, 1, 0, 180);
 }

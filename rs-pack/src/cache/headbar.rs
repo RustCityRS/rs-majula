@@ -6,8 +6,8 @@ use rs_ver::TypeId;
 pub struct HeadbarType {
     pub id: TypeId,
     pub unknown1: Option<u16>,
-    pub showpriority: Option<u8>,
-    pub hidepriority: Option<u8>,
+    pub display_order: Option<u8>,
+    pub priority: Option<u8>,
     pub sticktime: Option<u16>,
     pub unknown6: Option<u8>,
     pub full: Option<TypeId>,
@@ -24,8 +24,8 @@ impl CacheType for HeadbarType {
         Self {
             id,
             unknown1: None,
-            showpriority: None,
-            hidepriority: None,
+            display_order: None,
+            priority: None,
             sticktime: None,
             unknown6: None,
             full: None,
@@ -39,8 +39,8 @@ impl CacheType for HeadbarType {
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
             1 => self.unknown1 = Some(buf.g2()),
-            2 => self.showpriority = Some(buf.g1()),
-            3 => self.hidepriority = Some(buf.g1()),
+            2 => self.display_order = Some(buf.g1()),
+            3 => self.priority = Some(buf.g1()),
             4 => self.fadeout = Some(0),
             5 => self.sticktime = Some(buf.g2()),
             6 => self.unknown6 = Some(buf.g1()),

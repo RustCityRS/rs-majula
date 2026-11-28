@@ -13,7 +13,7 @@ while ($int1 = 0 & %varclient_194 <= 11) {
     if (%varclient_194 = 0) {
         $int5 = calc($int5 + 1);
         if_sethide(interface_765:com_2, false);
-        if_setposition(interface_765:com_2, 1, $int4, 0, 0);
+        if_setposition(interface_765:com_2, 1, $int4, ^setpos_abs_left, ^setpos_abs_top);
         $int4 = calc($int4 + 16);
     } else {
         $boolean2, $component3 = ~clientscript_1530(%varclient_194);
@@ -24,9 +24,9 @@ while ($int1 = 0 & %varclient_194 <= 11) {
         } else if ($boolean2 = false) {
             $int5 = calc($int5 + 1);
             if_sethide($component3, false);
-            if_setposition($component3, 1, $int4, 0, 0);
+            if_setposition($component3, 1, $int4, ^setpos_abs_left, ^setpos_abs_top);
             $int4 = calc($int4 + 16);
-            if (%varclient_194 = enum(npc, int, enum_1629, npc_7958)) {
+            if (%varclient_194 = enum(npc, int, enum_1629, smelting_tutor_7958)) {
                 %varclient_194 = calc(%varclient_194 + 1);
             }
         }
@@ -35,7 +35,7 @@ while ($int1 = 0 & %varclient_194 <= 11) {
         $int1 = 1;
     } else if (%varclient_195 = 1 & $int5 = 4 & $int0 > 4 | %varclient_195 = 2 & $int5 = 4 & $int0 > 8) {
         if_sethide(interface_765:com_9, false);
-        if_setposition(interface_765:com_9, 1, $int4, 0, 0);
+        if_setposition(interface_765:com_9, 1, $int4, ^setpos_abs_left, ^setpos_abs_top);
         if_settext(interface_765:com_9, "More.");
         $int5 = calc($int5 + 1);
         $int1 = 1;
@@ -43,7 +43,7 @@ while ($int1 = 0 & %varclient_194 <= 11) {
     if (%varclient_195 > 1 & %varclient_194 >= 11 & $int5 < 5) {
         if_sethide(interface_765:com_9, false);
         if_settext(interface_765:com_9, "Back.");
-        if_setposition(interface_765:com_9, 1, $int4, 0, 0);
+        if_setposition(interface_765:com_9, 1, $int4, ^setpos_abs_left, ^setpos_abs_top);
         $int1 = 1;
     }
     %varclient_194 = calc(%varclient_194 + 1);

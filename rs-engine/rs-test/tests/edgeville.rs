@@ -2,20 +2,19 @@
 //! the dungeon (loc 1804, 3115,3450, on the tile's south edge), locked to Open and opened with the
 //! brass key into its opened stage.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_ver::TypeId;
 
-const BACKPACK: i32 = 149 << 16;
+#[cfg(all(since_530, before_742))]
 const DOOR: (u16, u16, u16) = (1804, 3115, 3450);
+/// 742 places the same door on the tile south of that wall, facing north.
+#[cfg(since_742)]
+const DOOR: (u16, u16, u16) = (1804, 3115, 3449);
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
     engine
@@ -72,12 +71,7 @@ fn the_brass_key_door_is_locked_and_the_key_opens_it_from_either_side() {
         // Open, without the key.
         stand(engine, &mut client, 3115, 3449);
         let (id, x, z) = DOOR;
-        let mut p = ClientPacket::new();
-        p.p2_alt1(z as i32)
-            .p2_alt1(id as i32)
-            .p1(0)
-            .p2_alt2(x as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, x, z, TypeId::from_int(id as i32));
         let said = messages(engine, &mut client, 6);
         assert!(said.iter().any(|m| m == "The door is locked."), "{said:?}");
 
@@ -86,15 +80,7 @@ fn the_brass_key_door_is_locked_and_the_key_opens_it_from_either_side() {
         let key = obj(engine, "edgevilledungeonkey");
         for (from, to) in [((3115, 3449), (3115, 3450)), ((3115, 3450), (3115, 3449))] {
             stand(engine, &mut client, from.0, from.1);
-            let mut p = ClientPacket::new();
-            p.p2_alt2(key.int())
-                .p2_alt2(0)
-                .p2(z as i32)
-                .p4_alt2(BACKPACK)
-                .p2_alt2(x as i32)
-                .p1_alt1(0)
-                .p2_alt1(id as i32);
-            client.send(ClientProt::OpLocT, &p.finish());
+            client.op_loc_t(x, z, TypeId::from_int(id as i32), BACKPACK, 0, key);
             let said = messages(engine, &mut client, 8);
             assert!(said.iter().any(|m| m == "You unlock the door."), "{said:?}");
             assert_eq!(at(engine, &client), to, "through from {from:?}: {said:?}");

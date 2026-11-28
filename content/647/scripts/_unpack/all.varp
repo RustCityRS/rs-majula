@@ -844,6 +844,7 @@ transmit=yes
 // transmit; this only opens it to the unprotected resync in run.rs2, as 289's
 // interface_controls/configs/player_controls.varp does.
 protect=no
+scope=perm
 
 // 174
 [marketthief]
@@ -1695,15 +1696,22 @@ transmit=yes
 // 365
 [mm_main]
 transmit=yes
+// 289's scope (quest_mm.varp).
+scope=perm
 
 // 366
-[varplayer_366]
+// 289's mm_cutscene_part (Monkey Madness; 289's id): cache 786's varp 366 is unused and not transmitted.
+[mm_cutscene_part]
 
 // 367
-[varplayer_367]
+// 289's mm_cutscene_coord (Monkey Madness; 289's id): cache 786's varp 367 is unused and not transmitted.
+[mm_cutscene_coord]
+scope=perm
+type=coord
 
 // 368
-[varplayer_368]
+// 289's mm_guards_cooldown (Monkey Madness; 289's id): cache 786's varp 368 is unused and not transmitted.
+[mm_guards_cooldown]
 
 // 369
 [varplayer_369]
@@ -1712,16 +1720,24 @@ transmit=yes
 [varplayer_370]
 
 // 371
-[varplayer_371]
+// 289's mm_flags (Monkey Madness; 289's id): cache 786's varp 371 is unused and not transmitted.
+[mm_flags]
+scope=perm
 
 // 372
 [mm_gnomes]
+// 289's scope (quest_mm.varp); not transmitted in cache 786.
+scope=perm
 
 // 373
-[varplayer_373]
+// 289's mm_monkeys (Monkey Madness; 289's id): cache 786's varp 373 is unused and not transmitted.
+[mm_monkeys]
+scope=perm
 
 // 374
-[varplayer_374]
+// 289's mm_misc (Monkey Madness; 289's id): cache 786's varp 374 is unused and not transmitted.
+[mm_misc]
+scope=perm
 
 // 375
 [armourhitsound]
@@ -1919,6 +1935,7 @@ transmit=yes
 // 425
 [goblin_caves]
 transmit=yes
+scope=perm
 
 // 426
 [varplayer_426]

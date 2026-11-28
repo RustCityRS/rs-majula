@@ -22,7 +22,7 @@ y=1
 width=31
 height=31
 layer=topstat_hitpoints
-graphic=graphic_1208
+graphic="topstat_fill_full,0"
 
 // 748:3
 [com_3]
@@ -32,7 +32,7 @@ y=1
 width=31
 height=31
 layer=topstat_hitpoints
-graphic=graphic_1245
+graphic="topstat_fill_full,4"
 tiling=yes
 
 // 748:4
@@ -43,7 +43,7 @@ y=15
 width=24
 height=14
 layer=topstat_hitpoints
-textfont=fontmetrics_494
+textfont=p11_full
 textalignh=centre
 textalignv=centre
 textshadow=yes
@@ -59,5 +59,5 @@ y=7
 width=20
 height=20
 layer=topstat_hitpoints
-graphic=graphic_1197
+graphic="topstat_icon,0"
 ontimer=topstat_flash_hitpoints_icon

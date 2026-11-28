@@ -76,7 +76,7 @@ x=24
 y=40
 width=280
 height=14
-textfont=fontmetrics_495
+textfont=p12_full
 text=Click arrow buttons to move taper.
 textshadow=yes
 colour=0xffff00
@@ -88,7 +88,7 @@ x=24
 y=56
 width=280
 height=50
-textfont=fontmetrics_495
+textfont=p12_full
 text=Press the Light button to light the candles.
 textshadow=yes
 colour=0xffff00
@@ -101,7 +101,7 @@ y=7
 width=26
 height=23
 overlayer=com_10
-graphic=graphic_539
+graphic="close_buttons,4"
 
 // 178:9
 [com_9]
@@ -112,7 +112,7 @@ width=26
 height=23
 layer=com_10
 buttontype=normal
-graphic=graphic_540
+graphic="close_buttons,5"
 
 // 178:10
 [com_10]

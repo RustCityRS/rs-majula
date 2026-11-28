@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -7,6 +11,7 @@ use rs_io::crc::getcrc;
 use rs_protocol_macros::client_prot;
 
 #[client_prot(VarByte { min: 8 }, ClientEvent)]
+#[derive(Debug)]
 pub struct ReflectionCheckReply {
     pub id: i32,
     pub bytes: Vec<u8>,
@@ -38,16 +43,16 @@ impl ReflectionCheckReply {
         let mut buf = Packet::from(self.bytes.clone());
         let mut results = Vec::with_capacity(checks);
         for _ in 0..checks {
-            if buf.remaining() < 1 {
+            if buf.get_space() < 1 {
                 return None;
             }
             results.push(match buf.g1s() {
-                0 if buf.remaining() >= 4 => ReflectionResult::Value(buf.g4s()),
+                0 if buf.get_space() >= 4 => ReflectionResult::Value(buf.g4s()),
                 code @ (-6..=-1 | -21..=-10) => ReflectionResult::Error(code),
                 _ => return None,
             });
         }
-        (buf.remaining() == 0).then_some(results)
+        (buf.get_space() == 0).then_some(results)
     }
 }
 
@@ -58,5 +63,16 @@ impl ClientProtMessage for ReflectionCheckReply {
         buf.pos = len - 4;
         let crc = buf.g4s();
         ReflectionCheckReply { id, bytes, crc }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtEncode for ReflectionCheckReply {
+    const PROT: ClientProt = ClientProt::ReflectionCheckReply;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.id);
+        buf.pdata(&self.bytes, 0, self.bytes.len());
+        buf.p4(self.crc);
     }
 }

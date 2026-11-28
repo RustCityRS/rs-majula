@@ -1,16 +1,20 @@
-//! 289's Tutorial Island on 2011's ids, kept as preserved content.
+//! 289's Tutorial Island on 530's and 2011's ids.
 //!
-//! A 2011 player never enters it on their own: the `tutorial_island` cheat
+//! On 530 a new character starts it, designing itself on interface 771; a
+//! 2011 player never enters it on their own: the `tutorial_island` cheat
 //! does. Each case drives the island as the client does (OPNPC1, OPLOC1,
 //! RESUME_PAUSEBUTTON, IF_BUTTON1 on a tab stone) and reads the island's
-//! progress varp, `tutorial` (a server-only varp: 2011's 281 is Unstable
-//! Foundations').
+//! progress varp: 530's `tutorial` (281), as 289's, and 2011's server-only
+//! `varplayer_419` (2011's 281 is Unstable Foundations').
 //!
-//! - A returning 2011 player standing on the island (the engine's new-player
+//! - On 530 a new character starts on the island with no tabs, on the design
+//!   screen; accepting the design moves it to step 1, and the guide opens the
+//!   Options tab.
+//! - A returning player standing on the island (the engine's new-player
 //!   spawn) logs in without the island starting.
-//! - The cheat puts the player in the RuneScape Guide's house at step 1, with
-//!   the instructions (cache 786 interface 372) on the chatbox's foreground
-//!   slot (752:7).
+//! - The cheat puts the player in the RuneScape Guide's house at step 1 (530
+//!   once the design is accepted), with the instructions (interface 372) on
+//!   the chatbox ([`chat_foreground`]).
 //! - The guide's welcome takes step 1 to 4, and the house door 4 to 10.
 //! - 2011's tab stones stand in for 289's TUTORIAL_CLICKSIDE: a click on the
 //!   step's tab (Inventory, toplevel 548:132) hands out the axe and
@@ -19,21 +23,22 @@
 //! - The rat pen's gate takes the player through both ways: 2011's leaves
 //!   stand on the other side of their wall from 289's.
 //! - The run orb is 289's run button for the island's run step.
-//! - Off the island, a 2011 player (island varp 0) wields a bronze dagger as
-//!   289's players past the island do.
+//! - Off the island, a returning player wields a bronze dagger as 289's
+//!   players past the island do.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
+#[cfg(before_647)]
+use rs_test::names::iface;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
@@ -41,27 +46,73 @@ use rs_vm::state::ExecutionState;
 use std::fs;
 use std::sync::Mutex;
 
-/// The chatbox's foreground slot, `chatbox:com7`.
-const CHAT_FOREGROUND: i32 = 752 << 16 | 7;
+/// The chatbox slot the island's instructions mount on: 530's overlay slot
+/// (752:9), 2011's foreground slot (752:7).
+fn chat_foreground() -> i32 {
+    com(if cfg!(before_647) {
+        "chattop:chatoverlay"
+    } else {
+        "chattop:mes_layer_large"
+    })
+}
+
 const TUTORIAL_TEXT: u16 = 372;
 /// toplevel (548) tab stones: Stats and Inventory.
-const STATS_STONE: i32 = 548 << 16 | 130;
-const INVENTORY_STONE: i32 = 548 << 16 | 132;
+/// 530's stats and backpack stones are 1 and 3 (its tabs.constant).
+fn stats_stone() -> i32 {
+    com(if cfg!(before_647) {
+        "toplevel:stone1"
+    } else {
+        "toplevel:stone2"
+    })
+}
+
+fn inventory_stone() -> i32 {
+    com(if cfg!(before_647) {
+        "toplevel:stone3"
+    } else {
+        "toplevel:stone4"
+    })
+}
+
 /// The run orb's button, `topstat_run:com1`.
-const RUN_ORB: i32 = 750 << 16 | 1;
+#[cfg(since_647)]
+fn run_orb() -> i32 {
+    com("topstat_run:run_background")
+}
+
 /// multi2's second option.
-const MULTI2_SECOND: i32 = 228 << 16 | 3;
-const BACKPACK: i32 = 149 << 16;
+fn multi2_second() -> i32 {
+    com("multi2:multi2b")
+}
+
 /// The island's start, 0_48_48_22_34.
 const START: (u16, u16) = (3094, 3106);
 
+/// The island's progress varp, and its value for a returning player.
+const PROGRESS: &str = if cfg!(before_647) {
+    "tutorial"
+} else {
+    "varplayer_419"
+};
+const RETURNING: i32 = if cfg!(before_647) { 1000 } else { 0 };
+
 // The island's steps (tutorial/configs/tutorial.constant).
+#[cfg(before_647)]
+const DESIGN_CHARACTER: i32 = 0;
 const DESIGNED_CHARACTER: i32 = 1;
+#[cfg(before_647)]
+const SPANNER: i32 = 2;
+#[cfg(before_647)]
+const OPENED_OPTIONS: i32 = 3;
 const INTERACT_WITH_SCENERY: i32 = 4;
 const INTERACTED_WITH_DOOR: i32 = 10;
 const OPEN_INVENTORY: i32 = 20;
 const CUT_TREE: i32 = 30;
 const BUILD_FIRE: i32 = 40;
+#[cfg(before_647)]
+const PERFORMED_EMOTE: i32 = 190;
+#[cfg(since_647)]
 const OPEN_PLAYER_CONTROLS: i32 = 195;
 const TOGGLED_ON_RUN: i32 = 200;
 const BEFORE_ATTACKING_MELEE: i32 = 430;
@@ -79,12 +130,12 @@ fn varp_id(engine: &Engine, name: &str) -> u16 {
 }
 
 fn tutorial(engine: &Engine, pid: u16) -> i32 {
-    let id = varp_id(engine, "varplayer_419");
+    let id = varp_id(engine, PROGRESS);
     engine.harness_player(pid).unwrap().vars.get(id).as_int()
 }
 
 fn set_tutorial(engine: &mut Engine, pid: u16, value: i32) {
-    let id = varp_id(engine, "varplayer_419");
+    let id = varp_id(engine, PROGRESS);
     engine
         .harness_player_mut(pid)
         .unwrap()
@@ -118,11 +169,12 @@ fn coord(engine: &Engine, pid: u16) -> (u16, u16) {
     (c.x(), c.z())
 }
 
-/// A loc's 647 id by its name in `content/647/pack/loc.pack`.
+/// A loc's id by its name in the rev's `pack/loc.pack`.
 fn loc_id(name: &str) -> u16 {
-    let pack = concat!(
+    let pack = &format!(
+        "{}/../../{}/pack/loc.pack",
         env!("CARGO_MANIFEST_DIR"),
-        "/../../content/647/pack/loc.pack"
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(pack)
         .expect("loc.pack")
@@ -168,36 +220,23 @@ fn developer(engine: &mut Engine, name: &str, at: (u16, u16)) -> HarnessClient {
 }
 
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
 fn button1(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, 0xFFFF, TypeId::NULL);
 }
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2(nid as i32);
-    client.send(ClientProt::OpNpc1, &p.finish());
+    client.op_npc(1, nid);
 }
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
 fn resume(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p2(0xFFFF).p4_alt2(com);
-    client.send(ClientProt::ResumePauseButton, &p.finish());
+    client.resume_pausebutton(com, 0xFFFF);
 }
 
 /// The "Click here to continue" of the dialogue open in the chatbox: 2011's client names the
@@ -260,13 +299,56 @@ fn instructions_open(engine: &Engine, pid: u16) -> bool {
     engine
         .harness_player(pid)
         .unwrap()
-        .open_subs
-        .get(&CHAT_FOREGROUND)
+        .subs
+        .open
+        .get(&chat_foreground())
         .is_some_and(|&(sub, _)| sub == TUTORIAL_TEXT)
 }
 
+/// Whether a panel is mounted on the gameframe's `side<tab>`.
+#[cfg(before_647)]
+fn tab_open(engine: &Engine, pid: u16, tab: u8) -> bool {
+    engine
+        .harness_player(pid)
+        .unwrap()
+        .subs
+        .open
+        .contains_key(&com(&format!("toplevel:side{tab}")))
+}
+
+#[cfg(before_647)]
 #[test]
-fn a_2011_player_on_the_island_logs_in_without_it_starting() {
+fn a_new_character_designs_itself_on_the_island_with_no_tabs() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login("islandnewcomer").expect("login");
+        ticks(engine, &mut client, 3);
+        assert_eq!(coord(engine, client.pid), START, "at the island's start");
+        assert_eq!(tutorial(engine, client.pid), DESIGN_CHARACTER);
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().modal_main,
+            Some(iface("interface_771"))
+        );
+        assert!(instructions_open(engine, client.pid), "the design step");
+        assert!(
+            (0..14).all(|tab| !tab_open(engine, client.pid, tab)),
+            "no tabs"
+        );
+
+        button1(&mut client, com("interface_771:confirm_yes"));
+        ticks(engine, &mut client, 2);
+        assert_eq!(tutorial(engine, client.pid), DESIGNED_CHARACTER);
+        assert_eq!(engine.harness_player(client.pid).unwrap().modal_main, None);
+        assert!(
+            (0..14).all(|tab| !tab_open(engine, client.pid, tab)),
+            "the options tab comes with the guide"
+        );
+    });
+}
+
+#[test]
+fn a_returning_player_on_the_island_logs_in_without_it_starting() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
@@ -279,7 +361,11 @@ fn a_2011_player_on_the_island_logs_in_without_it_starting() {
             engine.cycle();
         }
         assert_eq!(coord(engine, client.pid), START, "on the island");
-        assert_eq!(tutorial(engine, client.pid), 0, "the island not entered");
+        assert_eq!(
+            tutorial(engine, client.pid),
+            RETURNING,
+            "the island not entered"
+        );
         assert!(
             !instructions_open(engine, client.pid),
             "no island instructions"
@@ -295,11 +381,17 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
         cheat(&mut client, "~tutorial_island");
         ticks(engine, &mut client, 3);
         assert_eq!(coord(engine, client.pid), START, "at the island's start");
+        #[cfg(before_647)]
+        {
+            assert_eq!(tutorial(engine, client.pid), DESIGN_CHARACTER);
+            button1(&mut client, com("interface_771:confirm_yes"));
+            ticks(engine, &mut client, 2);
+        }
         assert_eq!(tutorial(engine, client.pid), DESIGNED_CHARACTER);
         assert!(
             instructions_open(engine, client.pid),
             "372 on chatbox:com7; subs {:?}",
-            engine.harness_player(client.pid).unwrap().open_subs
+            engine.harness_player(client.pid).unwrap().subs.open
         );
 
         // The guide: a dev world first asks to skip (289's map_live check);
@@ -310,7 +402,7 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
         let chat = open_chat(engine, client.pid);
         resume(&mut client, chat);
         assert!(until_paused(engine, &mut client, 3), "skip the tutorial?");
-        resume(&mut client, MULTI2_SECOND);
+        resume(&mut client, multi2_second());
         let mut lines = 0;
         while until_paused(engine, &mut client, 3) {
             lines += 1;
@@ -319,6 +411,24 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
             resume(&mut client, chat);
         }
         assert!(lines >= 5, "the guide's five lines; {lines} pages");
+        // 2009's guide opens the Options tab mid-welcome and flashes it; its stone, then
+        // the guide again, move the island on.
+        #[cfg(before_647)]
+        {
+            assert_eq!(tutorial(engine, client.pid), SPANNER);
+            assert!(tab_open(engine, client.pid, 11), "the options tab");
+            button1(&mut client, com("toplevel:stone11"));
+            ticks(engine, &mut client, 2);
+            assert_eq!(tutorial(engine, client.pid), OPENED_OPTIONS);
+            op_npc1(&mut client, guide);
+            assert!(
+                until_paused(engine, &mut client, 10),
+                "the guide speaks again"
+            );
+            let chat = open_chat(engine, client.pid);
+            resume(&mut client, chat);
+            ticks(engine, &mut client, 2);
+        }
         assert_eq!(tutorial(engine, client.pid), INTERACT_WITH_SCENERY);
 
         // The house's door, from inside (0_48_48_26_35, its west edge).
@@ -339,7 +449,7 @@ fn the_step_s_tab_stone_hands_out_the_axe_and_tinderbox() {
         let mut client = developer(engine, "tabclicker", (3102, 3094));
         set_tutorial(engine, client.pid, OPEN_INVENTORY);
 
-        button1(&mut client, STATS_STONE);
+        button1(&mut client, stats_stone());
         ticks(engine, &mut client, 2);
         assert_eq!(
             tutorial(engine, client.pid),
@@ -348,7 +458,7 @@ fn the_step_s_tab_stone_hands_out_the_axe_and_tinderbox() {
         );
         assert_eq!(backpack_total(engine, client.pid, "tinderbox"), 0);
 
-        button1(&mut client, INVENTORY_STONE);
+        button1(&mut client, inventory_stone());
         ticks(engine, &mut client, 2);
         assert_eq!(tutorial(engine, client.pid), CUT_TREE);
         assert_eq!(backpack_total(engine, client.pid, "bronze_axe"), 1);
@@ -415,24 +525,48 @@ fn the_rat_pen_gate_takes_the_player_through_both_ways() {
     });
 }
 
+#[cfg(before_647)]
+#[test]
+fn options_run_unlocks_at_the_run_step() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = developer(engine, "optionsrunner", START);
+        let run = varp_id(engine, "option_run");
+        let button = com("options:com_3");
+
+        for (step, expected_step, expected_run) in [
+            (OPENED_OPTIONS, OPENED_OPTIONS, 0),
+            (PERFORMED_EMOTE, TOGGLED_ON_RUN, 1),
+        ] {
+            set_tutorial(engine, client.pid, step);
+            button1(&mut client, button);
+            ticks(engine, &mut client, 2);
+            let player = engine.harness_player(client.pid).unwrap();
+            assert_eq!(player.vars.get(run).as_int(), expected_run);
+            assert_eq!(tutorial(engine, client.pid), expected_step);
+        }
+    });
+}
+
+#[cfg(since_647)]
 #[test]
 fn the_run_orb_is_the_island_s_run_button() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "islandrunner", START);
         set_tutorial(engine, client.pid, OPEN_PLAYER_CONTROLS);
-        button1(&mut client, RUN_ORB);
+        button1(&mut client, run_orb());
         ticks(engine, &mut client, 2);
         assert_eq!(tutorial(engine, client.pid), TOGGLED_ON_RUN);
     });
 }
 
 #[test]
-fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
+fn a_returning_player_wields_a_bronze_dagger_off_the_island() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "daggerwielder", (3222, 3218));
-        assert_eq!(tutorial(engine, client.pid), 0);
+        assert_eq!(tutorial(engine, client.pid), RETURNING);
         let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let dagger = obj(engine, "bronze_dagger");
         engine
@@ -443,9 +577,7 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
             .unwrap()
             .set(0, dagger, 1);
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(dagger.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton2, &p.finish());
+        client.if_button(2, BACKPACK, 0, dagger);
         ticks(engine, &mut client, 2);
         assert_eq!(
             backpack_total(engine, client.pid, "bronze_dagger"),
@@ -457,8 +589,8 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
 
 /// 289's tutorial rat (tutorial/scripts/npcs/tut_giant_rat.rs2) bites with
 /// 2011's melee mark, as every npc melee hit paints (hitmark.rs2), not the
-/// plain mark a bare damage gets. Fought for 60 ticks, every bite it paints
-/// is a melee hit, its crit or a miss, and at least one lands.
+/// plain mark a bare damage gets. Fought until a bite lands, every bite it
+/// paints is a melee hit, its crit or a miss.
 #[test]
 fn the_tutorial_rat_bites_with_the_melee_mark() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -477,12 +609,12 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
         engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
         set_recording(true);
         forget_calls();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(rat as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
-        let mut bites = Vec::new();
+        client.op_npc(2, rat);
+        let mut bites: Vec<(i32, i32)> = Vec::new();
         let mut said = Vec::new();
-        for tick in 0..60 {
+        // 530's rat hits for 0 or 1 hitpoint, so a swing lands damage about 3 times in 10.
+        let landed = |(mark, amount): &(i32, i32)| (*mark == 0 || *mark == 10) && *amount > 0;
+        for tick in 0..300 {
             engine.cycle();
             for (_, m) in HarnessClient::game_messages(&client.packets()) {
                 said.push(m);
@@ -495,6 +627,9 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
                 bites.push((parts[0], parts[1]));
             }
             forget_calls();
+            if bites.iter().any(landed) {
+                break;
+            }
         }
         set_recording(false);
         assert!(
@@ -502,9 +637,7 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
             "melee, its crit or a miss: {bites:?}"
         );
         assert!(
-            bites
-                .iter()
-                .any(|(mark, amount)| (*mark == 0 || *mark == 10) && *amount > 0),
+            bites.iter().any(landed),
             "a bite lands: {bites:?}; said {said:?}; rat hp {:?}",
             engine
                 .get_npc(rat)
@@ -513,16 +646,15 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
     });
 }
 
-/// 289's tutorial rat spares the player's last hitpoint, 10 life points at
-/// 647 (`%life_points`, varbit 7198: varp 1240 bits 1-15). At 10, a bite it
-/// paints is a miss; it still swings.
+/// 289's tutorial rat spares the player's last hitpoint (10 life points from
+/// 647). There, a bite it paints is a miss; it still swings.
 #[test]
 fn the_tutorial_rat_spares_the_last_hitpoint() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "ratspared", (3258, 3270));
         cheat(&mut client, "npcadd newbiegiantrat");
-        cheat(&mut client, "setvar life_points 10");
+        life::set(engine.harness_player_mut(client.pid).unwrap(), life::SCALE);
         engine.cycle();
         engine.harness_telejump(client.pid, 3255, 0, 3270);
         for _ in 0..3 {
@@ -530,21 +662,19 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
         }
         client.packets();
         let pid = client.pid;
-        let life = |engine: &Engine| {
-            (engine.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
-        };
-        assert_eq!(life(engine), 10);
+        assert_eq!(life::get(engine, pid), life::SCALE);
         let rat = rat_beside(engine);
         // Alive the whole fight: the bites are under test, not the kill.
         engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
         set_recording(true);
         forget_calls();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(rat as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, rat);
         let mut bites = Vec::new();
         for tick in 0..40 {
-            let before = life(engine);
+            // Held on the last hitpoint: the 10-tick regen would lift the player off it, and a bite
+            // could then kill.
+            life::set(engine.harness_player_mut(pid).unwrap(), life::SCALE);
+            let before = life::get(engine, pid);
             engine.cycle();
             client.packets();
             if tick % 20 == 0 {
@@ -560,19 +690,19 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
         assert!(
             bites
                 .iter()
-                .all(|(_, before, _, amount)| *before > 10 || *amount == 0),
-            "nothing bitten off the last 10: {bites:?}"
+                .all(|(_, before, _, amount)| *before > life::SCALE || *amount == 0),
+            "nothing bitten off the last hitpoint: {bites:?}"
         );
         assert!(
             bites.iter().any(|(_, _, mark, _)| *mark == 8),
             "the rat swings: {bites:?}"
         );
-        assert!(life(engine) > 0);
+        assert!(life::get(engine, pid) > 0);
     });
 }
 
 /// The rat `npcadd` put down in the cow field (3258,3270), not one of the
-/// island's own.
+/// island's own, which are far off.
 fn rat_beside(engine: &Engine) -> u16 {
     let id = engine
         .cache
@@ -585,10 +715,14 @@ fn rat_beside(engine: &Engine) -> u16 {
         .npcs
         .iter()
         .flatten()
-        .find(|n| {
+        .filter(|n| n.npc.uid.id() == id)
+        .map(|n| {
             let c = n.npc.pathing.coord;
-            n.npc.uid.id() == id && c.x().abs_diff(3258) <= 2 && c.z().abs_diff(3270) <= 2
+            (n.npc.uid.nid(), c.x().abs_diff(3258) + c.z().abs_diff(3270))
         })
-        .map(|n| n.npc.uid.nid())
+        // It wanders from the tile it was put down on before it is looked for.
+        .filter(|&(_, d)| d <= 10)
+        .min_by_key(|&(_, d)| d)
+        .map(|(nid, _)| nid)
         .expect("the rat npcadd spawned")
 }

@@ -33,7 +33,7 @@ impl ClientProtMessage for InvButton2 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let obj = TypeId::from_g2(buf.g2_alt2());
         let slot = buf.g2_alt1();
-        let com = buf.g4s_alt1();
+        let com = buf.g4_alt1();
         InvButton2 { obj, slot, com }
     }
 }

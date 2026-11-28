@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "rs-engine",
+    "rs-lobby",
     "rs-engine/rs-cam",
     "rs-engine/rs-datastruct",
     "rs-engine/rs-inv",
@@ -29,7 +30,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "0.1.26"
+version = "0.1.27"
 edition = "2024"
 rust-version = "1.95"
 authors = ["RustCityRS"]
@@ -60,7 +61,7 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 tracing-appender = "0.2"
 
 # Cryptography
-rs-crypto = "0.3"
+rs-crypto = "0.4"
 hmac = "0.13"
 sha1 = "0.11"
 sha2 = "0.11"
@@ -82,11 +83,11 @@ mimalloc = "0.1"
 libmimalloc-sys = { version = "0.1", features = ["extended"] }
 
 # MISC
-rs-io = "0.4"
-rs-pathfinder = "0.1"
-rs-runec = "0.6"
+rs-io = "0.5"
+rs-pathfinder = "0.3"
+rs-runec = "0.7"
 num_enum = "0.7"
-notify = "8.2"
+notify = "9.0"
 
 # CLI
 clap = { version = "4.6", features = ["derive", "env"] }
@@ -110,6 +111,7 @@ rs-protocol-macros = { path = "rs-protocol/macros" }
 rs-cam = { path = "rs-engine/rs-cam" }
 rs-datastruct = { path = "rs-engine/rs-datastruct" }
 rs-engine = { path = "rs-engine" }
+rs-lobby = { path = "rs-lobby" }
 rs-grid = { path = "rs-engine/rs-grid" }
 rs-vm = { path = "rs-engine/rs-vm" }
 rs-inv = { path = "rs-engine/rs-inv" }

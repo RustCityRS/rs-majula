@@ -286,7 +286,7 @@ impl Engine {
 
         if active.player.request_modal_close {
             active.player.request_modal_close = false;
-            if let Err(e) = active.close_modal(true) {
+            if let Err(e) = ActivePlayer::close_modal(active, true) {
                 error!(
                     "error closing modal for player {}: {e}",
                     active.player.uid.pid()
@@ -551,7 +551,7 @@ impl Engine {
             }
 
             if !following {
-                active.process_walktrigger();
+                ActivePlayer::process_walktrigger(active);
             }
 
             interacted = Self::try_interact(active, false);
@@ -563,7 +563,7 @@ impl Engine {
             let active = unsafe { &mut *(active as *mut ActivePlayer) };
 
             if active.player.pathing.has_waypoints() && active.can_access() {
-                active.process_walktrigger();
+                ActivePlayer::process_walktrigger(active);
             }
 
             if !active.player.pathing.has_waypoints() && following {
@@ -781,9 +781,10 @@ impl Engine {
             }
             active.player.interaction.last_path_src = src;
             active.player.interaction.last_path_dst = dst;
-            if let Some(request) =
+            if let Some(mut request) =
                 Self::entity_path_request(&mut active.player.pathing, target, client_pathfinder)
             {
+                request.route_blockers = !client_pathfinder;
                 active.request_path(request);
             }
         };
@@ -982,7 +983,12 @@ impl Engine {
         let Some(range) = active.player.interaction.ap_range else {
             return false;
         };
-        Self::entity_in_approach_distance(&active.player.pathing, target, range as i32)
+        Self::entity_in_approach_distance(
+            &active.player.pathing,
+            FocusKind::Player,
+            target,
+            range as i32,
+        )
     }
 
     /// Attempts to execute an interaction between the player and its current

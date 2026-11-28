@@ -5,7 +5,7 @@ x=12
 y=20
 width=488
 height=304
-graphic=graphic_297
+graphic=tradebacking
 
 // 13:1
 [com_1]
@@ -14,7 +14,7 @@ x=33
 y=103
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_11)
@@ -27,7 +27,7 @@ x=127
 y=103
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_12)
@@ -40,7 +40,7 @@ x=221
 y=103
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_13)
@@ -53,7 +53,7 @@ x=305
 y=103
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_14)
@@ -66,7 +66,7 @@ x=33
 y=175
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_15)
@@ -79,7 +79,7 @@ x=127
 y=175
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_16)
@@ -92,7 +92,7 @@ x=221
 y=175
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_17)
@@ -105,7 +105,7 @@ x=33
 y=247
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_18)
@@ -118,7 +118,7 @@ x=127
 y=247
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_19)
@@ -131,7 +131,7 @@ x=221
 y=247
 width=64
 height=64
-graphic=graphic_446
+graphic=number_button
 transmitop=1
 op1=Enter digit
 onmouseover=comp_sethide(true, bankpin_main:com_20)
@@ -144,7 +144,7 @@ x=37
 y=149
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -157,7 +157,7 @@ x=131
 y=149
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -170,7 +170,7 @@ x=225
 y=149
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -183,7 +183,7 @@ x=309
 y=149
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -196,7 +196,7 @@ x=37
 y=221
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -209,7 +209,7 @@ x=131
 y=221
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -222,7 +222,7 @@ x=225
 y=221
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -235,7 +235,7 @@ x=37
 y=293
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -248,7 +248,7 @@ x=131
 y=293
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -261,7 +261,7 @@ x=225
 y=293
 width=9
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=0
 colour=0xff7f00
 onload=clientscript_700(event_com)
@@ -274,7 +274,7 @@ x=424
 y=30
 width=16
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xbf751d
@@ -288,7 +288,7 @@ x=440
 y=30
 width=16
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xbf751d
@@ -302,7 +302,7 @@ x=456
 y=30
 width=16
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xbf751d
@@ -316,7 +316,7 @@ x=472
 y=30
 width=16
 height=16
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xbf751d
@@ -337,7 +337,7 @@ type=graphic
 width=104
 height=104
 layer=enter_box
-graphic=graphic_444
+graphic=tex_brown
 
 // 13:27
 [com_27]
@@ -347,7 +347,7 @@ y=-1
 width=104
 height=104
 layer=enter_box
-graphic=graphic_444
+graphic=tex_brown
 
 // 13:28
 [com_28]
@@ -356,7 +356,7 @@ x=18
 y=57
 width=476
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 text=Please enter your FOUR DIGIT PIN using the buttons below.
 textalignh=centre
 textshadow=yes
@@ -369,7 +369,7 @@ x=327
 y=274
 width=148
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xbf751d
@@ -385,7 +385,7 @@ x=327
 y=252
 width=148
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=Exit
 textalignh=centre
 textshadow=yes
@@ -403,7 +403,7 @@ x=20
 y=29
 width=402
 height=17
-textfont=fontmetrics_496
+textfont=b12_full
 text=YOUR PIN WILL BE DELETED IN X DAYS
 textshadow=yes
 colour=0xaa0000
@@ -415,7 +415,7 @@ x=18
 y=80
 width=476
 height=14
-textfont=fontmetrics_496
+textfont=b12_full
 textalignh=centre
 textshadow=yes
 onvartransmit=clientscript_698(event_com){bankpin_2}
@@ -427,7 +427,7 @@ x=11
 y=19
 width=32
 height=32
-graphic=graphic_824
+graphic="v2_stone_borders,4"
 
 // 13:34
 [com_34]
@@ -436,7 +436,7 @@ x=11
 y=295
 width=32
 height=32
-graphic=graphic_826
+graphic="v2_stone_borders,6"
 
 // 13:35
 [com_35]
@@ -445,7 +445,7 @@ x=471
 y=19
 width=32
 height=32
-graphic=graphic_825
+graphic="v2_stone_borders,5"
 
 // 13:36
 [com_36]
@@ -454,7 +454,7 @@ x=471
 y=295
 width=32
 height=32
-graphic=graphic_827
+graphic="v2_stone_borders,7"
 
 // 13:37
 [com_37]
@@ -463,7 +463,7 @@ x=483
 y=51
 width=32
 height=246
-graphic=graphic_823
+graphic="v2_stone_borders,3"
 tiling=yes
 
 // 13:38
@@ -473,7 +473,7 @@ x=-2
 y=51
 width=32
 height=244
-graphic=graphic_821
+graphic="v2_stone_borders,1"
 tiling=yes
 
 // 13:39
@@ -483,7 +483,7 @@ x=43
 y=6
 width=428
 height=32
-graphic=graphic_820
+graphic="v2_stone_borders,0"
 tiling=yes
 
 // 13:40
@@ -493,7 +493,7 @@ x=18
 y=35
 width=478
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 13:41
@@ -503,7 +503,7 @@ x=11
 y=37
 width=32
 height=32
-graphic=graphic_829
+graphic="v2_stone_borders,9"
 tiling=yes
 
 // 13:42
@@ -513,7 +513,7 @@ x=471
 y=37
 width=32
 height=32
-graphic=graphic_830
+graphic="v2_stone_borders,10"
 tiling=yes
 
 // 13:43
@@ -523,7 +523,7 @@ x=43
 y=307
 width=428
 height=32
-graphic=graphic_822
+graphic="v2_stone_borders,2"
 tiling=yes
 
 // 13:44
@@ -533,7 +533,7 @@ x=322
 y=242
 width=32
 height=32
-graphic=graphic_846
+graphic="v2_stone_borders,18"
 tiling=yes
 
 // 13:45
@@ -543,7 +543,7 @@ x=450
 y=242
 width=32
 height=32
-graphic=graphic_847
+graphic="v2_stone_borders,19"
 tiling=yes
 
 // 13:46
@@ -553,7 +553,7 @@ x=450
 y=271
 width=32
 height=32
-graphic=graphic_849
+graphic="v2_stone_borders,21"
 tiling=yes
 
 // 13:47
@@ -563,7 +563,7 @@ x=354
 y=228
 width=96
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 13:48
@@ -573,7 +573,7 @@ x=354
 y=283
 width=96
 height=32
-graphic=graphic_828
+graphic="v2_stone_borders,8"
 tiling=yes
 
 // 13:49
@@ -583,7 +583,7 @@ x=322
 y=271
 width=32
 height=32
-graphic=graphic_848
+graphic="v2_stone_borders,20"
 tiling=yes
 
 // 13:50

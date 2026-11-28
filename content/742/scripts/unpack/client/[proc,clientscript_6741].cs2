@@ -52,7 +52,7 @@ if (%varplayerbit_11985 > 0 & %varplayerbit_11986 > 0) {
 if_setgraphic(interface_1343:com_47, $graphic0);
 if_settext(interface_1343:com_49, $string0);
 if (%varplayerbit_11987 >= struct_param(~clientscript_6783(1), param_2235)) {
-    if_setgraphic(interface_1343:com_48, 13902);
+    if_setgraphic(interface_1343:com_48, graphic_13902);
 } else {
-    if_setgraphic(interface_1343:com_48, 13901);
+    if_setgraphic(interface_1343:com_48, graphic_13901);
 }

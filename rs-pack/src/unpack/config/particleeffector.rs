@@ -31,10 +31,10 @@ pub fn emit_particleeffector_props(
         ));
     }
     if opcode == 6 {
-        p.push((6, "forcetype".into(), def.effect_type.to_string()));
+        p.push((6, "unknown6".into(), def.effect_type.to_string()));
     }
     if opcode == 8 {
-        p.push((8, "unknown8".into(), "yes".into()));
+        p.push((8, "forcetype".into(), "yes".into()));
     }
     if opcode == 9 {
         p.push((9, "unknown9".into(), "yes".into()));

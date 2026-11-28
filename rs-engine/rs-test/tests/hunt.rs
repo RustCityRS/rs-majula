@@ -15,10 +15,10 @@
 
 use rs_engine::Engine;
 use rs_entity::InteractionTarget;
-#[cfg(since_647)]
-use rs_pack::cache::VarValue;
 use rs_pack::types::NpcMode;
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
+use rs_test::life;
 use rs_test::runner;
 use rs_ver::TypeId;
 #[cfg(since_647)]
@@ -145,10 +145,6 @@ fn a_wilderness_green_dragon_hunts_a_player_beside_it() {
     });
 }
 
-/// The varbit `life_points` (7198): varp 1240, bits 1-15 (cache 786).
-#[cfg(since_647)]
-const LIFE_POINTS_VARP: u16 = 1240;
-
 /// 2011's other green dragons hunt as 289's green dragon does, and fight as
 /// it does, breath included: without their own trigger they fell to the
 /// default npc attack (`[ai_opplayer2,_]`), melee alone. The player, behind
@@ -196,10 +192,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
                 stand_against(engine, client.pid, nid, size);
             }
             let player = engine.harness_player_mut(client.pid).unwrap();
-            let bit0 = player.vars.get(LIFE_POINTS_VARP).as_int() & 1;
-            player
-                .vars
-                .set(LIFE_POINTS_VARP, VarValue::Int((990 << 1) | bit0));
+            life::set(player, 99 * life::SCALE);
             engine.cycle();
             let npc = &engine.npc_list.npcs[nid].as_ref().unwrap().npc;
             if matches!(npc.interaction.target, Some(InteractionTarget::Player { pid }) if pid == client.pid)

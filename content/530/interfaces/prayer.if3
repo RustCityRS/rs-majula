@@ -5,7 +5,7 @@ x=63
 y=238
 width=17
 height=18
-graphic=graphic_651
+graphic="options_icons_small,2"
 
 // 271:1
 [com_1]
@@ -14,7 +14,7 @@ x=87
 y=238
 width=48
 height=18
-textfont=fontmetrics_495
+textfont=p12_full
 textalignv=centre
 textshadow=yes
 colour=0xff981f
@@ -43,7 +43,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:5
 [com_5]
@@ -53,7 +53,7 @@ y=10
 width=30
 height=30
 layer=buttons
-graphic=graphic_135
+graphic="prayeroff,0"
 transmitop=1
 opbase=<col=ff9040>Thick Skin
 op1=Activate
@@ -72,7 +72,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:7
 [com_7]
@@ -82,7 +82,7 @@ y=10
 width=30
 height=30
 layer=buttons
-graphic=graphic_136
+graphic="prayeroff,1"
 transmitop=1
 opbase=<col=ff9040>Burst of Strength
 op1=Activate
@@ -101,7 +101,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:9
 [com_9]
@@ -111,7 +111,7 @@ y=10
 width=30
 height=30
 layer=buttons
-graphic=graphic_137
+graphic="prayeroff,2"
 transmitop=1
 opbase=<col=ff9040>Clarity of Thought
 op1=Activate
@@ -130,7 +130,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:11
 [com_11]
@@ -140,7 +140,7 @@ y=10
 width=30
 height=30
 layer=buttons
-graphic=graphic_153
+graphic="prayeroff,18"
 transmitop=1
 opbase=<col=ff9040>Sharp Eye
 op1=Activate
@@ -159,7 +159,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:13
 [com_13]
@@ -169,7 +169,7 @@ y=10
 width=30
 height=30
 layer=buttons
-graphic=graphic_154
+graphic="prayeroff,19"
 transmitop=1
 opbase=<col=ff9040>Mystic Will
 op1=Activate
@@ -188,7 +188,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:15
 [com_15]
@@ -198,7 +198,7 @@ y=47
 width=30
 height=30
 layer=buttons
-graphic=graphic_138
+graphic="prayeroff,3"
 transmitop=1
 opbase=<col=ff9040>Rock Skin
 op1=Activate
@@ -217,7 +217,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:17
 [com_17]
@@ -227,7 +227,7 @@ y=47
 width=30
 height=30
 layer=buttons
-graphic=graphic_139
+graphic="prayeroff,4"
 transmitop=1
 opbase=<col=ff9040>Superhuman Strength
 op1=Activate
@@ -246,7 +246,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:19
 [com_19]
@@ -256,7 +256,7 @@ y=47
 width=30
 height=30
 layer=buttons
-graphic=graphic_140
+graphic="prayeroff,5"
 transmitop=1
 opbase=<col=ff9040>Improved Reflexes
 op1=Activate
@@ -275,7 +275,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:21
 [com_21]
@@ -285,7 +285,7 @@ y=47
 width=30
 height=30
 layer=buttons
-graphic=graphic_141
+graphic="prayeroff,6"
 transmitop=1
 opbase=<col=ff9040>Rapid Restore
 op1=Activate
@@ -304,7 +304,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:23
 [com_23]
@@ -314,7 +314,7 @@ y=47
 width=30
 height=30
 layer=buttons
-graphic=graphic_142
+graphic="prayeroff,7"
 transmitop=1
 opbase=<col=ff9040>Rapid Heal
 op1=Activate
@@ -333,7 +333,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:25
 [com_25]
@@ -343,7 +343,7 @@ y=84
 width=30
 height=30
 layer=buttons
-graphic=graphic_143
+graphic="prayeroff,8"
 transmitop=1
 opbase=<col=ff9040>Protect Item
 op1=Activate
@@ -362,7 +362,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:27
 [com_27]
@@ -372,7 +372,7 @@ y=84
 width=30
 height=30
 layer=buttons
-graphic=graphic_506
+graphic="prayeroff,20"
 transmitop=1
 opbase=<col=ff9040>Hawk Eye
 op1=Activate
@@ -391,7 +391,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:29
 [com_29]
@@ -401,7 +401,7 @@ y=84
 width=30
 height=30
 layer=buttons
-graphic=graphic_507
+graphic="prayeroff,21"
 transmitop=1
 opbase=<col=ff9040>Mystic Lore
 op1=Activate
@@ -420,7 +420,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:31
 [com_31]
@@ -430,7 +430,7 @@ y=84
 width=30
 height=30
 layer=buttons
-graphic=graphic_144
+graphic="prayeroff,9"
 transmitop=1
 opbase=<col=ff9040>Steel Skin
 op1=Activate
@@ -449,7 +449,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:33
 [com_33]
@@ -459,7 +459,7 @@ y=84
 width=30
 height=30
 layer=buttons
-graphic=graphic_145
+graphic="prayeroff,10"
 transmitop=1
 opbase=<col=ff9040>Ultimate Strength
 op1=Activate
@@ -478,7 +478,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:35
 [com_35]
@@ -488,7 +488,7 @@ y=121
 width=30
 height=30
 layer=buttons
-graphic=graphic_146
+graphic="prayeroff,11"
 transmitop=1
 opbase=<col=ff9040>Incredible Reflexes
 op1=Activate
@@ -507,7 +507,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:37
 [com_37]
@@ -517,7 +517,7 @@ y=121
 width=30
 height=30
 layer=buttons
-graphic=graphic_147
+graphic="prayeroff,12"
 transmitop=1
 opbase=<col=ff9040>Protect from Magic
 op1=Activate
@@ -536,7 +536,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:39
 [com_39]
@@ -546,7 +546,7 @@ y=121
 width=30
 height=30
 layer=buttons
-graphic=graphic_148
+graphic="prayeroff,13"
 transmitop=1
 opbase=<col=ff9040>Protect from Missiles
 op1=Activate
@@ -565,7 +565,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:41
 [com_41]
@@ -575,7 +575,7 @@ y=121
 width=30
 height=30
 layer=buttons
-graphic=graphic_149
+graphic="prayeroff,14"
 transmitop=1
 opbase=<col=ff9040>Protect from Melee
 op1=Activate
@@ -594,7 +594,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:43
 [com_43]
@@ -604,7 +604,7 @@ y=158
 width=30
 height=30
 layer=buttons
-graphic=graphic_508
+graphic="prayeroff,22"
 transmitop=1
 opbase=<col=ff9040>Eagle Eye
 op1=Activate
@@ -623,7 +623,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:45
 [com_45]
@@ -633,7 +633,7 @@ y=158
 width=30
 height=30
 layer=buttons
-graphic=graphic_509
+graphic="prayeroff,23"
 transmitop=1
 opbase=<col=ff9040>Mystic Might
 op1=Activate
@@ -652,7 +652,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:47
 [com_47]
@@ -662,7 +662,7 @@ y=158
 width=30
 height=30
 layer=buttons
-graphic=graphic_151
+graphic="prayeroff,16"
 transmitop=1
 opbase=<col=ff9040>Retribution
 op1=Activate
@@ -681,7 +681,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:49
 [com_49]
@@ -691,7 +691,7 @@ y=158
 width=30
 height=30
 layer=buttons
-graphic=graphic_150
+graphic="prayeroff,15"
 transmitop=1
 opbase=<col=ff9040>Redemption
 op1=Activate
@@ -710,7 +710,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:51
 [com_51]
@@ -720,7 +720,7 @@ y=158
 width=30
 height=30
 layer=buttons
-graphic=graphic_152
+graphic="prayeroff,17"
 transmitop=1
 opbase=<col=ff9040>Smite
 op1=Activate
@@ -739,7 +739,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:53
 [com_53]
@@ -749,7 +749,7 @@ y=121
 width=30
 height=30
 layer=buttons
-graphic=graphic_948
+graphic="prayeroff,24"
 transmitop=1
 opbase=<col=ff9040>Protect from Summoning
 op1=Activate
@@ -768,7 +768,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:55
 [com_55]
@@ -778,7 +778,7 @@ y=195
 width=30
 height=30
 layer=buttons
-graphic=graphic_949
+graphic="prayeroff,25"
 transmitop=1
 opbase=<col=ff9040>Chivalry
 op1=Activate
@@ -797,7 +797,7 @@ width=34
 height=34
 layer=buttons
 hide=yes
-graphic=graphic_155
+graphic=prayerglow
 
 // 271:57
 [com_57]
@@ -807,7 +807,7 @@ y=195
 width=30
 height=30
 layer=buttons
-graphic=graphic_950
+graphic="prayeroff,26"
 transmitop=1
 opbase=<col=ff9040>Piety
 op1=Activate

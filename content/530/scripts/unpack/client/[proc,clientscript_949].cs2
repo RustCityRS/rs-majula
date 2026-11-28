@@ -19,9 +19,9 @@ if (calc($int0 % 2) = 0) {
 }
 if_setobject($component2, $obj3, -1);
 if ($int1 = 1) {
-    cc_create(interface_726:com_187, 6, 0);
-    cc_setsize(32, 32, 0, 0);
-    cc_setposition(if_getx($component2), if_gety($component2), 0, 0);
+    cc_create(interface_726:com_187, ^iftype_model, 0);
+    cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(if_getx($component2), if_gety($component2), ^setpos_abs_left, ^setpos_abs_top);
     cc_setmodel(model_4611);
     cc_setmodelangle(0, 0, 512, 0, 0, 768);
     cc_setmodelanim(runeflash);
@@ -74,13 +74,13 @@ if ($int0 = calc(61 - 1)) {
         $int4 = calc($int4 + 1);
     }
     if ($int6 > $int7) {
-        sound_jingle(110, 6656);
+        sound_jingle(jingle_110, 6656);
         if_settext(interface_726:text_1, "<\"Teapotspout\"><\" wins!\">");
     } else if ($int6 < $int7) {
-        sound_jingle(110, 6656);
+        sound_jingle(jingle_110, 6656);
         if_settext(interface_726:text_1, "<\"Hotwater\"><\" wins!\">");
     } else {
-        sound_jingle(108, 6449);
+        sound_jingle(jingle_108, 6449);
         if_settext(interface_726:text_1, "It's a draw.");
     }
     if (calc($int6 + $int7) >= 64) {

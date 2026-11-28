@@ -9,26 +9,26 @@ if ($chattype1 = null) {
 }
 switch_int (%chat_view) {
     case 1 :
-        if ($chattype1 = 0) {
+        if ($chattype1 = ^chattype_gamemessage) {
             return(true);
         }
     case 2 :
-        if ($chattype1 = 1 | $chattype1 = 2 | $chattype1 = 17) {
+        if ($chattype1 = ^chattype_modchat | $chattype1 = ^chattype_publicchat | $chattype1 = ^chattype_quickchat_public) {
             return(true);
         }
     case 3 :
         switch_int ($chattype1) {
-            case 3, 6, 5, 18, 19, 7 :
+            case ^chattype_privatechat, ^chattype_privatechatout, ^chattype_loginlogoutnotification, ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing, ^chattype_modprivatechat :
                 return(true);
         }
     case 4 :
         switch_int ($chattype1) {
-            case 9, 11, 16, 20 :
+            case ^chattype_friendschat, ^chattype_friendschatnotification, 16, ^chattype_quickchat_friend_chat :
                 return(true);
         }
     case 5 :
         switch_int ($chattype1) {
-            case 4, 8, 12, 14, 15, 21 :
+            case ^chattype_engine, 8, 12, 14, 15, 21 :
                 return(true);
         }
         if (~partnercheck($int0) = true) {

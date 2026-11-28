@@ -350,14 +350,8 @@
 [mapzone,0_42_86] @music_playbyregion(coord);
 [mapzone,0_42_87] @music_playbyregion(coord);
 [mapzone,0_42_89] @music_playbyregion(coord);
-[mapzone,0_42_142]
-// 289 keeps this square's trigger in quests/quest_mm/scripts/ape_atoll_dungeon.rs2.
-@music_playbyregion(coord);
-
-[mapzone,0_42_143]
-// 289 keeps this square's trigger in quests/quest_mm/scripts/mm_temple.rs2.
-@music_playbyregion(coord);
-
+// [mapzone,0_42_142] is 289's in quests/quest_mm/scripts/ape_atoll_dungeon.rs2, which plays its music too.
+// [mapzone,0_42_143] is 289's in quests/quest_mm/scripts/mm_temple.rs2, which plays its music too.
 [mapzone,0_42_147] @music_playbyregion(coord);
 [mapzone,0_42_148] @music_playbyregion(coord);
 [mapzone,0_42_149] @music_playbyregion(coord);
@@ -394,14 +388,8 @@
 [mapzone,0_43_75] @music_playbyregion(coord);
 [mapzone,0_43_77] @music_playbyregion(coord);
 [mapzone,0_43_90] @music_playbyregion(coord);
-[mapzone,0_43_142]
-// 289 keeps this square's trigger in quests/quest_mm/scripts/ape_atoll_dungeon.rs2.
-@music_playbyregion(coord);
-
-[mapzone,0_43_143]
-// 289 keeps this square's trigger in quests/quest_mm/scripts/mm_temple.rs2.
-@music_playbyregion(coord);
-
+// [mapzone,0_43_142] is 289's in quests/quest_mm/scripts/ape_atoll_dungeon.rs2, which plays its music too.
+// [mapzone,0_43_143] is 289's in quests/quest_mm/scripts/mm_temple.rs2, which plays its music too.
 [mapzone,0_43_145] @music_playbyregion(coord);
 [mapzone,0_43_146] @music_playbyregion(coord);
 [mapzone,0_43_149]

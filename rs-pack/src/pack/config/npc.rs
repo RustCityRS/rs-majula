@@ -197,7 +197,6 @@ pub fn pack_npcs(
                         let hunt = registry
                             .hunt
                             .get_by_debugname(value)
-                            .or_else(|| value.parse().ok())
                             .with_context(|| format!("{debugname}: unknown huntmode '{value}'"))?;
                         let hunt = u8::try_from(hunt).with_context(|| {
                             format!("{debugname}: huntmode '{value}' exceeds 255")

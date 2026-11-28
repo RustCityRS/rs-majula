@@ -7,17 +7,17 @@ use crate::pack::util::{parse_colour, parse_number, parse_numbers, parse_ref, pl
 use anyhow::Result;
 use std::collections::HashMap;
 
-/// One var, a varbit or a varp, and the range it must be in.
+/// One var, a varpbit or a varp, and the range it must be in.
 fn write_condition(client: &mut PackedData, registry: &PackRegistry, value: &str) {
     let (var, range) = value.split_once(',').expect("Missing condition range");
     let [min, max] = parse_numbers::<i32, 2>(range);
     if var == "null" {
         client.p2(u16::MAX);
         client.p2(u16::MAX);
-    } else if registry.varbit.get_by_debugname(var).is_some()
+    } else if registry.varpbit.get_by_debugname(var).is_some()
         || var.starts_with(placeholder_prefix("varpbit"))
     {
-        parse_ref(&registry.varbit, "varpbit", var, |v| client.p2(v));
+        parse_ref(&registry.varpbit, "varpbit", var, |v| client.p2(v));
         client.p2(u16::MAX);
     } else {
         client.p2(u16::MAX);
@@ -191,13 +191,16 @@ pub fn pack_mels(
                     }),
 
                     // 19
-                    "category" => parse_number(
-                        value.strip_prefix("category_").unwrap_or(value),
-                        |v: u16| {
+                    // A map element's own category, not a config category.
+                    "category" => {
+                        let id = value
+                            .strip_prefix("category_")
+                            .unwrap_or_else(|| panic!("Unknown map element category: {value}"));
+                        parse_number(id, |v: u16| {
                             client.p1(19);
                             client.p2(v);
-                        },
-                    ),
+                        });
+                    }
 
                     // 20
                     "condition2" => {

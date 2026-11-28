@@ -13,19 +13,19 @@ if ($int2 >= calc(4 + 15)) {
 }
 switch_int ($int2) {
     case 0 :
-        $graphic3 = 9964;
+        $graphic3 = graphic_9964;
     case 1 :
-        $graphic3 = 9965;
+        $graphic3 = graphic_9965;
     case 2 :
-        $graphic3 = 9966;
+        $graphic3 = graphic_9966;
     case 3 :
-        $graphic3 = 9967;
+        $graphic3 = graphic_9967;
     case 4 :
-        $graphic3 = 9968;
+        $graphic3 = graphic_9968;
     case 5 :
-        $graphic3 = 9969;
+        $graphic3 = graphic_9969;
     case 6 :
-        $graphic3 = 9970;
+        $graphic3 = graphic_9970;
     case default :
         $graphic3 = null;
 }

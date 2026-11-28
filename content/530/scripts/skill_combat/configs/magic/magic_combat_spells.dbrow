@@ -1,5 +1,6 @@
 // Visuals are 289's by id. Sounds are 530's where a 289 sound's tones match a
-// 530 synth's; the null ones are 289 sounds no 530 synth matches.
+// 530 synth's; the rest, 289 sounds no 530 synth has, are the 530 synth nearest 289's by its tones' settings
+// (0.77-0.99 shared; the wind and water strikes, bolts and wind blast's success are the loosest).
 [magic_spell_wind_strike]
 table=magic_spell_table
 data=spell,^wind_strike
@@ -15,8 +16,8 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_90
 data=spotanim_proj,spotanim_91,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_92,124
-data=sound_success,null
-data=sound_fail,null
+data=sound_success,wind_wave_fail
+data=sound_fail,wind_wave_fail
 data=continue_by_autocast,true
 
 [magic_spell_water_strike]
@@ -34,7 +35,7 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_93
 data=spotanim_proj,spotanim_94,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_95,124
-data=sound_success,null
+data=sound_success,water_wave_fail
 data=sound_fail,water_strike_fail
 data=continue_by_autocast,true
 
@@ -91,8 +92,8 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_117
 data=spotanim_proj,spotanim_118,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_119,124
-data=sound_success,null
-data=sound_fail,null
+data=sound_success,wind_wave_fail
+data=sound_fail,wind_wave_fail
 data=continue_by_autocast,true
 
 [magic_spell_water_bolt]
@@ -110,7 +111,7 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_120
 data=spotanim_proj,spotanim_121,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_122,124
-data=sound_success,null
+data=sound_success,water_wave_fail
 data=sound_fail,water_wave_fail
 data=continue_by_autocast,true
 
@@ -129,8 +130,8 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_123
 data=spotanim_proj,spotanim_124,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_125,124
-data=sound_success,null
-data=sound_fail,null
+data=sound_success,synth_2330
+data=sound_fail,synth_2331
 data=continue_by_autocast,true
 
 [magic_spell_fire_bolt]
@@ -149,7 +150,7 @@ data=spotanim_origin,spotanim_126
 data=spotanim_proj,spotanim_127,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_128,124
 data=sound_success,fire_bolt_all
-data=sound_fail,null
+data=sound_fail,synth_2346
 data=continue_by_autocast,true
 
 [magic_spell_wind_blast]
@@ -167,8 +168,8 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_132
 data=spotanim_proj,spotanim_133,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_134,124
-data=sound_success,null
-data=sound_fail,null
+data=sound_success,wind_wave_fail
+data=sound_fail,wind_wave_fail
 data=continue_by_autocast,true
 
 [magic_spell_water_blast]
@@ -186,7 +187,7 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_135
 data=spotanim_proj,spotanim_136,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_137,124
-data=sound_success,null
+data=sound_success,water_strike_fail
 data=sound_fail,water_strike_fail
 data=continue_by_autocast,true
 
@@ -205,8 +206,8 @@ data=staffanim,seq_1162
 data=spotanim_origin,spotanim_138
 data=spotanim_proj,spotanim_139,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_140,124
-data=sound_success,null
-data=sound_fail,null
+data=sound_success,synth_2330
+data=sound_fail,earth_wave_fail
 data=continue_by_autocast,true
 
 [magic_spell_fire_blast]
@@ -225,7 +226,7 @@ data=spotanim_origin,spotanim_129
 data=spotanim_proj,spotanim_130,43,31,51,16,-5,64,10
 data=spotanim_target,spotanim_131,124
 data=sound_success,fire_blast_all
-data=sound_fail,null
+data=sound_fail,fire_wave_fail
 data=continue_by_autocast,true
 
 [magic_spell_wind_wave]

@@ -2,14 +2,14 @@
 [proc,clientscript_1152]
 switch_int (detailget_brightness) {
     case 1 :
-        if_setposition(graphics_options:com_35, 0, 0, 0, 0);
+        if_setposition(graphics_options:com_35, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
     case 2 :
-        if_setposition(graphics_options:com_35, 31, 0, 0, 0);
+        if_setposition(graphics_options:com_35, 31, 0, ^setpos_abs_left, ^setpos_abs_top);
     case 3 :
-        if_setposition(graphics_options:com_35, 62, 0, 0, 0);
+        if_setposition(graphics_options:com_35, 62, 0, ^setpos_abs_left, ^setpos_abs_top);
     case 4 :
-        if_setposition(graphics_options:com_35, 96, 0, 0, 0);
+        if_setposition(graphics_options:com_35, 96, 0, ^setpos_abs_left, ^setpos_abs_top);
     case default :
         detail_brightness(3);
-        if_setposition(graphics_options:com_35, 62, 0, 0, 0);
+        if_setposition(graphics_options:com_35, 62, 0, ^setpos_abs_left, ^setpos_abs_top);
 }

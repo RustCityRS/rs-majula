@@ -4,13 +4,6 @@ use crate::replay::ACTIVITY_STEP_MS;
 use crate::{Db, Error};
 use std::collections::HashSet;
 
-/// A timestamp column as Unix milliseconds.
-macro_rules! ms {
-    ($column:literal) => {
-        concat!("(extract(epoch FROM ", $column, ") * 1000)::bigint")
-    };
-}
-
 /// The pairs of logins from the same `$column` value (`uid`, `fingerprint`
 /// or `ip`, one an uncrowded `$ok` CTE holds), by different accounts:
 /// `$rank` says how strong that link is (see [`crate::links::link_rank`]).

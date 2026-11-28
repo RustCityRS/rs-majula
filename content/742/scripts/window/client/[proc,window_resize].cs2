@@ -5,7 +5,7 @@ def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setsize(toplevel_fullscreen:mainoverlay, viewport_geteffectivesize, ^setsize_abs, ^setsize_abs);
     ~chatbox_resize_window;
     $int0 = if_getwidth(toplevel_fullscreen:com_93);

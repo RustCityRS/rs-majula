@@ -51,7 +51,7 @@ pub fn emit_bas_props(
         p.push((*code, anim_key(*code), packs.reference("seq", *anim)));
     }
     if opcode == 26 {
-        let (x, z) = def.rotate;
+        let (x, z) = def.hill_rotate;
         p.push((26, "hillrotate".into(), format!("{x},{z}")));
     }
     if let Some((slot, values)) = def.transform.last() {
@@ -88,7 +88,7 @@ pub fn emit_bas_props(
         p.push((45, "overlayheight".into(), height.to_string()));
     }
     #[cfg(since_647)]
-    for (anim, weight) in &def.readyanim_random {
+    for (anim, weight) in &def.random_ready_anims {
         let anim = packs.reference("seq", *anim);
         p.push((52, "randomreadyanim".into(), format!("{anim},{weight}")));
     }
@@ -98,7 +98,7 @@ pub fn emit_bas_props(
     }
     #[cfg(since_647)]
     if opcode == 54 {
-        let (a, b) = def.op54;
+        let (a, b) = def.hill_rotate_limit;
         p.push((54, "hillrotatelimit".into(), format!("{a},{b}")));
     }
     #[cfg(since_647)]

@@ -1,6 +1,6 @@
 // 2654
 [proc,topstat_hitpoints_update]
-if (getwindowmode >= 2) {
+if (getwindowmode >= ^windowmode_resizable) {
     if_setgraphic(topstat_hitpoints:background, graphic_1207);
     if_setgraphic(topstat_hitpoints:background_op, graphic_1207);
     if_setposition(topstat_hitpoints:globe, 25, 1, ^setpos_abs_left, ^setpos_abs_top);

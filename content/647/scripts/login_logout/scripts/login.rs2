@@ -1,8 +1,8 @@
 [login,_]
-if (map_lobby = true) {
-    return;
-}
 mes("Welcome to RuneScape.")
+// The client opens no tab, friend prompt or join prompt until this is set (clientscripts
+// side_if_open, meslayer_mode2-16, friend_op); every account has a display name.
+%has_displayname_client = true;
 // register the timers that replenish stats (ported from rev-225);
 // hp is separate so rapid heal/restore can retune it independently
 settimer(stat_regen, 100);
@@ -40,6 +40,8 @@ settimer(general_macro_events, 500);
 queue(macro_event_login, 0, 0);
 // so antifire persists after logging back in
 ~set_antifire_login;
+// run mode is saved (option_run is scope=perm from 530), and the engine starts every login walking
+p_run(%option_run);
 // Varp 281 is Unstable Foundations' (quest config 131): 0 is an account still to design its
 // character, 5 to 999 one mid-tutorial, 1000 one done.
 if (%tutorial = 0) {
@@ -62,6 +64,8 @@ if (%tutorial3_postquest < 5) {
         %tutorial3_postquest = 5;
     }
 }
+// 289's login.rs2: Monkey Madness's login (its monkey's timer, and a cutscene left part way).
+~mm_login;
 // 289's login.rs2: Charlie is back in his cell for a player who logs in beside it (The Grand Tree).
 if(inzone(movecoord(^grandtree_jail_coord, 0, 0, -2), movecoord(^grandtree_jail_coord, 3, 0, 2), coord) = true) {
     ~grandtree_spawn_charlie;
@@ -95,9 +99,9 @@ if (getwindowmode = 1) {
 // [proc,subchanged] hides 747:8 whenever it reads 0. void rev-634 defaults the
 // var to true and re-sends it on every `interfaceOpened("summoning_orb")`, so
 // seed it here, before the mount, and only on a members world.
-def_int $summoning = ^false;
+def_int $animallore = ^false;
 if (map_members = ^true) {
-    $summoning = ^true;
+    $animallore = ^true;
     %lore_lore_available = ^true;
 }
 
@@ -105,7 +109,7 @@ if (getwindowmode = 1) {
     if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints)
     if_opensub(topstat_prayer, toplevel:topstat_prayer)
     if_opensub(topstat_run, toplevel:topstat_run)
-    if ($summoning = ^true) {
+    if ($animallore = ^true) {
         if_opensub(topstat_lore, toplevel:topstat_lore)
     }
     if_opensub(filterbuttons, toplevel:filterbuttons)
@@ -119,7 +123,7 @@ if (getwindowmode = 1) {
     if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints)
     if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer)
     if_opensub(topstat_run, toplevel_fullscreen:topstat_run)
-    if ($summoning = ^true) {
+    if ($animallore = ^true) {
         if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore)
     }
     if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons)

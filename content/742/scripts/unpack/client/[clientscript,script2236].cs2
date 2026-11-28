@@ -5,6 +5,6 @@ if (%easter10_totalworkers < 15 & calc(%easter10_resourcegame_totalnuts + %easte
     %easter10_totalworkers = calc(%easter10_totalworkers + 1);
 } else {
     %easter10_resourcegame_errortextflag = 2;
-    sound_vorbis_volume(10046, 1, 0, 255);
+    sound_vorbis_volume(vorbis_10046, 1, 0, 255);
 }
 ~script2220;

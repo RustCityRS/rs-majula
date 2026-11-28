@@ -1,12 +1,12 @@
 use super::map::{ParsedMap, TILE_COUNT, tile_index, zone_key};
 use crate::cache::flo::{FloType, FloTypeRaw};
 use crate::cache::loc::LocTypeRaw;
-use crate::cache::map::TerrainTile;
+use crate::cache::map::{TerrainTile, parse_npc_spawn_binary, parse_obj_spawn_binary};
 use crate::cache::npc::NpcTypeRaw;
 use crate::cache::provider::TypeProvider;
 use crate::pack::util::media::{emit_group, read_group};
 use crate::pack::util::palette;
-use crate::types::{LocShape, MapSquareCsv};
+use crate::types::{LocShape, MapSquareCsv, MapSquares};
 use rs_io::jag::{JagCompression, JagFile};
 use rs_ver::TypeId;
 use std::collections::HashMap;
@@ -29,19 +29,35 @@ struct SquareLoc {
     angle: u8,
 }
 
-/// The square's npc spawns on its drawn level: (npc id, tile).
-type SquareNpcs = Vec<(u16, usize)>;
-
 /// Collects map squares while `pack_maps` parses them; `build` adds the
-/// config-dependent parts once locs and npcs are packed.
+/// config-dependent parts and the spawns once those are packed.
 pub struct WorldmapBuilder {
     ignore: MapSquareCsv,
     squares: Vec<(u8, u8)>,
     underlay: Vec<u8>,
     overlay: Vec<u8>,
-    obj: Vec<u8>,
     locs: Vec<(u8, u8, Vec<SquareLoc>)>,
-    npcs: Vec<(u8, u8, SquareNpcs)>,
+}
+
+/// The level the world map draws of a square.
+fn drawn_level(mx: u8, mz: u8) -> u8 {
+    if mx == 33 && (71..=73).contains(&mz) {
+        1
+    } else {
+        0
+    }
+}
+
+/// The square's spawn layer: per tile on its drawn level, whether any of
+/// `tiles` (level, x, z) is on it.
+fn spawn_tiles(mx: u8, mz: u8, tiles: impl Iterator<Item = (u8, u8, u8)>, out: &mut Vec<u8>) {
+    let level = drawn_level(mx, mz);
+    let mut present = [false; 1 << 12];
+    for (_, x, z) in tiles.filter(|&(y, _, _)| y == level) {
+        present[(x as usize) << 6 | z as usize] = true;
+    }
+    out.extend_from_slice(&[mx, mz]);
+    out.extend(present.map(u8::from));
 }
 
 impl WorldmapBuilder {
@@ -51,9 +67,7 @@ impl WorldmapBuilder {
             squares: Vec::new(),
             underlay: Vec::new(),
             overlay: Vec::new(),
-            obj: Vec::new(),
             locs: Vec::new(),
-            npcs: Vec::new(),
         }
     }
 
@@ -72,18 +86,15 @@ impl WorldmapBuilder {
         }
         self.squares.push((mx, mz));
 
-        let level: u8 = if mx == 33 && (71..=73).contains(&mz) {
-            1
-        } else {
-            0
-        };
-        let bridged = |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.unwrap_or(0) & 0x2 != 0;
+        let level = drawn_level(mx, mz);
+        let link_below =
+            |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.unwrap_or(0) & 0x2 != 0;
 
         self.underlay.extend_from_slice(&[mx, mz]);
         self.overlay.extend_from_slice(&[mx, mz]);
         for x in 0..64 {
             for z in 0..64 {
-                let tile = &tiles[tile_index(level as usize + bridged(x, z) as usize, x, z)];
+                let tile = &tiles[tile_index(level as usize + link_below(x, z) as usize, x, z)];
                 self.underlay.push(tile.underlay_id.unwrap_or(0));
                 if let Some(overlay) = tile.overlay_id {
                     self.overlay.push(overlay);
@@ -101,7 +112,7 @@ impl WorldmapBuilder {
         for id in ids {
             for loc in &map.locs[&id] {
                 let (x, z) = (loc.x as usize, loc.z as usize);
-                if loc.y.checked_sub(bridged(x, z) as u8) == Some(level) {
+                if loc.y.checked_sub(link_below(x, z) as u8) == Some(level) {
                     locs.push(SquareLoc {
                         id,
                         x: loc.x,
@@ -113,37 +124,16 @@ impl WorldmapBuilder {
             }
         }
         self.locs.push((mx, mz, locs));
-
-        if !map.npcs.is_empty() {
-            let npcs = map
-                .npcs
-                .iter()
-                .flat_map(|(&id, spawns)| {
-                    spawns
-                        .iter()
-                        .filter(|npc| npc.y == level)
-                        .map(move |npc| (id, (npc.x as usize) << 6 | npc.z as usize))
-                })
-                .collect();
-            self.npcs.push((mx, mz, npcs));
-        }
-
-        if !map.objs.is_empty() {
-            let mut present = [false; 1 << 12];
-            for obj in map.objs.values().flatten().filter(|obj| obj.y == level) {
-                present[(obj.x as usize) << 6 | obj.z as usize] = true;
-            }
-            self.obj.extend_from_slice(&[mx, mz]);
-            self.obj.extend(present.map(u8::from));
-        }
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn build(
         self,
         content_dir: &Path,
         flo_dat: &[u8],
         loc_dat: &[u8],
         npc_dat: &[u8],
+        spawns: &MapSquares,
         multimap: &MapSquareCsv,
         freemap: &MapSquareCsv,
     ) -> Vec<u8> {
@@ -158,18 +148,19 @@ impl WorldmapBuilder {
         }
 
         let mut npc = Vec::new();
-        for (mx, mz, square) in &self.npcs {
-            let mut present = [false; 1 << 12];
-            for &(id, tile) in square {
-                if npcs
-                    .get_by_id(TypeId::new(id))
-                    .is_some_and(|npc| npc.minimap)
-                {
-                    present[tile] = true;
-                }
+        let mut obj = Vec::new();
+        for &(mx, mz) in &self.squares {
+            if let Some(data) = spawns.get(&('n', mx, mz)) {
+                let shown = parse_npc_spawn_binary(data).into_iter().filter(|spawn| {
+                    npcs.get_by_id(TypeId::new(spawn.npc_id))
+                        .is_some_and(|npc| npc.minimap)
+                });
+                spawn_tiles(mx, mz, shown.map(|s| (s.level, s.x, s.z)), &mut npc);
             }
-            npc.extend_from_slice(&[*mx, *mz]);
-            npc.extend(present.map(u8::from));
+            if let Some(data) = spawns.get(&('o', mx, mz)) {
+                let spawns = parse_obj_spawn_binary(data).into_iter();
+                spawn_tiles(mx, mz, spawns.map(|s| (s.level, s.x, s.z)), &mut obj);
+            }
         }
 
         let multi = zone_flags(&self.squares, multimap);
@@ -198,7 +189,7 @@ impl WorldmapBuilder {
         jag.write("underlay.dat", self.underlay);
         jag.write("overlay.dat", self.overlay);
         jag.write("loc.dat", loc);
-        jag.write("obj.dat", self.obj);
+        jag.write("obj.dat", obj);
         jag.write("npc.dat", npc);
         jag.write("multi.dat", multi);
         jag.write("free.dat", free);

@@ -1,5 +1,9 @@
-use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
+#[cfg(since_647)]
+use crate::clients::client_ether::EtherOutbound;
+use crate::clients::client_ether::{EtherInbound, EtherSession, finish_resync};
 use crate::core::Engine;
+#[cfg(since_647)]
+use crate::social;
 use rs_entity::build::MAX_PLAYERS;
 use rs_protocol::LoginResponse;
 #[cfg(before_647)]
@@ -26,6 +30,14 @@ impl Engine {
     ///   to the recipient player.
     /// * `LoginCheckResponse` -- completes or rejects a pending login
     ///   based on whether the ether allows it (not logged in elsewhere).
+    ///   From 647, a refusal because the player is in a lobby instead asks
+    ///   that lobby to hand the player over (`EtherOutbound::LobbyTransfer`)
+    ///   once this world has a slot for them, and marks the login to retry
+    ///   its check (see `Engine::logins`). Any other refusal rejects with
+    ///   [`LoginResponse::IpLimit`] when the address is at its limit, else
+    ///   [`LoginResponse::Duplicate`].
+    /// * `EtherDisconnected` -- disables logins and rejects every pending
+    ///   login with [`LoginResponse::LoginServerOffline`].
     /// * `EtherReconnected` -- handles reconnection to the ether service
     ///   by failing all in-flight logins and re-syncing all active
     ///   players.
@@ -34,12 +46,15 @@ impl Engine {
     ///
     /// * Writes network packets to player output buffers.
     /// * Completes or rejects entries in `self.pending_logins`.
+    /// * From 647, sends `LobbyTransfer` to the ether for a login whose
+    ///   player is in a lobby.
     /// * On reconnect, sends `PlayerResync` and `RefreshAll` to the ether.
     ///
     /// # Call Stack
     ///
     /// **Called by:** `Engine::cycle`
-    /// **Calls:** `try_complete_login`, `EtherOutbound::PlayerResync`,
+    /// **Calls:** `try_complete_login`, `login_slot`, `reject_pending_login`,
+    ///   `EtherOutbound::LobbyTransfer`, `EtherOutbound::PlayerResync`,
     ///   `EtherOutbound::RefreshAll`
     pub(crate) fn ether(&mut self) {
         for _ in 0..MAX_PLAYERS {
@@ -47,6 +62,15 @@ impl Engine {
                 Ok(msg) => msg,
                 Err(_) => break,
             };
+            #[cfg(since_647)]
+            if let Some(target37) = msg.named_target() {
+                if let Some(pid) = self.find_pid_by_user37(target37)
+                    && let Some(active) = self.get_player_mut(pid)
+                {
+                    social::deliver(active, msg);
+                }
+                continue;
+            }
             match msg {
                 #[cfg(before_647)]
                 EtherInbound::UpdateFriendList {
@@ -81,8 +105,6 @@ impl Engine {
                         }
                     }
                 }
-                // TODO(647): port with the social milestone — rev-647
-                // UPDATE_FRIENDLIST is a name-based full-list packet.
                 #[cfg(since_647)]
                 EtherInbound::UpdateFriendList { .. } => {}
                 #[cfg(before_647)]
@@ -95,8 +117,6 @@ impl Engine {
                         active.ignores = signed;
                     }
                 }
-                // TODO(647): port with the social milestone — rev-647 uses
-                // the name-based UPDATE_IGNORELIST_FULL packet.
                 #[cfg(since_647)]
                 EtherInbound::UpdateIgnoreList { .. } => {}
                 #[cfg(before_647)]
@@ -118,26 +138,32 @@ impl Engine {
                         });
                     }
                 }
-                // TODO(647): port with the chat/social milestone — rev-647
-                // MESSAGE_PRIVATE is name-addressed with a huffman body.
                 #[cfg(since_647)]
                 EtherInbound::MessagePrivate { .. } => {}
+                // From 647 a named session's friends list itself tells the
+                // client it has loaded; FRIENDLIST_LOADED would set it back to
+                // connecting.
                 EtherInbound::FriendListComplete { target37 } => {
-                    #[cfg(since_254)]
+                    #[cfg(all(since_254, before_647))]
                     if let Some(pid) = self.find_pid_by_user37(target37)
                         && let Some(active) = self.get_player_mut(pid)
                     {
                         active.friendlist_loaded(2);
                     }
-                    #[cfg(before_254)]
+                    #[cfg(any(before_254, since_647))]
                     let _ = target37;
                 }
+                #[cfg(since_647)]
+                EtherInbound::LobbyTransfer { .. } => {}
                 EtherInbound::WorldReady => {}
                 EtherInbound::LoginCheckResponse {
                     user37,
                     allowed,
                     ip_limited,
+                    in_lobby,
                 } => {
+                    #[cfg(before_647)]
+                    let _ = in_lobby;
                     if let Some(idx) = self
                         .pending_logins
                         .iter()
@@ -146,13 +172,42 @@ impl Engine {
                         let online_here = self.find_pid_by_user37(user37).is_some();
                         let reconnect = self.pending_logins[idx].request.reconnect;
                         if (allowed && !online_here) || (reconnect && online_here && !ip_limited) {
+                            #[cfg(since_647)]
+                            {
+                                self.pending_logins[idx].retry_ether = false;
+                            }
                             self.pending_logins[idx].ether_allowed = true;
                             self.try_complete_login(idx);
                         } else {
+                            #[cfg(since_647)]
+                            if in_lobby
+                                && !online_here
+                                && !reconnect
+                                && self.pending_logins[idx].auth.is_some()
+                            {
+                                if let Err(code) =
+                                    self.login_slot(self.pending_logins[idx].auth.unwrap())
+                                {
+                                    self.reject_pending_login(idx, code);
+                                    continue;
+                                }
+                                let pending = &mut self.pending_logins[idx];
+                                if let Some(tx) = &self.ether_tx {
+                                    let _ = tx.send(EtherOutbound::LobbyTransfer {
+                                        user37,
+                                        client_session: pending.request.client_session,
+                                        ip: pending.request.remote_addr.ip(),
+                                        world: self.node_id,
+                                        revision: env!("REV").parse().unwrap(),
+                                    });
+                                }
+                                pending.retry_ether = true;
+                                continue;
+                            }
                             let response = if ip_limited {
-                                LoginResponse::TooManyConnections
+                                LoginResponse::IpLimit
                             } else {
-                                LoginResponse::AlreadyLoggedIn
+                                LoginResponse::Duplicate
                             };
                             self.reject_pending_login(idx, response);
                         }
@@ -160,34 +215,49 @@ impl Engine {
                 }
                 EtherInbound::EtherDisconnected => {
                     self.ether_ready = false;
+                    while !self.pending_logins.is_empty() {
+                        self.reject_pending_login(
+                            self.pending_logins.len() - 1,
+                            LoginResponse::LoginServerOffline,
+                        );
+                    }
                     warn!("Ether disconnected - logins disabled");
                 }
-                EtherInbound::EtherReconnected => {
+                EtherInbound::EtherReconnected(replay) => {
                     self.ether_ready = true;
                     let clock = self.clock;
                     let mut i = self.pending_logins.len();
                     while i > 0 {
                         i -= 1;
                         if self.pending_logins[i].clock < clock {
-                            self.reject_pending_login(i, LoginResponse::CouldNotComplete);
+                            self.reject_pending_login(i, LoginResponse::BadSave);
                         }
                     }
 
                     if let Some(tx) = &self.ether_tx {
                         for &pid in self.player_list.processing.iter() {
-                            if let Some(active) = self.player_list.players[pid as usize].as_mut() {
-                                let _ = tx.send(EtherOutbound::PlayerResync {
+                            if let Some(active) = self.player_list.players[pid as usize].as_ref() {
+                                EtherSession {
                                     user37: active.uid().username37(),
                                     pid,
+                                    member: active.player.is_member,
                                     private_mode: active.player.private_chat(),
-                                    max_friends: max_friends_cap(active.player.is_member),
                                     ip: active.remote_ip,
-                                });
+                                    #[cfg(since_647)]
+                                    profile: active.ether_profile(),
+                                }
+                                .resync(
+                                    tx,
+                                    #[cfg(since_647)]
+                                    active.social.friendchat.as_ref(),
+                                );
                             }
                         }
-                        let _ = tx.send(EtherOutbound::RefreshAll);
+                        finish_resync(tx, replay);
                     }
                 }
+                #[cfg(since_647)]
+                _ => {}
             }
         }
     }
