@@ -26560,6 +26560,7 @@ name=Cupboard
 cursor1=1,cursor_open
 occlude=yes
 desc=This may be worth opening.
+param=cupboard_other,grandtree_cupboardopen
 
 // 2435
 [grandtree_cupboardopen]
@@ -26572,6 +26573,7 @@ name=Cupboard
 cursor1=2,cursor_search
 occlude=yes
 desc=This may be worth opening.
+param=cupboard_other,grandtree_cupboardclosed
 
 // 2436
 [grandtree_chestclosed]
@@ -26600,6 +26602,7 @@ model=5,model_968
 name=Gate
 cursor1=1,cursor_open
 desc=A wooden gate.
+category=shipyard_gate
 
 // 2439
 [grandtree_fencegate_r]
@@ -26612,6 +26615,7 @@ model=5,model_968
 name=Gate
 cursor1=1,cursor_open
 desc=A wooden gate.
+category=shipyard_gate
 
 // 2440
 [grandtree_pillart]
@@ -26621,6 +26625,7 @@ model=8,model_1310
 name=Pillar
 occlude=yes
 desc=Wonder what this pillar is for?
+category=grandtree_pillar
 
 // 2441
 [grandtree_pillaru]
@@ -26630,6 +26635,7 @@ model=8,model_1310
 name=Pillar
 occlude=yes
 desc=Wonder what this pillar is for?
+category=grandtree_pillar
 
 // 2442
 [grandtree_pillarz]
@@ -26639,6 +26645,7 @@ model=8,model_1310
 name=Pillar
 occlude=yes
 desc=Wonder what this pillar is for?
+category=grandtree_pillar
 
 // 2443
 [grandtree_pillaro]
@@ -26648,6 +26655,7 @@ model=8,model_1310
 name=Pillar
 occlude=yes
 desc=Wonder what this pillar is for?
+category=grandtree_pillar
 
 // 2444
 [grandtree_trapdoorclosed]
@@ -383910,6 +383918,8 @@ model=8,model_37215
 name=Root
 cursor1=1,cursor_search
 occlude=yes
+// 289's largeroot_gnome / largeroot2_gnome (The Grand Tree's roots; their ids are compost bins in cache 786).
+category=grandtree_root
 
 // 32320
 [di2_largeroot_gnome_02]
@@ -383925,6 +383935,8 @@ model=8,model_37201
 name=Root
 cursor1=1,cursor_search
 occlude=yes
+// 289's largeroot_gnome / largeroot2_gnome (The Grand Tree's roots; their ids are compost bins in cache 786).
+category=grandtree_root
 
 // 32321
 [di2_gargoyle]
