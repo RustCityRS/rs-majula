@@ -3,7 +3,7 @@
 //! (`mm_message`) and its sliding puzzle is interface 287 (`reinitialisation_puzzle`), whose tiles
 //! are components with op 1, Slide.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
