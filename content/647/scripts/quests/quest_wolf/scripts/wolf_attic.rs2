@@ -43,7 +43,7 @@ if (%wolf_quest = ^wolf_started) {
 if (%wolf_quest = ^wolf_sent_upstairs) {
     // No source found: climbing at this stage without the pouch or the scrolls; the ladder does
     // nothing, and Pikkupstix sends the player back to make them.
-    if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, wolf_howl) < 1) {
+    if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, lore_howl) < 1) {
         return;
     }
     ~wolf_cutscene_2;

@@ -51,14 +51,9 @@ if (%wolf_items = 1 & %wolf_trapdoor = ^wolf_trapdoor_locked) {
 
 // The reward (W; the scroll, 2EfU5Mrh8Kc 2011-05-24 @336-341 and JQZnlZk0KqE 2011-05-24 @500-504):
 // 1 quest point, 276 Summoning xp, access to the skill, 275 gold charms; the 9 Howl scrolls are
-// kept (W: "You get to keep the 9 remaining Howl Scrolls"; HemCMqn3Y3E 2009-11-20 @263), as the
-// skill's own (W: "the others will change into that type of scroll after the quest").
+// kept (W: "You get to keep the 9 remaining Howl Scrolls"; HemCMqn3Y3E 2009-11-20 @263). They are
+// the skill's own scrolls from the start (lore_infuse.rs2), so nothing is swapped here.
 [queue,wolf_quest_complete]
-def_int $scrolls = inv_total(inv, wolf_howl);
-if ($scrolls > 0) {
-    inv_del(inv, wolf_howl, $scrolls);
-    inv_add(inv, lore_howl, $scrolls);
-}
 // No source found: what becomes of kit left over; it has no use after the quest and goes.
 inv_del(inv, wolf_druid_pouch, inv_total(inv, wolf_druid_pouch));
 inv_del(inv, wolf_wolf_pouch, inv_total(inv, wolf_wolf_pouch));

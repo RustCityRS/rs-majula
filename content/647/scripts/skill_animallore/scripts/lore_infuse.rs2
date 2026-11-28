@@ -63,13 +63,21 @@ if (p_finduid(uid) = false | last_slot ! 2) {
 }
 // No source found: a second Transform. The quest wants one pouch kept for the summon, so with
 // scrolls already made nothing happens.
-if (inv_total(inv, wolf_howl) > 0) {
+if (inv_total(inv, lore_howl) > 0) {
     return;
 }
 // 2011's: one Transform turns one pouch into a stack of 10 Howl scrolls and the window closes
 // (HemCMqn3Y3E 2009-11-20 @174; JQZnlZk0KqE 2011-05-24 @345).
+// 2011's: the scrolls are the skill's own Howl scrolls (12425), not wolf_howl (12529). Follower
+// Details shows the Howl icon lit with "10" under it during the quest (HemCMqn3Y3E 2009-11-20
+// @210; QlQ_p-MBxJ8 2011-02-09 @296; 2EfU5Mrh8Kc 2011-05-24 @246; JQZnlZk0KqE 2011-05-24 @410),
+// and cache 786's client lights the icon and counts from the backpack's total of
+// enum 1283[follower_obj] alone (clientscripts 664 and 769), which holds lore_wolf -> lore_howl
+// and nothing for the quest's items.
+// W (Wolf Whistle, 2011 mirror) disagrees: it warns of a second scroll type that changes "after
+// the quest". Not followed: the client cannot show 10 for it.
 // No source found: Transform with no pouch (.claude/647-wolf-whistle-states.md section 11); nothing happens.
-if (~lore_make_scrolls(wolf_wolf_pouch, wolf_howl, 1, 0, ^wolf_obelisk_coord) = false) {
+if (~lore_make_scrolls(wolf_wolf_pouch, lore_howl, 1, 0, ^wolf_obelisk_coord) = false) {
     return;
 }
 if_close;

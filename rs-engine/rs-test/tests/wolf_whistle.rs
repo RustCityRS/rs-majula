@@ -301,7 +301,7 @@ fn give_kit(engine: &mut Engine, client: &HarnessClient) {
 fn in_the_attic(engine: &mut Engine, name: &str) -> HarnessClient {
     let mut client = login(engine, name, 50);
     give(engine, &client, 0, "wolf_wolf_pouch", 1);
-    give(engine, &client, 1, "wolf_howl", 10);
+    give(engine, &client, 1, "lore_howl", 10);
     let msgs = op_loc(engine, &mut client, 1, LADDER, "wolf_druid_quest_ladder", 3);
     assert!(msgs.is_empty(), "{msgs:?}");
     let t = play(engine, &mut client, 12, |_, _, t| {
@@ -766,7 +766,7 @@ fn one_infuse_makes_both_pouches_and_one_transform_ten_scrolls() {
                 "You should speak to Pikkupstix. He will tell you what to do with the scrolls and the spirit wolf pouch.",
             ],
         );
-        assert_eq!(held(engine, &client, "wolf_howl"), 10, "ten Howl scrolls");
+        assert_eq!(held(engine, &client, "lore_howl"), 10, "ten Howl scrolls");
         assert_eq!(
             held(engine, &client, "wolf_wolf_pouch"),
             1,
@@ -807,7 +807,7 @@ fn pouch_and_scrolls_send_the_player_upstairs() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "wolf_maker", 40);
         give(engine, &client, 0, "wolf_wolf_pouch", 1);
-        give(engine, &client, 1, "wolf_howl", 10);
+        give(engine, &client, 1, "lore_howl", 10);
         let t = talk(engine, &mut client, &["Talk about Wolf Whistle quest."]);
         says(
             &t,
@@ -1000,7 +1000,7 @@ fn howl_banishes_the_wolpertinger_and_drains_the_points() {
         let (bunny, ..) = npc(engine, &client, "giant_wolpertinger").expect("the wolpertinger");
 
         // 2011's: HemCMqn3Y3E 2009-11-20 @212-213, the scroll itself used on the wolpertinger.
-        let scroll = id(engine, "obj", "wolf_howl");
+        let scroll = id(engine, "obj", "lore_howl");
         client.op_npc_t(bunny, BACKPACK, 1, scroll);
         let mut said = Vec::new();
         for _ in 0..12 {
@@ -1013,7 +1013,7 @@ fn howl_banishes_the_wolpertinger_and_drains_the_points() {
                 "These scrolls can only be used by clicking the Special Move button in the Follower Details tab.",
             ],
         );
-        assert_eq!(held(engine, &client, "wolf_howl"), 10);
+        assert_eq!(held(engine, &client, "lore_howl"), 10);
 
         // The special move's icon, aimed at the giant wolpertinger.
         client.op_npc_t(bunny, com("lore_stats_side:spell_icon"), 0, TypeId::NULL);
@@ -1035,7 +1035,7 @@ fn howl_banishes_the_wolpertinger_and_drains_the_points() {
         );
         settle(engine, &mut client, 10);
         assert_eq!(stage(engine, &client), 60, "the wolpertinger banished");
-        assert_eq!(held(engine, &client, "wolf_howl"), 9, "one scroll used");
+        assert_eq!(held(engine, &client, "lore_howl"), 9, "one scroll used");
         assert_eq!(at(engine, &client).1, 0, "downstairs, beside Pikkupstix");
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.stats.levels[ANIMALLORE], 0, "0 Summoning points");
@@ -1112,7 +1112,7 @@ fn pikkupstix_rewards_the_player_with_summoning() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "wolf_finisher", 80);
-        give(engine, &client, 0, "wolf_howl", 9);
+        give(engine, &client, 0, "lore_howl", 9);
         give(engine, &client, 1, "wolf_key", 1);
         let qp = varp(engine, &client, "qp");
         let mut t = talk(engine, &mut client, &["Talk about Wolf Whistle quest."]);
@@ -1152,7 +1152,6 @@ fn pikkupstix_rewards_the_player_with_summoning() {
         assert_eq!(player.stats.base_levels[ANIMALLORE], 4, "level 4");
         assert_eq!(held(engine, &client, "lore_creature_charm"), 275);
         assert_eq!(held(engine, &client, "lore_howl"), 9, "the 9 scrolls kept");
-        assert_eq!(held(engine, &client, "wolf_howl"), 0);
         assert_eq!(held(engine, &client, "wolf_key"), 0, "leftover kit removed");
         no_script_errors(engine, "the reward");
     });

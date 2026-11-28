@@ -244,7 +244,7 @@ if (inv_total(inv, wolf_bones) < ^wolf_kit_bones) {
 
 // The fourth talk: a spirit wolf pouch and Howl scrolls, f01-f16.
 [label,wolf_pikkupstix_made]
-if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, wolf_howl) < 1) {
+if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, lore_howl) < 1) {
     // No source found: talking again with a pouch or the scrolls still to make, or with kit
     // lost. Only the key's replacement is sourced as existing (2011 wiki, Trapdoor key, 8 Mar
     // 2011); the rest of the kit comes back the same silent way so the quest cannot stick, and he
@@ -296,7 +296,7 @@ if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, wolf_howl) < 1) {
 // No source found: talking again before the banishing. With the pouch or the scrolls gone the
 // player goes back to making them; else he repeats his last word on it (f15).
 [label,wolf_pikkupstix_practice]
-if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, wolf_howl) < 1) {
+if (inv_total(inv, wolf_wolf_pouch) < 1 | inv_total(inv, lore_howl) < 1) {
     ~wolf_set_progress(^wolf_given_kit);
     @wolf_pikkupstix_made;
 }

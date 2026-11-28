@@ -41,11 +41,11 @@ return(true);
 [opnpcu,lore_wolf]
 ~wolf_scroll_used(last_useitem);
 
-[opheldu,wolf_howl]
-~wolf_scroll_used(wolf_howl);
+[opheldu,lore_howl]
+~wolf_scroll_used(lore_howl);
 
 [proc,wolf_scroll_used](obj $used)
-if ($used ! wolf_howl) {
+if ($used ! lore_howl) {
     ~displaymessage(^dm_default);
     return;
 }
@@ -62,13 +62,13 @@ if (npc_type ! giant_wolpertinger) {
     ~displaymessage(^dm_default);
     return(true);
 }
-if (inv_total(inv, wolf_howl) < 1) {
+if (inv_total(inv, lore_howl) < 1) {
     // No source found: the cast with no scroll held; nothing happens, and Pikkupstix sends
     // the player back to make them.
     return(true);
 }
 // 2011's: one scroll is used (HemCMqn3Y3E 2009-11-20 @263: 9 left).
-inv_del(inv, wolf_howl, 1);
+inv_del(inv, lore_howl, 1);
 // 2011's: 2EfU5Mrh8Kc 2011-05-24 @251; JQZnlZk0KqE 2011-05-24 @415 (12 of 17 recordings).
 mes("The spirit wolf howls at the giant wolpertinger.");
 ~wolf_cutscene_3;
