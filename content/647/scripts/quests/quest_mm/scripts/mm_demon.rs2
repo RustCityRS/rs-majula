@@ -200,20 +200,28 @@ if(inzone(0_42_143_0_0, 2_42_143_63_63, npc_coord) = false) {
 [ai_apnpc2,mm_zooknock_final_battle]
 // 289's m_mage_attack keeps its id, seq 1415, unnamed in 647's pack.
 npc_anim(seq_1415, 0);
-def_int $duration = 64;
-// 289's fireblast_travel is spotanim 130, which cache 786 keeps (unnamed, a new model).
-def_spotanim $spell = spotanim_130;
-// 289's fireblast_impact is spotanim 131, which cache 786 keeps (unnamed, a new model).
-def_spotanim $spell_impact = spotanim_131;
+// Fire blast, or water blast one time in two, as 289 picks. 289 names the blast's travel and
+// impact spotanims here; they are now its row's in the spell table (~mm_zooknock_blast_travel
+// and ~mm_zooknock_blast_impact, mm_zooknock.rs2). 647's rows are unresolved and read as null,
+// so neither is shown yet: the graphics wait on the table's verified 2011 ids. The heights and
+// the flight (25, 50, 25, 16, 21, 64, 5) are 289's for this cast.
+def_int $spell = ^fire_blast;
 if(random(2) = 0) {
-    // 289's waterblast_travel is spotanim 136, which cache 786 keeps (unnamed, a new model).
-    $spell = spotanim_136;
-    // 289's waterblast_impact is spotanim 137, which cache 786 keeps (unnamed, a new model).
-    $spell_impact = spotanim_137;
+    $spell = ^water_blast;
 }
-$duration = ~npc_to_npc_projectile(.npc_uid, $spell, 25, 50, 25, 16, 21, 64, 5);
+def_dbrow $spell_data = ~get_spell_data($spell);
+def_spotanim $travel = ~mm_zooknock_blast_travel($spell_data);
+def_spotanim $impact = ~mm_zooknock_blast_impact($spell_data);
+// The time ~npc_to_npc_projectile gives this flight (its delay, its length, and its step for
+// each tile), with or without a projectile: the hit and the demon's block wait for it.
+def_int $duration = calc(25 + 21 + (npc_range(.npc_coord) * 5));
+if ($travel ! null) {
+    $duration = ~npc_to_npc_projectile(.npc_uid, $travel, 25, 50, 25, 16, 21, 64, 5);
+}
 npc_setmode(null);
-.spotanim_npc($spell_impact, 200, $duration);
+if ($impact ! null) {
+    .spotanim_npc($impact, 200, $duration);
+}
 .npc_queue(4, random(2), calc($duration / 30));
 .npc_anim(demon_block, calc($duration / 30));
 ~.sound_area(black_demon_hit, calc($duration / 30), .npc_coord, 15);

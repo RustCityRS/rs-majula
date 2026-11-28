@@ -153,18 +153,62 @@ npc_setmode(null);
 npc_facesquare(0_43_142_52_60);
 // 289's m_mage_attack keeps its id, seq 1415, unnamed in 647's pack.
 npc_anim(seq_1415, 0);
-def_int $duration;
+// Water blast or fire blast, as 289 picks. Its travel and impact are its row's in the spell
+// table (see ~mm_zooknock_blast_travel): null, and not shown, until the table has verified 2011
+// ids. The heights and the flight (25, 50, 16, 32, 54, 128, 0) are 289's for this cast.
+def_int $spell = ^fire_blast;
 if($rand = 1) {
-    // 289's waterblast_travel is spotanim 136, which cache 786 keeps (unnamed, a new model).
-    $duration = ~coord_projectile(npc_coord, 0_43_142_52_60, spotanim_136, 25, 50, 16, 32, 54, 128, 0);
-    // 289's waterblast_impact is spotanim 137, which cache 786 keeps (unnamed, a new model).
-    spotanim_map(spotanim_137, 0_43_142_52_60, 124, $duration);
-} else {
-    // 289's fireblast_travel is spotanim 130, which cache 786 keeps (unnamed, a new model).
-    $duration = ~coord_projectile(npc_coord, 0_43_142_52_60, spotanim_130, 25, 50, 16, 32, 54, 128, 0);
-    // 289's fireblast_impact is spotanim 131, which cache 786 keeps (unnamed, a new model).
-    spotanim_map(spotanim_131, 0_43_142_52_60, 124, $duration);
+    $spell = ^water_blast;
 }
+def_dbrow $spell_data = ~get_spell_data($spell);
+def_spotanim $travel = ~mm_zooknock_blast_travel($spell_data);
+def_spotanim $impact = ~mm_zooknock_blast_impact($spell_data);
+// The time ~coord_projectile gives this flight (its delay and its length; its step is 0), with
+// or without a projectile.
+def_int $duration = calc(16 + 54);
+if ($travel ! null) {
+    $duration = ~coord_projectile(npc_coord, 0_43_142_52_60, $travel, 25, 50, 16, 32, 54, 128, 0);
+}
+if ($impact ! null) {
+    spotanim_map($impact, 0_43_142_52_60, 124, $duration);
+}
+
+// Zooknock's fire blast and water blast take their graphics from the spell's row of
+// magic_spell_table, as a player's cast of the spell does (magic_spell_table:spotanim_proj and
+// :spotanim_target), where 289 names fireblast_travel, fireblast_impact, waterblast_travel and
+// waterblast_impact in the script.
+// 647's rows are unresolved: they still name those four, which 647's pack does not have, so each
+// reads as null (rs-pack's tests/dbrow_refs_647.known.tsv). A null one is not shown, since the
+// projanim commands and spotanim_map fail on a null spotanim. No 2011 id is given here: none is
+// taken until it is checked in the client against 2010-11 footage, and that check fills the
+// table (magic_combat_spells.dbrow). Zooknock then shows them with no change here.
+
+// A spell's travel spotanim: null while its row has none.
+[proc,mm_zooknock_blast_travel](dbrow $spell_data)(spotanim)
+if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) = 0) {
+    return(null);
+}
+def_spotanim $travel;
+// The row's heights and flight are a player's cast's; Zooknock keeps 289's for his own.
+def_int $_startheight;
+def_int $_endheight;
+def_int $_delay;
+def_int $_angle;
+def_int $_length;
+def_int $_offset;
+def_int $_step;
+$travel, $_startheight, $_endheight, $_delay, $_angle, $_length, $_offset, $_step = db_getfield($spell_data, magic_spell_table:spotanim_proj, 0);
+return($travel);
+
+// A spell's impact spotanim: null while its row has none.
+[proc,mm_zooknock_blast_impact](dbrow $spell_data)(spotanim)
+if (db_getfieldcount($spell_data, magic_spell_table:spotanim_target) = 0) {
+    return(null);
+}
+def_spotanim $impact;
+def_int $_height;
+$impact, $_height = db_getfield($spell_data, magic_spell_table:spotanim_target, 0);
+return($impact);
 
 [proc,mm_zooknock_amulet_check]
 if(~mm_zooknock_has_gold_bar = ^false & ~mm_zooknock_has_amulet_mould = ^false & 

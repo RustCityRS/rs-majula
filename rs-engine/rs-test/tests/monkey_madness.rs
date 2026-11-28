@@ -11,7 +11,9 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
+use rs_pack::cache::dbrow::DbRowValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
@@ -20,6 +22,7 @@ use rs_test::talk::{Conversation, converse, settexts, talk_to};
 use rs_test::world;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
+use rs_vm::subject::ScriptSubject;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -461,11 +464,10 @@ fn stand_beside(
 /// `^mm_completed_ch3`: the sigil is given, the demon not yet fought.
 const MM_COMPLETED_CH3: i32 = 5;
 
-/// The 10th squad's sigil takes the player to the final battle, where the jungle demon spawns and
-/// attacks: it casts from 3 tiles or more, and casts or swings from nearer. Defence and Magic are
-/// 1, so its spells land, and life is put back each tick. Gives each hit painted on the player
-/// over the fight's first ticks (`damage`'s hitmark and amount), once no script has failed.
-fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> Vec<(i32, i32)> {
+/// The 10th squad's sigil takes the player to the final battle: to Garkor's last words, as the
+/// jungle demon spawns. Defence and Magic are 1, so the demon's spells land. Calls are recorded
+/// from the sigil's click on.
+fn start_the_final_battle(engine: &mut Engine, name: &str) -> (HarnessClient, Conversation) {
     let mut client = login(engine, name);
     {
         let player = engine.harness_player_mut(client.pid).unwrap();
@@ -486,7 +488,206 @@ fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> Vec<(i32, i32)> {
     // demon spawns as his words close.
     let t = converse(engine, &mut client, &[], 200);
     says(&t, &["Ready yourself, human: the final battle begins!"]);
+    (client, t)
+}
 
+/// `magic_spell_table`'s spotanim_proj and spotanim_target columns (skill_magic/configs/
+/// magic.dbtable, counted from 0): the spell's travel spotanim and its impact, each the field's
+/// first value.
+const SPOTANIM_PROJ: usize = 18;
+const SPOTANIM_TARGET: usize = 20;
+
+/// The spotanim a spell's row gives in `column`: none for a row that leaves it out or has null.
+fn row_spotanim(engine: &Engine, row: &str, column: usize) -> Option<i32> {
+    let row = engine
+        .cache
+        .dbrows
+        .get_by_debugname(row)
+        .unwrap_or_else(|| panic!("no dbrow {row}"));
+    match row.columns.as_ref()?.get(column)?.as_ref()?.first()? {
+        DbRowValue::Int(id) if (0..0xFFFF).contains(id) => Some(*id),
+        _ => None,
+    }
+}
+
+/// Runs `run` and gives the script errors it raised.
+///
+/// The engine gathers script errors only while it has a database to send them to
+/// (`ScriptEngine::script_error`), and a test engine has none, so `engine.script_errors` stays
+/// empty and an npc's failed script tells no one: the engine is lent a sender for the call.
+fn script_errors(engine: &mut Engine, run: impl FnOnce(&mut Engine)) -> Vec<String> {
+    let (tx, _rx) = tokio::sync::mpsc::unbounded_channel();
+    let _ = engine.script_errors.take();
+    engine.db_tx = Some(tx);
+    run(engine);
+    engine.db_tx = None;
+    engine
+        .script_errors
+        .take()
+        .into_iter()
+        .map(|e| format!("{} at {} {}:{}", e.message, e.script, e.file, e.line))
+        .collect()
+}
+
+/// Zooknock's blast at the jungle demon in the final battle (`[ai_apnpc2,
+/// mm_zooknock_final_battle]`) shows the spell table's graphics and no others. The port gave
+/// him fire blast and water blast by raw id (spotanims 130 and 131, 136 and 137), ids no one has
+/// checked against 2011. He now takes the travel and the impact from the spell's row of
+/// magic_spell_table, as a player's cast does; 647's rows read as null, and a null one is not
+/// shown. The rest of the cast stands: his own animation, and the demon's block when the blast
+/// would land.
+///
+/// His cast of a row that has a travel spotanim launches it with `projanim_npc`, which fails in
+/// the engine until main's fix for it is merged here (PR #59: "Invalid uid", the command took
+/// the caster for the target). That error is the engine's and is let through; any other fails
+/// the case, and while both rows are null there is none at all.
+#[test]
+fn zooknock_s_blast_shows_only_the_spell_table_s_graphics() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (mut client, _) = start_the_final_battle(engine, "mmzooknock");
+        let mut fighters = None;
+        for _ in 0..80 {
+            set_life_points(engine, &client, 990);
+            engine.cycle();
+            client.packets();
+            let zooknock = spawned(engine, "mm_zooknock_final_battle", None);
+            let demon = spawned(engine, "mm_demon", None);
+            if let (Some(zooknock), Some(demon)) = (zooknock, demon) {
+                fighters = Some((zooknock.0, demon.0));
+                break;
+            }
+        }
+        let (zooknock, demon) = fighters.expect("Zooknock and the jungle demon are there");
+        let (caster, from, size) = {
+            let npc = &engine.get_npc(zooknock).unwrap().npc;
+            (npc.uid, npc.pathing.coord, i32::from(npc.pathing.size))
+        };
+        let (target, to) = {
+            let npc = &engine.get_npc(demon).unwrap().npc;
+            (npc.uid, npc.pathing.coord)
+        };
+
+        // Sixteen casts, for both spells: he picks one of the two each time.
+        const CASTS: usize = 16;
+        forget_calls();
+        let errors = script_errors(engine, |engine| {
+            for _ in 0..CASTS {
+                engine
+                    .run_script_by_name(
+                        "[ai_apnpc2,mm_zooknock_final_battle]",
+                        Some(ScriptSubject::Npc(caster)),
+                        Some(ScriptSubject::Npc(target)),
+                        None,
+                        None,
+                        None,
+                    )
+                    .expect("the cast ran");
+            }
+        });
+        let impacts = calls_for("spotanim_npc");
+        let anims = calls_for("npc_anim");
+        set_recording(false);
+
+        let rows = ["magic_spell_fire_blast", "magic_spell_water_blast"];
+        let travels: Vec<i32> = rows
+            .iter()
+            .filter_map(|row| row_spotanim(engine, row, SPOTANIM_PROJ))
+            .collect();
+        let row_impacts: Vec<String> = rows
+            .iter()
+            .filter_map(|row| row_spotanim(engine, row, SPOTANIM_TARGET))
+            .map(|id| id.to_string())
+            .collect();
+
+        // `spotanim_npc` is recorded as "id,height,delay".
+        let unsourced: Vec<&String> = impacts
+            .iter()
+            .filter(|shown| {
+                !row_impacts
+                    .iter()
+                    .any(|id| shown.split(',').next() == Some(id))
+            })
+            .collect();
+        assert!(
+            unsourced.is_empty(),
+            "an impact the spell table does not give (it gives {row_impacts:?}): {unsourced:?}"
+        );
+
+        let own: Vec<&String> = errors
+            .iter()
+            .filter(|e| !e.contains("projanim_npc error: Runtime error: Invalid uid"))
+            .collect();
+        assert!(own.is_empty(), "the cast fails: {own:?}");
+        if travels.is_empty() {
+            assert!(
+                errors.is_empty(),
+                "the table gives no travel, so none is launched and none fails: {errors:?}"
+            );
+        }
+
+        // The flight `~npc_to_npc_projectile` gives the cast (25 + 21 + 5 a tile), projectile or
+        // not: the demon's block (`demon_block`, seq 65) waits for it. `npc_anim` is recorded
+        // as "seq,delay".
+        let range = CoordGrid::distance_to(
+            i32::from(from.x()),
+            i32::from(from.z()),
+            size,
+            size,
+            i32::from(to.x()),
+            i32::from(to.z()),
+            1,
+            1,
+        );
+        let block = format!("65,{}", (25 + 21 + range * 5) / 30);
+        let count = |anim: &str| anims.iter().filter(|a| *a == anim).count();
+        assert_eq!(count("1415,0"), CASTS, "his cast's animation: {anims:?}");
+        assert_eq!(count(&block), CASTS, "the demon's block {block}: {anims:?}");
+    });
+}
+
+/// Zooknock's blast at the tunnel's wall (`[ai_timer,mm_zooknock]`) takes the same rows: while
+/// they are null it launches nothing, shows no impact and fails nothing, and he still plays his
+/// cast. Green before this change too (the raw ids it had are in cache 786): it holds the null
+/// rows' path.
+#[test]
+fn zooknock_s_blast_in_the_tunnel_runs_on_the_spell_table_s_rows() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let (nid, ..) = spawned(engine, "mm_zooknock", None).expect("Zooknock is spawned");
+        let zooknock = engine.get_npc(nid).unwrap().npc.uid;
+        const CASTS: usize = 16;
+        set_recording(true);
+        forget_calls();
+        let errors = script_errors(engine, |engine| {
+            for _ in 0..CASTS {
+                engine
+                    .run_script_by_name(
+                        "[ai_timer,mm_zooknock]",
+                        Some(ScriptSubject::Npc(zooknock)),
+                        None,
+                        None,
+                        None,
+                        None,
+                    )
+                    .expect("the cast ran");
+            }
+        });
+        let anims = calls_for("npc_anim");
+        set_recording(false);
+        assert!(errors.is_empty(), "the cast fails: {errors:?}");
+        let casts = anims.iter().filter(|a| *a == "1415,0").count();
+        assert_eq!(casts, CASTS, "his cast's animation: {anims:?}");
+    });
+}
+
+/// The 10th squad's sigil takes the player to the final battle, where the jungle demon spawns and
+/// attacks: it casts from 3 tiles or more, and casts or swings from nearer. Defence and Magic are
+/// 1, so its spells land, and life is put back each tick. Gives each hit painted on the player
+/// over the fight's first ticks (`damage`'s hitmark and amount), once no script has failed.
+fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> Vec<(i32, i32)> {
+    let (mut client, t) = start_the_final_battle(engine, name);
     let mut messages = t.messages;
     for _ in 0..80 {
         set_life_points(engine, &client, 990);
