@@ -2,7 +2,7 @@
 //! and its tunnels on 289's tiles (two of the tunnels' locs are renamed); Arrg's fight is in
 //! 2011's arena, east of 289's. The rewards are the 2011 wiki's and Sal's Realm's as 289's.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
