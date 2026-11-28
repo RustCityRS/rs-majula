@@ -4,7 +4,7 @@
 //! and the ballista asks the third alone. Reward: 2 quest points, 11,450 Attack xp, the gnome
 //! amulet and the spirit trees.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
