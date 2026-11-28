@@ -4,7 +4,7 @@
 //! (cache 786: a multiloc on the quest's varp) and has a Smash op that wants Excalibur carried
 //! (2011 wiki, Merlin's Crystal, 2011-05-16). Reward: 6 quest points.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;

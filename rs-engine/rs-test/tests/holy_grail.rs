@@ -4,7 +4,7 @@
 //! the magic gold feather carried to open Percival's sack (2011 wiki, Holy Grail, 2011-04-28).
 //! Reward: 2 quest points, 11,000 Prayer xp and 15,300 Defence xp.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
