@@ -4,7 +4,7 @@
 //! the contest's gate a tile and has two dwarves, Austri and Vestri; the 2011 wiki (Fishing
 //! Contest, 2011-05-17) gives the reward, 1 quest point and 2,437 Fishing xp.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
