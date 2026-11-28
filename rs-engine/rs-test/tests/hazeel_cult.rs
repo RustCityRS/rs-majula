@@ -2,7 +2,7 @@
 //! mansion (cache 786's map moves the wardrobe, the chest and the range, and makes the hollow
 //! wall `carnilleanbookcase`). The rewards are the 2011 wiki's and Sal's Realm's as 289's.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
