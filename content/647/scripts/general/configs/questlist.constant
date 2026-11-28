@@ -61,6 +61,10 @@
 ^questlist_ball = 109
 ^questlist_tree = 110
 ^questlist_totem = 111
+// Troll Romance is quest 112 (void-634's quests.toml; between Tribal Totem, 111, and Troll Stronghold,
+// 113, which rs-pack's quest_varps_647.tsv pins from the client's table). 289's questlist.if of the
+// time the list was generated had no troll_love.
+^questlist_troll_love = 112
 ^questlist_troll = 113
 ^questlist_upass = 114
 ^questlist_itwatchtower = 116 // 289: Watch Tower
