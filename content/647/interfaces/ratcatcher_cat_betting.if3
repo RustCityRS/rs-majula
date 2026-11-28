@@ -127,7 +127,7 @@ textfont=q8_full
 text=Player's Cat
 textalignh=centre
 colour=0x46320a
-onvarcstrtransmit=script1573(event_com, ratcatcher_cat_betting:tooltip){varclient_1726}
+onvarcstrtransmit=ratpits_cat_name_me(event_com, ratcatcher_cat_betting:tooltip){varclient_1726}
 
 // 279:11
 [vc_p2_name]
@@ -141,7 +141,7 @@ textfont=q8_full
 text=Opponent's Cat
 textalignh=centre
 colour=0x46320a
-onvarcstrtransmit=script1574(event_com, ratcatcher_cat_betting:tooltip){varclient_1727}
+onvarcstrtransmit=ratpits_cat_name_opp(event_com, ratcatcher_cat_betting:tooltip){varclient_1727}
 
 // 279:12
 [com_12]

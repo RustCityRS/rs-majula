@@ -20,7 +20,7 @@ while ($int0 ! -1) {
             if (~music_getvar($int0) = ^true) {
                 if ($int3 = 0 | string_indexof_string($string0, %music_searchstring, 0) ! -1) {
                     cc_setop(2, "Unlock hint");
-                    ~script3681($int0);
+                    ~music_playlist_ops($int0);
                     cc_sethide(false);
                     .cc_sethide(false);
                     cc_setposition(15, $int4, ^setpos_abs_left, ^setpos_abs_top);

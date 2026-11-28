@@ -641,8 +641,8 @@ transmitop=1
 candrop=yes
 op1=Select
 opcursor0=cursor_use
-onmouseover=script4188(event_com)
-onmouseleave=script4189(event_com)
+onmouseover=artisan_set_colour_on(event_com)
+onmouseleave=artisan_set_colour_off(event_com)
 
 // 1074:63
 [medhit]
@@ -656,8 +656,8 @@ transmitop=1
 candrop=yes
 op1=Select
 opcursor0=cursor_use
-onmouseover=script4188(event_com)
-onmouseleave=script4189(event_com)
+onmouseover=artisan_set_colour_on(event_com)
+onmouseleave=artisan_set_colour_off(event_com)
 
 // 1074:64
 [softhit]
@@ -671,8 +671,8 @@ transmitop=1
 candrop=yes
 op1=Select
 opcursor0=cursor_use
-onmouseover=script4188(event_com)
-onmouseleave=script4189(event_com)
+onmouseover=artisan_set_colour_on(event_com)
+onmouseleave=artisan_set_colour_off(event_com)
 
 // 1074:65
 [carefulhit]
@@ -686,8 +686,8 @@ transmitop=1
 candrop=yes
 op1=Select
 opcursor0=cursor_use
-onmouseover=script4188(event_com)
-onmouseleave=script4189(event_com)
+onmouseover=artisan_set_colour_on(event_com)
+onmouseleave=artisan_set_colour_off(event_com)
 
 // 1074:66
 [layer_5]
@@ -1622,8 +1622,8 @@ xmode=abs_right
 layer=com_145
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1074:148
 [com_148]
@@ -1634,8 +1634,8 @@ xmode=abs_right
 layer=com_145
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1074:149
 [title_layer]

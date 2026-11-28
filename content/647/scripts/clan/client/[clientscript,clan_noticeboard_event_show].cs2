@@ -3,7 +3,7 @@
 if_settext(clan_noticeboard:event_text, $string0);
 if_setgraphic($component1, "aif_notetabs,1");
 if ($clanforumqfc0 ! null) {
-    if_setonop(clan_noticeboard:qfc_button, "script4330($clanforumqfc0)");
+    if_setonop(clan_noticeboard:qfc_button, "clan_goto_qfc($clanforumqfc0)");
     if_sethide(clan_noticeboard:qfc_button_disabled, true);
 } else {
     if_clearops(clan_noticeboard:qfc_button);

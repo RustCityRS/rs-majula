@@ -1763,8 +1763,8 @@ textshadow=yes
 colour=0xcc9800
 transmitop=1
 op1=Add 1
-onmouseover=script643(stockmarket:offercount_1_gfx)
-onmouseleave=script645(stockmarket:offercount_1_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offercount_1_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offercount_1_gfx)
 onop=stock_offercount_1
 
 // 105:161
@@ -1793,8 +1793,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Add 10
-onmouseover=script643(stockmarket:offercount_10_gfx)
-onmouseleave=script645(stockmarket:offercount_10_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offercount_10_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offercount_10_gfx)
 onop=stock_offercount_10
 
 // 105:163
@@ -1823,8 +1823,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Add 100
-onmouseover=script643(stockmarket:offercount_100_gfx)
-onmouseleave=script645(stockmarket:offercount_100_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offercount_100_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offercount_100_gfx)
 onop=stock_offercount_100
 
 // 105:165
@@ -1853,8 +1853,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Add 1000
-onmouseover=script643(stockmarket:offercount_1000_gfx)
-onmouseleave=script645(stockmarket:offercount_1000_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offercount_1000_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offercount_1000_gfx)
 onop=stock_offercount_1000
 
 // 105:167
@@ -1883,8 +1883,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Edit Quantity
-onmouseover=script643(stockmarket:offercount_set_gfx)
-onmouseleave=script645(stockmarket:offercount_set_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offercount_set_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offercount_set_gfx)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Enter custom quantity", 25, 300)
 
 // 105:169
@@ -1972,8 +1972,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Offer Guide Price
-onmouseover=script643(stockmarket:offerprice_market_gfx)
-onmouseleave=script645(stockmarket:offerprice_market_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offerprice_market_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offerprice_market_gfx)
 onop=stock_offerprice_market
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Set price to item's Guide Price", 25, 300)
 
@@ -2003,8 +2003,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Edit Price
-onmouseover=script643(stockmarket:offerprice_set_gfx)
-onmouseleave=script645(stockmarket:offerprice_set_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offerprice_set_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offerprice_set_gfx)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Enter custom price", 25, 300)
 
 // 105:178
@@ -2033,8 +2033,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Increase Price
-onmouseover=script643(stockmarket:offerprice_bigraise_gfx)
-onmouseleave=script645(stockmarket:offerprice_bigraise_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offerprice_bigraise_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offerprice_bigraise_gfx)
 onop=script4112(105)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Raise your offer price by 5%", 25, 300)
 
@@ -2064,8 +2064,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Decrease Price
-onmouseover=script643(stockmarket:offerprice_bigdecrease_gfx)
-onmouseleave=script645(stockmarket:offerprice_bigdecrease_gfx)
+onmouseover=stock_choosetype_highlight_on(stockmarket:offerprice_bigdecrease_gfx)
+onmouseleave=stock_choosetype_highlight_off(stockmarket:offerprice_bigdecrease_gfx)
 onop=script4112(95)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Decrease your offer price by 5%", 25, 300)
 

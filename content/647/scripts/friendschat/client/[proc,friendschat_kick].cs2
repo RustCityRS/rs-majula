@@ -49,7 +49,7 @@ if (compare($string0, "") ! 0) {
         return;
     }
     clan_kickuser($string0);
-    $string0 = ~script1814($string0);
+    $string0 = ~capitalise_initial($string0);
     chat_setmode(1);
     chat_sendpublic("[Attempting to kick/ban <$string0> from this Friends Chat.]");
 }

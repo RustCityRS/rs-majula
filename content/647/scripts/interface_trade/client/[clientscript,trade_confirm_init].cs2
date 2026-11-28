@@ -81,7 +81,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
     if_sethide(tradeconfirm:in_right, false);
     if_sethide(tradeconfirm:in_dragzone, false);
     while ($int0 < 14) {
-        $int2 = ~script148($int0);
+        $int2 = ~trade_get_slot_changed_time($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
             if_sethide(tradeconfirm:trade_removed_warning_right, false);
             cc_create(tradeconfirm:in_left, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in_left));
@@ -111,7 +111,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         $int0 = calc($int0 + 1);
     }
     while ($int0 < 28) {
-        $int2 = ~script148($int0);
+        $int2 = ~trade_get_slot_changed_time($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
             if_sethide(tradeconfirm:trade_removed_warning_right, false);
             cc_create(tradeconfirm:in_right, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in_right));
@@ -149,7 +149,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
     if_sethide(tradeconfirm:in_right, true);
     if_sethide(tradeconfirm:in_dragzone, true);
     while ($int0 < 14) {
-        $int2 = ~script148($int0);
+        $int2 = ~trade_get_slot_changed_time($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
             if_sethide(tradeconfirm:trade_removed_warning_right, false);
             cc_create(tradeconfirm:in, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in));
@@ -179,7 +179,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         $int0 = calc($int0 + 1);
     }
 }
-$int2 = ~script148(-1);
+$int2 = ~trade_get_slot_changed_time(-1);
 if ($int2 > 0) {
     if_sethide(tradeconfirm:trade_removed_warning_right, false);
     cc_create(tradeconfirm:in_loan_layer, ^iftype_rectangle, 0);

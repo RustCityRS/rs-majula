@@ -1,6 +1,6 @@
 // 2234
 [clientscript,easter10_negg_up_arrow]
-if (%easter10_chocworkers < 15 & ~script2240 < %easter10_totalworkers) {
+if (%easter10_chocworkers < 15 & ~easter10_get_assigned_worker_total < %easter10_totalworkers) {
     sound_synth(synth_8729, 1, 0);
     %easter10_neggworkers = calc(%easter10_neggworkers + 1);
 } else {

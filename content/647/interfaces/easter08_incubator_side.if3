@@ -157,8 +157,8 @@ modelorigin=2,0
 modelzoom=400
 onmouseover=easter08_highlight_coal_button
 onmouseleave=script900
-onclick=script903
-onrelease=script904
+onclick=easter08_invert_coal_button
+onrelease=easter08_revert_coal_button
 
 // 717:14
 [water_button]
@@ -172,8 +172,8 @@ modelorigin=2,0
 modelzoom=400
 onmouseover=easter08_highlight_water_button
 onmouseleave=script898
-onclick=script901
-onrelease=script902
+onclick=easter08_invert_water_button
+onrelease=easter08_revert_water_button
 
 // 717:15
 [add_water_button]

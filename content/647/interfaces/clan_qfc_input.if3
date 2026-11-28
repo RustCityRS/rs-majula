@@ -310,8 +310,8 @@ xmode=abs_right
 layer=com_25
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1100:28
 [com_28]
@@ -590,7 +590,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onclick=clan_qfc_return(1)
 
 // 1100:52
@@ -726,7 +726,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=paste_button_layer
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onclick=clan_paste_qfc
 
 // 1100:64
@@ -862,7 +862,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onclick=clan_qfc_return(0)
 
 // 1100:76

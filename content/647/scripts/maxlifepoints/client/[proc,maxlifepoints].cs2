@@ -1,0 +1,3 @@
+// 2915
+[proc,maxlifepoints]()(int)
+return(calc(max(stat(hitpoints), 0) * 10));

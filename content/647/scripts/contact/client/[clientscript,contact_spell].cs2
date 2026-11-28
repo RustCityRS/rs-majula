@@ -32,8 +32,8 @@ while ($int0 < enum_getoutputcount(enum_869)) {
     cc_setposition(calc($int3 * $int1), calc($int4 * $int5), ^setpos_abs_left, ^setpos_abs_top);
     if ($int11 = 1) {
         cc_setop(1, "Speak-to");
-        cc_setonmouserepeat("script1860(event_comsubid, $seq12)");
-        cc_setonmouseleave("script2607(event_comsubid)");
+        cc_setonmouserepeat("contact_animate_chathead(event_comsubid, $seq12)");
+        cc_setonmouseleave("contact_stop_chathead(event_comsubid)");
     }
     cc_create(quest_lunar_contact_npc_spell_v2:caption_layer, ^iftype_text, $int0);
     cc_setsize($int6, $int7, ^setsize_abs, ^setsize_abs);

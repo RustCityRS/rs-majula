@@ -12,11 +12,11 @@ if (playermodlevel = 5 | playermodlevel = 6) {
 }
 %snapshot_open = true;
 if (map_lang ! 1) {
-    ~script216;
+    ~snapshot_enter_name_mode;
     ~script246;
     return;
 }
 if_setonvarcstrtransmit(snapshot_main_v2:control_layer, "snapshot_name_update{snapshot_name}");
 %snapshot_last_selected_highlight = -1;
 ~snapshot_namelist_generate;
-~script216;
+~snapshot_enter_name_mode;

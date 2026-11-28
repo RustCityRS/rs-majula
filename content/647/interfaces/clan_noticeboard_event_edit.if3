@@ -678,7 +678,7 @@ heightmode=minus
 layer=com_104
 transmitop=1
 op1=Edit
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1098:61
 [com_61]
@@ -816,7 +816,7 @@ layer=save_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1098:73
 [com_73]
@@ -965,7 +965,7 @@ layer=cancel_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1098:86
 [com_86]
@@ -1113,7 +1113,7 @@ layer=com_90
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1098:99
 [com_99]
@@ -1238,7 +1238,7 @@ text=Edit Noticeboard Events
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1098:109
 [com_109]
@@ -2863,7 +2863,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_27
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:265
 [com_265]
@@ -2871,7 +2871,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_27
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:266
 [com_266]
@@ -2879,7 +2879,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_27
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:267
 [com_267]
@@ -2887,7 +2887,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_27
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:268
 [event_1]
@@ -2898,7 +2898,7 @@ layer=com_27
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:269
@@ -2932,7 +2932,7 @@ heightmode=minus
 layer=com_27
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:272
 [com_272]
@@ -2952,7 +2952,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:274
 [com_274]
@@ -2960,7 +2960,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:275
 [com_275]
@@ -2968,7 +2968,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:276
 [com_276]
@@ -2976,7 +2976,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:277
 [event_2]
@@ -2987,7 +2987,7 @@ layer=com_6
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:278
@@ -3021,7 +3021,7 @@ heightmode=minus
 layer=com_6
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:281
 [com_281]
@@ -3041,7 +3041,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:283
 [com_283]
@@ -3049,7 +3049,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:284
 [com_284]
@@ -3057,7 +3057,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:285
 [com_285]
@@ -3065,7 +3065,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:286
 [event_3]
@@ -3076,7 +3076,7 @@ layer=com_5
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:287
@@ -3110,7 +3110,7 @@ heightmode=minus
 layer=com_5
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:290
 [com_290]
@@ -3130,7 +3130,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:292
 [com_292]
@@ -3138,7 +3138,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:293
 [com_293]
@@ -3146,7 +3146,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:294
 [event_olr]
@@ -3154,7 +3154,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:295
 [event_4]
@@ -3165,7 +3165,7 @@ layer=com_4
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:296
@@ -3199,7 +3199,7 @@ heightmode=minus
 layer=com_4
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:299
 [com_299]
@@ -3219,7 +3219,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_3
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:301
 [com_301]
@@ -3227,7 +3227,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_3
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:302
 [com_302]
@@ -3235,7 +3235,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_3
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:303
 [com_303]
@@ -3243,7 +3243,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_3
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:304
 [event_5]
@@ -3254,7 +3254,7 @@ layer=com_3
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:305
@@ -3288,7 +3288,7 @@ heightmode=minus
 layer=com_3
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:308
 [com_308]
@@ -3308,7 +3308,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_2
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:310
 [com_310]
@@ -3316,7 +3316,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_2
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:311
 [com_311]
@@ -3324,7 +3324,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_2
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:312
 [com_312]
@@ -3332,7 +3332,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_2
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:313
 [event_6]
@@ -3343,7 +3343,7 @@ layer=com_2
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:314
@@ -3377,7 +3377,7 @@ heightmode=minus
 layer=com_2
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:317
 [com_317]
@@ -3397,7 +3397,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_1
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:319
 [com_319]
@@ -3405,7 +3405,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_1
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:320
 [com_320]
@@ -3413,7 +3413,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_1
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:321
 [com_321]
@@ -3421,7 +3421,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_1
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:322
 [event_7]
@@ -3432,7 +3432,7 @@ layer=com_1
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:323
@@ -3466,7 +3466,7 @@ heightmode=minus
 layer=com_1
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:326
 [com_326]
@@ -3486,7 +3486,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_0
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1098:328
 [com_328]
@@ -3494,7 +3494,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_0
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1098:329
 [com_329]
@@ -3502,7 +3502,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_0
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1098:330
 [com_330]
@@ -3510,7 +3510,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_0
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1098:331
 [event_8]
@@ -3521,7 +3521,7 @@ layer=com_0
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
 // 1098:332
@@ -3555,7 +3555,7 @@ heightmode=minus
 layer=com_0
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1098:335
 [com_335]

@@ -146,7 +146,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=fire_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1078:15
 [fire_button_over_layer]
@@ -156,7 +156,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=fire_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1078:16
 [fire_button_hit_layer]
@@ -166,7 +166,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=fire_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1078:17
 [fire_button_selected_layer]
@@ -176,7 +176,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=fire_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1078:18
 [fire_button_content_layer]
@@ -223,7 +223,7 @@ heightmode=proportion
 layer=fire_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1078:22
 [com_22]
@@ -258,7 +258,7 @@ width=52
 height=52
 layer=fire_layer
 onvartransmit=script4237{acs_tempint_1}
-ontimer=script4238(70647832, acs_battleships_side:cooldown_l, acs_battleships_side:cooldown_r)
+ontimer=acs_battleships_cooldown_layer_ontimer(70647832, acs_battleships_side:cooldown_l, acs_battleships_side:cooldown_r)
 
 // 1078:25
 [fire_button]
@@ -340,7 +340,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=repair_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1078:33
 [repair_button_over_layer]
@@ -350,7 +350,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=repair_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1078:34
 [repair_button_hit_layer]
@@ -360,7 +360,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=repair_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1078:35
 [repair_button_selected_layer]
@@ -370,7 +370,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=repair_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1078:36
 [repair_button_active_layer]
@@ -383,7 +383,7 @@ layer=repair_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1078:37
 [repair_button_content_layer]
@@ -463,7 +463,7 @@ heightmode=proportion
 layer=repair_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1078:44
 [com_44]

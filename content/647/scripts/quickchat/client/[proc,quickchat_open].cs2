@@ -34,7 +34,7 @@ if_sethide(chatdefault:quickchat_path, false);
 if_sethide(chatdefault:quickchat_title, true);
 if_setscrollpos(chatdefault:quickchat_menu, 0, 0);
 def_chatcat $chatcat1 = chatcat_85;
-def_chatcat $chatcat2 = ~script1036;
+def_chatcat $chatcat2 = ~quickchat_getcontextmenu;
 def_int $int3 = 1;
 if ($int0 = 3) {
     $chatcat1 = chatcat_32769;

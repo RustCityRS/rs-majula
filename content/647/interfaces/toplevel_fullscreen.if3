@@ -67,7 +67,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 onload=toplevel_init
-onvartransmit=script1094{fov_status}
+onvartransmit=cutscene_viewport_change{fov_status}
 
 // 746:7
 [mainoverlay_clipped]

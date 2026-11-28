@@ -255,7 +255,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=joinleave_button_layer
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1109:25
 [com_25]
@@ -263,7 +263,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=joinleave_button_layer
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1109:26
 [com_26]
@@ -271,7 +271,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=joinleave_button_layer
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1109:27
 [joinleave_button_active_layer]
@@ -281,7 +281,7 @@ heightmode=minus
 layer=joinleave_button_layer
 transmitop=1
 op1=Join Chat
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(friendschat:tooltip)
 onop=script194(event_op)
 onmouserepeat=aif_tooltip(friendschat:tooltip, event_com, -1, "Join / leave a Friends Chat channel.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -311,7 +311,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=chatsettings_button_layer
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1109:31
 [com_31]
@@ -319,7 +319,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=chatsettings_button_layer
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1109:32
 [com_32]
@@ -327,7 +327,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=chatsettings_button_layer
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1109:33
 [chatsettings_button_active_layer]
@@ -337,7 +337,7 @@ heightmode=minus
 layer=chatsettings_button_layer
 transmitop=1
 op1=Open Settings
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(friendschat:tooltip)
 onmouserepeat=aif_tooltip(friendschat:tooltip, event_com, -1, "Friends Chat settings<br>Here you can adjust the settings for your own Friends Chat channel.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 

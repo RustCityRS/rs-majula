@@ -1,0 +1,6 @@
+// 4290
+[clientscript,clansettings_initial_setup]
+if (activeclansettings_find_affined = true) {
+    ~clansettings_initial_setup;
+}
+~clansettings_interface_refresh;

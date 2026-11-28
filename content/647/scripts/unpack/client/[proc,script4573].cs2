@@ -2,7 +2,7 @@
 [proc,script4573]
 def_int $int0 = 0;
 def_int $int1 = 0;
-if (~script1891 = 1) {
+if (~friendschat_can_kick = 1) {
     if_sethide(lobbyscreen_pane_friendschat:kick_button_layer, false);
     return;
 }

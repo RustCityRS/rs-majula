@@ -20,7 +20,7 @@ if (%poison > 0) {
     if_clearops($component1);
 }
 if_setsize($component3, 0, calc(16384 - max(min(scale(%life_points, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel);
-if_setsize($component4, 0, calc(16384 - max(min(scale(~script2915, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel);
+if_setsize($component4, 0, calc(16384 - max(min(scale(~maxlifepoints, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel);
 if_settext($component5, tostring(%life_points));
 def_int $int6 = scale(%life_points, ~script2916, 100);
 if ($int6 > 75) {

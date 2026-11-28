@@ -670,6 +670,6 @@ if (%rand_rewards_fade = 0 & %rand_total_party_combat_points ! 0) {
             if_settext(rand_dungeon_rewards_v2:tokens_count, "n/a");
         }
     }
-    %rand_display_stage = min(calc(~script3265 + ($int9 + $int10 + $int11 + $int12 + $int13 + $int14 + $int15 + $int16 + $int17 + $int18 + $int19 + $int20 + $int21 + $int22 + $int23 + $int24 + $int25 + $int26 + $int27 + $int28 + $int29 + $int30 + $int31 + $int32 + $int33 + $int34 + $int35 + $int36)), calc(%rand_display_stage + 1));
+    %rand_display_stage = min(calc(~rand_interface_deaths_delay + ($int9 + $int10 + $int11 + $int12 + $int13 + $int14 + $int15 + $int16 + $int17 + $int18 + $int19 + $int20 + $int21 + $int22 + $int23 + $int24 + $int25 + $int26 + $int27 + $int28 + $int29 + $int30 + $int31 + $int32 + $int33 + $int34 + $int35 + $int36)), calc(%rand_display_stage + 1));
 }
-~script3268;
+~rand_interface_titles_update;

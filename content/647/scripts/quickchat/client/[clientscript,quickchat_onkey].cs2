@@ -51,8 +51,8 @@ if ($key0 = ^key_return) {
         $int8 = chatcat_getsubcatcount($chatcat4);
         $int9 = chatcat_getphrasecount($chatcat4);
         if (%quickchat_menu_select = calc($int8 + $int9)) {
-            if ($int3 = 0 & ~script1036 ! null & cc_find(enum(int, component, enum_1550, $int3), %quickchat_menu_select) = true) {
-                ~quickchat_menu_select(enum(int, component, enum_1550, $int3), enum(int, component, enum_1551, $int3), %quickchat_menu_select, $component2, calc($int3 + 1), ~script1036);
+            if ($int3 = 0 & ~quickchat_getcontextmenu ! null & cc_find(enum(int, component, enum_1550, $int3), %quickchat_menu_select) = true) {
+                ~quickchat_menu_select(enum(int, component, enum_1550, $int3), enum(int, component, enum_1551, $int3), %quickchat_menu_select, $component2, calc($int3 + 1), ~quickchat_getcontextmenu);
             }
         } else if (%quickchat_menu_select < $int8) {
             ~quickchat_menu_select(enum(int, component, enum_1550, $int3), enum(int, component, enum_1551, $int3), %quickchat_menu_select, $component2, calc($int3 + 1), chatcat_getsubcat($chatcat4, %quickchat_menu_select));
@@ -90,10 +90,10 @@ def_char $char12 = null;
 if ($chatcat4 ! null) {
     $int8 = chatcat_getsubcatcount($chatcat4);
     $int9 = chatcat_getphrasecount($chatcat4);
-    if ($int3 = 0 & compare("X", append_char("", $char1)) = 0 & ~script1036 ! null) {
+    if ($int3 = 0 & compare("X", append_char("", $char1)) = 0 & ~quickchat_getcontextmenu ! null) {
         $int10 = calc($int8 + $int9);
         if (cc_find(enum(int, component, enum_1550, $int3), $int10) = true) {
-            ~quickchat_menu_select(enum(int, component, enum_1550, $int3), enum(int, component, enum_1551, $int3), $int10, $component2, calc($int3 + 1), ~script1036);
+            ~quickchat_menu_select(enum(int, component, enum_1550, $int3), enum(int, component, enum_1551, $int3), $int10, $component2, calc($int3 + 1), ~quickchat_getcontextmenu);
         }
         return;
     }

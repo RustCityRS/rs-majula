@@ -1,0 +1,7 @@
+// 1868
+[clientscript,lobbyscreen_reboot_check](component $component0)
+if (calc(clientclock % 50) = 0 & reboottimer > 0) {
+    if_setposition(lobbyscreen:menu, 0, -8, ^setpos_abs_centre, ^setpos_abs_centre);
+    ~lobbyscreen_reboot_timer(lobbyscreen:update_timer_text);
+    if_setontimer($component0, "lobbyscreen_reboot_timer(lobbyscreen:update_timer_text)");
+}

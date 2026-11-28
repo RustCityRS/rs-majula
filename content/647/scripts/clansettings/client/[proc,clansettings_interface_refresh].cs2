@@ -15,7 +15,7 @@ if (activeclansettings_find_affined = true) {
     $int0 = calc($int0 / 10 + 72);
     ~script4501(clansettings:com_220, enum(int, string, enum_3711, $int0));
     ~script4501(clansettings:com_368, enum(int, string, enum_3797, %clansettings_clanmate_filter_rank_plus_1));
-    ~script4329(clansettings:qfc_text);
+    ~clan_general_qfc_apply(clansettings:qfc_text);
     if (%clan_homeworld_varclan = 0) {
         ~script4501(clansettings:com_275, "Not set");
     } else {

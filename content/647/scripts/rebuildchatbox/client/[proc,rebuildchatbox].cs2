@@ -33,9 +33,9 @@ if ($int0 < 100) {
     ~script85(enum(int, component, enum_579, $int0));
 }
 def_int $int9 = -1;
-def_int $int10 = ~script4467;
+def_int $int10 = ~clanchat_can_kick_find;
 def_int $int11 = -1;
-def_int $int12 = ~script1891;
+def_int $int12 = ~friendschat_can_kick;
 $int1 = 0;
 %quickchat_respond_phrase = null;
 def_string $string0 = "<col=0000ff>";

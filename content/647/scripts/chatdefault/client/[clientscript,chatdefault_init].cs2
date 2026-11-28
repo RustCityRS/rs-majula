@@ -35,7 +35,7 @@ if_setonvarcstrtransmit(filterbuttons:container, "script710{varclient_1519}");
 %varclient_1539 = "";
 %varclient_1540 = "";
 %varclient_1795 = "";
-~script1558(true);
+~chatdefault_init_inputline(true);
 if_sethide(chatdefault:input, false);
 if (getwindowmode >= ^windowmode_resizable) {
     if_sethide(chattop:chat_border, true);

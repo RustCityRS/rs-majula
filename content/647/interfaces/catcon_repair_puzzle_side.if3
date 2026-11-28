@@ -453,7 +453,7 @@ opbase=
 op1=Move-Up
 onmouseover=model_swapper(event_com, model_32160)
 onmouseleave=model_swapper(event_com, model_32196)
-onop=script842
+onop=catcon_repair_puzzle_move_up
 
 // 683:39
 [catcon_catapult_right_arrow]
@@ -472,7 +472,7 @@ opbase=
 op1=Move-Right
 onmouseover=model_swapper(event_com, model_32160)
 onmouseleave=model_swapper(event_com, model_32196)
-onop=script845
+onop=catcon_repair_puzzle_move_right
 
 // 683:40
 [catcon_catapult_left_arrow]
@@ -491,7 +491,7 @@ opbase=
 op1=Move-Left
 onmouseover=model_swapper(event_com, model_32160)
 onmouseleave=model_swapper(event_com, model_32196)
-onop=script844
+onop=catcon_repair_puzzle_move_left
 
 // 683:41
 [catcon_catapult_down_arrow]
@@ -510,7 +510,7 @@ opbase=
 op1=Move-Down
 onmouseover=model_swapper(event_com, model_32160)
 onmouseleave=model_swapper(event_com, model_32196)
-onop=script843
+onop=catcon_repair_puzzle_move_down
 
 // 683:42
 [divider2]

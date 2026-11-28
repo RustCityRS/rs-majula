@@ -875,7 +875,7 @@ transmitop=1
 op1=Insert-coin
 onmouseover=script867(glo3_puzzle:c_slotg1, "aif_coin_button_1,1", glo3_puzzle:c_slotr1, false)
 onmouseleave=script867(glo3_puzzle:c_slotg1, "aif_coin_button_1,0", glo3_puzzle:c_slotr1, true)
-onvartransmit=script719(glo3_puzzle:c_display_1, glo3_puzzle:c_display_2){eyeglo_operate1_a, eyeglo_operate3_c}
+onvartransmit=glo3_operate_c(glo3_puzzle:c_display_1, glo3_puzzle:c_display_2){eyeglo_operate1_a, eyeglo_operate3_c}
 onclick=script867(glo3_puzzle:c_slotg1, "aif_coin_button_1,2", glo3_puzzle:c_slotr1, true)
 onvarctransmit=script1748(glo3_puzzle:c_current_colour, glo3_puzzle:c_colour_1, glo3_puzzle:c_colour_2, glo3_puzzle:c_dia_1, glo3_puzzle:c_dia_1_tint, glo3_puzzle:c_dia_2, glo3_puzzle:c_dia_2_tint, glo3_puzzle:c_dia_t, glo3_puzzle:c_dia_t_tint, glo3_puzzle:c_line, glo3_puzzle:targetint_10x_c, glo3_puzzle:targetint_1x_c, glo3_puzzle:c_okcol, glo3_puzzle:c_okint){glo3_col1_c, glo3_int1_c, glo3_col2_c, glo3_int2_c}
 
@@ -1777,7 +1777,7 @@ transmitop=1
 op1=Insert-coin
 onmouseover=script867(glo3_puzzle:m_slotg1, "aif_coin_button_1,1", glo3_puzzle:m_slotr1, false)
 onmouseleave=script867(glo3_puzzle:m_slotg1, "aif_coin_button_1,0", glo3_puzzle:m_slotr1, true)
-onvartransmit=script774(glo3_puzzle:m_display_1, glo3_puzzle:m_display_2){eyeglo_operate2_a, eyeglo_operate2_b}
+onvartransmit=glo3_operate_m(glo3_puzzle:m_display_1, glo3_puzzle:m_display_2){eyeglo_operate2_a, eyeglo_operate2_b}
 onclick=script867(glo3_puzzle:m_slotg1, "aif_coin_button_1,2", glo3_puzzle:m_slotr1, true)
 onvarctransmit=script868(glo3_puzzle:m_current_colour, glo3_puzzle:m_colour_1, glo3_puzzle:m_colour_2, glo3_puzzle:m_dia_1, glo3_puzzle:m_dia_1_tint, glo3_puzzle:m_dia_2, glo3_puzzle:m_dia_2_tint, glo3_puzzle:m_dia_t, glo3_puzzle:m_dia_t_tint, glo3_puzzle:m_line, glo3_puzzle:targetint_10x_m, glo3_puzzle:targetint_1x_m, glo3_puzzle:m_okcol, glo3_puzzle:m_okint){glo3_col1_m, glo3_int1_m, glo3_col2_m, glo3_int2_m}
 
@@ -2668,7 +2668,7 @@ transmitop=1
 op1=Insert-coin
 onmouseover=script867(glo3_puzzle:y_slotg1, "aif_coin_button_1,1", glo3_puzzle:y_slotr1, false)
 onmouseleave=script867(glo3_puzzle:y_slotg1, "aif_coin_button_1,0", glo3_puzzle:y_slotr1, true)
-onvartransmit=script866(glo3_puzzle:y_display_1, glo3_puzzle:y_display_2){eyeglo_operate3_a, eyeglo_operate3_b}
+onvartransmit=glo3_operate_y(glo3_puzzle:y_display_1, glo3_puzzle:y_display_2){eyeglo_operate3_a, eyeglo_operate3_b}
 onclick=script867(glo3_puzzle:y_slotg1, "aif_coin_button_1,2", glo3_puzzle:y_slotr1, true)
 onvarctransmit=script869(glo3_puzzle:y_current_colour, glo3_puzzle:y_colour_1, glo3_puzzle:y_colour_2, glo3_puzzle:y_dia_1, glo3_puzzle:y_dia_1_tint, glo3_puzzle:y_dia_2, glo3_puzzle:y_dia_2_tint, glo3_puzzle:y_dia_t, glo3_puzzle:y_dia_t_tint, glo3_puzzle:y_line, glo3_puzzle:targetint_10x_y, glo3_puzzle:targetint_1x_y, glo3_puzzle:y_okcol, glo3_puzzle:y_okint){glo3_col1_y, glo3_int1_y, glo3_col2_y, glo3_int2_y}
 

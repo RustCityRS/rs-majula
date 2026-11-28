@@ -363,8 +363,8 @@ xmode=abs_right
 layer=com_31
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1099:34
 [title_layer]
@@ -1699,7 +1699,7 @@ layer=clan_data_waiting_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1099:152
 [aif_bronze_button_text_layer_8]
@@ -1835,7 +1835,7 @@ layer=qfc_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1099:164
 [aif_bronze_button_text_layer_9]

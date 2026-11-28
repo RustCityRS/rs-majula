@@ -4,4 +4,4 @@ if (minimenuopen(friendschat:clanlist, -1) = true) {
     return;
 }
 if_setontimer(friendschat:clanlist, null);
-~script518;
+~friends_chat_refresh_clanlist;

@@ -102,7 +102,7 @@ switch_int (%loginscreen_focus) {
         ~script2222($key0);
         return;
     case 6, 14, 7, 8, 15 :
-        ~script3216($key0, $char1);
+        ~create_keyboard_handler($key0, $char1);
         return;
     case 13 :
         if ($key0 = ^key_escape) {

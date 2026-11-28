@@ -1,0 +1,5 @@
+// 4339
+[clientscript,clan_display_time_apply](int $int0, component $component1, component $component2)
+if (activeclansettings_find_listened = true) {
+    ~clan_display_time_apply($int0, %clan_time_offset_varclan, $component1, $component2);
+}

@@ -17,7 +17,7 @@ if (worldmap_coordinmap(%worldmap_focus, $wma10) = true) {
 %worldmap_zoom = worldmap_getconfigzoom($wma10);
 ~worldmap_setzoom;
 ~worldmap_showoverview(0);
-~script1376(0, $component5, $component9);
+~worldmap_showfunclist(0, $component5, $component9);
 ~worldmap_showmenu(false, $component6, $component7, $component8, $component4, $component5);
 ~worldmap_key_build(%worldmap_keysort, $component1, $component2, $component3);
 if_setonvarctransmit($component0, "worldmap_init($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9){worldmap_focus}");
@@ -30,15 +30,15 @@ def_coord $coord13 = %worldmap_focus;
 if ($coord13 ! null) {
     $int11, $int12 = worldmap_getdisplaycoord($coord13);
     if ($int11 < 0 | $int12 < 0) {
-        $coord13 = movecoord(0_0_0_0_0, coordx($coord13), ~script686(calc(coordy($coord13) - 1), 4), coordz($coord13));
+        $coord13 = movecoord(0_0_0_0_0, coordx($coord13), ~wrap_negative_number(calc(coordy($coord13) - 1), 4), coordz($coord13));
         $int11, $int12 = worldmap_getdisplaycoord($coord13);
         if ($int11 < 0 | $int12 < 0) {
-            $coord13 = movecoord(0_0_0_0_0, coordx($coord13), ~script686(calc(coordy($coord13) - 1), 4), coordz($coord13));
+            $coord13 = movecoord(0_0_0_0_0, coordx($coord13), ~wrap_negative_number(calc(coordy($coord13) - 1), 4), coordz($coord13));
             $int11, $int12 = worldmap_getdisplaycoord($coord13);
             if ($int11 < 0 | $int12 < 0) {
                 return;
             }
         }
     }
-    if_setontimer($component0, "script2054(calc(clientclock + 4), $component0, $coord13)");
+    if_setontimer($component0, "worldmap_delayed_jump(calc(clientclock + 4), $component0, $coord13)");
 }

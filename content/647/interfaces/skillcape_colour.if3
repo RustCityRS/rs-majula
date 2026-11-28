@@ -712,8 +712,8 @@ xmode=abs_right
 layer=close_button_layer_2
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 19:67
 [com_67]
@@ -724,8 +724,8 @@ xmode=abs_right
 layer=close_button_layer_2
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 19:68
 [com_68]
