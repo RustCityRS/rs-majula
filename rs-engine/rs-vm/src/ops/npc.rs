@@ -673,7 +673,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
         });
 
         // 2546
-        active_npc!(m, PROJANIM_NPC => |s, npc| {
+        // The target is the npc in the uid's slot, whichever npc is active: upstream's handler
+        // (Engine-TS ServerOps.ts, PROJANIM_NPC) reads only the uid, so the active npc can
+        // cast at another (`~npc_to_npc_projectile(.npc_uid, ...)`).
+        none!(m, PROJANIM_NPC => |s| {
             let arc = s.pop_int_as::<u8>()?;
             let peak = s.pop_int_as::<u8>()?;
             let duration = s.pop_int_as::<u16>()?;
@@ -683,17 +686,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             let spotanim = pop_spotanim::<E>(s)?;
             let uid = s.pop_int();
             let src = pop_coord(s)?;
-            let dst = npc.coord();
-            if uid as u32 != npc.uid().packed() {
-                return Err(ScriptError::Runtime(format!("Invalid uid: {}, expected: {}", uid, npc.uid().packed())))
-            }
+            let nid = (uid & 0xFFFF) as u16;
+            let Some(dst) = engine::<E>().get_npc(nid).map(|npc| npc.coord()) else {
+                return Err(ScriptError::Runtime(format!("attempted to use invalid npc uid: {uid}")));
+            };
             engine_mut::<E>().map_proj_anim(
                 src.y(),
                 src.x(),
                 src.z(),
                 dst.x(),
                 dst.z(),
-                ((uid & 0xFFFF) as u16).wrapping_add(1) as i16,
+                nid.wrapping_add(1) as i16,
                 spotanim.id,
                 src_height,
                 dst_height,

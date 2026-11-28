@@ -1136,7 +1136,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
         });
 
         // 2091
-        active_player!(m, PROJANIM_PL => |s, player| {
+        // The target is the player the uid names, whichever player is active: upstream's
+        // handler (Engine-TS ServerOps.ts, PROJANIM_PL) reads only the uid, so the active
+        // player can shoot another (`~player_projectile(coord, .coord, .uid, ...)`).
+        none!(m, PROJANIM_PL => |s| {
             let arc = s.pop_int_as::<u8>()?;
             let peak = s.pop_int_as::<u8>()?;
             let duration = s.pop_int_as::<u16>()?;
@@ -1146,12 +1149,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry<EngineHost<E>> {
             let spotanim = pop_spotanim::<E>(s)?;
             let uid = s.pop_int();
             let src = pop_coord(s)?;
-            let dst = player.coord();
-            if uid != player.uid().packed() as i32 {
-                return Err(ScriptError::Runtime(format!("Invalid uid: {}, expected: {}", uid, player.uid().packed() as i32)))
-            }
+            let pid = (uid & 0x7FF) as u16;
+            let Some(dst) = engine::<E>()
+                .get_player(pid)
+                .filter(|player| player.uid().packed() as i32 == uid)
+                .map(|player| player.coord())
+            else {
+                return Err(ScriptError::Runtime(format!("attempted to use invalid player uid: {uid}")));
+            };
             // Players target as -pid - 1 (NPCs target as index + 1).
-            let target = -(player.uid().pid() as i16) - 1;
+            let target = -(pid as i16) - 1;
             engine_mut::<E>().map_proj_anim(
                 src.y(),
                 src.x(),
