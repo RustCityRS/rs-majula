@@ -555,3 +555,29 @@ fn the_jungle_demon_s_spells_fly_and_hit() {
         assert!(!fight.hits.is_empty(), "a spell lands");
     });
 }
+
+/// `^hitmark_magic`, and with `^hitmark_crit` (a hit above nine tenths of the most).
+const MAGIC_HITS: [i32; 2] = [2, 12];
+
+/// The demon's spells hit in life points, with 2011's magic hitmark: 289's most, 31 hitpoints, is
+/// 310 life points (the 2011 wiki's Jungle demon page, 2011-05-22: "max hit = 320 (approx)"), so
+/// over a fight's casts one takes more than 289's whole 31.
+#[test]
+fn the_jungle_demon_s_spells_hit_in_life_points() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let fight = fight_the_jungle_demon(engine, "mmdemonhit");
+        let spells: Vec<i32> = fight
+            .hits
+            .iter()
+            .filter(|(hitmark, _)| MAGIC_HITS.contains(hitmark))
+            .map(|&(_, amount)| amount)
+            .collect();
+        let hardest = spells.iter().copied().max().unwrap_or(0);
+        assert!(
+            (32..=310).contains(&hardest),
+            "a spell takes up to 310 life points: {:?}",
+            fight.hits
+        );
+    });
+}

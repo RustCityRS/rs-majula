@@ -386,7 +386,10 @@ def_int $duration = 64;
 if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
     $duration = ~player_projectile(npc_coord, coord, uid, $travel, 43, 31, 51, 16, -5, 64, 10);
 }
-def_int $maxhit = 31;
+// 289's most, 31 hitpoints, in life points (x10), as the demon's own hitpoints key (all.npc) and
+// 647's magic_spell_table maxhit column are. The 2011 wiki's Jungle demon page (2011-05-22) has
+// "max hit = 320 (approx)"; no source found gives the exact figure.
+def_int $maxhit = 310;
 
 // it will still splash with prot prayer on, seems to just be based on hit roll
 if(~check_protect_prayer(^magic_style) = true) {
@@ -400,7 +403,8 @@ if (~npc_player_hit_roll(^magic_style) = true) {
     def_int $damage = randominc($maxhit);
     if ($maxhit ! null) {
         // npc vs player spells have no 1t extra damage delay. Whereas player vs npc spells do (osrs)
-        queue(combat_damage_player, calc($duration / 30), $damage);
+        // With 2011's magic hitmark, as 647's ~npc_spell_success paints an npc's spell.
+        queue(combat_damage_player, calc($duration / 30), ~combat_hit($damage, ^hitmark_magic, $maxhit));
     }
     // The wave rows' height (magic_spell_table:spotanim_target: 124).
     spotanim_pl($impact, 124, $duration);
