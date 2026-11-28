@@ -3,7 +3,7 @@
 //! their areas): 289's quest. The rewards are the 2011 wiki's as 289's (Heroes' Quest, 2011-05-12:
 //! 1 quest point and twelve skills' experience); the feather's burn is in 2011's life points.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
