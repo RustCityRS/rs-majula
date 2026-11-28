@@ -106,9 +106,10 @@ if (npc_finduid(%follower_uid) = true) {
     npc_del;
 }
 %follower_uid = null;
-// 2011's: cache 786: clientscript 2471 hides the orb's special icon and its action layer; it
-// reads lore_npc_head for the icon (enum 1092), so it runs before the vars are cleared.
-runclientscript("script2471()");
+// 2011's: cache 786: clientscript 2471 (lore_hide_topstat) hides the orb's special icon and
+// its action layer; it reads lore_npc_head for the icon (enum 1092), so it runs before the vars
+// are cleared.
+runclientscript("lore_hide_topstat()");
 if (getwindowmode = ^windowmode_small) {
     if_closesub(toplevel:side95);
 } else {
