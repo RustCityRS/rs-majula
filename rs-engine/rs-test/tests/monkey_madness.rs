@@ -17,6 +17,7 @@ use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::server;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use std::sync::Mutex;
@@ -120,12 +121,18 @@ fn walkable(x: u16, level: u8, z: u16) -> bool {
     !rsmod::is_flagged(x, z, level, 0x100 | 0x200000)
 }
 
-/// The nearest walkable tile to `by` (the tile itself first), not `by` when `beside`.
+/// The nearest walkable tile to `by` (the tile itself first). When `beside`, a tile beside `by`
+/// that `by` itself can step to (`world::beside`): a tile walkable by its flags can be cut off
+/// from it, as (2483, 3485) is from Daero on (2484, 3486) up the Grand Tree, and an op from there
+/// ends in "I can't reach that!".
 fn walkable_near((x, z): (u16, u16), level: u8, beside: bool) -> (u16, u16) {
+    if beside {
+        return world::beside(level, x, z).unwrap_or_else(|| panic!("a tile beside ({x}, {z})"));
+    }
     for r in 0i16..=4 {
         for dx in -r..=r {
             for dz in -r..=r {
-                if dx.abs().max(dz.abs()) != r || (beside && r == 0) {
+                if dx.abs().max(dz.abs()) != r {
                     continue;
                 }
                 let (ax, az) = (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz));
@@ -273,6 +280,10 @@ fn a_greegree_turns_the_player_into_a_monkey_in_its_zones() {
         );
         assert_eq!(engine.harness_player(client.pid).unwrap().transmog, None);
 
+        // The zoo's brown bears share the zone and wander up to the player: a bear's swing makes
+        // the player strike back, which as a monkey opens "You cannot attack as a monkey.", and
+        // with that box open the greegree's timer cannot take it off.
+        world::calm(engine, ZOO_MONKEYS.0, ZOO_MONKEYS.1, 12);
         tele(engine, &mut client, ZOO_MONKEYS, false);
         // Out of combat: the clock is back at 0 after the harness reset, below a saved %lastcombat.
         set_var(engine, &client, "lastcombat", -1);
@@ -441,12 +452,7 @@ fn stand_beside(
 ) -> u16 {
     let (nid, nx, nz, level) =
         spawned(engine, name, Some(near)).unwrap_or_else(|| panic!("{name} is spawned"));
-    let (x, z) = (-1i16..=1)
-        .flat_map(|dx| (-1i16..=1).map(move |dz| (dx, dz)))
-        .filter(|&d| d != (0, 0))
-        .map(|(dx, dz)| (nx.wrapping_add_signed(dx), nz.wrapping_add_signed(dz)))
-        .find(|&(x, z)| walkable(x, level, z))
-        .unwrap_or_else(|| panic!("a walkable tile beside {name}"));
+    let (x, z) = walkable_near((nx, nz), level, true);
     engine.harness_telejump(client.pid, x, level, z);
     settle(engine, client, 3);
     nid
