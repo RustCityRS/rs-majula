@@ -1085,3 +1085,42 @@ fn the_journal_strikes_whole_lines() {
         no_errors(engine);
     });
 }
+
+/// Tutab's spawn in cache 786 (n43_43: 0 5 18).
+const TUTAB: (u16, u16) = (2757, 2770);
+
+/// Tutab's Trade opens his shop titled "Tutab's Magical Market", the 2011 wiki's name for it (its
+/// page, revid 266223, 2010-12-31; and Tutab's, revid 266222, 2011-04-17: "sells magical items
+/// ([[Tutab's Magical Market]])"). 289's npc carried "Ifaba's General Store", the general store's
+/// title.
+#[test]
+fn tutab_s_trade_opens_tutab_s_magical_market() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmtutab");
+        // Worn, the monkey greegree makes the player a monkey to Ape Atoll's shopkeepers.
+        let greegree = id(engine, "obj", "mm_monkey_greegree_for_small_ninja_monkey");
+        let worn = id(engine, "inv", "worn");
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&worn)
+            .unwrap()
+            .set(3, greegree, 1);
+        let tutab = stand_beside(engine, &mut client, "mm_tutab", TUTAB);
+        client.op_npc(3, tutab);
+        let t = watch(engine, &mut client, 6);
+        assert!(
+            engine.harness_player(client.pid).unwrap().is_interface_open(620),
+            "the shop opens: {:?}",
+            t.messages
+        );
+        assert!(
+            t.texts.iter().any(|text| text == "Tutab's Magical Market"),
+            "the shop's title: {:?}",
+            t.texts
+        );
+        no_errors(engine);
+    });
+}

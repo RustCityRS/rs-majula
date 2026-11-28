@@ -48707,7 +48707,11 @@ param=owned_shop,mm_magic_shop
 param=shop_sell_multiplier,1000
 param=shop_buy_multiplier,600
 param=shop_delta,10
-param=shop_title,Ifaba's General Store
+// 2011's title: the 2011 wiki's Tutab's Magical Market page (revid 266223, 2010-12-31) and
+// Tutab's (revid 266222, 2011-04-17: "sells magical items ([[Tutab's Magical Market]])").
+// 289 carries Ifaba's general store's title here. Cache 786 has no shop name: shop_title is a
+// server key.
+param=shop_title,Tutab's Magical Market
 
 // 1436
 [mm_ifaba]
