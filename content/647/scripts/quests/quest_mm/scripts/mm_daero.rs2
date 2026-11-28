@@ -296,13 +296,17 @@ if_close;
 p_delay(3);
 
 %mm_main = ^mm_complete_training;
+// 2011's name for the hitpoints stat is Constitution: cache 786's stat names (enum_680:
+// val=hitpoints,Constitution; 647's stat_names), and the 2011 wiki's Monkey Madness page
+// (2011-05-11): "Defence and Attack are one set of two skills. Strength and Constitution are the
+// other." No source found quotes the four lines: the rest of each is 289's.
 if($op = 1) {
     stat_advance(attack, 200000);
     stat_advance(defence, 200000);
     stat_advance(strength, 350000);
     stat_advance(hitpoints, 350000);
     mes("You gain 35,000 Strength XP.");
-    mes("You gain 35,000 Hitpoints XP.");
+    mes("You gain 35,000 Constitution XP.");
     mes("You gain 20,000 Attack XP.");
     mes("You gain 20,000 Defence XP.");
 } else {
@@ -311,7 +315,7 @@ if($op = 1) {
     stat_advance(strength, 200000);
     stat_advance(hitpoints, 200000);
     mes("You gain 20,000 Strength XP.");
-    mes("You gain 20,000 Hitpoints XP.");
+    mes("You gain 20,000 Constitution XP.");
     mes("You gain 35,000 Attack XP.");
     mes("You gain 35,000 Defence XP.");
 }

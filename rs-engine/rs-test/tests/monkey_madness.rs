@@ -434,6 +434,26 @@ fn spawned(engine: &Engine, name: &str, near: Option<(u16, u16)>) -> Option<(u16
         .min_by_key(|n| near.map_or(0, |(x, z)| n.1.abs_diff(x) + n.2.abs_diff(z)))
 }
 
+/// Beside the spawned `name` nearest `near`, on its level; its nid.
+fn stand_beside(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    name: &str,
+    near: (u16, u16),
+) -> u16 {
+    let (nid, nx, nz, level) =
+        spawned(engine, name, Some(near)).unwrap_or_else(|| panic!("{name} is spawned"));
+    let (x, z) = (-1i16..=1)
+        .flat_map(|dx| (-1i16..=1).map(move |dz| (dx, dz)))
+        .filter(|&d| d != (0, 0))
+        .map(|(dx, dz)| (nx.wrapping_add_signed(dx), nz.wrapping_add_signed(dz)))
+        .find(|&(x, z)| walkable(x, level, z))
+        .unwrap_or_else(|| panic!("a walkable tile beside {name}"));
+    engine.harness_telejump(client.pid, x, level, z);
+    settle(engine, client, 3);
+    nid
+}
+
 /// The spotanims of the projectiles in `packets`. MAP_PROJANIM rides in the tick's
 /// UPDATE_ZONE_PARTIAL_ENCLOSED: its spotanim is the u16 after the coord, dx, dz and target.
 fn projectiles(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
@@ -630,5 +650,59 @@ fn king_narnode_speaks_of_the_training_after_the_reward() {
             ],
         );
         no_errors(engine);
+    });
+}
+
+/// Daero's spawn up the Grand Tree (1_38_54_52_30), and `^narnode_received_orders` in bits 0-3 of
+/// `%mm_gnomes` (289's `mm_narnode` varbit): before the orders Daero has no time to talk.
+const DAERO: (u16, u16) = (2484, 3486);
+const NARNODE_RECEIVED_ORDERS: i32 = 7;
+
+/// Daero's training names 2011's skill: Constitution (cache 786's stat names, enum 680), where
+/// 289 has Hitpoints.
+#[test]
+fn daero_s_training_gives_constitution_xp() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        for (choice, lines) in [
+            (
+                "Focus on increasing strength and stamina...",
+                [
+                    "You gain 35,000 Strength XP.",
+                    "You gain 35,000 Constitution XP.",
+                    "You gain 20,000 Attack XP.",
+                    "You gain 20,000 Defence XP.",
+                ],
+            ),
+            (
+                "Focus on improving attack and defence techniques...",
+                [
+                    "You gain 20,000 Strength XP.",
+                    "You gain 20,000 Constitution XP.",
+                    "You gain 35,000 Attack XP.",
+                    "You gain 35,000 Defence XP.",
+                ],
+            ),
+        ] {
+            let mut client = login(engine, "mmtraining");
+            set_var(engine, &client, "mm_main", MM_COMPLETE);
+            set_var(engine, &client, "mm_gnomes", NARNODE_RECEIVED_ORDERS);
+            let nid = stand_beside(engine, &mut client, "daero", DAERO);
+            talk_to(&mut client, nid);
+            let mut t = converse(engine, &mut client, &[choice], 400);
+            t.messages.extend(watch(engine, &mut client, 40).messages);
+            let gains: Vec<&String> = t
+                .messages
+                .iter()
+                .filter(|m| m.starts_with("You gain"))
+                .collect();
+            assert_eq!(
+                gains,
+                lines.iter().collect::<Vec<_>>(),
+                "after {choice:?}: {:?}",
+                t.messages
+            );
+            no_errors(engine);
+        }
     });
 }
