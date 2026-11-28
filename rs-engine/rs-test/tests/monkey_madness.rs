@@ -581,3 +581,54 @@ fn the_jungle_demon_s_spells_hit_in_life_points() {
         );
     });
 }
+
+/// `^mm_reported_narnode`: the king has heard the report and owes the reward.
+const MM_REPORTED_NARNODE: i32 = 7;
+/// `^mm_complete`: rewarded, Daero's training still to do.
+const MM_COMPLETE: i32 = 9;
+/// Cache 786's quest complete scroll.
+const QUEST_SCROLL: u16 = 277;
+
+/// King Narnode hands over the reward, the scroll opens, and once it is closed he sends the
+/// player to Daero's training (289's mm_complete_dialogue, queued behind the scroll).
+#[test]
+fn king_narnode_speaks_of_the_training_after_the_reward() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmreward");
+        set_var(engine, &client, "mm_main", MM_REPORTED_NARNODE);
+        let (nid, nx, nz, _) = spawned(engine, "grandtree_narnode", Some(KING)).expect("the king");
+        tele(engine, &mut client, (nx, nz), true);
+        talk_to(&mut client, nid);
+        let t = converse(engine, &mut client, &[], 400);
+        says(
+            &t,
+            &["King Narnode hands you a huge stack  of gold coins and several diamonds! "],
+        );
+        assert_eq!(var(engine, &client, "mm_main"), MM_COMPLETE);
+        assert_eq!(held(engine, &client, "diamond"), 3);
+        assert!(
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .is_interface_open(QUEST_SCROLL),
+            "the reward scroll is open"
+        );
+        assert!(
+            !t.said("So you're officially a member of the 10th squad then?"),
+            "nothing is said under the scroll"
+        );
+
+        // The scroll's X.
+        client.send(ClientProt::CloseModal, &[]);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "So you're officially a member of the 10th squad then?",
+                "The High Tree Guardian Daero is in charge of the training programme. You should know where to find him by now.",
+            ],
+        );
+        no_errors(engine);
+    });
+}
