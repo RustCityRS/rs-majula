@@ -3,7 +3,7 @@
 //! experience, 2 diamonds, 2 gold bars, 40 mithril seeds); the falls' and the boulder's damage is
 //! in 2011's life points.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
