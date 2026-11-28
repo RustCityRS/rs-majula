@@ -267,8 +267,8 @@ xmode=abs_right
 layer=com_7
 graphic=graphic_8279
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 190:25
 [com_25]
@@ -279,8 +279,8 @@ xmode=abs_right
 layer=com_7
 graphic=graphic_8280
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 190:26
 [com_26]
@@ -5395,7 +5395,7 @@ layer=com_433
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 190:462
 [com_462]
@@ -5483,7 +5483,7 @@ layer=com_434
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 190:470
 [com_470]
@@ -5571,7 +5571,7 @@ layer=com_69
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 190:478
 [com_478]

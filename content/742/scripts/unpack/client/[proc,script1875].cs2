@@ -20,4 +20,4 @@ if (applet_hasfocus = true) {
 } else {
     if_sethide($component1, true);
 }
-if_setontimer($component0, "script1876(clientclock, $component1)");
+if_setontimer($component0, "lobbyscreen_input_caret_flash(clientclock, $component1)");

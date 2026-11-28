@@ -10,9 +10,9 @@ if (%chat_view = 3) {
 }
 cc_deleteall(chatdefault:scrollarea);
 def_int $int5 = -1;
-def_int $int6 = ~script4467;
+def_int $int6 = ~clanchat_can_kick_find;
 def_int $int7 = -1;
-def_int $int8 = ~script1891;
+def_int $int8 = ~friendschat_can_kick;
 %quickchat_respond_phrase = null;
 def_string $string0 = "<col=0000ff>";
 def_string $string1 = "<col=800000>";

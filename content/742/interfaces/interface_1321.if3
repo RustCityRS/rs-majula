@@ -339,7 +339,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_31
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1321:33
 [com_33]
@@ -369,7 +369,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_31
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1321:36
 [com_36]
@@ -396,7 +396,7 @@ text=Clan Avatar Customisation
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1321:38
 [com_38]
@@ -474,7 +474,7 @@ widthmode=proportion
 layer=com_198
 transmitop=1
 op1=Accept
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1321:45
 [com_45]
@@ -540,7 +540,7 @@ widthmode=proportion
 layer=com_197
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6658
 
 // 1321:51
@@ -574,7 +574,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:54
 [com_54]
@@ -582,7 +582,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:55
 [com_55]
@@ -590,7 +590,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:56
 [com_56]
@@ -598,7 +598,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:57
 [com_57]
@@ -609,7 +609,7 @@ layer=com_23
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6661(event_com)
 
 // 1321:58
@@ -635,7 +635,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_25
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:61
 [com_61]
@@ -643,7 +643,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_25
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:62
 [com_62]
@@ -651,7 +651,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_25
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:63
 [com_63]
@@ -659,7 +659,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_25
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:64
 [com_64]
@@ -670,7 +670,7 @@ layer=com_25
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6661(event_com)
 
 // 1321:65
@@ -696,7 +696,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_24
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:68
 [com_68]
@@ -704,7 +704,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_24
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:69
 [com_69]
@@ -712,7 +712,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_24
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:70
 [com_70]
@@ -720,7 +720,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_24
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:71
 [com_71]
@@ -731,7 +731,7 @@ layer=com_24
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6661(event_com)
 
 // 1321:72
@@ -757,7 +757,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_22
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:75
 [com_75]
@@ -765,7 +765,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_22
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:76
 [com_76]
@@ -773,7 +773,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_22
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:77
 [com_77]
@@ -781,7 +781,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_22
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:78
 [com_78]
@@ -792,7 +792,7 @@ layer=com_22
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6661(event_com)
 
 // 1321:79
@@ -860,7 +860,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:86
 [com_86]
@@ -868,7 +868,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:87
 [com_87]
@@ -876,7 +876,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:88
 [com_88]
@@ -884,7 +884,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_4
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:89
 [com_89]
@@ -895,7 +895,7 @@ layer=com_4
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:90
@@ -921,7 +921,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:93
 [com_93]
@@ -929,7 +929,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:94
 [com_94]
@@ -937,7 +937,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:95
 [com_95]
@@ -945,7 +945,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:96
 [com_96]
@@ -956,7 +956,7 @@ layer=com_5
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:97
@@ -982,7 +982,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:100
 [com_100]
@@ -990,7 +990,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:101
 [com_101]
@@ -998,7 +998,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:102
 [com_102]
@@ -1006,7 +1006,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:103
 [com_103]
@@ -1017,7 +1017,7 @@ layer=com_6
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:104
@@ -1043,7 +1043,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_12
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:107
 [com_107]
@@ -1051,7 +1051,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_12
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:108
 [com_108]
@@ -1059,7 +1059,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_12
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:109
 [com_109]
@@ -1067,7 +1067,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_12
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:110
 [com_110]
@@ -1078,7 +1078,7 @@ layer=com_12
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:111
@@ -1104,7 +1104,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:114
 [com_114]
@@ -1112,7 +1112,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:115
 [com_115]
@@ -1120,7 +1120,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:116
 [com_116]
@@ -1128,7 +1128,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:117
 [com_117]
@@ -1139,7 +1139,7 @@ layer=com_9
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:118
@@ -1165,7 +1165,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_8
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:121
 [com_121]
@@ -1173,7 +1173,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_8
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:122
 [com_122]
@@ -1181,7 +1181,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_8
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:123
 [com_123]
@@ -1189,7 +1189,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_8
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:124
 [com_124]
@@ -1200,7 +1200,7 @@ layer=com_8
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:125
@@ -1226,7 +1226,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:128
 [com_128]
@@ -1234,7 +1234,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:129
 [com_129]
@@ -1242,7 +1242,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:130
 [com_130]
@@ -1250,7 +1250,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:131
 [com_131]
@@ -1261,7 +1261,7 @@ layer=com_11
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:132
@@ -1287,7 +1287,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_7
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:135
 [com_135]
@@ -1295,7 +1295,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_7
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:136
 [com_136]
@@ -1303,7 +1303,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_7
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:137
 [com_137]
@@ -1311,7 +1311,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_7
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:138
 [com_138]
@@ -1322,7 +1322,7 @@ layer=com_7
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:139
@@ -1348,7 +1348,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_10
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:142
 [com_142]
@@ -1356,7 +1356,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_10
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:143
 [com_143]
@@ -1364,7 +1364,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_10
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:144
 [com_144]
@@ -1372,7 +1372,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_10
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:145
 [com_145]
@@ -1383,7 +1383,7 @@ layer=com_10
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6651(event_com)
 
 // 1321:146
@@ -1497,7 +1497,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_151
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:158
 [com_158]
@@ -1505,7 +1505,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_151
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:159
 [com_159]
@@ -1513,7 +1513,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_151
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:160
 [com_160]
@@ -1521,7 +1521,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_151
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:161
 [com_161]
@@ -1532,7 +1532,7 @@ layer=com_151
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6659(event_com)
 
 // 1321:162
@@ -1558,7 +1558,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_152
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:165
 [com_165]
@@ -1566,7 +1566,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_152
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:166
 [com_166]
@@ -1574,7 +1574,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_152
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:167
 [com_167]
@@ -1582,7 +1582,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_152
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:168
 [com_168]
@@ -1593,7 +1593,7 @@ layer=com_152
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6659(event_com)
 
 // 1321:169
@@ -1619,7 +1619,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_150
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:172
 [com_172]
@@ -1627,7 +1627,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_150
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:173
 [com_173]
@@ -1635,7 +1635,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_150
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:174
 [com_174]
@@ -1643,7 +1643,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_150
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:175
 [com_175]
@@ -1654,7 +1654,7 @@ layer=com_150
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6659(event_com)
 
 // 1321:176
@@ -1680,7 +1680,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_149
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:179
 [com_179]
@@ -1688,7 +1688,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_149
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:180
 [com_180]
@@ -1696,7 +1696,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_149
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:181
 [com_181]
@@ -1704,7 +1704,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_149
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:182
 [com_182]
@@ -1715,7 +1715,7 @@ layer=com_149
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6659(event_com)
 
 // 1321:183
@@ -1741,7 +1741,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_153
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1321:186
 [com_186]
@@ -1749,7 +1749,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_153
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1321:187
 [com_187]
@@ -1757,7 +1757,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_153
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1321:188
 [com_188]
@@ -1765,7 +1765,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_153
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1321:189
 [com_189]
@@ -1776,7 +1776,7 @@ layer=com_153
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6659(event_com)
 
 // 1321:190
@@ -1804,7 +1804,7 @@ heightmode=minus
 layer=com_153
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1321:193
 [com_193]
@@ -1906,7 +1906,7 @@ widthmode=proportion
 layer=com_27
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=closebutton_click
 
 // 1321:203
@@ -1973,7 +1973,7 @@ widthmode=proportion
 layer=com_28
 transmitop=1
 op1=Accept
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6657
 
 // 1321:209

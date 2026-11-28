@@ -15,7 +15,7 @@ if ($component2 ! null) {
         if ($int3 < 9) {
             return;
         }
-        if (~script2849(calc($int3 - 9)) = 0) {
+        if (~rm_block_getvar(calc($int3 - 9)) = 0) {
             if (cc_find($component2, $int3) = true) {
                 $int6 = cc_getx;
                 $int7 = cc_gety;

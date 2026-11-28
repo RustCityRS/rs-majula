@@ -25,7 +25,7 @@ def_int $int16 = 0;
 def_string $string1 = "";
 def_string $string2 = "";
 def_int $int17 = 0;
-def_int $int18 = ~script4468;
+def_int $int18 = ~clanchat_can_kick;
 def_int $int19 = activeclanchannel_getuserslot(removetags(chat_playername));
 def_int $int20 = 0;
 if ($int19 ! -1) {

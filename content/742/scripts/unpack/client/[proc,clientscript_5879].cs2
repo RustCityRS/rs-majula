@@ -49,7 +49,7 @@ if (%varplayerbit_10866 = 5) {
     if_sethide(interface_1253:com_110, false);
 }
 if_setonvarctransmit(interface_1253:com_266, "clientscript_5905{varclient_1790}");
-~clientscript_5219(interface_1253:com_52);
+~deltooltip(interface_1253:com_52);
 %varclient_1784 = 0;
 def_graphic $graphic4 = ~clientscript_4074;
 if_setgraphic(interface_1253:com_78, ~clientscript_6267($graphic4));

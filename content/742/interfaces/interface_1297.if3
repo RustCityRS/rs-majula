@@ -3239,7 +3239,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_244
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1297:246
 [com_246]
@@ -3262,7 +3262,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_244
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1297:248
 [com_248]
@@ -3289,7 +3289,7 @@ text=Crucible Rewards
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1297:250
 [com_250]
@@ -3369,7 +3369,7 @@ layer=com_128
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6279(3)
 
 // 1297:258
@@ -3437,7 +3437,7 @@ layer=com_127
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6279(2)
 
 // 1297:265
@@ -3505,7 +3505,7 @@ layer=com_126
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6279(1)
 
 // 1297:272

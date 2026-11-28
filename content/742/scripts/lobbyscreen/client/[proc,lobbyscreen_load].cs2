@@ -53,8 +53,8 @@ if (userdetail_quickchat = true) {
     mes_typed(^chattype_clanmessage, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
 }
 ~toplevel_minimenu_setup;
-if_setonkey(lobbyscreen:com_0, "script1328(event_keycode)");
-def_string $string0 = ~script2781;
+if_setonkey(lobbyscreen:com_0, "lobbyscreen_panels_keyboard(event_keycode)");
+def_string $string0 = ~lobbyscreen_ccen;
 if (string_length($string0) > 0) {
     ~lobby_popup_size(-3000, 0, "<$string0><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
 }
@@ -70,6 +70,6 @@ if (userdetail_lobby_lastloginday < date_runeday) {
         }
     }
 }
-if_setontimer(lobbyscreen:update_timer, "script1868(lobbyscreen:update_timer)");
+if_setontimer(lobbyscreen:update_timer, "lobbyscreen_reboot_check(lobbyscreen:update_timer)");
 ~lobby_resize;
 if_setontimer(lobbyscreen:com_335, "clientscript_5954(lobbyscreen:com_336)");

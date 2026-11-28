@@ -1,0 +1,7 @@
+// 4336
+[proc,clan_general_motto_apply](component $component0)
+if (%clan_motto_sanction_varclan = 0 & activeclansettings_getaffinedcount >= 5) {
+    if_settext($component0, removetags(%clan_motto_varclan));
+    return;
+}
+if_settext($component0, "");

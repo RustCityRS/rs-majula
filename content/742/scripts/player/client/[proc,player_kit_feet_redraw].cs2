@@ -40,8 +40,8 @@ while ($int2 < $int3) {
         .cc_setonmouseleave("cc_text_colour_swapper(event_com, .cc_getid, 0xff981f)");
         cc_setop(1, $string0);
         .cc_setop(1, $string0);
-        cc_setonop("script1507(event_op, $idkit4)");
-        .cc_setonop("script1507(event_op, $idkit4)");
+        cc_setonop("player_kit_feet_kitbutton(event_op, $idkit4)");
+        .cc_setonop("player_kit_feet_kitbutton(event_op, $idkit4)");
     }
     $int2 = calc($int2 + 1);
     $int5 = calc($int5 + 19);

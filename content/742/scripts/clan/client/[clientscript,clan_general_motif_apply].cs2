@@ -1,0 +1,7 @@
+// 4331
+[clientscript,clan_general_motif_apply](component $component0, component $component1)
+def_int $int2 = -1;
+def_int $int3 = -1;
+if (activeclansettings_find_listened = true) {
+    ~clan_general_motif_apply($component0, $component1);
+}

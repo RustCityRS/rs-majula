@@ -41,7 +41,7 @@ if (%varclient_1968 = 1) {
     } else {
         cc_setmodelanim(bas_getanim_ready(bas_1426));
     }
-    cc_setonvarctransmit("script1517(event_com, event_comsubid){player_kit_torso_client}");
+    cc_setonvarctransmit("player_kit_player_updatebas(event_com, event_comsubid){player_kit_torso_client}");
 }
 if (%varclient_1969 = false) {
     if_setontimer(interface_1311:com_138, "clientscript_6449(event_com, interface_1311:com_55, 0, %varclient_1968)");

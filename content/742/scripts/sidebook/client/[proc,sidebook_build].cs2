@@ -201,7 +201,7 @@ while ($int4 < 16) {
         cc_settext($string0);
         if ($int5 > 0) {
             cc_setop(1, "Go");
-            cc_setonop("script2065(event_op, $int5, $component0, $component1, $component2)");
+            cc_setonop("sidebook_jumptopage(event_op, $int5, $component0, $component1, $component2)");
             cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
             cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0xff981f)");
         }

@@ -371,7 +371,7 @@ widthmode=proportion
 heightmode=proportion
 layer=grid_main_layer
 onload=conq_formation_setup
-onvartransmit=script503{conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onvartransmit=conq_formation_hide_unit_text{conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 
 // 1017:32
 [backing_rect_1]

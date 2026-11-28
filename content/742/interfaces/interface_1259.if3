@@ -739,7 +739,7 @@ layer=com_11
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1259:71
 [com_71]
@@ -819,7 +819,7 @@ layer=com_12
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4892
 
 // 1259:78
@@ -848,7 +848,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:81
 [com_81]
@@ -856,7 +856,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:82
 [com_82]
@@ -864,7 +864,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:83
 [com_83]
@@ -872,7 +872,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_9
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:84
 [com_84]
@@ -882,7 +882,7 @@ heightmode=minus
 layer=com_9
 transmitop=1
 op1=View next week
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4911(event_com)
 
 // 1259:85
@@ -916,7 +916,7 @@ heightmode=minus
 layer=com_9
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1259:88
 [com_88]
@@ -936,7 +936,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_29
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:90
 [com_90]
@@ -944,7 +944,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_29
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:91
 [com_91]
@@ -952,7 +952,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_29
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:92
 [com_92]
@@ -960,7 +960,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_29
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:93
 [com_93]
@@ -970,7 +970,7 @@ heightmode=minus
 layer=com_29
 transmitop=1
 op1=View this week
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4912(event_com)
 
 // 1259:94
@@ -1004,7 +1004,7 @@ heightmode=minus
 layer=com_29
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1259:97
 [com_97]
@@ -1024,7 +1024,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_14
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:99
 [com_99]
@@ -1032,7 +1032,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_14
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:100
 [com_100]
@@ -1040,7 +1040,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_14
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:101
 [com_101]
@@ -1048,7 +1048,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_14
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:102
 [com_102]
@@ -1058,7 +1058,7 @@ heightmode=minus
 layer=com_14
 transmitop=1
 op1=Select night
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1259:com_57)
 onop=clientscript_4894
 onmouserepeat=aif_tooltip(interface_1259:com_57, event_com, -1, "Select nighttime map.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -1079,7 +1079,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_13
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:105
 [com_105]
@@ -1087,7 +1087,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_13
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:106
 [com_106]
@@ -1095,7 +1095,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_13
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:107
 [com_107]
@@ -1103,7 +1103,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_13
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:108
 [com_108]
@@ -1113,7 +1113,7 @@ heightmode=minus
 layer=com_13
 transmitop=1
 op1=Select day
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1259:com_57)
 onop=clientscript_4893
 onmouserepeat=aif_tooltip(interface_1259:com_57, event_com, -1, "Select daytime map.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -1134,7 +1134,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_16
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:111
 [com_111]
@@ -1142,7 +1142,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_16
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:112
 [com_112]
@@ -1150,7 +1150,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_16
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:113
 [com_113]
@@ -1158,7 +1158,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_16
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:114
 [com_114]
@@ -1168,7 +1168,7 @@ heightmode=minus
 layer=com_16
 transmitop=1
 op1=Choose map
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1259:com_57)
 onop=clientscript_4890(0)
 onmouserepeat=aif_tooltip(interface_1259:com_57, event_com, -1, "Select layout 1.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -1179,7 +1179,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:116
 [com_116]
@@ -1187,7 +1187,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:117
 [com_117]
@@ -1195,7 +1195,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:118
 [com_118]
@@ -1203,7 +1203,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:119
 [com_119]
@@ -1213,7 +1213,7 @@ heightmode=minus
 layer=com_17
 transmitop=1
 op1=Choose map
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1259:com_57)
 onop=clientscript_4890(1)
 onmouserepeat=aif_tooltip(interface_1259:com_57, event_com, -1, "Select layout 2.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -1224,7 +1224,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:121
 [com_121]
@@ -1232,7 +1232,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:122
 [com_122]
@@ -1240,7 +1240,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:123
 [com_123]
@@ -1248,7 +1248,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:124
 [com_124]
@@ -1258,7 +1258,7 @@ heightmode=minus
 layer=com_19
 transmitop=1
 op1=Choose map
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1259:com_57)
 onop=clientscript_4890(3)
 onmouserepeat=aif_tooltip(interface_1259:com_57, event_com, -1, "Select layout 4.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -1269,7 +1269,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:126
 [com_126]
@@ -1277,7 +1277,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:127
 [com_127]
@@ -1285,7 +1285,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:128
 [com_128]
@@ -1293,7 +1293,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:129
 [com_129]
@@ -1303,7 +1303,7 @@ heightmode=minus
 layer=com_18
 transmitop=1
 op1=Choose map
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1259:com_57)
 onop=clientscript_4890(2)
 onmouserepeat=aif_tooltip(interface_1259:com_57, event_com, -1, "Select layout 3.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -1324,7 +1324,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_130
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:132
 [com_132]
@@ -1332,7 +1332,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_130
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:133
 [com_133]
@@ -1340,7 +1340,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_130
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:134
 [com_134]
@@ -1348,7 +1348,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_130
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:135
 [com_135]
@@ -1358,7 +1358,7 @@ heightmode=minus
 layer=com_130
 transmitop=1
 op1=view this week
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1259:136
 [com_136]
@@ -1391,7 +1391,7 @@ heightmode=minus
 layer=com_130
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1259:139
 [com_139]
@@ -1421,7 +1421,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_140
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1259:142
 [com_142]
@@ -1429,7 +1429,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_140
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1259:143
 [com_143]
@@ -1437,7 +1437,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_140
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1259:144
 [com_144]
@@ -1445,7 +1445,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_140
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1259:145
 [com_145]
@@ -1455,7 +1455,7 @@ heightmode=minus
 layer=com_140
 transmitop=1
 op1=View next week
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1259:146
 [com_146]
@@ -1488,7 +1488,7 @@ heightmode=minus
 layer=com_140
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1259:149
 [com_149]

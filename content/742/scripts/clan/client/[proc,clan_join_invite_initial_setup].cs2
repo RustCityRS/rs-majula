@@ -1,0 +1,7 @@
+// 4283
+[proc,clan_join_invite_initial_setup]
+if_settext(clan_join_invite:clan_name, activeclansettings_getclanname);
+~clan_general_motif_apply(clan_join_invite:com_44, clan_join_invite:logo2_gfx);
+~clan_general_colours_apply(clan_join_invite:colour1, clan_join_invite:colour2);
+~clan_general_qfc_apply(clan_join_invite:clan_qfc);
+if_sethide(clan_join_invite:clan_data_waiting, true);

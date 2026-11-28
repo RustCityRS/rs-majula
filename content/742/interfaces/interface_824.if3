@@ -415,7 +415,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:38
 [com_38]
@@ -423,7 +423,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:39
 [com_39]
@@ -431,7 +431,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:40
 [com_40]
@@ -439,7 +439,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:41
 [com_41]
@@ -450,7 +450,7 @@ layer=com_18
 targetmask=player,heldobj
 targetverb=Spotlight
 validtargetcursor=cursor_target
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 ontargetenter=clientscript_5294(event_com, interface_824:com_40)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -480,7 +480,7 @@ heightmode=minus
 layer=com_18
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:45
 [com_45]
@@ -500,7 +500,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_14
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:47
 [com_47]
@@ -508,7 +508,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_14
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 824:48
 [com_48]
@@ -547,7 +547,7 @@ heightmode=minus
 layer=com_14
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:52
 [com_52]
@@ -567,7 +567,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:54
 [com_54]
@@ -575,7 +575,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:55
 [com_55]
@@ -583,7 +583,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:56
 [com_56]
@@ -591,7 +591,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:57
 [com_57]
@@ -602,7 +602,7 @@ layer=com_17
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
@@ -638,7 +638,7 @@ heightmode=minus
 layer=com_17
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:61
 [com_61]
@@ -1026,7 +1026,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_93
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:95
 [com_95]
@@ -1034,7 +1034,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_93
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:96
 [com_96]
@@ -1042,7 +1042,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_93
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:97
 [com_97]
@@ -1050,7 +1050,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_93
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:98
 [com_98]
@@ -1061,7 +1061,7 @@ layer=com_93
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
@@ -1108,7 +1108,7 @@ heightmode=minus
 layer=com_93
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:103
 [com_103]
@@ -1138,7 +1138,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_104
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:106
 [com_106]
@@ -1146,7 +1146,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_104
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:107
 [com_107]
@@ -1154,7 +1154,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_104
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:108
 [com_108]
@@ -1162,7 +1162,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_104
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:109
 [com_109]
@@ -1173,7 +1173,7 @@ layer=com_104
 targetmask=player,heldobj
 targetverb=Spotlight
 validtargetcursor=cursor_target
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 ontargetenter=clientscript_5294(event_com, interface_824:com_108)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
@@ -1203,7 +1203,7 @@ heightmode=minus
 layer=com_104
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:113
 [com_113]
@@ -1239,7 +1239,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_115
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:117
 [com_117]
@@ -1247,7 +1247,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_115
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 824:118
 [com_118]
@@ -1286,7 +1286,7 @@ heightmode=minus
 layer=com_115
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:122
 [com_122]
@@ -1589,7 +1589,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_146
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:148
 [com_148]
@@ -1597,7 +1597,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_146
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:149
 [com_149]
@@ -1605,7 +1605,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_146
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:150
 [com_150]
@@ -1613,7 +1613,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_146
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:151
 [com_151]
@@ -1624,7 +1624,7 @@ layer=com_146
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
@@ -1671,7 +1671,7 @@ heightmode=minus
 layer=com_146
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:156
 [com_156]
@@ -1701,7 +1701,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_157
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:159
 [com_159]
@@ -1709,7 +1709,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_157
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:160
 [com_160]
@@ -1717,7 +1717,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_157
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:161
 [com_161]
@@ -1725,7 +1725,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_157
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:162
 [com_162]
@@ -1736,7 +1736,7 @@ layer=com_157
 targetmask=player,heldobj
 targetverb=Spotlight
 validtargetcursor=cursor_target
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 ontargetenter=clientscript_5294(event_com, interface_824:com_161)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -1766,7 +1766,7 @@ heightmode=minus
 layer=com_157
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:166
 [com_166]
@@ -1802,7 +1802,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_168
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:170
 [com_170]
@@ -1810,7 +1810,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_168
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 824:171
 [com_171]
@@ -1849,7 +1849,7 @@ heightmode=minus
 layer=com_168
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:175
 [com_175]
@@ -1952,7 +1952,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_183
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:185
 [com_185]
@@ -1960,7 +1960,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_183
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:186
 [com_186]
@@ -1968,7 +1968,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_183
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:187
 [com_187]
@@ -1976,7 +1976,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_183
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:188
 [com_188]
@@ -1987,7 +1987,7 @@ layer=com_183
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
@@ -2034,7 +2034,7 @@ heightmode=minus
 layer=com_183
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:193
 [com_193]
@@ -2064,7 +2064,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_194
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:196
 [com_196]
@@ -2072,7 +2072,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_194
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 824:197
 [com_197]
@@ -2080,7 +2080,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_194
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 824:198
 [com_198]
@@ -2088,7 +2088,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_194
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 824:199
 [com_199]
@@ -2099,7 +2099,7 @@ layer=com_194
 targetmask=player,heldobj
 targetverb=Spotlight
 validtargetcursor=cursor_target
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_824:com_33)
 ontargetenter=clientscript_5294(event_com, interface_824:com_198)
 onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -2129,7 +2129,7 @@ heightmode=minus
 layer=com_194
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:203
 [com_203]
@@ -2165,7 +2165,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_205
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 824:207
 [com_207]
@@ -2173,7 +2173,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_205
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 824:208
 [com_208]
@@ -2212,7 +2212,7 @@ heightmode=minus
 layer=com_205
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 824:212
 [com_212]

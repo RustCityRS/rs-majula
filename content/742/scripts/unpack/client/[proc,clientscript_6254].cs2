@@ -17,4 +17,4 @@ if ($component0 = fishcomp_side:com_63) {
 } else if ($component0 = fishcomp_side:com_49) {
     if_sethide(fishcomp_side:com_30, true);
 }
-~clientscript_5219(fishcomp_side:tooltip_area);
+~deltooltip(fishcomp_side:tooltip_area);

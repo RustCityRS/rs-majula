@@ -43,7 +43,7 @@ xmode=abs_centre
 targetmask=npc,player
 opbase=Dreadnip
 targetverb=Target
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseover=graphic_swapper(interface_1165:com_4, 8337)
 onmouseleave=graphic_swapper(interface_1165:com_4, 8336)
 

@@ -19,9 +19,9 @@ transmitop=1
 op1=Move right
 onmouseover=model_swapper(interface_134:com_60, model_48023)
 onmouseleave=model_swapper(interface_134:com_60, model_48037)
-onop=script2664
-onrelease=script2667
-onhold=script2664
+onop=mah3_strip_right
+onrelease=mah3_strip_align
+onhold=mah3_strip_right
 
 // 134:2
 [com_2]
@@ -38,9 +38,9 @@ transmitop=1
 op1=Move down
 onmouseover=model_swapper(interface_134:com_57, model_48042)
 onmouseleave=model_swapper(interface_134:com_57, model_48022)
-onop=script2666
-onrelease=script2667
-onhold=script2666
+onop=mah3_strip_down
+onrelease=mah3_strip_align
+onhold=mah3_strip_down
 
 // 134:3
 [com_3]
@@ -57,9 +57,9 @@ transmitop=1
 op1=Move left
 onmouseover=model_swapper(interface_134:com_54, model_48054)
 onmouseleave=model_swapper(interface_134:com_54, model_48024)
-onop=script2663
-onrelease=script2667
-onhold=script2663
+onop=mah3_strip_left
+onrelease=mah3_strip_align
+onhold=mah3_strip_left
 
 // 134:4
 [com_4]
@@ -76,9 +76,9 @@ transmitop=1
 op1=Move up
 onmouseover=model_swapper(interface_134:com_51, model_48049)
 onmouseleave=model_swapper(interface_134:com_51, model_48035)
-onop=script2665
-onrelease=script2667
-onhold=script2665
+onop=mah3_strip_up
+onrelease=mah3_strip_align
+onhold=mah3_strip_up
 
 // 134:5
 [com_5]
@@ -96,7 +96,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 onop=script2659
-onvarctransmit=script2668{mah3_clnostrips}
+onvarctransmit=mah3_nostrips{mah3_clnostrips}
 
 // 134:6
 [com_6]
@@ -1093,4 +1093,4 @@ type=layer
 width=512
 height=334
 layer=com_0
-onload=script2668
+onload=mah3_nostrips

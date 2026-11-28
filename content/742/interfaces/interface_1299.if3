@@ -251,7 +251,7 @@ heightmode=proportion
 layer=com_17
 transmitop=1
 op1=Return to Varrock
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=closebutton_click
 
 // 1299:25
@@ -340,7 +340,7 @@ heightmode=proportion
 layer=com_16
 transmitop=1
 op1=Play again
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1299:33
 [com_33]
@@ -428,7 +428,7 @@ heightmode=proportion
 layer=com_15
 transmitop=1
 op1=Play again
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onclick=clientscript_6564
 
 // 1299:41
@@ -517,7 +517,7 @@ heightmode=proportion
 layer=com_14
 transmitop=1
 op1=Play again
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onclick=clientscript_6564
 
 // 1299:49
@@ -606,7 +606,7 @@ heightmode=proportion
 layer=com_13
 transmitop=1
 op1=Play again
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onclick=clientscript_6564
 
 // 1299:57
@@ -685,7 +685,7 @@ heightmode=proportion
 layer=com_18
 transmitop=1
 op1=Continue
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=closebutton_click
 
 // 1299:64

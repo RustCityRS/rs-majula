@@ -17,8 +17,8 @@ if (cc_find($component0, 0) = true) {
     $int6 = max($int6, 0);
     $int6 = min($int6, 255);
 }
-~script4161($component0, $int6);
-~script4161($component1, $int6);
+~aif_set_child_transparency($component0, $int6);
+~aif_set_child_transparency($component1, $int6);
 if ($int6 = 0 & $int2 = 0) {
     if_setontimer($component4, null);
 } else if ($int6 = 255 & $int2 = 1) {

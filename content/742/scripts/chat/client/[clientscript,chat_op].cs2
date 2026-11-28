@@ -23,7 +23,7 @@ switch_int ($int0) {
             if (map_quickchat = false & userdetail_quickchat = false) {
                 %varclient_1650 = true;
                 %friendtomessage = $string0;
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
                 return;
             }
         } else {

@@ -7,7 +7,7 @@ if ($int1 > $int0) {
     if ($int0 >= 6) {
         return(calc($int0 - 6));
     }
-    return(max(~script686(calc($int0 - 6), 2048), $int1));
+    return(max(~wrap_negative_number(calc($int0 - 6), 2048), $int1));
 }
 if (calc($int0 - $int1) <= 1024) {
     return(max(calc($int0 - 6), $int1));

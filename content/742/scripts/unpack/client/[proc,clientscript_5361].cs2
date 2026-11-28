@@ -1,5 +1,5 @@
 // 5361
 [proc,clientscript_5361](component $component0, component $component1, component $component2, int $int3)
-~script4208($component0, $int3);
-~script4208($component1, $int3);
-~script4208($component2, $int3);
+~aif_component_fade_jump($component0, $int3);
+~aif_component_fade_jump($component1, $int3);
+~aif_component_fade_jump($component2, $int3);

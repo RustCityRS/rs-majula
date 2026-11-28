@@ -1,0 +1,12 @@
+// 2271
+[clientscript,rand_gate_stone_init](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, boolean $boolean5, string $string0, string $string1, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11, obj $obj12, int $int13)
+if_setopbase($component0, "<col=00ff00><$string0>");
+~rand_gate_stone_updateicon($component0, $graphic2, $graphic3, $int4, $boolean5, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13);
+if_setonmouserepeat($component0, "rand_gate_stone_addtooltip($component0, $component1, $int4, $string0, $string1, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13)");
+if_setonmouseleave($component0, "magic_deltooltip($component1)");
+if (if_gettargetmask($component0) ! 0) {
+    if_setontargetenter($component0, "magic_entertargetmode($component0)");
+    if_setontargetleave($component0, "magic_leavetargetmode($component0)");
+}
+if_setoninvtransmit($component0, "rand_gate_stone_updateicon($component0, $graphic2, $graphic3, $int4, $boolean5, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13){inv}");
+if_setonstattransmit($component0, "rand_gate_stone_updateicon($component0, $graphic2, $graphic3, $int4, $boolean5, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13){magic}");

@@ -645,7 +645,7 @@ layer=com_13
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1115:59
 [com_59]
@@ -1902,7 +1902,7 @@ pausebutton=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1115:com_186)
 
 // 1115:169
@@ -2043,7 +2043,7 @@ pausebutton=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_1115:com_186)
 
 // 1115:181

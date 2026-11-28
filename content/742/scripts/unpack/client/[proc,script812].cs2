@@ -18,7 +18,7 @@ if (oc_param($obj0, param_740) = 1) {
     cc_sethide(false);
     return;
 }
-if (~script928($obj0) = true) {
+if (~obj_has_use_req($obj0) = true) {
     if (~obj_use_requirements($obj0) = true) {
         return;
     }

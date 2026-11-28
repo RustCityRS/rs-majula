@@ -33,7 +33,7 @@ if ($int1 = 1) {
 if (%conq_command_ability_1 ! $int2 & %conq_command_ability_2 ! $int2 & %conq_command_ability_3 ! $int2 & %conq_command_ability_4 ! $int2) {
     if_setcolour($component0, $colour3);
     if ($int1 = 1) {
-        $struct4 = ~script488($int2);
+        $struct4 = ~conq_get_command_struct($int2);
         if ($struct4 ! null) {
             if_sethide(conq_buy_army:no_ability_text, true);
             if_sethide(conq_buy_army:command_details_icon, false);
@@ -52,13 +52,13 @@ if (%conq_command_ability_1 ! $int2 & %conq_command_ability_2 ! $int2 & %conq_co
             case default :
                 $struct4 = null;
             case 1 :
-                $struct4 = ~script488(%conq_command_ability_1);
+                $struct4 = ~conq_get_command_struct(%conq_command_ability_1);
             case 2 :
-                $struct4 = ~script488(%conq_command_ability_2);
+                $struct4 = ~conq_get_command_struct(%conq_command_ability_2);
             case 3 :
-                $struct4 = ~script488(%conq_command_ability_3);
+                $struct4 = ~conq_get_command_struct(%conq_command_ability_3);
             case 4 :
-                $struct4 = ~script488(%conq_command_ability_4);
+                $struct4 = ~conq_get_command_struct(%conq_command_ability_4);
         }
         if ($struct4 = null) {
             if_sethide(conq_buy_army:no_ability_text, false);

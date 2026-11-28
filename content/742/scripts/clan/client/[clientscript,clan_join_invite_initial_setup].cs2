@@ -1,0 +1,5 @@
+// 4282
+[clientscript,clan_join_invite_initial_setup]
+if (activeclansettings_find_listened = true) {
+    ~clan_join_invite_initial_setup;
+}

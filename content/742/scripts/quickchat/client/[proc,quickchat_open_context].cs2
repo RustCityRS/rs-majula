@@ -22,4 +22,4 @@ if_sethide(chatdefault:quickchat_menu, false);
 if_sethide(chatdefault:quickchat_path, false);
 if_sethide(chatdefault:quickchat_title, true);
 if_setscrollpos(chatdefault:quickchat_menu, 0, 0);
-~quickchat_menu_add(chatdefault:quickchat_path, 0, ~script1036, null, 0);
+~quickchat_menu_add(chatdefault:quickchat_path, 0, ~quickchat_getcontextmenu, null, 0);

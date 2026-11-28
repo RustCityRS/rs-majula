@@ -1,7 +1,7 @@
 // 4009
 [clientscript,task_hintarrow_hover](int $int0, int $int1, component $component2, int $int3)
 if ($int3 = -1) {
-    ~clientscript_5780($int0, $int1, $component2);
+    ~task_hintarrow_hover($int0, $int1, $component2);
 } else {
     ~clientscript_5781($int0, $int1, $component2, $int3);
 }

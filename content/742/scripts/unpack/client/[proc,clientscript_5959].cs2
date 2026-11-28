@@ -10,7 +10,7 @@ switch_int (%varplayerbit_10885) {
         $string0 = "45% Bonus Citadel Skilling XP";
 }
 if (compare($string0, "") ! 0) {
-    ~clientscript_4408(interface_1257:com_55);
+    ~aif_set_default_cursor(interface_1257:com_55);
     if_setonmouserepeat(interface_1257:com_55, "aif_tooltip(interface_1257:com_84, interface_1257:com_55, -1, $string0, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
     if_setonmouseleave(interface_1257:com_55, "deltooltip(interface_1257:com_84)");
 }

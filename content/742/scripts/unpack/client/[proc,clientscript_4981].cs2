@@ -78,7 +78,7 @@ if (op718 = 1 & activeclansettings_find_affined = true) {
     ~clientscript_4982($struct2, $struct3, $int1, $int6, $int17);
     if_sethide(interface_1261:com_280, false);
     if ($int7 > 0) {
-        ~script4152(interface_1261:com_274, "Upgrade");
+        ~aif_set_gold_button_text(interface_1261:com_274, "Upgrade");
         $int14 = ~clientscript_4961($int7, 1);
         $int9 = ~clientscript_4961($int7, 2);
         $int11 = ~clientscript_4961($int7, 3);
@@ -93,7 +93,7 @@ if (op718 = 1 & activeclansettings_find_affined = true) {
         $struct10 = enum(int, struct, enum_4009, $int9);
         $struct13 = enum(int, struct, enum_4009, $int11);
         if_sethide(interface_1261:com_272, false);
-        ~script4152(interface_1261:com_274, "Upgrade");
+        ~aif_set_gold_button_text(interface_1261:com_274, "Upgrade");
         if ($int12 <= 0 & $int15 <= 0) {
             if ($int1 < 7) {
                 if ($int24 = 1) {
@@ -110,7 +110,7 @@ if (op718 = 1 & activeclansettings_find_affined = true) {
                 }
             }
             if ($int1 = 0) {
-                ~script4152(interface_1261:com_274, "Buy");
+                ~aif_set_gold_button_text(interface_1261:com_274, "Buy");
             }
         }
         if_sethide(interface_1261:com_280, false);
@@ -182,7 +182,7 @@ if (op718 = 1 & activeclansettings_find_affined = true) {
             if_sethide(interface_1261:com_272, false);
         } else {
             $int24 = 1;
-            ~script4152(interface_1261:com_274, "Buy");
+            ~aif_set_gold_button_text(interface_1261:com_274, "Buy");
             if_sethide(interface_1261:com_272, true);
             if_settext(interface_1261:com_94, "Clan builders can buy this<br>in the 'Upgrade' side tab.");
         }

@@ -37,7 +37,7 @@ op1=Flip
 op10= 
 onmouseover=model_swapper(interface_1141:com_1, model_48023)
 onmouseleave=model_swapper(interface_1141:com_1, model_48037)
-onop=script2664
+onop=mah3_strip_right
 onclick=clientscript_5281
 
 // 1141:3
@@ -321,8 +321,8 @@ xmode=abs_right
 layer=com_26_
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1141:29
 [com_29]
@@ -333,8 +333,8 @@ xmode=abs_right
 layer=com_26_
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1141:30
 [com_30]

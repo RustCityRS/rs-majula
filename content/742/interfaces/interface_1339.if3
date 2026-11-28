@@ -79,5 +79,5 @@ xmode=abs_right
 layer=com_0
 graphic=graphic_8279
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)

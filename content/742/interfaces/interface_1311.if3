@@ -370,7 +370,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseover=clientscript_6475(0, 1, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22)
 onmouseleave=clientscript_6475(0, 0, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22)
 onop=clientscript_6460(2)
@@ -387,7 +387,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseover=clientscript_6475(0, 1, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26)
 onmouseleave=clientscript_6475(0, 0, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26)
 onop=clientscript_6460(3)
@@ -404,7 +404,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseover=clientscript_6475(0, 1, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34)
 onmouseleave=clientscript_6475(0, 0, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34)
 onop=clientscript_6460(4)
@@ -421,7 +421,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseover=clientscript_6475(0, 1, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20)
 onmouseleave=clientscript_6475(0, 0, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20)
 onop=clientscript_6460(1)
@@ -519,7 +519,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_37
 opkey11=1,0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1311:40
 [com_40]
@@ -1099,7 +1099,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_37
 opkey11=1,0
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1311:84
 [com_84]
@@ -1131,7 +1131,7 @@ textalignh=centre
 textalignv=centre
 colour=0xebe0bc
 opkey11=1,0
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1311:86
 [com_86]
@@ -1238,7 +1238,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:95
 [com_95]
@@ -1319,7 +1319,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:102
 [com_102]
@@ -1412,7 +1412,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:110
 [com_110]
@@ -1505,7 +1505,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:118
 [com_118]
@@ -2139,7 +2139,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:179
 [com_179]
@@ -2720,7 +2720,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6478
 
 // 1311:223
@@ -2814,7 +2814,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:231
 [com_231]
@@ -2895,7 +2895,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6479
 
 // 1311:238
@@ -2977,7 +2977,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6477
 
 // 1311:245
@@ -3335,7 +3335,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_269
 opkey11=1,0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1311:273
 [com_273]
@@ -3415,7 +3415,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_269
 opkey11=1,0
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1311:279
 [com_279]
@@ -3459,7 +3459,7 @@ textalignh=centre
 textalignv=centre
 colour=0xebe0bc
 opkey11=1,0
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1311:282
 [com_282]
@@ -3511,7 +3511,7 @@ layer=com_277
 transmitop=1
 op1=Back
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:287
 [com_287]
@@ -3591,7 +3591,7 @@ layer=com_276
 transmitop=1
 op1=Confirm
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4171
 
 // 1311:294
@@ -3672,7 +3672,7 @@ layer=com_275
 transmitop=1
 op1=Reclaim-item
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1311:301
 [com_301]

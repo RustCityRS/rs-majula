@@ -1,0 +1,4 @@
+// 4152
+[proc,aif_set_gold_button_text](component $component0, string $string0)
+if_settext($component0, $string0);
+~clientscript_3984($component0, struct_7251);

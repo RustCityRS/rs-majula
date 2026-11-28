@@ -887,7 +887,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:runecraft_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:runecraft_layer, assister_interface:runecrafting_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:runecrafting_icon, "staticons2,0", "staticons2_off,0", assister_interface:runecraft_selected_box)
+onclick=assist_quick_display_icon(assister_interface:runecrafting_icon, "staticons2,0", "staticons2_off,0", assister_interface:runecraft_selected_box)
 onrelease=assist_clear_button(assister_interface:runecrafting_1)
 onhold=assist_flash_button(assister_interface:runecrafting_1)
 
@@ -907,7 +907,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:crafting_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:crafting_layer, assister_interface:crafting_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:crafting_icon_on, "staticons,10", "staticons_off,10", assister_interface:crafting_selected_box)
+onclick=assist_quick_display_icon(assister_interface:crafting_icon_on, "staticons,10", "staticons_off,10", assister_interface:crafting_selected_box)
 onrelease=assist_clear_button(assister_interface:crafting_1)
 onhold=assist_flash_button(assister_interface:crafting_1)
 
@@ -927,7 +927,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:fletching_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:fletching_layer, assister_interface:fletching_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:fletching_icon_on, "staticons,11", "staticons_off,11", assister_interface:fletching_selected_box)
+onclick=assist_quick_display_icon(assister_interface:fletching_icon_on, "staticons,11", "staticons_off,11", assister_interface:fletching_selected_box)
 onrelease=assist_clear_button(assister_interface:fletching_1)
 onhold=assist_flash_button(assister_interface:fletching_1)
 
@@ -947,7 +947,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:construction_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:construction_layer, assister_interface:construction_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:construction_icon_on, "staticons2,6", "staticons2_off,6", assister_interface:construction_selected_box)
+onclick=assist_quick_display_icon(assister_interface:construction_icon_on, "staticons2,6", "staticons2_off,6", assister_interface:construction_selected_box)
 onrelease=assist_clear_button(assister_interface:construction_1)
 onhold=assist_flash_button(assister_interface:construction_1)
 
@@ -967,7 +967,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:farming_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:farming_layer, assister_interface:farming_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:farming_icon_on, "staticons2,2", "staticons2_off,2", assister_interface:farming_selected_box)
+onclick=assist_quick_display_icon(assister_interface:farming_icon_on, "staticons2,2", "staticons2_off,2", assister_interface:farming_selected_box)
 onrelease=assist_clear_button(assister_interface:farming_1)
 onhold=assist_flash_button(assister_interface:farming_1)
 
@@ -987,7 +987,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:magic_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:magic_layer, assister_interface:magic_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:magic_icon_on, "staticons,5", "staticons_off,5", assister_interface:magic_selected_box)
+onclick=assist_quick_display_icon(assister_interface:magic_icon_on, "staticons,5", "staticons_off,5", assister_interface:magic_selected_box)
 onrelease=assist_clear_button(assister_interface:magic_1)
 onhold=assist_flash_button(assister_interface:magic_1)
 
@@ -1007,7 +1007,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:smithing_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:smithing_layer, assister_interface:smithing_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:smithing_icon_on, "staticons,13", "staticons_off,13", assister_interface:smithing_selected_box)
+onclick=assist_quick_display_icon(assister_interface:smithing_icon_on, "staticons,13", "staticons_off,13", assister_interface:smithing_selected_box)
 onrelease=assist_clear_button(assister_interface:smithing_1)
 onhold=assist_flash_button(assister_interface:smithing_1)
 
@@ -1027,7 +1027,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:cooking_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:cooking_layer, assister_interface:cooking_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:cooking_icon_on, "staticons,15", "staticons_off,15", assister_interface:cooking_selected_box)
+onclick=assist_quick_display_icon(assister_interface:cooking_icon_on, "staticons,15", "staticons_off,15", assister_interface:cooking_selected_box)
 onrelease=assist_clear_button(assister_interface:cooking_1)
 onhold=assist_flash_button(assister_interface:cooking_1)
 
@@ -1047,7 +1047,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:herblore_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:herblore_layer, assister_interface:herblore_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:herblore_icon_on, "staticons,8", "staticons_off,8", assister_interface:herblore_selected_box)
+onclick=assist_quick_display_icon(assister_interface:herblore_icon_on, "staticons,8", "staticons_off,8", assister_interface:herblore_selected_box)
 onrelease=assist_clear_button(assister_interface:herblore_1)
 onhold=assist_flash_button(assister_interface:herblore_1)
 

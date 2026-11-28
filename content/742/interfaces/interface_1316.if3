@@ -503,7 +503,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 opkey11=1,0
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1316:41
 [com_41]

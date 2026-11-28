@@ -3,7 +3,7 @@
 switch_int ($key0) {
     case ^key_return :
         if (%meslayermode = 12) {
-            ~script1806(%meslayerinput);
+            ~clanwars_caller_setname(%meslayerinput);
             return;
         }
         if (%meslayermode = 13) {
@@ -90,7 +90,7 @@ switch_int ($key0) {
         return;
     case ^key_escape :
         if (%meslayermode = 12) {
-            ~script1806(%clanwars_caller);
+            ~clanwars_caller_setname(%clanwars_caller);
             ~meslayer_close(0);
         } else if (%meslayermode = 14) {
             ~music_search_close;

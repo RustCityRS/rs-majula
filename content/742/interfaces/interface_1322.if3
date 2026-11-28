@@ -390,7 +390,7 @@ widthmode=proportion
 layer=com_7
 transmitop=1
 op1=Subscribe
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1322:37
 [com_37]
@@ -465,7 +465,7 @@ widthmode=proportion
 layer=com_39
 transmitop=1
 op1=More information
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1322:44
 [com_44]

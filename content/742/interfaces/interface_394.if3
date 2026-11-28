@@ -184,7 +184,7 @@ layer=com_9
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 394:17
 [com_17]
@@ -240,8 +240,8 @@ xmode=abs_right
 layer=com_4
 graphic=graphic_8279
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 394:22
 [com_22]
@@ -252,5 +252,5 @@ xmode=abs_right
 layer=com_4
 graphic=graphic_8280
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)

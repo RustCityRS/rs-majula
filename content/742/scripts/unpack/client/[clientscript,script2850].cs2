@@ -22,4 +22,4 @@ if_setontimer(machinima_livecamera:blockclick, "script2853(machinima_livecamera:
 if_setontimer(machinima_livecamera:compasslayer, "script2852(machinima_livecamera:compasslayer)");
 if_sethide(machinima_livecamera:exithint, false);
 if_setontimer(machinima_livecamera:exithint, "script2870(event_com, calc(clientclock + 150))");
-~script3455;
+~machinima_clear_all_states;

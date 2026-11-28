@@ -1,9 +1,0 @@
-// 1094
-[clientscript,script1094]
-if (%fov_status = 1) {
-    ~cutscene_overlay_clamp;
-} else if (%fov_status = 2) {
-    ~clientscript_5229;
-} else {
-    ~cutscene_overlay_resize;
-}

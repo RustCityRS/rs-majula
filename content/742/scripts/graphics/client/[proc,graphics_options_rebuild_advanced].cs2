@@ -18,7 +18,7 @@ switch_int ($int4) {
         if_sethide(loginscreen_graphics_options:back_button, false);
         if_setonclick(loginscreen_graphics_options:back_button, "graphics_options_rebuild($int0, $int1, $int2, $int3, $int4)");
         if_setonresize(loginscreen_graphics_options:universe, "graphics_options_login_resize(true)");
-        if_setonresize(loginscreen:options, "script2919(true, $int4)");
+        if_setonresize(loginscreen:options, "graphics_options_resize_redraw(true, $int4)");
     case 2 :
         if_opensubclient(lobbyscreen_pane_options:options_client_if, graphics_options_advanced_client);
         $component5 = lobbyscreen_pane_options:universe;
@@ -26,7 +26,7 @@ switch_int ($int4) {
         if_sethide(lobbyscreen_pane_options:sound_layer, true);
         if_sethide(lobbyscreen_pane_options:back_button, false);
         if_setonclick(lobbyscreen_pane_options:back_button, "graphics_options_rebuild($int0, $int1, $int2, $int3, $int4)");
-        if_setonresize(lobbyscreen:com_0, "script2919(true, $int4)");
+        if_setonresize(lobbyscreen:com_0, "graphics_options_resize_redraw(true, $int4)");
         if_sethide(lobbyscreen_pane_options:com_0, false);
         if_setscrollsize(lobbyscreen_pane_options:contents, 0, 510);
         if_setscrollpos(lobbyscreen_pane_options:contents, 0, 0);
@@ -249,5 +249,5 @@ switch_int ($int4) {
         if_setsize(graphics_options_advanced_client:main, if_getwidth(graphics_options_advanced_client:main), calc(if_gety(graphics_options_advanced_client:body) + if_getheight(graphics_options_advanced_client:body)), ^setsize_abs, ^setsize_abs);
         if_setsize(lobbyscreen_pane_options:options_client_if, if_getwidth(lobbyscreen_pane_options:options_client_if), calc(if_getheight(graphics_options_advanced_client:main) + 5 + if_getheight(lobbyscreen_pane_options:back_button)), ^setsize_abs, ^setsize_abs);
 }
-~script3451($int4, true);
+~graphics_options_manual_setup_buttons($int4, true);
 ~graphics_options_login_resize(true);

@@ -1,7 +1,7 @@
 // 1332
 [proc,clientscript_1332]
 if (getwindowmode >= ^windowmode_resizable) {
-    ~clientscript_1331(toplevel_fullscreen:worldmap_button);
+    ~worldmap_button(toplevel_fullscreen:worldmap_button);
 } else {
-    ~clientscript_1331(toplevel:worldmap_icon);
+    ~worldmap_button(toplevel:worldmap_icon);
 }

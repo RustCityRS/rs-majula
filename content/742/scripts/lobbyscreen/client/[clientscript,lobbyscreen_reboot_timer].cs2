@@ -1,0 +1,6 @@
+// 1869
+[clientscript,lobbyscreen_reboot_timer](component $component0)
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+~lobbyscreen_reboot_timer($component0);

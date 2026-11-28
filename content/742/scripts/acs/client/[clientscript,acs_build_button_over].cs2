@@ -1,7 +1,7 @@
 // 4232
 [clientscript,acs_build_button_over](component $component0)
 if (if_find($component0) = true) {
-    cc_setonmouseover("script4209($component0, 0)");
-    cc_setonmouseleave("script4209($component0, 1)");
+    cc_setonmouseover("aif_component_fade_set($component0, 0)");
+    cc_setonmouseleave("aif_component_fade_set($component0, 1)");
     cc_settrans(255);
 }

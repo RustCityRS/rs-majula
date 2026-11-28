@@ -1790,7 +1790,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_46
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:158
 [com_158]
@@ -1798,7 +1798,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_46
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1261:159
 [com_159]
@@ -1806,7 +1806,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_46
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1261:160
 [com_160]
@@ -1816,7 +1816,7 @@ heightmode=minus
 layer=com_46
 transmitop=1
 op1=View next week
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4911(event_com)
 
 // 1261:161
@@ -1848,7 +1848,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_122
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:164
 [com_164]
@@ -1856,7 +1856,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_122
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1261:165
 [com_165]
@@ -1864,7 +1864,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_122
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1261:166
 [com_166]
@@ -1874,7 +1874,7 @@ heightmode=minus
 layer=com_122
 transmitop=1
 op1=View this week
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4912(event_com)
 
 // 1261:167
@@ -2038,7 +2038,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_36
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:182
 [com_182]
@@ -2140,7 +2140,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_37
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:190
 [com_190]
@@ -2242,7 +2242,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_38
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:198
 [com_198]
@@ -2344,7 +2344,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_39
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:206
 [com_206]
@@ -2446,7 +2446,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_40
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:214
 [com_214]
@@ -2548,7 +2548,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_41
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:222
 [com_222]
@@ -2650,7 +2650,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_42
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:230
 [com_230]
@@ -2752,7 +2752,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_43
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:238
 [com_238]
@@ -2854,7 +2854,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_44
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:246
 [com_246]
@@ -2965,7 +2965,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_253
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1261:255
 [com_255]
@@ -3159,7 +3159,7 @@ heightmode=minus
 layer=com_267
 transmitop=1
 op1=Buy Building
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4984
 
 // 1261:272
@@ -3238,7 +3238,7 @@ heightmode=minus
 layer=com_275
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4983
 
 // 1261:280
@@ -3316,7 +3316,7 @@ heightmode=minus
 layer=com_283
 transmitop=1
 op1=Buy Building
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1261:288
 [com_288]
@@ -3394,7 +3394,7 @@ heightmode=minus
 layer=com_291
 transmitop=1
 op1=Buy Building
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1261:296
 [com_296]
@@ -3832,7 +3832,7 @@ heightmode=minus
 layer=com_52
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1261:337
 [com_337]
@@ -3951,7 +3951,7 @@ layer=com_80
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1261:348
 [com_348]
@@ -4032,7 +4032,7 @@ layer=com_81
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5004
 
 // 1261:355
@@ -4114,7 +4114,7 @@ layer=com_177
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1261:362
 [com_362]
@@ -4436,7 +4436,7 @@ heightmode=minus
 layer=com_152
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1261:390
 [com_390]
@@ -4494,7 +4494,7 @@ heightmode=minus
 layer=com_151
 transmitop=1
 op1=Confirm
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1261:396
 [com_396]

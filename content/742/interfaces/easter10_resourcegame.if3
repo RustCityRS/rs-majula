@@ -3,8 +3,8 @@
 type=layer
 width=512
 height=334
-onload=script2218
-onvartransmit=script2219{varplayer_1673, easter10_resourcegame_turncount, varplayer_1675, varplayer_1676, varplayer_1677, varplayer_1678, varplayer_1679, varplayer_1680, easter10_resourcegame_totalworkers, varplayer_1682, varplayer_1683, varplayer_1684, easter10_resourcegame_errortextflag, easter10_resourcegame_totalchoc, easter10_resourcegame_totalnuts, easter10_resourcegame_totalfruit, easter10_resourcegame_totalfc, easter10_resourcegame_totaltegg, easter10_resourcegame_totalnegg, easter10_resourcegame_chocgenerated, easter10_resourcegame_nutsgenerated, easter10_resourcegame_fruitgenerated, easter10_resourcegame_fcgenerated, easter10_resourcegame_negggenerated, easter10_resourcegame_tegggenerated, easter10_resourcegame_randomeventflag, easter10_var1, easter10_var1, easter10_var1, easter10_var1, easter10_var2}
+onload=easter10_management_interface_setup
+onvartransmit=easter10_management_interface_transmit{varplayer_1673, easter10_resourcegame_turncount, varplayer_1675, varplayer_1676, varplayer_1677, varplayer_1678, varplayer_1679, varplayer_1680, easter10_resourcegame_totalworkers, varplayer_1682, varplayer_1683, varplayer_1684, easter10_resourcegame_errortextflag, easter10_resourcegame_totalchoc, easter10_resourcegame_totalnuts, easter10_resourcegame_totalfruit, easter10_resourcegame_totalfc, easter10_resourcegame_totaltegg, easter10_resourcegame_totalnegg, easter10_resourcegame_chocgenerated, easter10_resourcegame_nutsgenerated, easter10_resourcegame_fruitgenerated, easter10_resourcegame_fcgenerated, easter10_resourcegame_negggenerated, easter10_resourcegame_tegggenerated, easter10_resourcegame_randomeventflag, easter10_var1, easter10_var1, easter10_var1, easter10_var1, easter10_var2}
 
 // 931:1
 [com_1]
@@ -1075,7 +1075,7 @@ height=26
 layer=bottombuttons
 transmitop=1
 op1=Add Worker
-onop=script2236
+onop=easter10_add_new_worker
 
 // 931:87
 [end_turn_button]

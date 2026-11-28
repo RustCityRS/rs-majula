@@ -9,7 +9,7 @@ if ($int2 = 4092) {
 def_struct $struct3 = ~clientscript_5795($int2);
 if_sethide(interface_1345:com_34, false);
 if_settext(interface_1345:com_84, struct_param($struct3, param_1266));
-~script4532(interface_1345:com_84);
+~aif_window_1_title_text_onload(interface_1345:com_84);
 if (struct_param($struct3, param_1290) = 1) {
     if_settext(interface_1345:com_177, "Free to play content");
     if_setcolour(interface_1345:com_177, 0x676767);

@@ -234,7 +234,7 @@ heightmode=minus
 layer=com_2
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 823:23
 [com_23]
@@ -361,7 +361,7 @@ heightmode=minus
 layer=com_1
 transmitop=1
 op1=Confirm
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 823:34
 [com_34]

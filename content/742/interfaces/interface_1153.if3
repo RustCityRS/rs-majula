@@ -355,7 +355,7 @@ height=334
 xmode=abs_centre
 ymode=abs_centre
 layer=com_35
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1153:37
 [com_37]
@@ -1055,7 +1055,7 @@ height=326
 xmode=abs_centre
 ymode=abs_centre
 layer=com_35
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1153:105
 [com_105]
@@ -1081,7 +1081,7 @@ text=Wicked Hood
 textalignh=centre
 textalignv=centre
 colour=0xe3cccf
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1153:107
 [com_107]
@@ -1132,7 +1132,7 @@ widthmode=proportion
 layer=com_47
 transmitop=1
 op1=Runes
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1153:112
 [com_112]
@@ -1221,7 +1221,7 @@ widthmode=proportion
 layer=com_45
 transmitop=1
 op1=Essence
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1153:120
 [com_120]
@@ -1310,7 +1310,7 @@ widthmode=proportion
 layer=com_43
 transmitop=1
 op1=Teleport
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1153:128
 [com_128]

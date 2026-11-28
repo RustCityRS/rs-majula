@@ -23,7 +23,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_1
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1348:3
 [com_3]
@@ -46,7 +46,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_1
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1348:5
 [com_5]
@@ -73,7 +73,7 @@ text=Judgement Day
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1348:7
 [com_7]

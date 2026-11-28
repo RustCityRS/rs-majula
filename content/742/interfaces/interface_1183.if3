@@ -175,8 +175,8 @@ heightmode=minus
 layer=com_14
 graphic=graphic_9085
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1183:17
 [com_17]
@@ -186,8 +186,8 @@ heightmode=minus
 layer=com_14
 graphic=graphic_9088
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1183:18
 [com_18]
@@ -230,8 +230,8 @@ heightmode=minus
 layer=com_19
 graphic=graphic_9087
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1183:22
 [com_22]
@@ -241,8 +241,8 @@ heightmode=minus
 layer=com_19
 graphic=graphic_9090
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1183:23
 [com_23]
@@ -288,8 +288,8 @@ layer=com_24
 graphic=graphic_9085
 trans=255
 colour=0xc8ff64
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1183:27
 [com_27]
@@ -300,8 +300,8 @@ layer=com_24
 graphic=graphic_9088
 trans=255
 colour=0xc8ff64
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1183:28
 [com_28]

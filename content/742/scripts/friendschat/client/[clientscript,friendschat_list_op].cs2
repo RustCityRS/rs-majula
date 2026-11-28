@@ -5,7 +5,7 @@ switch_int ($int0) {
         if (friend_test($string1) = true) {
             %varclient_1650 = true;
             %friendtomessage = $string0;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else {
             friend_add($string0);

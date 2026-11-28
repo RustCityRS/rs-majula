@@ -52,7 +52,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_3
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1144:5
 [com_5]
@@ -75,7 +75,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_3
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1144:7
 [com_7]
@@ -297,7 +297,7 @@ text=Wise Old Man
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1144:25
 [com_25]
@@ -347,7 +347,7 @@ heightmode=minus
 layer=com_25
 transmitop=1
 op1=Accept
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1144:30
 [com_30]
@@ -424,7 +424,7 @@ heightmode=minus
 layer=com_32
 transmitop=1
 op1=Decline
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4742(event_op)
 
 // 1144:37

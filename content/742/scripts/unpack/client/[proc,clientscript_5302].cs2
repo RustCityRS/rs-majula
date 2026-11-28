@@ -7,5 +7,5 @@ if (if_gethide($component0) = true) {
 } else {
     if_sethide($component0, true);
     if_setgraphic($component1, "aif_symbol_set_1,4");
-    ~clientscript_5219(interface_824:com_33);
+    ~deltooltip(interface_824:com_33);
 }

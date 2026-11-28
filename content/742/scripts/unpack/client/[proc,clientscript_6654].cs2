@@ -8,4 +8,4 @@ if (%varplayerbit_11870 = 1 | %varplayerbit_11870 = 2 | %varplayerbit_11870 = 3)
 } else {
     if_sethide(interface_1321:com_188, true);
 }
-~clientscript_5219(interface_1321:com_34);
+~deltooltip(interface_1321:com_34);

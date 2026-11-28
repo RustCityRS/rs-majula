@@ -2,6 +2,6 @@
 [clientscript,script610]
 if (%stock_offerprice_timer <= 0) {
     if_setontimer(stockmarket:offerprice, null);
-    ~script621;
+    ~stockmarket_onstocktransmit_to_layer_move;
 }
 %stock_offerprice_timer = calc(%stock_offerprice_timer - 1);

@@ -93,7 +93,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_7
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1237:9
 [com_9]
@@ -566,7 +566,7 @@ layer=com_49
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1237:55
 [com_55]
@@ -663,7 +663,7 @@ layer=com_58
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1237:64
 [com_64]
@@ -718,7 +718,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_67
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1237:69
 [com_69]
@@ -838,7 +838,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_77
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1237:79
 [com_79]
@@ -850,7 +850,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_77
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1237:80
 [com_80]
@@ -939,7 +939,7 @@ layer=com_82
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1237:88
 [com_88]
@@ -1071,7 +1071,7 @@ layer=com_94
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1237:100
 [com_100]
