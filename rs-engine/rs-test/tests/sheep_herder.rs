@@ -3,7 +3,7 @@
 //! show as the sick-looking sheep while the sheep's varbit (bits of `%sheepherdervar`) is 1.
 //! The 2011 wiki (Sheep Herder, 2011-04-20) gives the reward, 3100 coins and 4 quest points.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
