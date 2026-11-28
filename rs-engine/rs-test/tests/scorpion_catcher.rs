@@ -3,7 +3,7 @@
 //! (Scorpion Catcher, 2011-05-12) gives the sting's 30 life points and the reward, 1 quest point
 //! and 6,625 Strength xp; cache 786's interface 332 gives Thormac's seven staves.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
