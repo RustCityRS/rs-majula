@@ -543,10 +543,9 @@ fn script_errors(engine: &mut Engine, run: impl FnOnce(&mut Engine)) -> Vec<Stri
 /// shown. The rest of the cast stands: his own animation, and the demon's block when the blast
 /// would land.
 ///
-/// His cast of a row that has a travel spotanim launches it with `projanim_npc`, which fails in
-/// the engine until main's fix for it is merged here (PR #59: "Invalid uid", the command took
-/// the caster for the target). That error is the engine's and is let through; any other fails
-/// the case, and while both rows are null there is none at all.
+/// His cast of a row that has a travel spotanim launches it with `projanim_npc`, which aims at
+/// the uid it is given since main's fix (PR #59) is on this branch: no script error is let
+/// through.
 #[test]
 fn zooknock_s_blast_shows_only_the_spell_table_s_graphics() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -620,17 +619,12 @@ fn zooknock_s_blast_shows_only_the_spell_table_s_graphics() {
             "an impact the spell table does not give (it gives {row_impacts:?}): {unsourced:?}"
         );
 
-        let own: Vec<&String> = errors
-            .iter()
-            .filter(|e| !e.contains("projanim_npc error: Runtime error: Invalid uid"))
-            .collect();
-        assert!(own.is_empty(), "the cast fails: {own:?}");
-        if travels.is_empty() {
-            assert!(
-                errors.is_empty(),
-                "the table gives no travel, so none is launched and none fails: {errors:?}"
-            );
-        }
+        // No error at all: with no travel none is launched, and with one `projanim_npc` aims at
+        // the demon (main's fix, PR #59, is on this branch).
+        assert!(
+            errors.is_empty(),
+            "the cast fails (the table's travels: {travels:?}): {errors:?}"
+        );
 
         // The flight `~npc_to_npc_projectile` gives the cast (25 + 21 + 5 a tile), projectile or
         // not: the demon's block (`demon_block`, seq 65) waits for it. `npc_anim` is recorded
@@ -694,6 +688,66 @@ fn stay_on(engine: &mut Engine, client: &mut HarnessClient) {
     client.send(ClientProt::NoTimeout, &[]);
     let clock = engine.clock;
     engine.harness_player_mut(client.pid).unwrap().last_active = clock;
+}
+
+/// The vial throwers, Waymottin and Bunkwicket (`~gnome_finalbattle_vial`), throw at the jungle
+/// demon with no script error: `~npc_to_npc_projectile` launches the vial with `projanim_npc`,
+/// which took the thrower for the target and failed with "Invalid uid" on every throw until
+/// main's fix (PR #59, cherry-picked here). Each throw shows the vial's burst on the demon and
+/// its block.
+#[test]
+fn the_vial_throwers_throw_at_the_demon() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (mut client, _) = start_the_final_battle(engine, "mmvials");
+        let mut fighters = None;
+        for _ in 0..80 {
+            set_life_points(engine, &client, 990);
+            engine.cycle();
+            client.packets();
+            let waymottin = spawned(engine, "mm_waymottin", None);
+            let bunkwicket = spawned(engine, "mm_bunkwicket", None);
+            let demon = spawned(engine, "mm_demon", None);
+            if let (Some(w), Some(b), Some(d)) = (waymottin, bunkwicket, demon) {
+                fighters = Some((w.0, b.0, d.0));
+                break;
+            }
+        }
+        let (waymottin, bunkwicket, demon) =
+            fighters.expect("Waymottin, Bunkwicket and the jungle demon are there");
+        let uid = |engine: &Engine, nid: u16| engine.get_npc(nid).unwrap().npc.uid;
+        let target = uid(engine, demon);
+        const THROWS: usize = 8;
+        forget_calls();
+        let errors = script_errors(engine, |engine| {
+            for (thrower, script) in [
+                (waymottin, "[ai_apnpc2,mm_waymottin]"),
+                (bunkwicket, "[ai_apnpc2,mm_bunkwicket]"),
+            ] {
+                let caster = uid(engine, thrower);
+                for _ in 0..THROWS {
+                    engine
+                        .run_script_by_name(
+                            script,
+                            Some(ScriptSubject::Npc(caster)),
+                            Some(ScriptSubject::Npc(target)),
+                            None,
+                            None,
+                            None,
+                        )
+                        .expect("the throw ran");
+                }
+            }
+        });
+        let anims = calls_for("npc_anim");
+        set_recording(false);
+        assert!(errors.is_empty(), "a throw fails: {errors:?}");
+        // Seq 1415 is 289's m_mage_attack, their throw; 65 the demon's block.
+        let throws = anims.iter().filter(|a| a.starts_with("1415,")).count();
+        let blocks = anims.iter().filter(|a| a.starts_with("65,")).count();
+        assert_eq!(throws, 2 * THROWS, "each throw's animation: {anims:?}");
+        assert_eq!(blocks, 2 * THROWS, "the demon blocks each: {anims:?}");
+    });
 }
 
 /// The 10th squad's sigil takes the player to the final battle, where the jungle demon spawns and
