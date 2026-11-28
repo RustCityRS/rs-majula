@@ -706,3 +706,82 @@ fn daero_s_training_gives_constitution_xp() {
         }
     });
 }
+
+/// Cache 786's quest journal, interface 275.
+const JOURNAL: u32 = 275;
+
+/// A finished journal line is struck from its first word to its last: every line of the journal
+/// opens with its own tag (a colour, or the strike), and no strike starts part way along a line.
+/// 289 marks each line of a struck paragraph where its own journal wrapped (q8_full, 400 wide);
+/// 2011's wraps elsewhere (p12_full, 404 wide), which left the wrapped ends of lines unstruck.
+#[test]
+fn the_journal_strikes_whole_lines() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "mmjournal");
+        // The seal's stage (`^narnode_given_seal`), as the client showed it; then each stage of
+        // the quest with every gnome's and monkey's own stage (289's varbits, by their bits on
+        // `%mm_gnomes`, `%mm_monkeys` and `%mm_misc`) at each value from its start to its end.
+        let each = |fields: &[(u32, u32)], stage: i32| {
+            fields.iter().fold(0, |var, &(low, high)| {
+                var | stage.min((1 << (high - low + 1)) - 1) << low
+            })
+        };
+        let gnomes = [
+            (0, 3),
+            (4, 6),
+            (7, 10),
+            (11, 12),
+            (13, 15),
+            (16, 19),
+            (20, 23),
+            (24, 25),
+            (26, 27),
+        ];
+        let monkeys = [(0, 1), (2, 4), (5, 8), (9, 10)];
+        let misc = [(0, 1), (2, 9), (12, 16)];
+        let mut stages: Vec<(i32, i32, i32, i32, i32)> = vec![(MM_STARTED, 3, 0, 0, 0)];
+        for main in MM_STARTED..=10 {
+            // 289's stages run to 10 (quest_mm.constant); 15 is every field at its last.
+            for stage in (0..=10).chain([15]) {
+                stages.push((
+                    main,
+                    each(&gnomes, stage),
+                    each(&monkeys, stage),
+                    if stage == 0 { 0 } else { 0x3FFF },
+                    each(&misc, stage),
+                ));
+            }
+        }
+        for (main, gnomes, monkeys, flags, misc) in stages {
+            set_var(engine, &client, "mm_main", main);
+            set_var(engine, &client, "mm_gnomes", gnomes);
+            set_var(engine, &client, "mm_monkeys", monkeys);
+            set_var(engine, &client, "mm_flags", flags);
+            set_var(engine, &client, "mm_misc", misc);
+            let mut p = ClientPacket::new();
+            p.p4(QUEST_LIST).p2_alt3(-1).p2_alt1(ROW);
+            client.send(ClientProt::IfButton1, &p.finish());
+            let mut lines = Vec::new();
+            for _ in 0..3 {
+                engine.cycle();
+                lines.extend(
+                    settexts(&client.packets())
+                        .into_iter()
+                        .filter(|(com, text)| com >> 16 == JOURNAL && !text.is_empty())
+                        .map(|(_, text)| text),
+                );
+            }
+            assert!(lines.len() >= 2, "the journal at stage {main}: {lines:?}");
+            for line in &lines {
+                assert!(
+                    line.starts_with('<') && !line[1..].contains("<str>"),
+                    "stage {main} ({gnomes:#x}): {line:?} is struck in part"
+                );
+            }
+            client.send(ClientProt::CloseModal, &[]);
+            settle(engine, &mut client, 2);
+        }
+        no_errors(engine);
+    });
+}

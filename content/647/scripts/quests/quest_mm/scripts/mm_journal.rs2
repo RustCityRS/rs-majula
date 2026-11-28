@@ -1,5 +1,9 @@
 // Monkey Madness's journal (289's quests/quest_mm/scripts/mm_journal.rs2), View on the quest
 // list's row (quest_list.rs2). No 2011 source found shows the journal, so every stage is 289's.
+// 289 opens each line of a struck paragraph with @str@ where its own journal wrapped (q8_full, 400
+// wide), joining some with a space. 2011's journal wraps elsewhere (p12_full, 404 wide) and a
+// strike ends with its line, which left the wrapped ends unstruck: each of 289's lines ends with
+// its own | here, as 647's other journals have theirs (grandtree_journal.rs2, cook_journal.rs2).
 [label,questlist_mm]
 def_string $text;
 if(%mm_main = ^mm_not_started) {
@@ -12,21 +16,21 @@ if(%mm_main = ^mm_not_started) {
 $text = append($text, "@dre@Chapter 1:||");
 
 if(%mm_main > ^mm_shown_seal) {
-    $text = append($text, "@str@I have found that the 10th squad were indeed blown off ");
-    $text = append($text, "@str@course and never reached the shipyard. I am currently on a ");
+    $text = append($text, "@str@I have found that the 10th squad were indeed blown off|");
+    $text = append($text, "@str@course and never reached the shipyard. I am currently on a|");
     $text = append($text, "@str@mission for King Narnode Shareen to investigate their|");
     $text = append($text, "@str@whereabouts.");
 } else {
     if(~mm_narnode > 0) {
         $text = append($text, "@dre@King Narnode Shareen:||");
-        $text = append($text, "@str@The 10th squad of Narnode's Royal Guard went missing during ");
-        $text = append($text, "@str@a mission to decommission Glough's ship building facilities ");
+        $text = append($text, "@str@The 10th squad of Narnode's Royal Guard went missing during|");
+        $text = append($text, "@str@a mission to decommission Glough's ship building facilities|");
         $text = append($text, "@str@in Karamja.||");
-        $text = append($text, "@str@Narnode has asked if I would find out if the 10th squad ever ");
+        $text = append($text, "@str@Narnode has asked if I would find out if the 10th squad ever|");
         $text = append($text, "@str@reached the shipyard.||");
 
         if(~mm_narnode >= ^narnode_given_seal) {
-            $text = append($text, "@str@Narnode has given me a copy of the Royal Seal so that I may ");
+            $text = append($text, "@str@Narnode has given me a copy of the Royal Seal so that I may|");
             $text = append($text, "@str@identify myself as his envoy.||");
         }
 
@@ -105,10 +109,10 @@ if(%mm_main > ^mm_shown_seal) {
 if(%mm_main > ^mm_shown_seal) $text = append($text, "||@dre@Chapter 2:");
 
 if(%mm_main >  ^mm_arrived_atoll) {
-    $text = append($text, "||@str@I have made contact with the rest of the 10th squad, who are ");
-    $text = append($text, "@str@stranded on an island called Ape Atoll. I have been working ");
-    $text = append($text, "@str@with Sergeant Garkor and High Mage Zooknock to create items ");
-    $text = append($text, "@str@which will allow me to spy on the monkeys: an amulet of ");
+    $text = append($text, "||@str@I have made contact with the rest of the 10th squad, who are|");
+    $text = append($text, "@str@stranded on an island called Ape Atoll. I have been working|");
+    $text = append($text, "@str@with Sergeant Garkor and High Mage Zooknock to create items|");
+    $text = append($text, "@str@which will allow me to spy on the monkeys: an amulet of|");
     $text = append($text, "@str@monkey speak and a monkey greegree.");
 } else if(%mm_main = ^mm_arrived_atoll) {
     // https://youtu.be/Qr9nNWqN6Y8?si=IqgynfD_0FE87fSR&t=950
@@ -118,7 +122,7 @@ if(%mm_main >  ^mm_arrived_atoll) {
         $text = append($text, "@str@populated by various types of monkey.");
 
         if(~mm_jail_count > 254) {
-            $text = append($text, "||@str@I have been caught and jailed far too many times to keep @str@count.");
+            $text = append($text, "||@str@I have been caught and jailed far too many times to keep|@str@count.");
         } else if(~mm_jail_count > 1) {
             $text = append($text, "||@str@I have been caught and jailed <tostring(~mm_jail_count)> times.");
         }
@@ -126,7 +130,7 @@ if(%mm_main >  ^mm_arrived_atoll) {
 
     if(~mm_garkor > 0) {
         $text = append($text, "||@dre@Sergeant Garkor:||");
-        $text = append($text, "@str@I found Sergeant Gakor hiding towards the east of the village. ");
+        $text = append($text, "@str@I found Sergeant Gakor hiding towards the east of the village.|");
         $text = append($text, "@str@Having eavesdropped on Awowogei's plans, he has|@str@come to ");
         $text = append($text, "the conclusion that they need a monkey on the|@str@inside.");
 
@@ -146,12 +150,12 @@ if(%mm_main >  ^mm_arrived_atoll) {
         $text = append($text, " working at the end of an underground cave|@str@system.");
 
         if(~mm_zooknock > ^zooknock_told_story) {
-            $text = append($text, "||@str@Zooknock and the sappers are attempting to tunnel their way ");
+            $text = append($text, "||@str@Zooknock and the sappers are attempting to tunnel their way|");
             $text = append($text, "@str@beneath the jail. However, progress is slow.");
         }
 
         if(~mm_zooknock > ^zooknock_learned_story) {
-            $text = append($text, "||@str@Zooknock is capable of transforming my body into that of a ");
+            $text = append($text, "||@str@Zooknock is capable of transforming my body into that of a|");
             $text = append($text, "@str@monkey. He can also help me communicate with the|@str@monkeys.");
         }
 
@@ -229,9 +233,9 @@ if(%mm_main >  ^mm_arrived_atoll) {
 
 if(%mm_main >= ^mm_defeated_demon) {
     $text = append($text, "||@dre@Chapter 3:");
-    $text = append($text, "||@str@On Garkor's advice, I disguised myself as a Karamjan monkey ");
-    $text = append($text, "@str@and proposed an alliance with Awowogei. Having proved my ");
-    $text = append($text, "@str@worthiness by rescuing a monkey from Ardougne Zoo, I earnt ");
+    $text = append($text, "||@str@On Garkor's advice, I disguised myself as a Karamjan monkey|");
+    $text = append($text, "@str@and proposed an alliance with Awowogei. Having proved my|");
+    $text = append($text, "@str@worthiness by rescuing a monkey from Ardougne Zoo, I earnt|");
     $text = append($text, "@str@Awowogei's favour.");
 } else if(%mm_main >= ^mm_completed_ch2) {
     $text = append($text, "||@dre@Chapter 3:");
@@ -241,7 +245,7 @@ if(%mm_main >= ^mm_defeated_demon) {
         $text = append($text, "@str@populated by various types of monkey.");
 
         if(~mm_jail_count > 254) {
-            $text = append($text, "||@str@I have been caught and jailed far too many times to keep @str@count.");
+            $text = append($text, "||@str@I have been caught and jailed far too many times to keep|@str@count.");
         } else if(~mm_jail_count > 1) {
             $text = append($text, "||@str@I have been caught and jailed <tostring(~mm_jail_count)> times.");
         }
@@ -249,13 +253,13 @@ if(%mm_main >= ^mm_defeated_demon) {
 
     if(~mm_garkor > 0) {
         $text = append($text, "||@dre@Sergeant Garkor:||");
-        $text = append($text, "@str@I found Sergeant Gakor hiding towards the east of the village. ");
+        $text = append($text, "@str@I found Sergeant Gakor hiding towards the east of the village.|");
         $text = append($text, "@str@Having eavesdropped on Awowogei's plans, he has|@str@come to ");
         $text = append($text, "the conclusion that they need a monkey on the|@str@inside.");
 
         if(~mm_garkor >= ^garkor_speak_zooknock) {
             if(~mm_zooknock > ^zooknock_learned_story) {
-                $text = append($text, "||@str@I have seen Zooknock about the so called monkey @str@'disguise'.");
+                $text = append($text, "||@str@I have seen Zooknock about the so called monkey|@str@'disguise'.");
             } else {
                 $text = append($text, "||@dbl@I must see the squad mage, @dre@Zooknock@dbl@, about obtaining a|");
                 $text = append($text, "@dbl@monkey disguise.|");
@@ -263,7 +267,7 @@ if(%mm_main >= ^mm_defeated_demon) {
         }
 
         if(~mm_garkor > ^garkor_speak_zooknock) {
-            $text = append($text, "||@str@Garkor wants me to seek audience with Awowogei, @str@pretending that I am an envoy from the monkeys of Karamja.");
+            $text = append($text, "||@str@Garkor wants me to seek audience with Awowogei,|@str@pretending that I am an envoy from the monkeys of Karamja.");
         }
         
         if(~mm_awowogei = ^mm_not_started) {
@@ -279,8 +283,8 @@ if(%mm_main >= ^mm_defeated_demon) {
         }
 
         if(~mm_garkor > ^garkor_learned_plan) {
-            $text = append($text, "||@str@Waymottin and Bunkwicket overheard Caranock and Waydar @str@Colluding with Awowogei to destroy the 10th squad. They plan @str@to use a spell to teleport all the squad to a single location. In ");
-            $text = append($text, "@str@order to fool this spell, Garkor has given me a sigil which @str@identifies me with the squad. When the spell is used, I will be @str@teleported along with the squad. Together we should be able @str@to face whatever we find.");
+            $text = append($text, "||@str@Waymottin and Bunkwicket overheard Caranock and Waydar|@str@Colluding with Awowogei to destroy the 10th squad. They plan|@str@to use a spell to teleport all the squad to a single location. In|");
+            $text = append($text, "@str@order to fool this spell, Garkor has given me a sigil which|@str@identifies me with the squad. When the spell is used, I will be|@str@teleported along with the squad. Together we should be able|@str@to face whatever we find.");
         }
 
         if(~mm_garkor = ^garkor_joined_10th_squad) $text = append($text, "||@dre@I have been warned not to wear the sigil until I am ready.");
@@ -290,7 +294,7 @@ if(%mm_main >= ^mm_defeated_demon) {
         $text = append($text, "||@dre@Awowogei:||");
 
         if(~mm_awowogei > ^awowogei_sent_mission) {
-            $text = append($text, "@str@I have rescued one of the monkeys from the zoo in Ardougne@str@and have shown the evidence to Awowogei. I appear to have@str@earnt Awowogei's favour.");
+            $text = append($text, "@str@I have rescued one of the monkeys from the zoo in Ardougne|@str@and have shown the evidence to Awowogei. I appear to have|@str@earnt Awowogei's favour.");
         } else if(~mm_awowogei = ^awowogei_sent_mission) {
             $text = append($text, "@dbl@To demonstrate my worthiness, I have been asked to rescue one of the Karamjan type of monkey from the zoo in @dre@Ardougne@dbl@.");
         }
@@ -298,9 +302,9 @@ if(%mm_main >= ^mm_defeated_demon) {
 }
 
 if(%mm_main > ^mm_defeated_demon) {
-    $text = append($text, "||@str@With the help of the 10th squad I managed to slay Glough's ");
+    $text = append($text, "||@str@With the help of the 10th squad I managed to slay Glough's|");
     $text = append($text, "@str@'pet,' which turned out to be of all things a|@str@Jungle Demon. ");
-    $text = append($text, "Somehow I don't think that is the last I'll be @str@seeing of Glough, his demons or the monkeys...");
+    $text = append($text, "Somehow I don't think that is the last I'll be|@str@seeing of Glough, his demons or the monkeys...");
 
     $text = append($text, "||@str@I have reported to King Narnode.");
 } else if(%mm_main = ^mm_defeated_demon) {
@@ -319,7 +323,7 @@ if(%mm_main > ^mm_reported_narnode) {
 if(%mm_main >= ^mm_complete) $text = append($text, "||@red@QUEST COMPLETE!");
 
 if(%mm_main > ^mm_complete) {
-    $text = append($text, "||@str@I found Daero and enrolled in the Royal Guard training @str@programme. I underwent a series of exercises designed to @str@increase strength and stamina. This was followed by training @str@my attack and defence techniques.");
+    $text = append($text, "||@str@I found Daero and enrolled in the Royal Guard training|@str@programme. I underwent a series of exercises designed to|@str@increase strength and stamina. This was followed by training|@str@my attack and defence techniques.");
 } else if(%mm_main = ^mm_complete) {
     $text = append($text, "||@dbl@I should find Daero and enroll with the Royal Guard training programme.");
 }
