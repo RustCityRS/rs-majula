@@ -323,68 +323,72 @@ if (~npc_check_notcombat_self = false) {
 def_int $spell;
 def_synth $success;
 def_synth $fail;
-// 289 reads each wave spell's projectile and impact off magic_spell_table. 647's rows still name
-// 289's spotanims (windwave_travel and so on), which 647's pack does not have, so each packs as -1
-// (rs-pack's tests/dbrow_refs_647.known.tsv) and projanim_pl fails on it: every cast was a script
-// error, with no projectile. No 2011 source found shows the demon's spells (the 2011 wiki's Wind
-// Wave page, 2011-05-01, only dates the players' new spell graphics, 24 June 2010): kept as 289's
-// spotanims by id. Cache 786 keeps each wave's travel and impact pair (unnamed, new models): wind
-// 159 and 160, water 162 and 163, earth 165 and 166, fire 156 and 157.
-def_spotanim $travel;
-def_spotanim $impact;
 switch_int(random(4)) {
     case 0 :
         $spell = ^wind_wave;
         $success = wind_wave_all;
         $fail = wind_wave_fail;
-        $travel = spotanim_159;
-        $impact = spotanim_160;
     case 1 :
         $spell = ^water_wave;
         $success = water_wave_all;
         $fail = water_wave_fail;
-        $travel = spotanim_162;
-        $impact = spotanim_163;
     case 2 :
         $spell = ^earth_wave;
         $success = earth_wave_all;
         $fail = earth_wave_fail;
-        $travel = spotanim_165;
-        $impact = spotanim_166;
     case default : 
         $spell = ^fire_wave;
         $success = fire_wave_all;
         $fail = fire_wave_fail;
-        $travel = spotanim_156;
-        $impact = spotanim_157;
 }
 if(npc_range(coord) < 3) { // melee range of 2 :)
     if (random(2) = 0) {
-        ~mm_demon_spellcast($spell, $success, $fail, $travel, $impact);
+        ~mm_demon_spellcast($spell, $success, $fail);
     } else {
         ~npc_default_attack;
     }
 } else {
-    ~mm_demon_spellcast($spell, $success, $fail, $travel, $impact);
+    ~mm_demon_spellcast($spell, $success, $fail);
 }
 
-[proc,mm_demon_spellcast](int $spell, synth $success, synth $fail, spotanim $travel, spotanim $impact)
+[proc,mm_demon_spellcast](int $spell, synth $success, synth $fail)
 if (~npc_combat_spell_checks = false) {
     return;
 }
 
 def_dbrow $spell_data = ~get_spell_data($spell);
-// 289's ~npc_spell_cast($spell_data, 4), line for line, with the demon's travel spotanim in place
-// of the row's (see mm_demon_attack) on the wave rows' flight (magic_spell_table:spotanim_proj:
-// 43, 31, 51, 16, -5, 64, 10). 289's cast spotanims on the caster (windwave_casting 158,
-// waterwave_casting 161, earthwave_casting 164, firewave_casting 155) are not in cache 786, so
-// the demon shows none.
+// 289's ~npc_spell_cast($spell_data, 4), line for line here, but for one check. 647's rows for the
+// four wave spells are unresolved: they still name 289's spotanims (windwave_casting,
+// windwave_travel, windwave_impact and so on), which 647's pack does not have, so each reads as
+// null (rs-pack's tests/dbrow_refs_647.known.tsv). projanim_pl and spotanim_pl fail on a null
+// spotanim, which made every cast a script error. So a null travel or impact is not shown: the
+// cast still rolls and hits. The demon's spell graphics wait on the spell table's verified 2011
+// ids (magic_combat_spells.dbrow); nothing is shown until then, and nothing here changes when
+// they come. spotanim_npc takes a null at 647, so the cast's own line is 289's.
 if_close;
-npc_anim(npc_param(magicattack_anim), 0);
+if (npc_param(magicattack_anim) = null) {
+    npc_anim(db_getfield($spell_data, magic_spell_table:anim, 0), 0);
+} else {
+    npc_anim(npc_param(magicattack_anim), 0);
+}
+if (db_getfieldcount($spell_data, magic_spell_table:spotanim_origin) > 0) {
+    spotanim_npc(db_getfield($spell_data, magic_spell_table:spotanim_origin, 0), 92, 0);
+}
 %npc_action_delay = add(map_clock, 4);
 def_int $duration = 64;
+def_spotanim $travel;
+def_int $startheight;
+def_int $endheight;
+def_int $delay;
+def_int $angle;
+def_int $length;
+def_int $offset;
+def_int $step;
 if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
-    $duration = ~player_projectile(npc_coord, coord, uid, $travel, 43, 31, 51, 16, -5, 64, 10);
+    $travel, $startheight, $endheight, $delay, $angle, $length, $offset, $step = db_getfield($spell_data, magic_spell_table:spotanim_proj, 0);
+    if ($travel ! null) {
+        $duration = ~player_projectile(npc_coord, coord, uid, $travel, $startheight, $endheight, $delay, $angle, $length, $offset, $step);
+    }
 }
 // 289's most, 31 hitpoints, in life points (x10), as the demon's own hitpoints key (all.npc) and
 // 647's magic_spell_table maxhit column are. The 2011 wiki's Jungle demon page (2011-05-22) has
@@ -406,8 +410,13 @@ if (~npc_player_hit_roll(^magic_style) = true) {
         // With 2011's magic hitmark, as 647's ~npc_spell_success paints an npc's spell.
         queue(combat_damage_player, calc($duration / 30), ~combat_hit($damage, ^hitmark_magic, $maxhit));
     }
-    // The wave rows' height (magic_spell_table:spotanim_target: 124).
-    spotanim_pl($impact, 124, $duration);
+    // The row's impact and its height, unless it is null (see above).
+    def_spotanim $impact;
+    def_int $impact_height;
+    $impact, $impact_height = db_getfield($spell_data, magic_spell_table:spotanim_target, 0);
+    if ($impact ! null) {
+        spotanim_pl($impact, $impact_height, $duration);
+    }
     queue*(playerhit_n_retaliate, calc($duration / 30))(npc_uid);
 } else {
     if_close;

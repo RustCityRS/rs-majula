@@ -13,8 +13,6 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
-use rs_protocol::network::game::zone_prot::ZoneProt;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::server;
@@ -454,40 +452,14 @@ fn stand_beside(
     nid
 }
 
-/// The spotanims of the projectiles in `packets`. MAP_PROJANIM rides in the tick's
-/// UPDATE_ZONE_PARTIAL_ENCLOSED: its spotanim is the u16 after the coord, dx, dz and target.
-fn projectiles(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::UpdateZonePartialEnclosed as u16)
-        .flat_map(|(_, body)| {
-            (0..body.len())
-                .filter(|&i| body[i] == ZoneProt::MapProjAnim as u8 && i + 8 <= body.len())
-                .map(|i| u16::from_be_bytes([body[i + 6], body[i + 7]]))
-                .collect::<Vec<_>>()
-        })
-        .collect()
-}
-
-/// 289's wave spells' travel spotanims, which cache 786 keeps: fire 156, wind 159, water 162 and
-/// earth 165.
-const WAVES: [u16; 4] = [156, 159, 162, 165];
 /// `^mm_completed_ch3`: the sigil is given, the demon not yet fought.
 const MM_COMPLETED_CH3: i32 = 5;
 
-/// What the jungle demon's fight did over its first ticks: the projectiles launched at the player,
-/// the spotanims shown on the player (`spotanim_pl`'s id, height and delay) and each hit painted on
-/// the player (`damage`'s hitmark and amount).
-struct DemonFight {
-    launched: Vec<u16>,
-    shown: Vec<String>,
-    hits: Vec<(i32, i32)>,
-}
-
 /// The 10th squad's sigil takes the player to the final battle, where the jungle demon spawns and
 /// attacks: it casts from 3 tiles or more, and casts or swings from nearer. Defence and Magic are
-/// 1, so its spells land, and life is put back each tick.
-fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> DemonFight {
+/// 1, so its spells land, and life is put back each tick. Gives each hit painted on the player
+/// over the fight's first ticks (`damage`'s hitmark and amount), once no script has failed.
+fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> Vec<(i32, i32)> {
     let mut client = login(engine, name);
     {
         let player = engine.harness_player_mut(client.pid).unwrap();
@@ -509,30 +481,23 @@ fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> DemonFight {
     let t = converse(engine, &mut client, &[], 200);
     says(&t, &["Ready yourself, human: the final battle begins!"]);
 
-    let mut launched = projectiles(&t.packets);
     let mut messages = t.messages;
     for _ in 0..80 {
         set_life_points(engine, &client, 990);
         engine.cycle();
-        let packets = client.packets();
-        launched.extend(projectiles(&packets));
         messages.extend(
-            HarnessClient::game_messages(&packets)
+            HarnessClient::game_messages(&client.packets())
                 .into_iter()
                 .map(|(_, m)| m),
         );
     }
-    let fight = DemonFight {
-        launched,
-        shown: calls_for("spotanim_pl"),
-        hits: calls_for("damage")
-            .iter()
-            .map(|hit| {
-                let mut n = hit.split(',').map(|n| n.parse::<i32>().unwrap());
-                (n.next().unwrap(), n.next().unwrap())
-            })
-            .collect(),
-    };
+    let hits = calls_for("damage")
+        .iter()
+        .map(|hit| {
+            let mut n = hit.split(',').map(|n| n.parse::<i32>().unwrap());
+            (n.next().unwrap(), n.next().unwrap())
+        })
+        .collect();
     set_recording(false);
     assert!(
         spawned(engine, "mm_demon", None).is_some(),
@@ -545,39 +510,35 @@ fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> DemonFight {
         .collect();
     assert!(errors.is_empty(), "the demon's scripts run: {errors:?}");
     no_errors(engine);
-    fight
-}
-
-/// The jungle demon's wave spells fly: each cast launches 289's travel spotanim, which cache 786
-/// keeps, at the player, and the spell that lands shows its impact (at the wave rows' height, 124)
-/// and hits. 647's magic_spell_table rows for the wave spells name spotanims 2011 does not have,
-/// so the cast read -1 and failed on its projectile ("projanim_pl error: Spotanim not found: -1",
-/// every cast of a fight in the client).
-#[test]
-fn the_jungle_demon_s_spells_fly_and_hit() {
-    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
-    runner::on_loaded_engine(|engine| {
-        let fight = fight_the_jungle_demon(engine, "mmdemon");
-        assert!(
-            fight.launched.iter().any(|s| WAVES.contains(s)),
-            "a wave spell's projectile: {:?}",
-            fight.launched
-        );
-        assert!(
-            fight.shown.iter().any(|s| {
-                WAVES
-                    .iter()
-                    .any(|travel| s.starts_with(&format!("{},124,", travel + 1)))
-            }),
-            "a wave spell's impact: {:?}",
-            fight.shown
-        );
-        assert!(!fight.hits.is_empty(), "a spell lands");
-    });
+    hits
 }
 
 /// `^hitmark_magic`, and with `^hitmark_crit` (a hit above nine tenths of the most).
 const MAGIC_HITS: [i32; 2] = [2, 12];
+
+/// The spells' hits among a fight's: their amounts.
+fn spell_hits(hits: &[(i32, i32)]) -> Vec<i32> {
+    hits.iter()
+        .filter(|(hitmark, _)| MAGIC_HITS.contains(hitmark))
+        .map(|&(_, amount)| amount)
+        .collect()
+}
+
+/// The jungle demon's wave spells cast and hit while 647's spell table has no graphics for them.
+/// Its magic_spell_table rows for the wave spells name spotanims 2011 does not have, so each reads
+/// as null; the cast failed on its projectile ("projanim_pl error: Spotanim not found: -1", every
+/// cast of a fight in the client) and nothing hit. A null travel or impact is now left unshown
+/// and the spell still rolls and hits. The graphics wait on the table's verified 2011 ids, which
+/// the demon reads as 289 does; this case does not show a resolved row's being launched (the
+/// harness has no row to give it).
+#[test]
+fn the_jungle_demon_s_spells_cast_and_hit() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let hits = fight_the_jungle_demon(engine, "mmdemon");
+        assert!(!spell_hits(&hits).is_empty(), "a spell lands: {hits:?}");
+    });
+}
 
 /// The demon's spells hit in life points, with 2011's magic hitmark: 289's most, 31 hitpoints, is
 /// 310 life points (the 2011 wiki's Jungle demon page, 2011-05-22: "max hit = 320 (approx)"), so
@@ -586,18 +547,11 @@ const MAGIC_HITS: [i32; 2] = [2, 12];
 fn the_jungle_demon_s_spells_hit_in_life_points() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let fight = fight_the_jungle_demon(engine, "mmdemonhit");
-        let spells: Vec<i32> = fight
-            .hits
-            .iter()
-            .filter(|(hitmark, _)| MAGIC_HITS.contains(hitmark))
-            .map(|&(_, amount)| amount)
-            .collect();
-        let hardest = spells.iter().copied().max().unwrap_or(0);
+        let hits = fight_the_jungle_demon(engine, "mmdemonhit");
+        let hardest = spell_hits(&hits).into_iter().max().unwrap_or(0);
         assert!(
             (32..=310).contains(&hardest),
-            "a spell takes up to 310 life points: {:?}",
-            fight.hits
+            "a spell takes up to 310 life points: {hits:?}"
         );
     });
 }
