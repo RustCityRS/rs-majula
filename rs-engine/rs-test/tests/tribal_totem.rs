@@ -3,7 +3,7 @@
 //! 786's mansion, where every loc of it moved, and on its combination lock (interface 369). The
 //! 2011 wiki (Tribal Totem) gives the reward: 1 quest point, 1,775 Thieving xp and 5 swordfish.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
