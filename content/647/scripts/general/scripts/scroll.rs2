@@ -69,72 +69,71 @@ if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
 if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
-// 289's barcrawl card reads %barcrawl's bits (^bluemoon_index ...): waits for
-// the Alfred Grimhand's Barcrawl port, which brings them.
-// [label,scroll_barcrawl_card]
-// if_settext(messagescroll:messcroll1, "@blu@The Official Alfred Grimhand Barcrawl!");
-// if_settext(messagescroll:messcroll2, ^string_empty);
-// if(testbit(%barcrawl, ^bluemoon_index) = ^true) {
-//     if_settext(messagescroll:messcroll3, "@gre@BlueMoon Inn - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll3, "@red@BlueMoon Inn - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^blurberry_index) = ^true) {
-//     if_settext(messagescroll:messcroll4, "@gre@Blurberry's Bar - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll4, "@red@Blurberry's Bar - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^deadman_index) = ^true) {
-//     if_settext(messagescroll:messcroll5, "@gre@Dead Man's Chest - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll5, "@red@Dead Man's Chest - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^dragoninn_index) = ^true) {
-//     if_settext(messagescroll:messcroll6, "@gre@Dragon Inn - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll6, "@red@Dragon Inn - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^flyinghorse_index) = ^true) {
-//     if_settext(messagescroll:messcroll7, "@gre@Flying Horse Inn - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll7, "@red@Flying Horse Inn - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^forestersarms_index) = ^true) {
-//     if_settext(messagescroll:messcroll8, "@gre@Foresters Arms - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll8, "@red@Foresters Arms - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^jollyboar_index) = ^true) {
-//     if_settext(messagescroll:messcroll9, "@gre@Jolly Boar Inn - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll9, "@red@Jolly Boar Inn - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^karamjaspirits_index) = ^true) {
-//     if_settext(messagescroll:messcroll10, "@gre@Karamja Spirits Bar - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll10, "@red@Karamja Spirits Bar - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^risingsun_index) = ^true) {
-//     if_settext(messagescroll:messcroll11, "@gre@Rising Sun Inn - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll11, "@red@Rising Sun Inn - Not Completed...");
-// }
-//
-// if(testbit(%barcrawl, ^rustyanchor_index) = ^true) {
-//     if_settext(messagescroll:messcroll12, "@gre@Rusty Anchor Inn - Completed!");
-// } else {
-//     if_settext(messagescroll:messcroll12, "@red@Rusty Anchor Inn - Not Completed...");
-// }
-// if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
-// ~messagescroll_open;
+// 289's barcrawl card, on %barcrawl's bits (quests/quest_barcrawl).
+[label,scroll_barcrawl_card]
+if_settext(messagescroll:messcroll1, "@blu@The Official Alfred Grimhand Barcrawl!");
+if_settext(messagescroll:messcroll2, ^string_empty);
+if(testbit(%barcrawl, ^bluemoon_index) = ^true) {
+    if_settext(messagescroll:messcroll3, "@gre@BlueMoon Inn - Completed!");
+} else {
+    if_settext(messagescroll:messcroll3, "@red@BlueMoon Inn - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^blurberry_index) = ^true) {
+    if_settext(messagescroll:messcroll4, "@gre@Blurberry's Bar - Completed!");
+} else {
+    if_settext(messagescroll:messcroll4, "@red@Blurberry's Bar - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^deadman_index) = ^true) {
+    if_settext(messagescroll:messcroll5, "@gre@Dead Man's Chest - Completed!");
+} else {
+    if_settext(messagescroll:messcroll5, "@red@Dead Man's Chest - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^dragoninn_index) = ^true) {
+    if_settext(messagescroll:messcroll6, "@gre@Dragon Inn - Completed!");
+} else {
+    if_settext(messagescroll:messcroll6, "@red@Dragon Inn - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^flyinghorse_index) = ^true) {
+    if_settext(messagescroll:messcroll7, "@gre@Flying Horse Inn - Completed!");
+} else {
+    if_settext(messagescroll:messcroll7, "@red@Flying Horse Inn - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^forestersarms_index) = ^true) {
+    if_settext(messagescroll:messcroll8, "@gre@Foresters Arms - Completed!");
+} else {
+    if_settext(messagescroll:messcroll8, "@red@Foresters Arms - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^jollyboar_index) = ^true) {
+    if_settext(messagescroll:messcroll9, "@gre@Jolly Boar Inn - Completed!");
+} else {
+    if_settext(messagescroll:messcroll9, "@red@Jolly Boar Inn - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^karamjaspirits_index) = ^true) {
+    if_settext(messagescroll:messcroll10, "@gre@Karamja Spirits Bar - Completed!");
+} else {
+    if_settext(messagescroll:messcroll10, "@red@Karamja Spirits Bar - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^risingsun_index) = ^true) {
+    if_settext(messagescroll:messcroll11, "@gre@Rising Sun Inn - Completed!");
+} else {
+    if_settext(messagescroll:messcroll11, "@red@Rising Sun Inn - Not Completed...");
+}
+
+if(testbit(%barcrawl, ^rustyanchor_index) = ^true) {
+    if_settext(messagescroll:messcroll12, "@gre@Rusty Anchor Inn - Completed!");
+} else {
+    if_settext(messagescroll:messcroll12, "@red@Rusty Anchor Inn - Not Completed...");
+}
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+~messagescroll_open;
 
 [label,scroll_hazelmere]
 if_settext(messagescroll:messcroll1, ^string_empty);

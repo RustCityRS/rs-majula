@@ -1,0 +1,34 @@
+// 289's areas/area_gnome/scripts/blurberry.rs2: his part in Alfred Grimhand's Barcrawl, line for line.
+[opnpc1,blurberry]
+if(testbit(%barcrawl, ^blurberry_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
+    @blurberry_barcrawl;
+}
+// 289 goes on to the gnome cocktail training here (%gnome_bar_progress, the gnome_bar_* labels of
+// minigames/game_gnome_bar): not ported, so without the card he has nothing to say yet.
+
+[opnpcu,blurberry]
+if(testbit(%barcrawl, ^blurberry_index) = ^false & last_useitem = barcrawl_card) {
+    @blurberry_barcrawl;
+}
+// 289 takes cocktails here for the gnome cocktail training: not ported.
+
+[label,blurberry_barcrawl]
+~chatplayer("<p,neutral>I'm doing Alfred Grimhand's Barcrawl.");
+~chatnpc("<p,neutral>Ah, you've come to the best stop on your list!|I'll give you my famous Fire Toad Blast!|It'll cost you 10 coins.");
+if(inv_total(inv, coins) < 10) {
+    ~chatplayer("<p,sad>I don't have 10 coins right now.");
+    return;
+}   
+if_close;
+inv_del(inv, coins, 10);
+mes("You buy a Fire Toad Blast.");
+p_delay(2);
+mes("Your mouth and throat burn as you gulp it down.");
+p_delay(2);
+%barcrawl = setbit(%barcrawl, ^blurberry_index);
+mes("Blurberry signs your card.");
+p_delay(2);
+// 289's share of the player's hitpoints; 2011 counts life points, ten to a hitpoint. The 2011 wiki's Bar Crawl (2011-05-15): "up to 41 life points".
+~damage_self(multiply(calc(((%life_points / 10) * 5) / 100), 10));
+// In OSRS this closes so you never see it (because damage is strongqueued, which isn't the case in 225)
+~chatplayer("<p,confused>Danks bery mush...");
