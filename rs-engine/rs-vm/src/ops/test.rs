@@ -14,7 +14,7 @@
 
 use crate::register::OpsRegistry;
 use crate::session::HostKind;
-use crate::state::ExecutionState;
+use crate::state::{ExecutionState, ScriptState};
 use crate::{handlers, none};
 use runec::opcodes::*;
 use std::cell::{Cell, RefCell};
@@ -45,6 +45,8 @@ thread_local! {
     static RECORDING: Cell<bool> = const { Cell::new(false) };
     static FAIL_EXPECTED: Cell<bool> = const { Cell::new(false) };
     static WAIT_CURSOR: Cell<usize> = const { Cell::new(0) };
+    static TICK_UNTIL: Cell<Option<u32>> = const { Cell::new(None) };
+    static WAIT_UNTIL: Cell<Option<u32>> = const { Cell::new(None) };
 }
 
 /// Turns the call log on for this thread. Off by default, so the hooks in
@@ -138,6 +140,76 @@ pub fn clear() {
     CALL_LOG.with(|log| log.borrow_mut().clear());
     FAIL_EXPECTED.with(|f| f.set(false));
     WAIT_CURSOR.with(|c| c.set(0));
+    TICK_UNTIL.with(|t| t.set(None));
+    WAIT_UNTIL.with(|t| t.set(None));
+}
+
+/// `test_tick(n)` (50050): suspends the world script until the clock, `now`
+/// when it is first called, has moved on exactly n ticks.
+///
+/// One suspension of n ticks is not enough. The world phase walks its queue
+/// with a cursor that already holds the next entry, as the reference engine's
+/// `LinkList.all()` does, so a script that re-queues itself while entries
+/// follow it (another script's `world_delay`) is reached again that same pass
+/// and counted down twice. That is the game's behaviour, and a test's wait
+/// must not depend on it: when the script resumes early, this instruction runs
+/// again and suspends for the ticks that are left.
+///
+/// The engine-typed registry (rs-engine's harness) registers it with the
+/// engine's clock, since only it can read the clock.
+pub fn test_tick(s: &mut ScriptState, now: u32) {
+    let operand = s.pop_int();
+    let target = match TICK_UNTIL.with(|t| t.take()) {
+        // Resumed: the operand is the placeholder pushed below.
+        Some(target) => target,
+        None if operand <= 0 => return,
+        None => now.saturating_add(operand as u32),
+    };
+    if now >= target {
+        return;
+    }
+    TICK_UNTIL.with(|t| t.set(Some(target)));
+    // Run this instruction again on resuming: re-push an operand, then the
+    // delay the world phase pops (a delay of d runs d + 2 passes on, as
+    // `enqueue_world_script` adds one and `tick_down` checks before it counts).
+    s.push_int(0);
+    s.push_int((target - now) as i32 - 2);
+    s.pc -= 1;
+    s.execution = ExecutionState::WorldSuspended;
+}
+
+/// `wait_for(name, timeout)` (50054): suspends until the command named `name`
+/// is called, or fails once the clock, `now` when it is first called, has
+/// moved on `timeout` ticks without it.
+///
+/// It checks again every tick. The deadline is a tick of the clock, not a
+/// count of runs, because the script can run twice in one tick (see
+/// [`test_tick`]). Registered with the engine's clock, as `test_tick` is.
+pub fn wait_for(s: &mut ScriptState, now: u32) {
+    let timeout = s.pop_int();
+    let name = s.pop_string();
+    let deadline = WAIT_UNTIL
+        .with(|t| t.take())
+        // Resumed: `timeout` is the placeholder pushed below.
+        .unwrap_or_else(|| now.saturating_add(timeout.max(0) as u32));
+    if call_count_since(&name, cursor()) > 0 {
+        advance_cursor();
+    } else if now >= deadline {
+        record(
+            s.pc,
+            false,
+            format!("wait_for failed: {name} was not called within the timeout"),
+        );
+    } else {
+        WAIT_UNTIL.with(|t| t.set(Some(deadline)));
+        // Run this instruction again next tick: re-push its operands, then
+        // the -1 the world phase pops as the delay (d runs d + 2 passes on).
+        s.push_string(&name);
+        s.push_int(0);
+        s.push_int(-1);
+        s.pc -= 1;
+        s.execution = ExecutionState::WorldSuspended;
+    }
 }
 
 /// Takes the assertions recorded since the last [`clear`].
@@ -174,9 +246,6 @@ fn called_listing(name: &str, calls: &[String]) -> String {
 /// - `ASSERT_CALLED`, `ASSERT_CALLED_WITH` -- read the call log. They take the
 ///   command's *name*: in RuneScript a bare `mes` is a call to `mes`, so the
 ///   command cannot be passed as itself.
-/// - `TEST_TICK` -- suspends the world script for exactly N ticks.
-/// - `WAIT_FOR` -- suspends until an instrumented command is called, or fails
-///   once its timeout runs out.
 pub fn build<K: HostKind>() -> OpsRegistry<K> {
     handlers! { |m|
         // 50000
@@ -358,42 +427,6 @@ pub fn build<K: HostKind>() -> OpsRegistry<K> {
         // 50014
         none!(m, EXPECT_FAIL => |_s| {
             FAIL_EXPECTED.with(|f| f.set(true));
-        });
-
-        // 50050
-        none!(m, TEST_TICK => |s| {
-            let count = s.pop_int();
-            if count > 0 {
-                // The world phase re-enqueues a suspended world script with
-                // the delay it pops, and the queue runs it `delay + 2` passes
-                // later (`enqueue_world_script` adds one; `tick_down` counts
-                // down after it checks, as the reference engine does) -- so
-                // push `count - 2` for `test_tick(n)` to mean n.
-                s.push_int(count - 2);
-                s.execution = ExecutionState::WorldSuspended;
-            }
-        });
-
-        // 50054
-        none!(m, WAIT_FOR => |s| {
-            let timeout = s.pop_int();
-            let name = s.pop_string();
-            if call_count_since(&name, cursor()) > 0 {
-                advance_cursor();
-            } else if timeout <= 0 {
-                record(s.pc, false, format!(
-                    "wait_for failed: {name} was not called within the timeout"
-                ));
-            } else {
-                // Run this instruction again next tick with one tick less:
-                // re-push its operands, then the -1 the world phase pops as
-                // the suspension delay (a delay of d runs d + 2 passes on).
-                s.push_string(&name);
-                s.push_int(timeout - 1);
-                s.push_int(-1);
-                s.pc -= 1;
-                s.execution = ExecutionState::WorldSuspended;
-            }
         });
     }
 }
