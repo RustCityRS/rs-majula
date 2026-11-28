@@ -52,22 +52,36 @@ assert_lte($worst, 500);
 
 // From afar the fire flies as 289's projectile, on 2011's skeleton (14252),
 // and under antifire an unprotected hit is 150 less: at most 350 (289's 35).
+// From five squares off the fire is three ticks in the air, longer than the
+// two ticks the close cases wait, so each breath here waits for its own hit
+// (wait_for) before the next one. Nothing else may move or hit meanwhile:
+// - the level-up screen, which would hold the hit back, is shut once, before
+//   the first breath;
+// - with auto-retaliate off the player does not walk in and fight the dragon;
+// - the dragon stands where it spawned (mode none), out of its hunt range.
+// So every breath flies the same way, and the hits are counted: one a breath.
 [label,test_far_metal_dragon_fire_under_antifire_takes_at_most_350]
 def_player_uid $uid = setup_player("test_player");
 p_telejump(0_50_50_10_46);
 stat_advance(hitpoints, 130344310);
+test_tick(2);
+if_close;
+assert_true(p_finduid($uid));
+%option_nodef = ^player_auto_retaliate_off;
 npc_add(movecoord(coord, 5, 0, 0), steel_dragon, 100);
+npc_setmode(none);
 def_int $worst = 0;
 def_int $i = 0;
 while ($i < 20) {
     %life_points = 990;
     %dragonresist = add(map_clock, 600);
     ~metal_dragon_dragonfire_far;
-    test_tick(2);
+    wait_for("damage", 20);
     if_close;
     assert_true(p_finduid($uid));
     $worst = max($worst, sub(990, %life_points));
     $i = add($i, 1);
+    assert_called("damage", $i);
 }
 assert_gt($worst, 50);
 assert_lte($worst, 350);
