@@ -328,46 +328,36 @@ if (~npc_check_notcombat_self = false) {
     return;
 }
 
+// 2011's: the 2011 wiki's Jungle demon page (revid 245860, 2011-05-22): "The Jungle Demon
+// appears to alternate between all four [[Blast spells]] for its magic attacks". 289 casts the
+// four wave spells here, each with its wave's synths named in the script; the blasts' sounds are
+// their rows' (see ~mm_demon_spellcast). The pick, one of four at random, is 289's.
 def_int $spell;
-def_synth $success;
-def_synth $fail;
 switch_int(random(4)) {
-    case 0 :
-        $spell = ^wind_wave;
-        $success = wind_wave_all;
-        $fail = wind_wave_fail;
-    case 1 :
-        $spell = ^water_wave;
-        $success = water_wave_all;
-        $fail = water_wave_fail;
-    case 2 :
-        $spell = ^earth_wave;
-        $success = earth_wave_all;
-        $fail = earth_wave_fail;
-    case default : 
-        $spell = ^fire_wave;
-        $success = fire_wave_all;
-        $fail = fire_wave_fail;
+    case 0 : $spell = ^wind_blast;
+    case 1 : $spell = ^water_blast;
+    case 2 : $spell = ^earth_blast;
+    case default : $spell = ^fire_blast;
 }
 if(npc_range(coord) < 3) { // melee range of 2 :)
     if (random(2) = 0) {
-        ~mm_demon_spellcast($spell, $success, $fail);
+        ~mm_demon_spellcast($spell);
     } else {
         ~npc_default_attack;
     }
 } else {
-    ~mm_demon_spellcast($spell, $success, $fail);
+    ~mm_demon_spellcast($spell);
 }
 
-[proc,mm_demon_spellcast](int $spell, synth $success, synth $fail)
+[proc,mm_demon_spellcast](int $spell)
 if (~npc_combat_spell_checks = false) {
     return;
 }
 
 def_dbrow $spell_data = ~get_spell_data($spell);
 // 289's ~npc_spell_cast($spell_data, 4), line for line here, but for one check. 647's rows for the
-// four wave spells are unresolved: they still name 289's spotanims (windwave_casting,
-// windwave_travel, windwave_impact and so on), which 647's pack does not have, so each reads as
+// four blast spells are unresolved: they still name 289's spotanims (windblast_casting,
+// windblast_travel, windblast_impact and so on), which 647's pack does not have, so each reads as
 // null (rs-pack's tests/dbrow_refs_647.known.tsv). projanim_pl and spotanim_pl fail on a null
 // spotanim, which made every cast a script error. So a null travel or impact is not shown: the
 // cast still rolls and hits. The demon's spell graphics wait on the spell table's verified 2011
@@ -398,20 +388,23 @@ if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
         $duration = ~player_projectile(npc_coord, coord, uid, $travel, $startheight, $endheight, $delay, $angle, $length, $offset, $step);
     }
 }
-// 289's most, 31 hitpoints, in life points (x10), as the demon's own hitpoints key (all.npc) and
-// 647's magic_spell_table maxhit column are. The 2011 wiki's Jungle demon page (2011-05-22) has
-// "max hit = 320 (approx)"; no source found gives the exact figure.
-def_int $maxhit = 310;
+// 2011's: the 2011 wiki's Jungle demon page (revid 245860, 2011-05-22): "max hit = 320
+// (approx)", and twice "can hit up to 320". 289's most is 31 hitpoints (310 life points). The
+// melee hit is the npc's own (all.npc) and is not changed.
+def_int $maxhit = 320;
 
 // it will still splash with prot prayer on, seems to just be based on hit roll
 if(~check_protect_prayer(^magic_style) = true) {
     $maxhit = 0;
 }
 
-// uses the original synths for wave spells, even today
+// 289 plays the wave's synths it was given. A blast plays its row's sound, as ~npc_spell_success
+// and ~npc_spell_fail do (npc_combat_magic.rs2). Three of the four blast rows' sounds are
+// unresolved at 647 (rs-pack's tests/dbrow_refs_647.known.tsv) and read as null, which
+// sound_synth skips; they wait on the spell table's verified 2011 ids.
 if (~npc_player_hit_roll(^magic_style) = true) {
     if_close;
-    sound_synth($success, 0, $duration);
+    sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, $duration);
     def_int $damage = randominc($maxhit);
     if ($maxhit ! null) {
         // npc vs player spells have no 1t extra damage delay. Whereas player vs npc spells do (osrs)
@@ -428,7 +421,11 @@ if (~npc_player_hit_roll(^magic_style) = true) {
     queue*(playerhit_n_retaliate, calc($duration / 30))(npc_uid);
 } else {
     if_close;
-    sound_synth($fail, 0, $duration);
+    if (db_getfieldcount($spell_data, magic_spell_table:sound_fail) > 0) {
+        sound_synth(db_getfield($spell_data, magic_spell_table:sound_fail, 0), 0, $duration);
+    } else {
+        sound_synth(db_getfield($spell_data, magic_spell_table:sound_success, 0), 0, $duration);
+    }
     // splash sound would play here (still plays here even though the spells use old sounds)
     spotanim_pl(failedspell_impact, 92, $duration);
     // splashing in osrs causes insta auto retal
@@ -476,7 +473,9 @@ if ($damage = 0) {
 if (npc_stat(hitpoints) > 0) {
     return;
 }
-npc_statheal(hitpoints, 0, 15);
+// 2011's: the 2011 wiki's Jungle demon page (revid 245860, 2011-05-22): "You cannot let the 10th
+// squad do all the work, or the demon will heal to 10% of his full health". 289 heals 15%.
+npc_statheal(hitpoints, 0, 10);
 
 // 289's loc_4729-4742 are other locs in cache 786; 2011's cracks and trapdoors stand on 289's
 // tiles as mm_wallcrack_* (5793-5798) and mm_trapdoor_* (5799-5806), one for one.

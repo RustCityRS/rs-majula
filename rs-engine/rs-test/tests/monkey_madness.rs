@@ -14,6 +14,7 @@ use rs_engine::harness::HarnessClient;
 use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
 use rs_pack::cache::dbrow::DbRowValue;
+use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
@@ -465,8 +466,9 @@ fn stand_beside(
 const MM_COMPLETED_CH3: i32 = 5;
 
 /// The 10th squad's sigil takes the player to the final battle: to Garkor's last words, as the
-/// jungle demon spawns. Defence and Magic are 1, so the demon's spells land. Calls are recorded
-/// from the sigil's click on.
+/// jungle demon spawns. Defence and Magic are 1, so the demon's spells land, and auto retaliate
+/// is off, so the player leaves the demon to the 10th squad. Calls are recorded from the sigil's
+/// click on.
 fn start_the_final_battle(engine: &mut Engine, name: &str) -> (HarnessClient, Conversation) {
     let mut client = login(engine, name);
     {
@@ -479,6 +481,8 @@ fn start_the_final_battle(engine: &mut Engine, name: &str) -> (HarnessClient, Co
     tele(engine, &mut client, ARDOUGNE, false);
     set_var(engine, &client, "mm_main", MM_COMPLETED_CH3);
     set_var(engine, &client, "lastcombat", -1);
+    // `^player_auto_retaliate_off`: only the 10th squad fights the demon.
+    set_var(engine, &client, "option_nodef", 1);
     give(engine, &client, 0, "mm_sigil");
     let sigil = id(engine, "obj", "mm_sigil");
     set_recording(true);
@@ -497,8 +501,9 @@ fn start_the_final_battle(engine: &mut Engine, name: &str) -> (HarnessClient, Co
 const SPOTANIM_PROJ: usize = 18;
 const SPOTANIM_TARGET: usize = 20;
 
-/// The spotanim a spell's row gives in `column`: none for a row that leaves it out or has null.
-fn row_spotanim(engine: &Engine, row: &str, column: usize) -> Option<i32> {
+/// The config id (a spotanim, a synth) a spell's row gives in `column`: none for a row that
+/// leaves it out or has null.
+fn row_ref(engine: &Engine, row: &str, column: usize) -> Option<i32> {
     let row = engine
         .cache
         .dbrows
@@ -592,11 +597,11 @@ fn zooknock_s_blast_shows_only_the_spell_table_s_graphics() {
         let rows = ["magic_spell_fire_blast", "magic_spell_water_blast"];
         let travels: Vec<i32> = rows
             .iter()
-            .filter_map(|row| row_spotanim(engine, row, SPOTANIM_PROJ))
+            .filter_map(|row| row_ref(engine, row, SPOTANIM_PROJ))
             .collect();
         let row_impacts: Vec<String> = rows
             .iter()
-            .filter_map(|row| row_spotanim(engine, row, SPOTANIM_TARGET))
+            .filter_map(|row| row_ref(engine, row, SPOTANIM_TARGET))
             .map(|id| id.to_string())
             .collect();
 
@@ -682,14 +687,24 @@ fn zooknock_s_blast_in_the_tunnel_runs_on_the_spell_table_s_rows() {
     });
 }
 
+/// Keeps the player in the world over a long watch: the client's keepalive, and the player counted
+/// active (the engine logs out a player who sends nothing for 100 ticks, or does nothing for 500).
+fn stay_on(engine: &mut Engine, client: &mut HarnessClient) {
+    client.send(ClientProt::NoTimeout, &[]);
+    let clock = engine.clock;
+    engine.harness_player_mut(client.pid).unwrap().last_active = clock;
+}
+
 /// The 10th squad's sigil takes the player to the final battle, where the jungle demon spawns and
 /// attacks: it casts from 3 tiles or more, and casts or swings from nearer. Defence and Magic are
-/// 1, so its spells land, and life is put back each tick. Gives each hit painted on the player
-/// over the fight's first ticks (`damage`'s hitmark and amount), once no script has failed.
-fn fight_the_jungle_demon(engine: &mut Engine, name: &str) -> Vec<(i32, i32)> {
+/// 1, so its spells land, and life is put back each tick. Gives each hit painted on the player over the fight's first `ticks`
+/// (`damage`'s hitmark and amount), once no script has failed. The calls stay recorded for the
+/// case to read (`calls_for`).
+fn fight_the_jungle_demon(engine: &mut Engine, name: &str, ticks: usize) -> Vec<(i32, i32)> {
     let (mut client, t) = start_the_final_battle(engine, name);
     let mut messages = t.messages;
-    for _ in 0..80 {
+    for _ in 0..ticks {
+        stay_on(engine, &mut client);
         set_life_points(engine, &client, 990);
         engine.cycle();
         messages.extend(
@@ -742,23 +757,147 @@ fn spell_hits(hits: &[(i32, i32)]) -> Vec<i32> {
 fn the_jungle_demon_s_spells_cast_and_hit() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let hits = fight_the_jungle_demon(engine, "mmdemon");
+        let hits = fight_the_jungle_demon(engine, "mmdemon", 80);
         assert!(!spell_hits(&hits).is_empty(), "a spell lands: {hits:?}");
     });
 }
 
-/// The demon's spells hit in life points, with 2011's magic hitmark: 289's most, 31 hitpoints, is
-/// 310 life points (the 2011 wiki's Jungle demon page, 2011-05-22: "max hit = 320 (approx)"), so
-/// over a fight's casts one takes more than 289's whole 31.
+/// `magic_spell_table`'s sound_success and sound_fail columns (counted as above).
+const SOUND_SUCCESS: usize = 21;
+const SOUND_FAIL: usize = 22;
+
+/// The sounds the rows give for a spell's landing and its splash: the resolved ones.
+fn row_sounds(engine: &Engine, rows: &[&str]) -> Vec<i32> {
+    rows.iter()
+        .flat_map(|row| [SOUND_SUCCESS, SOUND_FAIL].map(|c| row_ref(engine, row, c)))
+        .flatten()
+        .collect()
+}
+
+/// The jungle demon casts the four blast spells, where 289's casts the four waves: the 2011
+/// wiki's Jungle demon page (revid 245860, 2011-05-22), "The Jungle Demon appears to alternate
+/// between all four [[Blast spells]] for its magic attacks". Each cast reads its spell's row, as
+/// it did for the waves: the row's sound is played on a landing or a splash, as
+/// `~npc_spell_success` and `~npc_spell_fail` play it, and a row's null sound plays nothing. So
+/// over a fight no wave row's sound is heard, and fire blast's (the one blast sound 647's pack
+/// resolves) is.
 #[test]
-fn the_jungle_demon_s_spells_hit_in_life_points() {
+fn the_jungle_demon_casts_the_four_blast_spells() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let hits = fight_the_jungle_demon(engine, "mmdemonhit");
-        let hardest = spell_hits(&hits).into_iter().max().unwrap_or(0);
+        let hits = fight_the_jungle_demon(engine, "mmblasts", 400);
+        let heard: Vec<i32> = calls_for("sound_synth")
+            .iter()
+            .map(|s| s.split(',').next().unwrap().parse().unwrap())
+            .collect();
+        assert!(!spell_hits(&hits).is_empty(), "a spell lands: {hits:?}");
+        let waves = row_sounds(
+            engine,
+            &[
+                "magic_spell_wind_wave",
+                "magic_spell_water_wave",
+                "magic_spell_earth_wave",
+                "magic_spell_fire_wave",
+            ],
+        );
+        assert_eq!(waves.len(), 8, "the wave rows' sounds resolve: {waves:?}");
+        let waved: Vec<&i32> = heard.iter().filter(|s| waves.contains(s)).collect();
+        assert!(waved.is_empty(), "a wave's sound is played: {waved:?}");
+        let fire_blast = row_ref(engine, "magic_spell_fire_blast", SOUND_SUCCESS)
+            .expect("fire blast's row has its sound");
         assert!(
-            (32..=310).contains(&hardest),
-            "a spell takes up to 310 life points: {hits:?}"
+            heard.contains(&fire_blast),
+            "fire blast's sound {fire_blast} is played: {heard:?}"
+        );
+    });
+}
+
+/// The most a blast takes.
+const DEMON_MAX_HIT: i32 = 320;
+
+/// The demon's spells hit in life points, with 2011's magic hitmark, up to 320: the 2011 wiki's
+/// Jungle demon page (revid 245860, 2011-05-22) has "max hit = 320 (approx)" and twice "can hit
+/// up to 320" (289's most, 31 hitpoints, would be 310). Over a long fight one hit passes 310,
+/// and none passes 320; each crit is a hit above nine tenths of 320 (`~combat_hit`).
+#[test]
+fn the_jungle_demon_s_spells_hit_up_to_320() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let hits = fight_the_jungle_demon(engine, "mmdemonhit", 1500);
+        let spells: Vec<(i32, i32)> = hits
+            .iter()
+            .copied()
+            .filter(|(hitmark, _)| MAGIC_HITS.contains(hitmark))
+            .collect();
+        let hardest = spells.iter().map(|&(_, d)| d).max().unwrap_or(0);
+        assert!(
+            (311..=DEMON_MAX_HIT).contains(&hardest),
+            "a spell takes up to {DEMON_MAX_HIT}, the hardest {hardest} of {}",
+            spells.len()
+        );
+        let miscrit: Vec<&(i32, i32)> = spells
+            .iter()
+            .filter(|&&(hitmark, d)| {
+                d > 10 && (hitmark == MAGIC_HITS[1]) != (d * 10 > DEMON_MAX_HIT * 9)
+            })
+            .collect();
+        assert!(
+            miscrit.is_empty(),
+            "a crit is a hit above nine tenths of {DEMON_MAX_HIT}: {miscrit:?}"
+        );
+    });
+}
+
+/// 2011's jungle demon life points: its hitpoints key in cache 786's npc section (all.npc), and
+/// the 2011 wiki's "LP = 1700".
+const DEMON_LIFE_POINTS: u16 = 1700;
+
+/// The 10th squad cannot kill the demon: a hit that would heals it to 10% of its life points
+/// instead, as the 2011 wiki's Jungle demon page (revid 245860, 2011-05-22) has it: "You cannot
+/// let the 10th squad do all the work, or the demon will heal to 10% of his full health" (289
+/// heals 15%). The demon is left 1 life point, and the squad's next hit that lands sends it to
+/// 170, less any other hit of the same tick.
+#[test]
+fn the_10th_squad_s_killing_hit_heals_the_demon_to_a_tenth() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (mut client, _) = start_the_final_battle(engine, "mmdemonheal");
+        let mut demon = None;
+        for _ in 0..80 {
+            set_life_points(engine, &client, 990);
+            engine.cycle();
+            client.packets();
+            if let Some((nid, ..)) = spawned(engine, "mm_demon", None) {
+                demon = Some(nid);
+                break;
+            }
+        }
+        let demon = demon.expect("the jungle demon is there");
+        let life = |engine: &Engine| {
+            engine.get_npc(demon).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize]
+        };
+        assert_eq!(
+            engine.get_npc(demon).unwrap().npc.stats.base_levels[NpcStat::Hitpoints as usize],
+            DEMON_LIFE_POINTS
+        );
+        engine.get_npc_mut(demon).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        let mut after = 1;
+        for _ in 0..300 {
+            stay_on(engine, &mut client);
+            set_life_points(engine, &client, 990);
+            engine.cycle();
+            client.packets();
+            after = life(engine);
+            if after != 1 {
+                break;
+            }
+        }
+        set_recording(false);
+        let tenth = DEMON_LIFE_POINTS / 10;
+        // Nine of the squad, each hitting at most 10 in a tick.
+        assert!(
+            (tenth - 90..=tenth).contains(&after),
+            "healed to {tenth}, less the tick's other hits: {after}"
         );
     });
 }
