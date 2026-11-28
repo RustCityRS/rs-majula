@@ -110,7 +110,7 @@ use rs_vm::state::{LocRef, ScriptState};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType as Trigger;
 use rs_vm::{RegionUid, ScriptError};
-use runec::opcodes::{SETUP_PLAYER, TEST_OP};
+use runec::opcodes::{SETUP_PLAYER, TEST_OP, TEST_TICK, WAIT_FOR};
 use std::cell::RefCell;
 use std::net::{Ipv4Addr, SocketAddr};
 use std::time::Instant;
@@ -1147,10 +1147,22 @@ fn subject_of(trigger: Trigger) -> Subject {
 ///   active player.
 /// - `TEST_OP` -- fires a trigger against a loc at a coord, or the first npc
 ///   of a type, with the active player as subject.
+/// - `TEST_TICK` -- suspends the world script for exactly N ticks of the
+///   engine's clock ([`test::test_tick`]).
+/// - `WAIT_FOR` -- suspends until an instrumented command is called, or fails
+///   once its timeout in ticks of the clock runs out ([`test::wait_for`]).
 pub fn ops() -> OpsRegistry<EngineHost<Engine>> {
     let mut ops = test::build();
     ops.insert(SETUP_PLAYER, |s, _| setup_player(s));
     ops.insert(TEST_OP, |s, _| test_op(s));
+    ops.insert(TEST_TICK, |s, _| {
+        test::test_tick(s, engine_mut().clock);
+        Ok(())
+    });
+    ops.insert(WAIT_FOR, |s, _| {
+        test::wait_for(s, engine_mut().clock);
+        Ok(())
+    });
     ops
 }
 

@@ -1,0 +1,42 @@
+// A script queued on the world behind the test script. The world queue walks
+// with a cursor that already holds the next entry (LinkList.all() upstream),
+// so a script that re-queues itself while entries follow it is reached again
+// in the same pass. That is the game's timing; a test's wait must not depend
+// on it. Strong queues, so a modal open at login does not hold them back.
+[queue,test_world_delay_behind]
+world_delay(20);
+
+[queue,test_mes_later]
+mes("later");
+
+#testscript
+
+// test_tick(n) lasts n ticks with a world_delay script queued behind it.
+[label,test_tick_exact_with_world_delay_behind]
+setup_player("test_player")
+strongqueue(test_world_delay_behind, 0, 0)
+test_tick(2)
+def_int $t0 = map_clock
+test_tick(3)
+def_int $t1 = map_clock
+test_tick(1)
+def_int $t2 = map_clock
+assert_eq(calc($t1 - $t0), 3)
+assert_eq(calc($t2 - $t1), 1)
+
+// wait_for's timeout counts ticks, not runs: with a world_delay script queued
+// behind it, a timeout as long as the call takes to come still catches it.
+[label,test_wait_for_timeout_exact_with_world_delay_behind]
+setup_player("test_player")
+// How long a queued mes takes to come.
+strongqueue(test_mes_later, 3, 0)
+def_int $t0 = map_clock
+wait_for("mes", 20)
+def_int $wait = calc(map_clock - $t0)
+assert_gt($wait, 0)
+// The same wait again, with exactly that timeout.
+strongqueue(test_world_delay_behind, 0, 0)
+strongqueue(test_mes_later, 3, 0)
+def_int $t1 = map_clock
+wait_for("mes", $wait)
+assert_eq(calc(map_clock - $t1), $wait)
