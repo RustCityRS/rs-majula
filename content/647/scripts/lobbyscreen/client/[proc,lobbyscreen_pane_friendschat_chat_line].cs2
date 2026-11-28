@@ -18,7 +18,7 @@ if ($int1 = 1) {
                 } else if (friend_test(removetags($string2)) = true & userdetail_quickchat = false) {
                     cc_setop(3, "Message");
                 }
-                if (~script1891 = 1) {
+                if (~friendschat_can_kick = 1) {
                     cc_setop(10, "Kick/ban");
                 }
             }

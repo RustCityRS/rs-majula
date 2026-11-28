@@ -1,7 +1,7 @@
 // 4413
 [clientscript,clan_info_load]
 if (activeclansettings_find_listened = true) {
-    ~script4415;
+    ~clan_info_initial_setup;
 } else {
-    if_setonclanchanneltransmit(clan_info:content_layer, "script4414");
+    if_setonclanchanneltransmit(clan_info:content_layer, "clan_info_initial_setup");
 }

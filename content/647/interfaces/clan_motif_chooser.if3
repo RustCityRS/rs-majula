@@ -693,7 +693,7 @@ width=313
 height=199
 layer=com_60
 scrollheight=500
-onload=script4386(clan_motif_chooser:top_logos, clan_motif_chooser:top_borders, event_com, clan_motif_chooser:scroll_bar1)
+onload=clan_build_motifs_top(clan_motif_chooser:top_logos, clan_motif_chooser:top_borders, event_com, clan_motif_chooser:scroll_bar1)
 
 // 1105:65
 [top_borders]
@@ -726,7 +726,7 @@ width=313
 height=199
 layer=com_60
 scrollheight=500
-onload=script4387(clan_motif_chooser:bottom_logos, clan_motif_chooser:bottom_borders, event_com, clan_motif_chooser:scroll_bar2)
+onload=clan_build_motifs_bottom(clan_motif_chooser:bottom_logos, clan_motif_chooser:bottom_borders, event_com, clan_motif_chooser:scroll_bar2)
 
 // 1105:69
 [scroll_bar2]
@@ -1647,8 +1647,8 @@ xmode=abs_right
 layer=com_150
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1105:153
 [com_153]
@@ -1659,8 +1659,8 @@ xmode=abs_right
 layer=com_150
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1105:154
 [title_layer]
@@ -1854,7 +1854,7 @@ layer=com_24
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_switch_tab(event_com)
 
 // 1105:171
@@ -1984,7 +1984,7 @@ layer=com_172
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_switch_tab(event_com)
 
 // 1105:183
@@ -2114,7 +2114,7 @@ layer=colour_tab_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clan_switch_tab(event_com)
 
 // 1105:195

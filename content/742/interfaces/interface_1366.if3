@@ -24,7 +24,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_1
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1366:3
 [com_3]
@@ -360,7 +360,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_1
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1366:32
 [com_32]
@@ -419,5 +419,5 @@ ymode=abs_centre
 layer=com_34
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)

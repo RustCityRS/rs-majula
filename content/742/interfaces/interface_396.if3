@@ -299,7 +299,7 @@ widthmode=proportion
 layer=com_4
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=closebutton_click
 
 // 396:29
@@ -366,7 +366,7 @@ widthmode=proportion
 layer=com_3
 transmitop=1
 op1=Cook
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 396:35
 [com_35]

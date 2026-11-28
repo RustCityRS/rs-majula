@@ -123,5 +123,5 @@ width=512
 height=334
 xmode=proportion_centre
 ymode=proportion_centre
-onload=script2136(event_com)
-onvartransmit=script2136(event_com){macro_bee_pos_3}
+onload=macro_certers_init(event_com)
+onvartransmit=macro_certers_init(event_com){macro_bee_pos_3}

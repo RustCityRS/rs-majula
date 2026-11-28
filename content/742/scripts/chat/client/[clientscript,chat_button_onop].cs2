@@ -23,15 +23,15 @@ switch_int ($int0) {
             case 0, 2 :
                 %varclient_1651 = 0;
                 chat_setmode(0);
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
             case 4 :
                 %varclient_1651 = 1;
                 chat_setmode(1);
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
             case 7 :
                 %varclient_1651 = 2;
                 chat_setmode(2);
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
         }
         ~chat_alert_reset(%chat_view);
         ~redraw_chat_buttons;

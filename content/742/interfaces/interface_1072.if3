@@ -1334,8 +1334,8 @@ xmode=abs_right
 layer=com_119
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1072:122
 [com_122]
@@ -1346,8 +1346,8 @@ xmode=abs_right
 layer=com_119
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1072:123
 [title_layer]
@@ -1532,7 +1532,7 @@ layer=com_36
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1072:139
 [com_139]
@@ -1661,7 +1661,7 @@ layer=com_140
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1072:151
 [com_151]
@@ -1790,7 +1790,7 @@ layer=com_152
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1072:163
 [com_163]
@@ -1919,7 +1919,7 @@ layer=com_164
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1072:175
 [com_175]
@@ -2170,7 +2170,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_21
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1072:198
 [com_198]
@@ -2180,7 +2180,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_21
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1072:199
 [com_199]
@@ -2190,7 +2190,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_21
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1072:200
 [com_200]
@@ -2200,7 +2200,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_21
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1072:201
 [com_201]
@@ -2212,7 +2212,7 @@ heightmode=minus
 layer=com_21
 transmitop=1
 op1=Make
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=script786(event_com)
 onmouserepeat=script567(event_com)
 
@@ -2259,7 +2259,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_21
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1072:206
 [com_206]
@@ -2308,7 +2308,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_20
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1072:210
 [com_210]
@@ -2318,7 +2318,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_20
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1072:211
 [com_211]
@@ -2328,7 +2328,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_20
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1072:212
 [com_212]
@@ -2338,7 +2338,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_20
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1072:213
 [com_213]
@@ -2350,7 +2350,7 @@ heightmode=minus
 layer=com_20
 transmitop=1
 op1=Make
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=script786(event_com)
 onmouserepeat=script567(event_com)
 
@@ -2397,7 +2397,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_20
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1072:218
 [com_218]
@@ -2446,7 +2446,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1072:222
 [com_222]
@@ -2456,7 +2456,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1072:223
 [com_223]
@@ -2466,7 +2466,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1072:224
 [com_224]
@@ -2476,7 +2476,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_19
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1072:225
 [com_225]
@@ -2488,7 +2488,7 @@ heightmode=minus
 layer=com_19
 transmitop=1
 op1=Make
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=script786(event_com)
 onmouserepeat=script567(event_com)
 
@@ -2537,7 +2537,7 @@ heightmode=minus
 layer=com_19
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1072:230
 [com_230]
@@ -2586,7 +2586,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1072:234
 [com_234]
@@ -2596,7 +2596,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1072:235
 [com_235]
@@ -2606,7 +2606,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1072:236
 [com_236]
@@ -2616,7 +2616,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_18
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1072:237
 [com_237]
@@ -2628,7 +2628,7 @@ heightmode=minus
 layer=com_18
 transmitop=1
 op1=Make
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=script786(event_com)
 onmouserepeat=script567(event_com)
 
@@ -2677,7 +2677,7 @@ heightmode=minus
 layer=com_18
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1072:242
 [com_242]
@@ -2726,7 +2726,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1072:246
 [com_246]
@@ -2736,7 +2736,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1072:247
 [com_247]
@@ -2746,7 +2746,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1072:248
 [com_248]
@@ -2756,7 +2756,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1072:249
 [com_249]
@@ -2768,7 +2768,7 @@ heightmode=minus
 layer=com_17
 transmitop=1
 op1=Make
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=script786(event_com)
 onmouserepeat=script567(event_com)
 
@@ -2817,7 +2817,7 @@ heightmode=minus
 layer=com_17
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1072:254
 [com_254]

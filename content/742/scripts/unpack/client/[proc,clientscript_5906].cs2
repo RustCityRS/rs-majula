@@ -1,11 +1,11 @@
 // 5906
 [proc,clientscript_5906]
-~clientscript_5219(interface_1253:com_52);
+~deltooltip(interface_1253:com_52);
 if_sethide(interface_1253:com_51, true);
 if_sethide(interface_1253:com_31, true);
 ~clientscript_6669;
 ~clientscript_6570;
-~clientscript_5219(interface_1253:com_52);
+~deltooltip(interface_1253:com_52);
 %varclient_1784 = 0;
 if_sethide(interface_1253:com_178, true);
 if (%varplayerbit_10861 > 0) {

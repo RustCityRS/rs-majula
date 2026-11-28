@@ -1,0 +1,3 @@
+// 1939
+[clientscript,sc_cycles_left_sync]
+%sc_end_time_clientclock = calc(clientclock + %sc_server_cycles_left_on_launch * 30);

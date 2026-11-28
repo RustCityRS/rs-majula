@@ -29,8 +29,8 @@ if ($int3 = 1) {
     cc_setgraphic($graphic5);
     cc_settrans(255);
     if ($int3 = 2) {
-        if_setonmouseover($component0, "script4159(event_com, 0, 0)");
-        if_setonmouseleave($component0, "script4159(event_com, 1, 0)");
+        if_setonmouseover($component0, "aif_child_fade(event_com, 0, 0)");
+        if_setonmouseleave($component0, "aif_child_fade(event_com, 1, 0)");
     } else if ($int3 = 3) {
         if_setonclick($component0, "script4162(event_com)");
         if_setondrag($component0, "script4162(event_com)");

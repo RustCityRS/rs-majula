@@ -16,7 +16,7 @@ if ($key0 = ^key_f9) {
     return;
 }
 if ($key0 = ^key_f10) {
-    if (~script1036 ! null) {
+    if (~quickchat_getcontextmenu ! null) {
         ~quickchat_open_context(0, "");
     }
     return;
@@ -29,7 +29,7 @@ if ($key0 = ^key_tab) {
             if (map_quickchat = false & userdetail_quickchat = false) {
                 %varclient_1650 = true;
                 %friendtomessage = %varclient_2298;
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
                 return;
             }
             if (friend_platform($int2) = 0) {
@@ -213,7 +213,7 @@ switch_int ($key0) {
             mes("<col=ff7f7f>Use the reverse apostrophe (`) key to open the console to enter that command.");
             mes("<col=ff7f7f>It is usually located under the ESC key.");
             %varclient_2023 = "";
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         }
         if (compare($string1, lowercase(%varclient_2023)) = 0 | compare($string5, lowercase(%varclient_2023)) = 0) {
@@ -223,7 +223,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else if (compare($string3, lowercase(%varclient_2023)) = 0 | compare($string7, lowercase(%varclient_2023)) = 0) {
             %varclient_1650 = false;
@@ -232,7 +232,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else if (compare($string2, lowercase(%varclient_2023)) = 0 | compare($string6, lowercase(%varclient_2023)) = 0) {
             %varclient_1650 = false;
@@ -241,7 +241,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else if (compare($string0, lowercase(%varclient_2023)) = 0 | compare($string4, lowercase(%varclient_2023)) = 0) {
             %varclient_1650 = false;
@@ -250,7 +250,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         }
         if (%varclient_1650 = true) {
@@ -297,7 +297,7 @@ switch_int ($key0) {
                         %varclient_2023 = "";
                         chat_setmode(0);
                         %varclient_1651 = 0;
-                        ~script1558(false);
+                        ~chatdefault_init_inputline(false);
                         return;
                     }
                 } else {
@@ -329,7 +329,7 @@ switch_int ($key0) {
                         %varclient_2023 = "";
                         chat_setmode(0);
                         %varclient_1651 = 0;
-                        ~script1558(false);
+                        ~chatdefault_init_inputline(false);
                         return;
                     }
                 } else {
@@ -366,7 +366,7 @@ switch_int ($key0) {
                                 mes_typed(^chattype_clanmessage, 0, "Guests cannot chat in this Clan Chat channel.");
                                 %varclient_2023 = "";
                                 chat_setmode(0);
-                                ~script1558(false);
+                                ~chatdefault_init_inputline(false);
                                 return;
                             }
                         } else {
@@ -390,7 +390,7 @@ switch_int ($key0) {
                             mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
                             %varclient_2023 = "";
                             chat_setmode(0);
-                            ~script1558(false);
+                            ~chatdefault_init_inputline(false);
                             return;
                         }
                     } else {
@@ -452,7 +452,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else if (compare($string3, lowercase(%varclient_2023)) = 0 | compare($string7, lowercase(%varclient_2023)) = 0) {
             %varclient_1651 = 3;
@@ -461,7 +461,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else if (compare($string2, lowercase(%varclient_2023)) = 0 | compare($string6, lowercase(%varclient_2023)) = 0) {
             %varclient_1651 = 1;
@@ -470,7 +470,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         } else if (compare($string0, lowercase(%varclient_2023)) = 0 | compare($string4, lowercase(%varclient_2023)) = 0) {
             %varclient_1651 = 0;
@@ -479,7 +479,7 @@ switch_int ($key0) {
             %varclient_2023 = "";
             %chat_caret = 0;
             %varclient_1652 = true;
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             return;
         }
         %varclient_2023, %chat_caret = ~script802(%chat_caret, %varclient_2023, 0, $key0, $char1);
@@ -490,4 +490,4 @@ switch_int ($key0) {
         }
         %varclient_2023, %chat_caret = ~script802(%chat_caret, %varclient_2023, 0, $key0, $char1);
 }
-~script1558(false);
+~chatdefault_init_inputline(false);

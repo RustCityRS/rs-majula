@@ -312,7 +312,7 @@ heightmode=proportion
 layer=com_26
 transmitop=1
 op1=Bookmarks
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 319:34
 [com_34]
@@ -400,7 +400,7 @@ heightmode=proportion
 layer=com_17
 transmitop=1
 op1=Sound List
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 319:42
 [com_42]
@@ -434,7 +434,7 @@ heightmode=minus
 layer=com_12
 transmitop=1
 op1=Sort
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_319:com_5)
 onop=clientscript_5310
 onmouserepeat=aif_tooltip(interface_319:com_5, event_com, -1, "Reverse the order of the list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -539,7 +539,7 @@ layer=com_10
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(interface_319:com_5)
 onmouserepeat=aif_tooltip(interface_319:com_5, event_com, -1, "Clears all bookmarked sound effects from the favourites list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
@@ -599,7 +599,7 @@ heightmode=minus
 layer=com_16
 transmitop=1
 op1=Confirm
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 319:61
 [com_61]
@@ -657,7 +657,7 @@ heightmode=minus
 layer=com_15
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 319:67
 [com_67]

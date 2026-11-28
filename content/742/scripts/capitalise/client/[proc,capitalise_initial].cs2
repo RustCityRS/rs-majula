@@ -1,0 +1,34 @@
+// 1814
+[proc,capitalise_initial](string $string0)(string)
+def_int $int0 = string_length($string0);
+if ($int0 <= 0) {
+    return($string0);
+}
+def_string $string1 = append(" ", $string0);
+$string1 = ~find_and_replace($string1, " a", " A");
+$string1 = ~find_and_replace($string1, " b", " B");
+$string1 = ~find_and_replace($string1, " c", " C");
+$string1 = ~find_and_replace($string1, " d", " D");
+$string1 = ~find_and_replace($string1, " e", " E");
+$string1 = ~find_and_replace($string1, " f", " F");
+$string1 = ~find_and_replace($string1, " g", " G");
+$string1 = ~find_and_replace($string1, " h", " H");
+$string1 = ~find_and_replace($string1, " i", " I");
+$string1 = ~find_and_replace($string1, " j", " J");
+$string1 = ~find_and_replace($string1, " k", " K");
+$string1 = ~find_and_replace($string1, " l", " L");
+$string1 = ~find_and_replace($string1, " m", " M");
+$string1 = ~find_and_replace($string1, " n", " N");
+$string1 = ~find_and_replace($string1, " o", " O");
+$string1 = ~find_and_replace($string1, " p", " P");
+$string1 = ~find_and_replace($string1, " q", " Q");
+$string1 = ~find_and_replace($string1, " r", " R");
+$string1 = ~find_and_replace($string1, " s", " S");
+$string1 = ~find_and_replace($string1, " t", " T");
+$string1 = ~find_and_replace($string1, " u", " U");
+$string1 = ~find_and_replace($string1, " v", " V");
+$string1 = ~find_and_replace($string1, " w", " W");
+$string1 = ~find_and_replace($string1, " x", " X");
+$string1 = ~find_and_replace($string1, " y", " Y");
+$string1 = ~find_and_replace($string1, " z", " Z");
+return(substring($string1, 1, calc($int0 + 1)));

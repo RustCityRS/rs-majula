@@ -33,7 +33,7 @@ if ($int1 = 1) {
                 if (%varplayerbit_9982 = 1 | staffmodlevel > 0 | playermod > 0) {
                     cc_setop(5, "Report");
                 }
-                if (~script4467 = 1) {
+                if (~clanchat_can_kick_find = 1) {
                     cc_setop(10, "Kick/ban");
                 }
             }

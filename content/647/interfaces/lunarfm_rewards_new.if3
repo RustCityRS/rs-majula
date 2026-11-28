@@ -64,7 +64,7 @@ layer=plank_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(14)
 
 // 1083:6
@@ -119,7 +119,7 @@ layer=burn_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(13)
 
 // 1083:11
@@ -174,7 +174,7 @@ layer=runes_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(12)
 
 // 1083:16
@@ -229,7 +229,7 @@ layer=vial_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(11)
 
 // 1083:21
@@ -284,7 +284,7 @@ layer=herb_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(10)
 
 // 1083:26
@@ -339,7 +339,7 @@ layer=seed_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(9)
 
 // 1083:31
@@ -398,7 +398,7 @@ layer=vengeance_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(8)
 
 // 1083:36
@@ -457,7 +457,7 @@ layer=shield_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(7)
 
 // 1083:41
@@ -516,7 +516,7 @@ layer=leather_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(6)
 
 // 1083:46
@@ -575,7 +575,7 @@ layer=spirit_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(5)
 
 // 1083:51
@@ -634,7 +634,7 @@ layer=remote_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(4)
 
 // 1083:56
@@ -693,7 +693,7 @@ layer=ardougne_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(3)
 
 // 1083:61
@@ -752,7 +752,7 @@ layer=rune_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(2)
 
 // 1083:66
@@ -2078,8 +2078,8 @@ xmode=abs_right
 layer=com_180
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1083:183
 [com_183]
@@ -2092,8 +2092,8 @@ xmode=abs_right
 layer=com_180
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1083:184
 [title_layer]
@@ -2731,7 +2731,7 @@ layer=spells_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=lunarfm_rewards_spells_display
 
 // 1083:240
@@ -2846,7 +2846,7 @@ layer=wishes_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=lunarfm_rewards_wishes_display
 
 // 1083:250
@@ -2951,7 +2951,7 @@ layer=spells_button_falador
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:259
 [com_259]
@@ -3055,7 +3055,7 @@ layer=spells_button_rune
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:268
 [com_268]
@@ -3159,7 +3159,7 @@ layer=spells_button_ardougne
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:277
 [com_277]
@@ -3263,7 +3263,7 @@ layer=spells_button_remote
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:286
 [com_286]
@@ -3367,7 +3367,7 @@ layer=spells_button_spiritualise
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:295
 [com_295]
@@ -3471,7 +3471,7 @@ layer=spells_button_leather
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:304
 [com_304]
@@ -3575,7 +3575,7 @@ layer=spells_button_shield
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:313
 [com_313]
@@ -3679,7 +3679,7 @@ layer=spells_button_vengeance
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:322
 [com_322]
@@ -3783,7 +3783,7 @@ layer=wishes_button_seeds
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:331
 [com_331]
@@ -3887,7 +3887,7 @@ layer=wishes_button_herbs
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:340
 [com_340]
@@ -3991,7 +3991,7 @@ layer=wishes_button_vials
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:349
 [com_349]
@@ -4095,7 +4095,7 @@ layer=wishes_button_runes
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:358
 [com_358]
@@ -4199,7 +4199,7 @@ layer=wishes_button_fish
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:367
 [com_367]
@@ -4303,7 +4303,7 @@ layer=wishes_button_planks
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1083:376
 [com_376]
@@ -4387,7 +4387,7 @@ layer=falador_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=script4268(1)
 
 // 1083:383
@@ -4476,7 +4476,7 @@ layer=xp_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=lunarfm_rewards_xp_display
 
 // 1083:391

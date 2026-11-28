@@ -145,7 +145,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_4
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1239:15
 [com_15]
@@ -157,7 +157,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_4
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1239:16
 [com_16]
@@ -429,7 +429,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_38
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1239:40
 [com_40]
@@ -441,7 +441,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_38
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1239:41
 [com_41]
@@ -538,7 +538,7 @@ layer=com_43
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1239:50
 [com_50]

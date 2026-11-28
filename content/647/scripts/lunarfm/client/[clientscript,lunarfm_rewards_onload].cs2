@@ -1,6 +1,6 @@
 // 4266
 [clientscript,lunarfm_rewards_onload]
-~script4267;
+~lunarfm_rewards_unlock_state_set;
 ~script4274;
 if_settext(lunarfm_rewards_new:name, "");
 if_settext(lunarfm_rewards_new:description, "Select a reward for more information.");

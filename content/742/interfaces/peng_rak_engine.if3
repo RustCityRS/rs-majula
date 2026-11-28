@@ -675,4 +675,4 @@ op1=Inspect
 op10= 
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
-onvarctransmit=script2418(event_com){peng_rak_eng_tools}
+onvarctransmit=peng_rak_engine_ops_leverbox(event_com){peng_rak_eng_tools}

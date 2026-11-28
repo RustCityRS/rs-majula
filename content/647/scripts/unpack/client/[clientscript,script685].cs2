@@ -7,9 +7,9 @@ if (cc_find($component0, $int1) = true) {
     } else if ($int3 <= calc($int4 * 2)) {
         cc_setmodelangle(0, 0, cc_getmodelangle_x, calc(($int2 + $int4 - ($int3 - $int4)) % 2048), cc_getmodelangle_z, cc_getmodelzoom);
     } else if ($int3 <= calc($int4 * 3)) {
-        cc_setmodelangle(0, 0, cc_getmodelangle_x, ~script686(calc($int2 - ($int3 - $int4 * 2)), 2048), cc_getmodelangle_z, cc_getmodelzoom);
+        cc_setmodelangle(0, 0, cc_getmodelangle_x, ~wrap_negative_number(calc($int2 - ($int3 - $int4 * 2)), 2048), cc_getmodelangle_z, cc_getmodelzoom);
     } else {
-        cc_setmodelangle(0, 0, cc_getmodelangle_x, ~script686(calc($int2 - $int4 + ($int3 - $int4 * 3)), 2048), cc_getmodelangle_z, cc_getmodelzoom);
+        cc_setmodelangle(0, 0, cc_getmodelangle_x, ~wrap_negative_number(calc($int2 - $int4 + ($int3 - $int4 * 3)), 2048), cc_getmodelangle_z, cc_getmodelzoom);
     }
     cc_setontimer("script685(event_com, event_comsubid, $int2, $int3, $int4, $int5)");
 }

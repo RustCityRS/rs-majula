@@ -80,11 +80,11 @@ xmode=proportion_left
 ymode=proportion_top
 layer=layer_6
 noclickthrough=yes
-onmouseover=script4080
-onmouseleave=script4081
-onop=script4082
-onclickrepeat=script4082
-onrelease=script4081
+onmouseover=xmas10_reset_score_mouseover
+onmouseleave=xmas10_reset_score_mouseoff
+onop=xmas10_reset_score_op
+onclickrepeat=xmas10_reset_score_op
+onrelease=xmas10_reset_score_mouseoff
 
 // 1060:7
 [com_7]

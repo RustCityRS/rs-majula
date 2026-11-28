@@ -352,7 +352,7 @@ layer=com_18
 transmitop=1
 op1=Leave
 opcursor0=cursor_enter
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 302:33
 [com_33]
@@ -429,7 +429,7 @@ heightmode=minus
 layer=com_16
 transmitop=1
 op1=Talk
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 302:40
 [com_40]
@@ -506,7 +506,7 @@ heightmode=minus
 layer=com_17
 transmitop=1
 op1=Ships store
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 302:47
 [com_47]

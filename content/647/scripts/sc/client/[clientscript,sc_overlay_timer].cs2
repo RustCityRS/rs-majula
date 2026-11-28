@@ -11,7 +11,7 @@ def_int $int3 = calc($int1 / 50 % 60);
 if ($int2 < 0 | $int3 < 0) {
     if_settext(sc_in_game_overlay:time_remaining, "Game ending");
     if_settextshadow(sc_in_game_overlay:time_remaining, true);
-    ~script1942;
+    ~sc_client_panic_fade;
 } else if ($int2 = 0 & $int3 = 0) {
     if_settext(sc_in_game_overlay:time_remaining, "Game ending");
 } else if ($int3 < 10) {
@@ -22,7 +22,7 @@ if ($int2 < 0 | $int3 < 0) {
 if ($int2 < 1) {
     if_setcolour(sc_in_game_overlay:time_remaining, ^red);
     if_settextshadow(sc_in_game_overlay:time_remaining, true);
-    ~script1942;
+    ~sc_client_panic_fade;
 } else if (if_gethide(sc_in_game_overlay:panic_text) = false) {
     if_sethide(sc_in_game_overlay:panic_text, true);
 }

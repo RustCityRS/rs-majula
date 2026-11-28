@@ -587,8 +587,8 @@ ymode=abs_bottom
 layer=com_57
 graphic="aif_brown_button_1,0"
 tiling=yes
-onmouseover=script4416(event_com, clan_info:com_55, clan_info:com_56)
-onmouseleave=script4417(event_com, clan_info:com_55, clan_info:com_56)
+onmouseover=clan_event_bar_mouseover(event_com, clan_info:com_55, clan_info:com_56)
+onmouseleave=clan_event_bar_mouseleave(event_com, clan_info:com_55, clan_info:com_56)
 
 // 1107:55
 [com_55]
@@ -599,8 +599,8 @@ xmode=abs_right
 ymode=abs_bottom
 layer=com_57
 graphic="aif_brown_button_1,1"
-onmouseover=script4416(clan_info:com_54, clan_info:com_55, clan_info:com_56)
-onmouseleave=script4416(clan_info:com_54, clan_info:com_55, clan_info:com_56)
+onmouseover=clan_event_bar_mouseover(clan_info:com_54, clan_info:com_55, clan_info:com_56)
+onmouseleave=clan_event_bar_mouseover(clan_info:com_54, clan_info:com_55, clan_info:com_56)
 
 // 1107:56
 [com_56]
@@ -611,8 +611,8 @@ ymode=abs_bottom
 layer=com_57
 graphic="aif_brown_button_1,1"
 hflip=yes
-onmouseover=script4416(clan_info:com_54, clan_info:com_55, clan_info:com_56)
-onmouseleave=script4417(clan_info:com_54, clan_info:com_55, clan_info:com_56)
+onmouseover=clan_event_bar_mouseover(clan_info:com_54, clan_info:com_55, clan_info:com_56)
+onmouseleave=clan_event_bar_mouseleave(clan_info:com_54, clan_info:com_55, clan_info:com_56)
 
 // 1107:57
 [com_57]
@@ -1767,7 +1767,7 @@ layer=clan_data_waiting_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1107:162
 [aif_bronze_button_text_layer_8]
@@ -1861,7 +1861,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_167
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1107:170
 [content_layer]
@@ -1884,7 +1884,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_167
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1107:172
 [com_172]
@@ -1910,7 +1910,7 @@ textfont=palatino_linotype_18pt_regular
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1107:174
 [com_174]
@@ -2043,7 +2043,7 @@ heightmode=minus
 layer=report_layer
 transmitop=1
 op1=Report
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1107:186
 [com_186]

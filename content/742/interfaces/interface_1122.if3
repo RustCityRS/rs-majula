@@ -423,7 +423,7 @@ heightmode=proportion
 layer=com_36
 transmitop=1
 op1=Show Customise
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5185
 onclick=clientscript_5203
 
@@ -541,7 +541,7 @@ height=60
 layer=com_226
 transmitop=1
 op1=Select Design
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onvartransmit=clientscript_5197(interface_1122:com_51, 0, 1){varplayer_2357}
 onop=clientscript_5197(interface_1122:com_51, 0, 0)
 onclick=clientscript_5203
@@ -946,8 +946,8 @@ xmode=abs_right
 layer=com_44
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1122:93
 [com_93]
@@ -958,8 +958,8 @@ xmode=abs_right
 layer=com_44
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1122:94
 [com_94]
@@ -2005,7 +2005,7 @@ heightmode=proportion
 layer=com_179
 transmitop=1
 op1=Show Unlock Requirements
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5187
 onclick=clientscript_5203
 
@@ -2565,7 +2565,7 @@ height=60
 layer=com_235
 transmitop=1
 op1=Select Design
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onvartransmit=clientscript_5197(interface_1122:com_239, 1, 1){varplayer_2357}
 onop=clientscript_5197(interface_1122:com_239, 1, 0)
 onclick=clientscript_5203
@@ -2670,7 +2670,7 @@ height=60
 layer=com_247
 transmitop=1
 op1=Select Design
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onvartransmit=clientscript_5197(interface_1122:com_251, 2, 1){varplayer_2357}
 onop=clientscript_5197(interface_1122:com_251, 2, 0)
 onclick=clientscript_5203
@@ -2776,7 +2776,7 @@ height=60
 layer=com_259
 transmitop=1
 op1=Select Design
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onvartransmit=clientscript_5197(interface_1122:com_263, 3, 1){varplayer_2357}
 onop=clientscript_5197(interface_1122:com_263, 3, 0)
 onclick=clientscript_5203
@@ -2882,7 +2882,7 @@ height=60
 layer=com_271
 transmitop=1
 op1=Select Design
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onvartransmit=clientscript_5197(interface_1122:com_275, 4, 1){varplayer_2357}
 onop=clientscript_5197(interface_1122:com_275, 4, 0)
 onclick=clientscript_5203
@@ -4188,8 +4188,8 @@ xmode=abs_right
 layer=com_6
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1122:396
 [com_396]
@@ -4200,8 +4200,8 @@ xmode=abs_right
 layer=com_6
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1122:397
 [com_397]

@@ -374,7 +374,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_20
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1332:35
 [com_35]
@@ -397,7 +397,7 @@ heightmode=minus
 layer=com_20
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1332:37
 [com_37]

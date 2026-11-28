@@ -125,7 +125,7 @@ while ($int6 < $int7) {
         } else {
             cc_settext(~tostring_shortform($int14));
         }
-        cc_setcolour(~script1146($int14));
+        cc_setcolour(~coin_stack_colour($int14));
         cc_settextshadow(true);
         cc_create($component0, ^iftype_graphic, $int9);
         $int9 = calc($int9 + 1);

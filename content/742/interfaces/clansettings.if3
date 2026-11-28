@@ -593,7 +593,7 @@ width=459
 height=245
 xmode=abs_centre
 layer=clanmate_settings_layer
-onvartransmit=script4312{clansettings_clanmate_job_varp}
+onvartransmit=clansettings_clanmate_settings_panel_build{clansettings_clanmate_job_varp}
 
 // 1096:53
 [com_53_]
@@ -1324,7 +1324,7 @@ layer=clanmate_tab_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:118
 [com_76]
@@ -1404,7 +1404,7 @@ layer=clan_tab_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:125
 [com_95]
@@ -1446,7 +1446,7 @@ heightmode=minus
 layer=com_54
 transmitop=1
 op1=Edit motif
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:129
 [com_100]
@@ -1526,7 +1526,7 @@ heightmode=minus
 layer=com_55
 transmitop=1
 op1=Edit motto
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:136
 [com_111]
@@ -1684,7 +1684,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1096:150
 [com_124]
@@ -1707,7 +1707,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_0
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1096:152
 [com_126]
@@ -1734,7 +1734,7 @@ text=Clan Settings
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1096:154
 [clan_setup_output_txt]
@@ -1856,7 +1856,7 @@ heightmode=minus
 layer=com_56
 transmitop=1
 op1=Edit keywords
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:165
 [com_185]
@@ -2671,7 +2671,7 @@ layer=com_220
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:237
 [com_225]
@@ -3343,7 +3343,7 @@ heightmode=minus
 layer=com_106_
 transmitop=1
 op1=Edit
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:302
 [com_302_]
@@ -3754,7 +3754,7 @@ layer=clan_data_waiting_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:338
 [aif_bronze_button_text_layer_8]
@@ -3859,7 +3859,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_231_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:347
 [com_347_]
@@ -3867,7 +3867,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_231_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:348
 [com_348_]
@@ -3875,7 +3875,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_231_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:349
 [com_349_]
@@ -3883,7 +3883,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_231_
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1096:350
 [com_350_]
@@ -3893,7 +3893,7 @@ heightmode=minus
 layer=com_231_
 transmitop=1
 op1=Select Flag
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:351
 [com_351]
@@ -3919,7 +3919,7 @@ heightmode=minus
 layer=com_231_
 hide=yes
 noclickthrough=yes
-onload=script4525(event_com, struct_1803)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1803)
 
 // 1096:354
 [com_363]
@@ -4317,7 +4317,7 @@ layer=com_86
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:390
 [com_390]
@@ -4423,7 +4423,7 @@ layer=com_375_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:399
@@ -4515,7 +4515,7 @@ layer=com_399
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:407
@@ -4607,7 +4607,7 @@ layer=com_407
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:415
@@ -4699,7 +4699,7 @@ layer=com_415
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:423
@@ -4791,7 +4791,7 @@ layer=com_423
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:431
@@ -4883,7 +4883,7 @@ layer=com_431
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:439
@@ -4975,7 +4975,7 @@ layer=com_439
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:447
@@ -5067,7 +5067,7 @@ layer=com_447
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:455
@@ -5159,7 +5159,7 @@ layer=com_455
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:463
@@ -5251,7 +5251,7 @@ layer=com_463
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:471
@@ -5343,7 +5343,7 @@ layer=com_471
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_5125
 
 // 1096:479
@@ -5354,7 +5354,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_379_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:480
 [com_480]
@@ -5364,7 +5364,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_379_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:481
 [com_481]
@@ -5374,7 +5374,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_379_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:482
 [com_482]
@@ -5428,7 +5428,7 @@ layer=com_379_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_485)
 onmouserepeat=clientscript_5139("Toggle whether this rank can recruit new clan members.", event_com)
@@ -5449,7 +5449,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:489
 [com_489]
@@ -5457,7 +5457,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:490
 [com_490]
@@ -5465,7 +5465,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:491
 [com_491]
@@ -5473,7 +5473,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1096:492
 [com_492]
@@ -5484,7 +5484,7 @@ layer=com_11
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:493
 [com_493]
@@ -5538,7 +5538,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_496
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:498
 [com_498]
@@ -5546,7 +5546,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_496
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:499
 [com_499]
@@ -5554,7 +5554,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_496
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:500
 [com_500]
@@ -5562,7 +5562,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_496
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1096:501
 [com_501]
@@ -5573,7 +5573,7 @@ layer=com_496
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:502
 [com_502]
@@ -5614,7 +5614,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_504
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:506
 [com_506]
@@ -5622,7 +5622,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_504
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:507
 [com_507]
@@ -5630,7 +5630,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_504
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:508
 [com_508]
@@ -5638,7 +5638,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_504
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1096:509
 [com_509]
@@ -5649,7 +5649,7 @@ layer=com_504
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:510
 [com_510]
@@ -5690,7 +5690,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_512
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:514
 [com_514]
@@ -5698,7 +5698,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_512
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:515
 [com_515]
@@ -5706,7 +5706,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_512
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:516
 [com_516]
@@ -5714,7 +5714,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_512
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1096:517
 [com_517]
@@ -5725,7 +5725,7 @@ layer=com_512
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:518
 [com_518]
@@ -5766,7 +5766,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_520
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:522
 [com_522]
@@ -5774,7 +5774,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_520
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:523
 [com_523]
@@ -5782,7 +5782,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_520
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:524
 [com_524]
@@ -5790,7 +5790,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_520
-onload=script4525(event_com, struct_1802)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1802)
 
 // 1096:525
 [com_525]
@@ -5801,7 +5801,7 @@ layer=com_520
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:526
 [com_526]
@@ -5846,7 +5846,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_528
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:530
 [com_530]
@@ -5856,7 +5856,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_528
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:531
 [com_531]
@@ -5866,7 +5866,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_528
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:532
 [com_532]
@@ -5932,7 +5932,7 @@ layer=com_528
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_535)
 onmouserepeat=clientscript_5138("Toggle whether this rank can lock lower ranks from the keep.", event_com)
@@ -5988,7 +5988,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_540
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:543
 [com_543]
@@ -5998,7 +5998,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_540
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:544
 [com_544]
@@ -6008,7 +6008,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_540
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:545
 [com_545]
@@ -6074,7 +6074,7 @@ layer=com_540
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_548)
 onmouserepeat=clientscript_5138("Toggle whether this rank can lock lower ranks from the citadel.", event_com)
@@ -6107,7 +6107,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_380_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:554
 [com_554]
@@ -6117,7 +6117,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_380_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:555
 [com_555]
@@ -6127,7 +6127,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_380_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:556
 [com_556]
@@ -6193,7 +6193,7 @@ layer=com_380_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5142(clansettings:com_559)
 onmouserepeat=clientscript_5138("Set this rank as the minimum to talk in Clan Chat.", event_com)
@@ -6237,7 +6237,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_564
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:566
 [com_566]
@@ -6247,7 +6247,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_564
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:567
 [com_567]
@@ -6257,7 +6257,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_564
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:568
 [com_568]
@@ -6323,7 +6323,7 @@ layer=com_564
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5142(clansettings:com_571)
 onmouserepeat=clientscript_5138("Set this rank as the minimum able to kick from the Clan Chat.", event_com)
@@ -6356,7 +6356,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_746
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:577
 [com_577]
@@ -6366,7 +6366,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_746
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:578
 [com_578]
@@ -6376,7 +6376,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_746
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:579
 [com_579]
@@ -6442,7 +6442,7 @@ layer=com_746
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_582)
 onmouserepeat=clientscript_5139("Toggle whether this rank may add to the Signpost.", event_com)
@@ -6475,7 +6475,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_10_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:588
 [com_588]
@@ -6485,7 +6485,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_10_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:589
 [com_589]
@@ -6495,7 +6495,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_10_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:590
 [com_590]
@@ -6561,7 +6561,7 @@ layer=com_10_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_593)
 onmouserepeat=clientscript_5138("Toggle whether this rank may add to the Noticeboard.", event_com)
@@ -6594,7 +6594,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_3
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:599
 [com_599]
@@ -6604,7 +6604,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_3
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:600
 [com_600]
@@ -6614,7 +6614,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_3
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:601
 [com_601]
@@ -6680,7 +6680,7 @@ layer=com_3
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_604)
 onmouserepeat=clientscript_5138("Toggle whether this rank may mark a Citadel building for upgrading.", event_com)
@@ -6713,7 +6713,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_4
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:610
 [com_610]
@@ -6723,7 +6723,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_4
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:611
 [com_611]
@@ -6733,7 +6733,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_4
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:612
 [com_612]
@@ -6799,7 +6799,7 @@ layer=com_4
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_615)
 onmouserepeat=clientscript_5138("Toggle whether this rank may mark a Citadel building for downgrading.", event_com)
@@ -6832,7 +6832,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_6
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:621
 [com_621]
@@ -6842,7 +6842,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_6
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:622
 [com_622]
@@ -6852,7 +6852,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_6
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:623
 [com_623]
@@ -6918,7 +6918,7 @@ layer=com_6
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_626)
 onmouserepeat=clientscript_5139("Toggle whether this rank may edit the Clan Battlefield.", event_com)
@@ -6951,7 +6951,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_381_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:632
 [com_632]
@@ -6961,7 +6961,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_381_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:633
 [com_633]
@@ -6971,7 +6971,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_381_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:634
 [com_634]
@@ -7037,7 +7037,7 @@ layer=com_381_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_637)
 onmouserepeat=clientscript_5138("Toggle whether this rank may transfer Clan resources.", event_com)
@@ -7082,7 +7082,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_642
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:644
 [com_644]
@@ -7092,7 +7092,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_642
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:645
 [com_645]
@@ -7102,7 +7102,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_642
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:646
 [com_646]
@@ -7168,7 +7168,7 @@ layer=com_642
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_649)
 onmouserepeat=clientscript_5138("Toggle whether this rank may start an event on the Clan Battlefield.", event_com)
@@ -7201,7 +7201,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_541
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:655
 [com_655]
@@ -7211,7 +7211,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_541
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:656
 [com_656]
@@ -7221,7 +7221,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_541
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:657
 [com_657]
@@ -7287,7 +7287,7 @@ layer=com_541
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_660)
 onmouserepeat=clientscript_5139("Toggle whether this rank may lead the Clan in a Rated Clan War.", event_com)
@@ -7331,7 +7331,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_665
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:667
 [com_667]
@@ -7341,7 +7341,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_665
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:668
 [com_668]
@@ -7351,7 +7351,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_665
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:669
 [com_669]
@@ -7417,7 +7417,7 @@ layer=com_665
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_672)
 onmouserepeat=clientscript_5138("Toggle whether this rank may initiate a Clan vote.", event_com)
@@ -7473,7 +7473,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_677
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:680
 [com_680]
@@ -7483,7 +7483,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_677
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:681
 [com_681]
@@ -7493,7 +7493,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_677
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:682
 [com_682]
@@ -7559,7 +7559,7 @@ layer=com_677
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_685)
 onmouserepeat=clientscript_5138("Toggle whether this rank may begin/invite to a private meeting.", event_com)
@@ -7604,7 +7604,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_690
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:692
 [com_692]
@@ -7614,7 +7614,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_690
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:693
 [com_693]
@@ -7624,7 +7624,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_690
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:694
 [com_694]
@@ -7690,7 +7690,7 @@ layer=com_690
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_697)
 onmouserepeat=clientscript_5139("Toggle whether this rank may operate the Party Room.", event_com)
@@ -7735,7 +7735,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_702
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:704
 [com_704]
@@ -7745,7 +7745,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_702
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:705
 [com_705]
@@ -7755,7 +7755,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_702
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:706
 [com_706]
@@ -7821,7 +7821,7 @@ layer=com_702
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_709)
 onmouserepeat=clientscript_5139("Toggle whether this rank may set a gathering objective for the Clan.", event_com)
@@ -7866,7 +7866,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_714
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:716
 [com_716]
@@ -7876,7 +7876,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_714
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:717
 [com_717]
@@ -7886,7 +7886,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_714
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:718
 [com_718]
@@ -7952,7 +7952,7 @@ layer=com_714
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_721)
 onmouserepeat=clientscript_5138("Toggle whether this rank may change the timing of the weekly build tick.", event_com)
@@ -8074,7 +8074,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_733
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:735
 [com_735]
@@ -8084,7 +8084,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_733
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:736
 [com_736]
@@ -8094,7 +8094,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_733
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:737
 [com_737]
@@ -8160,7 +8160,7 @@ layer=com_733
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_740)
 onmouserepeat=clientscript_5138("Toggle whether this rank is allowed into the keep.", event_com)
@@ -8216,7 +8216,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_745
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:748
 [com_748]
@@ -8226,7 +8226,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_745
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:749
 [com_749]
@@ -8236,7 +8236,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_745
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:750
 [com_750]
@@ -8302,7 +8302,7 @@ layer=com_745
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_753)
 onmouserepeat=clientscript_5138("Toggle whether this rank is allowed into the citadel.", event_com)
@@ -8542,7 +8542,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_5
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:778
 [com_778]
@@ -8552,7 +8552,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_5
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:779
 [com_779]
@@ -8562,7 +8562,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_5
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:780
 [com_780]
@@ -8628,7 +8628,7 @@ layer=com_5
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_783)
 onmouserepeat=clientscript_5139("Toggle whether this rank may change the Citadel language.", event_com)
@@ -8661,7 +8661,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_678
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:789
 [com_789]
@@ -8671,7 +8671,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_678
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:790
 [com_790]
@@ -8681,7 +8681,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_678
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:791
 [com_791]
@@ -8747,7 +8747,7 @@ layer=com_678
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_794)
 onmouserepeat=clientscript_5139("Toggle whether this rank may operate the Theatre.", event_com)
@@ -8780,7 +8780,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_1
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:800
 [com_800]
@@ -8790,7 +8790,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_1
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:801
 [com_801]
@@ -8800,7 +8800,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_1
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:802
 [com_802]
@@ -8866,7 +8866,7 @@ layer=com_1
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_805)
 onmouserepeat=clientscript_5139("Toggle whether this rank may set skill plot locks.", event_com)
@@ -8899,7 +8899,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_0_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:811
 [com_811]
@@ -8909,7 +8909,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_0_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:812
 [com_812]
@@ -8919,7 +8919,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_0_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:813
 [com_813]
@@ -8985,7 +8985,7 @@ layer=com_0_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_816)
 onmouserepeat=clientscript_5138("Toggle whether this rank may check the resource contributions of other members.", event_com)
@@ -9018,7 +9018,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_9_
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:822
 [com_822]
@@ -9028,7 +9028,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_9_
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:823
 [com_823]
@@ -9038,7 +9038,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_9_
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:824
 [com_824]
@@ -9104,7 +9104,7 @@ layer=com_9_
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_827)
 onmouserepeat=clientscript_5139("Toggle whether this rank may customise the appearance of Clan Avatars.", event_com)
@@ -9137,7 +9137,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_8
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:833
 [com_833]
@@ -9147,7 +9147,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_8
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:834
 [com_834]
@@ -9157,7 +9157,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_8
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:835
 [com_835]
@@ -9223,7 +9223,7 @@ layer=com_8
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_838)
 onmouserepeat=clientscript_5139("Toggle whether this rank may add a buff to a Clan Avatar buff slot.", event_com)
@@ -9256,7 +9256,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_7
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 1096:844
 [com_844]
@@ -9266,7 +9266,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_7
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 1096:845
 [com_845]
@@ -9276,7 +9276,7 @@ widthmode=proportion
 heightmode=minus
 ymode=abs_centre
 layer=com_7
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 1096:846
 [com_846]
@@ -9342,7 +9342,7 @@ layer=com_7
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(clansettings:tooltip_layer)
 onop=clientscript_5140(clansettings:com_849)
 onmouserepeat=clientscript_5139("Toggle whether this rank may remove the Avatar Habitat.", event_com)

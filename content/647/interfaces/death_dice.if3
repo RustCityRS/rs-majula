@@ -81,7 +81,7 @@ textfont=q8_full
 text=Player
 textalignh=centre
 colour=0x333333
-onvarcstrtransmit=script1576(event_com, death_dice:tooltip){varclient_1728}
+onvarcstrtransmit=death_dicegame_display_name(event_com, death_dice:tooltip){varclient_1728}
 
 // 99:7
 [death_gamble_harold_gold]

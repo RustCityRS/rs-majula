@@ -1,0 +1,5 @@
+// 3414
+[clientscript,ft3_epilepsy_model_switch](component $component0)
+if (%ft3_epilepsy_warning = 2) {
+    if_setmodel($component0, model_57477);
+}

@@ -1,0 +1,4 @@
+// 4365
+[clientscript,clan_noticeboard_hide_event_info](component $component0)
+if_sethide($component0, true);
+if_settext(clan_noticeboard:event_text, "");

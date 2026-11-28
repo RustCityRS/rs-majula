@@ -14,7 +14,7 @@ if (~obj_use_requirements($obj0) = false) {
     } else {
         return("You do not meet the requirements to use this item.<br>");
     }
-} else if (~script928($obj0) = true) {
+} else if (~obj_has_use_req($obj0) = true) {
     if (~obj_wear_requirements($obj0) = false) {
         if (compare(oc_iop($obj0, 2), "Wield") = 0) {
             return("You can use this item but not wield it.<br>");

@@ -383,7 +383,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 925:34
 [com_34]
@@ -406,7 +406,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_0
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 925:36
 [com_36]
@@ -433,7 +433,7 @@ text=Fish Flingers Reward Shop
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 925:38
 [com_38]
@@ -2003,7 +2003,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_61
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 925:174
 [com_174]
@@ -2013,7 +2013,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_61
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 925:175
 [com_175]
@@ -2023,7 +2023,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_61
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 925:176
 [com_176]
@@ -2035,7 +2035,7 @@ heightmode=minus
 layer=com_61
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 925:177
 [com_177]
@@ -2047,7 +2047,7 @@ heightmode=minus
 layer=com_61
 transmitop=1
 op1=Claim
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 925:178
 [com_178]
@@ -2105,7 +2105,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 925:183
 [com_183]
@@ -2115,7 +2115,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 925:184
 [com_184]
@@ -2125,7 +2125,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_23
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 925:185
 [com_185]
@@ -2137,7 +2137,7 @@ heightmode=minus
 layer=com_23
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 925:186
 [com_186]
@@ -2149,7 +2149,7 @@ heightmode=minus
 layer=com_23
 transmitop=1
 op1=Claim
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 925:187
 [com_187]
@@ -2381,7 +2381,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_199
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 925:205
 [com_205]
@@ -2389,7 +2389,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_199
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 925:206
 [com_206]
@@ -2397,7 +2397,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_199
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 925:207
 [com_207]
@@ -2408,7 +2408,7 @@ layer=com_199
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 925:208
 [com_208]

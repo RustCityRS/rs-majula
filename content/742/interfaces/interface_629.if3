@@ -93,7 +93,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_0
 opkey11=1,0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 629:8
 [com_8]
@@ -154,4 +154,4 @@ textalignh=centre
 textalignv=centre
 colour=0xebe0bc
 opkey11=1,0
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)

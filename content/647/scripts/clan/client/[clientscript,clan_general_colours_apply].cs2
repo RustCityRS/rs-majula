@@ -1,0 +1,5 @@
+// 4333
+[clientscript,clan_general_colours_apply](component $component0, component $component1)
+if (activeclansettings_find_listened = true) {
+    ~clan_general_colours_apply($component0, $component1);
+}

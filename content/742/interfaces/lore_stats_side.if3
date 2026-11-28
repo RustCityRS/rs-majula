@@ -514,7 +514,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xc4b074
-onvartransmit=script752{lore_timer_var}
+onvartransmit=lore_timer_values_update{lore_timer_var}
 
 // 662:44
 [size_icon]

@@ -40,4 +40,4 @@ if_setposition(easter09_nuts:model2, calc(0 - if_getwidth(easter09_nuts:model2))
 if_setposition(easter09_nuts:model3, calc(0 - if_getwidth(easter09_nuts:model3)), if_gety(easter09_nuts:model3), ^setpos_abs_left, ^setpos_abs_top);
 if_setposition(easter09_nuts:model4, calc(0 - if_getwidth(easter09_nuts:model4)), if_gety(easter09_nuts:model4), ^setpos_abs_left, ^setpos_abs_top);
 if_setposition(easter09_nuts:bar, if_getx(easter09_nuts:band), 200, ^setpos_abs_left, ^setpos_abs_top);
-if_setontimer(easter09_nuts:control1, "script399(easter09_nuts:model1)");
+if_setontimer(easter09_nuts:control1, "easter09_nuts_move1(easter09_nuts:model1)");

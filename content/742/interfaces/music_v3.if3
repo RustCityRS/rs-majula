@@ -16,7 +16,7 @@ y=62
 width=170
 height=187
 opbase= 
-onload=script828
+onload=music_list_onload_v3
 onvartransmit=music_v3_setcolour{playlist_0_and_1, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, musicmulti_1, musicmulti_2, musicmulti_3, musicmulti_4, musicmulti_5, musicmulti_6, musicmulti_7, musicmulti_8, musicmulti_9, musicmulti_10, musicmulti_11, musicmulti_12, musicmulti_13, musicmulti_14, musicmulti_15, musicmulti_16, musicmulti_17, musicmulti_18, musicmulti_19, musicmulti_20, musicmulti_21, musicmulti_22, musicmulti_23, musicmulti_24, musicmulti_25, musicmulti_26, musicmulti_27, musicmulti_29, musicmulti_30, musicmulti_31, varplayer_2246, varplayer_2430, varplayer_2559, varplayer_2632, varplayer_2770}
 
 // 187:2
@@ -129,8 +129,8 @@ transmitop=1
 op1=Playlist on/off
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onvartransmit=music_playlist_update_mode{playlist_0_and_1}
-onop=script2873
-onmouserepeat=script2882
+onop=music_playlist_change_mode
+onmouserepeat=music_player_tooltip_playlist_mode
 
 // 187:12
 [playlist_clear]
@@ -144,7 +144,7 @@ colour=0xffffffff
 transmitop=1
 op1=Clear Playlist
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
-onmouserepeat=script2883
+onmouserepeat=music_player_tooltip_playlist_clear
 
 // 187:13
 [playlist_interface]
@@ -156,7 +156,7 @@ height=24
 graphic="music_header_icons,0"
 colour=0xffffffff
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
-onmouserepeat=script2880
+onmouserepeat=music_player_tooltip_playlist_interface
 onclick=music_playlist_toggle_interface(1)
 
 // 187:14
@@ -172,8 +172,8 @@ transmitop=1
 op1=Shuffle on/off
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onvartransmit=music_playlist_update_random{playlist_0_and_1}
-onop=script2875
-onmouserepeat=script2884
+onop=music_playlist_change_random
+onmouserepeat=music_player_tooltip_playlist_random
 
 // 187:15
 [playlist_empty]
@@ -214,8 +214,8 @@ transmitop=1
 op1=Search
 opcursor0=cursor_search
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
-onop=script3682
-onmouserepeat=script3684
+onop=music_player_music_search_button
+onmouserepeat=music_player_tooltip_music_search
 
 // 187:19
 [music_search_empty]

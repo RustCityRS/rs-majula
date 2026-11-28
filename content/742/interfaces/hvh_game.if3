@@ -219,7 +219,7 @@ text=Name
 textalignh=right
 textshadow=yes
 colour=0x77736a
-onvarcstrtransmit=script1582(event_com, hvh_game:tooltip){hvh_opp_name}
+onvarcstrtransmit=hvh_opp_name(event_com, hvh_game:tooltip){hvh_opp_name}
 
 // 730:19
 [hunter_layer]

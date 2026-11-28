@@ -23,6 +23,6 @@ if (activeclanchannel_find_affined = true) {
 if ($int2 = 1) {
     %varclient_1650 = true;
     %friendtomessage = $string0;
-    ~script1558(false);
+    ~chatdefault_init_inputline(false);
     return;
 }

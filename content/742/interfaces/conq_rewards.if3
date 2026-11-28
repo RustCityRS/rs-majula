@@ -746,7 +746,7 @@ textalignh=right
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvartransmit=script458(event_com){varplayer_719}
+onvartransmit=conq_reward_update_points(event_com){varplayer_719}
 
 // 1011:63
 [xp_layer]

@@ -1,6 +1,6 @@
 // 5002
 [proc,clientscript_5002](component $component0)
-~clientscript_4408($component0);
+~aif_set_default_cursor($component0);
 cc_deleteall($component0);
 cc_create($component0, ^iftype_graphic, 0);
 cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);

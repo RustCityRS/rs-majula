@@ -25,7 +25,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_1
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1312:3
 [com_3]
@@ -260,7 +260,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_1
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1312:26
 [com_26]
@@ -287,7 +287,7 @@ text=Choose your Motto
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1312:28
 [com_28]
@@ -367,7 +367,7 @@ layer=com_5
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:36
 [com_36]
@@ -443,7 +443,7 @@ layer=com_6
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:44
 [com_44]
@@ -519,7 +519,7 @@ layer=com_7
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:52
 [com_52]
@@ -595,7 +595,7 @@ layer=com_8
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:60
 [com_60]
@@ -671,7 +671,7 @@ layer=com_9
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:68
 [com_68]
@@ -747,7 +747,7 @@ layer=com_10
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:76
 [com_76]
@@ -823,7 +823,7 @@ layer=com_11
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:84
 [com_84]
@@ -899,7 +899,7 @@ layer=com_12
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:92
 [com_92]
@@ -975,7 +975,7 @@ layer=com_13
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:100
 [com_100]
@@ -1051,7 +1051,7 @@ layer=com_14
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:108
 [com_108]
@@ -1127,7 +1127,7 @@ layer=com_15
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:116
 [com_116]
@@ -1203,7 +1203,7 @@ layer=com_16
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:124
 [com_124]
@@ -1279,7 +1279,7 @@ layer=com_17
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:132
 [com_132]
@@ -1355,7 +1355,7 @@ layer=com_18
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:140
 [com_140]
@@ -1431,7 +1431,7 @@ layer=com_19
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:148
 [com_148]
@@ -1507,7 +1507,7 @@ layer=com_20
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:156
 [com_156]
@@ -1583,7 +1583,7 @@ layer=com_21
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:164
 [com_164]
@@ -1659,7 +1659,7 @@ layer=com_22
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:172
 [com_172]
@@ -1735,7 +1735,7 @@ layer=com_23
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:180
 [com_180]
@@ -1811,7 +1811,7 @@ layer=com_24
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1312:188
 [com_188]

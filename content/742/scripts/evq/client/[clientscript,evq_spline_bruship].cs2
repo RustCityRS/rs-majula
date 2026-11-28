@@ -1,0 +1,8 @@
+// 2816
+[clientscript,evq_spline_bruship]
+if (%evq_region_sw ! null) {
+    ~evq_spline_bruship;
+    if_setonvarctransmit(fade2:eventlayer, null);
+} else {
+    if_setonvarctransmit(fade2:eventlayer, "evq_spline_bruship{evq_region_sw}");
+}

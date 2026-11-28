@@ -15,7 +15,7 @@ if (string_length(%varclient_2023) >= 3) {
                 mes_typed(^chattype_clanmessage, 0, "Guests cannot chat in this Clan Chat channel.");
                 %varclient_2023 = "";
                 %chat_caret = 0;
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
                 return(true);
             }
         } else {
@@ -43,7 +43,7 @@ if (string_length(%varclient_2023) >= 3) {
                 mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
                 %varclient_2023 = "";
                 %chat_caret = 0;
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
                 return(true);
             }
         } else {
@@ -81,7 +81,7 @@ if (string_length(%varclient_2023) >= 3) {
                 mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
                 %varclient_2023 = "";
                 %chat_caret = 0;
-                ~script1558(false);
+                ~chatdefault_init_inputline(false);
                 return(true);
             }
         } else {

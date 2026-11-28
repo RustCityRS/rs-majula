@@ -1000,7 +1000,7 @@ trans=150
 transmitop=10
 op10=  
 onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
-onvartransmit=script283{snp_idle}
+onvartransmit=snp_tutorial_idle_bar_fill{snp_idle}
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
 
 // 834:75

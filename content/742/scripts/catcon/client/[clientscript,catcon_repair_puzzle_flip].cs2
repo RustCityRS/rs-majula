@@ -2,7 +2,7 @@
 [clientscript,catcon_repair_puzzle_flip]
 sound_synth(synth_4501, 1, 0);
 if (%catcon_selected_side = 0) {
-    ~script841(1);
+    ~catcon_client_puzzle_switch_side(1);
 } else {
-    ~script841(0);
+    ~catcon_client_puzzle_switch_side(0);
 }

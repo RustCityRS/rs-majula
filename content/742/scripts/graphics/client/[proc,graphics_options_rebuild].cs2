@@ -37,7 +37,7 @@ switch_int ($int4) {
         if_sethide(loginscreen_graphics_options:back_button, true);
         ~graphics_options_login_resize(false);
         if_setonresize(loginscreen_graphics_options:universe, "graphics_options_login_resize(false)");
-        if_setonresize(loginscreen:options, "script2919(false, $int4)");
+        if_setonresize(loginscreen:options, "graphics_options_resize_redraw(false, $int4)");
     case 2 :
         if_opensubclient(lobbyscreen_pane_options:options_client_if, graphics_options_client);
         $component5 = lobbyscreen_pane_options:universe;
@@ -50,7 +50,7 @@ switch_int ($int4) {
         if_sethide(lobbyscreen_pane_options:com_0, true);
         if_setscrollpos(lobbyscreen_pane_options:contents, 0, 0);
         if_setscrollsize(lobbyscreen_pane_options:contents, 0, 0);
-        if_setonresize(lobbyscreen:com_0, "script2919(false, $int4)");
+        if_setonresize(lobbyscreen:com_0, "graphics_options_resize_redraw(false, $int4)");
         ~lobby_resize;
 }
 if_setonclick(graphics_options_client:autosetup_button, "autosetup($int4)");
@@ -103,4 +103,4 @@ if (fullscreen_modecount <= 0) {
     cc_setonmouseleave("graphics_options_mouseoveroption(event_com, .cc_getid, false, $int8, 0x5f5b52, true)");
     cc_setonclick("graphics_options_createdropdown(event_com, event_comsubid, .cc_getid, $int8, -1, struct_845, $int2, $int3, $int0, $int1, $int4)");
 }
-~script3451($int4, false);
+~graphics_options_manual_setup_buttons($int4, false);

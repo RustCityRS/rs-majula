@@ -1,0 +1,4 @@
+// 4233
+[clientscript,acs_cooldown_layer_onop](component $component0, component $component1, component $component2, int $int3)
+if_setontimer($component0, "acs_cooldown_layer_ontimer($component0, $component1, $component2, clientclock, $int3)");
+if_setonop($component0, null);

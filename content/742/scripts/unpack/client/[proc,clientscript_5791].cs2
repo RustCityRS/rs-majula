@@ -33,9 +33,9 @@ if (~script3999(%varplayerbit_10700) = 0 & %varplayerbit_10700 = %varplayerbit_8
     } else if (%varplayerbit_8576 = 3036 | %varplayerbit_8576 = 3037 | %varplayerbit_8576 = 3038 | %varplayerbit_8576 = 3039 | %varplayerbit_8576 = 3040 | %varplayerbit_8576 = 3041) {
         if_sethide(interface_1220:com_2, false);
     }
-    ~script4531(interface_1220:com_16);
+    ~aif_window_1_frame_layer_onload(interface_1220:com_16);
 } else {
     ~aif_text_layer_build_new(interface_1220:com_32, "Active Task", verdana_13pt_regular, 0xebe0bc, ^black);
     if_setposition(interface_1220:com_26, if_getx(interface_1220:com_26), calc(if_gety(interface_1220:com_16) + 2), ^setpos_abs_left, ^setpos_abs_top);
-    ~script4531(interface_1220:com_16);
+    ~aif_window_1_frame_layer_onload(interface_1220:com_16);
 }

@@ -8,7 +8,7 @@ heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
 onload=sfa_init
-onvartransmit=script2889{sfa_temp}
+onvartransmit=sfa_update_models{sfa_temp}
 
 // 476:1
 [side_bar]

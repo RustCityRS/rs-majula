@@ -1,0 +1,9 @@
+// 4334
+[proc,clan_general_colours_apply](component $component0, component $component1)
+if (activeclansettings_getaffinedcount >= 5) {
+    if_setcolour($component0, op879(%clan_custom_colour1_varclan));
+    if_setcolour($component1, op879(%clan_custom_colour2_varclan));
+} else {
+    if_setcolour($component0, op879(42550));
+    if_setcolour($component1, op879(39382));
+}

@@ -969,8 +969,8 @@ ymode=abs_centre
 layer=com_88
 graphic=graphic_13542
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1351:91
 [com_91]
@@ -982,8 +982,8 @@ ymode=abs_centre
 layer=com_88
 graphic=graphic_13543
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1351:92
 [com_92]
@@ -1256,8 +1256,8 @@ ymode=abs_centre
 layer=com_112
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 
 // 1351:115
 [com_115]
@@ -1269,8 +1269,8 @@ ymode=abs_centre
 layer=com_112
 graphic="aif_bronze_close_button_1,2"
 trans=255
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1351:116
 [com_116]
@@ -1508,8 +1508,8 @@ width=75
 height=26
 layer=com_11
 hide=yes
-onclick=script4207(event_com, 0)
-onrelease=script4207(event_com, 1)
+onclick=aif_component_fade_jump(event_com, 0)
+onrelease=aif_component_fade_jump(event_com, 1)
 
 // 1351:137
 [com_137]

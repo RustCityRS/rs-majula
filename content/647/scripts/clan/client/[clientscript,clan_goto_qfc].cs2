@@ -1,0 +1,3 @@
+// 4330
+[clientscript,clan_goto_qfc](clanforumqfc $clanforumqfc0)
+openurl("clan-forum", "threads.ws?threadid=<clanforumqfc_tostring($clanforumqfc0)>", false);

@@ -100,7 +100,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_9
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1334:11
 [com_11]
@@ -563,7 +563,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_9
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1334:49
 [com_49]
@@ -590,7 +590,7 @@ text=Clan Avatar Buff Slots
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1334:51
 [com_51]
@@ -669,7 +669,7 @@ heightmode=minus
 layer=com_2
 transmitop=1
 op1=Save
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1334:59
 [com_59]
@@ -735,7 +735,7 @@ heightmode=minus
 layer=com_41
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=closebutton_click
 
 // 1334:66
@@ -803,7 +803,7 @@ heightmode=minus
 layer=com_42
 transmitop=1
 op1=Save
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6644(interface_1334:com_45)
 
 // 1334:73
@@ -870,7 +870,7 @@ heightmode=minus
 layer=com_3
 transmitop=1
 op1=Cancel
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_6645(interface_1334:com_45)
 
 // 1334:80

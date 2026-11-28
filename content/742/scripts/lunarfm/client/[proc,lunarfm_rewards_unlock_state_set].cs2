@@ -1,0 +1,48 @@
+// 4267
+[proc,lunarfm_rewards_unlock_state_set]
+def_int $int0 = calc(%lunarfm_produce_points * 10);
+if_settext(lunarfm_rewards_new:current_points, ~tostring_spacer($int0, ","));
+if (%lunarfm_spells_unlocked > 0) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_falador, null);
+}
+if (%lunarfm_spells_unlocked > 1) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_rune, null);
+}
+if (%lunarfm_spells_unlocked > 2) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_ardougne, null);
+}
+if (%lunarfm_spells_unlocked > 3) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_remote, null);
+}
+if (%lunarfm_spells_unlocked > 4) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_spirit, null);
+}
+if (%lunarfm_spells_unlocked > 5) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_leather, null);
+}
+if (%lunarfm_spells_unlocked > 6) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_shield, null);
+}
+if (%lunarfm_spells_unlocked > 7) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_vengeance, null);
+}
+if (%lunarfm_spells_unlocked > 8) {
+    if_setgraphic(lunarfm_rewards_new:com_437, null);
+}
+if (%lunarfm_spells_unlocked > 9) {
+    if_setgraphic(lunarfm_rewards_new:com_448, null);
+}
+if (%lunarfm_spells_unlocked > 10) {
+    if_setgraphic(lunarfm_rewards_new:com_459, null);
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_rune, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_seeds, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_herbs, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_vials, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_runes, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_burn, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_planks, null);
+    if_setgraphic(lunarfm_rewards_new:com_498, null);
+    if_setgraphic(lunarfm_rewards_new:com_507, null);
+    if_setgraphic(lunarfm_rewards_new:com_517, null);
+    if_setgraphic(lunarfm_rewards_new:com_557, null);
+}

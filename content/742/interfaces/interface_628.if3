@@ -414,7 +414,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_31
 opkey11=1,0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 628:33
 [com_33]
@@ -441,7 +441,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_31
 opkey11=1,0
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 628:35
 [com_35]
@@ -486,7 +486,7 @@ textalignh=centre
 textalignv=centre
 colour=0xebe0bc
 opkey11=1,0
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 628:38
 [com_38]

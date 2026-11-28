@@ -104,4 +104,4 @@ if ($key0 = ^key_backspace) {
 }
 if_settext($component3, "Search for: <%varclient_2052>*");
 %quickchat_phrase_temp_int = 50;
-if_setontimer($component3, "script1903($component2, $component3, $component4, $component5)");
+if_setontimer($component3, "quickchat_phrase_search_delaytimer($component2, $component3, $component4, $component5)");

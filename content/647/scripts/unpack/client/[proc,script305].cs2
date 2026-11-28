@@ -5,4 +5,4 @@ if ($int0 = 1) {
 } else {
     if_setcolour(worldmap:zoom_level, ^red);
 }
-if_setontimer(worldmap:zoom_level, "script306(clientclock, event_com)");
+if_setontimer(worldmap:zoom_level, "worldmap_zoom_colour_timer(clientclock, event_com)");

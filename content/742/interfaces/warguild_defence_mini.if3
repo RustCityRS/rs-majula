@@ -147,7 +147,7 @@ layer=com_3
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4248(1)
 
 // 411:14
@@ -250,7 +250,7 @@ layer=com_2
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4248(2)
 
 // 411:23
@@ -353,7 +353,7 @@ layer=com_1
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4248(3)
 
 // 411:32
@@ -456,7 +456,7 @@ layer=com_0
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_4248(0)
 
 // 411:41

@@ -1,0 +1,4 @@
+// 4389
+[clientscript,clan_motif_set_clan_colours](component $component0, component $component1)
+if_setcolour($component0, op879(%clan_custom_colour1_varp));
+if_setcolour($component1, op879(%clan_custom_colour2_varp));

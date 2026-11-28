@@ -13,11 +13,11 @@ if (clientclock > calc($int2 + 5) | %machinima_livecamera_targetmode = 2) {
                 case ^key_f2 :
                     ~script835(false);
                 case ^key_f6 :
-                    ~script3455;
+                    ~machinima_clear_all_states;
                 case ^key_f7 :
-                    ~script3453;
+                    ~machinima_store_current_state;
                 case ^key_f8 :
-                    ~script3456;
+                    ~machinima_run_all_states;
                 case ^key_e :
                     ~machinima_camera_up;
                 case ^key_r :
@@ -41,7 +41,7 @@ if (clientclock > calc($int2 + 5) | %machinima_livecamera_targetmode = 2) {
                 case ^key_escape :
                     ~script675;
                 case ^key_f1 :
-                    ~script3455;
+                    ~machinima_clear_all_states;
                     if (%machinima_livecamera_targetmode = 0) {
                         %machinima_livecamera_targetmode = 1;
                         if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,9");
@@ -126,11 +126,11 @@ if (clientclock > calc($int2 + 5) | %machinima_livecamera_targetmode = 2) {
                 case ^key_f2 :
                     ~script835(false);
                 case ^key_f6 :
-                    ~script3455;
+                    ~machinima_clear_all_states;
                 case ^key_f7 :
-                    ~script3453;
+                    ~machinima_store_current_state;
                 case ^key_f8 :
-                    ~script3456;
+                    ~machinima_run_all_states;
                 case ^key_q :
                     ~machinima_camera_up;
                 case ^key_w :
@@ -154,7 +154,7 @@ if (clientclock > calc($int2 + 5) | %machinima_livecamera_targetmode = 2) {
                 case ^key_escape :
                     ~script675;
                 case ^key_f1 :
-                    ~script3455;
+                    ~machinima_clear_all_states;
                     if (%machinima_livecamera_targetmode = 0) {
                         %machinima_livecamera_targetmode = 1;
                         if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,9");

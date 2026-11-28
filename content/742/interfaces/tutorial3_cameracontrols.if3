@@ -342,7 +342,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_3
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 897:27
 [com_27]
@@ -365,7 +365,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_3
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 897:29
 [com_29_]
@@ -392,4 +392,4 @@ text=Controls
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)

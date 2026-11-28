@@ -2007,7 +2007,7 @@ layer=com_208
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 149:219
 [com_219]
@@ -2145,7 +2145,7 @@ layer=com_209
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 149:231
 [com_231]

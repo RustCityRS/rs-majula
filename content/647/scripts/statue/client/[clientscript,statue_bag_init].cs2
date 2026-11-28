@@ -33,6 +33,6 @@ while ($int1 < 30) {
     }
     cc_setop(5, "Examine<col=ff9040>");
     cc_setopbase("<col=ff981f><enum(int, string, enum_3274, $int1)> Piece");
-    cc_setonop("script3679(event_com, $int1)");
+    cc_setonop("statue_bag_remove_op(event_com, $int1)");
     $int1 = calc($int1 + 1);
 }

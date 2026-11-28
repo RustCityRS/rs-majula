@@ -1140,7 +1140,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 919:98
 [com_98]
@@ -1148,7 +1148,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 919:99
 [com_99]
@@ -1156,7 +1156,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_17
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 919:100
 [com_100]
@@ -1167,7 +1167,7 @@ layer=com_17
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(fishcomp_overlay:com_24)
 onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "Press this button to display the habitats in which you've achieved 100% rating this competition.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
 
@@ -1200,7 +1200,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_67
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 919:104
 [com_104]
@@ -1208,7 +1208,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_67
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 919:105
 [com_105]
@@ -1216,7 +1216,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_67
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 919:106
 [com_106]
@@ -1227,7 +1227,7 @@ layer=com_67
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 919:107
 [com_107]

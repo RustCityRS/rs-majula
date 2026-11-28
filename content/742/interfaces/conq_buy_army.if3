@@ -152,7 +152,7 @@ textalignh=right
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvartransmit=script479{conq_base_temp}
+onvartransmit=conq_set_army_points_display{conq_base_temp}
 
 // 1015:13
 [com_13]
@@ -419,7 +419,7 @@ y=79
 width=180
 height=50
 layer=com_33
-onvartransmit=script490{conq_base_4, conq_base_4, conq_base_4, conq_base_4}
+onvartransmit=conq_update_command_slot_button_text{conq_base_4, conq_base_4, conq_base_4, conq_base_4}
 
 // 1015:36
 [command_ability_2_layer]
@@ -1547,8 +1547,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Scout
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:120
 [footman_tick]
@@ -1575,8 +1575,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Foot Soldier
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:122
 [halbadier_tick]
@@ -1603,8 +1603,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Halberdier
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:124
 [archer_tick]
@@ -1631,8 +1631,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Archer
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:126
 [mage_tick]
@@ -1659,8 +1659,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Mage
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:128
 [knight_tick]
@@ -1687,8 +1687,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Knight
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:130
 [champion_tick]
@@ -1715,8 +1715,8 @@ textshadow=yes
 colour=0xff991f
 transmitop=1
 op1=Champion
-onmouseover=script484(event_com)
-onmouseleave=script485(event_com)
+onmouseover=conq_replace_unit_mouseover(event_com)
+onmouseleave=conq_replace_unit_mouseleave(event_com)
 
 // 1015:132
 [no_unit_tick]

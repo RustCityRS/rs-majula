@@ -1,6 +1,6 @@
 // 2855
 [proc,machinima_camera_south]
-if (~script2869(movecoord(%machinima_livecamera_position, 0, 0, -1)) = true) {
+if (~machinima_check_area_restrictions(movecoord(%machinima_livecamera_position, 0, 0, -1)) = true) {
     return;
 }
 if (~machinima_distance(coord, movecoord(%machinima_livecamera_position, 0, 0, -1)) < 31) {

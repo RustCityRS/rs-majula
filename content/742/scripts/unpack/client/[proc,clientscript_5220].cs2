@@ -3,18 +3,18 @@
 def_int $int0 = ~clientscript_5992;
 switch_int ($int0) {
     case 0 :
-        ~clientscript_5219(interface_1259:com_33);
-        ~clientscript_5219(interface_1259:com_57);
+        ~deltooltip(interface_1259:com_33);
+        ~deltooltip(interface_1259:com_57);
     case 1 :
-        ~clientscript_5219(interface_1261:com_126);
-        ~clientscript_5219(interface_1261:com_153);
-        ~clientscript_5219(interface_1261:com_102);
+        ~deltooltip(interface_1261:com_126);
+        ~deltooltip(interface_1261:com_153);
+        ~deltooltip(interface_1261:com_102);
     case 2 :
-        ~clientscript_5219(interface_1258:com_121);
-        ~clientscript_5219(interface_1258:com_149);
-        ~clientscript_5219(interface_1258:com_110);
-        ~clientscript_5219(interface_1258:com_486);
+        ~deltooltip(interface_1258:com_121);
+        ~deltooltip(interface_1258:com_149);
+        ~deltooltip(interface_1258:com_110);
+        ~deltooltip(interface_1258:com_486);
     case 3 :
-        ~clientscript_5219(interface_1260:com_324);
-        ~clientscript_5219(interface_1260:com_93);
+        ~deltooltip(interface_1260:com_324);
+        ~deltooltip(interface_1260:com_93);
 }

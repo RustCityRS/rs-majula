@@ -9,7 +9,7 @@ if (compare(%snapshot_name, chat_playername_unfiltered) = 0) {
     return;
 }
 if (ignore_test(%snapshot_name) = false & compare(%snapshot_name, chat_playername_unfiltered) ! 0) {
-    ~script221;
+    ~snapshot_enter_ignore_mode;
 } else {
     ~script675;
 }

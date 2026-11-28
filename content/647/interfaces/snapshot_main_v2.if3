@@ -33,7 +33,7 @@ op1=Select-player
 op10=  
 onmouseover=snapshot_highlight_on(event_com)
 onmouseleave=snapshot_highlight_off(event_com)
-onop=script215
+onop=snapshot_enter_name_mode
 
 // 594:3
 [cancel_button_layer]
@@ -726,7 +726,7 @@ op1=Next
 op10= 
 onmouseover=snapshot_highlight_on(event_com)
 onmouseleave=snapshot_highlight_off(event_com)
-onop=script219
+onop=snapshot_enter_offence_mode
 
 // 594:55
 [name_next_button_left]

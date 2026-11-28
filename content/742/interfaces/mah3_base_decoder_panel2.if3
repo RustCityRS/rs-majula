@@ -19,9 +19,9 @@ transmitop=1
 op1=Move strip right
 onmouseover=model_swapper(mah3_base_decoder_panel2:right_arrow, model_48023)
 onmouseleave=model_swapper(mah3_base_decoder_panel2:right_arrow, model_48037)
-onop=script2664
-onrelease=script2667
-onhold=script2664
+onop=mah3_strip_right
+onrelease=mah3_strip_align
+onhold=mah3_strip_right
 
 // 866:2
 [down_button]
@@ -38,9 +38,9 @@ transmitop=1
 op1=Move strip down
 onmouseover=model_swapper(mah3_base_decoder_panel2:down_arrow, model_48042)
 onmouseleave=model_swapper(mah3_base_decoder_panel2:down_arrow, model_48022)
-onop=script2666
-onrelease=script2667
-onhold=script2666
+onop=mah3_strip_down
+onrelease=mah3_strip_align
+onhold=mah3_strip_down
 
 // 866:3
 [left_button]
@@ -57,9 +57,9 @@ transmitop=1
 op1=Move strip left
 onmouseover=model_swapper(mah3_base_decoder_panel2:left_arrow, model_48054)
 onmouseleave=model_swapper(mah3_base_decoder_panel2:left_arrow, model_48024)
-onop=script2663
-onrelease=script2667
-onhold=script2663
+onop=mah3_strip_left
+onrelease=mah3_strip_align
+onhold=mah3_strip_left
 
 // 866:4
 [up_button]
@@ -76,9 +76,9 @@ transmitop=1
 op1=Move strip up
 onmouseover=model_swapper(mah3_base_decoder_panel2:up_arrow, model_48049)
 onmouseleave=model_swapper(mah3_base_decoder_panel2:up_arrow, model_48035)
-onop=script2665
-onrelease=script2667
-onhold=script2665
+onop=mah3_strip_up
+onrelease=mah3_strip_align
+onhold=mah3_strip_up
 
 // 866:5
 [decoder_strip_1]
@@ -96,7 +96,7 @@ transmitop=1
 op1=Select
 opcursor0=cursor_use
 onop=script2659
-onvarctransmit=script2668{mah3_clnostrips}
+onvarctransmit=mah3_nostrips{mah3_clnostrips}
 
 // 866:6
 [decoder_strip_4]
@@ -1098,4 +1098,4 @@ type=layer
 width=512
 height=334
 layer=layer_1
-onload=script2668
+onload=mah3_nostrips

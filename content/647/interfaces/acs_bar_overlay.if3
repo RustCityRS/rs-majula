@@ -206,7 +206,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=wetwilly_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 481:20
 [wetwilly_resize_over_layer]
@@ -216,7 +216,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=wetwilly_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 481:21
 [wetwilly_resize_hit_layer]
@@ -226,7 +226,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=wetwilly_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 481:22
 [wetwilly_resize_selected_layer]
@@ -236,7 +236,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=wetwilly_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 481:23
 [wetwilly_resize_disabled_layer]
@@ -248,7 +248,7 @@ heightmode=proportion
 layer=wetwilly_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 481:24
 [com_24]
@@ -350,7 +350,7 @@ heightmode=proportion
 layer=wetwilly_layer
 transmitop=1
 op1=Attack!
-onop=script4233(event_com, acs_bar_overlay:wetwilly_cooldown_l, acs_bar_overlay:wetwilly_cooldown_r, 600)
+onop=acs_cooldown_layer_onop(event_com, acs_bar_overlay:wetwilly_cooldown_l, acs_bar_overlay:wetwilly_cooldown_r, 600)
 
 // 481:33
 [nosepinch_resize_on_layer]
@@ -360,7 +360,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=nosepinch_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 481:34
 [nosepinch_resize_over_layer]
@@ -370,7 +370,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=nosepinch_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 481:35
 [nosepinch_resize_hit_layer]
@@ -380,7 +380,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=nosepinch_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 481:36
 [nosepinch_resize_selected_layer]
@@ -390,7 +390,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=nosepinch_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 481:37
 [nosepinch_resize_disabled_layer]
@@ -402,7 +402,7 @@ heightmode=proportion
 layer=nosepinch_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 481:38
 [com_38]
@@ -504,7 +504,7 @@ heightmode=proportion
 layer=nosepinch_layer
 transmitop=1
 op1=Attack!
-onop=script4233(event_com, acs_bar_overlay:nosepinch_cooldown_l, acs_bar_overlay:nosepinch_cooldown_r, 1350)
+onop=acs_cooldown_layer_onop(event_com, acs_bar_overlay:nosepinch_cooldown_l, acs_bar_overlay:nosepinch_cooldown_r, 1350)
 
 // 481:47
 [pignose_resize_on_layer]
@@ -514,7 +514,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=pignose_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 481:48
 [pignose_resize_over_layer]
@@ -524,7 +524,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=pignose_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 481:49
 [pignose_resize_hit_layer]
@@ -534,7 +534,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=pignose_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 481:50
 [pignose_resize_selected_layer]
@@ -544,7 +544,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=pignose_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 481:51
 [pignose_resize_disabled_layer]
@@ -556,7 +556,7 @@ heightmode=proportion
 layer=pignose_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 481:52
 [com_52]
@@ -658,7 +658,7 @@ heightmode=proportion
 layer=pignose_layer
 transmitop=1
 op1=Attack!
-onop=script4233(event_com, acs_bar_overlay:pignose_cooldown_l, acs_bar_overlay:pignose_cooldown_r, 450)
+onop=acs_cooldown_layer_onop(event_com, acs_bar_overlay:pignose_cooldown_l, acs_bar_overlay:pignose_cooldown_r, 450)
 
 // 481:61
 [shake_resize_on_layer]
@@ -668,7 +668,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=shake_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 481:62
 [shake_resize_over_layer]
@@ -678,7 +678,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=shake_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 481:63
 [shake_resize_hit_layer]
@@ -688,7 +688,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=shake_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 481:64
 [shake_resize_selected_layer]
@@ -698,7 +698,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=shake_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 481:65
 [shake_resize_disabled_layer]
@@ -710,7 +710,7 @@ heightmode=proportion
 layer=shake_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 481:66
 [com_66]
@@ -812,7 +812,7 @@ heightmode=proportion
 layer=shake_layer
 transmitop=1
 op1=Attack!
-onop=script4233(event_com, acs_bar_overlay:shake_cooldown_l, acs_bar_overlay:shake_cooldown_r, 600)
+onop=acs_cooldown_layer_onop(event_com, acs_bar_overlay:shake_cooldown_l, acs_bar_overlay:shake_cooldown_r, 600)
 
 // 481:75
 [intimidate_resize_on_layer]
@@ -822,7 +822,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=intimidate_layer
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 481:76
 [intimidate_resize_over_layer]
@@ -832,7 +832,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=intimidate_layer
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 481:77
 [intimidate_resize_hit_layer]
@@ -842,7 +842,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=intimidate_layer
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 481:78
 [intimidate_resize_selected_layer]
@@ -852,7 +852,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 layer=intimidate_layer
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 481:79
 [intimidate_resize_disabled_layer]
@@ -864,7 +864,7 @@ heightmode=proportion
 layer=intimidate_layer
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 481:80
 [com_80]
@@ -966,7 +966,7 @@ heightmode=proportion
 layer=intimidate_layer
 transmitop=1
 op1=Attack!
-onop=script4233(event_com, acs_bar_overlay:intimidate_cooldown_l, acs_bar_overlay:intimidate_cooldown_r, 150)
+onop=acs_cooldown_layer_onop(event_com, acs_bar_overlay:intimidate_cooldown_l, acs_bar_overlay:intimidate_cooldown_r, 150)
 
 // 481:89
 [com_89]

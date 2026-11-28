@@ -15,7 +15,7 @@ if (%varclient_545 = true) {
     if_setoninvtransmit(interface_1365:com_14, null);
 }
 if_settext(interface_1365:com_26, %varclient_2381);
-~script4532(interface_1365:com_26);
+~aif_window_1_title_text_onload(interface_1365:com_26);
 if (string_length(%varclient_2399) > 0) {
     if_settext(interface_1365:com_9, %varclient_2399);
     ~aif_build_button_layer_init(interface_1365:com_16, struct_1773);

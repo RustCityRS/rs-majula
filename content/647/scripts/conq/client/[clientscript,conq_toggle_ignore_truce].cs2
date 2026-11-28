@@ -1,0 +1,7 @@
+// 448
+[clientscript,conq_toggle_ignore_truce]
+if (%conq_ignore_truce = 0) {
+    if_setgraphic(conq_side_diplomacy:ignore_truce_check, "km_tickbox,0");
+} else {
+    if_setgraphic(conq_side_diplomacy:ignore_truce_check, "km_tickbox,1");
+}

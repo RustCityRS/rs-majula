@@ -1,0 +1,12 @@
+// 505
+[proc,conq_formation_setup_unit_names]
+if_settext(conq_set_formation:unit_1_text, ~conq_get_unit_type_string(%conq_unit_1_type));
+if_settext(conq_set_formation:unit_2_text, ~conq_get_unit_type_string(%conq_unit_2_type));
+if_settext(conq_set_formation:unit_3_text, ~conq_get_unit_type_string(%conq_unit_3_type));
+if_settext(conq_set_formation:unit_4_text, ~conq_get_unit_type_string(%conq_unit_4_type));
+if_settext(conq_set_formation:unit_5_text, ~conq_get_unit_type_string(%conq_unit_5_type));
+if_settext(conq_set_formation:unit_6_text, ~conq_get_unit_type_string(%conq_unit_6_type));
+if_settext(conq_set_formation:unit_7_text, ~conq_get_unit_type_string(%conq_unit_7_type));
+if_settext(conq_set_formation:unit_8_text, ~conq_get_unit_type_string(%conq_unit_8_type));
+if_settext(conq_set_formation:unit_9_text, ~conq_get_unit_type_string(%conq_unit_9_type));
+if_settext(conq_set_formation:unit_10_text, ~conq_get_unit_type_string(%conq_unit_10_type));

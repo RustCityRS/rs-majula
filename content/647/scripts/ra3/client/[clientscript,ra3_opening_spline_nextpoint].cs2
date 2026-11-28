@@ -1,0 +1,5 @@
+// 1196
+[clientscript,ra3_opening_spline_nextpoint](int $int0, int $int1)
+if (clientclock > calc($int1 + 50)) {
+    ~ra3_opening_spline_nextpoint($int0);
+}

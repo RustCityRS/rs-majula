@@ -1498,7 +1498,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_110
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 923:123
 [com_123]
@@ -1506,7 +1506,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_110
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 923:124
 [com_124]
@@ -1514,7 +1514,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_110
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 923:125
 [com_125]
@@ -1525,7 +1525,7 @@ layer=com_110
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(fishcomp_side:tooltip_area)
 onmouserepeat=aif_tooltip(fishcomp_side:tooltip_area, event_com, -1, "Fish with the bait, hook and weights you have selected.", 100, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
 
@@ -1558,7 +1558,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_111
-onload=script4525(event_com, struct_1799)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1799)
 
 // 923:129
 [com_129]
@@ -1566,7 +1566,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_111
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 923:130
 [com_130]
@@ -1574,7 +1574,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=com_111
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 923:131
 [com_131]
@@ -1585,7 +1585,7 @@ layer=com_111
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(fishcomp_side:tooltip_area)
 onmouserepeat=aif_tooltip(fishcomp_side:tooltip_area, event_com, -1, "Clear all selected tackle from your line and stop fishing.", 100, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
 

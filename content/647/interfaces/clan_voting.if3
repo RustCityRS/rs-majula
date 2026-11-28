@@ -853,7 +853,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=gold_window_layer
 noclickthrough=yes
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1101:76
 [gold_window_content_layer]
@@ -876,7 +876,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=gold_window_layer
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1101:78
 [gold_window_title_layer]
@@ -903,7 +903,7 @@ text=Clan Voting
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1101:80
 [close_button_layer]

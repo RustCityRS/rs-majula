@@ -1,7 +1,7 @@
 // 4428
 [clientscript,clan_chat_onload]
 def_component $component0 = clan_chat:clan_list_parent_layer;
-if_setontimer($component0, "script4431(event_com)");
+if_setontimer($component0, "clan_chat_poll_clansettings(event_com)");
 if (activeclanchannel_find_affined = true) {
     %client_timer = 0;
     if_setonclantransmit($component0, "clan_chat_onclantransmit(event_com)");

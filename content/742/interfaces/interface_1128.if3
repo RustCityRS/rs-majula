@@ -54,7 +54,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_99, event_com)
 
 // 1128:5
@@ -892,7 +892,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:83
 [com_83]
@@ -902,7 +902,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:84
 [com_84]
@@ -912,7 +912,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:85
 [com_85]
@@ -922,7 +922,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:86
 [com_86]
@@ -932,7 +932,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_5
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:87
 [com_87]
@@ -978,7 +978,7 @@ widthmode=minus
 heightmode=minus
 layer=com_5
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:91
 [com_91]
@@ -1041,7 +1041,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:96
 [com_96]
@@ -1051,7 +1051,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:97
 [com_97]
@@ -1061,7 +1061,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:98
 [com_98]
@@ -1075,7 +1075,7 @@ layer=com_6
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_99, interface_1128:com_4)
 
 // 1128:99
@@ -1086,7 +1086,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_6
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:100
 [com_100]
@@ -1133,7 +1133,7 @@ heightmode=minus
 layer=com_6
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:104
 [com_104]
@@ -1170,7 +1170,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_129, event_com)
 
 // 1128:107
@@ -1229,7 +1229,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_107
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:112
 [com_112]
@@ -1239,7 +1239,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_107
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:113
 [com_113]
@@ -1249,7 +1249,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_107
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:114
 [com_114]
@@ -1259,7 +1259,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_107
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:115
 [com_115]
@@ -1269,7 +1269,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_107
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:116
 [com_116]
@@ -1315,7 +1315,7 @@ widthmode=minus
 heightmode=minus
 layer=com_107
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:120
 [com_120]
@@ -1389,7 +1389,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_121
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:126
 [com_126]
@@ -1399,7 +1399,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_121
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:127
 [com_127]
@@ -1409,7 +1409,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_121
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:128
 [com_128]
@@ -1422,7 +1422,7 @@ layer=com_121
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_129, interface_1128:com_106)
 
 // 1128:129
@@ -1433,7 +1433,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_121
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:130
 [com_130]
@@ -1480,7 +1480,7 @@ heightmode=minus
 layer=com_121
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:134
 [com_134]
@@ -1621,7 +1621,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_167, event_com)
 
 // 1128:145
@@ -1680,7 +1680,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_145
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:150
 [com_150]
@@ -1690,7 +1690,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_145
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:151
 [com_151]
@@ -1700,7 +1700,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_145
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:152
 [com_152]
@@ -1710,7 +1710,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_145
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:153
 [com_153]
@@ -1720,7 +1720,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_145
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:154
 [com_154]
@@ -1766,7 +1766,7 @@ widthmode=minus
 heightmode=minus
 layer=com_145
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:158
 [com_158]
@@ -1840,7 +1840,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_159
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:164
 [com_164]
@@ -1850,7 +1850,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_159
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:165
 [com_165]
@@ -1860,7 +1860,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_159
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:166
 [com_166]
@@ -1873,7 +1873,7 @@ layer=com_159
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_167, interface_1128:com_144)
 
 // 1128:167
@@ -1884,7 +1884,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_159
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:168
 [com_168]
@@ -1931,7 +1931,7 @@ heightmode=minus
 layer=com_159
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:172
 [com_172]
@@ -2059,7 +2059,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_204, event_com)
 
 // 1128:182
@@ -2118,7 +2118,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_182
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:187
 [com_187]
@@ -2128,7 +2128,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_182
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:188
 [com_188]
@@ -2138,7 +2138,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_182
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:189
 [com_189]
@@ -2148,7 +2148,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_182
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:190
 [com_190]
@@ -2158,7 +2158,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_182
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:191
 [com_191]
@@ -2204,7 +2204,7 @@ widthmode=minus
 heightmode=minus
 layer=com_182
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:195
 [com_195]
@@ -2278,7 +2278,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_196
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:201
 [com_201]
@@ -2288,7 +2288,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_196
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:202
 [com_202]
@@ -2298,7 +2298,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_196
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:203
 [com_203]
@@ -2311,7 +2311,7 @@ layer=com_196
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_204, interface_1128:com_181)
 
 // 1128:204
@@ -2322,7 +2322,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_196
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:205
 [com_205]
@@ -2369,7 +2369,7 @@ heightmode=minus
 layer=com_196
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:209
 [com_209]
@@ -2497,7 +2497,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_241, event_com)
 
 // 1128:219
@@ -2556,7 +2556,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_219
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:224
 [com_224]
@@ -2566,7 +2566,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_219
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:225
 [com_225]
@@ -2576,7 +2576,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_219
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:226
 [com_226]
@@ -2586,7 +2586,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_219
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:227
 [com_227]
@@ -2596,7 +2596,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_219
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:228
 [com_228]
@@ -2642,7 +2642,7 @@ widthmode=minus
 heightmode=minus
 layer=com_219
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:232
 [com_232]
@@ -2716,7 +2716,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_233
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:238
 [com_238]
@@ -2726,7 +2726,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_233
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:239
 [com_239]
@@ -2736,7 +2736,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_233
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:240
 [com_240]
@@ -2749,7 +2749,7 @@ layer=com_233
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_241, interface_1128:com_218)
 
 // 1128:241
@@ -2760,7 +2760,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_233
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:242
 [com_242]
@@ -2807,7 +2807,7 @@ heightmode=minus
 layer=com_233
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:246
 [com_246]
@@ -2935,7 +2935,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_278, event_com)
 
 // 1128:256
@@ -2994,7 +2994,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_256
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:261
 [com_261]
@@ -3004,7 +3004,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_256
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:262
 [com_262]
@@ -3014,7 +3014,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_256
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:263
 [com_263]
@@ -3024,7 +3024,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_256
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:264
 [com_264]
@@ -3034,7 +3034,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_256
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:265
 [com_265]
@@ -3080,7 +3080,7 @@ widthmode=minus
 heightmode=minus
 layer=com_256
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:269
 [com_269]
@@ -3154,7 +3154,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_270
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:275
 [com_275]
@@ -3164,7 +3164,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_270
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:276
 [com_276]
@@ -3174,7 +3174,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_270
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:277
 [com_277]
@@ -3187,7 +3187,7 @@ layer=com_270
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_278, interface_1128:com_255)
 
 // 1128:278
@@ -3198,7 +3198,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_270
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:279
 [com_279]
@@ -3245,7 +3245,7 @@ heightmode=minus
 layer=com_270
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:283
 [com_283]
@@ -3373,7 +3373,7 @@ graphic="aif_checkbox_large,5"
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_315, event_com)
 
 // 1128:293
@@ -3432,7 +3432,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_293
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:298
 [com_298]
@@ -3442,7 +3442,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_293
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:299
 [com_299]
@@ -3452,7 +3452,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_293
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:300
 [com_300]
@@ -3462,7 +3462,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_293
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1128:301
 [com_301]
@@ -3472,7 +3472,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_293
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:302
 [com_302]
@@ -3518,7 +3518,7 @@ widthmode=minus
 heightmode=minus
 layer=com_293
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:306
 [com_306]
@@ -3592,7 +3592,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_307
-onload=script4205(event_com, struct_1746)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1746)
 
 // 1128:312
 [com_312]
@@ -3602,7 +3602,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_307
-onload=script4205(event_com, struct_1747)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1747)
 
 // 1128:313
 [com_313]
@@ -3612,7 +3612,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_307
-onload=script4205(event_com, struct_1748)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1748)
 
 // 1128:314
 [com_314]
@@ -3625,7 +3625,7 @@ layer=com_307
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onop=clientscript_3440(interface_1128:com_315, interface_1128:com_292)
 
 // 1128:315
@@ -3636,7 +3636,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_307
-onload=script4205(event_com, struct_1749)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1749)
 
 // 1128:316
 [com_316]
@@ -3683,7 +3683,7 @@ heightmode=minus
 layer=com_307
 hide=yes
 noclickthrough=yes
-onload=script4205(event_com, struct_1750)
+onload=aif_build_icon_resize_button_layer(event_com, struct_1750)
 
 // 1128:320
 [com_320]
@@ -3809,8 +3809,8 @@ height=15
 layer=com_36
 graphic="aif_bronze_close_button_1,1"
 trans=255
-onmouseover=script4209(event_com, 0)
-onmouseleave=script4209(event_com, 1)
+onmouseover=aif_component_fade_set(event_com, 0)
+onmouseleave=aif_component_fade_set(event_com, 1)
 onclick=closebutton_click
 
 // 1128:330
@@ -3823,7 +3823,7 @@ height=28
 layer=com_78
 transmitop=1
 op1=Recharge
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseover=clientscript_5243(1)
 onmouseleave=clientscript_5244(1)
 onrelease=clientscript_5247

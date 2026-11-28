@@ -98,7 +98,7 @@ if (getwindowmode >= ^windowmode_resizable) {
             ~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
             if_settextshadow(chatdefault:input, true);
             if_setcolour(chatdefault:input, ^white);
-            ~script1558(false);
+            ~chatdefault_init_inputline(false);
             ~rebuildchatbox;
         }
     }
@@ -252,7 +252,7 @@ if (getwindowmode >= ^windowmode_resizable) {
         ~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
         if_settextshadow(chatdefault:input, false);
         if_setcolour(chatdefault:input, ^black);
-        ~script1558(false);
+        ~chatdefault_init_inputline(false);
         ~rebuildchatbox;
     }
     if (if_hassub(toplevel:sidemodal) = true) {

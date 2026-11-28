@@ -1,0 +1,5 @@
+// 4335
+[clientscript,clan_general_motto_apply](component $component0)
+if (activeclansettings_find_listened = true) {
+    ~clan_general_motto_apply($component0);
+}

@@ -145,7 +145,7 @@ width=459
 height=245
 xmode=abs_centre
 layer=clanmate_settings_layer
-onvartransmit=script4312{clansettings_clanmate_job_varp}
+onvartransmit=clansettings_clanmate_settings_panel_build{clansettings_clanmate_job_varp}
 
 // 1096:15
 [com_15]
@@ -808,7 +808,7 @@ layer=clanmate_tab_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:76
 [com_76]
@@ -888,7 +888,7 @@ layer=clan_tab_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:83
 [com_83]
@@ -1063,7 +1063,7 @@ heightmode=minus
 layer=com_54
 transmitop=1
 op1=Edit motif
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:99
 [com_99]
@@ -1189,7 +1189,7 @@ heightmode=minus
 layer=com_55
 transmitop=1
 op1=Edit motto
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:110
 [com_110]
@@ -1345,7 +1345,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_0
-onload=script4260(event_com)
+onload=aif_window_1_background_layer_onload(event_com)
 
 // 1096:124
 [com_124]
@@ -1368,7 +1368,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_0
-onload=script4261(event_com)
+onload=aif_window_1_frame_layer_onload(event_com)
 
 // 1096:126
 [com_126]
@@ -1395,7 +1395,7 @@ text=Clan Settings
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4262(event_com)
+onload=aif_window_1_title_text_onload(event_com)
 
 // 1096:128
 [com_128]
@@ -1982,7 +1982,7 @@ heightmode=minus
 layer=com_56
 transmitop=1
 op1=Edit keywords
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:184
 [com_184]
@@ -2449,7 +2449,7 @@ layer=com_220
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:225
 [com_225]
@@ -3194,7 +3194,7 @@ heightmode=minus
 layer=qfc_edit
 transmitop=1
 op1=Edit
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:297
 [com_297]
@@ -3735,7 +3735,7 @@ layer=clan_data_waiting_button
 transmitop=1
 op1=Select
 opcursor0=cursor_use
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:344
 [aif_bronze_button_text_layer_8]
@@ -3917,7 +3917,7 @@ heightmode=minus
 layer=flag_button_layer
 transmitop=1
 op1=Select Flag
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 
 // 1096:360
 [com_360]

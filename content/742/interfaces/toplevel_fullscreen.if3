@@ -575,7 +575,7 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_86
 onload=toplevel_init
-onvartransmit=script1094{fov_status}
+onvartransmit=cutscene_viewport_change{fov_status}
 
 // 746:52
 [mainoverlay_clipped]

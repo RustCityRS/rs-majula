@@ -28,7 +28,7 @@ if_settext(easter10_resourcegame:choc_stock_text, "<tostring(%easter10_resourceg
 if_settext(easter10_resourcegame:fc_stock_text, "<tostring(%easter10_resourcegame_totalfc)>/7");
 if_settext(easter10_resourcegame:tegg_stock_text, "<tostring(%easter10_resourcegame_totaltegg)>/7");
 if_settext(easter10_resourcegame:negg_stock_text, "<tostring(%easter10_resourcegame_totalnegg)>/7");
-~script2221;
+~easter10_display_error_text;
 if_settext(easter10_resourcegame:turn_text, "Turn <tostring(%easter10_resourcegame_turncount)>/15");
 if (%easter10_fcrepair = false) {
     if_setgraphic(easter10_resourcegame:fc_repair_tick, "warning_icons,1");

@@ -8,7 +8,7 @@ if ($component0 = assister_interface:assist_total_xp_backdrop) {
     ~addtooltip_action($component0, assister_interface:assist_tooltip_build_layer, $string0, 25, 180);
     return;
 }
-$int1, $string1 = ~script530($component0);
+$int1, $string1 = ~assist_get_stat_var($component0);
 if ($int1 = 1) {
     $string0 = "Assist with <$string1> while using the Assist System (ON).";
 } else {

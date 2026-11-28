@@ -216,7 +216,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=add_friend_button_layer
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 550:21
 [com_22]
@@ -224,7 +224,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=add_friend_button_layer
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 550:22
 [add_friend_button_active_layer]
@@ -234,7 +234,7 @@ heightmode=minus
 layer=add_friend_button_layer
 transmitop=1
 op1=Add friend
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode2
 onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Add friend", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -265,7 +265,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=remove_friend_button_layer
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 550:26
 [com_27]
@@ -273,7 +273,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=remove_friend_button_layer
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 550:27
 [remove_friend_button_active_layer]
@@ -283,7 +283,7 @@ heightmode=minus
 layer=remove_friend_button_layer
 transmitop=1
 op1=Remove friend
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode3
 onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Remove friend", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -381,7 +381,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=add_ignore_button_layer
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 550:37
 [com_38]
@@ -389,7 +389,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=add_ignore_button_layer
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 550:38
 [add_ignore_button_active_layer]
@@ -399,7 +399,7 @@ heightmode=minus
 layer=add_ignore_button_layer
 transmitop=1
 op1=Add ignore
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode4
 onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Add ignore", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -430,7 +430,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=remove_ignore_button_layer
-onload=script4525(event_com, struct_1800)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1800)
 
 // 550:42
 [com_43]
@@ -438,7 +438,7 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=remove_ignore_button_layer
-onload=script4525(event_com, struct_1801)
+onload=aif_build_resize_tab_button_layer(event_com, struct_1801)
 
 // 550:43
 [remove_ignore_button_active_layer]
@@ -448,7 +448,7 @@ heightmode=minus
 layer=remove_ignore_button_layer
 transmitop=1
 op1=Remove ignore
-onload=script4213(event_com)
+onload=aif_set_default_cursor(event_com)
 onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode5
 onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Remove ignore", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)

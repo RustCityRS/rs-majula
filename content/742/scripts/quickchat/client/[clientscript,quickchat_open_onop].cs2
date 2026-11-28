@@ -10,14 +10,14 @@ $int1, $int2, $int3, $int4, $int5, $int6 = ~script4590;
 if ($int0 = 1) {
     %varclient_1651 = 0;
     chat_setmode(0);
-    ~script1558(false);
+    ~chatdefault_init_inputline(false);
     return;
 } else if ($int0 = 2) {
     ~quickchat_open(0, "");
 } else if ($int0 = 3) {
     %varclient_1651 = 1;
     chat_setmode(1);
-    ~script1558(false);
+    ~chatdefault_init_inputline(false);
     return;
 } else if ($int0 = 4) {
     if (clan_getchatcount > 0) {
@@ -34,7 +34,7 @@ if ($int0 = 1) {
 } else if ($int0 = 5) {
     %varclient_1651 = 2;
     chat_setmode(2);
-    ~script1558(false);
+    ~chatdefault_init_inputline(false);
     return;
 } else if ($int0 = 6) {
     if ($int1 >= 0) {
@@ -56,7 +56,7 @@ if ($int0 = 1) {
 } else if ($int0 = 7) {
     %varclient_1651 = 3;
     chat_setmode(3);
-    ~script1558(false);
+    ~chatdefault_init_inputline(false);
     return;
 } else if ($int0 = 8) {
     if ($int4 >= 0) {
