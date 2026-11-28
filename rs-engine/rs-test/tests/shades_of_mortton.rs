@@ -2,7 +2,7 @@
 //! temple. Cache 786 makes Razmire and Ulsquire multinpcs drawn by the varbits `razmire_visible`
 //! and `ulsquire_visible`, and the catacombs' entrance one door; the rest stands on 289's tiles.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
