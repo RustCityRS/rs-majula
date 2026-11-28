@@ -5,7 +5,7 @@
 //! who say the same (2011 wiki, Rising Sun Inn), and the Rusty Anchor's goblin gossip no longer
 //! starts Goblin Diplomacy (2011 wiki, Bartender (Rusty Anchor)).
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
