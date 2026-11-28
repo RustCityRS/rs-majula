@@ -1,0 +1,54 @@
+// Plague City (289's quests/quest_elena/scripts/quest_elena.rs2), with 2011's varbits.
+// Elena at home is a multinpc in cache 786 (elena2 shows elena2_vis once she is home), and the
+// name is on the shown npc: where 289's lines say nc_name(elena2), these say nc_name(elena2_vis).
+[proc,quest_elena_set_progress](int $stage)
+%elenaquest = $stage;
+~quest_elena_2011_bits;
+~send_quest_progress(^questlist_elena, %elenaquest, ^elena_complete);
+
+// Cache 786 shows the quest's scenery from varbits on elenaquest_extra_bits, where 289 has plain
+// locs and npcs: the mud patch becomes a dug hole (plaguecity_dug_mud_pile), the rope hangs
+// from the grill and the grill goes (plaguecity_pipe 1 and 2), Edmond stands above ground or
+// in the sewer (plaguecity_can_see_edmond_up_top: 0 above, 1 below), and Elena is at home
+// (plaguecity_elena_at_home). The cache gives the varbits and what each shows; no source found
+// says when 2011 sets them, so each follows the stage at which 289's story has it happen: the
+// hole from the dig, Edmond below from "Edmond follows you down the hole" until the quest is
+// done, the rope from the tying and the grill's going from the pull, Elena home once freed.
+[proc,quest_elena_2011_bits]
+if (%elenaquest >= ^quest_elena_opened_tunnel) {
+    %plaguecity_dug_mud_pile = 1;
+} else {
+    %plaguecity_dug_mud_pile = 0;
+}
+if (%elenaquest >= ^quest_elena_opened_tunnel & %elenaquest < ^elena_complete) {
+    %plaguecity_can_see_edmond_up_top = 1;
+} else {
+    %plaguecity_can_see_edmond_up_top = 0;
+}
+if (%elenaquest = ^quest_elena_tied_rope) {
+    %plaguecity_pipe = 1;
+} else if (%elenaquest >= ^quest_elena_opened_pipe) {
+    %plaguecity_pipe = 2;
+} else {
+    %plaguecity_pipe = 0;
+}
+if (%elenaquest >= ^quest_elena_freed_elena) {
+    %plaguecity_elena_at_home = 1;
+} else {
+    %plaguecity_elena_at_home = 0;
+}
+
+[queue,quest_elena_complete]
+inv_del(inv, elena_picture, ^max_32bit_int);
+inv_del(inv, elenakey, ^max_32bit_int);
+inv_del(inv, warrant, ^max_32bit_int);
+inv_del(inv, scruffy_note, ^max_32bit_int);
+inv_del(inv, turnip_book, ^max_32bit_int);
+inv_add(inv, ardougnescroll, 1);
+stat_advance(mining, 24250);
+~quest_elena_set_progress(^elena_complete);
+session_log(^log_adventure, "Quest complete: Plague City");
+// The 2011 wiki (Plague City, 2011-05): 1 quest point, 2,425 Mining experience, the magic
+// scroll and the gas mask, as 289. (Sal's Realm's guide of 2011-06-05 has "2,495".) No source
+// found shows 2011's scroll: the sentence is 289's.
+~send_quest_complete2(^questlist_elena, gasmask, 250, ^elena_questpoints, "You have completed the<br>Plague City Quest!", "2,425 Mining XP|An Ardougne Teleport|scroll");
