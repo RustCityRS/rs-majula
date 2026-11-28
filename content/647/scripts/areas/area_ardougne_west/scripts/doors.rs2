@@ -34,21 +34,14 @@ mes("You pull on the large wooden doors...");
 if(%biohazard = ^biohazard_complete) {
     def_coord $loc_coord = loc_coord;
     mes("...You open them and walk through.");
-    if(loc_find(0_39_51_62_36, ardougnewalldoor_right) = true) {
-        // Temp note: dur updated
-        loc_add(loc_coord, ardougnewalldoor_left, 2, loc_shape, 5);
+    // 289 turns its four door locs for five ticks. Cache 786 has two, ardougnedoor_l and
+    // ardougnedoor_r, and an open form of each (ardougnedoor_l_open, ardougnedoor_r_open): each
+    // shows its open form for the same five ticks.
+    if(loc_find(0_39_51_62_36, ardougnedoor_l) = true) {
+        loc_change(ardougnedoor_l_open, 5);
     }
-    if(loc_find(0_39_51_61_36, ardougnewalldoor_left) = true) {
-        // Temp note: dur updated
-        loc_add(loc_coord, ardougnewalldoor_right, 0, loc_shape, 5);
-    }
-    if(loc_find(0_39_51_62_35, ardougnewalldoor_left) = true) {
-        // Temp note: dur updated
-        loc_add(loc_coord, ardougnewalldoor_right, 2, loc_shape, 5);
-    }
-    if(loc_find(0_39_51_61_35, ardougnewalldoor_right) = true) {
-        // Temp note: dur updated
-        loc_add(loc_coord, ardougnewalldoor_left, 0, loc_shape, 5);
+    if(loc_find(0_39_51_62_35, ardougnedoor_r) = true) {
+        loc_change(ardougnedoor_r_open, 5);
     }
     sound_synth(coffin_open, 1, 0);
     if(coordx(coord) < coordx(loc_coord)) {

@@ -21281,6 +21281,9 @@ model=5,model_1511
 name=Gate
 cursor1=1,cursor_open
 desc=It's closed.
+// 289's category and other form, which its script opens it by.
+category=double_door_open_and_close_left
+param=next_loc_stage,lathastraining_gatelopen
 
 // 2040
 [lathastraining_gatelopen]
@@ -21296,6 +21299,9 @@ model=5,model_1511
 name=Gate
 cursor1=1,cursor_open
 desc=It's closed.
+// 289's category and other form, which its script opens it by.
+category=double_door_open_and_close_right
+param=next_loc_stage,lathastraining_gateropen
 
 // 2042
 [lathastraining_gateropen]
@@ -21355,6 +21361,8 @@ model=1,model_25029
 name=Gate
 cursor1=1,cursor_open
 desc=A wooden gate.
+// 289's category, which Varrock's south-east gate's script finds it by.
+category=varrock_gate
 
 // 2051
 [guidorgaterclosed]
@@ -21365,6 +21373,8 @@ model=1,model_25030
 name=Gate
 cursor1=1,cursor_open
 desc=A wooden gate.
+// 289's category, which Varrock's south-east gate's script finds it by.
+category=varrock_gate
 
 // 2052
 [guidorgatelopen]
@@ -21434,6 +21444,9 @@ name=Cupboard
 cursor1=1,cursor_open
 occlude=yes
 desc=It's closed.
+// 289's category and other form, which its script opens it by.
+category=cupboard_closed
+param=cupboard_other,jericoscupboardopen
 
 // 2057
 [jericoscupboardopen]
@@ -21453,6 +21466,9 @@ name=Cupboard
 cursor1=1,cursor_search
 occlude=yes
 desc=It's open.
+// 289's category and other form, which its script opens it by.
+category=cupboard_opened
+param=cupboard_other,jericoscupboardshut
 
 // 2058
 [mournerquaters_gatel]
@@ -21472,6 +21488,9 @@ model=1,model_27252
 name=Gate
 cursor1=1,cursor_open
 desc=It's closed.
+// 289's category and other form, which its script opens it by.
+category=double_door_open_and_close_left
+param=next_loc_stage,mournerquaters_gatelopen
 
 // 2059
 [mournerquaters_gatelopen]
@@ -21505,6 +21524,9 @@ model=1,model_27252
 name=Gate
 cursor1=1,cursor_open
 desc=It's closed.
+// 289's category and other form, which its script opens it by.
+category=double_door_open_and_close_right
+param=next_loc_stage,mournerquaters_gateropen
 
 // 2061
 [mournerquaters_gateropen]
@@ -21538,6 +21560,9 @@ name=Box
 cursor1=1,cursor_open
 occlude=yes
 desc=It's closed.
+// 289's category and other form, which its script opens it by.
+category=cupboard_closed
+param=cupboard_other,bionursescupboardopen
 
 // 2063
 [bionursescupboardopen]
@@ -21558,6 +21583,9 @@ name=Box
 cursor1=1,cursor_search
 occlude=yes
 desc=It's open.
+// 289's category and other form, which its script opens it by.
+category=cupboard_opened
+param=cupboard_other,bionursescupboardshut
 
 // 2064
 [mournercrateup]
