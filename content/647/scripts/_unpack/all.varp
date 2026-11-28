@@ -287,6 +287,10 @@ scope=perm
 
 // 61
 [sheepherdervar]
+// Cache 786's varbits sheepherder_sheep_a..d on this varp show the
+// player's own sheep in the enclosure (herder_plaguesheep_N_enclosure), so
+// the client has to have it.
+transmit=yes
 scope=perm
 
 // 62
