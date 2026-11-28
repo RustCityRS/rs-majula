@@ -247,7 +247,20 @@ fn click(
     com: i32,
     slot: u16,
 ) -> Vec<(u16, Vec<u8>)> {
-    client.if_button(op, com, slot, TypeId::NULL);
+    click_obj(engine, client, op, com, slot, TypeId::NULL)
+}
+
+/// Clicks a component slot that draws `obj`, as the client sends it, and returns the packets of
+/// the next 6 ticks.
+fn click_obj(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    op: u8,
+    com: i32,
+    slot: u16,
+    obj: TypeId,
+) -> Vec<(u16, Vec<u8>)> {
+    client.if_button(op, com, slot, obj);
     let mut out = Vec::new();
     for _ in 0..6 {
         engine.cycle();
@@ -667,7 +680,10 @@ fn one_infuse_makes_both_pouches_and_one_transform_ten_scrolls() {
         );
 
         // The spirit wolf pouch is slot 1 of the grid: its clickable child is 0 * 5 + 2.
-        let packets = click(engine, &mut client, 1, grid, 2);
+        // The client sends the obj the slot draws (clientscript 794's cc_setobject): seen on
+        // world1 2026-11-27, menu entry "Infuse Spirit wolf pouch" with slot 2.
+        let drawn = id(engine, "obj", "lore_wolf");
+        let packets = click_obj(engine, &mut client, 1, grid, 2, drawn);
         // 2011's: 2EfU5Mrh8Kc 2011-05-24 @168, JQZnlZk0KqE 2011-05-24 @322-330.
         messaged(
             &messages(&packets),
@@ -740,7 +756,8 @@ fn one_infuse_makes_both_pouches_and_one_transform_ten_scrolls() {
             0xFFFF,
         );
 
-        let packets = click(engine, &mut client, 1, scroll_grid, 2);
+        let drawn = id(engine, "obj", "lore_howl");
+        let packets = click_obj(engine, &mut client, 1, scroll_grid, 2, drawn);
         // 2011's: 2EfU5Mrh8Kc 2011-05-24 @178, JQZnlZk0KqE 2011-05-24 @352.
         messaged(
             &messages(&packets),
